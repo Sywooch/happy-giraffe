@@ -271,6 +271,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     }
 
     // Модель фотографии в рамках функционала загрузки фото
+    // Модель фотографии в рамках функционала загрузки фото
     function PhotoUpload(data, jqXHR, parent) {
         var self = this;
         Photo.apply(self, arguments);
@@ -280,15 +281,15 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         self.error = ko.observable();
 
         self.rotateLeft = function() {
-            self.rotate(-90);
+            self.rotate(false);
         };
 
         self.rotateRight = function() {
-            self.rotate(90);
+            self.rotate(true);
         };
 
-        self.rotate = function(angle) {
-            $.post('/api/photo/photos/rotate/', JSON.stringify({ angle : angle, photoId : self.id() }), function(response) {
+        self.rotate = function(clockwise) {
+            $.post('/api/photo/photos/rotate/', JSON.stringify({ clockwise : clockwise, photoId : self.id() }), function(response) {
                 if (response.success) {
                     ko.mapping.fromJS(response.data, {}, self);
                 }

@@ -17,8 +17,13 @@
         &__album &_li {
             display: inline-block;
             width: 205px;
-            height: 190px;
+            height: 196px;
             text-align: left;
+        }
+
+        &__album &_li__big {
+            width: 480px;
+            height: 401px;
         }
         &__album &_img-hold {
             display: block;
@@ -96,6 +101,10 @@
         display: block;
         background-position: 0 -61px;
     }
+    &_li__big &_img-hold {
+        width: 480px;
+        height: 345px;
+    }
     &_in {
         display: block;
         position: relative;
@@ -147,6 +156,7 @@
     }
     &_t:hover {color: @color-orange;}
     &_count {
+        margin-top: 6px;
         font: @fontsmall;
         color: #b6b6b6;
     }

@@ -89,11 +89,9 @@
         <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
 
         <?php if ($this->action->id == 'view'): ?>
-            <?php $this->beginWidget('AdsWidget'); ?>
             <div class="banner">
                 <?php $this->renderPartial('//banners/_sidebar'); ?>
             </div>
-            <?php $this->endWidget(); ?>
         <?php endif; ?>
 
         <?php if (false): ?>

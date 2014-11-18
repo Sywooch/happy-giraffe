@@ -13,8 +13,8 @@ class AdsWidget extends CWidget
     const VERSION_DESKTOP = 2;
 
     private $_queries = array(
-        self::VERSION_MOBILE => '(max-width: 480px)',
-        self::VERSION_TABLET => '(min-width: 481px) and (max-width: 1024px)',
+        self::VERSION_MOBILE => '(max-width: 479px)',
+        self::VERSION_TABLET => '(min-width: 480px) and (max-width: 1024px)',
         self::VERSION_DESKTOP => '(min-width: 1025px)',
     );
 
@@ -50,7 +50,7 @@ class AdsWidget extends CWidget
             }
         } else {
             $this->render('AdsWidget', array(
-                'contents' => ob_get_clean(),
+                'contents' => $this->prepareContents(ob_get_clean()),
                 'mediaQuery' => null,
             ));
         }

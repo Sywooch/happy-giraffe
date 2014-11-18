@@ -11,7 +11,13 @@
 <body class="body-gray body__bg2 theme theme__adfox">
 
     <div class="header-banner">
-        <a href="#" target="_blank" class="bnr-enfomil2"><img src="/images/banners/bnr-enfomil2.jpg" alt=""><span class="bnr-enfomil2_btn"></span></a>
+        <a href="#" target="_blank" class="bnr-enfomil2">
+            <img src="/images/banners/bnr-enfomil2.jpg" alt="">
+            <!-- <span class="bnr-enfomil2_btn"></span> -->
+            <span class="bnr-enfomil2_btn">
+                <span class="bnr-enfomil2_hold"></span>
+            </span>
+        </a>
     </div>
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
@@ -360,7 +366,14 @@
 				</div>
 
                 <div class="article-banner">
-                    <a href="#" target="_blank" class="bnr-enfomil1"><img src="/images/banners/bnr-enfomil1.jpg" alt=""><span class="bnr-enfomil1_btn"></span></a>
+                    <a href="#" target="_blank" class="bnr-enfomil1">
+                        <img src="/images/banners/bnr-enfomil1.jpg" alt="">
+                        
+                        <span class="bnr-enfomil1_btn">
+                            <span class="bnr-enfomil1_hold"></span>
+                        </span>
+                        
+                    </a>
                 </div>
 				<div class="article-banner">
 					<a href="">

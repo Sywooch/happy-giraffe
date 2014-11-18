@@ -201,8 +201,8 @@
     /* Превью альбовом */
     &__album &_li {
         width: 205px;
-        height: 190px;
     }
+    &__album &_li__big {width: 480px;}
     &__album &_img-hold {
         width: 205px;
         height: 140px;
@@ -276,6 +276,10 @@
         display: block;
         background-position: 0 -61px;
     }
+    &_li__big &_img-hold {
+        width: 480px;
+        height: 345px;
+    }
     &_in {
         display: block;
         position: relative;
@@ -327,6 +331,7 @@
     }
     &_t:hover {text-decoration: underline;}
     &_count {
+        margin: 6px 0 0;
         font: @fontsmall;
         color: #b6b6b6;
     }

@@ -49,13 +49,13 @@ class LiteController extends HController
 
         if (Yii::app()->user->isGuest)
         {
-            $filters [] = array(
-                'COutputCache',
-                'cacheID' => 'cache',
-                'duration' => 300,
-                'varyByParam' => array_keys($_GET),
-                'varyByExpression' => 'Yii::app()->vm->getVersion()',
-            );
+//            $filters [] = array(
+//                'COutputCache',
+//                'cacheID' => 'cache',
+//                'duration' => 300,
+//                'varyByParam' => array_keys($_GET),
+//                'varyByExpression' => 'Yii::app()->vm->getVersion()',
+//            );
         }
 
         return $filters;

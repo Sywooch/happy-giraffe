@@ -77,7 +77,7 @@ class CommentWidget extends \CWidget
     {
         if (!($data = $this->getCacheComponent()->get($this->cacheKey))) {
             $data = $this->render('commentWidget', array('dataProvider' => $this->dataProvider), true);
-            $this->getCacheComponent()->add($this->cacheKey, $data, 0, $this->getCacheDependency());
+            $this->getCacheComponent()->set($this->cacheKey, $data, 0, $this->getCacheDependency());
         }
         echo $data;
     }

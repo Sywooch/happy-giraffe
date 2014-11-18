@@ -84,16 +84,11 @@ class CommentWidget extends \CWidget
             $this->replayActions();
         }
         else {
-            if(!is_array($data)) {
-                // Надо удалить старый кеш, который не кешировал регистрацию clientScript
-                $this->getCacheComponent()->delete($this->cacheKey);
-            }
-            
             $this->getController()->getCachingStack()->push($this);
             $text = $this->render('commentWidget', array('dataProvider' => $this->dataProvider), true);
             $this->getController()->getCachingStack()->pop();
             $data = array($text, $this->_actions);
-            $this->getCacheComponent()->add($this->cacheKey, $data, 0, $this->getCacheDependency());
+            $this->getCacheComponent()->set($this->cacheKey, $data, 0, $this->getCacheDependency());
         }
         echo $text;
     }

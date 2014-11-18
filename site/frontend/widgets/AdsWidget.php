@@ -49,10 +49,7 @@ class AdsWidget extends CWidget
                 ));
             }
         } else {
-            $this->render('AdsWidget', array(
-                'contents' => $this->prepareContents(ob_get_clean()),
-                'mediaQuery' => null,
-            ));
+            echo ob_get_clean();
         }
     }
 

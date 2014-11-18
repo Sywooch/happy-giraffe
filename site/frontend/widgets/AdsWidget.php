@@ -64,22 +64,11 @@ class AdsWidget extends CWidget
     protected function registerScripts()
     {
         $cs = Yii::app()->clientScript;
-        if ($this->isResponsive()) {
-            $this->registerLazyAds();
-        }
-        if ($cs->useAMD) {
-            $cs->registerScriptFile('/javascripts/fox.js', ClientScript::POS_AMD);
-        }
-    }
-
-    protected function registerLazyAds()
-    {
-        /** @var ClientScript $cs */
-        $cs = Yii::app()->clientScript;
         if ($cs->useAMD) {
             $cs->registerAMDFile(array(), '/new/javascript/modules/lazyad-loader.js');
+            $cs->registerScriptFile('/javascripts/fox.js', ClientScript::POS_AMD);
         } else {
-            $cs->registerScriptFile('/new/javascript/modules/lazyad-loader.js');
+            $cs->registerScriptFile('/new/javascript/modules/lazyad-loader.js', ClientScript::POS_HEAD);
         }
     }
 

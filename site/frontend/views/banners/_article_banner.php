@@ -1,4 +1,7 @@
-<?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
+<?php $this->beginWidget('AdsWidget', array(
+    'dummyTag' => 'adfox',
+    'mediaQuery' => '(min-width:1000px)',
+)); ?>
 <?php
     $cs = Yii::app()->clientScript;
     if($cs->useAMD)

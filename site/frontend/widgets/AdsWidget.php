@@ -8,6 +8,9 @@
 
 class AdsWidget extends CWidget
 {
+    public $width;
+    public $height;
+    public $mediaQuery;
     public $show;
     public $dummyTag;
 
@@ -22,17 +25,32 @@ class AdsWidget extends CWidget
 
     public function run()
     {
-        Yii::app()->clientScript->registerAMDFile(array(), '/new/javascript/modules/lazyad-loader.js');
         $contents = ob_get_clean();
         if ($this->show) {
-            $contents = strtr($contents, array(
-                '<script' => '<!--<script',
-                '</script>' => '</script>-->',
-            ));
-
+            $this->registerLazyLoad();
+            $contents = $this->prepareContents($contents);
             $this->render('AdsWidget', compact('contents'));
         } elseif ($this->dummyTag !== null) {
             echo CHtml::tag($this->dummyTag);
         }
+    }
+
+    protected function registerLazyLoad()
+    {
+        if (Yii::app()->clientScript->useAMD) {
+            Yii::app()->clientScript->registerAMDFile(array(), '/new/javascript/modules/lazyad-loader.js');
+        } else {
+            Yii::app()->clientScript->registerScriptFile('/new/javascript/modules/lazyad-loader.js');
+        }
+    }
+
+    protected function prepareContents($contents)
+    {
+        $contents = preg_replace('#<!--(.*?)-->#', '', $contents);
+        $contents = str_replace('<!--', '', $contents);
+        $contents = str_replace('// -->', '', $contents);
+        $contents = str_replace('<script', '<!-- <script', $contents);
+        $contents = str_replace('</script>', '</script> -->', $contents);
+        return $contents;
     }
 } 

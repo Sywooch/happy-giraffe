@@ -4,7 +4,7 @@
         <div class="popup-add_top clearfix">
             <div class="popup-add_t">Добавить фотографии</div>
             <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
-                <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+                <li><a href="#photo-tab-computer-multiple" data-toggle="tab">С компьютера</a></li>
                 <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
                 <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
             </ul>
@@ -58,7 +58,7 @@
 
                                                     <!-- ko if: $data.status() === $data.STATUS_FAIL -->
                                                     <div class="i-photo_hold error">
-                                                        <div class="tx-hint" data-bind="text: original_name"></div>
+                                                        <div class="tx-hint" data-bind="text: originalname"></div>
                                                         <div class="tx-hint" data-bind="text: error"></div>
                                                     </div>
                                                     <!-- /ko -->
@@ -129,7 +129,7 @@
 
                                     <!-- ko if: photo().status() === photo().STATUS_FAIL -->
                                     <div class="i-photo_hold error">
-                                        <div class="tx-hint" data-bind="text: photo.original_name"></div>
+                                        <div class="tx-hint" data-bind="text: photo.originalname"></div>
                                         <div class="tx-hint" data-bind="text: photo.error"></div>
                                     </div>
                                     <!-- /ko -->
@@ -260,7 +260,7 @@
 
                                 <!-- ko if: photo().status() === photo().STATUS_FAIL -->
                                 <div class="i-photo_hold error">
-                                    <div class="tx-hint" data-bind="text: photo.original_name"></div>
+                                    <div class="tx-hint" data-bind="text: photo.originalname"></div>
                                     <div class="tx-hint" data-bind="text: photo.error"></div>
                                 </div>
                                 <!-- /ko -->

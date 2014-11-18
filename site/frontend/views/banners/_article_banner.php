@@ -1,6 +1,6 @@
 <div class="article-banner">
 <?php
-if (Yii::app()->user->isGuest) {
+if (Yii::app()->controller instanceof LiteController) {
     $this->widget('AdsWidget', array(
         'dummyTag' => 'adfox',
         'responsiveConfig' => array(

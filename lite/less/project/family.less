@@ -449,6 +449,14 @@
     /*&_main-img-hold {
         margin-bottom: 20px;
     }*/
+
+    &__think {
+        margin: 50px 40px 80px;
+    }
+
+    &_head-img-hold {
+
+    }
 }
 
 /*
@@ -725,3 +733,58 @@
     ////////////
 }
 /* /family-member */
+
+/* cap-add */
+.cap-add {
+    display: table;
+    margin: 35px 0;
+    width: 100%;
+    background-color: #7fcc77; // зеленый можно изменить
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: none;
+        background-color: #4BAA41; // зеленый можно изменить
+    }
+    &__family-member,
+    &__green {background-color: #7fcc77;}
+    &__family-member:hover,
+    &__green:hover {background-color: #4BAA41;}
+    &__family-photo,
+    &__lilac {background-color: #a68ed3;}
+    &__family-photo:hover,
+    &__lilac:hover {background-color: #977bcb;}
+    &__family-text,
+    &__blue {background-color: #50abe2;}
+    &__family-text:hover,
+    &__blue:hover {background-color: #439ed4;}
+
+    &__family-member &_hold {background: url('@{path-img}/family/cap-add__family-member.png') no-repeat 50% 50%;}
+    &__family-photo &_hold {background: url('@{path-img}/family/cap-add__family-photo.png') no-repeat 50% 50%;}
+    &__family-text &_hold {background: url('@{path-img}/family/cap-add__family-text.png') no-repeat 50% 50%;}
+       
+    &__l {
+        padding: 18px;
+        font-size: 25px;
+        // .transition(all 0.8s ease-out);
+    }
+    &__l:hover &_in {
+        .scale(1.15);
+    }
+    &__l &_hold {
+        height: 320px;
+        border: 3px dashed #fff;
+    } 
+    &_hold {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+    &_in {
+        display: inline-block;
+        padding: 20px 10px 20px 90px;
+        background: url('@{path-img}/album-photo-add_hold.png') no-repeat;
+    }
+}
+/* /cap-add */

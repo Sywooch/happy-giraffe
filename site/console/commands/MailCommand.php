@@ -17,7 +17,7 @@ class MailCommand extends CConsoleCommand
         return true;
     }
 
-    public function actionWeeklyNews()
+    public function actionWeeklyNews($date = null)
     {
         //check generated url
         if (Yii::app()->createUrl('site/index') != './' && Yii::app()->createUrl('site/index') != '/') {
@@ -25,7 +25,7 @@ class MailCommand extends CConsoleCommand
             return false;
         }
 
-        $articles = Favourites::model()->getWeekPosts();
+        $articles = Favourites::model()->getWeekPosts($date);
         echo count($articles) . "\n";
         if (count($articles) != 6)
             Yii::app()->end();

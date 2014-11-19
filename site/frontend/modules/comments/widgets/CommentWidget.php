@@ -100,6 +100,7 @@ class CommentWidget extends \CWidget
 
     public function runForUser()
     {
+        return ;
         \Yii::app()->clientScript->registerAMD('comment-widget', array('kow'));
         if (!is_array($this->model)) {
             $params = array(

@@ -18,13 +18,13 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.masterTitle = document.title;
         this.collection.usablePreset = ko.observable('sliderPhoto');
         this.setDelay = 1000;
+        this.currentId = ko.observable();
         /**
          * getting User
          * @param user
          */
         this.userHandler = function userHandler(user) {
             if (user.success === true) {
-
                 ko.mapping.fromJS(this.user.init(user.data), this.userInstance);
                 this.userInstance.loading(false);
             }
@@ -58,6 +58,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             var title;
             this.current(Model.findByIdObservableIndex(this.photoAttach().id(), this.collection.attaches()));
             title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : this.title();
+            this.currentId(this.current().element().id());
             AdHistory.pushState(null, title, this.current().element().url());
             //FCUK quick fix
             setTimeout(this.addImageBinding.bind(this), this.setDelay);

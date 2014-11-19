@@ -20,4 +20,6 @@ define(["jquery", "knockout"], function ($, ko) {
     $('photo-collection').each(componentIterator);
     ko.components.register('photo-single', { require: 'photo-single/photo-single' });
     $('photo-single').each(componentIterator);
+    ko.components.register('comment-widget', { require: 'comment-widget/comment-widget' });
+    $('comment-widget').each(componentIterator);
 });

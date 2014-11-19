@@ -13,6 +13,18 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.rightsForManipulation = Model.checkRights(params.userId);
         this.userId = params.userId;
         this.opened = ko.observable(false);
+        this.figureNewImage = function figureNewImage(val) {
+            for (var i=0; i < val.length; i++) {
+                if(val[i].photo().presetHeight() === undefined || val[i].photo().presetWidth() === undefined) {
+                    PresetManager.presets = this.photoAlbum.photoCollection().presets;
+                    val[i].photo().presetWidth(PresetManager.getWidth(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
+                    val[i].photo().presetHeight(PresetManager.getHeight(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
+                }
+            }
+            if (this.photoAlbum.photoCollection().pckry.reloadItems !== undefined) {
+                this.photoAlbum.photoCollection().pckry.reloadItems();
+            }
+        };
         /**
          * getting album
          * @param passedData
@@ -24,18 +36,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
                 if (album) {
                     this.photoAlbum.init(album);
                     this.loading(false);
-                    this.photoAlbum.photoCollection().attaches.subscribe(function (val) {
-                        for (var i=0; i < val.length; i++) {
-                            if(val[i].photo().presetHeight() === undefined || val[i].photo().presetWidth() === undefined) {
-                                PresetManager.presets = this.photoAlbum.photoCollection().presets;
-                                val[i].photo().presetWidth(PresetManager.getWidth(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
-                                val[i].photo().presetHeight(PresetManager.getHeight(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
-                            }
-                        }
-                        if (this.photoAlbum.photoCollection().pckry.reloadItems !== undefined) {
-                            this.photoAlbum.photoCollection().pckry.reloadItems();
-                        }
-                    }.bind(this));
+                    this.photoAlbum.photoCollection().attaches.subscribe(this.figureNewImage.bind(this));
                 }
             }
         };

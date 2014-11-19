@@ -1,36 +1,38 @@
 <!-- comment-widget -->
 <div id="commentsList" class="comments_hold tab-pane active">
-  <div class="comments_add" data-bind="if: loaded">
-    <div class="comments_add-frame">
-      <div class="comments_i clearfix">
-        <div class="comments_ava">
-          <!-- Аватарки размером 40*40-->
-          <!-- ava-->
-          <!-- ko if: loaded() -->
-          <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: authUser.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: authUser.avatarUrl()"></a>
-          <!-- /ko -->
-        </div>
-        <div class="comments_frame">
-          <!-- ko ifnot: editing -->
-          <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple" data-bind="click: setEditing"></textarea>
-          <!-- /ko -->
-            <!-- ko if: editing -->
-            <div class="redactor-control">
-              <div class="redactor-control_toolbar"></div>
-              <div class="redactor-control_hold">
-                <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : editorConfig, attr : editor }"></textarea>
-              </div>
-              <div class="redactor-control_control clearfix">
-                <div class="float-r">
-                  <button class="btn-green" data-bind="click: addComment">Отправить</button>
+  <!-- ko if: nonAuth === false && edit !== false -->
+    <div class="comments_add" data-bind="if: loaded">
+      <div class="comments_add-frame">
+        <div class="comments_i clearfix">
+          <div class="comments_ava">
+            <!-- Аватарки размером 40*40-->
+            <!-- ava-->
+            <!-- ko if: loaded() -->
+            <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: authUser.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: authUser.avatarUrl()"></a>
+            <!-- /ko -->
+          </div>
+          <div class="comments_frame">
+            <!-- ko ifnot: editing -->
+            <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple" data-bind="click: setEditing"></textarea>
+            <!-- /ko -->
+              <!-- ko if: editing -->
+              <div class="redactor-control">
+                <div class="redactor-control_toolbar"></div>
+                <div class="redactor-control_hold">
+                  <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : editorConfig, attr : editor }"></textarea>
+                </div>
+                <div class="redactor-control_control clearfix">
+                  <div class="float-r">
+                    <button class="btn-green" data-bind="click: addComment">Отправить</button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- /ko -->
+              <!-- /ko -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <!-- /ko -->
   <!-- ko if: parsedData().length > 0 -->
    <ul class="comments_ul" data-bind="foreach: { data: parsedData(), as: 'comment' }">
       <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + color() }">

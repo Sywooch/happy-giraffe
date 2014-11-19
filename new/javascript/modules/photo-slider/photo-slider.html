@@ -97,7 +97,7 @@
                                 <p data-bind='text: (current().element().photo().description() !== "") ? current().element().photo().description() : description'></p>
                             </div>
                         </div>
-                        <comment-widget class="comment-widget" style="display: block;" params="entity: 'PhotoAttach', entityId: currentId(), listType: 'list', channelId: 'PhotoAttach_' + current().element().id()"></comment-widget>
+                        <comment-widget class="comment-widget" style="display: block;" params="entity: 'PhotoAttach', entityId: currentId(), listType: 'list', channelId: 'PhotoAttach_' + current().element().id(), edit: false"></comment-widget>
                         <!-- /ko -->
                     </div>
                 </div>

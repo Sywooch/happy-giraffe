@@ -14,10 +14,12 @@ define(['jquery', 'knockout', 'user-config', 'models/User'], function($, ko, use
       getCurrentUserFromList: function getCurrentUserFromList(userList, success) {
          if (success === true) {
             for( var i = 0; i < userList.length; i++ ) {
-               if (userList[i].data.id === parseInt(this.userConfig.userId)) {
-                  userList[i].success = userList[i].success;
-                  var userObj = Object.create( User );
-                  return userObj.init( userList[i].data );
+               if (userList[i].success === true) {
+                  if (userList[i].data.id === parseInt(this.userConfig.userId)) {
+                     userList[i].data.success = userList[i].success;
+                     var userObj = Object.create( User );
+                     return userObj.init( userList[i].data );
+                  }
                }
             }
          }

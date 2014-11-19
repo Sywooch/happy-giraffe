@@ -18,6 +18,10 @@ define(['jquery', 'knockout', 'models/CommentsController', 'models/UserControlle
 
         this.loaded = ko.observable(false);
 
+        this.edit = params.edit;
+
+        this.nonAuth = UserData.userConfig.isGuest;
+
         this.entityId = (ko.isObservable(params.entityId) === false) ? params.entityId : params.entityId();
         /**
          * Comet Создания комментария
@@ -208,7 +212,6 @@ define(['jquery', 'knockout', 'models/CommentsController', 'models/UserControlle
          */
         this.allEventsSucceed = function usersSucceed(userData) {
             ko.mapping.fromJS(UserData.getCurrentUserFromList(userData.data, userData.success), this.authUser);
-            console.log(UserData.getCurrentUserFromList(userData.data, userData.success));
             this.parsedData = ko.mapping.fromJS(CommentsController.allDataReceived(userData.data, this.commentsDataQueue.commentsData), this.parsedData);
             this.loaded(true);
         };

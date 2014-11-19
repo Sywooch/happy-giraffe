@@ -97,22 +97,8 @@
                                 <p data-bind='text: (current().element().photo().description() !== "") ? current().element().photo().description() : description'></p>
                             </div>
                         </div>
+                        <comment-widget class="comment-widget" style="display: block;" params="entity: 'PhotoAttach', entityId: currentId(), listType: 'list', channelId: 'PhotoAttach_' + current().element().id()"></comment-widget>
                         <!-- /ko -->
-                        <!--<div class="comments-gray comments-gray__small">-->
-                            <!--<div class="comments-gray_add active clearfix">-->
-                                <!--<div class="comments-gray_ava">-->
-                                    <!--&lt;!&ndash; ava&ndash;&gt;<span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>-->
-                                <!--</div>-->
-                                <!--<div class="comments-gray_frame">-->
-                                    <!--<textarea name=" " cols="15" rows="2" placeholder="Введите ваш комментарий и нажмите Enter" class="itx-gray"></textarea>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="comments-gray_t"><span class="comments-gray_t-tx">Комментарии<span class="color-gray">(28)</span></span><a id="comments-show" href="" class="font-small">Показать </a>-->
-                                <!--&lt;!&ndash;<a href="" class="float-r font-small">Статистика (14)</a>-->
-                                <!--&ndash;&gt;-->
-                                <!--<div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
                     </div>
                 </div>
                 <div class="scroll_bar-hold">

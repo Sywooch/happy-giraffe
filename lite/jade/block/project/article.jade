@@ -319,7 +319,7 @@ mixin sidebarArticle(mod, vars)
 
 
 
-mixin article-markdown(mod, vars)
+//-mixin article-markdown(mod, vars)
     // Статья с текстом
     // b-article
     article.b-article.b-article__single.clearfix(class=mod)
@@ -338,10 +338,10 @@ mixin article-markdown(mod, vars)
             h1.b-article_t Самое лучшее утро - просыпаюсь, а ты рядом
             .b-article_in.clearfix
                 // .b-markdown - статья редактора
-                .wysiwyg-content.clearfix
+                .clearfix
                     .b-markdown
                         if (vars.type == 'video')
-                            h2.b-markdown_t-sub
+                            .b-markdown_t-sub
                                 | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. 
                             .b-article_in-img
                                 .video-container

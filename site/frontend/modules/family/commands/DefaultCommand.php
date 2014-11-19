@@ -1,10 +1,13 @@
 <?php
+
+namespace site\frontend\modules\family\commands;
+
 /**
  * @author Никита
  * @date 23/10/14
  */
 
-class DefaultCommand extends CConsoleCommand
+class DefaultCommand extends \CConsoleCommand
 {
     /**
      * Основной воркер, должен быть всегда запущен для корректной работы приложения.

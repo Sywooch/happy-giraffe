@@ -266,7 +266,11 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
      */
     public function isPublic()
     {
-        return true;
+        $oldScenario = $this->scenario;
+        $this->scenario = 'show';
+        $result = $this->validate();
+        $this->scenario = $oldScenario;
+        return $result;
     }
 
     public function getEntityName()

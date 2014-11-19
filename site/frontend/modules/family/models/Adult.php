@@ -31,16 +31,13 @@ class Adult extends FamilyMemberAbstract
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
-            array('relationshipStatus', 'in', 'range' => array(
-                self::STATUS_FRIENDS,
-                self::STATUS_ENGAGED,
-                self::STATUS_MARRIED,
-            ), 'allowEmpty' => false, 'on' => 'insert'),
+            array('relationshipStatus', 'required', 'on' => 'insert'),
             array('relationshipStatus', 'in', 'range' => array(
                 self::STATUS_FRIENDS,
                 self::STATUS_ENGAGED,
                 self::STATUS_MARRIED,
             ), 'on' => 'update'),
+            array('name', 'required'),
             array('name', 'length', 'max' => 50),
             array('description', 'length', 'max' => 1000),
         ));

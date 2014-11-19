@@ -13,6 +13,10 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.rightsForManipulation = Model.checkRights(params.userId);
         this.userId = params.userId;
         this.opened = ko.observable(false);
+        /**
+         * new images in album
+         * @param val - new array value
+         */
         this.figureNewImage = function figureNewImage(val) {
             for (var i=0; i < val.length; i++) {
                 if(val[i].photo().presetHeight() === undefined || val[i].photo().presetWidth() === undefined) {

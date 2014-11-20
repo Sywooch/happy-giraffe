@@ -213,8 +213,9 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          * @param container
          */
         this.loadImage = function loadImage(event, elemName, container) {
-            var imgLoad = imagesLoaded(elemName),
-                imageLoadAlg = this.loadOne;
+            var imgLoad = imagesLoaded(elemName);
+            this.pckry = new Packery(container, { itemSelector: '.img-grid_i' });
+            var imageLoadAlg = this.loadImagesAlg;
             imgLoad.on(event, imageLoadAlg.bind(this));
         };
         /**

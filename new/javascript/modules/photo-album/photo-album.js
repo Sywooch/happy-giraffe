@@ -13,6 +13,9 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.rightsForManipulation = Model.checkRights(params.userId);
         this.userId = params.userId;
         this.opened = ko.observable(false);
+        this.reloadImagesAfterAdding = function reloadImagesAfterAdding() {
+            this.photoAlbum.photoCollection().loadImage('progress', 'photo-album', '#imgs');
+        };
         /**
          * new images in album
          * @param val - new array value
@@ -26,7 +29,9 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
                 }
             }
             if (this.photoAlbum.photoCollection().pckry.reloadItems !== undefined) {
-                this.photoAlbum.photoCollection().pckry.reloadItems();
+                //!quick for fix for the time being
+                setTimeout(this.reloadImagesAfterAdding.bind(this), 1500);
+                //!quick for fix for the time being
             }
         };
         /**

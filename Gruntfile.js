@@ -250,13 +250,14 @@ module.exports = function(grunt){
             /.bx-wrapper+/,
             /.body+/,
             /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/photo-window/**/*.html', 
-          '!lite/html/page/sign/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого 
           '!lite/html/page/comments/comments-page.html'
@@ -288,6 +289,7 @@ module.exports = function(grunt){
             /.redactor+/,
             /.fancybox+/,
             /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -319,6 +321,7 @@ module.exports = function(grunt){
             /.cook-choose .wysiwyg-content+/,
             /.body+/,
             /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -355,6 +358,7 @@ module.exports = function(grunt){
             /.header-+/,
             /.body+/,
             /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -386,6 +390,7 @@ module.exports = function(grunt){
             // Для страниц собранных разделов
             /.flag+/,
             /.bx-wrapper+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -423,6 +428,7 @@ module.exports = function(grunt){
             // Для страниц собранных разделов
             /.flag+/,
             /.bx-wrapper+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -451,7 +457,8 @@ module.exports = function(grunt){
             /@font-face+/,
             /.body+/,
             /.bnr+/,
-
+            
+            /.ico-social-hold+/,
           ],
            
         },

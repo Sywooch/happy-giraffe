@@ -162,7 +162,6 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.loadImagesAlg = function loadImagesAlg(instance, image) {
             var attach = Model.findByIdObservable(parseInt(image.img.dataset.id), this.attaches()),
                 result;
-            console.log(attach);
             if (attach.loading !== undefined) {
                 if (image.isLoaded) {
                     attach.loading(false);

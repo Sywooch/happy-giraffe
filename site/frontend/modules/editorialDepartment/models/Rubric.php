@@ -34,6 +34,18 @@ class Rubric extends \CommunityRubric
         return $this;
     }
 
+    /**
+     * 
+     * @param int $userId
+     * @return \site\frontend\modules\editorialDepartment\models\Rubric
+     */
+    public function byUser($userId)
+    {
+        $this->dbCriteria->addColumnCondition(array('user_id' => $userId));
+
+        return $this;
+    }
+
 }
 
 ?>

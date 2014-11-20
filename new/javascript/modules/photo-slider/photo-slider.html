@@ -22,10 +22,10 @@
                 <!-- /ko -->
                 <!-- ko if: current().element().broke() === true -->
                 <!-- /ko -->
-                <!-- ko if: current().element().broke() === false -->
-                    <span data-bind="html: imgTag()" class='photo-window_img'></span>
-                <!-- /ko -->
                 <div class="verticalalign-m-help"></div>
+                <!-- ko if: current().element().broke() === false -->
+                    <span data-bind="html: imgTag()" ></span>
+                <!-- /ko -->
             </div>
             <!-- /ko -->
             <!-- ko if: current() !== false && collection.attachesCount() > 0 -->

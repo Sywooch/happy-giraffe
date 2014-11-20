@@ -26,10 +26,9 @@ class DefaultController extends \LiteController
 
     public function actionIndex($userId)
 	{
-        $this->render('empty');
-
         /** @var \site\frontend\modules\family\models\Family $family */
         $family = Family::model()->with('members')->hasMember($userId)->find();
+
         if ($family !== null) {
             $this->render('index', compact('family',  'userId'));
         } elseif (\Yii::app()->user->id == $userId) {

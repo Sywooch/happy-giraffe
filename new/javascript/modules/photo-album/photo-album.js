@@ -12,6 +12,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.currentPhoto = ko.observable();
         this.rightsForManipulation = Model.checkRights(params.userId);
         this.userId = params.userId;
+        this.presets = {};
         this.opened = ko.observable(false);
         this.reloadImagesAfterAdding = function reloadImagesAfterAdding() {
             this.photoAlbum.photoCollection().loadImage('progress', 'photo-album', '#imgs');
@@ -21,18 +22,22 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
          * @param val - new array value
          */
         this.figureNewImage = function figureNewImage(val) {
-            for (var i=0; i < val.length; i++) {
-                if(val[i].photo().presetHeight() === undefined || val[i].photo().presetWidth() === undefined) {
-                    PresetManager.presets = this.photoAlbum.photoCollection().presets;
-                    val[i].photo().presetWidth(PresetManager.getWidth(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
-                    val[i].photo().presetHeight(PresetManager.getHeight(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
+                if (this.photoAlbum.photoCollection().presets === undefined) {
+                    PresetManager.presets = this.presets;
                 }
-            }
-            if (this.photoAlbum.photoCollection().pckry.reloadItems !== undefined) {
+                else {
+                    PresetManager.presets = this.photoAlbum.photoCollection().presets;
+                }
+                for (var i=0; i < val.length; i++) {
+                    if(val[i].photo().presetHeight() === undefined || val[i].photo().presetWidth() === undefined) {
+                        val[i].photo().presetWidth(PresetManager.getWidth(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
+                        val[i].photo().presetHeight(PresetManager.getHeight(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
+                    }
+                    console.log(val[i]);
+                }
                 //!quick for fix for the time being
                 setTimeout(this.reloadImagesAfterAdding.bind(this), 1500);
                 //!quick for fix for the time being
-            }
         };
         /**
          * getting album
@@ -130,11 +135,17 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.closePhotoHandler = function closePhotoHandler() {
             this.opened(false);
         };
+        this.handlePresets = function handlePresets(presets) {
+            this.presets = presets;
+        };
         /**
          * Load photo slider
          */
         this.loadPhotoComponent = function () {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
+            if (this.photoAlbum.photoCollection().presets === undefined) {
+                PresetManager.getPresets(this.handlePresets.bind(this));
+            }
         };
         this.photoAlbum.get(this.userId, false, this.getPhotoAlbum.bind(this));
     }

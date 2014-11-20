@@ -25,15 +25,23 @@ class MigrateManager
         2 => null,
     );
 
+    private static $_babyTypeMap = array(
+        \Baby::TYPE_PLANNING => 'planning',
+        \Baby::TYPE_TWINS => 'waiting',
+        \Baby::TYPE_WAIT => 'waiting',
+        null => 'child',
+    );
+
     private $user;
     private $family;
 
     public static function migrateSingle($userId)
     {
-        $user = User::model()->findAll($userId);
+        Family::model()
+        $user = User::model()->findByPk($userId);
         if ($user !== null) {
             $manager = new MigrateManager($user);
-            return $manager->convert();
+            $manager->convert();
         }
     }
 
@@ -82,35 +90,43 @@ class MigrateManager
         $partner->description = $oldPartner->notice;
         $partner->relationshipStatus = self::$_statusMap[$this->user->relationship_status];
         $partner->familyId = $this->family->id;
-        $partner->save(false);
-        \site\frontend\modules\photo\components\MigrateManager::moveAttachCollection($oldPartner, $partner);
+        $this->saveMember($partner, $oldPartner);
     }
 
     protected function convertBaby(\Baby $oldBaby)
     {
-        $member = new FamilyMember();
-        $member->gender = self::$_babyGender[$oldBaby->gender];
+        $type = self::$_babyTypeMap[$oldBaby->type];
+        $class = FamilyMember::getClassName($type);
+        $member = new $class();
+        $member->type = $type;
+        $member->gender = self::$_babyGender[$oldBaby->sex];
         switch ($oldBaby->type) {
             case null:
-                $member->type = 'child';
                 $member->name = $oldBaby->name;
                 $member->birthday = $oldBaby->birthday;
                 $member->description = $oldBaby->notice;
                 break;
             case \Baby::TYPE_PLANNING:
-                $member->type = 'planning';
                 break;
             case \Baby::TYPE_WAIT:
-                $member->type = 'waiting';
                 $member->birthday = $oldBaby->birthday;
                 break;
             case \Baby::TYPE_TWINS:
-                $member->type = 'waiting';
                 $member->birthday = $oldBaby->birthday;
                 break;
         }
         $member->familyId = $this->family->id;
-        $member->save(false);
-        \site\frontend\modules\photo\components\MigrateManager::moveAttachCollection($oldBaby, $member);
+        $this->saveMember($member, $oldBaby);
+    }
+
+    protected function saveMember(FamilyMember $member, $old)
+    {
+        if (! $member->save()) {
+            echo get_class($old) . "\n";
+            echo $old->id . "\n";
+            print_r($member->errors);
+            \Yii::app()->end();
+        }
+        return true;
     }
 } 

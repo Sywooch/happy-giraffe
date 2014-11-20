@@ -20,8 +20,6 @@ return array(
         'photo' => array(
             'class' => 'site\frontend\modules\photo\commands\DefaultCommand',
         ),
-        'family' => array(
-            'class' => 'site\frontend\modules\family\commands\DefaultCommand',
         'postConverter' => array(
             'class' => 'site\frontend\modules\posts\commands\ConvertCommand',
         ),
@@ -41,6 +39,12 @@ return array(
         ),
         'postFillQueue' => array(
             'class' => 'site\frontend\modules\posts\commands\FillQueue',
+        ),
+        'family' => array(
+            'class' => 'site\frontend\modules\family\commands\DefaultCommand',
+        ),
+        'familyMigrate' => array(
+            'class' => 'site\frontend\modules\family\commands\MigrateCommand',
         ),
     ),
     'import' => array(

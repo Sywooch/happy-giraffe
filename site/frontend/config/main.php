@@ -138,6 +138,7 @@ return array(
         'family' => array(
             'class' => 'site\frontend\modules\family\FamilyModule',
         ),
+        'familyOld',
         'antispam',
         'signup',
         'mail',

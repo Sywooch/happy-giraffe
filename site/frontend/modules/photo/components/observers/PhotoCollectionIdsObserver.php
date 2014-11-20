@@ -25,7 +25,7 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
             $offset = $this->getCount() + $offset;
         }
 
-        return PhotoAttach::model()->findByPk($this->ids[$offset]);
+        return (isset($this->ids[$offset])) ? PhotoAttach::model()->findByPk($this->ids[$offset]) : null;
     }
 
     public function getSlice($offset, $length = null, $circular = false)

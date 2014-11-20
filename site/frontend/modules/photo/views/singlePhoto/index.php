@@ -8,7 +8,7 @@
  */
 $photo = $attach->photo;
 $this->breadcrumbs += array(
-    (string) $collection->getTitle() => $collection->getUrl(),
+    $collection->getTitle() => $collection->getUrl(),
     $attach->getTitle(),
 );
 $this->pageTitle = $attach->getTitle() . ' - ' . $collection->getTitle();

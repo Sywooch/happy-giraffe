@@ -5,7 +5,7 @@
         this.restoreUrl = '/api/photo/attaches/restore/';
         this.setCoverUrl = '/api/photo/collections/setCover/';
         this.getAttachUrl = '/api/photo/attaches/get/';
-        this.id = ko.observable(data.id);
+        this.id = (ko.isObservable(data.id) === false) ? ko.observable(data.id) : data.id
         this.position = ko.observable(data.position);
         this.url = ko.observable(data.url);
         this.photo = ko.observable(new Photo(data.photo));

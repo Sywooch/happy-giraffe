@@ -162,6 +162,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.loadImagesAlg = function loadImagesAlg(instance, image) {
             var attach = Model.findByIdObservable(parseInt(image.img.dataset.id), this.attaches()),
                 result;
+            console.log(attach);
             if (attach.loading !== undefined) {
                 if (image.isLoaded) {
                     attach.loading(false);
@@ -213,8 +214,9 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          * @param container
          */
         this.loadImage = function loadImage(event, elemName, container) {
-            var imgLoad = imagesLoaded(elemName),
-                imageLoadAlg = this.loadOne;
+            var imgLoad = imagesLoaded(elemName);
+            this.pckry = new Packery(container, { itemSelector: '.img-grid_i' });
+            var imageLoadAlg = this.loadImagesAlg;
             imgLoad.on(event, imageLoadAlg.bind(this));
         };
         /**

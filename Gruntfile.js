@@ -256,7 +256,7 @@ module.exports = function(grunt){
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/photo-window/**/*.html', 
-          '!lite/html/page/sign/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого 
           '!lite/html/page/comments/comments-page.html'

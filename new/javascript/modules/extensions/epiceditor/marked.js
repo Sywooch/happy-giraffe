@@ -452,12 +452,17 @@
         tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
         link: /^!?\[(inside)\]\(href\)(\(attrs\))?/,
         video: /^\[w:video \((?:https?:\/\/)?(?:www\.)?youtu(.be\/|be\.com\/watch\?v=)([A-Za-z0-9-_]{11})\)\]/, //video
-        imgLink: /^\[w:image \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( \((http(s)?:\/\/[a-zA-Z0-9\-_]+\.[a-zA-Z]+(.)+)+\))?( "[a-zA-Zа-яА-Я./\- ]+")?\]/,
+        imgLink: /^\[w:image \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( \(((http(s)?:\/\/[a-zA-Z0-9\-_]+\.[a-zA-Z]+(.)+)+)?\))?( "([^"]*)?")\]/,
         img: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))/,
         imglinkage: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/?((([\w-_\/]+)\/)?[\w-_\.]+)/g,
+        linkage: /((https?|ftp):\/\/|www\.)[^\s/$.?#].[^\s)]*/gm,
+        textage: /"([^"]*)"/gm,
         imgtitle: /"([^"]*)"/,
         day: /^\[w:day \((morning|noon|evening)\)( "([^"]*)")? \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( "([^"]*)")?\]/,
         compare: /^\[w:compare \((left|right)\)( "([^"]*)")?( "([^"]*)")?( \(((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg)))?\))( "([^"]*)")?\]/,
+        description: /^\[w:description( "([^"]*)")?\]/,
+        lead: /^\[w:lead( "([^"]*)")?\]/,
+        source: /^\[w:source(( \(((http(s)?:\/\/[a-zA-Z0-9\-_]+\.[a-zA-Z]+(.)+)+)?\))( "([^"]*)"))+\]/,
         number: /^\[w:number( "([^"]*)")?\]/,
         reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
         nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
@@ -618,6 +623,29 @@
                 out += this.options.sanitize
                     ? escape(cap[0])
                     : cap[0];
+                continue;
+            }
+
+            //source
+            if (cap = this.rules.source.exec(src)) {
+                src = src.substring(cap[0].length);
+                var links = cap[0].match(this.rules.linkage),
+                    titles = cap[0].match(this.rules.textage);
+                out += this.renderer.source(links, titles);
+                continue;
+            }
+
+            //lead
+            if (cap = this.rules.lead.exec(src)) {
+                src = src.substring(cap[0].length);
+                out += this.renderer.lead(cap[2]);
+                continue;
+            }
+
+            //description
+            if (cap = this.rules.description.exec(src)) {
+                src = src.substring(cap[0].length);
+                out += this.renderer.description(cap[2]);
                 continue;
             }
 
@@ -891,6 +919,37 @@
         else {
             out += '<p></p>\n';
         }
+        return out;
+    };
+
+    Renderer.prototype.description = function(text) {
+        var out = '<div class="b-markdown_description">';
+        if (text !== undefined) {
+            out += text;
+        }
+        out += '</div>';
+        return out;
+    };
+
+    Renderer.prototype.lead = function(text) {
+        var out = '<div class="b-markdown_t-sub">';
+        if (text !== undefined) {
+            out += text;
+        }
+        out += '</div>';
+        return out;
+    };
+
+    Renderer.prototype.source = function(links, titles) {
+        var out = '<div class="b-markdown_source"><div class="b-markdown_source-tx">Источники:  </div>';
+        if (links.length !== 0, titles.length !== 0) {
+            for (index in links) {
+                var title = (titles[index] !== undefined) ? titles[index] : links[index];
+                //истребляю ненужные кавычки
+                out += '<a href="' + links[index] + '" class="b-markdown_source-a">' + title.replace(/"/g, '') + '</a>'
+            }
+        }
+        out += '</div>';
         return out;
     };
 

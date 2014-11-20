@@ -9,6 +9,7 @@ use site\frontend\modules\family\models\Adult;
 use site\frontend\modules\family\models\Child;
 use site\frontend\modules\family\models\Family;
 use site\frontend\modules\family\models\FamilyMember;
+use site\frontend\modules\photo\models\User;
 
 class MigrateManager
 {
@@ -26,6 +27,15 @@ class MigrateManager
 
     private $user;
     private $family;
+
+    public static function migrateSingle($userId)
+    {
+        $user = User::model()->findAll($userId);
+        if ($user !== null) {
+            $manager = new MigrateManager($user);
+            return $manager->convert();
+        }
+    }
 
     public function __construct(\User $user)
     {

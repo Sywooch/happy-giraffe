@@ -75,6 +75,7 @@ return array(
                 'sliderPhoto' => array(
                     'filter' => 'lepilla',
                     'width' => 1200,
+                    'height' => 900,
                 ),
                 'postImage' => array(
                     'filter' => 'relativeResize',

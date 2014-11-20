@@ -452,7 +452,7 @@
         tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
         link: /^!?\[(inside)\]\(href\)(\(attrs\))?/,
         video: /^\[w:video \((?:https?:\/\/)?(?:www\.)?youtu(.be\/|be\.com\/watch\?v=)([A-Za-z0-9-_]{11})\)\]/, //video
-        imgLink: /^\[w:image \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( \((http(s)?:\/\/[a-zA-Z0-9\-_]+\.[a-zA-Z]+(.)+)+\))?( "[a-zA-Zа-яА-Я./\- ]+")?\]/,
+        imgLink: /^\[w:image \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( \(((http(s)?:\/\/[a-zA-Z0-9\-_]+\.[a-zA-Z]+(.)+)+)?\))?( "([^"]*)?")\]/,
         img: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))/,
         imglinkage: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/?((([\w-_\/]+)\/)?[\w-_\.]+)/g,
         imgtitle: /"([^"]*)"/,

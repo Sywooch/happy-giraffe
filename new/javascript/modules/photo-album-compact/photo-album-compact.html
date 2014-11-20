@@ -9,10 +9,19 @@
                 <div class="b-album_count-tx">фото</div>
             </div>
         </div>
-        <div href="#" class="b-album_img-hold" data-bind="click: function () { openPhotoHandler(photoAlbum.photoCollection().cover()); }, attr: { 'style': 'height: ' + photoAlbum.photoCollection().cover().photo().presetHeight() + 'px;' }">
+        <!-- 
+        В адаптивности высота на блоке не нужна
+        Задание высоты
+        , attr: { 'style': 'height: ' + photoAlbum.photoCollection().cover().photo().presetHeight() + 'px;' } 
+        -->
+        <div href="#" class="b-album_img-hold" data-bind="click: function () { openPhotoHandler(photoAlbum.photoCollection().cover()); }">
             <div class="b-album_img-a">
-                <div class="verticalalign-m-help"></div>
+                <!-- <div class="verticalalign-m-help"></div>
                 <div class="verticalalign-m-el">
+                    <img src="" alt="" class="b-album_img-big" data-bind="src: photoAlbum.photoCollection().cover().photo().getGeneratedPreset('myPhotosAlbumCover')">
+                </div> -->
+                <div class="b-album_img-pad"></div>
+                <div class="b-album_img-picture">
                     <img src="" alt="" class="b-album_img-big" data-bind="src: photoAlbum.photoCollection().cover().photo().getGeneratedPreset('myPhotosAlbumCover')">
                 </div>
             </div>

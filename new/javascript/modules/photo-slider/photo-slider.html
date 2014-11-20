@@ -8,7 +8,7 @@
         <!--Обрабатывать клик на .photo-window_c для листания следующего изображения -->
         <div class="photo-window_c">
             <!-- ko if: current() !== false && collection.attachesCount() > 0 -->
-            <div class="photo-window_img-hold">
+            <div class="photo-window_img-hold" data-bind="click: next">
                 <!-- ko if: current().element().loading() === true && current().element().broke() === false -->
                 <div class="img-grid_loading-hold">
                     <div class="loader-circle">
@@ -23,17 +23,17 @@
                 <!-- ko if: current().element().broke() === true -->
                 <!-- /ko -->
                 <!-- ko if: current().element().broke() === false -->
-                    <span data-bind="html: imgTag()"></span>
+                    <span data-bind="html: imgTag()" class='photo-window_img'></span>
                 <!-- /ko -->
                 <div class="verticalalign-m-help"></div>
             </div>
             <!-- /ko -->
             <!-- ko if: current() !== false && collection.attachesCount() > 0 -->
                 <!-- ko if: (current().index() + 1) > 1 -->
-                <a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__l" data-bind="click: prev"></a>
+                <a href="#" class="i-photo-arrow i-photo-arrow__l" data-bind="click: prev"></a>
                 <!-- /ko -->
                 <!-- ko if: (current().index() + 1) !== collection.attachesCount() -->
-                <a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__r" data-bind="click: next"></a>
+                <a href="#" class="i-photo-arrow i-photo-arrow__r" data-bind="click: next"></a>
                 <!-- /ko -->
             <!-- /ko -->
             <div class="textalign-c visible-md-block">

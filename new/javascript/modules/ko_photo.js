@@ -122,7 +122,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         self.processResponse = function(photo, response) {
             if (response.success) {
-                ko.mapping.fromJS(response.data.photo, {}, photo);
+                ko.mapping.fromJS(response.data.attach, {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
             } else {
                 photo.error(response.data.error);
@@ -189,6 +189,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     // Модель множественной загрузки с компьютера
     function FromComputerMultipleViewModel(data) {
         var self = this;
+        self.collectionId = data.form.collectionId;
         PhotoUploadViewModel.apply(self, arguments);
 
         self.findPhotoByRequest = function(request) {
@@ -208,6 +209,9 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             dropZone: '.popup-add_frame__multi',
             sequentialUploads: true,
             add: function (e, data) {
+                data.formData = {
+                    collectionId: self.collectionId
+                };
                 if (self.photos().length < 300) {
                     self.added(self.populatePhoto(data));
                 }
@@ -223,6 +227,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                 }
             }
         });
+
+        // self.fileUploadSettings.data.collectionId = data.form.collectionId;
 
         self.fileUploadSettingsMore = $.extend({}, self.fileUploadSettings);
         self.fileUploadSettingsMore.dropZone = null;

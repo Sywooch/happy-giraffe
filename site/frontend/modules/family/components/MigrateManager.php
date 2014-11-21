@@ -126,6 +126,7 @@ class MigrateManager
         $partner->description = $oldPartner->notice;
         $partner->relationshipStatus = self::$_statusMap[$this->user->relationship_status];
         $partner->familyId = $this->family->id;
+        $this->saveMember($partner, $oldPartner);
     }
 
     protected function convertBaby(\Baby $oldBaby)
@@ -166,7 +167,7 @@ class MigrateManager
             $this->unsortedPhotos += $photoIds;
         }
 
-        if ($photoIds > 0) {
+        if (count($photoIds) > 0) {
             if ($old->main_photo_id !== null && ($mainPhoto = \AlbumPhoto::model()->findByPk($old->main_photo_id))) {
                 $cover = \site\frontend\modules\photo\components\MigrateManager::movePhoto($mainPhoto);
             } else {

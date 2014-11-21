@@ -15,7 +15,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.presets = {};
         this.opened = ko.observable(false);
         this.reloadImagesAfterAdding = function reloadImagesAfterAdding() {
-            this.photoAlbum.photoCollection().loadImage('progress', 'photo-album', '#imgs');
+            this.photoAlbum.photoCollection().loadImagesCreation('progress', 'photo-album', '#imgs');
         };
         /**
          * new images in album
@@ -33,7 +33,6 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
                         val[i].photo().presetWidth(PresetManager.getWidth(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
                         val[i].photo().presetHeight(PresetManager.getHeight(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
                     }
-                    console.log(val[i]);
                 }
                 //!quick for fix for the time being
                 setTimeout(this.reloadImagesAfterAdding.bind(this), 1500);

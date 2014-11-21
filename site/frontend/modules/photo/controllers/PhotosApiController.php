@@ -23,28 +23,38 @@ class PhotosApiController extends ApiController
         $this->data = $photo;
     }
 
-    public function actionUploadFromComputer()
+    public function actionUploadFromComputer($collectionId = null)
     {
         if (! \Yii::app()->user->checkAccess('uploadPhoto')) {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
-        $form = new FromComputerUploadForm();
+        $form = new FromComputerUploadForm($this->getCollection($collectionId));
         $form->file = \CUploadedFile::getInstanceByName('image');
         $this->success = $form->save();
         $this->data = $form;
     }
 
-    public function actionUploadByUrl($url)
+    public function actionUploadByUrl($url, $collectionId = null)
     {
         if (! \Yii::app()->user->checkAccess('uploadPhoto')) {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
-        $form = new ByUrlUploadForm();
+        $form = new ByUrlUploadForm($this->getCollection($collectionId));
         $form->url = $url;
         $this->success = $form->save();
         $this->data = $form;
+    }
+
+    protected function getCollection($collectionId)
+    {
+        if ($collectionId !== null) {
+            $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'addPhotos');
+        } else {
+            $collection = null;
+        }
+        return $collection;
     }
 
     public function actionRotate($photoId, $clockwise = true)

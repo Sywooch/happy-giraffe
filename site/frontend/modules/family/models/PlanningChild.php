@@ -29,8 +29,9 @@ class PlanningChild extends WaitingChild
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
+            array('planningWhen', 'required'),
             array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE)),
-            array('planningWhen', 'in', 'range' => array(self::WHEN_SOON, self::WHEN_NEXT3YEARS), 'allowEmpty' => false),
+            array('planningWhen', 'in', 'range' => array(self::WHEN_SOON, self::WHEN_NEXT3YEARS)),
         ));
     }
 

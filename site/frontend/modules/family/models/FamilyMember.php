@@ -46,12 +46,13 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
 	public function rules()
 	{
         return array(
+            array('type', 'required', 'on' => 'insert'),
             array('type', 'in', 'range' => array(
                 self::TYPE_ADULT,
                 self::TYPE_CHILD,
                 self::TYPE_PLANNING,
                 self::TYPE_WAITING,
-            ), 'allowEmpty' => false, 'on' => 'insert'),
+            )),
         );
 	}
 
@@ -247,7 +248,7 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
         $validateCanBeAdded = $this->isNewRecord && $this->scenario != 'familyCreate';
 
         if ($validateCanBeAdded && ! $this->canBeAdded()) {
-            throw new \CException('Этого члена семьи нельзя добавить в семью');
+            throw new \CException('Этого члена семьи нельзя добавить в семью' . var_dump($this));
         }
 
         return parent::beforeValidate();

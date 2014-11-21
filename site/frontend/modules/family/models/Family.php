@@ -157,7 +157,7 @@ class Family extends \HActiveRecord implements \IHToJSON
         $member->scenario = 'familyCreate';
         $member->fillByUser($userId);
         $family->members = array($member);
-        $success = $family->withRelated->save(false, array('members'));
+        $success = $family->withRelated->save(true, array('members'));
         return ($success) ? $family : null;
     }
 
@@ -168,6 +168,7 @@ class Family extends \HActiveRecord implements \IHToJSON
         if ($member !== null) {
             $this->getDbCriteria()->compare($this->getTableAlias() . '.id', $member->familyId);
         } else {
+            /** @todo убрать эту грязь :( */
             $this->getDbCriteria()->addCondition('1 = 2');
         }
         return $this;

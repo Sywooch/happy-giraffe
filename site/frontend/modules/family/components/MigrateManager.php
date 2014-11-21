@@ -35,14 +35,38 @@ class MigrateManager
     private $user;
     private $family;
 
-    public static function migrateSingle($userId)
+    public static function migrateAll($start)
     {
-        Family::model()
-        $user = User::model()->findByPk($userId);
-        if ($user !== null) {
-            $manager = new MigrateManager($user);
-            $manager->convert();
+        Family::model()->deleteAll();
+        $criteria = new \CDbCriteria(array(
+            'order' => 'id ASC',
+        ));
+        if ($start != 1) {
+            $criteria->compare('id', '>=' . $start);
         }
+        $dp = new \CActiveDataProvider('User', array(
+            'criteria' => $criteria,
+        ));
+        $iterator = new \CDataProviderIterator($dp, 100);
+        foreach ($iterator as $user) {
+            if (empty($user->first_name)) {
+                continue;
+            }
+
+            echo $user->id . "\n";
+            self::migrateSingle($user);
+        }
+    }
+
+    public static function migrateSingle($user)
+    {
+        $family = Family::model()->hasMember($user->id)->find();
+        if ($family !== null) {
+            Family::model()->deleteByPk($family->id);
+        }
+
+        $manager = new MigrateManager($user);
+        $manager->convert();
     }
 
     public function __construct(\User $user)
@@ -57,6 +81,7 @@ class MigrateManager
         }
 
         $this->family = Family::createFamily($this->user->id);
+
         if ($this->hasPartner()) {
             $this->convertPartner();
         }
@@ -121,12 +146,76 @@ class MigrateManager
 
     protected function saveMember(FamilyMember $member, $old)
     {
-        if (! $member->save()) {
+        $isValid = $member->validate();
+        $errors = $member->errors;
+
+        if (! $isValid && ! $this->isExcepted($old, $errors)) {
             echo get_class($old) . "\n";
             echo $old->id . "\n";
             print_r($member->errors);
             \Yii::app()->end();
         }
-        return true;
+        return $member->save(false);
+    }
+
+    protected function isExcepted(FamilyMember $model, $errors)
+    {
+        $allowedErrors = array();
+
+        if ($model->canBeAdded()) {
+
+        }
+
+        if ($model instanceof \Baby) {
+            if ($model->type == \Baby::TYPE_WAIT) {
+                $allowedErrors = array(
+                    'birthday' => array(
+                        'Некорректная дата родов',
+                        'Необходимо заполнить поле «Birthday».',
+                    ),
+                );
+            }
+
+            if ($model->type == \Baby::TYPE_PLANNING) {
+                $allowedErrors = array(
+                    'planningWhen' => array(
+                        'Необходимо заполнить поле «Planning When».',
+                    ),
+                );
+            }
+
+            if ($model->type == null) {
+                $allowedErrors = array(
+                    'birthday' => array(
+                        'Необходимо заполнить поле «Birthday».',
+                        'Неправильный формат поля Birthday.', // 0000-00-00
+                    ),
+                    'name' => array(
+                        'Необходимо заполнить поле «Name».',
+                    ),
+                );
+            }
+        }
+
+        if ($model instanceof \UserPartner) {
+            $allowedErrors = array(
+                'name' => array(
+                    'Необходимо заполнить поле «Name».',
+                ),
+            );
+        }
+
+        foreach ($allowedErrors as $attribute => $texts) {
+            foreach ($texts as $text) {
+                if (isset($errors[$attribute]) && ($index = array_search($text, $errors[$attribute])) !== false) {
+                    unset($errors[$attribute][$index]);
+                    if (count($errors[$attribute]) == 0) {
+                        unset($errors[$attribute]);
+                    }
+                }
+            }
+        }
+
+        return count($errors) == 0;
     }
 } 

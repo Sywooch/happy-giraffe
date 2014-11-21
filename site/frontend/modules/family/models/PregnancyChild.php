@@ -30,8 +30,9 @@ class PregnancyChild extends WaitingChild
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
+            array('birthday', 'required'),
             array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE, self::GENDER_TWINS)),
-            array('birthday', 'date', 'format' => 'yyyy-M-d', 'allowEmpty' => false),
+            array('birthday', 'date', 'format' => 'yyyy-M-d'),
             array('birthday', 'validateBirthday'),
         ));
     }

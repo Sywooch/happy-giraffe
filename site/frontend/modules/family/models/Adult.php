@@ -36,11 +36,20 @@ class Adult extends FamilyMemberAbstract
                 self::STATUS_FRIENDS,
                 self::STATUS_ENGAGED,
                 self::STATUS_MARRIED,
-            ), 'on' => 'update'),
+            )),
+            array('type', 'canBeAdded', ''),
             array('name', 'required'),
             array('name', 'length', 'max' => 50),
             array('description', 'length', 'max' => 1000),
         ));
+    }
+
+    public function canBeAdded($attribute)
+    {
+        $adults = $this->family->getMembers(FamilyMember::TYPE_ADULT);
+        if (count($adults) >= 2) {
+            $this->addError($attribute, 'В этой семье уже есть двое взрослых');
+        }
     }
 
     protected function getViewDataInternal()
@@ -78,12 +87,6 @@ class Adult extends FamilyMemberAbstract
     protected function getGenderByPartner()
     {
         return ($this->partner->gender == self::GENDER_MALE) ? self::GENDER_FEMALE : self::GENDER_MALE;
-    }
-
-    protected function canBeAdded()
-    {
-        $adults = $this->family->getMembers(FamilyMember::TYPE_ADULT);
-        return count($adults) < 2;
     }
 
     public function toJSON()

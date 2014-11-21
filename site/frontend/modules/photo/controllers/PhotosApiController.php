@@ -67,4 +67,13 @@ class PhotosApiController extends ApiController
             $this->data = $result;
         }
     }
+
+    public function getActionParams()
+    {
+        if (! empty($_POST)) {
+            return $_POST;
+        } else {
+            return parent::getActionParams();
+        }
+    }
 } 

@@ -10,7 +10,7 @@ namespace site\frontend\modules\family\models;
 use site\frontend\modules\family\components\AgeHelper;
 use site\frontend\modules\family\models\viewData\PregnancyChildViewData;
 
-class PregnancyChild extends WaitingChild
+class PregnancyChild extends FamilyMemberAbstract
 {
     const GENDER_TWINS = 2;
     const PREGNANCY_MONTHS = 9;
@@ -34,6 +34,7 @@ class PregnancyChild extends WaitingChild
             array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE, self::GENDER_TWINS)),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
             array('birthday', 'validateBirthday'),
+            array('type', 'site\frontend\modules\family\components\WaitingChildValidator', 'on' => 'insert'),
         ));
     }
 

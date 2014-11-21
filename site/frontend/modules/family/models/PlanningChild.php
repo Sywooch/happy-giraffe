@@ -9,7 +9,7 @@ namespace site\frontend\modules\family\models;
 
 use site\frontend\modules\family\models\viewData\PlanningChildViewData;
 
-class PlanningChild extends WaitingChild
+class PlanningChild extends FamilyMemberAbstract
 {
     const WHEN_SOON = 'soon';
     const WHEN_NEXT3YEARS = 'next3Years';
@@ -32,6 +32,7 @@ class PlanningChild extends WaitingChild
             array('planningWhen', 'required'),
             array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE)),
             array('planningWhen', 'in', 'range' => array(self::WHEN_SOON, self::WHEN_NEXT3YEARS)),
+            array('type', 'site\frontend\modules\family\components\WaitingChildValidator', 'on' => 'insert'),
         ));
     }
 

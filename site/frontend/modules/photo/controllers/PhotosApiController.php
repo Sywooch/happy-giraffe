@@ -68,6 +68,9 @@ class PhotosApiController extends ApiController
         }
     }
 
+    /**
+     * @todo workaround для того, чтобы работал экшн uploadFromComputer, получающий запрос от jquery file upload
+     */
     public function getActionParams()
     {
         if (! empty($_POST)) {

@@ -95,12 +95,12 @@ class MigrateManager
             }
         }
 
-//        if (count($this->unsortedPhotos) > 0) {
-//            $album = new PhotoAlbum();
-//            $album->title = 'Семейный альбом общие';
-//            $album->save(false);
-//            $album->photoCollection->attachPhotos($this->unsortedPhotos);
-//        }
+        if (count($this->unsortedPhotos) > 0) {
+            $album = new PhotoAlbum();
+            $album->title = 'Семейный альбом общие';
+            $album->save(false);
+            $album->photoCollection->attachPhotos($this->unsortedPhotos);
+        }
     }
 
     protected function hasFamily()
@@ -156,24 +156,24 @@ class MigrateManager
 
     protected function movePhotos($old, &$new)
     {
-//        $photoIds = \site\frontend\modules\photo\components\MigrateManager::getByRelation($old);
-//        if ($photoIds > 5) {
-//            $album = new PhotoAlbum();
-//            $album->title = 'Семейный альбом' . $new->id;
-//            $album->save(false);
-//            $album->photoCollection->attachPhotos($photoIds);
-//        } elseif ($photoIds > 0) {
-//            $this->unsortedPhotos += $photoIds;
-//        }
-//
-//        if ($photoIds > 0) {
-//            if ($old->main_photo_id !== null && ($mainPhoto = \AlbumPhoto::model()->findByPk($old->main_photo_id))) {
-//                $cover = \site\frontend\modules\photo\components\MigrateManager::movePhoto($mainPhoto);
-//            } else {
-//                $cover = $photoIds[0];
-//            }
-//            $new->photoCollection->attachPhotos(array($cover));
-//        }
+        $photoIds = \site\frontend\modules\photo\components\MigrateManager::getByRelation($old);
+        if ($photoIds > 5) {
+            $album = new PhotoAlbum();
+            $album->title = 'Семейный альбом' . $new->id;
+            $album->save(false);
+            $album->photoCollection->attachPhotos($photoIds);
+        } elseif ($photoIds > 0) {
+            $this->unsortedPhotos += $photoIds;
+        }
+
+        if ($photoIds > 0) {
+            if ($old->main_photo_id !== null && ($mainPhoto = \AlbumPhoto::model()->findByPk($old->main_photo_id))) {
+                $cover = \site\frontend\modules\photo\components\MigrateManager::movePhoto($mainPhoto);
+            } else {
+                $cover = $photoIds[0];
+            }
+            $new->photoCollection->attachPhotos(array($cover));
+        }
     }
 
     protected function saveMember(FamilyMember $member, $old)

@@ -26,6 +26,7 @@
 
 .b-loader {
     position: relative;
+    &:extend(.verticalalign-m-el-hold all);
 
     &__abs {
         position: absolute;
@@ -39,7 +40,7 @@
     }
 
     &_hold {
-        display: inline-block;
+        &:extend(.verticalalign-m-el);
     }
     &_tx {
         margin: 7px;

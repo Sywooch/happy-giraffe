@@ -212,12 +212,11 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          * @param elemName
          * @param container
          */
-        this.loadImage = function loadImage(event, elemName, container) {
-            var imgLoad = imagesLoaded(elemName);
-            this.pckry = new Packery(container, { itemSelector: '.img-grid_i' });
-            var imageLoadAlg = this.loadImagesAlg;
-            imgLoad.on(event, imageLoadAlg.bind(this));
-        };
+         this.loadImage = function loadImage(event, elemName, container) {
+             var imgLoad = imagesLoaded(elemName),
+                 imageLoadAlg = this.loadOne;
+             imgLoad.on(event, imageLoadAlg.bind(this));
+         };
         /**
          * iterate attaches for the sake of presets handling
          * @param attach

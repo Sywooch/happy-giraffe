@@ -98,6 +98,7 @@ class MigrateManager
         if (count($this->unsortedPhotos) > 0) {
             $album = new PhotoAlbum();
             $album->title = 'Семейный альбом общие';
+            $album->author_id = $this->user->id;
             $album->save(false);
             $album->photoCollection->attachPhotos($this->unsortedPhotos);
         }
@@ -161,6 +162,7 @@ class MigrateManager
         if ($photoIds > 5) {
             $album = new PhotoAlbum();
             $album->title = 'Семейный альбом' . $new->id;
+            $album->author_id = ($old instanceof \Baby) ? $old->parent_id : $old->user_id;
             $album->save(false);
             $album->photoCollection->attachPhotos($photoIds);
         } elseif ($photoIds > 0) {

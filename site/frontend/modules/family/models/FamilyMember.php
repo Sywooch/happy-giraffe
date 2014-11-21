@@ -243,25 +243,6 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
         }
     }
 
-    protected function beforeValidate()
-    {
-        $validateCanBeAdded = $this->isNewRecord && $this->scenario != 'familyCreate';
-
-        if ($validateCanBeAdded && ! $this->canBeAdded()) {
-            throw new \CException('Этого члена семьи нельзя добавить в семью' . var_dump($this));
-        }
-
-        return parent::beforeValidate();
-    }
-
-    /**
-     * @return bool может ли быть добавлен данный член семьи
-     */
-    protected function canBeAdded()
-    {
-        return true;
-    }
-
     /**
      * @return bool является ли член семьи публичныи
      */

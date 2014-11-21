@@ -37,7 +37,7 @@ class Adult extends FamilyMemberAbstract
                 self::STATUS_ENGAGED,
                 self::STATUS_MARRIED,
             )),
-            array('type', 'canBeAdded', ''),
+            array('type', 'canBeAdded', 'on' => 'insert'),
             array('name', 'required'),
             array('name', 'length', 'max' => 50),
             array('description', 'length', 'max' => 1000),

@@ -34,19 +34,13 @@ class MigrateManager
         return $collection;
     }
 
-    public static function moveAttachCollection($oldModel, &$newModel, $relation = 'photos', $cover = 'main_photo_id')
+    public static function getByRelation($oldModel, $relation = 'photos')
     {
         $photosIds = array();
         foreach ($oldModel->$relation as $oldAttach) {
-            $photosIds[] = self::movePhoto($oldAttach);
+            $photosIds[] = self::movePhoto($oldAttach->photo);
         }
-        $newModel->photoCollection->attachPhotos($photosIds);
-        if ($oldModel->$cover !== null) {
-            $oldPhoto = \AlbumPhoto::model()->findByPk($oldModel->$cover);
-            $photoId = self::movePhoto($oldPhoto);
-            $attach = PhotoAttach::model()->collection($newModel->collection->id)->photo($photoId);
-            $newModel->photoCollection->setCover($attach);
-        }
+        return $photosIds;
     }
 
 

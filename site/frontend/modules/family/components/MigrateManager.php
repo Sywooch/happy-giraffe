@@ -9,6 +9,7 @@ use site\frontend\modules\family\models\Adult;
 use site\frontend\modules\family\models\Child;
 use site\frontend\modules\family\models\Family;
 use site\frontend\modules\family\models\FamilyMember;
+use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\User;
 
 class MigrateManager
@@ -34,6 +35,7 @@ class MigrateManager
 
     private $user;
     private $family;
+    private $unsortedPhotos;
 
     public static function migrateAll($start)
     {
@@ -49,7 +51,9 @@ class MigrateManager
         ));
         $iterator = new \CDataProviderIterator($dp, 100);
         foreach ($iterator as $user) {
-            if (empty($user->first_name)) {
+            // безымянный юзер, не можем создать семью
+            $name = trim($user->first_name);
+            if (empty($name)) {
                 continue;
             }
 
@@ -90,6 +94,13 @@ class MigrateManager
                 $this->convertBaby($baby);
             }
         }
+
+//        if (count($this->unsortedPhotos) > 0) {
+//            $album = new PhotoAlbum();
+//            $album->title = 'Семейный альбом общие';
+//            $album->save(false);
+//            $album->photoCollection->attachPhotos($this->unsortedPhotos);
+//        }
     }
 
     protected function hasFamily()
@@ -115,7 +126,6 @@ class MigrateManager
         $partner->description = $oldPartner->notice;
         $partner->relationshipStatus = self::$_statusMap[$this->user->relationship_status];
         $partner->familyId = $this->family->id;
-        $this->saveMember($partner, $oldPartner);
     }
 
     protected function convertBaby(\Baby $oldBaby)
@@ -144,6 +154,28 @@ class MigrateManager
         $this->saveMember($member, $oldBaby);
     }
 
+    protected function movePhotos($old, &$new)
+    {
+//        $photoIds = \site\frontend\modules\photo\components\MigrateManager::getByRelation($old);
+//        if ($photoIds > 5) {
+//            $album = new PhotoAlbum();
+//            $album->title = 'Семейный альбом' . $new->id;
+//            $album->save(false);
+//            $album->photoCollection->attachPhotos($photoIds);
+//        } elseif ($photoIds > 0) {
+//            $this->unsortedPhotos += $photoIds;
+//        }
+//
+//        if ($photoIds > 0) {
+//            if ($old->main_photo_id !== null && ($mainPhoto = \AlbumPhoto::model()->findByPk($old->main_photo_id))) {
+//                $cover = \site\frontend\modules\photo\components\MigrateManager::movePhoto($mainPhoto);
+//            } else {
+//                $cover = $photoIds[0];
+//            }
+//            $new->photoCollection->attachPhotos(array($cover));
+//        }
+    }
+
     protected function saveMember(FamilyMember $member, $old)
     {
         $isValid = $member->validate();
@@ -155,16 +187,14 @@ class MigrateManager
             print_r($member->errors);
             \Yii::app()->end();
         }
-        return $member->save(false);
+        if ($member->save(false)) {
+            $this->movePhotos($old, $member);
+        }
     }
 
-    protected function isExcepted(FamilyMember $model, $errors)
+    protected function isExcepted($model, $errors)
     {
         $allowedErrors = array();
-
-        if ($model->canBeAdded()) {
-
-        }
 
         if ($model instanceof \Baby) {
             if ($model->type == \Baby::TYPE_WAIT) {
@@ -172,6 +202,10 @@ class MigrateManager
                     'birthday' => array(
                         'Некорректная дата родов',
                         'Необходимо заполнить поле «Birthday».',
+                        'Неправильный формат поля Birthday.', // 2012-12-00
+                    ),
+                    'type' => array(
+                        'В семье может быть только один ожидаемый ребенок',
                     ),
                 );
             }
@@ -180,6 +214,9 @@ class MigrateManager
                 $allowedErrors = array(
                     'planningWhen' => array(
                         'Необходимо заполнить поле «Planning When».',
+                    ),
+                    'type' => array(
+                        'В семье может быть только один ожидаемый ребенок',
                     ),
                 );
             }
@@ -192,6 +229,9 @@ class MigrateManager
                     ),
                     'name' => array(
                         'Необходимо заполнить поле «Name».',
+                    ),
+                    'gender' => array(
+                        'Необходимо заполнить поле «Gender».',
                     ),
                 );
             }

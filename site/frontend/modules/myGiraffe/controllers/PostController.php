@@ -1,7 +1,5 @@
 <?php
 
-use site\frontend\modules\posts\models\Content;
-
 /**
  * Description of PostController
  *
@@ -10,17 +8,12 @@ use site\frontend\modules\posts\models\Content;
 class PostController extends \site\frontend\modules\posts\controllers\ListController
 {
 
-    public $layout = '//layouts/lite/main';
+    public $layout = 'site.frontend.modules.posts.views.layouts.newBlogPost';
     public $hideUserAdd = true;
 
-    public function getListDataProvider($authorId)
+    public function getListDataProvider($userId)
     {
-        return new \CActiveDataProvider(Content::model()->orderDesc(), array(
-            'pagination' => array(
-                'pageSize' => 10,
-                'pageVar' => 'BlogContent_page',
-            )
-        ));
+        return \NewSubscribeDataProvider::getDataProvider($userId);
     }
 
     public function actionIndex()

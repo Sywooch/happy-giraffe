@@ -36,12 +36,6 @@ return array(
             'goog' => '/new/javascript/plugins/goog',
             'propertyParser' => '/new/javascript/plugins/propertyParser',
             'kow' => '/new/javascript/modules/kow',
-            'comments-control' => '/new/javascript/modules/models/CommentsController',
-            'user-control' => '/new/javascript/modules/models/UserController',
-            'user-model' => '/new/javascript/modules/models/User',
-            'model' => '/new/javascript/modules/models/Model',
-            'comment-model' => '/new/javascript/modules/models/Comment',
-            'comment-widget' => '/new/javascript/modules/comment-widget/comment-widget',
             'routesCalc' => 'routes',
         ),
         /* 'eval' => '
@@ -574,11 +568,24 @@ return array(
         'lite_editorial-department_user' => array(
             'depends' => array('lite-default'),
         ),
+        'lite_cook_choose' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_cook_choose_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+
         'lite_posts_user' => array(
-            'depends' => array('lite-default'),
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/blog-user.css'
+            ),
         ),
         'lite_posts' => array(
-            'depends' => array('lite-default'),
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/blog.css'
+            ),
         ),
         'lite_family_user' => array(
             'depends' => array('lite_member_user'),

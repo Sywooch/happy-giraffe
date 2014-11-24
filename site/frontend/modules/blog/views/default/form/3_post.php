@@ -1,6 +1,6 @@
 <div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo-post"<?php if ($model->isNewRecord && empty($club_id)) echo ' style="display:none;"' ?>>
     <?php if (empty($club_id)){
-        $action = $model->isNewRecord ? array('save') : array('save', 'id' => $model->id);
+        $action = $model->isNewRecord ? array('/blog/default/save') : array('/blog/default/save', 'id' => $model->id);
     }else
         $action = $model->isNewRecord ? array('/community/default/save') : array('/community/default/save', 'id' => $model->id);
 
@@ -32,7 +32,7 @@
                 <?=$form->error($model, 'title') ?>
             </div>
         </div>
-        <?php $this->renderPartial('form/_rubric', array('model' => $model, 'form' => $form, 'club_id' => $club_id)); ?>
+        <?php $this->renderPartial('/default/form/_rubric', array('model' => $model, 'form' => $form, 'club_id' => $club_id)); ?>
     </div>
 
     <?php $this->renderPartial('application.views.upload_image_popup'); ?>

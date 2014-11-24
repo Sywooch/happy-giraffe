@@ -22,13 +22,13 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     public function convertToNewPost()
     {
         if ($this->owner->type_id == \CommunityContent::TYPE_POST)
-            $this->convertPost();
+            return $this->convertPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_PHOTO_POST)
-            $this->convertPhotoPost();
+            return $this->convertPhotoPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_VIDEO)
-            $this->convertVideoPost();
+            return $this->convertVideoPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_STATUS)
-            $this->convertStatus();
+            return $this->convertStatus();
     }
 
     public function afterSave($event)
@@ -113,11 +113,11 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
     protected function convertPost()
     {
-        //echo "post\n";
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldPost');
 
+        $newPost->templateObject->data['type'] = 'post';
         $oldPost->post->purified->clearCache();
         $newPost->html = $oldPost->post->purified->text;
         $newPost->text = $oldPost->post->text;
@@ -131,7 +131,10 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $newPost->socialObject->imageUrl = $photo->getPreviewUrl(200, 200);
         }
 
-        $newPost->save();
+        if (empty($newPost->metaObject->description))
+            $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->post->text)));
+
+        return $newPost->save();
     }
 
     protected function convertPhotoPost()
@@ -139,6 +142,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldPhotoPost');
+
+        $newPost->templateObject->data['type'] = 'photoPost';
         $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
         $count = $collection->attachesCount;
         $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
@@ -152,11 +157,14 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $newPost->html = $photoAlbumTag . $oldPost->photoPost->text;
         $newPost->text = $oldPost->photoPost->text;
-        $newPost->preview = $photoAlbumTag . $oldPost->preview . '<p>' . \site\common\helpers\HStr::truncate($newPost->fillText(), 200, ' <span class="ico-more"></span>') . '</p>';
+        $newPost->preview = $photoAlbumTag . '<p>' . \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text))), 200, ' <span class="ico-more"></span>') . '</p>';
         $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
         $newPost->isNoindex = false;
 
-        $newPost->save();
+        if (empty($newPost->metaObject->description))
+            $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text)));
+
+        return $newPost->save();
     }
 
     protected function convertVideoPost()
@@ -165,12 +173,16 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldVideoPost');
 
+        $newPost->templateObject->data['type'] = 'videoPost';
         $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.video', array('content' => $oldPost, 'text' => $oldPost->video->text));
         $newPost->text = strip_tags($oldPost->video->text);
         $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.video', array('content' => $oldPost, 'text' => '<p>' . \site\common\helpers\HStr::truncate($newPost->text, 200, ' <span class="ico-more"></span>') . '</p>'));
         $newPost->isNoindex = false;
 
-        $newPost->save();
+        if (empty($newPost->metaObject->description))
+            $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->video->text)));
+
+        return $newPost->save();
     }
 
     protected function convertStatus()
@@ -179,6 +191,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldStatusPost');
 
+        $newPost->templateObject->data['type'] = 'status';
         $newPost->isNoindex = true;
 
         $newPost->title = $oldPost->author->fullName . ' - статус от ' . date('d.m.y h:i', $newPost->dtimeCreate);
@@ -186,7 +199,10 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->text = strip_tags($oldPost->status->text);
         $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.statusPreview', array('content' => $oldPost));
 
-        $newPost->save();
+        if (empty($newPost->metaObject->description))
+            $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->status->text)));
+        
+        return $newPost->save();
     }
 
     protected function render($file, $data)

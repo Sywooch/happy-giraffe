@@ -865,4 +865,35 @@ class SeoTempCommand extends CConsoleCommand
         }
         $this->writeCsv('sh', $result);
     }
+
+    public function actionLiRu($category, $nPages)
+    {
+        $urlBase = 'http://www.liveinternet.ru/rating/ru/' . $category . '/index.html';
+        $client = new \Guzzle\Service\Client();
+        $client->setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.36');
+        $result = array();
+        $result[] = array('Название', 'Ссылка', 'Контакты');
+        for ($i = 1; $i <= $nPages; $i++) {
+            $url = $urlBase . '?page=' . $i;
+            $html = $client->get($url)->send()->getBody(true);
+            $doc = str_get_html($html);
+            $links = $doc->find('a[onclick]');
+            foreach ($links as $link) {
+                $title = $link->innertext;
+                $href = $link->href;
+                $row = array($title, $href);
+                $result[] = $row;
+            }
+            echo 'page ' . $i . ' finished' . "\n";
+        }
+        $this->writeCsv('li__' . $category, $result);
+    }
+
+    public function actionLiData()
+    {
+        Yii::import('site.seo.modules.competitors.components.*');
+        Yii::import('site.seo.modules.competitors.models.*');
+        $data = LiSitesManager::getData();
+        $this->writeCsv('liData', $data);
+    }
 } 

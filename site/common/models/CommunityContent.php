@@ -159,6 +159,14 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
                     'attributeCollections' => array('preview'),
                 ),
+                'convertToNewPost' => array(
+                    'class' => '\site\frontend\modules\posts\behaviors\converters\CommunityContentBehavior',
+                ),
+                // Необходимо только для сброса кеша для purify
+                'purified' => array(
+                    'class' => 'site.common.behaviors.PurifiedBehavior',
+                    'attributes' => array('preview'),
+                ),
             );
         return array(
             'PhotoCollectionBehavior' => array(
@@ -326,7 +334,7 @@ class CommunityContent extends HActiveRecord implements IPreview
     public function afterSave()
     {
         if ($this->scenario == 'advEditor')
-            return parent::beforeSave();
+            return parent::afterSave();
         if ($this->isNewRecord && $this->type_id != 4) {
             Yii::app()->cache->set('activityLastUpdated', time());
         }
@@ -1201,6 +1209,14 @@ class CommunityContent extends HActiveRecord implements IPreview
             return array(
                 'text' => 'Clearblue',
                 'img' => '/images/banners/ava-Clearblue.jpg',
+                'pix' => '',
+            );
+        }
+
+        if ($this->id == 212412) {
+            return array(
+                'text' => 'Гербион',
+                'img' => '/images/banners/ava-gerbion-2.jpg',
                 'pix' => '',
             );
         }

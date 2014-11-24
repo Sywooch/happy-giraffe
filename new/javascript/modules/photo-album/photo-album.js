@@ -129,6 +129,13 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
             this.chooseCurrentPhotoAttach(photoAttach);
         };
         /**
+        */
+        this.setCoverAlbum = function setCoverAlbum(collectionId, cover) {
+            this.photoAlbum.photoCollection().cover().isCover(false);
+            cover.setCover(collectionId, cover);
+            this.photoAlbum.photoCollection().cover(cover);
+        };
+        /**
          * close photo slider
          */
         this.closePhotoHandler = function closePhotoHandler() {

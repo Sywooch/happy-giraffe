@@ -36,9 +36,9 @@ class MigrateCommand extends \CConsoleCommand
 
     public function migrateUser(\GearmanJob $job)
     {
-//        $userId = $job->workload();
-//        $user = User::model()->findByPk($userId);
-//        MigrateManager::migrateSingle($user);
+        $userId = $job->workload();
+        $user = User::model()->findByPk($userId);
+        MigrateManager::migrateSingle($user);
     }
 
     public function actionFillQueue()

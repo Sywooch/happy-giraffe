@@ -66,6 +66,11 @@ class MigrateManager
     {
         $family = Family::model()->hasMember($user->id)->find();
         if ($family === null) {
+            $name = trim($user->first_name);
+            if (empty($name)) {
+                return;
+            }
+
             $manager = new MigrateManager($user);
             $manager->convert();
         }

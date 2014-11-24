@@ -65,8 +65,8 @@ return array(
         'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
         'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
         'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
-        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
-        //'my' => array('myGiraffe/post/index'),
+        //'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
+        'my' => array('myGiraffe/post/index'),
         'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller

@@ -68,23 +68,27 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * Next slide
          */
         this.next = function next() {
-            var oldIndex = this.current().index(),
-                title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : this.title();
-            this.current().index(oldIndex + 1);
-            this.current().element(this.collection.attaches()[this.current().index()]);
-            AdHistory.pushState(null, title, this.current().element().url());
-            this.addImageBinding();
+            if ((this.current().index() + 1) !== this.collection.attachesCount()) {
+                var oldIndex = this.current().index(),
+                    title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : this.title();
+                this.current().index(oldIndex + 1);
+                this.current().element(this.collection.attaches()[this.current().index()]);
+                AdHistory.pushState(null, title, this.current().element().url());
+                this.addImageBinding();
+            }
         };
         /**
          * Prev Slide
          */
         this.prev = function prev() {
-            var oldIndex = this.current().index(),
-                title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : this.title();
-            this.current().index(oldIndex - 1);
-            this.current().element(this.collection.attaches()[this.current().index()]);
-            AdHistory.pushState(null, title, this.current().element().url());
-            this.addImageBinding();
+            if ((this.current().index() + 1) > 1) {
+                var oldIndex = this.current().index(),
+                    title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : this.title();
+                this.current().index(oldIndex - 1);
+                this.current().element(this.collection.attaches()[this.current().index()]);
+                AdHistory.pushState(null, title, this.current().element().url());
+                this.addImageBinding();
+            }
         };
         this.collection.attaches.subscribe(this.lookForStart.bind(this));
         /**

@@ -124,6 +124,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             if (response.success) {
                 ko.mapping.fromJS(response.data.attach, {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
+                console.log(photo);
             } else {
                 photo.error(response.data.error);
                 photo.status(PhotoUpload.prototype.STATUS_FAIL);
@@ -253,7 +254,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                     type: 'POST',
                     dataType: 'json',
                     data: JSON.stringify({
-                        url : val
+                        url : val,
+                        collectionId: self.collectionId
                     }),
                     success: function(data) {
                         self.processResponse(self.photo(), data);

@@ -145,7 +145,7 @@
 
 
 /* b-family-structure */
-.b-family-structure {
+/*.b-family-structure {
     background: #66c25f;
 
     &__narrow {margin: 10px 0 20px;}
@@ -199,7 +199,7 @@
         text-align: center;
         .font-s-mixin();
     }
-}
+}*/
 /* /b-family-structure */
 
 /* 
@@ -210,7 +210,7 @@
                     span.profile-settings-family_count
                     span.profile-settings-family_tx
 */
-.profile-settings-family {
+/*.profile-settings-family {
     .inline-block();
     margin: 0 20px;
 
@@ -239,7 +239,7 @@
         font-weight: bold;
     }
     &_tx {}
-}
+}*/
 /* /profile-settings-family */
 
 /* 
@@ -253,7 +253,7 @@
 
 
 */
-.family-settings {
+/*.family-settings {
     margin: 20px 0 30px;
     
     .photo-preview-row {margin-top: 20px;}
@@ -378,11 +378,11 @@
         height: 145px;
         background: url('@{path-img}/family-settings_fill-about.jpg') no-repeat;
     }
-}
+}*/
 /* /family-settings */
 
 /* photo-preview-row */
-.photo-preview-row {
+/*.photo-preview-row {
     margin: 10px 20px 50px;
 
     .photo-grid {
@@ -438,7 +438,7 @@
         background: url('@{path-img}/photo-preview-row_add.png') no-repeat;
     }
     &_add:hover {background-position: 0 -104px;}
-}
+}*/
 /* /photo-preview-row */
 
 
@@ -449,7 +449,7 @@
     /*&_main-img-hold {
         margin-bottom: 20px;
     }*/
-
+    .ico-myfamily__l {margin-bottom: 30px;}
     &__think {
         margin: 50px 40px 80px;
     }
@@ -480,17 +480,7 @@
         border: 1px solid #f5f5f5;
     }
 
-    .ico-close4 {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
-    .ico-edit {
-        position: absolute;
-        top: 15px;
-        right: 40px;
-    }
-    
+   
     &_bubble {
         margin: 0 auto 20px;
         color: @color-gray-dark;
@@ -788,3 +778,18 @@
     }
 }
 /* /cap-add */
+
+/* family-edit */
+.family-edit {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    .ico-close4 {
+        margin-left: 10px;
+    }
+    .ico-edit {
+        margin-left: 10px;
+    }
+}
+/* /family-edit */

@@ -14,6 +14,9 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.userId = params.userId;
         this.presets = {};
         this.opened = ko.observable(false);
+        /**
+         * Reloading images after adding new
+         */
         this.reloadImagesAfterAdding = function reloadImagesAfterAdding() {
             this.photoAlbum.photoCollection().loadImagesCreation('progress', 'photo-album', '#imgs');
         };

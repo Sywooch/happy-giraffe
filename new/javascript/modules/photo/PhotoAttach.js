@@ -5,10 +5,10 @@
         this.restoreUrl = '/api/photo/attaches/restore/';
         this.setCoverUrl = '/api/photo/collections/setCover/';
         this.getAttachUrl = '/api/photo/attaches/get/';
-        this.id = (ko.isObservable(data.id) === false) ? ko.observable(data.id) : data.id
-        this.position = ko.observable(data.position);
-        this.url = ko.observable(data.url);
-        this.photo = ko.observable(new Photo(data.photo));
+        this.id = (ko.isObservable(data.id) === false) ? ko.observable(data.id) : data.id;
+        this.position = (ko.isObservable(data.position) === false) ? ko.observable(data.position) : data.position;
+        this.url = (ko.isObservable(data.url) === false) ? ko.observable(data.url) : data.url;
+        this.photo = (ko.isObservable(data.photo) === false) ? ko.observable(new Photo(data.photo)) : new Photo(data.photo);
         this.loading = ko.observable(true);
         this.broke = ko.observable(false);
         this.removed = ko.observable(false);

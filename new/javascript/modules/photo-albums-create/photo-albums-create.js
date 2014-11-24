@@ -37,7 +37,7 @@ define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/
          */
         this.createAlbumsHandler = function createAlbumsHandler(createdData) {
             if (createdData.success === true && createdData.data.id !== undefined) {
-                window.location =  this.urlcommon + createdData.data.id + '/';
+                window.location =  this.urlCommon + parseInt(createdData.data.id) + '/';
             }
         };
         /**

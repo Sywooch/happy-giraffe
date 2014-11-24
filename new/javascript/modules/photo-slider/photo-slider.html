@@ -5,26 +5,28 @@
             <div class="photo-window_count" data-bind="text: (current().index() + 1) + ' из ' + collection.attachesCount()"></div>
             <!-- /ko -->
         </div>
-        <!--Обрабатывать клик на .photo-window_c для листания следующего изображения -->
+        <!--Обрабатывать клик на .photo-window_img-hold для листания следующего изображения -->
         <div class="photo-window_c">
             <!-- ko if: current() !== false && collection.attachesCount() > 0 -->
             <div class="photo-window_img-hold" data-bind="click: next">
                 <!-- ko if: current().element().loading() === true && current().element().broke() === false -->
-                <div class="img-grid_loading-hold">
-                    <div class="loader-circle">
-                        <div class="loader-circle_hold">
-                            <div class="loader-circle_1"></div>
-                            <div class="loader-circle_2"></div>
+                <div class="b-loader b-loader__white b-loader__abs">
+                    <div class="b-loader_hold">
+                        <div class="loader-circle">
+                            <div class="loader-circle_hold">
+                                <div class="loader-circle_1"></div>
+                                <div class="loader-circle_2"></div>
+                            </div>
                         </div>
+                        <div class="b-loader_tx">Загрузка фото</div>
                     </div>
-                    <div class="img-grid_loading-tx">Загрузка фото</div>
                 </div>
                 <!-- /ko -->
                 <!-- ko if: current().element().broke() === true -->
                 <!-- /ko -->
-                <div class="verticalalign-m-help"></div>
                 <!-- ko if: current().element().broke() === false -->
-                    <span data-bind="html: imgTag()" ></span>
+                    
+                    <span data-bind="html: imgTag()" class="verticalalign-m-el-hold" ></span>
                 <!-- /ko -->
             </div>
             <!-- /ko -->

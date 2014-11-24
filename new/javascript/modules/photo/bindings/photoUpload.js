@@ -41,8 +41,8 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'phot
 
             var defaultCallback = function(photoInstance) {
                 if (observable() instanceof Array) {
-                    photoInstance.photo = photoInstance;
-                    photoInstance = new PhotoAttach(photoInstance)
+                    // photoInstance.photo = photoInstance;
+                    photoInstance = new PhotoAttach(photoInstance);
                     observable.push(photoInstance);
                 } else {
                     observable(photoInstance);

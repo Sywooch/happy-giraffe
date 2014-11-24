@@ -76,7 +76,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         self.photoIds = function() {
             return ko.utils.arrayMap(self.photos(), function(photo) {
-                return photo.id();
+                return attach.photo.id();
             });
         }
 
@@ -122,8 +122,9 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         self.processResponse = function(photo, response) {
             if (response.success) {
-                ko.mapping.fromJS(response.data.photo, {}, photo);
+                ko.mapping.fromJS(response.data.attach, {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
+                console.log(photo);
             } else {
                 photo.error(response.data.error);
                 photo.status(PhotoUpload.prototype.STATUS_FAIL);
@@ -133,12 +134,12 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
     PhotoUploadViewModel.prototype.add = function() {
         var self = this;
-        $.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
-           if (response.success) {
-               PhotoAddViewModel.prototype.add.call(self);
-           }
-        }, 'json');
-
+        // $.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
+        //    if (response.success) {
+        //        PhotoAddViewModel.prototype.add.call(self);
+        //    }
+        // }, 'json');
+        PhotoAddViewModel.prototype.add.call(self);
         //Только для редактора
         // PhotoAddViewModel.prototype.add.call(self);
     };
@@ -189,6 +190,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     // Модель множественной загрузки с компьютера
     function FromComputerMultipleViewModel(data) {
         var self = this;
+        self.collectionId = data.form.collectionId;
         PhotoUploadViewModel.apply(self, arguments);
 
         self.findPhotoByRequest = function(request) {
@@ -208,6 +210,9 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             dropZone: '.popup-add_frame__multi',
             sequentialUploads: true,
             add: function (e, data) {
+                data.formData = {
+                    collectionId: self.collectionId
+                };
                 if (self.photos().length < 300) {
                     self.added(self.populatePhoto(data));
                 }
@@ -223,6 +228,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                 }
             }
         });
+
+        // self.fileUploadSettings.data.collectionId = data.form.collectionId;
 
         self.fileUploadSettingsMore = $.extend({}, self.fileUploadSettings);
         self.fileUploadSettingsMore.dropZone = null;
@@ -247,7 +254,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                     type: 'POST',
                     dataType: 'json',
                     data: JSON.stringify({
-                        url : val
+                        url : val,
+                        collectionId: self.collectionId
                     }),
                     success: function(data) {
                         self.processResponse(self.photo(), data);

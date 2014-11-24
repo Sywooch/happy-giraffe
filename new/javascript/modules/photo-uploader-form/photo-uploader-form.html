@@ -38,7 +38,7 @@
                                                 <div class="i-photo" data-bind="css: cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>
                                                     <!-- ko if: $data.status() === $data.STATUS_SUCCESS -->
                                                     <div class="i-photo_hold">
-                                                        <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: $data, preset: 'uploadPreview' }">
+                                                        <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: $data.photo, preset: 'uploadPreview' }">
                                                             <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  $data.rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: $data.rotateRight"></a></div>
                                                         </div>
                                                         <!--<input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">-->
@@ -58,8 +58,8 @@
 
                                                     <!-- ko if: $data.status() === $data.STATUS_FAIL -->
                                                     <div class="i-photo_hold error">
-                                                        <div class="tx-hint" data-bind="text: originalname"></div>
-                                                        <div class="tx-hint" data-bind="text: error"></div>
+                                                        <div class="tx-hint" data-bind="text: $data.photo.originalname"></div>
+                                                        <div class="tx-hint" data-bind="text: $data.photo.error"></div>
                                                     </div>
                                                     <!-- /ko -->
                                                 </div>
@@ -109,8 +109,8 @@
                                 <div class="i-photo" data-bind="css: photo().cssClass()"><a href="" class="ico-close5" data-bind="click: $root.removePhoto"></a>
                                     <!-- ko if: photo().status() === photo().STATUS_SUCCESS -->
                                     <div class="i-photo_hold">
-                                        <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
-                                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
+                                        <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo().photo(), preset: 'uploadPreview' }">
+                                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: photo().photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: photo().photo().rotateRight"></a></div>
                                         </div>
                                         <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                                     </div>
@@ -240,8 +240,8 @@
                             <div class="i-photo" data-bind="css: photo.cssClass"><a href="" class="ico-close5" data-bind="click: $root.removePhoto"></a>
                                 <!-- ko if: photo().status() === photo().STATUS_SUCCESS -->
                                 <div class="i-photo_hold">
-                                    <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
-                                        <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
+                                    <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo().photo, preset: 'uploadPreview' }">
+                                        <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: photo().rotateRight"></a></div>
                                     </div>
                                     <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                                 </div>

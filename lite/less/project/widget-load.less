@@ -24,6 +24,29 @@
     }
 }
 
+.b-loader {
+    position: relative;
+    &:extend(.verticalalign-m-el-hold all);
+
+    &__abs {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+    &__white {
+        color: #fff;
+    }
+
+    &_hold {
+        &:extend(.verticalalign-m-el);
+    }
+    &_tx {
+        margin: 7px;
+    }
+}
+
 
 
 // loader

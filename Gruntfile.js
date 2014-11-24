@@ -223,6 +223,7 @@ module.exports = function(grunt){
             /.tooltip+/,
             /.header_+/,
             /.header-+/,
+            /.fast-articles3+/,
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
@@ -245,6 +246,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.header-+/,
+            /.fast-articles3+/,
             //.tooltip+/,
             
             /.bx-wrapper+/,
@@ -281,6 +283,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.header-+/,
+            /.fast-articles3+/,
             //.tooltip+/,
             
             /.bx-wrapper+/,
@@ -317,6 +320,7 @@ module.exports = function(grunt){
             /.select2+/,
             /.header_+/,
             /.header-+/,
+            /.fast-articles3+/,
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
             /.body+/,
@@ -356,6 +360,7 @@ module.exports = function(grunt){
             /.fancybox+/,
             /.header_+/,
             /.header-+/,
+            /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
@@ -384,6 +389,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header-banner+/,
             /.header_+/,
+            /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
             
@@ -423,6 +429,7 @@ module.exports = function(grunt){
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
             /.header_+/,
+            /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
             // Для страниц собранных разделов

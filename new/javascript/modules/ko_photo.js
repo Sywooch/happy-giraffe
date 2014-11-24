@@ -124,7 +124,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             if (response.success) {
                 ko.mapping.fromJS(response.data.attach, {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
-                console.log(photo);
             } else {
                 photo.error(response.data.error);
                 photo.status(PhotoUpload.prototype.STATUS_FAIL);

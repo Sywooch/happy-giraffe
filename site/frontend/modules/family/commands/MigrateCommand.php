@@ -7,6 +7,7 @@
 namespace site\frontend\modules\family\commands;
 
 use site\frontend\modules\family\components\MigrateManager;
+use site\frontend\modules\family\models\Family;
 use site\frontend\modules\users\models\User;
 
 class MigrateCommand extends \CConsoleCommand
@@ -42,6 +43,8 @@ class MigrateCommand extends \CConsoleCommand
 
     public function actionFillQueue()
     {
+        Family::model()->deleteAll();
+
         $dp = new \CActiveDataProvider('User', array(
             'criteria' => array(
                 'order' => 'id ASC',

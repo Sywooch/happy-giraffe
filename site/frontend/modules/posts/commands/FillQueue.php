@@ -10,7 +10,7 @@ namespace site\frontend\modules\posts\commands;
 class FillQueue extends \CConsoleCommand
 {
 
-    public function actionIndex($author = null, $type = null, $all = false)
+    public function actionIndex($author = null, $type = null, $all = false, $lastDays = false)
     {
         $criteria = new \CDbCriteria();
         $criteria->order = 'created desc';
@@ -28,6 +28,10 @@ class FillQueue extends \CConsoleCommand
             $criteria->addColumnCondition(array(
                 'removed' => 0,
             ));
+        }
+        if ($lastDays) {
+            $criteria->addCondition('created > :created');
+            $criteria->params[':created'] = date("Y-m-d H:i:s", strtotime('-' . (int) $lastDays . ' day'));
         }
 
         $dataProvider = new \CActiveDataProvider(\CommunityContent::model()->resetScope(), array(

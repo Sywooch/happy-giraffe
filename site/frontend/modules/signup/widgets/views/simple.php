@@ -1,5 +1,5 @@
-<div class="ico-social-hold">
+<ul class="ico-social-ul">
     <?php foreach ($services as $name => $service): ?>
-        <span class="auth-service <?=$service->id?>"><a href="<?=Yii::app()->createUrl($action, array('service' => $name))?>" class="ico-social ico-social__<?=$service->id?>"></a></span>
+        <li class="ico-social-ul_li auth-service <?=$service->id?>"><a href="<?=Yii::app()->createUrl($action, array('service' => $name))?>" class="ico-social ico-social__m ico-social__<?=$service->id?>"></a></li>
     <?php endforeach; ?>
-</div>
+</ul>

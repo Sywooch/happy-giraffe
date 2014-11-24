@@ -63,24 +63,6 @@ class DefaultController extends PhotoController
         $this->render('album', compact('userId', 'id', 'album'));
     }
 
-    public function actionSingle($userId, $albumId, $photoId)
-    {
-        /** @var \site\frontend\modules\photo\models\PhotoAlbum $album */
-        $album = PhotoAlbum::model()->findByPk($albumId);
-        if ($album === null || $album->getAuthorId() != $userId) {
-            throw new \CHttpException(404);
-        }
-        $collection = $album->getPhotoCollection();
-        $attach = PhotoAttach::model()->collection($collection->id)->photo($photoId)->with('photo')->find();
-        if ($attach === null) {
-            throw new \CHttpException(404);
-        }
-        $currentIndex = $collection->observer->getIndexByAttachId($attach->id);
-        $nextAttach = $collection->observer->getSingle($currentIndex + 1);
-        $prevAttach = $collection->observer->getSingle($currentIndex - 1);
-        $this->render('single', compact('attach', 'userId', 'album'));
-    }
-
     /**
      * Выводит попап загрузки фото
      */

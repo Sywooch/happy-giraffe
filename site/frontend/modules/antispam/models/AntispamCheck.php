@@ -248,14 +248,29 @@ class AntispamCheck extends HActiveRecord
         if ($this->status == $newStatus)
             return false;
 
-        if (in_array($newStatus, array(self::STATUS_BAD, self::STATUS_MASS_REMOVED)))
-            $this->relatedModel->delete();
-        if (in_array($this->status, array(self::STATUS_BAD, self::STATUS_MASS_REMOVED)))
-            $this->relatedModel->restore();
+        if ($this->doProcess()) {
+            if (in_array($newStatus, array(self::STATUS_BAD, self::STATUS_MASS_REMOVED)))
+                $this->relatedModel->delete();
+            if (in_array($this->status, array(self::STATUS_BAD, self::STATUS_MASS_REMOVED)))
+                $this->relatedModel->restore();
+        }
 
         $this->status = $newStatus;
         $this->moderator_id = Yii::app()->user->id;
         return $this->update(array('status', 'moderator_id', 'updated'));
+    }
+    
+    protected function doProcess()
+    {
+        if (! $this->relatedModel) {
+            return false;
+        }
+        
+        if ($this->entity == 'Comment' && $this->relatedModel->getCommentEntity() === null) {
+            return false;
+        }
+        
+        return true;
     }
 
     public static function changeStatusAll($userId, $fromStatus, $toStatus, $entity = null)

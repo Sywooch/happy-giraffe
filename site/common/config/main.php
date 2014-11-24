@@ -76,6 +76,16 @@ return array(
                     'width' => 880,
                     'height' => 580,
                 ),
+                'sliderPhoto' => array(
+                    'filter' => 'lepilla',
+                    'width' => 1200,
+                    'height' => 900,
+                ),
+                'postImage' => array(
+                    'filter' => 'relativeResize',
+                    'method' => 'widen',
+                    'parameter' => 600,
+                ),
                 'myPhotosPreview' => array(
                     'filter' => 'relativeResize',
                     'method' => 'heighten',
@@ -100,6 +110,17 @@ return array(
                     'filter' => 'lepilla',
                     'width' => 600,
                     'height' => 450,
+                ),
+                'postCollectionCover' => array(
+                    'filter' => 'fixed',
+                    'width' => 600,
+                    'height' => 450,
+                ),
+                'singlePhoto' => array(
+                    'filter' => 'fixed',
+                    'width' => 600,
+                    'height' => 450,
+                    'mode' => 'inset',
                 ),
             ),
         ),

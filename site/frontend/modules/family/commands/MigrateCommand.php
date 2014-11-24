@@ -25,4 +25,32 @@ class MigrateCommand extends \CConsoleCommand
             echo "Пользователь не найден\n";
         }
     }
+
+    public function actionWorker()
+    {
+        \Yii::app()->gearman->worker()->addFunction('migrateUser', array($this, 'migrateUser'));
+
+        while (\Yii::app()->gearman->worker()->work());
+    }
+
+    public function migrateUser(\GearmanJob $job)
+    {
+        $userId = $job->workload();
+        $user = User::model()->findByPk($userId);
+        MigrateManager::migrateSingle($user);
+    }
+
+    public function actionFillQueue()
+    {
+        $dp = new \CActiveDataProvider('User', array(
+            'criteria' => array(
+                'order' => 'id ASC',
+            ),
+        ));
+
+        $iterator = new \CDataProviderIterator($dp, 100);
+        foreach ($iterator as $user) {
+            \Yii::app()->gearman->client()->doBackground('migrateUser', $user->id);
+        }
+    }
 } 

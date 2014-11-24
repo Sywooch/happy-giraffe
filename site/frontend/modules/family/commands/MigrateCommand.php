@@ -8,6 +8,8 @@ namespace site\frontend\modules\family\commands;
 
 use site\frontend\modules\family\components\MigrateManager;
 use site\frontend\modules\family\models\Family;
+use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoCollection;
 use site\frontend\modules\users\models\User;
 
 class MigrateCommand extends \CConsoleCommand
@@ -44,6 +46,8 @@ class MigrateCommand extends \CConsoleCommand
     public function actionFillQueue()
     {
         Family::model()->deleteAll();
+        PhotoCollection::model()->deleteAll('entity = Family');
+        PhotoCollection::model()->deleteAll('entity = FamilyMember');
 
         $dp = new \CActiveDataProvider('User', array(
             'criteria' => array(

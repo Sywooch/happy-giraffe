@@ -65,12 +65,10 @@ class MigrateManager
     public static function migrateSingle($user)
     {
         $family = Family::model()->hasMember($user->id)->find();
-        if ($family !== null) {
-            Family::model()->deleteByPk($family->id);
+        if ($family === null) {
+            $manager = new MigrateManager($user);
+            $manager->convert();
         }
-
-        $manager = new MigrateManager($user);
-        $manager->convert();
     }
 
     public function __construct(\User $user)

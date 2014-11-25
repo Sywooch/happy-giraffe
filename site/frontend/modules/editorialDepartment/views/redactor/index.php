@@ -26,7 +26,7 @@ $users = departmentComponents\UsersControl::getUsersList();
 $users = array_combine($users, $users);
 $form->hiddenField($model, 'clubId');
 $this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый пост' : $model->title . ' - редактирование';
-$communityContent = CommunityContent::model()->findByPk($model->entityId);
+$communityContent = CommunityContent::model()->findByPk($model->entityId); // нужно для вывода id коллекции при редактировании
 ?>
 <?=$form->errorSummary($model) ?>
 <?=$form->textarea($model, 'markDownPreview',  array('id' => 'markDownPreview', 'class' => 'display-n')) ?>

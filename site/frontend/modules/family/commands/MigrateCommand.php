@@ -60,3 +60,4 @@ class MigrateCommand extends \CConsoleCommand
             \Yii::app()->gearman->client()->doBackground('migrateUser', $user->id);
         }
     }
+}

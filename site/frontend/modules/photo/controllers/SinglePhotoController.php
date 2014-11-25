@@ -8,6 +8,7 @@ namespace site\frontend\modules\photo\controllers;
 
 
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\PhotoCollection;
 
@@ -27,13 +28,40 @@ class SinglePhotoController extends \LiteController
             throw new \CHttpException(404);
         }
 
+        $this->breadcrumbs = array(
+            $this->widget('Avatar', array(
+                'user' => $post->author,
+                'size' => \Avatar::SIZE_MICRO,
+                'tag' => 'span'), true) => array('/profile/default/index', 'user_id' => $post->author->id),
+            'Блог' => array('/blog/default/index', 'user_id' => $post->author->id),
+        );
+
         $collection = $post->getPhotoCollection();
-        $this->renderSinglePhoto($collection, $oldPhoto->newPhoto);
+        $this->renderSinglePhoto($collection, $oldPhoto->newPhoto->id);
     }
 
-    protected function renderSinglePhoto(PhotoCollection $collection, Photo $photo)
+    public function actionAlbum($userId, $albumId, $photoId)
     {
-        $attach = PhotoAttach::model()->collection($collection->id)->photo($photo->id)->with('photo', 'photo.author')->find();
+        $album = PhotoAlbum::model()->with('author')->findByPk($albumId);
+        if ($album === null || $album->author->id != $userId) {
+            throw new \CHttpException(404);
+        }
+
+        $this->breadcrumbs = array(
+            $this->widget('Avatar', array(
+                'user' => $album->author,
+                'size' => \Avatar::SIZE_MICRO,
+                'tag' => 'span'), true) => array('/profile/default/index', 'user_id' => $album->author->id),
+            'Фото' => array('/photo/default/index', 'userId' => $album->author->id),
+        );
+
+        $collection = $album->getPhotoCollection();
+        $this->renderSinglePhoto($collection, $photoId);
+    }
+
+    protected function renderSinglePhoto(PhotoCollection $collection, $photoId)
+    {
+        $attach = PhotoAttach::model()->collection($collection->id)->photo($photoId)->with('photo', 'photo.author')->find();
         if ($attach === null) {
             throw new \CHttpException(404);
         }

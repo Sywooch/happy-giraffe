@@ -72,10 +72,10 @@ return array(
                     'width' => 880,
                     'height' => 580,
                 ),
-                'myPhotosAlbumCover' => array(
+                'sliderPhoto' => array(
                     'filter' => 'lepilla',
-                    'width' => 880,
-                    'height' => 580,
+                    'width' => 1200,
+                    'height' => 900,
                 ),
                 'postImage' => array(
                     'filter' => 'relativeResize',

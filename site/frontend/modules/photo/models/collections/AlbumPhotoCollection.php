@@ -11,10 +11,16 @@
 namespace site\frontend\modules\photo\models\collections;
 
 
+use site\frontend\modules\photo\components\IPublicPhotoCollection;
 use site\frontend\modules\photo\models\PhotoCollection;
 
-class AlbumPhotoCollection extends PhotoCollection
+class AlbumPhotoCollection extends PhotoCollection implements IPublicPhotoCollection
 {
+    public function getTitle()
+    {
+        return $this->RelatedModelBehavior->relatedModel->title;
+    }
+
     public function getRelatedCollections()
     {
         return array(

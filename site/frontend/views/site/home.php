@@ -9,8 +9,11 @@
 
   $cs = Yii::app()->clientScript;
   $cs
+      ->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification')
+      ->registerMetaTag('41ad6fe875ade857', 'yandex-verification')
       ->registerCssFile('/lite/css/min/homepage.css')
-      ->registerCssFile('http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin');
+      ->registerCssFile('http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin')
+  ;
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->

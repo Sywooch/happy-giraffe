@@ -14,7 +14,7 @@ class FamilyMemberPhotoCollection extends PhotoCollection
     public function getRelatedCollections()
     {
         return array(
-            $this->family->getPhotoCollection('all'),
+            $this->RelatedModelBehavior->relatedModel->family->getPhotoCollection('all'),
         );
     }
 } 

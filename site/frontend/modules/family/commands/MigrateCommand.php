@@ -46,8 +46,8 @@ class MigrateCommand extends \CConsoleCommand
     public function actionFillQueue()
     {
         Family::model()->deleteAll();
-        PhotoCollection::model()->deleteAll('entity = Family');
-        PhotoCollection::model()->deleteAll('entity = FamilyMember');
+        PhotoCollection::model()->deleteAll('entity = "Family"');
+        PhotoCollection::model()->deleteAll('entity = "FamilyMember"');
 
         $dp = new \CActiveDataProvider('User', array(
             'criteria' => array(
@@ -60,4 +60,3 @@ class MigrateCommand extends \CConsoleCommand
             \Yii::app()->gearman->client()->doBackground('migrateUser', $user->id);
         }
     }
-} 

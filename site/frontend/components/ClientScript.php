@@ -324,10 +324,7 @@ class ClientScript extends CClientScript
      */
     public function registerScript($id, $script, $position = null, array $htmlOptions = array())
     {
-        if ($this->useAMD && $position != self::POS_AMD)
-            $this->exception();
-        else
-            return parent::registerScript($id, $script, $position == self::POS_AMD ? self::POS_HEAD : $position, $htmlOptions);
+        return parent::registerScript($id, $script, $position == self::POS_AMD ? self::POS_HEAD : $position, $htmlOptions);
     }
 
     /**
@@ -371,10 +368,7 @@ class ClientScript extends CClientScript
      */
     public function registerScriptFile($url, $position = null, array $htmlOptions = array())
     {
-        if ($this->useAMD && $position != self::POS_AMD)
-            $this->exception();
-        else
-            return parent::registerScriptFile($url, $position == self::POS_AMD ? self::POS_HEAD : $position, $htmlOptions);
+        return parent::registerScriptFile($url, $position == self::POS_AMD ? self::POS_HEAD : $position, $htmlOptions);
     }
 
     /**

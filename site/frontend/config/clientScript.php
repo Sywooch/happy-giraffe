@@ -36,12 +36,6 @@ return array(
             'goog' => '/new/javascript/plugins/goog',
             'propertyParser' => '/new/javascript/plugins/propertyParser',
             'kow' => '/new/javascript/modules/kow',
-            'comments-control' => '/new/javascript/modules/models/CommentsController',
-            'user-control' => '/new/javascript/modules/models/UserController',
-            'user-model' => '/new/javascript/modules/models/User',
-            'model' => '/new/javascript/modules/models/Model',
-            'comment-model' => '/new/javascript/modules/models/Comment',
-            'comment-widget' => '/new/javascript/modules/comment-widget/comment-widget',
             'routesCalc' => 'routes',
         ),
         /* 'eval' => '

@@ -143,7 +143,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         return false;
     }
 
-    protected function getAttachUrl(PhotoAttach $attach)
+    public function getAttachUrl(PhotoAttach $attach)
     {
         return $this->getUrl() . 'photo' . $attach->photo_id . '/';
     }

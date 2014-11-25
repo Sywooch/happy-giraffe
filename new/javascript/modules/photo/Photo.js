@@ -11,7 +11,11 @@ define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetMan
         this.height = (ko.isObservable(data.height) === false) ? ko.observable(data.height) : data.height;
         this.presetWidth = ko.observable();
         this.presetHeight = ko.observable();
-        this.fsName = (ko.isObservable(data.fsName) === false) ? ko.observable(data.fsName) : data.fsName;
+        if (data.fsName === undefined) {
+            this.fsName = (ko.isObservable(data.fs_name) === false) ? ko.observable(data.fs_name) : data.fs_name;
+        } else {
+            this.fsName = (ko.isObservable(data.fsName) === false) ? ko.observable(data.fsName) : data.fsName;
+        }
         this.originalUrl = (ko.isObservable(data.originalUrl) === false) ? ko.observable(data.originalUrl) : data.originalUrl;
         this.baseConfig = baseConfig;
         this.getGeneratedPreset = function generatePreseted(preset) {

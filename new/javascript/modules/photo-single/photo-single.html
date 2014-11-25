@@ -3,19 +3,14 @@
     <section class="b-album b-album__photolink">
         <div href="#" class="b-album_img-hold" data-bind="attr: { 'style': 'height: ' + photoAttach().photo().presetHeight() + 'px;' }">
             <div class="b-album_img-a">
-                <!-- <div class="verticalalign-m-help"></div>
+                <div class="verticalalign-m-help"></div>
                 <div class="verticalalign-m-el">
-                    <img src="" alt="" class="b-album_img-big" data-bind="src: photoAttach().photo().getGeneratedPreset('myPhotosAlbumCover')">
-                </div> -->
-                <div class="b-album_img-pad"></div>
-                <div class="b-album_img-allheight">
-                    <div class="b-album_img-center">
-                        <img src="" alt="" data-bind="src: photoAttach().photo().getGeneratedPreset('myPhotosAlbumCover')">
-                    </div>
+                    <img src="" alt="" class="b-album_img-big" data-bind="src: photoAttach().photo().getGeneratedPreset('singlePhoto')">
                 </div>
+
             </div>
             <div class="b-album_img-hold-ovr">
-                <div class="ico-zoom ico-zoom__abs" data-bind="click: openPhotoHandler"></div>
+                <div class="ico-zoom ico-zoom__abs" data-bind="click: function () { openPhotoHandler(this.photoAttach()); }"></div>
             </div>
         </div>
         <!-- ko if: photoAttachPrev -->
@@ -29,18 +24,22 @@
 <!-- /ko -->
 <!-- ko if: loading() === true -->
 <section class="b-album b-album__photolink">
-    <div class="b-album_img-hold" >
-        <div class="b-album_img-pad"></div>
-        <div class="loader-circle">
-            <div class="loader-circle_hold">
-                <div class="loader-circle_1"></div>
-                <div class="loader-circle_2"></div>
+    <div class="b-album_img-hold" style="height: 580px;">
+        <div class="b-album_img-a">
+            <div class="verticalalign-m-help"></div>
+            <div class="verticalalign-m-el">
+                <div class="loader-circle">
+                    <div class="loader-circle_hold">
+                        <div class="loader-circle_1"></div>
+                        <div class="loader-circle_2"></div>
+                    </div>
+                </div>
+                <div class="img-grid_loading-tx">Загрузка фото</div>
             </div>
         </div>
-        <div class="img-grid_loading-tx">Загрузка фото</div>
     </div>
 </section>
 <!-- /ko -->
 <!-- ko if: opened() === true -->
-<photo-slider params="photo: photoAttach, collectionId: collectionId, userId: userId"></photo-slider>
+<photo-slider params="photo: currentPhoto(), collectionId: collectionId, userId: userId"></photo-slider>
 <!-- /ko -->

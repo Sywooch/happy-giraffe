@@ -3,6 +3,7 @@ define(['jquery', '../knockout', 'text!photo-single/photo-single.html', 'photo/P
         this.getAttachUrl = '/api/photo/attaches/get/';
         this.photoAttach = ko.observable(new PhotoAttach(params.attach));
         this.collectionId = ko.observable(params.collectionId);
+        this.currentPhoto = ko.observable();
         this.photoAttachPrev = params.attachPrev !== false ? new PhotoAttach(params.attachPrev) : false;
         this.photoAttachNext = params.attachNext !== false ? new PhotoAttach(params.attachNext) : false;
         this.loading = ko.observable(true);
@@ -12,6 +13,7 @@ define(['jquery', '../knockout', 'text!photo-single/photo-single.html', 'photo/P
         this.rightsForManipulation = Model.checkRights(params.userId);
         this.userId = params.userId;
         this.returnNewColor = Model.returnNewColor;
+        this.opened = ko.observable(false);
         /**
          * getting presets for single image
          * @param presets
@@ -30,18 +32,20 @@ define(['jquery', '../knockout', 'text!photo-single/photo-single.html', 'photo/P
             .done(this.gettingPresets.bind(this));
         this.removed = ko.observable(false);
         this.opened = ko.observable(false);
+        this.chooseCurrentPhotoAttach = function chooseCurrentPhotoAttach(photoAttach) {
+            this.currentPhoto(photoAttach);
+        };
         /**
          * Open photo slider
          */
-        this.openPhotoHandler = function openPhotoHandler() {
+        this.openPhotoHandler = function openPhotoHandler(photoAttach) {
             this.opened(true);
-            //ko.applyBindings({}, $('photo-slider')[0]);
+            this.chooseCurrentPhotoAttach(photoAttach);
         };
         /**
          * Close photo slider
          */
         this.closePhotoHandler = function closePhotoHandler() {
-            //ko.cleanNode({}, $('photo-slider')[0]);
             this.opened(false);
         };
         /**

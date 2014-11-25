@@ -92,7 +92,7 @@
                         </div>
                         <!-- ko if: current() !== false && collection.attachesCount() > 0 -->
                         <!-- <div class="photo-window_about">Фотопост <a href="">Места моих путешествий</a></div> -->
-                        <div class="photo-window_t" data-bind='text: (current().element().photo().title() !== "") ? current().element().photo().title() : title'>
+                        <div class="photo-window_t" data-bind='text: (current().element().photo().title() !== "") ? current().element().photo().title() : "Фотография " + (current().index() + 1)'>
                         </div>
                         <div class="photo-window_desc-hold">
                             <div class="photo-window_desc clearfix">

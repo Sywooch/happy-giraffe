@@ -60,14 +60,15 @@ return array(
         'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
-        'subscribes' => 'myGiraffe/default/subscribes',
-        'recommends' => 'myGiraffe/default/recommends',
-        'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
-        'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
-        'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
+        'my/friends' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 2)),
+        'my/blogs' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 3)),
+        'my/community' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 4)),
+        'my' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 1)),
+        //'subscribes' => 'myGiraffe/default/subscribes',
+        //'recommends' => 'myGiraffe/default/recommends',
+        //'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
         //'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
-        'my' => array('myGiraffe/post/index'),
-        'my/<_a>' => 'myGiraffe/default/<_a>',
+        //'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller
         //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',

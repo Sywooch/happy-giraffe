@@ -26,7 +26,7 @@ class DefaultCommand extends \CConsoleCommand
         \Yii::app()->gearman->worker()->addFunction('createThumbs', array($this, 'createThumbs'));
         \Yii::app()->gearman->worker()->addFunction('updatePhotoPostPhoto', array($this, 'updatePhotoPostPhoto'));
 
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             \Yii::app()->gearman->worker()->work();
         }
     }

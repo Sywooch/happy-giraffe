@@ -19,10 +19,10 @@ class NewSubscribeDataProvider
      * @param int $community_id
      * @return CActiveDataProvider
      */
-    public static function getDataProvider($user_id, $type = 1, $community_id = null)
+    public static function getDataProvider($user_id, $type = 1)
     {
-        if (!empty($community_id))
-            $criteria = self::getCommunityCriteria($community_id);
+        if ($type == self::TYPE_COMMUNITY)
+            $criteria = self::getCommunityCriteria($user_id);
         elseif ($type == self::TYPE_FRIENDS)
             $criteria = self::getFriendsCriteria($user_id);
         elseif ($type == self::TYPE_BLOGS)
@@ -62,8 +62,8 @@ class NewSubscribeDataProvider
         $users = UserBlogSubscription::getSubUserIds($user_id);
         // Получим список друзей
         $friends = array_keys(CHtml::listData(Friend::model()->findAllByAttributes(array(
-                    'user_id' => $user_id,
-                    ), array('limit' => 1000)), 'id', 'id'));
+                            'user_id' => $user_id,
+                                ), array('limit' => 1000)), 'id', 'id'));
         // Добавим условие по автору
         $criteria->addInCondition('t.authorId', CMap::mergeArray($users, $friends), 'OR');
 
@@ -78,16 +78,11 @@ class NewSubscribeDataProvider
      */
     public static function getFriendsCriteria($user_id)
     {
-        #TODO выбирает только 1000 друзей, надо всех
         $criteria = new CDbCriteria;
-        $criteria->with = array('rubric', 'rubric.community');
-        $friend_ids = Yii::app()->db->createCommand()
-            ->select('friend_id')
-            ->from(Friend::model()->tableName())
-            ->where('user_id = :user_id', array(':user_id' => $user_id))
-            ->limit(1000)
-            ->queryColumn();
-        $criteria->addInCondition('author_id', $friend_ids, 'OR');
+        // Получим список друзей
+        $friends = array_keys(CHtml::listData(Friend::model()->findAllByAttributes(array('user_id' => $user_id), array('limit' => 1000)), 'id', 'id'));
+        // Добавим условие по автору
+        $criteria->addInCondition('t.authorId', $friends);
 
         return $criteria;
     }
@@ -96,11 +91,28 @@ class NewSubscribeDataProvider
      * @param int $community_id
      * @return mixed
      */
-    public static function getCommunityCriteria($community_id)
+    public static function getCommunityCriteria($user_id)
     {
         $criteria = new CDbCriteria;
-        $criteria->with = array('rubric', 'rubric.community');
-        $criteria->compare('community.club_id', $community_id, false, 'OR');
+        $tags = array();
+
+        // Получим список подписок на клубы
+        $clubs = UserClubSubscription::model()->with('club')->findAllByAttributes(array(
+            'user_id' => $user_id,
+        ));
+        // Конвертируем клубы в теги
+        foreach ($clubs as $club) {
+            $tags[] = 'Клуб: ' . $club->club->title;
+        }
+        // Получим список id тегов
+        $tagCriteria = new CDbCriteria();
+        $tagCriteria->addInCondition('text', $tags);
+        $tags = \site\frontend\modules\posts\models\Label::model()->findAll($tagCriteria, array('limit' => 1000));
+        $tags = \CHtml::listData($tags, 'id', 'id');
+        // Добавим условие по тегам
+        $criteria->with['tagModels'] = array('together' => true);
+        $criteria->addInCondition('tagModels.labelId', $tags);
+
         return $criteria;
     }
 
@@ -113,9 +125,12 @@ class NewSubscribeDataProvider
     public static function getBlogsCriteria($user_id)
     {
         $criteria = new CDbCriteria;
-        $criteria->addInCondition('author_id', UserBlogSubscription::getSubUserIds($user_id), 'OR');
+        // Получим список подписок на блоги
+        $users = UserBlogSubscription::getSubUserIds($user_id);
+        // Добавим условие по автору
+        $criteria->addInCondition('t.authorId', $users);
+
         return $criteria;
     }
 
 }
-

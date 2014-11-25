@@ -11,15 +11,15 @@ class PostController extends \site\frontend\modules\posts\controllers\ListContro
     public $layout = 'site.frontend.modules.posts.views.layouts.newBlogPost';
     public $hideUserAdd = true;
 
-    public function getListDataProvider($userId)
+    public function getListDataProvider($userId, $type)
     {
-        return \NewSubscribeDataProvider::getDataProvider($userId);
+        return \NewSubscribeDataProvider::getDataProvider($userId, $type);
     }
 
-    public function actionIndex()
+    public function actionIndex($type)
     {
         $this->userId = Yii::app()->user->id;
-        $this->listDataProvider = $this->getListDataProvider($this->userId);
+        $this->listDataProvider = $this->getListDataProvider($this->userId, $type);
         $this->render('list');
     }
 

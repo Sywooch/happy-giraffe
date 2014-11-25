@@ -10,9 +10,9 @@ require_once('mobiledetect/Mobile_Detect.php');
 
 class VersionManager extends CApplicationComponent
 {
-    const VERSION_MOBILE = 0;
-    const VERSION_TABLET = 1;
-    const VERSION_DESKTOP = 2;
+    const VERSION_MOBILE = 'mobile';
+    const VERSION_TABLET = 'tablet';
+    const VERSION_DESKTOP = 'desktop';
 
     private $_version;
 

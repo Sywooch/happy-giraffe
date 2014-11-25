@@ -21,7 +21,7 @@ class AdsWidget extends CWidget
     public $show;
     public $dummyTag;
     public $responsiveConfig;
-    public $lazyAdsOn = true;
+    public $lazyAdsOn = false;
 
     public function init()
     {

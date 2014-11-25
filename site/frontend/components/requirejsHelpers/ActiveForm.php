@@ -117,19 +117,21 @@ class ActiveForm extends \CActiveForm
                 {
                     $cs->registerCoreScript('yiiactiveform');
                     $cs->registerScript(__CLASS__ . '#' . $id,"
-                        jQuery('#$id').yiiactiveform($options);
-                        var recoveryModel = new PasswordRecoveryWidgetViewModel;
-                        ko.applyBindings(recoveryModel, document.getElementById('passwordRecoveryWidget'));
-                        function afterValidate(form, data, hasError) {
-                            if (! hasError) {
-                                $.post(form.attr('action'), form.serialize(), function(response) {
-                                    if (response.success) {
-                                        PasswordRecoveryWidgetViewModel.prototype.validateRequestPassedOut.call(recoveryModel);
-                                    }
-                                }, 'json');
+                        $(function() {
+                            jQuery('#$id').yiiactiveform($options);
+                            var recoveryModel = new PasswordRecoveryWidgetViewModel;
+                            ko.applyBindings(recoveryModel, document.getElementById('passwordRecoveryWidget'));
+                            function afterValidate(form, data, hasError) {
+                                if (! hasError) {
+                                    $.post(form.attr('action'), form.serialize(), function(response) {
+                                        if (response.success) {
+                                            PasswordRecoveryWidgetViewModel.prototype.validateRequestPassedOut.call(recoveryModel);
+                                        }
+                                    }, 'json');
+                                }
+                                return false;
                             }
-                            return false;
-                        }
+                        });
                     ");
                 }
                 break;

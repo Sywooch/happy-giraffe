@@ -1,11 +1,13 @@
 <?php
 /**
- * @var \site\frontend\modules\photo\components\PhotoController $this
+ * @var \LiteController $this
  * @var int $id
  * @var int $userId
  * @var \site\frontend\modules\photo\models\PhotoAlbum $album
  * @var ClientScript $cs
  */
+$this->user = $album->author;
+$this->metaNoindex = true;
 $this->pageTitle = 'Фотоальбом' ;
 $this->breadcrumbs += array(
     'Фото' => array('/photo/default/index', 'userId' => $userId),
@@ -14,8 +16,8 @@ $this->breadcrumbs += array(
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('photo-album', array('kow'));
 ?>
-<?php //$this->widget('profile.widgets.UserSectionWidget'); ?>
+<?php $this->widget('profile.widgets.UserSectionWidget', array('user' => $this->user)); ?>
 
-<?php if (! $this->isPersonalArea()): ?><div class="b-main_cont"><?php endif; ?>
+<div class="b-main_cont">
     <photo-album params="userId: <?= $userId ?>, albumId: <?= $id ?>"></photo-album>
-<?php if (! $this->isPersonalArea()): ?></div><?php endif; ?>
+</div>

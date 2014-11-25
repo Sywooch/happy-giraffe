@@ -12,8 +12,10 @@ use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\upload\PopupForm;
 
-class DefaultController extends PhotoController
+class DefaultController extends \LiteController
 {
+    public $litePackage = 'photo';
+
     public function accessRules()
     {
         return array(
@@ -21,13 +23,6 @@ class DefaultController extends PhotoController
                 'users' => array('?'),
                 'actions' => array('create', 'uploadForm'),
             ),
-        );
-    }
-
-    public function filters()
-    {
-        return array(
-            'showMenu - single',
         );
     }
 
@@ -56,7 +51,7 @@ class DefaultController extends PhotoController
 
     public function actionAlbum($userId, $id)
     {
-        $album = PhotoAlbum::model()->user($userId)->findByPk($id);
+        $album = PhotoAlbum::model()->user($userId)->with('author')->findByPk($id);
         if ($album === null) {
             throw new \CHttpException(404);
         }

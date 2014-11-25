@@ -2,7 +2,8 @@
     dataLayer = [{
         'isAmd': <?=CJavaScript::encode(Yii::app()->clientScript->useAMD)?>,
         'isGuest': <?=CJavaScript::encode(Yii::app()->user->isGuest)?>,
-        'isModerator': <?=CJavaScript::encode((! Yii::app()->user->isGuest) && (Yii::app()->user->group != UserGroup::USER))?>
+        'isModerator': <?=CJavaScript::encode((! Yii::app()->user->isGuest) && (Yii::app()->user->group != UserGroup::USER))?>,
+        'version': <?=CJavaScript::encode(Yii::app()->vm->getVersion())?>
     }];
 </script>
 

@@ -896,4 +896,30 @@ class SeoTempCommand extends CConsoleCommand
         $data = LiSitesManager::getData();
         $this->writeCsv('liData', $data);
     }
+
+    public function actionEmails()
+    {
+        $path = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'vkladi3.csv';
+        $emails = $this->emails($path);
+        $_emails = array_map(function($email) {
+            return array($email);
+        }, $emails);
+        $this->writeCsv('vkladi', $_emails);
+    }
+
+    protected function emails($path)
+    {
+        $pattern = "/^[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/";
+        $handle = fopen($path, "r");
+        $emails = array();
+        while (($data = fgetcsv($handle)) !== false) {
+            $num = count($data);
+            for ($c = 0; $c < $num; $c++) {
+                if (preg_match($pattern, $data[$c])) {
+                    $emails[] = $data[$c];
+                }
+            }
+        }
+        return $emails;
+    }
 } 

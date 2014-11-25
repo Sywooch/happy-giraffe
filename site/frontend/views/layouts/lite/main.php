@@ -38,7 +38,8 @@ $this->beginContent('//layouts/lite/common');
             <div class="b-crumbs b-crumbs__s">
                 <div class="b-crumbs_tx">Я здесь:</div>
                 <?php
-                $this->widget('zii.widgets.CBreadcrumbs', array(
+                $this->widget('\site\frontend\components\lite\UserBreadCrumbs', array(
+                    'user' => $this->user,
                     'tagName' => 'ul',
                     'separator' => ' ',
                     'htmlOptions' => array('class' => 'b-crumbs_ul'),

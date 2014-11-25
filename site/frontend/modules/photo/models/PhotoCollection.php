@@ -236,6 +236,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             $maxPosition = $collection->getMaxPosition();
         }
 
+        $newAttaches = array();
         foreach ($ids as $positionOffset => $id) {
             $newPosition = $maxPosition + $positionOffset + 1;
             if ($attach = $collection->getAttachByPhotoId($id)) {

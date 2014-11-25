@@ -129,7 +129,6 @@ class MigrateManager
         $partner->name = $oldPartner->name;
         $partner->description = $oldPartner->notice;
         $partner->relationshipStatus = self::$_statusMap[$this->user->relationship_status];
-        $partner->familyId = $this->family->id;
         $this->saveMember($partner, $oldPartner);
     }
 
@@ -155,7 +154,6 @@ class MigrateManager
                 $member->birthday = $oldBaby->birthday;
                 break;
         }
-        $member->familyId = $this->family->id;
         $this->saveMember($member, $oldBaby);
     }
 
@@ -184,6 +182,8 @@ class MigrateManager
 
     protected function saveMember(FamilyMember $member, $old)
     {
+        $member->familyId = $this->family->id;
+        $member->family = $this->family;
         $isValid = $member->validate();
         $errors = $member->errors;
 

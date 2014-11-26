@@ -23,7 +23,6 @@ class DefaultCommand extends \CConsoleCommand
     public function actionWorker()
     {
         \Yii::app()->gearman->worker()->addFunction('deferredWrite', array($this, 'deferredWrite'));
-        \Yii::app()->gearman->worker()->addFunction('createThumbs', array($this, 'createThumbs'));
         \Yii::app()->gearman->worker()->addFunction('updatePhotoPostPhoto', array($this, 'updatePhotoPostPhoto'));
 
         for ($i = 0; $i < 100; $i++) {

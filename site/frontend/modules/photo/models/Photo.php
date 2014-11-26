@@ -149,11 +149,6 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
         $event->isValid = $this->getImageFile()->write();
     }
 
-    protected function createThumbs(\CEvent $event)
-    {
-        \Yii::app()->thumbs->createAll($this);
-    }
-
     public function validate($attributes = null, $clearErrors = false)
     {
         return parent::validate($attributes, $clearErrors);
@@ -176,7 +171,6 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
         $this->fs_name = $this->createFsName($extension);
         $this->getImageFile()->buffer = $imageString;
         $this->attachEventHandler('onBeforeSave', array($this, 'writeImage'));
-        $this->attachEventHandler('onAfterSave', array($this, 'createThumbs'));
     }
 
     public function getImage()

@@ -113,8 +113,8 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         /* Height block comment scroll in photo-window */
         function photoWindColH () {
             var colCont = $(".photo-window_cont");
-            var bannerH = document.getElementById('photo-window_banner').offsetHeight;
-            colCont.height($(window).height() - bannerH - 24);
+            //var bannerH = document.getElementById('photo-window_banner').offsetHeight;
+            colCont.height($(window).height() - 24);
         }
         $(document).ready(function () {
             photoWindColH();

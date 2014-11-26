@@ -75,14 +75,7 @@ class MigrateManager
         }
 
         $manager = new MigrateManager($user);
-        $transaction = \Yii::app()->db->beginTransaction();
-        try {
-            $manager->convert();
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
-            throw $e;
-        }
+        $manager->convert();
     }
 
     public function __construct(\User $user)

@@ -93,9 +93,6 @@ class MigrateManager
 
             echo '[' . ($i + 1) . '/' . $total . ']' . ' - ' . $album->id  . "\n";
 
-            \Yii::app()->db->active = false;
-            \Yii::app()->db->active = true;
-
             \Album::model()->updateByPk($album->id, array('newAlbumId' => $newAlbum->id));
         }
     }

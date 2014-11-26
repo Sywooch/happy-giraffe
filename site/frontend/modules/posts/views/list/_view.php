@@ -5,9 +5,6 @@
                 <!-- ava--><a href="<?= $data->user->profileUrl ?>" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?= $data->user->fullName ?>" src="<?= $data->user->avatarUrl ?>" class="ava_img"></a><a href="<?= $data->user->profileUrl ?>" class="b-article_author"><?= $data->user->fullName ?></a>
                 <?= HHtml::timeTag($data, array('class' => 'tx-date'), null) ?>
             </div>
-            <div class="icons-meta"><a href="<?= $data->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx">&nbsp;</span></a>
-                <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->viewsByPath($data->parsedUrl) ?></span></div>
-            </div>
         </div>
         <div class="b-article_t-list"><a href="<?= $data->parsedUrl ?>" class="b-article_t-a"><?= $data->title ?></a></div>
         <div class="b-article_in clearfix"><div class="wysiwyg-content clearfix"><?= $data->preview ?></div></div>
@@ -108,7 +105,7 @@
                 }
                 ?>
                 <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
-                <div class="like-control like-control__small">
+                <!--<div class="like-control like-control__small">
                     <div class="like-control_hold like-control_hold__comment"><a href="<?= $data->commentsUrl ?>" title="Комментировать" class="like-control_i powertip">
                             <div href="#" class="ico-action-hg ico-action-hg__comment"> </div>
                             <div class="like-control_tx">&nbsp;</div></a></div>
@@ -121,16 +118,15 @@
                             <div class="ico-action-hg ico-action-hg__favorite"></div>
                             <div class="like-control_tx">&nbsp;</div></a>
                     </div>
-                </div>
+                </div>-->
             </div>
 
-            <div class="article-also_row">
-                <!-- тут проверять на наличие комментариев -->
+            <!--<div class="article-also_row">
                 <div class="article-also_tx">Смотреть все <a href="<?= $data->commentsUrl ?>">комментарии</a>
-                    <!--<div class="visible-md-inline-block">,<a href="#"> нравится, </a></div>
-                    <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.-->
+                    <div class="visible-md-inline-block">,<a href="#"> нравится, </a></div>
+                    <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </article>

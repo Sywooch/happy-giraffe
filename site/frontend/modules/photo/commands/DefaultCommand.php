@@ -66,10 +66,10 @@ class DefaultCommand extends \CConsoleCommand
         }
     }
 
-    public function actionMigrate()
+    public function actionMigrate($id = null)
     {
         $mm = new MigrateManager();
-        $mm->moveUserAlbumsPhotos();
+        $mm->moveUserAlbumsPhotos($id);
     }
 
     public function actionSync()

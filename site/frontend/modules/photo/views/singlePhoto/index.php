@@ -7,12 +7,7 @@
  * @var site\frontend\modules\photo\models\PhotoCollection|site\frontend\modules\photo\components\IPublicPhotoCollection $collection
  */
 $photo = $attach->photo;
-$this->breadcrumbs = array(
-    $this->widget('Avatar', array(
-        'user' => $photo->author,
-        'size' => \Avatar::SIZE_MICRO,
-        'tag' => 'span'), true) => array('/profile/default/index', 'user_id' => $photo->getAuthorId()),
-    'Блог' => array('/blog/default/index', 'user_id' => $photo->getAuthorId()),
+$this->breadcrumbs += array(
     $collection->getTitle() => $collection->getUrl(),
     $attach->getTitle(),
 );
@@ -26,6 +21,8 @@ if ($attachNext !== null) {
     $this->metaNavigation->next = $attachNext->getUrl();
 }
 $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $photo));
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('photo-single', array('kow'));
 ?>
 
 <div class="b-main">

@@ -65,7 +65,6 @@ return array(
         'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
         'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
         'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
-        //'my' => array('myGiraffe/post/index'),
         'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller
@@ -118,7 +117,7 @@ return array(
         'user/settings/' => 'profile/settings/personal',
         'user/settings/<_a>' => 'profile/settings/<_a>',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
-        /*'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',*/
+        //'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
@@ -127,18 +126,18 @@ return array(
             'falseRoute' => 'blog/default/view',
         ),
 
-        'user/<user_id:\d+>/blog' => 'blog/default/index',
+        //'user/<user_id:\d+>/blog' => 'blog/default/index',
         //'user/<user_id:\d+>/blog' => 'posts/list/index',
-        /*array(
+        array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog',
             'trueRoute' => 'posts/list/index',
             'falseRoute' => 'blog/default/index',
-        ),*/
+        ),
 
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
-        /*'fakeBlogView' => array(
+        'fakeBlogView' => array(
             'class' => 'UrlRule',
             'pattern' => 'user/<user_id:\d+>/blog',
             'route' => 'blog/default/index',
@@ -147,7 +146,7 @@ return array(
             'class' => 'UrlRule',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
             'route' => 'blog/default/view',
-        ),*/
+        ),
         
         /* Для корректной работы старых редакторов */
         'newblog/<_a:>' => 'blog/default/<_a>',

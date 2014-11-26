@@ -94,6 +94,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     {
         return array(
             'labelModels' => array(self::MANY_MANY, '\site\frontend\modules\posts\models\Label', 'post__tags(contentId, labelId)'),
+            'tagModels' => array(self::HAS_MANY, '\site\frontend\modules\posts\models\Tag', 'contentId'),
         );
     }
 
@@ -218,7 +219,7 @@ class Content extends \CActiveRecord implements \IHToJSON
             $i = array_search($oldLabel->text, $labels);
             if ($i === false) {
                 // старого тега больше нет
-                PostTags::model()->deleteByPk(array('labelId' => $oldLabel->id, 'contentId' => $this->id));
+                Tag::model()->deleteByPk(array('labelId' => $oldLabel->id, 'contentId' => $this->id));
             }
             else {
                 // тег уже есть
@@ -227,14 +228,16 @@ class Content extends \CActiveRecord implements \IHToJSON
         }
         $ids = array();
         foreach ($labels as $label) {
+            var_dump($label);
             $model = Label::model()->findByAttributes(array('text' => $label));
             if (!$model) {
                 $model = new Label();
                 $model->text = $label;
                 $model->save();
+                var_dump($model->errors);
             }
             if ($model->id && !isset($ids[$model->id])) {
-                $tag = new PostTags();
+                $tag = new Tag();
                 $tag->attributes = array('labelId' => $model->id, 'contentId' => $this->id);
                 $tag->save();
             }

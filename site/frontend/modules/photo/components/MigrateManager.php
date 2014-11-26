@@ -39,7 +39,10 @@ class MigrateManager
     {
         $photosIds = array();
         foreach ($oldModel->$relation as $oldAttach) {
-            $photosIds[] = self::movePhoto($oldAttach->photo);
+            $photoId = self::movePhoto($oldAttach->photo);
+            if ($photoId !== false) {
+                $photosIds[] = $photoId;
+            }
         }
         return $photosIds;
     }

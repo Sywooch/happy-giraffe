@@ -26,6 +26,7 @@ $users = departmentComponents\UsersControl::getUsersList();
 $users = array_combine($users, $users);
 $form->hiddenField($model, 'clubId');
 $this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый пост' : $model->title . ' - редактирование';
+$communityContent = CommunityContent::model()->findByPk($model->entityId); // нужно для вывода id коллекции при редактировании
 ?>
 <?=$form->errorSummary($model) ?>
 <?=$form->textarea($model, 'markDownPreview',  array('id' => 'markDownPreview', 'class' => 'display-n')) ?>
@@ -77,7 +78,7 @@ $this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый п�
     <div class="postAdd_count">5</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
-            <md-redactor class="md-redactor" params="id: 'md-redactor-1', textareaId: 'markDownPreview', htmlId: 'htmlTextPreview', full: false"></md-redactor>
+            <md-redactor class="md-redactor" params="id: 'md-redactor-1', textareaId: 'markDownPreview', htmlId: 'htmlTextPreview', full: false, collectionId: <?=CJavaScript::encode(($model->getIsNewRecord() ? null : $communityContent->getAttributePhotoCollection('preview')->id))?>"></md-redactor>
         </div>
     </div>
 </div>
@@ -86,7 +87,7 @@ $this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый п�
     <div class="postAdd_count">6</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
-            <md-redactor class="md-redactor" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText', full: true"></md-redactor>
+            <md-redactor class="md-redactor" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText', full: true, collectionId: <?=CJavaScript::encode(($model->getIsNewRecord() ? null : $communityContent->content->getAttributePhotoCollection('text')->id))?>"></md-redactor>
         </div>
     </div>
 </div>

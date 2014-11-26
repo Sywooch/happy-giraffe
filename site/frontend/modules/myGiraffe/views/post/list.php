@@ -1,20 +1,20 @@
 <?php
 $this->pageTitle = 'Мой Жираф';
 ?>
-<!-- userAddRecord-->
-<div class="userAddRecord clearfix  userAddRecord__blog">
-    <div class="userAddRecord_hold">
-        <div class="userAddRecord_tx"> Я хочу добавить</div>
-        <a href="<?= Yii::app()->createUrl('/blog/tmp/index', array('type' => 1)); ?>" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article"></a>
-        <a href="<?= Yii::app()->createUrl('/blog/tmp/index', array('type' => 3)); ?>" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo"></a>
-        <a href="<?= Yii::app()->createUrl('/blog/tmp/index', array('type' => 2)); ?>" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video"></a>
-        <a href="<?= Yii::app()->createUrl('/blog/tmp/index', array('type' => 5)); ?>" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status"></a>
-    </div>
-</div>
-<!-- /userAddRecord-->
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">
-        <aside class="b-main_col-sidebar visible-md">&nbsp;</aside>
+        <aside class="b-main_col-sidebar visible-md">
+            <?php
+            $this->widget('zii.widgets.CMenu', array(
+                'items' => array(
+                    array('label' => 'Все', 'url' => Yii::app()->createUrl('myGiraffe/post/index', array('type' => NewSubscribeDataProvider::TYPE_ALL))),
+                    array('label' => 'Друзья', 'url' => Yii::app()->createUrl('myGiraffe/post/index', array('type' => NewSubscribeDataProvider::TYPE_FRIENDS))),
+                    array('label' => 'Подписки', 'url' => Yii::app()->createUrl('myGiraffe/post/index', array('type' => NewSubscribeDataProvider::TYPE_BLOGS))),
+                    array('label' => 'Клубы', 'url' => Yii::app()->createUrl('myGiraffe/post/index', array('type' => NewSubscribeDataProvider::TYPE_COMMUNITY))),
+                ),
+            ));
+            ?>
+        </aside>
         <?php
         $this->widget('LiteListView', array(
             'dataProvider' => $this->listDataProvider,

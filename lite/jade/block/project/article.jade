@@ -138,7 +138,7 @@ mixin bArticleListItem(mod, vars)
 mixin bArticleListPhotopost(mod, vars)
     // Статья с текстом
     // b-article
-    article.b-article.b-article__list.b-article__photopost.clearfix(class=mod)
+    article.b-article.b-article__list.clearfix(class=mod)
         .b-article_cont.clearfix
             .b-article_header.clearfix
                 .float-l
@@ -150,10 +150,10 @@ mixin bArticleListPhotopost(mod, vars)
                         span.icons-meta_tx 35
                     .icons-meta_view
                         span.icons-meta_tx 305
-            //-.b-article_t-list
+            .b-article_t-list
                 a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
 
-            +bAlbumPhotopost('b-album__photopost', bAlbumPhotopost.a)
+            +bAlbumPhotopost('', bAlbumPhotopost.a)
 
             .b-article_in.clearfix
                 .wysiwyg-content.clearfix

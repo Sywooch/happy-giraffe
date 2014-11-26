@@ -39,55 +39,54 @@ $cs->registerAMD('photo-single', array('kow'));
                         <div class="float-l">
                             <?php $this->widget('Avatar', array('user' => $photo->author)); ?>
                             <div class="b-article_author"><a href="<?=$photo->author->getUrl()?>" class="a-light"><?=$photo->author->getFullName()?></a></div>
-
                         </div>
                     </div>
                     <h1 class="b-article_t"><?=$attach->getTitle()?></h1>
                 </div>
+                <photo-single params='attach: <?=CJSON::encode($attach->toJSON())?>, attachPrev: <?=CJSON::encode($attachPrev->toJSON())?>, attachNext: <?=CJSON::encode($attachNext->toJSON())?>, collectionId: <?=$collection->id?>'>
+                    <!-- b-album-->
+                    <section class="b-album b-album__photolink">
+                        <div class="b-album_img-hold">
+                            <div class="b-album_img-a">
+                                <!-- <div class="verticalalign-m-help"></div> -->
 
-                <!-- b-album-->
-                <section class="b-album b-album__photolink">
-                    <div class="b-album_img-hold">
-                        <div class="b-album_img-a">
-                            <!-- <div class="verticalalign-m-help"></div> -->
-
-                            <div class="b-album_img-pad"></div>
-                            <div class="b-album_img-allheight">
-                                <div class="b-album_img-center">
-                                    <?=CHtml::image(Yii::app()->thumbs->getThumb($photo, 'singlePhoto')->getUrl(), $attach->getTitle())?>
+                                <div class="b-album_img-pad"></div>
+                                <div class="b-album_img-allheight">
+                                    <div class="b-album_img-center">
+                                        <?=CHtml::image(Yii::app()->thumbs->getThumb($photo, 'singlePhoto')->getUrl(), $attach->getTitle())?>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- <div class="b-album_img-hold-ovr">
+                                <div class="ico-zoom ico-zoom__abs"></div>
+                            </div> -->
+
+                            <?php if ($attachPrev !== null): ?>
+                                <a href="<?=$attachPrev->getUrl()?>" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a>
+                            <?php endif; ?>
+
+                            <?php if ($attachNext !== null): ?>
+                                <a href="<?=$attachNext->getUrl()?>" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
+                            <?php endif; ?>
                         </div>
+                        <!-- <div class="b-album_overlay">
+                            <a class="b-album_r"><div class="b-album_tx">Смотреть  <br> все фото &nbsp;</div><div class="b-album_ico-album"></div><div class="b-album_arrow-all"></div></a>
+                            <ul class="b-album_prev clearfix visible-md-block">
 
-                        <!-- <div class="b-album_img-hold-ovr">
-                            <div class="ico-zoom ico-zoom__abs"></div>
+                                <li class="b-album_prev-li">
+                                    <a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img"><div class="b-album_prev-hold"></div></a>
+                                </li>
+                                <li class="b-album_prev-li">
+                                    <a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img"><div class="b-album_prev-hold"></div></a>
+                                </li>
+                                <li class="b-album_prev-li">
+                                    <a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img"><div class="b-album_prev-hold"></div></a>
+                                </li>
+                            </ul>
                         </div> -->
-
-                        <?php if ($attachPrev !== null): ?>
-                            <a href="<?=$attachPrev->getUrl()?>" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a>
-                        <?php endif; ?>
-
-                        <?php if ($attachNext !== null): ?>
-                            <a href="<?=$attachNext->getUrl()?>" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
-                        <?php endif; ?>
-                    </div>
-                    <!-- <div class="b-album_overlay">
-                        <a class="b-album_r"><div class="b-album_tx">Смотреть  <br> все фото &nbsp;</div><div class="b-album_ico-album"></div><div class="b-album_arrow-all"></div></a>
-                        <ul class="b-album_prev clearfix visible-md-block">
-                            
-                            <li class="b-album_prev-li">
-                                <a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img"><div class="b-album_prev-hold"></div></a>
-                            </li>
-                            <li class="b-album_prev-li">
-                                <a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img"><div class="b-album_prev-hold"></div></a>
-                            </li>
-                            <li class="b-album_prev-li">
-                                <a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img"><div class="b-album_prev-hold"></div></a>
-                            </li>
-                        </ul>
-                    </div> -->
-                </section>
-
+                    </section>
+                </photo-single>
                 <!-- b-article-->
                 <div class="b-article clearfix">
                     <div class="wysiwyg-content">

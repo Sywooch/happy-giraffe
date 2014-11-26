@@ -5,6 +5,7 @@
  */
 
 namespace site\frontend\modules\family\components;
+use Aws\CloudFront\Exception\Exception;
 use site\frontend\modules\family\models\Adult;
 use site\frontend\modules\family\models\Child;
 use site\frontend\modules\family\models\Family;
@@ -65,14 +66,22 @@ class MigrateManager
     public static function migrateSingle($user)
     {
         $family = Family::model()->hasMember($user->id)->find();
-        if ($family === null) {
-            $name = trim($user->first_name);
-            if (empty($name)) {
-                return;
-            }
+        if ($family !== null) {
+            return;
+        }
+        $name = trim($user->first_name);
+        if (empty($name)) {
+            return;
+        }
 
-            $manager = new MigrateManager($user);
+        $manager = new MigrateManager($user);
+        $transaction = \Yii::app()->db->beginTransaction();
+        try {
             $manager->convert();
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
         }
     }
 
@@ -81,13 +90,17 @@ class MigrateManager
         $this->user = $user;
     }
 
-    public function convert()
+    protected function convert()
     {
         if (! $this->hasFamily()) {
             return;
         }
 
         $this->family = Family::createFamily($this->user->id);
+
+        if ($this->family === null) {
+            throw new \CException('Невозможно создать семью');
+        }
 
         if ($this->hasPartner()) {
             $this->convertPartner();
@@ -102,7 +115,9 @@ class MigrateManager
             $album = new PhotoAlbum();
             $album->title = 'Семейный альбом общие';
             $album->author_id = $this->user->id;
-            $album->save(false);
+            if (! $album->save(false)) {
+                throw new \CException('Невозможно создать общий альбом');
+            }
             $album->photoCollection->attachPhotos($this->unsortedPhotos);
         }
     }
@@ -157,24 +172,29 @@ class MigrateManager
         $this->saveMember($member, $oldBaby);
     }
 
-    protected function movePhotos($old, &$new)
+    protected function movePhotos($old, $new)
     {
         $photoIds = \site\frontend\modules\photo\components\MigrateManager::getByRelation($old);
         if ($photoIds > 5) {
             $album = new PhotoAlbum();
             $album->title = 'Семейный альбом' . $new->id;
             $album->author_id = ($old instanceof \Baby) ? $old->parent_id : $old->user_id;
-            $album->save(false);
+            if (! $album->save(false)) {
+                throw new \CException('Невозможно создать альбом члена семьи');
+            }
             $album->photoCollection->attachPhotos($photoIds);
         } elseif ($photoIds > 0) {
             $this->unsortedPhotos += $photoIds;
         }
 
         if (count($photoIds) > 0) {
-            if ($old->main_photo_id !== null && ($mainPhoto = \AlbumPhoto::model()->findByPk($old->main_photo_id))) {
-                $cover = \site\frontend\modules\photo\components\MigrateManager::movePhoto($mainPhoto);
-            } else {
-                $cover = $photoIds[0];
+            $cover = $photoIds[0];
+            if ($old->main_photo_id !== null) {
+                $oldPhoto = \AlbumPhoto::model()->findByPk($old->main_photo_id);
+                $newPhotoId = \site\frontend\modules\photo\components\MigrateManager::movePhoto($oldPhoto);
+                if ($newPhotoId !== false) {
+                    $cover = $newPhotoId;
+                }
             }
             $new->photoCollection->attachPhotos(array($cover));
         }
@@ -194,8 +214,9 @@ class MigrateManager
             \Yii::app()->end();
         }
         if ($member->save(false)) {
-            $this->movePhotos($old, $member);
+            throw new \CException('Невозможно создать члена семьи');
         }
+        $this->movePhotos($old, $member);
     }
 
     protected function isExcepted($model, $errors)

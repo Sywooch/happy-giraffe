@@ -7,6 +7,7 @@
     width: 155px;
     margin: 0 5px 13px;
 
+    .ico-close4,
     .ico-close5 {
         position: absolute;
         top: -9px;
@@ -18,6 +19,9 @@
         .border-radius(0);
     }
     .progress__cont {margin-bottom: 5px;}
+    .ico-photo-edit {
+        float: left;
+    }
 
     /*&__empty {
         height: 141px;
@@ -53,9 +57,14 @@
         background: url('@{path-img}/i-photo__error_hold.png') no-repeat 50% 35px;
     }
     &_img-hold {
+        overflow: hidden;
         position: relative;
         height: 140px;
+        width: 155px;
         background-color: #707070;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
     }
     /*&_img-hold:hover &_overlay {display: block;}*/
     &_img {

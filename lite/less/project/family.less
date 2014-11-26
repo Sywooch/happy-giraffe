@@ -454,9 +454,6 @@
         margin: 50px 40px 80px;
     }
 
-    &_head-img-hold {
-
-    }
 }
 
 /*
@@ -533,7 +530,7 @@
             position: relative;
             max-width: 720px;
             margin: 20px auto 25px;
-            padding: 20px 60px;
+            padding: 40px 60px;
             color: @color-gray-dark;
             background-color: #daf1ff;
             .border-radius(20px);
@@ -729,13 +726,13 @@
     display: table;
     margin: 35px 0;
     width: 100%;
-    background-color: #7fcc77; // зеленый можно изменить
+    background-color: #73c76a; // зеленый можно изменить
     color: #fff;
     cursor: pointer;
 
     &:hover {
         text-decoration: none;
-        background-color: #4BAA41; // зеленый можно изменить
+        background-color: #59b94e; // зеленый можно изменить
     }
     &__family-member,
     &__green {background-color: #7fcc77;}
@@ -753,11 +750,50 @@
     &__family-member &_hold {background: url('@{path-img}/family/cap-add__family-member.png') no-repeat 50% 50%;}
     &__family-photo &_hold {background: url('@{path-img}/family/cap-add__family-photo.png') no-repeat 50% 50%;}
     &__family-text &_hold {background: url('@{path-img}/family/cap-add__family-text.png') no-repeat 50% 50%;}
-       
+    /**/
+    &__i-photo {
+        margin: 0;
+        padding: 13px;
+        font-size: 14px;
+    }
+    &__i-photo &_in {
+        padding: 65px 30px 10px;
+        background: url('@{path-img}/cap-add_in__s.png') no-repeat 50% 36px;
+    }
+    &__i-photo:hover &_in {
+        //.scale(1.15);
+    }
+    &__i-photo &_hold {
+        height: 110px;
+        border: 2px dashed #fff;
+        background: url('@{path-img}/cap-add__i-photo.png') no-repeat 50% 8px;
+    }  
+    /**/
+    /**/
+    &__s {
+        padding: 15px;
+        font-size: 25px;
+    }
+    &__s &_in {
+        padding: 10px 10px 10px 40px;
+        background: url('@{path-img}/cap-add_in__s.png') no-repeat 0 50%;
+    }
+    &__s:hover &_in {
+        .scale(1.15);
+    }
+    &__s &_hold {
+        height: 90px;
+        border: 2px dashed #fff;
+    }  
+    /**/
     &__l {
         padding: 18px;
         font-size: 25px;
         // .transition(all 0.8s ease-out);
+    }
+    &__l &_in {
+        padding: 20px 10px 20px 90px;
+        background: url('@{path-img}/album-photo-add_hold.png') no-repeat;
     }
     &__l:hover &_in {
         .scale(1.15);
@@ -766,6 +802,7 @@
         height: 320px;
         border: 3px dashed #fff;
     } 
+    /**/
     &_hold {
         display: table-cell;
         vertical-align: middle;
@@ -773,8 +810,6 @@
     }
     &_in {
         display: inline-block;
-        padding: 20px 10px 20px 90px;
-        background: url('@{path-img}/album-photo-add_hold.png') no-repeat;
     }
 }
 /* /cap-add */
@@ -786,10 +821,156 @@
     right: 10px;
 
     .ico-close4 {
+        vertical-align: middle;
         margin-left: 10px;
     }
     .ico-edit {
+        vertical-align: middle;
         margin-left: 10px;
     }
 }
 /* /family-edit */
+
+/* family-photo */
+.family-photo {
+    position: relative;
+    margin: 30px 0;
+
+    .ico-close4 {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        z-index: 5;
+    }
+    &_t {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 30px 0;
+        width: 100%;
+        color: #fff;
+        font-size: 35px;
+        text-align: center;   
+        #gradient > .vertical(@start-color: rgba(0,0,0,0.7); @end-color: rgba(0,0,0,0));
+    }
+    &_b {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 15px 10px;
+        background-color: rgba(0,0,0,0.4);
+    }
+}
+/* /family-photo */
+
+/* family-settings */
+.family-settings {
+    position: relative;
+    margin: 30px 0;
+    padding: 30px 20px;
+    border: 1px solid #d9d9d9;
+
+    /*.i-photo {margin-top: 7px;}*/
+    .i-photo_img-hold {
+        background: none;
+        border: 1px solid #f5f5f5;
+    }
+    &_t {
+        margin: 5px 20px 30px;
+        font-size: 20px;
+        text-align: center;
+    }
+    &_hold {
+        text-align: center;
+    }
+    &_hold__vert &_r,
+    &_hold__vert &_l {
+        vertical-align: middle;
+    }
+    &_l {
+        display: inline-block;
+        vertical-align: top;
+        width: 160px;
+        margin-right: 50px;
+        text-align: left;
+    }
+    &_r {
+        display: inline-block;
+        vertical-align: top;
+        width: 370px;
+        text-align: left;
+        .tx-content();
+    }
+    &_r .ico-edit {
+        margin-left: 8px;
+    }
+    &_r .inp-valid {
+        display: inline-block;
+        vertical-align: middle;
+        width: 320px;
+        margin-right: 10px;
+    }
+    &_row {
+        min-height: 32px;
+        margin-bottom: 10px;
+    }
+    &_row-btn {
+        margin: 20px 0;
+    }
+    &_cap {
+        position: relative;
+        display: block;
+        height: 32px;
+        color: #fff;
+        font-size: 14px;
+        line-height: 30px;
+        padding-left: 40px;
+        background-color: #aa96d2;
+    }
+    &_cap__gender {background-color: #aa96d2;}
+    &_cap__name   {background-color: #ff8232;}
+    &_cap__date   {background-color: #ffd303;}
+    &_cap__desc   {background-color: #4fb8f6;}
+    &_cap:before {
+        content: '+';
+        position: absolute;
+        top: 0;
+        left: 12px;
+        color: #fff;
+        font-size: 32px;
+    }
+    &_cap:hover {
+        color: #fff;
+        .opacity(0.8);
+    }
+    &_tx {
+        font-size: 16px;
+        line-height: 30px;
+    }
+    &_name {
+        font-size: 25px;
+        line-height: 30px;
+        font-weight: bold;
+        color: #186fb8;
+    }
+    &_desc {
+        margin-top: 4px;
+    }
+
+    &_progress {
+        margin-top: 4px;
+        font-size: 12px;
+        width: 160px;
+    }
+    &_progress .progress {
+        height: 4px;
+        margin: 2px 0 15px;
+        .box-shadow(none);
+    }
+    &_progress .progress-bar {
+        height: 4px;
+        .box-shadow(none);
+    }
+}
+/* /family-settings */

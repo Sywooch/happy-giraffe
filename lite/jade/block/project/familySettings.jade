@@ -1,0 +1,281 @@
+mixin familySettings(mod, vars)
+
+    // family-settings
+    .family-settings.clearfix(class=mod)
+        .family-edit
+            if(vars.icoEditTop)
+                a.ico-edit.ico-edit__s(href='#')
+            a.ico-close4(href='#')
+
+        if(vars.type == 'child')
+            .family-settings_t Дети
+        .family-settings_hold.clearfix1
+            .family-settings_l
+                .family-settings_photo
+                    if(vars.photoCapAdd)
+                        // Блок Добавления фото
+                        .cap-add.cap-add__i-photo
+                            .cap-add_hold
+                                .cap-add_in 
+                                    .cap-add_tx Добавить фото 
+                
+                    if(vars.photo)
+                        +iPhoto("", iPhoto.familySettingsIco)
+                    if(vars.photoEdit)
+                        +iPhoto("", iPhoto.familySettingsEdit)
+                
+            .family-settings_r
+                // gender
+                if(vars.genderCap)
+                    // Пол
+                    .family-settings_row
+                        a.family-settings_cap.family-settings_cap__gender(href='#') Сын или дочь?
+                if(vars.gender)
+                    // Пол
+                    .family-settings_row
+                        .family-settings_tx
+                            | Сын
+                            if(vars.icoEditLine)
+                                a.ico-edit.ico-edit__s(href='#')
+                if(vars.genderEdit)
+                    // Пол
+                    .family-settings_row
+                        // В случае ошибки .error на .inp-valid
+                        .inp-valid.inp-valid__abs 
+                            select.select-cus.select-cus__gray.select-cus__search-off(placeholder="Выберите пол")
+                                option
+                                option(value="1") Дочь
+                                option(value="2") Сын
+                        a.btn.btn-success.btn-xs(href="#") ok
+
+                // name
+                if(vars.nameCap)
+                    // Пол
+                    .family-settings_row
+                        a.family-settings_cap.family-settings_cap__name(href='#') Имя ребенка
+                if(vars.nameEdit)
+                    .family-settings_row
+                        //a.family-settings_cap.family-settings_cap__name(href='#') Имя ребенка
+                        .inp-valid.inp-valid__abs
+                            input.itx-gray(type='text')
+                        a.btn.btn-success.btn-xs(href="#") ok
+                if(vars.name)
+                    .family-settings_row
+                        .family-settings_name
+                            | Кирилл
+                            if(vars.icoEditLine)
+                                a.ico-edit.ico-edit__s(href='#')
+                // date
+                if(vars.dateCap)
+                    // Дата
+                    .family-settings_row
+                        a.family-settings_cap.family-settings_cap__date(href='#') Дата рождения
+                if(vars.dateEdit)
+                    // Дата
+                    .family-settings_row
+                        // .family-settings_cap__name
+                        // .family-settings_cap__date
+                        // .family-settings_cap__desc
+                        //a.family-settings_cap.family-settings_cap__date(href='#') Дата рождения
+                        .inp-valid.inp-valid__abs.error
+                            .float-l.w-80.margin-r10
+                                select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
+                                    option
+                                    option(value="1") 1
+                                    option(value="2") 2
+                                    option(value="3") 3
+                                    option(value="4") 4
+                                    option(value="5") 5
+                                    option(value="6") 6
+                                    option(value="7") 7
+                                    option(value="8") 8
+                                    option(value="8") 9
+                                    option(value="10") 10
+                                    option(value="11") 11
+                                    option(value="12") 12
+                            .float-l.w-135.margin-r10
+                                select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Месяц")
+                                    option
+                                    option(value="1") Января
+                                    option(value="2") Февраля
+                                    option(value="3") Марта
+                                    option(value="4") Апреля
+                                    option(value="5") Майя
+                                    option(value="6") Июня
+                                    option(value="7") Июля
+                                    option(value="8") Августа
+                                    option(value="9") Сентября
+                                    option(value="10") Октября
+                                    option(value="11") Ноября
+                                    option(value="12") Декабря
+                            .float-l.w-80
+                                select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Год")
+                                    option
+                                    option(value="1") 1912
+                                    option(value="2") 1913
+                                    option(value="3") 1914
+                                    option(value="4") 1915
+                                    option(value="5") 1916
+                                    option(value="6") 1917
+                                    option(value="7") 1918
+                                    option(value="8") 1919
+                                    option(value="8") 1920
+                                    option(value="10") 1921
+                                    option(value="11") 1922
+                                    option(value="12") 1923
+                            
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Не выбрана дата
+                        a.btn.btn-success.btn-xs(href="#") ok
+                if(vars.date)
+                    // Дата
+                    .family-settings_row
+                        .family-settings_tx
+                            | 1 год 6 месяцев
+                            if(vars.icoEditLine)
+                                a.ico-edit.ico-edit__s(href='#')
+                // desc
+                if(vars.descCap)
+                    .family-settings_row
+                        a.family-settings_cap.family-settings_cap__desc(href='#') Пару слов о ребенке
+                if(vars.desc)
+                    .family-settings_row
+                        .family-settings_desc
+                            | Такая шапочка станет дополнением к первой фотосессии малыша.
+                            if(vars.icoEditLine)
+                                a.ico-edit.ico-edit__s(href='#')
+                if(vars.descEdit)
+                    .family-settings_row
+                        //a.family-settings_cap.family-settings_cap__name(href='#') Имя ребенка
+                        .inp-valid.inp-valid__abs
+                            textarea.itx-gray(cols='4')
+                        br 
+                        a.btn.btn-success.btn-xs.margin-t5(href="#") ok
+
+        .family-settings_hold.family-settings_hold__vert
+            .family-settings_l
+                .family-settings_progress
+                    if(vars.progress0)
+                        // .color-gray-light- убирается при наличии заполнениия
+                        .family-settings_progress-tx.color-gray-light Вы ни чего не заполнили
+                        // bootstrap progress
+                        .progress
+                            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='0', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
+                    if(vars.progress10)
+                        // .color-gray-light- убирается при наличии заполнениия
+                        .family-settings_progress-tx Заполнено  10%
+                        // bootstrap progress
+                        .progress
+                            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='10', aria-valuemin='0', aria-valuemax='100', style='width: 10%;')
+                    if(vars.progress50)
+                        // .color-gray-light- убирается при наличии заполнениия
+                        .family-settings_progress-tx Заполнено  50%
+                        // bootstrap progress
+                        .progress
+                            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='10', aria-valuemin='0', aria-valuemax='100', style='width: 50%;')
+                    if(vars.progress100)
+                        // .color-gray-light- убирается при наличии заполнениия
+                        .family-settings_progress-tx Заполнено  100%
+                        // bootstrap progress
+                        .progress
+                            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='10', aria-valuemin='0', aria-valuemax='100', style='width: 100%;')
+
+            .family-settings_r
+                if(vars.btns)
+                    .family-settings_row-btn
+                        a.btn.btn-secondary.btn-m.margin-r10 Отмена
+                        a.btn.btn-success.btn-m.disabled Сохранить
+
+//- type - тип записи
+//- icoEditTop - иконка редатировать вверху
+//- icoEditLine - иконка редатировать в строке
+//- photoCapAdd - заглушка добавления фото
+//- gender
+//- genderCap
+//- genderEdit
+//- name
+//- nameCap
+//- nameEdit
+//- date
+//- dateCap
+//- dateEdit
+//- desc
+//- descCap
+//- descEdit
+
+
+- var familySettings = {}
+//- child
+- familySettings.a = {}
+- familySettings.a.type = 'child'
+- familySettings.a.photoCapAdd = true
+- familySettings.a.icoEditTop = false
+- familySettings.a.icoEditLine = true
+- familySettings.a.btns = true
+- familySettings.a.progress0 = true
+- familySettings.a.genderCap = true
+- familySettings.a.nameCap = true
+- familySettings.a.dateCap = true
+- familySettings.a.descCap = true
+
+- familySettings.b = {}
+- familySettings.b.type = 'child'
+- familySettings.b.photoCapAdd = true
+- familySettings.b.icoEditTop = false
+- familySettings.b.icoEditLine = true
+- familySettings.b.btns = true
+- familySettings.b.progress10 = true
+- familySettings.b.genderEdit = true
+- familySettings.b.name = true
+- familySettings.b.dateCap = true
+- familySettings.b.desc = true
+
+- familySettings.c = {}
+- familySettings.c.type = 'child'
+- familySettings.c.photo = true
+- familySettings.c.icoEditTop = true
+- familySettings.c.icoEditLine = false
+- familySettings.c.btns = false
+- familySettings.c.progress100 = true
+- familySettings.c.gender = true
+- familySettings.c.name = true
+- familySettings.c.date = true
+- familySettings.c.desc = true
+
+- familySettings.d = {}
+- familySettings.d.type = 'child'
+- familySettings.d.photoCapAdd = true
+- familySettings.d.icoEditTop = false
+- familySettings.d.icoEditLine = true
+- familySettings.d.btns = true
+- familySettings.d.progress50 = true
+- familySettings.d.gender = true
+- familySettings.d.nameEdit = true
+- familySettings.d.date = true
+- familySettings.d.descCap = true
+
+- familySettings.e = {}
+- familySettings.e.type = 'child'
+- familySettings.e.photoEdit = true
+- familySettings.e.icoEditTop = false
+- familySettings.e.icoEditLine = true
+- familySettings.e.btns = true
+- familySettings.e.progress50 = true
+- familySettings.e.gender = true
+- familySettings.e.name = true
+- familySettings.e.dateEdit = true
+- familySettings.e.descCap = true
+
+- familySettings.f = {}
+- familySettings.f.type = 'child'
+- familySettings.f.photoCapAdd = true
+- familySettings.f.icoEditTop = false
+- familySettings.f.icoEditLine = true
+- familySettings.f.btns = true
+- familySettings.f.progress50 = true
+- familySettings.f.gender = true
+- familySettings.f.name = true
+- familySettings.f.date = true
+- familySettings.f.descEdit = true
+

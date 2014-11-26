@@ -285,7 +285,7 @@ block vars
 
     - familySettings.f = {}
     - familySettings.f.type = 'child'
-    - familySettings.f.photoCapAdd = true
+    - familySettings.f.photoIco = true
     - familySettings.f.icoEditTop = false
     - familySettings.f.icoEditLine = true
     - familySettings.f.btns = true
@@ -310,6 +310,34 @@ block layout
                     .family-user 
                         .textalign-c
                             .ico-myfamily.ico-myfamily__l
+
+                        .family-settings
+                            .section-empty
+                                .section-empty_t Кого вы хотите добавить? 
+                                ul.section-empty_ul
+                                    li.section-empty_li
+                                        a.section-empty_i(href="#")
+                                            .section-empty_ico-hold
+                                                .ico-family.ico-family__husband
+                                            .section-empty_ico-tx Моя половинка
+                                    li.section-empty_li
+                                        a.section-empty_i(href="#")
+                                            .section-empty_ico-hold
+                                                .ico-family.ico-family__plan
+                                            .section-empty_ico-tx Планируем ребенка
+                                    li.section-empty_li
+                                        a.section-empty_i(href="#")
+                                            .section-empty_ico-hold
+                                                .ico-family.ico-family__baby
+                                            .section-empty_ico-tx Уже беременны
+                                    li.section-empty_li
+                                        a.section-empty_i(href="#")
+                                            .section-empty_ico-hold
+                                                .ico-family.ico-family__boy-small
+                                            .section-empty_ico-tx Дети
+                                .section-empty_btn-row
+                                    a.btn.btn-secondary.btn-m.margin-r10 Отмена
+                                    a.btn.btn-success.btn-m Далее
 
                         script(src="#{path}javascript/select2.js")
                         script(src="#{path}javascript/select2_locale_ru.js")

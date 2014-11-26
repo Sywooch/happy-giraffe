@@ -199,6 +199,34 @@
                   <div class="textalign-c">
                     <div class="ico-myfamily ico-myfamily__l"></div>
                   </div>
+                  <div class="family-settings">
+                    <div class="section-empty">
+                      <div class="section-empty_t">Кого вы хотите добавить? </div>
+                      <ul class="section-empty_ul">
+                        <li class="section-empty_li"><a href="#" class="section-empty_i">
+                            <div class="section-empty_ico-hold">
+                              <div class="ico-family ico-family__husband"></div>
+                            </div>
+                            <div class="section-empty_ico-tx">Моя половинка</div></a></li>
+                        <li class="section-empty_li"><a href="#" class="section-empty_i">
+                            <div class="section-empty_ico-hold">
+                              <div class="ico-family ico-family__plan"></div>
+                            </div>
+                            <div class="section-empty_ico-tx">Планируем ребенка</div></a></li>
+                        <li class="section-empty_li"><a href="#" class="section-empty_i">
+                            <div class="section-empty_ico-hold">
+                              <div class="ico-family ico-family__baby"></div>
+                            </div>
+                            <div class="section-empty_ico-tx">Уже беременны</div></a></li>
+                        <li class="section-empty_li"><a href="#" class="section-empty_i">
+                            <div class="section-empty_ico-hold">
+                              <div class="ico-family ico-family__boy-small"></div>
+                            </div>
+                            <div class="section-empty_ico-tx">Дети</div></a></li>
+                      </ul>
+                      <div class="section-empty_btn-row"><a class="btn btn-secondary btn-m margin-r10">Отмена</a><a class="btn btn-success btn-m">Далее</a></div>
+                    </div>
+                  </div>
                   <script src="/lite/javascript/select2.js"></script>
                   <script src="/lite/javascript/select2_locale_ru.js"></script>
                   <script>
@@ -527,14 +555,19 @@
                     <div class="family-settings_hold clearfix1">
                       <div class="family-settings_l">
                         <div class="family-settings_photo">
-                          <!-- Блок Добавления фото-->
-                          <div class="cap-add cap-add__i-photo">
-                            <div class="cap-add_hold">
-                              <div class="cap-add_in"> 
-                                <div class="cap-add_tx">Добавить фото </div>
+                          <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                          -->
+                          <div class="i-photo">
+                            <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                            <!-- Загруженное фото-->
+                            <div class="i-photo_hold">
+                              <div class="i-photo_img-hold">
+                                <div class="ico-family ico-family__baby"></div>
                               </div>
+                              <!-- input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок')-->
                             </div>
                           </div>
+                          <!-- /Блок фотографии-->
                         </div>
                       </div>
                       <div class="family-settings_r">

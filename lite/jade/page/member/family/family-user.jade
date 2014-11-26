@@ -157,7 +157,7 @@ block vars
                         .family-settings_row
                             //a.family-settings_cap.family-settings_cap__name(href='#') Имя ребенка
                             .inp-valid.inp-valid__abs
-                                textarea.itx-gray(cols='4')
+                                textarea.itx-gray(rows='3')
                             br 
                             a.btn.btn-success.btn-xs.margin-t5(href="#") ok
 
@@ -652,7 +652,9 @@ block layout
                                 a.ico-close4(href='#')
                             .family-about_t О нашей семье
                             .family-about_bubble
-                                textarea.itx-gray(rows='8')
+                                .inp-valid.inp-valid__abs
+                                    textarea.itx-gray(rows='8')
+                                    .inp-valid_count 300
                                 .textalign-c.margin-t15
                                     a.btn.btn-secondary.btn-m.margin-r10 Отмена
                                     a.btn.btn-success.btn-m Сохранить

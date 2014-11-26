@@ -122,13 +122,6 @@ class MigrateManager
             return false;
         }
 
-        \Yii::app()->db->active = false;
-        \Yii::app()->db->active = true;
-
-        var_dump($photo->id);
-        var_dump(\Yii::app()->db->getCurrentTransaction());
-        var_dump(Photo::model()->findByPk($photo->id));
-
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
         return $photo->id;
     }

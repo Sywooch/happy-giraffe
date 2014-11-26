@@ -125,7 +125,7 @@ class MigrateManager
         \Yii::app()->db->active = false;
         \Yii::app()->db->active = true;
 
-        var_dump($photo);
+        var_dump($photo->id);
         die;
 
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));

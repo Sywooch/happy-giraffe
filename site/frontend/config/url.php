@@ -59,14 +59,15 @@ return array(
         'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
-        'subscribes' => 'myGiraffe/default/subscribes',
-        'recommends' => 'myGiraffe/default/recommends',
-        'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
-        'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
-        'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
-        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
-        //'my' => array('myGiraffe/post/index'),
-        'my/<_a>' => 'myGiraffe/default/<_a>',
+        'my/friends' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 2)),
+        'my/blogs' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 3)),
+        'my/community' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 4)),
+        'my' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 1)),
+        //'subscribes' => 'myGiraffe/default/subscribes',
+        //'recommends' => 'myGiraffe/default/recommends',
+        //'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
+        //'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
+        //'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller
         //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
@@ -118,17 +119,17 @@ return array(
         'user/settings/' => 'profile/settings/personal',
         'user/settings/<_a>' => 'profile/settings/<_a>',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
-        /*'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',*/
-        array(
+        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',
+        /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
             'trueRoute' => 'posts/post/view',
             'falseRoute' => 'blog/default/view',
-        ),
+        ),*/
 
-        'user/<user_id:\d+>/blog' => 'blog/default/index',
-        //'user/<user_id:\d+>/blog' => 'posts/list/index',
+        //'user/<user_id:\d+>/blog' => 'blog/default/index',
+        'user/<user_id:\d+>/blog' => 'posts/list/index',
         /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
@@ -138,7 +139,7 @@ return array(
         ),*/
 
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
-        /*'fakeBlogView' => array(
+        'fakeBlogView' => array(
             'class' => 'UrlRule',
             'pattern' => 'user/<user_id:\d+>/blog',
             'route' => 'blog/default/index',
@@ -147,14 +148,14 @@ return array(
             'class' => 'UrlRule',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
             'route' => 'blog/default/view',
-        ),*/
+        ),
         
         /* Для корректной работы старых редакторов */
         'newblog/<_a:>' => 'blog/default/<_a>',
         
         /* Временные страницы для редактирования */
-        /*'post/add/type<type:[1235]>' => 'blog/tmp/index',
-        'post/edit/content<id:\d+>' => 'blog/tmp/index',*/
+        'post/add/type<type:[1235]>' => 'blog/tmp/index',
+        'post/edit/content<id:\d+>' => 'blog/tmp/index',
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',

@@ -14,7 +14,6 @@ $this->breadcrumbs += array(
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('photo-albums', array('kow'));
 ?>
-<?php //$this->widget('profile.widgets.UserSectionWidget'); ?>
 
 <div class="b-main_cont">
     <photo-albums params="userId: <?= $userId ?>"></photo-albums>

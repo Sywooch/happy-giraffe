@@ -213,7 +213,7 @@ class MigrateManager
             print_r($member->errors);
             \Yii::app()->end();
         }
-        if ($member->save(false)) {
+        if (! $member->save(false)) {
             throw new \CException('Невозможно создать члена семьи');
         }
         $this->movePhotos($old, $member);

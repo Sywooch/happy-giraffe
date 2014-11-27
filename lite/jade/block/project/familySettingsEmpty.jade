@@ -1,0 +1,35 @@
+mixin familySettingsEmpty(mod, vars)
+
+
+    .family-settings
+        .section-empty
+            .section-empty_t Кого вы хотите добавить? 
+            ul.section-empty_ul
+                li.section-empty_li
+                    a.section-empty_i(href="#")
+                        .section-empty_ico-hold
+                            .ico-family-m.ico-family-m__husband
+                        .section-empty_ico-tx Моя половинка
+                li.section-empty_li
+                    a.section-empty_i(href="#")
+                        .section-empty_ico-hold
+                            .ico-family-m.ico-family-m__plan
+                        .section-empty_ico-tx Планируем ребенка
+                li.section-empty_li
+                    a.section-empty_i(href="#")
+                        .section-empty_ico-hold
+                            .ico-family-m.ico-family-m__baby
+                        .section-empty_ico-tx Уже беременны
+                li.section-empty_li
+                    a.section-empty_i(href="#")
+                        .section-empty_ico-hold
+                            .ico-family-m.ico-family-m__boy-small
+                        .section-empty_ico-tx Дети
+            .section-empty_btn-row
+                a.btn.btn-secondary.btn-xm.margin-r10 Отмена
+                a.btn.btn-success.btn-xm Далее
+
+- var familySettingsEmpty = {}
+
+//- child
+- familySettingsEmpty.a = {}

@@ -42,11 +42,13 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         /** @var \site\frontend\modules\family\models\Family $family */
         $family = Family::model()->hasMember($userId)->find();
-        $this->success = $family !== null;
         if ($family !== null) {
             $this->data = $family->toJSON();
             $this->data['members'] = $family->getMembers(null, $public);
+        } else {
+            $this->data = null;
         }
+        $this->success = true;
     }
 
     public function actionCreate()

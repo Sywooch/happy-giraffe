@@ -68,7 +68,7 @@ class Content extends \CActiveRecord implements \IHToJSON
             array('social', 'filter', 'filter' => array($this->socialObject, 'serialize')),
             array('template', 'filter', 'filter' => array($this->templateObject, 'serialize')),
             array('originManageInfo', 'filter', 'filter' => array($this->originManageInfoObject, 'serialize')),
-            array('authorId, html, labels, dtimeCreate, originService, originEntity, originEntityId, originManageInfo', 'required'),
+            array('authorId, html, dtimeCreate, originService, originEntity, originEntityId, originManageInfo', 'required'),
             array('title', 'required', 'except' => 'oldStatusPost'),
             array('isDraft, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved', 'boolean'),
             array('uniqueIndex', 'numerical', 'integerOnly' => true),
@@ -228,13 +228,11 @@ class Content extends \CActiveRecord implements \IHToJSON
         }
         $ids = array();
         foreach ($labels as $label) {
-            var_dump($label);
             $model = Label::model()->findByAttributes(array('text' => $label));
             if (!$model) {
                 $model = new Label();
                 $model->text = $label;
                 $model->save();
-                var_dump($model->errors);
             }
             if ($model->id && !isset($ids[$model->id])) {
                 $tag = new Tag();
@@ -277,7 +275,7 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function getLabelsArray()
     {
-        return explode($this->labelDelimiter, $this->labels);
+        return empty($this->labels) ? array() : explode($this->labelDelimiter, $this->labels);
     }
 
     public function setLabelsArray($array)

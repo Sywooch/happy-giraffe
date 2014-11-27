@@ -9,6 +9,12 @@ mixin familySettings(mod, vars)
 
         if(vars.type == 'child')
             .family-settings_t Дети
+        if(vars.type == 'pregnancy')
+            .family-settings_t Беременность
+        if(vars.type == 'plan')
+            .family-settings_t Планируем
+        if(vars.type == 'husband')
+            .family-settings_t Моя половинка
         .family-settings_hold.clearfix1
             .family-settings_l
                 .family-settings_photo
@@ -20,6 +26,8 @@ mixin familySettings(mod, vars)
                                     .cap-add_tx Добавить фото 
                 
                     if(vars.photo)
+                        +iPhoto("", iPhoto.familySettings)
+                    if(vars.photoIco)
                         +iPhoto("", iPhoto.familySettingsIco)
                     if(vars.photoEdit)
                         +iPhoto("", iPhoto.familySettingsEdit)
@@ -42,10 +50,82 @@ mixin familySettings(mod, vars)
                     .family-settings_row
                         // В случае ошибки .error на .inp-valid
                         .inp-valid.inp-valid__abs 
-                            select.select-cus.select-cus__gray.select-cus__search-off(placeholder="Выберите пол")
+                            select.select-cus.select-cus__gray.select-cus__search-off(placeholder="Выберите")
                                 option
                                 option(value="1") Дочь
                                 option(value="2") Сын
+                        a.btn.btn-success.btn-xs(href="#") ok
+
+                // gender Pregnancy 
+                if(vars.genderPregnancyCap)
+                    // Пол
+                    .family-settings_row
+                        a.family-settings_cap.family-settings_cap__gender(href='#') Кого ждем
+                if(vars.genderPregnancy)
+                    // Пол
+                    .family-settings_row
+                        .family-settings_tx
+                            | Дочь
+                            if(vars.icoEditLine)
+                                a.ico-edit.ico-edit__s(href='#')
+                if(vars.genderPregnancyEdit)
+                    // Пол
+                    .family-settings_row
+                        // В случае ошибки .error на .inp-valid
+                        .inp-valid.inp-valid__abs 
+                            select.select-cus.select-cus__gray.select-cus__search-off(placeholder="Выберите")
+                                option
+                                option(value="1") Пока не знаем
+                                option(value="2") Дочь
+                                option(value="3") Сын
+                        a.btn.btn-success.btn-xs(href="#") ok
+
+                // gender Plan 
+                if(vars.genderPlanCap)
+                    // Пол
+                    .family-settings_row
+                        a.family-settings_cap.family-settings_cap__gender(href='#') Кого хотим
+                if(vars.genderPlan)
+                    // Пол
+                    .family-settings_row
+                        .family-settings_tx
+                            | Дочь
+                            if(vars.icoEditLine)
+                                a.ico-edit.ico-edit__s(href='#')
+                if(vars.genderPlanEdit)
+                    // Пол
+                    .family-settings_row
+                        // В случае ошибки .error на .inp-valid
+                        .inp-valid.inp-valid__abs 
+                            select.select-cus.select-cus__gray.select-cus__search-off(placeholder="Выберите")
+                                option
+                                option(value="1") Пока не знаем
+                                option(value="2") Дочь
+                                option(value="3") Сын
+                        a.btn.btn-success.btn-xs(href="#") ok
+
+                // status 
+                if(vars.statusCap)
+                    // Пол
+                    .family-settings_row
+                        a.family-settings_cap.family-settings_cap__gender(href='#') Статус
+                if(vars.status)
+                    // Пол
+                    .family-settings_row
+                        .family-settings_tx
+                            | Муж
+                            if(vars.icoEditLine)
+                                a.ico-edit.ico-edit__s(href='#')
+                if(vars.statusEdit)
+                    // Пол
+                    .family-settings_row
+                        // В случае ошибки .error на .inp-valid
+                        .inp-valid.inp-valid__abs 
+                            select.select-cus.select-cus__gray.select-cus__search-off(placeholder="Выберите")
+                                option
+                                option(value="1") Муж
+                                option(value="2") Жених
+                                option(value="3") Друг
                         a.btn.btn-success.btn-xs(href="#") ok
 
                 // name
@@ -65,6 +145,95 @@ mixin familySettings(mod, vars)
                             | Кирилл
                             if(vars.icoEditLine)
                                 a.ico-edit.ico-edit__s(href='#')
+                // date Plan
+                if(vars.datePlanCap)
+                    // Дата
+                    .family-settings_row
+                        a.family-settings_cap.family-settings_cap__name(href='#') Когда хотим
+                if(vars.datePlanEdit)
+                    // Дата
+                    .family-settings_row
+                        .inp-valid.inp-valid__abs.error
+                            select.select-cus.select-cus__gray.select-cus__search-off(placeholder="Выберите")
+                                option
+                                option(value="1") В ближайшее время
+                                option(value="2") В ближайшие 3 года
+                        a.btn.btn-success.btn-xs(href="#") ok
+                if(vars.datePlan)
+                    // Дата
+                    .family-settings_row
+                        .family-settings_tx
+                            | В ближайшие 3 года
+                            if(vars.icoEditLine)
+                                a.ico-edit.ico-edit__s(href='#')
+                                    
+                // date Pregnancy
+                if(vars.datePregnancyCap)
+                    // Дата
+                    .family-settings_row
+                        a.family-settings_cap.family-settings_cap__name(href='#') Когда ждем
+                if(vars.datePregnancyEdit)
+                    // Дата
+                    .family-settings_row
+                        .inp-valid.inp-valid__abs.error
+                            .float-l.w-80.margin-r10
+                                select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
+                                    option
+                                    option(value="1") 1
+                                    option(value="2") 2
+                                    option(value="3") 3
+                                    option(value="4") 4
+                                    option(value="5") 5
+                                    option(value="6") 6
+                                    option(value="7") 7
+                                    option(value="8") 8
+                                    option(value="8") 9
+                                    option(value="10") 10
+                                    option(value="11") 11
+                                    option(value="12") 12
+                            .float-l.w-135.margin-r10
+                                select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Месяц")
+                                    option
+                                    option(value="1") Января
+                                    option(value="2") Февраля
+                                    option(value="3") Марта
+                                    option(value="4") Апреля
+                                    option(value="5") Майя
+                                    option(value="6") Июня
+                                    option(value="7") Июля
+                                    option(value="8") Августа
+                                    option(value="9") Сентября
+                                    option(value="10") Октября
+                                    option(value="11") Ноября
+                                    option(value="12") Декабря
+                            .float-l.w-80
+                                select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Год")
+                                    option
+                                    option(value="1") 1912
+                                    option(value="2") 1913
+                                    option(value="3") 1914
+                                    option(value="4") 1915
+                                    option(value="5") 1916
+                                    option(value="6") 1917
+                                    option(value="7") 1918
+                                    option(value="8") 1919
+                                    option(value="8") 1920
+                                    option(value="10") 1921
+                                    option(value="11") 1922
+                                    option(value="12") 1923
+                            
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Не выбрана дата
+                        a.btn.btn-success.btn-xs(href="#") ok
+                if(vars.datePregnancy)
+                    // Дата
+                    .family-settings_row
+                        .family-settings_tx
+                            | 25 неделя
+                            if(vars.icoEditLine)
+                                a.ico-edit.ico-edit__s(href='#')
+                                    
                 // date
                 if(vars.dateCap)
                     // Дата
@@ -135,6 +304,7 @@ mixin familySettings(mod, vars)
                             | 1 год 6 месяцев
                             if(vars.icoEditLine)
                                 a.ico-edit.ico-edit__s(href='#')
+
                 // desc
                 if(vars.descCap)
                     .family-settings_row
@@ -149,7 +319,7 @@ mixin familySettings(mod, vars)
                     .family-settings_row
                         //a.family-settings_cap.family-settings_cap__name(href='#') Имя ребенка
                         .inp-valid.inp-valid__abs
-                            textarea.itx-gray(cols='4')
+                            textarea.itx-gray(rows='3')
                         br 
                         a.btn.btn-success.btn-xs.margin-t5(href="#") ok
 
@@ -184,22 +354,42 @@ mixin familySettings(mod, vars)
             .family-settings_r
                 if(vars.btns)
                     .family-settings_row-btn
-                        a.btn.btn-secondary.btn-m.margin-r10 Отмена
-                        a.btn.btn-success.btn-m.disabled Сохранить
+                        a.btn.btn-secondary.btn-xm.margin-r10 Отмена
+                        a.btn.btn-success.btn-xm.disabled Сохранить
 
 //- type - тип записи
 //- icoEditTop - иконка редатировать вверху
 //- icoEditLine - иконка редатировать в строке
+//- photo -  фото
+//- photoIco -  фото иконка
+//- photoEdit -  фото редатировать
 //- photoCapAdd - заглушка добавления фото
+//- btns
+//- progress0
+//- progress10
+//- progress50
+//- progress100
 //- gender
 //- genderCap
 //- genderEdit
+//- genderPlan
+//- genderPlanCap
+//- genderPlanEdit
+//- genderPregnancy
+//- genderPregnancyCap
+//- genderPregnancyEdit
 //- name
 //- nameCap
 //- nameEdit
 //- date
 //- dateCap
 //- dateEdit
+//- datePlan
+//- datePlanCap
+//- datePlanEdit
+//- datePregnancy
+//- datePregnancyCap
+//- datePregnancyEdit
 //- desc
 //- descCap
 //- descEdit
@@ -269,7 +459,7 @@ mixin familySettings(mod, vars)
 
 - familySettings.f = {}
 - familySettings.f.type = 'child'
-- familySettings.f.photoCapAdd = true
+- familySettings.f.photoIco = true
 - familySettings.f.icoEditTop = false
 - familySettings.f.icoEditLine = true
 - familySettings.f.btns = true
@@ -279,3 +469,98 @@ mixin familySettings(mod, vars)
 - familySettings.f.date = true
 - familySettings.f.descEdit = true
 
+//- pregnancy
+- familySettings.pregnancy1 = {}
+- familySettings.pregnancy1.type = 'pregnancy'
+- familySettings.pregnancy1.photoIco = true
+- familySettings.pregnancy1.icoEditTop = false
+- familySettings.pregnancy1.icoEditLine = true
+- familySettings.pregnancy1.btns = true
+- familySettings.pregnancy1.progress0 = true
+- familySettings.pregnancy1.genderPregnancyCap = true
+- familySettings.pregnancy1.datePregnancyCap = true
+
+- familySettings.pregnancy2 = {}
+- familySettings.pregnancy2.type = 'pregnancy'
+- familySettings.pregnancy2.photoIco = true
+- familySettings.pregnancy2.icoEditTop = false
+- familySettings.pregnancy2.icoEditLine = true
+- familySettings.pregnancy2.btns = true
+- familySettings.pregnancy2.progress10 = true
+- familySettings.pregnancy2.genderPregnancy = true
+- familySettings.pregnancy2.datePregnancyEdit = true
+
+- familySettings.pregnancy3 = {}
+- familySettings.pregnancy3.type = 'pregnancy'
+- familySettings.pregnancy3.photoIco = true
+- familySettings.pregnancy3.icoEditTop = false
+- familySettings.pregnancy3.icoEditLine = true
+- familySettings.pregnancy3.btns = true
+- familySettings.pregnancy3.progress50 = true
+- familySettings.pregnancy3.genderPregnancyEdit = true
+- familySettings.pregnancy3.datePregnancy = true
+
+//- plan
+- familySettings.plan1 = {}
+- familySettings.plan1.type = 'plan'
+- familySettings.plan1.photoIco = true
+- familySettings.plan1.icoEditTop = false
+- familySettings.plan1.icoEditLine = true
+- familySettings.plan1.btns = true
+- familySettings.plan1.progress0 = true
+- familySettings.plan1.genderPlanCap = true
+- familySettings.plan1.datePlanCap = true
+
+- familySettings.plan2 = {}
+- familySettings.plan2.type = 'plan'
+- familySettings.plan2.photoIco = true
+- familySettings.plan2.icoEditTop = false
+- familySettings.plan2.icoEditLine = true
+- familySettings.plan2.btns = true
+- familySettings.plan2.progress10 = true
+- familySettings.plan2.genderPlan = true
+- familySettings.plan2.datePlanEdit = true
+
+- familySettings.plan3 = {}
+- familySettings.plan3.type = 'plan'
+- familySettings.plan3.photoIco = true
+- familySettings.plan3.icoEditTop = false
+- familySettings.plan3.icoEditLine = true
+- familySettings.plan3.btns = true
+- familySettings.plan3.progress50 = true
+- familySettings.plan3.genderPlanEdit = true
+- familySettings.plan3.datePlan = true
+
+//- husband
+- familySettings.husband1 = {}
+- familySettings.husband1.type = 'husband'
+- familySettings.husband1.photoCapAdd = true
+- familySettings.husband1.icoEditTop = false
+- familySettings.husband1.icoEditLine = true
+- familySettings.husband1.btns = true
+- familySettings.husband1.progress0 = true
+- familySettings.husband1.statusCap = true
+- familySettings.husband1.nameCap = true
+- familySettings.husband1.descCap = true
+
+- familySettings.husband2 = {}
+- familySettings.husband2.type = 'husband'
+- familySettings.husband2.photoEdit = true
+- familySettings.husband2.icoEditTop = false
+- familySettings.husband2.icoEditLine = true
+- familySettings.husband2.btns = true
+- familySettings.husband2.progress10 = true
+- familySettings.husband2.statusEdit = true
+- familySettings.husband2.name = true
+- familySettings.husband2.descCap = true
+
+- familySettings.husband3 = {}
+- familySettings.husband3.type = 'husband'
+- familySettings.husband3.photo = true
+- familySettings.husband3.icoEditTop = false
+- familySettings.husband3.icoEditLine = true
+- familySettings.husband3.btns = true
+- familySettings.husband3.progress10 = true
+- familySettings.husband3.status = true
+- familySettings.husband3.nameEdit = true
+- familySettings.husband3.descCap = true

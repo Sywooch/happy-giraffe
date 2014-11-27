@@ -25,7 +25,23 @@ block layout
             .family-user
                 //-.ico-myfamily
 
-                .family-user_head-img-hold
+                .family-photo
+
+                    //a.ico-close4(href='#')
+                    //.family-photo_t Семейное фото
+                    //.family-photo_ovrlay
+                    //.family-photo_b
+                        a.ico-photo-edit.powertip(href='#', title='Редактировать')
+                    // У изображений соотношения сторон сохраняются 
+                    // соотношение сторон 3:4
+                    picture.family-photo_img-picture
+                    
+                        //- source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
+                        //-source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
+                        //- source(srcset=path+'images/example/w880-h580-1.jpg', media="(min-width: 480px)")
+                        img.family-photo_img-big(src='http://placekitten.com/880/660', alt="Фото")
+
+                //-.family-user_head-img-hold
                     // У изображений соотношения сторон сохраняются 
                     // 0,65 соотношение сторон
                     picture.family-user_head-img-picture

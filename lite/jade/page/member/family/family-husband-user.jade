@@ -1,0 +1,110 @@
+include ../../../block/config
+extend ../../../extend/layout_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css'; 
+
+block layout
+
+            //-+user-menu('', userMenu.a)
+          
+            //-.page-col.page-col__user
+                .page-col_cont
+
+            //-+userAddRecord('userAddRecord__blog', userAddRecord.albums)
+            .b-main
+                .b-main_cont.b-main_cont__wide
+                    .family-user 
+                        .textalign-c
+                            .ico-myfamily.ico-myfamily__l
+
+
+                        +familySettingsEmpty('', familySettingsEmpty.a)
+
+                        script(src="#{path}javascript/select2.js")
+                        script(src="#{path}javascript/select2_locale_ru.js")
+                        script.
+                            $(document).ready(function () {
+                                //- function selectCus__SearchOnDesc(state) {
+                                //-     if (!state.id) return state.text; // optgroup
+                                //-     return "<div class='select2-result_i'>" + state.text + "</div><div class='select2-result_desc'>Текст описание</div>";
+                                //- }
+                                //- // Измененный tag select c инпутом поиска
+                                //- $(".select-cus__search-on-desc").select2({
+                                //-     width: '100%',
+                                //-     dropdownCssClass: 'select2-drop__search-on',
+                                //-     formatResult: selectCus__SearchOnDesc,
+                                //-     formatSelection: selectCus__SearchOnDesc,
+                                //-     escapeMarkup: function(m) { return m; }
+                                //- }); 
+
+                                    // Измененный tag select
+                                $(".select-cus__search-off").select2({
+                                    width: '100%',
+                                    minimumResultsForSearch: -1,
+                                    dropdownCssClass: 'select2-drop__search-off',
+                                    escapeMarkup: function(m) { return m; }
+                                });
+                                $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
+
+
+                            });
+        
+                        +familySettings('', familySettings.husband1)
+                        +familySettings('', familySettings.husband2)
+                        +familySettings('', familySettings.husband3)
+
+                        // Блок Добавления
+                        .cap-add.cap-add__s
+                            .cap-add_hold
+                                .cap-add_in 
+                                    .cap-add_tx Добавить семейное фото
+
+                        .family-photo
+
+                            a.ico-close4(href='#')
+                            .family-photo_t Семейное фото
+                            .family-photo_ovrlay
+                            .family-photo_b
+                                a.ico-photo-edit.powertip(href='#', title='Редактировать')
+                            // У изображений соотношения сторон сохраняются 
+                            // соотношение сторон 3:4
+                            picture.family-photo_img-picture
+                            
+                                //- source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
+                                //-source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
+                                //- source(srcset=path+'images/example/w880-h580-1.jpg', media="(min-width: 480px)")
+                                img.family-photo_img-big(src='http://placekitten.com/880/660', alt="Фото")
+
+                        // family-about
+                        .family-about.family-about__edit
+                            .family-edit
+                                a.ico-edit.ico-edit__s(href='#')
+                                a.ico-close4(href='#')
+                            .family-about_t О нашей семье
+                            .family-about_bubble
+                               .family-about_tx
+                                    | Наша семья состоит из трех человек: папа Дима, мама Наташа и доченька Машенька. История нашего знакомства с главой семейства началась еще 2 года назад, когда я поехала в командировку в г. Саратов. Тогда я с двумя своими коллегами отправились повышать квалификацию. Проучившись три недели, мы успешно сдали экзамены и готовились отправиться домой. За 3 часа до отправления поезда моя коллега решила познакомить меня со своим братом и говорит, шутя, что привезла ему невесту. Мы все посмеялись, пошутили, потом встречи, расставания, бесконечные звонки, тысячи смс ... Дима показал 
+                        // family-about
+                        .family-about.family-about__edit
+                            .family-edit
+                                //a.ico-edit.ico-edit__s(href='#')
+                                a.ico-close4(href='#')
+                            .family-about_t О нашей семье
+                            .family-about_bubble
+                                .inp-valid.inp-valid__abs
+                                    textarea.itx-gray(rows='8')
+                                    .inp-valid_count 300
+                                .textalign-c.margin-t15
+                                    a.btn.btn-secondary.btn-xm.margin-r10 Отмена
+                                    a.btn.btn-success.btn-xm Сохранить
+
+                               //-.family-about_tx
+                                    | Наша семья состоит из трех человек: папа Дима, мама Наташа и доченька Машенька. История нашего знакомства с главой семейства началась еще 2 года назад, когда я поехала в командировку в г. Саратов. Тогда я с двумя своими коллегами отправились повышать квалификацию. Проучившись три недели, мы успешно сдали экзамены и готовились отправиться домой. За 3 часа до отправления поезда моя коллега решила познакомить меня со своим братом и говорит, шутя, что привезла ему невесту. Мы все посмеялись, пошутили, потом встречи, расставания, бесконечные звонки, тысячи смс ... Дима показал 
+                        // /family-about
+                        
+
+        +layout-footer-lite()
+
+
+

@@ -134,8 +134,7 @@ if ($full) {
 <?php endif; ?>
 
 <?php
-if ($full)
-{
+if ($full) {
     $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $data))
     ?>
     <section class="comments comments__buble">

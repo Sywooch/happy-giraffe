@@ -29,9 +29,9 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                             <a href="<?= $this->user->profileUrl ?>" class="ava ava__female ava__small-xs ava__middle-sm"><span class="ico-status ico-status__online"></span><img alt="" src="<?= $this->user->avatarUrl ?>" class="ava_img"></a><a href="<?= $this->user->profileUrl ?>" class="b-article_author"><?= $this->user->fullName ?></a>
                             <?= HHtml::timeTag($this->post, array('class' => 'tx-date'), null); ?>
                         </div>
-                        <div class="icons-meta"><a href="<?= $this->post->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
+                        <?php /* <div class="icons-meta"><a href="<?= $this->post->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
                             <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->incViewsByPath($this->post->parsedUrl) ?></span></div>
-                        </div>
+                        </div> */ ?>
                     </div>
                     <?php
                     if (!isset($this->post->templateObject->data['type']) || $this->post->templateObject->data['type'] !== 'status') {
@@ -161,38 +161,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
             </div>
             <?php $this->endWidget(); ?>
-            <div class="teaser">
-                <!--AdFox START-->
-                <!--giraffe-->
-                <!--Площадка: Весёлый Жираф / * / *-->
-                <!--Тип баннера: Тексто-графические-->
-                <!--Расположение: &lt;сайдбар&gt;-->
-                <script type="text/javascript">
-                    <!--
-                    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
-                    if (typeof(document.referrer) != 'undefined') {
-                        if (typeof(afReferrer) == 'undefined') {
-                            afReferrer = escape(document.referrer);
-                        }
-                    } else {
-                        afReferrer = '';
-                    }
-                    var addate = new Date();
-                    var scrheight = '', scrwidth = '';
-                    if (self.screen) {
-                        scrwidth = screen.width;
-                        scrheight = screen.height;
-                    } else if (self.java) {
-                        var jkit = java.awt.Toolkit.getDefaultToolkit();
-                        var scrsize = jkit.getScreenSize();
-                        scrwidth = scrsize.width;
-                        scrheight = scrsize.height;
-                    }
-                    document.write('<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=exim&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
-                    // -->
-                </script>
-                <!--AdFox END-->
-            </div>
             <?php /*
               <div class="adv-banner adv-banner__bd"><a href=""><img src="/lite/images/example/w240-h400.jpg" alt=""></a></div>
               <!-- Варианты цветов блока

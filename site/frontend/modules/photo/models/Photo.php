@@ -176,7 +176,6 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
         $this->fs_name = $this->createFsName($extension);
         $this->getImageFile()->buffer = $imageString;
         $this->attachEventHandler('onBeforeSave', array($this, 'writeImage'));
-        $this->attachEventHandler('onAfterSave', array($this, 'createThumbs'));
     }
 
     public function getImage()

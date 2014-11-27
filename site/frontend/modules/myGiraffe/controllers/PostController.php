@@ -1,7 +1,5 @@
 <?php
 
-use site\frontend\modules\posts\models\Content;
-
 /**
  * Description of PostController
  *
@@ -10,23 +8,18 @@ use site\frontend\modules\posts\models\Content;
 class PostController extends \site\frontend\modules\posts\controllers\ListController
 {
 
-    public $layout = '//layouts/lite/main';
+    public $layout = 'site.frontend.modules.posts.views.layouts.newBlogPost';
     public $hideUserAdd = true;
 
-    public function getListDataProvider($authorId)
+    public function getListDataProvider($userId, $type)
     {
-        return new \CActiveDataProvider(Content::model()->orderDesc(), array(
-            'pagination' => array(
-                'pageSize' => 10,
-                'pageVar' => 'BlogContent_page',
-            )
-        ));
+        return \NewSubscribeDataProvider::getDataProvider($userId, $type);
     }
 
-    public function actionIndex()
+    public function actionIndex($type)
     {
         $this->userId = Yii::app()->user->id;
-        $this->listDataProvider = $this->getListDataProvider($this->userId);
+        $this->listDataProvider = $this->getListDataProvider($this->userId, $type);
         $this->render('list');
     }
 

@@ -28,10 +28,10 @@ class SimpleThumbsManager extends ThumbsManager
      * @return Thumb
      * @throws \CException
      */
-    public function getThumb(Photo $photo, $presetName, $replace = false)
+    public function getThumb(Photo $photo, $usageName, $replace = false)
     {
-        $filter = $this->createFilter($presetName);
-        $path = $this->getFsPath($photo, $presetName);
+        $filter = $this->createFilter($usageName);
+        $path = $this->getFsPath($photo, $usageName);
         return $this->getThumbInternal($photo, $filter, $path, true, $replace);
     }
 
@@ -54,7 +54,7 @@ class SimpleThumbsManager extends ThumbsManager
      */
     protected function createFilter($usageName)
     {
-        $config = $this->getConfigByUsage($usageName);
+        $config = $this->getFilterConfigByUsage($usageName);
         $className = '\site\frontend\modules\photo\components\thumbs\filters\\' . ucfirst($config['name']) . 'Filter';
         $params = array_slice($config, 1);
         $reflect  = new \ReflectionClass($className);
@@ -67,7 +67,7 @@ class SimpleThumbsManager extends ThumbsManager
         return 'thumbs/' . $this->getHashByPreset($presetName) . '/' . $photo->fs_name;
     }
 
-    protected function getConfigByUsage($usageName)
+    protected function getFilterConfigByUsage($usageName)
     {
         foreach ($this->presets as $preset) {
             if (array_search($usageName, $preset['usages']) !== false) {
@@ -82,10 +82,15 @@ class SimpleThumbsManager extends ThumbsManager
         $cache = \Yii::app()->{$this->cacheId};
         $value = $cache->get(self::HASH_KEY . $presetName);
         if ($value === false) {
-            $config = $this->getConfigByUsage($presetName);
-            $value = md5(serialize($config));
+            $config = $this->getFilterConfigByUsage($presetName);
+            $value = $this->hash($config);
             $cache->set(self::HASH_KEY . $presetName, $value);
         }
         return $value;
+    }
+
+    public function hash($config)
+    {
+        return md5(serialize($config));
     }
 } 

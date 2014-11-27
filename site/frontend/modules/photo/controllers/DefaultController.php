@@ -27,13 +27,6 @@ class DefaultController extends \LiteController
         );
     }
 
-    public function actionPresets()
-    {
-        $photo = Photo::model()->findByPk(222);
-        $thumb = \Yii::app()->thumbs->getThumb($photo, 'uploadPreview');
-        echo $thumb->getUrl();
-    }
-
     public function actionIndex($userId)
     {
         $user = \User::model()->findByPk($userId);

@@ -47,6 +47,9 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             }
             return false;
         },
+        apiUrlCreator: function apiUrlCreator(base, url) {
+            return base + '/' + url + '/';
+        },
         colorsArray: ['purple', 'yellow', 'carrot', 'green', 'blue'],
         returnNewColor: function returnNewColor(index) {
             return this.elementCssClass + this.colorsArray[($.inArray(this.colorsArray[index() % this.colorsArray.length], this.colorsArray)) % this.colorsArray.length];

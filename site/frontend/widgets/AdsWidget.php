@@ -29,13 +29,13 @@ class AdsWidget extends CWidget
             $this->show = Yii::app()->ads->showAds;
         }
 
-        if ($this->show && ! $this->isResponsive()) {
-            ob_start();
-        }
+        ob_start();
     }
 
     public function run()
     {
+        $buffer = ob_get_clean();
+
         if (! $this->show) {
             return;
         }
@@ -50,14 +50,13 @@ class AdsWidget extends CWidget
                 ));
             }
         } else {
-            $code = ob_get_clean();
             if ($this->lazyAdsOn) {
                 $this->render('AdsWidget', array(
-                    'contents' => $this->prepareContents($code),
+                    'contents' => $this->prepareContents($buffer),
                     'mediaQuery' => null,
                 ));
             } else {
-                echo $code;
+                echo $buffer;
             }
         }
     }

@@ -80,7 +80,7 @@ class NewSubscribeDataProvider
     {
         $criteria = new CDbCriteria;
         // Получим список друзей
-        $friends = array_keys(CHtml::listData(Friend::model()->findAllByAttributes(array('user_id' => $user_id), array('limit' => 1000)), 'id', 'id'));
+        $friends = array_keys(CHtml::listData(Friend::model()->findAllByAttributes(array('user_id' => $user_id), array('limit' => 1000)), 'friend_id', 'friend_id'));
         // Добавим условие по автору
         $criteria->addInCondition('t.authorId', $friends);
 

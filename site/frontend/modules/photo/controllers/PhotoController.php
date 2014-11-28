@@ -15,7 +15,9 @@ class PhotoController extends \HController
     {
         $array = explode('/', $url);
         $fsName = implode('/', array_slice($array, -3));
-        $presetName = $array[count($array) - 4];
+        $hash = $array[count($array) - 4];
+        var_dump($hash); die;
+
         $photo = Photo::model()->findByAttributes(array('fs_name' => $fsName));
         $thumb = \Yii::app()->thumbs->getThumb($photo, $presetName, true);
         $thumb->show();

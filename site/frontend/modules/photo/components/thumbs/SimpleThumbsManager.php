@@ -23,16 +23,31 @@ class SimpleThumbsManager extends ThumbsManager
     /**
      * Получить миниатюру фото по заданному имени пресета
      * @param Photo $photo
-     * @param $presetName
+     * @param $usageName
      * @param bool $replace
      * @return Thumb
      * @throws \CException
      */
     public function getThumb(Photo $photo, $usageName, $replace = false)
     {
-        $filter = $this->createFilter($usageName);
+        $config = $this->getFilterConfigByUsage($usageName);
+        $filter = $this->createFilter($config);
         $path = $this->getFsPath($photo, $usageName);
         return $this->getThumbInternal($photo, $filter, $path, true, $replace);
+    }
+
+    public function getThumbByUrl($url)
+    {
+        $array = explode('/', $url);
+        $fsName = implode('/', array_slice($array, -3));
+        $hash = $array[count($array) - 4];
+        $config = $this->getConfigByHash($hash);
+        $filter = $this->createFilter($config);
+        $photo = Photo::model()->findByAttributes(array(
+            'fs_name' => $fsName
+        ));
+        $path = 'thumbs/' . $hash . $fsName;
+        return new Thumb($photo, $filter, $path, true);
     }
 
     /**
@@ -46,15 +61,19 @@ class SimpleThumbsManager extends ThumbsManager
         }
     }
 
+    public function hash($config)
+    {
+        return md5(serialize($config));
+    }
+
     /**
      * Инициализирует класс пресета
      * @param $usageName
      * @return filters\CustomFilterInterface
      * @throws \CException
      */
-    protected function createFilter($usageName)
+    protected function createFilter($config)
     {
-        $config = $this->getFilterConfigByUsage($usageName);
         $className = '\site\frontend\modules\photo\components\thumbs\filters\\' . ucfirst($config['name']) . 'Filter';
         $params = array_slice($config, 1);
         $reflect  = new \ReflectionClass($className);
@@ -89,23 +108,13 @@ class SimpleThumbsManager extends ThumbsManager
         return $value;
     }
 
-    public function hash($config)
-    {
-        return md5(serialize($config));
-    }
-
-    protected function getConfigByHash()
+    protected function getConfigByHash($hash)
     {
         foreach ($this->presets as $preset) {
-
+            if ($this->hash($preset['filter']) == $hash) {
+                return $preset['filter'];
+            }
         }
-    }
-
-    public function getThumbByUrl($url)
-    {
-        $array = explode('/', $url);
-        $fsName = implode('/', array_slice($array, -3));
-        $hash = $array[count($array) - 4];
-
+        throw new \CException('Wrong hash');
     }
 } 

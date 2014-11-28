@@ -20,6 +20,11 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             soon: 'soon',
             next3years: 'next3years'
         },
+        relationshipStatuses: {
+            friends: 'friends',
+            engaged: 'engaged',
+            married: 'married'
+        },
         createMember: function createMember(attribObj) {
            return Model.get(this.createMemberUrl, { attributes: attribObj });
         },
@@ -40,9 +45,15 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             this.gender = Model.createStdProperty(data.gender || null);
             this.name = Model.createStdProperty(data.name || null);
             this.description = Model.createStdProperty(data.description || null);
-            this.birthday = Model.createStdProperty(data.birthday || null);
+            this.birthday = Model.createStdProperty(data.birthday || {});
+            this.birthday.day = ko.observable((data.birthday !== undefined) ? data.birthday.day : null);
+            this.birthday.month = ko.observable((data.birthday !== undefined) ? data.birthday.month : null);
+            this.birthday.year = ko.observable((data.birthday !== undefined) ? data.birthday.year : null);
             this.ageString = Model.createStdProperty(data.ageString || null);
-            this.pregnancyTerm = Model.createStdProperty(data.pregnancyTerm || null);
+            this.pregnancyTerm = Model.createStdProperty(data.pregnancyTerm || {});
+            this.pregnancyTerm.day = ko.observable((data.pregnancyTerm !== undefined) ? data.pregnancyTerm.day : null);
+            this.pregnancyTerm.month = ko.observable((data.pregnancyTerm !== undefined) ? data.pregnancyTerm.month : null);
+            this.pregnancyTerm.year = ko.observable((data.pregnancyTerm !== undefined) ? data.pregnancyTerm.year : null);
             this.planningWhen = Model.createStdProperty(data.planningWhen || null);
             return this;
         }

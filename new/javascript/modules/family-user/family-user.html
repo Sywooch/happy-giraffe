@@ -11,7 +11,7 @@
         </div>
     </div>
     <!-- ko foreach: membersArray() -->
-        <family-settings params="family: $parent.family"></family-settings>
+        <family-settings params="family: $parent.family, member: $data, index: $index"></family-settings>
     <!-- /ko -->
     <!-- Блок Добавления-->
     <div class="cap-add cap-add__l cap-add__family-photo" data-bind="click: addFamilyPhoto">

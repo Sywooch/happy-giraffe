@@ -46,11 +46,13 @@
         <!--</div>-->
     </div>
     <!-- /ko -->
+    <!-- ko if:  familyMember.type.value() !== null -->
+    <div class="family-edit">
+        <a href="#" class="ico-close4" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])"></a>
+    </div>
+    <!-- /ko -->
     <!-- ko if: familyMember.type.value() === familyMember.memberTypes.child -->
     <div>
-        <div class="family-edit">
-            <a href="#" class="ico-close4"></a>
-        </div>
         <div class="family-settings_t">Дети</div>
         <div class="family-settings_hold clearfix1">
             <div class="family-settings_l">
@@ -75,10 +77,7 @@
                     <!-- ko if: $data.editing() === true -->
                     <!-- В случае ошибки .error на .inp-valid-->
                     <div class="inp-valid inp-valid__abs">
-                        <select placeholder="Выберите пол" class="select-cus select-cus__gray select-cus__search-off">
-                            <option></option>
-                            <option value="woman">Дочь</option>
-                            <option value="man">Сын</option>
+                        <select placeholder="Выберите пол" class="select-cus select-cus__gray select-cus__search-off" data-bind="options: $parent.genderArrayTwo, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true">
                         </select>
                     </div>
                     <a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField">ok</a>
@@ -107,54 +106,15 @@
                     <!-- ko if: $data.editing() === true -->
                     <div class="inp-valid inp-valid__abs">
                         <div class="float-l w-80 margin-r10">
-                            <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
-                                <option></option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="8">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
+                            <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true">
                             </select>
                         </div>
                         <div class="float-l w-135 margin-r10">
-                            <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray">
-                                <option></option>
-                                <option value="1">Января</option>
-                                <option value="2">Февраля</option>
-                                <option value="3">Марта</option>
-                                <option value="4">Апреля</option>
-                                <option value="5">Мая</option>
-                                <option value="6">Июня</option>
-                                <option value="7">Июля</option>
-                                <option value="8">Августа</option>
-                                <option value="9">Сентября</option>
-                                <option value="10">Октября</option>
-                                <option value="11">Ноября</option>
-                                <option value="12">Декабря</option>
+                            <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.months, optionsText: 'name', optionsValue: 'id', value: $data.month, valueAllowUnset: true">
                             </select>
                         </div>
                         <div class="float-l w-80">
-                            <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray">
-                                <option></option>
-                                <option value="1">1912</option>
-                                <option value="2">1913</option>
-                                <option value="3">1914</option>
-                                <option value="4">1915</option>
-                                <option value="5">1916</option>
-                                <option value="6">1917</option>
-                                <option value="7">1918</option>
-                                <option value="8">1919</option>
-                                <option value="8">1920</option>
-                                <option value="10">1921</option>
-                                <option value="11">1922</option>
-                                <option value="12">1923</option>
+                            <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.years, value: $data.year, valueAllowUnset: true">
                             </select>
                         </div>
                     </div>
@@ -181,7 +141,7 @@
             <div class="family-settings_l">
                 <div class="family-settings_progress">
                     <!-- .color-gray-light- убирается при наличии заполнениия-->
-                    <div class="family-settings_progress-tx color-gray-light">Вы ни чего не заполнили</div>
+                    <div class="family-settings_progress-tx color-gray-light">Вы ничего не заполнили</div>
                     <!-- bootstrap progress-->
                     <div class="progress">
                         <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"
@@ -200,9 +160,6 @@
     <!-- /ko -->
     <!-- ko if: familyMember.type.value() === familyMember.memberTypes.planning -->
     <div>
-        <div class="family-edit">
-            <a href="#" class="ico-close4"></a>
-        </div>
         <div class="family-settings_t"></div>
         <div class="family-settings_hold clearfix1">
             <div class="family-settings_l">
@@ -226,11 +183,7 @@
                     <!-- ko if: $data.editing() === true -->
                     <!-- В случае ошибки .error на .inp-valid-->
                     <div class="inp-valid inp-valid__abs">
-                        <select placeholder="Выберите пол" class="select-cus select-cus__gray select-cus__search-off">
-                            <option></option>
-                            <option value="none">Пока не знаем</option>
-                            <option value="woman">Дочь</option>
-                            <option value="man">Сын</option>
+                        <select placeholder="Выберите пол" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.genderArrayThree, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true">
                         </select>
                     </div>
                     <a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField">ok</a>
@@ -261,7 +214,7 @@
             <div class="family-settings_l">
                 <div class="family-settings_progress">
                     <!-- .color-gray-light- убирается при наличии заполнениия-->
-                    <div class="family-settings_progress-tx color-gray-light">Вы ни чего не заполнили</div>
+                    <div class="family-settings_progress-tx color-gray-light">Выни чего не заполнили</div>
                     <!-- bootstrap progress-->
                     <div class="progress">
                         <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"
@@ -280,9 +233,6 @@
     <!-- /ko -->
     <!-- ko if: familyMember.type.value() === familyMember.memberTypes.waiting -->
     <div>
-        <div class="family-edit">
-            <a href="#" class="ico-close4"></a>
-        </div>
         <div class="family-settings_t"></div>
         <div class="family-settings_hold clearfix1">
             <div class="family-settings_l">
@@ -306,11 +256,7 @@
                     <!-- ko if: $data.editing() === true -->
                     <!-- В случае ошибки .error на .inp-valid-->
                     <div class="inp-valid inp-valid__abs">
-                        <select placeholder="Выберите пол" class="select-cus select-cus__gray select-cus__search-off">
-                            <option></option>
-                            <option value="none">Пока не знаем</option>
-                            <option value="woman">Дочь</option>
-                            <option value="man">Сын</option>
+                        <select placeholder="Выберите пол" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.genderArrayThree, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true">
                         </select>
                     </div>
                     <a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField">ok</a>
@@ -326,54 +272,15 @@
                     <!-- ko if: $data.editing() === true -->
                     <div class="inp-valid inp-valid__abs">
                         <div class="float-l w-80 margin-r10">
-                            <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
-                                <option></option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="8">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
+                            <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true">
                             </select>
                         </div>
                         <div class="float-l w-135 margin-r10">
-                            <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray">
-                                <option></option>
-                                <option value="1">Января</option>
-                                <option value="2">Февраля</option>
-                                <option value="3">Марта</option>
-                                <option value="4">Апреля</option>
-                                <option value="5">Мая</option>
-                                <option value="6">Июня</option>
-                                <option value="7">Июля</option>
-                                <option value="8">Августа</option>
-                                <option value="9">Сентября</option>
-                                <option value="10">Октября</option>
-                                <option value="11">Ноября</option>
-                                <option value="12">Декабря</option>
+                            <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.months, optionsText: 'name', optionsValue: 'id', value: $data.month, valueAllowUnset: true">
                             </select>
                         </div>
                         <div class="float-l w-80">
-                            <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray">
-                                <option></option>
-                                <option value="1">1912</option>
-                                <option value="2">1913</option>
-                                <option value="3">1914</option>
-                                <option value="4">1915</option>
-                                <option value="5">1916</option>
-                                <option value="6">1917</option>
-                                <option value="7">1918</option>
-                                <option value="8">1919</option>
-                                <option value="8">1920</option>
-                                <option value="10">1921</option>
-                                <option value="11">1922</option>
-                                <option value="12">1923</option>
+                            <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.years, value: $data.year, valueAllowUnset: true">
                             </select>
                         </div>
                     </div>
@@ -406,9 +313,6 @@
     <!-- /ko -->
     <!-- ko if: familyMember.type.value() === familyMember.memberTypes.adult -->
     <div>
-        <div class="family-edit">
-            <a href="#" class="ico-close4"></a>
-        </div>
         <div class="family-settings_t">Моя половинка</div>
         <div class="family-settings_hold clearfix1">
             <div class="family-settings_l">
@@ -433,27 +337,7 @@
                     <!-- ko if: $data.editing() === true -->
                     <!-- В случае ошибки .error на .inp-valid-->
                     <div class="inp-valid inp-valid__abs">
-                        <select placeholder="Выберите пол" class="select-cus select-cus__gray select-cus__search-off">
-                            <option></option>
-                            <option value="friends">Друзья</option>
-                            <option value="engaged">Обручены</option>
-                            <option value="married">Замужем</option>
-                        </select>
-                    </div>
-                    <a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField">ok</a>
-                    <!-- /ko -->
-                </div>
-                <div class="family-settings_row" data-bind="with: familyMember.gender">
-                    <!-- ko if: $data.editing() === false -->
-                    <a href="#" class="family-settings_cap family-settings_cap__gender" data-bind="click: $parent.beginEditField">Пол</a>
-                    <!-- /ko -->
-                    <!-- ko if: $data.editing() === true -->
-                    <!-- В случае ошибки .error на .inp-valid-->
-                    <div class="inp-valid inp-valid__abs">
-                        <select placeholder="Выберите пол" class="select-cus select-cus__gray select-cus__search-off">
-                            <option></option>
-                            <option value="woman">Женский</option>
-                            <option value="man">Мужской</option>
+                        <select placeholder="Выберите пол" class="select-cus select-cus__gray select-cus__search-off" data-bind="options: $parent.relationshipArray, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true">
                         </select>
                     </div>
                     <a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField">ok</a>
@@ -464,7 +348,7 @@
                 <div class="family-settings_row" data-bind="with: familyMember.name">
                     <!-- ko if: $data.editing() === false -->
                     <a href="#" class="family-settings_cap family-settings_cap__name"
-                       data-bind="click: $parent.beginEditField">Имя ребенка</a>
+                       data-bind="click: $parent.beginEditField">Имя</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
                     <div class="inp-valid inp-valid__abs">
@@ -476,7 +360,7 @@
                 <!-- desc-->
                 <div class="family-settings_row" data-bind="with: familyMember.description">
                     <!-- ko if: $data.editing() === false -->
-                    <a href="#" class="family-settings_cap family-settings_cap__desc" data-bind="click: $parent.beginEditField">Пару слов о ребенке</a>
+                    <a href="#" class="family-settings_cap family-settings_cap__desc" data-bind="click: $parent.beginEditField">Пару слов</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
                     <div class="inp-valid inp-valid__abs">

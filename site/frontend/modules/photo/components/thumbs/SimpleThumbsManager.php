@@ -62,9 +62,9 @@ class SimpleThumbsManager extends ThumbsManager
         return $filter;
     }
 
-    protected function getFsPath(Photo $photo, $presetName)
+    protected function getFsPath(Photo $photo, $usageName)
     {
-        return 'thumbs/' . $this->getHashByPreset($presetName) . '/' . $photo->fs_name;
+        return 'thumbs/' . $this->getHashByUsage($usageName) . '/' . $photo->fs_name;
     }
 
     protected function getFilterConfigByUsage($usageName)
@@ -77,14 +77,14 @@ class SimpleThumbsManager extends ThumbsManager
         throw new \CException('Wrong usage name');
     }
 
-    protected function getHashByPreset($presetName)
+    protected function getHashByUsage($usageName)
     {
         $cache = \Yii::app()->{$this->cacheId};
-        $value = $cache->get(self::HASH_KEY . $presetName);
+        $value = $cache->get(self::HASH_KEY . $usageName);
         if ($value === false) {
-            $config = $this->getFilterConfigByUsage($presetName);
+            $config = $this->getFilterConfigByUsage($usageName);
             $value = $this->hash($config);
-            $cache->set(self::HASH_KEY . $presetName, $value);
+            $cache->set(self::HASH_KEY . $usageName, $value);
         }
         return $value;
     }
@@ -92,5 +92,20 @@ class SimpleThumbsManager extends ThumbsManager
     public function hash($config)
     {
         return md5(serialize($config));
+    }
+
+    protected function getConfigByHash()
+    {
+        foreach ($this->presets as $preset) {
+
+        }
+    }
+
+    public function getThumbByUrl($url)
+    {
+        $array = explode('/', $url);
+        $fsName = implode('/', array_slice($array, -3));
+        $hash = $array[count($array) - 4];
+
     }
 } 

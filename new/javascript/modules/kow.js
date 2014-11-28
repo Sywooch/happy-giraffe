@@ -36,4 +36,8 @@ define(["jquery", "knockout"], function ($, ko) {
     $('family-user').each(function componentIterator() {
         ko.applyBindings({}, $(this)[0]);
     });
+    ko.components.register('family-settings', { require: 'family-settings/family-settings' });
+    $('family-settings').each(function componentIterator() {
+        ko.applyBindings({}, $(this)[0]);
+    });
 });

@@ -19,7 +19,6 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
                 }
             );
         },
-
         findById: function findById(id, array) {
             var iterator;
             for (iterator = 0; iterator < array.length; iterator++) {
@@ -53,8 +52,15 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
         colorsArray: ['purple', 'yellow', 'carrot', 'green', 'blue'],
         returnNewColor: function returnNewColor(index) {
             return this.elementCssClass + this.colorsArray[($.inArray(this.colorsArray[index() % this.colorsArray.length], this.colorsArray)) % this.colorsArray.length];
+        },
+        stdProperty: {
+            editing: ko.observable(false),
+            value: ko.observable(null)
+        },
+        createStdProperty: function createStdProperty(value) {
+            var stdProperty = Object.create({ editing: ko.observable(false), value: ko.observable(value) });
+            return stdProperty;
         }
-
     };
 
     return Model;

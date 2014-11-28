@@ -217,7 +217,7 @@ class MigrateManager
         $allowedErrors = array();
 
         if ($model instanceof \Baby) {
-            if ($model->type == \Baby::TYPE_WAIT) {
+            if ($model->type == \Baby::TYPE_WAIT || $model->type == \Baby::TYPE_TWINS) {
                 $allowedErrors = array(
                     'birthday' => array(
                         'Некорректная дата родов',

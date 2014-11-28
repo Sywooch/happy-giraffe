@@ -145,7 +145,9 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
             this.opened(false);
         };
         this.handlePresets = function handlePresets(presets) {
-            this.presets = presets;
+            if (presets.success === true) {
+                this.presets = presets.data;
+            }
         };
         /**
          * Load photo slider

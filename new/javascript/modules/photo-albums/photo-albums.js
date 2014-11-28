@@ -12,8 +12,11 @@ define(['jquery', 'knockout', 'text!photo-albums/photo-albums.html', 'photo/Phot
          * @type {string}
          */
         this.handlePresets = function (presets) {
-            this.presets = presets;
-            this.getAlbums();
+            if (presets.success === true) {
+                this.presets = presets.data;
+                this.getAlbums();
+            }
+
         };
         /**
          * get albums by user

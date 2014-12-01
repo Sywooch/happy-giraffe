@@ -42,6 +42,7 @@ return array(
             'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
             'blog' => false,
         ),
+        'user/<user_id:\d+>/albums/<album_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album')),
         'cook/recipe/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'SimpleRecipe')),
         'cook/multivarka/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'MultivarkaRecipe')),
         'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
@@ -166,6 +167,8 @@ return array(
         'user/<user_id:\d+>/rss' => 'rss/user',
         'user/<user_id:\d+>/comments/rss/page<page:\d+>' => 'rss/comments',
         'user/<user_id:\d+>/comments/rss' => 'rss/comments',
+        'user/<user_id:\d+>/albums' => 'gallery/user/index',
+        'user/<user_id:\d+>/albums/<album_id:\d+>' => 'gallery/user/view',
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
@@ -432,10 +435,10 @@ return array(
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
 
-        'user/<userId:\d+>/albums' => 'photo/default/index',
-        'user/<userId:\d+>/albums/<id:\d+>' => 'photo/default/album',
-        'user/<userId:\d+>/albums/create' => 'photo/default/create',
-        'user/<userId:\d+>/albums/<albumId:\d+>/photo<photoId:\d+>' => 'photo/singlePhoto/album',
+//        'user/<userId:\d+>/albums' => 'photo/default/index',
+//        'user/<userId:\d+>/albums/<id:\d+>' => 'photo/default/album',
+//        'user/<userId:\d+>/albums/create' => 'photo/default/create',
+//        'user/<userId:\d+>/albums/<albumId:\d+>/photo<photoId:\d+>' => 'photo/singlePhoto/album',
         'photo/default/presets' => 'photo/default/presets',
         'photo/photo/thumb' => 'photo/photo/thumb',
 

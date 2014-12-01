@@ -1,5 +1,114 @@
 /* b-markdown */
 .b-markdown {
+    word-wrap: break-word;
+    &:extend(.tx-content);
+
+    p {margin: 0 0 @article-margin;}
+    img {
+        .inline-block();
+        vertical-align: bottom;
+    }
+
+    /*.content-img  {
+        float: none;
+        margin: 0 0 10px;
+    }*/
+    .smile {vertical-align: middle;}
+
+    h2 {
+        margin: 3*@article-margin 0 @article-margin;
+        font-size: 16px;
+        line-height: 25px;
+        font-weight: bold;
+        color: @color-base;
+
+        @media (min-width: @screen-phone) {
+            & {
+                font-size: 18px;
+            }
+        }
+        @media (min-width: @screen-desktop) {
+            & {
+                font-size: 22px;
+            }
+        }
+    }
+
+    h3 {
+        margin: 2*@article-margin 0 @article-margin;
+        font-size: 18px;
+        font-weight: bold;
+        color: @color-base;
+    }
+    /*h4 {
+        margin: 2*@article-margin 0 @article-margin;
+        font-size: 16px;
+        font-weight: bold;
+        color: @color-base;
+    }*/
+    h4 {
+        margin: 2*@article-margin 0 @article-margin;
+        font-size: 14px;
+        font-weight: bold;
+        color: @color-base;
+    }
+    h5 {
+        margin: 2*@article-margin 0 @article-margin;
+        font-size: 12px;
+        font-weight: bold;
+        color: @color-base;
+    }
+    h6 {
+        margin: 2*@article-margin 0 @article-margin;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: italic;
+        color: @color-base;
+    }
+    &_t-sub {
+        font: 22px/27px Arial, Tahoma, Verdana, sans-serif;
+        color: #333;
+        margin: 0 0 1.5*@article-margin;
+    }
+    h2&_t-sub {
+        margin-top: 0;
+        margin-bottom: @article-margin;
+    }
+    ul {
+        margin: 1.5*@article-margin 0;
+        padding: 0;
+        list-style: none;
+    }
+    ul li {
+        margin: 0;
+        padding: 5px 0 5px 25px;
+        background: url(/images/bullet.png) no-repeat 4px 11px;
+    }
+    ol {
+        margin: 1.5*@article-margin 0;
+        padding: 0;
+        counter-reset: item;
+        list-style-type: none;
+    }
+    ol li {
+        margin: 0;
+        padding: 5px 0 5px 25px;
+    }
+    ol li:before {
+        font:bold 14px Arial, Tahoma, Verdana, sans-serif;
+        color: #333;
+        margin:0 0 0 -25px;
+        float: left;
+        content: counters(item, '.') '.'; /* crash IE7 */
+        counter-increment: item;
+    }
+
+
+
+
+
+
+
     
     // для old layout
     div,
@@ -11,35 +120,10 @@
     // /old layout
 
 
-    h2 {
-        margin: 15px 0 15px;
-        font-size: 16px;
-        line-height: 25px;
-        font-weight: normal;
-        color: @color-base;
-
-
-        @media (min-width: @screen-phone) {
-            & {
-                font-size: 18px;
-            }
-        }
-        @media (min-width: @screen-desktop) {
-            & {
-                font-size: 22px;
-                line-height: 26px;
-            }
-        }
-    }
-    h2&_t-sub,
-    h2:first-child {
-        margin-top: 0;
-        margin-bottom: 40px;
-    }
 
     .b-article_in-img {
-        margin-top: 30px;
-        margin-bottom: 10px;
+        /*margin-top: 30px;*/
+        margin: 0 0 @article-margin 0;
     }
     /*&_img-hold {
         margin-top: 30px;
@@ -49,6 +133,29 @@
         .opacity(1);
         color: #fff;
     }*/
+
+    &_source {
+        margin: 4*@article-margin 0 @article-margin;
+        color: @color-gray;
+        font-size: 12px;
+        font-style: italic;
+        text-align: right;
+    }
+    &_source-tx {
+        .inline-block();
+        margin-right: 3px;
+    }
+    &_source-a {
+        display: inline-block;
+        margin: 0 3px;
+        color: #8ec9fa;
+    }
+    &_description {
+        margin: -0.7*@article-margin 30px @article-margin;
+        text-align: center;
+        color: @color-gray;
+        font: italic 13px/17px Arial, Tahoma, Verdana, sans-serif;
+    }
     &_img-water {
         position: absolute;
         bottom: 0;
@@ -74,9 +181,9 @@
 
     @media (min-width: @screen-tablet) {
         
-        & &_img-hold {
+        /*& &_img-hold {
             margin-top: 40px;
-        }
+        }*/
         &_li-tx {
             font-size: 45px;
         }
@@ -103,7 +210,7 @@ add in old css
 
 /* .markdown-compare */
 .markdown-compare {
-    margin: 20px 0;
+    margin: @article-margin 0;
     padding: 15px 20px;
     border: 2px solid transparent;
 
@@ -130,16 +237,16 @@ add in old css
         &__r {
             margin-left: 65px;
         }
-        .body__lite &__r {
+        /*.body__lite &__r {
             margin-right: -40px;
-        }
+        }*/
     }
 }
 /* /markdown-compare */
 
 /* .markdown-day */
 .markdown-day {
-    margin: 15px 0;
+    margin: @article-margin 0;
     padding: 20px;
     border: 2px solid transparent;
 
@@ -174,9 +281,9 @@ add in old css
     }
 
     @media (min-width: @screen-desktop) {
-        .body__lite & {
+        /*.body__lite & {
             margin-right: -40px;
-        }
+        }*/
     }
 }
 /* markdown-day */

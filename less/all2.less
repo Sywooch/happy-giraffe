@@ -677,14 +677,21 @@ table.fr_recipe_tb td { width: 50%;}
     &__question &_more:hover,
     &__question &_more {color: #fff;}
     &__question &_t-a {color: #fff;}
-
+    
     .wysiwyg-content {padding: 0 20px;}
+    .wysiwyg-content .b-markdown {margin: 0;}
     .comments .wysiwyg-content {padding: 0;}
     .custom-likes-b {margin: 15px 0 35px;}
     &_repost &_cont {min-height: 115px;}
     &_in {
         min-height:159px;
         word-wrap: break-word;
+    }
+    &_in .b-markdown {
+        margin: 0 20px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #333;
     }
     &_in-img {
         position: relative;
@@ -768,7 +775,7 @@ table.fr_recipe_tb td { width: 50%;}
         display: inline-block;
     }
     &_t {
-        margin: 0 20px 15px;
+        margin: 15px 20px 15px;
         font: bold 30px/30px 'Helvetica Neue', Helvetica, Arial, sans-serif;
         color: #186fb8;
     }
@@ -5249,6 +5256,7 @@ table.fr_recipe_tb td { width: 50%;}
 // lite
 // Переменные и примешивания
 @import "../lite/less/include/variables.less";
+@import "../lite/less/bootstrap/responsive-utilities.less";
 // Путь к изображениям
 @path-img : '/lite/images'; 
 @import "../lite/less/project/yandex-search-form.less";

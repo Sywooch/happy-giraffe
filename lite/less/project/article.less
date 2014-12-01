@@ -14,11 +14,15 @@
 
     &__list .wysiwyg-content p:hover .ico-more{
         &:extend(.ico-more:hover);
-    }
-    &__list .wysiwyg-content p:hover {
-        color: @color-gray;
         cursor: pointer;
     }
+    &__list &_in-img {
+        text-align: center;
+    }
+    /*&__list .wysiwyg-content p:hover {
+        color: @color-gray;
+        cursor: pointer;
+    }*/
 
     &_cont-tale {display: none;}
 
@@ -75,15 +79,15 @@
 
     @media (min-width: @screen-tablet) {
         .wysiwyg-content {
-            margin: 0 40px 10px 0; 
+            margin: 0 0 10px; 
         }
+        .b-album {margin: 0;}
         // Компенсация отступа текста
-        .b-album_img-hold,
         &_in-img { 
-            margin: 5px -40px 15px 0;
+            margin: 5px 0 15px 0;
         }
         &_t-list {
-            margin: 20px 40px 20px 0;
+            margin: 20px 0;
         }
     }
 
@@ -101,7 +105,7 @@
         }
         &__list:hover {border-color: #e4e4e4;}
         &__list &_in-img {
-            margin: 5px -55px 10px -15px;
+            margin: 5px -14px 10px -14px;
         }
         &__user-status .user-status {
             padding-left: 20px;
@@ -113,16 +117,14 @@
             padding-left: 34px;
             padding-right: 34px;
         }
-        &__list .b-album {
+        /*&__list .b-album {}*/
+        &__list .b-album_img-hold {
             margin: 0 -14px 10px;
         }
         &__list .user-status {
             margin-bottom: 10px;
         }
 
-        .b-album_img-hold {
-            margin: 5px -55px 10px -15px;
-        }
     }
 }
 /* /b-article */

@@ -1,0 +1,27 @@
+include ../../../block/config
+extend ../../../extend/layout_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css'; 
+ 
+block layout
+ 
+ 
+    //- +user-menu('', userMenu.a)
+  
+    //- .page-col.page-col__user
+        .page-col_cont.page-col_cont__in
+    .b-main
+        .b-main_cont.b-main_cont__wide
+            //- +userAddRecord('userAddRecord__blog', userAddRecord.albums)
+
+            .family-user.family-user__think
+                .textalign-c
+                    .ico-myfamily.ico-myfamily__l
+
+                +cap-empty("cap-empty__profile-family", capEmpty.familyFirstEdit)
+
+
+        +layout-footer-lite()
+
+

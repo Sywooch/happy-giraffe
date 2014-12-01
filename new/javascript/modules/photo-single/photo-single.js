@@ -24,7 +24,7 @@ define(['jquery', '../knockout', 'text!photo-single/photo-single.html', 'photo/P
                 PresetManager.presets = this.presets;
                 this.photoAttach().photo().presetWidth(PresetManager.getWidth(this.photoAttach().photo().width(), this.photoAttach().photo().height(), "myPhotosAlbumCover"));
                 this.photoAttach().photo().presetHeight(PresetManager.getHeight(this.photoAttach().photo().width(), this.photoAttach().photo().height(), "myPhotosAlbumCover"));
-                this.photoAttach().photo().presetHash(PresetManager.getPresetHash(this.usablePreset()));
+                this.photoAttach().photo().presetHash(PresetManager.getPresetHash("myPhotosAlbumCover"));
                 this.loading(false);
             }
         };

@@ -223,6 +223,7 @@ module.exports = function(grunt){
             /.tooltip+/,
             /.header_+/,
             /.header-+/,
+            /.fast-articles3+/,
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
@@ -245,17 +246,20 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.header-+/,
+            /.fast-articles3+/,
             //.tooltip+/,
             
             /.bx-wrapper+/,
             /.body+/,
+            /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/photo-window/**/*.html', 
-          '!lite/html/page/sign/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого 
           '!lite/html/page/comments/comments-page.html'
@@ -279,6 +283,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.header-+/,
+            /.fast-articles3+/,
             //.tooltip+/,
             
             /.bx-wrapper+/,
@@ -286,6 +291,8 @@ module.exports = function(grunt){
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
+            /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -313,9 +320,12 @@ module.exports = function(grunt){
             /.select2+/,
             /.header_+/,
             /.header-+/,
+            /.fast-articles3+/,
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
             /.body+/,
+            /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -350,7 +360,10 @@ module.exports = function(grunt){
             /.fancybox+/,
             /.header_+/,
             /.header-+/,
+            /.fast-articles3+/,
             /.body+/,
+            /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -376,12 +389,16 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header-banner+/,
             /.header_+/,
+
             /.ico-family+/,
+            /.fast-articles3+/,
             /.body+/,
+            /.bnr+/,
             
             // Для страниц собранных разделов
             /.flag+/,
             /.bx-wrapper+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -415,11 +432,14 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.ico-family+/,
-            /.body+/,
             
+            /.fast-articles3+/,
+            /.body+/,
+            /.bnr+/,
             // Для страниц собранных разделов
             /.flag+/,
             /.bx-wrapper+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -447,7 +467,9 @@ module.exports = function(grunt){
             /.select2+/,
             /@font-face+/,
             /.body+/,
-
+            /.bnr+/,
+            
+            /.ico-social-hold+/,
           ],
            
         },

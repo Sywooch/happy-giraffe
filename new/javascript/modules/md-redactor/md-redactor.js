@@ -112,24 +112,42 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             var content = this.editor.exportFile('epiceditor');
             this.editor.importFile('epiceditor', content + text);
         };
+        /**
+         * Вставка видео
+         */
         this.insertVideo = function instertVideo() {
             this.appendToText(this.videoSample);
-        };
+        }
+        /**
+         * Вставка сравнения без фото
+         */
         this.insertCompareImageSampleNoPhoto = function insertCompareImageSampleNoPhoto(link, collectionId) {
             this.appendToText(this.compareSample);
         };
+        /**
+         * Вставка подписанного изображения
+         */
         this.insertSignedImage = function insertSignedImage() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('signed');
         };
+        /**
+         * Вставка нумерации
+         */
         this.insertNumberImage = function insertSignedImage() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('number');
         };
+        /**
+         * Вставка рассказа о моем дне
+         */
         this.insertDayImage = function insertSignedImage() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('day');
         };
+        /**
+         * Вставка сравнения
+         */
         this.insertCompareImage = function insertSignedImage() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('compare');

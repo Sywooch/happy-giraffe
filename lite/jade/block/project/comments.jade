@@ -115,6 +115,57 @@ mixin commentsOpen (mod, vars)
                                 if (vars.user)
                                     .comments_footer
                                         +bControl("", bControl.e)
+                    // комментарий     
+                    li.comments_li.comments_li__yellow
+                        .comments_i.clearfix
+                            .comments_ava
+                                // Аватарки размером 40*40
+                                +ava("ava__middle ava__small-xs", ava.c)
+                            .comments_frame
+                                .comments_header
+                                    a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
+                                    time.tx-date(datetime='2014-11-04T18:20:54+00:00') 2 минуты назад
+                                .comments_cont
+                                    .wysiwyg-content
+                                        p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                                if (vars.user)
+                                    .comments_footer
+                                        +bControl("", bControl.e)
+                    // комментарий     
+                    li.comments_li.comments_li__blue
+                        .comments_i.clearfix
+                            .comments_ava
+                                // Аватарки размером 40*40
+                                +ava("ava__middle ava__small-xs", ava.c)
+                            .comments_frame
+                                .comments_header
+                                    a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
+                                    time.tx-date(datetime='2014-11-04T18:20:54+00:00') 2 минуты назад
+                                .comments_cont
+                                    .wysiwyg-content
+                                        p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                                if (vars.user)
+                                    .comments_footer
+                                        +bControl("", bControl.e)
+                    // комментарий     
+                    li.comments_li.comments_li__green
+                        .comments_i.clearfix
+                            .comments_ava
+                                // Аватарки размером 40*40
+                                +ava("ava__middle ava__small-xs", ava.c)
+                            .comments_frame
+                                .comments_header
+                                    a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
+                                    time.tx-date(datetime='2014-11-04T18:20:54+00:00') 2 минуты назад
+                                .comments_cont
+                                    .wysiwyg-content
+                                        p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                                if (vars.user)
+                                    .comments_footer
+                                        +bControl("", bControl.e)
                     // комментарий 
                 +articleUsers()
             //-
@@ -229,9 +280,11 @@ mixin commentAdd (mod, vars)
         if (vars.state == 'guest')
             .comments_add-hold
                 |  Комментировать от
-                .ico-social-hold
-                    a.ico-social.ico-social__odnoklassniki(href="#")
-                    a.ico-social.ico-social__vkontakte(href="#")
+                .ico-social-ul
+                    li.ico-social-ul_li
+                        a.ico-social.ico-social__odnoklassniki(href="#")
+                    li.ico-social-ul_li
+                        a.ico-social.ico-social__vkontakte(href="#")
                 |  или 
                 a.comments_add-a Войти
         if (vars.state == 'user')

@@ -22,6 +22,8 @@ class PostController extends \LiteController
 
     public function actionView($content_id)
     {
+        // Отработка сигналов
+        \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
         /** @todo добавить условие byService для полноценного использования индекса */
         $this->post = Content::model()->byEntity('CommunityContent', $content_id)->find();
         if (!$this->post || $this->post->parsedUrl !== \Yii::app()->request->requestUri)

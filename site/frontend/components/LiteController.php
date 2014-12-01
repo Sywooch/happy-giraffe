@@ -21,7 +21,7 @@ class LiteController extends HController
     public $hideUserAdd = false;
     public $litePackage = false;
     public $metaNoindex = false;
-    public $user;
+    public $owner;
 
     public function init()
     {

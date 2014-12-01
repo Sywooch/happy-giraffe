@@ -39,7 +39,7 @@ $this->beginContent('//layouts/lite/common');
                 <div class="b-crumbs_tx">Я здесь:</div>
                 <?php
                 $this->widget('\site\frontend\components\lite\UserBreadcrumbs', array(
-                    'user' => $this->user,
+                    'user' => $this->owner,
                     'tagName' => 'ul',
                     'separator' => ' ',
                     'htmlOptions' => array('class' => 'b-crumbs_ul'),

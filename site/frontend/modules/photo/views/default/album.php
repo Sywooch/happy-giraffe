@@ -6,7 +6,7 @@
  * @var \site\frontend\modules\photo\models\PhotoAlbum $album
  * @var ClientScript $cs
  */
-$this->user = $album->author;
+$this->owner = $album->author;
 $this->metaNoindex = true;
 $this->pageTitle = 'Фотоальбом' ;
 $this->breadcrumbs += array(

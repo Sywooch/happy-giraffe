@@ -96,10 +96,10 @@ class SimpleThumbsManager extends ThumbsManager
         throw new \CException('Wrong usage name');
     }
 
-    protected function getHashByUsage($usageName)
+    public function getHashByUsage($usageName)
     {
         $cache = \Yii::app()->{$this->cacheId};
-        $value = $cache->get(self::HASH_KEY . $usageName);
+        $value = false; // $cache->get(self::HASH_KEY . $usageName);
         if ($value === false) {
             $config = $this->getFilterConfigByUsage($usageName);
             $value = $this->hash($config);

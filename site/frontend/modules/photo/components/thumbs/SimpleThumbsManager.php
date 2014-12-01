@@ -99,7 +99,7 @@ class SimpleThumbsManager extends ThumbsManager
     protected function getHashByUsage($usageName)
     {
         $cache = \Yii::app()->{$this->cacheId};
-        $value = false; $cache->get(self::HASH_KEY . $usageName);
+        $value = $cache->get(self::HASH_KEY . $usageName);
         if ($value === false) {
             $config = $this->getFilterConfigByUsage($usageName);
             $value = $this->hash($config);

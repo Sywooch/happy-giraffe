@@ -4,7 +4,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         var collectionData = {};
         collectionData.id = params.collectionId();
         this.collectionId = params.collectionId;
-        this.userSliderId = params.userId;
+        this.userSliderId = params.userId || User.userId;
         this.photoAttach = params.photo;
         this.title = params.title;
         this.description = params.description;
@@ -96,7 +96,9 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          */
         this.initializeSlider = function initializeSlider() {
             this.collection.getPartsCollection(this.collection.id(), 0, null);
-            this.getUser();
+            if (this.userSliderId) {
+                this.getUser();
+            }
             this.getCollection();
         };
         this.initializeSlider();

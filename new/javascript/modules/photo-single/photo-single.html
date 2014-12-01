@@ -25,25 +25,6 @@
     </section>
     <!-- /ko -->
 <!-- /ko -->
-<!-- ko if: loading() === true -->
-<section class="b-album b-album__photolink">
-    <div class="b-album_img-hold" >
-        <div class="b-album_img-pad"></div>
-
-        <div class="b-album_img-allheight">
-            <div class="b-album_img-center">
-                <div class="loader-circle">
-                    <div class="loader-circle_hold">
-                        <div class="loader-circle_1"></div>
-                        <div class="loader-circle_2"></div>
-                        <div class="img-grid_loading-tx">Загрузка фото</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- /ko -->
 <!-- ko if: opened() === true -->
 <photo-slider params="photo: currentPhoto(), collectionId: collectionId, userId: userId"></photo-slider>
 <!-- /ko -->

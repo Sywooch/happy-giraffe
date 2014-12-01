@@ -24,7 +24,6 @@ return array(
     array(
         'filter' => array(
             'name' =>'fixed',
-            //'name' => 'lepilla',
             'width' => 280,
             'height' => 380,
             'mode' => 'outbound',

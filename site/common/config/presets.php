@@ -55,7 +55,7 @@ return array(
         'filter' => array(
             'name' => 'lepilla',
             'width' => 880,
-            'height' => 495, // 9x16
+            'height' => 587, // 3*2
         ),
         'usages' => array(
             'myPhotosAlbumCover',  
@@ -115,7 +115,7 @@ return array(
         'filter' => array(
             'name' =>'fixed',
             'width' => 600,
-            'height' => 338, // 9x16
+            'height' => 400, // 3*2
         ),
         'usages' => array(
             'postCollectionCover',
@@ -125,7 +125,7 @@ return array(
         'filter' => array(
             'name' =>'fixed',
             'width' => 600,
-            'height' => 338, // 9x16
+            'height' => 400, // 3*2
             'mode' => 'inset',
         ),
         'usages' => array(

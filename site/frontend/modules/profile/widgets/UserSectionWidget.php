@@ -10,6 +10,8 @@ class UserSectionWidget extends CWidget
 
     public function run()
     {
-        $this->render('UserSectionWidget', array('user' => $this->user));
+        if ($this->user->id != Yii::app()->user->id) {
+            $this->render('UserSectionWidget', array('user' => $this->user));
+        }
     }
 } 

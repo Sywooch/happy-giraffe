@@ -47,6 +47,16 @@ class PhotosApiController extends ApiController
         $this->data = $form;
     }
 
+    public function actionPresets()
+    {
+        $data = \Yii::app()->thumbs->presets;
+        foreach ($data as &$preset) {
+            $preset['hash'] = \Yii::app()->thumbs->hash($preset['filter']);
+        }
+        $this->success = true;
+        $this->data = $data;
+    }
+
     protected function getCollection($collectionId)
     {
         if ($collectionId !== null) {

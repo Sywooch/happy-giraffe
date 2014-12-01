@@ -13,11 +13,33 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         this.createMember = function createMember(memberType) {
             this.familyMember.type.value(FamilyMember.memberTypes[memberType]);
         };
+        this.findSelectName = function findSelectName(id, array) {
+            for (var i = 0; i < array.length; i++) {
+                if (id === array[i].id) {
+                    return array[i].name;
+                }
+            }
+        };
         this.beginEditField = function beginEditField(data, event) {
            data.editing(true);
            initSelect2();
         };
+        this.createFamilyHandler = function createFamilyHandler(familyData) {
+            if (familyData.success === true) {
+                console.log(familyData);
+                this.family.init(familyData.data);
+            }
+        };
         this.endEditField = function endEditField(data, event) {
+            if (this.family.id() === null) {
+                this.family.create().done(this.createFamilyHandler);
+            }
+            if (this.familyMember.id() === null) {
+                console.log(data);
+                //this.familyMember.createMember({  data.value() });
+            } else {
+                //this.familyMember.updateMember({  data.value() });
+            }
             data.editing(false);
         };
     };

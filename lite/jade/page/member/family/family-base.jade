@@ -25,8 +25,7 @@ block layout
             .family-user
                 //-.ico-myfamily
 
-                .family-photo
-
+                //-.family-photo
                     //a.ico-close4(href='#')
                     //.family-photo_t Семейное фото
                     //.family-photo_ovrlay
@@ -40,6 +39,13 @@ block layout
                         //-source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
                         //- source(srcset=path+'images/example/w880-h580-1.jpg', media="(min-width: 480px)")
                         img.family-photo_img-big(src='http://placekitten.com/880/660', alt="Фото")
+                +bAlbum('', bAlbum.family)
+                //- - bAlbum.d = {}
+                //- - bAlbum.d.top = true
+                //- - bAlbum.d.img = path+'images/services/cook-choose/product-1-w460.jpg 100w,'+path+'images/services/cook-choose/product-1.jpg 480w'
+                //- - bAlbum.d.tx = 'Смотреть  <br> все фото &nbsp;'
+                //- - bAlbum.d.prevAdd = false 
+
 
                 //-.family-user_head-img-hold
                     // У изображений соотношения сторон сохраняются 

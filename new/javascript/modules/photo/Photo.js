@@ -1,6 +1,13 @@
 define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetManager'], function (ko, baseConfig, PresetManager) {
     "use strict";
     // Основная модель фотографии
+    var handlePresets = function handlePresets(presets) {
+        if (presets.success === true) {
+            if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
+                PresetManager.presets = presets.data;
+            }
+        }
+    };
     function Photo(data) {
         this.id = (ko.isObservable(data.id) === false) ? ko.observable(data.id) : data.id;
         this.title = (ko.isObservable(data.title) === false) ? ko.observable(data.title) : data.title;
@@ -11,6 +18,7 @@ define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetMan
         this.height = (ko.isObservable(data.height) === false) ? ko.observable(data.height) : data.height;
         this.presetWidth = ko.observable();
         this.presetHeight = ko.observable();
+        this.presetHash = ko.observable();
         if (data.fsName === undefined) {
             this.fsName = (ko.isObservable(data.fs_name) === false) ? ko.observable(data.fs_name) : data.fs_name;
         } else {
@@ -19,7 +27,11 @@ define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetMan
         this.originalUrl = (ko.isObservable(data.originalUrl) === false) ? ko.observable(data.originalUrl) : data.originalUrl;
         this.baseConfig = baseConfig;
         this.getGeneratedPreset = function generatePreseted(preset) {
-            return baseConfig + preset + '/' + this.fsName();
+            if (this.presetHash() === undefined) {
+                //if (PresetManager.presets)
+                this.presetHash(PresetManager.getPresetHash(preset));
+            }
+            return baseConfig + this.presetHash() + '/' + this.fsName();
         };
     }
     return Photo;

@@ -21,9 +21,11 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          * @param presets
          */
         this.handlePresets = function handlePresets(presets) {
-            if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
-                this.presets = presets;
-                PresetManager.presets = presets;
+            if (presets.success === true) {
+                if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
+                    PresetManager.presets = presets.data;
+                    this.presets = presets.data;
+                }
             }
         };
         /**
@@ -40,6 +42,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                         var photoAttach = new PhotoAttach(cover);
                         photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
                         photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
+                        photoAttach.photo().presetHash(PresetManager.getPresetHash(this.usablePreset()));
                         this.cover(photoAttach);
                         this.loading(false);
                     } else {
@@ -70,14 +73,17 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.handleCoverWithPresets = function handleCoverWithPresets(photoAttach, presets) {
             photoAttach = photoAttach[0];
             presets = presets[0];
-            if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
-                this.presets = presets;
-                PresetManager.presets = presets;
+            if (presets.success === true) {
+                if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
+                    PresetManager.presets = presets.data;
+                    this.presets = presets.data;
+                }
             }
             if (photoAttach.success === true && photoAttach.data.attaches.length !== 0) {
                 this.cover(new PhotoAttach(photoAttach.data.attaches[0]));
                 this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
                 this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                this.cover().photo().presetHash(PresetManager.getPresetHash('myPhotosAlbumCover'));
             }
             this.loading(false);
         };
@@ -90,6 +96,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 this.cover(new PhotoAttach(photoAttach.data.attaches[0]));
                 this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
                 this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                this.cover().photo().presetHash(PresetManager.getPresetHash('myPhotosAlbumCover'));
                 this.loading(false);
             }
         };
@@ -102,6 +109,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 this.cover(new PhotoAttach(photoAttach.data));
                 this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
                 this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                this.cover().photo().presetHash(PresetManager.getPresetHash('myPhotosAlbumCover'));
                 this.loading(false);
             }
         };
@@ -110,13 +118,17 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          * @param presets
          */
         this.handlePresetsWOCover = function handleCover(presets) {
-            if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
-                PresetManager.presets = presets;
-                this.presets = presets;
-                this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
-                this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
-                this.loading(false);
+            if (presets.success === true) {
+                if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
+                    PresetManager.presets = presets.data;
+                    this.presets = presets.data;
+                    this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                    this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                    this.cover().photo().presetHash(PresetManager.getPresetHash('myPhotosAlbumCover'));
+                    this.loading(false);
+                }
             }
+
         };
         /**
          * Cover by cover Id
@@ -226,6 +238,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             var photoAttach = new PhotoAttach(attach);
             photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset()));
             photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset()));
+            photoAttach.photo().presetHash(PresetManager.getPresetHash(this.usablePreset()));
             return photoAttach;
         };
         /**
@@ -233,14 +246,26 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          * @param presets
          */
         this.gainPhotoInLine = function gainPhotoInLine(presets) {
-            PresetManager.presets = presets;
-            this.presets = presets;
-            if (PresetManager.presets !== undefined) {
-                this.attaches(ko.utils.arrayMap(this.attachesCache, this.iterateAttaches.bind(this)));
-                if (this.attaches().length > 0) {
-                    this.loadImagesCreation('progress', 'photo-album', '#imgs');
+            if (presets.success === true) {
+                PresetManager.presets = presets.data;
+                this.presets = presets.data;
+                if (PresetManager.presets !== undefined) {
+                    this.attaches(ko.utils.arrayMap(this.attachesCache, this.iterateAttaches.bind(this)));
+                    if (this.attaches().length > 0) {
+                        this.loadImagesCreation('progress', 'photo-album', '#imgs');
+                    }
                 }
             }
+            else {
+                this.presets = presets;
+                if (PresetManager.presets !== undefined) {
+                    this.attaches(ko.utils.arrayMap(this.attachesCache, this.iterateAttaches.bind(this)));
+                    if (this.attaches().length > 0) {
+                        this.loadImagesCreation('progress', 'photo-album', '#imgs');
+                    }
+                }
+            }
+
         };
         /**
          * Get collection Count
@@ -274,9 +299,9 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.getPartsCollectionHandler = function getPartsCollectionHandler(presets, attaches) {
             var attachesData = attaches[0],
                 presetsData = presets[0];
-            if (attachesData.success && presetsData) {
-                PresetManager.presets = presetsData;
-                this.presets = presets;
+            if (attachesData.success && presetsData.success === true) {
+                PresetManager.presets = presetsData.data;
+                this.presets = presetsData.data;
                 if (PresetManager.presets !== undefined) {
                     this.attaches(ko.utils.arrayMap(attachesData.data.attaches, this.iterateAttaches.bind(this)));
                 }

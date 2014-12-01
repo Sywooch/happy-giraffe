@@ -1,7 +1,7 @@
-define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
+define(['knockout', 'jquery', 'models/Model'], function PresetManagerHandler(ko, $, Model) {
     var PresetManager = {
 
-        getPresetsUrl: '/photo/default/presets/',
+        getPresetsUrl: '/api/photo/photos/presets/',
 
         presets: {},
 
@@ -11,6 +11,18 @@ define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
 
         get: function get() {
             return Model.get(this.getPresetsUrl);
+        },
+
+        findPresetConfig: function findPresetConfig(presetName) {
+            var index;
+            if (presetName) {
+                for (index=0; index < this.presets.length; index++) {
+                    if ($.inArray(presetName, this.presets[index].usages) !== -1) {
+                        return this.presets[index];
+                    }
+                }
+            }
+            return false;
         },
 
         filters: {
@@ -43,13 +55,18 @@ define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
         },
 
         getWidth: function getWidth(imageWidth, imageHeight, preset) {
-            var config = this.presets[preset];
-            return this.filters[config.filter].getWidth(imageWidth, imageHeight, config);
+            var config = this.findPresetConfig(preset);
+            return this.filters[config.filter.name].getWidth(imageWidth, imageHeight, config.filter);
         },
 
         getHeight: function getHeight(imageWidth, imageHeight, preset) {
-            var config = this.presets[preset];
-            return this.filters[config.filter].getHeight(imageWidth, imageHeight, config);
+            var config = this.findPresetConfig(preset);
+            return this.filters[config.filter.name].getHeight(imageWidth, imageHeight, config.filter);
+        },
+
+        getPresetHash: function getPresetHash(preset) {
+            var config = this.findPresetConfig(preset);
+            return config.hash;
         }
     };
 

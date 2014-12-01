@@ -5,7 +5,7 @@ block vars
     - global.cssFile = 'blog.css'; 
 
 block layout
-  
+
     // b-main 
     .b-main.clearfix
         
@@ -23,7 +23,7 @@ block layout
                 ///////
                 // Основная колонка
                 .b-main_col-article
-                    +article-markdown('', articleMarkdown.b)
+                    +article-markdown('', articleMarkdown.a)
 
                     table.article-nearby.clearfix
                         tr
@@ -49,4 +49,3 @@ block layout
 
     +layout-footer-lite()
  
-        

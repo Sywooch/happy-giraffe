@@ -280,6 +280,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     // Модель фотографии в рамках функционала загрузки фото
     // Модель фотографии в рамках функционала загрузки фото
     function PhotoUpload(data, jqXHR, parent) {
+        console.log(data, jqXHR, parent);
         var self = this;
         Photo.apply(self, arguments);
 

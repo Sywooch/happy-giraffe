@@ -13,11 +13,7 @@ class PhotoController extends \HController
 {
     public function actionThumb($url)
     {
-        $array = explode('/', $url);
-        $fsName = implode('/', array_slice($array, -3));
-        $presetName = $array[count($array) - 4];
-        $photo = Photo::model()->findByAttributes(array('fs_name' => $fsName));
-        $thumb = \Yii::app()->thumbs->getThumb($photo, $presetName, true);
+        $thumb = \Yii::app()->thumbs->getThumbByUrl($url);
         $thumb->show();
     }
 } 

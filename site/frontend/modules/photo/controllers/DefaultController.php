@@ -8,6 +8,7 @@
 
 namespace site\frontend\modules\photo\controllers;
 use site\frontend\modules\photo\components\PhotoController;
+use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\upload\PopupForm;
@@ -28,7 +29,9 @@ class DefaultController extends \LiteController
 
     public function actionPresets()
     {
-        echo \CJSON::encode(\Yii::app()->thumbs->presets);
+        $photo = Photo::model()->findByPk(222);
+        $thumb = \Yii::app()->thumbs->getThumb($photo, 'uploadPreview');
+        echo $thumb->getUrl();
     }
 
     public function actionIndex($userId)

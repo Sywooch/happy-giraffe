@@ -23,9 +23,11 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' => 'lepilla',
+            'name' =>'fixed',
+            //'name' => 'lepilla',
             'width' => 280,
             'height' => 380,
+            'mode' => 'outbound',
         ),
         'usages' => array(
             'albumList',

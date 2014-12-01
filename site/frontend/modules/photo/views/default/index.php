@@ -5,7 +5,7 @@
  * @var \User $user
  * @var ClientScript $cs
  */
-$this->user = $user;
+$this->owner = $user;
 $this->metaNoindex = true;
 $this->pageTitle = $user->getFullName() . ' - Фотоальбомы';
 $this->breadcrumbs += array(

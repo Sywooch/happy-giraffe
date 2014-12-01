@@ -46,7 +46,7 @@ class SimpleThumbsManager extends ThumbsManager
         $photo = Photo::model()->findByAttributes(array(
             'fs_name' => $fsName
         ));
-        $path = 'thumbs/' . $hash . $fsName;
+        $path = 'thumbs/' . $hash . '/' . $fsName;
         return $this->getThumbInternal($photo, $filter, $path, true, false);
     }
 

@@ -19,11 +19,12 @@ define(['jquery', '../knockout', 'text!photo-single/photo-single.html', 'photo/P
          * @param presets
          */
         this.gettingPresets = function gettingPresets(presets) {
-            if (presets) {
-                this.presets = presets;
+            if (presets.success === true) {
+                this.presets = presets.data;
                 PresetManager.presets = this.presets;
                 this.photoAttach().photo().presetWidth(PresetManager.getWidth(this.photoAttach().photo().width(), this.photoAttach().photo().height(), "myPhotosAlbumCover"));
                 this.photoAttach().photo().presetHeight(PresetManager.getHeight(this.photoAttach().photo().width(), this.photoAttach().photo().height(), "myPhotosAlbumCover"));
+                this.photoAttach().photo().presetHash(PresetManager.getPresetHash(this.usablePreset()));
                 this.loading(false);
             }
         };

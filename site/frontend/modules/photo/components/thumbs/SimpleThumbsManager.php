@@ -47,7 +47,7 @@ class SimpleThumbsManager extends ThumbsManager
             'fs_name' => $fsName
         ));
         $path = 'thumbs/' . $hash . $fsName;
-        return $this->getThumbInternal($photo, $filter, $path, true, true);
+        return $this->getThumbInternal($photo, $filter, $path, true, false);
     }
 
     /**

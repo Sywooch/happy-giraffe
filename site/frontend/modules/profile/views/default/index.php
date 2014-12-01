@@ -46,7 +46,7 @@ Yii::app()->clientScript->registerPackage('ko_profile');
                     <span class="user-btns_tx"><?= $user->blogPostsCount . ' <br> ' . Str::GenerateNoun(array('запись', 'записи', 'записей'), $user->blogPostsCount) ?></span>
                 </a>
                 <?php endif ?>
-                <a href="<?=$user->getPhotosUrl()?>" class="user-btns_i powertip">
+                <a href="<?=$this->createUrl('/photo/default/index/', array('userId' => $user->id))?>" class="user-btns_i powertip">
                     <span class="user-btns_ico-hold user-btns_ico-hold__photo">
                         <span class="user-btns_ico"></span>
                     </span>

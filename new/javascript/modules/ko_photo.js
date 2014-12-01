@@ -122,7 +122,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         self.processResponse = function(photo, response) {
             if (response.success) {
-                ko.mapping.fromJS(response.data.attach, {}, photo);
+                ko.mapping.fromJS((response.data.attach || response.data.photo), {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
             } else {
                 photo.error(response.data.error);
@@ -153,7 +153,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
     // Mixin, общие методы для двух форм загрузки с компьютера
     function asFromComputer() {
-        this.populatePhoto = function(data) {
+        this.populatePhoto = function(data, response) {
             var jqXHR = data.submit();
             return new PhotoUpload({ originalname : data.files[0].name }, jqXHR, this);
         }
@@ -280,7 +280,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     // Модель фотографии в рамках функционала загрузки фото
     // Модель фотографии в рамках функционала загрузки фото
     function PhotoUpload(data, jqXHR, parent) {
-        console.log(data, jqXHR, parent);
         var self = this;
         Photo.apply(self, arguments);
 

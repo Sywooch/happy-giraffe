@@ -7,8 +7,6 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         this.statusOk = 1;
         this.statusLoading = 0;
 
-        console.log(params);
-
         //UGLY JQUERY AJAX
         $('a[data-toggle="tab"]').on('shown.bs.tab', function photoUploaderTabHandler() {
             $(document).trigger('koUpdate');

@@ -1,13 +1,6 @@
 define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetManager'], function (ko, baseConfig, PresetManager) {
     "use strict";
     // Основная модель фотографии
-    var handlePresets = function handlePresets(presets) {
-        if (presets.success === true) {
-            if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
-                PresetManager.presets = presets.data;
-            }
-        }
-    };
     function Photo(data) {
         this.id = (ko.isObservable(data.id) === false) ? ko.observable(data.id) : data.id;
         this.title = (ko.isObservable(data.title) === false) ? ko.observable(data.title) : data.title;
@@ -26,10 +19,20 @@ define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetMan
         }
         this.originalUrl = (ko.isObservable(data.originalUrl) === false) ? ko.observable(data.originalUrl) : data.originalUrl;
         this.baseConfig = baseConfig;
+        this.handlePresets = function handlePresets(data) {
+            if (data.success === true) {
+                PresetManager.presets = data.data;
+                this.presetHash(PresetManager.getPresetHash(this.preset));
+            }
+        }
         this.getGeneratedPreset = function generatePreseted(preset) {
             if (this.presetHash() === undefined) {
-                //if (PresetManager.presets)
-                this.presetHash(PresetManager.getPresetHash(preset));
+                if (PresetManager.getPresetHash(preset) === undefined) {
+                    this.preset = preset;
+                    PresetManager.getPresets(this.handlePresets.bind(this));
+                } else {
+                    this.presetHash(PresetManager.getPresetHash(preset));
+                }
             }
             return baseConfig + this.presetHash() + '/' + this.fsName();
         };

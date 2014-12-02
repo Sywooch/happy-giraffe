@@ -23,28 +23,48 @@ class PhotosApiController extends ApiController
         $this->data = $photo;
     }
 
-    public function actionUploadFromComputer()
+    public function actionUploadFromComputer($collectionId = null)
     {
         if (! \Yii::app()->user->checkAccess('uploadPhoto')) {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
-        $form = new FromComputerUploadForm();
+        $form = new FromComputerUploadForm($this->getCollection($collectionId));
         $form->file = \CUploadedFile::getInstanceByName('image');
         $this->success = $form->save();
         $this->data = $form;
     }
 
-    public function actionUploadByUrl($url)
+    public function actionUploadByUrl($url, $collectionId = null)
     {
         if (! \Yii::app()->user->checkAccess('uploadPhoto')) {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
-        $form = new ByUrlUploadForm();
+        $form = new ByUrlUploadForm($this->getCollection($collectionId));
         $form->url = $url;
         $this->success = $form->save();
         $this->data = $form;
+    }
+
+    public function actionPresets()
+    {
+        $data = \Yii::app()->thumbs->presets;
+        foreach ($data as &$preset) {
+            $preset['hash'] = \Yii::app()->thumbs->hash($preset['filter']);
+        }
+        $this->success = true;
+        $this->data = $data;
+    }
+
+    protected function getCollection($collectionId)
+    {
+        if ($collectionId !== null) {
+            $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'addPhotos');
+        } else {
+            $collection = null;
+        }
+        return $collection;
     }
 
     public function actionRotate($photoId, $clockwise = true)
@@ -55,6 +75,18 @@ class PhotosApiController extends ApiController
         $this->success = $result !== false;
         if ($this->success) {
             $this->data = $result;
+        }
+    }
+
+    /**
+     * @todo workaround для того, чтобы работал экшн uploadFromComputer, получающий запрос от jquery file upload
+     */
+    public function getActionParams()
+    {
+        if (! empty($_POST)) {
+            return $_POST;
+        } else {
+            return parent::getActionParams();
         }
     }
 } 

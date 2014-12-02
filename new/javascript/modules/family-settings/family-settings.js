@@ -31,6 +31,7 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
             }
         };
         this.endEditField = function endEditField(data, event) {
+            console.log('end editing');
             if (this.family.id() === null) {
                 this.family.create().done(this.createFamilyHandler);
             }

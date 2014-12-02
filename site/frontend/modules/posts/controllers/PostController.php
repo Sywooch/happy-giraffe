@@ -26,6 +26,8 @@ class PostController extends \LiteController
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
         /** @todo добавить условие byService для полноценного использования индекса */
         $this->post = Content::model()->byEntity('CommunityContent', $content_id)->find();
+        // Отключим обработку сигналов, что бы на следующий и предыдущий пост сигналы оставались непрочитанными
+        \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
         if (!$this->post || $this->post->parsedUrl !== \Yii::app()->request->requestUri)
             throw new \CHttpException(404);
         $this->render('view');

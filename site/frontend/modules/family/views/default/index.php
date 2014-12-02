@@ -7,6 +7,11 @@
 $this->breadcrumbs = array(
     'Семья',
 );
+if ($this->isOwner()) {
+    $this->pageTitle = 'Моя семья';
+} else {
+    $this->pageTitle = 'Семья - ' . $this->owner->fullName;
+}
 ?>
 
 <div class="b-main_cont b-main_cont__wide">

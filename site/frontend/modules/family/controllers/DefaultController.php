@@ -3,6 +3,7 @@
 namespace site\frontend\modules\family\controllers;
 
 use site\frontend\modules\family\models\Family;
+use site\frontend\modules\notifications\models\User;
 
 class DefaultController extends \LiteController
 {
@@ -26,6 +27,12 @@ class DefaultController extends \LiteController
 
     public function actionIndex($userId)
 	{
+        $user = \User::model()->active()->findByPk($userId);
+        if ($user === null) {
+            throw new \CHttpException(404);
+        }
+        $this->owner = $user;
+
         /** @var \site\frontend\modules\family\models\Family $family */
         $family = Family::model()->with('members')->hasMember($userId)->find();
 

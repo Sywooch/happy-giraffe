@@ -99,7 +99,7 @@
                   <div class="homepage-clubs_title">Беременность и дети</div>
                 </div>
                 <ul class="homepage-clubs_ul">
-                  <li class="homepage-clubs_li"><a href="h/planning-pregnancy/" class="homepage-clubs_a"> 
+                  <li class="homepage-clubs_li"><a href="/planning-pregnancy/" class="homepage-clubs_a"> 
                       <div class="homepage-clubs_ico-hold">
                         <div class="ico-club ico-club__1"></div>
                       </div>

@@ -34,7 +34,7 @@ class UrlBehavior extends \CActiveRecordBehavior
     {
         if (is_callable($preparedUrl)) {
             return call_user_func($preparedUrl, $this->owner);
-        } elseif ($this->owner->hasAttribute($preparedUrl)) {
+        } elseif ($this->owner->getAttribute($preparedUrl) !== null) {
             return $this->owner->$preparedUrl;
         }
         return $preparedUrl;

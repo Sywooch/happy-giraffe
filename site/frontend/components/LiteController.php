@@ -21,6 +21,7 @@ class LiteController extends HController
     public $hideUserAdd = false;
     public $litePackage = false;
     public $metaNoindex = false;
+    public $owner;
 
     public function init()
     {
@@ -134,6 +135,10 @@ class LiteController extends HController
                 $canonical = $this->createAbsoluteUrl('/' . $route, $canonical);
             }
             $cs->registerLinkTag('canonical', null, $canonical);
+        }
+
+        if ($this->rssFeed) {
+            $cs->registerLinkTag('alternate', 'application/rss+xml', $this->rssFeed);
         }
 
         /** @ticket https://happygiraffe.atlassian.net/browse/POST-57 */

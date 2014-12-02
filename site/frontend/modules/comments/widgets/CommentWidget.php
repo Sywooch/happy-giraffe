@@ -139,12 +139,11 @@ class CommentWidget extends \CWidget
 
     public function runForUser()
     {
-        return ;
         \Yii::app()->clientScript->registerAMD('comment-widget', array('kow'));
         if (!is_array($this->model)) {
             $params = array(
-                'entity' => get_class($entity),
-                'entityId' => $entity->id,
+                'entity' => get_class($this->model),
+                'entityId' => $this->model->id,
             );
         }
         else {

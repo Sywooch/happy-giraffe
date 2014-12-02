@@ -78,8 +78,7 @@ class ClientScript extends CClientScript
         $this->processImages($output);
 
         $this->renderHead($output);
-        if ($this->enableJavaScript)
-        {
+        if ($this->enableJavaScript) {
             $this->renderBodyBegin($output);
             $this->renderBodyEnd($output);
         }
@@ -127,13 +126,11 @@ class ClientScript extends CClientScript
         // переберём все пакеты, в которых есть js и
         // составим конфиг shim для requirejs
         foreach ($this->packages as $name => $config)
-            if (isset($config['amd']) && $config['amd'] && isset($config['js']) && !empty($config['js']))
-            {
+            if (isset($config['amd']) && $config['amd'] && isset($config['js']) && !empty($config['js'])) {
                 $i = 0;
                 $baseUrl = $this->getPackageBaseUrl($name);
                 // Если один файл в пакете
-                if (count($config['js']) == 1)
-                {
+                if (count($config['js']) == 1) {
                     $shim[$name] = array('deps' => array());
                     $url = $this->remapAMDScript($baseUrl, $config['js'][0]);
                     if (!isset($paths[$url]))
@@ -142,15 +139,13 @@ class ClientScript extends CClientScript
                     if (isset($config['depends']))
                         $shim[$name]['deps'] = CMap::mergeArray($config['depends'], $shim[$name]['deps']);
                 }
-                else
+                else {
                 // не один файл в пакете
-                {
                     $fakeName = 'package-' . $name;
                     // Добавим фейковый модуль с группой зависимостей
                     $fake[$name] = array();
                     $pre = false;
-                    foreach ($config['js'] as $script)
-                    {
+                    foreach ($config['js'] as $script) {
                         $url = $this->remapAMDScript($baseUrl, $script);
                         if (!isset($paths[$url]))
                             $paths[$url] = $fakeName . '(' . $i++ . ')';
@@ -223,8 +218,7 @@ class ClientScript extends CClientScript
             $depends = array($depends);
         $modules = array_values($depends);
         $params = array();
-        if (!isset($depends[0]))
-        {
+        if (!isset($depends[0])) {
             $params = array_keys($depends);
         }
         return $this->registerScript($id, "$(document).ready(function() { require(" . CJSON::encode($modules) . ", function( " . implode(', ', $params) . " ) {\n" . $script . "\n}); });", self::POS_AMD);
@@ -256,8 +250,7 @@ class ClientScript extends CClientScript
             return $this;
         if (is_null($this->corePackages))
             $this->corePackages = require(YII_PATH . '/web/js/packages.php');
-        if (isset($this->corePackages[$name]) && isset($this->corePackages[$name]['js']))
-        {
+        if (isset($this->corePackages[$name]) && isset($this->corePackages[$name]['js'])) {
             $package = $this->corePackages[$name];
             // опубликуем скрипт
             if (isset($package['basePath']))
@@ -271,8 +264,7 @@ class ClientScript extends CClientScript
             $this->amd['shim'][$name] = array();
             // загрузим зависимости
             if (isset($package['depends']))
-                foreach ($package['depends'] as $dependence)
-                {
+                foreach ($package['depends'] as $dependence) {
                     $this->registerAMDCoreScript($dependence);
                     $this->amd['shim'][$name][] = $dependence;
                 }
@@ -379,8 +371,7 @@ class ClientScript extends CClientScript
     protected function addReleaseId($url)
     {
         $r = $this->getReleaseId();
-        switch ($this->staticUrlsStyle)
-        {
+        switch ($this->staticUrlsStyle) {
             case self::URLS_STYLE_NONE:
                 break;
             case self::URLS_STYLE_GET:
@@ -388,8 +379,7 @@ class ClientScript extends CClientScript
                 break;
             case self::URLS_STYLE_FILENAME:
                 $dotPosition = strrpos($url, '.');
-                if ($dotPosition !== false)
-                {
+                if ($dotPosition !== false) {
                     $url = substr_replace($url, '.' . $r . '.', $dotPosition, 1);
                 }
         }
@@ -399,8 +389,7 @@ class ClientScript extends CClientScript
     public function getReleaseId()
     {
         $id = Yii::app()->getGlobalState(self::RELEASE_ID_KEY);
-        if ($id === null)
-        {
+        if ($id === null) {
             $id = Yii::app()->securityManager->generateRandomString(32, false);
             Yii::app()->setGlobalState(self::RELEASE_ID_KEY, $id);
         }
@@ -413,8 +402,7 @@ class ClientScript extends CClientScript
      */
     public function renderCoreScripts()
     {
-        if ($this->jsCombineEnabled !== true)
-        {
+        if ($this->jsCombineEnabled !== true) {
             parent::renderCoreScripts();
             return;
         }
@@ -430,18 +418,15 @@ class ClientScript extends CClientScript
 
         $releaseId = $this->getReleaseId();
         $combinedScripts = array();
-        foreach ($this->scriptFiles as $position => $scriptFiles)
-        {
+        foreach ($this->scriptFiles as $position => $scriptFiles) {
             $hash = md5($releaseId . $position);
             $dir = substr($hash, 0, 2);
             $file = substr($hash, 2);
             $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
             $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
-            if (!file_exists($path))
-            {
+            if (!file_exists($path)) {
                 $js = '';
-                foreach ($scriptFiles as $scriptFile => $scriptFileValue)
-                {
+                foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
                     if (strpos($scriptFile, '/') === 0)
                         $scriptFile = Yii::getPathOfAlias('webroot') . $scriptFile;
                     $fileSrc = file_get_contents($scriptFile);
@@ -472,13 +457,10 @@ class ClientScript extends CClientScript
      */
     protected function processCssFiles()
     {
-        foreach ($this->cssFiles as $url => $media)
-        {
-            if (strpos($url, '/') === 0 && strpos($url, '/', 1) !== 0)
-            {
+        foreach ($this->cssFiles as $url => $media) {
+            if (strpos($url, '/') === 0 && strpos($url, '/', 1) !== 0) {
                 unset($this->cssFiles[$url]);
-                if ($this->getCssStaticDomain() !== null)
-                {
+                if ($this->getCssStaticDomain() !== null) {
                     $url = $this->getCssStaticDomain() . $url;
                 }
                 $url = $this->addReleaseId($url);
@@ -492,15 +474,11 @@ class ClientScript extends CClientScript
      */
     protected function processJsFiles()
     {
-        foreach ($this->scriptFiles as $position => $scriptFiles)
-        {
-            foreach ($scriptFiles as $scriptFile => $scriptFileValue)
-            {
-                if (strpos($scriptFile, '/') === 0 && strpos($scriptFile, '/', 1) !== 0)
-                {
+        foreach ($this->scriptFiles as $position => $scriptFiles) {
+            foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+                if (strpos($scriptFile, '/') === 0 && strpos($scriptFile, '/', 1) !== 0) {
                     unset($this->scriptFiles[$position][$scriptFile]);
-                    if ($this->getJsStaticDomain() !== null)
-                    {
+                    if ($this->getJsStaticDomain() !== null) {
                         $scriptFile = $this->getJsStaticDomain() . $scriptFile;
                     }
                     $scriptFile = $this->addReleaseId($scriptFile);
@@ -521,8 +499,7 @@ class ClientScript extends CClientScript
      */
     protected function processImages(&$content)
     {
-        if ($this->getImagesStaticDomain() !== null)
-        {
+        if ($this->getImagesStaticDomain() !== null) {
             $content = preg_replace('#img src="(\/[^"]*)"#', 'img src="' . $this->getImagesStaticDomain() . "$1\"", $content);
         }
     }
@@ -574,8 +551,7 @@ class ClientScript extends CClientScript
      */
     public function registerLitePackage($name)
     {
-        if (isset($this->litePackages[$name]))
-        {
+        if (isset($this->litePackages[$name])) {
             $package = $this->litePackages[$name];
             if (isset($package['depends']))
                 foreach ($package['depends'] as $depend)
@@ -593,23 +569,18 @@ class ClientScript extends CClientScript
     protected function renderLite()
     {
         $v = Yii::app()->user->isGuest ? 'guest' : 'user';
-        foreach ($this->liteScripts as $config)
-        {
-            foreach ($config[$v] as $css => $attrs)
-            {
+        foreach ($this->liteScripts as $config) {
+            foreach ($config[$v] as $css => $attrs) {
                 $baseUrl = isset($config['baseUrl']) ? $config['baseUrl'] : '/';
-                if (!is_array($attrs))
-                {
+                if (!is_array($attrs)) {
                     $css = $attrs;
                     $attrs = array();
                 }
-                if (isset($attrs['inline']) && $attrs['inline'])
-                {
+                if (isset($attrs['inline']) && $attrs['inline']) {
                     /** @todo Реализовать */
                     throw new Exception('Вставка стилей в inline-блоке пока не реализована.');
                 }
-                else
-                {
+                else {
                     //$this->registerCss
                 }
             }
@@ -652,4 +623,5 @@ define("photo-config", function() {
 JS;
         return $config;
     }
+
 }

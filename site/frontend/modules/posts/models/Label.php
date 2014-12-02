@@ -30,7 +30,7 @@ class Label extends \CActiveRecord
     {
         return array(
             array('text', 'required'),
-            array('text', 'length', 'max' => 20),
+            array('text', 'length', 'max' => 200),
             array('id, text', 'safe', 'on' => 'search'),
         );
     }

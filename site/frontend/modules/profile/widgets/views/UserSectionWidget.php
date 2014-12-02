@@ -76,6 +76,7 @@
                     'label' => 'Фото',
                     'url' => array('/photo/default/index', 'userId' => $user->id),
                     'linkOptions' => array('class' => 'userSection_panel-a'),
+                    'active' => Yii::app()->controller->module !== null && Yii::app()->controller->module->id == 'photo',
                 ),
             ),
         ));

@@ -8,12 +8,15 @@
 
 namespace site\frontend\modules\photo\controllers;
 use site\frontend\modules\photo\components\PhotoController;
+use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\upload\PopupForm;
 
-class DefaultController extends PhotoController
+class DefaultController extends \LiteController
 {
+    public $litePackage = 'photo';
+
     public function accessRules()
     {
         return array(
@@ -24,16 +27,11 @@ class DefaultController extends PhotoController
         );
     }
 
-    public function filters()
-    {
-        return array(
-            'showMenu - single',
-        );
-    }
-
     public function actionPresets()
     {
-        echo \CJSON::encode(\Yii::app()->thumbs->presets);
+        $photo = Photo::model()->findByPk(222);
+        $thumb = \Yii::app()->thumbs->getThumb($photo, 'uploadPreview');
+        echo $thumb->getUrl();
     }
 
     public function actionIndex($userId)
@@ -56,7 +54,7 @@ class DefaultController extends PhotoController
 
     public function actionAlbum($userId, $id)
     {
-        $album = PhotoAlbum::model()->user($userId)->findByPk($id);
+        $album = PhotoAlbum::model()->user($userId)->with('author')->findByPk($id);
         if ($album === null) {
             throw new \CHttpException(404);
         }

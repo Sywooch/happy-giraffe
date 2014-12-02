@@ -10,6 +10,7 @@
 
 namespace site\frontend\modules\photo\models\upload;
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\photo\models\PhotoCollection;
 
 abstract class UploadForm extends \CFormModel implements \IHToJSON
 {
@@ -21,12 +22,22 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     /**
      * @var \site\frontend\modules\photo\models\Photo модель создаваемой фотографии
      */
-    public $photo;
+    protected $photo;
 
     /**
      * @var bool загружено ли фото
      */
     protected $success = false;
+
+    protected $collection;
+    protected $attach;
+
+    public function __construct($collection = null)
+    {
+        if ($collection !== null) {
+            $this->collection = $collection;
+        }
+    }
 
     public function attributeLabels()
     {
@@ -54,6 +65,11 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
                 $this->photo->setImage($this->getImageString());
                 $this->photo->original_name = $this->getOriginalName();
                 if ($this->success = $this->photo->save()) {
+                    if ($this->collection !== null) {
+                        $attaches = $this->collection->attachPhotos($this->photo->id);
+                        $this->attach = $attaches[0];
+                        $this->attach->photo = $this->photo;
+                    }
                     \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
                 }
             } catch (\Exception $e) {
@@ -66,10 +82,17 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
 
     public function toJSON()
     {
-        return array(
-            'photo' => $this->photo,
-            'error' => $this->getFirstError(),
-        );
+        if ($this->collection === null) {
+            $json = array(
+                'photo' => $this->photo,
+            );
+        } else {
+            $json = array(
+                'attach' => $this->attach,
+            );
+        }
+        $json['error'] = $this->getFirstError();
+        return $json;
     }
 
     /**

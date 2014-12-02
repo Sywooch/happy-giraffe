@@ -36,7 +36,6 @@ class ApiComponent extends \CComponent
         ));
 
         \Yii::trace('request(' . $url . ')', __CLASS__);
-        var_dump($url); die;
         return file_get_contents($url, $use_include_path = false, $context);
     }
 

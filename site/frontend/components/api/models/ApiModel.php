@@ -200,7 +200,6 @@ abstract class ApiModel extends \CModel
     {
         $this->beforeFind();
         $result = $this->extract($this->request($action, $params));
-        var_dump($this->request($action, $params)); die;
         if (!$result['success'])
             throw new \site\frontend\components\api\ApiException($result['errorMessage'], $result['errorCode'] ? : '');
         if (isset($result['isPack']))

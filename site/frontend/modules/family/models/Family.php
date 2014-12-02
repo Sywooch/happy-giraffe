@@ -163,14 +163,12 @@ class Family extends \HActiveRecord implements \IHToJSON
 
     public function hasMember($userId)
     {
-        /** @var \site\frontend\modules\family\models\FamilyMember $member */
-        $member = FamilyMember::model()->user($userId)->find();
-        if ($member !== null) {
-            $this->getDbCriteria()->compare($this->getTableAlias() . '.id', $member->familyId);
-        } else {
-            /** @todo убрать эту грязь :( */
-            $this->getDbCriteria()->addCondition('1 = 2');
-        }
+        $criteria = new \CDbCriteria(array(
+            'join' => 'LEFT OUTER JOIN `' . FamilyMember::model()->tableName() . '` `fm` ON `fm`.`userId` = :userId',
+            'params' => array(':userId' => $userId),
+            'condition' => '`fm`.`id` IS NOT NULL',
+        ));
+        $this->getDbCriteria()->mergeWith($criteria);
         return $this;
     }
 }

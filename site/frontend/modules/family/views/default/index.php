@@ -4,6 +4,9 @@
  * @var site\frontend\modules\family\models\Family $family
  * @var integer $userId
  */
+$this->breadcrumbs = array(
+    'Семья',
+);
 ?>
 
 <div class="b-main_cont b-main_cont__wide">

@@ -14,9 +14,15 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
         title: ko.observable(),
         description: ko.observable(),
         removed: ko.observable(false),
+        offset: ko.observable(0),
+        circular: ko.observable(0),
         pageCount: 20,
         type: 'full',
         usablePreset: '',
+        /**
+         * Create album
+         * @param callback
+         */
         create: function createPhotoAlbum(callback) {
             var objCreate = {};
             objCreate.attributes = {};
@@ -28,6 +34,12 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
                 .get(this.createUrl, objCreate)
                 .done(callback);
         },
+        /**
+         * Find album by id
+         * @param id
+         * @param albums
+         * @returns {*}
+         */
         findById: function findById(id, albums) {
             var albumIterator;
             for (albumIterator = 0; albumIterator < albums.length; albumIterator++) {
@@ -37,21 +49,39 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
             }
             return false;
         },
+        /**
+         * Get album by user
+         * @param userId
+         * @param empty
+         * @param callback
+         */
         get: function getByUserPhotoAlbum(userId, empty, callback) {
             Model
                 .get(this.getByUser, { userId: userId, notEmpty: empty })
                 .done(callback);
         },
+        /**
+         * Delete current album
+         * @param callback
+         */
         delete: function deletePhotoAlbum(callback) {
             Model
                 .get(this.deleteUrl, { id : this.id() })
                 .done(callback);
         },
+        /**
+         * Restore current album
+         * @param callback
+         */
         restore: function restorePhotoAlbum(callback) {
             Model
                 .get(this.restoreUrl, { id : this.id() })
                 .done(callback);
         },
+        /**
+         * Edit current album meta
+         * @param callback
+         */
         edit: function deletePhotoAlbum(callback) {
             var objCreate = {};
             objCreate.id = this.id();
@@ -62,6 +92,10 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
                 .get(this.editUrl, objCreate)
                 .done(callback);
         },
+        /**
+         * Init album
+         * @param data
+         */
         init: function initPhotoAlbum(data) {
             this.id = ko.observable(data.id);
             this.title = ko.observable(data.title);
@@ -74,8 +108,8 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
                 this.photoCollection().pageCount = this.pageCount;
                 this.photoCollection().usablePreset(this.usablePreset);
                 this.photoCollection().updated(data.photoCollections.default.updated);
-                this.photoCollection().getAttachesPage(0);
-
+                this.photoCollection().circular = this.circular();
+                this.photoCollection().getAttachesPage(this.offset());
             }
             this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше " + this.maxTitleLength }, mustFill: true });
             this.description.extend({ maxLength: { params: this.maxDescriptionLength, message: "Количество символов не больше " + this.maxDescriptionLength } });

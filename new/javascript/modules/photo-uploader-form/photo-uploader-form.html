@@ -4,8 +4,12 @@
         <div class="popup-add_top clearfix">
             <div class="popup-add_t">Добавить фотографии</div>
             <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+                <!-- ko if: initData.multiple === true -->
+                <li><a href="#photo-tab-computer-multiple" data-toggle="tab">С компьютера</a></li>
+                <!--  /ko -->
+                <!-- ko if: initData.multiple === false -->
                 <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
-                <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+                <!--  /ko -->
                 <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
             </ul>
         </div>
@@ -13,8 +17,8 @@
 
             <!-- fromComputer -->
 
-            <!-- ko if: multiple -->
-                <!-- ko stopBinding: true -->`
+            <!-- ko if: initData.multiple === true -->
+                <!-- ko stopBinding: true -->
                 <div id="photo-tab-computer-multiple" class="tab-pane">
                         <div class="popup-add_frame popup-add_frame__multi" data-bind="visible: photos().length == 0">
                             <div class="popup-add_cap">
@@ -38,7 +42,7 @@
                                                 <div class="i-photo" data-bind="css: cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>
                                                     <!-- ko if: $data.status() === $data.STATUS_SUCCESS -->
                                                     <div class="i-photo_hold">
-                                                        <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: $data, preset: 'uploadPreview' }">
+                                                        <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: $data.photo, preset: 'uploadPreview' }">
                                                             <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  $data.rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: $data.rotateRight"></a></div>
                                                         </div>
                                                         <!--<input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">-->
@@ -58,8 +62,8 @@
 
                                                     <!-- ko if: $data.status() === $data.STATUS_FAIL -->
                                                     <div class="i-photo_hold error">
-                                                        <div class="tx-hint" data-bind="text: original_name"></div>
-                                                        <div class="tx-hint" data-bind="text: error"></div>
+                                                        <div class="tx-hint" data-bind="text: $data.photo.originalname"></div>
+                                                        <div class="tx-hint" data-bind="text: $data.photo.error"></div>
                                                     </div>
                                                     <!-- /ko -->
                                                 </div>
@@ -91,7 +95,7 @@
                 <!-- /ko -->
             <!-- /ko -->
 
-            <!-- ko ifnot: multiple -->
+            <!-- ko if: initData.multiple === false -->
                 <!-- ko stopBinding: true -->
                 <div id="photo-tab-computer" class="tab-pane">
                         <div class="popup-add_frame">
@@ -110,7 +114,7 @@
                                     <!-- ko if: photo().status() === photo().STATUS_SUCCESS -->
                                     <div class="i-photo_hold">
                                         <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
-                                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
+                                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: photo().rotateRight"></a></div>
                                         </div>
                                         <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                                     </div>
@@ -129,8 +133,8 @@
 
                                     <!-- ko if: photo().status() === photo().STATUS_FAIL -->
                                     <div class="i-photo_hold error">
-                                        <div class="tx-hint" data-bind="text: photo.original_name"></div>
-                                        <div class="tx-hint" data-bind="text: photo.error"></div>
+                                        <div class="tx-hint" data-bind="text: photo().photo.originalname"></div>
+                                        <div class="tx-hint" data-bind="text: photo().photo.error"></div>
                                     </div>
                                     <!-- /ko -->
                                 </div>
@@ -143,82 +147,6 @@
                 <!-- /ko -->
             <!-- /ko -->
             <!-- end of fromComputer -->
-
-
-
-            <!-- from fromAlbums -->
-                <!-- ko stopBinding: true -->
-                <div id="photo-tab-album" class="tab-pane" data-bind="if: albums().length > 0">
-                    <ul class="tabs-simple nav nav-tabs">
-                        <li data-bind="css: { active: currentAlbum() === null }"><a href="" data-bind="click: unselectAlbum">Мои альбомы <span data-bind="text: albums().length"></span></a></li>
-                        <li data-bind="with: currentAlbum(), css: { active: currentAlbum() !== null }"><a href="" data-bind="click: $root.selectAlbum"><span data-bind="text: title"></span> <span data-bind="text: photoCollection().attachesCount()"></span></a></li>
-                        <!--<li><a href="#photo-album-all" data-toggle="tab">Все фото 468</a></li>-->
-                    </ul>
-                    <div class="tab-content">
-                        <div class="popup-add_scroll scroll">
-                            <div class="popup-add_frame popup-add_frame__album">
-                                <div class="scroll_scroller">
-                                    <div class="album-preview album-preview__album scroll_cont" data-bind="visible: currentAlbum() === null">
-                                        <ul class="album-preview_ul">
-                                            <!-- ko foreach: albums() -->
-                                            <li class="album-preview_li" data-bind="click: $root.selectAlbum">
-                                                <div class="album-preview_in">
-                                                    <div class="album-preview_img-hold">
-                                                        <!-- ko if: photoCollection().cover() !== undefined -->
-                                                        <img src="" alt="" class="album-preview_img" data-bind="thumb: { photo: photoCollection().cover().photo(), preset: 'uploadAlbumCover' }">
-                                                        <!-- /ko -->
-                                                    </div>
-                                                    <div class="album-preview_overlay"></div>
-                                                </div>
-                                                <div class="album-preview_hold">
-                                                    <div class="album-preview_t" data-bind="text: title"></div>
-                                                    <div class="album-preview_count"><span data-bind="text: photoCollection().attachesCount()"></span> фото</div>
-                                                </div>
-                                            </li>
-                                            <!-- /ko -->
-                                        </ul>
-                                    </div>
-                                    <!-- ko if: currentAlbum() !== null -->
-                                    <div class="album-preview scroll_cont" data-bind="with: currentAlbum(), css: thumbsSizeClass">
-                                        <ul class="album-preview_ul">
-                                            <!-- ko foreach: photoCollection().attaches() -->
-                                            <li class="album-preview_li" data-bind="click: $root.selectAttach, css: { active: isActive }">
-                                                <div class="album-preview_in">
-                                                    <div class="album-preview_img-hold">
-                                                        <img src="" alt="" class="album-preview_img" data-bind="thumb: { photo: photo(), preset: $root.thumbsPreset() }">
-                                                    </div>
-                                                    <div class="album-preview_overlay"></div>
-                                                    <div class="album-preview_check"></div>
-                                                </div>
-                                            </li>
-                                            <!-- /ko -->
-                                        </ul>
-                                    </div>
-                                    <!-- /ko -->
-                                </div>
-                                <div class="scroll_bar-hold">
-                                    <div class="scroll_bar">
-                                        <div class="scroll_bar-in"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="popup-add_footer clearfix" data-bind="visible: currentAlbum() !== null">
-                                <div class="popup-add_footer-l">
-                                    <div class="album-slider">
-                                        <div class="album-slider_tx album-slider_tx-minus" data-bind="click: function() { updateThumbsSize(-1) }">&ndash;</div>
-                                        <div class="album-slider_hold" data-bind="slider: thumbsSize, sliderOptions: { min: 1, max: 3 }"></div>
-                                        <div class="album-slider_tx album-slider_tx-plus" data-bind="click: function() { updateThumbsSize(1) }">+</div>
-                                    </div>
-                                </div>
-                                <div class="float-r">
-                                    <div class="btn btn-link-gray btn-s disabled" data-bind="text: hint"></div><button class="btn btn-success" data-bind="click: add, disable: photos().length == 0">Добавить</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /ko -->
-            <!-- end of fromAlbums -->
 
 
             <!-- _byUrl -->
@@ -241,7 +169,7 @@
                                 <!-- ko if: photo().status() === photo().STATUS_SUCCESS -->
                                 <div class="i-photo_hold">
                                     <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
-                                        <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
+                                        <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: photo().rotateRight"></a></div>
                                     </div>
                                     <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                                 </div>
@@ -260,7 +188,7 @@
 
                                 <!-- ko if: photo().status() === photo().STATUS_FAIL -->
                                 <div class="i-photo_hold error">
-                                    <div class="tx-hint" data-bind="text: photo.original_name"></div>
+                                    <div class="tx-hint" data-bind="text: photo.originalname"></div>
                                     <div class="tx-hint" data-bind="text: photo.error"></div>
                                 </div>
                                 <!-- /ko -->

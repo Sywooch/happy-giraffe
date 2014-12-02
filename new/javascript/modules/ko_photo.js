@@ -76,7 +76,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         self.photoIds = function() {
             return ko.utils.arrayMap(self.photos(), function(photo) {
-                return photo.id();
+                return attach.photo.id();
             });
         }
 
@@ -122,7 +122,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         self.processResponse = function(photo, response) {
             if (response.success) {
-                ko.mapping.fromJS(response.data.photo, {}, photo);
+                ko.mapping.fromJS((response.data.attach || response.data.photo), {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
             } else {
                 photo.error(response.data.error);
@@ -133,14 +133,14 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
     PhotoUploadViewModel.prototype.add = function() {
         var self = this;
-        //$.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
+        // $.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
         //    if (response.success) {
         //        PhotoAddViewModel.prototype.add.call(self);
         //    }
-        //}, 'json');
-
-        //Только для редактора
+        // }, 'json');
         PhotoAddViewModel.prototype.add.call(self);
+        //Только для редактора
+        // PhotoAddViewModel.prototype.add.call(self);
     };
     PhotoUploadViewModel.prototype.removePhotoInternal = function(photo) {
         var self = this;
@@ -153,9 +153,9 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
     // Mixin, общие методы для двух форм загрузки с компьютера
     function asFromComputer() {
-        this.populatePhoto = function(data) {
+        this.populatePhoto = function(data, response) {
             var jqXHR = data.submit();
-            return new PhotoUpload({ original_name : data.files[0].name }, jqXHR, this);
+            return new PhotoUpload({ originalname : data.files[0].name }, jqXHR, this);
         }
 
         this.fileUploadSettings = {
@@ -189,6 +189,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     // Модель множественной загрузки с компьютера
     function FromComputerMultipleViewModel(data) {
         var self = this;
+        self.collectionId = data.form.collectionId;
         PhotoUploadViewModel.apply(self, arguments);
 
         self.findPhotoByRequest = function(request) {
@@ -208,6 +209,9 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             dropZone: '.popup-add_frame__multi',
             sequentialUploads: true,
             add: function (e, data) {
+                data.formData = {
+                    collectionId: self.collectionId
+                };
                 if (self.photos().length < 300) {
                     self.added(self.populatePhoto(data));
                 }
@@ -223,6 +227,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                 }
             }
         });
+
+        // self.fileUploadSettings.data.collectionId = data.form.collectionId;
 
         self.fileUploadSettingsMore = $.extend({}, self.fileUploadSettings);
         self.fileUploadSettingsMore.dropZone = null;
@@ -247,7 +253,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                     type: 'POST',
                     dataType: 'json',
                     data: JSON.stringify({
-                        url : val
+                        url : val,
+                        collectionId: self.collectionId
                     }),
                     success: function(data) {
                         self.processResponse(self.photo(), data);
@@ -271,6 +278,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     }
 
     // Модель фотографии в рамках функционала загрузки фото
+    // Модель фотографии в рамках функционала загрузки фото
     function PhotoUpload(data, jqXHR, parent) {
         var self = this;
         Photo.apply(self, arguments);
@@ -280,15 +288,15 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         self.error = ko.observable();
 
         self.rotateLeft = function() {
-            self.rotate(-90);
+            self.rotate(false);
         };
 
         self.rotateRight = function() {
-            self.rotate(90);
+            self.rotate(true);
         };
 
-        self.rotate = function(angle) {
-            $.post('/api/photo/photos/rotate/', JSON.stringify({ angle : angle, photoId : self.id() }), function(response) {
+        self.rotate = function(clockwise) {
+            $.post('/api/photo/photos/rotate/', JSON.stringify({ clockwise : clockwise, photoId : self.id() }), function(response) {
                 if (response.success) {
                     ko.mapping.fromJS(response.data, {}, self);
                 }

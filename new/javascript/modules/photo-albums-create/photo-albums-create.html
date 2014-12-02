@@ -1,8 +1,10 @@
 <!-- Добавление -->
 <div class="user-album">
+    <!-- ko if: edit === undefined -->
     <div class="user-album_t-create">Новый фотоальбом
         <div class="user-album_t-create-ico"></div>
     </div>
+    <!-- /ko -->
     <div class="postAdd">
         <form data-bind="submit: submitCreateFunction">
             <div class="postAdd_hold margin-t40">
@@ -27,7 +29,12 @@
                 <div class="postAdd_row">
                     <div class="postAdd_cont">
                         <div class="postAdd_btns-hold">
+                            <!-- ko if: edit === undefined -->
+                            <a href="" class="btn btn-default btn-xm margin-r15" data-bind="attr: {href: urlCommon}">Отмена</a>
+                            <!-- /ko -->
+                            <!-- ko if: edit === true -->
                             <a href="" class="btn btn-default btn-xm margin-r15" data-bind="click: cancel">Отмена</a>
+                            <!-- /ko -->
                             <!-- ko if: loading() === false -->
                             <button data-bind="css: (photoAlbum.title.isValid() && photoAlbum.description.isValid()) !== true ? 'btn btn-success btn-xm disabled' : 'btn btn-success btn-xm'">Ok</button>
                             <!-- /ko -->

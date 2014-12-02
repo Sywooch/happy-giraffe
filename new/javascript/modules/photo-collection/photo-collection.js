@@ -4,18 +4,52 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
         this.photoCollection = new PhotoCollection(params);
         this.photoCollection.pageCount = 5;
         this.photoCollection.usablePreset('myPhotosPreview');
+        this.opened = ko.observable(false);
+        this.currentPhoto = ko.observable();
+        this.userId = params.userId;
+        /**
+         * Count handler
+         * @param count
+         */
         this.collectionCount = function collectionCount(count) {
-            console.log(count);
             if (count === undefined) {
                 this.photoCollection.getCollectionCount(params.id);
-            } else {
+            } else { 
                 this.photoCollection.attachesCount(count);
             }
-        }
+        };
+        /**
+         * handler presets getting
+         * @param presets
+         */
         this.handlePresets = function handlePresets(presets) {
             this.photoCollection.getAttachesPage(0);
             this.collectionCount(params.attachCount);
             params.presets = presets;
+        };
+        /**
+         * Openening current photo
+         * @param photoAttach
+         */
+        this.openPhotoHandler = function openPhotoHandler(photoAttach) {
+            this.opened(true);
+            this.chooseCurrentPhotoAttach(photoAttach);
+        };
+        /**
+         * Closing current photo
+         */
+        this.closePhotoHandler = function closePhotoHandler() {
+            this.opened(false);
+        };
+        this.openPhoto = function openPhoto() {
+            return customReturner('photo-slider');
+        };
+        /**
+         * Choosing current attach by click
+         * @param photoAttach
+         */
+        this.chooseCurrentPhotoAttach = function chooseCurrentPhotoAttach(photoAttach) {
+            this.currentPhoto(photoAttach);
         };
         PresetManager.getPresets(this.handlePresets.bind(this));
         this.colorsArray = ['purple', 'yellow', 'carrot', 'green', 'blue'];

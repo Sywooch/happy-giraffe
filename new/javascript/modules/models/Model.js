@@ -19,6 +19,17 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
                 }
             );
         },
+
+        /**
+         * [when асинхронный запрос к api]
+         * @param ajaxOne
+         * @param ajaxTwo
+         * @returns {*}
+         */
+        when: function when(ajaxOne, ajaxTwo) {
+            return $.when(ajaxOne, ajaxTwo);
+        },
+
         findById: function findById(id, array) {
             var iterator;
             for (iterator = 0; iterator < array.length; iterator++) {
@@ -28,12 +39,20 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             }
             return false;
         },
-
         findByIdObservable: function findByIdObservable(id, array) {
             var iterator;
             for (iterator = 0; iterator < array.length; iterator++) {
                 if (id === array[iterator].id()) {
                     return array[iterator];
+                }
+            }
+            return false;
+        },
+        findByIdObservableIndex: function findByIdObservable(id, array) {
+            var iterator;
+            for (iterator = 0; iterator < array.length; iterator++) {
+                if (id === array[iterator].id()) {
+                    return { element: ko.observable(array[iterator]), index: ko.observable(iterator) };
                 }
             }
             return false;

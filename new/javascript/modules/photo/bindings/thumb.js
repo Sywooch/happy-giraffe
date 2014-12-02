@@ -1,13 +1,14 @@
-define(['knockout',  'photo/baseUrlCreator'], function (ko, baseConfig) {
+define(['knockout',  'photo/baseUrlCreator', 'photo/Photo'], function (ko, baseConfig, Photo) {
     // Биндинг для отображения миниатюр
     ko.bindingHandlers.thumb = {
         update: function (element, valueAccessor) {
             var value = valueAccessor(),
-                photo = value.photo,
+                photo = new Photo(value.photo),
                 preset = value.preset;
+            photo.preset = preset;
 
             function update() {
-                var src = baseConfig + preset + '/' + photo.fsName();
+                var src = photo.getGeneratedPreset(photo.preset);
                 $(element).attr('src', src);
             }
             update();

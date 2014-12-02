@@ -92,7 +92,7 @@ module.exports = function(grunt){
           ext: ".html"
         }],
         options: {
-          pretty: false,
+          pretty: true,
           client: false,
           cache: true,
           nospawn : true,

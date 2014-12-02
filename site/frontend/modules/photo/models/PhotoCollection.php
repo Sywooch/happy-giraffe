@@ -36,6 +36,9 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         'FamilyMember' => array(
             'default' => 'site\frontend\modules\photo\models\collections\FamilyMemberPhotoCollection',
         ),
+        'Family' => array(
+            'all' => 'site\frontend\modules\photo\models\collections\FamilyPhotoCollection',
+        ),
     );
 
 	/**
@@ -344,6 +347,6 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
     public function getOwner()
     {
-        return $this->RelatedModelBehavior->relatedModel->author;
+        return $this->RelatedModelBehavior->relatedModel->author->id;
     }
 }

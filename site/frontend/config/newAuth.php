@@ -118,7 +118,7 @@ return array(
             'removePhotoAttach',
             'restorePhotoAttach',
         ),
-        'bizRule' => 'return $params["entity"]->collection->getOwner()->id == \Yii::app()->user->id;',
+        'bizRule' => 'return $params["entity"]->collection->getOwner() == \Yii::app()->user->id;',
         'data' => null,
     ),
     'removePhotoAttach' => array(
@@ -142,7 +142,7 @@ return array(
             'setCover',
             'moveAttaches',
         ),
-        'bizRule' => 'return $params["entity"]->getOwner()->id == \Yii::app()->user->id;',
+        'bizRule' => 'return $params["entity"]->getOwner() == \Yii::app()->user->id;',
         'data' => null,
     ),
     'sortPhotoCollection' => array(

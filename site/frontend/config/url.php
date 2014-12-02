@@ -147,10 +147,10 @@ return array(
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
             'route' => 'blog/default/view',
         ),
-        
+
         /* Для корректной работы старых редакторов */
         'newblog/<_a:>' => 'blog/default/<_a>',
-        
+
         /* Временные страницы для редактирования */
         /*'post/add/type<type:[1235]>' => 'blog/tmp/index',
         'post/edit/content<id:\d+>' => 'blog/tmp/index',*/
@@ -174,7 +174,7 @@ return array(
         'posts' => 'posts/default/index',
         'posts/<_a>' => 'posts/default/<_a>',
         'posts/<_c>/<_a>' => 'posts/<_c>/<_a>',
-        
+
         //blog
         'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
         'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',
@@ -209,7 +209,7 @@ return array(
 
         'community/<_a:(subscribe)>/' => 'community/default/<_a>',
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
-        
+
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
@@ -218,7 +218,7 @@ return array(
             'trueRoute' => 'posts/post/view',
             'falseRoute' => 'community/default/view',
         ),*/
-        
+
         'community/<forum_id:\d+>/forum/' => 'community/default/forum',
         'community/default/save' => 'community/default/save',
         'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
@@ -413,9 +413,10 @@ return array(
         'search' => 'search/default/index',
         'search/default/get' => 'search/default/get',
 
+        'user/<userId:\d+>/family/photo<photoId:\d+>' => 'photo/singlePhoto/family',
         'user/<userId:\d+>/family' => 'family/default/index',
-        'user/<userId:\d+>/familyOld' => 'familyOld/default/index',
         'family/default/fill' => 'family/default/fill',
+        'user/<userId:\d+>/familyOld' => 'familyOld/default/index',
 
         'contest/<cssClass:\w+>' => 'community/contest/index',
 

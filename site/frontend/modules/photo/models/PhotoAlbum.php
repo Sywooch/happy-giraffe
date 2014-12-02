@@ -106,11 +106,15 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
         );
     }
 
+    /**
+     * @return array
+     * @todo убрать временное условие
+     */
     public function defaultScope()
     {
         $t = $this->getTableAlias(false, false);
         return array(
-            'condition' => $t . '.removed = 0',
+            'condition' => $t . '.removed = 0 AND ' . $t . '.title NOT LIKE "%Семейный альбом%"',
         );
     }
 

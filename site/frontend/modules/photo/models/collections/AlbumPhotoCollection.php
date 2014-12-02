@@ -32,9 +32,4 @@ class AlbumPhotoCollection extends PhotoCollection implements IPublicPhotoCollec
     {
         return $collection instanceof AlbumPhotoCollection && $collection->RelatedModelBehavior->relatedModel->author_id == $this->RelatedModelBehavior->relatedModel->author_id;
     }
-
-    public function getOwner()
-    {
-        return $this->RelatedModelBehavior->relatedModel->author;
-    }
 } 

@@ -90,10 +90,12 @@ class Family extends \HActiveRecord implements \IHToJSON
             'UrlBehavior' => array(
                 'class' => 'site\common\behaviors\UrlBehavior',
                 'route' => '/family/default/index',
-                'params' => array(
-                    'id' => 'id',
-                    'userId' => 'author_id',
-                ),
+                'params' => function($family) {
+                    $member = FamilyMember::model()->family($family->id)->real()->find();
+                    return array(
+                        'userId' => $member->userId,
+                    );
+                }
             ),
         );
     }

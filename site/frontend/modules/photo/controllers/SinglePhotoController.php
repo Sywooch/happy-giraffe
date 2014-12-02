@@ -60,6 +60,8 @@ class SinglePhotoController extends \LiteController
             throw new \CHttpException(404);
         }
 
+        $this->metaCanonical = $family->getUrl();
+
         $collection = $family->getPhotoCollection('all');
         $this->renderSinglePhoto($collection, $photoId);
     }

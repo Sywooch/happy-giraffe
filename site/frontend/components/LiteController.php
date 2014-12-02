@@ -50,13 +50,13 @@ class LiteController extends HController
 
         if (Yii::app()->user->isGuest)
         {
-//            $filters [] = array(
-//                'COutputCache',
-//                'cacheID' => 'cache',
-//                'duration' => 300,
-//                'varyByParam' => array_keys($_GET),
-//                'varyByExpression' => 'Yii::app()->vm->getVersion()',
-//            );
+            $filters [] = array(
+                'COutputCache',
+                'cacheID' => 'cache',
+                'duration' => 300,
+                'varyByParam' => array_keys($_GET),
+                'varyByExpression' => 'Yii::app()->vm->getVersion()',
+            );
         }
 
         return $filters;
@@ -111,11 +111,6 @@ class LiteController extends HController
         if (is_null($this->_metaNavigation))
             $this->_metaNavigation = new MetaNavigationTags();
         return $this->_metaNavigation;
-    }
-
-    public function isOwner()
-    {
-        return $this->owner !== null && $this->owner->id = Yii::app()->user->id;
     }
 
     protected function afterRender($view, &$output)

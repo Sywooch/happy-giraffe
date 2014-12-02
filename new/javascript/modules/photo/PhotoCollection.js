@@ -72,7 +72,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          */
         this.handleCoverWithPresets = function handleCoverWithPresets(photoAttach, presets) {
             photoAttach = photoAttach[0];
-            presets = presets[0];
+            presets = presets[0];x
             if (presets.success === true) {
                 if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
                     PresetManager.presets = presets.data;
@@ -104,7 +104,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          * Handle cover by id
          * @param photoAttach
          */
-        this.handleCover = function handleCover(photoAttach) {
+        this.handleCoverById = function handleCover(photoAttach) {
             if (photoAttach.success === true) {
                 this.cover(new PhotoAttach(photoAttach.data));
                 this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
@@ -136,7 +136,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.getCoverByCoverId = function getCoverByCoverId(coverId) {
             Model.get(this.getAttachUrl, {
                 id: coverId
-            }).done(this.handleCover.bind(this));
+            }).done(this.handleCoverById.bind(this));
         };
         /**
          * Get cover

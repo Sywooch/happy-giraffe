@@ -7,7 +7,7 @@
 $this->breadcrumbs = array(
     'Семья',
 );
-if ($this->isOwner()) {
+if ($this->owner->id == Yii::app()->user->id) {
     $this->pageTitle = 'Моя семья';
 } else {
     $this->pageTitle = 'Семья - ' . $this->owner->fullName;

@@ -50,7 +50,7 @@ class PlanningChild extends FamilyMemberAbstract
 
     public function isPublic()
     {
-        return time() < $this->getExpirationTime();
+        return parent::isPublic() && (time() < $this->getExpirationTime());
     }
 
     public function toJSON()
@@ -63,16 +63,11 @@ class PlanningChild extends FamilyMemberAbstract
 
     protected function getExpirationTime()
     {
-        return $this->created + $this->getIntervalByWhen();
-    }
-
-    protected function getIntervalByWhen()
-    {
         switch ($this->planningWhen) {
             case self::WHEN_SOON:
-                return strtotime('+1 year');
+                return strtotime('+1 year', $this->created);
             case self::WHEN_NEXT3YEARS;
-                return strtotime('+3 year');
+                return strtotime('+3 year', $this->created);
             default:
                 throw new \CException('Wrong type value');
         }

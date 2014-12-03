@@ -146,6 +146,9 @@ return array(
         'archive' => array(
            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),
+        'rss' => array(
+            'class' => 'site\frontend\modules\rss\RssModule',
+        ),
 	),
 	// application components
 	'components'=>array(

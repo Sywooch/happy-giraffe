@@ -1,17 +1,14 @@
 <?php
+/**
+ * @author Никита
+ * @date 03/12/14
+ */
 
 namespace site\frontend\modules\rss\components;
 
-/**
- * @author Никита
- * @date 28/11/14
- */
-
-use Aws\CloudFront\Exception\Exception;
-
 \Yii::import('ext.EFeed.*');
 
-class RssAction extends \CAction
+class FeedGenerator
 {
     /**
      * @var \CDataProvider
@@ -22,6 +19,11 @@ class RssAction extends \CAction
      * @var \EFeed
      */
     protected $feed;
+
+    public function __construct(\CDataProvider $dataProvider)
+    {
+        $this->dataProvider = $dataProvider;
+    }
 
     public function run()
     {
@@ -40,10 +42,17 @@ class RssAction extends \CAction
             throw new Exception('Model must implement IRss interface');
         }
 
+        if ($model->asa('UrlBehavior') === null) {
+            throw new Exception('Model must have url behavior attached');
+        }
+
         $item = $this->feed->createNewItem();
+        $item->setLink($model->getUrl(true));
+        $item->addTag('guid', $model->getUrl(true), array('isPermaLink' => 'true'));
         $item->setTitle($model->getTitle());
         $item->setDescription($model->getDescription());
         $item->setDate($model->getDate());
+
         return $item;
     }
 } 

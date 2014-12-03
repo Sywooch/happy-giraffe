@@ -12,7 +12,6 @@ if ($this->owner->id == Yii::app()->user->id) {
 } else {
     $this->pageTitle = 'Семья - ' . $this->owner->fullName;
 }
-die('2');
 ?>
 
 <div class="b-main_cont b-main_cont__wide">

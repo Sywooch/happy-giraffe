@@ -12,6 +12,7 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         this.relationshipArray = [{id: this.familyMember.relationshipStatuses.friends, name: 'Друзья'}, {id: this.familyMember.relationshipStatuses.engaged, name: 'Обручены'}, {id: this.familyMember.relationshipStatuses.married, name: 'Женаты'}];
         this.createMember = function createMember(memberType) {
             this.familyMember.type.value(FamilyMember.memberTypes[memberType]);
+            initSelect2();
         };
         this.findSelectName = function findSelectName(id, array) {
             for (var i = 0; i < array.length; i++) {
@@ -48,6 +49,9 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
                 this.familyMember.updateMember(attribute);
             }
             data.editing(false);
+        };
+        this.submitMember = function submitMember() {
+            console.log(this.familyMember, this.familyMember.canSubmit());
         };
     };
 

@@ -61,6 +61,37 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                 return this.year() + '-' +  this.month() + '-' + this.day();
             }, this.pregnancyTerm);
             this.planningWhen = Model.createStdProperty(data.planningWhen || null, 'planningWhen');
+            this.canSubmit = ko.computed(function canSubmit() {
+                var canSubmitFields;
+                switch (this.type.value()) {
+                    case this.memberTypes.child:
+                        if ((this.name.value() !== '' || this.name.value() !== null) || (this.birthday.value() !== 'null-null-null' || this.birthday.value() !== null) || (this.gender.value() !== '' || this.gender.value() !== null)) {
+                            console.log(this.name.value(), this.birthday.value(), this.gender.value());
+                            canSubmitFields = true;
+                        }
+                        canSubmitFields = false;
+                        break;
+                    case this.memberTypes.adult:
+                        if ((this.relationshipStatus.value() !== '' || undefined) || (this.name.value() !== '' || undefined)) {
+                            canSubmitFields = true;
+                        }
+                        canSubmitFields = true;
+                        break;
+                    case this.memberTypes.planning:
+                        if ((this.planningWhen.value() !== '' || undefined)) {
+                            canSubmitFields = true;
+                        }
+                        canSubmitFields = true;
+                        break;
+                    case this.memberTypes.planning:
+                        if ((this.pregnancyTerm.value() !== 'null-null-null' || undefined)) {
+                            canSubmitFields = true;
+                        }
+                        canSubmitFields = true;
+                        break;
+                }
+                return canSubmitFields;
+            }, this);
             return this;
         }
 

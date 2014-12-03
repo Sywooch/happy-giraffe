@@ -73,11 +73,11 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             return this.elementCssClass + this.colorsArray[($.inArray(this.colorsArray[index() % this.colorsArray.length], this.colorsArray)) % this.colorsArray.length];
         },
         stdProperty: {
-            editing: ko.observable(false),
+            editing: ko.observable(true),
             value: ko.observable(null)
         },
         createStdProperty: function createStdProperty(value, name) {
-            var stdProperty = Object.create({ editing: ko.observable(false), value: ko.observable(value), name: name });
+            var stdProperty = Object.create({ editing: ko.observable(true), value: ko.observable(value), name: name });
             return stdProperty;
         }
     };

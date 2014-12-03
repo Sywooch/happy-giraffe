@@ -25,21 +25,27 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
            initSelect2();
         };
         this.createFamilyHandler = function createFamilyHandler(familyData) {
+            console.log(familyData);
             if (familyData.success === true) {
                 console.log(familyData);
                 this.family.init(familyData.data);
+                console.log(this.family);
             }
         };
         this.endEditField = function endEditField(data, event) {
             console.log('end editing');
+            var attribute = {};
             if (this.family.id() === null) {
                 this.family.create().done(this.createFamilyHandler);
             }
             if (this.familyMember.id() === null) {
-                console.log(data);
-                //this.familyMember.createMember({  data.value() });
+                attribute[data.name] = data.value();
+                console.log(attribute);
+                this.familyMember.createMember(attribute);
             } else {
-                //this.familyMember.updateMember({  data.value() });
+                attribute[data.name] = data.value();
+                console.log(attribute);
+                this.familyMember.updateMember(attribute);
             }
             data.editing(false);
         };

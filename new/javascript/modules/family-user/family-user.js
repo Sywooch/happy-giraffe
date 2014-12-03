@@ -29,7 +29,7 @@ define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Famil
         this.removeMemberInstance = function removeMemberInstance(data, event) {
             var removed = this.membersArray.splice(data.index(), 1);
         };
-        this.family.get(true).done(this.familyHandler);
+        this.family.get(true).done(this.familyHandler.bind(this));
     }
 
     return {

@@ -168,19 +168,9 @@ class MigrateManager
     protected function movePhotos($old, $new)
     {
         $photoIds = \site\frontend\modules\photo\components\MigrateManager::getByRelation($old);
-        if ($photoIds > 5) {
-            $album = new PhotoAlbum();
-            $album->title = 'Семейный альбом' . $new->id;
-            $album->author_id = ($old instanceof \Baby) ? $old->parent_id : $old->user_id;
-            if (! $album->save(false)) {
-                throw new \CException('Невозможно создать альбом члена семьи');
-            }
-            $album->photoCollection->attachPhotos($photoIds);
-        } elseif ($photoIds > 0) {
-            $this->unsortedPhotos += $photoIds;
-        }
+        $photosCount = count($photoIds);
 
-        if (count($photoIds) > 0) {
+        if ($photosCount > 0) {
             $cover = $photoIds[0];
             if ($old->main_photo_id !== null) {
                 $oldPhoto = \AlbumPhoto::model()->findByPk($old->main_photo_id);
@@ -190,6 +180,28 @@ class MigrateManager
                 }
             }
             $new->photoCollection->attachPhotos(array($cover));
+
+            if ($photosCount > 1) {
+                $remainingPhotosIds = $photoIds;
+                $coverKey = array_search($cover, $photoIds);
+                if ($coverKey !== false) {
+                    unset($remainingPhotosIds[$coverKey]);
+                }
+
+                if ($photosCount > 4) {
+                    $album = new PhotoAlbum();
+                    $memberName = trim($new->name);
+                    $albumTitle = $new->viewData->title . ((! empty($memberName)) ? ' ' . $new->name : '');
+                    $album->title = $albumTitle;
+                    $album->author_id = ($old instanceof \Baby) ? $old->parent_id : $old->user_id;
+                    if (! $album->save(false)) {
+                        throw new \CException('Невозможно создать альбом члена семьи');
+                    }
+                    $album->photoCollection->attachPhotos($remainingPhotosIds);
+                } else {
+                    $this->unsortedPhotos += $remainingPhotosIds;
+                }
+            }
         }
     }
 

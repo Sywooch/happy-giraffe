@@ -27,6 +27,8 @@ class DefaultController extends \LiteController
 
     public function actionIndex($userId)
 	{
+        var_dump(\Yii::app()->cache); die;
+
         $user = \User::model()->active()->findByPk($userId);
         if ($user === null) {
             throw new \CHttpException(404);

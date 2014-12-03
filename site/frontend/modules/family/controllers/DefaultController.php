@@ -34,7 +34,7 @@ class DefaultController extends \LiteController
         $this->owner = $user;
 
         /** @var \site\frontend\modules\family\models\Family $family */
-        $family = Family::model()->find();
+        $family = Family::model()->with('members')->find();
 
         die('1');
 

@@ -39,7 +39,7 @@ class MigrateManager
     {
         $criteria = new \CDbCriteria();
         $criteria->compare('t.removed', 0);
-        $criteria->compare('type', 0);
+        $criteria->compare('type', 1);
         $criteria->with = array('photos');
         $criteria->order = 't.id ASC';
 
@@ -54,6 +54,10 @@ class MigrateManager
 
         $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $i => $album) {
+            if ($album->newAlbumId !== null) {
+                continue;
+            }
+
             $newAlbum = new PhotoAlbum();
             $newAlbum->detachBehavior('HTimestampBehavior');
             $newAlbum->title = $album->title;

@@ -1,0 +1,111 @@
+
+//- articleAnonce
+//- 
+    mod
+    vars
+mixin articleAnonce(mod, vars)
+
+    // Варианты цветов блока
+        article-anonce__green
+        article-anonce__blue
+        article-anonce__lilac
+        article-anonce__red
+        article-anonce__yellow
+    .article-anonce(class=mod)
+        .article-anonce_top
+            a.article-anonce_header-a(href="#") 
+                +ava('', ava.e)
+                span.article-anonce_author
+                    = vars.author
+        a.article-anonce_hold(href="#")
+            if (vars.ico)
+                .article-anonce_ico-hold
+                    //-.verticalalign-m-help
+                    .article-anonce_ico-a
+                        .article-anonce_ico
+                            img.article-anonce_img(src=vars.images, alt=vars.title)
+
+                        if (vars.tag)
+                            .article-anonce_tag Свадьба
+                        span.article-anonce_t 
+                            = vars.title
+            else 
+                if (vars.text)
+                    .article-anonce_text 
+                        p
+                            = vars.text
+             
+                else
+                    .article-anonce_img-hold
+                            if (vars.count)
+                                .article-anonce_img-top
+                                    .article-anonce_count-hold
+                                        .article-anonce_count-t 128
+                                        .article-anonce_count-tx фото
+                            if (vars.images)
+                                img.article-anonce_img(src=vars.images, alt=vars.title)
+                            if (vars.video)
+                                .ico-ovrPlay.ico-ovrPlay__abs
+                                //-.video-container
+                                    != vars.video
+                .article-anonce_bottom
+                    if (vars.tag)
+                        .article-anonce_tag Праздники
+                    .article-anonce_t
+                        = vars.title
+
+- var articleAnonce = {}
+
+- articleAnonce.a = {}
+- articleAnonce.a.tag = true
+- articleAnonce.a.author = 'Правдинина Марина Правдинина-Куципалюк'
+- articleAnonce.a.title = 'Наши первые движения '
+- articleAnonce.a.images = 'http://lorempixel.com/300/400/people/4'
+- articleAnonce.a.count = true
+
+- articleAnonce.b = {}
+- articleAnonce.b.count = true
+- articleAnonce.b.author = 'Марина Правдинина'
+- articleAnonce.b.title = 'Наши первые движения '
+- articleAnonce.b.images = 'http://lorempixel.com/300/200/people/1'
+
+- articleAnonce.c = {}
+- articleAnonce.c.tag = true
+- articleAnonce.c.author = 'Правдинина Марина Правдинина-Куципалюк'
+- articleAnonce.c.title = 'Яркие идеи для оформления детской комнаты '
+- articleAnonce.c.text = 'Решил наш дедуля утеплить дом, благо сейчас многие фирмы работают в кредит. Принцип утепления заключается в том, что в кирпичах...'
+
+- articleAnonce.d = {}
+- articleAnonce.d.tag = true
+- articleAnonce.d.author = 'Антон Кузнецов-Привольный'
+- articleAnonce.d.title = 'Одиночное путешествие: куда поехать и как организовать '
+- articleAnonce.d.images = 'http://lorempixel.com/300/200/people/3'
+- articleAnonce.d.video = true
+
+- articleAnonce.e = {}
+- articleAnonce.e.tag = true
+- articleAnonce.e.author = 'Антон Привольный'
+- articleAnonce.e.title = 'Первый российский Comic Con '
+- articleAnonce.e.images = 'http://lorempixel.com/300/250/people/2'
+
+- articleAnonce.f = {}
+- articleAnonce.f.tag = true
+- articleAnonce.f.author = 'Антон Привольный'
+- articleAnonce.f.title = 'Дети Нью-Йорка: они родились в разных странах и очень скучают по родине...'
+- articleAnonce.f.images = 'http://lorempixel.com/300/300/people/6'
+
+
+- articleAnonce.xl = {}
+- articleAnonce.xl.tag = true
+- articleAnonce.xl.count = true
+- articleAnonce.xl.author = 'Марина Правдинина'
+- articleAnonce.xl.title = 'Наши первые движения они родились в разных странах '
+- articleAnonce.xl.images = 'http://lorempixel.com/615/410/people/5'
+
+- articleAnonce.ico1 = {}
+- articleAnonce.ico1.ico = true
+- articleAnonce.ico1.tag = true
+- articleAnonce.ico1.author = 'Марина Правдинина'
+- articleAnonce.ico1.title = 'Наши первые движения они родились в разных странах '
+- articleAnonce.ico1.images = path+'/images/example/article-similar_ico-1.png'
+

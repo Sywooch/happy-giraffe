@@ -212,26 +212,28 @@ body.body.body__lite.body__bg2(class='body__homepage')
                             .homepage_desc-tx
                                 | узнавай новое, делись самым интересным 
 
-                // /Клубы
+                // /Клубы 
 
-                // Посты
+                // Посты 
                 .homepage_row
                     .homepage-posts
                         .homepage_title  Лучшие записи 
                         .homepage-posts_col-hold
-                                //- .homepage-posts_col
-                                +articleSimilar('article-similar__lilac', articleSimilar.e)
-                                +articleSimilar('article-similar__yellow', articleSimilar.a)
-   
-                            
-                                +articleSimilar('article-similar__blue', articleSimilar.c)
-                                .bnr-base
+                                //- .homepage-posts_col 
+                                +articleAnonce('article-anonce__red article-anonce__xl', articleAnonce.xl)
+                                +articleAnonce('article-anonce__lilac article-anonce__ico', articleAnonce.ico1)
+                                +articleAnonce('article-anonce__green', articleAnonce.e)
+                                +articleAnonce('article-anonce__yellow', articleAnonce.a)
+                                //+articleAnonce('article-anonce__blue', articleAnonce.c)
+                                +articleAnonce('article-anonce__green', articleAnonce.d)
+
+                                //+articleAnonce('article-anonce__lilac', articleAnonce.f)
+                                //+articleAnonce('article-anonce__blue', articleAnonce.b)
+                                //-.bnr-base
                                     a(href='#') 
                                         img(src="#{path}images/example/w240-h400-2.jpg", alt="")
-  
                             
-                                +articleSimilarIcons('article-similar__red', articleSimilarIcons.a)
-                                +articleSimilar('article-similar__green', articleSimilar.d)
+                               //- +articleAnonce('article-anonce__green', articleAnonce.f)
                 // /Посты
 
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\rss\controllers;
+use site\frontend\modules\rss\components\FeedGenerator;
 
 /**
  * @author Никита
@@ -9,19 +10,18 @@ namespace site\frontend\modules\rss\controllers;
 
 class DefaultController extends \HController
 {
-    public function actions()
+    public function actionUser($userId)
     {
-        return array(
-            'test' => array(
-                'class' => 'site\frontend\modules\rss\components\RssAction',
-                'dataProvider' => $this->getIndexDataProvider(),
+        $dataProvider = new \MultiModelDataProvider(array(
+            'site\frontend\modules\posts\models\Content' => array(
+                'criteria' => new \CDbCriteria(array(
+                    'condition' => 'authorId = :authorId',
+                    'params' => array(':authorId' => $userId),
+                )),
+                'sortColumn' => 'dtimeCreate',
             ),
-        );
-    }
-
-    protected function getIndexDataProvider()
-    {
-        $dataProvider = new \CActiveDataProvider('site\frontend\modules\posts\models\Content');
-        return $dataProvider;
+        ));
+        $feed = new FeedGenerator($dataProvider);
+        $feed->run();
     }
 } 

@@ -441,7 +441,7 @@ return array(
         'photo/default/presets' => 'photo/default/presets',
         'photo/photo/thumb' => 'photo/photo/thumb',
 
-        'rssTest' => 'rss/default/test',
+        'user/<userId:\d+>/rssTest' => 'rss/default/user',
 
         'onair' => 'blog/air/index',
 

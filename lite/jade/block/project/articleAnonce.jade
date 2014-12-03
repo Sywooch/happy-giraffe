@@ -1,59 +1,15 @@
-
 //- articleAnonce
 //- 
     mod
     vars
 mixin articleAnonce(mod, vars)
-
     // Варианты цветов блока
         article-anonce__green
         article-anonce__blue
         article-anonce__lilac
         article-anonce__red
         article-anonce__yellow
-    .article-anonce(class=mod)
-        .article-anonce_top
-            a.article-anonce_header-a(href="#") 
-                +ava('', ava.e)
-                span.article-anonce_author
-                    = vars.author
-        a.article-anonce_hold(href="#")
-            if (vars.ico)
-                .article-anonce_ico-hold
-                    //-.verticalalign-m-help
-                    .article-anonce_ico-a
-                        .article-anonce_ico
-                            img.article-anonce_img(src=vars.images, alt=vars.title)
-
-                        if (vars.tag)
-                            .article-anonce_tag Свадьба
-                        span.article-anonce_t 
-                            = vars.title
-            else 
-                if (vars.text)
-                    .article-anonce_text 
-                        p
-                            = vars.text
-             
-                else
-                    .article-anonce_img-hold
-                            if (vars.count)
-                                .article-anonce_img-top
-                                    .article-anonce_count-hold
-                                        .article-anonce_count-t 128
-                                        .article-anonce_count-tx фото
-                            if (vars.images)
-                                img.article-anonce_img(src=vars.images, alt=vars.title)
-                            if (vars.video)
-                                .ico-ovrPlay.ico-ovrPlay__abs
-                                //-.video-container
-                                    != vars.video
-                .article-anonce_bottom
-                    if (vars.tag)
-                        .article-anonce_tag Праздники
-                    .article-anonce_t
-                        = vars.title
-
+    
 - var articleAnonce = {}
 
 - articleAnonce.a = {}
@@ -109,3 +65,16 @@ mixin articleAnonce(mod, vars)
 - articleAnonce.ico1.title = 'Наши первые движения они родились в разных странах '
 - articleAnonce.ico1.images = path+'/images/example/article-similar_ico-1.png'
 
+
+
+//- mixin articleAnonceIframe(mod.vars)
+//-     +articleAnonce(mod, vars.input)
+
+//- - var articleAnonceIframe = {}
+
+//- - articleAnonceIframe.a = {}
+//- - articleAnonceIframe.a.input = articleAnonce.a
+
+
+mixin articleAnonceCss()
+    meta

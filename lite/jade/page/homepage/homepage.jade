@@ -222,18 +222,24 @@ body.body.body__lite.body__bg2(class='body__homepage')
                                 //- .homepage-posts_col 
                                 +articleAnonce('article-anonce__red article-anonce__xl', articleAnonce.xl)
                                 +articleAnonce('article-anonce__lilac article-anonce__ico', articleAnonce.ico1)
-                                +articleAnonce('article-anonce__green', articleAnonce.e)
-                                +articleAnonce('article-anonce__yellow', articleAnonce.a)
+                                +articleAnonce('article-anonce__yellow', articleAnonce.d)
+                                //+articleAnonce('article-anonce__yellow', articleAnonce.a)
                                 //+articleAnonce('article-anonce__blue', articleAnonce.c)
-                                +articleAnonce('article-anonce__green', articleAnonce.d)
+                                //+articleAnonce('article-anonce__green', articleAnonce.d)
+
+                                .article-anonce
+                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-2.html", width='300px', height="500px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+
+                                .article-anonce
+                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-1.html", width='300px', height="500px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
 
                                 //+articleAnonce('article-anonce__lilac', articleAnonce.f)
                                 //+articleAnonce('article-anonce__blue', articleAnonce.b)
-                                //-.bnr-base
+                                //-.bnr-base 
                                     a(href='#') 
                                         img(src="#{path}images/example/w240-h400-2.jpg", alt="")
                             
-                               //- +articleAnonce('article-anonce__green', articleAnonce.f)
+                               //- +articleAnonce('article-anonce__green', articleAnonce.f) 
                 // /Посты
 
 
@@ -245,7 +251,7 @@ body.body.body__lite.body__bg2(class='body__homepage')
                         //- Счетчик 
                         //-   script(type='text/javascript', src='/javascripts/jquery.lwtCountdown-1.0.js')
                         //-script.
-                            jQuery(document).ready(function() {
+                            jQuery(document).ready(function() { 
                                 $('#counter-users').countUp({
                                     numberSet : 62789298,
                                     randomNumberMax : 45

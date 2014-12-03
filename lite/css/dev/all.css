@@ -14342,11 +14342,11 @@ html[dir="rtl"] .select2-search-choice-close {
 }
 .article-anonce_top {
   position: relative;
-  margin: 10px 12px 7px;
+  margin: 16px 12px 7px;
 }
 .article-anonce_top .ava {
   position: absolute;
-  top: -16px;
+  top: -10px;
   left: 0;
   border: 2px solid #fff;
   z-index: 5;

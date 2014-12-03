@@ -74,9 +74,4 @@ class PregnancyChild extends FamilyMemberAbstract
             'pregnancyTermString' => AgeHelper::getPregnancyTermString($this->birthday),
         ));
     }
-
-    public function isPublic()
-    {
-        return time() > strtotime($this->birthday);
-    }
 } 

@@ -33,8 +33,6 @@ class DefaultController extends \LiteController
         }
         $this->owner = $user;
 
-        die('123');
-
         /** @var \site\frontend\modules\family\models\Family $family */
         $family = Family::model()->with('members')->hasMember($userId)->find();
 

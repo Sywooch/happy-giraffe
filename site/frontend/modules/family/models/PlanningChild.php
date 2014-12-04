@@ -57,7 +57,7 @@ class PlanningChild extends FamilyMemberAbstract
     {
         return \CMap::mergeArray(parent::toJSON(), array(
             'gender' => $this->gender,
-            'birthday' => $this->birthday,
+            'planningWhen' => $this->planningWhen,
         ));
     }
 

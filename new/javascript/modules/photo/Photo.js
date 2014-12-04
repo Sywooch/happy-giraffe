@@ -27,7 +27,7 @@ define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetMan
         }
         this.getGeneratedPreset = function generatePreseted(preset) {
             if (this.presetHash() === undefined) {
-                if (PresetManager.getPresetHash(preset) === undefined) {
+                if (PresetManager.presets === undefined) {
                     this.preset = preset;
                     PresetManager.getPresets(this.handlePresets.bind(this));
                 } else {

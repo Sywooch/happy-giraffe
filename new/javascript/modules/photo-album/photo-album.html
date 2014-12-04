@@ -16,7 +16,12 @@
         </div>
         <div class="user-album_desc">
             <div class="user-album_switch" data-bind="if: photoAlbum.editing() === false">
+                <!-- ko if: rightsForManipulation === true -->
                 <span data-bind="text: photoAlbum.description() !== '' ?  photoAlbum.description() : 'Введите описание альбома'"></span>
+                <!-- /ko -->
+                <!-- ko if: rightsForManipulation === false -->
+                <span data-bind="text: photoAlbum.description() !== '' ?  photoAlbum.description() : ''"></span>
+                <!-- /ko -->
             </div>
         </div>
         <!-- ko if: photoAlbum.editing() === true && rightsForManipulation === true -->

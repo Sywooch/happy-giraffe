@@ -1,14 +1,26 @@
-define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config'], function FamilyMemberModel(ko, Model, User, Family, userConfig) {
+define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config', 'extensions/knockout.validation', 'extensions/validatorRules'], function FamilyMemberModel(ko, Model, User, Family, userConfig) {
     var FamilyMember = {
         createMemberUrl: '/api/family/createMember/',
         updateMemberUrl: '/api/family/updateMember/',
         removeMemberUrl: '/api/family/removeMember/',
         restoreMemberUrl: '/api/family/restoreMember/',
         memberTypes: {
-            adult: 'adult',
-            child: 'child',
-            waiting: 'waiting',
-            planning: 'planning'
+            adult: {
+                name: 'adult',
+                fields: ['type', 'relationshipStatus', 'name', 'description']
+            },
+            child: {
+                name: 'child',
+                fields: ['type', 'gender', 'name', 'birthday', 'description']
+            },
+            waiting: {
+                name: 'waiting',
+                fields: ['type', 'gender', 'pregnancyTerm']
+            },
+            planning: {
+                name: 'planning',
+                fields: ['type', 'gender', 'planningWhen']
+            }
         },
         genderTypes: {
             woman: '0',
@@ -22,11 +34,11 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         },
         relationshipStatuses: {
             friends: 'friends',
-            engaged: 'engaged',
+            engagg: 'engaged',
             married: 'married'
         },
-        createMember: function createMember(attribObj) {
-           return Model.get(this.createMemberUrl, { attributes: [attribObj] });
+        createMember: function createMember(attribArray) {
+           return Model.get(this.createMemberUrl, { attributes: attribArray });
         },
         updateMember: function updateMember(attribObj) {
             return Model.get(this.updateMemberUrl, { id: this.id(), attributes: [attribObj] });
@@ -36,6 +48,51 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         },
         restoreMember: function restoreMember() {
             return Model.get(this.removeMemberUrl, { id: this.id() });
+        },
+        canSubmit: function canSubmit() {
+            var canSubmitFields;
+            switch (this.type.value()) {
+                case this.memberTypes.child.name:
+                    this.name.value.extend({ mustFill: true });
+                    this.birthday.day.extend({ dateMustFill: true });
+                    this.birthday.month.extend({ dateMustFill: true });
+                    this.birthday.year.extend({ dateMustFill: true });
+                    this.gender.value.extend({ mustFill: true });
+                    if (this.name.value.isValid() && this.birthday.day.isValid() && this.birthday.month.isValid() && this.birthday.year.isValid() && this.gender.value.isValid()) {
+                        canSubmitFields = true;
+                    } else {
+                        canSubmitFields = false;
+                    }
+                    break;
+                case this.memberTypes.adult.name:
+                    this.name.value.extend({ mustFill: true });
+                    this.relationshipStatus.value.extend({ mustFill: true });
+                    if (this.name.value.isValid() && this.relationshipStatus.value.isValid()) {
+                        canSubmitFields = true;
+                    } else {
+                        canSubmitFields = false;
+                    }
+                    break;
+                case this.memberTypes.planning.name:
+                    this.planningWhen.value.extend({ mustFill: true });
+                    if (this.planningWhen.value.isValid()) {
+                        canSubmitFields = true;
+                    } else {
+                        canSubmitFields = false;
+                    }
+                    break;
+                case this.memberTypes.waiting.name:
+                    this.pregnancyTerm.day.extend({ dateMustFill: true });
+                    this.pregnancyTerm.month.extend({ dateMustFill: true });
+                    this.pregnancyTerm.year.extend({ dateMustFill: true });
+                    if (this.pregnancyTerm.day.isValid() && this.pregnancyTerm.month.isValid() && this.pregnancyTerm.year.isValid()) {
+                        canSubmitFields = true;
+                    } else {
+                        canSubmitFields = false;
+                    }
+                    break;
+            }
+            return canSubmitFields;
         },
         init: function init(data) {
             data = (data === undefined) ? {} : data;
@@ -61,37 +118,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                 return this.year() + '-' +  this.month() + '-' + this.day();
             }, this.pregnancyTerm);
             this.planningWhen = Model.createStdProperty(data.planningWhen || null, 'planningWhen');
-            this.canSubmit = ko.computed(function canSubmit() {
-                var canSubmitFields;
-                switch (this.type.value()) {
-                    case this.memberTypes.child:
-                        if ((this.name.value() !== '' || this.name.value() !== null) || (this.birthday.value() !== 'null-null-null' || this.birthday.value() !== null) || (this.gender.value() !== '' || this.gender.value() !== null)) {
-                            console.log(this.name.value(), this.birthday.value(), this.gender.value());
-                            canSubmitFields = true;
-                        }
-                        canSubmitFields = false;
-                        break;
-                    case this.memberTypes.adult:
-                        if ((this.relationshipStatus.value() !== '' || undefined) || (this.name.value() !== '' || undefined)) {
-                            canSubmitFields = true;
-                        }
-                        canSubmitFields = true;
-                        break;
-                    case this.memberTypes.planning:
-                        if ((this.planningWhen.value() !== '' || undefined)) {
-                            canSubmitFields = true;
-                        }
-                        canSubmitFields = true;
-                        break;
-                    case this.memberTypes.planning:
-                        if ((this.pregnancyTerm.value() !== 'null-null-null' || undefined)) {
-                            canSubmitFields = true;
-                        }
-                        canSubmitFields = true;
-                        break;
-                }
-                return canSubmitFields;
-            }, this);
+            this.canSubmit = ko.computed(this.canSubmit, this);
             return this;
         }
 

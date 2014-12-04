@@ -51,7 +51,7 @@
         <a href="#" class="ico-close4" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])"></a>
     </div>
     <!-- /ko -->
-    <!-- ko if: familyMember.type.value() === familyMember.memberTypes.child -->
+    <!-- ko if: familyMember.type.value() === familyMember.memberTypes.child.name -->
     <div>
         <div class="family-settings_t">Дети</div>
         <div class="family-settings_hold clearfix1">
@@ -164,13 +164,13 @@
             <div class="family-settings_r">
                 <div class="family-settings_row-btn">
                 <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
-                <a class="btn btn-success btn-m" data-bind="css: { 'disabled': familyMember.canSubmit() === false }">Сохранить</a>
+                <a class="btn btn-success btn-m" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- /ko -->
-    <!-- ko if: familyMember.type.value() === familyMember.memberTypes.planning -->
+    <!-- ko if: familyMember.type.value() === familyMember.memberTypes.planning.name -->
     <div>
         <div class="family-settings_t"></div>
         <div class="family-settings_hold clearfix1">
@@ -240,13 +240,13 @@
             <div class="family-settings_r">
                 <div class="family-settings_row-btn">
                 <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
-                <a class="btn btn-success btn-m disabled">Сохранить</a>
+                <a class="btn btn-success btn-m disabled" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- /ko -->
-    <!-- ko if: familyMember.type.value() === familyMember.memberTypes.waiting -->
+    <!-- ko if: familyMember.type.value() === familyMember.memberTypes.waiting.name -->
     <div>
         <div class="family-settings_t"></div>
         <div class="family-settings_hold clearfix1">
@@ -282,7 +282,7 @@
                 </div>
                 <!-- name-->
                 <!-- Когда-->
-                <div class="family-settings_row" data-bind="with: familyMember.birthday">
+                <div class="family-settings_row" data-bind="with: familyMember.pregnancyTerm">
                     <!-- ko if: $data.editing() === false && $data.value() === 'null-null-null' -->
                     <a href="#" class="family-settings_cap family-settings_cap__name"
                        data-bind="click: $parent.beginEditField">Когда ждем?</a>
@@ -290,7 +290,7 @@
                     <!-- ko if: $data.editing() === true -->
                     <div class="inp-valid inp-valid__abs">
                         <div class="float-l w-80 margin-r10">
-                            <select placeholder="День" data-placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true, optionsCaption: 'Денб'">
+                            <select placeholder="День" data-placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true, optionsCaption: 'День'">
                             </select>
                         </div>
                         <div class="float-l w-135 margin-r10">
@@ -326,13 +326,13 @@
             <div class="family-settings_r">
                 <div class="family-settings_row-btn">
                 <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
-                <a class="btn btn-success btn-m disabled">Сохранить</a>
+                <a class="btn btn-success btn-m disabled" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- /ko -->
-    <!-- ko if: familyMember.type.value() === familyMember.memberTypes.adult -->
+    <!-- ko if: familyMember.type.value() === familyMember.memberTypes.adult.name -->
     <div>
         <div class="family-settings_t">Моя половинка</div>
         <div class="family-settings_hold clearfix1">
@@ -418,7 +418,7 @@
             <div class="family-settings_r">
                 <div class="family-settings_row-btn">
                 <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
-                <a class="btn btn-success btn-m disabled">Сохранить</a>
+                <a class="btn btn-success btn-m disabled" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
                 </div>
             </div>
         </div>

@@ -40,14 +40,16 @@ mixin articleAnonce(mod, vars)
                                         .article-anonce_count-hold
                                             .article-anonce_count-t 128
                                             .article-anonce_count-tx фото
+                                if (vars.video)
+                                    .article-anonce_img-top
+                                        .ico-ovrPlay.ico-ovrPlay__s
                                 if (vars.images)
                                     img.article-anonce_img(src=vars.images, alt=vars.title)
-                                if (vars.video)
-                                    .ico-ovrPlay.ico-ovrPlay__abs
                                     //-.video-container
                                         != vars.video
                     .article-anonce_bottom
                         if (vars.tag)
+                            // может быть, а может и не быть тег
                             .article-anonce_tag Праздники
                         .article-anonce_t
                             = vars.title
@@ -81,10 +83,10 @@ mixin articleAnonce(mod, vars)
 - articleAnonce.d.video = true
 
 - articleAnonce.e = {}
-- articleAnonce.e.tag = true
+- articleAnonce.e.tag = false
 - articleAnonce.e.author = 'Антон Привольный'
 - articleAnonce.e.title = 'Первый российский Comic Con '
-- articleAnonce.e.images = 'http://lorempixel.com/300/250/people/2'
+- articleAnonce.e.images = 'http://lorempixel.com/300/200/people/2'
 
 - articleAnonce.f = {}
 - articleAnonce.f.tag = true
@@ -203,8 +205,6 @@ mixin articleAnonceCss()
             max-height: 100%;
         }
 
-
-
         .article-anonce_ico-hold:before {
           content: "";
           display: inline-block;
@@ -212,15 +212,23 @@ mixin articleAnonceCss()
           height: 100%;
           vertical-align: middle;
         }
+
+
         /* article-anonce */
         .article-anonce {
           position: relative;
-          display: inline-block;
+          display: block;
           vertical-align: top;
           width: 300px;
-          margin: 0;
+          margin: 20px 0;
           color: #fff;
           text-align: left;
+        }
+        .article-anonce .ico-ovrPlay__s {
+          position: relative;
+          float: right;
+          top: -10px;
+          right: -10px;
         }
         .article-anonce__xl {
           width: 615px;
@@ -259,6 +267,12 @@ mixin articleAnonceCss()
         .article-anonce__xl .article-anonce_count-tx {
           font-size: 23px;
         }
+        .article-anonce__s .article-anonce_hold {
+          border-top-width: 0;
+        }
+        .article-anonce__s .article-anonce_t {
+          font-size: 18px;
+        }
         .article-anonce__green .article-anonce_hold {
           border-color: #52b547;
         }
@@ -291,11 +305,12 @@ mixin articleAnonceCss()
         }
         .article-anonce_top {
           position: relative;
-          margin: 16px 12px 7px;
+          margin: 0 12px 7px;
+          padding-top: 16px;
         }
         .article-anonce_top .ava {
           position: absolute;
-          top: -10px;
+          top: 0;
           left: 0;
           border: 2px solid #fff;
           z-index: 5;
@@ -330,10 +345,9 @@ mixin articleAnonceCss()
           border-top: none;
         }
         .article-anonce_t {
-          display: inline-block;
           margin: 5px 0;
           font-size: 22px;
-          line-height: 22px;
+          line-height: 1em;
           letter-spacing: -0.15px;
           font-weight: bold;
           color: #196eb9;
@@ -345,6 +359,7 @@ mixin articleAnonceCss()
           padding: 1px 10px;
           color: #fff;
           font-weight: bold;
+          background-color: #8970b4;
         }
         .article-anonce_img-hold {
           position: relative;
@@ -372,7 +387,7 @@ mixin articleAnonceCss()
           text-align: center;
         }
         .article-anonce_count-t {
-          font-size: 30px;
+          font-size: 34px;
           line-height: 1em;
         }
         .article-anonce_count-tx {

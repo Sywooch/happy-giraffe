@@ -2,12 +2,19 @@
 /* article-anonce */
 .article-anonce {
     position: relative;
-    display: inline-block;
+    display: block;
     vertical-align: top;
     width: 300px;
-    margin: 20px 0 20px;
+    margin: 20px 0;
     color: #fff;
     text-align: left;
+
+    .ico-ovrPlay__s {
+        position: relative;
+        float: right;
+        top: -10px;
+        right: -10px;
+    }
 
     &__xl {
         width: 615px;
@@ -43,6 +50,13 @@
         font-size: 23px;
     }
 
+    &__s &_hold {
+        border-top-width: 0;
+    }
+    &__s &_t {
+        font-size: 18px;
+    }
+
     &__green  &_hold {border-color: #52b547;}
     &__green  &_tag  {background-color: #52b547;}
     &__blue   &_hold {border-color: #47aef3;}
@@ -56,11 +70,12 @@
     
     &_top {
         position: relative;
-        margin: 16px 12px 7px;
+        margin: 0 12px 7px;
+        padding-top: 16px;
     }
     &_top .ava {
         position: absolute;
-        top: -10px;
+        top: 0;
         left: 0;
         border: 2px solid #fff;
         z-index: 5;
@@ -95,10 +110,9 @@
         border-top: none;
     }
     &_t {
-        .inline-block();
         margin: 5px 0;
         font-size: 22px;
-        line-height: 22px;
+        line-height: 1em;
         letter-spacing: -0.15px;
         font-weight: bold;
         color: @color-link-title;
@@ -113,6 +127,7 @@
         padding: 1px 10px;
         color: #fff;
         font-weight: bold;
+        background-color: #8970b4;
     }
     &_img-hold {
         position: relative;
@@ -136,7 +151,7 @@
         text-align: center;
     }
     &_count-t {
-        font-size: 30px;
+        font-size: 34px;
         line-height: 1em;
     }
     &_count-tx {

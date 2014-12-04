@@ -257,14 +257,33 @@ mixin sidebarArticle(mod, vars)
     // Содержимое загружaть отложено
     aside.b-main_col-sidebar.visible-md
 
-        +articleAnonce('article-anonce__yellow', articleAnonce.a)
-        +articleAnonce('article-anonce__lilac article-anonce__ico', articleAnonce.ico1)
-        +articleAnonce('article-anonce__green', articleAnonce.e)
-        //+articleAnonce('article-anonce__blue', articleAnonce.c)
-        +articleAnonce('article-anonce__green', articleAnonce.d)
+        .bnr-base
+            a(href='#') 
+                img(src="#{path}images/example/w300-h600-1.jpg", alt="")
 
-        //+articleAnonce('article-anonce__lilac', articleAnonce.f)
-        +articleAnonce('article-anonce__blue', articleAnonce.b)
+        .bnr-base
+            a(href='#') 
+                img(src="#{path}images/example/w300-h250-1.jpg", alt="")
+
+
+        +articleAnonce('article-anonce__s', articleAnonce.b)
+        +articleAnonce('article-anonce__s', articleAnonce.d)
+        //-+articleAnonce('article-anonce__s', articleAnonce.a)
+        //-+articleAnonce('article-anonce__lilac article-anonce__ico', articleAnonce.ico1)
+        +articleAnonce('article-anonce__s', articleAnonce.e)
+        //-+articleAnonce('article-anonce__s', articleAnonce.c)
+
+        //-+articleAnonce('article-anonce__s', articleAnonce.f)
+        .bnr-base
+            a(href='#') 
+                img(src="#{path}images/example/w300-h250-1.jpg", alt="")
+
+        +articleAnonce('article-anonce__s', articleAnonce.e)
+        +articleAnonce('article-anonce__s', articleAnonce.d)
+        //-+articleAnonce('article-anonce__s', articleAnonce.d)
+
+        .article-anonce
+            iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-3.html", width='300px', height="500px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
     // Сайд бар
 
 - var sidebarArticle = {}

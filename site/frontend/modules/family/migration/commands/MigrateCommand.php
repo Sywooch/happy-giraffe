@@ -4,9 +4,9 @@
  * @date 19/11/14
  */
 
-namespace site\frontend\modules\family\commands;
+namespace site\frontend\modules\family\migration\commands;
 
-use site\frontend\modules\family\components\MigrateManager;
+use site\frontend\modules\family\migration\components\MigrateManager;
 use site\frontend\modules\family\models\Family;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoCollection;
@@ -58,6 +58,15 @@ class MigrateCommand extends \CConsoleCommand
         $iterator = new \CDataProviderIterator($dp, 100);
         foreach ($iterator as $user) {
             \Yii::app()->gearman->client()->doBackground('migrateUser', $user->id);
+        }
+    }
+
+    public function actionTest()
+    {
+        $dates = array('0000-00-00', null, '2012-12-00', '2014-12-31', '2015-12-31');
+        foreach ($dates as $date) {
+            var_dump(\site\frontend\modules\family\migration\components\MigrateManager::fixPregnancyDate($date));
+            echo "\n";
         }
     }
 }

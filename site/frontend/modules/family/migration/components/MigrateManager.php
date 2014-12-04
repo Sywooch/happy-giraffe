@@ -260,7 +260,7 @@ class MigrateManager
                 if ($photosCount > 4) {
                     $album = new PhotoAlbum();
                     $memberName = trim($new->name);
-                    $albumTitle = $new->viewData->title . ((! empty($memberName)) ? ' ' . $new->name : '');
+                    $albumTitle = $new->viewData->getTitle() . ((! empty($memberName)) ? ' ' . $new->name : '');
                     $album->title = $albumTitle;
                     $album->author_id = ($old instanceof \Baby) ? $old->parent_id : $old->user_id;
                     $album->source = 'family';

@@ -450,5 +450,10 @@ return array(
         'api/comments/<_a>' => 'comments/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
+        
+        /* SOM */
+        'status' => 'som/status/default/index',
+        'status/<_c>' => 'som/status/<_c>/index',
+        'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
     ),
 );

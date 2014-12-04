@@ -1,13 +1,14 @@
-define(['knockout', 'models/Model', 'models/User', 'user-config'], function FamilyModel(ko, Model, User, userConfig) {
+define(['knockout', 'models/Model', 'models/User', 'user-config', 'models/FamilyMember', 'moment'], function FamilyModel(ko, Model, User, userConfig, FamilyMember, moment) {
     var Family = {
         id: ko.observable(null),
         description: ko.observable(null),
         base: '/api/family',
-        userId: User.userId,
+        userId: parseInt(User.userId),
         getUrl: '/api/family/get/',
         createUrl: '/api/family/create/',
         needFillUrl: '/api/family/needFill/',
         updateUrl: '/api/family/update/',
+        members: ko.observableArray(),
         get: function getFamily(public) {
             return Model.get(this.getUrl, {userId: this.userId});
         },
@@ -16,6 +17,13 @@ define(['knockout', 'models/Model', 'models/User', 'user-config'], function Fami
         },
         init: function initFamily(data) {
             this.id(data.id);
+            if (data.members.length > 0) {
+                for (var i=0; i < data.members.length; i++) {
+
+                    var familyMember = Object.create(FamilyMember);
+                    this.members.push(familyMember.init(data.members[i]));
+                }
+            }
             this.description(data.description);
         }
     };

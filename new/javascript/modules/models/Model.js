@@ -66,14 +66,11 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             return false;
         },
         checkFieldsToPass: function checkFieldsToPass(fieldsNames, object) {
-            var returnableObject = [],
-                tempObj;
+            var returnableObject = {};
                 for (var i=0; i < fieldsNames.length; i++) {
-                    tempObj = {};
                     if (object[fieldsNames[i]] !== undefined) {
                         if (object[fieldsNames[i]].value() !== null && object[fieldsNames[i]].value() !== undefined && object[fieldsNames[i]].value() !== '') {
-                            tempObj[fieldsNames[i]] = object[fieldsNames[i]].value();
-                            returnableObject.push(tempObj);
+                            returnableObject[fieldsNames[i]] = object[fieldsNames[i]].value();
                         }
                     }
                 }
@@ -91,7 +88,8 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             value: ko.observable(null)
         },
         createStdProperty: function createStdProperty(value, name) {
-            var stdProperty = Object.create({ editing: ko.observable(true), value: ko.observable(value), name: name });
+            console.log(value !== null, value !== 'null-null-null', $.isEmptyObject(value) === false);
+            var stdProperty = Object.create({ editing: ko.observable((value !== null && value !== 'null-null-null' && $.isEmptyObject(value) === false) ? false : true), value: ko.observable(value), name: name });
             return stdProperty;
         }
     };

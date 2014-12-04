@@ -2,16 +2,31 @@
     <div class="textalign-c">
         <div class="ico-myfamily ico-myfamily__l"></div>
     </div>
-    <!-- Блок Добавления-->
-    <div class="cap-add cap-add__l cap-add__family-member" data-bind="click: addFamilyMember">
-        <div class="cap-add_hold">
-            <div class="cap-add_in">
-                <div class="cap-add_tx">Добавить&nbsp;члена семьи </div>
+    <!-- ko if: loadingFamily() === false -->
+        <!-- ko foreach: family.members() -->
+            <!-- ko if: $data.userId !== $parent.family.userId -->
+                <family-settings params="family: $parent.family, member: $data, index: $index"></family-settings>
+            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: family.members().length === 1 -->
+            <!-- Блок Добавления-->
+            <div class="cap-add cap-add__l cap-add__family-member" data-bind="click: addFamilyMember">
+                <div class="cap-add_hold">
+                    <div class="cap-add_in">
+                        <div class="cap-add_tx">Добавить&nbsp;члена семьи </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <!-- ko foreach: membersArray() -->
-        <family-settings params="family: $parent.family, member: $data, index: $index"></family-settings>
+        <!-- /ko -->
+        <!-- ko if: family.members().length > 1 -->
+            <div class="cap-add cap-add__s" data-bind="click: addFamilyMember">
+                <div class="cap-add_hold">
+                    <div class="cap-add_in">
+                        <div class="cap-add_tx">Добавить&nbsp;члена семьи</div>
+                    </div>
+                </div>
+            </div>
+        <!-- /ko -->
     <!-- /ko -->
     <!-- Блок Добавления-->
     <div class="cap-add cap-add__l cap-add__family-photo" data-bind="click: addFamilyPhoto">

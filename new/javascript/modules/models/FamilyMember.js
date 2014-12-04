@@ -1,4 +1,4 @@
-define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config', 'extensions/knockout.validation', 'extensions/validatorRules'], function FamilyMemberModel(ko, Model, User, Family, userConfig) {
+define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config', 'moment', 'extensions/knockout.validation', 'extensions/validatorRules'], function FamilyMemberModel(ko, Model, User, Family, userConfig, moment) {
     var FamilyMember = {
         createMemberUrl: '/api/family/createMember/',
         updateMemberUrl: '/api/family/updateMember/',
@@ -34,20 +34,23 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         },
         relationshipStatuses: {
             friends: 'friends',
-            engagg: 'engaged',
+            engaged: 'engaged',
             married: 'married'
         },
-        createMember: function createMember(attribArray) {
-           return Model.get(this.createMemberUrl, { attributes: attribArray });
+        removed: ko.observable(),
+        createMember: function createMember(attribObj) {
+           return Model.get(this.createMemberUrl, { attributes: attribObj });
         },
         updateMember: function updateMember(attribObj) {
-            return Model.get(this.updateMemberUrl, { id: this.id(), attributes: [attribObj] });
+            return Model.get(this.updateMemberUrl, { id: this.id(), attributes: attribObj });
         },
         removeMember: function removeMember() {
+            this.removed(true);
             return Model.get(this.removeMemberUrl, { id: this.id() });
         },
         restoreMember: function restoreMember() {
-            return Model.get(this.removeMemberUrl, { id: this.id() });
+            this.removed(false);
+            return Model.get(this.restoreMemberUrl, { id: this.id() });
         },
         canSubmit: function canSubmit() {
             var canSubmitFields;
@@ -75,7 +78,8 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                     break;
                 case this.memberTypes.planning.name:
                     this.planningWhen.value.extend({ mustFill: true });
-                    if (this.planningWhen.value.isValid()) {
+                    this.gender.value.extend({ mustFill: true });
+                    if (this.planningWhen.value.isValid() && this.gender.value.isValid()) {
                         canSubmitFields = true;
                     } else {
                         canSubmitFields = false;
@@ -95,30 +99,34 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             return canSubmitFields;
         },
         init: function init(data) {
+            console.log(data);
             data = (data === undefined) ? {} : data;
             this.id = ko.observable(data.id || null);
+            this.userId = parseInt(data.userId || null);
             this.type = Model.createStdProperty(data.type || null, 'type');
             this.relationshipStatus = Model.createStdProperty(data.relationshipStatus || null, 'relationshipStatus');
             this.gender = Model.createStdProperty(data.gender || null, 'gender');
             this.name = Model.createStdProperty(data.name || null, 'name');
-            this.description = Model.createStdProperty(data.description || null, 'description');
+            this.description = Model.createStdProperty((data.description || this.id() !== null) ? data.description : null, 'description');
             this.birthday = Model.createStdProperty(data.birthday || {}, 'birthday');
-            this.birthday.day = ko.observable((data.birthday !== undefined) ? data.birthday.day : null);
-            this.birthday.month = ko.observable((data.birthday !== undefined) ? data.birthday.month : null);
-            this.birthday.year = ko.observable((data.birthday !== undefined) ? data.birthday.year : null);
+            this.birthday.day = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getDate() : null);
+            this.birthday.month = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getMonth() + 1 : null);
+            this.birthday.year = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getFullYear() : null);
             this.birthday.value = ko.computed(function () {
                return this.year() + '-' +  this.month() + '-' + this.day();
             }, this.birthday);
             this.ageString = Model.createStdProperty(data.ageString || null, 'ageString');
             this.pregnancyTerm = Model.createStdProperty(data.pregnancyTerm || {}, 'pregnancyTerm');
-            this.pregnancyTerm.day = ko.observable((data.pregnancyTerm !== undefined) ? data.pregnancyTerm.day : null);
-            this.pregnancyTerm.month = ko.observable((data.pregnancyTerm !== undefined) ? data.pregnancyTerm.month : null);
-            this.pregnancyTerm.year = ko.observable((data.pregnancyTerm !== undefined) ? data.pregnancyTerm.year : null);
+            this.pregnancyTerm.day = ko.observable((data.pregnancyTerm !== undefined) ? new Date(data.pregnancyTerm).getDate() : null);
+            this.pregnancyTerm.month = ko.observable((data.pregnancyTerm !== undefined) ? new Date(data.pregnancyTerm).getMonth() + 1 : null);
+            this.pregnancyTerm.year = ko.observable((data.pregnancyTerm !== undefined) ? new Date(data.pregnancyTerm).getFullYear() : null);
             this.pregnancyTerm.value = ko.computed(function () {
                 return this.year() + '-' +  this.month() + '-' + this.day();
             }, this.pregnancyTerm);
             this.planningWhen = Model.createStdProperty(data.planningWhen || null, 'planningWhen');
+            this.removed(false);
             this.canSubmit = ko.computed(this.canSubmit, this);
+            console.log(this);
             return this;
         }
 

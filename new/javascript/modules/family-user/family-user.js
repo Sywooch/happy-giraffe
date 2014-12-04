@@ -3,10 +3,11 @@ define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Famil
     function FamilyUserViewModel() {
         this.family = Object.create(Family);
         this.membersArray = ko.observableArray();
+        this.loadingFamily = ko.observable(true);
         this.addFamilyMember = function addFamilyMember() {
             var familyMember = Object.create(FamilyMember);
                 familyMember = familyMember.init();
-            this.membersArray.push(familyMember);
+            this.family.members.push(familyMember);
         };
         this.addFamilyPhoto = function addFamilyPhoto() {
 
@@ -18,6 +19,7 @@ define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Famil
             if (familyData.success === true) {
               if (familyData.data !== undefined) {
                   this.family.init(familyData.data);
+                  this.loadingFamily(false);
               }
             }
         };
@@ -27,7 +29,7 @@ define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Famil
             }
         };
         this.removeMemberInstance = function removeMemberInstance(data, event) {
-            var removed = this.membersArray.splice(data.index(), 1);
+            var removed = this.family.members.splice(data.index(), 1);
         };
         this.family.get(true).done(this.familyHandler.bind(this));
     }

@@ -12,6 +12,7 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         this.relationshipArray = [{id: this.familyMember.relationshipStatuses.friends, name: 'Друзья'}, {id: this.familyMember.relationshipStatuses.engaged, name: 'Обручены'}, {id: this.familyMember.relationshipStatuses.married, name: 'Женаты'}];
         this.createMember = function createMember(memberType) {
             this.familyMember.type.value(FamilyMember.memberTypes[memberType].name);
+            console.log(this.familyMember);
             initSelect2();
         };
         this.findSelectName = function findSelectName(id, array) {
@@ -36,15 +37,21 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
                 this.familyMember.updateMember(attribute);
                 data.editing(false);
         };
+        this.submitMemberHandler = function submitMemberHandler(familyMemberData) {
+            if (familyMemberData.success === true) {
+                this.familyMember.init(familyMemberData.data);
+            }
+        };
         this.submitMember = function submitMember() {
             var attributes = Model.checkFieldsToPass(this.familyMember.memberTypes[this.familyMember.type.value()].fields, this.familyMember);
-            this.familyMember.createMember(attributes);
+            this.familyMember.createMember(attributes).done(this.submitMemberHandler.bind(this));
         };
+        initSelect2();
     };
 
     function initSelect2() {
         // Измененный tag select
-        $(".select-cus__search-off").select2({
+        $("select.select-cus__search-off").select2({
             width: '100%',
             minimumResultsForSearch: -1,
             dropdownCssClass: 'select2-drop__search-off',

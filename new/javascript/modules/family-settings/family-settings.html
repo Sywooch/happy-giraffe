@@ -46,9 +46,14 @@
         <!--</div>-->
     </div>
     <!-- /ko -->
-    <!-- ko if:  familyMember.type.value() !== null -->
+    <!-- ko if: familyMember.type.value() !== null -->
     <div class="family-edit">
+        <!-- ko if: familyMember.id() === null -->
         <a href="#" class="ico-close4" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])"></a>
+        <!-- /ko -->
+        <!-- ko if: familyMember.id() !== null -->
+        <a href="#" class="ico-close4" data-bind="click: familyMember.removeMember.bind(familyMember)"></a>
+        <!-- /ko -->
     </div>
     <!-- /ko -->
     <!-- ko if: familyMember.type.value() === familyMember.memberTypes.child.name -->
@@ -72,78 +77,86 @@
                 <!-- Пол-->
                 <div class="family-settings_row" data-bind="with: familyMember.gender">
                     <!-- ko if: $data.editing() === false && !$data.value() -->
-                    <a href="#" class="family-settings_cap family-settings_cap__gender" data-bind="click: $parent.beginEditField">Сын или дочь?</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__gender" data-bind="click: $parent.beginEditField">Сын или дочь?</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
                     <!-- В случае ошибки .error на .inp-valid-->
-                    <div class="inp-valid inp-valid__abs">
-                        <select placeholder="Сын или дочь?" data-placeholder="Сын или дочь?" class="select-cus select-cus__gray select-cus__search-off" data-bind="options: $parent.genderArrayTwo, optionsText: 'name', valueAllowUnset: true, optionsValue: 'id', value: $data.value, optionsCaption: 'Сын или дочь?'">
-                        </select>
-                    </div>
-                    <!--<a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <div class="inp-valid inp-valid__abs">
+                            <select placeholder="Сын или дочь?" data-placeholder="Сын или дочь?" class="select-cus select-cus__gray select-cus__search-off" data-bind="options: $parent.genderArrayTwo, optionsText: 'name', valueAllowUnset: true, optionsValue: 'id', value: $data.value, optionsCaption: 'Сын или дочь?'">
+                            </select>
+                        </div>
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                            <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() -->
-                    <div class="family-settings_tx"><span data-bind="text: $parent.findSelectName($data.value(), $parent.genderArrayTwo)"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_tx"><span data-bind="text: $parent.findSelectName($data.value(), $parent.genderArrayTwo)"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
                 <!-- name-->
                 <!-- Пол-->
                 <div class="family-settings_row" data-bind="with: familyMember.name">
                     <!-- ko if: $data.editing() === false && !$data.value() -->
-                    <a href="#" class="family-settings_cap family-settings_cap__name"
-                       data-bind="click: $parent.beginEditField">Имя ребенка</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__name" data-bind="click: $parent.beginEditField">Имя ребенка</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                    <div class="inp-valid inp-valid__abs">
-                        <input type="text" class="itx-gray" placeholder="Имя ребенка" data-bind="value: $data.value">
-                    </div>
-                    <!--<a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <div class="inp-valid inp-valid__abs">
+                            <input type="text" class="itx-gray" placeholder="Имя ребенка" data-bind="value: $data.value">
+                        </div>
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                            <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
+
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() -->
-                    <div class="family-settings_name"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_name"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
                 <!-- date-->
                 <!-- Дата-->
                 <div class="family-settings_row" data-bind="with: familyMember.birthday">
                     <!-- ko if: $data.editing() === false && $data.value() === 'null-null-null' -->
-                    <a href="#" class="family-settings_cap family-settings_cap__date" data-bind="click: $parent.beginEditField">Дата рождения</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__date" data-bind="click: $parent.beginEditField">Дата рождения</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                    <div class="inp-valid inp-valid__abs">
-                        <div class="float-l w-80 margin-r10">
-                            <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true, optionsCaption: 'День'">
-                            </select>
+                        <div class="inp-valid inp-valid__abs">
+                            <div class="float-l w-80 margin-r10">
+                                <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true, optionsCaption: 'День'">
+                                </select>
+                            </div>
+                            <div class="float-l w-135 margin-r10">
+                                <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.months, optionsText: 'name', optionsValue: 'id', value: $data.month, valueAllowUnset: true, optionsCaption: 'Месяц'">
+                                </select>
+                            </div>
+                            <div class="float-l w-80">
+                                <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.years, value: $data.year, valueAllowUnset: true, optionsCaption: 'Год'">
+                                </select>
+                            </div>
                         </div>
-                        <div class="float-l w-135 margin-r10">
-                            <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.months, optionsText: 'name', optionsValue: 'id', value: $data.month, valueAllowUnset: true, optionsCaption: 'Месяц'">
-                            </select>
-                        </div>
-                        <div class="float-l w-80">
-                            <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.years, value: $data.year, valueAllowUnset: true, optionsCaption: 'Год'">
-                            </select>
-                        </div>
-                    </div>
-                    <!--<a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                            <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() !== 'null-null-null' -->
-                    <div class="family-settings_name"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_name"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
                 <!-- desc-->
                 <div class="family-settings_row" data-bind="with: familyMember.description">
                     <!-- ko if: $data.editing() === false && !$data.value() -->
-                    <a href="#" class="family-settings_cap family-settings_cap__desc" data-bind="click: $parent.beginEditField">Пару слов о ребенке</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__desc" data-bind="click: $parent.beginEditField">Пару слов о ребенке</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                    <div class="inp-valid inp-valid__abs">
-                        <textarea rows="3" class="itx-gray" placeholder="Пару слов о ребенке" data-bind="value: $data.value"></textarea>
-                    </div>
-                    <br>
-                    <!--<a href="#" class="btn btn-success btn-xs margin-t5" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <div class="inp-valid inp-valid__abs">
+                            <textarea rows="3" class="itx-gray" placeholder="Пару слов о ребенке" data-bind="value: $data.value"></textarea>
+                        </div>
+                        <br>
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                            <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() -->
-                    <div class="family-settings_desc"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_desc"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
             </div>
@@ -163,8 +176,10 @@
             </div>
             <div class="family-settings_r">
                 <div class="family-settings_row-btn">
-                <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
-                <a class="btn btn-success btn-m" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
+                    <!-- ko if: familyMember.id() === null -->
+                        <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
+                        <a class="btn btn-success btn-m" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
+                    <!-- /ko -->
                 </div>
             </div>
         </div>
@@ -190,36 +205,39 @@
                 <!-- Пол-->
                 <div class="family-settings_row" data-bind="with: familyMember.gender">
                     <!-- ko if: $data.editing() === false && !$data.value() -->
-                    <a href="#" class="family-settings_cap family-settings_cap__gender" data-bind="click: $parent.beginEditField">Кого хотим?</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__gender" data-bind="click: $parent.beginEditField">Кого хотим?</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                    <!-- В случае ошибки .error на .inp-valid-->
-                    <div class="inp-valid inp-valid__abs">
-                        <select placeholder="Кого хотим?" data-placeholder="Кого хотим?" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.genderArrayThree, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Кого хотим?'">
-                        </select>
-                    </div>
-                    <!--<a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <!-- В случае ошибки .error на .inp-valid-->
+                        <div class="inp-valid inp-valid__abs">
+                            <select placeholder="Кого хотим?" data-placeholder="Кого хотим?" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.genderArrayThree, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Кого хотим?'">
+                            </select>
+                        </div>
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                            <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() -->
-                    <div class="family-settings_tx"><span data-bind="text: $parent.findSelectName($data.value(), $parent.genderArrayThree)"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_tx"><span data-bind="text: $parent.findSelectName($data.value(), $parent.genderArrayThree)"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
                 <!-- name-->
                 <!-- Когда-->
                 <div class="family-settings_row" data-bind="with: familyMember.planningWhen">
                     <!-- ko if: $data.editing() === false && !$data.value() -->
-                    <a href="#" class="family-settings_cap family-settings_cap__name"
-                       data-bind="click: $parent.beginEditField">Когда хотим?</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__name" data-bind="click: $parent.beginEditField">Когда хотим?</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                    <div class="inp-valid inp-valid__abs">
-                        <select placeholder="Когда хотим?" data-placeholder="Когда хотим?" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.planingArray, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Когда хотим?'">
-                        </select>
-                    </div>
-                    <!--<a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <div class="inp-valid inp-valid__abs">
+                            <select placeholder="Когда хотим?" data-placeholder="Когда хотим?" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.planingArray, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Когда хотим?'">
+                            </select>
+                        </div>
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                        <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() -->
-                    <div class="family-settings_tx"><span data-bind="text: $parent.findSelectName($data.value(), $parent.planingArray)"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_tx"><span data-bind="text: $parent.findSelectName($data.value(), $parent.planingArray)"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
             </div>
@@ -232,16 +250,17 @@
                     <div class="family-settings_progress-tx color-gray-light">Вы ничего не заполнили</div>
                     <!-- bootstrap progress-->
                     <div class="progress">
-                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"
-                             class="progress-bar progress-bar-success"></div>
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" class="progress-bar progress-bar-success"></div>
                     </div>
                 </div>
             </div>
             <div class="family-settings_r">
-                <div class="family-settings_row-btn">
-                <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
-                <a class="btn btn-success btn-m disabled" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
-                </div>
+                <!-- ko if: familyMember.id() === null -->
+                    <div class="family-settings_row-btn">
+                        <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
+                        <a class="btn btn-success btn-m disabled" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
+                    </div>
+                <!-- /ko -->
             </div>
         </div>
     </div>
@@ -266,46 +285,49 @@
                 <!-- Пол-->
                 <div class="family-settings_row" data-bind="with: familyMember.gender">
                     <!-- ko if: $data.editing() === false && !$data.value() -->
-                    <a href="#" class="family-settings_cap family-settings_cap__gender" data-bind="click: $parent.beginEditField">Кого ждем?</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__gender" data-bind="click: $parent.beginEditField">Кого ждем?</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                    <!-- В случае ошибки .error на .inp-valid-->
-                    <div class="inp-valid inp-valid__abs">
-                        <select placeholder="Кого ждем?" data-placeholder="Кого ждем?" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.genderArrayThree, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Кого ждем?'">
-                        </select>
-                    </div>
-                    <!--<a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <!-- В случае ошибки .error на .inp-valid-->
+                        <div class="inp-valid inp-valid__abs">
+                            <select placeholder="Кого ждем?" data-placeholder="Кого ждем?" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.genderArrayThree, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Кого ждем?'">
+                            </select>
+                        </div>
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                        <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() -->
-                    <div class="family-settings_tx"><span data-bind="text: $parent.findSelectName($data.value(), $parent.genderArrayThree)"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_tx"><span data-bind="text: $parent.findSelectName($data.value(), $parent.genderArrayThree)"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
                 <!-- name-->
                 <!-- Когда-->
                 <div class="family-settings_row" data-bind="with: familyMember.pregnancyTerm">
                     <!-- ko if: $data.editing() === false && $data.value() === 'null-null-null' -->
-                    <a href="#" class="family-settings_cap family-settings_cap__name"
-                       data-bind="click: $parent.beginEditField">Когда ждем?</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__name" data-bind="click: $parent.beginEditField">Когда ждем?</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                    <div class="inp-valid inp-valid__abs">
-                        <div class="float-l w-80 margin-r10">
-                            <select placeholder="День" data-placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true, optionsCaption: 'День'">
-                            </select>
+                        <div class="inp-valid inp-valid__abs">
+                            <div class="float-l w-80 margin-r10">
+                                <select placeholder="День" data-placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true, optionsCaption: 'День'">
+                                </select>
+                            </div>
+                            <div class="float-l w-135 margin-r10">
+                                <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.months, optionsText: 'name', optionsValue: 'id', value: $data.month, valueAllowUnset: true, optionsCaption: 'Месяц'">
+                                </select>
+                            </div>
+                            <div class="float-l w-80">
+                                <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.years, value: $data.year, valueAllowUnset: true, optionsCaption: 'Год'">
+                                </select>
+                            </div>
                         </div>
-                        <div class="float-l w-135 margin-r10">
-                            <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.months, optionsText: 'name', optionsValue: 'id', value: $data.month, valueAllowUnset: true, optionsCaption: 'Месяц'">
-                            </select>
-                        </div>
-                        <div class="float-l w-80">
-                            <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.years, value: $data.year, valueAllowUnset: true, optionsCaption: 'Год'">
-                            </select>
-                        </div>
-                    </div>
-                    <!--<a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                            <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() !== 'null-null-null' -->
-                    <div class="family-settings_name"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_name"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
             </div>
@@ -324,10 +346,12 @@
                 </div>
             </div>
             <div class="family-settings_r">
-                <div class="family-settings_row-btn">
-                <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
-                <a class="btn btn-success btn-m disabled" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
-                </div>
+                <!-- ko if: familyMember.id() === null -->
+                    <div class="family-settings_row-btn">
+                        <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
+                        <a class="btn btn-success btn-m disabled" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
+                    </div>
+                <!-- /ko -->
             </div>
         </div>
     </div>
@@ -353,51 +377,56 @@
                 <!-- Пол-->
                 <div class="family-settings_row" data-bind="with: familyMember.relationshipStatus">
                     <!-- ko if: $data.editing() === false && !$data.value() -->
-                    <a href="#" class="family-settings_cap family-settings_cap__gender" data-bind="click: $parent.beginEditField">Статус отношений</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__gender" data-bind="click: $parent.beginEditField">Статус отношений</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                    <!-- В случае ошибки .error на .inp-valid-->
-                    <div class="inp-valid inp-valid__abs">
-                        <select placeholder="Статус отношений" data-placeholder="Статус отношений" class="select-cus select-cus__gray select-cus__search-off" data-bind="options: $parent.relationshipArray, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Статус отношений'">
-                        </select>
-                    </div>
-                    <!--<a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <!-- В случае ошибки .error на .inp-valid-->
+                        <div class="inp-valid inp-valid__abs">
+                            <select placeholder="Статус отношений" data-placeholder="Статус отношений" class="select-cus select-cus__gray select-cus__search-off" data-bind="options: $parent.relationshipArray, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Статус отношений'">
+                            </select>
+                        </div>
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                            <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() -->
-                    <div class="family-settings_tx"><span data-bind="text: $parent.findSelectName($data.value(), $parent.relationshipArray)"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_tx"><span data-bind="text: $parent.findSelectName($data.value(), $parent.relationshipArray)"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
                 <!-- name-->
                 <!-- Пол-->
                 <div class="family-settings_row" data-bind="with: familyMember.name">
                     <!-- ko if: $data.editing() === false && !$data.value() -->
-                    <a href="#" class="family-settings_cap family-settings_cap__name"
-                       data-bind="click: $parent.beginEditField">Имя</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__name" data-bind="click: $parent.beginEditField">Имя</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                    <div class="inp-valid inp-valid__abs">
-                        <input type="text" class="itx-gray" placeholder="Имя" data-bind="value: $data.value">
-                    </div>
-                    <!--<a href="#" class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <div class="inp-valid inp-valid__abs">
+                            <input type="text" class="itx-gray" placeholder="Имя" data-bind="value: $data.value">
+                        </div>
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                            <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() -->
-                    <div class="family-settings_tx"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_name"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
                 <!-- desc-->
                 <div class="family-settings_row" data-bind="with: familyMember.description">
                     <!-- ko if: $data.editing() === false && !$data.value() -->
-                    <a href="#" class="family-settings_cap family-settings_cap__desc" data-bind="click: $parent.beginEditField">Пару слов</a>
+                        <a href="#" class="family-settings_cap family-settings_cap__desc" data-bind="click: $parent.beginEditField">Пару слов</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                    <div class="inp-valid inp-valid__abs">
-                        <textarea rows="3" class="itx-gray" placeholder="Пару слов" data-bind="value: $data.value"></textarea>
-                    </div>
-                    <br>
-                    <!--<a href="#" class="btn btn-success btn-xs margin-t5" data-bind="click: $parent.endEditField.bind($parent)">ok</a>-->
+                        <div class="inp-valid inp-valid__abs">
+                            <textarea rows="3" class="itx-gray" placeholder="Пару слов" data-bind="value: $data.value"></textarea>
+                        </div>
+                        <br>
+                        <!-- ko if: $parent.familyMember.id() !== null -->
+                            <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() -->
-                    <div class="family-settings_desc"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_desc"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
                     <!-- /ko -->
                 </div>
             </div>
@@ -416,12 +445,26 @@
                 </div>
             </div>
             <div class="family-settings_r">
-                <div class="family-settings_row-btn">
-                <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
-                <a class="btn btn-success btn-m disabled" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
-                </div>
+                <!-- ko if: familyMember.id() === null -->
+                    <div class="family-settings_row-btn">
+                        <a class="btn btn-secondary btn-m margin-r10" data-bind="click: $parents[1].removeMemberInstance.bind($parents[1])">Отмена</a>
+                        <a class="btn btn-success btn-m disabled" data-bind="css: { 'disabled': familyMember.canSubmit() === false }, click: submitMember">Сохранить</a>
+                    </div>
+                <!-- /ko -->
             </div>
         </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: familyMember.removed() === true -->
+    <div class="cap-empty cap-empty__abs-top cap-empty__white ">
+        <div class="cap-empty_hold">
+            <div class="cap-empty_img"></div>
+            <div class="cap-empty_t">Член семьи удален</div>
+            <div class="cap-empty_tx">
+                <a href="" data-bind="click: familyMember.restoreMember.bind(familyMember)">Восстановить</a>
+            </div>
+        </div>
+        <div class="verticalalign-m-help"></div>
     </div>
     <!-- /ko -->
 </div>

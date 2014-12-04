@@ -61,6 +61,20 @@ class MigrateCommand extends \CConsoleCommand
         }
     }
 
+    public function actionPart()
+    {
+        $path = \Yii::getPathOfAlias('site.frontend.modules.family.migration') . DIRECTORY_SEPARATOR . 'list';
+        $file = file($path);
+        foreach ($file as $line) {
+            $user = User::model()->findByPk($line);
+            if ($user !== null) {
+                MigrateManager::migrateSingle($user);
+            } else {
+                echo "Пользователь не найден\n";
+            }
+        }
+    }
+
     public function actionTest()
     {
         $dates = array('0000-00-00', null, '2012-12-00', '2014-12-31', '2015-12-31');

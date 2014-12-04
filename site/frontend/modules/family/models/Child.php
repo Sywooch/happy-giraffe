@@ -27,7 +27,7 @@ class Child extends FamilyMemberAbstract
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
-            array('gender, birthday, name', 'required'),
+            array('gender, birthday, name', 'required', 'on' => 'insert, update'),
             array('gender', 'in', 'range' => array(self::GENDER_MALE, self::GENDER_FEMALE)),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
             array('birthday', 'validateBirthday'),

@@ -44,7 +44,7 @@ return array(
             'class' => 'site\frontend\modules\family\commands\DefaultCommand',
         ),
         'familyMigrate' => array(
-            'class' => 'site\frontend\modules\family\commands\MigrateCommand',
+            'class' => 'site\frontend\modules\family\migration\commands\MigrateCommand',
         ),
     ),
     'import' => array(

@@ -4,12 +4,13 @@
  * @date 19/11/14
  */
 
-namespace site\frontend\modules\family\components;
+namespace site\frontend\modules\family\migration\components;
 use Aws\CloudFront\Exception\Exception;
 use site\frontend\modules\family\models\Adult;
 use site\frontend\modules\family\models\Child;
 use site\frontend\modules\family\models\Family;
 use site\frontend\modules\family\models\FamilyMember;
+use site\frontend\modules\family\models\PregnancyChild;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\User;
 
@@ -38,31 +39,6 @@ class MigrateManager
     private $family;
     private $unsortedPhotos;
 
-    public static function migrateAll($start)
-    {
-        Family::model()->deleteAll();
-        $criteria = new \CDbCriteria(array(
-            'order' => 'id ASC',
-        ));
-        if ($start != 1) {
-            $criteria->compare('id', '>=' . $start);
-        }
-        $dp = new \CActiveDataProvider('User', array(
-            'criteria' => $criteria,
-        ));
-        $iterator = new \CDataProviderIterator($dp, 100);
-        foreach ($iterator as $user) {
-            // безымянный юзер, не можем создать семью
-            $name = trim($user->first_name);
-            if (empty($name)) {
-                continue;
-            }
-
-            echo $user->id . "\n";
-            self::migrateSingle($user);
-        }
-    }
-
     public static function migrateSingle($user)
     {
         $family = Family::model()->hasMember($user->id)->find();
@@ -74,8 +50,16 @@ class MigrateManager
             return;
         }
 
-        $manager = new MigrateManager($user);
-        $manager->convert();
+        $transaction = \Yii::app()->db->beginTransaction();
+        try {
+            $manager = new MigrateManager($user);
+            $manager->convert();
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollback();
+            echo $user->id . "\n";
+        }
+
     }
 
     public function __construct(\User $user)
@@ -99,7 +83,8 @@ class MigrateManager
             $this->convertPartner();
         }
         if ($this->hasBabies()) {
-            foreach ($this->user->babies as $baby) {
+            $babies = $this->getBabies();
+            foreach ($babies as $baby) {
                 $this->convertBaby($baby);
             }
         }
@@ -112,6 +97,50 @@ class MigrateManager
                 throw new \CException('Невозможно создать общий альбом');
             }
             $album->photoCollection->attachPhotos($this->unsortedPhotos);
+        }
+    }
+
+    protected function getBabies()
+    {
+        $waitingBabies = array();
+        $babies = array();
+        foreach ($this->user->babies as $baby) {
+            if (in_array($baby->type, array(\Baby::TYPE_WAIT, \Baby::TYPE_TWINS, \Baby::TYPE_PLANNING))) {
+                $waitingBabies[] = $baby;
+            } else {
+                $babies[] = $baby;
+            }
+        }
+
+        if ($waitingBabies > 0) {
+            if ($waitingBabies > 1) {
+                usort($waitingBabies, array($this, 'waitingBabiesCmp'));
+            }
+            $babies[] = $waitingBabies[0];
+        }
+
+        return $babies;
+    }
+
+    protected function waitingBabiesCmp(\Baby $a, \Baby $b) {
+        $aIsPregnancy = in_array($a->type, array(\Baby::TYPE_WAIT, \Baby::TYPE_TWINS));
+        $bIsPregnancy = in_array($b->type, array(\Baby::TYPE_WAIT, \Baby::TYPE_TWINS));
+
+        if (! $aIsPregnancy && ! $bIsPregnancy) {
+            return 0;
+        }
+
+        if ($aIsPregnancy != $bIsPregnancy) {
+            return ($aIsPregnancy) ? -1 : 1;
+        }
+
+        $aTime = (int) strtotime($a->birthday);
+        $bTime = (int) strtotime($b->birthday);
+
+        if ($aTime == $bTime) {
+            return ($a->id > $b->id) ? -1 : 1;
+        } else {
+            return ($aTime > $bTime) ? -1 : 1;
         }
     }
 
@@ -150,19 +179,57 @@ class MigrateManager
         switch ($oldBaby->type) {
             case null:
                 $member->name = $oldBaby->name;
-                $member->birthday = $oldBaby->birthday;
+                $member->birthday = $this->fixBirthdayDate($oldBaby->birthday);
                 $member->description = $oldBaby->notice;
                 break;
             case \Baby::TYPE_PLANNING:
                 break;
             case \Baby::TYPE_WAIT:
-                $member->birthday = $oldBaby->birthday;
+                $member->birthday = $this->fixPregnancyDate($oldBaby->birthday);
                 break;
             case \Baby::TYPE_TWINS:
-                $member->birthday = $oldBaby->birthday;
+                $member->birthday = $this->fixPregnancyDate($oldBaby->birthday);
                 break;
         }
         $this->saveMember($member, $oldBaby);
+    }
+
+    protected function fixPregnancyDate($date)
+    {
+        $d = \CDateTimeParser::parse($date, 'yyyy-M-d');
+        if ($d === false) {
+            return null;
+        }
+        $now = new \DateTime();
+        $birthday = new \DateTime($date);
+        $interval = $now->diff($birthday);
+
+        if ($interval->invert == 0 && (($interval->y > 0) || ($interval->m > PregnancyChild::PREGNANCY_MONTHS))) {
+            $dtFixed = clone $now;
+            $dtFixed->modify('+9 month');
+            return $dtFixed->format('Y-m-d');
+        }
+        return $date;
+    }
+
+    public function fixBirthdayDate($date)
+    {
+        $d = \CDateTimeParser::parse($date, 'yyyy-M-d');
+        if ($d === false) {
+            return null;
+        }
+        return $date;
+    }
+
+    protected function saveMember(FamilyMember $member, $old)
+    {
+        $member->familyId = $this->family->id;
+        $member->family = $this->family;
+
+        if (! $member->save(false)) {
+            throw new \CException('Невозможно создать члена семьи');
+        }
+        $this->movePhotos($old, $member);
     }
 
     protected function movePhotos($old, $new)
@@ -203,91 +270,5 @@ class MigrateManager
                 }
             }
         }
-    }
-
-    protected function saveMember(FamilyMember $member, $old)
-    {
-        $member->familyId = $this->family->id;
-        $member->family = $this->family;
-        $isValid = $member->validate();
-        $errors = $member->errors;
-
-        if (! $isValid && ! $this->isExcepted($old, $errors)) {
-            echo get_class($old) . "\n";
-            echo $old->id . "\n";
-            print_r($member->errors);
-            \Yii::app()->end();
-        }
-        if (! $member->save(false)) {
-            throw new \CException('Невозможно создать члена семьи');
-        }
-        $this->movePhotos($old, $member);
-    }
-
-    protected function isExcepted($model, $errors)
-    {
-        $allowedErrors = array();
-
-        if ($model instanceof \Baby) {
-            if ($model->type == \Baby::TYPE_WAIT || $model->type == \Baby::TYPE_TWINS) {
-                $allowedErrors = array(
-                    'birthday' => array(
-                        'Некорректная дата родов',
-                        'Необходимо заполнить поле «Birthday».',
-                        'Неправильный формат поля Birthday.', // 2012-12-00
-                    ),
-                    'type' => array(
-                        'В семье может быть только один ожидаемый ребенок',
-                    ),
-                );
-            }
-
-            if ($model->type == \Baby::TYPE_PLANNING) {
-                $allowedErrors = array(
-                    'planningWhen' => array(
-                        'Необходимо заполнить поле «Planning When».',
-                    ),
-                    'type' => array(
-                        'В семье может быть только один ожидаемый ребенок',
-                    ),
-                );
-            }
-
-            if ($model->type == null) {
-                $allowedErrors = array(
-                    'birthday' => array(
-                        'Необходимо заполнить поле «Birthday».',
-                        'Неправильный формат поля Birthday.', // 0000-00-00
-                    ),
-                    'name' => array(
-                        'Необходимо заполнить поле «Name».',
-                    ),
-                    'gender' => array(
-                        'Необходимо заполнить поле «Gender».',
-                    ),
-                );
-            }
-        }
-
-        if ($model instanceof \UserPartner) {
-            $allowedErrors = array(
-                'name' => array(
-                    'Необходимо заполнить поле «Name».',
-                ),
-            );
-        }
-
-        foreach ($allowedErrors as $attribute => $texts) {
-            foreach ($texts as $text) {
-                if (isset($errors[$attribute]) && ($index = array_search($text, $errors[$attribute])) !== false) {
-                    unset($errors[$attribute][$index]);
-                    if (count($errors[$attribute]) == 0) {
-                        unset($errors[$attribute]);
-                    }
-                }
-            }
-        }
-
-        return count($errors) == 0;
     }
 } 

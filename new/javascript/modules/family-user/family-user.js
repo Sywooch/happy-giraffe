@@ -13,7 +13,7 @@ define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Famil
 
         };
         this.addFamilyDescription = function addFamilyDescription() {
-
+            this.family.description.editing(true);
         };
         this.familyHandler = function familyHandler(familyData) {
             if (familyData.success === true) {

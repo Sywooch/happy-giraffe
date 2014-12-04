@@ -5,14 +5,13 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         this.index = params.index;
         this.days = DateRange.days();
         this.months = DateRange.months();
-        this.years = DateRange.years(1920, 2014);
+        this.years = DateRange.years(1920, 2015);
         this.genderArrayTwo = [{id: this.familyMember.genderTypes.woman, name: 'Дочь'}, {id: this.familyMember.genderTypes.men, name: 'Сын'}];
         this.genderArrayThree = [{id: this.familyMember.genderTypes.none, name: 'Пока не знаем'}, {id: this.familyMember.genderTypes.woman, name: 'Дочь'}, {id: this.familyMember.genderTypes.men, name: 'Сын'}];
         this.planingArray = [{id: this.familyMember.planningTypes.soon, name: 'В ближайшее время'}, {id: this.familyMember.planningTypes.next3years, name: 'В ближайшие 3 года'}];
         this.relationshipArray = [{id: this.familyMember.relationshipStatuses.friends, name: 'Друзья'}, {id: this.familyMember.relationshipStatuses.engaged, name: 'Обручены'}, {id: this.familyMember.relationshipStatuses.married, name: 'Женаты'}];
         this.createMember = function createMember(memberType) {
             this.familyMember.type.value(FamilyMember.memberTypes[memberType].name);
-            console.log(this.familyMember);
             initSelect2();
         };
         this.findSelectName = function findSelectName(id, array) {
@@ -39,14 +38,14 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         };
         this.submitMemberHandler = function submitMemberHandler(familyMemberData) {
             if (familyMemberData.success === true) {
-                this.familyMember.init(familyMemberData.data);
+                this.familyMember.updateModel(familyMemberData.data);
             }
         };
         this.submitMember = function submitMember() {
             var attributes = Model.checkFieldsToPass(this.familyMember.memberTypes[this.familyMember.type.value()].fields, this.familyMember);
+            console.log(attributes);
             this.familyMember.createMember(attributes).done(this.submitMemberHandler.bind(this));
         };
-        initSelect2();
     };
 
     function initSelect2() {
@@ -57,7 +56,6 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
             dropdownCssClass: 'select2-drop__search-off',
             escapeMarkup: function(m) { return m; }
         });
-        $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
     };
 
     return {

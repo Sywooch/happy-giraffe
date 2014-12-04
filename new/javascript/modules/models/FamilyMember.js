@@ -15,7 +15,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             },
             waiting: {
                 name: 'waiting',
-                fields: ['type', 'gender', 'pregnancyTerm']
+                fields: ['type', 'gender', 'birthday']
             },
             planning: {
                 name: 'planning',
@@ -30,7 +30,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         },
         planningTypes: {
             soon: 'soon',
-            next3years: 'next3years'
+            next3years: 'next3Years'
         },
         relationshipStatuses: {
             friends: 'friends',
@@ -86,10 +86,10 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                     }
                     break;
                 case this.memberTypes.waiting.name:
-                    this.pregnancyTerm.day.extend({ dateMustFill: true });
-                    this.pregnancyTerm.month.extend({ dateMustFill: true });
-                    this.pregnancyTerm.year.extend({ dateMustFill: true });
-                    if (this.pregnancyTerm.day.isValid() && this.pregnancyTerm.month.isValid() && this.pregnancyTerm.year.isValid()) {
+                    this.birthday.day.extend({ dateMustFill: true });
+                    this.birthday.month.extend({ dateMustFill: true });
+                    this.birthday.year.extend({ dateMustFill: true });
+                    if (this.birthday.day.isValid() && this.birthday.month.isValid() && this.birthday.year.isValid()) {
                         canSubmitFields = true;
                     } else {
                         canSubmitFields = false;
@@ -98,8 +98,33 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             }
             return canSubmitFields;
         },
+        updateModel: function updateModel (data) {
+            for (var prop in data) {
+                if (prop === 'birthday' || prop === 'pregnancyTerm') {
+                    if (prop === 'birthday') {
+                        this.birthday.day = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getDate() : null);
+                        this.birthday.month = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getMonth() + 1 : null);
+                        this.birthday.year = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getFullYear() : null);
+                        this.birthday.editing(false);
+                    }
+                } else {
+                    if (this[prop] !== undefined) {
+                        if (this[prop].value !== undefined) {
+                            this[prop].value(data[prop]);
+                            this[prop].editing(false);
+                            console.log(this[prop]);
+                        } else {
+                            if (ko.isObservable(this[prop])) {
+                                this[prop](data[prop]);
+                            } else {
+                                this[prop] = data[prop];
+                            }
+                        }
+                    }
+                }
+            }
+        },
         init: function init(data) {
-            console.log(data);
             data = (data === undefined) ? {} : data;
             this.id = ko.observable(data.id || null);
             this.userId = parseInt(data.userId || null);
@@ -116,17 +141,9 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                return this.year() + '-' +  this.month() + '-' + this.day();
             }, this.birthday);
             this.ageString = Model.createStdProperty(data.ageString || null, 'ageString');
-            this.pregnancyTerm = Model.createStdProperty(data.pregnancyTerm || {}, 'pregnancyTerm');
-            this.pregnancyTerm.day = ko.observable((data.pregnancyTerm !== undefined) ? new Date(data.pregnancyTerm).getDate() : null);
-            this.pregnancyTerm.month = ko.observable((data.pregnancyTerm !== undefined) ? new Date(data.pregnancyTerm).getMonth() + 1 : null);
-            this.pregnancyTerm.year = ko.observable((data.pregnancyTerm !== undefined) ? new Date(data.pregnancyTerm).getFullYear() : null);
-            this.pregnancyTerm.value = ko.computed(function () {
-                return this.year() + '-' +  this.month() + '-' + this.day();
-            }, this.pregnancyTerm);
             this.planningWhen = Model.createStdProperty(data.planningWhen || null, 'planningWhen');
-            this.removed(false);
+            this.removed = ko.observable(false);
             this.canSubmit = ko.computed(this.canSubmit, this);
-            console.log(this);
             return this;
         }
 

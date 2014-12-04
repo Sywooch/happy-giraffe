@@ -37,7 +37,7 @@ class MigrateManager
 
     private $user;
     private $family;
-    private $unsortedPhotos;
+    private $unsortedPhotos = array();
 
     public static function migrateSingle($user)
     {
@@ -269,8 +269,6 @@ class MigrateManager
                     }
                     $album->photoCollection->attachPhotos($remainingPhotosIds);
                 } else {
-                    var_dump($this->unsortedPhotos);
-                    var_dump($remainingPhotosIds);
                     $this->unsortedPhotos += $remainingPhotosIds;
                 }
             }

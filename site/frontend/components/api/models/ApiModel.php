@@ -199,13 +199,9 @@ abstract class ApiModel extends \CModel
     public function query($action, $params)
     {
         $this->beforeFind();
-        $response = $this->request($action, $params);
-        $result = $this->extract($response);
-        if (!$result['success']) {
-            var_dump($response);
-            var_dump($result);
-            throw new \site\frontend\components\api\ApiException($result['errorMessage'], $result['errorCode'] ?: '');
-        }
+        $result = $this->extract($this->request($action, $params));
+        if (!$result['success'])
+            throw new \site\frontend\components\api\ApiException($result['errorMessage'], $result['errorCode'] ? : '');
         if (isset($result['isPack']))
         {
             $models = array();

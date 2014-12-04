@@ -93,6 +93,7 @@ class MigrateManager
             $album = new PhotoAlbum();
             $album->title = 'Семейный альбом общие';
             $album->author_id = $this->user->id;
+            $album->source = 'family';
             if (! $album->save(false)) {
                 throw new \CException('Невозможно создать общий альбом');
             }
@@ -112,8 +113,9 @@ class MigrateManager
             }
         }
 
-        if ($waitingBabies > 0) {
-            if ($waitingBabies > 1) {
+        $nWaitingBabies = count($waitingBabies);
+        if ($nWaitingBabies > 0) {
+            if ($nWaitingBabies > 1) {
                 usort($waitingBabies, array($this, 'waitingBabiesCmp'));
             }
             $babies[] = $waitingBabies[0];
@@ -261,6 +263,7 @@ class MigrateManager
                     $albumTitle = $new->viewData->title . ((! empty($memberName)) ? ' ' . $new->name : '');
                     $album->title = $albumTitle;
                     $album->author_id = ($old instanceof \Baby) ? $old->parent_id : $old->user_id;
+                    $album->source = 'family';
                     if (! $album->save(false)) {
                         throw new \CException('Невозможно создать альбом члена семьи');
                     }

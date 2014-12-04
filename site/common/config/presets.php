@@ -137,7 +137,7 @@ return array(
         'filter' => array(
             'name' => 'fixed',
             'width' => 880,
-            'height' => 572,
+            'height' => 587,
         ),
         'usages' => array(
             'familyMainPhoto',

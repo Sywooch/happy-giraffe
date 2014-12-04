@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends LiteController
 {
 
     public $layout = '//layouts/lite/main';

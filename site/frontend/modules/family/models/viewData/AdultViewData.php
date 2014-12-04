@@ -56,6 +56,9 @@ class AdultViewData extends FamilyMemberViewData
 
     public function getCssClass()
     {
-        return $this->dictionary[$this->model->relationshipStatus][$this->model->gender]['cssClass'];
+        if ($this->model->relationshipStatus !== null) {
+            return $this->dictionary[$this->model->relationshipStatus][$this->model->gender]['cssClass'];
+        }
+        return ($this->model->gender == 0) ? 'girl-friend' : 'boy-friend';
     }
 } 

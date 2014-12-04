@@ -28,6 +28,8 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         this.createFamilyHandler = function createFamilyHandler(familyData) {
             if (familyData.success === true) {
                 this.family.init(familyData.data);
+                var attributes = Model.checkFieldsToPass(this.familyMember.memberTypes[this.familyMember.type.value()].fields, this.familyMember);
+                this.familyMember.createMember(attributes).done(this.submitMemberHandler.bind(this));
             }
         };
         this.endEditField = function endEditField(data, event) {
@@ -43,8 +45,11 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         };
         this.submitMember = function submitMember() {
             var attributes = Model.checkFieldsToPass(this.familyMember.memberTypes[this.familyMember.type.value()].fields, this.familyMember);
-            console.log(attributes);
-            this.familyMember.createMember(attributes).done(this.submitMemberHandler.bind(this));
+            if (this.family.id() === null) {
+                this.family.create().done(this.createFamilyHandler.bind(this));
+            } else {
+                this.familyMember.createMember(attributes).done(this.submitMemberHandler.bind(this));
+            }
         };
     };
 

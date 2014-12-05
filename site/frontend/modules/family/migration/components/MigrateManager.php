@@ -179,7 +179,7 @@ class MigrateManager
         $partner->description = $oldPartner->notice;
         $partner->relationshipStatus = self::$_statusMap[$this->user->relationship_status];
 
-
+        var_dump($partner->gender);
         var_dump($partner->relationshipStatus); die;
         $this->saveMember($partner, $oldPartner);
     }

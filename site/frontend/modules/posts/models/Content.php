@@ -40,7 +40,7 @@ namespace site\frontend\modules\posts\models;
  * The followings are the available model relations:
  * @property PostLabels[] $labelModels
  */
-class Content extends \CActiveRecord implements \IHToJSON, \site\frontend\modules\rss\components\IRss
+class Content extends \CActiveRecord implements \IHToJSON
 {
 
     protected $labelDelimiter = '|';
@@ -111,6 +111,9 @@ class Content extends \CActiveRecord implements \IHToJSON, \site\frontend\module
             'UrlBehavior' => array(
                 'class' => 'site\common\behaviors\UrlBehavior',
                 'preparedUrl' => 'url',
+            ),
+            'RssBehavior' => array(
+                'class' => 'site\frontend\modules\posts\behaviors\ContentRssBehavior',
             ),
         );
     }
@@ -421,25 +424,5 @@ class Content extends \CActiveRecord implements \IHToJSON, \site\frontend\module
         $this->orderAsc();
 
         return $this;
-    }
-
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    public function getDescription()
-    {
-        return $this->text;
-    }
-
-    public function getDate()
-    {
-        return $this->dtimeCreate;
-    }
-
-    public function getAuthor()
-    {
-        return $this->getUser();
     }
 }

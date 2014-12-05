@@ -38,12 +38,11 @@ class ApiController extends \site\frontend\components\api\ApiController
         ));
     }
 
+    /**
+     * @todo убрать, нужен только для тестов
+     */
     public function actionRemove()
     {
-        if (! \Yii::app()->user->checkAccess('removeFamily')) {
-            throw new \CHttpException(403, 'Недостаточно прав');
-        }
-
         $family = Family::model()->hasMember(\Yii::app()->user->id)->find();
         $family->delete();
     }

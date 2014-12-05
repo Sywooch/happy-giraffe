@@ -39,7 +39,11 @@ class PregnancyChildViewData extends FamilyMemberViewData
 
     public function getAsString()
     {
-        return $this->getTitle() . ' ' . AgeHelper::getPregnancyTermString($this->model->birthday);
+        $result =  $this->getTitle();
+        if ($this->model->birthday !== null) {
+            $result .= ' ' . AgeHelper::getPregnancyTermString($this->model->birthday);
+        }
+        return $result;
     }
 
     public function getCssClass()

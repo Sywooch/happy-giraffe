@@ -102,7 +102,7 @@ class DefaultCommand extends \CConsoleCommand
     public function actionTest()
     {
         \Yii::app()->db->createCommand('show variables;')->execute();
-        sleep(28);
+        sleep(31);
         \Yii::app()->db->createCommand('show variables;')->execute();
     }
 

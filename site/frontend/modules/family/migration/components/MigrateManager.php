@@ -178,9 +178,6 @@ class MigrateManager
         $partner->name = $oldPartner->name;
         $partner->description = $oldPartner->notice;
         $partner->relationshipStatus = self::$_statusMap[$this->user->relationship_status];
-
-        var_dump($partner->gender);
-        var_dump($partner->relationshipStatus); die;
         $this->saveMember($partner, $oldPartner);
     }
 
@@ -271,6 +268,10 @@ class MigrateManager
                 }
 
                 if ($photosCount > 4) {
+                    var_dump($new->gender);
+                    var_dump($new->partner);
+                    die;
+
                     $album = new PhotoAlbum();
                     $memberName = trim($new->name);
                     $albumTitle = $new->viewData->getTitle() . ((! empty($memberName)) ? ' ' . $new->name : '');

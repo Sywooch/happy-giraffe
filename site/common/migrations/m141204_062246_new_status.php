@@ -19,12 +19,13 @@ SQL
 CREATE TABLE IF NOT EXISTS `som__status` (
   `id` INT(10) UNSIGNED NOT NULL,
   `text` VARCHAR(500) NOT NULL,
-  `som__status_moods_id` INT(10) UNSIGNED NULL DEFAULT NULL,
+  `moodId` INT(10) UNSIGNED NULL DEFAULT NULL,
   `authorId` INT(10) UNSIGNED NOT NULL,
+  `isRemoved` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  INDEX `fk_som__status_som__status_moods1_idx` (`som__status_moods_id` ASC),
+  INDEX `fk_som__status_som__status_moods1_idx` (`moodId` ASC),
   CONSTRAINT `fk_som__status_som__status_moods1`
-    FOREIGN KEY (`som__status_moods_id`)
+    FOREIGN KEY (`moodId`)
     REFERENCES `som__status_moods` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

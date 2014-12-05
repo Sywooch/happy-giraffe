@@ -17,32 +17,30 @@ use site\frontend\modules\photo\models\PhotoCollection;
 
 
 
-register_shutdown_function('\site\frontend\modules\photo\commands\DefaultCommand::fatal_handler');
+register_shutdown_function(function() {
+    $errfile = "unknown file";
+    $errstr  = "shutdown";
+    $errno   = E_CORE_ERROR;
+    $errline = 0;
+
+    $error = error_get_last();
+
+    if( $error !== NULL) {
+        $errno   = $error["type"];
+        $errfile = $error["file"];
+        $errline = $error["line"];
+        $errstr  = $error["message"];
+
+        echo $errno; echo "\n";
+        echo $errfile; echo "\n";
+        echo $errline; echo "\n";
+        echo $errstr; echo "\n";
+
+    }
+});
 
 class DefaultCommand extends \CConsoleCommand
 {
-    public static function fatal_handler()
-    {
-        $errfile = "unknown file";
-        $errstr  = "shutdown";
-        $errno   = E_CORE_ERROR;
-        $errline = 0;
-
-        $error = error_get_last();
-
-        if( $error !== NULL) {
-            $errno   = $error["type"];
-            $errfile = $error["file"];
-            $errline = $error["line"];
-            $errstr  = $error["message"];
-
-            echo $errno; echo "\n";
-            echo $errfile; echo "\n";
-            echo $errline; echo "\n";
-            echo $errstr; echo "\n";
-        }
-    }
-
     /**
      * Основной воркер, должен быть всегда запущен для корректной работы приложения.
      */

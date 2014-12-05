@@ -163,6 +163,35 @@ class Family extends \HActiveRecord implements \IHToJSON
         return ($success) ? $family : null;
     }
 
+    public function createMember($attributes, $photoId = null)
+    {
+        $transaction = \Yii::app()->db->beginTransaction();
+        $modelClass = FamilyMember::getClassName($attributes['type']);
+        /** @var \site\frontend\modules\family\models\FamilyMember $model */
+        $model = new $modelClass();
+        $model->familyId = $this->id;
+        $model->attributes = $attributes;
+
+        try {
+            $success = $model->save();
+            if ($success) {
+                if ($photoId !== null) {
+                    $model->photoCollection->attachPhotos($photoId);
+                }
+                $members = $this->members;
+                $members[] = $model;
+                $this->members = $members;
+                $transaction->commit();
+            } else {
+                $transaction->rollback();
+            }
+        } catch (\Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+        return $model;
+    }
+
     public function hasMember($userId)
     {
         $criteria = new \CDbCriteria(array(

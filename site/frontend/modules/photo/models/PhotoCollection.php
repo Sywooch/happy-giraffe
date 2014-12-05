@@ -37,7 +37,8 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             'default' => 'site\frontend\modules\photo\models\collections\FamilyMemberPhotoCollection',
         ),
         'Family' => array(
-            'all' => 'site\frontend\modules\photo\models\collections\FamilyPhotoCollection',
+            'default' => 'site\frontend\modules\photo\models\collections\FamilyPhotoCollection',
+            'all' => 'site\frontend\modules\photo\models\collections\FamilyAllPhotoCollection',
         ),
     );
 

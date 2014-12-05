@@ -56,9 +56,8 @@ class MigrateManager
             $manager->convert();
             $transaction->commit();
         } catch (\Exception $e) {
-            throw $e;
-            $transaction->rollback();
             echo $user->id . "\n";
+            $transaction->rollback();
         }
 
     }

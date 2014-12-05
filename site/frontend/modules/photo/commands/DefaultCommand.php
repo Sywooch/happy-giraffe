@@ -25,7 +25,7 @@ register_shutdown_function(function() {
 
     $error = error_get_last();
 
-    if( $error !== NULL) {
+    if( $error !== NULL && $error['type'] == E_ERROR) {
         $errno   = $error["type"];
         $errfile = $error["file"];
         $errline = $error["line"];

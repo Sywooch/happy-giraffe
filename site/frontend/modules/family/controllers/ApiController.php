@@ -78,6 +78,7 @@ class ApiController extends \site\frontend\components\api\ApiController
      */
     public function actionNeedFill($userId)
     {
+        /** @var \site\frontend\modules\family\models\Family $family */
         $family = Family::model()->hasMember($userId)->find();
         $this->success = $family !== null;
         if ($family !== null) {

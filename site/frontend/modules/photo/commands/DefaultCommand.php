@@ -15,6 +15,29 @@ use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\PhotoCollection;
 
+register_shutdown_function( "fatal_handler" );
+
+function fatal_handler() {
+    $errfile = "unknown file";
+    $errstr  = "shutdown";
+    $errno   = E_CORE_ERROR;
+    $errline = 0;
+
+    $error = error_get_last();
+
+    if( $error !== NULL) {
+        $errno   = $error["type"];
+        $errfile = $error["file"];
+        $errline = $error["line"];
+        $errstr  = $error["message"];
+
+        var_dump($errno); echo "\n";
+        var_dump($errfile); echo "\n";
+        var_dump($errline); echo "\n";
+        var_dump($errstr); echo "\n";
+    }
+}
+
 class DefaultCommand extends \CConsoleCommand
 {
     /**

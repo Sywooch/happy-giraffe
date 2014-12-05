@@ -75,6 +75,11 @@ class MigrateCommand extends \CConsoleCommand
         }
     }
 
+    public function actionClean()
+    {
+        MigrateManager::clean();
+    }
+
     public function actionTest()
     {
         $dates = array('0000-00-00', null, '2012-12-00', '2014-12-31', '2015-12-31');

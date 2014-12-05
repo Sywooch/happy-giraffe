@@ -12,6 +12,7 @@ use site\frontend\modules\family\models\Family;
 use site\frontend\modules\family\models\FamilyMember;
 use site\frontend\modules\family\models\PregnancyChild;
 use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoCollection;
 use site\frontend\modules\photo\models\User;
 
 class MigrateManager
@@ -50,16 +51,25 @@ class MigrateManager
             return;
         }
 
+        echo $user->id;
         $transaction = \Yii::app()->db->beginTransaction();
         try {
             $manager = new MigrateManager($user);
             $manager->convert();
             $transaction->commit();
         } catch (\Exception $e) {
-            echo $user->id . "\n";
             $transaction->rollback();
+            throw $e;
         }
 
+    }
+
+    public static function clean()
+    {
+        Family::model()->deleteAll();
+        PhotoCollection::model()->deleteAll('entity = "Family"');
+        PhotoCollection::model()->deleteAll('entity = "FamilyMember"');
+        PhotoAlbum::model()->deleteAll('source = "family"');
     }
 
     public function __construct(\User $user)

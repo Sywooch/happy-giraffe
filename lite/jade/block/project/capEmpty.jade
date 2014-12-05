@@ -22,6 +22,7 @@ mixin cap-empty(mod, vars)
             .cap-empty_abs-msg(class=vars.topAbsMsgMod)
                 .cap-empty_abs-msg-hold!= vars.topAbsMsg
         else 
+            .verticalalign-m-help
             .cap-empty_hold
                 .cap-empty_img(class=vars.imgMod)
                 - if (vars.txTop)
@@ -32,7 +33,6 @@ mixin cap-empty(mod, vars)
                     .cap-empty_tx(class=vars.txMod)!= vars.tx
                 - if (vars.txSub)
                     .cap-empty_tx-sub(class=vars.txSubMod)!= vars.txSub
-            .verticalalign-m-help
     // /cap-empty
     
 - var capEmpty = {}

@@ -17,4 +17,10 @@ class FamilyMemberPhotoCollection extends PhotoCollection
             $this->RelatedModelBehavior->relatedModel->family->getPhotoCollection('all'),
         );
     }
+
+    public function getOwner()
+    {
+        $familyMember = $this->RelatedModelBehavior->relatedModel;
+        return \User::model()->findByPk($familyMember->user->id);
+    }
 } 

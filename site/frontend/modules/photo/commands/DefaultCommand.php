@@ -25,12 +25,13 @@ register_shutdown_function(function() {
 
     $error = error_get_last();
 
-    if( $error !== NULL && $error['type'] == E_ERROR) {
+    if( $error !== NULL) {
         $errno   = $error["type"];
         $errfile = $error["file"];
         $errline = $error["line"];
         $errstr  = $error["message"];
 
+        echo time(); echo "\n";
         echo $errno; echo "\n";
         echo $errfile; echo "\n";
         echo $errline; echo "\n";
@@ -92,6 +93,7 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionMigrate($id = null)
     {
+        echo time();
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         $mm = new MigrateManager();
         $mm->moveUserAlbumsPhotos($id);

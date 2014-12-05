@@ -35,6 +35,13 @@ class ChildViewData extends FamilyMemberViewData
 
     public function getAsString()
     {
-        return $this->getTitle() . ' ' . $this->model->name . ' ' . AgeHelper::getChildAgeString($this->model->birthday);
+        $result = $this->getTitle();
+        if (! empty($this->model->name)) {
+            $result .= ' ' . $this->model->name;
+        }
+        if ($this->model->birthday !== null) {
+            $result .= ' ' . AgeHelper::getChildAgeString($this->model->birthday);
+        }
+        return $result;
     }
 } 

@@ -51,7 +51,7 @@ class MigrateManager
             return;
         }
 
-        echo $user->id;
+        echo $user->id . "\n";
         $transaction = \Yii::app()->db->beginTransaction();
         try {
             $manager = new MigrateManager($user);

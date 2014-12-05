@@ -31,10 +31,10 @@ function fatal_handler() {
         $errline = $error["line"];
         $errstr  = $error["message"];
 
-        var_dump($errno); echo "\n";
-        var_dump($errfile); echo "\n";
-        var_dump($errline); echo "\n";
-        var_dump($errstr); echo "\n";
+        echo $errno; echo "\n";
+        echo $errfile; echo "\n";
+        echo $errline; echo "\n";
+        echo $errstr; echo "\n";
     }
 }
 

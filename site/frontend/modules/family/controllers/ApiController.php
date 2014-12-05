@@ -44,7 +44,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionRemove()
     {
         $family = Family::model()->hasMember(\Yii::app()->user->id)->find();
-        $family->delete();
+        $this->success = $family->delete();
     }
 
     public function actionGet($userId, $public = true)

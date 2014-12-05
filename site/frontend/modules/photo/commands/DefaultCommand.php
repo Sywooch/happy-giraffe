@@ -99,6 +99,13 @@ class DefaultCommand extends \CConsoleCommand
         $mm->moveUserAlbumsPhotos($id);
     }
 
+    public function actionTest()
+    {
+        \Yii::app()->db->createCommand('show variables;')->execute();
+        sleep(31);
+        \Yii::app()->db->createCommand('show variables;')->execute();
+    }
+
     public function actionSync()
     {
         $local = \Yii::app()->fs->getAdapter()->getCache();

@@ -17,7 +17,12 @@ class FamilyPhotoCollection extends PhotoCollection implements IPublicPhotoColle
 {
     public function getTitle()
     {
-        return 'Семейные фото';
+        $owner = $this->getOwner();
+        if ($owner->id == \Yii::app()->user->id) {
+            return 'Моя семья';
+        } else {
+            return 'Семья - ' . $owner->fullName;
+        }
     }
 
     public function getOwner()

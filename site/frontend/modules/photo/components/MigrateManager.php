@@ -65,6 +65,7 @@ class MigrateManager
             $newAlbum->author_id = $album->author_id;
             $newAlbum->created = $album->created;
             $newAlbum->updated = $album->updated;
+            $newAlbum->source = 'privateAlbum';
             $newAlbum->save(false);
 
             $photoIds = array();
@@ -83,9 +84,6 @@ class MigrateManager
             ));
 
             echo '[' . ($i + 1) . '/' . $total . ']' . ' - ' . $album->id  . "\n";
-
-            \Yii::app()->db->active = false;
-            \Yii::app()->db->active = true;
 
             \Album::model()->updateByPk($album->id, array('newAlbumId' => $newAlbum->id));
         }
@@ -112,9 +110,6 @@ class MigrateManager
             echo "error\n";
             return false;
         }
-
-        \Yii::app()->db->active = false;
-        \Yii::app()->db->active = true;
 
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
         return $photo->id;

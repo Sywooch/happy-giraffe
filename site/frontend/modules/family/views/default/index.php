@@ -18,7 +18,7 @@ if ($this->owner->id == Yii::app()->user->id) {
     <div class="family-user">
         <div class="ico-myfamily ico-myfamily__l"></div>
         
-        <?php if ($this->owner->id == Yii::app()->user->id) { ?>
+        <?php if ($this->owner->id == Yii::app()->user->id): ?>
             <div class="family-user_edit-hold"> 
                 <a href="#" class="btn btn-secondary btn-l"><div class="ico-edit ico-edit__s"></div>&nbsp;Редактировать</a>
             </div>

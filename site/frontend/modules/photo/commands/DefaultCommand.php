@@ -101,8 +101,13 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionTest()
     {
+        echo "1\n";
         \Yii::app()->db->createCommand('show variables;')->execute();
-        sleep(31);
+        sleep(28);
+        echo "2\n";
+        \Yii::app()->db->createCommand('show variables;')->execute();
+        sleep(28);
+        echo "3\n";
         \Yii::app()->db->createCommand('show variables;')->execute();
     }
 

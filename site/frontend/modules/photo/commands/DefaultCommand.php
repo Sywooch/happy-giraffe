@@ -15,31 +15,6 @@ use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\PhotoCollection;
 
-
-
-register_shutdown_function(function() {
-    $errfile = "unknown file";
-    $errstr  = "shutdown";
-    $errno   = E_CORE_ERROR;
-    $errline = 0;
-
-    $error = error_get_last();
-
-    if( $error !== NULL) {
-        $errno   = $error["type"];
-        $errfile = $error["file"];
-        $errline = $error["line"];
-        $errstr  = $error["message"];
-
-        echo time(); echo "\n";
-        echo $errno; echo "\n";
-        echo $errfile; echo "\n";
-        echo $errline; echo "\n";
-        echo $errstr; echo "\n";
-
-    }
-});
-
 class DefaultCommand extends \CConsoleCommand
 {
     /**
@@ -93,25 +68,10 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionMigrate($id = null)
     {
-        echo time();
+        \Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         $mm = new MigrateManager();
         $mm->moveUserAlbumsPhotos($id);
-    }
-
-    public function actionTest()
-    {
-        \Yii::app()->db->enableSlave = false;
-        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
-        print_r(\Yii::app()->db->createCommand("SHOW VARIABLES LIKE 'wait_timeout';")->queryRow());
-        echo "1\n";
-        \Yii::app()->db->createCommand('show variables;')->execute();
-        sleep(31);
-        echo "2\n";
-        \Yii::app()->db->createCommand('show variables;')->execute();
-        sleep(31);
-        echo "3\n";
-        \Yii::app()->db->createCommand('show variables;')->execute();
     }
 
     public function actionSync()

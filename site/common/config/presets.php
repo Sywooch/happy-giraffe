@@ -145,6 +145,16 @@ return array(
     ),
     array(
         'filter' => array(
+            'name' => 'fixed',
+            'width' => 153,
+            'height' => 138,
+        ),
+        'usages' => array(
+            'familyMember',
+        ),
+    ),
+    array(
+        'filter' => array(
             'name' => 'lepilla',
             'width' => 600,
             'height' => 450,

@@ -37,7 +37,7 @@ function fatal_handler()
     }
 }
 
-register_shutdown_function("fatal_handler");
+register_shutdown_function("site\frontend\modules\photo\commands\fatal_handler" );
 
 class DefaultCommand extends \CConsoleCommand
 {

@@ -17,7 +17,7 @@ use site\frontend\modules\photo\models\PhotoCollection;
 
 
 
-register_shutdown_function('site\frontend\modules\photo\commands\DefaultCommand::fatal_handler');
+register_shutdown_function('\site\frontend\modules\photo\commands\DefaultCommand::fatal_handler');
 
 class DefaultCommand extends \CConsoleCommand
 {

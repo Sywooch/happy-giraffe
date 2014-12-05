@@ -186,6 +186,7 @@ return array(
         'description' => 'Управление своей семьей',
         'children' => array(
             'updateFamily',
+            'removeFamily',
         ),
         'bizRule' => 'return $params["entity"]->canManage(\Yii::app()->user->id);',
         'data' => null,

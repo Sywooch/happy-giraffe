@@ -14,6 +14,6 @@ class FamilyPhotoCollection extends PhotoCollection
 {
     public function getOwner()
     {
-        return FamilyMember::model()->family($this->owner->RelatedModelBehavior->relatedModel->id)->real()->find();
+        return FamilyMember::model()->family($this->RelatedModelBehavior->relatedModel->id)->real()->find();
     }
 } 

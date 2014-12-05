@@ -73,9 +73,9 @@ class Adult extends FamilyMemberAbstract
         parent::afterSave();
     }
 
-    protected function beforeValidate()
+    protected function beforeSave()
     {
-        if (parent::beforeValidate()) {
+        if (parent::beforeSave()) {
             if ($this->isNewRecord && $this->scenario != 'familyCreate') {
                 $this->gender = $this->getGenderByPartner();
             }

@@ -20,15 +20,22 @@ define(['knockout', 'models/Model', 'models/User', 'user-config', 'models/Family
         update: function updateFamily(attribObj) {
             return Model.get(this.updateUrl, {attributes: attribObj, id: this.id()});
         },
-        photoAttaching: function photoAttaching (value) {
-            console.log(value);
+        photoAttaching: function photoAttaching () {
+            if (this.photoCollection().attachesCount() > 0) {
+               return this.photoCollection().cover();
+            }
+            return null;
+        },
+        removeFamilyPhoto: function removeFamilyPhoto() {
+            this.photo().remove();
+            this.photo(null);
         },
         init: function initFamily(data) {
             this.id(data.id);
             this.description = Model.createStdProperty(data.description || null, 'description');
             this.description.editing(false);
             this.photoCollection(new PhotoCollection(data.photoCollection));
-            this.photo.subscribe(this.photoAttaching, this);
+            this.photo(this.photoAttaching());
             if (data.members !== undefined) {
                 if (data.members.length > 0) {
                     for (var i=0; i < data.members.length; i++) {

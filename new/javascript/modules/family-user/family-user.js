@@ -23,7 +23,6 @@ define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Famil
                   this.loadingFamily(false);
               } else {
                   this.createFamily();
-                  this.loadingFamily(false);
               }
             }
         };

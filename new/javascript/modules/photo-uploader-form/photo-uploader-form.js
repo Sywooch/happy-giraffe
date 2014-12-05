@@ -13,13 +13,17 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         });
         if (this.initData.multiple === true) {
             $('a[href="#photo-tab-computer-multiple"]').tab('show');
-        } else {
+        }
+        if (this.initData.multiple === false && this.initData.collectionId !== undefined) {
+            $('a[href="#photo-tab-computer-attach"]').tab('show');
+        }
+        if (this.initData.multiple === false && this.initData.collectionId === undefined) {
             $('a[href="#photo-tab-computer"]').tab('show');
         }
 
         // end of UGLY JQUERY AJAX
 
-        this.initPUTabs = function initPUTabs(computerTabName, computerTabMultipleName, urlTabName) {
+        this.initPUTabs = function initPUTabs(computerTabName, computerTabNameAttach, computerTabMultipleName, urlTabName) {
             var computer,
                 computerMultiple,
                 albums,
@@ -27,7 +31,12 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
             if (this.initData.multiple === true) {
                 computerMultiple = new uploader.FromComputerMultipleViewModel(this.initData);
                 ko.applyBindings(computerMultiple, document.getElementById(computerTabMultipleName));
-            } else {
+            }
+            if (this.initData.multiple === false && this.initData.collectionId !== undefined) {
+                computer = new uploader.FromComputerSingleViewModel(this.initData);
+                ko.applyBindings(computer, document.getElementById(computerTabNameAttach));
+            }
+            if (this.initData.multiple === false && this.initData.collectionId === undefined) {
                 computer = new uploader.FromComputerSingleViewModel(this.initData);
                 ko.applyBindings(computer, document.getElementById(computerTabName));
             }
@@ -38,7 +47,7 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         };
 
 
-        this.initPUTabs('photo-tab-computer', 'photo-tab-computer-multiple', 'photo-tab-link');
+        this.initPUTabs('photo-tab-computer', 'photo-tab-computer-attach', 'photo-tab-computer-multiple', 'photo-tab-link');
 
     }
     return {

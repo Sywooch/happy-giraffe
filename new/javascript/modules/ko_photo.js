@@ -125,7 +125,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                 ko.mapping.fromJS((response.data.attach || response.data.photo), {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
             } else {
-                photo.error(response.data.error);
+                photo.error(response.error);
                 photo.status(PhotoUpload.prototype.STATUS_FAIL);
             }
         }
@@ -170,6 +170,11 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         PhotoUploadViewModel.apply(self, arguments);
         $.extend(self.fileUploadSettings, {
             add: function (e, data) {
+                if (self.collectionId !== undefined) {
+                    data.formData = {
+                        collectionId: self.collectionId
+                    };
+                }
                 self.added(self.populatePhoto(data));
             },
             done: function (e, data) {

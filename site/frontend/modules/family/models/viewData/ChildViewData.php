@@ -21,6 +21,10 @@ class ChildViewData extends FamilyMemberViewData
             'title' => 'Дочь',
             'cssClass' => 'girl-8',
         ),
+        null => array(
+            'title' => 'Ребенок',
+            'cssClass' => 'boy-small',
+        ),
     );
 
     public function getTitle()

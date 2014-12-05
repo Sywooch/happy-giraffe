@@ -10,8 +10,6 @@ use site\frontend\modules\family\models\FamilyMember;
 
 class MembersListWidget extends \CWidget
 {
-    protected $colorIterator = 0;
-
     /** @var \site\frontend\modules\family\models\Family */
     public $family;
     public $view;

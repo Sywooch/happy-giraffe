@@ -101,7 +101,8 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionTest()
     {
-        \Yii::app()->db->createCommand('SET GLOBAL wait_timeout = 28800;')->execute();
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         print_r(\Yii::app()->db->createCommand("SHOW VARIABLES LIKE 'wait_timeout';")->queryRow());
         echo "1\n";
         \Yii::app()->db->createCommand('show variables;')->execute();

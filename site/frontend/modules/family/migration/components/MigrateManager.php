@@ -268,10 +268,6 @@ class MigrateManager
                 }
 
                 if ($photosCount > 4) {
-                    var_dump($new->gender);
-                    var_dump($new->partner);
-                    die;
-
                     $album = new PhotoAlbum();
                     $memberName = trim($new->name);
                     $albumTitle = $new->viewData->getTitle() . ((! empty($memberName)) ? ' ' . $new->name : '');

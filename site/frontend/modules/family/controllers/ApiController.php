@@ -78,7 +78,6 @@ class ApiController extends \site\frontend\components\api\ApiController
      */
     public function actionNeedFill($userId)
     {
-        /** @var \site\frontend\modules\family\models\Family $family */
         $family = Family::model()->hasMember($userId)->find();
         $this->success = $family !== null;
         if ($family !== null) {
@@ -98,20 +97,42 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionCreateMember(array $attributes, $photoId = null)
     {
+        /** @var \site\frontend\modules\family\models\FamilyMember $model */
         if (! \Yii::app()->user->checkAccess('createFamilyMember')) {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
-        /** @var \site\frontend\modules\family\models\Family $family */
         $family = Family::model()->hasMember(\Yii::app()->user->id)->find();
         if ($family === null) {
             throw new \CException('У авторизованного пользователя нет семьи');
         }
 
-        $model = $family->createMember($attributes, $photoId);
-        $this->success = ! $model->hasErrors();
-        $this->data = $model->hasErrors() ? array(
-            'errors' => $model->getErrors(),
-        ) : $model;
+        $modelClass = FamilyMember::getClassName($attributes['type']);
+        /** @var \site\frontend\modules\family\models\FamilyMember $model */
+        $model = new $modelClass();
+        $model->familyId = $family->id;
+        $model->attributes = $attributes;
+        $this->saveMemberWithPhoto($model, $photoId);
+    }
+
+    public function actionUpdateMember(array $attributes, $id, $photoId = null)
+    {
+        $model = $this->getModel('\site\frontend\modules\family\models\FamilyMember', $id, 'updateFamilyMember');
+        $model->attributes = $attributes;
+        $this->saveMemberWithPhoto($model, $photoId);
+    }
+
+    protected function saveMemberWithPhoto(FamilyMember $model, $photoId)
+    {
+        if ($model->save()) {
+            $this->success = true;
+            if ($photoId !== null) {
+                $model->photoCollection->attachPhotos($photoId);
+            }
+            $this->data = $model;
+        } else {
+            $this->success = false;
+            $this->data = array('errors' => $model->getErrors());
+        }
     }
 } 

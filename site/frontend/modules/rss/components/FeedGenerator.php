@@ -36,22 +36,25 @@ class FeedGenerator
         $this->feed->generateFeed();
     }
 
+    /** @todo исправить формирование ссылки на комментарии */
     protected function getItemByModel(\CActiveRecord $model)
     {
-        if (! ($model instanceof IRss)) {
-            throw new Exception('Model must implement IRss interface');
+        if ($model->asa('RssBehavior') === null) {
+            throw new \Exception('Model must have rss behavior attached');
         }
 
         if ($model->asa('UrlBehavior') === null) {
-            throw new Exception('Model must have url behavior attached');
+            throw new \Exception('Model must have url behavior attached');
         }
 
         $item = $this->feed->createNewItem();
-        $item->setLink($model->getUrl(true));
         $item->addTag('guid', $model->getUrl(true), array('isPermaLink' => 'true'));
+        $item->addTag('author', \Yii::app()->controller->createAbsoluteUrl('/blog/default/index', array('user_id' => $model->getAuthor()->id)));
+        $item->setDate($model->getDate());
+        $item->setLink($model->getUrl(true));
         $item->setTitle($model->getTitle());
         $item->setDescription($model->getDescription());
-        $item->setDate($model->getDate());
+        $item->addTag('comments', $model->getUrl(true) . '#comment_list');
 
         return $item;
     }

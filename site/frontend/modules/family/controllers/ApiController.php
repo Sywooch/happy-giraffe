@@ -95,23 +95,20 @@ class ApiController extends \site\frontend\components\api\ApiController
         }
     }
 
-    public function actionCreateMember(array $attributes)
+    public function actionCreateMember(array $attributes, $photoId = null)
     {
         if (! \Yii::app()->user->checkAccess('createFamilyMember')) {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
+        /** @var \site\frontend\modules\family\models\Family $family */
         $family = Family::model()->hasMember(\Yii::app()->user->id)->find();
         if ($family === null) {
             throw new \CException('У авторизованного пользователя нет семьи');
         }
 
-        $modelClass = FamilyMember::getClassName($attributes['type']);
-        /** @var \site\frontend\modules\family\models\FamilyMember $model */
-        $model = new $modelClass();
-        $model->familyId = $family->id;
-        $model->attributes = $attributes;
-        $this->success = $model->save();
+        $model = $family->createMember($attributes, $photoId);
+        $this->success = ! $model->hasErrors();
         $this->data = $model->hasErrors() ? array(
             'errors' => $model->getErrors(),
         ) : $model;

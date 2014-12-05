@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\family\models;
+use Aws\CloudFront\Exception\Exception;
 
 /**
  * This is the model class for table "family__members".

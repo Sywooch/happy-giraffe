@@ -33,6 +33,18 @@ define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Famil
         this.removeMemberInstance = function removeMemberInstance(data, event) {
             var removed = this.family.members.splice(data.index(), 1);
         };
+        this.closeFamilyDescription = function closeFamilyDescription(data, event) {
+            this.family.description.editing(false);
+        };
+        this.removeFamilyDescription = function removeFamilyDescription (data, event) {
+            this.family.description.editing(false);
+            this.family.description.value(null);
+            this.family.update({ description: this.family.description.value() });
+        };
+        this.submitFamilyDescription = function submitFamilyDescription(data, event) {
+            this.family.description.editing(false);
+            this.family.update({ description: this.family.description.value() });
+        };
         this.family.get(true).done(this.familyHandler.bind(this));
     }
 

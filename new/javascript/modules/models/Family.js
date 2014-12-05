@@ -15,9 +15,13 @@ define(['knockout', 'models/Model', 'models/User', 'user-config', 'models/Family
         create: function createFamily() {
             return Model.get(this.createUrl);
         },
+        update: function updateFamily(attribObj) {
+            return Model.get(this.updateUrl, {attributes: attribObj, id: this.id()});
+        },
         init: function initFamily(data) {
             this.id(data.id);
             this.description = Model.createStdProperty(data.description || null, 'description');
+            this.description.editing(false);
             if (data.members !== undefined) {
                 if (data.members.length > 0) {
                     for (var i=0; i < data.members.length; i++) {

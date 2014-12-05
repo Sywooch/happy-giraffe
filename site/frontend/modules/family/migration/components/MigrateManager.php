@@ -73,7 +73,7 @@ class MigrateManager
             return;
         }
 
-        $this->family = $this->createFamily($this->user->id);
+        $this->family = Family::createFamily($this->user->id);
 
         if ($this->family === null) {
             throw new \CException('Невозможно создать семью');
@@ -99,20 +99,6 @@ class MigrateManager
             }
             $album->photoCollection->attachPhotos($this->unsortedPhotos);
         }
-    }
-
-    protected function createFamily($userId)
-    {
-        $family = new Family();
-        $success = $family->save(false);
-        if ($success) {
-            $member = new Adult();
-            $member->scenario = 'familyCreate';
-            $member->fillByUser($userId);
-            $member->familyId = $family->id;
-            $success = $member->save(false);
-        }
-        return ($success) ? $family : null;
     }
 
     protected function getBabies()

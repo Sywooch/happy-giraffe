@@ -112,7 +112,6 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                         if (this[prop].value !== undefined) {
                             this[prop].value(data[prop]);
                             this[prop].editing(false);
-                            console.log(this[prop]);
                         } else {
                             if (ko.isObservable(this[prop])) {
                                 this[prop](data[prop]);

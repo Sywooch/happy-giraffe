@@ -8,7 +8,7 @@
                 <family-settings params="family: $parent.family, member: $data, index: $index"></family-settings>
             <!-- /ko -->
         <!-- /ko -->
-        <!-- ko if: family.members().length === 1 -->
+        <!-- ko if: family.members().length === 1 || family.id() === null -->
             <!-- Блок Добавления-->
             <div class="cap-add cap-add__l cap-add__family-member" data-bind="click: addFamilyMember">
                 <div class="cap-add_hold">

@@ -18,10 +18,12 @@ define(['knockout', 'models/Model', 'models/User', 'user-config', 'models/Family
         init: function initFamily(data) {
             this.id(data.id);
             this.description = Model.createStdProperty(data.description || null, 'description');
-            if (data.members.length > 0) {
-                for (var i=0; i < data.members.length; i++) {
-                    var familyMember = Object.create(FamilyMember);
-                    this.members.push(familyMember.init(data.members[i]));
+            if (data.members !== undefined) {
+                if (data.members.length > 0) {
+                    for (var i=0; i < data.members.length; i++) {
+                        var familyMember = Object.create(FamilyMember);
+                        this.members.push(familyMember.init(data.members[i]));
+                    }
                 }
             }
         }

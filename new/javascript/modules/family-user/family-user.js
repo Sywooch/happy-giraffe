@@ -20,6 +20,8 @@ define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Famil
               if (familyData.data !== undefined) {
                   this.family.init(familyData.data);
                   this.loadingFamily(false);
+              } else {
+                  this.loadingFamily(false);
               }
             }
         };

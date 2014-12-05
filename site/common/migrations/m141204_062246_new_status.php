@@ -16,6 +16,10 @@ COLLATE = utf8_general_ci
 SQL
         );
         $this->execute(<<<SQL
+INSERT INTO `som__status_moods` (SELCT * FROM `user__moods`)
+SQL
+        );
+        $this->execute(<<<SQL
 CREATE TABLE IF NOT EXISTS `som__status` (
   `id` INT(10) UNSIGNED NOT NULL,
   `text` VARCHAR(500) NOT NULL,

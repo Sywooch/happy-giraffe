@@ -15,9 +15,8 @@ use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\PhotoCollection;
 
-register_shutdown_function( "fatal_handler" );
-
-function fatal_handler() {
+function fatal_handler()
+{
     $errfile = "unknown file";
     $errstr  = "shutdown";
     $errno   = E_CORE_ERROR;
@@ -37,6 +36,8 @@ function fatal_handler() {
         echo $errstr; echo "\n";
     }
 }
+
+register_shutdown_function("fatal_handler");
 
 class DefaultCommand extends \CConsoleCommand
 {

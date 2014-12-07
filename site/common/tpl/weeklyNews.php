@@ -92,9 +92,10 @@ $i = 0;
                     if ($previewObserver->getCount() > 0) {
                         $image_url = Yii::app()->thumbs->getThumb($previewObserver->getSingle(0)->photo, 'weeklyNews')->getUrl();
                     }
-                    $textObserver = $model->content->getAttributePhotoCollection('post')->observer;
+                    $textObserver = $model->content->getAttributePhotoCollection('text')->observer;
                     if ($textObserver->getCount() > 0) {
                         $image_url = Yii::app()->thumbs->getThumb($textObserver->getSingle(0)->photo, 'weeklyNews')->getUrl();
+                        die($image_url);
                     }
                 }
 

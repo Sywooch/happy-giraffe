@@ -87,7 +87,7 @@ $i = 0;
                 <?php
                 $image_url = $model->getContentImage(580, 1000);
 
-                if ($model->type == CommunityContent::TYPE_POST) {
+                if ($model->type_id == CommunityContent::TYPE_POST) {
                     $previewObserver = $model->getAttributePhotoCollection('preview')->observer;
                     if ($previewObserver->getCount() > 0) {
                         $image_url = Yii::app()->thumbs->getThumb($previewObserver->getSingle(0)->photo, 'weeklyNews')->getUrl();

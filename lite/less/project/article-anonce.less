@@ -19,6 +19,24 @@
     &__xl {
         width: 615px;
     }
+    &__xl &_img-hold {
+        height: 410px;
+        overflow: hidden;
+    }
+    &__xl &_img-hold:before{
+        &:extend(.verticalalign-m-el-hold:before);
+    }
+    &__xl &_img {
+        vertical-align: middle;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        /*height: 100%;*/
+        width: 100%;
+    }
     &__xl &_hold:hover &_t {
         color: #fff;
     }
@@ -132,6 +150,7 @@
     &_img-hold {
         position: relative;
         background-color: #fff;
+        text-align: center;
     }
     &_img {
         width: 100%;

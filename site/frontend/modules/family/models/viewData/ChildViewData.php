@@ -12,29 +12,35 @@ use site\frontend\modules\family\models\FamilyMember;
 
 class ChildViewData extends FamilyMemberViewData
 {
-    protected $dictionary = array(
-        FamilyMember::GENDER_MALE => array(
-            'title' => 'Сын',
-            'cssClass' => 'boy-8',
-        ),
-        FamilyMember::GENDER_FEMALE => array(
-            'title' => 'Дочь',
-            'cssClass' => 'girl-8',
-        ),
-        null => array(
-            'title' => 'Ребенок',
-            'cssClass' => 'boy-small',
-        ),
+    private $ageMap = array(
+        18 => '19',
+        12 => '14',
+        6 => '8',
+        3 => '5',
+        1 => '3',
     );
 
     public function getTitle()
     {
-        return $this->dictionary[$this->model->gender]['title'];
+        switch ($this->model->gender) {
+            case FamilyMember::GENDER_MALE:
+                return 'Сын';
+            case FamilyMember::GENDER_FEMALE:
+                return 'Дочь';
+            default:
+                return 'Ребенок';
+        }
     }
 
     public function getCssClass()
     {
-        return $this->dictionary[$this->model->gender]['cssClass'];
+        if ($this->model->gender === null) {
+            return 'boy-small';
+        }
+
+        $genderSign = ($this->model->gender == FamilyMember::GENDER_MALE) ? 'boy' : 'girl';
+        $ageSign = $this->getAgeSign();
+        return $genderSign . '-' . $ageSign;
     }
 
     public function getAsString()
@@ -47,5 +53,20 @@ class ChildViewData extends FamilyMemberViewData
             $result .= ' ' . AgeHelper::getChildAgeString($this->model->birthday);
         }
         return $result;
+    }
+
+    protected function getAgeSign()
+    {
+        if ($this->model->birthday === null) {
+            return $this->ageMap[6];
+        }
+
+        $age = AgeHelper::getAge($this->model->birthday);
+        foreach ($this->ageMap as $threshold => $string) {
+            if ($age >= $threshold) {
+                return $string;
+            }
+        }
+        return 'small';
     }
 } 

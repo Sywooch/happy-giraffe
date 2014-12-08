@@ -1,13 +1,12 @@
-include ../../block/config
+﻿include ../../block/config
 extend ../../extend/layout_base
 block vars
     - var bodyClass = 'body__lite';
     - global.cssFile = 'member.css'; 
 
 block block-dev-view
-   
-        script.
 
+        script.
             /* Height block comment scroll in photo-window */
             function photoWindColH () {
                 var colCont = $(".photo-window_cont");
@@ -27,7 +26,6 @@ block block-dev-view
                 likePos();
 
                 addBaron('.scroll');
-
 
             });
             $(window).resize(function () {
@@ -92,7 +90,7 @@ block block-dev-view
                                 .photo-window_t
                                     //-input.itx-gray(type='text', name='', placeholder='Введите название фото и нажмите Enter')
                                     
-                                    Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская 
+                                    | Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская 
                                     // a.ico-edit.ico-edit__s.powertip(href="#", title='Редатировать') - у пользователя
                                 .photo-window_desc-hold
                                     .photo-window_desc.clearfix

@@ -36,6 +36,11 @@ class DefaultController extends \HController
         $feed = new FeedGenerator();
         $feed->fill($dataProvider, $page);
         $feed->feed->setLink($this->createAbsoluteUrl('/blog/default/index', array('user_id' => $userId)));
+        $feed->feed->addChannelTag('generator', 'MyBlogEngine 1.1:comments');
+        if ($dataProvider->pagination->pageCount > ($page + 1)) {
+            $feed->feed->addChannelTag('ya:more', $this->createAbsoluteUrl('/' . $this->route, array('userId' => $userId, 'page' => $page + 1)));
+        }
+        $feed->feed->addChannelTag('category', 'ya:comments');
         $feed->feed->generateFeed();
     }
 } 

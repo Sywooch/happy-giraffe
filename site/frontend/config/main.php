@@ -488,23 +488,26 @@ return array(
                     'sitemap.xml' => array(
                         'index' => true,
                     ),
-                    'sitemapCommunity1.xml' => array(
+                    'sitemapCommunity1' => array(
                         'aliases' => array(
-                            'application.modules.community.controllers.DefaultController',
+                            'application.modules.posts.controllers.PostController',
                         ),
-                        'param' => 1,
+                        'changefreq' => 'daily',
+                        'param' => array('page' => 1, 'service' => 'oldCommunity'),
                     ),
-                    'sitemapCommunity2.xml' => array(
+                    'sitemapCommunity2' => array(
                         'aliases' => array(
-                            'application.modules.community.controllers.DefaultController',
+                            'application.modules.posts.controllers.PostController',
                         ),
-                        'param' => 2,
+                        'changefreq' => 'daily',
+                        'param' => array('page' => 2, 'service' => 'oldCommunity'),
                     ),
-                    'sitemapBlog1.xml' => array(
+                    'sitemapBlog1' => array(
                         'aliases' => array(
-                            'application.modules.blog.controllers.DefaultController',
+                            'application.modules.posts.controllers.PostController',
                         ),
-                        'param' => 1,
+                        'changefreq' => 'daily',
+                        'param' => array('page' => 1, 'service' => 'oldBlog'),
                     ),
 //                    'sitemapBlog2.xml' => array(
 //                        'aliases' => array(

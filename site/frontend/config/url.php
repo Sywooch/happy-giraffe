@@ -442,8 +442,8 @@ return array(
         'photo/photo/thumb' => 'photo/photo/thumb',
 
         'user/<userId:\d+>/rssUser' => 'rss/default/user',
-        'user/<userId:\d+>/rssComment' => 'rss/default/comments',
         'user/<userId:\d+>/rssComment/page<page:\d+>' => 'rss/default/comments',
+        'user/<userId:\d+>/rssComment' => 'rss/default/comments',
 
         'onair' => 'blog/air/index',
 

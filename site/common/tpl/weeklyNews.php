@@ -90,11 +90,11 @@ $i = 0;
                 if ($model->type_id == CommunityContent::TYPE_POST) {
                     $previewObserver = $model->getAttributePhotoCollection('preview')->observer;
                     if ($previewObserver->getCount() > 0) {
-                        $image_url = Yii::app()->thumbs->getThumb($previewObserver->getSingle(0)->photo, 'weeklyNews')->getUrl();
+                        $image_url = Yii::app()->thumbs->getThumb($previewObserver->getSingle(0)->photo, 'weeklyNews', true)->getUrl();
                     }
                     $textObserver = $model->content->getAttributePhotoCollection('text')->observer;
                     if ($textObserver->getCount() > 0) {
-                        $image_url = Yii::app()->thumbs->getThumb($textObserver->getSingle(0)->photo, 'weeklyNews')->getUrl();
+                        $image_url = Yii::app()->thumbs->getThumb($textObserver->getSingle(0)->photo, 'weeklyNews', true)->getUrl();
                     }
                 }
 
@@ -102,7 +102,7 @@ $i = 0;
                     $image_size = getimagesize($image_url);
                 else
                     $image_size = array(0);
-                if ($image_size[0]>100){
+                if ($image_size[0]>100) {
                 ?>
                 <div style="margin-bottom:5px;">
                     <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>?utm_source=email" target="_blank" style="text-decoration: none;">

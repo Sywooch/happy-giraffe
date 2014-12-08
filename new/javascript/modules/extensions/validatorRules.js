@@ -1,7 +1,8 @@
 define(['knockout', 'extensions/knockout.validation'], function (ko) {
     ko.validation.configure({
         registerExtenders: true,
-        messagesOnModified: true
+        messagesOnModified: true,
+        insertMessages: false
     });
     ko.validation.rules.mustFill = {
         validator: function (val, bool) {

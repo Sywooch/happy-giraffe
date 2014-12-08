@@ -11,6 +11,7 @@ define(['knockout', 'models/Model', 'models/User', 'user-config', 'models/Family
         members: ko.observableArray(),
         photo: ko.observable(null),
         photoCollection: ko.observable(),
+        forbiddenArray: ko.observableArray(),
         get: function getFamily(public) {
             return Model.get(this.getUrl, {userId: this.userId});
         },
@@ -40,6 +41,7 @@ define(['knockout', 'models/Model', 'models/User', 'user-config', 'models/Family
                 if (data.members.length > 0) {
                     for (var i=0; i < data.members.length; i++) {
                         var familyMember = Object.create(FamilyMember);
+                        this.forbiddenArray = FamilyMember.forbiddenFilterHandler(data.members[i], this.forbiddenArray);
                         this.members.push(familyMember.init(data.members[i]));
                     }
                 }

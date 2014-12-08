@@ -1,7 +1,7 @@
 define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'models/Model', 'models/Family', 'models/FamilyMember', 'ko_photoUpload', 'ko_library'], function FamilySettingsViewModelHandler($, ko, template, Model, Family, FamilyMember) {
     function FamilySettingsViewModel(params) {
-        this.family = params.family;
         this.familyMember = params.member;
+        this.forbiddenArray = params.forbiddenArray;
         this.index = params.index;
         this.days = DateRange.days();
         this.months = DateRange.months();
@@ -30,7 +30,6 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         };
         this.createFamilyHandler = function createFamilyHandler(familyData) {
             if (familyData.success === true) {
-                this.family.init(familyData.data);
                 var attributes = Model.checkFieldsToPass(this.familyMember.memberTypes[this.familyMember.type.value()].fields, this.familyMember);
                 this.familyMember.createMember(attributes).done(this.submitMemberHandler.bind(this));
             }
@@ -38,22 +37,19 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         this.endEditField = function endEditField(data, event) {
             var attribute = {};
                 attribute[data.name] = data.value();
-                this.familyMember.updateMember(attribute).done(this.familyMember.errorHandler.bind(this.familyMember));
+                this.familyMember.updateMember(attribute).done(this.submitMemberHandler.bind(this));
                 data.editing(false);
         };
         this.submitMemberHandler = function submitMemberHandler(familyMemberData) {
             if (familyMemberData.success === true) {
+                this.forbiddenArray = this.familyMember.forbiddenFilterHandler(familyMemberData.data, this.forbiddenArray);
                 this.familyMember.updateModel(familyMemberData.data);
             }
             this.familyMember.errorHandler(familyMemberData);
         };
         this.submitMember = function submitMember() {
             var attributes = Model.checkFieldsToPass(this.familyMember.memberTypes[this.familyMember.type.value()].fields, this.familyMember);
-            if (this.family.id() === null) {
-                this.family.create().done(this.createFamilyHandler.bind(this));
-            } else {
-                this.familyMember.createMember(attributes).done(this.submitMemberHandler.bind(this));
-            }
+            this.familyMember.createMember(attributes).done(this.submitMemberHandler.bind(this));
         };
     };
 

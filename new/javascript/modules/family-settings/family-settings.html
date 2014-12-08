@@ -3,6 +3,7 @@
     <div class="section-empty">
         <div class="section-empty_t">Кого вы хотите добавить?</div>
         <ul class="section-empty_ul">
+            <!-- ko if: forbiddenArray.indexOf('adult') === -1 -->
             <li class="section-empty_li">
                 <a href="#" class="section-empty_i"
                    data-bind="click: function (data, event) { createMember('adult'); }">
@@ -12,6 +13,8 @@
                     <div class="section-empty_ico-tx">Моя половинка</div>
                 </a>
             </li>
+            <!-- /ko -->
+            <!-- ko if: forbiddenArray.indexOf('planning') === -1 && forbiddenArray.indexOf('waiting') === -1 -->
             <li class="section-empty_li">
                 <a href="#" class="section-empty_i"
                    data-bind="click: function (data, event) { createMember('planning'); }">
@@ -30,6 +33,7 @@
                     <div class="section-empty_ico-tx">Уже беременны</div>
                 </a>
             </li>
+            <!-- /ko -->
             <li class="section-empty_li">
                 <a href="#" class="section-empty_i"
                    data-bind="click: function (data, event) { createMember('child'); }">
@@ -40,10 +44,6 @@
                 </a>
             </li>
         </ul>
-        <!--<div class="section-empty_btn-row">-->
-        <!--<a class="btn btn-secondary btn-m margin-r10">Отмена</a>-->
-        <!--<a class="btn btn-success btn-m">Далее</a>-->
-        <!--</div>-->
     </div>
     <!-- /ko -->
     <!-- ko if: familyMember.errors().length > 0 -->
@@ -123,8 +123,9 @@
                         <a href="#" class="family-settings_cap family-settings_cap__name" data-bind="click: $parent.beginEditField">Имя ребенка</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.value.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <input type="text" class="itx-gray" placeholder="Имя ребенка" data-bind="value: $data.value">
+                            <div class="inp-valid_error" data-bind="visible: $data.value.isValid() === false"><div class="errorMessage" data-bind="validationMessage: $data.value"></div></div>
                         </div>
                         <!-- ko if: $parent.familyMember.id() !== null -->
                             <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
@@ -161,7 +162,15 @@
                         <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() !== 'null-null-null' -->
-                        <div class="family-settings_name"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_tx">
+                            <!-- ko if: $parent.familyMember.ageString.value() !== null -->
+                                <span data-bind="text: $parent.familyMember.ageString.value()"></span>
+                            <!-- /ko -->
+                            <!-- ko if: $parent.familyMember.ageString.value() === null -->
+                                <span data-bind="text: $data.value()"></span>
+                            <!-- /ko -->
+                            <a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a>
+                        </div>
                     <!-- /ko -->
                 </div>
                 <!-- desc-->
@@ -350,7 +359,15 @@
                         <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === false && $data.value() !== 'null-null-null' -->
-                        <div class="family-settings_name"><span data-bind="text: $data.value()"></span><a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a></div>
+                        <div class="family-settings_tx">
+                            <!-- ko if: $parent.familyMember.pregnancyTermString.value() !== null -->
+                                <span data-bind="text: $parent.familyMember.pregnancyTermString.value()"></span>
+                            <!-- /ko -->
+                            <!-- ko if: $parent.familyMember.pregnancyTermString.value() === null -->
+                                <span data-bind="text: $data.value()"></span>
+                            <!-- /ko -->
+                            <a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.beginEditField"></a>
+                        </div>
                     <!-- /ko -->
                 </div>
             </div>

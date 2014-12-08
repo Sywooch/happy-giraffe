@@ -42,7 +42,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         },
         removed: ko.observable(),
         errorHandler: function errorHandler(errorData) {
-            this.errors();
+            this.errors([]);
             if (errorData.success === false) {
                 if (errorData.data.errors !== undefined) {
                     for (var errorType in errorData.data.errors) {
@@ -50,7 +50,6 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                             for (var errorI = 0; errorI < errorData.data.errors[errorType].length; errorI++) {
                                 this.errors.push(errorData.data.errors[errorType][errorI]);
                             }
-                            console.log(this.errors());
                         }
                     }
                 }
@@ -64,7 +63,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         },
         updateMember: function updateMember(attribObj) {
             if (this.photo() !== null) {
-                Model.get(this.updateMemberUrl, { id: this.id(), attributes: attribObj, photoId: this.photo().id() });
+                return Model.get(this.updateMemberUrl, { id: this.id(), attributes: attribObj, photoId: this.photo().id() });
             }
             return Model.get(this.updateMemberUrl, { id: this.id(), attributes: attribObj });
         },
@@ -95,6 +94,12 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             if (photo !== null) {
                 Model.get(this.updateMemberUrl, { id: this.id(), attributes: {}, photoId: photo.id() });
             }
+        },
+        forbiddenFilterHandler: function forbiddenFilterHandler(member, array) {
+            if (member.type !== FamilyMember.memberTypes.child.name && array.indexOf(member.type) === -1) {
+                array.push(member.type);
+            }
+            return array;
         },
         canSubmit: function canSubmit() {
             var canSubmitFields;
@@ -144,13 +149,11 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         },
         updateModel: function updateModel (data) {
             for (var prop in data) {
-                if (prop === 'birthday' || prop === 'pregnancyTerm') {
-                    if (prop === 'birthday') {
-                        this.birthday.day = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getDate() : null);
-                        this.birthday.month = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getMonth() + 1 : null);
-                        this.birthday.year = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getFullYear() : null);
-                        this.birthday.editing(false);
-                    }
+                if (prop === 'birthday') {
+                    this.birthday.day = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getDate() : null);
+                    this.birthday.month = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getMonth() + 1 : null);
+                    this.birthday.year = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getFullYear() : null);
+                    this.birthday.editing(false);
                 } else {
                     if (this[prop] !== undefined) {
                         if (this[prop].value !== undefined) {
@@ -185,6 +188,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             this.birthday.year = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getFullYear() : null);
             this.birthday.value = ko.computed(this.getBirthdayValue, this.birthday);
             this.ageString = Model.createStdProperty(data.ageString || null, 'ageString');
+            this.pregnancyTermString = Model.createStdProperty(data.pregnancyTermString || null, 'pregnancyTermString');
             this.planningWhen = Model.createStdProperty(data.planningWhen || null, 'planningWhen');
             this.removed = ko.observable(false);
             this.canSubmit = ko.computed(this.canSubmit, this);

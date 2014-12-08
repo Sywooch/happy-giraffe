@@ -2,6 +2,9 @@
     <div class="textalign-c">
         <div class="ico-myfamily ico-myfamily__l"></div>
     </div>
+    <div class="family-user_edit-hold clearfix"> 
+        <a href='#' class="btn btn-secondary btn-l float-l">Вернуться</a>
+    </div>
     <!-- ko if: loadingFamily() === false -->
         <!-- ko foreach: family.members() -->
                 <family-settings params="forbiddenArray: $parent.family.forbiddenArray, member: $data, index: $index"></family-settings>

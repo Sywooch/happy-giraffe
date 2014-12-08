@@ -1,7 +1,8 @@
 <?php
 
-namespace site\frontend\modules\posts\behaviors;
+namespace site\frontend\modules\rss\behaviors;
 use site\frontend\modules\rss\components\RssBehavior;
+
 
 /**
  * @author Никита
@@ -10,23 +11,28 @@ use site\frontend\modules\rss\components\RssBehavior;
 
 class ContentRssBehavior extends RssBehavior
 {
-    public function getTitle()
+    public function getRssTitle()
     {
         return $this->owner->title;
     }
 
-    public function getDescription()
+    public function getRssDescription()
     {
         return $this->owner->text;
     }
 
-    public function getDate()
+    public function getRssDate()
     {
         return $this->owner->dtimePublication;
     }
 
-    public function getAuthor()
+    public function getRssAuthor()
     {
         return $this->owner->getUser();
+    }
+
+    public function getRssUrl()
+    {
+        return $this->owner->url;
     }
 } 

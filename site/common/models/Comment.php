@@ -157,6 +157,9 @@ class Comment extends HActiveRecord
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
             ),
+            'RssBehavior' => array(
+                'class' => 'site\frontend\modules\rss\behaviors\CommentRssBehavior',
+            ),
         );
     }
 

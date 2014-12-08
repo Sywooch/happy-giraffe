@@ -108,12 +108,8 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'publicationAttribute' => 'dtimePublication',
                 'owerwriteAttributeIfSet' => false,
             ),
-            'UrlBehavior' => array(
-                'class' => 'site\common\behaviors\UrlBehavior',
-                'preparedUrl' => 'url',
-            ),
             'RssBehavior' => array(
-                'class' => 'site\frontend\modules\posts\behaviors\ContentRssBehavior',
+                'class' => 'site\frontend\modules\rss\behaviors\ContentRssBehavior',
             ),
         );
     }

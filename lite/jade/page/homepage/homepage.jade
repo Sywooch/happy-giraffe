@@ -249,8 +249,19 @@ body.body.body__lite.body__bg2(class='body__homepage')
                                         img(src="#{path}images/example/w240-h400-2.jpg", alt="")
                             
                                //- +articleAnonce('article-anonce__green', articleAnonce.f) 
-                // /Посты
 
+                // Посты 
+                .homepage_row
+                    .homepage-posts
+                        .homepage_title  Лучшие записи 
+                        .homepage-posts_col-hold
+                            +articleSimilar('article-similar__red', articleSimilar.a)
+                            +articleSimilar('article-similar__lilac', articleSimilar.b)
+                            +articleSimilar('article-similar__yellow', articleSimilar.c)
+                            +articleSimilar('article-similar__blue', articleSimilar.d)
+                            +articleSimilar('article-similar__green', articleSimilar.e)
+                            +articleSimilarIcons('article-similar__blue', articleSimilarIcons.a)
+                // /Посты
 
                 // Посетители
                 .homepage_row

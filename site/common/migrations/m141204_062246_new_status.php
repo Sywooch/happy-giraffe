@@ -21,7 +21,7 @@ SQL
         );
         $this->execute(<<<SQL
 CREATE TABLE IF NOT EXISTS `som__status` (
-  `id` INT(10) UNSIGNED NOT NULL,
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `text` VARCHAR(500) NOT NULL,
   `moodId` INT(10) UNSIGNED NULL DEFAULT NULL,
   `authorId` INT(10) UNSIGNED NOT NULL,

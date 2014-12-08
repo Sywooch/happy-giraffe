@@ -79,7 +79,7 @@ mixin articleAnonce(mod, vars)
 - articleAnonce.d.tag = true
 - articleAnonce.d.author = 'Антон Кузнецов-Привольный'
 - articleAnonce.d.title = 'Одиночное путешествие: куда поехать и как организовать '
-- articleAnonce.d.images = 'http://lorempixel.com/300/200/people/3'
+- articleAnonce.d.images = 'http://img.youtube.com/vi/rEfKBjwcqv4/sddefault.jpg'
 - articleAnonce.d.video = true
 
 - articleAnonce.e = {}
@@ -143,7 +143,6 @@ mixin articleAnonceCss()
             hyphens: auto;
         }
 
-
         img {
             border: 0;
             max-width: 100%;
@@ -165,7 +164,6 @@ mixin articleAnonceCss()
         }
         a:hover {
             color: #ff6900;
-            color: #289fd7;
             text-decoration: none;
         }
 
@@ -190,7 +188,7 @@ mixin articleAnonceCss()
         
         .ava {
             display: inline-block;
-            background: url(/lite/images/base/ava.png) no-repeat -240px -480px;
+            background: url('http://orange.dev.happy-giraffe.ru/lite/images/base/ava.png') no-repeat -240px -480px;
         }
 
         .ava,.ava_img {
@@ -203,6 +201,46 @@ mixin articleAnonceCss()
         .ava_img {
             display: block;
             max-height: 100%;
+        }
+        .ico-more,
+        .ico-more-hover,
+        .ico-ovrPlay,
+        .ico-plus,
+        .ico-zoom,
+        a.ico-more:hover {
+          background-size: 120px 360px;
+        }
+        .no-svg .ico-more,
+        .no-svg .ico-more-hover,
+        .no-svg .ico-ovrPlay,
+        .no-svg .ico-plus,
+        .no-svg .ico-zoom {
+          background-image: url("http://orange.dev.happy-giraffe.ru/lite/images/sprite/ico-base.png");
+        }
+        .ico-more,
+        .ico-more-hover,
+        .ico-ovrPlay,
+        .ico-plus,
+        .ico-zoom,
+        a.ico-more:hover {
+          background-image: url("http://orange.dev.happy-giraffe.ru/lite/images/sprite/ico-base.svg");
+        }
+        .ico-ovrPlay {
+          width: 99px;
+          height: 99px;
+          background-position: 0 -80px;
+        }
+        .ico-ovrPlay__abs {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: -50px 0 0 -50px;
+        }
+        .ico-ovrPlay__s {
+          -webkit-transform: scale(0.6);
+          -ms-transform: scale(0.6);
+          -o-transform: scale(0.6);
+          transform: scale(0.6);
         }
 
         .article-anonce_ico-hold:before {

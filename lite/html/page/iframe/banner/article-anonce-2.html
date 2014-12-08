@@ -32,7 +32,6 @@
         hyphens: auto;
     }
     
-    
     img {
         border: 0;
         max-width: 100%;
@@ -54,7 +53,6 @@
     }
     a:hover {
         color: #ff6900;
-        color: #289fd7;
         text-decoration: none;
     }
     
@@ -79,7 +77,7 @@
     
     .ava {
         display: inline-block;
-        background: url(/lite/images/base/ava.png) no-repeat -240px -480px;
+        background: url('http://orange.dev.happy-giraffe.ru/lite/images/base/ava.png') no-repeat -240px -480px;
     }
     
     .ava,.ava_img {
@@ -92,6 +90,46 @@
     .ava_img {
         display: block;
         max-height: 100%;
+    }
+    .ico-more,
+    .ico-more-hover,
+    .ico-ovrPlay,
+    .ico-plus,
+    .ico-zoom,
+    a.ico-more:hover {
+      background-size: 120px 360px;
+    }
+    .no-svg .ico-more,
+    .no-svg .ico-more-hover,
+    .no-svg .ico-ovrPlay,
+    .no-svg .ico-plus,
+    .no-svg .ico-zoom {
+      background-image: url("http://orange.dev.happy-giraffe.ru/lite/images/sprite/ico-base.png");
+    }
+    .ico-more,
+    .ico-more-hover,
+    .ico-ovrPlay,
+    .ico-plus,
+    .ico-zoom,
+    a.ico-more:hover {
+      background-image: url("http://orange.dev.happy-giraffe.ru/lite/images/sprite/ico-base.svg");
+    }
+    .ico-ovrPlay {
+      width: 99px;
+      height: 99px;
+      background-position: 0 -80px;
+    }
+    .ico-ovrPlay__abs {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -50px 0 0 -50px;
+    }
+    .ico-ovrPlay__s {
+      -webkit-transform: scale(0.6);
+      -ms-transform: scale(0.6);
+      -o-transform: scale(0.6);
+      transform: scale(0.6);
     }
     
     .article-anonce_ico-hold:before {
@@ -344,19 +382,16 @@
   -->
   <div class="article-anonce article-anonce__blue">
     <div class="article-anonce_top"><a href="#" class="article-anonce_header-a"> 
-        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="article-anonce_author">Правдинина Марина Правдинина-Куципалюк</span></a></div><a href="#" class="article-anonce_hold">
+        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="article-anonce_author">Антон Кузнецов-Привольный</span></a></div><a href="#" class="article-anonce_hold">
       <div class="article-anonce_img-hold">
         <div class="article-anonce_img-top">
-          <div class="article-anonce_count-hold">
-            <div class="article-anonce_count-t">128</div>
-            <div class="article-anonce_count-tx">фото</div>
-          </div>
-        </div><img src="http://lorempixel.com/300/400/people/4" alt="Наши первые движения " class="article-anonce_img">
+          <div class="ico-ovrPlay ico-ovrPlay__s"></div>
+        </div><img src="http://img.youtube.com/vi/rEfKBjwcqv4/sddefault.jpg" alt="Одиночное путешествие: куда поехать и как организовать " class="article-anonce_img">
       </div>
       <div class="article-anonce_bottom">
         <!-- может быть, а может и не быть тег-->
         <div class="article-anonce_tag">Праздники</div>
-        <div class="article-anonce_t">Наши первые движения 
+        <div class="article-anonce_t">Одиночное путешествие: куда поехать и как организовать 
         </div>
       </div></a>
   </div>

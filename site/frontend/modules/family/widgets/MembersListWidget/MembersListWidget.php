@@ -10,6 +10,13 @@ use site\frontend\modules\family\models\FamilyMember;
 
 class MembersListWidget extends \CWidget
 {
+    private $typePriority = array(
+        'adult' => 0,
+        'child' => 1,
+        'waiting' => 2,
+        'planning' => 3,
+    );
+
     /** @var \site\frontend\modules\family\models\Family */
     public $family;
     public $view;
@@ -24,22 +31,27 @@ class MembersListWidget extends \CWidget
 
     protected function sort(FamilyMember $a, FamilyMember $b)
     {
-        $priorityA = $this->getPriority($a);
-        $priorityB = $this->getPriority($b);
+        $aTypePriority = $this->typePriority[$a->type];
+        $bTypePriority = $this->typePriority[$b->type];
 
-        if ($priorityA == $priorityB) {
+        if ($aTypePriority == $bTypePriority) {
+            if ($a->type == 'child') {
+                $aTime = strtotime($a->birthday);
+                $bTime = strtotime($b->birthday);
+                if ($aTime == $bTime) {
+                    return 0;
+                }
+                return ($aTime < $bTime) ? -1 : 1;
+            }
+            if ($a->type == 'adult') {
+                return ($this->isMe($a)) ? -1 : 1;
+            }
             return 0;
         }
-        return ($priorityA < $priorityB) ? -1 : 1;
+
+        return ($aTypePriority < $bTypePriority) ? -1 : 1;
     }
 
-    protected function getPriority(FamilyMember $a)
-    {
-        if ($a->type == FamilyMember::TYPE_ADULT) {
-            return ($this->isMe($a)) ? -1 : 0;
-        }
-        return 1;
-    }
 
     public function isMe(FamilyMember $member)
     {

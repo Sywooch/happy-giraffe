@@ -46,6 +46,13 @@
         <!--</div>-->
     </div>
     <!-- /ko -->
+    <!-- ko if: familyMember.errors().length > 0 -->
+    <div class="inp-valid inp-valid__abs error">
+        <div class="inp-valid_error">
+            <div class="errorMessage" data-bind="text: familyMember.errors()[0]"></div>
+        </div>
+    </div>
+    <!-- /ko -->
     <!-- ko if: familyMember.type.value() !== null -->
     <div class="family-edit">
         <!-- ko if: familyMember.id() === null -->

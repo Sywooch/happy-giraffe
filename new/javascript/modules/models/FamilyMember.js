@@ -42,6 +42,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         },
         removed: ko.observable(),
         errorHandler: function errorHandler(errorData) {
+            this.errors();
             if (errorData.success === false) {
                 if (errorData.data.errors !== undefined) {
                     for (var errorType in errorData.data.errors) {
@@ -189,7 +190,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             this.canSubmit = ko.computed(this.canSubmit, this);
             this.photoCollection(data.photoCollection !== undefined ? new PhotoCollection(data.photoCollection) : null);
             this.photo = ko.observable(this.photoAttaching());
-            this.errors = ko.observableArray(null);
+            this.errors = ko.observableArray();
             this.photo.subscribe(this.watchForPhoto.bind(this));
             return this;
         }

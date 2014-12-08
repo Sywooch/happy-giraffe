@@ -2,6 +2,7 @@
 /**
  * @var LiteController $this
  */
+$this->pageTitle = 'Моя семья';
 ?>
 
 <div class="b-main_cont b-main_cont__wide">

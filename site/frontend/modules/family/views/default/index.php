@@ -16,11 +16,13 @@ if ($this->owner->id == Yii::app()->user->id) {
 
 <div class="b-main_cont b-main_cont__wide">
     <div class="family-user">
-        <div class="ico-myfamily ico-myfamily__l"></div>
+        <div class="textalign-c">
+            <div class="ico-myfamily ico-myfamily__l"></div>
+        </div>
         
         <?php if ($this->owner->id == Yii::app()->user->id): ?>
             <div class="family-user_edit-hold"> 
-                <a href="#" class="btn btn-secondary btn-l"><div class="ico-edit ico-edit__s"></div>&nbsp;Редактировать</a>
+                <a href='<?=$this->createUrl('/family/default/fill')?>' class="btn btn-secondary btn-l"><div class="ico-edit ico-edit__s"></div>&nbsp;Редактировать</a>
             </div>
         <?php endif; ?>
 

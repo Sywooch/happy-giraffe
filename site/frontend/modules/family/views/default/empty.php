@@ -11,7 +11,6 @@
         </div>
         <!-- cap-empty-->
         <div class="cap-empty cap-empty__profile-family">
-            <div class="verticalalign-m-help"></div>
             <div class="cap-empty_hold">
                 <div class="cap-empty_img cap-empty_img__family-big"></div>
                 <div class="cap-empty_t">У вас не заполнена информация о вашей семье</div>

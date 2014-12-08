@@ -104,9 +104,10 @@
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
                     <!-- В случае ошибки .error на .inp-valid-->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <select placeholder="Сын или дочь?" data-placeholder="Сын или дочь?" class="select-cus select-cus__gray select-cus__search-off" data-bind="options: $parent.genderArrayTwo, optionsText: 'name', valueAllowUnset: true, optionsValue: 'id', value: $data.value, optionsCaption: 'Сын или дочь?'">
                             </select>
+                            <div class="inp-valid_error" data-bind="visible: $data.value.isValid() === false"><div class="errorMessage" data-bind="validationMessage: $data.value"></div></div>
                         </div>
                         <!-- ko if: $parent.familyMember.id() !== null -->
                             <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
@@ -123,9 +124,9 @@
                         <a href="#" class="family-settings_cap family-settings_cap__name" data-bind="click: $parent.beginEditField">Имя ребенка</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.value.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <input type="text" class="itx-gray" placeholder="Имя ребенка" data-bind="value: $data.value">
-                            <div class="inp-valid_error" data-bind="visible: $data.value.isValid() === false"><div class="errorMessage" data-bind="validationMessage: $data.value"></div></div>
+                            <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                         </div>
                         <!-- ko if: $parent.familyMember.id() !== null -->
                             <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
@@ -143,7 +144,7 @@
                         <a href="#" class="family-settings_cap family-settings_cap__date" data-bind="click: $parent.beginEditField">Дата рождения</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <div class="float-l w-80 margin-r10">
                                 <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true, optionsCaption: 'День'">
                                 </select>
@@ -156,6 +157,7 @@
                                 <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.years, value: $data.year, valueAllowUnset: true, optionsCaption: 'Год'">
                                 </select>
                             </div>
+                            <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                         </div>
                         <!-- ko if: $parent.familyMember.id() !== null -->
                             <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
@@ -179,8 +181,9 @@
                         <a href="#" class="family-settings_cap family-settings_cap__desc" data-bind="click: $parent.beginEditField">Пару слов о ребенке</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <textarea rows="3" class="itx-gray" placeholder="Пару слов о ребенке" data-bind="value: $data.value"></textarea>
+                            <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                         </div>
                         <br>
                         <!-- ko if: $parent.familyMember.id() !== null -->
@@ -241,9 +244,10 @@
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
                         <!-- В случае ошибки .error на .inp-valid-->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <select placeholder="Кого хотим?" data-placeholder="Кого хотим?" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.genderArrayThree, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Кого хотим?'">
                             </select>
+                            <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                         </div>
                         <!-- ko if: $parent.familyMember.id() !== null -->
                             <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
@@ -260,9 +264,10 @@
                         <a href="#" class="family-settings_cap family-settings_cap__name" data-bind="click: $parent.beginEditField">Когда хотим?</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <select placeholder="Когда хотим?" data-placeholder="Когда хотим?" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.planingArray, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Когда хотим?'">
                             </select>
+                            <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                         </div>
                         <!-- ko if: $parent.familyMember.id() !== null -->
                         <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
@@ -316,14 +321,15 @@
                 <!-- gender-->
                 <!-- Пол-->
                 <div class="family-settings_row" data-bind="with: familyMember.gender">
-                    <!-- ko if: $data.editing() === false && !$data.value() -->
+                    <!-- ko if: $data.editing() === false && $data.value() === null -->
                         <a href="#" class="family-settings_cap family-settings_cap__gender" data-bind="click: $parent.beginEditField">Кого ждем?</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
                         <!-- В случае ошибки .error на .inp-valid-->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <select placeholder="Кого ждем?" data-placeholder="Кого ждем?" class="select-cus select-cus__gray select-cus__search-off"  data-bind="options: $parent.genderArrayThree, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Кого ждем?'">
                             </select>
+                            <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                         </div>
                         <!-- ko if: $parent.familyMember.id() !== null -->
                         <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
@@ -340,7 +346,7 @@
                         <a href="#" class="family-settings_cap family-settings_cap__name" data-bind="click: $parent.beginEditField">Когда ждем?</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <div class="float-l w-80 margin-r10">
                                 <select placeholder="День" data-placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true, optionsCaption: 'День'">
                                 </select>
@@ -353,6 +359,7 @@
                                 <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.years, value: $data.year, valueAllowUnset: true, optionsCaption: 'Год'">
                                 </select>
                             </div>
+                            <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                         </div>
                         <!-- ko if: $parent.familyMember.id() !== null -->
                             <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
@@ -437,9 +444,10 @@
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
                         <!-- В случае ошибки .error на .inp-valid-->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <select placeholder="Статус отношений" data-placeholder="Статус отношений" class="select-cus select-cus__gray select-cus__search-off" data-bind="options: $parent.relationshipArray, optionsText: 'name', optionsValue: 'id', value: $data.value, valueAllowUnset: true, optionsCaption: 'Статус отношений'">
                             </select>
+                            <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                         </div>
                         <!-- ko if: $parent.familyMember.id() !== null -->
                             <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
@@ -456,8 +464,9 @@
                         <a href="#" class="family-settings_cap family-settings_cap__name" data-bind="click: $parent.beginEditField">Имя</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <input type="text" class="itx-gray" placeholder="Имя" data-bind="value: $data.value">
+                            <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                         </div>
                         <!-- ko if: $parent.familyMember.id() !== null -->
                             <a href="#" class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.familyMember.canSubmit() === false }, click: $parent.endEditField.bind($parent)">ok</a>
@@ -473,8 +482,9 @@
                         <a href="#" class="family-settings_cap family-settings_cap__desc" data-bind="click: $parent.beginEditField">Пару слов</a>
                     <!-- /ko -->
                     <!-- ko if: $data.editing() === true -->
-                        <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <textarea rows="3" class="itx-gray" placeholder="Пару слов" data-bind="value: $data.value"></textarea>
+                            <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                         </div>
                         <br>
                         <!-- ko if: $parent.familyMember.id() !== null -->

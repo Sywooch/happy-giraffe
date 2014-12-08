@@ -40,9 +40,11 @@ define(['knockout', 'models/Model', 'models/User', 'user-config', 'models/Family
             if (data.members !== undefined) {
                 if (data.members.length > 0) {
                     for (var i=0; i < data.members.length; i++) {
-                        var familyMember = Object.create(FamilyMember);
-                        this.forbiddenArray = FamilyMember.forbiddenFilterHandler(data.members[i], this.forbiddenArray);
-                        this.members.push(familyMember.init(data.members[i]));
+                        if (parseInt(data.members[i].userId) !== this.userId) {
+                            var familyMember = Object.create(FamilyMember);
+                            this.forbiddenArray = FamilyMember.forbiddenFilterHandler(data.members[i], this.forbiddenArray);
+                            this.members.push(familyMember.init(data.members[i]));
+                        }
                     }
                 }
             }

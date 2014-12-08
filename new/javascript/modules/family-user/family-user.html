@@ -4,9 +4,7 @@
     </div>
     <!-- ko if: loadingFamily() === false -->
         <!-- ko foreach: family.members() -->
-            <!-- ko if: $data.userId !== $parent.family.userId -->
                 <family-settings params="forbiddenArray: $parent.family.forbiddenArray, member: $data, index: $index"></family-settings>
-            <!-- /ko -->
         <!-- /ko -->
         <!-- ko if: family.members().length === 1 || family.id() === null || family.members().length === 0 -->
             <!-- Блок Добавления-->

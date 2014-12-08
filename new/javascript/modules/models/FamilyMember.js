@@ -46,9 +46,10 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             if (errorData.success === false) {
                 if (errorData.data.errors !== undefined) {
                     for (var errorType in errorData.data.errors) {
+                        this[errorType].errors([]);
                         if (errorData.data.errors[errorType].length > 0) {
                             for (var errorI = 0; errorI < errorData.data.errors[errorType].length; errorI++) {
-                                this.errors.push(errorData.data.errors[errorType][errorI]);
+                                this[errorType].errors.push(errorData.data.errors[errorType][errorI]);
                             }
                         }
                     }
@@ -127,8 +128,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                     break;
                 case this.memberTypes.planning.name:
                     this.planningWhen.value.extend({ mustFill: true });
-                    this.gender.value.extend({ mustFill: true });
-                    if (this.planningWhen.value.isValid() && this.gender.value.isValid()) {
+                    if (this.planningWhen.value.isValid()) {
                         canSubmitFields = true;
                     } else {
                         canSubmitFields = false;
@@ -179,7 +179,12 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             this.userId = parseInt(data.userId || null);
             this.type = Model.createStdProperty(data.type || null, 'type');
             this.relationshipStatus = Model.createStdProperty(data.relationshipStatus || null, 'relationshipStatus');
-            this.gender = Model.createStdProperty(data.gender || null, 'gender');
+            if (data.gender === null) {
+                this.gender = Model.createStdProperty(data.gender || 'null', 'gender');
+            }
+            else {
+                this.gender = Model.createStdProperty(data.gender || null, 'gender');
+            }
             this.name = Model.createStdProperty(data.name || null, 'name');
             this.description = Model.createStdProperty((data.description || this.id() !== null) ? data.description : null, 'description');
             this.birthday = Model.createStdProperty(data.birthday || {}, 'birthday');

@@ -38,13 +38,14 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         this.endEditField = function endEditField(data, event) {
             var attribute = {};
                 attribute[data.name] = data.value();
-                this.familyMember.updateMember(attribute);
+                this.familyMember.updateMember(attribute).done(this.familyMember.errorHandler.bind(this.familyMember));
                 data.editing(false);
         };
         this.submitMemberHandler = function submitMemberHandler(familyMemberData) {
             if (familyMemberData.success === true) {
                 this.familyMember.updateModel(familyMemberData.data);
             }
+            this.familyMember.errorHandler(familyMemberData);
         };
         this.submitMember = function submitMember() {
             var attributes = Model.checkFieldsToPass(this.familyMember.memberTypes[this.familyMember.type.value()].fields, this.familyMember);

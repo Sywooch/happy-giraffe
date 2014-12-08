@@ -41,6 +41,20 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             married: 'married'
         },
         removed: ko.observable(),
+        errorHandler: function errorHandler(errorData) {
+            if (errorData.success === false) {
+                if (errorData.data.errors !== undefined) {
+                    for (var errorType in errorData.data.errors) {
+                        if (errorData.data.errors[errorType].length > 0) {
+                            for (var errorI = 0; errorI < errorData.data.errors[errorType].length; errorI++) {
+                                this.errors.push(errorData.data.errors[errorType][errorI]);
+                            }
+                            console.log(this.errors());
+                        }
+                    }
+                }
+            }
+        },
         createMember: function createMember(attribObj) {
             if (this.photo() !== null) {
                 return Model.get(this.createMemberUrl, { attributes: attribObj, photoId: this.photo().id() });
@@ -152,6 +166,9 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                 }
             }
         },
+        getBirthdayValue: function getBirthdayValue() {
+            return this.year() + '-' +  this.month() + '-' + this.day();
+        },
         init: function init(data) {
             data = (data === undefined) ? {} : data;
             this.id = ko.observable(data.id || null);
@@ -165,15 +182,14 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             this.birthday.day = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getDate() : null);
             this.birthday.month = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getMonth() + 1 : null);
             this.birthday.year = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getFullYear() : null);
-            this.birthday.value = ko.computed(function () {
-               return this.year() + '-' +  this.month() + '-' + this.day();
-            }, this.birthday);
+            this.birthday.value = ko.computed(this.getBirthdayValue, this.birthday);
             this.ageString = Model.createStdProperty(data.ageString || null, 'ageString');
             this.planningWhen = Model.createStdProperty(data.planningWhen || null, 'planningWhen');
             this.removed = ko.observable(false);
             this.canSubmit = ko.computed(this.canSubmit, this);
             this.photoCollection(data.photoCollection !== undefined ? new PhotoCollection(data.photoCollection) : null);
-            this.photo(this.photoAttaching());
+            this.photo = ko.observable(this.photoAttaching());
+            this.errors = ko.observableArray(null);
             this.photo.subscribe(this.watchForPhoto.bind(this));
             return this;
         }

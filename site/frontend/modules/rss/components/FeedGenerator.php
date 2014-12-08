@@ -18,22 +18,21 @@ class FeedGenerator
     /**
      * @var \EFeed
      */
-    protected $feed;
+    public $feed;
 
-    public function __construct(\CDataProvider $dataProvider)
-    {
-        $this->dataProvider = $dataProvider;
-    }
-
-    public function run()
+    public function __construct()
     {
         $this->feed = new \EFeed();
-        $data = $this->dataProvider->data;
+    }
+
+    public function fill(\CActiveDataProvider $dataProvider, $page = 0)
+    {
+        $dataProvider->pagination->setCurrentPage($page);
+        $data = $dataProvider->data;
         foreach ($data as $model) {
             $item = $this->getItemByModel($model);
             $this->feed->addItem($item);
         }
-        $this->feed->generateFeed();
     }
 
     /** @todo исправить формирование ссылки на комментарии */
@@ -43,18 +42,14 @@ class FeedGenerator
             throw new \Exception('Model must have rss behavior attached');
         }
 
-        if ($model->asa('UrlBehavior') === null) {
-            throw new \Exception('Model must have url behavior attached');
-        }
-
         $item = $this->feed->createNewItem();
-        $item->addTag('guid', $model->getUrl(true), array('isPermaLink' => 'true'));
-        $item->addTag('author', \Yii::app()->controller->createAbsoluteUrl('/blog/default/index', array('user_id' => $model->getAuthor()->id)));
-        $item->setDate($model->getDate());
-        $item->setLink($model->getUrl(true));
-        $item->setTitle($model->getTitle());
-        $item->setDescription($model->getDescription());
-        $item->addTag('comments', $model->getUrl(true) . '#comment_list');
+        $item->addTag('guid', $model->getRssUrl(), array('isPermaLink' => 'true'));
+        $item->addTag('author', \Yii::app()->controller->createAbsoluteUrl('/blog/default/index', array('user_id' => $model->getRssAuthor()->id)));
+        $item->setDate($model->getRssDate());
+        $item->setLink($model->getRssUrl(true));
+        $item->setTitle($model->getRssTitle());
+        $item->setDescription($model->getRssDescription());
+        $item->addTag('comments', $model->getRssUrl() . '#comment_list');
 
         return $item;
     }

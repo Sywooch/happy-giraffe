@@ -1,16 +1,17 @@
-define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Family', 'models/FamilyMember'], function FamilyUserViewModelHandler($, ko, template, Family, FamilyMember) {
+define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Family', 'models/FamilyMember', 'ko_photoUpload', 'ko_library'], function FamilyUserViewModelHandler($, ko, template, Family, FamilyMember) {
 
     function FamilyUserViewModel() {
         this.family = Object.create(Family);
         this.membersArray = ko.observableArray();
         this.loadingFamily = ko.observable(true);
+
         this.addFamilyMember = function addFamilyMember() {
             var familyMember = Object.create(FamilyMember);
                 familyMember = familyMember.init();
             this.family.members.push(familyMember);
         };
         this.addFamilyPhoto = function addFamilyPhoto() {
-
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
         };
         this.addFamilyDescription = function addFamilyDescription() {
             this.family.description.editing(true);
@@ -21,13 +22,17 @@ define(['jquery', 'knockout', 'text!family-user/family-user.html', 'models/Famil
                   this.family.init(familyData.data);
                   this.loadingFamily(false);
               } else {
-                  this.loadingFamily(false);
+                  this.createFamily();
               }
             }
+        };
+        this.createFamily = function createFamily() {
+            return this.family.create().done(this.createFamilyHandler.bind(this));
         };
         this.createFamilyHandler = function createFamilyHandler(familyData) {
             if (familyData.success === true) {
                 this.family.init(familyData.data);
+                this.loadingFamily(false);
             }
         };
         this.removeMemberInstance = function removeMemberInstance(data, event) {

@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'models/Model', 'models/Family', 'models/FamilyMember'], function FamilySettingsViewModelHandler($, ko, template, Model, Family, FamilyMember) {
+define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'models/Model', 'models/Family', 'models/FamilyMember', 'ko_photoUpload', 'ko_library'], function FamilySettingsViewModelHandler($, ko, template, Model, Family, FamilyMember) {
     function FamilySettingsViewModel(params) {
         this.family = params.family;
         this.familyMember = params.member;
@@ -13,6 +13,9 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
         this.createMember = function createMember(memberType) {
             this.familyMember.type.value(FamilyMember.memberTypes[memberType].name);
             initSelect2();
+        };
+        this.addPhoto = function addPhoto() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
         };
         this.findSelectName = function findSelectName(id, array) {
             for (var i = 0; i < array.length; i++) {

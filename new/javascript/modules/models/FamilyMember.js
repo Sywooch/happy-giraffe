@@ -1,9 +1,12 @@
-define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config', 'moment', 'extensions/knockout.validation', 'extensions/validatorRules'], function FamilyMemberModel(ko, Model, User, Family, userConfig, moment) {
+define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config', 'moment', 'photo/PhotoCollection', 'extensions/knockout.validation', 'extensions/validatorRules'], function FamilyMemberModel(ko, Model, User, Family, userConfig, moment, PhotoCollection) {
     var FamilyMember = {
         createMemberUrl: '/api/family/createMember/',
         updateMemberUrl: '/api/family/updateMember/',
         removeMemberUrl: '/api/family/removeMember/',
         restoreMemberUrl: '/api/family/restoreMember/',
+        photo: ko.observable(null),
+        photoCollection: ko.observable(null),
+        attach: ko.observable(null),
         memberTypes: {
             adult: {
                 name: 'adult',
@@ -39,9 +42,15 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         },
         removed: ko.observable(),
         createMember: function createMember(attribObj) {
-           return Model.get(this.createMemberUrl, { attributes: attribObj });
+            if (this.photo() !== null) {
+                return Model.get(this.createMemberUrl, { attributes: attribObj, photoId: this.photo().id() });
+            }
+            return Model.get(this.createMemberUrl, { attributes: attribObj });
         },
         updateMember: function updateMember(attribObj) {
+            if (this.photo() !== null) {
+                Model.get(this.updateMemberUrl, { id: this.id(), attributes: attribObj, photoId: this.photo().id() });
+            }
             return Model.get(this.updateMemberUrl, { id: this.id(), attributes: attribObj });
         },
         removeMember: function removeMember() {
@@ -51,6 +60,26 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         restoreMember: function restoreMember() {
             this.removed(false);
             return Model.get(this.restoreMemberUrl, { id: this.id() });
+        },
+        photoAttaching: function photoAttaching () {
+            if (this.photoCollection() !== null) {
+                if (this.photoCollection().attachesCount() > 0) {
+                    this.attach(this.photoCollection().cover());
+                    return this.photoCollection().cover().photo();
+                }
+            }
+            return null;
+        },
+        removeMemberPhoto: function removeFamilyPhoto() {
+            if (this.attach() !== null) {
+                this.attach().remove();
+            }
+            this.photo(null);
+        },
+        watchForPhoto: function watchForPhoto(photo) {
+            if (photo !== null) {
+                Model.get(this.updateMemberUrl, { id: this.id(), attributes: {}, photoId: photo.id() });
+            }
         },
         canSubmit: function canSubmit() {
             var canSubmitFields;
@@ -143,6 +172,9 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             this.planningWhen = Model.createStdProperty(data.planningWhen || null, 'planningWhen');
             this.removed = ko.observable(false);
             this.canSubmit = ko.computed(this.canSubmit, this);
+            this.photoCollection(data.photoCollection !== undefined ? new PhotoCollection(data.photoCollection) : null);
+            this.photo(this.photoAttaching());
+            this.photo.subscribe(this.watchForPhoto.bind(this));
             return this;
         }
 

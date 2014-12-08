@@ -8,7 +8,7 @@
                 <family-settings params="family: $parent.family, member: $data, index: $index"></family-settings>
             <!-- /ko -->
         <!-- /ko -->
-        <!-- ko if: family.members().length === 1 || family.id() === null -->
+        <!-- ko if: family.members().length === 1 || family.id() === null || family.members().length === 0 -->
             <!-- Блок Добавления-->
             <div class="cap-add cap-add__l cap-add__family-member" data-bind="click: addFamilyMember">
                 <div class="cap-add_hold">
@@ -27,14 +27,29 @@
                 </div>
             </div>
         <!-- /ko -->
-        <!--<div class="cap-add cap-add__l cap-add__family-photo" data-bind="click: addFamilyPhoto">-->
-            <!--<div class="cap-add_hold">-->
-                <!--<div class="cap-add_in">-->
-                    <!--<div class="cap-add_tx">Добавить&nbsp;семейное фото </div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!-- ko if: family.description.value() === null && family.description.editing() === false -->
+        <!-- ko if: family.photoCollection() && family.photo() === null -->
+        <div class="cap-add cap-add__l cap-add__family-photo" data-bind="photoComponentUpload: { data: { multiple: false, collectionId: family.photoCollection().id() }, observable: family.photo }, click: addFamilyPhoto">
+            <div class="cap-add_hold">
+                <div class="cap-add_in">
+                    <div class="cap-add_tx">Добавить&nbsp;семейное фото </div>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: family.photo() !== null -->
+        <div class="family-photo">
+            <a href="#" class="ico-close4" data-bind="click: family.removeFamilyPhoto.bind(family)"></a>
+            <div class="family-photo_t">Семейное фото</div>
+            <div class="family-photo_ovrlay"></div>
+            <div class="family-photo_b">
+                <!--<a href="#" class="ico-photo-edit powertip"></a>-->
+            </div><!-- У изображений соотношения сторон сохраняются --><!-- соотношение сторон 3:4-->
+            <picture class="family-photo_img-picture">
+                <img src="" alt="Фото" class="family-photo_img-big" data-bind="src: family.photo().photo().getGeneratedPreset('familyMainPhoto')">
+            </picture>
+        </div>
+        <!-- /ko -->
+        <!--  ko if: family.id() === null -->
             <div class="cap-add cap-add__l cap-add__family-text" data-bind="click: addFamilyDescription">
                 <div class="cap-add_hold">
                     <div class="cap-add_in">
@@ -43,36 +58,47 @@
                 </div>
             </div>
         <!-- /ko -->
-        <!-- ko if: family.description.editing() === true -->
+        <!--  ko if: family.id() !== null -->
+            <!-- ko if: family.description.value() === null && family.description.editing() === false -->
+            <div class="cap-add cap-add__l cap-add__family-text" data-bind="click: addFamilyDescription">
+                <div class="cap-add_hold">
+                    <div class="cap-add_in">
+                        <div class="cap-add_tx">Добавить&nbsp;рассказ о семье</div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: family.description.editing() === true -->
             <div class="family-about family-about__edit">
                 <div class="family-edit"><!--a.ico-edit.ico-edit__s(href='#')-->
                     <a href="#" class="ico-close4" data-bind="click: closeFamilyDescription"></a>
                 </div>
                 <div class="family-about_t">О нашей семье</div>
-                    <div class="family-about_bubble">
-                        <div class="inp-valid inp-valid__abs">
-                            <textarea rows="8" class="itx-gray" data-bind="value: family.description.value"></textarea>
-                            <div class="inp-valid_count">300</div>
-                        </div>
+                <div class="family-about_bubble">
+                    <div class="inp-valid inp-valid__abs">
+                        <textarea rows="8" class="itx-gray" data-bind="value: family.description.value"></textarea>
+                        <div class="inp-valid_count">300</div>
+                    </div>
                     <div class="textalign-c margin-t15">
                         <a class="btn btn-secondary btn-xm margin-r10" data-bind="click: closeFamilyDescription">Отмена</a>
                         <a class="btn btn-success btn-xm" data-bind="click: submitFamilyDescription">Сохранить</a>
                     </div>
                 </div>
             </div>
-        <!-- /ko -->
-        <!-- ko if: family.description.value() !== null && family.description.editing() === false -->
-        <div class="family-about family-about__edit">
-            <div class="family-edit">
-                <a href="#" class="ico-edit ico-edit__s" data-bind="click: addFamilyDescription"></a>
-                <a href="#" class="ico-close4" data-bind="click: removeFamilyDescription"></a>
-            </div>
-            <div class="family-about_t">О нашей семье</div>
-            <div class="family-about_bubble">
-                <div class="family-about_tx" data-bind="text: family.description.value()">
+            <!-- /ko -->
+            <!-- ko if: family.description.value() !== null && family.description.editing() === false -->
+            <div class="family-about family-about__edit">
+                <div class="family-edit">
+                    <a href="#" class="ico-edit ico-edit__s" data-bind="click: addFamilyDescription"></a>
+                    <a href="#" class="ico-close4" data-bind="click: removeFamilyDescription"></a>
+                </div>
+                <div class="family-about_t">О нашей семье</div>
+                <div class="family-about_bubble">
+                    <div class="family-about_tx" data-bind="text: family.description.value()">
+                    </div>
                 </div>
             </div>
-        </div>
+            <!-- /ko -->
         <!-- /ko -->
     <!-- /ko -->
 </div>

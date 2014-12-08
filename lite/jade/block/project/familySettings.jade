@@ -7,6 +7,11 @@ mixin familySettings(mod, vars)
                 a.ico-edit.ico-edit__s(href='#')
             a.ico-close4(href='#')
 
+        if (vars.cardError)
+            .inp-valid.inp-valid__abs.error
+                .inp-valid_error
+                    .errorMessage 
+                        | Карточка заполнена не правильно
 
         if(vars.type == 'child')
             .family-settings_t Дети
@@ -416,6 +421,7 @@ mixin familySettings(mod, vars)
 - familySettings.a.descCap = true
 
 - familySettings.b = {}
+- familySettings.b.cardError = true
 - familySettings.b.type = 'child'
 - familySettings.b.photoCapAdd = true
 - familySettings.b.icoEditTop = false

@@ -3,8 +3,8 @@ define(['jquery', 'knockout', 'photo-slider/photo-slider'], function sliderBindi
         init: function photoSliderInit(element, valueAccessor, allBindings, bindingContext) {
             var values = valueAccessor(),
                 tagName = 'photo-slider';
-            var photo = (ko.isObservable(values.photo) === false) ? values.photo.id : values.photo().id(),
-                collectionId = (ko.isObservable(values.photo) === false) ? values.collectionId : values.collectionId();
+            var photo = (ko.isObservable(values.photo) === false) ? values.photo : values.photo().id(),
+                collectionId = (ko.isObservable(values.collectionId) === false) ? values.collectionId : values.collectionId();
             $(element).on('click', function sliderClickHandler() {
                 if ( $(tagName).length === 0 ) {
                     $(element).after('<' + tagName + ' params="{ photo: ' + photo + ', collectionId: ' + collectionId + '}"></' + tagName + '>');

@@ -36,6 +36,10 @@ class MembersListWidget extends \CWidget
 
         if ($aTypePriority == $bTypePriority) {
             if ($a->type == 'child') {
+                if ($a->birthday === null && $b->birthday !== null) {
+                    return 1;
+                }
+
                 $aTime = strtotime($a->birthday);
                 $bTime = strtotime($b->birthday);
                 if ($aTime == $bTime) {

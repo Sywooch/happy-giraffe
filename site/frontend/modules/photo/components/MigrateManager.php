@@ -53,7 +53,7 @@ class MigrateManager
         ));
         $total = $dp->totalItemCount;
 
-        $iterator = new \CDataProviderIterator($dp);
+        $iterator = new \CDataProviderIterator($dp, 100);
         foreach ($iterator as $i => $album) {
             if ($album->newAlbumId !== null) {
                 continue;

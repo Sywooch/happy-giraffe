@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `som__status` (
   `moodId` INT(10) UNSIGNED NULL DEFAULT NULL,
   `authorId` INT(10) UNSIGNED NOT NULL,
   `isRemoved` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  `dtimeCreate` INT(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_som__status_som__status_moods1_idx` (`moodId` ASC),
   CONSTRAINT `fk_som__status_som__status_moods1`

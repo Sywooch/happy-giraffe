@@ -1,4 +1,4 @@
-define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetManager'], function (ko, baseConfig, PresetManager) {
+define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions/PresetManager'], function ($, ko, baseConfig, PresetManager) {
     "use strict";
     // Основная модель фотографии
     function Photo(data) {
@@ -27,7 +27,7 @@ define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetMan
         }
         this.getGeneratedPreset = function generatePreseted(preset) {
             if (this.presetHash() === undefined) {
-                if (PresetManager.getPresetHash(preset) === undefined) {
+                if (PresetManager.presets === undefined || $.isPlainObject(PresetManager.presets)) {
                     this.preset = preset;
                     PresetManager.getPresets(this.handlePresets.bind(this));
                 } else {

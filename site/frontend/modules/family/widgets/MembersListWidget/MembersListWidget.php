@@ -41,7 +41,7 @@ class MembersListWidget extends \CWidget
                 if ($aTime == $bTime) {
                     return 0;
                 }
-                return (($aTime < $bTime)) ? -1 : 1;
+                return (($aTime < $bTime) && ($aTime != 0)) ? -1 : 1;
             }
             if ($a->type == 'adult') {
                 return ($this->isMe($a)) ? -1 : 1;

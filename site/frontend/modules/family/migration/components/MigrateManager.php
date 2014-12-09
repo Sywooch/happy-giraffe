@@ -193,6 +193,7 @@ FROM family__families;")->execute();
 
         var_dump($this->user->relationship_status);
         var_dump($partner->relationshipStatus);
+        die;
 
         $this->saveMember($partner, $oldPartner);
     }

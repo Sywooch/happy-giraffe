@@ -7,7 +7,7 @@ namespace site\frontend\modules\users\models;
  *
  * @author Кирилл
  */
-class User extends \User
+class User extends \fUser
 {
 
     public static function model($className = __CLASS__)

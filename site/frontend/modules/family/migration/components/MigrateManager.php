@@ -190,6 +190,10 @@ FROM family__families;")->execute();
         $partner->name = $oldPartner->name;
         $partner->description = $oldPartner->notice;
         $partner->relationshipStatus = self::$_statusMap[$this->user->relationship_status];
+
+        var_dump($this->user->relationship_status);
+        var_dump($partner->relationshipStatus);
+
         $this->saveMember($partner, $oldPartner);
     }
 

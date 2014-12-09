@@ -33,7 +33,7 @@ $cs->registerAMD('photo-single', array('kow'));
                 <!-- b-article-->
                 <div class="b-article clearfix">
                     <div class="b-article_header clearfix">
-                        <div class="icons-meta"><a href="" class="icons-meta_comment"><span class="icons-meta_tx"><?=$commentsWidget->count?></span></a>
+                        <div class="icons-meta"><a href="#commentsList" class="icons-meta_comment"><span class="icons-meta_tx"><?=$commentsWidget->count?></span></a>
                             <div class="icons-meta_view"><span class="icons-meta_tx"><?=$this->getViews()?></span></div>
                         </div>
                         <div class="float-l">

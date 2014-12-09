@@ -5,9 +5,7 @@ include ../block/config
 //- vars from template file
 - var bodyClass = ''; 
 - var global = {}; 
-
 block vars
-    
 //- tag head
 +headLite(path, global)
 
@@ -25,7 +23,6 @@ body.body(class='#{bodyClass}')
             .layout-loose_hold.clearfix
                 block layout
                 
-            //- +btn-scrolltop()
     .popup-container.display-n  
         block block-hidden
         

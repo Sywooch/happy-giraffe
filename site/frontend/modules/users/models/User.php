@@ -1,7 +1,7 @@
 <?php
 
 namespace site\frontend\modules\users\models;
-//var_dump(\Yii::import('site.common.models.User'));
+\Yii::import('site.common.models.User');
 /**
  * Description of User
  *

@@ -21,6 +21,7 @@ class MigrateManager
         1 => Adult::STATUS_MARRIED,
         3 => Adult::STATUS_ENGAGED,
         4 => Adult::STATUS_FRIENDS,
+        null => Adult::STATUS_FRIENDS,
     );
 
     private static $_babyGender = array(

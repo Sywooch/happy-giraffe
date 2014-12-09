@@ -164,10 +164,10 @@ return array(
         'user/<user_id:\d+>/awards' => 'profile/default/awards',
         'profile/<_a>' => 'profile/default/<_a>',
 
-        'user/<user_id:\d+>/rss/page<page:\d+>' => 'rss/user',
-        'user/<user_id:\d+>/rss' => 'rss/user',
-        'user/<user_id:\d+>/comments/rss/page<page:\d+>' => 'rss/comments',
-        'user/<user_id:\d+>/comments/rss' => 'rss/comments',
+        'user/<userId:\d+>/rss/page<page:\d+>' => 'rss/default/user',
+        'user/<userId:\d+>/rss' => 'rss/default/user',
+        'user/<userId:\d+>/comments/rss/page<page:\d+>' => 'rss/default/comments',
+        'user/<userId:\d+>/comments/rss' => 'rss/default/comments',
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
@@ -440,10 +440,6 @@ return array(
         'user/<userId:\d+>/albums/<albumId:\d+>/photo<photoId:\d+>' => 'photo/singlePhoto/album',
         'photo/default/presets' => 'photo/default/presets',
         'photo/photo/thumb' => 'photo/photo/thumb',
-
-        'user/<userId:\d+>/rssUser' => 'rss/default/user',
-        'user/<userId:\d+>/rssComment/page<page:\d+>' => 'rss/default/comments',
-        'user/<userId:\d+>/rssComment' => 'rss/default/comments',
 
         'onair' => 'blog/air/index',
 

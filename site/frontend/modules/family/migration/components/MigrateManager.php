@@ -66,10 +66,21 @@ class MigrateManager
 
     public static function clean()
     {
-        Family::model()->deleteAll();
-        PhotoCollection::model()->deleteAll('entity = "Family"');
-        PhotoCollection::model()->deleteAll('entity = "FamilyMember"');
-        PhotoAlbum::model()->deleteAll('source = "family"');
+        \Yii::app()->db->createCommand("DELETE photo__collections
+FROM photo__collections
+JOIN photo__albums ON photo__albums.id = photo__collections.entity_id AND photo__collections.entity = 'PhotoAlbum'
+WHERE photo__albums.source = 'family';")->execute();
+        \Yii::app()->db->createCommand("DELETE
+FROM photo__collections
+WHERE entity = 'Family';")->execute();
+        \Yii::app()->db->createCommand("DELETE
+FROM photo__collections
+WHERE entity = 'FamilyMember';")->execute();
+        \Yii::app()->db->createCommand("DELETE
+FROM photo__albums
+WHERE source = 'family';")->execute();
+        \Yii::app()->db->createCommand("DELETE
+FROM family__families;")->execute();
     }
 
     public function __construct(\User $user)
@@ -163,7 +174,7 @@ class MigrateManager
 
     protected function hasPartner()
     {
-        return in_array($this->user->relationship_status, array_keys(self::$_statusMap)) && $this->user->partner !== null;
+        return $this->user->partner !== null;
     }
 
     protected function hasBabies()

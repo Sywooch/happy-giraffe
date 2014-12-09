@@ -68,6 +68,8 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionMigrate($id = null)
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         $mm = new MigrateManager();
         $mm->moveUserAlbumsPhotos($id);
     }

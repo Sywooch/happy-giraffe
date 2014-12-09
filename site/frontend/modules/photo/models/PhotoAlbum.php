@@ -114,7 +114,7 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
     {
         $t = $this->getTableAlias(false, false);
         return array(
-            'condition' => $t . '.removed = 0 AND ' . $t . '.source = "myPhotos"',
+            'condition' => $t . '.removed = 0 AND ' . $t . '.source IN ("myPhotos", "privateAlbum")',
         );
     }
 

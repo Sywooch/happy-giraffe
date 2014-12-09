@@ -17561,16 +17561,16 @@ add in old css
     }*/
 }
 .family-user .ico-myfamily__l {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .family-user .section-empty {
   margin: 20px 0 21px;
 }
-.family-user .cap-add {
+.family-user .cap-add__l {
   margin: 40px 0;
 }
 .family-user .cap-add__family-member {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .family-user_edit-hold {
   text-align: right;

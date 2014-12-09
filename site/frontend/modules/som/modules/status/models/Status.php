@@ -10,6 +10,8 @@ namespace site\frontend\modules\som\modules\status\models;
  * @property string $text
  * @property string $moodId
  * @property string $authorId
+ * @property string $isRemoved
+ * @property string $dtimeCreate
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\status\models\Moods $moodModel
@@ -66,6 +68,11 @@ class Status extends \CActiveRecord implements \IHToJSON
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
                 'removeAttribute' => 'isRemoved',
             ),
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
+                'createAttribute' => 'dtimeCreate',
+                'updateAttribute' => null,
+            ),
         );
     }
 
@@ -84,10 +91,21 @@ class Status extends \CActiveRecord implements \IHToJSON
         return array(
             'id' => $this->id,
             'text' => $this->text,
-            'mood' => array(
+            'mood' => is_null($this->moodModel) ? null : array(
                 'id' => $this->moodModel->id,
                 'text' => $this->moodModel->text,
             ),
+        );
+    }
+
+    /* scopes */
+
+    public function defaultScope()
+    {
+        $alias = $this->getTableAlias(true, false);
+        return array(
+            'condition' => $alias . '.`isRemoved` = 0',
+            'order' => $alias . '.`dtimeCreate` DESC',
         );
     }
 

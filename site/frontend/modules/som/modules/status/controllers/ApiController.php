@@ -23,7 +23,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         return array(
             array('allow',
-                'actions' => array('get', 'list', 'remove', 'restore', 'create', 'update', 'moods'),
+                'actions' => array('get', 'remove', 'restore', 'create', 'update', 'moods'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -56,7 +56,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = $comment->toJSON();
     }
 
-    public function actionCreate($text, $mood)
+    public function actionCreate($text, $mood = null)
     {
         if (!\Yii::app()->user->checkAccess('createStatus'))
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
@@ -92,19 +92,15 @@ class ApiController extends \site\frontend\components\api\ApiController
         }
     }
 
-    public function moods()
+    public function actionMoods()
     {
-        
-    }
-
-    public function actionList($entity, $entityId, $listType = 'list', $rootCount = false, $dtimeFrom = 0)
-    {
-        $models = $model->findAll();
-
-        $this->data['list'] = array_map(function($item) {
-            return $item->toJSON();
-        }, $models);
         $this->success = true;
+        $this->data['list'] = array_map(function($mood) {
+            return array(
+                'id' => $mood->id,
+                'text' => $mood->text,
+            );
+        }, \site\frontend\modules\som\modules\status\models\Moods::model()->findAll());
     }
 
 }

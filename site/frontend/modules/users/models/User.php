@@ -7,9 +7,8 @@ namespace site\frontend\modules\users\models;
  *
  * @author Кирилл
  */
-class User extends \fUser
+class User extends \User
 {
-
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -28,7 +27,4 @@ class User extends \fUser
             'publicChannel' => $this->getPublicChannel(),
         );
     }
-
 }
-
-?>

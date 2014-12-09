@@ -1,14 +1,15 @@
 <?php
 
 namespace site\frontend\modules\users\models;
-\Yii::import('site.common.models.User');
+var_dump(\Yii::import('site.common.models.User'));
 /**
  * Description of User
  *
  * @author Кирилл
  */
-class User
+class User extends \User
 {
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -27,4 +28,7 @@ class User
             'publicChannel' => $this->getPublicChannel(),
         );
     }
+
 }
+
+?>

@@ -40,6 +40,7 @@ class MigrateManager
         $criteria = new \CDbCriteria();
         $criteria->compare('t.removed', 0);
         $criteria->compare('type', 1);
+        $criteria->addCondition('newAlbumId IS NULL');
         $criteria->with = array('photos');
         $criteria->order = 't.id ASC';
 

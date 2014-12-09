@@ -43,7 +43,7 @@ $cs->registerAMD('photo-single', array('kow'));
                     </div>
                     <h1 class="b-article_t"><?=$attach->getTitle()?></h1>
                 </div>
-                <photo-single params='attach: <?=CJSON::encode($attach->toJSON())?>, attachPrev: <?=CJSON::encode($attachPrev->toJSON())?>, attachNext: <?=CJSON::encode($attachNext->toJSON())?>, collectionId: <?=$collection->id?>'>
+                <photo-single params='attach: <?=CJSON::encode($attach->toJSON())?>, attachPrev: <?=CJSON::encode(($attachPrev === null) ? false : $attachPrev->toJSON())?>, attachNext: <?=CJSON::encode(($attachNext === null) ? false : $attachNext->toJSON())?>, collectionId: <?=$collection->id?>'>
                     <!-- b-album-->
                     <section class="b-album b-album__photolink">
                         <div class="b-album_img-hold">

@@ -96,7 +96,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
     protected function instantiate($attributes)
     {
-        if (isset($attributes['type'])) {
+        if (isset($attributes['entity'])) {
             $class = self::getClassName($attributes['entity'], $attributes['key']);
         } else {
             $class = get_class($this);

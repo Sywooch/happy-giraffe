@@ -2,10 +2,10 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
 
     function PhotoSlider(params) {
         var collectionData = {};
-        collectionData.id = params.collectionId();
+        collectionData.id = (ko.isObservable(params.collectionId) === false) ? params.collectionId : params.collectionId();
         this.collectionId = params.collectionId;
         this.userSliderId = params.userId || User.userId;
-        this.photoAttach = params.photo;
+        this.photoAttach = (ko.isObservable(params.photo) === false) ? ko.observable(params.photo) : params.photo().id;
         this.title = params.title;
         this.description = params.description;
         this.user = Object.create(User);
@@ -18,6 +18,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.masterTitle = document.title;
         this.collection.usablePreset = ko.observable('sliderPhoto');
         this.setDelay = 1000;
+        this.tagName = 'photo-slider';
         this.currentId = ko.observable();
         /**
          * getting User
@@ -56,7 +57,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          */
         this.lookForStart = function lookForStart(newAttaches) {
             var title;
-            this.current(Model.findByIdObservableIndex(this.photoAttach().id(), this.collection.attaches()));
+            this.current(Model.findByIdObservableIndex(this.photoAttach(), this.collection.attaches()));
             title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : (this.current().index() + 1);
             this.currentId(this.current().element().id());
             AdHistory.pushState(null, title, this.current().element().url());
@@ -106,9 +107,14 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * close handler
          */
         this.closePhotoHandler = function closePhotoHandler(Parent) {
-            Parent.closePhotoHandler(Parent);
+            if (!$.isPlainObject(Parent)) {
+                Parent.closePhotoHandler(Parent);
+            } else {
+                $(this.tagName).remove();
+            }
             AdHistory.pushState(null, this.masterTitle, this.masterUrl);
         };
+
         /**
          * Shitty jqcode
          */
@@ -117,10 +123,9 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             var colCont = $(".photo-window_cont");
             //var bannerH = document.getElementById('photo-window_banner').offsetHeight;
             colCont.height($(window).height() - 24);
-        }
+        };
         $(document).ready(function () {
             photoWindColH();
-
             /* custom scroll */
             var scroll = $('.scroll').baron({
                 scroller: '.scroll_scroller',
@@ -130,10 +135,16 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 bar: '.scroll_bar'
             });
         });
-
         $(window).resize(function () {
             photoWindColH();
         });
+    };
+
+    PhotoSlider.prototype.dispose = function disposePhotoSlider() {
+        this.current.dispose();
+        this.photoAttach.dispose();
+        this.collection.dispose();
+        this.userInstance.dispose();
     };
 
     return {

@@ -17,7 +17,7 @@ class FamilyAllPhotoCollection extends PhotoCollection implements IPublicPhotoCo
 {
     public function getTitle()
     {
-        $owner = $this->getOwner();
+        $owner = $this->getAuthor();
         if ($owner->id == \Yii::app()->user->id) {
             return 'Моя семья';
         } else {
@@ -25,7 +25,7 @@ class FamilyAllPhotoCollection extends PhotoCollection implements IPublicPhotoCo
         }
     }
 
-    public function getOwner()
+    public function getAuthor()
     {
         $family = $this->RelatedModelBehavior->relatedModel;
         $familyMember = FamilyMember::model()->family($family->id)->real()->find();

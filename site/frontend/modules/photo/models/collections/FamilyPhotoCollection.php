@@ -15,11 +15,11 @@ class FamilyPhotoCollection extends PhotoCollection
     public function getRelatedCollections()
     {
         return array(
-            $this->owner->getPhotoCollection('all'),
+            $this->RelatedModelBehavior->relatedModel->getPhotoCollection('all'),
         );
     }
 
-    public function getOwner()
+    public function getAuthor()
     {
         $family = $this->RelatedModelBehavior->relatedModel;
         $familyMember = FamilyMember::model()->family($family->id)->real()->find();

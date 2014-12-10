@@ -18,7 +18,7 @@ class FamilyMemberPhotoCollection extends PhotoCollection
         );
     }
 
-    public function getOwner()
+    public function getAuthor()
     {
         $familyMember = $this->RelatedModelBehavior->relatedModel;
         return \User::model()->findByPk($familyMember->user->id);

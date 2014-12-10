@@ -13,9 +13,6 @@ if ($this->owner->id == Yii::app()->user->id) {
 } else {
     $this->pageTitle = 'Семья - ' . $this->owner->fullName;
 }
-
-$familyCollection = $family->getPhotoCollection('all');
-$attach = $familyCollection->observer->getByAttach($family->photoCollection->observer->getSingle(0));
 ?>
 
 <div class="b-main_cont b-main_cont__wide">
@@ -30,9 +27,7 @@ $attach = $familyCollection->observer->getByAttach($family->photoCollection->obs
             </div>
         <?php endif; ?>
 
-        <?php if ($attach !== null): ?>
-            <?php $this->renderPartial('_mainPhoto', array('attach' => $attach)); ?>
-        <?php endif; ?>
+        <?php $this->renderPartial('_mainPhoto', compact('family')); ?>
         <!-- family-about-->
         <div class="family-about">
             <?php if ($family->description): ?>

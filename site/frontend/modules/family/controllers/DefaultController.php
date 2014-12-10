@@ -43,14 +43,18 @@ class DefaultController extends \LiteController
         if ($family !== null) {
             $this->render('index', compact('family',  'userId'));
         } elseif (\Yii::app()->user->id == $userId) {
-            $this->render('empty');
+            $this->render('empty', compact('userId'));
         } else {
             throw new \CHttpException(404);
         }
 	}
 
-    public function actionFill()
+    public function actionFill($userId)
     {
+        if (\Yii::app()->user->id != $userId) {
+            throw new \CHttpException(404);
+        }
+
         $this->render('fill');
     }
 }

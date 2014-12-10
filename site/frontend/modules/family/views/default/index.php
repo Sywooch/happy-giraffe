@@ -4,6 +4,7 @@
  * @var site\frontend\modules\family\models\Family $family
  * @var integer $userId
  */
+$this->metaNoindex = true;
 $this->breadcrumbs = array(
     'Семья',
 );

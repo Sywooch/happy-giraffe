@@ -16,7 +16,3 @@ $cs->registerAMD($id, array('ko' => 'knockout', 'kow' => 'kow', 'sliderBinding' 
     <img src="<?=Yii::app()->thumbs->getThumb($photo, 'familyMemberImage')?>" alt="" class="family-member_img">
     <div class="family-member_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
 </a>
-
-<script>
-
-</script>

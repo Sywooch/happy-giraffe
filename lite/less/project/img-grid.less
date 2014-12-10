@@ -20,7 +20,7 @@
     }
     &_i {
         position: relative;
-        margin: 0 0 15px;
+        margin: 0 20px 20px 0;
         /*height: 320px;
         height: 61.6vw;*/
         cursor: pointer;
@@ -93,6 +93,91 @@
         margin: 5px;
         color: #fff;
     }
+
+    //////////////// О фото, применяется в семье
+    &_about {
+        position: relative;
+        float: left;
+        width: 236px;
+        z-index: 15;
+        padding: 20px;
+        color: #fff;
+    }
+    &_about:after {
+        content: "";
+        position: absolute;
+        top: 35px;
+        left: -20px;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        z-index: 5;
+        border: 10px solid transparent;
+    }
+    &_about__right {
+        margin: 0 17px 0 -30px;
+        .border-left-radius(18px);
+    }
+    &_about__left {
+        margin: 0 -13px 0 17px;
+        .border-right-radius(18px);
+    }
+    &_about__left:first-child{margin-left: 0;}
+    &_about__green {background-color: #4fb145;}
+    &_about__green &_about-photo-hold {background-color: #47a93d;}
+    &_about__green.img-grid_about__right:after {
+        border-right-color: #4fb145;
+    }
+    &_about__green.img-grid_about__left:after {
+        left: auto;
+        right: -20px;
+        border-left-color: #4fb145;
+    }
+    &_about__carrot {background-color: #ff7d0a;}
+    &_about__carrot &_about-photo-hold {background-color: #fb7702;}
+
+    &_about__carrot.img-grid_about__right:after {
+        border-right-color: #fb7702;
+    }
+    &_about__carrot.img-grid_about__left:after {
+        left: auto;
+        right: -20px;
+        border-left-color: #fb7702;
+    }
+    &_about-photo {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+    &_about-photo-hold {
+        display: table-cell;
+        width: 55px; 
+        max-width: 55px;
+        height: 55px;
+        max-height: 55px;
+        vertical-align: middle;
+        text-align: center;
+    }
+    &_about-name {
+        .inline-block();
+        vertical-align: middle;
+        font-size: 11px;
+    }
+    &_about-tx-hold {
+        height: 100%;
+        overflow: hidden;
+        padding: 10px 0 60px;
+        .box-sizing(border-box);
+    }
+    &_about-tx {
+        position: relative;
+        font-size: 14px;
+        -webkit-column-width: 200px;
+        column-width: 200px;
+        height: 100%;
+        overflow: hidden;
+    }
+    ////////////
 
     /// ico в альбомах
     &_ico-ava {
@@ -172,11 +257,11 @@
         
 
         &_row {
-            margin: 0 -25px 20px 0;
+            margin: 0 -25px 0 0;
         }
         &_i {
             float: left;
-            margin: 0 20px 0 0;
+            margin: 0 20px 20px 0;
             height: auto;
         }
         &_img-pad {

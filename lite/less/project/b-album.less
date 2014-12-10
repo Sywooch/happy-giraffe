@@ -59,10 +59,14 @@
     &_img-allheight img {
         max-height: 100%;
     }
+    &_img-allheight .loader-circle {
+        display: inline-block;
+    }
     &_img-hold {
         position: relative;
         background: #4d445c;
         text-align: center;
+        overflow: hidden;
     }
     &_img-hold:hover &_img-hold-ovr {display: block;}
     &_img-hold img {
@@ -82,6 +86,8 @@
         width: auto; 
         height: auto;  
         overflow: hidden;
+        background-size: cover;
+        background-position: 50% 50%;
     }
     &_img-big {
         position: absolute; 
@@ -90,9 +96,12 @@
         right: 0;
         bottom: 0;
         margin: auto; 
-        min-width: 50%;
-        min-height: 50%;
-        width: 100%;
+        /*min-width: 50%;
+        min-height: 50%;*/
+        /*height: 100%;*/
+    }
+    &_img-pad-3-4 {
+        padding-bottom: 75%;
     }
     &_img-pad {
         padding-bottom: 66.66%;
@@ -161,6 +170,8 @@
     &_prev-li {
         float: left;
         margin: 0 5px 0 0;
+        /*max-width: 110px; // для контроля ширины всего списка и недопускать паданья элементов
+        max-height: 70px;*/
     }
     &_prev-a {
         position: relative;
@@ -175,6 +186,11 @@
         bottom: 0;
         left: 0;
         border: 2px solid #ffe641; // #A591CD; // #4baa41;
+    }
+    // сопряжено с _prev-li 
+    &_prev-img { 
+        max-width: none;
+        max-height: 100%;
     }
 
     ///// top

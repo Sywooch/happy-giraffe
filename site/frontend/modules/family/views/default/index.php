@@ -13,6 +13,10 @@ if ($this->owner->id == Yii::app()->user->id) {
 } else {
     $this->pageTitle = 'Семья - ' . $this->owner->fullName;
 }
+
+/** @var \ClientScript $cs */
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('familyPhoto', array('ko' => 'knockout', 'kow' => 'kow', 'sliderBinding' => 'extensions/sliderBinding'), 'ko.applyBindings({}, document.getElementById("familyPhoto"));')
 ?>
 
 <div class="b-main_cont b-main_cont__wide">
@@ -35,7 +39,7 @@ if ($this->owner->id == Yii::app()->user->id) {
             <section class="b-album">
                 <div class="b-album_img-hold">
                     <!-- Загружать просмотрщик -->
-                    <a href="#" class="b-album_img-a">
+                    <a href="#" class="b-album_img-a" data-bind="photoSlider: { photo: <?=$attach->id?>, collectionId: <?=$family->photoCollection->id?> }" id="familyPhoto">
                         <div class="b-album_img-pad"></div>
                         <div class="b-album_img-picture">
                             <img src="<?=Yii::app()->thumbs->getThumb($attach->photo, 'familyMainPhoto')?>" alt="Фото" class="b-album_img-big">

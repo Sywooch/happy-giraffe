@@ -1,0 +1,103 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member.css'; 
+
+block block-dev-view
+
+        script.
+
+            /* Height block comment scroll in photo-window */
+            function photoWindColH () {
+                var colCont = $(".photo-window_cont");
+                var bannerH = document.getElementById('photo-window_banner').offsetHeight;
+                colCont.height($(window).height() - bannerH - 24);
+
+            }
+
+            /* Позиция блока с лайками */
+            function likePos () {
+                var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+                $('.photo-window .like-control').css({'bottom' : likeBottom});
+            }
+
+            $(document).ready(function () {
+                photoWindColH();
+                likePos();
+
+                addBaron('.scroll');
+
+
+            });
+            $(window).resize(function () {
+                photoWindColH();
+                likePos();
+            });
+
+        .photo-window.display-b
+            .photo-window_w
+                a.photo-window_close(href='#')
+                .photo-window_top
+                    .photo-window_date Фото добавлено
+                        br
+                        span 15 мая
+                    .photo-window_count 25 из 52
+                //
+                     Обрабатывать клик на .photo-window_c для листания следующего изображения 
+                .photo-window_c
+                    .photo-window_img-hold
+                        .verticalalign-m-help
+                        img.photo-window_img(src='/images/example/w960-h537-1.jpg', alt='')
+                    a.i-photo-arrow.i-photo-arrow__l.fancy(href='#photo-window-end', data-theme='white-simple')
+                    a.i-photo-arrow.i-photo-arrow__r.fancy(href='#photo-window-end', data-theme='white-simple')
+                    +likeControl('like-control__line', likeControl.base)
+
+                .photo-window_b
+                    a.photo-window_del(href="") Удалить
+                    a.photo-window_edit(href="") Редактировать 
+                    +customLikes('', customLikes.base)
+                    //-.custom-likes-b
+                        .custom-likes-b_slogan Поделитесь с друзьями!
+                        .custom-likes-b_hold
+                            script(type="text/javascript", src="//yandex.st/share/share.js", charset="utf-8")
+                            .yashare-auto-init(data-yashareL10n="ru", data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir", data-yashareTheme="counter", data-yashareType="small")
+
+                .photo-window_col
+                    .photo-window_col-hold.scroll
+                        .scroll_scroller.photo-window_cont
+                            .scroll_cont
+                                .photo-window_cont-t.clearfix
+                                    .icons-meta
+                                        a.icons-meta_comment(href='#')
+                                            span.icons-meta_tx 35
+                                        .icons-meta_view
+                                            span.icons-meta_tx 305
+                                    .b-user-info.b-user-info__middle.float-l
+                                        +ava('ava__middle ava__female', avaVars)
+                                        .b-user-info_hold
+                                            a.b-user-info_name(href='#') Ангелина Богоявленская
+                                            //-.b-user-info_date 16 июн 2013
+                                .photo-window_about
+                                    | Фотопост 
+                                    a(href='#') Места моих путешествий
+                                .photo-window_t
+                                    //-input.itx-gray(type='text', name='', placeholder='Введите название фото и нажмите Enter')
+                                    
+                                    | Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская 
+                                    a.ico-edit.ico-edit__s.powertip(href="#", title='Редатировать')
+                                .photo-window_desc-hold
+                                    .photo-window_desc.clearfix
+                                        p
+                                            | В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, 
+                                            // | активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры. 
+                                            a.ico-edit.ico-edit__s.powertip(href="#", title='Редатировать')
+                                .comments-menu
+                                    .comments-menu_li.active
+                                        a.comments-menu_a.comments-menu_a__comments(href='#') Комментарии 68 
+
+                        .scroll_bar-hold
+                            .scroll_bar
+                                .scroll_bar-in
+                    #photo-window_banner.photo-window_banner.clearfix
+                        img(src='/images/example/w300-h250.jpg', alt='alt')

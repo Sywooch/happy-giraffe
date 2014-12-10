@@ -9,7 +9,7 @@ mixin iPhoto(mod, vars)
         - if (vars.type == "empty")
             .i-photo_hold
         - else
-            if(vars.delete)
+            if (vars.delete)
                 a.ico-close4(href="#")
         // Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость
         - if (vars.type == "load")
@@ -42,18 +42,20 @@ mixin iPhoto(mod, vars)
                     img.i-photo_img(src='#{vars.src}', alt="")
                     if(vars.edit)
                         .i-photo_overlay
-                            a.ico-photo-edit.powertip(href='#', title='Редактировать')
+                            a.ico-photo-edit.powertip(href='#', title='Редатировать')
                     if(vars.rotate)
                         .i-photo_overlay
                             a.i-photo_rotate(href="") 
                             a.i-photo_rotate.i-photo_rotate__r(href="") 
-                // input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок')
+                // input.i-photo_itx.itx-gray(type="text", placeholder='')
 
         - if (vars.type == "ico-family")
-            // Загруженное фото
             .i-photo_hold
                 .i-photo_img-hold
                     .ico-family-m.ico-family-m__baby
+                    .i-photo_overlay
+                        a.i-photo_rotate(href="") 
+                        a.i-photo_rotate.i-photo_rotate__r(href="") 
                 // input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок')
     // /Блок фотографии
 
@@ -78,6 +80,7 @@ mixin iPhoto(mod, vars)
 - iPhoto.ie = {}
 - iPhoto.ie.type = "ie"
 - iPhoto.ie.src = "/new/images/example/w155-h140-2.jpg"
+
 
 
 - iPhoto.familySettingsEdit = {}

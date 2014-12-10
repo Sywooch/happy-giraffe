@@ -624,11 +624,7 @@
         text-align: center;
     }
     &_about:before { /// вертикальное выравниевание &_about-in
-        content: "";
-        display: inline-block;
-        min-height: inherit;
-        height: 100%;
-        vertical-align: middle;
+        &:extend(.verticalalign-m-el-hold:before);
     }
     &_about:after {
         content: "";

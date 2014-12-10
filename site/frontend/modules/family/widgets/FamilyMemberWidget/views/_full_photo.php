@@ -13,6 +13,6 @@ $cs->registerAMD($id, array('ko' => 'knockout', 'kow' => 'kow', 'sliderBinding' 
 ?>
 
 <a href="#" class="family-member_i" data-bind="photoSlider: { photo: <?=$attach->id?>, collectionId: <?=$familyCollection->id?> }" id="<?=$id?>">
-    <img src="<?=Yii::app()->thumbs->getThumb($photo, 'familyMemberImage')?>" alt="" class="family-member_img">
+    <img src="<?=Yii::app()->thumbs->getThumb($attach->photo, 'familyMemberImage')?>" alt="" class="family-member_img">
     <div class="family-member_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
 </a>

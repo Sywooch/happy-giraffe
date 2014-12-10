@@ -21,8 +21,6 @@ class MigrateManager
         1 => Adult::STATUS_MARRIED,
         3 => Adult::STATUS_ENGAGED,
         4 => Adult::STATUS_FRIENDS,
-        2 => Adult::STATUS_FRIENDS,
-        null => Adult::STATUS_FRIENDS,
     );
 
     private static $_babyGender = array(
@@ -194,7 +192,8 @@ FROM family__families;")->execute();
         $partner = new Adult();
         $partner->name = $oldPartner->name;
         $partner->description = $oldPartner->notice;
-        $partner->relationshipStatus = self::$_statusMap[$this->user->relationship_status];
+        $status = (isset(self::$_statusMap[$this->user->relationship_status]) ? self::$_statusMap[$this->user->relationship_status] : Adult::STATUS_FRIENDS);
+        $partner->relationshipStatus = $status;
         $this->saveMember($partner, $oldPartner);
     }
 

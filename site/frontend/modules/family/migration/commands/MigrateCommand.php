@@ -31,6 +31,8 @@ class MigrateCommand extends \CConsoleCommand
 
     public function actionWorker()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         \Yii::app()->gearman->worker()->addFunction('migrateUser', array($this, 'migrateUser'));
 
         while (\Yii::app()->gearman->worker()->work());
@@ -45,6 +47,8 @@ class MigrateCommand extends \CConsoleCommand
 
     public function actionFillQueue()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         MigrateManager::clean();
 
         $dp = new \CActiveDataProvider('User', array(

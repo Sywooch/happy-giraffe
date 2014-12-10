@@ -84,6 +84,10 @@ abstract class PhotoCollectionObserver extends \CComponent
 
     public function getByPhotoId($photoId)
     {
+        var_dump($photoId);
+        var_dump($this->model->id);
+        die;
+
         return PhotoAttach::model()->collection($this->model->id)->photo($photoId)->find();
     }
 

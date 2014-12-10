@@ -93,6 +93,7 @@ class Horoscope extends HActiveRecord implements IPreview
         '11' => array('start' => array(21, 1), 'end' => array(20, 2),),
         '12' => array('start' => array(21, 2), 'end' => array(20, 3),),
     );
+    protected $_canonical = null;
 
     /**
      * Returns the static model of the specified AR class.
@@ -220,18 +221,15 @@ class Horoscope extends HActiveRecord implements IPreview
 
     public function beforeValidate()
     {
-        if ($this->isNewRecord)
-        {
-            if ($this->type == 1)
-            {
+        if ($this->isNewRecord) {
+            if ($this->type == 1) {
                 $exist = Horoscope::model()->findByAttributes(array(
                     'date' => $this->date,
                     'zodiac' => $this->zodiac,
                 ));
                 if ($exist)
                     $this->addError('date', 'Гороскоп на эту дату уже есть');
-            } elseif ($this->type == 2)
-            {
+            } elseif ($this->type == 2) {
                 $exist = Horoscope::model()->findByAttributes(array(
                     'year' => $this->year,
                     'month' => $this->month,
@@ -239,8 +237,7 @@ class Horoscope extends HActiveRecord implements IPreview
                 ));
                 if ($exist)
                     $this->addError('month', 'Гороскоп на этот месяц уже есть');
-            } elseif ($this->type == 3)
-            {
+            } elseif ($this->type == 3) {
                 $exist = Horoscope::model()->findByAttributes(array(
                     'year' => $this->year,
                     'month' => null,
@@ -257,17 +254,12 @@ class Horoscope extends HActiveRecord implements IPreview
 
     public function beforeSave()
     {
-        if ($this->type == 1)
-        {
+        if ($this->type == 1) {
             $this->year = null;
             $this->month = null;
-        }
-        elseif ($this->type == 2)
-        {
+        } elseif ($this->type == 2) {
             $this->date = null;
-        }
-        elseif ($this->type == 3)
-        {
+        } elseif ($this->type == 3) {
             $this->month = null;
             $this->date = null;
         }
@@ -277,8 +269,7 @@ class Horoscope extends HActiveRecord implements IPreview
 
     public function afterSave()
     {
-        if (!empty($this->date) && $this->isNewRecord)
-        {
+        if (!empty($this->date) && $this->isNewRecord) {
             $links = new HoroscopeLink();
             $links->generateLinks($this);
         }
@@ -318,17 +309,17 @@ class Horoscope extends HActiveRecord implements IPreview
     public function zodiacDates()
     {
         return $this->zodiac_dates[$this->zodiac]['start'][0] . '.'
-            . sprintf("%02d", $this->zodiac_dates[$this->zodiac]['start'][1])
-            . ' - ' . $this->zodiac_dates[$this->zodiac]['end'][0] . '.'
-            . sprintf('%02d', $this->zodiac_dates[$this->zodiac]['end'][1]);
+                . sprintf("%02d", $this->zodiac_dates[$this->zodiac]['start'][1])
+                . ' - ' . $this->zodiac_dates[$this->zodiac]['end'][0] . '.'
+                . sprintf('%02d', $this->zodiac_dates[$this->zodiac]['end'][1]);
     }
 
     public function someZodiacDates($zodiac)
     {
         return $this->zodiac_dates[$zodiac]['start'][0] . '.'
-            . sprintf("%02d", $this->zodiac_dates[$zodiac]['start'][1])
-            . ' - ' . $this->zodiac_dates[$zodiac]['end'][0] . '.'
-            . sprintf('%02d', $this->zodiac_dates[$zodiac]['end'][1]);
+                . sprintf("%02d", $this->zodiac_dates[$zodiac]['start'][1])
+                . ' - ' . $this->zodiac_dates[$zodiac]['end'][0] . '.'
+                . sprintf('%02d', $this->zodiac_dates[$zodiac]['end'][1]);
     }
 
     public function dateText()
@@ -344,14 +335,11 @@ class Horoscope extends HActiveRecord implements IPreview
         $day = date('d', $dt);
         $month = date('m', $dt);
 
-        foreach ($this->zodiac_dates as $zodiac_id => $zodiac_date)
-        {
-            if (($month == $zodiac_date['start'][1]))
-            {
+        foreach ($this->zodiac_dates as $zodiac_id => $zodiac_date) {
+            if (($month == $zodiac_date['start'][1])) {
                 if ($day >= $zodiac_date['start'][0])
                     return $zodiac_id;
-            } elseif ($month == $zodiac_date['end'][1])
-            {
+            } elseif ($month == $zodiac_date['end'][1]) {
                 if ($day <= $zodiac_date['end'][0])
                     return $zodiac_id;
             }
@@ -393,8 +381,7 @@ class Horoscope extends HActiveRecord implements IPreview
             return 'year';
         if ($this->onMonth())
             return 'month';
-        if (!empty($this->date))
-        {
+        if (!empty($this->date)) {
             if ($this->date == date("Y-m-d"))
                 return 'today';
             if ($this->date == date("Y-m-d", strtotime('+1 day')))
@@ -452,17 +439,12 @@ class Horoscope extends HActiveRecord implements IPreview
         $daysInMonth = date("t", mktime(0, 0, 0, (int) $this->month, 1, (int) $this->year)); // узнаем число дней в месяце
         $day = 1; // для цикла далее будем увеличивать значение
         $num = 1;
-        for ($i = 0; $i < 6; $i++)
-        { // Внешний цикл для недель 6 с неполыми
-            for ($j = 0; $j < 7; $j++)
-            { // Внутренний цикл для дней недели
-                if (($skip > 0) || ($day > $daysInMonth))
-                { // пустые ячейки до 1 го дня
+        for ($i = 0; $i < 6; $i++) { // Внешний цикл для недель 6 с неполыми
+            for ($j = 0; $j < 7; $j++) { // Внутренний цикл для дней недели
+                if (($skip > 0) || ($day > $daysInMonth)) { // пустые ячейки до 1 го дня
                     $data[$num] = array('', '');
                     $skip--;
-                }
-                else
-                {
+                } else {
                     $data[$num] = array($day, $this->GetDayData($day));
                     $day++; // увеличиваем $day
                 }
@@ -497,17 +479,15 @@ class Horoscope extends HActiveRecord implements IPreview
 
     public function getOtherZodiacUrl($zodiac)
     {
-        if ($this->onMonth())
-        {
+        if ($this->onMonth()) {
             return $this->isCurrentMonth() ?
-                Yii::app()->controller->createUrl('month', array('zodiac' => $zodiac)) :
-                Yii::app()->controller->createUrl('month', array('zodiac' => $zodiac, 'month' => $_GET['month']));
+                    Yii::app()->controller->createUrl('month', array('zodiac' => $zodiac)) :
+                    Yii::app()->controller->createUrl('month', array('zodiac' => $zodiac, 'month' => $_GET['month']));
         }
-        if ($this->onYear())
-        {
+        if ($this->onYear()) {
             return $this->isCurrentYear() ?
-                Yii::app()->controller->createUrl('year', array('zodiac' => $zodiac)) :
-                Yii::app()->controller->createUrl('year', array('zodiac' => $zodiac, 'year' => $_GET['year']));
+                    Yii::app()->controller->createUrl('year', array('zodiac' => $zodiac)) :
+                    Yii::app()->controller->createUrl('year', array('zodiac' => $zodiac, 'year' => $_GET['year']));
         }
 
         if (in_array(Yii::app()->controller->action->id, array('tomorrow', 'today', 'yesterday')))
@@ -515,8 +495,8 @@ class Horoscope extends HActiveRecord implements IPreview
 
         if (Yii::app()->controller->action->id == 'date')
             return Yii::app()->controller->createUrl(Yii::app()->controller->action->id, array(
-                    'zodiac' => $zodiac,
-                    'date' => $_GET['date']
+                        'zodiac' => $zodiac,
+                        'date' => $_GET['date']
             ));
 
         return '#';
@@ -524,17 +504,15 @@ class Horoscope extends HActiveRecord implements IPreview
 
     public function getOtherZodiacTitle($zodiac)
     {
-        if ($this->onMonth())
-        {
+        if ($this->onMonth()) {
             return $this->isCurrentMonth() ?
-                'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на месяц' :
-                'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . Yii::app()->dateFormatter->format('MMMM yyyy', strtotime($this->date)) . ' года';
+                    'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на месяц' :
+                    'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . Yii::app()->dateFormatter->format('MMMM yyyy', strtotime($this->date)) . ' года';
         }
-        if ($this->onYear())
-        {
+        if ($this->onYear()) {
             return $this->isCurrentYear() ?
-                'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на год' :
-                'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . $this->year . ' год';
+                    'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на год' :
+                    'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . $this->year . ' год';
         }
 
         if (Yii::app()->controller->action->id == 'tomorrow')
@@ -549,14 +527,15 @@ class Horoscope extends HActiveRecord implements IPreview
 
         return '';
     }
-    
-    public function getPeriod() {
+
+    public function getPeriod()
+    {
         $period = 'day';
-        if($this->month && $this->year)
+        if ($this->month && $this->year)
             $period = 'month';
-        elseif($this->year)
+        elseif ($this->year)
             $period = 'year';
-        
+
         return $period;
     }
 
@@ -565,10 +544,10 @@ class Horoscope extends HActiveRecord implements IPreview
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
 
         return Yii::app()->$method('services/horoscope/default/view', array(
-                'zodiac' => $this->zodiacSlug,
-                'date' => strtotime($this->date),
-                'period' => $this->period,
-                'alias' => false,
+                    'zodiac' => $this->zodiacSlug,
+                    'date' => strtotime($this->date),
+                    'period' => $this->period,
+                    'alias' => false,
         ));
     }
 
@@ -576,8 +555,8 @@ class Horoscope extends HActiveRecord implements IPreview
     {
         if (!empty($this->year) && empty($this->month) && $this->year != 2012)
             return Yii::app()->createUrl('/services/horoscope/default/year', array(
-                    'zodiac' => $this->getZodiacSlug(),
-                    'year' => $this->year
+                        'zodiac' => $this->getZodiacSlug(),
+                        'year' => $this->year
             ));
 
         return Yii::app()->createUrl('/services/horoscope/default/' . $this->getType(), array('zodiac' => $this->getZodiacSlug()));
@@ -586,8 +565,7 @@ class Horoscope extends HActiveRecord implements IPreview
     public function getName()
     {
         $text = $this->zodiac_list2[$this->zodiac] . ' на ';
-        if (!empty($this->date))
-        {
+        if (!empty($this->date)) {
             if (Yii::app()->controller->action->id == 'today')
                 return $text . 'сегодня';
             if (Yii::app()->controller->action->id == 'yesterday')
@@ -612,7 +590,7 @@ class Horoscope extends HActiveRecord implements IPreview
         if ($this->onMonth())
             return 'Гороскоп ' . $this->zodiacText() . ' на ' . HDate::ruMonth($this->month) . ' ' . $this->year . ' года';
         return 'Гороскоп ' . $this->zodiacText() . ' на ' .
-            Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date));
+                Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date));
     }
 
     /*     * ************************************************************************************************************** */
@@ -621,8 +599,7 @@ class Horoscope extends HActiveRecord implements IPreview
 
     public function getText()
     {
-        if ($this->onMonth())
-        {
+        if ($this->onMonth()) {
             return $this->isCurrentMonth() ? ServiceText::getText('horoscope', 'month_' . $this->zodiac) : '';
         }
         if ($this->onYear())
@@ -645,15 +622,13 @@ class Horoscope extends HActiveRecord implements IPreview
     public function getAdditionalText()
     {
         $text = 'Что бы ни пророчил вам гороскоп ';
-        if (isset($_GET['date']) && strtotime('2013-02-01') <= strtotime($this->date))
-        {
+        if (isset($_GET['date']) && strtotime('2013-02-01') <= strtotime($this->date)) {
             $text .= $this->zodiac_list2[$this->zodiac];
             $text .= ' на ' . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)) . ' года - помните, удача в ваших руках!';
 
             return $text;
         }
-        if (isset($_GET['month']) && ($this->month > 1 && $this->year == 2013 || $this->year > 2013))
-        {
+        if (isset($_GET['month']) && ($this->month > 1 && $this->year == 2013 || $this->year > 2013)) {
             $text .= $this->zodiac_list2[$this->zodiac];
             $text .= ' на ' . mb_strtolower(HDate::ruMonth($this->month), 'utf-8') . ' ' . $this->year . ' года - помните, удача в ваших руках!';
 
@@ -705,8 +680,7 @@ class Horoscope extends HActiveRecord implements IPreview
     {
         $month = $this->month - 1;
         $year = $this->year;
-        if ($month == 0)
-        {
+        if ($month == 0) {
             $month = 12;
             $year--;
         }
@@ -715,17 +689,16 @@ class Horoscope extends HActiveRecord implements IPreview
         $text = mb_strtolower(HDate::ruMonth($month), 'utf8') . ' ' . $year;
 
         return '<span>' . CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на ' . $text, Yii::app()->controller->createUrl('month', array(
-                    'zodiac' => $this->getZodiacSlug(),
-                    'month' => $year . '-' . sprintf('%02d', $month),
-            ))) . ' ←</span>';
+                            'zodiac' => $this->getZodiacSlug(),
+                            'month' => $year . '-' . sprintf('%02d', $month),
+                ))) . ' ←</span>';
     }
 
     public function getNextMonthLink($i = 1)
     {
         $month = $this->month + $i;
         $year = $this->year;
-        if ($month > 12)
-        {
+        if ($month > 12) {
             $month = $month - 12;
             $year++;
         }
@@ -734,8 +707,8 @@ class Horoscope extends HActiveRecord implements IPreview
         $text = mb_strtolower(HDate::ruMonth($month), 'utf8') . ' ' . $year;
 
         $link = CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на ' . $text, Yii::app()->controller->createUrl('month', array(
-                    'zodiac' => $this->getZodiacSlug(),
-                    'month' => $year . '-' . sprintf('%02d', $month),
+                            'zodiac' => $this->getZodiacSlug(),
+                            'month' => $year . '-' . sprintf('%02d', $month),
         )));
         if ($i == 1)
             return '<span>→ ' . $link . '</span>';
@@ -747,8 +720,8 @@ class Horoscope extends HActiveRecord implements IPreview
     {
         $year = $this->year - 1;
         return CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на ' . $year . ' год', Yii::app()->controller->createUrl('year', array(
-                    'zodiac' => $this->getZodiacSlug(),
-                    'year' => $year,
+                            'zodiac' => $this->getZodiacSlug(),
+                            'year' => $year,
         )));
     }
 
@@ -756,8 +729,8 @@ class Horoscope extends HActiveRecord implements IPreview
     {
         $year = $this->year + 1;
         return CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на ' . $year . ' год', Yii::app()->controller->createUrl('year', array(
-                    'zodiac' => $this->getZodiacSlug(),
-                    'year' => $year,
+                            'zodiac' => $this->getZodiacSlug(),
+                            'year' => $year,
         )));
     }
 
@@ -765,28 +738,21 @@ class Horoscope extends HActiveRecord implements IPreview
     {
         $result = 'А еще';
 
-        if (Yii::app()->controller->action->id == 'today')
-        {
+        if (Yii::app()->controller->action->id == 'today') {
             //если на сегодня, показываем на вчера
             $result .= CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на вчера', Yii::app()->controller->createUrl('yesterday', array('zodiac' => $this->getZodiacSlug())));
-        }
-        elseif (Yii::app()->controller->action->id == 'tomorrow')
-        {
+        } elseif (Yii::app()->controller->action->id == 'tomorrow') {
             //если на завтра, то выводим ссылки на 2 следующих дня
             if ($this->dateHoroscopeExist(strtotime('+2 days')))
                 $result .= $this->getDateLink(strtotime('+2 days'));
             if ($this->dateHoroscopeExist(strtotime('+3 days')))
                 $result .= $this->getDateLink(strtotime('+3 days'));
-        } elseif (Yii::app()->controller->action->id == 'date')
-        {
-            if (isset($this->links))
-            {
+        } elseif (Yii::app()->controller->action->id == 'date') {
+            if (isset($this->links)) {
                 $result .= $this->links->getLinks();
-            }
-            else
+            } else
                 $result = '';
-        }
-        else
+        } else
             $result = '';
 
         return $result;
@@ -795,8 +761,8 @@ class Horoscope extends HActiveRecord implements IPreview
     public function getDateLink($date)
     {
         return CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на ' . Yii::app()->dateFormatter->format('d MMMM', $date), Yii::app()->controller->createUrl('date', array(
-                    'zodiac' => $this->getZodiacSlug(),
-                    'date' => date("Y-m-d", $date),
+                            'zodiac' => $this->getZodiacSlug(),
+                            'date' => date("Y-m-d", $date),
         )));
     }
 
@@ -812,9 +778,9 @@ class Horoscope extends HActiveRecord implements IPreview
     {
         if (empty($this->month) && !empty($this->year))
             return '<p><span class="red">Здоровье.</span>' . $this->health
-                . '</p><p><span class="red">Карьера.</span>' . $this->career
-                . '</p><p><span class="red">Финансы.</span>' . $this->finance
-                . '</p><p><span class="red">Личная жизнь.</span>' . $this->personal . '</p>';
+                    . '</p><p><span class="red">Карьера.</span>' . $this->career
+                    . '</p><p><span class="red">Финансы.</span>' . $this->finance
+                    . '</p><p><span class="red">Личная жизнь.</span>' . $this->personal . '</p>';
         else
             return $this->text;
     }
@@ -827,6 +793,41 @@ class Horoscope extends HActiveRecord implements IPreview
     public function getPreviewPhoto()
     {
         return \Yii::app()->createAbsoluteUrl('/images/widget/horoscope/big/') . $this->zodiac . ' .png';
+    }
+
+    /**
+     * Метод возвращает дату с максимальным годом, но текущем днём и месяцем
+     * https://happygiraffe.atlassian.net/browse/DEV-224
+     * 
+     * @return int Дата, с максимальным годом
+     */
+    public function getCanonicalDate()
+    {
+        if (is_null($this->_canonical)) {
+            if (!is_null($this->date)) {
+                // Для конкретного дня
+                $date = strtotime($this->date);
+                $day = date('d', $date);
+                $month = date('m', $date);
+                $year = date('Y', $date);
+                $years = range($year, date('Y') + 1);
+                $conds = array_map(function($year) use($day, $month) {
+                    return '`date` = "' . date('Y-m-d', mktime(0, 0, 1, $month, $day, $year)) . '"';
+                }, $years);
+                $sql = 'SELECT MAX(YEAR(`date`)) FROM `' . $this->tableName() . '` WHERE ' . implode(' OR ', $conds) . ' AND `zodiac` = ' . $this->zodiac . ';';
+                $maxYear = $this->getDbConnection()->createCommand($sql)->queryScalar();
+                $this->_canonical = mktime(0, 0, 1, $month, $day, $maxYear);
+            } elseif (!is_null($this->month)) {
+                // Для месяца
+                $sql = 'SELECT MAX(`year`) FROM `' . $this->tableName() . '` WHERE `month` = ' . $this->month . ' AND `zodiac` = ' . $this->zodiac . ';';
+                $maxYear = $this->getDbConnection()->createCommand($sql)->queryScalar();
+                $this->_canonical = mktime(0, 0, 1, $this->month, 1, $maxYear);
+            } else {
+                $this->_canonical = false;
+            }
+        }
+
+        return $this->_canonical;
     }
 
 }

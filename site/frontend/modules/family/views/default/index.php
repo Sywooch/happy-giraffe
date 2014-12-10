@@ -20,9 +20,6 @@ $familyCollection = $family->getPhotoCollection('all');
 
 $attach = $familyCollection->observer->getByAttach($family->photoCollection->observer->getSingle(0));
 
-var_dump($family->photoCollection->observer->getSingle(0));
-var_dump($attach); die;
-
 /** @var \ClientScript $cs */
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('familyPhoto', array('ko' => 'knockout', 'kow' => 'kow', 'sliderBinding' => 'extensions/sliderBinding'), 'ko.applyBindings({}, document.getElementById("familyPhoto"));')
@@ -40,7 +37,7 @@ $cs->registerAMD('familyPhoto', array('ko' => 'knockout', 'kow' => 'kow', 'slide
             </div>
         <?php endif; ?>
 
-        <?php if ($attach !== null): ?>
+        <?php if ($attach): ?>
             <!-- <div class="family-user_main-img-hold">
                 <img src="<?=Yii::app()->thumbs->getThumb($attach->photo, 'familyMainPhoto')?>" class="b-album_img-picture">
             </div> -->

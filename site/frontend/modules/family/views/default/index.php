@@ -17,6 +17,8 @@ if ($this->owner->id == Yii::app()->user->id) {
 $familyCollection = $family->getPhotoCollection('all');
 $attach = $familyCollection->observer->getByAttach($family->photoCollection->observer->getSingle(0));
 
+var_dump($attach); die;
+
 /** @var \ClientScript $cs */
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('familyPhoto', array('ko' => 'knockout', 'kow' => 'kow', 'sliderBinding' => 'extensions/sliderBinding'), 'ko.applyBindings({}, document.getElementById("familyPhoto"));')

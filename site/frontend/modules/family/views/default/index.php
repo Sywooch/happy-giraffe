@@ -26,7 +26,7 @@ $attach = $familyCollection->observer->getByAttach($family->photoCollection->obs
         
         <?php if ($this->owner->id == Yii::app()->user->id): ?>
             <div class="family-user_edit-hold"> 
-                <a href='<?=$this->createUrl('/family/default/fill')?>' class="btn btn-secondary btn-l"><div class="ico-edit ico-edit__s"></div>&nbsp;Редактировать</a>
+                <a href='<?=$this->createUrl('/family/default/fill', array('userId' => $userId))?>' class="btn btn-secondary btn-l"><div class="ico-edit ico-edit__s"></div>&nbsp;Редактировать</a>
             </div>
         <?php endif; ?>
 

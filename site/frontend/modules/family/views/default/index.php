@@ -16,7 +16,7 @@ if ($this->owner->id == Yii::app()->user->id) {
 
 $familyCollection = $family->getPhotoCollection('all');
 
-var_dump($familyCollection->id); die;
+
 
 $attach = $familyCollection->observer->getByAttach($family->photoCollection->observer->getSingle(0));
 

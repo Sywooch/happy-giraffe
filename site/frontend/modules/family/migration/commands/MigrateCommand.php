@@ -45,9 +45,7 @@ class MigrateCommand extends \CConsoleCommand
 
     public function actionFillQueue()
     {
-        Family::model()->deleteAll();
-        PhotoCollection::model()->deleteAll('entity = "Family"');
-        PhotoCollection::model()->deleteAll('entity = "FamilyMember"');
+        MigrateManager::clean();
 
         $dp = new \CActiveDataProvider('User', array(
             'criteria' => array(

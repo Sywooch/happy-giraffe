@@ -157,6 +157,9 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                 } else {
                     if (this[prop] !== undefined) {
                         if (this[prop].value !== undefined) {
+                            if (prop === 'gender' && this[prop].value() === null) {
+                                data[prop] = 'null';
+                            }
                             this[prop].value(data[prop]);
                             this[prop].editing(false);
                         } else {

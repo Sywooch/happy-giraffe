@@ -70,6 +70,9 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
                 for (var i=0; i < fieldsNames.length; i++) {
                     if (object[fieldsNames[i]] !== undefined) {
                         if (object[fieldsNames[i]].value() !== null && object[fieldsNames[i]].value() !== undefined && object[fieldsNames[i]].value() !== '') {
+                            if (object[fieldsNames[i]].value() === 'null') {
+                                object[fieldsNames[i]].value(null);
+                            }
                             returnableObject[fieldsNames[i]] = object[fieldsNames[i]].value();
                         }
                     }

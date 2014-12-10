@@ -22,6 +22,7 @@ class MigrateManager
         3 => Adult::STATUS_ENGAGED,
         4 => Adult::STATUS_FRIENDS,
         2 => Adult::STATUS_FRIENDS,
+        null => Adult::STATUS_FRIENDS,
     );
 
     private static $_babyGender = array(
@@ -43,6 +44,8 @@ class MigrateManager
 
     public static function migrateSingle($user)
     {
+        var_dump(self::$_statusMap); die;
+
         $family = Family::model()->hasMember($user->id)->find();
         if ($family !== null) {
             return;
@@ -82,6 +85,8 @@ FROM photo__albums
 WHERE source = 'family';")->execute();
         \Yii::app()->db->createCommand("DELETE
 FROM family__families;")->execute();
+        \Yii::app()->db->createCommand("ALTER TABLE family__families AUTO_INCREMENT=1;");
+        \Yii::app()->db->createCommand("ALTER TABLE family__members AUTO_INCREMENT=1;");
     }
 
     public function __construct(\User $user)

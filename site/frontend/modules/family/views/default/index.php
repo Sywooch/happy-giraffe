@@ -14,6 +14,9 @@ if ($this->owner->id == Yii::app()->user->id) {
     $this->pageTitle = 'Семья - ' . $this->owner->fullName;
 }
 
+$familyCollection = $family->getPhotoCollection('all');
+$attach = $familyCollection->observer->getByAttach($family->photoCollection->observer->getSingle(0));
+
 /** @var \ClientScript $cs */
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('familyPhoto', array('ko' => 'knockout', 'kow' => 'kow', 'sliderBinding' => 'extensions/sliderBinding'), 'ko.applyBindings({}, document.getElementById("familyPhoto"));')
@@ -31,7 +34,7 @@ $cs->registerAMD('familyPhoto', array('ko' => 'knockout', 'kow' => 'kow', 'slide
             </div>
         <?php endif; ?>
 
-        <?php if ($attach = $family->photoCollection->observer->getSingle(0)): ?>
+        <?php if ($attach !== null): ?>
             <!-- <div class="family-user_main-img-hold">
                 <img src="<?=Yii::app()->thumbs->getThumb($attach->photo, 'familyMainPhoto')?>" class="b-album_img-picture">
             </div> -->
@@ -39,15 +42,15 @@ $cs->registerAMD('familyPhoto', array('ko' => 'knockout', 'kow' => 'kow', 'slide
             <section class="b-album">
                 <div class="b-album_img-hold">
                     <!-- Загружать просмотрщик -->
-                    <a href="#" class="b-album_img-a" data-bind="photoSlider: { photo: <?=$attach->id?>, collectionId: <?=$family->photoCollection->id?> }" id="familyPhoto">
+                    <a href="#" class="b-album_img-a" data-bind="photoSlider: { photo: <?=$attach->id?>, collectionId: <?=$familyCollection->id?> }" id="familyPhoto">
                         <div class="b-album_img-pad"></div>
                         <div class="b-album_img-picture">
                             <img src="<?=Yii::app()->thumbs->getThumb($attach->photo, 'familyMainPhoto')?>" alt="Фото" class="b-album_img-big">
                         </div>
+                        <div class="b-album_img-hold-ovr">
+                            <div class="ico-zoom ico-zoom__abs"></div>
+                        </div>
                     </a>
-                    <div class="b-album_img-hold-ovr">
-                        <div class="ico-zoom ico-zoom__abs"></div>
-                    </div>
                 </div>
             </section>
         <?php endif; ?>

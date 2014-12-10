@@ -73,6 +73,15 @@ abstract class PhotoCollectionObserver extends \CComponent
         return $this->getSingle($next);
     }
 
+    public function getByAttach(PhotoAttach $attach)
+    {
+        if ($attach === null) {
+            return null;
+        }
+
+        return $this->getByPhotoId($attach->photo_id);
+    }
+
     public function getByPhotoId($photoId)
     {
         return PhotoAttach::model()->collection($this->model->id)->photo($photoId)->find();

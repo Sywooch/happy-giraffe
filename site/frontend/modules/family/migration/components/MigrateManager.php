@@ -42,8 +42,6 @@ class MigrateManager
 
     public static function migrateSingle($user)
     {
-        var_dump(self::$_statusMap); die;
-
         $family = Family::model()->hasMember($user->id)->find();
         if ($family !== null) {
             return;

@@ -34,9 +34,6 @@ class DefaultController extends \LiteController
         }
         $this->owner = $user;
 
-        /** @todo только для тестирования */
-        MigrateManager::migrateSingle($user);
-
         /** @var \site\frontend\modules\family\models\Family $family */
         $family = Family::model()->with('members')->hasMember($userId)->find();
 

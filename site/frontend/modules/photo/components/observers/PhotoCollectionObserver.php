@@ -73,7 +73,7 @@ abstract class PhotoCollectionObserver extends \CComponent
         return $this->getSingle($next);
     }
 
-    public function getByAttach(PhotoAttach $attach)
+    public function getByAttach($attach)
     {
         if ($attach === null) {
             return null;

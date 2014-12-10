@@ -1,0 +1,23 @@
+doctype html
+| <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+| <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+include ../../../block/config
+head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Happy Giraffe
+    // css для теста, что вообще такие стили существуют
+    // в рабочей реализации не использовать
+    //link(rel='stylesheet', type='text/css', href='/lite/css/dev/all.css')
+    // livereload
+    script(src='//localhost:35729/livereload.js')
+
+    +articleAnonceCss()
+
+/// layout out 
+body
+
+    +articleAnonce('article-anonce__s', articleAnonce.b)
+
+| </html>
+ 

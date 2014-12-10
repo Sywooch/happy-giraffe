@@ -256,60 +256,34 @@ mixin sidebarArticle(mod, vars)
     // Сайд бар
     // Содержимое загружaть отложено
     aside.b-main_col-sidebar.visible-md
-        .adv-banner.adv-banner__bd
-            a(href="") 
-                img(src="#{path}images/example/w240-h400.jpg", alt="")
-        // Варианты цветов блока
-            article-similar__green
-            article-similar__blue
-            article-similar__lilac
-            article-similar__red
-            article-similar__yellow
-        .article-similar.article-similar__lilac
-            .article-similar_row
-                +ava('ava__small', ava.a)
-                a.article-similar_author(href="") Марина Правдин
-            .article-similar_row
-                a.article-similar_t(href="") Наши первые движения 
-            .article-similar_img-hold
-                a(href="")
-                    img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
-        .article-similar.article-similar__red
-            .article-similar_row
-                +ava('ava__small', ava.a)
-                a.article-similar_author(href="") Марина Правдинwerwerweryrtyrtyrtyrtyrtyа
-            .article-similar_row
-                a.article-similar_t(href="") Наши первые движения
-            .article-similar_img-hold
-                a(href="")
-                    img.article-similar_img(src="#{path}images/example/w240-h176.jpg", alt="")
-        .article-similar.article-similar__yellow
-            .article-similar_row
-                +ava('ava__small', ava.a)
-                a.article-similar_author(href="") Марина !!Красотуля!!
-            .article-similar_row
-                a.article-similar_t(href="") Наши первые движения по полу в окружении родителей
-            .article-similar_img-hold
-                a(href="")
-                    img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
-        .article-similar.article-similar__blue
-            .article-similar_row
-                +ava('ava__small', ava.a)
-                a.article-similar_author(href="") Марина Правдина
-            .article-similar_row
-                a.article-similar_t(href="") Коррекция фигуры: убираем висячий дряблый живот
-            .article-similar_img-hold
-                a(href="")
-                    img.article-similar_img(src="#{path}images/example/w240-h183.jpg", alt="")
-        .article-similar.article-similar__green
-            .article-similar_row
-                +ava('ava__small', ava.a)
-                a.article-similar_author(href="") Марина Правдина
-            .article-similar_row
-                a.article-similar_t(href="") Обязательства мешают любовным отношениям
-            .article-similar_img-hold
-                a(href="")
-                    img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
+
+        .bnr-base
+            a(href='#') 
+                img(src="#{path}images/example/w300-h600-1.jpg", alt="")
+
+        .bnr-base
+            a(href='#') 
+                img(src="#{path}images/example/w300-h250-1.jpg", alt="")
+
+
+        +articleAnonce('article-anonce__s', articleAnonce.b)
+        +articleAnonce('article-anonce__s', articleAnonce.d)
+        //-+articleAnonce('article-anonce__s', articleAnonce.a)
+        //-+articleAnonce('article-anonce__lilac article-anonce__ico', articleAnonce.ico1)
+        +articleAnonce('article-anonce__s', articleAnonce.e)
+        //-+articleAnonce('article-anonce__s', articleAnonce.c)
+
+        //-+articleAnonce('article-anonce__s', articleAnonce.f)
+        .bnr-base
+            a(href='#') 
+                img(src="#{path}images/example/w300-h250-1.jpg", alt="")
+
+        +articleAnonce('article-anonce__s', articleAnonce.e)
+        +articleAnonce('article-anonce__s', articleAnonce.d)
+        //-+articleAnonce('article-anonce__s', articleAnonce.d)
+
+        .article-anonce
+            iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-3.html", width='300px', height="500px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
     // Сайд бар
 
 - var sidebarArticle = {}

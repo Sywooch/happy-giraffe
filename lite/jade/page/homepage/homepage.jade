@@ -44,7 +44,7 @@ body.body.body__lite.body__bg2(class='body__homepage')
                                 | Веселый Жираф - это социальная сеть
                                 br
                                 span.homepage-desc_mark для всей семьи
-                                | , которая собрала 
+                                | , которая собрала
                                 br
                                 | миллионы мам и пап со всей  России
                             .homepage-desc_r
@@ -212,28 +212,56 @@ body.body.body__lite.body__bg2(class='body__homepage')
                             .homepage_desc-tx
                                 | узнавай новое, делись самым интересным 
 
-                // /Клубы
+                // /Клубы 
 
-                // Посты
+                // Посты 
                 .homepage_row
                     .homepage-posts
                         .homepage_title  Лучшие записи 
                         .homepage-posts_col-hold
-                                //- .homepage-posts_col
-                                +articleSimilar('article-similar__lilac', articleSimilar.e)
-                                +articleSimilar('article-similar__yellow', articleSimilar.a)
-   
-                            
-                                +articleSimilar('article-similar__blue', articleSimilar.c)
-                                .bnr-base
+                                //- .homepage-posts_col 
+
+                                .article-anonce.article-anonce__xl
+                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-5.html", width='615px', height="450px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+                                .article-anonce.article-anonce__ico
+                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-6.html", width='300px', height="450px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+
+
+                                .article-anonce
+                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-4.html", width='300px', height="500px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+                                .article-anonce
+                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-2.html", width='300px', height="500px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+
+                                .article-anonce
+                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-1.html", width='300px', height="500px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+
+                                +articleAnonce('article-anonce__red article-anonce__xl', articleAnonce.xl)
+                                +articleAnonce('article-anonce__lilac article-anonce__ico', articleAnonce.ico1)
+                                +articleAnonce('article-anonce__yellow', articleAnonce.d)
+                                +articleAnonce('article-anonce__yellow', articleAnonce.a)
+                                +articleAnonce('article-anonce__blue', articleAnonce.f)
+                                //+articleAnonce('article-anonce__green', articleAnonce.d)
+
+                                //+articleAnonce('article-anonce__lilac', articleAnonce.f)
+                                //+articleAnonce('article-anonce__blue', articleAnonce.b)
+                                //-.bnr-base 
                                     a(href='#') 
                                         img(src="#{path}images/example/w240-h400-2.jpg", alt="")
-  
                             
-                                +articleSimilarIcons('article-similar__red', articleSimilarIcons.a)
-                                +articleSimilar('article-similar__green', articleSimilar.d)
-                // /Посты
+                               //- +articleAnonce('article-anonce__green', articleAnonce.f) 
 
+                // Посты 
+                .homepage_row
+                    .homepage-posts
+                        .homepage_title  Лучшие записи 
+                        .homepage-posts_col-hold
+                            +articleSimilar('article-similar__red', articleSimilar.a)
+                            +articleSimilar('article-similar__lilac', articleSimilar.b)
+                            +articleSimilar('article-similar__yellow', articleSimilar.c)
+                            +articleSimilar('article-similar__blue', articleSimilar.d)
+                            +articleSimilar('article-similar__green', articleSimilar.e)
+                            +articleSimilarIcons('article-similar__blue', articleSimilarIcons.a)
+                // /Посты
 
                 // Посетители
                 .homepage_row
@@ -243,7 +271,7 @@ body.body.body__lite.body__bg2(class='body__homepage')
                         //- Счетчик 
                         //-   script(type='text/javascript', src='/javascripts/jquery.lwtCountdown-1.0.js')
                         //-script.
-                            jQuery(document).ready(function() {
+                            jQuery(document).ready(function() { 
                                 $('#counter-users').countUp({
                                     numberSet : 62789298,
                                     randomNumberMax : 45

@@ -23,6 +23,9 @@ class SomModule extends \CWebModule
             'status' => array(
                 'class' => 'site\frontend\modules\som\modules\status\StatusModule',
             ),
+            'photopost' => array(
+                'class' => 'site\frontend\modules\som\modules\photopost\PhotopostModule',
+            ),
         ));
     }
 

@@ -12,7 +12,7 @@ $cs = Yii::app()->clientScript;
 $cs->registerAMD($id, array('ko' => 'knockout', 'kow' => 'kow', 'sliderBinding' => 'extensions/sliderBinding'), 'ko.applyBindings({}, document.getElementById("' . $id . '"));')
 ?>
 
-<a href="#" class="family-member_i" data-bind="photoSlider: { photoId: <?=$attach->id?>, collectionId: <?=$member->photoCollection->id?> }" id="<?=$id?>">
+<a href="#" class="family-member_i" data-bind="photoSlider: { photo: <?=$attach->id?>, collectionId: <?=$member->photoCollection->id?> }" id="<?=$id?>">
     <img src="<?=Yii::app()->thumbs->getThumb($photo, 'familyMemberImage')?>" alt="" class="family-member_img">
     <div class="family-member_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
 </a>

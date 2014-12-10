@@ -9,6 +9,7 @@
  */
 
 namespace site\frontend\modules\photo\components\observers;
+use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\PhotoCollection;
 
 abstract class PhotoCollectionObserver extends \CComponent
@@ -70,6 +71,11 @@ abstract class PhotoCollectionObserver extends \CComponent
         $isFirst = $currentIndex == 0;
         $next = ($isFirst) ? ($this->getCount() - 1) : $currentIndex - 1;
         return $this->getSingle($next);
+    }
+
+    public function getByPhotoId($photoId)
+    {
+        return PhotoAttach::model()->collection($this->model->id)->photo($photoId)->find();
     }
 
     /**

@@ -16,7 +16,22 @@ class MigrateCommand extends \CConsoleCommand
 {
     public function actionAll($start = 1)
     {
-        MigrateManager::migrateAll($start);
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        MigrateManager::clean();
+
+        $dp = new \CActiveDataProvider('User', array(
+            'criteria' => array(
+                'order' => 'id ASC',
+                'join' => 'LEFT OUTER JOIN family__members fm ON fm.userId = t.id',
+                'condition' => 'fm.id IS NULL',
+            ),
+        ));
+
+        $iterator = new \CDataProviderIterator($dp, 100);
+        foreach ($iterator as $user) {
+            MigrateManager::migrateSingle($user);
+        }
     }
 
     public function actionSingle($userId)

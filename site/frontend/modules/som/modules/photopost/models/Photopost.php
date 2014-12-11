@@ -1,6 +1,6 @@
 <?php
 
-namespace site\frontend\modules\som\modules\status\models;
+namespace site\frontend\modules\som\modules\photopost\models;
 
 /**
  * This is the model class for table "som__photopost".

@@ -58,8 +58,10 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionCreate($title, $collectionId, $isDraft = 0)
     {
-        if (!\Yii::app()->user->checkAccess('createPhotopost'))
+        if (!\Yii::app()->user->checkAccess('createPhotopost')) {
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
+        }
+
         $model = self::$model;
         $photopost = new $model('default');
         $photopost->attributes = array(
@@ -77,18 +79,19 @@ class ApiController extends \site\frontend\components\api\ApiController
         }
     }
 
-    public function actionUpdate($id, $text, $mood)
+    public function actionUpdate($id, $title, $collectionId, $isDraft = 0)
     {
-        $status = $this->getModel(self::$model, $id, 'updatePhotopost');
-        $status->text = $text;
-        $status->moodId = $mood;
-        if ($status->save()) {
-            $status->refresh();
+        $photopost = $this->getModel(self::$model, $id, 'updatePhotopost');
+        $photopost->title = $title;
+        $photopost->collectionId = $collectionId;
+        $photopost->isDraft = $isDraft;
+        if ($photopost->save()) {
+            $photopost->refresh();
             $this->success = true;
-            $this->data = $status->toJSON();
+            $this->data = $photopost->toJSON();
         } else {
             $this->errorCode = 1;
-            $this->errorMessage = $status->getErrorsText();
+            $this->errorMessage = $photopost->getErrorsText();
         }
     }
 

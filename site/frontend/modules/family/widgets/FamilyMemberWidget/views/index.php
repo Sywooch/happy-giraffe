@@ -2,10 +2,12 @@
 /**
  * @var \site\frontend\modules\family\widgets\FamilyMemberWidget\FamilyMemberWidget $this
  */
+$familyCollection = $this->model->family->getPhotoCollection('all');
+$attach = $familyCollection->observer->getByAttach($this->model->photoCollection->observer->getSingle(0));
 ?>
 
 <div class="family-member_row clearfix">
-    <?php if ($this->model->photoCollection->observer->getCount() > 0): ?>
+    <?php if ($attach !== null): ?>
         <?php if ($this->getPhotoSide() == $this::PHOTO_SIDE_LEFT): ?>
             <?php $this->render('_full_photo', array('member' => $this->model)); ?>
             <div style="width: <?=$this->getInfoWidth()?>px;" class="family-member_about family-member_about__<?=$this->getColor()?> family-member_about__right">

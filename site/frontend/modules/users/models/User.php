@@ -21,6 +21,7 @@ class User extends \User
             'id' => (int) $this->id,
             'firstName' => $this->first_name,
             'lastName' => $this->last_name,
+            'birthday' => $this->birthday,
             'avatarId' => (int) $this->avatar_id,
             'gender' => (int) $this->gender,
             'isOnline' => (bool) $this->online,

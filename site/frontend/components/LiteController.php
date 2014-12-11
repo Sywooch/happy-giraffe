@@ -37,7 +37,7 @@ class LiteController extends HController
             $guestPackage = 'lite_' . $this->litePackage;
             $userPackage = 'lite_' . $this->litePackage . '_user';
             // если не гость и если есть отдельный пакет для пользователя, то подключаем его, иначе - общий.
-            $package = \Yii::app()->user->isGuest ? $guestPackage : (\Yii::app()->clientScript->getPackageBaseUrl($userPackage) ? $userPackage : $guestPackage);
+            $package = \Yii::app()->user->isGuest ? $guestPackage : (isset(\Yii::app()->clientScript->packages[$userPackage]) ? $userPackage : $guestPackage);
             \Yii::app()->clientScript->registerPackage($package);
             \Yii::app()->clientScript->useAMD = true;
         }

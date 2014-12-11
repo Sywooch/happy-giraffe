@@ -1,6 +1,6 @@
 <?php $this->beginWidget('AdsWidget', array(
     'dummyTag' => 'google-tag',
-    'show' => Yii::app()->ads->isProduction(),
+    'show' => true,
     'lazyAdsOn' => false,
 )); ?>
 <?php Yii::app()->controller->renderPartial('//counters/_google_tag'); ?>

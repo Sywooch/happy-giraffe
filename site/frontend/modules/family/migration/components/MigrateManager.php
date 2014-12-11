@@ -81,8 +81,8 @@ FROM photo__albums
 WHERE source = 'family';")->execute();
         \Yii::app()->db->createCommand("DELETE
 FROM family__families;")->execute();
-        \Yii::app()->db->createCommand("ALTER TABLE family__families AUTO_INCREMENT=1;");
-        \Yii::app()->db->createCommand("ALTER TABLE family__members AUTO_INCREMENT=1;");
+        \Yii::app()->db->createCommand("ALTER TABLE family__families AUTO_INCREMENT = 0;")->execute();
+        \Yii::app()->db->createCommand("ALTER TABLE family__members AUTO_INCREMENT = 0;")->execute();
     }
 
     public function __construct(\User $user)

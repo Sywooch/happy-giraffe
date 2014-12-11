@@ -127,7 +127,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         if ($model->save()) {
             $this->success = true;
             if ($photoId !== null) {
-                $model->photoCollection->attachPhotos($photoId, true);
+                $model->photoCollection->attachPhotos($photoId);
             }
             $this->data = $model;
         } else {

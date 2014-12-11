@@ -1,0 +1,43 @@
+include ../../../block/config
+extend ../../../extend/layout_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css'; 
+ 
+block layout
+ 
+ 
+    //- +user-menu('', userMenu.a)
+  
+    //- .page-col.page-col__user
+        .page-col_cont.page-col_cont__in
+    .b-main
+        .b-main_cont.b-main_cont__wide
+            //- +userAddRecord('userAddRecord__blog', userAddRecord.albums)
+
+            .family-user.family-user__think
+                .textalign-c
+                    .ico-myfamily.ico-myfamily__l
+
+                // Блок Добавления
+                .cap-add.cap-add__l.cap-add__family-member
+                    .cap-add_hold
+                        .cap-add_in 
+                            .cap-add_tx Добавить члена семьи 
+                // Блок Добавления
+                .cap-add.cap-add__l.cap-add__family-photo
+                    .cap-add_hold
+                        .cap-add_in 
+                            .cap-add_tx Добавить семейное фото 
+                // Блок Добавления
+                .cap-add.cap-add__l.cap-add__family-text
+                    .cap-add_hold
+                        .cap-add_in 
+                            .cap-add_tx Добавить рассказ о семье
+
+
+
+        +layout-footer-lite()
+
+
+

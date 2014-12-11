@@ -185,8 +185,8 @@
       function photoWindColH () {
           var colCont = $(".photo-window_cont");
           var bannerH = document.getElementById('photo-window_banner').offsetHeight;
-          colCont.height($(window).height() - bannerH - 12);
-      
+          colCont.height($(window).height() - bannerH - 24);
+          
       }
       
       /* Позиция блока с лайками */
@@ -198,8 +198,8 @@
       $(document).ready(function () {
           photoWindColH();
           likePos();
-      
-        /* custom scroll */
+          
+      /* custom scroll */
         var scroll = $('.scroll').baron({
           scroller: '.scroll_scroller',
           barOnCls: 'scroll__on',
@@ -207,8 +207,8 @@
           track: '.scroll_bar-hold',
           bar: '.scroll_bar'
         });
-      
-      
+        
+        
       });
       $(window).resize(function () {
           photoWindColH();
@@ -219,7 +219,6 @@
     <div class="photo-window display-b">
       <div class="photo-window_w"><a href="" class="photo-window_close"></a>
         <div class="photo-window_top">
-          <div class="photo-window_date">Фото добавлено<br><span>15 мая</span></div>
           <div class="photo-window_count">25 из 52</div>
         </div>
         <!--Обрабатывать клик на .photo-window_c для листания следующего изображения 
@@ -251,17 +250,6 @@
             </div>
           </div>
         </div>
-        <div class="photo-window_b">
-          <!-- Нет у гостя a.photo-window_del(href="") Удалить-->
-          <!-- Нет у гостя a.photo-window_edit(href="") Редактировать-->
-          <div class="custom-likes-b">
-            <div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
-            <div class="custom-likes-b_hold">
-              <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-              <div data-yashareL10n="ru" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yashareTheme="counter" data-yashareType="small" class="yashare-auto-init"></div>
-            </div>
-          </div>
-        </div>
         <div class="photo-window_col">
           <div class="photo-window_col-hold scroll">
             <div class="scroll_scroller photo-window_cont">
@@ -271,42 +259,35 @@
                     <div class="meta-gray_view"><span class="ico-view ico-view__gray"></span><span class="meta-gray_tx">305</span></div>
                   </div>
                   <div class="b-user-info b-user-info__middle float-l">
-                    <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"/></a>
+                    <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"/></span>
                     <div class="b-user-info_hold"><a href="" class="b-user-info_name">Ангелина Богоявленская</a>
-                      <div class="user-actions user-actions__small">
-                        <!--
-                        Виды иконок друг 
-                        user-actions_i__friend - друг
-                        user-actions_i__friend-add - добавить в друзья
-                        user-actions_i__friend-added - приглашение выслано
-                        user-actions_i__friend-append - встречное приглашение в друзья, принять
-                        
-                        --><a href="" class="user-actions_i user-actions_i__friend-add powertip"><span class="user-actions_ico"></span></a><a href="" class="user-actions_i user-actions_i__message powertip"><span class="user-actions_ico"></span></a>
-                      </div>
+                      <div class="b-user-info_date">16 июн 2013</div>
                     </div>
                   </div>
                 </div>
-                <div class="photo-window_about">Фотопост <a href="" class="photo-window_about-a">Места моих путешествий</a></div>
+                <div class="photo-window_about">Фотопост <a href="">Места моих путешествий</a></div>
                 <div class="photo-window_t">
-                  <!-- input.itx-gray(type='text', name='', placeholder='Введите название фото и нажмите Enter')-->
-                  Детский лагерь «Зеркальный». Ленинградская область. 
-                  <!-- Нет у гостя <a class="ico-edit powertip" href=""></a> -->
+                  <input type="text" name="" placeholder="Введите название фото и нажмите Enter" class="itx-gray">
+                  <!--Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a> 
+                  -->
                 </div>
                 <div class="photo-window_desc-hold">
                   <div class="photo-window_desc clearfix">
-                    <p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.
-                      <!-- Нет у гостя a.ico-edit.powertip(href='')-->
-                    </p>
+                    <p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.<a href="" class="ico-edit powertip"></a></p>
                   </div>
                 </div>
                 <div class="comments-gray comments-gray__small">
                   <div class="comments-gray_add active clearfix">
+                    <div class="comments-gray_ava">
+                      <!-- ava--><span class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"/></span>
+                    </div>
                     <div class="comments-gray_frame">
-                      <textarea name=" " cols="15" rows="2" placeholder="Ваш комментарий" class="itx-gray"></textarea>
+                      <textarea name=" " cols="15" rows="2" placeholder="Введите ваш комментарий и нажмите Enter" class="itx-gray"></textarea>
                     </div>
                   </div>
-                  <div class="comments-gray_t"><span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span><a id="comments-show" href="" class="font-small">Показать </a>
-                    <!-- Показывается затем ищезает-->
+                  <div class="comments-gray_t"><span class="comments-gray_t-tx">Комментарии<span class="color-gray">(28)</span></span><a id="comments-show" href="" class="font-small">Показать </a>
+                    <!--<a href="" class="float-r font-small">Статистика (14)</a> 
+                    -->
                     <div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>
                   </div>
                 </div>

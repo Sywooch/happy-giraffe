@@ -19,17 +19,11 @@ mixin albumPreview(mod, vars)
                                 img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
                             .album-preview_overlay
                 - else
-                    - if (vars.bigLi == i)
-                        - vars.bigLi = 'album-preview_li__big'
-                    - else 
-                        - vars.bigLi = ''
-
                     - if (i == 1)
                         - var active = 'active'
                     - else 
                         - active = ''
-
-                    li.album-preview_li(class=active + ' ' + vars.bigLi)
+                    li.album-preview_li(class=active)
                         a.album-preview_in(href="")
                             .album-preview_img-hold
                                 // 
@@ -65,15 +59,5 @@ mixin albumPreview(mod, vars)
 - albumPreview.album1.items.tx = ['Моя семья', 'Мои работы по рукоделию', 'Выходные - мое хобби, а также очень интересно и познавательно ', 'Моя семья', 'Мои работы по рукоделию', ]
 - albumPreview.album1.items.count = ['25 фото', '145 фото','25 фото', '145 фото', '1 фото']
 - albumPreview.album1.items.img = ['w205-h140.jpg', 'w205-h140-2.jpg','w205-h140.jpg', 'w205-h140-2.jpg', 'w205-h140.jpg']
-
-
-- albumPreview.photoWindow = {}
-- albumPreview.photoWindow.check = false
-- albumPreview.photoWindow.album = true
-- albumPreview.photoWindow.bigLi = 0
-- albumPreview.photoWindow.items = {}
-- albumPreview.photoWindow.items.tx = ['Моя семья', 'Мои работы по рукоделию', 'Выходные - мое хобби, а также очень интересно и познавательно ', 'Моя семья', 'Мои работы по рукоделию',  'Моя семья', 'Мои работы по рукоделию', ]
-- albumPreview.photoWindow.items.count = ['25 фото', '145 фото','25 фото', '145 фото','145 фото','25 фото', '145 фото', '1 фото']
-- albumPreview.photoWindow.items.img = ['w480-h345.jpg', 'w205-h140-2.jpg','w205-h140.jpg', 'w205-h140-2.jpg', 'w205-h140.jpg', 'w205-h140-2.jpg', 'w205-h140.jpg']
 
 

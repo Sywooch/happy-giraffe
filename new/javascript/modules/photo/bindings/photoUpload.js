@@ -44,7 +44,11 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'phot
                     // photoInstance.photo = photoInstance;
                     photoInstance = new PhotoAttach(photoInstance);
                     observable.push(photoInstance);
-                } else {
+                }
+                if (photoInstance.hasOwnProperty('photo')) {
+                    observable(new PhotoAttach(photoInstance));
+                }
+                else {
                     observable(photoInstance);
                 }
             };

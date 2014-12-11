@@ -3,23 +3,35 @@
         <div class="postAdd_row">
             <div class="postAdd_count"></div>
             <div class="b-main_col-article clearfix"><!-- ava-->
+                <!-- ko if: userInstance.loading() === false -->
                 <a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ">
                     <span class="ico-status ico-status__online"></span>
-                    <img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img">
+                    <img alt="" src="" data-bind="src: userInstance.avatarUrl()" class="ava_img">
                 </a>
+                <!-- /ko -->
                 <div class="user-status user-status__add">
                     <div class="user-status_hold"></div>
                     <div class="inp-valid inp-valid__abs">
                         <div class="inp-valid_count">450</div>
-                        <textarea rows="3" cols="40" placeholder="Как у вас дела?" class="itx-gray"></textarea>
+                        <textarea rows="3" cols="40" placeholder="Как у вас дела?" class="itx-gray" data-bind="textInput: status.text"></textarea>
                     </div>
                     <div class="user-status_bottom textalign-l">
                         <div class="b-user-mood">
                             <div class="b-user-mood_img">
                                 <img src="/images/widget/mood/0.png">
-                            </div><div class="b-user-mood_hold"><a href="#">
-                            Прикрепить <br>мое настроение</a>
-                        </div>
+                            </div>
+                            <div class="b-moods-list" data-bind="if: status.moodsArray().length > 0 && openMoodsWindow() === true">
+                                <ul class="b-moods-list_ul" data-bind="foreach: { data: status.moodsArray, as: 'mood' }">
+                                    <li class="b-moods-list_li">
+                                        <a class="b-moods-list_a" href="">
+                                            <img src="" data-bind="src: mood.url, attr" alt=""/>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="b-user-mood_hold">
+                                <a href="#" data-bind="click: openMoods">Прикрепить <br>мое настроение</a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 <div class="postAdd">
-    <div class="postAdd_hold">
+    <div class="postAdd_hold" data-bind="if: load() === true">
         <div class="postAdd_row">
             <div class="postAdd_count"></div>
             <div class="b-main_col-article clearfix"><!-- ava-->
@@ -11,26 +11,39 @@
                 <!-- /ko -->
                 <div class="user-status user-status__add">
                     <div class="user-status_hold"></div>
-                    <div class="inp-valid inp-valid__abs">
-                        <div class="inp-valid_count">450</div>
+                    <div class="inp-valid inp-valid__abs" data-bind="css: { error: status.text.isValid() === false }">
+                        <div class="inp-valid_count" data-bind="text: textLength()"></div>
                         <textarea rows="3" cols="40" placeholder="Как у вас дела?" class="itx-gray" data-bind="textInput: status.text"></textarea>
+                        <!-- ko if: status.text.isValid() === false -->
+                            <div class="inp-valid_error" data-bind="validationMessage: status.text">Ошибка</div>
+                        <!-- /ko -->
                     </div>
                     <div class="user-status_bottom textalign-l">
                         <div class="b-user-mood">
                             <div class="b-user-mood_img">
-                                <img src="/images/widget/mood/0.png">
+                                <img src="" data-bind="src: (status.choosedMood() !== undefined && status.choosedMood() !== null) ? status.choosedMood().url : '/images/widget/mood/0.png'">
                             </div>
-                            <div class="b-moods-list" data-bind="if: status.moodsArray().length > 0 && openMoodsWindow() === true">
+                            <!-- ko if: status.moodsArray().length > 0 && openMoodsWindow() === true -->
+                            <div class="b-moods-list">
                                 <ul class="b-moods-list_ul" data-bind="foreach: { data: status.moodsArray, as: 'mood' }">
                                     <li class="b-moods-list_li">
-                                        <a class="b-moods-list_a" href="">
-                                            <img src="" data-bind="src: mood.url, attr" alt=""/>
+                                        <a class="b-moods-list_a" href="" data-bind="click: function (data, event) { $parent.chooseMood(mood); }">
+                                            <img src="" data-bind="src: mood.url" alt=""/>
+                                            <span class="b-moods-list_tx" data-bind="text: mood.text"></span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
+                            <!-- /ko -->
                             <div class="b-user-mood_hold">
-                                <a href="#" data-bind="click: openMoods">Прикрепить <br>мое настроение</a>
+                                <!-- ko if: status.choosedMood() === undefined || status.choosedMood() === null -->
+                                    <a href="#" data-bind="click: openMoods">Прикрепить <br>мое настроение</a>
+                                <!-- /ko -->
+                                <!-- ko if: status.choosedMood() !== undefined && status.choosedMood() !== null -->
+                                    <div class="b-user-mood_tx">- Мое настроение</div>
+                                    <a href="#" class="font-small margin-l10" data-bind="click: openMoods">Изменить</a>
+                                    <a href="#" class="color-gray font-small margin-l5" data-bind="click: removeMood">Удалить</a>
+                                <!-- /ko -->
                             </div>
                         </div>
                     </div>
@@ -44,7 +57,7 @@
                 <div class="postAdd_btns-hold">
                     <a href="" class="btn btn-link-gray margin-r15">Отменить</a>
                     <div class="btn-group dropup">
-                        <span class="btn btn-xm postAdd_btn-out btn-success"> Опубликовать</span>
+                        <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: status.text.isValid() === false }, click: createStatus, text: (updateTo() === false) ? 'Опубликовать' : 'Изменить'"></span>
                         <div class="btn-group dropdown">
                             <span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark">
                                 <i class="ico-arrow-d-white"></i>

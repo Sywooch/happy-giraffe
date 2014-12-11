@@ -8,7 +8,7 @@ $attach = $familyCollection->observer->getByAttach($member->photoCollection->obs
 
 if ($attach === null) {
     var_dump($attach);
-    var_dump($member->photoCollection->observer->getSingle(0));
+    var_dump($member->photoCollection->observer->getSingle(0)->id);
     die;
 }
 

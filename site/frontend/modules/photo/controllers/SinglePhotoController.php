@@ -7,6 +7,7 @@
 namespace site\frontend\modules\photo\controllers;
 
 
+use site\frontend\modules\family\models\Family;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
@@ -49,6 +50,19 @@ class SinglePhotoController extends \LiteController
         $this->metaNoindex = true;
 
         $collection = $album->getPhotoCollection();
+        $this->renderSinglePhoto($collection, $photoId);
+    }
+
+    public function actionFamily($userId, $photoId)
+    {
+        $family = Family::model()->hasMember($userId)->find();
+        if ($family === null) {
+            throw new \CHttpException(404);
+        }
+
+        $this->metaCanonical = $family->getUrl();
+
+        $collection = $family->getPhotoCollection('all');
         $this->renderSinglePhoto($collection, $photoId);
     }
 

@@ -42,6 +42,7 @@ class User extends ApiModel
             'id',
             'firstName',
             'lastName',
+            'birthday',
             'avatarId',
             'gender',
             'isOnline',

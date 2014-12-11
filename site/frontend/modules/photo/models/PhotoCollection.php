@@ -33,6 +33,13 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         'CommunityContent' => array(
             'default' => 'site\frontend\modules\photo\models\collections\CommunityContentPhotoCollection',
         ),
+        'FamilyMember' => array(
+            'default' => 'site\frontend\modules\photo\models\collections\FamilyMemberPhotoCollection',
+        ),
+        'Family' => array(
+            'default' => 'site\frontend\modules\photo\models\collections\FamilyPhotoCollection',
+            'all' => 'site\frontend\modules\photo\models\collections\FamilyAllPhotoCollection',
+        ),
     );
 
 	/**
@@ -129,6 +136,8 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
                 'possibleRelations' => array(
                     'PhotoAlbum' => '\site\frontend\modules\photo\models\PhotoAlbum',
                     'CommunityContent' => '\CommunityContent',
+                    'FamilyMember' => '\site\frontend\modules\family\models\FamilyMember',
+                    'Family' => '\site\frontend\modules\family\models\Family',
                 ),
             ),
             'UrlBehavior' => array(
@@ -341,7 +350,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         return $this->_observer;
     }
 
-    public function getOwner()
+    public function getAuthor()
     {
         return $this->RelatedModelBehavior->relatedModel->author;
     }

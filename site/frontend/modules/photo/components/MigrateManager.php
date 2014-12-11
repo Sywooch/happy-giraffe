@@ -9,6 +9,7 @@ namespace site\frontend\modules\photo\components;
 
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\PhotoCollection;
 
 class MigrateManager
@@ -32,6 +33,18 @@ class MigrateManager
         $collection->attachPhotos($photoIds, true);
 
         return $collection;
+    }
+
+    public static function getByRelation($oldModel, $relation = 'photos')
+    {
+        $photosIds = array();
+        foreach ($oldModel->$relation as $oldAttach) {
+            $photoId = self::movePhoto($oldAttach->photo);
+            if ($photoId !== false) {
+                $photosIds[] = $photoId;
+            }
+        }
+        return $photosIds;
     }
 
 
@@ -97,7 +110,7 @@ class MigrateManager
             }
         }
     }
-    
+
     public static function movePhoto(\AlbumPhoto $oldPhoto, $attributes = array())
     {
         if ($oldPhoto->newPhotoId !== null) {

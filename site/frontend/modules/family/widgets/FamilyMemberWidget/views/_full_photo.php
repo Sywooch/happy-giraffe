@@ -7,7 +7,9 @@ $familyCollection = $member->family->getPhotoCollection('all');
 $attach = $familyCollection->observer->getByAttach($member->photoCollection->observer->getSingle(0));
 
 if ($attach === null) {
-    die('');
+    var_dump($attach);
+    var_dump($member->photoCollection->observer->getSingle(0));
+    die;
 }
 
 $id = 'familyMember' . $member->id;

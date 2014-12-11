@@ -19,9 +19,19 @@
                         <div class="b-user-mood">
                             <div class="b-user-mood_img">
                                 <img src="/images/widget/mood/0.png">
-                            </div><div class="b-user-mood_hold"><a href="#">
-                            Прикрепить <br>мое настроение</a>
-                        </div>
+                            </div>
+                            <div class="b-moods-list" data-bind="if: status.moodsArray().length > 0 && openMoodsWindow() === true">
+                                <ul class="b-moods-list_ul" data-bind="foreach: { data: status.moodsArray, as: 'mood' }">
+                                    <li class="b-moods-list_li">
+                                        <a class="b-moods-list_a" href="">
+                                            <img src="" data-bind="src: mood.url, attr" alt=""/>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="b-user-mood_hold">
+                                <a href="#" data-bind="click: openMoods">Прикрепить <br>мое настроение</a>
+                            </div>
                         </div>
                     </div>
                 </div>

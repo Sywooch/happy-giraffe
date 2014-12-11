@@ -6,7 +6,9 @@ define(['jquery', 'knockout', 'models/Model'], function ($, ko, Model) {
        removeUrl: '/api/status/remove/',
        restoreUrl: '/api/status/restore/',
        moodsUrl: '/api/status/moods/',
+       moodImageUrl: '/images/widget/mood/',
        mood: {},
+       moodsArray: ko.observableArray([]),
        init: function initStatus(statusData) {
            this.id = ko.observable(statusData.id);
            this.text = ko.observable(statusData.text);

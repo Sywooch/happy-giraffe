@@ -22,6 +22,7 @@ mixin cap-empty(mod, vars)
             .cap-empty_abs-msg(class=vars.topAbsMsgMod)
                 .cap-empty_abs-msg-hold!= vars.topAbsMsg
         else 
+            .verticalalign-m-help
             .cap-empty_hold
                 .cap-empty_img(class=vars.imgMod)
                 - if (vars.txTop)
@@ -32,7 +33,6 @@ mixin cap-empty(mod, vars)
                     .cap-empty_tx(class=vars.txMod)!= vars.tx
                 - if (vars.txSub)
                     .cap-empty_tx-sub(class=vars.txSubMod)!= vars.txSub
-            .verticalalign-m-help
     // /cap-empty
     
 - var capEmpty = {}
@@ -61,3 +61,14 @@ mixin cap-empty(mod, vars)
 - capEmpty.photoalbumDel = {}
 - capEmpty.photoalbumDel.t = "Фотоальбом удален ",
 - capEmpty.photoalbumDel.tx = "<a href=''>Восстановить</a>"
+
+
+- capEmpty.familySettingsDel = {}
+- capEmpty.familySettingsDel.t = "Р’Р°С€Р° РёРЅС„РѕСЂРјР°С†РёСЏ СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅР°",
+- capEmpty.familySettingsDel.tx = "<a href='#'>Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ</a>"
+
+- capEmpty.familyFirstEdit = {}
+- capEmpty.familyFirstEdit.imgMod = 'cap-empty_img__family-big',
+- capEmpty.familyFirstEdit.t = "РЈ РІР°СЃ РЅРµ Р·Р°РїРѕР»РЅРµРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РІР°С€РµР№ СЃРµРјСЊРµ",
+- capEmpty.familyFirstEdit.txSub = "<a href='#' class='btn btn-success btn-xm'>Р—Р°РїРѕР»РЅРёС‚СЊ</a>"
+

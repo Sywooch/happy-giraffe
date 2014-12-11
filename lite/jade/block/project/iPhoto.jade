@@ -9,7 +9,8 @@ mixin iPhoto(mod, vars)
         - if (vars.type == "empty")
             .i-photo_hold
         - else
-            a.ico-close5(href="")
+            if (vars.delete)
+                a.ico-close4(href="#")
         // Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость
         - if (vars.type == "load")
             // Загрузка фото
@@ -39,6 +40,19 @@ mixin iPhoto(mod, vars)
             .i-photo_hold
                 .i-photo_img-hold
                     img.i-photo_img(src='#{vars.src}', alt="")
+                    if(vars.edit)
+                        .i-photo_overlay
+                            a.ico-photo-edit.powertip(href='#', title='Редатировать')
+                    if(vars.rotate)
+                        .i-photo_overlay
+                            a.i-photo_rotate(href="") 
+                            a.i-photo_rotate.i-photo_rotate__r(href="") 
+                // input.i-photo_itx.itx-gray(type="text", placeholder='')
+
+        - if (vars.type == "ico-family")
+            .i-photo_hold
+                .i-photo_img-hold
+                    .ico-family-m.ico-family-m__baby
                     .i-photo_overlay
                         a.i-photo_rotate(href="") 
                         a.i-photo_rotate.i-photo_rotate__r(href="") 
@@ -50,15 +64,40 @@ mixin iPhoto(mod, vars)
 //- - iPhoto.empty.type = "empty"
 
 - iPhoto.load = {}
+- iPhoto.load.delete = true
 - iPhoto.load.type = "load"
 
 - iPhoto.error = {}
+- iPhoto.error.delete = true
 - iPhoto.error.type = "error"
 
 - iPhoto.loaded = {}
+- iPhoto.loaded.delete = true
+- iPhoto.loaded.rotate = true
 - iPhoto.loaded.type = "loaded"
 - iPhoto.loaded.src = "/new/images/example/w155-h140.jpg"
 
 - iPhoto.ie = {}
 - iPhoto.ie.type = "ie"
 - iPhoto.ie.src = "/new/images/example/w155-h140-2.jpg"
+
+
+
+- iPhoto.familySettingsEdit = {}
+- iPhoto.familySettingsEdit.type = "loaded"
+- iPhoto.familySettingsEdit.delete = true
+- iPhoto.familySettingsEdit.edit = true
+- iPhoto.familySettingsEdit.src = "/new/images/example/w155-h140.jpg"
+
+- iPhoto.familySettings = {}
+- iPhoto.familySettings.type = "loaded"
+- iPhoto.familySettings.delete = flase
+- iPhoto.familySettings.edit = false
+- iPhoto.familySettings.src = "/new/images/example/w155-h140.jpg"
+
+- iPhoto.familySettingsIco = {}
+- iPhoto.familySettingsIco.type = "ico-family"
+- iPhoto.familySettingsIco.delete = flase
+- iPhoto.familySettingsIco.edit = false
+- iPhoto.familySettingsIco.src = "/new/images/example/w155-h140.jpg"
+

@@ -1,0 +1,124 @@
+
+/* cap-add */
+.cap-add {
+    display: table;
+    margin: 30px 0;
+    width: 100%;
+    background-color: #73c76a; // зеленый можно изменить
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: none;
+        background-color: #59b94e; // зеленый можно изменить
+    }
+    &__family-member,
+    &__green {background-color: #7fcc77;}
+    &__family-member:hover,
+    &__green:hover {background-color: #4BAA41;}
+    &__family-photo,
+    &__lilac {background-color: #a68ed3;}
+    &__family-photo:hover,
+    &__lilac:hover {background-color: #977bcb;}
+    &__family-text,
+    &__blue {background-color: #50abe2;}
+    &__family-text:hover,
+    &__blue:hover {background-color: #439ed4;}
+
+    &__family-member &_hold {background: url('@{path-img}/family/cap-add__family-member.png') no-repeat 50% 50%;}
+    &__family-photo &_hold {background: url('@{path-img}/family/cap-add__family-photo.png') no-repeat 50% 50%;}
+    &__family-text &_hold {background: url('@{path-img}/family/cap-add__family-text.png') no-repeat 50% 50%;}
+    /**/
+    &__i-photo {
+        margin: 0;
+        padding: 7px;
+        font-size: 14px;
+        line-height: 14px;
+    }
+    &__i-photo &_in {
+        padding: 40px 35px 25px;
+        /*background: url('@{path-img}/cap-add_in__s.png') no-repeat 50% 36px;*/
+    }
+    &__i-photo:hover &_in {
+        //.scale(1.15);
+    } 
+    &__i-photo &_in:before {
+        display: block;
+        margin: 0 0 8px;
+        font-size: 70px;
+        line-height: 30px;
+    }
+    &__i-photo &_hold {
+        height: 110px;
+        border: 2px dashed #fff;
+        /*background: url('@{path-img}/cap-add__i-photo.png') no-repeat 50% 15px;*/
+    }  
+    /**/
+
+    /**/
+    &__l-s {
+        padding: 18px;
+        font-size: 25px;
+    }
+    &__l-s &_in {
+        padding: 10px 10px 10px 10px;
+        /*background: url('@{path-img}/cap-add_in__s.png') no-repeat 0 50%;*/
+    }
+    &__l-s:hover &_in {
+        .scale(1.15);
+    } 
+    &__l-s &_in:before {
+        margin-right: 10px;
+        font-size: 70px;
+        line-height: 20px;
+    }
+    &__l-s &_hold {
+        height: 100px;
+        border: 3px dashed #fff;
+    }
+    &__l-s &_tx {
+        text-align: left;
+    }
+    /**/
+    &__l {
+        padding: 18px;
+        font-size: 25px;
+        // .transition(all 0.8s ease-out);
+    }
+    &__l &_in {
+        padding: 20px 10px 20px 10px;
+        /*background: url('@{path-img}/album-photo-add_hold.png') no-repeat;*/
+    }
+    &__l &_in:before {
+        margin-right: 15px;
+        font-size: 145px;
+    }
+    &__l:hover &_in {
+        .scale(1.15);
+    }
+    &__l &_hold {
+        height: 320px;
+        border: 3px dashed #fff;
+    } 
+    /**/
+    &_hold {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+    &_in {
+        display: inline-block;
+    }
+    &_in:before {
+        content: '+';
+        display: inline-block;
+        vertical-align: middle;
+        font-weight: bold;
+        font-family: 'Courier New', sans-serif;
+    }
+    &_tx {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+/* /cap-add */

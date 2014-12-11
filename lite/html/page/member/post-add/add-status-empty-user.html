@@ -95,7 +95,7 @@
   </div>
   <!-- /header-fix-->
   <div class="layout-container">
-    <div class="layout-loose">
+    <div class="layout-loose layout-loose__white">
       <div class="layout-header">
         <!-- header-->
         <div class="header header__user header__base">
@@ -161,91 +161,94 @@
         </div>
         <!-- /header-->
       </div>
-      <div class="layout-loose_hold layout-loose_hold__personal clearfix">
-        <!-- user-menu-->
-        <div class="user-menu">
-          <div class="user-menu_ava">
-            <!-- ava--><a href="#" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-          </div>
-          <ul class="user-menu_ul">
-            <li class="user-menu_li"><a class="user-menu_i">
-                <div class="user-menu_ico user-menu_ico__profile"></div>
-                <div class="user-menu_tx">Анкета
-                </div></a></li>
-            <li class="user-menu_li active"><a class="user-menu_i">
-                <div class="user-menu_ico user-menu_ico__family"></div>
-                <div class="user-menu_tx">Семья
-                </div></a></li>
-            <li class="user-menu_li"><a class="user-menu_i">
-                <div class="user-menu_ico user-menu_ico__blog"></div>
-                <div class="user-menu_tx">Блог
-                </div></a></li>
-            <li class="user-menu_li"><a class="user-menu_i">
-                <div class="user-menu_ico user-menu_ico__photo"></div>
-                <div class="user-menu_tx">Фото
-                </div></a></li>
-            <li class="user-menu_li"><a class="user-menu_i">
-                <div class="user-menu_ico user-menu_ico__interest"></div>
-                <div class="user-menu_tx">Интересы
-                </div></a></li>
-          </ul>
-        </div>
-        <!-- /user-menu-->
-        
-        <div class="page-col page-col__user">
-          <div class="page-col_cont page-col_cont__in">
-            <div class="user-album">
-              <div class="b-crumbs b-crumbs__m">
-                <ul class="b-crumbs_ul">
-                  <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Мои фото</a></li>
-                  <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last"> Харьковский уикенд</span></li>
-                </ul>
+      <div class="layout-loose_hold clearfix">
+        <div class="b-main">
+          <div class="b-main_cont b-main_cont__wide">
+            <!-- userAddRecord-->
+            <div class="userAddRecord clearfix  userAddRecord__blog">
+              <div class="userAddRecord_hold">
+                <div class="userAddRecord_tx"> Я хочу добавить
+                </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a><a href="#popup-user-add-link" data-theme="transparent" title="Ссылка" class="userAddRecord_ico userAddRecord_ico__link fancy powertip"></a>
               </div>
-              <div class="user-album_top clearfix">
-                <!-- Счетчик серого цвета из-за .user-album_count-hold__gray-->
-                <div class="user-album_count-hold user-album_count-hold__gray">
-                  <div class="user-album_count">0</div>
-                  <div class="user-album_count-tx">фото</div>
-                </div>
-                <!-- Заголовок-->
-                <div class="user-album_switch display-n">
-                  <h1 class="user-album_t">Харьковский уикенд<a href="#" title="Редактировать" class="ico-edit ico-edit__s powertip"></a></h1>
-                </div>
-                <div class="user-album_desc display-n">
-                  <div class="user-album_switch">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</div>
-                </div>
-                <!-- Редактирование-->
-                <div class="postAdd">
-                  <div class="postAdd_hold margin-t40">
-                    <div class="postAdd_row">
-                      <div class="postAdd_cont">
-                        <div class="inp-valid inp-valid__abs">
-                          <input type="text" placeholder="Заголовок альбома" class="itx-gray">
-                          <div class="inp-valid_count">150</div>
-                        </div>
+            </div>
+            <!-- /userAddRecord-->
+            <div class="postAdd">
+              <div class="postAdd_hold">
+                <div class="postAdd_row">
+                  <div class="postAdd_count"> </div>
+                  <div class="b-main_col-article clearfix">
+                    <!-- ava--><a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                    <div class="user-status user-status__add">
+                      <div class="user-status_hold"></div>
+                      <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid_count">450</div>
+                        <textarea rows="3" cols="40" placeholder="Как у вас дела?" class="itx-gray"></textarea>
                       </div>
-                    </div>
-                    <div class="postAdd_row">
-                      <div class="postAdd_cont">
-                        <div class="inp-valid inp-valid__abs">
-                          <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray"></textarea>
-                          <div class="inp-valid_count">450</div>
+                      <div class="user-status_bottom textalign-l">
+                        <div class="b-user-mood">
+                          <div class="b-user-mood_img"><img src="/images/widget/mood/0.png"></div>
+                          <div class="b-user-mood_hold"><a href="#">
+                               
+                              Прикрепить <br>мое настроение</a></div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="postAdd_row">
-                      <div class="postAdd_cont">
-                        <div class="postAdd_btns-hold"><a href="" class="btn btn-default btn-xm margin-r15">Отмена</a><a href="" class="btn btn-success btn-xm loading">Ok</a></div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="user-album_control clearfix"><a href="" class="user-album_del">Удалить альбом</a></div>
-              <div class="album-photo-add album-photo-add__big">
-                <div class="album-photo-add_hold">
-                   
-                  Загрузить <br>фото в альбом
+                <!-- Строка-->
+                <!-- postAdd_btns-->
+                <div class="postAdd_row">
+                  <div class="postAdd_count"> </div>
+                  <div class="b-main_col-article clearfix">
+                    <!-- Блок управления приватностью записи-->
+                    <!--.privacy-select.float-l
+                    .privacy-select_hold.clearfix
+                        .privacy-select_tx Для кого:
+                        .privacy-select_drop-hold.dropdown.dropup
+                            a.privacy-select_a.dropdown-toggle(href='', data-toggle="dropdown", data-target="#", id="dLabel1")
+                                span.ico-users.ico-users__friend.active
+                                span.privacy-select_a-tx
+                                    | только
+                                    br
+                                    | друзьям
+                            .privacy-select_drop.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel1")
+                                .privacy-select_i
+                                    a.privacy-select_a(href='')
+                                        span.ico-users.ico-users__all
+                                        span.privacy-select_a-tx
+                                            | для
+                                            | всех
+                                .privacy-select_i
+                                    a.privacy-select_a(href='')
+                                        span.ico-users.ico-users__friend
+                                        span.privacy-select_a-tx
+                                            | только
+                                            | друзьям
+                    -->
+                    <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a>
+                      <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success"> Опубликовать</span>
+                        <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark"><i class="ico-arrow-d-white"></i></span>
+                          <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
+                            <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">
+                                <div class="dropdown-menu_in">
+                                   
+                                  Опубликовать сейчас
+                                </div></a></li>
+                            <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a"> 
+                                <div class="dropdown-menu_in">
+                                   
+                                  Предпросмотр
+                                </div></a></li>
+                            <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                                <div class="dropdown-menu_in">
+                                   
+                                  Сохранить в черновик
+                                </div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

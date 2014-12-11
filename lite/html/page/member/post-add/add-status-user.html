@@ -162,134 +162,98 @@
         <!-- /header-->
       </div>
       <div class="layout-loose_hold clearfix">
-        <!-- Кастомный select-->
-        <script src="/lite/javascript/select2.js"></script>
-        <script src="/lite/javascript/select2_locale_ru.js"></script>
-        <script>
-          $(document).ready(function () {
-          
-                  // Измененный tag select
-              $(".select-cus__search-off").select2({
-                  width: '100%',
-                  minimumResultsForSearch: -1,
-                  dropdownCssClass: 'select2-drop__search-off',
-                  escapeMarkup: function(m) { return m; }
-              });
-              $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
-          
-          });
-          
-        </script>
         <div class="b-main">
           <div class="b-main_cont b-main_cont__wide">
-            <div class="postAdd margin-t40">
+            <!-- userAddRecord-->
+            <div class="userAddRecord clearfix  userAddRecord__blog">
+              <div class="userAddRecord_hold">
+                <div class="userAddRecord_tx"> Я хочу добавить
+                </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a><a href="#popup-user-add-link" data-theme="transparent" title="Ссылка" class="userAddRecord_ico userAddRecord_ico__link fancy powertip"></a>
+              </div>
+            </div>
+            <!-- /userAddRecord-->
+            <div class="postAdd">
               <div class="postAdd_hold">
-                <div class="postAdd_row">
-                  <div class="postAdd_count">1</div>
-                  <div class="b-main_col-article">
-                    <div class="postAdd_t">Форум  </div><a href="#" class="heading-m margin-0">Планирование</a>
-                  </div>
-                </div>
                 <div class="postAdd_row"> 
-                  <div class="postAdd_count">2</div>
-                  <div class="b-main_col-article">
-                    <div class="postAdd_t">Форум  </div><a href="#" class="heading-m margin-0">Планирование</a>
-                  </div>
-                </div>
-                <div class="postAdd_row">
-                  <div class="postAdd_count">3</div>
-                  <div class="b-main_col-article">
-                    <div class="postAdd_t">Рубрика</div>
-                    <!-- .success-->
-                    <div class="inp-valid inp-valid__abs">
-                      <select placeholder="Рубрика" class="select-cus select-cus__search-off select-cus__gray">
-                        <option></option>
-                        <option value="1">Планирование беременности</option>
-                        <option value="2">Планирование повторной беременности</option>
-                        <option value="3">3</option>
-                        <option value="4">Базальная температура, овуляция и определение беременности</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="8">Эко и бесплодие</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <!-- Строка-->
-                <div class="postAdd_row"> 
-                  <div class="postAdd_count">4</div>
-                  <div class="b-main_col-article">
-                    <div class="inp-valid inp-valid__abs">
-                      <div class="inp-valid_count">30</div>
-                      <input placeholder="Заголовок" class="itx-gray">
-                    </div>
-                  </div>
-                </div>
-                <!-- Строка-->
-                <div class="postAdd_row"> 
-                  <div class="postAdd_count">4</div>
-                  <div class="b-main_col-article">
-                    <div>
-                      <!-- Верстк для примера, на самом деле здесь редактор его стилизирую отдельно-->
-                      <textarea rows="3" cols="40" placeholder="Текст статьи" class="itx-gray"></textarea>
-                      <div class="textalign-r margin-t10">
-                        <div class="btn btn-primary btn-m">Загрузить одно фото</div>
+                  <div class="postAdd_count"> </div>
+                  <div class="b-main_col-article clearfix">
+                    <!-- ava--><a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                    <div class="user-status user-status__add">
+                      <div class="user-status_hold"></div>
+                      <div class="inp-valid inp-valid__abs">
+                        <div class="inp-valid_count">450</div>
+                        <textarea rows="3" cols="40" placeholder="Как у вас дела?" class="itx-gray">Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!</textarea>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Строка-->
-                <div class="postAdd_row"> 
-                  <div class="postAdd_count">5</div>
-                  <div class="b-main_col-article">
-                    <div class="inp-valid inp-valid__abs">
-                      <div class="inp-valid_count">450</div>
-                      <textarea rows="3" cols="40" placeholder="meta.title" class="itx-gray"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <!-- Строка-->
-                <div class="postAdd_row"> 
-                  <div class="postAdd_count">6</div>
-                  <div class="b-main_col-article">
-                    <div class="inp-valid inp-valid__abs">
-                      <div class="inp-valid_count">450</div>
-                      <textarea rows="3" cols="40" placeholder="meta.keywords" class="itx-gray"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <!-- Строка-->
-                <div class="postAdd_row"> 
-                  <div class="postAdd_count">7</div>
-                  <div class="b-main_col-article">
-                    <div class="inp-valid inp-valid__abs">
-                      <div class="inp-valid_count">450</div>
-                      <textarea rows="3" cols="40" placeholder="meta.description" class="itx-gray"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <!-- Строка-->
-                <div class="postAdd_row"> 
-                  <div class="postAdd_count">8</div>
-                  <div class="b-main_col-article">
-                    <div class="inp-valid inp-valid__abs">
-                      <div class="inp-valid_count">450</div>
-                      <textarea rows="3" cols="40" placeholder="social.title" class="itx-gray"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <!-- Строка-->
-                <div class="postAdd_row"> 
-                  <div class="postAdd_count">9</div>
-                  <div class="b-main_col-article">
-                    <div class="inp-valid inp-valid__abs">
-                      <div class="inp-valid_count">450</div>
-                      <textarea rows="3" cols="40" placeholder="social.text" class="itx-gray"></textarea>
+                      <div class="user-status_bottom textalign-l">
+                        <div class="b-user-mood">
+                          <div class="b-user-mood_img"><img src="/images/widget/mood/6.png">
+                            <div data-bind="visible: choiceVisible" class="b-moods-list">
+                              <ul class="b-moods-list_ul">
+                                <!-- ko foreach: moods-->
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/1.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Ем</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/2.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Испуг</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/3.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Грустный</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/4.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Молчу</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/5.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Подозрительно</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/6.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Интересно</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/7.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Все ОК</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/8.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Голова кругом</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/9.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Любовь</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/10.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Подарок</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/11.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Красотка</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/12.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Радость</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/13.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Задумался</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/14.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Смущаюсь</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/15.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Праздник</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/16.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Стреляюсь</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/17.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Драка</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/18.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Отстой</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/19.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Смешно</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/20.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Улыбаюсь</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/21.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Шопинг</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/22.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Напеваю</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/23.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Болею</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/24.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Сплю</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/25.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Плачу</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/26.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Звезда</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/27.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Падаю со смеху</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/28.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Слушаю музыку</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/29.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Тихо</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/30.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">В поиске</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/31.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Отлично</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/32.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Дразнюсь</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/33.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Боюсь</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/34.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">В ярости</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/35.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Есть повод</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/36.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Повар</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/37.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Мастер</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/38.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Я крут</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/39.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Хочу денег</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/40.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Ангел</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/41.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">И тебя вылечу</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/42.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Дразнюсь</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/43.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Ловелас</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/44.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Любовь</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/45.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">В поиске</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/46.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Учусь</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/47.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Фоткаю</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/48.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">На югах</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/49.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Не слышу</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/50.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Все по фен-шуй</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/51.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Смущаюсь</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/52.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Заложник</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/53.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Не вижу</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/54.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Умора</span></a></li>
+                                <li class="b-moods-list_li"><a data-bind="click: select" class="b-moods-list_a"><img data-bind="attr: { src : imagePath }" src="/images/widget/mood/55.png" class="b-moods-list_img"><span data-bind="text: title" class="b-moods-list_tx">Рисую</span></a></li>
+                                <!-- /ko-->
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="b-user-mood_hold">
+                            <div class="b-user-mood_tx">- Мое настроение</div><a href="#" class="font-small margin-l10">Изменить</a><a href="#" class="color-gray font-small margin-l5">Удалить</a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

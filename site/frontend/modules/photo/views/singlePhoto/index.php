@@ -7,7 +7,7 @@
  * @var site\frontend\modules\photo\models\PhotoCollection|site\frontend\modules\photo\components\IPublicPhotoCollection $collection
  */
 $photo = $attach->photo;
-$this->owner = $collection->getOwner();
+$this->owner = $collection->getAuthor();
 $this->breadcrumbs += array(
     $collection->getTitle() => $collection->getUrl(),
     $attach->getTitle(),

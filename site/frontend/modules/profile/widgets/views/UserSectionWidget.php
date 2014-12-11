@@ -44,9 +44,11 @@
                 <?php endif; ?>
             </div>
         </div>
+        <?php if (false): ?>
         <div class="userSection_right">
             <?php $this->widget('profile.widgets.FamilyWidget', array('user' => $user)); ?>
         </div>
+        <?php endif; ?>
     </div>
     <div class="userSection_panel">
         <?php

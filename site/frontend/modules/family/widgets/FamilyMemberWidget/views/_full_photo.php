@@ -2,8 +2,9 @@
 /**
  * @var site\frontend\modules\family\widgets\MembersListWidget\MembersListWidget $this
  * @var site\frontend\modules\family\models\FamilyMemberAbstract $member
- * @var site\frontend\modules\photo\models\PhotoAttach $attach
  */
+$familyCollection = $member->family->getPhotoCollection('all');
+$attach = $familyCollection->observer->getByAttach($member->photoCollection->observer->getSingle(0));
 $id = 'familyMember' . $member->id;
 
 /** @var \ClientScript $cs */

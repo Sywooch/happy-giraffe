@@ -16,7 +16,7 @@ COLLATE = utf8_general_ci
 SQL
         );
         $this->execute(<<<SQL
-INSERT INTO `som__status_moods` (SELCT * FROM `user__moods`)
+INSERT INTO `som__status_moods` (SELECT * FROM `user__moods`)
 SQL
         );
         $this->execute(<<<SQL

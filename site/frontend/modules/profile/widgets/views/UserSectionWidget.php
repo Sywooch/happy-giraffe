@@ -30,7 +30,7 @@
                 -->
 
                 <!--<a href="" class="userSection_btn userSection_btn__friend-add powertip"><span class="userSection_ico"></span></a>-->
-                <a href="<?=Yii::app()->user->isGuest ? '#loginWidget' : Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $user->id))?>" class="userSection_btn userSection_btn__dialog powertip popup-a"><span class="userSection_ico"></span></a>
+                <a href="<?=Yii::app()->user->isGuest ? '#loginWidget' : Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $user->id))?>" class="userSection_btn userSection_btn__dialog"><span class="userSection_ico"></span></a>
             </div>
         </div>
         <div class="userSection_center">

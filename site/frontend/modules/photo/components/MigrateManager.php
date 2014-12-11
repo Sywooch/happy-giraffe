@@ -53,6 +53,7 @@ class MigrateManager
         $criteria = new \CDbCriteria();
         $criteria->compare('t.removed', 0);
         $criteria->compare('type', 1);
+        $criteria->addCondition('newAlbumId IS NULL');
         $criteria->with = array('photos');
         $criteria->order = 't.id ASC';
 
@@ -65,39 +66,48 @@ class MigrateManager
         ));
         $total = $dp->totalItemCount;
 
-        $iterator = new \CDataProviderIterator($dp);
+        $iterator = new \CDataProviderIterator($dp, 100);
         foreach ($iterator as $i => $album) {
             if ($album->newAlbumId !== null) {
                 continue;
             }
 
-            $newAlbum = new PhotoAlbum();
-            $newAlbum->detachBehavior('HTimestampBehavior');
-            $newAlbum->title = $album->title;
-            $newAlbum->description = $album->description;
-            $newAlbum->author_id = $album->author_id;
-            $newAlbum->created = $album->created;
-            $newAlbum->updated = $album->updated;
-            $newAlbum->save(false);
+            $transaction = \Yii::app()->db->beginTransaction();
+            try {
+                $newAlbum = new PhotoAlbum();
+                $newAlbum->detachBehavior('HTimestampBehavior');
+                $newAlbum->title = $album->title;
+                $newAlbum->description = $album->description;
+                $newAlbum->author_id = $album->author_id;
+                $newAlbum->created = $album->created;
+                $newAlbum->updated = $album->updated;
+                $newAlbum->source = 'privateAlbum';
+                $newAlbum->save(false);
 
-            $photoIds = array();
-            foreach ($album->photos as $photo) {
-                $photoId = self::movePhoto($photo);
-                if ($photoId !== false) {
-                    $photoIds[] = $photoId;
+                $photoIds = array();
+                foreach ($album->photos as $photo) {
+                    $photoId = self::movePhoto($photo);
+                    if ($photoId !== false) {
+                        $photoIds[] = $photoId;
+                    }
                 }
+                $collection = $newAlbum->photoCollection;
+                $collection->detachBehavior('HTimestampBehavior');
+                $collection->attachPhotos($photoIds);
+                PhotoCollection::model()->updateByPk($collection->id, array(
+                    'created' => $album->created,
+                    'updated' => $album->updated,
+                ));
+
+                echo '[' . ($i + 1) . '/' . $total . ']' . ' - ' . $album->id . "\n";
+
+                \Album::model()->updateByPk($album->id, array('newAlbumId' => $newAlbum->id));
+                $transaction->commit();
+            } catch (\Exception $e) {
+                echo time() . "\n";
+                $transaction->rollback();
+                throw $e;
             }
-            $collection = $newAlbum->photoCollection;
-            $collection->detachBehavior('HTimestampBehavior');
-            $collection->attachPhotos($photoIds);
-            PhotoCollection::model()->updateByPk($collection->id, array(
-                'created' => $album->created,
-                'updated' => $album->updated,
-            ));
-
-            echo '[' . ($i + 1) . '/' . $total . ']' . ' - ' . $album->id  . "\n";
-
-            \Album::model()->updateByPk($album->id, array('newAlbumId' => $newAlbum->id));
         }
     }
 

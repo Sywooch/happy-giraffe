@@ -3,6 +3,16 @@
 return array(
     array(
         'filter' => array(
+            'name' => 'relativeResize',
+            'method' => 'widen',
+            'parameter' => 318,
+        ),
+        'usages' => array(
+            'weeklyNews',
+        ),
+    ),
+    array(
+        'filter' => array(
             'name' => 'lepilla',
             'width' => 155,
             'height' => 140,

@@ -58,7 +58,7 @@ $i = 0;
 <table style="width:100%;margin-bottom:50px;" cellpadding="0" cellspacing="0">
     <tbody><tr>
         <?php foreach ($models as $model): ?>
-    <td style="width:340px;<?php if ($i % 2 != 0) echo "padding-left:20px" ?>" valign="top">
+            <td style="width:340px;<?php if ($i % 2 != 0) echo "padding-left:20px" ?>" valign="top">
 
             <div style="padding:10px;border:1px solid #e7e7e7;width:318px;">
 
@@ -86,11 +86,23 @@ $i = 0;
 
                 <?php
                 $image_url = $model->getContentImage(580, 1000);
+
+                if ($model->type_id == CommunityContent::TYPE_POST) {
+                    $previewObserver = $model->getAttributePhotoCollection('preview')->observer;
+                    if ($previewObserver->getCount() > 0) {
+                        $image_url = Yii::app()->thumbs->getThumb($previewObserver->getSingle(0)->photo, 'weeklyNews', true)->getUrl();
+                    }
+                    $textObserver = $model->content->getAttributePhotoCollection('text')->observer;
+                    if ($textObserver->getCount() > 0) {
+                        $image_url = Yii::app()->thumbs->getThumb($textObserver->getSingle(0)->photo, 'weeklyNews', true)->getUrl();
+                    }
+                }
+
                 if (!empty($image_url))
                     $image_size = getimagesize($image_url);
                 else
                     $image_size = array(0);
-                if ($image_size[0]>100){
+                if ($image_size[0]>100) {
                 ?>
                 <div style="margin-bottom:5px;">
                     <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>?utm_source=email" target="_blank" style="text-decoration: none;">

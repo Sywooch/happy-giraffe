@@ -90,12 +90,14 @@
     }
     &_btn {
         position: absolute;
-        top: 237px;
+        overflow: hidden;
+        top: 236px;
         left: 295px;
         width: 158px;
         height: 33px;
         background: url('/images/banners/bnr-enfomil1_btn.png') no-repeat;
         z-index: 10;
+        .border-radius(10px);
     }
     &_btn:hover {background-position: 0 -33px;}
 }
@@ -118,11 +120,13 @@
     }
     &_btn {
         position: absolute;
+        overflow: hidden;
         top: 134px;
         left: 445px;
         width: 158px;
         height: 33px;
         background: url('/images/banners/bnr-enfomil1_btn.png') no-repeat;
+        .border-radius(10px);
     }
     &_btn:hover {
         background-position: 0px -33px;

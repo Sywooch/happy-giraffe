@@ -103,7 +103,11 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
     protected function instantiate($attributes)
     {
-        $class = self::getClassName($attributes['entity'], $attributes['key']);
+        if (isset($attributes['entity'])) {
+            $class = self::getClassName($attributes['entity'], $attributes['key']);
+        } else {
+            $class = get_class($this);
+        }
         $model = new $class(null);
         return $model;
     }
@@ -146,7 +150,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     public function getUrlInternal($model)
     {
         $parentModel = $model->RelatedModelBehavior->relatedModel;
-        if ($parentModel->asa('UrlBehavior') || method_exists($parentModel, 'getUrl')) {
+        if ($parentModel !== null && $parentModel->asa('UrlBehavior') || method_exists($parentModel, 'getUrl')) {
             return $parentModel->getUrl();
         }
         return false;

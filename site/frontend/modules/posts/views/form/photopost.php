@@ -7,6 +7,7 @@ $cs->registerAMD('photo-single', array('kow'));
         <!--/////-->
         <!-- Основная колонка-->
         <div class="b-main_col-article">
+            фотопост
             <post-status-add></post-status-add>
         </div>
     </div>

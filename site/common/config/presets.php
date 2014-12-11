@@ -143,4 +143,34 @@ return array(
             'singlePhoto',
         ),
     ),
+    array(
+        'filter' => array(
+            'name' => 'fixed',
+            'width' => 880,
+            'height' => 587,
+        ),
+        'usages' => array(
+            'familyMainPhoto',
+        ),
+    ),
+    array(
+        'filter' => array(
+            'name' => 'fixed',
+            'width' => 153,
+            'height' => 138,
+        ),
+        'usages' => array(
+            'familyMember',
+        ),
+    ),
+    array(
+        'filter' => array(
+            'name' => 'lepilla',
+            'width' => 600,
+            'height' => 450,
+        ),
+        'usages' => array(
+            'familyMemberImage',
+        ),
+    ),
 );

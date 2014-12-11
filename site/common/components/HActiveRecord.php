@@ -5,6 +5,12 @@
  */
 class HActiveRecord extends CActiveRecord
 {
+    private $_attributes;
+    private $_related;
+
+    private $_apiRelated;
+    private static $_apiMd = array();
+
     private $_entities = array(
         'post' => 'Пост',
         'video' => 'Видео',
@@ -146,49 +152,49 @@ class HActiveRecord extends CActiveRecord
         $reflect = new ReflectionClass($this);
         return $reflect->getShortName();
     }
-//    protected function beforeFind()
-//    {
-//        parent::$db = $this->getConnectionForSelect();
-//        parent::beforeFind();
-//    }
-//
-//    protected function afterFind()
-//    {
-//        parent::$db = null;
-//        parent::afterFind();
-//    }
-//
-//    protected function getConnectionForSelect()
-//    {
-//        $connectionIds = Yii::app()->params['selectConnections'];
-//        if ($connectionIds === null)
-//            return null;
-//
-//        $resultConnection = null;
-//        $minLoad = 100;
-//        foreach ($connectionIds as $id) {
-//            if (isset(Yii::app()->$id) && Yii::app()->$id instanceof CDbConnection) {
-//                $connection = Yii::app()->$id;
-//                $load = $this->getLoad($connection);
-//                if ($load < $minLoad)
-//                    $resultConnection = $connection;
-//            }
-//        }
-//        return $resultConnection;
-//    }
-//
-//    protected function getLoad(CDbConnection $connection)
-//    {
-//        return $this->getActiveConnectionsCount($connection) / $this->getConnectionsLimit($connection);
-//    }
-//
-//    protected function getConnectionsLimit(CDbConnection $connection)
-//    {
-//        return $connection->cache(3600)->createCommand('SELECT @@MAX_CONNECTIONS;')->queryScalar();
-//    }
-//
-//    protected function getActiveConnectionsCount(CDbConnection $connection)
-//    {
-//        return $connection->cache(60)->createCommand('SHOW STATUS WHERE `variable_name` = \'Threads_connected\';')->queryScalar();
-//    }
+
+    public function apiRelations()
+    {
+        return array();
+    }
+
+    public function getApiRelated($name, $refresh = false)
+    {
+        if (! isset($this->_apiRelated[$name]) || $refresh) {
+            $md = $this->getApiMd();
+            /** @var site\frontend\components\api\ApiRelation $relation */
+            $relation = $md[$name];
+            $className = $relation->className;
+            $params = $relation->params;
+            $params['id'] = $this->{$relation->foreignKey};
+            $this->_apiRelated[$name] = $className::model()->query('get', $params);
+        }
+        return $this->_apiRelated[$name];
+    }
+
+    public function getApiMd()
+    {
+        $className = get_class($this);
+        if(! array_key_exists($className, self::$_apiMd))
+        {
+            self::$_apiMd[$className] = array();
+            foreach ($this->apiRelations() as $name => $config) {
+                if (isset($config[0], $config[1], $config[2])) {
+                    self::$_apiMd[$className][$name] = new site\frontend\components\api\ApiRelation($config[0], $config[1], $config[2], array_slice($config,3));
+                } else {
+                    throw new CException('Неверное описание API-отношеня');
+                }
+            }
+        }
+        return self::$_apiMd[$className];
+    }
+
+    public function __get($name)
+    {
+        if (($apiMd = $this->getApiMd()) && isset($apiMd[$name])) {
+            return $this->getApiRelated($name);
+        } else {
+            return parent::__get($name);
+        }
+    }
 }

@@ -21,7 +21,7 @@ mixin familySettings(mod, vars)
             .family-settings_t Планируем
         if(vars.type == 'husband')
             .family-settings_t Моя половинка
-        .family-settings_hold.clearfix1
+        .family-settings_hold.clearfix
             .family-settings_l
                 .family-settings_photo
                     if(vars.photoCapAdd)
@@ -37,8 +37,21 @@ mixin familySettings(mod, vars)
                         +iPhoto("", iPhoto.familySettingsIco)
                     if(vars.photoEdit)
                         +iPhoto("", iPhoto.familySettingsEdit)
+                    if(vars.photoEditIndex)
+                        +iPhoto("", iPhoto.familySettingsIndex)
                 
             .family-settings_r
+
+                // Заглушка фотопоста
+                if(vars.photopostCap)
+                    .family-settings_cap-edit-hold
+                        a.family-settings_cap-edit(href='#')
+                            .ico-edit.ico-edit__xl
+                            br
+                            | Название и
+                            br
+                            | описание
+
                 // gender
                 if(vars.genderCap)
                     // Пол
@@ -60,7 +73,8 @@ mixin familySettings(mod, vars)
                                 option
                                 option(value="1") Дочь
                                 option(value="2") Сын
-                        a.btn.btn-success.btn-xs(href="#") Ok
+                        if(vars.controlsInput)
+                            a.btn.btn-success.btn-xs(href="#") Ok
 
                 // gender Pregnancy 
                 if(vars.genderPregnancyCap)
@@ -84,7 +98,8 @@ mixin familySettings(mod, vars)
                                 option(value="1") Пока не знаем
                                 option(value="2") Дочь
                                 option(value="3") Сын
-                        a.btn.btn-success.btn-xs(href="#") Ok
+                        if(vars.controlsInput)
+                            a.btn.btn-success.btn-xs(href="#") Ok
 
                 // gender Plan 
                 if(vars.genderPlanCap)
@@ -108,7 +123,8 @@ mixin familySettings(mod, vars)
                                 option(value="1") Пока не знаем
                                 option(value="2") Дочь
                                 option(value="3") Сын
-                        a.btn.btn-success.btn-xs(href="#") Ok
+                        if(vars.controlsInput)
+                            a.btn.btn-success.btn-xs(href="#") Ok
 
                 // status 
                 if(vars.statusCap)
@@ -132,7 +148,8 @@ mixin familySettings(mod, vars)
                                 option(value="1") Муж
                                 option(value="2") Жених
                                 option(value="3") Друг
-                        a.btn.btn-success.btn-xs(href="#") Ok
+                        if(vars.controlsInput)
+                            a.btn.btn-success.btn-xs(href="#") Ok
 
                 // name
                 if(vars.nameCap)
@@ -143,8 +160,10 @@ mixin familySettings(mod, vars)
                     .family-settings_row
                         //a.family-settings_cap.family-settings_cap__name(href='#') Имя ребенка
                         .inp-valid.inp-valid__abs
-                            input.itx-gray(type='text')
-                        a.btn.btn-success.btn-xs(href="#") Ok
+                            input.itx-gray(type='text', placeholder=vars.nameEditPlaceholder)
+                            .inp-valid_count 40
+                        if(vars.controlsInput)
+                            a.btn.btn-success.btn-xs(href="#") Ok
                 if(vars.name)
                     .family-settings_row
                         .family-settings_name
@@ -164,7 +183,8 @@ mixin familySettings(mod, vars)
                                 option
                                 option(value="1") В ближайшее время
                                 option(value="2") В ближайшие 3 года
-                        a.btn.btn-success.btn-xs(href="#") Ok
+                        if(vars.controlsInput)
+                            a.btn.btn-success.btn-xs(href="#") Ok
                 if(vars.datePlan)
                     // Дата
                     .family-settings_row
@@ -231,7 +251,8 @@ mixin familySettings(mod, vars)
                             .inp-valid_error
                                 .errorMessage 
                                     | Не выбрана дата
-                        a.btn.btn-success.btn-xs(href="#") Ok
+                        if(vars.controlsInput)
+                            a.btn.btn-success.btn-xs(href="#") Ok
                 if(vars.datePregnancy)
                     // Дата
                     .family-settings_row
@@ -302,7 +323,8 @@ mixin familySettings(mod, vars)
                             .inp-valid_error
                                 .errorMessage 
                                     | Не выбрана дата
-                        a.btn.btn-success.btn-xs(href="#") Ok
+                        if(vars.controlsInput)
+                            a.btn.btn-success.btn-xs(href="#") Ok
                 if(vars.date)
                     // Дата
                     .family-settings_row
@@ -325,43 +347,64 @@ mixin familySettings(mod, vars)
                     .family-settings_row
                         //a.family-settings_cap.family-settings_cap__name(href='#') Имя ребенка
                         .inp-valid.inp-valid__abs
-                            textarea.itx-gray(rows='3')
-                        br 
-                        a.btn.btn-success.btn-xs.margin-t5(href="#") Ok
+                            textarea.itx-gray(rows='3', placeholder=vars.descEditPlaceholder)
+                            .inp-valid_count 400
+                        if(vars.controlsInput)
+                            br 
+                            a.btn.btn-success.btn-xs.margin-t5(href="#") Ok
+                
+                if(vars.btnsSmall)
+                    .textalign-r
+                        a.btn.btn-secondary.btn-sl.margin-r10 Отмена
+                        a.btn.btn-success.btn-sl.disabled Ok
 
-        .family-settings_hold.family-settings_hold__vert
-            .family-settings_l
-                .family-settings_progress
-                    if(vars.progress0)
-                        // .color-gray-light- убирается при наличии заполнениия
-                        .family-settings_progress-tx.color-gray-light Вы ни чего не заполнили
-                        // bootstrap progress
-                        .progress
-                            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='0', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
-                    if(vars.progress10)
-                        // .color-gray-light- убирается при наличии заполнениия
-                        .family-settings_progress-tx Заполнено  10%
-                        // bootstrap progress
-                        .progress
-                            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='10', aria-valuemin='0', aria-valuemax='100', style='width: 10%;')
-                    if(vars.progress50)
-                        // .color-gray-light- убирается при наличии заполнениия
-                        .family-settings_progress-tx Заполнено  50%
-                        // bootstrap progress
-                        .progress
-                            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='10', aria-valuemin='0', aria-valuemax='100', style='width: 50%;')
-                    if(vars.progress100)
-                        // .color-gray-light- убирается при наличии заполнениия
-                        .family-settings_progress-tx Заполнено  100%
-                        // bootstrap progress
-                        .progress
-                            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='10', aria-valuemin='0', aria-valuemax='100', style='width: 100%;')
+                //- title
+                //-if(vars.titleEdit)
+                    .family-settings_row
+                        .inp-valid.inp-valid__abs
+                            input.itx-gray(type='text')
+                //-if(vars.title)
+                    .family-settings_row
+                        .family-settings_name
+                            | Заголовок
+                            if(vars.icoEditLine)
+                                a.ico-edit.ico-edit__s(href='#')
+        if(vars.bottomNoBtn)
 
-            .family-settings_r
-                if(vars.btns)
-                    .family-settings_row-btn
-                        a.btn.btn-secondary.btn-xm.margin-r10 Отмена
-                        a.btn.btn-success.btn-xm.disabled Сохранить
+        else
+            .family-settings_hold.family-settings_hold__vert
+                .family-settings_l
+                    .family-settings_progress
+                        if(vars.progress0)
+                            // .color-gray-light- убирается при наличии заполнениия
+                            .family-settings_progress-tx.color-gray-light Вы ни чего не заполнили
+                            // bootstrap progress
+                            .progress
+                                .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='0', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
+                        if(vars.progress10)
+                            // .color-gray-light- убирается при наличии заполнениия
+                            .family-settings_progress-tx Заполнено  10%
+                            // bootstrap progress
+                            .progress
+                                .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='10', aria-valuemin='0', aria-valuemax='100', style='width: 10%;')
+                        if(vars.progress50)
+                            // .color-gray-light- убирается при наличии заполнениия
+                            .family-settings_progress-tx Заполнено  50%
+                            // bootstrap progress
+                            .progress
+                                .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='10', aria-valuemin='0', aria-valuemax='100', style='width: 50%;')
+                        if(vars.progress100)
+                            // .color-gray-light- убирается при наличии заполнениия
+                            .family-settings_progress-tx Заполнено  100%
+                            // bootstrap progress
+                            .progress
+                                .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='10', aria-valuemin='0', aria-valuemax='100', style='width: 100%;')
+
+                .family-settings_r
+                    if(vars.btns)
+                        .family-settings_row-btn
+                            a.btn.btn-secondary.btn-xm.margin-r10 Отмена
+                            a.btn.btn-success.btn-xm.disabled Сохранить
 
         if(vars.delete)
             +cap-empty('cap-empty__abs cap-empty__white ', capEmpty.familySettingsDel)
@@ -373,8 +416,11 @@ mixin familySettings(mod, vars)
 //- photo -  фото
 //- photoIco -  фото иконка
 //- photoEdit -  фото редатировать
+//- photoEditIndex -  фото редатировать и поставить на обложку
 //- photoCapAdd - заглушка добавления фото
 //- btns
+//- bottomNoBtn - отсутствие блока с кнопками внизу
+//- btnsSmall
 //- progress0
 //- progress10
 //- progress50
@@ -404,6 +450,7 @@ mixin familySettings(mod, vars)
 //- descCap
 //- descEdit
 //- delete
+//- controlsInput
 
 
 - var familySettings = {}
@@ -419,6 +466,7 @@ mixin familySettings(mod, vars)
 - familySettings.a.nameCap = true
 - familySettings.a.dateCap = true
 - familySettings.a.descCap = true
+- familySettings.a.controlsInput = true
 
 - familySettings.b = {}
 - familySettings.b.cardError = true
@@ -432,6 +480,7 @@ mixin familySettings(mod, vars)
 - familySettings.b.name = true
 - familySettings.b.dateCap = true
 - familySettings.b.desc = true
+- familySettings.b.controlsInput = true
 
 - familySettings.c = {}
 - familySettings.c.type = 'child'
@@ -444,6 +493,7 @@ mixin familySettings(mod, vars)
 - familySettings.c.name = true
 - familySettings.c.date = true
 - familySettings.c.desc = true
+- familySettings.c.controlsInput = true
 
 - familySettings.d = {}
 - familySettings.d.type = 'child'
@@ -456,6 +506,7 @@ mixin familySettings(mod, vars)
 - familySettings.d.nameEdit = true
 - familySettings.d.date = true
 - familySettings.d.descCap = true
+- familySettings.d.controlsInput = true
 
 - familySettings.e = {}
 - familySettings.e.type = 'child'
@@ -468,6 +519,7 @@ mixin familySettings(mod, vars)
 - familySettings.e.name = true
 - familySettings.e.dateEdit = true
 - familySettings.e.descCap = true
+- familySettings.e.controlsInput = true
 
 - familySettings.f = {}
 - familySettings.f.type = 'child'
@@ -480,6 +532,7 @@ mixin familySettings(mod, vars)
 - familySettings.f.name = true
 - familySettings.f.date = true
 - familySettings.f.descEdit = true
+- familySettings.f.controlsInput = true
 
 //- pregnancy
 - familySettings.pregnancy1 = {}
@@ -491,6 +544,7 @@ mixin familySettings(mod, vars)
 - familySettings.pregnancy1.progress0 = true
 - familySettings.pregnancy1.genderPregnancyCap = true
 - familySettings.pregnancy1.datePregnancyCap = true
+- familySettings.pregnancy1.controlsInput = true
 
 - familySettings.pregnancy2 = {}
 - familySettings.pregnancy2.type = 'pregnancy'
@@ -501,6 +555,7 @@ mixin familySettings(mod, vars)
 - familySettings.pregnancy2.progress10 = true
 - familySettings.pregnancy2.genderPregnancy = true
 - familySettings.pregnancy2.datePregnancyEdit = true
+- familySettings.pregnancy2.controlsInput = true
 
 - familySettings.pregnancy3 = {}
 - familySettings.pregnancy3.type = 'pregnancy'
@@ -511,6 +566,7 @@ mixin familySettings(mod, vars)
 - familySettings.pregnancy3.progress50 = true
 - familySettings.pregnancy3.genderPregnancyEdit = true
 - familySettings.pregnancy3.datePregnancy = true
+- familySettings.pregnancy3.controlsInput = true
 
 //- plan
 - familySettings.plan1 = {}
@@ -522,6 +578,7 @@ mixin familySettings(mod, vars)
 - familySettings.plan1.progress0 = true
 - familySettings.plan1.genderPlanCap = true
 - familySettings.plan1.datePlanCap = true
+- familySettings.plan1.controlsInput = true
 
 - familySettings.plan2 = {}
 - familySettings.plan2.type = 'plan'
@@ -532,6 +589,7 @@ mixin familySettings(mod, vars)
 - familySettings.plan2.progress10 = true
 - familySettings.plan2.genderPlan = true
 - familySettings.plan2.datePlanEdit = true
+- familySettings.plan2.controlsInput = true
 
 - familySettings.plan3 = {}
 - familySettings.plan3.type = 'plan'
@@ -542,6 +600,7 @@ mixin familySettings(mod, vars)
 - familySettings.plan3.progress50 = true
 - familySettings.plan3.genderPlanEdit = true
 - familySettings.plan3.datePlan = true
+- familySettings.plan3.controlsInput = true
 
 //- husband
 - familySettings.husband1 = {}
@@ -554,6 +613,7 @@ mixin familySettings(mod, vars)
 - familySettings.husband1.statusCap = true
 - familySettings.husband1.nameCap = true
 - familySettings.husband1.descCap = true
+- familySettings.husband1.controlsInput = true
 
 - familySettings.husband2 = {}
 - familySettings.husband2.type = 'husband'
@@ -565,6 +625,7 @@ mixin familySettings(mod, vars)
 - familySettings.husband2.statusEdit = true
 - familySettings.husband2.name = true
 - familySettings.husband2.descCap = true
+- familySettings.husband2.controlsInput = true
 
 - familySettings.husband3 = {}
 - familySettings.husband3.type = 'husband'
@@ -577,3 +638,30 @@ mixin familySettings(mod, vars)
 - familySettings.husband3.nameEdit = true
 - familySettings.husband3.descCap = true
 - familySettings.husband3.delete = true
+- familySettings.husband3.controlsInput = true
+
+//- добавление фотопоста
+- familySettings.photopostAddFull = {}
+- familySettings.photopostAddFull.photo = true
+- familySettings.photopostAddFull.icoEditTop = true
+- familySettings.photopostAddFull.icoEditLine = false
+- familySettings.photopostAddFull.name = true
+- familySettings.photopostAddFull.desc = true
+- familySettings.photopostAddFull.controlsInput = false
+- familySettings.photopostAddFull.bottomNoBtn = false
+
+- familySettings.photopostAddEdit = {}
+- familySettings.photopostAddEdit.photoEditIndex = true
+- familySettings.photopostAddEdit.icoEditTop = false
+- familySettings.photopostAddEdit.icoEditLine = false
+- familySettings.photopostAddEdit.nameEdit = true
+- familySettings.photopostAddEdit.nameEditPlaceholder = 'Название фото'
+- familySettings.photopostAddEdit.descEdit = true
+- familySettings.photopostAddEdit.descEditPlaceholder = 'Описание фото'
+- familySettings.photopostAddEdit.btnsSmall = true
+- familySettings.photopostAddEdit.bottomNoBtn = true
+
+- familySettings.photopostAddEmpty = {}
+- familySettings.photopostAddEmpty.photoEditIndex = true
+- familySettings.photopostAddEmpty.photopostCap = true
+- familySettings.photopostAddEmpty.bottomNoBtn = true

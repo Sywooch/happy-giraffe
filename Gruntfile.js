@@ -230,6 +230,37 @@ module.exports = function(grunt){
         dest: 'new/css/all1.css'
       },
       // Блог
+      'article-anonce-1': {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            // /.dropdown+/,
+            // /#ctrlcopy+/,
+            // /.jcrop+/,
+            // /.mfp+/,
+            // /.select2+/,
+            // /.header-menu_li+/,
+            // /.header_+/,
+            // /.header-+/,
+            // /.fast-articles3+/,
+            // //.tooltip+/,
+            
+            // /.bx-wrapper+/,
+            // /.body+/,
+            // /.bnr+/,
+            // /.ico-social-hold+/,
+          ],
+        },
+        src: [
+          'lite/html-dev/page/iframe/banner/article-anonce-1.html', 
+        ],
+        dest: 'lite/css/min/article-anonce-1.css'
+      },
+      // Блог
       lite_blog: {
         options: {
           stylesheets  : ['/css/dev/all.css'],

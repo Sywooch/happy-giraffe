@@ -33,11 +33,6 @@ class PostController extends \LiteController
         $this->render('view');
     }
 
-    public function actionCreate()
-    {
-        $this->render('create');
-    }
-
     public function getUser()
     {
         if (is_null($this->_user))

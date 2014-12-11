@@ -573,6 +573,12 @@ return array(
                 'lite/css/min/blog.css'
             ),
         ),
+        'lite_member_user' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/member-user.css'
+            ),
+        ),
         'chosen' => array(
             'baseUrl' => '/',
             'amd' => true,

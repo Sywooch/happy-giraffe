@@ -120,7 +120,8 @@ return array(
         'user/settings/<_a>' => 'profile/settings/<_a>',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',
-        'user/<user_id:\d+>/blog/post/create' => 'posts/post/create',
+        'user/blog/photopost/create' => 'posts/form/photopost',
+        'user/blog/status/create' => 'posts/form/status',
         /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',

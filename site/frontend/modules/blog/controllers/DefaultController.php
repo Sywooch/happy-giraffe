@@ -70,8 +70,7 @@ class DefaultController extends HController
 
         NoindexHelper::setNoIndex($this->user);
 
-        if ($this->user->hasRssContent())
-            $this->rssFeed = $this->createUrl('/rss/default/user', array('userId' => $user_id));
+        $this->rssFeed = new \site\frontend\modules\rss\components\channels\UserRssChannel($this->user);
 
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');

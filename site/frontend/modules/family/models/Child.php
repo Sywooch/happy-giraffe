@@ -43,11 +43,6 @@ class Child extends FamilyMemberAbstract
         }
     }
 
-    public function getTitle()
-    {
-        return ($this->gender == 0) ? 'Дочь' : 'Сын';
-    }
-
     public function toJSON()
     {
         return \CMap::mergeArray(parent::toJSON(), array(

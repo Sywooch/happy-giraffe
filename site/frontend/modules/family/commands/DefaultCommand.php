@@ -27,7 +27,8 @@ class DefaultCommand extends \CConsoleCommand
         /** @var \site\frontend\modules\family\models\FamilyMember $member */
         $member = \site\frontend\modules\family\models\FamilyMember::model()->user($userId)->find();
         if ($member !== null) {
-            $member->updateByUser();
+            $member->fillByUser($userId);
+            $member->save();
         }
     }
 } 

@@ -92,7 +92,7 @@ module.exports = function(grunt){
           ext: ".html"
         }],
         options: {
-          pretty: false,
+          pretty: true,
           client: false,
           cache: true,
           nospawn : true,
@@ -420,6 +420,8 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header-banner+/,
             /.header_+/,
+
+            /.ico-family+/,
             /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
@@ -460,6 +462,8 @@ module.exports = function(grunt){
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
             /.header_+/,
+            /.ico-family+/,
+            
             /.fast-articles3+/,
             /.body+/,
             /.bnr+/,

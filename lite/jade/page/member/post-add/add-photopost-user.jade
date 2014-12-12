@@ -12,26 +12,35 @@ block layout
             +userAddRecord('', userAddRecord.blog)
             .postAdd
                 .postAdd_hold
-                    .postAdd_row.postAdd_row__indent-s
+                    .postAdd_row
                         .inp-valid.inp-valid__abs
                             .inp-valid_count 30
-                            input.itx-gray(placeholder="Заголовок") 
+                            input.itx-gray(placeholder="Заголовок")
                             
-                    .postAdd_row.postAdd_row__indent-s
-                        .i-info-success
-                            | Загружено 30 фотографий. Дайте названия и описания каждой или сделайте это позже
-                            a.ico-close(href='#')
+                    .i-info-success
+                        | Загружено 30 фотографий. Дайте названия и описания каждой или сделайте это позже
+                        a.ico-close(href='#')
                     .postAdd_row.postAdd_row__indent-s
                         .postAdd_count.postAdd_count__s
                         .b-main_col-article
                             /////////////////
                             a.user-album_sort(href='#') Упорядочить фото
-                    .postAdd_row.postAdd_row__indent-s
+                    .postAdd_row
+                        .postAdd_count.postAdd_count__s 1
+                        .b-main_col-article
+                            +familySettings('family-settings__photopost', familySettings.photopostAddEmpty)
+                    .postAdd_row
+                        .postAdd_count.postAdd_count__s 2
+                        .b-main_col-article
+                            +familySettings('family-settings__photopost', familySettings.photopostAddEdit)
+                    .postAdd_row
                         .postAdd_count.postAdd_count__s 99
                         .b-main_col-article
-                            | +
+                            +familySettings('family-settings__photopost', familySettings.photopostAddFull)
                     .postAdd_row 
-                        +capAdd('cap-add__l-s', capAdd.b)
+                        .postAdd_count.postAdd_count__s 
+                        .b-main_col-article
+                            +capAdd('cap-add__l-s', capAdd.b)
 
                     // Строка
                     +postAddRowBtns('', postAddRowBtns.a)

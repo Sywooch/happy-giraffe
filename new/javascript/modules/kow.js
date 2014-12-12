@@ -18,6 +18,10 @@ define(["jquery", "knockout"], function ($, ko) {
     ko.components.register('photo-slider', { require: 'photo-slider/photo-slider' });
     ko.components.register('photo-collection', { require: 'photo-collection/photo-collection' });
     $('photo-collection').each(componentIterator);
+    ko.components.register('family-user', { require: 'family-user/family-user' });
+    $('family-user').each(componentIterator);
+    ko.components.register('family-settings', { require: 'family-settings/family-settings' });
+    $('family-settings').each(componentIterator);
     ko.components.register('photo-single', { require: 'photo-single/photo-single' });
     $('photo-single').each(componentIterator);
     ko.components.register('comment-widget', { require: 'comment-widget/comment-widget' });

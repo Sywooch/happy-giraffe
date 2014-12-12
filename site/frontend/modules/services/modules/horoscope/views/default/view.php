@@ -6,6 +6,11 @@
 ?><?php $time = strtotime($model->date); ?>
 <div class="b-main_cont">
     <div class="b-main_col-article">
+        <?php
+        if ($this->period == 'day') {
+            echo CHtml::tag('time', array('datetime' => date('Y-m-d', strtotime($model->date))), '');
+        }
+        ?>
         <h1 class="heading-link-xxl">
             <?php
             if ($this->alias == 'today' && $this->period == 'day')
@@ -39,6 +44,9 @@
                 $this->metaDescription = 'Бесплатный гороскоп ' . $model->zodiacText2() . ' на ' . HDate::date('j F Y', $this->date) . ' для женщин и мужчин. Обновляется ежедневно!';
                 $this->metaKeywords = 'Гороскоп ' . $model->zodiacText2() . ' на ' . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($model->date));
                 echo 'Гороскоп ' . $model->zodiacText2() . ' на ' . HDate::date('j F Y', $this->date);
+                if($model->getCanonicalDate()) {
+                    $this->metaCanonical = $this->getUrl(array('date' => $model->getCanonicalDate()));
+                }
                 $this->breadcrumbs = array(
                     'Гороскопы' => array('/services/horoscope/default/index'),
                     $model->zodiacText() => $this->getUrl(array('alias' => 'today')),
@@ -65,6 +73,9 @@
                 $this->metaDescription = 'Гороскоп для ' . $model->zodiacText2() . ' на ' . $date . ' года';
                 $this->metaKeywords = 'Гороскоп ' . $model->zodiacText() . ', ' . HDate::ruMonth(date('m', $this->date)) . ' ' . date('Y', $this->date);
                 echo 'Гороскоп ' . $model->zodiacText2() . ' на ' . $date . ' года';
+                if($model->getCanonicalDate()) {
+                    $this->metaCanonical = $this->getUrl(array('date' => $model->getCanonicalDate()));
+                }
                 $this->breadcrumbs = array(
                     'Гороскопы' => array('/services/horoscope/default/index'),
                     $model->zodiacText() => $this->getUrl(array('alias' => 'today')),

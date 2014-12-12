@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'models/CommentsController', 'models/UserController', 'text!comment-widget/comment-widget.html', 'moment', 'models/Model', 'models/Comment', 'models/User', 'care-wysiwyg', 'knockout.mapping', 'ko_library'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User) {
+define(['jquery', 'knockout', 'models/CommentsController', 'models/UserController', 'text!comment-widget/comment-widget.html', 'moment', 'models/Model', 'models/Comment', 'models/User', 'care-wysiwyg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User) {
 
     var CommentWidgetViewModel = function (params) {
 
@@ -30,7 +30,6 @@ define(['jquery', 'knockout', 'models/CommentsController', 'models/UserControlle
          */
 
         this.newCommentAddedEvent = function newCommentAddedEvent(result) {
-
             this.cacheData = result;
             if (this.cacheData.responseId !== 0) {
                 Model.get(User.getUserUrl, { id: result.authorId, avatarSize: CommentsController.commentAvatarSize }).done(this.answerAdded.bind(this));

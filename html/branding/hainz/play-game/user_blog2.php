@@ -299,5 +299,38 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </div>
 
+	<a href="#bann-heinz" class="display-n" id='bann-heinz-a'>Попап баннер</a>
+	<script>
+	$(document).ready(function () {
+
+	    $('body').delegate('#bann-heinz-a', 'click', function (e) {
+		    
+
+		    $(this).clone().fancybox({
+		        overlayColor:'#2d1a3f',
+		        overlayOpacity:'0.6',
+		        padding:0,
+		        enableKeyboardNav: false,
+		        showCloseButton:false,
+		        hideOnOverlayClick:false,
+		        centerOnScroll:true,
+		        enableKeyboardNav:false
+		    }).trigger('click');
+		        e.preventDefault();
+	    });
+
+		$("#bann-heinz-a").trigger('click');
+	})
+	</script>
+	<div style="display:none">
+		<div id="bann-heinz" class="popup" style="width: auto;">
+			<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+			<div class="clearfix bann-heinz_in">
+				<a href="">
+					<img src="/images/banners/heinz-3.jpg" alt="" width='680' hegiht='345' class='display-b'>
+				</a>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -1,0 +1,156 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'blog.css'; 
+
+block layout
+  
+    // b-main 
+    .b-main.clearfix
+        // стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту 
+        script.
+            /****************
+            **  Post post-arrow fade in
+            *****************/
+            var didScroll = false;
+            jQuery(window).scroll(function() {
+                didScroll = true;
+            });
+
+
+            var content_top = $('.b-main').position().top;
+
+            setInterval(function() {
+                if ( didScroll ) {
+                    didScroll = false;
+                    y = jQuery(window).scrollTop();
+
+                    if(y < content_top){
+                        $('.post-arrow').removeClass('visible');
+                    }else{
+                        $('.post-arrow').addClass('visible');
+                    }
+                }
+            }, 150);
+
+
+        a.post-arrow.post-arrow__l(href="#") 
+            .i-photo-arrow
+            .post-arrow_in-hold
+                .post-arrow_in
+                    .verticalalign-m-help
+                    .post-arrow_img-hold
+                        img.post-arrow_img(src="#{path}images/example/w122-h85-1.jpg", alt="Ксения Бородина впервые в своей жизни сварила суп")
+                    .post-arrow_t Ксения Бородина впервые в своей жизни сварила суп
+        a.post-arrow.post-arrow__r(href="#") 
+            .i-photo-arrow.i-photo-arrow__r
+            .post-arrow_in-hold
+                .post-arrow_in
+                    .verticalalign-m-help
+                    //-.post-arrow_img-hold
+                        img.post-arrow_img(src="#{path}images/example/w122-h85-1.jpg", alt="Ксения Бородина впервые в своей жизни сварила суп")
+                    .post-arrow_t Ксения Бородина впервые в своей жизни сварила суп
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Главная
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Блог
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+                    +bArticle-single('b-article__lite')
+
+                    table.article-nearby.clearfix
+                        tr
+                            td
+                                a.article-nearby_a.article-nearby_a__l(href='#')
+                                    span.article-nearby_tx Как приготовить Монастыпскую избу 
+                            td
+                                a.article-nearby_a.article-nearby_a__r(href='#')
+                                    span.article-nearby_tx Готовим  Торт Сметанник в домашних условиях
+                    .adv-article
+                        a(href="#", target="_blank")
+                            img(alt='', src='#{path}images/example/w600-h400.jpg')
+
+                    //-.comment-add
+                        .comment-add_t Комментировать
+                        .comment-add_hold
+                            a.comment-add_a Авторизуйтесь  
+                            | или 
+                            a.comment-add_a зарегистрируйтесь,
+                            | чтобы оставить комментарий
+                        .comment-add_editor.display-n
+                    
+                    +commentsOpen('', commentsOpen.b)
+ 
+                // /Основная колонка
+
+                ///////
+                // Сайд бар
+                // Содержимое загружaть отложено
+                aside.b-main_col-sidebar.visible-md
+                    .adv-banner.adv-banner__bd
+                        a(href="") 
+                            img(src="#{path}images/example/w240-h400.jpg", alt="")
+                    // Варианты цветов блока
+                        article-similar__green
+                        article-similar__blue
+                        article-similar__lilac
+                        article-similar__red
+                        article-similar__yellow
+                    .article-similar.article-similar__lilac
+                        .article-similar_row
+                            +ava('ava__small', ava.a)
+                            a.article-similar_author(href="") Марина Правдин
+                        .article-similar_row
+                            a.article-similar_t(href="") Наши первые движения 
+                        .article-similar_img-hold
+                            a(href="")
+                                img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
+                    .article-similar.article-similar__red
+                        .article-similar_row
+                            +ava('ava__small', ava.a)
+                            a.article-similar_author(href="") Марина Правдинwerwerweryrtyrtyrtyrtyrtyа
+                        .article-similar_row
+                            a.article-similar_t(href="") Наши первые движения
+                        .article-similar_img-hold
+                            a(href="")
+                                img.article-similar_img(src="#{path}images/example/w240-h176.jpg", alt="")
+                    .article-similar.article-similar__yellow
+                        .article-similar_row
+                            +ava('ava__small', ava.a)
+                            a.article-similar_author(href="") Марина !!Красотуля!!
+                        .article-similar_row
+                            a.article-similar_t(href="") Наши первые движения по полу в окружении родителей
+                        .article-similar_img-hold
+                            a(href="")
+                                img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
+                    .article-similar.article-similar__blue
+                        .article-similar_row
+                            +ava('ava__small', ava.a)
+                            a.article-similar_author(href="") Марина Правдина
+                        .article-similar_row
+                            a.article-similar_t(href="") Коррекция фигуры: убираем висячий дряблый живот
+                        .article-similar_img-hold
+                            a(href="")
+                                img.article-similar_img(src="#{path}images/example/w240-h183.jpg", alt="")
+                    .article-similar.article-similar__green
+                        .article-similar_row
+                            +ava('ava__small', ava.a)
+                            a.article-similar_author(href="") Марина Правдина
+                        .article-similar_row
+                            a.article-similar_t(href="") Обязательства мешают любовным отношениям
+                        .article-similar_img-hold
+                            a(href="")
+                                img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
+                // Сайд бар
+    +layout-footer-lite()
+ 
+        

@@ -115,13 +115,20 @@ $(function() {
         }
     });
 
-    // Измененный tag select
-    $(".select-cus__search-off").select2({
-        width: '100%',
-        minimumResultsForSearch: -1,
-        dropdownCssClass: 'select2-drop__search-off',
-        escapeMarkup: function(m) { return m; }
-    });
+
+    function initSelect2() {
+        // Измененный tag select
+        $(".select-cus__search-off").select2({
+            width: '100%',
+            minimumResultsForSearch: -1,
+            dropdownCssClass: 'select2-drop__search-off',
+            escapeMarkup: function(m) { return m; }
+        });
+        $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
+    };
+
+    initSelect2();
+
     $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
 
     // Измененный tag select c инпутом поиска
@@ -567,6 +574,24 @@ var Cook = {
 
 function showLoginWindow() {
     $('a[href="#login"]').trigger('click');
+}
+
+function openLoginPopup() {
+    $.magnificPopup.open({
+        type: 'inline',
+        overflowY: 'auto',
+        tClose: 'Закрыть',
+        fixedBgPos: true,
+        items: { src: '#loginWidget' },
+        callbacks: {
+            open: function() {
+                $('html').addClass('mfp-html');
+            },
+            close: function() {
+                $('html').removeClass('mfp-html');
+            }
+        }
+    });
 }
 
 function SeCounter() {

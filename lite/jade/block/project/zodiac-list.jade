@@ -1,0 +1,82 @@
+//- 
+
+mixin zodiacList(mod, vars)
+    // Зодиаки
+    .zodiac-list(class=mod)
+        ul.zodiac-list_ul
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac.ico-zodiac__s.ico-zodiac__m-xs
+            //-             .ico-zodiac_in.ico-zodiac__1
+            //-         .zodiac-list_tx Овен
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac.ico-zodiac__s.ico-zodiac__m-xs
+            //-             .ico-zodiac_in.ico-zodiac__2
+            //-         .zodiac-list_tx Телец
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac.ico-zodiac__s.ico-zodiac__m-xs
+            //-             .ico-zodiac_in.ico-zodiac__3
+            //-         .zodiac-list_tx Близнецы
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac.ico-zodiac__s.ico-zodiac__m-xs
+            //-             .ico-zodiac_in.ico-zodiac__4
+            //-         .zodiac-list_tx Рак
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac.ico-zodiac__s.ico-zodiac__m-xs
+            //-             .ico-zodiac_in.ico-zodiac__5
+            //-         .zodiac-list_tx Лев
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac.ico-zodiac__s.ico-zodiac__m-xs
+            //-             .ico-zodiac_in.ico-zodiac__6
+            //-         .zodiac-list_tx Дева
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac.ico-zodiac__s.ico-zodiac__m-xs
+            //-             .ico-zodiac_in.ico-zodiac__7
+            //-         .zodiac-list_tx Весы
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac.ico-zodiac__s.ico-zodiac__m-xs
+            //-             .ico-zodiac_in.ico-zodiac__8
+            //-         .zodiac-list_tx Скорпион
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac.ico-zodiac__s.ico-zodiac__m-xs
+            //-             .ico-zodiac_in.ico-zodiac__9
+            //-         .zodiac-list_tx Стрелец
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac.ico-zodiac__s.ico-zodiac__m-xs
+            //-             .ico-zodiac_in.ico-zodiac__10
+            //-         .zodiac-list_tx Козерог
+            //- li.zodiac-list_li
+            //-     a.zodiac-list_a
+            //-         .ico-zodiac
+            //-             .ico-zodiac_in.ico-zodiac__11
+            //-         .zodiac-list_tx Водолей
+
+            - each item, i in zodiacList.tx
+                - ii = i + 1
+                li.zodiac-list_li
+                    a.zodiac-list_a
+                        .ico-zodiac(class=vars.sizeClass)
+                            .ico-zodiac_in(class='ico-zodiac__#{ii}')
+                        .zodiac-list_tx
+                            = item
+    // Зодиаки
+
+
+- var zodiacList = {}
+- zodiacList.tx = ['Овен', 'Телец', 'Близнецы', 'Рак', 'Лев', 'Дева', 'Весы', 'Скорпион', 'Стрелец', 'Козерог', 'Водолей', 'Рыбы']
+
+- zodiacList.b = {}
+- zodiacList.b.sizeClass = 'ico-zodiac__s ico-zodiac__m-xs'
+
+- zodiacList.a = {}
+- zodiacList.a.sizeClass = 'ico-zodiac__s ico-zodiac__m-xs ico-zodiac__s-md'
+

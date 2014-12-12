@@ -1,4 +1,4 @@
-define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model, Hg) {
+define(["jquery", "knockout", "models/Model", "care-wysiwyg"], function($, ko, Model, Hg) {
 
     var Comment = {
 

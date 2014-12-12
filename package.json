@@ -15,6 +15,7 @@
     "grunt-combine-media-queries": "latest",
     "grunt-contrib-cssmin": "~0.9.0",
     "grunt-csso": "latest",
+    "grunt-csscomb": "latest",
     "grunt-svgmin": "latest",
     "grunt-dr-svg-sprites": "latest",
     "grunt-contrib-jade": "latest",

@@ -1,0 +1,88 @@
+include ../../block/config
+extend ../../extend/layout_loose
+
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_top-user.page-col_top-user__family
+            a.ico-myfamily(href="")
+            .profile-settings-family
+                ul.profile-settings-family_ul
+                    li.profile-settings-family_li
+                        span.profile-settings-family_a(href="")
+                            span.profile-settings-family_count 1
+                            span.profile-settings-family_tx Состав моей семьи
+                    li.profile-settings-family_li.active
+                        a.profile-settings-family_a(href="")
+                            span.profile-settings-family_count 2
+                            span.profile-settings-family_tx О моей семье
+            a.a-profile-bg(href="") Фон анкеты
+        .page-col_cont.page-col_cont__in
+            .family-settings
+                .family-settings_hold
+                    .family-settings_fill
+                        .family-settings_fill-t Главное семейное фото
+                        .file-fake
+                            .file-fake_btn.btn-green-simple.btn-xm Загрузить
+                            input.file-fake_inp(type="file")
+                        .family-settings_fill-photo
+                    .family-settings_fill.family-settings_fill__about
+                        .family-settings_fill-t О нашей семье
+                        .family-settings_fill-about
+                        a.btn-green-simple.btn-xm(href="") Написать
+
+                    .heading-l Подробнее о нас
+                    .family-settings_member.clearfix
+                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray(href="")
+                            span.a-pseudo-icon_tx Удалить
+                            span.ico-close3.margin-l5
+                        .family-settings_photo
+                            .family-settings_photo-hold
+                                //- фотографии могут быть 200*200
+                                .ico-family-big.ico-family-big__wife
+                        .family-settings_desc
+                            .family-settings_row
+                                .family-settings_name Виктория
+                                a.a-pseudo-icon.a-pseudo-icon__gray.margin-l10(href="")
+                                    span.ico-edit.ico-edit__s
+                                    span.a-pseudo-icon_tx Редактировать
+                            .family-settings_row
+                                .photo-preview-row.photo-preview-row__add.clearfix
+                                    .photo-preview-row_hold
+                                        .photo-grid.clearfix
+                                            .photo-grid_row
+                                                span.photo-preview-row_add.file-fake
+                                                    input.file-fake_inp(type='file', name='')
+
+                    .family-settings_member.clearfix
+                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray(href="")
+                            span.a-pseudo-icon_tx Удалить
+                            span.ico-close3.margin-l5
+                        .family-settings_photo
+                            .family-settings_photo-hold
+                                //- фотографии могут быть 200*200
+                                .ico-family-big.ico-family-big__girl-small
+                        .family-settings_desc
+                            .family-settings_row 
+                                a.family-settings_a-settings(href="") Имя моей дочери
+                            .family-settings_row
+                                a.family-settings_a-settings(href="") Дата рождения 
+                            .family-settings_row
+                                .photo-preview-row.photo-preview-row__add.clearfix
+                                    .photo-preview-row_hold
+                                        .photo-grid.clearfix
+                                            .photo-grid_row
+                                                span.photo-preview-row_add.file-fake
+                                                    input.file-fake_inp(type='file', name='')
+
+                    .family-settings_member
+                        a.family-settings_member-add
+
+
+        +layout-footer('layout-footer__in')
+            

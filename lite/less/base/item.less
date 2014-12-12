@@ -1,4 +1,6 @@
 // Отдельные элементы
+
+// Заголовки
 .heading-xxl {
     margin: 15px 0; // Можно изменить на необходимый
     font-size: 40px;
@@ -14,24 +16,35 @@
     margin: 20px 0 15px;
     font-weight: bold;
     font-size: 16px;
+    line-height: 16px;
+    letter-spacing: -0.4px;
 
     @media (min-width: @screen-phone) {
         & {
             font-size: 18px;
+            line-height: 18px;
         }
     }
     @media (min-width: @screen-desktop) {
         & {
             font-size: 23px;
+            line-height: 23px;
         }
     }
 }
 .heading-small {
     margin: 0;
-    font-size: 17px;
-    line-height: 22px;
-    color: #111;
+    font-size: 16px;
+    line-height: 20px;
+    color: #333;
     font-weight: normal;
+
+    @media (min-width: @screen-phone) {
+        & {
+            font-size: 18px;
+            line-height: 22px;
+        }
+    }
 }
 .heading-xs {
     margin: 0;
@@ -43,7 +56,7 @@
 .heading-link-xxl {
     margin: 10px 0;
     font-size: 25px;
-    line-height: 28px;
+    line-height: 25px;
     font-weight: bold;
     color: @color-link-title;
     text-decoration: none;
@@ -56,7 +69,7 @@
     @media (min-width: @screen-phone) {
         & {
             font-size: 35px;
-            line-height: 40px;
+            line-height: 35px;
         }
     }
 
@@ -64,20 +77,38 @@
         & {
             margin: 15px 0;
             font-size: 45px;
-            line-height: 50px;
+            line-height: 45px;
         }
     }
 }
 a.heading-link-xl:hover,
-a.heading-link-xxl:hover {text-decoration: underline;}
+a.heading-link-xxl:hover {
+    color: @color-orange;
+}
 .heading-link-xl {
-    margin: 15px 0;
-    font-size: 35px;
-    line-height: 38px;
+    margin: 10px 0;
+    font-size: 18px;
+    line-height: 18px;
     font-weight: bold;
     color: @color-link-title;
     text-decoration: none;
     letter-spacing: -0.6px;
+
+
+    @media (min-width: @screen-phone) {
+        & {
+            font-size: 25px;
+            line-height: 25px;
+        }
+    }
+
+    @media (min-width: @screen-tablet) {
+        & {
+            margin: 15px 0;
+            font-size: 35px;
+            line-height: 35px;
+        }
+    }
 }
 
 .heading-h1-hold {
@@ -86,15 +117,12 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         & {width: 800px;}
     }
 }
+// /Заголовки
 
-.i-highlight {
-    padding: 0 4px;
-    background: #fff7af;
-}
-
+// Text
 .tx-content {
     font-size: 14px;
-    line-height: 19px;
+    line-height: 20px;
     color: @color-gray-dark;
 }
 .tx-date {
@@ -108,8 +136,9 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 .tx-error {
     color: #FF8888;
 }
+// /Text
 
-
+// Ссылки
 .a-light {
     text-decoration: none;
     color: @color-link-light;
@@ -131,6 +160,81 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     border-bottom:1px dotted #289FD7;
 }
 .a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
+.a-gray {
+    color: @color-gray-light;
+}
+.a-gray:hover {
+    color: @color-gray;
+}
+// /Ссылки
+
+// Items
+.i-highlight {
+    padding: 0 4px;
+    background: #fff7af;
+}
+.i-allphoto {
+    margin: 40px 0;
+    text-align: center;
+    
+    &__family &_a {background-image: url('@{path-img}/i/i-allphoto__family.png');}
+    &_a {
+        .inline-block();
+        background: url('@{path-img}/i/i-allphoto.png') no-repeat;
+        padding: 7px 10px 8px 50px;
+        height: 30px;
+        font-size: 15px;
+        color: @color-gray;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: @color-gray-dark;
+        background-position: 0 -30px;
+    }
+}
+.i-info {
+    margin: 10px 0 15px;
+    border-left: 5px solid #b3e9b5;
+    padding: 14px 20px 14px 45px;
+    font-size: @font-base;
+    line-height: 1.25em;
+    color: #3f9143;
+    background:#e3fbe4 url('@{path-img}/i/i-info.png') no-repeat 7px 8px;
+}
+.i-info-success {
+    position: relative;
+    margin: 10px 0 15px;
+    border-left: 5px solid transparent;
+    padding: 14px 20px 14px 45px;
+    font-size: @font-base;
+    line-height: 1.25em;
+    color: #9B952F;
+    background:#FFFBBB url('@{path-img}/i/i-info-success.svg') no-repeat 7px 8px;
+
+    .ico-close {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        margin-top: -4px;
+    }
+}
+
+.i-or-tx {
+    display: inline-block;
+    margin: 0 5px;
+    font: italic 13px/1.25 'Times New Roman', Georgia, Times, serif;
+}
+// Эелмент фиксированный при скроле
+.i-affix {
+    position: relative;
+
+    &.affix {
+        position: fixed;
+        top: 0;
+        z-index: 100;
+    }
+}
+// /Items
 
 
 .btn-scrolltop {
@@ -185,17 +289,175 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 
 .post-arrow {
     display: none;
+    visibility: hidden;
     position: fixed;
     top: 50%;
-    right: 40px;
-    width: 62px;
-    height: 224px;
-    margin-top: -112px;
-    background: url('@{path-img}/post-arrow.png') no-repeat 0 0;
+    left: 30px;
+    height: 154px;
+    margin-top: -77px;
+    z-index: 100;
+    .opacity(0);
+    .transition(all 0.5s ease);
     
-    &:hover {background-position: 0 -224px;}
+    .i-photo-arrow {.opacity(0.4);}
+    &:hover .i-photo-arrow {
+        /*background-position: 0 -170px;*/
+        .opacity(0.8);
+    }
+
+    /*&__r .i-photo-arrow {background-position: -53px 0;}
+    &__r:hover .i-photo-arrow {background-position: -53px -170px;}*/
+
+    &:hover &_in-hold {
+        opacity: 1;
+        width: 325px;
+    }
+    &:hover &_in {
+        left: 0;
+    }
+    
+    &_in-hold {
+        opacity: 0;
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 53px;
+        width: 0;
+        height: 154px;
+        .transition(all 0.5s ease);
+        z-index: 10;
+    }
+    &_in {
+        position: absolute;
+        top: 25px;
+        left: -315px;
+        height: 105px;
+        width: 315px;
+        padding: 10px;
+        background-color: #fff;
+        text-align: center;
+        .box-shadow(0 0 9px rgba(0,0,0,0.2));
+        .transition(all 0.5s ease);
+    }
+
+    &_img-hold {
+        display: inline-block;
+        vertical-align: middle;
+        height: 85px;
+        max-width: 120px;
+        margin-right: 7px;
+        text-align: center;
+    }
+    &_img {
+        max-height: 100%;
+        max-width: 100%;
+    } 
+    &_img-hold + &_t {
+        width: 160px;
+    }
+    &_t {
+        display: inline-block;
+        vertical-align: middle;
+        width: 230px;
+        color: @color-link-title;
+        font-size: 14px;
+        line-height: 14px;
+        font-weight: bold;
+        text-align: left;
+    }
+    &_t:hover {color: @color-orange;}
+
+    &__r {
+        left: auto;
+        right: 30px;
+    }
+    &__r:hover &_in {
+        left: auto;
+        right: 0;
+    }
+    &__r &_in-hold {
+        left: auto;
+        right: 53px;
+    }
+    &__r &_in {
+        left: auto;
+        right: -315px;
+    }
+
+    @media (min-width: @screen-desktop) {
+        & {
+            display: block;
+        }
+    }
+
     @media screen and (min-width: 1230px) {
-        & {display: block;}
+        &.visible {
+            visibility: visible;
+            .opacity(1);
+        }
+    }
+}
+
+
+.i-photo-arrow {
+    display: inline-block;
+    width: 43px;
+    height: 74px;
+    background: url('@{path-img}/i/i-photo-arrow.png') no-repeat -350px 0;
+    z-index: 7;
+    .transition(opacity 0.3s ease);
+
+    &:hover    {background-position: -350px -170px;}
+    &__r       {background-position: -393px 0;}
+    &__r:hover {background-position: -393px -170px;}
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        margin-top: -40px;
+    }
+    &__abs&__r {
+        left: auto;
+        right: 10px;
+    }
+
+    @media (min-width: @screen-phone) {
+        & {
+            height: 114px;
+            background-position: -200px 0;
+        }
+        &:hover {background-position: -200px -170px;}
+        &__r {background-position: -243px 0;}
+        &__r:hover {background-position: -243px -170px;}
+
+        &__abs {
+            left: 25px;
+            margin-top: -57px;
+        }
+        &__abs&__r {
+            left: auto;
+            right: 25px;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        & {
+            width: 53px;
+            height: 154px;
+            background-position: 0 0;
+        }
+        &:hover {background-position: 0 -170px;}
+        &__r {background-position: -53px 0;}
+        &__r:hover {background-position: -53px -170px;}
+
+        &__abs {
+            left: 30px;
+            margin-top: -77px;
+        }
+        &__abs&__r {
+            left: auto;
+            right: 30px;
+        }
     }
 }
 
@@ -204,6 +466,13 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     text-align: center;
     border: 1px solid #eaf9ff;
 
+}
+
+.seo-desc {
+    margin: 20px 0;
+    padding: 25px 30px 25px 20px;
+    background-color: #fffce3;
+    .border-radius(4px);
 }
 
 // Дополнительный элемент при выделении и копировании текста с сайта. Что б при в ставке добавлялась ссылка на наш сайт

@@ -5,9 +5,7 @@ include ../block/config
 //- vars from template file
 - var bodyClass = ''; 
 - var global = {}; 
-
 block vars
-    
 //- tag head
 +headLite(path, global)
 
@@ -18,16 +16,16 @@ body.body(class='#{bodyClass}')
     //-|  <!-- #{timestamp} -->
     //-///////////////////////////////////////
     .layout-container
-        .layout-loose.layout-loose__white
+        .layout-loose
             .layout-header
             
                 +headerGuest('header__kinder-gold', headerGuest.kinderGold)
             .layout-loose_hold.clearfix
                 block layout
                 
-            //- +btn-scrolltop()
     .popup-container.display-n  
         block block-hidden
-            
+        
+    block block-dev-view    
     //-+scriptsLite(path)
 | </html>

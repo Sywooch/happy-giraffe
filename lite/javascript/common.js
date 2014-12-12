@@ -50,6 +50,7 @@ $(function() {
         callbacks: {
             open: function() {
                 $('html').addClass('mfp-html');
+                addBaron('.scroll');
             },
             close: function() {
                 $('html').removeClass('mfp-html');
@@ -80,10 +81,10 @@ $(document).ready(function () {
     });
 
     /* Подсказки при наведении */
-    // $('.powertip').powerTip({
-    //     placement: 'n',
-    //     offset: 5
-    // });
+    $('.powertip').powerTip({
+        placement: 'n',
+        offset: 5
+    });
 
 });
 

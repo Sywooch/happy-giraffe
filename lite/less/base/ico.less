@@ -6,6 +6,7 @@
     .img-retina('@{path-img}/ico/ico-lock-big.png'; '@{path-img}/ico/ico-lock-big-2x.png'; 35px; 45px);
 }
 .ico-arrow-d,
+.ico-arrow-r,
 .ico-arrow-l {
     .inline-block();
     vertical-align: middle;
@@ -18,18 +19,74 @@
     cursor: pointer;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MzNFNzE2RUFBQjg4MTFFMjkxQzhFODBFNUMxNEM0MDQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MzNFNzE2RUJBQjg4MTFFMjkxQzhFODBFNUMxNEM0MDQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozM0U3MTZFOEFCODgxMUUyOTFDOEU4MEU1QzE0QzQwNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozM0U3MTZFOUFCODgxMUUyOTFDOEU4MEU1QzE0QzQwNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PvaJvzUAAACqSURBVHjaTNA9DgFBGIfx2c00InSiV3MAEZ3KDbYSShKFS+glrK9GpeACglYicQNH0KpE4XmT/8RM8psp5snOm03Wh7zmnJuhj5f7rwQLnD1bG11c0FFowRYDlFO2HUZoKKxGwRE9r0/nOud4oqQgwzeNZljhpuCNsQV2ESI7N2jhgSJOqITLEIQZmhiijquFNtMkCjI9sdQL9gv2XkMXMA0zaFn4wf0nwABS7yOsttJjhAAAAABJRU5ErkJggg==);
 }
+.ico-close5,
 .ico-close4 {
     .inline-block();
-    width: 11px;
-    height: 11px;
-    background: url('/images/ico/ico-close4.png') no-repeat;
+    width: 24px;
+    height: 24px;
+    .img-retina('@{path-img}/ico/ico-close4.png'; '@{path-img}/ico/ico-close4-2x.png'; 24px; 48px);
+    cursor: pointer;
+    
+    &:hover {background-position: 0 -24px;}
 }
 .ico-close4:hover {background-position: 0 0;}
 
-.ico-social-hold {
+////////////////////////////////////////////////
+// ico-base спрайт
+.ico-plus {
+    .inline-block();
+    vertical-align: middle;
+    width: 13px;
+    height: 13px;
+}
+.ico-more-hover,
+.ico-more {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+a.ico-more:hover {&:extend(.ico-more-hover);}
+
+.ico-ovrPlay {
+    width: 99px;
+    height: 99px;
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+    }
+    &__s {
+        .scale(0.6);
+    }
+}
+.ico-zoom {
+    display: inline-block;
+    width: 99px;
+    height: 99px;
+    background: url('@{path-img}/ico/ico-zoom.png') no-repeat;
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+    }
+}
+
+// /ico-base спрайт
+////////////////////////////
+
+.ico-social-hold, // -hold стараться не использовать
+.ico-social-ul {
     .inline-block();
     vertical-align: middle;
     margin: 4px;
+
+    &_li {
+        display: inline-block;
+    }
 }
 .ico-social {
     .inline-block();
@@ -52,15 +109,7 @@
     &__vkontakte.ico-social__m {background-position: -32px 0;}
 }
 
-.ico-plus {
-    .inline-block();
-    vertical-align: middle;
-    width: 13px;
-    height: 13px;
-    background: url('@{path-img}/ico/ico-plus.svg') no-repeat;
-}
-
-
+//////////////////////////
 .ico-action-hg {
     .inline-block();
     vertical-align: middle;
@@ -77,7 +126,7 @@ a.ico-action-hg__comment:hover {background-position: -70px -35px;}
 .ico-action-hg__like {background-position: 0 0;}
 a.ico-action-hg__like:hover {background-position: 0 -35px;}
 
-
+///////////////////////
 .ico-users{
     .inline-block();
     width:40px;
@@ -101,12 +150,238 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
 
     &__s {
         .scale(.45);
-        width: 25px;
-        height: 25px;
-        vertical-align: middle;
     }
 
     .no-svg &__s {
         -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.43, M12=0, M21=0, M22=0.43, SizingMethod='auto expand')";
     }
 }
+
+.ico-product {
+    .inline-block();
+    width: 100px;
+    height: 75px;
+/*
+    &__l {
+        .scale(.45);
+        width: 100px;
+        height: 75px;
+        vertical-align: middle;
+    }
+
+    .no-svg &__l {
+        -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.43, M12=0, M21=0, M22=0.43, SizingMethod='auto expand')";
+    }*/
+}
+
+.ico-child-disease {
+    .inline-block();
+    width: 80px;
+    height: 60px;
+/*
+    &__l {
+        .scale(.45);
+        width: 100px;
+        height: 75px;
+        vertical-align: middle;
+    }
+
+    .no-svg &__l {
+        -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.43, M12=0, M21=0, M22=0.43, SizingMethod='auto expand')";
+    }*/
+}
+.ico-spices {
+    position: relative;
+    .inline-block();
+    width: 90px;
+    height: 70px;
+
+    &:after {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &__l {
+        width: 180px;
+        height: 140px;
+        vertical-align: middle;
+
+        &:after {
+            .scale(2);
+            margin: 35px 0 0 45px;
+        }
+    }
+
+    .no-svg &__l:after {
+        -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=2, M12=0, M21=0, M22=2, SizingMethod='auto expand')";
+    }
+}
+
+//////////////////////// Семья
+.ico-myfamily {
+    .inline-block();
+    width: 210px;
+    height: 24px;
+    margin: 0 5px;
+    .img-retina('@{path-img}/ico/ico-myfamily.png'; '@{path-img}/ico/ico-myfamily-2x.png'; 210px; 24px);
+
+    &__l {
+        width: 367px;
+        height: 38px;
+        .img-retina('@{path-img}/ico/ico-myfamily__l.png'; '@{path-img}/ico/ico-myfamily__l-2x.png'; 367px; 38px);
+    }
+}
+.ico-family {
+    .inline-block();
+    width: 55px;
+    height: 55px;
+    .img-retina('@{path-img}/ico/ico-family.png'; '@{path-img}/ico/ico-family-2x.png'; 110px; 715px);
+    background-position: 0 -605px;
+
+    &__baby-plan     {background-position: 0 -605px;}
+    &__baby          {background-position: 0 0;}
+    &__baby-two      {background-position: -55px 0;}
+    &__boy-wait      {background-position: 0 -55px;}
+    &__girl-wait     {background-position: -55px -55px;}
+    &__boy-small     {background-position: 0 -110px;}
+    &__girl-small    {background-position: -55px -110px;}
+    &__boy-3         {background-position: 0 -165px;}
+    &__girl-3        {background-position: -55px -165px;}
+    &__boy-5         {background-position: 0 -220px;}
+    &__girl-5        {background-position: -55px -220px;}
+    &__boy-8         {background-position: 0 -275px;}
+    &__girl-8        {background-position: -55px -275px;}
+    &__boy-14        {background-position: 0 -330px;}
+    &__girl-14       {background-position: -55px -330px;}
+    &__boy-19        {background-position: 0 -385px;}
+    &__girl-19       {background-position: -55px -385px;}
+    &__boy-friend    {background-position: 0 -440px;}
+    &__girl-friend   {background-position: -55px -440px;}
+    &__fiance        {background-position: 0 -495px;}
+    &__bride         {background-position: -55px -495px;}
+    &__husband       {background-position: 0 -550px;}
+    &__wife          {background-position: -55px -550px;}
+    &__boy           {background-position: 0 -660px;}
+    &__girl          {background-position: -55px -660px;}
+}
+
+.ico-family-m {
+    .inline-block();
+    width: 90px;
+    height: 90px;
+    .img-retina('@{path-img}/ico/ico-family-m.png'; '@{path-img}/ico/ico-family-m-2x.png'; 180px; 1170px);
+    background-position: 0 -990px;
+
+    &__baby          {background-position: 0 0;}
+    &__baby-two      {background-position: -90px 0;}
+    &__boy-wait      {background-position: 0 -90px;}
+    &__girl-wait     {background-position: -90px -90px;}
+    &__boy-small     {background-position: 0 -180px;}
+    &__girl-small    {background-position: -90px -180px;}
+    &__boy-3         {background-position: 0 -270px;}
+    &__girl-3        {background-position: -90px -270px;}
+    &__boy-5         {background-position: 0 -360px;}
+    &__girl-5        {background-position: -90px -360px;}
+    &__boy-8         {background-position: 0 -450px;}
+    &__girl-8        {background-position: -90px -450px;}
+    &__boy-14        {background-position: 0 -540px;}
+    &__girl-14       {background-position: -90px -540px;}
+    &__boy-19        {background-position: 0 -630px;}
+    &__girl-19       {background-position: -90px -630px;}
+    &__boy-friend    {background-position: 0 -720px;}
+    &__girl-friend   {background-position: -90px -720px;}
+    &__fiance        {background-position: 0 -810px;}
+    &__bride         {background-position: -90px -810px;}
+    &__husband       {background-position: 0 -900px;}
+    &__wife          {background-position: -90px -900px;}
+    &__baby-plan     {background-position: 0 -990px;}
+    &__boy           {background-position: 0 -1080px;}
+    &__girl          {background-position: -90px -1080px;}
+}
+
+.ico-family-big {
+    .inline-block();
+    width: 160px;
+    height: 160px;
+    .img-retina('@{path-img}/ico/ico-family-big.png'; '@{path-img}/ico/ico-family-big-2x.png'; 320px; 2080px);
+
+    &__baby          {background-position: 0 0;}
+    &__baby-two      {background-position: -160px 0;}
+    &__boy-wait      {background-position: 0 -160px;}
+    &__girl-wait     {background-position: -160px -160px;}
+    &__boy-small     {background-position: 0 -320px;}
+    &__girl-small    {background-position: -160px -320px;}
+    &__boy-3         {background-position: 0 -480px;}
+    &__girl-3        {background-position: -160px -480px;}
+    &__boy-5         {background-position: 0 -640px;}
+    &__girl-5        {background-position: -160px -640px;}
+    &__boy-8         {background-position: 0 -800px;}
+    &__girl-8        {background-position: -160px -800px;}
+    &__boy-14        {background-position: 0 -960px;}
+    &__girl-14       {background-position: -160px -960px;}
+    &__boy-19        {background-position: 0 -1120px;}
+    &__girl-19       {background-position: -160px -1120px;}
+    &__boy-friend    {background-position: 0 -1280px;}
+    &__girl-friend   {background-position: -160px -1280px;}
+    &__fiance        {background-position: 0 -1440px;}
+    &__bride         {background-position: -160px -1440px;}
+    &__husband       {background-position: 0 -1600px;}
+    &__wife          {background-position: -160px -1600px;}
+    &__baby-plan     {background-position: 0 -1760px;}
+    &__boy           {background-position: 0 -1920px;}
+    &__girl          {background-position: -160px -1920px;}
+}
+
+//////////////////////
+
+.ico-gif-l {
+    position: relative;
+    z-index: 50;
+    display: inline-block;
+    padding: 2px 12px;
+    background-color: #04acf2;
+    font-size: 25px;
+    font-weight: bold;
+    color: #fff;
+    .border-radius(5px);
+}
+
+
+///////////////////
+.ico-edit {
+    .inline-block();
+}
+.ico-edit__s {
+    width: 15px;
+    height: 15px;
+    background: url('@{path-img}/ico/ico-edit-s.png') no-repeat;
+
+    &:hover {background-position: 0 -50px;}
+}
+.ico-edit__s-white {
+    width: 15px;
+    height: 15px;
+    background: url('@{path-img}/ico/ico-edit-s-white.png') no-repeat;
+}
+
+.ico-trash,
+.ico-photo-edit,
+.ico-move {
+    .inline-block();
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+    background: url('@{path-img}/ico/ico-move.png') no-repeat;
+}
+.ico-photo-edit {
+    background: url('@{path-img}/ico/ico-photo-edit.png') no-repeat;
+}
+.ico-trash {
+    float: right;
+    margin-right: 0;
+    background: url('@{path-img}/ico/ico-trash.png') no-repeat;
+}
+
+//////////////////

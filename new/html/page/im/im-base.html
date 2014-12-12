@@ -7,6 +7,7 @@
 <!-- a-->
 <!-- b-->
 <!-- c-->
+<!-- /b-album-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,12 +17,13 @@
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
   <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
   <!--+scripts(path)-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <!-- script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")-->
   <script>
-    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    window.jQuery || document.write('<script src="/new/javascript/jquery-1.10.2.min.js"><\/script>')
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/affix.js"></script>
   <script src="/new/javascript/bootstrap/dropdown.js"></script>
   <script src="/new/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
@@ -76,13 +78,13 @@
       <div class="header-fix">
         <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
           <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a">
-              <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+              <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
             <!-- header-drop-->
             <div class="header-drop">
               <div class="header-menu clearfix">
                 <ul class="header-menu_ul">
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
-                        <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <!-- ava--><span class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -138,12 +140,12 @@
               <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
               <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
-                  <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                  <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
                 <div class="header-drop">
                   <div class="header-menu clearfix">
                     <ul class="header-menu_ul">
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
-                            <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                            <!-- ava--><span class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -209,7 +211,7 @@
                         self.contWrap.css({'padding-top' : h});
                     } else {
                         self.contWrap.css({'padding-top' : 0});
-                        
+            
                     }
                 }
                 self.renew = function() {
@@ -222,11 +224,11 @@
                     self.imCenter.find('.scroll_scroller').trigger('scroll');
                     self.imUserList.find('.scroll_scroller').trigger('scroll');
                 }
-                
+            
                 $(window).resize(function() {
                     self.renew();
                 });
-                
+            
                 $(document).on('koUpdate', 'section.im-center', function(event) {
                     if(event.target == this)
                     {
@@ -270,7 +272,7 @@
                             self.contWrap.css({'padding-top' : h});
                         } else {
                             self.contWrap.css({'padding-top' : 0});
-                            
+            
                         }
                     }
                     self.renew = function() {
@@ -280,11 +282,11 @@
                             containerHeight();
                             msgToBottom();
                     }
-                    
+                   
                     $(window).resize(function() {
                             self.renew();
                     });
-                    
+            
                     $(document).on('koUpdate', 'section.im-center', function(event) {
                             var imCenter = this;
                             self.imCenter = $(imCenter);
@@ -295,7 +297,7 @@
                             self.headerHeight = $('.layout-header').height();
                             self.renew();
                     });
-                    
+            
                     
                     $(document).ready(function () {
                         var imCenter = ".im-center";
@@ -308,8 +310,8 @@
                         self.contWrap = $('.im-center_middle-w', imCenter);
                         self.renew();
                     });
-                    
-                    
+            
+            
             }();
             
             
@@ -334,7 +336,7 @@
             //- im.msgToBottom = function(){
             //-     var contH = im.container.height();
             //-     var contWrap = $('.im-center_middle-w');
-            
+                
             //-     if (contH > contWrap.height()) {
             //-         var h = contH - contWrap.height() - 5;
             //-         contWrap.css({'padding-top' : h});
@@ -386,6 +388,7 @@
                   </div>
                 </div>
                 <!-- /side-menu-->
+                
                 <div class="im-sidebar_sound"><a href="" class="im-sidebar_sound-ico inactive"></a></div>
               </div>
               <div class="im-sidebar_users">
@@ -401,147 +404,147 @@
                       <div class="scroll_cont">
                         <div class="im-user-list_i clearfix active">
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Александр Богоявленский</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
                           <div class="im-user-list_set">
-                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                            <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
@@ -555,6 +558,7 @@
                   </div>
                 </div>
                 <!-- /im-user-list-->
+                
               </div>
             </section>
             <!-- /im-sidebar-->
@@ -614,6 +618,7 @@
                   </div>
                 </div>
                 <!-- /im-panel-->
+                
               </div>
               <div class="im-center_middle">
                 <div class="scroll">
@@ -676,7 +681,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
+                          <div class="im-message_tx"> 
                             <p>Уважаемая Зося, добрый день! </p>
                             <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
                           </div>
@@ -739,7 +744,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__friend">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
+                          <div class="im-message_tx"> 
                             <p>Уважаемая Зося, добрый день! </p>
                             <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
                           </div>
@@ -767,7 +772,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
+                          <div class="im-message_tx"> 
                             <p>Уважаемая Зося, добрый день! </p>
                             <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
                           </div>
@@ -830,7 +835,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
+                          <div class="im-message_tx"> 
                             <p>Уважаемая Зося, добрый день! </p>
                             <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
                           </div>
@@ -893,7 +898,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
+                          <div class="im-message_tx"> 
                             <p>Уважаемая Зося, добрый день! </p>
                             <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
                           </div>
@@ -970,7 +975,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
+                          <div class="im-message_tx"> 
                             <p>Уважаемая Зося, добрый день! </p>
                             <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
                           </div>
@@ -1001,7 +1006,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
+                          <div class="im-message_tx"> 
                             <p>Уважаемая Зося, добрый день! </p>
                             <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
                           </div>
@@ -1064,7 +1069,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__friend">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
+                          <div class="im-message_tx"> 
                             <p>Уважаемая Зося, добрый день! </p>
                             <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
                           </div>
@@ -1111,7 +1116,7 @@
                             $('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
                             /* привязать baron к созданным элементам, в верстке не работает */
                             addBaron('.redactor-control_hold .scroll');
-                            
+                        
                             $('.redactor').redactor({
                                 minHeight: 20,
                                 autoresize: true,
@@ -1135,7 +1140,7 @@
                                 },
                                 changeCallback: function(html)
                                 {   
-                                
+                                    
                                     var redactorH = this.$box.height();
                                     // Выбираем непосредственного родителя
                                     var bParrent = this.$box.parents('.redactor-control_hold');
@@ -1168,6 +1173,6 @@
       </div>
     </div>
   </div>
-  <div class="popup-container display-n">
+  <div class="popup-container display-n"> 
   </div>
 </body></html>

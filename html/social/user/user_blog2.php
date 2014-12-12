@@ -8,10 +8,20 @@
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 
 </head>
-<body class="body-gray">
+<body class="body-gray body__bg2 theme theme__adfox">
+
+    <div class="header-banner">
+        <a href="#" target="_blank" class="bnr-enfomil2">
+            <img src="/images/banners/bnr-enfomil2.jpg" alt="">
+            <!-- <span class="bnr-enfomil2_btn"></span> -->
+            <span class="bnr-enfomil2_btn">
+                <span class="bnr-enfomil2_hold"></span>
+            </span>
+        </a>
+    </div>
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
-	
+<div class="layout-w1">
 <div class="layout-container">
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
@@ -354,6 +364,17 @@
 						
 					</div>
 				</div>
+
+                <div class="article-banner">
+                    <a href="#" target="_blank" class="bnr-enfomil1">
+                        <img src="/images/banners/bnr-enfomil1.jpg" alt="">
+                        
+                        <span class="bnr-enfomil1_btn">
+                            <span class="bnr-enfomil1_hold"></span>
+                        </span>
+                        
+                    </a>
+                </div>
 				<div class="article-banner">
 					<a href="">
 						<img border="0" title="" alt="" src="/images/example/yandex-direct_wide.jpg">
@@ -1120,6 +1141,6 @@
 	</div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </div>
-
+</div>
 </body>
 </html>

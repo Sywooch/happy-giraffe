@@ -146,7 +146,7 @@ a.pseudo:hover,
 	.ico-edit {position: relative;top:-2px;}
 	&_tx {
 		font-size: 12px;
-		border-bottom:1px dotted #bab9b9;
+		border-bottom: 1px dotted #bab9b9;
 		color: #bab9b9;
 	}
 }
@@ -386,7 +386,7 @@ a.pseudo:hover,
 /* heading-title */
 .heading-title {
     margin: 5px 20px 10px;
-    font: normal 35px/35px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+    font: normal 35px/35px Arial, Tahoma, sans-serif;
     color: #2b2b2b;
 }
 /* /heading-title */
@@ -503,7 +503,42 @@ a.pseudo:hover,
 	height: 13px;
 	background: url(/images/arrow-d.png) no-repeat;
 }
+.location-tx {
+	display: inline-block;
+	vertical-align: middle;
+}
 /* single items */
+
+.ico-social-hold,
+.ico-social-ul {
+    .inline-block();
+    vertical-align: middle;
+    margin: 4px;
+
+    &_li {
+        display: inline-block;
+    }
+}
+.ico-social {
+    .inline-block();
+    margin: 0 4px;
+    width: 22px;
+    height: 22px;
+    background: url('/lite/images/ico/ico-social.png') no-repeat;
+    
+    &:hover {
+        opacity: 0.8;
+    }
+    &__odnoklassniki {background-position: 0 0;}
+    &__vkontakte {background-position: -22px 0;}
+
+    &__m {
+        width: 32px;
+        height: 32px;
+        background: url('/lite/images/ico/ico-social__m.png') no-repeat;
+    }
+    &__vkontakte.ico-social__m {background-position: -32px 0;}
+}
 
 /* icons */
 .ico-friends-small{display:inline-block;*zoom:1;*display:inline;width:27px;height:27px;background:url(/images/common.png) no-repeat -428px -334px;vertical-align:middle;margin-right:5px;}
@@ -520,8 +555,8 @@ a.pseudo:hover,
 	@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
     only screen and (min-resolution: 144dpi) {
 		& {
-			background:url(/images/ico-family2x.png) no-repeat 0 -605px;
-			background-size: 220px;
+			background:url(/images/ico/ico-family2x.png) no-repeat 0 -605px;
+			background-size: 110px;
 		}
     }
 

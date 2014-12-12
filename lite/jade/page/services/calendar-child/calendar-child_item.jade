@@ -53,8 +53,20 @@ block layout
                     p
                         | Мальчики к семи месяцам имеют вес 5,9 -11,4 килограммов, рост 62,7 – 75,7 сантиметров, окружность головы 40,3 – 47,7 сантиметров, окружность груди 41,7 – 50,1 сантиметров.
                     .age-features
-                    .calendar-serv-note
-                        .calendar-serv-note_count 7
+                    // Варианты модификаторов
+                        .calendar-serv-note__1y
+                        .calendar-serv-note__3y
+                        .calendar-serv-note__7y
+                        .calendar-serv-note__18y
+                    .calendar-serv-note.calendar-serv-note__3y
+                        script.
+                            $(window).ready(function () {
+                                var docWidth = $(document).width();
+                                if (docWidth > 640 && docWidth < 1000) {
+                                    $('.calendar-serv-note_count').css({'right': (1000 - docWidth)/2})
+                                }
+                            });
+                        .calendar-serv-note_count 7-18
                         .b-main_col-article.b-main_col-article__center
                             h2.calendar-serv-note_t
                                 | В 

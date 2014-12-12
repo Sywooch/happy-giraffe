@@ -1,0 +1,51 @@
+<!-- ko if: photoCollection.attaches().length > 0 -->
+<section class="b-album">
+    <div class="b-album_top">
+        <div class="b-album_count-hold">
+            <div class="b-album_count" data-bind="visible: photoCollection.attachesCount() !== 1, text: photoCollection.attachesCount()"></div>
+            <div class="b-album_count-tx">фото</div>
+        </div>
+    </div>
+    <!-- ko if: photoCollection.cover() -->
+    <div href="#" class="b-album_img-hold" data-bind="click: function () { openPhotoHandler(photoCollection.cover()); }, attr: { 'style': 'height: ' + photoCollection.cover().photo().presetHeight() + 'px;' }">
+        <div class="b-album_img-a">
+            <!-- <div class="verticalalign-m-help"></div>
+            <div class="verticalalign-m-el">
+                <img src="" alt="" class="b-album_img-big" data-bind="src: photoCollection.cover().photo().getGeneratedPreset('postCollectionCover')">
+            </div> -->
+            <div class="b-album_img-pad"></div>
+            <div class="b-album_img-picture">
+                <img src="" alt="" class="b-album_img-big" data-bind="src: photoCollection.cover().photo().getGeneratedPreset('postCollectionCover')">
+            </div>
+        </div>
+        <div class="b-album_img-hold-ovr">
+            <div class="ico-zoom ico-zoom__abs"></div>
+        </div>
+    </div>
+    <!-- /ko -->
+    <div class="b-album_overlay">
+        <a class="b-album_r">
+            <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
+            </div>
+            <div class="b-album_ico-album"></div>
+            <div class="b-album_arrow-all"></div>
+        </a>
+        <ul class="b-album_prev clearfix visible-md-block">
+            <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
+            <!-- ko if: photoCollection.attaches().length > 0 -->
+                <!-- ko foreach: photoCollection.attaches() -->
+                <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
+                    <a href="#" class="b-album_prev-a" data-bind="href: url(), click: function () { $parent.openPhotoHandler($data); }">
+                        <img src="" alt="" class="b-album_prev-img" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">
+                        <div class="b-album_prev-hold"></div>
+                    </a>
+                </li>
+                <!-- /ko -->
+            <!-- /ko -->
+        </ul>
+    </div>
+</section>
+<!-- /ko -->
+<!-- ko if: opened() === true -->
+    <photo-slider params="photo: currentPhoto(), collectionId: photoCollection.id, userId: userId"></photo-slider>
+<!-- /ko -->

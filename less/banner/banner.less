@@ -1,0 +1,134 @@
+/* fast-articles3 */
+.fast-articles3 {
+    margin: 30px 0;
+
+    &_i {
+        margin: 25px 0;
+    }
+    &_a {
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        color: @color-gray-dark;
+    }
+    &_a:hover {
+        color: @color-gray;
+    }
+    &_a:hover &_img {.opacity(.8)}
+    &_img {
+        display: block;
+        margin: 0 auto;
+        .border-radius(10px);
+    }
+    &_tx {
+        display: block;
+        margin: 8px 0 0;
+        font-size: 16px;
+        text-align: center;
+    }
+}
+/* /fast-articles3 */
+
+.header-ad-kinderino {
+    display: inline-block;
+    vertical-align: top;
+
+    & > a {
+        display: inline-block; 
+        margin: -13px 0 -5px;
+        vertical-align: top; 
+        text-align: center;
+    }
+    & img {
+        padding-right: 5px;
+    }
+    & span {
+        display:block; 
+        width:77px; 
+        height: 20px; 
+        margin: 2px 0 0; 
+        background: url('/lite/images/banner/header_kinderino-2-btn.png') no-repeat; 
+    }
+
+    &__guest {
+        display: none;
+        
+        @media (min-width: @screen-desktop) {
+            & {
+                display: inline-block;
+                margin: 0 12px 0 12px;
+            }
+        }
+    }
+}
+@-webkit-keyframes key-bnr-enfomil1 {
+    from  { 
+        background-position: -100px 0; 
+    }
+    to    { 
+        background-position: 400px 0; }
+}
+@keyframes key-bnr-enfomil1 {
+    from  { background-position: -100px 0; }
+    to    { background-position: 400px 0; }
+}
+.bnr-enfomil1 {
+    width: 680px;
+    position: relative;
+    display: block;
+    margin: 5px 0;
+
+    &_hold {
+        position: absolute;
+        z-index: 5;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: url('/images/banners/bnr-enfomil_hold.png') no-repeat;
+        .animation(key-bnr-enfomil1 2s linear infinite);
+    }
+    &_btn {
+        position: absolute;
+        overflow: hidden;
+        top: 236px;
+        left: 295px;
+        width: 158px;
+        height: 33px;
+        background: url('/images/banners/bnr-enfomil1_btn.png') no-repeat;
+        z-index: 10;
+        .border-radius(10px);
+    }
+    &_btn:hover {background-position: 0 -33px;}
+}
+
+.bnr-enfomil2 {
+    width: 1000px;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    
+    &_hold {
+        position: absolute;
+        z-index: 5;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: url('/images/banners/bnr-enfomil_hold.png') no-repeat;
+        .animation(key-bnr-enfomil1 2s linear infinite);
+    }
+    &_btn {
+        position: absolute;
+        overflow: hidden;
+        top: 134px;
+        left: 445px;
+        width: 158px;
+        height: 33px;
+        background: url('/images/banners/bnr-enfomil1_btn.png') no-repeat;
+        .border-radius(10px);
+    }
+    &_btn:hover {
+        background-position: 0px -33px;
+    }
+}

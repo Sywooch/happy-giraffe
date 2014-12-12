@@ -1,0 +1,289 @@
+/* b-markdown */
+.b-markdown {
+    word-wrap: break-word;
+    &:extend(.tx-content);
+
+    p {margin: 0 0 @article-margin;}
+    img {
+        .inline-block();
+        vertical-align: bottom;
+    }
+
+    /*.content-img  {
+        float: none;
+        margin: 0 0 10px;
+    }*/
+    .smile {vertical-align: middle;}
+
+    h2 {
+        margin: 3*@article-margin 0 @article-margin;
+        font-size: 16px;
+        line-height: 25px;
+        font-weight: bold;
+        color: @color-base;
+
+        @media (min-width: @screen-phone) {
+            & {
+                font-size: 18px;
+            }
+        }
+        @media (min-width: @screen-desktop) {
+            & {
+                font-size: 22px;
+            }
+        }
+    }
+
+    h3 {
+        margin: 2*@article-margin 0 @article-margin;
+        font-size: 18px;
+        font-weight: bold;
+        color: @color-base;
+    }
+    /*h4 {
+        margin: 2*@article-margin 0 @article-margin;
+        font-size: 16px;
+        font-weight: bold;
+        color: @color-base;
+    }*/
+    h4 {
+        margin: 2*@article-margin 0 @article-margin;
+        font-size: 14px;
+        font-weight: bold;
+        color: @color-base;
+    }
+    h5 {
+        margin: 2*@article-margin 0 @article-margin;
+        font-size: 12px;
+        font-weight: bold;
+        color: @color-base;
+    }
+    h6 {
+        margin: 2*@article-margin 0 @article-margin;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: italic;
+        color: @color-base;
+    }
+    &_t-sub {
+        font: 22px/27px Arial, Tahoma, Verdana, sans-serif;
+        color: #333;
+        margin: 0 0 1.5*@article-margin;
+    }
+    h2&_t-sub {
+        margin-top: 0;
+        margin-bottom: @article-margin;
+    }
+    ul {
+        margin: 1.5*@article-margin 0;
+        padding: 0;
+        list-style: none;
+    }
+    ul li {
+        margin: 0;
+        padding: 5px 0 5px 25px;
+        background: url(/images/bullet.png) no-repeat 4px 11px;
+    }
+    ol {
+        margin: 1.5*@article-margin 0;
+        padding: 0;
+        counter-reset: item;
+        list-style-type: none;
+    }
+    ol li {
+        margin: 0;
+        padding: 5px 0 5px 25px;
+    }
+    ol li:before {
+        font:bold 14px Arial, Tahoma, Verdana, sans-serif;
+        color: #333;
+        margin:0 0 0 -25px;
+        float: left;
+        content: counters(item, '.') '.'; /* crash IE7 */
+        counter-increment: item;
+    }
+
+
+
+
+
+
+
+    
+    // для old layout
+    div,
+    a, 
+    span {.box-sizing(border-box);}
+    a {
+        text-decoration: none;
+    }
+    // /old layout
+
+
+
+    .b-article_in-img {
+        /*margin-top: 30px;*/
+        margin: 0 0 @article-margin 0;
+    }
+    /*&_img-hold {
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }*/
+    /*&_img-hold:hover &_img-water {
+        .opacity(1);
+        color: #fff;
+    }*/
+
+    &_source {
+        margin: 4*@article-margin 0 @article-margin;
+        color: @color-gray;
+        font-size: 12px;
+        font-style: italic;
+        text-align: right;
+    }
+    &_source-tx {
+        .inline-block();
+        margin-right: 3px;
+    }
+    &_source-a {
+        display: inline-block;
+        margin: 0 3px;
+        color: #8ec9fa;
+    }
+    &_description {
+        margin: -0.7*@article-margin 30px @article-margin;
+        text-align: center;
+        color: @color-gray;
+        font: italic 13px/17px Arial, Tahoma, Verdana, sans-serif;
+    }
+    &_img-water {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 8px 20px 2px;
+        text-align: center;
+        color: #fff;
+        text-shadow: 0 0 1 #000;
+        .opacity(0.8);
+
+        #gradient .vertical(@start-color: rgba(0,0,0,.0001); @end-color: rgba(0,0,0,.4); @start-percent: 0%; @end-percent: 100%);
+    }
+    &_img-water:hover {color: #fff;}
+    &_li-tx {
+        float: left;
+        min-width: 40px;
+        padding: 0 10px 5px;
+        font-size: 30px;
+        line-height: 1;
+        text-align: center;
+    }
+
+    @media (min-width: @screen-tablet) {
+        
+        /*& &_img-hold {
+            margin-top: 40px;
+        }*/
+        &_li-tx {
+            font-size: 45px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        
+        &_li-tx {
+            padding: 0 18px;
+            min-width: 65px;
+            font-size: 60px;
+        }
+    }
+}
+/* /b-markdown */
+
+
+/* 
+add in old css
+
+
+
+
+*/
+
+/* .markdown-compare */
+.markdown-compare {
+    margin: @article-margin 0;
+    padding: 15px 20px;
+    border: 2px solid transparent;
+
+    h3:first-child {
+        margin-top: 0;
+    }
+    &__l {
+        margin-right: 15px;
+        border-color: #ffae3d;
+    }
+    &__r {
+        margin-left: 15px;
+        border-color: #4fa5e0;
+    }
+    &_img-hold {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    @media (min-width: @screen-phone-landscape) {
+        &__l {
+            margin-right: 65px;
+        }
+        &__r {
+            margin-left: 65px;
+        }
+        /*.body__lite &__r {
+            margin-right: -40px;
+        }*/
+    }
+}
+/* /markdown-compare */
+
+/* .markdown-day */
+.markdown-day {
+    margin: @article-margin 0;
+    padding: 20px;
+    border: 2px solid transparent;
+
+    &__1 {
+        border-color: #4fa5e0;
+    }
+    &__2 {
+        border-color: #ffae3d;
+    }
+    &__3 {
+        border-color: #bc9fd7;
+    }
+    
+    &_t {
+        position: relative;
+        margin: 0 0 15px;
+        padding: 15px 20px 12px 85px;
+        font-size: 35px;
+        line-height: 35px;
+        font-weight: bold;
+        color: @color-base;
+    }
+    &_t:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    &_img-hold {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    @media (min-width: @screen-desktop) {
+        /*.body__lite & {
+            margin-right: -40px;
+        }*/
+    }
+}
+/* markdown-day */

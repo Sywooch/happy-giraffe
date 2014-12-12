@@ -1,0 +1,238 @@
+// Из Lite версии
+@path-img : '/lite/images';
+
+
+//----------------------------------------------------------
+// Спрайты
+@import "../lite/less/sprite/ico-club-sprite.less";
+
+.no-svg .ico-club__19, .no-svg .ico-club__1, .no-svg .ico-club__11, .no-svg .ico-club__12, .no-svg .ico-club__13, .no-svg .ico-club__14, .no-svg .ico-club__15, .no-svg .ico-club__16, .no-svg .ico-club__17, .no-svg .ico-club__18, .no-svg .ico-club__10, .no-svg .ico-club__2, .no-svg .ico-club__20, .no-svg .ico-club__3, .no-svg .ico-club__4, .no-svg .ico-club__5, .no-svg .ico-club__6, .no-svg .ico-club__7, .no-svg .ico-club__8, .no-svg .ico-club__9 {
+	background-image: url("/lite/images/sprite/ico-club.png");
+}
+
+.ico-club__19, .ico-club__1, .ico-club__11, .ico-club__12, .ico-club__13, .ico-club__14, .ico-club__15, .ico-club__16, .ico-club__17, .ico-club__18, .ico-club__10, .ico-club__2, .ico-club__20, .ico-club__3, .ico-club__4, .ico-club__5, .ico-club__6, .ico-club__7, .ico-club__8, .ico-club__9 {
+	background-image: url("/lite/images/sprite/ico-club.svg");
+}
+
+// --------------------------------------------------------
+// bootstrap
+@import "../lite/less/bootstrap/navs.less";
+
+
+// Иконки --------------------------------------------------
+.ico-social-hold {
+    .inline-block();
+    vertical-align: middle;
+    margin: 4px;
+}
+.ico-social {
+    .inline-block();
+    margin: 0 4px;
+    width: 22px;
+    height: 22px;
+    background: url('@{path-img}/ico/ico-social.png') no-repeat;
+    
+    &:hover {
+        opacity: 0.8;
+    }
+    &__odnoklassniki {background-position: 0 0;}
+    &__vkontakte {background-position: -22px 0;}
+
+    &__m {
+        width: 32px;
+        height: 32px;
+        background: url('@{path-img}/ico/ico-social__m.png') no-repeat;
+    }
+    &__vkontakte.ico-social__m {background-position: -32px 0;}
+}
+
+.ico-club {
+    .inline-block();
+    width: 75px;
+    height: 75px;
+
+    &__s {
+        .scale(.45);
+        width: 25px;
+        height: 25px;
+        vertical-align: middle;
+    }
+
+    .no-svg &__s {
+        -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.43, M12=0, M21=0, M22=0.43, SizingMethod='auto expand')";
+    }
+}
+
+.ico-action-hg {
+    .inline-block();
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    background: url('@{path-img}/ico/ico-action-hg.png') no-repeat;
+}
+.ico-action-hg__favorite {background-position: -35px 0;}
+a.ico-action-hg__favorite:hover {background-position: -35px -35px;}
+
+.ico-action-hg__comment {background-position: -70px 0;}
+a.ico-action-hg__comment:hover {background-position: -70px -35px;}
+
+.ico-action-hg__like {background-position: 0 0;}
+a.ico-action-hg__like:hover {background-position: 0 -35px;}
+
+
+.ico-plus {
+    .inline-block();
+    vertical-align: middle;
+    width: 13px;
+    height: 13px;
+    background: url('@{path-img}/ico/ico-plus.svg') no-repeat;
+}
+
+
+// ----------------------------------------------------------
+// Отдельные элементы
+
+.i-highlight {
+    padding: 0 4px;
+    background: #fff7af;
+}
+
+.tx-content {
+    font-size: 14px;
+    line-height: 19px;
+    color: @color-gray-dark;
+}
+.tx-date {
+    font: @fontsmallest;
+    color: @color-gray-light;
+}
+.tx-hint {
+    font: @fontsmall;
+    color: @color-gray-light;
+}
+.tx-error {
+    color: #FF8888;
+}
+
+.a-light {
+    text-decoration: none;
+    color: @color-link-light;
+
+    &:hover {
+        text-decoration: none;
+        color: @color-orange;
+    }
+    &.disabled {
+        color: #9edbf8;
+    }
+}
+.a-span {
+    color: @color-link;
+}
+
+
+
+
+// ---------------------------------------------------------
+// Блоки
+
+
+/* article-users */
+.article-users {
+    margin: 20px 5px;
+    padding: 5px 0 10px;
+
+    .ava-list {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 10px 0 0;
+        border: 0;
+        padding: 0;
+    }
+    .ava-list_li {
+    	margin: 4px 3px 4px 0;
+    }
+    .a-light {
+        vertical-align: middle;
+    }
+    &_count {
+        .inline-block();
+        vertical-align: middle;
+        width: 110px;
+        color: @color-gray;
+        text-decoration: none;
+    }
+    &_count:hover {color: @color-gray-dark;}
+    &_count:hover .ico-action-hg__like{
+        &:extend(a.ico-action-hg__like:hover);
+    }
+    &_count:hover .ico-action-hg__favorite{
+        &:extend(a.ico-action-hg__favorite:hover);
+    }
+    &_count-tx {
+        display: inline-block;
+        line-height: 25px;
+        margin-left: 10px;
+    }
+}
+/* /article-users */
+
+
+/* user-actions */
+.user-actions {
+    .inline-block();
+
+    &__small {}
+    &__small &_i__message             &_ico {background-position: 0 0;}
+    &__small &_i__message:hover       &_ico {background-position: 0 -50px;}
+    &__small &_i__friend              &_ico {background-position: -40px 0;}
+    &__small &_i__friend-add          &_ico {background-position: -20px 0;}
+    &__small &_i__friend-add:hover    &_ico {background-position: -20px -50px;}
+    &__small &_i__friend-added        &_ico {background-position: -60px 0;}
+    &__small &_i__friend-append       &_ico {background-position: -80px 0;}
+    &__small &_i__friend-append:hover &_ico {background-position: -20px -50px;}
+    &__small &_ico {
+        vertical-align: initial;
+        width: 20px;
+        height: 15px;
+        background: url(/images/user-actions_ico__small.png) no-repeat;
+    }
+    
+    &_i {
+        .inline-block();
+        margin: 0 1px;
+        text-decoration: none;
+    }
+    &_i__friend-added,
+    &_i__friend {cursor: default;}
+    &_i__friend &_tx {
+        color: #0eb31e;
+        margin: 0 2px 0 -3px;
+    }
+    &_ico {
+        .inline-block();
+        vertical-align: middle;
+        width: 25px;
+        height: 25px;
+        background: url(/images/user-actions_ico.png) no-repeat;
+    }
+    &_i__message             &_ico {background-position: 0 0;}
+    &_i__message:hover       &_ico {background-position: 0 -50px;}
+    &_i__friend              &_ico {background-position: -50px 0;}
+    &_i__friend-add          &_ico {background-position: -25px 0;}
+    &_i__friend-add:hover    &_ico {background-position: -25px -50px;}
+    &_i__friend-added        &_ico {background-position: -75px 0;}
+    &_i__friend-append       &_ico {background-position: -100px 0;}
+    &_i__friend-append:hover &_ico {background-position: -25px -50px;}
+    &_tx {
+        .inline-block();
+        .font-xs-mixin();
+        padding: 0 4px 2px;
+    }
+}
+/* /user-actions */
+
+
+@import "../lite/less/project/b-clubs.less";
+@import "../lite/less/project/list-subsribe-users.less";
+@import "../lite/less/project/header-popup.less";

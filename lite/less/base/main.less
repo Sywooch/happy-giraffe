@@ -14,6 +14,8 @@
 html {
     font: 12px/18px Arial, Tahoma, Verdana, sans-serif;
     color: #333;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
 }
 body {
     word-wrap: break-word;
@@ -25,9 +27,12 @@ body {
 a {
     cursor:pointer;
     color: #289fd7;
-    text-decoration: underline;
+    text-decoration: none;
 }
-a:hover {text-decoration:none;}
+a:hover {
+    text-decoration: none;
+    color: @color-orange;
+}
 /* remember to define focus styles! */
 :focus {outline: 0;}
 

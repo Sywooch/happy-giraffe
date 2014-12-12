@@ -1,0 +1,322 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+        
+        // Хлебные крошки
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#')
+                            .ico-club.ico-club__s.ico-club__7
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Приправы и специи 
+
+        // Заголовок страницы
+        .cook-spices
+            .b-main_cont 
+                .b-main_col-wide 
+                    h1.heading-link-xxl.heading-link-xxl__center Приправы и специи
+
+            .cook-spices-head
+                .cook-spices-head_in 
+                        .wysiwyg-content
+                            p С какими блюдами лучше всего сочетаются приправы и специи, на каком этапе приготовления и в каком количестве их добавлять
+                            .cook-spices-head_slogan Об этом наш сервис!
+
+            // Категории специй
+            .b-main_row
+                .b-main_cont
+                    .cook-spices-cat
+                        ul.cook-spices-cat_ul
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__1
+                                    .cook-spices-cat_tx К мясу
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__2
+                                    .cook-spices-cat_tx К овощам и грибам
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__3
+                                    .cook-spices-cat_tx К бобовым
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__4
+                                    .cook-spices-cat_tx К крупам
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__5
+                                    .cook-spices-cat_tx К макаронам
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__6
+                                    .cook-spices-cat_tx К бобовым
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__7
+                                    .cook-spices-cat_tx К салатам
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__8
+                                    .cook-spices-cat_tx К маринадам  
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__9
+                                    .cook-spices-cat_tx К птице  
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__10
+                                    .cook-spices-cat_tx К супам  
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__11
+                                    .cook-spices-cat_tx Для варений  
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__12
+                                    .cook-spices-cat_tx К напиткам  
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__13
+                                    .cook-spices-cat_tx К соусам  
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__14
+                                    .cook-spices-cat_tx К хлебо булочным изделиям  
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__15
+                                    .cook-spices-cat_tx К кондитерским изделиям  
+                            li.cook-spices-cat_li
+                                a.cook-spices-cat_a
+                                    .ico-spices.ico-spices__16
+                                    .cook-spices-cat_tx Для консерваций и солений  
+            // Категории специй
+
+            // Алфавит                          
+            .cook-spices-abc.visible-md-block
+                h2.heading-m.cook-spices-abc_t По алфавиту
+                ul.col-link.col-link__2-tablet
+                    li.cook-spices-abc_li
+                        .cook-spices-abc_letter A
+                        ul.cook-spices-abc_list
+                            li.col-link_li
+                                a.col-link_a(href='#') Ажгон (Trachyspérmum ámmi)
+                            li.col-link_li
+                                a.col-link_a(href='#') Аир (Ácorus)  
+                            li.col-link_li
+                                a.col-link_a(href='#') Ангелика китайская (Archangelica) Дягиль, Дудник лекарственный
+                            li.col-link_li
+                                a.col-link_a(href='#') Анис (Pimpinélla anísum),Берденец анисовый
+                            li.col-link_li
+                                a.col-link_a(href='#') Апельсиновая корка сушеная (апельсиновая цедра)
+                            li.col-link_li
+                                a.col-link_a(href='#') Асафетида (Ferula assa-foetida)
+                    li.cook-spices-abc_li
+                        .cook-spices-abc_letter Б
+                        ul.cook-spices-abc_list
+                            li.col-link_li
+                                a.col-link_a(href='#') Бадьян (Illicium), Иллициум
+                            li.col-link_li
+                                a.col-link_a(href='#') Базилик (Ócimum), Реган
+                            li.col-link_li
+                                a.col-link_a(href='#') Барбарис (Berberis)
+                            li.col-link_li
+                                a.col-link_a(href='#') Бедренец (Pimpinélla), Камнеломка
+                            li.col-link_li
+                                a.col-link_a(href='#') Бораго (Borago), Огуречная трава, Огуречник
+                    li.cook-spices-abc_li
+                        .cook-spices-abc_letter В
+                        ul.cook-spices-abc_list
+                            li.col-link_li
+                                a.col-link_a(href='#') Ванилин (Vanilin), Ванилаль
+                            li.col-link_li
+                                a.col-link_a(href='#') Ваниль (Vanílla)
+                            li.col-link_li
+                                a.col-link_a(href='#') Васаби (Wasabia japonica)
+                            li.col-link_li
+                                a.col-link_a(href='#') Василёк (Centauréa)
+                    li.cook-spices-abc_li
+                        .cook-spices-abc_letter Г
+                        ul.cook-spices-abc_list
+                            li.col-link_li
+                                a.col-link_a(href='#') Гарам масала (Garam Masala)
+                            li.col-link_li
+                                a.col-link_a(href='#') Гвоздика (Diánthus)
+                            li.col-link_li
+                                a.col-link_a(href='#') Гибискус (Hibiscus)
+                            li.col-link_li
+                                a.col-link_a(href='#') Горчица белая (Sinápis álba), Горчица английская
+                            li.col-link_li
+                                a.col-link_a(href='#') Горчица сарептская (Brássica júncea), Горчица русская, Горчица сизая
+                            li.col-link_li
+                                a.col-link_a(href='#') Горчица чёрная (Brássica nígra), Горчица французская, Горчица настоящая
+                            li.col-link_li
+                                a.col-link_a(href='#') Гравилат городской (Géum urbánum), Гвоздичный корень
+                            li.col-link_li
+                                a.col-link_a(href='#') Грибной экстракт (Trigonella caerulea)
+                    li.cook-spices-abc_li
+                        .cook-spices-abc_letter Д
+                        ul.cook-spices-abc_list
+                            li.col-link_li
+                                a.col-link_a(href='#') Дандур (Portuláca), Портулак
+                            li.col-link_li
+                                a.col-link_a(href='#') Девясил высокий (Lnula helenium)
+                            li.col-link_li
+                                a.col-link_a(href='#') Донник лекарственный (Melilótus officinális), Донная трава, Буркун
+                            li.col-link_li
+                                a.col-link_a(href='#') Душица (Oríganum), Орегано
+                    li.cook-spices-abc_li
+                        .cook-spices-abc_letter З
+                        ul.cook-spices-abc_list
+                            li.col-link_li
+                                a.col-link_a(href='#') Зверобой (Hypericum)
+                            li.col-link_li
+                                a.col-link_a(href='#') Зира (Cuminum cyminum, Кумин, Каммун
+                            li.col-link_li
+                                a.col-link_a(href='#') Змееголовник молдавский (Dracocéphalum moldavica)
+                            li.col-link_li
+                                a.col-link_a(href='#') Зубровка (Hieróchloë), Лядник
+                    li.cook-spices-abc_li
+                        .cook-spices-abc_letter И
+                        ul.cook-spices-abc_list
+                            li.col-link_li
+                                a.col-link_a(href='#') Имбирь (Zingiber)
+                            li.col-link_li
+                                a.col-link_a(href='#') Имеретинский шафран (Tagetes), Бархатцы
+                            li.col-link_li
+                                a.col-link_a(href='#') Иссоп (Hyssópus), Синий зверобой
+                    li.cook-spices-abc_li
+                        .cook-spices-abc_letter К
+                        ul.cook-spices-abc_list
+                            li.col-link_li
+                                a.col-link_a(href='#') Калган (Alpinia), Галгант, Альпиния, Аптечный корень
+                            li.col-link_li
+                                a.col-link_a(href='#') Каменный сахар (Lapideus saccharum)
+                            li.col-link_li
+                                a.col-link_a(href='#') Кантонская соль (Cantonese salt)
+                            li.col-link_li
+                                a.col-link_a(href='#') Каперсы (Capparis)
+                            li.col-link_li
+                                a.col-link_a(href='#') Кардамон (Ellettaria cardamomum)
+                            li.col-link_li
+                                a.col-link_a(href='#') Карри (Кari) 
+                            li.col-link_li
+                                a.col-link_a(href='#') Карри Бирьяни масала (Biryani masala)
+                            li.col-link_li
+                                a.col-link_a(href='#') Карри Мадрас (Carry madras)
+                            li.col-link_li
+                                a.col-link_a(href='#') Каффир-лайм (Citrus hystrix), Лайм кафрский, Лаймкват
+                            li.col-link_li
+                                a.col-link_a(href='#') Кервель (Anthriscus cerefolium), Купырь бутенелистный, Кервель ажурный
+                            li.col-link_li
+                                a.col-link_a(href='#') Кипрей (Epilobium), Иван-чай
+                            li.col-link_li
+                                a.col-link_a(href='#') Колюрия гравилатовидная (Coluria geoides)
+                            li.col-link_li
+                                a.col-link_a(href='#') Комбу (Laminaria japonica)
+                            li.col-link_li
+                                a.col-link_a(href='#') Кориандр (Coriandrum sativum), Кинза
+                            li.col-link_li
+                                a.col-link_a(href='#') Корица (Cinnamomum verum), Коричник цейлонский
+                            li.col-link_li
+                                a.col-link_a(href='#') Кресс-салат (Lepidium sativum), Клоповник посевной
+                            li.col-link_li
+                                a.col-link_a(href='#') Кунжут (Sesamum indicum), Сезам
+                            li.col-link_li
+                                a.col-link_a(href='#') Куркума (Curcuma), Турмерик, Желтый корень
+                    li.cook-spices-abc_li
+                        .cook-spices-abc_letter Л
+                        ul.cook-spices-abc_list
+                            li.col-link_li
+                                a.col-link_a(href='#') Лавровый лист (Laurus nobilis)
+                            li.col-link_li
+                                a.col-link_a(href='#') Лакрица (Glycyrrhíza), Солодка, Лакричник
+                            li.col-link_li
+                                a.col-link_a(href='#') Лимон (Citrus × limon)
+                            li.col-link_li
+                                a.col-link_a(href='#') Лимонная кислота (C6H8O7)
+                            li.col-link_li
+                                a.col-link_a(href='#') Лимонная трава (Cymbopogon), Цимбопогон, Цитронелла, Лемонграсс
+                            li.col-link_li
+                                a.col-link_a(href='#') Лимонная цедра (Citrum cortices)
+                            li.col-link_li
+                                a.col-link_a(href='#') Листья карри (quaerentium foliis)
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук китайский (Allium ramjsum), Лук ветвистый, Джусай
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук порей (Allium porrum)
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук репчатый (Allium сера)
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук-батун (Allium fistulosum), Дудчатый лук, Татарка
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук-резанец (Аllium schoenoprаsum), Лук скорода, Шниитт-лук
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук-шалот (Allium ascalonicum)
+                            li.col-link_li
+                                a.col-link_a(href='#') Любисток (Levisticum), Дудчатая трава, Дудочник
+                    li.cook-spices-abc_li
+                        .cook-spices-abc_letter М
+                        ul.cook-spices-abc_list
+                            li.col-link_li
+                                a.col-link_a(href='#') Майоран (Origanum majorana)
+                            li.col-link_li
+                                a.col-link_a(href='#') Мак (Papaver)
+                            li.col-link_li
+                                a.col-link_a(href='#') Маслины (Olea)
+                            li.col-link_li
+                                a.col-link_a(href='#') Мелисса лимонная (Melissa citric)
+                            li.col-link_li
+                                a.col-link_a(href='#') Можжевельник (Juníperus), Можжевеловые ягоды
+                            li.col-link_li
+                                a.col-link_a(href='#') Мускатный орех (Myristica), Мускатник
+                            li.col-link_li
+                                a.col-link_a(href='#') Мускатный цвет (Myristica moschata), Мацис, Мэс
+                            li.col-link_li
+                                a.col-link_a(href='#') Мята (Méntha)
+                            li.col-link_li
+                                a.col-link_a(href='#') Мята блошница (Mentha pulegium), Омбало
+
+            // /Алфавит 
+            
+            // Полоса
+            .b-main_row.cook-spices-desc.visible-md-block
+                .b-main_cont
+                    .wysiwyg-content
+                        p Знаете ли вы, чем приправы отличаются от специй и пряностей? Заглянем в словарь.
+                        ul 
+                            li Специи – вещества, которые в небольшом количестве добавляются в блюдо для улучшения его вкуса.
+                            li Пряность – часть растения, которая придаёт блюду аромат.
+                            li Приправа – то, что добавляется в готовое блюдо при его употреблении, так же, как сметана в борщ, например.
+            
+            // Описание
+            .b-main_row.visible-md-block
+                .b-main_cont
+                    .b-main_col-article.b-main_col-article__center
+                        .wysiwyg-content
+                            p Известно, что пряности использовались человеком для улучшения вкуса пищи очень давно, гораздо раньше, чем соль. Современные ученые выяснили, что приправы не только улучшают вкус блюда, но и добавляют в него полезные вещества. Особенно ярко это проявляется в Японии, где основной пищей является рис, а вот приправы к нему отличаются большим разнообразием. 
+                            p В России исстари в качестве пряностей использовались полынь, укроп, петрушка, богородская трава. В XV веке знаменитый Васко да Гама из своего длительного путешествия по востоку привез в Европу корицу, имбирь, гвоздику и чёрный перец. Открытие новых стран знакомило европейцев с другими пряностями: душистым перцем, ванилью и прочими.
+                            p Спустя столетие эти пряности и специи обрели популярность в России. Смеси пряностей называли даже сухими духами и чаще всего использовали при выпечке пряников. Известно, что русские купцы торговали песцами и соболями в обмен на восточные пряности. Дом, в котором было много специй, считался зажиточным, так как они были достаточно дорогими.
+                            p Сейчас же специи и приправы продаются в любом продуктовом магазине и стоят совсем недорого. Поэтому каждая хозяйка может их приобрести и поэкспериментировать с добавлением в разные блюда. При этом не нужно забывать, что в холодные блюда (майонезы, соусы, салаты) пряности кладутся не менее чем за час до употребления, иначе они не успеют раскрыть свой аромат. А вот горячие блюда приправляются в конце варки или непосредственно перед подачей на стол, иначе аромат выдохнется, а вкус испортится. И ни в коем случае не добавляйте специи и приправы в кипящий жир: они просто сгорят и ничего полезного и ароматного блюду не дадут.
+                            p С какими блюдами лучше всего сочетаются приправы и специи, на каком этапе приготовления и в каком количестве их добавлять – расскажет вам наш новый сервис. Вы можете посмотреть как полные описания самих пряностей, так и подобрать их непосредственно к приготавливаемому вами блюду.
+
+
+                        .margin-b40
+      
+        // Контент
+    // b-main 
+    +layout-footer-lite()
+

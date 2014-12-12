@@ -13,19 +13,62 @@
     margin: 0 auto;
 
 
-    &__white {
+    /*&__white {
         background-color: #fff;
 
         .box-shadow( 0 2px 5px rgba(0,0,0,0.05));
+    }*/
+    &_hold {
+        margin: 0 auto 20px;
+        background-color: #fff;
     }
 
     @media (min-width: @screen-desktop) {
         .layout-header {margin-top: 20px;}
-        &_hold {
-            margin: 0 auto 30px;
+        &_hold__personal {
+            background: none;
         }
     }
 }
+ 
+/* 
+    logo 
+    Главное лого сайта
+    
+    logo __small
+        logo_i
+        logo_slogan
+*/
+.logo {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    
+    &__small &_i {
+        width: 65px;
+        height: 60px;
+        .img-retina('@{path-img}/base/logo__small.png'; '@{path-img}/base/logo__small-2x.png'; 65px; 60px;);
+    }
+    &__l &_i {
+        width: 320px;
+        height: 100px;
+        .img-retina('@{path-img}/base/logo__big.png'; '@{path-img}/base/logo__big-2x.png'; 320px; 100px;);
+    }
+    &_i {
+        display:block;
+        width:230px;
+        height:65px;
+        text-indent:-9999px;
+        margin:0 auto;
+        .img-retina('@{path-img}/base/logo.png'; '@{path-img}/base/logo-2x.png'; 230px; 65px;);
+    }
+    &_slogan {
+        position: absolute;
+        left: -9000px;
+    }
+}
+/* /logo */
 
 /*
     Кнопки управления записи
@@ -260,21 +303,6 @@
     }
 }
 
-.adv-banner {
-    margin: 0 0 20px;
-
-    &__bd {border: 1px solid #eee;}
-}
-.adv-yandex {
-    margin: 20px 0;
-
-    @media (min-width: @screen-desktop) {
-        & {
-            margin: 30px 0;
-        }
-    }
-}
-
 /* b-crumbs */
 .b-crumbs {
     margin: 10px 20px 10px 0;
@@ -282,7 +310,21 @@
     
     /*&__s {}*/
     .ico-club__s {
-        margin: -23px -12px -20px;
+        margin: -36px -12px -30px;
+    }
+
+    &__m {
+        font-size: 12px;
+    }
+    &__s {
+        font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
+    }
+
+    &__m {
+        font-size: 12px;
+    }
+    &__s {
+        font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
     }
     
     &_tx {
@@ -322,13 +364,13 @@
 .custom-likes {
     text-align: center;
     position: relative;
-    margin: 10px 0;
+    margin: 20px 0;
 
     &_slogan {
         margin: 0;
         text-align: center;
         font-size: 11px;
-        color: @color-gray-dark;
+        color: @color-gray;
     }
     &_in {
         margin: 5px auto 10px;

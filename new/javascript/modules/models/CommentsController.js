@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'knockout.mapping'], function ($, ko, UserControl, User, Comment) {
+define(['jquery', 'knockout', 'models/UserController', 'models/User', 'models/Comment', 'user-config', 'knockout.mapping'], function ($, ko, UserControl, User, Comment, userConfig) {
 
     var CommentsController = {
 
@@ -171,6 +171,11 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
                 }
 
                 userPack.pack = this.createPackList(userPack.pack);
+
+                if (userPack.pack === false) {
+                    userPack.pack = [];
+                    userPack.pack.push({id: userConfig.userId});
+                }
 
                 return {
                     commentsData: notReadyData,

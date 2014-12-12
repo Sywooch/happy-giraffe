@@ -1,0 +1,202 @@
+ /* b-calendar */
+.b-calendar {
+    margin: 20px 0 30px;
+    text-align: center;
+    
+    &_in {
+        margin-bottom: 20px;
+        margin: 0 auto 20px;
+    }
+    &_in__years &_a {width: 48px;}
+    &_in__months {
+        max-width: 190px;
+    }
+    &_in__months &_ul {
+        font-size: 14px;
+        text-transform: uppercase;
+        /*margin-left: -11px;*/
+    }
+    &_in__months &_li {
+        margin: 6px 7px;
+    }
+    &_in__days {
+        max-width: 390px;
+        text-align: left;
+    }
+    /*&_in__days &_a {
+        width: 30px;
+    }*/
+    &_in__days-type {
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 370px;
+        text-align: left;
+    }
+    &_in__days-type &_li {
+        margin: 3px 2px;
+    }
+    &_in__days-type &_a {
+        line-height: 38px;
+    }
+
+    &_t {
+        margin: 0 5px 10px;
+        font-size: 15px;
+        color: @color-gray;
+        text-align: center;
+    }
+    &_ul {
+        /*margin-left: -7px;*/
+        font-size: 16px;
+        line-height: 22px;
+        padding: 0 10px;
+    }
+    &_li {
+        .inline-block();
+        margin: 6px 4px 7px;
+        color: @color-gray-light;
+    }
+    &_li.active &_a {
+        background-color: #42b1f3;
+        color: #fff;
+        .border-radius(5px);
+    }
+    &_li__good {
+        background-color: #ffcb5b;
+    }
+    &_li__bad {
+        background-color: #93dfff;
+    }
+    &_a {
+        .inline-block();
+        width: 40px;
+        text-align: center;
+        color: @color-link-light;
+        text-decoration: none;
+    }
+    a&_a:hover {
+        color: @color-orange;
+    }
+    span&_a {
+        color: @color-gray-light;
+    }
+
+    &_day-type {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 5px 14px 25px;
+        font-size: 14px;
+    }
+    &_day-type-row {
+        margin: 8px 0;
+        text-align: left;
+    }
+    &_day-bad,
+    &_day-good {
+        display: inline-block;
+        vertical-align: middle;
+        width: 15px;
+        height: 15px;
+        margin: 0 5px 3px;
+        background-color: #ffcb5b;
+    }
+    &_day-bad {
+        background-color: #93dfff;
+    }
+
+    @media (min-width: @screen-phone) {
+        & {text-align: left;}
+        &_in {
+            .inline-block();
+            vertical-align: top;
+        }
+        &_in__years {
+            width: 72px;
+        }        
+        &_in__months {
+            /*max-width: 225px;*/
+            margin-left: 40px;
+        }
+        /*&_in__days &_ul,
+        &_in__years &_ul {
+            margin: 0 -7px;
+        }*/
+
+        /*&_in__months {
+            max-width: 350px;
+        }
+        &_in__months &_t {
+            margin-left: 88px;
+        }*/
+        /*&_in__months {
+            max-width: 330px;
+        }
+        &_in__months &_ul {
+            margin: 0 40px;
+            padding: 0 35px;
+        }*/
+        /*&_in__months &_li {
+            margin: 6px 9px;
+        }
+
+        &_in__days {
+            max-width: 320px;
+        }*/
+
+        /*&_in__days-type &_a {
+            width: 40px;
+        }*/
+
+        &_in__days-type {
+            vertical-align: middle;
+        }
+        /*&_in__days-type &_li {
+            margin: 5px;
+        }*/
+        /*&_li {
+            margin: 2px 1px;
+        }*/
+
+    }
+    @media (min-width: @screen-phone-landscape) {
+
+        /*&_in__months &_ul {
+            padding: 0 0 0 50px;
+        }*/
+        /*&_day-type {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 0 0 30px;
+        }*/
+    }
+    @media (min-width: @screen-desktop) {
+        /*&_t {
+            text-align: center;
+        }*/
+
+        &_in__months {
+            max-width: 260px;
+            margin: 0 40px;
+        }
+        &_in__months &_ul {
+            padding: 0 40px;
+            min-height: 170px;
+            border-right: 1px solid #ededed;
+            border-left: 1px solid #ededed;
+        }
+        /*&_in__months &_t {
+            margin-left: 0;
+        }*/
+        &_in__days-type {
+            max-width: 265px;
+        }
+        &_in__days-type &_li {
+            margin: 3px 2px;
+        }
+        &_in__days-type &_a {
+            width: 30px;
+            line-height: 30px;
+        }
+    }
+}
+/* /b-calendar */

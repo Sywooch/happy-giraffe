@@ -1,9 +1,9 @@
-define(function() {
-
+define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandler(ko, Model, userConfig) {
     var User = {
-
         getUserUrl: '/api/users/get/',
-
+        isGuest: userConfig.isGuest,
+        isModer: userConfig.isModer,
+        userId: userConfig.userId,
         /**
          * Полное имя
          * @returns {string}
@@ -11,7 +11,6 @@ define(function() {
         fullName: function fullName() {
             return this.firstName + ' ' + this.lastName;
         },
-
         /**
          * init юзера
          * @param object
@@ -43,9 +42,7 @@ define(function() {
 
                 return this;
             }
-
         }
     };
-
     return User;
 });

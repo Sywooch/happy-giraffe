@@ -1,0 +1,31 @@
+<!-- ko if: rightsForManipulation -->
+<div class="userAddRecord clearfix userAddRecord__blog userAddRecord__blog">
+    <div class="userAddRecord_hold">
+        <div class="userAddRecord_tx">Я хочу добавить
+        </div>
+        <a href="" data-theme="transparent" class="userAddRecord_i" data-bind="href: newPhotoAlbumUrl">
+            <div class="userAddRecord_ico userAddRecord_ico__album"></div>
+            <div class="userAddRecord_desc">Фотоальбом</div>
+        </a>
+    </div>
+</div>
+<!-- /ko -->
+<!-- ko if: photoAlbums().length === 0 && loading() === false -->
+<div class="section-empty">
+    <div class="section-empty_t">У этого пользователя нет фотографий</div>
+</div>
+<!-- /ko -->
+<!-- ko if: photoAlbums().length !== 0 && loading() === false -->
+        <!-- <photo-collection style="display: block;" params="id: 3, attachCount: 24, coverId: 27, userId: userId"></photo-collection> -->
+    <!-- ko foreach: photoAlbums() -->
+        <photo-album-compact style="display: block;" params="album: $data, presets: $parent.presets, userId: $parent.userId">
+        </photo-album-compact>
+    <!-- /ko -->
+    <!-- ko if: rightsForManipulation -->
+        <!-- ko foreach: emptyPhotoAlbums() -->
+            <photo-album-compact style="display: block;" params="album: $data, presets: $parent.presets, userId: $parent.userId">
+                <div class="album-empty"></div>
+            </photo-album-compact>
+        <!-- /ko -->
+    <!-- /ko -->
+<!-- /ko

@@ -1,0 +1,60 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member.css'; 
+
+block block-dev-view
+   
+        script.
+
+            /* Height block comment scroll in photo-window */
+            function photoWindColH () {
+                var colCont = $(".photo-window_cont");
+                var bannerH = document.getElementById('photo-window_banner').offsetHeight;
+                colCont.height($(window).height() - bannerH - 24);
+
+            }
+
+            /* Позиция блока с лайками */
+            function likePos () {
+                var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+                $('.photo-window .like-control').css({'bottom' : likeBottom});
+            }
+
+            $(document).ready(function () {
+                photoWindColH();
+                //- likePos();
+
+                addBaron('.scroll');
+
+
+            });
+            $(window).resize(function () {
+                photoWindColH();
+                likePos();
+            });
+
+        .photo-window.display-b
+            .photo-window_w
+                a.photo-window_close(href='#')
+
+
+                // Конец просмотра
+                .photo-window-end
+                    .photo-window-end_hold
+                        .photo-window-end_top 
+                            span.photo-window-end_top-tx Вы посмотрели альбом пользователя
+                            a(href="#")
+                                +ava('ava__small ava__fwmale', ava.e)
+                                | Валерия Остапенко
+                            //- +userActions('user-actions__small user-actions__white')
+                        .photo-window-end_t Харьковский уикенд
+                            a.re-watch(href="") 
+                                .re-watch_tx Посмотреть сначала
+                        +customLikes('', customLikes.base)
+
+                        .photo-window-end_t-sub Смотрите другие альбомы 
+
+                        .photo-window-end_in 
+                            +albumPreview('album-preview__album', albumPreview.photoWindow)

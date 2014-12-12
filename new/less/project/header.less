@@ -75,7 +75,9 @@
             header_i-arrow
 */
 .header {
+    position: relative;
     background:#fff url('@{path-img}/header.png') repeat-x 0 0;
+    z-index: 10;
     
     &__small &_hold {padding: 10px 0 10px;}
     // desktop размер
@@ -90,14 +92,14 @@
     }
     .logo {
         float: left;
-        margin: 5px 10px 5px 30px;
+        margin: 5px 10px 5px 40px;
     }
     .logo__small {margin: 0 25px 0 35px;}
 
 	&_hold {
 		width: 1000px;
 		margin: 0 auto;
-		padding: 25px 0 18px;
+		padding: 25px 0;
 	}
     &_t-big {
         float: left;
@@ -144,6 +146,8 @@
 .header-menu {
     float: right;
     margin: 5px 20px 0 0;
+    /*width: 700px;
+    text-align: right;*/
     
     .ava {
         float: none;
@@ -154,7 +158,7 @@
         position: relative;
         .inline-block();
         vertical-align: top;
-        margin: 0 12px;
+        margin: 0 11px;
         text-align: center;
     }
     &_li__dropin &_a:hover &_ico,
@@ -323,13 +327,14 @@
 .header-fix {
     display: none;
     position: fixed;
+    width: 100%;
+    min-width: 768px;
+    height: 50px;
     top: 0;
-    right: 0;
     left: 0;
     background: #fff;
     .box-shadow(0 0 3px rgba(0,0,0,0.15));
     z-index: 700;
-    height: 50px;
     
     &__rel {
         position: relative;
@@ -390,6 +395,13 @@
     &_dropin:hover .header_i-arrow {background-position: 0 -8px;}
     &_dropin.active .header-drop {display: block;}
 
+
+    @media (max-width: 800px) {
+        & {
+            display: none !important;
+        }
+    }
+    
 }
 /* /header-fix */
 
@@ -408,10 +420,10 @@
     width: 60%;
     margin: 0 auto;
     text-align: right;
-
-    @media screen and (min-width: 630px) {
+    
+    /*@media screen and (min-width: 630px) {
         & {width: 66%;}
-    }
+    }*/
     @media screen and (min-width: 850px) {
         & {width: 75%;}
     }

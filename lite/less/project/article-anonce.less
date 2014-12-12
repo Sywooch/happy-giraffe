@@ -1,0 +1,220 @@
+
+/* article-anonce */
+.article-anonce {
+    position: relative;
+    display: block;
+    margin: 20px 0;
+    text-align: left;
+
+    .ico-ovrPlay__s {
+        position: relative;
+        float: right;
+        top: -10px;
+        right: -10px;
+    }
+
+    &__xl {
+        width: 615px;
+    }
+    &__xl &_img-hold {
+        height: 410px;
+        overflow: hidden;
+    }
+    &__xl &_img-hold:before{
+        &:extend(.verticalalign-m-el-hold:before);
+    }
+    &__xl &_img {
+        vertical-align: middle;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        /*height: 100%;*/
+        width: 100%;
+    }
+    &__xl &_hold:hover &_t {
+        color: #fff;
+    }
+    &__xl &_bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border: none;
+        padding-bottom: 20px;
+        #gradient > .vertical(@start-color: rgba(0,0,0,0); @end-color: rgba(0,0,0,.7); @start-percent: 0%; @end-percent: 100%)
+    }
+    &__xl &_t {
+        font-size: 30px;
+        line-height: 30px;
+        color: #fff;
+        margin-right: 130px;
+    }
+    &__xl &_img-top {
+        top: auto;
+        bottom: 15px;
+        right: 20px;
+        background: none;
+    }
+    &__xl &_count-t {
+        font-size: 50px;
+    }
+    &__xl &_count-tx {
+        font-size: 23px;
+    }
+
+    &__s &_hold {
+        border-top-width: 0;
+    }
+    &__s &_t {
+        font-size: 18px;
+    }
+
+    &__green  &_hold {border-color: #52b547;}
+    &__green  &_tag  {background-color: #52b547;}
+    &__blue   &_hold {border-color: #47aef3;}
+    &__blue   &_tag  {background-color: #47aef3;}
+    &__lilac  &_hold {border-color: #8970b4;}
+    &__lilac  &_tag  {background-color: #8970b4;}
+    &__red    &_hold {border-color: #ff8232;}
+    &__red    &_tag  {background-color: #ff8232;}
+    &__yellow &_hold {border-color: #facf32;}
+    &__yellow &_tag  {background-color: #facf32;}
+    
+    &_top {
+        position: relative;
+        margin: 0 12px 7px;
+        padding-top: 16px;
+    }
+    &_top .ava {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 2px solid #fff;
+        z-index: 5;
+    }
+    &_author {
+        display: block;
+        padding: 0 20px 0 75px;
+        width: 100%;
+        text-decoration: none;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        line-height: 12px;
+        /*max-width: 150px;*/
+    }
+    &_hold {
+        display: block;
+        border-top: 5px solid #8970b4;
+    }
+    &_hold:hover &_t {
+        color: @color-link-hover;
+    }
+    &_hold:hover &_img {
+        .opacity(0.8);
+    }
+
+    &_bottom {
+        position: relative;
+        padding: 10px 15px 10px;
+        border: 1px solid #f2f2f2;
+        border-top: none;
+    }
+    &_t {
+        margin: 5px 0;
+        font-size: 22px;
+        line-height: 1em;
+        letter-spacing: -0.15px;
+        font-weight: bold;
+        color: @color-link-title;
+    }
+    /*&_t:hover {
+        .opacity(0.7);
+    }*/
+    &_tag {
+        position: absolute;
+        top: -12px;
+        left: 15px;
+        padding: 1px 10px;
+        color: #fff;
+        font-weight: bold;
+        background-color: #8970b4;
+    }
+    &_img-hold {
+        position: relative;
+        background-color: #fff;
+        text-align: center;
+    }
+    &_img {
+        width: 100%;
+    }
+    &_img-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+        #gradient > .vertical(@start-color: rgba(0,0,0,.7); @end-color: rgba(0,0,0,0); @start-percent: 0%; @end-percent: 100%)
+    }
+    &_count-hold {
+        margin: 15px;
+        float: right;
+        color: #fff;
+        text-align: center;
+    }
+    &_count-t {
+        font-size: 34px;
+        line-height: 1em;
+    }
+    &_count-tx {
+        font-size: 15px;
+        line-height: 1em;
+    }
+    &_text {
+        padding: 30px 12px 20px;
+        font-size: 14px;
+    }
+
+    /* __ico*/
+    &__ico&__green  &_hold {background-color: #52b547;}
+    &__ico&__blue   &_hold {background-color: #47aef3;}
+    &__ico&__lilac  &_hold {background-color: #8970b4;}
+    &__ico&__red    &_hold {background-color: #ff8232;}
+    &__ico&__yellow &_hold {background-color: #facf32;}
+
+    &__ico &_img {width: auto;}
+    &__ico &_tag {
+        position: relative;
+        top: auto;
+        left: auto;
+    }
+    &__ico &_t {
+        display: inline-block;
+        margin: 10px 20px;
+        color: #fff;
+    }
+    &__ico &_hold:hover &_t {
+        color: #fff;
+        .opacity(0.7);
+    }
+
+    &_ico-hold {
+        height: 410px;
+        text-align: center;
+        overflow: hidden;
+    }
+    &_ico-hold:before {
+        &:extend(.verticalalign-m-el-hold:before);
+    }
+    &_ico-a {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    &_ico {margin: 20px 0 15px;}
+    /* /__ico*/
+}
+/* /article-anonce */

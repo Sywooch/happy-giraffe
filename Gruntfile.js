@@ -119,7 +119,7 @@ module.exports = function(grunt){
           // стили страницы вакансий
           'stylesheets/vacancy.css': ['less/vacancy.less'],
           // стили html баннеров, независимы от всего 
-          'stylesheets/banner.css': ['less/banner.less']
+          // 'stylesheets/banner.css': ['less/banner.less']
         },
         options: {
           compress: true,
@@ -145,6 +145,24 @@ module.exports = function(grunt){
           sourceMap: true,
         },
       },
+      // newest: {
+      //   files: {
+      //     'new/css/all1.css': ['new/less/all1.less'] 
+      //   },
+      //   options: {
+      //     compress: true,
+      //     cleancss: true,
+      //   }
+      // },
+      aviary: {
+        files: {
+          'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less'] 
+        },
+        options: {
+          compress: true,
+          cleancss: true,
+        }
+      },
 
 
       litedev: {
@@ -163,9 +181,29 @@ module.exports = function(grunt){
           sourceMap: true,
         }
       },
+      
+      // newest: {
+      //   files: {
+      //     'new/css/all1.css': ['new/less/all1.less'] 
+      //   },
+      //   options: {
+      //     compress: true,
+      //     cleancss: true,
+      //   }
+      // },
+      aviary: {
+        files: {
+          'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less'] 
+        },
+        options: {
+          compress: true,
+          cleancss: true,
+        }
+      }
     },
 
     // неиспользуемые стили
+    // Ломается на fonts.googleapis.com
     uncss: {
       new: {
         options: {
@@ -174,7 +212,7 @@ module.exports = function(grunt){
 
           htmlroot     : 'new',
           ignore       : [
-            // Выбираем все стили где в начале .clsss
+            // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
             /.dropdown+/,
             /.flag+/,
@@ -183,12 +221,44 @@ module.exports = function(grunt){
             /.redactor+/,
             /.select2+/,
             /.tooltip+/,
-            /.header-menu_li+/,
             /.header_+/,
+            /.header-+/,
+            /.fast-articles3+/,
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
         dest: 'new/css/all1.css'
+      },
+      // Блог
+      'article-anonce-1': {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            // /.dropdown+/,
+            // /#ctrlcopy+/,
+            // /.jcrop+/,
+            // /.mfp+/,
+            // /.select2+/,
+            // /.header-menu_li+/,
+            // /.header_+/,
+            // /.header-+/,
+            // /.fast-articles3+/,
+            // //.tooltip+/,
+            
+            // /.bx-wrapper+/,
+            // /.body+/,
+            // /.bnr+/,
+            // /.ico-social-hold+/,
+          ],
+        },
+        src: [
+          'lite/html-dev/page/iframe/banner/article-anonce-1.html', 
+        ],
+        dest: 'lite/css/min/article-anonce-1.css'
       },
       // Блог
       lite_blog: {
@@ -198,27 +268,74 @@ module.exports = function(grunt){
 
           htmlroot     : 'lite',
           ignore       : [
-            // Выбираем все стили где в начале .clsss
+            // Выбираем все стили где в начале .class
             // /.dropdown+/,
             /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
-            /.mfp+/,
             /.select2+/,
             /.header-menu_li+/,
             /.header_+/,
+            /.header-+/,
+            /.fast-articles3+/,
             //.tooltip+/,
+            
+            /.bx-wrapper+/,
+            /.body+/,
+            /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
+          'lite/html/page/photo-window/**/*.html', 
           'lite/html/page/sign/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого 
           '!lite/html/page/comments/comments-page.html'
         ],
         dest: 'lite/css/min/blog.css'
+      },
+      // Блог пользователь
+      lite_blog_user: {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            // /.dropdown+/,
+            /#ctrlcopy+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.select2+/,
+            /.header-menu_li+/,
+            /.header_+/,
+            /.header-+/,
+            /.fast-articles3+/,
+            //.tooltip+/,
+            
+            /.bx-wrapper+/,
+
+            /.chzn+/,
+            /.redactor+/,
+            /.fancybox+/,
+            /.bnr+/,
+            /.ico-social-hold+/,
+          ],
+        },
+        src: [
+          'lite/html/page/blog/**/*.html', 
+          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/photo-window/**/*.html', 
+          '!lite/html/page/sign/**/*.html', 
+
+          'lite/html/page/**/*-user.html', // стариницы зареганого 
+          '!lite/html/page/comments/comments-page.html'
+        ],
+        dest: 'lite/css/min/blog-user.css'
       },
       // Традиционные рецепты
       'services': {
@@ -227,13 +344,19 @@ module.exports = function(grunt){
           timeout      : 1000,
           htmlroot     : 'lite',
           ignore       : [
-            // Выбираем все стили где в начале .clsss
+            // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
-            /.header-menu_li+/,
             /.header_+/,
+            /.header-+/,
+            /.fast-articles3+/,
+            /.calendar-serv-note__+/,
+            /.cook-choose .wysiwyg-content+/,
+            /.body+/,
+            /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -253,18 +376,25 @@ module.exports = function(grunt){
           timeout      : 1000,
           htmlroot     : 'lite',
           ignore       : [
-            // Выбираем все стили где в начале .clsss
+            // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
+            /.header-menu_li.active+/,
+            /.calendar-serv-note__+/,
+            /.cook-choose .wysiwyg-content+/,
+
+
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
-            
-            /.header-drop+/, // Drop, active элементы
-            /.header-menu_li+/,
             /.header_+/,
+            /.header-+/,
+            /.fast-articles3+/,
+            /.body+/,
+            /.bnr+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -275,6 +405,112 @@ module.exports = function(grunt){
 
         ],
         dest: 'lite/css/min/services-user.css'
+      },
+      'member': {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            /#ctrlcopy+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.select2+/,
+            /.header-menu_li+/,
+            /.header-banner+/,
+            /.header_+/,
+
+            /.ico-family+/,
+            /.fast-articles3+/,
+            /.body+/,
+            /.bnr+/,
+            
+            // Для страниц собранных разделов
+            /.flag+/,
+            /.bx-wrapper+/,
+            /.ico-social-hold+/,
+          ],
+        },
+        src: [
+          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
+          'lite/html/page/member/**/*.html', 
+          'lite/html/page/photo-window/**/*.html', 
+
+          '!lite/html/page/**/*-user.html', // стариницы зареганого пользователя
+          '!lite/html/page/comments/comments-page.html',
+        ],
+        dest: 'lite/css/min/member.css'
+      },
+      'member_user': {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            /#ctrlcopy+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.select2+/,
+            // Для пользователя
+            /.chzn+/,
+            /.redactor+/,
+            /.fancybox+/,
+            /.header-banner+/,
+            /.header-drop+/, // Drop, active элементы
+            /.header-menu_li+/,
+            /.header_+/,
+            /.ico-family+/,
+            
+            /.fast-articles3+/,
+            /.body+/,
+            /.bnr+/,
+            // Для страниц собранных разделов
+            /.flag+/,
+            /.bx-wrapper+/,
+            /.ico-social-hold+/,
+          ],
+        },
+        src: [
+          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/user/**/*.html', 
+          'lite/html/page/member/**/*.html', 
+          'lite/html/page/photo-window/**/*.html',
+
+          '!lite/html/page/comments/comments-page.html',
+        ],
+        dest: 'lite/css/min/member-user.css'
+      },
+      // Домашняя страница
+      'lite_homepage': {
+        options: {
+          ignoreSheets : [/fonts.googleapis/],
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            /#ctrlcopy+/,
+            /.mfp+/,
+            /.select2+/,
+            /@font-face+/,
+            /.body+/,
+            /.bnr+/,
+            
+            /.ico-social-hold+/,
+          ],
+           
+        },
+        src: [
+          'lite/html/page/homepage/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
+          // 'lite/html/page/member/**/*.html', 
+
+        ],
+        dest: 'lite/css/min/homepage.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -434,6 +670,21 @@ module.exports = function(grunt){
         //         unit: 5
         //     }
         // },
+        'ico-base': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-base",
+                spritePath: "lite/images/sprite/ico-base.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'vertical',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 20
+            }
+        },
         'ico-arrow': {
             options: {
                 spriteElementPath: "lite/images/sprite/ico-arrow",
@@ -461,27 +712,124 @@ module.exports = function(grunt){
                 map: function (filename) {
                     return filename.replace(/~/g, ":");
                 },
+                unit: 100
+            }
+        },
+        'ico-product': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-product",
+                spritePath: "lite/images/sprite/ico-product.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 100
+            }
+        },
+        'ico-zodiac': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-zodiac",
+                spritePath: "lite/images/sprite/ico-zodiac.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 100
+            }
+        },
+        'ico-child-disease': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-child-disease",
+                spritePath: "lite/images/sprite/ico-child-disease.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 100
+            }
+        },
+        'horoscope-year-t': {
+            options: {
+                spriteElementPath: "lite/images/sprite/horoscope-year-t",
+                spritePath: "lite/images/sprite/horoscope-year-t.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 100
+            }
+        },
+        'ico-spices': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-spices",
+                spritePath: "lite/images/sprite/ico-spices.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 100
+            }
+        },
+        'markdown-day': {
+            options: {
+                spriteElementPath: "lite/images/sprite/markdown-day",
+                spritePath: "lite/images/sprite/markdown-day.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 100
+            }
+        },
+        // 'cook-choose': {
                 //refSize: 75, 
                 // sizes: {
                 //     large: 130,
                 //     mid: 75
                 // },
-                unit: 100
-            }
-        },
+        //         unit: 10
+        //     }
+        // },
         // 'comments-menu_a': {
         //     options: {
-        //         spriteElementPath: "lite/images/sprite/comments-menu_a",
-        //         spritePath: "lite/images/sprite/comments-menu_a.svg",
+        //         spriteElementPath: "lite/images/sprite/cook-choose",
+        //         spritePath: "lite/images/sprite/cook-choose.svg",
         //         cssPath: "lite/less/sprite/",
         //         cssSuffix: 'less',
         //         cssSvgPrefix: '',
         //         cssPngPrefix: '.no-svg',
-        //         layout: 'vertical',
+        //         layout: 'horizontal',
         //         map: function (filename) {
         //             return filename.replace(/~/g, ":");
         //         },
-        //         unit: 200
+        //         // refSize: 100,
+        //         unit: 20
         //     }
         // },
     },
@@ -540,7 +888,15 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
-      // следим за новым less
+
+      aviary: {
+        files: ['new/less/**/aviary.hg.less'],
+        tasks: ['less:aviary'],
+        options: {
+          livereload: true,
+        },
+      },
+
       liteless: {
         files: ['lite/less/**/*.less'],
         tasks: ['less:litedev'/*, 'cmq', 'cssmin', 'csso'*/],
@@ -585,6 +941,18 @@ module.exports = function(grunt){
 
     },
 
+    csscomb: {
+      options: {
+          config: 'new/less/bootstrap/.csscomb.json'
+      },
+      aviary: {
+          files: {
+              'new/less/plugins/aviary.hg.less': ['new/less/plugins/aviary.hg.less'],
+          },
+      },
+        
+    },
+
     // Поднимаем сервер
     connect: {
       server: {
@@ -597,11 +965,27 @@ module.exports = function(grunt){
   });
 
   //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
-  grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
+  grunt.registerTask('new-css', [/*'jade:new',*/ 'less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
   // lite tasks
   // bild lite версии
-  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user', 'uncss:member', 'uncss:member_user', 'uncss:lite_homepage',  'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+
+  grunt.registerTask('lite-css', [
+    /*'jade:lite_prod',*/ 
+    'less:litedev',
+    'uncss:lite_blog',
+    'uncss:lite_blog_user',
+    'uncss:services', 
+    'uncss:services_user',
+    'uncss:member', 
+    'uncss:member_user', 
+    'uncss:lite_homepage', 
+    'cmq:redactor', 
+    'cmq:lite', 
+    'cssmin:lite', 
+    'csso:lite'
+  ]);
   // Блоги
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // сервисы

@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'model', 'comment-model', 'user-model', 'care-wysiwyg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User) {
+define(['jquery', 'knockout', 'models/CommentsController', 'models/UserController', 'text!comment-widget/comment-widget.html', 'moment', 'models/Model', 'models/Comment', 'models/User', 'care-wysiwyg', 'knockout.mapping', 'ko_library'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User) {
 
     var CommentWidgetViewModel = function (params) {
 
@@ -18,6 +18,11 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
         this.loaded = ko.observable(false);
 
+        this.edit = params.edit;
+
+        this.nonAuth = UserData.userConfig.isGuest;
+
+        this.entityId = (ko.isObservable(params.entityId) === false) ? params.entityId : params.entityId();
         /**
          * Comet Создания комментария
          */
@@ -155,7 +160,7 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
         this.addComment = function addComment() {
             var commentText = this.editor();
             if (!Comment.isRedactorStringEmpty(commentText)) {
-                Model.get(Comment.createCommentUrl, CommentsController.createComment(params.entity, params.entityId, this.editor(), undefined)).done(this.cancelEditor.bind(this));
+                Model.get(Comment.createCommentUrl, CommentsController.createComment(params.entity, this.entityId, this.editor(), undefined)).done(this.cancelEditor.bind(this));
             }
         };
 
@@ -165,7 +170,7 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
         this.deleteComment = function deleteComment() {
             var commentText = this.editor();
             if (!Comment.isRedactorStringEmpty(commentText)) {
-                Model.get(Comment.createCommentUrl, CommentsController.createComment(params.entity, params.entityId, this.editor(), undefined));
+                Model.get(Comment.createCommentUrl, CommentsController.createComment(params.entity, this.entityId, this.editor(), undefined));
             }
         };
 
@@ -224,7 +229,7 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
          * Получение комментария
          * @type {Object}
          */
-        this.commentDataParams = CommentsController.getListData(params.entity, params.entityId, params.listType);
+        this.commentDataParams = CommentsController.getListData(params.entity, this.entityId, params.listType);
 
         /**
          * Запрос комментариев

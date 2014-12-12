@@ -1,0 +1,54 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+       
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Гороскопы  
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last На год
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+                    
+                    h1.heading-link-xxl Гороскоп на год по знакам Зодиака
+
+                    .wysiwyg-content.visible-md-block
+                        p Чтение своего гороскопа на год – весьма приятное занятие. Особенно если этот гороскоп составлен таким опытным астрологом, как наш. Посоветовавшись со звёздами, то есть прочитав гороскоп на год, можно смело браться за одни дела, обещающие быть успешными именно сейчас, и отложить другие на более подходящее время.
+                        p Гороскоп на год может как посоветовать вступить в брак, так и рекомендовать быть осторожнее в этом важном вопросе, так как впереди – встреча с более подходящим человеком. В деловых отношениях можно выбрать тактику ожидания, можно начать активно двигаться по служебной лестнице, а можно и вовсе оставить место службы в пользу индивидуального предпринимательства или другой альтернативной деятельности. Гороскоп на год подскажет, в какое время кто из вашей семьи будет более всего нуждаться в вашем внимании, предупредит о возможности заболеваний и ненужных поездок. В общем, читайте годовой гороскоп и выстраивайте свою жизнь наиболее оптимальным образом.
+
+                    +zodiacList('', zodiacList.b)
+
+                    .menu-link-simple.menu-link-simple__center.margin-t40
+                        .menu-link-simple_t Узнайте гороскоп
+                        ul.menu-link-simple_ul
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На сегодня
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На завтра
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На месяц
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') 
+                                    span.color-gray + &nbsp;
+                                    | Гороскоп совместимости
+                // /Основная колонка
+
+
+    // b-main 
+    +layout-footer-lite()
+

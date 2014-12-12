@@ -13,6 +13,12 @@ return array(
         'photo' => require(dirname(__FILE__) . '/../../frontend/modules/photo/config/main.php'),
     ),
     'components' => array(
+        'api' => array(
+            'class' => 'site\frontend\components\api\ApiComponent',
+        ),
+        'apc' => array(
+            'class' => 'CApcCache',
+        ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
         ),
@@ -41,74 +47,7 @@ return array(
         ),
         'thumbs' => array(
             'class' => '\site\frontend\modules\photo\components\thumbs\SimpleThumbsManager',
-            'presets' => array(
-                'uploadPreview' => array(
-                    'filter' => 'lepilla',
-                    'width' => 155,
-                    'height' => 140,
-                ),
-                'uploadPreviewBig' => array(
-                    'filter' => 'lepilla',
-                    'width' => 325,
-                    'height' => 295,
-                ),
-                'albumList' => array(
-                    'filter' => 'lepilla',
-                    'width' => 270,
-                    'height' => 380,
-                ),
-                'uploadAlbumCover' => array(
-                    'filter' => 'lepilla',
-                    'width' => 205,
-                    'height' => 140,
-                ),
-                'rowGrid' => array(
-                    'filter' => 'relativeResize',
-                    'method' => 'heighten',
-                    'parameter' => 200,
-                ),
-                'myPhotosAlbumCover' => array(
-                    'filter' => 'lepilla',
-                    'width' => 880,
-                    'height' => 580,
-                ),
-                'sliderPhoto' => array(
-                    'filter' => 'lepilla',
-                    'width' => 1200,
-                    'height' => 900,
-                ),
-                'postImage' => array(
-                    'filter' => 'relativeResize',
-                    'method' => 'widen',
-                    'parameter' => 600,
-                ),
-                'myPhotosPreview' => array(
-                    'filter' => 'relativeResize',
-                    'method' => 'heighten',
-                    'parameter' => 70,
-                ),
-                'postPreviewSmall' => array(
-                    'filter' => 'lepilla',
-                    'width' => 205,
-                    'height' => 140,
-                ),
-                'socialImage' => array(
-                    'filter' => 'fixed',
-                    'width' => 200,
-                    'height' => 200,
-                ),
-                'postCollectionCover' => array(
-                    'filter' => 'fixed',
-                    'width' => 600,
-                    'height' => 450,
-                ),
-                'singlePhoto' => array(
-                    'filter' => 'fixed',
-                    'width' => 600,
-                    'height' => 450,
-                    'mode' => 'inset',
-                ),
-            ),
+            'presets' => require_once(dirname(__FILE__) . '/presets.php'),
         ),
         'crops' => array(
             'class' => '\site\frontend\modules\photo\components\thumbs\CroppedThumbsManager',

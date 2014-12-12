@@ -9,6 +9,7 @@ namespace site\frontend\modules\photo\components;
 
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\PhotoCollection;
 
 class MigrateManager
@@ -34,12 +35,25 @@ class MigrateManager
         return $collection;
     }
 
+    public static function getByRelation($oldModel, $relation = 'photos')
+    {
+        $photosIds = array();
+        foreach ($oldModel->$relation as $oldAttach) {
+            $photoId = self::movePhoto($oldAttach->photo);
+            if ($photoId !== false) {
+                $photosIds[] = $photoId;
+            }
+        }
+        return $photosIds;
+    }
+
 
     public static function moveUserAlbumsPhotos($id)
     {
         $criteria = new \CDbCriteria();
         $criteria->compare('t.removed', 0);
-        $criteria->compare('type', 0);
+        $criteria->compare('type', 1);
+        $criteria->addCondition('newAlbumId IS NULL');
         $criteria->with = array('photos');
         $criteria->order = 't.id ASC';
 
@@ -52,41 +66,51 @@ class MigrateManager
         ));
         $total = $dp->totalItemCount;
 
-        $iterator = new \CDataProviderIterator($dp);
+        $iterator = new \CDataProviderIterator($dp, 100);
         foreach ($iterator as $i => $album) {
-            $newAlbum = new PhotoAlbum();
-            $newAlbum->detachBehavior('HTimestampBehavior');
-            $newAlbum->title = $album->title;
-            $newAlbum->description = $album->description;
-            $newAlbum->author_id = $album->author_id;
-            $newAlbum->created = $album->created;
-            $newAlbum->updated = $album->updated;
-            $newAlbum->save(false);
-
-            $photoIds = array();
-            foreach ($album->photos as $photo) {
-                $photoId = self::movePhoto($photo);
-                if ($photoId !== false) {
-                    $photoIds[] = $photoId;
-                }
+            if ($album->newAlbumId !== null) {
+                continue;
             }
-            $collection = $newAlbum->photoCollection;
-            $collection->detachBehavior('HTimestampBehavior');
-            $collection->attachPhotos($photoIds);
-            PhotoCollection::model()->updateByPk($collection->id, array(
-                'created' => $album->created,
-                'updated' => $album->updated,
-            ));
 
-            echo '[' . ($i + 1) . '/' . $total . ']' . ' - ' . $album->id  . "\n";
+            $transaction = \Yii::app()->db->beginTransaction();
+            try {
+                $newAlbum = new PhotoAlbum();
+                $newAlbum->detachBehavior('HTimestampBehavior');
+                $newAlbum->title = $album->title;
+                $newAlbum->description = $album->description;
+                $newAlbum->author_id = $album->author_id;
+                $newAlbum->created = $album->created;
+                $newAlbum->updated = $album->updated;
+                $newAlbum->source = 'privateAlbum';
+                $newAlbum->save(false);
 
-            \Yii::app()->db->active = false;
-            \Yii::app()->db->active = true;
+                $photoIds = array();
+                foreach ($album->photos as $photo) {
+                    $photoId = self::movePhoto($photo);
+                    if ($photoId !== false) {
+                        $photoIds[] = $photoId;
+                    }
+                }
+                $collection = $newAlbum->photoCollection;
+                $collection->detachBehavior('HTimestampBehavior');
+                $collection->attachPhotos($photoIds);
+                PhotoCollection::model()->updateByPk($collection->id, array(
+                    'created' => $album->created,
+                    'updated' => $album->updated,
+                ));
 
-            \Album::model()->updateByPk($album->id, array('newAlbumId' => $newAlbum->id));
+                echo '[' . ($i + 1) . '/' . $total . ']' . ' - ' . $album->id . "\n";
+
+                \Album::model()->updateByPk($album->id, array('newAlbumId' => $newAlbum->id));
+                $transaction->commit();
+            } catch (\Exception $e) {
+                echo time() . "\n";
+                $transaction->rollback();
+                throw $e;
+            }
         }
     }
-    
+
     public static function movePhoto(\AlbumPhoto $oldPhoto, $attributes = array())
     {
         if ($oldPhoto->newPhotoId !== null) {
@@ -108,9 +132,6 @@ class MigrateManager
             echo "error\n";
             return false;
         }
-
-        \Yii::app()->db->active = false;
-        \Yii::app()->db->active = true;
 
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
         return $photo->id;

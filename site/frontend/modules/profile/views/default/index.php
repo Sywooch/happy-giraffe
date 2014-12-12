@@ -46,7 +46,7 @@ Yii::app()->clientScript->registerPackage('ko_profile');
                     <span class="user-btns_tx"><?= $user->blogPostsCount . ' <br> ' . Str::GenerateNoun(array('запись', 'записи', 'записей'), $user->blogPostsCount) ?></span>
                 </a>
                 <?php endif ?>
-                <a href="<?=$user->getPhotosUrl()?>" class="user-btns_i powertip">
+                <a href="<?=$this->createUrl('/photo/default/index/', array('userId' => $user->id))?>" class="user-btns_i powertip">
                     <span class="user-btns_ico-hold user-btns_ico-hold__photo">
                         <span class="user-btns_ico"></span>
                     </span>
@@ -58,9 +58,11 @@ Yii::app()->clientScript->registerPackage('ko_profile');
             <?php $this->renderPartial('_ava', array('user' => $user)); ?>
             <div class="section-lilac_center-reg">с Веселым Жирафом <?= $user->withUs() ?></div>
         </div>
+        <?php if (false): ?>
         <div class="section-lilac_right">
             <?php $this->widget('FamilyWidget', array('user' => $user)); ?>
         </div>
+        <?php endif; ?>
     </div>
 </div>
 <div class="content-cols clearfix">

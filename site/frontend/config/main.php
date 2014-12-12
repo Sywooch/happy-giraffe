@@ -138,7 +138,10 @@ return array(
         'search',
         'community',
         'myGiraffe',
-        'family',
+        'family' => array(
+            'class' => 'site\frontend\modules\family\FamilyModule',
+        ),
+        'familyOld',
         'antispam',
         'signup',
         'mail',

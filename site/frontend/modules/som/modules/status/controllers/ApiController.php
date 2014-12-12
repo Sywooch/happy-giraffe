@@ -51,7 +51,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function packGet($id)
     {
-        $comment = $this->getModel(self::$model, $id, true);
+        $comment = $this->getModel(self::$model, $id, 'manageStatus');
         $this->success = true;
         $this->data = $comment->toJSON();
     }
@@ -79,7 +79,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionUpdate($id, $text, $mood)
     {
-        $status = $this->getModel(self::$model, $id, 'update');
+        $status = $this->getModel(self::$model, $id, 'updateStatus');
         $status->text = $text;
         $status->moodId = $mood;
         if ($status->save()) {

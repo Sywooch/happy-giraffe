@@ -71,6 +71,7 @@ class PostController extends \LiteController
             'condition' => 'isNoindex = 0',
             'limit' => 50000,
             'offset' => ($param['page'] - 1) * 50000,
+            'order' => 'id ASC',
         ));
         Content::model()->byService($param['service'])->applyScopes($criteria);
         $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);

@@ -20,6 +20,8 @@ define(['jquery', 'knockout', 'models/CommentsController', 'models/UserControlle
 
         this.edit = params.edit;
 
+        this.modelParams = params;
+
         this.nonAuth = UserData.userConfig.isGuest;
 
         this.entityId = (ko.isObservable(params.entityId) === false) ? params.entityId : params.entityId();

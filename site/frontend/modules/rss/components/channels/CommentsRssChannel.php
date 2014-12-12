@@ -33,6 +33,11 @@ class CommentsRssChannel extends RssChannelAbstract
         ));
     }
 
+    public function getTitle()
+    {
+        return 'Комментарии из блога - ' . $this->user->getFullName();
+    }
+
     public function getLink()
     {
         return \Yii::app()->createAbsoluteUrl('/blog/default/index', array('user_id' => $this->user->id));

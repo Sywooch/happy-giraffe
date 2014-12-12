@@ -7,17 +7,29 @@ define(['jquery', 'knockout', 'models/User', 'models/Model', 'models/Status', 't
         this.userInstance = ko.mapping.fromJS({});
         this.userInstance.loading = ko.observable(true);
         this.openMoodsWindow = ko.observable(false);
+        this.loadAddHandler = function(status) {
+            if (status.success === true) {
+                this.status.init(status.data);
+                this.load(true);
+            }
+        };
         this.loadAdd = function loadAdd(paramsInit) {
             if (paramsInit === undefined) {
                 this.status.init({});
                 this.load(true);
                 this.updateTo(false);
             } else {
-                this.getStatus(paramsInit.id).done(this.loadAddHandler.bind(this));
+                this.status.get(paramsInit.id).done(this.loadAddHandler.bind(this));
                 this.updateTo(true);
             }
         };
-        this.loadAdd();
+        var id = window.location.search.replace("?=", "");
+        if (id !== "") {
+            this.loadAdd({id: parseInt(id)});
+        }
+        else {
+            this.loadAdd();
+        }
         /**
          * getting User
          * @param user
@@ -64,21 +76,17 @@ define(['jquery', 'knockout', 'models/User', 'models/Model', 'models/Status', 't
         this.createStatus = function createStatus() {
             this.status.create().done(function (data) { console.log(data); });
         };
-        this.updateStatus = function createStatus() {
+        this.updateStatus = function updateStatus() {
             this.status.update().done(function (data) { console.log(data); });
         };
         this.textLength = ko.computed(function computedTextLength() {
-            if (this.status.text() !== undefined) {
-                return this.status.text().length;
+            if (this.load() === true) {
+                if (this.status.text() !== undefined) {
+                    return this.status.text().length;
+                }
             }
             return 0;
         }, this);
-        this.loadAddHandler = function(status) {
-            if (status.success === true) {
-                this.status.init(status.data);
-                this.load(true);
-            }
-        };
         this.getUser();
     }
 

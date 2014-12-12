@@ -25,6 +25,9 @@ define(['jquery', 'knockout', 'models/Model', 'extensions/knockout.validation', 
            this.text = ko.observable(statusData.text);
            this.text.extend({ maxLength: { params: this.maxTextLength, message: "Количество символов не больше " + this.maxTextLength }, mustFill: true });
            this.choosedMood = ko.observable(statusData.mood);
+           if (this.choosedMood() !== undefined) {
+               this.choosedMood().url = (statusData.mood !== undefined) ? this.moodImageUrl + statusData.mood.id + '.png' : '';
+           }
            this.isRemoved = ko.observable(statusData.isRemoved);
            this.dtimeCreate = ko.observable(statusData.dtimeCreate);
        }

@@ -57,7 +57,12 @@
                 <div class="postAdd_btns-hold">
                     <a href="" class="btn btn-link-gray margin-r15">Отменить</a>
                     <div class="btn-group dropup">
-                        <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: status.text.isValid() === false }, click: createStatus, text: (updateTo() === false) ? 'Опубликовать' : 'Изменить'"></span>
+                        <!-- ko if: updateTo() === false -->
+                        <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: status.text.isValid() === false }, click: createStatus, text: 'Опубликовать'"></span>
+                        <!-- /ko -->
+                        <!-- ko if: updateTo() === true -->
+                        <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: status.text.isValid() === false }, click: updateStatus, text: 'Изменить'"></span>
+                        <!-- /ko -->
                         <div class="btn-group dropdown">
                             <span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark">
                                 <i class="ico-arrow-d-white"></i>

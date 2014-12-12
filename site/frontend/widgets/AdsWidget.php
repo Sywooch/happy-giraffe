@@ -37,6 +37,9 @@ class AdsWidget extends CWidget
         $buffer = ob_get_clean();
 
         if (! $this->show) {
+            if ($this->dummyTag) {
+                echo CHtml::tag($this->dummyTag);
+            }
             return;
         }
 

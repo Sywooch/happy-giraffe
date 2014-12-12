@@ -7,6 +7,7 @@
 namespace site\frontend\modules\photo\controllers;
 
 
+use site\frontend\modules\family\models\Family;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
@@ -29,10 +30,6 @@ class SinglePhotoController extends \LiteController
         }
 
         $this->breadcrumbs = array(
-            $this->widget('Avatar', array(
-                'user' => $post->author,
-                'size' => \Avatar::SIZE_MICRO,
-                'tag' => 'span'), true) => array('/profile/default/index', 'user_id' => $post->author->id),
             'Блог' => array('/blog/default/index', 'user_id' => $post->author->id),
         );
 
@@ -48,14 +45,24 @@ class SinglePhotoController extends \LiteController
         }
 
         $this->breadcrumbs = array(
-            $this->widget('Avatar', array(
-                'user' => $album->author,
-                'size' => \Avatar::SIZE_MICRO,
-                'tag' => 'span'), true) => array('/profile/default/index', 'user_id' => $album->author->id),
             'Фото' => array('/photo/default/index', 'userId' => $album->author->id),
         );
+        $this->metaNoindex = true;
 
         $collection = $album->getPhotoCollection();
+        $this->renderSinglePhoto($collection, $photoId);
+    }
+
+    public function actionFamily($userId, $photoId)
+    {
+        $family = Family::model()->hasMember($userId)->find();
+        if ($family === null) {
+            throw new \CHttpException(404);
+        }
+
+        $this->metaCanonical = $family->getUrl();
+
+        $collection = $family->getPhotoCollection('all');
         $this->renderSinglePhoto($collection, $photoId);
     }
 
@@ -68,6 +75,6 @@ class SinglePhotoController extends \LiteController
 
         $attachNext = $collection->observer->getNext($attach->id);
         $attachPrev = $collection->observer->getPrev($attach->id);
-        \Yii::app()->controller->render('index', compact('collection', 'attach', 'attachPrev', 'attachNext'));
+        $this->render('index', compact('collection', 'attach', 'attachPrev', 'attachNext'));
     }
 } 

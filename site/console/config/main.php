@@ -1,4 +1,4 @@
-<?php
+\<?php
 
 date_default_timezone_set('Europe/Moscow');
 return array(
@@ -39,6 +39,12 @@ return array(
         ),
         'postFillQueue' => array(
             'class' => 'site\frontend\modules\posts\commands\FillQueue',
+        ),
+        'family' => array(
+            'class' => 'site\frontend\modules\family\commands\DefaultCommand',
+        ),
+        'familyMigrate' => array(
+            'class' => 'site\frontend\modules\family\migration\commands\MigrateCommand',
         ),
     ),
     'import' => array(

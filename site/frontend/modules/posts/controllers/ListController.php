@@ -44,7 +44,7 @@ class ListController extends \LiteController
     public function actionIndex($user_id)
     {
         if (Content::model()->byAuthor($user_id)->exists())
-            $this->rssFeed = $this->createUrl('/rss/user', array('user_id' => $user_id));
+            $this->rssFeed = $this->createUrl('/rss/default/user', array('userId' => $user_id));
         $this->userId = $user_id;
         $this->listDataProvider = $this->getListDataProvider($user_id);
         $this->render('list');

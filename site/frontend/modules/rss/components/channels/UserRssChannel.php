@@ -27,9 +27,10 @@ class UserRssChannel extends RssChannelAbstract
     {
         return new \CActiveDataProvider('site\frontend\modules\posts\models\Content', array(
             'criteria' => new \CDbCriteria(array(
-                'condition' => 'authorId = :authorId',
-                'params' => array(':authorId' => $this->user->id),
                 'order' => 'dtimePublication DESC',
+                'scopes' => array(
+                    'byAuthor' => $this->user->id,
+                ),
             )),
         ));
     }

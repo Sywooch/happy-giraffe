@@ -140,13 +140,6 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         });
     };
 
-    PhotoSlider.prototype.dispose = function disposePhotoSlider() {
-        this.current.dispose();
-        this.photoAttach.dispose();
-        this.collection.dispose();
-        this.userInstance.dispose();
-    };
-
     return {
         viewModel: PhotoSlider,
         template: template

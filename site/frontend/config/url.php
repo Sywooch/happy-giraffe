@@ -154,8 +154,6 @@ return array(
             'route' => 'blog/default/view',
         ),
         
-        // Для обратной совместимости
-        'user/<user_id:\d+>/blog' => 'blog/default/index',
         /* Для корректной работы старых редакторов */
         'newblog/<_a:>' => 'blog/default/<_a>',
         

@@ -59,15 +59,17 @@ return array(
         'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
-        'my/friends' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 2)),
-        'my/blogs' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 3)),
-        'my/community' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 4)),
-        'my' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 1)),
-        //'subscribes' => 'myGiraffe/default/subscribes',
-        //'recommends' => 'myGiraffe/default/recommends',
-        //'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
-        //'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
-        //'my/<_a>' => 'myGiraffe/default/<_a>',
+        //'my/friends' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 2)),
+        //'my/blogs' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 3)),
+        //'my/community' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 4)),
+        //'my' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 1)),
+        'subscribes' => 'myGiraffe/default/subscribes',
+        'recommends' => 'myGiraffe/default/recommends',
+        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
+        'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
+        'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
+        'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
+        'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller
         //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
@@ -141,7 +143,7 @@ return array(
         ),*/
 
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
-        'fakeBlogView' => array(
+        /*'fakeBlogView' => array(
             'class' => 'UrlRule',
             'pattern' => 'user/<user_id:\d+>/blog',
             'route' => 'blog/default/index',
@@ -150,8 +152,10 @@ return array(
             'class' => 'UrlRule',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
             'route' => 'blog/default/view',
-        ),
+        ),*/
         
+        // Для обратной совместимости
+        'user/<user_id:\d+>/blog' => 'blog/default/index',
         /* Для корректной работы старых редакторов */
         'newblog/<_a:>' => 'blog/default/<_a>',
         

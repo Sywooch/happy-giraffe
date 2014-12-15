@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory) {
+define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'ads-config', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory, adsConfig) {
 
     function PhotoSlider(params) {
         var collectionData = {};
@@ -99,12 +99,14 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * Event on photo change
          */
         this.photoChange = function photoChange() {
-            dataLayer.push({'event': 'virtualView'});
-            yaCounter11221648.hit(self.currentPhoto().url());
-            adfox_reloadBanner('bn-1');
+            if (adsConfig.showAds === true) {
+                dataLayer.push({'event': 'virtualView'});
+                yaCounter11221648.hit(self.currentPhoto().url());
+                adfox_reloadBanner('bn-1');
+            }
         };
         this.bannerInit = function bannerInit() {
-            if (location.host == 'www.happy-giraffe.ru') {
+            if (adsConfig.showAds === true) {
                 (function (bannerPlaceId, requestSrc, defaultLoad) {
                     var
                         tgNS = window.ADFOX.RELOAD_CODE,
@@ -127,6 +129,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 this.getUser();
             }
             this.getCollection();
+            this.bannerInit();
         };
         this.initializeSlider();
         /**

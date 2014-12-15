@@ -143,7 +143,7 @@ return array(
         ),*/
 
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
-        /*'fakeBlogView' => array(
+        'fakeBlogView' => array(
             'class' => 'UrlRule',
             'pattern' => 'user/<user_id:\d+>/blog',
             'route' => 'blog/default/index',
@@ -152,7 +152,7 @@ return array(
             'class' => 'UrlRule',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
             'route' => 'blog/default/view',
-        ),*/
+        ),
         
         // Для обратной совместимости
         'user/<user_id:\d+>/blog' => 'blog/default/index',

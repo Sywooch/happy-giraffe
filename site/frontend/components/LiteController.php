@@ -137,10 +137,8 @@ class LiteController extends HController
             $cs->registerLinkTag('canonical', null, $canonical);
         }
 
-        if ($this->rssFeed) {
-            if (! $this->rssFeed->isEmpty()) {
-                $cs->registerLinkTag('alternate', 'application/rss+xml', $this->rssFeed->getUrl());
-            }
+        if ($this->rssFeed instanceof \site\frontend\modules\rss\components\channels\RssChannelAbstract && ! $this->rssFeed->isEmpty()) {
+            $cs->registerLinkTag('alternate', 'application/rss+xml', $this->rssFeed->getUrl());
         }
 
         /** @ticket https://happygiraffe.atlassian.net/browse/POST-57 */

@@ -152,6 +152,7 @@ define(["jquery", "knockout", "models/Model", "care-wysiwyg"], function($, ko, M
          * @param params
          */
         create: function create(params) {
+            console.log(params);
             var commentText = this.editor();
             if (!this.isRedactorStringEmpty(commentText)) {
                 Model

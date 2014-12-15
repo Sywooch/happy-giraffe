@@ -205,7 +205,6 @@
             self.run = function() {
                 var settings = $.extend({}, self.defaultOptions, options);
                 $(element).redactor(settings);
-
                 var modalInit = self.obj.modalInit;
                 self.obj.modalInit = function(title, content, width, callback) {
                     modalInit.apply(self.obj, arguments);

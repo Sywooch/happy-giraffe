@@ -45,7 +45,7 @@ class CommentsRssChannel extends RssChannelAbstract
 
     public function getUrl($page = 0)
     {
-        return \Yii::app()->controller->createUrl('/rss/default/comments/', array('userId' => $this->user->id));
+        return \Yii::app()->createAbsoluteUrl('/rss/default/comments/', array('userId' => $this->user->id));
     }
 
     public function getChannelTags()

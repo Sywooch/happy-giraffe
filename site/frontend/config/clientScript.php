@@ -509,6 +509,20 @@ return array(
                 'lite/css/min/services-user.css',
             ),
         ),
+        'lite_member' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/member.css',
+            ),
+        ),
+        'lite_member_user' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/member-user.css',
+            ),
+        ),
         'lite_routes' => array(
             'depends' => array('lite_services'),
         ),
@@ -578,6 +592,12 @@ return array(
             'css' => array(
                 'lite/css/min/member-user.css'
             ),
+        ),
+        'lite_family_user' => array(
+            'depends' => array('lite_member_user'),
+        ),
+        'lite_family' => array(
+            'depends' => array('lite_member'),
         ),
         'chosen' => array(
             'baseUrl' => '/',

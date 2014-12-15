@@ -9,6 +9,7 @@
 namespace site\frontend\modules\photo\controllers;
 use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
 use site\frontend\components\api\ApiController;
+use site\frontend\modules\photo\models\PhotoCollection;
 
 class CollectionsApiController extends ApiController
 {
@@ -65,11 +66,18 @@ class CollectionsApiController extends ApiController
         $this->success = $collection->setCover($attach) && $collection->save(true, array('cover_id'));
     }
 
-    public function actionAddPhotos($collectionId, array $photosIds)
+    public function actionAddPhotos(array $photosIds, $collectionId = null)
     {
         /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
-        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'addPhotos');
-        $this->success = $collection->attachPhotos($photosIds);
+        if ($collectionId === null) {
+            $collection = new PhotoCollection();
+            $collection->save();
+        } else {
+            $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'addPhotos');
+        }
+        $collection->attachPhotos($photosIds);
+        $this->success = true;
+        $this->data = $collection;
     }
 
     public function actionSortAttaches($collectionId, array $attachesIds)

@@ -841,3 +841,11 @@ $(function() {
         e.preventDefault();
     });
 });
+
+/**
+ * Открытие блока настройки статей
+ */
+$('a.article-settings_a__settings').on('click', function settingsShowHandler(e) {
+    e.preventDefault();
+    $(this).parent().siblings('div.article-settings_hold').toggle();
+});

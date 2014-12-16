@@ -101,7 +101,7 @@ $cs->registerAMD('BlogRecordSettings', array('kow'));
 <!--                <div class="article-settings">-->
 <!--                    <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>-->
 <!--                    <div class="article-settings_hold display-b">-->
-<!--                        <!--<div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>-->-->
+<!--                        <!--<div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>-->
 <!--                        <div class="article-settings_i"><a href="--><?//= Yii::app()->createUrl('/blog/tmp/index', array('id' => $data->originEntityId)) ?><!--" class="article-settings_a article-settings_a__edit powertip"></a></div>-->
 <!--                        <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__delete powertip"></a></div>-->
 <!--                    </div>-->

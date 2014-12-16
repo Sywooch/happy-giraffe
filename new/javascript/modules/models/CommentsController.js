@@ -79,6 +79,9 @@ define(['jquery', 'knockout', 'models/UserController', 'models/User', 'models/Co
          * @return {[type]}              [description]
          */
         getFirstColor: function getFirstColor(commentsData) {
+            if (commentsData === undefined) {
+                return this.commentsColors[0];
+            }
             return commentsData[0].color();
         },
 

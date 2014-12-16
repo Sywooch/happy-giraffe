@@ -1,4 +1,4 @@
-define(['knockout', 'text!article-settings/article-settings.html', 'models/Model', 'common'], function (ko, template, Model) {
+define(['knockout', 'text!article-settings/article-settings.html', 'models/Model'], function (ko, template, Model) {
     function ArticleSettings(params) {
         this.removeBlogUrl = '/newblog/remove/';
         this.restoreBlogUrl = '/newblog/restore/';
@@ -14,6 +14,10 @@ define(['knockout', 'text!article-settings/article-settings.html', 'models/Model
         this.restorePost = function restorePost() {
             Model.get(this.restoreBlogUrl, { id: this.articleId });
             this.removed(false);
+        };
+        this.settingsShowHandler = function settingsShowHandler(data, evt) {
+            console.log(data, evt)
+            //$(this).parent().siblings('div.article-settings_hold').toggle();
         };
     };
 

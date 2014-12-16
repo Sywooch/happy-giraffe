@@ -128,7 +128,6 @@ mixin bArticleListItem(mod, vars)
 - bArticleListItem.a = {}
 - bArticleListItem.a.type = 'text'
 
-
 - bArticleListItem.b = {}
 - bArticleListItem.b.type = 'video'
 
@@ -289,6 +288,76 @@ mixin sidebarArticle(mod, vars)
 - var sidebarArticle = {}
 
 - sidebarArticle.base = {}
+
+
+mixin sidebarRecipe(mod, vars)
+    ///////
+    // Сайд бар
+    // Содержимое загружaть отложено
+    aside.b-main_col-sidebar.visible-md
+
+        a.btn.btn-primary.btn-xl.margin-t20(href='#') Добавить рецепт
+
+        .menu-simple
+            ul.menu-simple_ul
+                li.menu-simple_li.active
+                    a.menu-simple_a(href='') Блюда из рыбы
+                    .menu-simple_count 158
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Все рецепты
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Первые блюда
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Вторые блюда 
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Салаты  
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Закуски и бутерброды 
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Сладкая выпечка 
+                    .menu-simple_count 7
+                li.menu-simple_li.active
+                    a.menu-simple_a(href='') Торты и пирожные 
+                    .menu-simple_count 79
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Несладкая выпечка 
+                    .menu-simple_count 123789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Торты и пирожные 
+                    .menu-simple_count 79
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Десерты 
+                    .menu-simple_count 9
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Напитки 
+                    .menu-simple_count 71189
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Соусы и кремы 
+                    .menu-simple_count 23434
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Консервация 
+                    .menu-simple_count 782239
+
+
+        .bnr-base
+            a(href='#') 
+                img(src="#{path}images/example/w300-h250-1.jpg", alt="")
+
+
+        +articleAnonce('article-anonce__s', articleAnonce.b)
+
+        .article-anonce
+            iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-3.html", width='250px', height="450px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+    // Сайд бар
+
+- var sidebarRecipe = {}
+
+- sidebarRecipe.base = {}
 
 
 

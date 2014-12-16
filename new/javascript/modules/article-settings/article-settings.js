@@ -17,7 +17,7 @@ define(['jquery', 'knockout', 'text!article-settings/article-settings.html', 'mo
         };
         this.settingsShowHandler = function settingsShowHandler(e) {
             e.preventDefault();
-            $(this.settingsBlock).toggle();
+            $(this).children(this.settingsBlock).toggle();
         };
         $(this.settingsClicker).on('click', this.settingsShowHandler.bind(this));
     };

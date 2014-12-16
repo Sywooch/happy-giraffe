@@ -22,7 +22,7 @@ define(['jquery', 'knockout', 'models/UserController', 'models/User', 'models/Co
                 entity: entitySub,
                 entityId: entityIdSub,
                 listType: listType,
-                rootCount: 10,
+                rootCount: false,
                 dtimeFrom: 0
             };
         },

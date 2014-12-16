@@ -15,7 +15,7 @@ class PostController extends \LiteController
     public $litePackage = 'posts';
     public $layout = '/layouts/newBlogPost';
     public $post = null;
-    public $hideUserAdd = true;
+    public $hideUserAdd = false;
     protected $_user = null;
     protected $_leftPost = null;
     protected $_rightPost = null;

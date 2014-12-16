@@ -41,6 +41,10 @@
     .club-list_ul,
     .club-list_li {margin: 0;}
 
+    &_sidebar {
+        margin: 0 0 10px;
+    }
+
     &_t {
         margin: 0;
         padding: 5px 0 0;
@@ -63,7 +67,7 @@
         .inline-block();
         vertical-align: middle;
         width: 200px;
-        margin: 5px 25px 5px 0;
+        margin: 5px 24px 5px 0;
         font-size: 15px;
         line-height: 18px;
     }
@@ -178,5 +182,17 @@
         color: #fe2424;
     }*/
     /* /contest */
+
+    @media (min-width: @screen-desktop) {
+        &_sidebar {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 50px;
+        }
+        &_article {
+            display: inline-block;
+            width: 700px;
+        }
+    }
 }
 /* /b-section */

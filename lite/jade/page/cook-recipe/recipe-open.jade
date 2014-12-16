@@ -26,23 +26,26 @@ block layout
                         span.b-crumbs_last Салат фантазия
 
             //-+userSection('visible-md-block')
-            +sectionClub('', sectionClub.cook)
+            //-+sectionClub('', sectionClub.cook)
                               
             .b-main_col-hold.clearfix
                 ///////
                 // Основная колонка
                 .b-main_col-article
   
-                    +bArticleListItem('', bArticleListItem.a) 
-
-                    +bArticleListItem('', bArticleListItem.b) 
+                    +bArticleCook('', bArticleCook.cook)
 
                     //-+bArticleStatus('', bArticleStatus.list) 
 
                     //-+bArticleListPhotopost('', bArticleListPhotopost.base)
     
-                    +paginationSmall('yiipagination__center', paginationSmall.base)
+                    //-+paginationSmall('yiipagination__center', paginationSmall.base)
   
+                    +customLikes('', customLikes.base)
+                    
+                    +adv-yandex()
+                    +commentsOpen('', commentsOpen.b)
+ 
                 // /Основная колонкa
                 
 

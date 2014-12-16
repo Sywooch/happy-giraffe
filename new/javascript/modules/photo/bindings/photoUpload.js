@@ -44,13 +44,16 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'phot
                     // photoInstance.photo = photoInstance;
                     photoInstance = new PhotoAttach(photoInstance);
                     observable.push(photoInstance);
+                } else {
+                    if (photoInstance.hasOwnProperty('photo')) {
+                        observable(new PhotoAttach(photoInstance));
+                    }
+                    else {
+                        observable(photoInstance);
+                    }
+                    console.log('upload');
                 }
-                if (photoInstance.hasOwnProperty('photo')) {
-                    observable(new PhotoAttach(photoInstance));
-                }
-                else {
-                    observable(photoInstance);
-                }
+
             };
 
             var callback = value.callback || defaultCallback;

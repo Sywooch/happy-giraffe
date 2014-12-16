@@ -17,10 +17,9 @@ define(['knockout', 'text!article-settings/article-settings.html', 'models/Model
         };
         this.settingsShowHandler = function settingsShowHandler(e) {
             e.preventDefault();
-            console.log($(this), $(this).parent().siblings(this.settingsBlock));
-            $(this).parent().siblings(this.settingsBlock).toggle();
+            $(this).parent().siblings('div.article-settings_hold').toggle();
         };
-        $(this.settingsClicker).on('click', this.settingsShowHandler.bind(this));
+        $(this.settingsClicker).on('click', this.settingsShowHandler);
     };
 
     return {

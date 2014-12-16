@@ -845,7 +845,9 @@ $(function() {
 /**
  * Открытие блока настройки статей
  */
-$('a.article-settings_a__settings').on('click', function settingsShowHandler(e) {
-    e.preventDefault();
-    $(this).parent().siblings('div.article-settings_hold').toggle();
+$(document).ready(function readyDoc() {
+    $('a.article-settings_a__settings').on('click', function settingsShowHandler(e) {
+        e.preventDefault();
+        $(this).parent().siblings('div.article-settings_hold').toggle();
+    });
 });

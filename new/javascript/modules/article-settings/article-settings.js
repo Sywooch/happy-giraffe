@@ -16,8 +16,8 @@ define(['knockout', 'text!article-settings/article-settings.html', 'models/Model
             this.removed(false);
         };
         this.settingsShowHandler = function settingsShowHandler(data, evt) {
-            console.log(data, evt)
-            //$(this).parent().siblings('div.article-settings_hold').toggle();
+            console.log(data, evt);
+            $(evt.target).parent().siblings('div.article-settings_hold').toggle();
         };
     };
 

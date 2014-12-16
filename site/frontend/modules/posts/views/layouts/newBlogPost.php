@@ -1,7 +1,7 @@
 <?php
 $this->beginContent('//layouts/lite/main');
 
-if (!Yii::app()->user->isGuest) {
+/*if (!Yii::app()->user->isGuest) {
     ?>
     <!-- userAddRecord-->
     <div class="userAddRecord clearfix  userAddRecord__blog">
@@ -16,7 +16,7 @@ if (!Yii::app()->user->isGuest) {
     <!-- /userAddRecord-->
     <?php
 }
-/*else {
+else {
     ?>
     <section class="userSection visible-md-block">
         <div class="userSection_hold">

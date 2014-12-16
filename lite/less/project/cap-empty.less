@@ -15,6 +15,10 @@
     text-align: center;
     .user-select(none);
 
+    .i-video-serv {
+        margin: 5px;
+    }
+
     &__abs {
         position: absolute;
         top: 0;
@@ -100,6 +104,24 @@
         margin-bottom: 15px;
     }
     &__addPhotoLink &_tx-sub {
+        font: @fontsmall;
+        color: @color-gray-light;
+        margin: 5px 0;
+        text-align: left;
+    }
+
+    &__addVideo {
+        padding: 0 140px;
+    }
+    &__addVideo &_img {
+        height: 120px;
+        width: 160px;
+        background: url('@{path-img}/base/cap-empty__addVideo_img.png') no-repeat 50% 50%;
+    }
+    &__addVideo &_t {
+        margin-bottom: 15px;
+    }
+    &__addVideo &_tx-sub {
         font: @fontsmall;
         color: @color-gray-light;
         margin: 5px 0;

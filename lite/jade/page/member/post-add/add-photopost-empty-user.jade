@@ -9,18 +9,23 @@ block layout
     .b-main
         .b-main_cont.b-main_cont__wide
 
-            +userAddRecord('', userAddRecord.blog)
-            .postAdd
-                .postAdd_hold
-                    .postAdd_row 
-                        .inp-valid.inp-valid__abs
-                            .inp-valid_count 30
-                            input.itx-gray(placeholder="Заголовок") 
-                            
-                    .postAdd_row 
-                        +capAdd('cap-add__l', capAdd.a)
+            //- +userAddRecord('', userAddRecord.blog)
+            .postAdd.b-main_col-hold.clearfix
+                .b-main_col-article
+                    .postAdd_hold
+                        .postAdd_row
+                            .heading-small
+                                .ico-post-type.ico-post-type__photo.active
+                                | Создать фотопост
+                        .postAdd_row 
+                            .inp-valid.inp-valid__abs
+                                .inp-valid_count 30
+                                input.itx-gray(placeholder="Заголовок") 
+                                
+                        .postAdd_row 
+                            +capAdd('cap-add__l', capAdd.a)
 
-                    // Строка
-                    +postAddRowBtns('', postAddRowBtns.a)
+                        // Строка
+                        +postAddRowBtns('', postAddRowBtns.a)
 
         +layout-footer-lite()

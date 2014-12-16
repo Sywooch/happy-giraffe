@@ -1,4 +1,4 @@
-define(['knockout', 'text!article-settings/article-settings.html', 'models/Model'], function (ko, template, Model) {
+define(['knockout', 'text!article-settings/article-settings.html', 'models/Model', 'common'], function (ko, template, Model) {
     function ArticleSettings(params) {
         this.removeBlogUrl = '/newblog/remove/';
         this.restoreBlogUrl = '/newblog/restore/';

@@ -9,51 +9,31 @@ block layout
     .b-main
         .b-main_cont.b-main_cont__wide
 
-            +userAddRecord('', userAddRecord.blog)
-            .postAdd
-                .postAdd_hold
-                    .postAdd_row 
-                        .postAdd_count 1
-                        .b-main_col-article
+            //-+userAddRecord('', userAddRecord.blog)
+            .postAdd.b-main_col-hold.clearfix
+                .b-main_col-article
+                    .postAdd_hold
+                        .postAdd_row
+                            .heading-small
+                                .ico-post-type.ico-post-type__video.active
+                                | Создать видеопост
+                        .postAdd_row 
                             .inp-valid.inp-valid__abs.error
                                 .inp-valid_count 30
                                 input.itx-gray(placeholder="Заголовок") 
                                 .inp-valid_error Ошибка
                             
                     
-                    .postAdd_row
-                        // Блочек описание видео сервисов
-                        .postAdd_count 2
-                        .b-main_col-article
-                            //-.postAdd_video-serv
-                                // Отображается только до ввода ссылки
-                                .postAdd_video-serv-t.display-n URL видео:
-                                .postAdd_video-serv-hold
-                                    .postAdd_video-serv-desc Поддерживаемые сервисы:
-                                    // Когда определен сервис добавляется класс .active
-                                    .postAdd_video-serv-i.postAdd_video-serv-i__youtube.active
-                                    .postAdd_video-serv-i.postAdd_video-serv-i__rutube
-                                    .postAdd_video-serv-i.postAdd_video-serv-i__vimeo
-                            // Инпут скравется при загрузке видео
-                            .inp-valid.display-n
-                                input.itx-gray(type='text', placeholder="Вставьте ссылку на видео")
-                            .b-insert.b-insert__center.margin-t5
+                        .postAdd_row
+                            // Блочек описание видео сервисов
+                            .b-insert.b-insert__center
                                 .b-insert_hold
                                     .b-insert_close.ico-close4
-                                    // после загрузки видео скрывается блок 
-                                    .b-insert_inner.display-n
-                                        .b-insert_cap-img.b-insert_cap-img__video
-                                        .b-insert_progress
-                                            // boostrap progressbar
-                                            // progressbar изначально уже весь заполнен
-                                            .progress.progress-striped.active.progress__cont
-                                                .progress-bar.progress-bar__cont(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style='width: 100%')
-                                    // загруженое видео
-                                    iframe(width="580", height="326," frameborder="0", allowfullscreen="", src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent")
+                                    .video-container
+                                        // загруженое видео
+                                        iframe(width="600", height="337", frameborder="0", allowfullscreen="", src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent")
 
-                    .postAdd_row
-                        .postAdd_count 3
-                        .b-main_col-article
+                        .postAdd_row
                             .inp-valid.inp-valid__abs
                                 textarea.itx-gray(rows='5', cols='40', placeholder="Ваш комментарий к видео")
                                 .inp-valid_count 450

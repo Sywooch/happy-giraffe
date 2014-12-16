@@ -240,6 +240,25 @@ a.heading-link-xxl:hover {
         z-index: 100;
     }
 }
+
+.i-video-serv {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+    width: 60px;
+    height: 30px;
+    background: url('@{path-img}/i/i-video-serv.png') no-repeat;
+    .opacity(0.3);
+
+
+    &.active {.opacity(1)}
+    &__youtube {background-position: 0 0;}
+    /*&__youtube.active {background-position: 0 0;}*/
+    &__rutube  {background-position: -60px 0;}
+    /*&__rutube.active  {background-position: -60px 0;}*/
+    &__vimeo   {background-position: -120px 0;}
+    /*&__vimeo.active   {background-position: -120px 0;}*/
+}
 // /Items
 
 

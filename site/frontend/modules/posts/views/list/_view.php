@@ -97,7 +97,7 @@ $cs->registerAMD('BlogRecordSettings', array('kow'));
             <?php
             if ($data->authorId == Yii::app()->user->id) {
                 ?>
-                <article-settings params="articleId: <?=$data->originEntityId?>, editUrl: <?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $data->originEntityId)) ?>"></article-settings>
+                <article-settings params="articleId: <?=$data->originEntityId?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $data->originEntityId)) ?>'"></article-settings>
 <!--                <div class="article-settings">-->
 <!--                    <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>-->
 <!--                    <div class="article-settings_hold display-b">-->

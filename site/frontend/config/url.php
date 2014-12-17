@@ -117,7 +117,6 @@ return array(
         'user/settings/' => 'profile/settings/personal',
         'user/settings/<_a>' => 'profile/settings/<_a>',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
-        //'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
@@ -127,14 +126,14 @@ return array(
         ),
 
         //'user/<user_id:\d+>/blog' => 'blog/default/index',
-        //'user/<user_id:\d+>/blog' => 'posts/list/index',
-        array(
+        'user/<user_id:\d+>/blog' => 'blog/default/index',
+        /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog',
             'trueRoute' => 'posts/list/index',
             'falseRoute' => 'blog/default/index',
-        ),
+        ),*/
 
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
         'fakeBlogView' => array(
@@ -152,8 +151,8 @@ return array(
         'newblog/<_a:>' => 'blog/default/<_a>',
 
         /* Временные страницы для редактирования */
-        /*'post/add/type<type:[1235]>' => 'blog/tmp/index',
-        'post/edit/content<id:\d+>' => 'blog/tmp/index',*/
+        'post/add/type<type:[1235]>' => 'blog/tmp/index',
+        'post/edit/content<id:\d+>' => 'blog/tmp/index',
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
@@ -162,10 +161,10 @@ return array(
         'user/<user_id:\d+>/awards' => 'profile/default/awards',
         'profile/<_a>' => 'profile/default/<_a>',
 
-        'user/<user_id:\d+>/rss/page<page:\d+>' => 'rss/user',
-        'user/<user_id:\d+>/rss' => 'rss/user',
-        'user/<user_id:\d+>/comments/rss/page<page:\d+>' => 'rss/comments',
-        'user/<user_id:\d+>/comments/rss' => 'rss/comments',
+        'user/<userId:\d+>/rss/page<page:\d+>' => 'rss/default/user',
+        'user/<userId:\d+>/rss' => 'rss/default/user',
+        'user/<userId:\d+>/comments/rss/page<page:\d+>' => 'rss/default/comments',
+        'user/<userId:\d+>/comments/rss' => 'rss/default/comments',
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',

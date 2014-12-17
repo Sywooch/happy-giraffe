@@ -26,7 +26,7 @@
                         'linkOptions' => array('class' => 'b-calendar_a'),
 
                     );
-                }, range(2011, 2014)),
+                }, range(2011, (int) date('Y'))),
             )); ?>
         </div>
         <div class="b-calendar_in b-calendar_in__months">

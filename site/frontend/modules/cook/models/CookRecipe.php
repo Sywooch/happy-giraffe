@@ -244,13 +244,16 @@ class CookRecipe extends CActiveRecord implements IPreview
             'CAdvancedArBehavior' => array(
                 'class' => 'site.frontend.extensions.CAdvancedArBehavior',
             ),
-            'duplicate'=>array(
+            'duplicate' => array(
                 'class' => 'site.common.behaviors.DuplicateBehavior',
                 'error_text' => 'Вы только что создали рецепт с таким названием'
             ),
 //            'yandexwm' => array(
 //                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
 //            ),
+            'convertToNewPost' => array(
+                'class' => '\site\frontend\modules\posts\behaviors\converters\RecipeBehavior',
+            ),
         );
     }
 

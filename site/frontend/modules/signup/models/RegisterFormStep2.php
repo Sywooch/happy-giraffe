@@ -20,7 +20,7 @@ class RegisterFormStep2 extends CFormModel
     public $verifyCode;
     public $avatar;
 
-    //address
+    //addressп
     public $country_id;
     public $city_id;
 

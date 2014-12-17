@@ -29,8 +29,6 @@ class VkontakteAuth extends VKontakteOAuthService
         $this->attributes['gender'] = $info->sex == 0 ? null : $info->sex - 1;
         $this->setLocationAttributes($info);
         $this->setAvatarAttribute($info);
-
-        var_dump($this->attributes); die;
     }
 
     protected function setAvatarAttribute($info)

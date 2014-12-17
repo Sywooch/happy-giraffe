@@ -684,5 +684,18 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         $post = CommunityContent::model()->findByPk($id);
         $post->convertToNewPost();
     }
+
+    public function actionFixNoindex()
+    {
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 't.id IN (SELECT id FROM post__contents) AND t.type_id = 1',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 100);
+        foreach ($iterator as $post) {
+            $post->addTaskToConvert();
+        }
+    }
 }
 

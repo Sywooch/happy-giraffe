@@ -61,6 +61,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : (this.current().index() + 1);
             this.currentId(this.current().element().id());
             AdHistory.pushState(null, title, this.current().element().url());
+            this.bannerInit();
             //FCUK quick fix
             setTimeout(this.addImageBinding.bind(this), this.setDelay);
             //---FCUK quick fix
@@ -123,6 +124,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                         tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
                     }
                 })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
+                this.addViews();
             };
         };
         /**
@@ -134,8 +136,6 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 this.getUser();
             }
             this.getCollection();
-            this.bannerInit();
-            this.addViews();
         };
         this.initializeSlider();
         /**

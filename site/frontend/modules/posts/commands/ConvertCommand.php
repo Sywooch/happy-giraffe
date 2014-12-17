@@ -18,6 +18,7 @@ class ConvertCommand extends \CConsoleCommand
         'oldBlog_CommunityContent_convert_status',
         'oldBlog_CommunityContent_convert_video',
         'oldCommunity_CommunityContent_convert_video',
+        'oldRecipe_CookRecipe_convert_recipe',
     );
 
     /**
@@ -28,7 +29,11 @@ class ConvertCommand extends \CConsoleCommand
     public static function addConvertTask($oldPost)
     {
         $client = \Yii::app()->gearman->client();
-        $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
+        if ($oldPost instanceof \CookRecipe) {
+            $service = 'oldRecipe';
+        } else {
+            $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
+        }
         $entity = get_class($oldPost);
         if ($entity == 'BlogContent') {
             $entity = 'CommunityContent';
@@ -39,10 +44,13 @@ class ConvertCommand extends \CConsoleCommand
             \CommunityContent::TYPE_VIDEO => 'video',
             \CommunityContent::TYPE_PHOTO_POST => 'photopost',
             \CommunityContent::TYPE_STATUS => 'status',
+            999 => 'recipe',
         );
-        if (!isset($types[$oldPost->type_id]))
+        $type = $oldPost instanceof \CookRecipe ? 999 : $oldPost->type_id;
+        if (!isset($types[$type])) {
             return false;
-        $fName = $service . '_' . $entity . '_convert_' . $types[$oldPost->type_id];
+        }
+        $fName = $service . '_' . $entity . '_convert_' . $types[$type];
         $data = array(
             'service' => $service,
             'entity' => $entity,
@@ -65,14 +73,20 @@ class ConvertCommand extends \CConsoleCommand
 
     public function actionIndex(Array $command = array(), $fake = false)
     {
+        // Загрузим возможные модели
+        \Yii::import('site.frontend.modules.cook.models.*');
+        
         /** @todo параметризировать команду, что бы можно было выбирать обработчики */
         $worker = \Yii::app()->gearman->worker();
-        if (empty($command))
+        if (empty($command)) {
             $command = $this->commands;
+        }
 
-        foreach ($command as $c)
-            if (in_array($c, $this->commands))
+        foreach ($command as $c) {
+            if (in_array($c, $this->commands)) {
                 $worker->addFunction($c, array($this, $fake ? 'fake' : 'convertPost'));
+            }
+        }
 
         while ($worker->work());
     }
@@ -86,14 +100,14 @@ class ConvertCommand extends \CConsoleCommand
         try {
             \Yii::app()->db->setActive(true);
             $data = self::unserialize($job->workload());
-            usleep(10000); // на всякий случай поспим 0.01 сек, что бы быть уверенным, что реплика прошла
+            usleep(100000); // на всякий случай поспим 0.1 сек, что бы быть уверенным, что реплика прошла
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
-            if(!$model)
+            if (!$model) {
                 throw new \Exception('no model');
+            }
             echo $model->convertToNewPost() ? '.' : '!';
             \Yii::app()->db->setActive(false);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             var_dump($data);
             echo $e;
         }

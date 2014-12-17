@@ -238,4 +238,17 @@ class SiteCommand extends CConsoleCommand
                 unlink($file); // delete file
         }
     }
+
+    public function actionTestGearman()
+    {
+        \Yii::app()->gearman->client()->doBackground('fake', 'workload');
+
+        \Yii::app()->gearman->worker()->addFunction('fake', function() {
+            echo "fake task processed\n";
+        });
+
+        for ($i = 0; $i < 100; $i++) {
+            \Yii::app()->gearman->worker()->work();
+        }
+    }
 }

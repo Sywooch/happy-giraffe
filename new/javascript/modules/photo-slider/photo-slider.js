@@ -101,7 +101,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.photoChange = function photoChange() {
             if (adsConfig.isProduction === true) {
                 dataLayer.push({'event': 'virtualView'});
-                yaCounter11221648.hit(self.currentPhoto().url());
+                yaCounter11221648.hit(this.current().element().url());
             }
             if (adsConfig.showAds === true) {
                 adfox_reloadBanner('bn-1');

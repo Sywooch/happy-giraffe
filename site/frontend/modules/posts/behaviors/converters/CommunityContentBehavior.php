@@ -95,7 +95,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->dtimeUpdate = max($newPost->dtimeCreate, strtotime($oldPost->updated), strtotime($oldPost->last_updated));
         $newPost->dtimePublication = $newPost->dtimeCreate;
         $newPost->uniqueIndex = $oldPost->uniqueness;
-        $newPost->isNoindex = is_int($oldPost->uniqueness) && !$oldPost->uniqueness > 50;
+        $newPost->isNoindex = is_numeric($oldPost->uniqueness) && $oldPost->uniqueness < 50;
         $newPost->isNofollow = false;
         $newPost->isRemoved = $oldPost->removed;
         $newPost->isDraft = 0;

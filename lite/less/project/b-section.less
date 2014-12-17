@@ -1,7 +1,7 @@
 /* b-section */
 .b-section {
     margin: 0 -60px 20px; 
-    padding: 25px 60px 20px;
+    padding: 15px 60px 15px;
     background: #fafafa;
     
     &__collection {
@@ -37,27 +37,28 @@
         margin-bottom: 35px;
     }
 
+    &__collection-1 {background-color: #FAF6FF;}
+    &__collection-2 {background-color: #F3FCFF;}
+    &__collection-3 {background-color: #FFFBF8;}
+
     .club-list,
     .club-list_ul,
     .club-list_li {margin: 0;}
 
-    &_sidebar {
-        margin: 0 0 10px;
-    }
-
     &_t {
         margin: 0;
-        padding: 5px 0 0;
+        padding: 20px 0 0;
         font-size: 35px;
         line-height: 35px;
         font-weight: bold;
         color: #186fb8;
     }
     &_t > a {color: #186fb8;}
+    &_t > a:hover {color: @color-orange;}
     &_t__onair {
         margin: 0 20px 20px;
-    }
-    &_ul {margin: 18px 0 0;}
+    } 
+    &_ul {margin: 10px 0 0;}
     &_ul__white {
         margin: 250px 0 0 30px;
         width: 100%;
@@ -66,10 +67,10 @@
     &_li {
         .inline-block();
         vertical-align: middle;
-        width: 200px;
-        margin: 5px 24px 5px 0;
-        font-size: 15px;
-        line-height: 18px;
+        /*width: 200px;*/
+        margin: 0 30px 5px 0;
+        font-size: 14px;
+        line-height: 20px;
     }
     &_li-a.active {
         font-weight: bold;
@@ -187,7 +188,7 @@
         &_sidebar {
             display: inline-block;
             vertical-align: top;
-            margin-right: 50px;
+            margin-right: 20px;
         }
         &_article {
             display: inline-block;

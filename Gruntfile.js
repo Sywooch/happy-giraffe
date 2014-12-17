@@ -284,6 +284,9 @@ module.exports = function(grunt){
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.ico-club+/,
+            /.i-club+/,
+
           ],
         },
         src: [
@@ -325,6 +328,8 @@ module.exports = function(grunt){
             /.fancybox+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.ico-club+/,
+            /.i-club+/,
           ],
         },
         src: [

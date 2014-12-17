@@ -283,7 +283,7 @@ mixin sidebarRecipe(mod, vars)
 
         .menu-simple
             ul.menu-simple_ul
-                li.menu-simple_li.active
+                li.menu-simple_li
                     a.menu-simple_a(href='') Блюда из рыбы
                     .menu-simple_count 158
                 li.menu-simple_li
@@ -330,11 +330,6 @@ mixin sidebarRecipe(mod, vars)
             a(href='#') 
                 img(src="#{path}images/example/w300-h250-1.jpg", alt="")
 
-
-        +articleAnonce('article-anonce__s', articleAnonce.b)
-
-        .article-anonce
-            iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-3.html", width='250px', height="450px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
     // Сайд бар
 
 - var sidebarRecipe = {}
@@ -424,25 +419,25 @@ mixin bArticleCook(mod, vars)
                             h2.wysiwyg-content_t-sub Ингредиенты
                             ul.ingredients
                                 li.ingredient
-                                    span.name Скумбрия
+                                    span.name Скумбрия 
                                     | - 
                                     span.amount
                                         | 1 штука
                                 li.ingredient
-                                    span.name Лимон
+                                    span.name Лимон 
                                     | - 
                                     span.amount
-                                        | 1 штука
+                                        | 1 штука 
                                 li.ingredient
-                                    span.name Лук репчатый
+                                    span.name Лук репчатый 
                                     | - 
                                     span.amount
-                                        | 1 штука
+                                        | 1 штука 
                                 li.ingredient
-                                    span.name Прованские травы
+                                    span.name Прованские травы 
                                     | - 
                                     span.amount
-                                        | 25 граммов
+                                        | 25 граммов 
                         h2.wysiwyg-content_t-sub Приготовление
                         p
                             | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».

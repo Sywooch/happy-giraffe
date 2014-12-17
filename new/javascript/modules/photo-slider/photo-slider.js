@@ -65,6 +65,10 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             setTimeout(this.addImageBinding.bind(this), this.setDelay);
             //---FCUK quick fix
         };
+        this.addViews = function addViews() {
+            dataLayer.push({'event': 'virtualView'});
+            yaCounter11221648.hit(this.current().element().url());
+        };
         /**
          * Next slide
          */
@@ -100,8 +104,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          */
         this.photoChange = function photoChange() {
             if (adsConfig.isProduction === true) {
-                dataLayer.push({'event': 'virtualView'});
-                yaCounter11221648.hit(this.current().element().url());
+                this.addViews();
             }
             if (adsConfig.showAds === true) {
                 adfox_reloadBanner('bn-1');
@@ -132,6 +135,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             }
             this.getCollection();
             this.bannerInit();
+            this.addViews();
         };
         this.initializeSlider();
         /**

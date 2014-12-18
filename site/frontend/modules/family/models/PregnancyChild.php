@@ -52,20 +52,6 @@ class PregnancyChild extends FamilyMemberAbstract
         }
     }
 
-    public function getTitle()
-    {
-        switch ($this->gender) {
-            case self::GENDER_MALE:
-                return 'Ждем мальчика';
-            case self::GENDER_FEMALE:
-                return 'Ждем девочку';
-            case self::GENDER_TWINS:
-                return 'Ждем двойню';
-            default:
-                return 'Ждем ребенка';
-        }
-    }
-
     public function toJSON()
     {
         return \CMap::mergeArray(parent::toJSON(), array(

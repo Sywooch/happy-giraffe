@@ -36,18 +36,6 @@ class PlanningChild extends FamilyMemberAbstract
         ));
     }
 
-    public function getTitle()
-    {
-        switch ($this->gender) {
-            case self::GENDER_FEMALE:
-                return 'Планируем девочку';
-            case self::GENDER_MALE:
-                return 'Планируем мальчика';
-            default:
-                return 'Планируем ребенка';
-        }
-    }
-
     public function isPublic()
     {
         return parent::isPublic() && (time() < $this->getExpirationTime());

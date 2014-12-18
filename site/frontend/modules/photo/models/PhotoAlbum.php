@@ -130,7 +130,9 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
             'id' => (int) $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'photoCollections' => $this->photoCollections,
+            'photoCollections' => array(
+                'default' => $this->photoCollection,
+            ),
             'url' => $this->getUrl(),
         );
     }

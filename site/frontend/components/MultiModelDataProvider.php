@@ -8,23 +8,18 @@
 
 class MultiModelDataProvider extends CDataProvider
 {
-    protected $models;
-    protected $sortColumn;
+    protected $modelsConfig;
 
-    public function __construct($models, $sortColumn, $config = array())
+    public function __construct($modelsConfig)
     {
-        foreach ($models as $modelClass => $criteria) {
-            if (is_int($modelClass)) {
-                $modelClass = $criteria;
-                $criteria = array();
-            }
-
-            $this->sortColumn = $sortColumn;
-            $this->models[$modelClass] = $criteria instanceof \CDbCriteria ? $criteria : new \CDbCriteria($criteria);
-            foreach ($config as $key => $value) {
-                $this->$key = $value;
+        foreach ($modelsConfig as &$modelConfig) {
+            if (! isset($modelConfig['criteria'])) {
+                $modelConfig['criteria'] = new CDbCriteria();
+            } elseif (is_array($modelConfig['criteria'])) {
+                $modelConfig['criteria'] = new CDbCriteria($modelConfig['criteria']);
             }
         }
+        $this->modelsConfig = $modelsConfig;
     }
 
     protected function fetchData()
@@ -36,7 +31,8 @@ class MultiModelDataProvider extends CDataProvider
 
         $data = array();
 
-        foreach ($this->models as $modelClass => $criteria) {
+        foreach ($this->modelsConfig as $modelClass => $config) {
+            $criteria = $config['criteria'];
             $criteria->limit = $this->pagination->pageSize * ($this->pagination->currentPage + 1);
             $modelData = \CActiveRecord::model($modelClass)->findAll($criteria);
             foreach ($modelData as $model) {
@@ -44,13 +40,7 @@ class MultiModelDataProvider extends CDataProvider
             }
         }
 
-        $sortColumn = $this->sortColumn;
-        usort($data, function($a, $b) use ($sortColumn) {
-            if ($a->$sortColumn == $b->$sortColumn) {
-                return 0;
-            }
-            return ($a->$sortColumn < $b->$sortColumn) ? -1 : 1;
-        });
+        $this->sort($data);
 
         return array_slice($data, $this->pagination->pageSize * ($this->pagination->currentPage - 1), $this->pagination->pageSize);
     }
@@ -69,10 +59,25 @@ class MultiModelDataProvider extends CDataProvider
     protected function calculateTotalItemCount()
     {
         $total = 0;
-        foreach ($this->models as $modelClass => $criteria) {
-            $total += (int) \CActiveRecord::model($modelClass)->count($criteria);
+        foreach ($this->modelsConfig as $modelClass => $config) {
+            $total += (int) \CActiveRecord::model($modelClass)->count($config['criteria']);
         }
 
         return $total;
+    }
+
+    protected function sort(&$data)
+    {
+        $config = $this->modelsConfig;
+
+        usort($data, function($a, $b) use ($config) {
+            $aSortColumn = $config[get_class($a)]['sortColumn'];
+            $bSortColumn = $config[get_class($b)]['sortColumn'];
+
+            if ($a->$aSortColumn == $b->$bSortColumn) {
+                return 0;
+            }
+            return ($a->$aSortColumn < $b->$bSortColumn) ? -1 : 1;
+        });
     }
 } 

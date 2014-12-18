@@ -1,0 +1,85 @@
+<!-- ko if: load() === true -->
+<div class="postAdd_hold">
+    <div class="postAdd_row">
+        <div class="heading-small">
+            <div class="ico-post-type ico-post-type__photo active"></div>Создать фотопост
+        </div>
+    </div>
+    <div class="postAdd_row">
+        <div class="inp-valid inp-valid__abs"  data-bind="css: { error: photopost.title.isValid() === false }">
+            <div class="inp-valid_count" data-bind="text: titleLength()"></div>
+            <input placeholder="Заголовок" class="itx-gray" data-bind="textInput: photopost.title">
+            <!-- ko if: photopost.title.isValid() === false -->
+            <div class="inp-valid_error" data-bind="validationMessage: photopost.title">Ошибка</div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <div class="postAdd_row">
+        <!-- cap-add-->
+        <!-- Блок Добавления-->
+        <div class="cap-add cap-add__l" data-bind="photoComponentUpload: { data: { multiple: true }, observable: photopost.photoArray }">
+            <div class="cap-add_hold">
+                <div class="cap-add_in">
+                    <div class="cap-add_tx"> Добавить фотографии
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Строка-->
+    <!-- postAdd_btns-->
+    <div class="postAdd_row">
+        <div class="postAdd_count"> </div>
+        <div class="b-main_col-article clearfix">
+            <!-- Блок управления приватностью записи-->
+            <!--.privacy-select.float-l
+            .privacy-select_hold.clearfix
+                .privacy-select_tx Для кого:
+                .privacy-select_drop-hold.dropdown.dropup
+                    a.privacy-select_a.dropdown-toggle(href='', data-toggle="dropdown", data-target="#", id="dLabel1")
+                        span.ico-users.ico-users__friend.active
+                        span.privacy-select_a-tx
+                            | только
+                            br
+                            | друзьям
+                    .privacy-select_drop.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel1")
+                        .privacy-select_i
+                            a.privacy-select_a(href='')
+                                span.ico-users.ico-users__all
+                                span.privacy-select_a-tx
+                                    | для
+                                    | всех
+                        .privacy-select_i
+                            a.privacy-select_a(href='')
+                                span.ico-users.ico-users__friend
+                                span.privacy-select_a-tx
+                                    | только
+                                    | друзьям
+            -->
+            <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a>
+                <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success"> Опубликовать</span>
+                    <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark"><i class="ico-arrow-d-white"></i></span>
+                        <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
+                            <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">
+                                <div class="dropdown-menu_in">
+
+                                    Опубликовать сейчас
+                                </div></a></li>
+                            <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                                <div class="dropdown-menu_in">
+
+                                    Предпросмотр
+                                </div></a></li>
+                            <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                                <div class="dropdown-menu_in">
+
+                                    Сохранить в черновик
+                                </div></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /ko -->

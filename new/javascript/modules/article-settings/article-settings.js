@@ -6,14 +6,18 @@ define(['jquery', 'knockout', 'text!article-settings/article-settings.html', 'mo
         this.settingsBlock = 'div.article-settings_hold';
         this.articleId = params.articleId;
         this.editUrl = params.editUrl;
+        this.removed = ko.observable(false);
         this.removePost = function removePost() {
-            Model.get(this.removeBlogUrl, { id: this.articleId });
+            $.post(this.removeBlogUrl, { id: this.articleId });
+            this.removed(true);
         };
-        this.settingsShowHandler = function settingsShowHandler(e) {
-            e.preventDefault();
-            $(this.settingsBlock).toggle();
+        this.restorePost = function restorePost() {
+            $.post(this.restoreBlogUrl, { id: this.articleId });
+            this.removed(false);
         };
-        $(this.settingsClicker).on('click', this.settingsShowHandler.bind(this));
+        this.settingsShowHandler = function settingsShowHandler(data, evt) {
+            $(evt.target).parent().siblings('div.article-settings_hold').toggle();
+        };
     };
 
     return {

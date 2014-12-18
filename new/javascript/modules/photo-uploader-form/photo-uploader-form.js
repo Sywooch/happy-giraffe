@@ -11,8 +11,11 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         $('a[data-toggle="tab"]').on('shown.bs.tab', function photoUploaderTabHandler() {
             $(document).trigger('koUpdate');
         });
-        if (this.initData.multiple === true) {
+        if (this.initData.multiple === true && this.initData.collectionId !== undefined) {
             $('a[href="#photo-tab-computer-multiple"]').tab('show');
+        }
+        if (this.initData.multiple === true && this.initData.collectionId === undefined) {
+            $('a[href="#photo-tab-computer-multiple-photos"]').tab('show');
         }
         if (this.initData.multiple === false && this.initData.collectionId !== undefined) {
             $('a[href="#photo-tab-computer-attach"]').tab('show');
@@ -23,14 +26,18 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
 
         // end of UGLY JQUERY AJAX
 
-        this.initPUTabs = function initPUTabs(computerTabName, computerTabNameAttach, computerTabMultipleName, urlTabName) {
+        this.initPUTabs = function initPUTabs(computerTabName, computerTabNameAttach, computerTabMultipleName, computerTabMultiplePhotos, urlTabName) {
             var computer,
                 computerMultiple,
                 albums,
                 url;
-            if (this.initData.multiple === true) {
+            if (this.initData.multiple === true && this.initData.collectionId !== undefined) {
                 computerMultiple = new uploader.FromComputerMultipleViewModel(this.initData);
                 ko.applyBindings(computerMultiple, document.getElementById(computerTabMultipleName));
+            }
+            if (this.initData.multiple === true && this.initData.collectionId === undefined) {
+                computerMultiple = new uploader.FromComputerMultipleViewModel(this.initData);
+                ko.applyBindings(computerMultiple, document.getElementById(computerTabMultiplePhotos));
             }
             if (this.initData.multiple === false && this.initData.collectionId !== undefined) {
                 computer = new uploader.FromComputerSingleViewModel(this.initData);
@@ -47,7 +54,7 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         };
 
 
-        this.initPUTabs('photo-tab-computer', 'photo-tab-computer-attach', 'photo-tab-computer-multiple', 'photo-tab-link');
+        this.initPUTabs('photo-tab-computer', 'photo-tab-computer-attach', 'photo-tab-computer-multiple', 'photo-tab-computer-multiple-photos', 'photo-tab-link');
 
     }
     return {

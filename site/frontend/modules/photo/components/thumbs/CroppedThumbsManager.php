@@ -34,7 +34,7 @@ class CroppedThumbsManager extends ThumbsManager
 
     protected function getFsPath(Photo $photo, $presetName, $cropData)
     {
-        $fsName = substr_replace($photo->fs_name, '_' . implode('x', $cropData), strrpos($photo->fs_name, '.'), 0);
-        return 'crops/' . $presetName . '/' . $fsName;
+        $config = $this->presets[$presetName];
+        return 'crops/' . md5(serialize($config) . serialize($cropData)) . '/' . $photo->fs_name;
     }
 } 

@@ -14,8 +14,8 @@
                 else
                     echo CHtml::encode($this->pageTitle);
                 ?></title>
-        <?php if ($this->rssFeed !== null): ?>
-            <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed)?>
+        <?php if ($this->rssFeed instanceof \site\frontend\modules\rss\components\channels\RssChannelAbstract && ! $this->rssFeed->isEmpty()): ?>
+            <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed->getUrl())?>
         <?php endif; ?>
         <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
         <?php

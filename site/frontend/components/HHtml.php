@@ -57,7 +57,7 @@ class HHtml extends CHtml
             $content = Yii::app()->format->formatDatetime($model->pubUnixTime);
 
         $cs = Yii::app()->clientScript;
-        $js = 'ko.applyBindings({}, document.getElementById(\'' . $id . '\'));';
+        $js = 'ko.cleanNode(document.getElementById(\'' . $id . '\')); ko.applyBindings({}, document.getElementById(\'' . $id . '\'));';
         if ($cs->useAMD)
             $cs->registerAMD($id, array('ko' => 'knockout', 'ko_library' => 'ko_library'), $js);
         else

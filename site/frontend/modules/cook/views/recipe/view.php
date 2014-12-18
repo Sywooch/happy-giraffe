@@ -315,7 +315,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
 
 <script type="text/javascript">
-    require(['ko'], function (ko) {
+    require(['knockout'], function (ko) {
         var RecipeViewModel = function (data) {
             var self = this;
             self.SHOW_NUTRITIONS_100G = 0;
@@ -336,6 +336,8 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
         }
 
         recipeVM = new RecipeViewModel(<?= CJSON::encode(array('hasServings' => $recipe->servings !== null)) ?>);
-        ko.applyBindings(recipeVM, document.getElementById('recipe'));
+        var recipeCointainer = document.getElementById('recipe');
+        ko.cleanNode(recipeCointainer);
+        ko.applyBindings(recipeVM, recipeCointainer);
     });
 </script>

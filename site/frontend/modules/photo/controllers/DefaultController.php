@@ -29,9 +29,15 @@ class DefaultController extends \LiteController
 
     public function actionPresets()
     {
-        $photo = Photo::model()->findByPk(222);
-        $thumb = \Yii::app()->thumbs->getThumb($photo, 'uploadPreview');
-        echo $thumb->getUrl();
+        $photo = Photo::model()->findByPk(250);
+        $cropData = array(
+            'x' => 350,
+            'y' => 250,
+            'w' => 200,
+            'h' => 200,
+        );
+        $thumb = \Yii::app()->crops->getCrop($photo, 'avatarSmall', $cropData);
+        echo $thumb;
     }
 
     public function actionIndex($userId)

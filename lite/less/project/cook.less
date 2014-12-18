@@ -17,15 +17,11 @@
 
 .recipe-desc {
     margin: -15px 0 10px;
-    padding: 0 20px;
+    padding: 0 20px 10px;
     background: #d1ebff;
 
     .location {
-        .inline-block();
-        vertical-align: middle;
-        border-right: 1px solid #b9d9f2;;
-        margin: 0 10px 0 0;
-        padding: 15px 15px 15px 0;
+        padding: 15px 0 0;
         font-size: 12px;
         color: #289FD7;
     }
@@ -35,16 +31,10 @@
         max-width: 105px;
     }
     &_holder {
-        .inline-block();
-        vertical-align: middle;
-        border-right: 1px solid #b9d9f2;
-        border-width: 0 1px;
-        padding-right: 10px;
-        margin-right: 10px;
     }
     &_i {
         .inline-block();
-        padding: 13px 5px 10px;
+        padding: 5px 5px 5px 0;
     }
     &_ico {
         .inline-block();
@@ -57,6 +47,31 @@
     &_ico__time-1 {background-position: 0 0;}
     &_ico__time-2 {background-position: -37px 0;}
     &_ico__yield  {background-position: -75px 0;}
+
+    @media (min-width: @screen-phone-landscape) {
+        
+        & {
+            padding-bottom: 0;
+        }
+        .location {
+            .inline-block();
+            vertical-align: middle;
+            border-right: 1px solid #b9d9f2;
+            padding: 15px 15px 15px 0;
+            margin: 0 10px 0 0;
+        }
+        &_holder {
+            .inline-block();
+            vertical-align: middle;
+            border-right: 1px solid #b9d9f2;
+            border-width: 0 1px;
+            padding-right: 10px;
+            margin-right: 10px;
+        }
+        &_i {
+            padding: 13px 5px 10px;
+        }
+    }
 }
 
 
@@ -190,7 +205,7 @@
 
 .cook-article-tags {
     float: left;
-    margin: 20px 5px 35px 20px;
+    margin: 20px 5px 35px 0;
 
 
     &-title {
@@ -244,45 +259,86 @@
     color: #717172;
 }
 
-.cook-title-cat {margin-bottom:30px;}
-.cook-title-cat .cook-title-cat-h1 {color: #454545;font-size: 33px;line-height: 33px;margin:15px 0 15px;font-weight: normal;}
-.cook-title-cat .cook-title-cat-h1-text {display: inline-block;*zoom:1;*display:inline;vertical-align: middle;}
-.cook-title-cat > p {line-height: 19px;font-size: 13px;}
-.cook-title-cat .cook-cat.active{display: inline-block;*zoom:1;*display:inline;vertical-align: middle;margin-right: 10px;}
+.cook-title-cat {
+    margin-bottom: 30px;
+
+    &-h1 {
+        color: #454545;
+        font-size: 24px;
+        line-height: 24px;
+        margin: 10px 0;
+        font-weight: normal;
+
+    }
+    /*.cook-title-cat .cook-title-cat-h1-text {display: inline-block;vertical-align: middle;}*/
+    & > p {
+        display: none;
+    }
+
+    @media (min-width: @screen-desktop) {
+        /*& {
+            margin-bottom: 30px;
+        }*/
+        &-h1 {
+            font-size: 33px;
+            line-height: 33px;
+            margin:15px 0 15px;
+        }
+        & > p {
+            display: block;
+            font-size: 14px;
+            line-height: 20px;
+            color: @color-gray-dark;
+        }
+    }
+}
+/*.cook-title-cat .cook-cat.active{display: inline-block;*zoom:1;*display:inline;vertical-align: middle;margin-right: 10px;}*/
 
 /* giraffe-story */
 .giraffe-story {
-    margin: 20px 0 0 0;
-    padding: 0 0 80px;
-    background: url('@{path-img}/giraffe-story.png') no-repeat -1200px 100%;
+    display: none;
+
+    @media (min-width: @screen-desktop) {
+        & {
+            display: block;
+            margin: 20px 0 0 0;
+            padding: 0 0 80px;
+            background: url('@{path-img}/giraffe-story.png') no-repeat -1200px 100%;
+        }
+        
+        .giraffe-story-frame {
+            padding: 30px 0 0;
+            background: url('@{path-img}/giraffe-story.png') no-repeat -600px 0;
+        }
+        .giraffe-story-holder {
+            padding: 0 20px 0 30px;
+            background: url('@{path-img}/giraffe-story.png') repeat-y 0 0;
+        }
+        .giraffe-story-title {
+            margin: 0 -10px 18px;
+            padding: 0;
+            font-size: 30px;
+            line-height: 30px;
+            color: #2e2e2e;
+            text-align: center;
+        }
+        .giraffe-story-title > span {background: #fef67b;padding: 0 3px;}
+        .giraffe-story-img {float: left;margin:30px 30px 0 0;}
+        .giraffe-story-text {
+            line-height: 19px;
+            overflow:hidden;
+            height: 1%;
+            color: #2c2c2c;
+        }
+        .giraffe-story-text .allocation {color: #1a1a1a;font-size: 13px;}
+    }
 }
-.giraffe-story-frame {
-    padding: 30px 0 0;
-    background: url('@{path-img}/giraffe-story.png') no-repeat -600px 0;
-}
-.giraffe-story-holder {
-    padding: 0 20px 0 30px;
-    background: url('@{path-img}/giraffe-story.png') repeat-y 0 0;
-}
-.giraffe-story-title {
-    margin: 0 -10px 18px;
-    padding: 0;
-    font-size: 30px;
-    line-height: 30px;
-    color: #2e2e2e;
-    text-align: center;
-}
-.giraffe-story-title > span {background: #fef67b;padding: 0 3px;}
-.giraffe-story-img {float: left;margin:30px 30px 0 0;}
-.giraffe-story-text {
-    line-height: 19px;
-    font-style: italic;
-    overflow:hidden;
-    height: 1%;
-    color: #2c2c2c;
-}
-.giraffe-story-text .allocation {color: #1a1a1a;font-size: 13px;}
 /* /giraffe-story */
+
+.interesting {margin: 30px 0 50px;}
+.interesting .block-title {font-size:16px;color: @color-gray-dark;font-weight:bold;margin-bottom:10px;}
+.interesting ul {list-style:none;}
+.interesting ul li {margin:5px 0;}
 
 /*
 #cook-add-recipe {}

@@ -23,9 +23,12 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
          * @param presets
          */
         this.handlePresets = function handlePresets(presets) {
-            this.photoCollection.getAttachesPage(0);
-            this.collectionCount(params.attachCount);
-            params.presets = presets;
+            if (presets.success === true) {
+                this.photoCollection.getAttachesPage(0);
+                this.collectionCount(params.attachCount);
+                params.presets = presets.data;
+            }
+
         };
         /**
          * Openening current photo

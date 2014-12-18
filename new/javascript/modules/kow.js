@@ -28,6 +28,9 @@ define(["jquery", "knockout"], function ($, ko) {
     $('comment-widget').each(componentIterator);
     ko.components.register('post-status-add', { require: 'post-status-add/post-status-add' });
     $('post-status-add').each(componentIterator);
+    ko.components.register('post-photo-add', { require: 'post-photo-add/post-photo-add' });
+    $('post-photo-add').each(componentIterator);
     ko.components.register('article-settings', { require: 'article-settings/article-settings' });
     $('article-settings').each(componentIterator);
+
 });

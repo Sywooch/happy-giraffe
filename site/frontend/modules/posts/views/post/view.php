@@ -46,14 +46,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                             <?php
                             if ($this->post->authorId == Yii::app()->user->id) {
                                 ?>
-                                <div class="article-settings">
-                                    <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
-                                    <div class="article-settings_hold display-b">
-                                        <!--<div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>-->
-                                        <div class="article-settings_i"><a href="<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>" class="article-settings_a article-settings_a__edit powertip"></a></div>
-                                        <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__delete powertip"></a></div>
-                                    </div>
-                                </div>
+                                <article-settings params="articleId: <?=$this->post->originEntityId?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
                                 <?php
                             }
                             ?>

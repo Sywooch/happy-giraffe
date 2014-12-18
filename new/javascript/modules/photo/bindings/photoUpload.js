@@ -58,7 +58,6 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'phot
                         observable(photoInstance);
                     }
                 }
-
             };
 
             var callback = value.callback || defaultCallback;

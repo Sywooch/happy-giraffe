@@ -21,6 +21,7 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
         /**
          * handler presets getting
          * @param presets
+         *
          */
         this.handlePresets = function handlePresets(presets) {
             if (presets.success === true) {

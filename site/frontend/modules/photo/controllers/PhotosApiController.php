@@ -10,6 +10,7 @@ namespace site\frontend\modules\photo\controllers;
 use site\frontend\components\api\ApiController;
 use site\frontend\modules\photo\components\InlinePhotoModifier;
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\photo\models\PhotoCrop;
 use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
 use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
 
@@ -81,9 +82,13 @@ class PhotosApiController extends ApiController
 
     public function actionCreateCrop($photoId, array $cropData)
     {
-        $crop = new \PhotoCrop();
+        $crop = new PhotoCrop();
         $crop->attributes = $cropData;
-        $crop->
+        $crop->photoId = $photoId;
+        $this->success = $crop->save();
+        if ($this->success) {
+            $this->data = $crop;
+        }
     }
 
     /**

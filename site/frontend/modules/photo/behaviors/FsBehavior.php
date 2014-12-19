@@ -31,7 +31,7 @@ class FsBehavior extends \CBehavior
     {
         if (is_callable($this->fsName)) {
             $fsName = call_user_func($this->fsName, array('owner' => $this->owner));
-        } elseif (property_exists($this->owner, $this->fsName)) {
+        } elseif (isset($this->owner->{$this->fsName})) {
             $fsName = $this->owner->{$this->fsName};
         } else {
             $fsName = $this->fsName;

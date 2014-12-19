@@ -29,15 +29,11 @@ class DefaultController extends \LiteController
 
     public function actionPresets()
     {
+        //header( 'Content-Type: image/jpeg' );
         $photo = Photo::model()->findByPk(250);
-        $cropData = array(
-            'x' => 350,
-            'y' => 250,
-            'w' => 200,
-            'h' => 200,
-        );
-        $thumb = \Yii::app()->crops->getCrop($photo, 'avatarSmall', $cropData);
-        echo $thumb;
+        $path = 'originals/' . $photo->fs_name;
+        var_dump($photo->image);
+
     }
 
     public function actionIndex($userId)

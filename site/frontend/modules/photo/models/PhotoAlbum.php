@@ -1,5 +1,7 @@
 <?php
 
+namespace site\frontend\modules\photo\models;
+
 /**
  * This is the model class for table "photo__albums".
  *
@@ -15,8 +17,6 @@
  * The followings are the available model relations:
  * @property \User $author
  */
-
-namespace site\frontend\modules\photo\models;
 
 class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
 {

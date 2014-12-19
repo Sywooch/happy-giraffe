@@ -33,10 +33,7 @@ class AvatarManager
             foreach (self::$_sizeToPreset as $size => $presetName) {
                 $user->avatarObject->$size = \Yii::app()->crops->getCrop($photo, self::$_sizeToPreset[$size], $cropData, $crop['data']['fsName'])->getUrl();
             }
-
-            var_dump($user->avatarObject); die;
-
-            $user->update();
+            $user->save();
         }
     }
 } 

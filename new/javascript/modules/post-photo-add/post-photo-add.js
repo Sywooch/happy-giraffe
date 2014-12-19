@@ -39,12 +39,20 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
             }
             return 0;
         }, this);
-        this.handlePhotoCollection = function handlePhotoCollection(data) {
-            if (data.success === true) {
-                console.log(data);
+        this.createPhotopostHandler = function createPhotopostHandler(photopost) {
+            console.log(photopost);
+            if (photopost.success === true) {
+                console.log(photopost);
+            };
+        };
+        this.handlePhotoCollection = function handlePhotoCollection(collection) {
+            if (collection.success === true) {
+                this.photoCollection = new PhotoCollection(collection.data);
+                this.photopost.collectionId(this.photoCollection.id());
+                this.photopost.create().done(this.createPhotopostHandler.bind(this));
             }
         };
-        this.createPhotopost = function () {
+        this.createPhotoCollection = function () {
             ko.utils.arrayForEach(this.photopost.photoArray(), this.fetchPhotoIds.bind(this));
             if (this.photoIds().length > 0) {
              this.photoCollection.addPhotos(this.photoIds()).done(this.handlePhotoCollection.bind(this));

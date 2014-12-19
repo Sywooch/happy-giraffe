@@ -160,8 +160,10 @@
                                     | только
                                     | друзьям
             -->
-            <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a>
-                <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success" data-bind="click: createPhotopost"> Опубликовать</span>
+            <div class="postAdd_btns-hold">
+                <a href="" class="btn btn-link-gray margin-r15">Отменить</a>
+                <div class="btn-group dropup">
+                    <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: photopost.title.isValid() === false || photopost.photoArray().length === 0 }, click: createPhotoCollection"> Опубликовать</span>
                     <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark"><i class="ico-arrow-d-white"></i></span>
                         <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
                             <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">

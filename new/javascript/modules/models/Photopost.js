@@ -14,7 +14,7 @@ define(['jquery', 'knockout', 'models/Model', 'extensions/knockout.validation', 
             this.id = ko.observable(photopostData.id);
             this.title = ko.observable(photopostData.title);
             this.collectionId = ko.observable(photopostData.collectionId);
-            this.isDraft = ko.observable(photopostData.isDraft);
+            this.isDraft = ko.observable(false);
             /**
              * Валидация
              */

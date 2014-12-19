@@ -347,7 +347,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
         };
         this.addPhotos = function addPhotos(photosIds) {
-            return Model.get(this.addPhotosUrl, { photoIds: photosIds })
+            return Model.get(this.addPhotosUrl, { photosIds: photosIds })
         };
     }
 

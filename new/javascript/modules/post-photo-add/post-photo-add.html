@@ -14,10 +14,11 @@
             <!-- /ko -->
         </div>
     </div>
+    <!-- ko if: photopost.photoArray().length === 0 -->
     <div class="postAdd_row">
         <!-- cap-add-->
         <!-- Блок Добавления-->
-        <div class="cap-add cap-add__l" data-bind="photoComponentUpload: { data: { multiple: true }, observable: photopost.photoArray }">
+        <div class="cap-add cap-add__l" data-bind="photoComponentUpload: { data: { multiple: true }, observable: photopost.photoArray }, click: loadPhotoUploader">
             <div class="cap-add_hold">
                 <div class="cap-add_in">
                     <div class="cap-add_tx"> Добавить фотографии
@@ -26,6 +27,109 @@
             </div>
         </div>
     </div>
+    <!-- /ko -->
+
+    <!-- ko if: photopost.photoArray().length > 0 -->
+        <!-- ko foreach: { data: photopost.photoArray, as: 'photo' } -->
+            <div class="postAdd_row">
+                <div class="postAdd_count postAdd_count__s" data-bind="text: $index() + 1"></div>
+                <div class="family-settings clearfix family-settings__photopost">
+                    <div class="family-edit">
+                        <!-- ko if: photo.edit() === false && (photo.title().length !== 0 || photo.description().length !== 0) -->
+                            <a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.editPhoto.bind($parent)"></a>
+                        <!-- /ko -->
+                        <a href="#" class="ico-close4" data-bind="click: $parent.deletePhoto.bind($parent)"></a>
+                    </div>
+                    <div class="family-settings_hold clearfix">
+                        <div class="family-settings_l">
+                            <div class="family-settings_photo">
+                                <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                                -->
+                                <div class="i-photo">
+                                    <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                    <!-- Загруженное фото-->
+                                    <div class="i-photo_hold">
+                                        <div class="i-photo_img-hold">
+                                            <img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo, preset: 'uploadPreview' }">
+                                            <!-- ko if: photo.edit() === true || ( photo.title().length === 0 && photo.description().length === 0) -->
+                                                <div class="i-photo_overlay">
+                                                    <!--<a href="#" class="ico-photo-edit powertip"></a>-->
+                                                    <div class="radio-icons radio-icons__checkbox">
+                                                        <label for="checkboxid" class="radio-icons_label">Обложка</label>
+                                                        <input id="checkboxid" type="checkbox" name="checkbox" class="radio-icons_radio">
+                                                    </div>
+                                                </div>
+                                            <!-- /ko -->
+                                        </div>
+                                        <!-- input.i-photo_itx.itx-gray(type="text", placeholder='')-->
+                                    </div>
+                                </div>
+                                <!-- /Блок фотографии-->
+                            </div>
+                        </div>
+                        <div class="family-settings_r">
+                            <!-- ko if: photo.edit() === false && photo.title().length === 0 && photo.description().length === 0 -->
+                            <div class="family-settings_cap-edit-hold" data-bind="click: $parent.editPhoto.bind($parent)">
+                                <a href="#" class="family-settings_cap-edit">
+                                    <div class="ico-edit ico-edit__xl"></div><br>Название и<br>описание
+                                </a>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: photo.edit() === false && (photo.title().length !== 0 || photo.description().length !== 0) -->
+                                <div class="family-settings_row">
+                                    <div class="family-settings_name" data-bind="text: photo.title">
+                                    </div>
+                                </div>
+                                <div class="family-settings_row">
+                                    <div class="family-settings_desc" data-bind="text: photo.description">
+                                    </div>
+                                </div>
+                            <!-- /ko -->
+                            <!-- ko if: photo.edit() === true -->
+                                <div class="family-settings_row">
+                                    <div class="inp-valid inp-valid__abs" data-bind="css: { error: photo.title.isValid() === false }">
+                                        <div class="inp-valid_count" data-bind="text: photo.title().length"></div>
+                                        <input type="text" placeholder="Название фото" class="itx-gray" data-bind="textInput: photo.title">
+                                        <!-- ko if: photo.title.isValid() === false -->
+                                            <div class="inp-valid_error" data-bind="validationMessage: photo.title">Ошибка</div>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                                <div class="family-settings_row">
+                                    <div class="inp-valid inp-valid__abs" data-bind="css: { error: photo.description.isValid() === false }">
+                                        <div class="inp-valid_count" data-bind="text: photo.description().length"></div>
+                                        <textarea rows="3" placeholder="Описание фото" class="itx-gray" data-bind="textInput: photo.description"></textarea>
+                                        <!-- ko if: photo.description.isValid() === false -->
+                                            <div class="inp-valid_error" data-bind="validationMessage: photo.description">Ошибка</div>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                                <div class="textalign-r">
+                                    <a class="btn btn-secondary btn-sl margin-r10" data-bind="click: $parent.cancelEditPhoto.bind($parent)">Отмена</a>
+                                    <a class="btn btn-success btn-sl" data-bind="css: { disabled: photo.title.isValid() === false || photo.description.isValid() === false }, click: $parent.doneEditPhoto">Ok</a>
+                                </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- /ko -->
+        <div class="postAdd_row">
+            <div class="postAdd_count postAdd_count__s"> </div>
+            <!-- cap-add-->
+            <!-- Блок Добавления-->
+            <div class="cap-add cap-add__l-s" data-bind="photoComponentUpload: { data: { multiple: true }, observable: photopost.photoArray }, click: loadPhotoUploader">
+                <div class="cap-add_hold">
+                    <div class="cap-add_in">
+                        <div class="cap-add_tx"> Добавить еще <br> фотографии
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- /ko -->
+
+
     <!-- Строка-->
     <!-- postAdd_btns-->
     <div class="postAdd_row">
@@ -57,7 +161,7 @@
                                     | друзьям
             -->
             <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a>
-                <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success"> Опубликовать</span>
+                <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success" data-bind="click: createPhotopost"> Опубликовать</span>
                     <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark"><i class="ico-arrow-d-white"></i></span>
                         <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
                             <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">

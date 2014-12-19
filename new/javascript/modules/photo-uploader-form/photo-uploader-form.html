@@ -23,7 +23,7 @@
 
             <!-- fromComputer -->
 
-            <!-- ko if: initData.multiple === true -->
+            <!-- ko if: initData.multiple === true && initData.collectionId !== undefined -->
                 <!-- ko stopBinding: true -->
                 <div id="photo-tab-computer-multiple" class="tab-pane">
                         <div class="popup-add_frame popup-add_frame__multi" data-bind="visible: photos().length == 0">

@@ -78,9 +78,11 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         },
         photoAttaching: function photoAttaching () {
             if (this.photoCollection() !== null) {
-                if (this.photoCollection().attachesCount() > 0) {
+                if (this.photoCollection().attachesCount() > 0 && this.photoCollection().cover()) {
                     this.attach(this.photoCollection().cover());
                     return this.photoCollection().cover().photo();
+                } else {
+                    return null;
                 }
             }
             return null;
@@ -141,7 +143,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                     if (this.birthday.day.isValid() && this.birthday.month.isValid() && this.birthday.year.isValid()) {
                         canSubmitFields = true;
                     } else {
-                        canSubmitFields = false;
+                        canSubmitFields = false;JcKetx3MV
                     }
                     break;
             }

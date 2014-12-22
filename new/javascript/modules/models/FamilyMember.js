@@ -143,7 +143,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
                     if (this.birthday.day.isValid() && this.birthday.month.isValid() && this.birthday.year.isValid()) {
                         canSubmitFields = true;
                     } else {
-                        canSubmitFields = false;JcKetx3MV
+                        canSubmitFields = false;
                     }
                     break;
             }

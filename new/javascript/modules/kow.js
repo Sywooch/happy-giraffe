@@ -26,4 +26,5 @@ define(["jquery", "knockout"], function ($, ko) {
     $('photo-single').each(componentIterator);
     ko.components.register('comment-widget', { require: 'comment-widget/comment-widget' });
     $('comment-widget').each(componentIterator);
+    ko.components.register('register-form', { require: 'signup/register-form' });
 });

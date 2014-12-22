@@ -19,4 +19,15 @@ class ApiController extends \site\frontend\components\api\ApiController
             'errors' => $form->getErrors(),
         );
     }
+
+    public function actionValidate(array $attributes)
+    {
+        $form = new RegisterForm();
+        $form->attributes = $attributes;
+        $form->validate();
+        $this->success = true;
+        $this->data = array(
+            'errors' => $form->getErrors(),
+        );
+    }
 } 

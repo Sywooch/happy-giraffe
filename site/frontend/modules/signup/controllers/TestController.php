@@ -7,10 +7,12 @@
 namespace site\frontend\modules\signup\controllers;
 
 
-class TestController
+class TestController extends \LiteController
 {
+    public $litePackage = 'posts';
+
     public function actionReg()
     {
-
+        $this->render('reg');
     }
 } 

@@ -183,6 +183,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             this.id = ko.observable(data.id || null);
             this.userId = parseInt(data.userId || null);
             this.type = Model.createStdProperty(data.type || null, 'type');
+            this.attach = ko.observable(null);
             this.relationshipStatus = Model.createStdProperty(data.relationshipStatus || null, 'relationshipStatus');
             if (data.gender === null) {
                 this.gender = Model.createStdProperty(data.gender || 'null', 'gender');

@@ -1,17 +1,18 @@
-define(['register-form', 'user-config'], function(RegisterForm, userConfig) {
+define(['knockout', 'models/User', 'modules-helpers/component-custom-returner', 'kow'], function(ko, User, customReturner) {
     ko.bindingHandlers.login = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            $(element).click(function() {
-                if (userConfig.isGuest) {
-                    alert('123');
+            $(element).click(function (evt) {
+                if (User.isGuest) {
+                    evt.preventDefault();
+                    $.magnificPopup.open({
+                        items: {
+                            src: customReturner('register-form'),
+                            type: 'inline'
+                        }
+                    });
+                    ko.applyBindings({}, $('register-form')[0]);
                 }
-                return false;
             });
-        },
-        update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            // This will be called once when the binding is first applied to an element,
-            // and again whenever any observables/computeds that are accessed change
-            // Update the DOM element based on the supplied values here.
         }
     };
 });

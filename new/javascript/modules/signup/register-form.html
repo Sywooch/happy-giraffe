@@ -9,10 +9,10 @@
         <div class="popup-sign_cont">
             <div class="popup-sign_col popup-sign_col__left">
                 <div class="popup-sign_row">
-                    <div class="inp-valid inp-valid__abs success">
-                        <input type="text" placeholder="Имя" class="itx-gray popup-sign_itx">
+                    <div class="inp-valid inp-valid__abs" data-bind="css: fields.firstName.cssClass">
+                        <input type="text" placeholder="Имя" class="itx-gray popup-sign_itx" data-bind="textInput: fields.firstName.value, event: { blur: fields.firstName.validate }">
                         <div class="inp-valid_error">
-                            <div class="errorMessage">Не заполнено поле "Имя"</div>
+                            <div class="errorMessage" data-bind="text: fields.firstName.firstError"></div>
                         </div>
                         <div class="inp-valid_success inp-valid_success__ico-check"></div>
                     </div>
@@ -33,7 +33,7 @@
                     <div class="popup-sign_label">Дата рождения</div>
                 </div>
                 <div class="popup-sign_row">
-                    <div class="inp-valid inp-valid__abs success">
+                    <div class="inp-valid inp-valid__abs">
                         <div class="float-l w-70 margin-r10">
                             <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
                                 <option></option>
@@ -97,7 +97,7 @@
                 <div class="popup-sign_row">
                     <div class="popup-sign_label">
                         <div class="display-ib">
-                            <div class="inp-valid inp-valid__abs error">Пол
+                            <div class="inp-valid inp-valid__abs">Пол
                                 <div class="radio-icons radio-icons__inline margin-l10">
                                     <input id="radio4" type="radio" name="b-radio2" class="radio-icons_radio">
                                     <label for="radio4" class="radio-icons_label">Мужской</label>

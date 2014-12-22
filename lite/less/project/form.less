@@ -258,14 +258,14 @@ textarea.error {
     &__abs &_error {
         position: absolute;
         bottom: 100%;
-        right: 0;
+        right: 5px;
         z-index: 1000;
         white-space: nowrap;
     }
     &__abs &_success {
         position: absolute;
         left: 100%;
-        margin-left: 10px;
+        margin-left: 5px;
         z-index: 1000;
     }
     &__abs &_success__ico-check {
@@ -280,20 +280,23 @@ textarea.error {
 
     &_error {
         display: none;
-        padding: 8px 10px 8px 33px;
-        background: #fde3e3 url('@{path-img}/inp-valid_error.png') no-repeat 7px 6px;
+        padding: 4px 9px;
+        background-color: #fc6c45;
+        /*padding: 8px 10px 8px 33px;
+        background: #fde3e3 url('@{path-img}/inp-valid_error.png') no-repeat 7px 6px;*/
     }
     &_error:after {
         content: ' ';
         position: absolute;
-        right: 10px;
+        right: 12px;
         bottom: -12px;
         border: 6px solid transparent;
-        border-top-color: #fde3e3;
+        border-top-color: #fc6c45;
     }
     &_error .errorMessage {
-        color: #db9191 !important;
+        color: #ffd4c8 !important;
         font-size: 12px !important;
+        line-height: 1;
         margin: 0;
     }
     &_success__ico-check {

@@ -106,7 +106,7 @@ block block-hidden
                         .popup-sign_label Дата рождения
                     .popup-sign_row
                         .inp-valid.inp-valid__abs.success
-                            .float-l.w-70.margin-r10
+                            .float-l.w-80.margin-r5
                                 select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
                                     option
                                     option(value="1") 1
@@ -121,7 +121,7 @@ block block-hidden
                                     option(value="10") 10
                                     option(value="11") 11
                                     option(value="12") 12
-                            .float-l.w-115.margin-r10
+                            .float-l.w-115.margin-r5
                                 select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
                                     option
                                     option(value="1") Января
@@ -174,7 +174,7 @@ block block-hidden
                                         .errorMessage 
                                             | Выберите пол
                                     .inp-valid_success.inp-valid_success__ico-check
-                    .popup-sign_row
+                    .popup-sign_row.margin-t15
                         .inp-valid.inp-valid__abs
                             input.itx-gray.popup-sign_itx(type="text", placeholder="Email")
                             .inp-valid_error
@@ -227,11 +227,11 @@ block block-hidden
 
 
             .popup-sign_cont
-                .popup-sign_col
 
-                    .popup-sign_capcha-hold
-                        .popup-sign_row
-                            .heading-xl Введите слово с картинки
+                .popup-sign_capcha-hold
+                    .popup-sign_row
+                        .heading-xl Введите слово с картинки
+                    .popup-sign_col
                         .popup-sign_row
                             //- размеры капчи 285*50px
                             img.popup-sign_capcha(src="/images/captcha.png" width="285" height="50")
@@ -250,8 +250,8 @@ block block-hidden
                                 .inp-valid_success.inp-valid_success__ico-check
                             //-.popup-sign_tx-help Введите код с картинки
 
-                    .popup-sign_row
-                        .btn-xl.btn.btn-success.btn-block.loading Продолжить
+                        .popup-sign_row
+                            .btn-xl.btn.btn-success.btn-block.loading Продолжить
                 //-.popup-sign_social
                     .popup-sign_row
                         .popup-sign_label.textalign-c или быстро через
@@ -302,7 +302,7 @@ block block-hidden
                         .popup-sign_label Дата рождения
                     .popup-sign_row
                         .inp-valid.inp-valid__abs.success
-                            .float-l.w-70.margin-r10
+                            .float-l.w-80.margin-r5
                                 select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
                                     option
                                     option(value="1") 1
@@ -317,7 +317,7 @@ block block-hidden
                                     option(value="10") 10
                                     option(value="11") 11
                                     option(value="12") 12
-                            .float-l.w-115.margin-r10
+                            .float-l.w-115.margin-r5
                                 select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
                                     option
                                     option(value="1") Января
@@ -370,7 +370,7 @@ block block-hidden
                                         .errorMessage 
                                             | Выберите пол
                                     .inp-valid_success.inp-valid_success__ico-check
-                    .popup-sign_row
+                    .popup-sign_row.margin-t15
                         .inp-valid.inp-valid__abs
                             input.itx-gray.popup-sign_itx(type="text", placeholder="Email")
                             .inp-valid_error
@@ -577,7 +577,7 @@ block block-hidden
     // /popup-sign
 
     // .popup-sign
-    #reg-email.popup.popup-sign
+    //-#reg-email.popup.popup-sign
         .popup-sign_hold
             .popup-sign_top
                 .popup-sign_t Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!
@@ -597,7 +597,7 @@ block block-hidden
     // /popup-sign
 
     // .popup-sign
-    #reg-email2.popup.popup-sign
+    //-#reg-email2.popup.popup-sign
         .popup-sign_hold
             .popup-sign_top
                 .popup-sign_t Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!
@@ -776,7 +776,7 @@ block block-hidden
                     span.ico-lock-big
                     | Напомнить пароль
             .popup-sign_cont
-                .popup-sign_tx.margin-t20
+                .popup-sign_tx
                     | Пожалуйста введите ваш Email. Вам будет выслано письмо с вашим паролем.
 
                 .popup-sign_col-w
@@ -803,7 +803,7 @@ block block-hidden
             .popup-sign_cont
                 .i-info-success
                     | Вам отправлено письмо с новым паролем.
-                .popup-sign_tx.margin-t20
+                .popup-sign_tx
                     | Пожалуйста введите ваш Email. Вам будет выслано письмо с вашим паролем.
 
                 .popup-sign_col-w

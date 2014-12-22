@@ -21,7 +21,7 @@ class RegisterForm extends \CFormModel
     public $email;
     public $password;
 
-    protected $birthday;
+    public $birthday;
 
     public function rules()
     {
@@ -52,41 +52,41 @@ class RegisterForm extends \CFormModel
         );
     }
 
-    public function save()
-    {
-        $transaction = \Yii::app()->db->beginTransaction();
-        try {
-            $user = new \User();
-            $user->attributes = $this->attributes;
-            if ($user->save()) {
-                $this->afterSave();
-                $transaction->commit();
-            } else {
-                $transaction->rollback();
-            }
-        } catch (\Exception $e) {
-            $transaction->rollback();
-            throw $e;
-        }
-    }
-
-    protected function afterSave()
-    {
-        //рубрика для блога
-        $rubric = new \CommunityRubric;
-        $rubric->title = 'Обо всём';
-        $rubric->user_id = $this->id;
-        $rubric->save();
-
-        \Yii::import('site.frontend.modules.myGiraffe.models.*');
-        \ViewedPost::getInstance($this->id);
-
-        \Friend::model()->addCommentatorAsFriend($this->id);
-
-        //create some tables
-        \Yii::app()->db->createCommand()->insert(\UserPriority::model()->tableName(), array('user_id' => $this->id));
-        \Yii::app()->db->createCommand()->insert(\UserScores::model()->tableName(), array('user_id' => $this->id));
-
-        \Yii::app()->user->returnUrl = \Yii::app()->request->getUrlReferrer();
-    }
+//    public function save()
+//    {
+//        $transaction = \Yii::app()->db->beginTransaction();
+//        try {
+//            $user = new \User();
+//            $user->attributes = $this->attributes;
+//            if ($user->save()) {
+//                $this->afterSave();
+//                $transaction->commit();
+//            } else {
+//                $transaction->rollback();
+//            }
+//        } catch (\Exception $e) {
+//            $transaction->rollback();
+//            throw $e;
+//        }
+//    }
+//
+//    protected function afterSave()
+//    {
+//        //рубрика для блога
+//        $rubric = new \CommunityRubric;
+//        $rubric->title = 'Обо всём';
+//        $rubric->user_id = $this->id;
+//        $rubric->save();
+//
+//        \Yii::import('site.frontend.modules.myGiraffe.models.*');
+//        \ViewedPost::getInstance($this->id);
+//
+//        \Friend::model()->addCommentatorAsFriend($this->id);
+//
+//        //create some tables
+//        \Yii::app()->db->createCommand()->insert(\UserPriority::model()->tableName(), array('user_id' => $this->id));
+//        \Yii::app()->db->createCommand()->insert(\UserScores::model()->tableName(), array('user_id' => $this->id));
+//
+//        \Yii::app()->user->returnUrl = \Yii::app()->request->getUrlReferrer();
+//    }
 } 

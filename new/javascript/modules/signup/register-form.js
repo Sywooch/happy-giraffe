@@ -1,7 +1,8 @@
-define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], function($, ko, template, User) {
+define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User', 'signup/eauth'], function($, ko, template, User) {
     function Register(params) {
         var self = this;
         self.registerUrl = '/api/signup/register/';
+        self.redirectUrl = '/';
 
         self.SCREEN_STEP_1 = 'screenStep1';
         self.SCREEN_STEP_2 = 'screenStep2';
@@ -14,8 +15,6 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
         self.registerForm = new RegisterForm();
         self.captchaForm = new CaptchaForm();
 
-
-
         self.registerSimple = function() {
             self.registerForm.validate(function(response) {
                 if (response.data.errors.length == 0) {
@@ -25,53 +24,69 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
                 console.log('2');
             });
         };
+
+        self.verifyCaptcha = function() {
+            $.post(self.registerUrl, JSON.stringify({ attributes: self.registerForm.getValues() }), function(response) {
+                if (response.success) {
+                    window.location.href = self.redirectUrl;
+                }
+            });
+        };
+
+        self.social = function(values) {
+            self.registerForm.setValues(values);
+            self.step(self.SCREEN_STEP_SOCIAL);
+        };
+
+        registerForm = this;
+        $(".auth-service.vkontakte a").eauth({"popup":{"width":585,"height":350},"id":"vkontakte"});
+        $(".auth-service.odnoklassniki a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
     }
 
-    function Form() {
-        var self = this;
-        self.fields = [];
-
-        self.validate = function(callback) {
-            $.post(self.validateUrl, JSON.stringify({ attributes: self.getValues() }), function(response) {
-
-
-                for (var attribute in self.fields) {
+    var Form = {
+        validate: function(callback) {
+            $.post(this.validateUrl, JSON.stringify({ attributes: this.getValues() }), function(response) {
+                for (var attribute in this.fields) {
                     if (response.data.errors[attribute] !== undefined) {
-                        self.fields[attribute].errors(response.data.errors[attribute]);
+                        this.fields[attribute].errors(response.data.errors[attribute]);
                     } else {
-                        self.fields[attribute].errors([]);
+                        this.fields[attribute].errors([]);
                     }
                 }
                 callback(response);
             });
-        };
-
-        self.getValues = function() {
+        },
+        getValues: function() {
             var values = {};
-            for (var i in self.fields) {
-                values[i] = self.fields[i].value();
+            for (var i in this.fields) {
+                values[i] = this.fields[i].value();
             }
             return values;
-        };
-    }
+        },
+        setValues: function(values) {
+            for (var key in values) {
+                if (this.fields.hasOwnProperty(key)) {
+                    this.fields[key].value(values[key]);
+                }
+            }
+        }
+    };
 
     function RegisterForm() {
-        Form.apply(this, arguments);
         var self = this;
         self.validateUrl = '/api/signup/validate/';
         self.fields = {
-            firstName: new FormField(self, 'Никита'),
-            lastName: new FormField(self, 'Свистоплясов'),
+            firstName: new FormField(self, ''),
+            lastName: new FormField(self, ''),
             birthday: new DateField(self, null),
-            gender: new FormField(self, '1'),
-            email: new FormField(self, 'nikitafsdf@happy-giraffe.ru'),
-            password: new FormField(self, '111111')
+            gender: new FormField(self, ''),
+            email: new FormField(self, ''),
+            password: new FormField(self, '')
         };
     }
-    RegisterForm.prototype = Object.create(Form.prototype);
+    RegisterForm.prototype = Object.create(Form);
 
     function CaptchaForm() {
-        Form.apply(this, arguments);
         var self = this;
         self.validateUrl = '/api/signup/captcha/';
         self._captchaUrl = '/signup/default/captcha/';
@@ -84,7 +99,7 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
             verifyCode: new FormField(self, '')
         };
     }
-    CaptchaForm.prototype = Object.create(Form.prototype);
+    CaptchaForm.prototype = Object.create(Form);
 
     function FormField(parent, value) {
         var self = this;
@@ -118,12 +133,18 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
         self.d = ko.observable();
         self.m = ko.observable();
         self.y = ko.observable();
-        self.value = ko.computed(function() {
-            return [self.y(), self.m(), self.d()].join('-');
+        self.d.subscribe(function() {
+            self.updateValue();
         });
-        self.value.subscribe(function() {
-            self.validate();
+        self.m.subscribe(function() {
+            self.updateValue();
         });
+        self.y.subscribe(function() {
+            self.updateValue();
+        });
+        self.updateValue = function() {
+            self.value([self.y(), self.m(), self.d()].join('-'));
+        };
         self.validate = function() {
             if (self.d() !== undefined && self.m() !== undefined && self.y() !== undefined) {
                 parent.validate(function() {

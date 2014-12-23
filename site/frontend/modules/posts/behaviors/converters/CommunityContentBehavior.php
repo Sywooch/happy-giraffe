@@ -153,7 +153,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
                     'params' =>
                     'id: ' . (int) $collection->id . ', ' .
                     'attachCount: ' . (int) $count . ', ' .
-                    'coverId: ' . $collection->cover->photo->id,
+                    'coverId: ' . $collection->cover->id,
                         ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
 
         $newPost->text = $oldPost->photoPost->text;

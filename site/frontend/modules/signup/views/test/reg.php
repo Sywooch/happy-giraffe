@@ -1,7 +1,10 @@
-<a  data-bind="login: {}" id="href">Регистрация</a>
+<div id="href">
+    <a  data-bind="register: {}">Регистрация</a><br>
+    <a  data-bind="login: {}">Вход</a>
+</div>
 
 <script type="text/javascript">
-    require(['knockout', 'signup/login-binding'], function(ko) {
+    require(['knockout', 'signup/bindings'], function(ko) {
         ko.applyBindings({}, document.getElementById('href'));
     });
 </script>

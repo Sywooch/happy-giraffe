@@ -15,6 +15,7 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
   <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
@@ -274,7 +275,7 @@
             </div>
             <div class="b-main_col-hold clearfix">
               <!--/////-->
-              <!-- Основная колонка -->
+              <!-- Основная колонка   -->
               <div class="b-main_col-article">
                 <!-- Статья с текстом-->
                 <!-- b-article-->
@@ -378,8 +379,77 @@
                       </div>
                     </section>
                     <!-- /comments-->
+                    <div class="b-article_like clearfix">
+                      <div class="article-settings">
+                        <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
+                        <div class="article-settings_hold display-b">
+                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>
+                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__edit powertip"></a></div>
+                          <div class="article-settings_i"><a href="javascript:void(0)" class="ico-users ico-users__friend active powertip"></a>
+                            <div class="article-settings_drop display-b">
+                              <div class="article-settings_drop-i"><a href="#" class="article-settings_drop-a"><span class="ico-users ico-users__all"></span>Показывать всем</a></div>
+                              <div class="article-settings_drop-i"><a href="#" class="article-settings_drop-a"><span class="ico-users ico-users__friend"></span>Только друзьям</a></div>
+                            </div>
+                          </div>
+                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__delete powertip"></a></div>
+                        </div>
+                      </div>
+                      <div class="article-also">
+                        <div class="article-also_row">
+                          <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
+                          <div class="like-control like-control__small">
+                            <div class="like-control_hold like-control_hold__comment"><a href="#" title="Комментировать" class="like-control_i powertip">
+                                <div href="#" class="ico-action-hg ico-action-hg__comment"> </div>
+                                <div class="like-control_tx">865</div></a></div>
+                            <div class="like-control_hold visible-md-inline-block"><a href="#" title="Нравится" class="like-control_i powertip">
+                                <div class="ico-action-hg ico-action-hg__like"></div>
+                                <div class="like-control_tx">865</div></a></div>
+                            <div class="like-control_hold visible-md-inline-block"><a href="#" title="В избранное" class="like-control_i powertip">
+                                <div class="ico-action-hg ico-action-hg__favorite"></div>
+                                <div class="like-control_tx">8634</div></a>
+                              <!-- .favorites-add-popup.favorites-add-popup__right.display-n
+                              .favorites-add-popup_t Добавить запись в избранное
+                              .favorites-add-popup_i.clearfix
+                                  img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
+                                  .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
+                              .favorites-add-popup_row
+                                  label.favorites-add-popup_label(for='') Теги:
+                                  span.favorites-add-popup_tag
+                                      a.favorites-add-popup_tag-a(href='') отношения
+                                      a.ico-close(href='#')
+                                  span.favorites-add-popup_tag
+                                      a.favorites-add-popup_tag-a(href='') любовь
+                                      a.ico-close(href='#')
+                              .favorites-add-popup_row.margin-b10
+                                  a.textdec-none(href='#')
+                                      span.ico-plus2.margin-r5
+                                      span.a-pseudo-gray.color-gray Добавить тег
+                              .favorites-add-popup_row
+                                  label.favorites-add-popup_label(for='') Комментарий:
+                                  .float-r.color-gray 0/150
+                              .favorites-add-popup_row
+                                  textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
+                              .favorites-add-popup_row.textalign-c.margin-t10
+                                  a.btn-secondary.btn-s(href='#') Отменить
+                                  a.btn-success.btn-s(href='#') Добавить
+                              
+                              
+                              -->
+                            </div>
+                          </div>
+                        </div>
+                        <div class="article-also_row">
+                          <div class="article-also_tx">Смотреть все <a href="#">комментарии</a>
+                            <div class="visible-md-inline-block">,<a href="#"> нравится, </a></div>
+                            <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </article>
+                <!-- /b-article-->
+                
                 <!-- Статья с текстом-->
                 <!-- b-article-->
                 <article class="b-article b-article__list clearfix">
@@ -407,8 +477,77 @@
                         <p>Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  <span class="ico-more"></span></p>
                       </div>
                     </div>
+                    <div class="b-article_like clearfix">
+                      <div class="article-settings">
+                        <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
+                        <div class="article-settings_hold display-b">
+                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>
+                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__edit powertip"></a></div>
+                          <div class="article-settings_i"><a href="javascript:void(0)" class="ico-users ico-users__friend active powertip"></a>
+                            <div class="article-settings_drop display-b">
+                              <div class="article-settings_drop-i"><a href="#" class="article-settings_drop-a"><span class="ico-users ico-users__all"></span>Показывать всем</a></div>
+                              <div class="article-settings_drop-i"><a href="#" class="article-settings_drop-a"><span class="ico-users ico-users__friend"></span>Только друзьям</a></div>
+                            </div>
+                          </div>
+                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__delete powertip"></a></div>
+                        </div>
+                      </div>
+                      <div class="article-also">
+                        <div class="article-also_row">
+                          <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
+                          <div class="like-control like-control__small">
+                            <div class="like-control_hold like-control_hold__comment"><a href="#" title="Комментировать" class="like-control_i powertip">
+                                <div href="#" class="ico-action-hg ico-action-hg__comment"> </div>
+                                <div class="like-control_tx">865</div></a></div>
+                            <div class="like-control_hold visible-md-inline-block"><a href="#" title="Нравится" class="like-control_i powertip">
+                                <div class="ico-action-hg ico-action-hg__like"></div>
+                                <div class="like-control_tx">865</div></a></div>
+                            <div class="like-control_hold visible-md-inline-block"><a href="#" title="В избранное" class="like-control_i powertip">
+                                <div class="ico-action-hg ico-action-hg__favorite"></div>
+                                <div class="like-control_tx">8634</div></a>
+                              <!-- .favorites-add-popup.favorites-add-popup__right.display-n
+                              .favorites-add-popup_t Добавить запись в избранное
+                              .favorites-add-popup_i.clearfix
+                                  img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
+                                  .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
+                              .favorites-add-popup_row
+                                  label.favorites-add-popup_label(for='') Теги:
+                                  span.favorites-add-popup_tag
+                                      a.favorites-add-popup_tag-a(href='') отношения
+                                      a.ico-close(href='#')
+                                  span.favorites-add-popup_tag
+                                      a.favorites-add-popup_tag-a(href='') любовь
+                                      a.ico-close(href='#')
+                              .favorites-add-popup_row.margin-b10
+                                  a.textdec-none(href='#')
+                                      span.ico-plus2.margin-r5
+                                      span.a-pseudo-gray.color-gray Добавить тег
+                              .favorites-add-popup_row
+                                  label.favorites-add-popup_label(for='') Комментарий:
+                                  .float-r.color-gray 0/150
+                              .favorites-add-popup_row
+                                  textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
+                              .favorites-add-popup_row.textalign-c.margin-t10
+                                  a.btn-secondary.btn-s(href='#') Отменить
+                                  a.btn-success.btn-s(href='#') Добавить
+                              
+                              
+                              -->
+                            </div>
+                          </div>
+                        </div>
+                        <div class="article-also_row">
+                          <div class="article-also_tx">Смотреть все <a href="#">комментарии</a>
+                            <div class="visible-md-inline-block">,<a href="#"> нравится, </a></div>
+                            <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </article>
+                <!-- /b-article-->
+                
                 <!-- Статья статус-->
                 <!-- b-article-->
                 <article class="b-article b-article__user-status clearfix  b-article__list">
@@ -512,69 +651,93 @@
                             <!-- У изображений соотношения сторон сохраняются -->
                             <!-- 0,65 соотношение сторон-->
                           </div>
-                          <picture class="b-album_img-picture"><img src="http://placekitten.com/600/450" alt="Фото" class="b-album_img-big">
+                          <picture class="b-album_img-picture"><img src="http://placecreature.com/flying-squirrel/600/400/" alt="Фото" class="b-album_img-big">
                           </picture>
                           <div class="b-album_count-hold b-album_count-hold__in">
                             <div class="b-album_count">240</div>
                             <div class="b-album_count-tx">фото</div>
                           </div></a>
                       </div>
+                      <div class="b-album_overlay"><a class="b-album_r">
+                          <div class="b-album_tx">Смотреть <br> все фото
+                          </div>
+                          <div class="b-album_ico-album"></div>
+                          <div class="b-album_arrow-all"></div></a>
+                        <ul class="b-album_prev clearfix visible-md-block">
+                          <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
+                              <div class="b-album_prev-hold"></div></a></li>
+                          <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">
+                              <div class="b-album_prev-hold"></div></a></li>
+                          <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
+                              <div class="b-album_prev-hold"></div></a></li>
+                        </ul>
+                      </div>
                     </section>
                     <!-- /b-album-->
-                    <div class="b-article_in clearfix">
-                      <div class="wysiwyg-content clearfix">
-                        <!-- Описание определенное количество символов-->
-                        <p>Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  <span class="ico-more"></span></p>
-                      </div>
-                    </div>
-                    <div class="article-also">
-                      <div class="article-also_row">
-                        <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
-                        <div class="like-control like-control__small">
-                          <div class="like-control_hold like-control_hold__comment"><a href="#" title="Комментировать" class="like-control_i powertip">
-                              <div href="#" class="ico-action-hg ico-action-hg__comment"> </div>
-                              <div class="like-control_tx">865</div></a></div>
-                          <div class="like-control_hold visible-md-inline-block"><a href="#" title="Нравится" class="like-control_i powertip">
-                              <div class="ico-action-hg ico-action-hg__like"></div>
-                              <div class="like-control_tx">865</div></a></div>
-                          <div class="like-control_hold visible-md-inline-block"><a href="#" title="В избранное" class="like-control_i powertip">
-                              <div class="ico-action-hg ico-action-hg__favorite"></div>
-                              <div class="like-control_tx">8634</div></a>
-                            <!-- .favorites-add-popup.favorites-add-popup__right.display-n
-                            .favorites-add-popup_t Добавить запись в избранное
-                            .favorites-add-popup_i.clearfix
-                                img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
-                                .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
-                            .favorites-add-popup_row
-                                label.favorites-add-popup_label(for='') Теги:
-                                span.favorites-add-popup_tag
-                                    a.favorites-add-popup_tag-a(href='') отношения
-                                    a.ico-close(href='#')
-                                span.favorites-add-popup_tag
-                                    a.favorites-add-popup_tag-a(href='') любовь
-                                    a.ico-close(href='#')
-                            .favorites-add-popup_row.margin-b10
-                                a.textdec-none(href='#')
-                                    span.ico-plus2.margin-r5
-                                    span.a-pseudo-gray.color-gray Добавить тег
-                            .favorites-add-popup_row
-                                label.favorites-add-popup_label(for='') Комментарий:
-                                .float-r.color-gray 0/150
-                            .favorites-add-popup_row
-                                textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
-                            .favorites-add-popup_row.textalign-c.margin-t10
-                                a.btn-secondary.btn-s(href='#') Отменить
-                                a.btn-success.btn-s(href='#') Добавить
-                            
-                            
-                            -->
+                    <div class="b-article_like clearfix">
+                      <div class="article-settings">
+                        <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
+                        <div class="article-settings_hold display-b">
+                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>
+                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__edit powertip"></a></div>
+                          <div class="article-settings_i"><a href="javascript:void(0)" class="ico-users ico-users__friend active powertip"></a>
+                            <div class="article-settings_drop display-b">
+                              <div class="article-settings_drop-i"><a href="#" class="article-settings_drop-a"><span class="ico-users ico-users__all"></span>Показывать всем</a></div>
+                              <div class="article-settings_drop-i"><a href="#" class="article-settings_drop-a"><span class="ico-users ico-users__friend"></span>Только друзьям</a></div>
+                            </div>
                           </div>
+                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__delete powertip"></a></div>
                         </div>
                       </div>
-                      <div class="article-also_row">
-                        <div class="article-also_tx">Смотреть все <a href="#">комментарии</a>
-                          <div class="visible-md-inline-block">,<a href="#"> нравится, </a></div>
-                          <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.
+                      <div class="article-also">
+                        <div class="article-also_row">
+                          <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
+                          <div class="like-control like-control__small">
+                            <div class="like-control_hold like-control_hold__comment"><a href="#" title="Комментировать" class="like-control_i powertip">
+                                <div href="#" class="ico-action-hg ico-action-hg__comment"> </div>
+                                <div class="like-control_tx">865</div></a></div>
+                            <div class="like-control_hold visible-md-inline-block"><a href="#" title="Нравится" class="like-control_i powertip">
+                                <div class="ico-action-hg ico-action-hg__like"></div>
+                                <div class="like-control_tx">865</div></a></div>
+                            <div class="like-control_hold visible-md-inline-block"><a href="#" title="В избранное" class="like-control_i powertip">
+                                <div class="ico-action-hg ico-action-hg__favorite"></div>
+                                <div class="like-control_tx">8634</div></a>
+                              <!-- .favorites-add-popup.favorites-add-popup__right.display-n
+                              .favorites-add-popup_t Добавить запись в избранное
+                              .favorites-add-popup_i.clearfix
+                                  img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
+                                  .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
+                              .favorites-add-popup_row
+                                  label.favorites-add-popup_label(for='') Теги:
+                                  span.favorites-add-popup_tag
+                                      a.favorites-add-popup_tag-a(href='') отношения
+                                      a.ico-close(href='#')
+                                  span.favorites-add-popup_tag
+                                      a.favorites-add-popup_tag-a(href='') любовь
+                                      a.ico-close(href='#')
+                              .favorites-add-popup_row.margin-b10
+                                  a.textdec-none(href='#')
+                                      span.ico-plus2.margin-r5
+                                      span.a-pseudo-gray.color-gray Добавить тег
+                              .favorites-add-popup_row
+                                  label.favorites-add-popup_label(for='') Комментарий:
+                                  .float-r.color-gray 0/150
+                              .favorites-add-popup_row
+                                  textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
+                              .favorites-add-popup_row.textalign-c.margin-t10
+                                  a.btn-secondary.btn-s(href='#') Отменить
+                                  a.btn-success.btn-s(href='#') Добавить
+                              
+                              
+                              -->
+                            </div>
+                          </div>
+                        </div>
+                        <div class="article-also_row">
+                          <div class="article-also_tx">Смотреть все <a href="#">комментарии</a>
+                            <div class="visible-md-inline-block">,<a href="#"> нравится, </a></div>
+                            <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.
+                          </div>
                         </div>
                       </div>
                     </div>

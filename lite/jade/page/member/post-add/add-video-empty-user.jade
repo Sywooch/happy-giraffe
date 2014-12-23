@@ -1,0 +1,61 @@
+include ../../../block/config
+extend ../../../extend/layout_base_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css';
+  
+block layout
+
+    //-.b-main
+        .b-main_cont.b-main_cont__wide
+
+            +userAddRecord('', userAddRecord.blog)
+            .postAdd
+                .postAdd_hold
+                    .postAdd_row 
+                        .postAdd_count 1
+                        .b-main_col-article
+                            .inp-valid.inp-valid__abs
+                                .inp-valid_count 30
+                                input.itx-gray(placeholder="Заголовок") 
+                            
+                    .postAdd_row 
+                        .postAdd_count 2
+                        .b-main_col-article
+                            +capAdd('cap-add__l cap-add__lilac', capAdd.video)
+
+                    .postAdd_row
+                        .postAdd_count 3
+                        .b-main_col-article
+                            .inp-valid.inp-valid__abs
+                                textarea.itx-gray(rows='5', cols='40', placeholder="Ваш комментарий к видео")
+                                .inp-valid_count 450
+                    // Строка
+                    +postAddRowBtns('', postAddRowBtns.a)
+    .b-main
+        .b-main_cont.b-main_cont__wide
+
+            //- +userAddRecord('', userAddRecord.blog)
+            .postAdd.b-main_col-hold.clearfix
+                .b-main_col-article
+                    .postAdd_hold
+                        .postAdd_row
+                            .heading-small
+                                .ico-post-type.ico-post-type__video.active
+                                | Создать видеопост
+                        .postAdd_row 
+                            .inp-valid.inp-valid__abs
+                                .inp-valid_count 30
+                                input.itx-gray(placeholder="Заголовок") 
+                                
+                        .postAdd_row 
+                            +capAdd('cap-add__l cap-add__lilac', capAdd.video)
+                        .postAdd_row 
+                            .inp-valid.inp-valid__abs
+                                textarea.itx-gray(rows='4', cols='40', placeholder="Ваш комментарий к видео")
+                                .inp-valid_count 450
+
+                        // Строка
+                        +postAddRowBtns('', postAddRowBtns.a)
+
+        +layout-footer-lite()

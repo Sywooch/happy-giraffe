@@ -4,7 +4,38 @@
  * Date: 12.08.13
  */
 (function() {
-    function f(ko, moment, hgwysiwyg) {
+    function f(ko, moment, hgwysiwyg, hgwswg) {
+
+        ko.bindingHandlers.wswgHG = {
+            init: function(element, valueAccessor) {
+                var value = valueAccessor();
+                value.config = ko.toJS(value.config);
+                var wysiwyg = new hgwswg(element, value.config);
+                var attr = value.attr;
+
+                wysiwyg.addCallback('init', function() {
+                    var obj = this;
+                    obj.set(attr());
+                    attr.subscribe(function(a) {
+                        if (a !== obj.get()) {
+                            obj.set(a);
+
+                            if (a == '')
+                                obj.focusEnd();
+                        }
+                    });
+                });
+
+                wysiwyg.addCallback('change', function(html) {
+                    if (attr() != html) {
+                        attr(html);
+                    }
+                });
+
+                wysiwyg.run();
+            }
+        };
+
         ko.bindingHandlers.redactorHG = {
             init: function(element, valueAccessor) {
                 var value = valueAccessor();
@@ -696,7 +727,7 @@
         };
     };
     if (typeof define === 'function' && define['amd']) {
-        define('ko_library', ['knockout', 'moment', 'wysiwyg', 'common'], f);
+        define('ko_library', ['knockout', 'moment', 'wysiwyg', 'care-wysiwyg', 'common'], f);
         require(["knockout", "knockout-amd-helpers", "text"], function(ko) {
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
             ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";

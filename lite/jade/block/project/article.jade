@@ -47,10 +47,12 @@ mixin bArticle-single(mod, vars)
                             iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
                     p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
 
-            if (vars.btnEdit)
-                +likeControl('like-control__line', likeControl.articleUser)
-            else
-                +likeControl('like-control__line', likeControl.base)
+            .b-article_like.clearfix
+                if (vars.btnEdit)
+                    +articleSettings('', articleSettings.base)
+                    +likeControl('like-control__line', likeControl.articleUser)
+                else
+                    +likeControl('like-control__line', likeControl.base)
 
             +customLikes('', customLikes.base)
             +bnr-enfomil1()
@@ -106,6 +108,27 @@ mixin bArticleListItem(mod, vars)
             if (vars.type == 'text')
                 +commentsList('', commentsList.b)
 
+            .b-article_like.clearfix
+                if(vars.delete)
+                    +cap-empty('cap-empty__abs cap-empty__white', capEmpty.articleDel)
+                +articleSettings('', articleSettings.base)
+
+                .article-also
+                    .article-also_row
+                        +likeControl('like-control__small', likeControl.articleList)
+                    .article-also_row
+                        .article-also_tx Смотреть все 
+                            a(href='#') комментарии
+                            .visible-md-inline-block
+                                | ,
+                                a(href='#')  нравится, 
+                            .visible-md-inline-block
+                                a(href='#')  закладки 
+                            | .
+
+    // /b-article
+
+
 - var bArticleListItem = {}
 
 - bArticleListItem.a = {}
@@ -114,6 +137,9 @@ mixin bArticleListItem(mod, vars)
 - bArticleListItem.b = {}
 - bArticleListItem.b.type = 'video'
 
+- bArticleListItem.del = {}
+- bArticleListItem.del.type = 'text'
+- bArticleListItem.del.delete = true
 
 
 
@@ -137,7 +163,7 @@ mixin bArticleListPhotopost(mod, vars)
 
             +bAlbumPhotopost('', bAlbumPhotopost.a)
 
-            .b-article_in.clearfix
+            //-.b-article_in.clearfix
                 .wysiwyg-content.clearfix
                     // Описание определенное количество символов
                     p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  
@@ -147,18 +173,20 @@ mixin bArticleListPhotopost(mod, vars)
                 +commentsList('', commentsList.b)
 
 
-            .article-also
-                .article-also_row
-                    +likeControl('like-control__small', likeControl.articleList)
-                .article-also_row
-                    .article-also_tx Смотреть все 
-                        a(href='#') комментарии
-                        .visible-md-inline-block
-                            | ,
-                            a(href='#')  нравится, 
-                        .visible-md-inline-block
-                            a(href='#')  закладки 
-                        | .
+            .b-article_like.clearfix
+                +articleSettings('', articleSettings.base)
+                .article-also
+                    .article-also_row
+                        +likeControl('like-control__small', likeControl.articleList)
+                    .article-also_row
+                        .article-also_tx Смотреть все 
+                            a(href='#') комментарии
+                            .visible-md-inline-block
+                                | ,
+                                a(href='#')  нравится, 
+                            .visible-md-inline-block
+                                a(href='#')  закладки 
+                            | .
 
     // /b-article
 

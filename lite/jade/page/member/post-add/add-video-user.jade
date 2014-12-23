@@ -1,0 +1,134 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css'; 
+  
+
+block layout
+
+    .b-main
+        .b-main_cont.b-main_cont__wide
+            .margin-20
+                h2 Загрузка видео
+                br
+                a.popup-a.popup-a__add(href="#video-empty") Заглушка для загрузки видео
+                br
+                br
+                a.popup-a.popup-a__add(href="#video-load") Видео загружается
+                br
+                br
+                a.popup-a.popup-a__add(href="#video-loaded") Видео загружено
+                br
+                br
+                a.popup-a.popup-a__add(href="#video-error") Видео не загружено
+                br
+                br
+
+block block-hidden 
+
+    ////////////////////////////////////////////////////
+    // .popup-add
+    // 
+    #video-empty.popup.popup-add.popup-add__photos
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
+        .popup-add_hold
+            .popup-add_top.clearfix
+                .popup-add_t Добавить видео
+                //-ul.tabs-simple.tabs-simple__inline.nav.nav-tabs
+                    // tabs bootstrap, работают по id
+                    li
+                        a(href="#photo-tab-computer", data-toggle="tab") С компьютера
+                    li
+                        a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
+                    li.active
+                        a(href="#photo-tab-link", data-toggle="tab") Из интернета
+            .popup-add_in 
+                //-.tab-content
+                //- tabs bootstrap, работают по id
+                //-#photo-tab-computer.tab-pane
+                //-#photo-tab-album.tab-pane
+                //-#photo-tab-link.tab-pane.active
+                    
+                .popup-add_frame
+                    .popup-add_cap
+                        +cap-empty("cap-empty__addVideo", capEmpty.addVideo)
+    // /popup-add
+ 
+    // .popup-add
+    // 
+    #video-load.popup.popup-add.popup-add__photos
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
+        .popup-add_hold
+            .popup-add_top.clearfix
+                .popup-add_t Добавить видео
+                //-ul.tabs-simple.tabs-simple__inline.nav.nav-tabs
+                    // tabs bootstrap, работают по id
+                    li
+                        a(href="#photo-tab-computer", data-toggle="tab") С компьютера
+                    li
+                        a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
+                    li.active
+                        a(href="#photo-tab-link", data-toggle="tab") Из интернета
+            .popup-add_in
+                //-.tab-content
+                //- tabs bootstrap, работают по id
+                    #photo-tab-computer.tab-pane
+                    #photo-tab-album.tab-pane
+                    #photo-tab-link.tab-pane.active
+                    
+                .popup-add_frame
+                    .popup-add_cap
+                        +cap-empty("cap-empty__addVideo", capEmpty.addVideo)
+                    .textalign-c
+
+                        +iPhoto("i-photo__load-video", iPhoto.load)
+                    
+                .popup-add_footer
+                    .textalign-c
+                        a.btn.btn-success(href="") Добавить
+    // /popup-add
+
+    // .popup-add
+    // 
+    #video-loaded.popup.popup-add.popup-add__photos
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
+        .popup-add_hold
+            .popup-add_top.clearfix
+                .popup-add_t Добавить видео
+
+            .popup-add_in
+                .popup-add_frame
+                    .popup-add_cap
+                        +cap-empty("cap-empty__addVideo", capEmpty.addVideo)
+                    .textalign-c
+
+                        +iPhoto("i-photo__loaded", iPhoto.loadedVideo)
+                    
+                .popup-add_footer
+                    .textalign-c
+                        a.btn.btn-success(href="") Добавить
+    // /popup-add
+
+    // .popup-add
+    // 
+    #video-error.popup.popup-add.popup-add__photos
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
+        .popup-add_hold
+            .popup-add_top.clearfix
+                .popup-add_t Добавить видео
+
+            .popup-add_in
+                .popup-add_frame
+                    .popup-add_cap
+                        +cap-empty("cap-empty__addVideo", capEmpty.addVideo)
+                    .textalign-c
+
+                        +iPhoto("i-photo__error", iPhoto.error)
+                    
+                .popup-add_footer
+                    .textalign-c
+                        a.btn.btn-success(href="") Добавить
+    // /popup-add
+
+

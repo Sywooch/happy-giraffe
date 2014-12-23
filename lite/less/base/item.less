@@ -160,7 +160,13 @@ a.heading-link-xxl:hover {
     text-decoration:none;
     border-bottom:1px dotted #289FD7;
 }
+.a-pseudo-gray:hover,
 .a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
+.a-pseudo-gray {
+    color: @color-gray;
+    text-decoration:none;
+    border-bottom:1px dotted @color-gray;
+}
 .a-gray {
     color: @color-gray-light;
 }
@@ -275,6 +281,24 @@ a.heading-link-xxl:hover {
     
     &:hover .ico-club {.scale(1.2)}
     .ico-club {display: block;}
+}
+.i-video-serv {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+    width: 60px;
+    height: 30px;
+    background: url('@{path-img}/i/i-video-serv.png') no-repeat;
+    .opacity(0.3);
+
+
+    &.active {.opacity(1)}
+    &__youtube {background-position: 0 0;}
+    /*&__youtube.active {background-position: 0 0;}*/
+    &__rutube  {background-position: -60px 0;}
+    /*&__rutube.active  {background-position: -60px 0;}*/
+    &__vimeo   {background-position: -120px 0;}
+    /*&__vimeo.active   {background-position: -120px 0;}*/
 }
 // /Items
 

@@ -1,10 +1,16 @@
 /* article-settings */
 .article-settings {
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: 50px 15px;
+    position: relative;
+    margin: 0 15px;
     z-index: 50;
+
+    &_abs {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 50px 15px;
+        z-index: 50;
+    }
     
     &.active &_a__settings {background-position: 0 -30px;}
     &__float-r {

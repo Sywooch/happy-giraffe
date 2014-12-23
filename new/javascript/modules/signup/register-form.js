@@ -5,7 +5,11 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
 
         self.fields = {
             firstName: new FormField(self, ''),
-            lastName: new FormField(self, '')
+            lastName: new FormField(self, ''),
+            birthday: new DateField(self, null),
+            gender: new FormField(self, ''),
+            email: new FormField(self, ''),
+            password: new FormField(self, '')
         };
 
         self.validate = function(callback) {
@@ -17,7 +21,6 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
                         self.fields[attribute].errors([]);
                     }
                 }
-                console.log(callback);
                 callback();
             });
         };
@@ -52,6 +55,17 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
             });
         }
     }
+
+    function DateField(parent, value) {
+        var self = this;
+        self.d = ko.observable();
+        self.m = ko.observable();
+        self.y = ko.observable();
+        self.value = ko.computed(function() {
+            return [self.d(), self.m(), self.y()].join('-');
+        });
+    }
+    DateField.prototype = FormField;
 
     return {
         viewModel: RegisterForm,

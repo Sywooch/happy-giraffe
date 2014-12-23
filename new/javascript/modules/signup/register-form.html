@@ -18,13 +18,10 @@
                     </div>
                 </div>
                 <div class="popup-sign_row">
-                    <div class="inp-valid inp-valid__abs">
-                        <input type="text" placeholder="Фамилия" class="itx-gray popup-sign_itx">
+                    <div class="inp-valid inp-valid__abs" data-bind="css: fields.lastName.cssClass">
+                        <input type="text" placeholder="Фамилия" class="itx-gray popup-sign_itx" data-bind="textInput: fields.lastName.value, event: { blur: fields.lastName.validate }">
                         <div class="inp-valid_error">
-                            <div class="errorMessage">
-
-                                Не заполнено поле "Фамилия"
-                            </div>
+                            <div class="errorMessage" data-bind="text: fields.lastName.firstError"></div>
                         </div>
                         <div class="inp-valid_success inp-valid_success__ico-check"></div>
                     </div>
@@ -35,55 +32,25 @@
                 <div class="popup-sign_row">
                     <div class="inp-valid inp-valid__abs">
                         <div class="float-l w-70 margin-r10">
-                            <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
-                                <option></option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="8">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
+                            <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: DateRange.days(), value: fields.birthday.d, optionsCaption: '', select2: {
+                                width: '100%',
+                                minimumResultsForSearch: -1,
+                                placeholder: 'День'
+                            }"></select>
                         </div>
                         <div class="float-l w-115 margin-r10">
-                            <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
-                                <option></option>
-                                <option value="1">Января</option>
-                                <option value="2">Февраля</option>
-                                <option value="3">Марта</option>
-                                <option value="4">Апреля</option>
-                                <option value="5">Майя</option>
-                                <option value="6">Июня</option>
-                                <option value="7">Июля</option>
-                                <option value="8">Августа</option>
-                                <option value="9">Сентября</option>
-                                <option value="10">Октября</option>
-                                <option value="11">Ноября</option>
-                                <option value="12">Декабря</option>
-                            </select>
+                            <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: DateRange.months(), value: fields.birthday.m, optionsCaption: '', optionsText: 'name', optionsValue: 'id', select2: {
+                                width: '100%',
+                                minimumResultsForSearch: -1,
+                                placeholder: 'Месяц'
+                            }"></select>
                         </div>
                         <div class="float-l w-80">
-                            <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray">
-                                <option></option>
-                                <option value="1">1912</option>
-                                <option value="2">1913</option>
-                                <option value="3">1914</option>
-                                <option value="4">1915</option>
-                                <option value="5">1916</option>
-                                <option value="6">1917</option>
-                                <option value="7">1918</option>
-                                <option value="8">1919</option>
-                                <option value="8">1920</option>
-                                <option value="10">1921</option>
-                                <option value="11">1922</option>
-                                <option value="12">1923</option>
-                            </select>
+                            <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: DateRange.years(1925, 1999), value: fields.birthday.y, optionsCaption: '', select2: {
+                                width: '100%',
+                                minimumResultsForSearch: -1,
+                                placeholder: 'Год'
+                            }"></select>
                         </div>
                         <div class="inp-valid_error">
                             <div class="errorMessage">
@@ -97,18 +64,15 @@
                 <div class="popup-sign_row">
                     <div class="popup-sign_label">
                         <div class="display-ib">
-                            <div class="inp-valid inp-valid__abs">Пол
+                            <div class="inp-valid inp-valid__abs" data-bind="css: fields.gender.cssClass">Пол
                                 <div class="radio-icons radio-icons__inline margin-l10">
-                                    <input id="radio4" type="radio" name="b-radio2" class="radio-icons_radio">
+                                    <input id="radio4" type="radio" name="b-radio2" class="radio-icons_radio" value="1" data-bind="checked: fields.gender.value, event: { click: function() {fields.gender.validate(); return true;} }">
                                     <label for="radio4" class="radio-icons_label">Мужской</label>
-                                    <input id="radio3" type="radio" name="b-radio2" class="radio-icons_radio">
+                                    <input id="radio3" type="radio" name="b-radio2" class="radio-icons_radio" value="0" data-bind="checked: fields.gender.value, event: { click: function() {fields.gender.validate(); return true;} }">
                                     <label for="radio3" class="radio-icons_label">Женский</label>
                                 </div>
                                 <div class="inp-valid_error">
-                                    <div class="errorMessage">
-
-                                        Выберите пол
-                                    </div>
+                                    <div class="errorMessage" data-bind="text: fields.gender.firstError"></div>
                                 </div>
                                 <div class="inp-valid_success inp-valid_success__ico-check"></div>
                             </div>
@@ -116,19 +80,19 @@
                     </div>
                 </div>
                 <div class="popup-sign_row">
-                    <div class="inp-valid inp-valid__abs">
-                        <input type="text" placeholder="Email" class="itx-gray popup-sign_itx">
+                    <div class="inp-valid inp-valid__abs" data-bind="css: fields.email.cssClass">
+                        <input type="text" placeholder="Email" class="itx-gray popup-sign_itx" data-bind="textInput: fields.email.value, event: { blur: fields.email.validate }">
                         <div class="inp-valid_error">
-                            <div class="errorMessage">E-mail не является правильным E-Mail адресом</div>
+                            <div class="errorMessage" data-bind="text: fields.email.firstError"></div>
                         </div>
                         <div class="inp-valid_success inp-valid_success__ico-check"></div>
                     </div>
                 </div>
                 <div class="popup-sign_row">
-                    <div class="inp-valid inp-valid__abs">
-                        <input type="text" placeholder="Пароль" class="itx-gray popup-sign_itx">
+                    <div class="inp-valid inp-valid__abs" data-bind="css: fields.password.cssClass">
+                        <input type="password" placeholder="Пароль" class="itx-gray popup-sign_itx" data-bind="textInput: fields.password.value, event: { blur: fields.password.validate }">
                         <div class="inp-valid_error">
-                            <div class="errorMessage">Не возможный пароль</div>
+                            <div class="errorMessage" data-bind="text: fields.password.firstError"></div>
                         </div>
                         <div class="inp-valid_success inp-valid_success__ico-check"></div>
                     </div>

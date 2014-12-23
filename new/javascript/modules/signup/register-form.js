@@ -2,15 +2,23 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
     function RegisterForm(params) {
         var self = this;
         self.validateUrl = '/api/signup/validate/';
+        self.captchaUrl = '/signup/register/captcha/';
+        self.SCREEN_STEP_1 = 'screenStep1';
+        self.SCREEN_STEP_2 = 'screenStep2';
+        self.SCREEN_STEP_SOCIAL = 'screenSocial';
+
+        self.step = ko.observable(self.SCREEN_STEP_1);
 
         self.fields = {
-            firstName: new FormField(self, ''),
-            lastName: new FormField(self, ''),
+            firstName: new FormField(self, 'Никита'),
+            lastName: new FormField(self, 'Свистоплясов'),
             birthday: new DateField(self, null),
-            gender: new FormField(self, ''),
-            email: new FormField(self, ''),
-            password: new FormField(self, '')
+            gender: new FormField(self, '1'),
+            email: new FormField(self, 'nikitafsdf@happy-giraffe.ru'),
+            password: new FormField(self, '111111')
         };
+
+        self.captcha = new FormField(self, '');
 
         self.validate = function(callback) {
             $.post(self.validateUrl, JSON.stringify({ attributes: self.getValues() }), function(response) {
@@ -21,7 +29,7 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
                         self.fields[attribute].errors([]);
                     }
                 }
-                callback();
+                callback(response);
             });
         };
 
@@ -32,6 +40,14 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
             }
             return values;
         };
+
+        self.registerSimple = function() {
+            self.validate(function(response) {
+                if (response.data.errors.length == 0) {
+                    self.step(self.SCREEN_STEP_2);
+                }
+            });
+        }
     }
 
     function FormField(parent, value) {
@@ -53,7 +69,10 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
             parent.validate(function() {
                 self.isFilled(true);
             });
-        }
+        };
+        self.value.subscribe(function() {
+            self.validate();
+        });
     }
 
     function DateField(parent, value) {
@@ -65,13 +84,16 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
         self.value = ko.computed(function() {
             return [self.y(), self.m(), self.d()].join('-');
         });
+        self.value.subscribe(function() {
+            self.validate();
+        });
         self.validate = function() {
             if (self.d() !== undefined && self.m() !== undefined && self.y() !== undefined) {
                 parent.validate(function() {
                     self.isFilled(true);
                 });
             }
-        }
+        };
     }
     DateField.prototype = Object.create(DateField.prototype);
 

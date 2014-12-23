@@ -88,10 +88,11 @@
 		</div>
 
 		<div class="post-add-page content-cols clearfix">
-			<div class="col-1">
-			</div>
 			<div class="col-23-middle">
-				<div class="heading-title">Редактировать пост</div>
+				<div class="heading-xl margin-l20">
+					<span class="user-add-record_ico user-add-record_ico__article active"></span>
+					Редактировать пост
+				</div>
 
 	<!-- popup-user-add-article -->
 	<div id="popup-user-add-article" class="popup-user-add-record">
@@ -266,9 +267,8 @@
 	<!-- /popup-user-add-article -->
 				
 
-
-
-
+			</div>
+			<div class="col-1">
 			</div>
 		</div>
 		</div>

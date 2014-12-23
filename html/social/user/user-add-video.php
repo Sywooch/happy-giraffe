@@ -88,10 +88,11 @@
 		</div>
 
 		<div class="post-add-page content-cols clearfix">
-			<div class="col-1">
-			</div>
 			<div class="col-23-middle">
-				<div class="heading-title">Редактировать видеопост</div>
+				<div class="heading-xl margin-l20">
+					<span class="user-add-record_ico user-add-record_ico__video active"></span>
+					Редактировать видеопост
+				</div>
 				<!-- popup-user-add-video -->
 				<div id="popup-user-add-video" class="popup-user-add-record">
 					<!-- <a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a> -->
@@ -214,9 +215,8 @@
 				<!-- /popup-user-add-video -->
 				
 
-
-
-
+			</div>
+			<div class="col-1">
 			</div>
 		</div>
 		</div>

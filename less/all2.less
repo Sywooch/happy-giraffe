@@ -2102,7 +2102,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* /popup-user-add-record */
 
 /* post-add-page */
-.post-add-page {
+.post-add-page { // Радует одно, что это временное решение, до создания lite версии страницы. 
     
     .b-settings-blue {
         border: none;
@@ -2110,11 +2110,17 @@ table.fr_recipe_tb td { width: 50%;}
         background-color: transparent;
         .box-shadow(none);
     }
+    .b-settings-blue__article .b-settings-blue_head .w-400 {width: 530px !important;} // Наш код безрассуден и беспощаден
     .b-settings-blue_tale {
         display: none;
     }
     .b-settings-blue_head {
+        width: auto;
         margin: 0 0 20px;
+
+        .w-400 { // Продолжение беспощадного кода
+            width: 590px !important;
+        }
     }
     .b-settings-blue_label {
         color: #666;
@@ -2131,6 +2137,29 @@ table.fr_recipe_tb td { width: 50%;}
     .heading-xl .user-add-record_ico {
         margin: 0 10px 10px 0;
     }
+    .b-add-img {
+        background-color: #fafafa;
+        border-color: #D6D6D6;
+
+        &:hover {
+            border-color: #bbb;
+        }
+    }
+    .b-settings-blue_video {
+        width: 580px;
+        margin: 0 auto 15px;
+    }
+    .b-settings-blue_add-video {
+        border: 2px dashed #D6D6D6;
+        padding-left: 80px;
+        background: #fafafa url(/images/b-settings-blue_add-video.png) no-repeat 50% 0;
+        .border-radius(8px);
+    }
+
+    .privacy-select {
+        display: none;
+    }
+
     /*.b-settings-blue__video {
         padding: 20px 0;
     }*/
@@ -2377,8 +2406,8 @@ table.fr_recipe_tb td { width: 50%;}
     &_add-video .errorMessage {
         position: absolute;
         top: 150px;
-        left: 25px;
-        width: 540px;
+        left: 0;
+        width: 100%;
         text-align: center;
         font-size: 13px;
         color: #f86161;
@@ -2386,8 +2415,8 @@ table.fr_recipe_tb td { width: 50%;}
     &_add-video-load {
         position: absolute;
         top: 150px;
-        left: 25px;
-        width: 540px;
+        left: 0;
+        width: 100%;
         text-align: center;
         font-size: 14px;
         color: #b6b6b6;

@@ -57,15 +57,23 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
     }
 
     function DateField(parent, value) {
+        FormField.apply(this, arguments);
         var self = this;
         self.d = ko.observable();
         self.m = ko.observable();
         self.y = ko.observable();
         self.value = ko.computed(function() {
-            return [self.d(), self.m(), self.y()].join('-');
+            return [self.y(), self.m(), self.d()].join('-');
         });
+        self.validate = function() {
+            if (self.d() !== undefined && self.m() !== undefined && self.y() !== undefined) {
+                parent.validate(function() {
+                    self.isFilled(true);
+                });
+            }
+        }
     }
-    DateField.prototype = FormField;
+    DateField.prototype = Object.create(DateField.prototype);
 
     return {
         viewModel: RegisterForm,

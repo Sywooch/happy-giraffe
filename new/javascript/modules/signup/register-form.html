@@ -30,33 +30,30 @@
                     <div class="popup-sign_label">Дата рождения</div>
                 </div>
                 <div class="popup-sign_row">
-                    <div class="inp-valid inp-valid__abs">
+                    <div class="inp-valid inp-valid__abs" data-bind="css: fields.birthday.cssClass">
                         <div class="float-l w-70 margin-r10">
                             <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: DateRange.days(), value: fields.birthday.d, optionsCaption: '', select2: {
                                 width: '100%',
                                 minimumResultsForSearch: -1,
                                 placeholder: 'День'
-                            }"></select>
+                            }, event: { change: fields.birthday.validate }"></select>
                         </div>
                         <div class="float-l w-115 margin-r10">
                             <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: DateRange.months(), value: fields.birthday.m, optionsCaption: '', optionsText: 'name', optionsValue: 'id', select2: {
                                 width: '100%',
                                 minimumResultsForSearch: -1,
                                 placeholder: 'Месяц'
-                            }"></select>
+                            }, event: { change: fields.birthday.validate }"></select>
                         </div>
                         <div class="float-l w-80">
                             <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: DateRange.years(1925, 1999), value: fields.birthday.y, optionsCaption: '', select2: {
                                 width: '100%',
                                 minimumResultsForSearch: -1,
                                 placeholder: 'Год'
-                            }"></select>
+                            }, event: { change: fields.birthday.validate }"></select>
                         </div>
                         <div class="inp-valid_error">
-                            <div class="errorMessage">
-
-                                Не выбрана дата
-                            </div>
+                            <div class="errorMessage" data-bind="text: fields.birthday.firstError"></div>
                         </div>
                         <div class="inp-valid_success inp-valid_success__ico-check"></div>
                     </div>

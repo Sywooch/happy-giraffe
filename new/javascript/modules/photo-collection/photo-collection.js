@@ -2,7 +2,7 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
     function PhotoCollectionView(params) {
         params.attachesCount = 1;
         this.photoCollection = new PhotoCollection(params);
-        this.photoCollection.pageCount = 5;
+        this.photoCollection.pageCount = 3;
         this.photoCollection.usablePreset('myPhotosPreview');
         this.opened = ko.observable(false);
         this.currentPhoto = ko.observable();

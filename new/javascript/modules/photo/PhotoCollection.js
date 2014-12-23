@@ -108,9 +108,11 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.handleCoverById = function handleCover(photoAttach) {
             if (photoAttach.success === true) {
                 this.cover(new PhotoAttach(photoAttach.data));
-                this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
-                this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
-                this.cover().photo().presetHash(PresetManager.getPresetHash('myPhotosAlbumCover'));
+                if (PresetManager.presets) {
+                    this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                    this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                    this.cover().photo().presetHash(PresetManager.getPresetHash('myPhotosAlbumCover'));
+                }
                 this.loading(false);
             }
         };

@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User', 'signup/eauth'], function($, ko, template, User) {
+define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 'signup/form', 'signup/formField', 'signup/dateField', 'signup/eauth', 'signup/bindings'], function($, ko, template, Model, Form, FormField, DateField) {
     function Register(params) {
         var self = this;
         self.registerUrl = '/api/signup/register/';
@@ -17,18 +17,26 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User', '
 
         self.registerSimple = function() {
             self.registerForm.validate(function(response) {
+                for (var attribute in self.registerForm.fields) {
+                    self.registerForm.fields[attribute].isFilled(true);
+                }
                 if (response.data.errors.length == 0) {
                     self.step(self.SCREEN_STEP_2);
-                    console.log('1');
                 }
-                console.log('2');
             });
         };
 
         self.verifyCaptcha = function() {
-            $.post(self.registerUrl, JSON.stringify({ attributes: self.registerForm.getValues() }), function(response) {
-                if (response.success) {
-                    window.location.href = self.redirectUrl;
+            self.captchaForm.validate(function(response) {
+                for (var attribute in self.captchaForm.fields) {
+                    self.captchaForm.fields[attribute].isFilled(true);
+                }
+                if (response.data.errors.length == 0) {
+                    Model.get(self.registerUrl, { attributes: self.registerForm.getValues() }).done(function(response) {
+                        if (response.success) {
+                            window.location.href = self.redirectUrl;
+                        }
+                    });
                 }
             });
         };
@@ -43,45 +51,16 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User', '
         $(".auth-service.odnoklassniki a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
     }
 
-    var Form = {
-        validate: function(callback) {
-            $.post(this.validateUrl, JSON.stringify({ attributes: this.getValues() }), function(response) {
-                for (var attribute in this.fields) {
-                    if (response.data.errors[attribute] !== undefined) {
-                        this.fields[attribute].errors(response.data.errors[attribute]);
-                    } else {
-                        this.fields[attribute].errors([]);
-                    }
-                }
-                callback(response);
-            });
-        },
-        getValues: function() {
-            var values = {};
-            for (var i in this.fields) {
-                values[i] = this.fields[i].value();
-            }
-            return values;
-        },
-        setValues: function(values) {
-            for (var key in values) {
-                if (this.fields.hasOwnProperty(key)) {
-                    this.fields[key].value(values[key]);
-                }
-            }
-        }
-    };
-
     function RegisterForm() {
         var self = this;
         self.validateUrl = '/api/signup/validate/';
         self.fields = {
-            firstName: new FormField(self, ''),
-            lastName: new FormField(self, ''),
-            birthday: new DateField(self, null),
-            gender: new FormField(self, ''),
-            email: new FormField(self, ''),
-            password: new FormField(self, '')
+            firstName: new FormField(self, '1'),
+            lastName: new FormField(self, '2'),
+            birthday: new DateField(self, '1990-11-25'),
+            gender: new FormField(self, '1'),
+            email: new FormField(self, 'nikita+sdfsdf@happy-giraffe.ru'),
+            password: new FormField(self, '111111')
         };
     }
     RegisterForm.prototype = Object.create(Form);
@@ -89,10 +68,14 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User', '
     function CaptchaForm() {
         var self = this;
         self.validateUrl = '/api/signup/captcha/';
-        self._captchaUrl = '/signup/default/captcha/';
+        self.captchaUrl = '/signup/default/captcha/';
 
-        self.captchaUrl = function() {
-            return self._captchaUrl + '?' + Math.floor((Math.random() * 1000000) + 1);
+        self.currentCaptchaUrl = ko.observable(self.captchaUrl);
+
+        self.regenerateCaptchaUrl = function() {
+            $.get(self.captchaUrl, { refresh: '1'}, function(response) {
+                self.currentCaptchaUrl(response.url);
+            }, 'json');
         };
 
         self.fields = {
@@ -100,60 +83,6 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User', '
         };
     }
     CaptchaForm.prototype = Object.create(Form);
-
-    function FormField(parent, value) {
-        var self = this;
-        self.validateUrl = '/api/signup/validate/';
-        self.isFilled = ko.observable(false);
-        self.value = ko.observable(value);
-        self.errors = ko.observableArray([]);
-        self.firstError = ko.computed(function() {
-            return (self.errors().length > 0) ? self.errors()[0] : null;
-        });
-        self.cssClass = ko.computed(function() {
-            if (! self.isFilled()) {
-                return '';
-            }
-            return (self.errors().length > 0) ? 'error' : 'success';
-        });
-        self.validate = function() {
-            console.log(parent);
-            parent.validate(function() {
-                self.isFilled(true);
-            });
-        };
-        self.value.subscribe(function() {
-            self.validate();
-        });
-    }
-
-    function DateField(parent, value) {
-        FormField.apply(this, arguments);
-        var self = this;
-        self.d = ko.observable();
-        self.m = ko.observable();
-        self.y = ko.observable();
-        self.d.subscribe(function() {
-            self.updateValue();
-        });
-        self.m.subscribe(function() {
-            self.updateValue();
-        });
-        self.y.subscribe(function() {
-            self.updateValue();
-        });
-        self.updateValue = function() {
-            self.value([self.y(), self.m(), self.d()].join('-'));
-        };
-        self.validate = function() {
-            if (self.d() !== undefined && self.m() !== undefined && self.y() !== undefined) {
-                parent.validate(function() {
-                    self.isFilled(true);
-                });
-            }
-        };
-    }
-    DateField.prototype = Object.create(DateField.prototype);
 
     return {
         viewModel: Register,

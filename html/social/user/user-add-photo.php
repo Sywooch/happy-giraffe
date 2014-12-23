@@ -91,7 +91,11 @@
 			<div class="col-1">
 			</div>
 			<div class="col-23-middle">
-				<div class="heading-title">Редактировать фотопост</div>
+				<div class="heading-xl margin-l20">
+					<span class="user-add-record_ico user-add-record_ico__photo active"></span>
+					Редактировать фотопост
+				</div>
+
 
 					<!-- popup-user-add-photo -->
 					<div id="popup-user-add-photo" class="popup-user-add-record">

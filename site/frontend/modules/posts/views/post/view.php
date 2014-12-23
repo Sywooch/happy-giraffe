@@ -12,7 +12,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
         /** @todo Исправить класс при конвертации */
         'entity' => 'BlogContent', //$this->post->originEntity,
         'entity_id' => $this->post->originEntityId,
-    )));
+        )));
 ?>
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">
@@ -30,8 +30,8 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                             <?= HHtml::timeTag($this->post, array('class' => 'tx-date'), null); ?>
                         </div>
                         <?php /* <div class="icons-meta"><a href="<?= $this->post->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
-                            <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->incViewsByPath($this->post->parsedUrl) ?></span></div>
-                        </div> */ ?>
+                          <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->incViewsByPath($this->post->parsedUrl) ?></span></div>
+                          </div> */ ?>
                     </div>
                     <?php
                     if (!isset($this->post->templateObject->data['type']) || $this->post->templateObject->data['type'] !== 'status') {
@@ -41,12 +41,16 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     }
                     ?>
                     <div class="b-article_in clearfix">
-                        <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
+                        <?php if ($this->post->templateObject->data['noWysiwyg']) { ?>
+                            <?= $this->post->html ?>
+                        <?php } else { ?>
+                            <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
+                        <?php } ?>
                         <div class="like-control-hold">
                             <?php
                             if ($this->post->authorId == Yii::app()->user->id) {
                                 ?>
-                                <article-settings params="articleId: <?=$this->post->originEntityId?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
+                                <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
                                 <?php
                             }
                             ?>
@@ -129,11 +133,11 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <!-- ________________________AdFox Asynchronous code START__________________________ -->
                 <script type="text/javascript">
                     <!--
-                    if (typeof(pr) == 'undefined') {
+                    if (typeof (pr) == 'undefined') {
                         var pr = Math.floor(Math.random() * 1000000);
                     }
-                    if (typeof(document.referrer) != 'undefined') {
-                        if (typeof(afReferrer) == 'undefined') {
+                    if (typeof (document.referrer) != 'undefined') {
+                        if (typeof (afReferrer) == 'undefined') {
                             afReferrer = escape(document.referrer);
                         }
                     } else {

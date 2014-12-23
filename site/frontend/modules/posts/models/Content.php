@@ -113,6 +113,9 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'pkAttribute' => 'originEntityId',
                 'entityClass' => array('\site\frontend\modules\posts\models\Content', 'getEntityClass'),
             ),
+            'RssBehavior' => array(
+                'class' => 'site\frontend\modules\rss\behaviors\ContentRssBehavior',
+            ),
         );
     }
 
@@ -428,5 +431,4 @@ class Content extends \CActiveRecord implements \IHToJSON
 
         return $this;
     }
-
 }

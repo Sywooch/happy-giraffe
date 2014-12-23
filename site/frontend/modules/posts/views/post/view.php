@@ -41,7 +41,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     }
                     ?>
                     <div class="b-article_in clearfix">
-                        <?php if ($this->post->templateObject->data['noWysiwyg']) { ?>
+                        <?php if (isset($this->post->templateObject->data['noWysiwyg']) && $this->post->templateObject->data['noWysiwyg']) { ?>
                             <?= $this->post->html ?>
                         <?php } else { ?>
                             <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>

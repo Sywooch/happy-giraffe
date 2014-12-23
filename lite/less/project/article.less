@@ -16,9 +16,9 @@
         &:extend(.ico-more:hover);
         cursor: pointer;
     }
-    &__list &_in-img {
+    /*&__list &_in-img {
         text-align: center;
-    }
+    }*/
     /*&__list .wysiwyg-content p:hover {
         color: @color-gray;
         cursor: pointer;
@@ -32,6 +32,7 @@
     &_in-img {
         position: relative;
         margin: 8px 0;
+        text-align: center;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
@@ -68,6 +69,16 @@
         &:extend(.heading-link-xl);
     }
     &_t-a:hover { }
+
+    &_more {
+        display: inline-block;
+        margin: 0 15px 15px 0;
+        padding: 0 20px 0 0;
+        background: url(/images/i-more.png) no-repeat 100% 10px;
+        color: #378BCB;
+        font: 20px/22px Tahoma,Arial,Verdana,sans-serif;
+        text-decoration: none;
+    }
 
     @media (min-width: @screen-phone) {
         
@@ -187,7 +198,7 @@
         padding: 5px 0 5px 27px;
         background: url(/images/bullet.png) no-repeat 4px 10px;
     }
-    li .b-article_in-img {margin-left: -47px;}
+    /*li .b-article_in-img {margin-left: -27px;}*/
     ol {
         margin: 15px 0;
         padding: 0;

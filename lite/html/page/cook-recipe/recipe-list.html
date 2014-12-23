@@ -1,0 +1,558 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/blog.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__lite">
+  <div class="layout-container">
+    <div class="layout-loose">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest header__kinder-gold">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                
+                        var $this = $(this),
+                            activeClass = 'active';
+                
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                      });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <!-- 18 клубов-->
+                        <div class="b-clubs">
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+              </ul>
+            </div>
+            <!-- 
+            header_kindergold
+            header_kinderino
+            -->
+            <div class="header-ad-kinderino header-ad-kinderino__guest"><a href="#" class="header-ad-kinderino header-ad-kinderino__guest">
+                <!-- header_kindergold.jpgheader_kinderino.jpg
+                --><img src="/lite/images/banner/header_kinderino-2.gif" alt="Kinder"><span onMouseOver="this.style.backgroundPosition='0 -20px'" onMouseOut="this.style.backgroundPosition='0 0'"></span></a></div>
+            <!-- /header-menu-->
+            <div class="sidebar-search clearfix sidebar-search__big">
+              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            </div>
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <!-- b-main -->
+        <div class="b-main clearfix">
+          <div class="b-main_cont">
+            <div class="b-crumbs b-crumbs__s">
+              <div class="b-crumbs_tx">Я здесь</div>
+              <ul class="b-crumbs_ul">
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная</a></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Готовим на кухне</a></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Рецепты</a></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Салаты</span></li>
+              </ul>
+            </div>
+          </div>
+          <!-- userSection-->
+          <section class="b-section b-section__collection-3">
+            <div class="b-section_hold b-main_cont">
+              <div class="b-main_col-hold clearfix">
+                <div class="b-section_sidebar"><a href="#" class="i-club i-club__section"> 
+                    <div class="ico-club ico-club__7"></div></a>
+                </div>
+                <div class="b-section_article">
+                  <h1 class="b-section_t"><a href="#">Готовим на кухне</a></h1>
+                  <div class="clearfix">
+                    <ul class="b-section_ul clearfix">
+                      <li class="b-section_li"><span class="b-section_li-a active">Рецепты</span></li>
+                      <li class="b-section_li"><a href="#" class="b-section_li-a">Для детей</a></li>
+                      <li class="b-section_li"><a href="#" class="b-section_li-a">Для мультиварки</a></li>
+                      <li class="b-section_li"><a href="#" class="b-section_li-a">Форум</a></li>
+                      <li class="b-section_li"><a href="#" class="b-section_li-a">Сервисы</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- /userSection-->
+          <div class="b-main_cont">                    
+            <div class="b-main_col-hold clearfix">
+              <!--/////-->
+              <!-- Основная колонка-->
+              <div class="b-main_col-article">
+                <div class="cook-title-cat">
+                  <h1 class="cook-title-cat-h1"><span class="cook-title-cat-h1-text">Самые вкусные блюда</span></h1>
+                  <p>«Самые вкусные блюда не могут быть собраны в одном месте!» - с сожалением думали раньше пользователи глобальной сети и отправлялись звонить знакомым, дабы узнать, что вкусненького они готовили в последнее время. Но это в прошлом: на нашем сайте чудесная подборка, где есть не только самые вкусные блюда, но и фото к ним. Черпайте кулинарное вдохновение!</p>
+                </div>
+                <!-- Статья с текстом-->
+                <!-- b-article-->
+                <article class="b-article b-article__list clearfix">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_header clearfix">
+                      <div class="float-l">
+                        <!-- ava--><a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                        <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      </div>
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
+                      </div>
+                    </div>
+                    <div class="b-article_t-list"><a href="#" class="b-article_t-a">Самое лучшее утро - просыпаюсь, а ты рядом</a></div>
+                    <div class="b-article_in clearfix">
+                      <div class="wysiwyg-content clearfix">
+                        <!-- Текстовая статья-->
+                        <div class="b-article_in-img"><a href="#"><img alt="" src="/lite/images/example/w600-h415.jpg"></a></div>
+                        <!-- Описание определенное количество символов-->
+                        <p>Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  <span class="ico-more"></span></p>
+                      </div>
+                    </div>
+                    <!-- comments-->
+                    <section class="comments">
+                      <div id="commentsList" class="comments_hold">
+                        <ul class="comments_ul">
+                          <!-- 
+                          варианты цветов комментов. В такой последовательности
+                          .comments_li__lilac
+                          .comments_li__yellow
+                          .comments_li__red
+                          .comments_li__blue
+                          .comments_li__green
+                          -->
+                          <li class="comments_li">
+                            <div class="comments_i clearfix">
+                              <div class="comments_ava">
+                                <!-- Аватарки размером 40*40-->
+                                <!-- ava--><a href="#" class="ava ava__middle ava__small-xs"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                              </div>
+                              <div class="comments_frame">
+                                <div class="comments_header"><a href="#" rel="author" class="a-light comments_author"> Иванна Хлебникова</a>
+                                  <time datetime="2012-12-23" class="tx-date">2 минуты назад</time>
+                                </div>
+                                <div class="comments_cont">
+                                  <div class="wysiwyg-content">
+                                    <p>
+                                       
+                                       Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                    </p>
+                                    <!-- одно фото в блок (ссылку)--><a href="#" class="comments_cont-img-w">
+                                      <!-- размеры превью максимум 400*400 пк--><img alt="" src="/images/example/w220-h309-1.jpg"></a>
+                                    <p>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <!-- / комментарий  -->
+                          <!-- комментарий     -->
+                          <li class="comments_li">
+                            <div class="comments_i clearfix">
+                              <div class="comments_ava">
+                                <!-- Аватарки размером 40*40-->
+                                <!-- ava--><a href="#" class="ava ava__middle ava__small-xs"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                              </div>
+                              <div class="comments_frame">
+                                <div class="comments_header"><a href="#" rel="author" class="a-light comments_author"> Иванна Хлебникова</a>
+                                  <time datetime="2014-11-04T18:20:54+00:00" class="tx-date">2 минуты назад</time>
+                                </div>
+                                <div class="comments_cont">
+                                  <div class="wysiwyg-content">
+                                    <p>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <!-- комментарий     -->
+                          <li class="comments_li">
+                            <div class="comments_i clearfix">
+                              <div class="comments_ava">
+                                <!-- Аватарки размером 40*40-->
+                                <!-- ava--><a href="#" class="ava ava__middle ava__small-xs"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                              </div>
+                              <div class="comments_frame">
+                                <div class="comments_header"><a href="#" rel="author" class="a-light comments_author"> Иванна Хлебникова</a>
+                                  <time datetime="2014-11-04T18:20:54+00:00" class="tx-date">2 минуты назад</time>
+                                </div>
+                                <div class="comments_cont">
+                                  <div class="wysiwyg-content">
+                                    <p>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <!-- комментарий -->
+                        </ul>
+                      </div>
+                    </section>
+                    <!-- /comments-->
+                  </div>
+                </article>
+                <!-- Статья с текстом-->
+                <!-- b-article-->
+                <article class="b-article b-article__list clearfix">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_header clearfix">
+                      <div class="float-l">
+                        <!-- ava--><a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                        <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      </div>
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
+                      </div>
+                    </div>
+                    <div class="b-article_t-list"><a href="#" class="b-article_t-a">Самое лучшее утро - просыпаюсь, а ты рядом</a></div>
+                    <div class="b-article_in clearfix">
+                      <div class="wysiwyg-content clearfix">
+                        <!-- Статья видео-->
+                        <div class="b-article_in-img">
+                          <!-- Во всех статьях видео необходимо обвернуть в .video-container-->
+                          <div class="video-container">
+                            <iframe width="600" height="330" src="http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&amp;feature=oembed&amp;wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
+                          </div>
+                        </div>
+                        <!-- Описание определенное количество символов-->
+                        <p>Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  <span class="ico-more"></span></p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <div class="giraffe-story">
+                  <div class="giraffe-story-frame">
+                    <div class="giraffe-story-holder clearfix">
+                      <div class="giraffe-story-title"><span>Притча про самые вкусные блюда</span></div>
+                      <div class="giraffe-story-img"><img src="http://www.happy-giraffe.ru/images/giraffe-story-logo.png" alt=""></div>
+                      <div class="giraffe-story-text">
+                        <p> </p>
+                        <p>Поспорили как-то три мудреца о том, какие блюда самые вкусные. Тогда еще не было айфонов и айподов, и вопрос о том, какой гаджет самый крутой, не возникал. Первый мудрец утверждал, что вкуснейшие блюда – это те, что желание их есть не пропадает даже тогда, когда в желудке не остается свободного места.</p>
+                        <p> </p>
+                        <p>Второй мудрец выслушал первого, но не согласился с его точкой зрения. Он считал, что самые вкусные блюда  - это блюда, ингредиенты которых человек считает своими любимыми. Иными словами, если мужчина любит рыбу, то самыми лучшими для него будут блюда из рыбы, а не, к примеру, из говядины.</p>
+                        <p> </p>
+                        <p>Третий мудрец, слушая первых двух, неодобрительно качал головой, и как только они замолчали, озвучил свою гипотезу. Он был уверен, что вкуснейшими блюдами можно назвать лишь те, которые популярны среди самого большого количества людей.</p>
+                        <p> </p>
+                        <p>«Самые вкусные блюда – это те, которые готовит мама», - сказал чей-то детский голос. Мудрецы осмотрелись по сторонам и увидели мальчонку, который стал случайным свидетелем их спора.</p>
+                        <p> </p>
+                        <p>«И правда», - подумали они и перестали спорить друг с другом. Кто же станет отрицать, что блюда самого дорогого на свете человека не самые вкусные?!</p>
+                        <p> </p>
+                        <p>Читайте рецепты, которые уже есть на сайте и делитесь своими – теми, которые достались вам от мамы или мамы вашей мамы, они ведь самые вкусные.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- paginator-->
+                <div class="yiipagination yiipagination__center">
+                  <div class="pager">
+                    <ul class="yiiPager">
+                      <li class="previous"><a href=""></a></li>
+                      <li class="page"><a href="">1</a></li>
+                      <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
+                      <li class="page-points">...</li>
+                      <li class="page"><a href="">6</a></li>
+                      <li class="page selected"><a href="">7</a></li>
+                      <li class="page"><a href="">8</a></li>
+                      <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
+                      <li class="page-points">...</li>
+                      <li class="page"><a href="">15</a></li>
+                      <li class="next"><a href=""></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- /paginator-->
+              </div>
+              <!-- /Основная колонкa-->
+              
+              <!--/////-->
+              <!-- Сайд бар-->
+              <!-- Содержимое загружaть отложено-->
+              <aside class="b-main_col-sidebar visible-md">
+                <!--/////-->
+                <!-- Сайд бар-->
+                <!-- Содержимое загружaть отложено-->
+                <aside class="b-main_col-sidebar visible-md"><a href="#" class="btn btn-primary btn-xl margin-t20">Добавить рецепт</a>
+                  <div class="menu-simple">
+                    <ul class="menu-simple_ul">
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Блюда из рыбы</a>
+                        <div class="menu-simple_count">158</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Все рецепты</a>
+                        <div class="menu-simple_count">789</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Первые блюда</a>
+                        <div class="menu-simple_count">789</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Вторые блюда </a>
+                        <div class="menu-simple_count">789</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Салаты  </a>
+                        <div class="menu-simple_count">789</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Закуски и бутерброды </a>
+                        <div class="menu-simple_count">789</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Сладкая выпечка </a>
+                        <div class="menu-simple_count">7</div>
+                      </li>
+                      <li class="menu-simple_li active"><a href="" class="menu-simple_a">Торты и пирожные </a>
+                        <div class="menu-simple_count">79</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Несладкая выпечка </a>
+                        <div class="menu-simple_count">123789</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Торты и пирожные </a>
+                        <div class="menu-simple_count">79</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Десерты </a>
+                        <div class="menu-simple_count">9</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Напитки </a>
+                        <div class="menu-simple_count">71189</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Соусы и кремы </a>
+                        <div class="menu-simple_count">23434</div>
+                      </li>
+                      <li class="menu-simple_li"><a href="" class="menu-simple_a">Консервация </a>
+                        <div class="menu-simple_count">782239</div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="bnr-base"><a href="#"> <img src="/lite/images/example/w300-h250-1.jpg" alt=""></a></div>
+                </aside>
+                <!-- Сайд бар-->
+              </aside>
+            </div>
+          </div>
+          <!-- Футер-->
+          <!-- layout-footer-->
+          <div class="layout-footer clearfix layout-footer__in">
+            <div class="layout-footer_hold">
+              <ul class="footer-list">
+                <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+                <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+              </ul>
+              <ul class="footer-menu visible-md">
+                <li class="footer-menu_li">
+                  <div class="footer-menu_t footer-menu_t__husband-and-wife">Муж и жена </div>
+                  <ul class="footer-menu_in">
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Свадьба </a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Отношения в семье</a></li>
+                  </ul>
+                </li>
+                <li class="footer-menu_li">
+                  <div class="footer-menu_t footer-menu_t__pregnancy">Беременность и дети </div>
+                  <ul class="footer-menu_in">
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Планирование </a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Беременность и роды</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дети до года</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дети старше года</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дошкольники</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Школьники</a></li>
+                  </ul>
+                </li>
+                <li class="footer-menu_li">
+                  <div class="footer-menu_t footer-menu_t__home">Наш дом</div>
+                  <ul class="footer-menu_in">
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Готовим на кухне</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Ремонт в доме</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Домашние хлопоты</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Сад и огород</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наши питомцы </a></li>
+                  </ul>
+                </li>
+                <li class="footer-menu_li">
+                  <div class="footer-menu_t footer-menu_t__beauty">Красота и здоровье</div>
+                  <ul class="footer-menu_in">
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Красота и мода</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наше здоровье</a></li>
+                  </ul>
+                </li>
+                <li class="footer-menu_li">
+                  <div class="footer-menu_t footer-menu_t__hobby">Интересы и увлечения</div>
+                  <ul class="footer-menu_in">
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Рукоделие</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Цветы в доме</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наш автомобиль</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Рыбалка</a></li>
+                  </ul>
+                </li>
+                <li class="footer-menu_li">
+                  <div class="footer-menu_t footer-menu_t__family-holiday">Семейный отдых</div>
+                  <ul class="footer-menu_in">
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Мы путешествуем</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Выходные с семьей</a></li>
+                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Праздники</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+              <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+            </div>
+          </div>
+          <!-- /layout-footer-->
+          <!-- /Футер-->
+          
+          <!-- Для отмены очистки классов uncss-->
+          <!-- Класс для позиции текстового элемента-->
+          <div class="display-n">
+            <div class="textalign-r"></div>
+            <div class="b-article_more"></div>
+            <div class="heading-title"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

@@ -1,3 +1,2 @@
-<section class="b-album">
-    <?= $tag ?>
-</section>
+<?= $tag ?>
+<div class="wysiwyg-content clearfix"><p><?= $text ?></p></div>

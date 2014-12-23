@@ -2104,13 +2104,22 @@ table.fr_recipe_tb td { width: 50%;}
 /* post-add-page */
 .post-add-page { // Радует одно, что это временное решение, до создания lite версии страницы. 
     
+    .chzn-itx-simple .chzn-container-single .chzn-single {
+        border-color: #E0E1E2;
+    }
+    .chzn-itx-simple .chzn-container-single .chzn-single div b {
+        background: url('/lite/images/plugins/select-cus_arrow-b-gray.png') no-repeat 50% 50%;
+    }
+    .wysiwyg-blue .redactor_editor {
+        border-color: #E0E1E2;
+    }
     .b-settings-blue {
         border: none;
-        padding: 25px 20px;
+        padding: 25px 35px;
         background-color: transparent;
         .box-shadow(none);
     }
-    .b-settings-blue__article .b-settings-blue_head .w-400 {width: 530px !important;} // Наш код безрассуден и беспощаден
+    /*.b-settings-blue__article .b-settings-blue_head .w-400 {width: 580px !important;} */// Наш код безрассуден и беспощаден
     .b-settings-blue_tale {
         display: none;
     }
@@ -2119,10 +2128,11 @@ table.fr_recipe_tb td { width: 50%;}
         margin: 0 0 20px;
 
         .w-400 { // Продолжение беспощадного кода
-            width: 590px !important;
+            width: 100% !important;
         }
     }
     .b-settings-blue_label {
+        display: none;
         color: #666;
     }
     .b-settings-blue_row-desc {
@@ -2139,11 +2149,15 @@ table.fr_recipe_tb td { width: 50%;}
     }
     .b-add-img {
         background-color: #fafafa;
-        border-color: #D6D6D6;
+        border-color: #E0E1E2;
+        .border-radius(0);
 
         &:hover {
-            border-color: #bbb;
+            border-color: #ccc;
         }
+    }
+    .b-add-img_html5-tx {
+        color: #999;
     }
     .b-settings-blue_video {
         width: 580px;
@@ -2151,7 +2165,7 @@ table.fr_recipe_tb td { width: 50%;}
     }
     .b-settings-blue_add-video {
         border: 2px dashed #D6D6D6;
-        padding-left: 80px;
+        padding-left: 60px;
         background: #fafafa url(/images/b-settings-blue_add-video.png) no-repeat 50% 0;
         .border-radius(8px);
     }
@@ -2542,12 +2556,12 @@ table.fr_recipe_tb td { width: 50%;}
         color: #98c1da;
     }
     &__for-single {
-        background-image: url(/images/b-add-img__for-single.png);
+        background-image: url('/lite/images/base/cap-empty__addPhotoLink_img.png');
         background-position: 50% 110px;
         background-repeat: no-repeat;
     }
     &__for-multi {
-        background-image: url(/images/b-add-img__for-multi.png);
+        background-image: url('/lite/images/base/cap-empty__addPhotoLink_img.png');
         background-position: 50% 100px;
         background-repeat: no-repeat;
     }

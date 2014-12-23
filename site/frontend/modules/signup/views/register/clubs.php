@@ -37,8 +37,8 @@
         </div>
     </div>
     <div class="popup-sign_b margin-t20 clearfix">
-        <div class="float-r"><a class="btn-green-simple btn-l" href="<?=$this->createUrl('/signup/register/family/')?>">Готово</a></div>
-        <div class="float-l margin-t12"><a class="color-gray" href="<?=$this->createUrl('/signup/register/family/')?>">Пропустить этот шаг</a></div>
+        <div class="float-r"><a class="btn-green-simple btn-l" href="<?=Yii::app()->user->getReturnUrl($this->createUrl('/profile/default/index', array('user_id' => Yii::app()->user->id)))?>">Готово</a></div>
+        <div class="float-l margin-t12"><a class="color-gray" href="<?=Yii::app()->user->getReturnUrl($this->createUrl('/profile/default/index', array('user_id' => Yii::app()->user->id)))?>">Пропустить этот шаг</a></div>
     </div>
 </div>
 <!-- /popup-sign-->

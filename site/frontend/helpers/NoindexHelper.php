@@ -41,6 +41,6 @@ class NoindexHelper
 
     protected  static function byPost(CommunityContent $post)
     {
-        return (is_int($post->uniqueness) && $post->uniqueness < 50) || $post->type_id == CommunityContent::TYPE_STATUS;
+        return (is_numeric($post->uniqueness) && $post->uniqueness < 50) || $post->type_id == CommunityContent::TYPE_STATUS;
     }
 } 

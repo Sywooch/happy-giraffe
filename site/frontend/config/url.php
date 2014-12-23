@@ -59,15 +59,17 @@ return array(
         'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
-        'my/friends' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 2)),
-        'my/blogs' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 3)),
-        'my/community' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 4)),
-        'my' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 1)),
-        //'subscribes' => 'myGiraffe/default/subscribes',
-        //'recommends' => 'myGiraffe/default/recommends',
-        //'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
-        //'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
-        //'my/<_a>' => 'myGiraffe/default/<_a>',
+        //'my/friends' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 2)),
+        //'my/blogs' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 3)),
+        //'my/community' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 4)),
+        //'my' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 1)),
+        'subscribes' => 'myGiraffe/default/subscribes',
+        'recommends' => 'myGiraffe/default/recommends',
+        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
+        'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
+        'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
+        'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
+        'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller
         //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
@@ -165,11 +167,12 @@ return array(
         'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),
         'user/<user_id:\d+>/awards' => 'profile/default/awards',
         'profile/<_a>' => 'profile/default/<_a>',
+        
+        'user/<userId:\d+>/rss/page<page:\d+>' => 'rss/default/user',
+        'user/<userId:\d+>/rss' => 'rss/default/user',
+        'user/<userId:\d+>/comments/rss/page<page:\d+>' => 'rss/default/comments',
+        'user/<userId:\d+>/comments/rss' => 'rss/default/comments',
 
-        'user/<user_id:\d+>/rss/page<page:\d+>' => 'rss/user',
-        'user/<user_id:\d+>/rss' => 'rss/user',
-        'user/<user_id:\d+>/comments/rss/page<page:\d+>' => 'rss/comments',
-        'user/<user_id:\d+>/comments/rss' => 'rss/comments',
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',

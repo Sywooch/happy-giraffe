@@ -98,6 +98,7 @@ class ClientScript extends CClientScript
         $eval = $conf['eval'] . $this->getUserModule();
         $eval = $eval . $this->getCometConfigModule();
         $eval .= $this->getPhotoConfigModule();
+        $eval .= $this->getAdsConfigModule();
         unset($conf['eval']);
 
         // Добавим наши скрипты в самое начало
@@ -624,4 +625,19 @@ JS;
         return $config;
     }
 
+    protected function getAdsConfigModule()
+    {
+        $showAds = CJSON::encode(Yii::app()->ads->showAds);
+        $isProduction = CJSON::encode(Yii::app()->ads->isProduction());
+        $config = <<<JS
+define("ads-config", function() {
+    var adsConfig = {
+        showAds: {$showAds},
+        isProduction: {$isProduction}
+    };
+    return adsConfig;
+});
+JS;
+        return $config;
+    }
 }

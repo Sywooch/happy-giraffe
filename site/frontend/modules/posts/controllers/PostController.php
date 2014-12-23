@@ -15,11 +15,14 @@ class PostController extends \LiteController
     public $litePackage = 'posts';
     public $layout = '/layouts/newBlogPost';
     public $post = null;
-    public $hideUserAdd = true;
+    public $hideUserAdd = false;
     protected $_user = null;
     protected $_leftPost = null;
     protected $_rightPost = null;
 
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionView($content_id)
     {
         // Отработка сигналов
@@ -64,6 +67,25 @@ class PostController extends \LiteController
         }
 
         return $this->_rightPost;
+    }
+
+    public function sitemapView($param)
+    {
+        $criteria = new \CDbCriteria(array(
+            'condition' => 'isNoindex = 0',
+            'limit' => 50000,
+            'offset' => ($param['page'] - 1) * 50000,
+            'order' => 'id ASC',
+        ));
+        Content::model()->byService($param['service'])->applyScopes($criteria);
+        $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
+        $models = $command->queryAll();
+        return array_map(function($model) {
+            return array(
+                'loc' => $model['url'],
+                'lastmod' => date(DATE_W3C, $model['dtimeUpdate']),
+            );
+        }, $models);
     }
 }
 

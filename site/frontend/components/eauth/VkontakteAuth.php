@@ -26,7 +26,7 @@ class VkontakteAuth extends VKontakteOAuthService
         $this->attributes['firstName'] = $info->first_name;
         $this->attributes['lastName'] = $info->last_name;
         $this->setBirthdayAttributes($info);
-        $this->attributes['gender'] = $info->sex == 0 ? null : $info->sex - 1;
+        $this->attributes['gender'] = $info->sex == 0 ? null : (($info->sex == 1 ? '0' : '1'));
         $this->setLocationAttributes($info);
         $this->setAvatarAttribute($info);
     }

@@ -70,6 +70,15 @@ abstract class ApiModel extends \CModel
         }
     }
 
+    public function __set($name, $value)
+    {
+        if (array_search($name, $this->attributeNames()) !== false) {
+            $this->_attributes[$name] = $value;
+        } else {
+            parent::__set($name, $value);
+        }
+    }
+
     protected function setInternal($attributes)
     {
         foreach ($attributes as $name => $value)
@@ -99,7 +108,7 @@ abstract class ApiModel extends \CModel
         return $this->query('get', array('id' => $id));
     }
 
-    public function save($runValidation = true)
+    public function save($runValidation = true, $attributes = null)
     {
         if (!$runValidation || $this->validate($attributes))
             return $this->getIsNewRecord() ? $this->insert() : $this->update();
@@ -149,13 +158,15 @@ abstract class ApiModel extends \CModel
         {
             $this->trace(get_class($this) . '.update()');
             $attributes = $this->actionAttributes();
-            if (!isset($attributes['insert']) || !$attributes['insert'])
+            if (!isset($attributes['update']) || !$attributes['update'])
                 throw new \site\frontend\components\api\ApiException('Настройками запрещено добавлять данную запись. Проверьте ' . get_class($this) . '::actionAttributes()');
-            $request = array();
-            foreach ($attributes['insert'] as $attribute)
-                $request[$attribute] = $this->$attribute;
+            $request = array(
+                'id'
+            );
+            foreach ($attributes['update'] as $attribute)
+                $request['attributes'][$attribute] = $this->$attribute;
 
-            $result = $this->request('create', $params);
+            $result = $this->request('update', $request);
 
             if ($result['success'])
             {

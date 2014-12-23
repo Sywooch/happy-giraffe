@@ -3,6 +3,16 @@
 return array(
     array(
         'filter' => array(
+            'name' => 'relativeResize',
+            'method' => 'widen',
+            'parameter' => 318,
+        ),
+        'usages' => array(
+            'weeklyNews',
+        ),
+    ),
+    array(
+        'filter' => array(
             'name' => 'lepilla',
             'width' => 155,
             'height' => 140,
@@ -131,6 +141,36 @@ return array(
         ),
         'usages' => array(
             'singlePhoto',
+        ),
+    ),
+    array(
+        'filter' => array(
+            'name' => 'fixed',
+            'width' => 880,
+            'height' => 587,
+        ),
+        'usages' => array(
+            'familyMainPhoto',
+        ),
+    ),
+    array(
+        'filter' => array(
+            'name' => 'fixed',
+            'width' => 153,
+            'height' => 138,
+        ),
+        'usages' => array(
+            'familyMember',
+        ),
+    ),
+    array(
+        'filter' => array(
+            'name' => 'lepilla',
+            'width' => 600,
+            'height' => 450,
+        ),
+        'usages' => array(
+            'familyMemberImage',
         ),
     ),
 );

@@ -13,7 +13,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actions()
     {
         return \CMap::mergeArray(parent::actions(), array(
-                'get' => 'site\frontend\components\api\PackAction',
+            'get' => 'site\frontend\components\api\PackAction',
         ));
     }
 

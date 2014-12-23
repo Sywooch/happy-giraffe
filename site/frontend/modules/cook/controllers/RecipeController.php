@@ -3,40 +3,23 @@
  * Author: choo
  * Date: 31.05.2012
  */
-class RecipeController extends HController
+class RecipeController extends LiteController
 {
     public $counts;
     public $currentType = null;
     public $modelName;
     public $section;
     public $club;
+    public $litePackage = 'recipe';
 
     public function filters()
     {
         $filters = array(
             'accessControl',
-//            array(
-//                'CHttpCacheFilter + view',
-//                'lastModified' => $this->lastModified(),
-//            ),
             'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
         );
 
-        if (Yii::app()->user->isGuest) {
-            $filters [] = array(
-                'COutputCache + view',
-                'duration' => 300,
-                'varyByParam' => array('id'),
-            );
-
-            $filters [] = array(
-                'COutputCache + index',
-                'duration' => 300,
-                'varyByParam' => array('type', 'section'),
-            );
-        }
-
-        return $filters;
+        return CMap::mergeArray(parent::filters(), $filters);
     }
 
     public function accessRules()

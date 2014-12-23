@@ -18,6 +18,10 @@ return array(
             'createPhotoAlbum',
             'managePhotoAttach',
             'uploadPhoto',
+            'manageOwnFamily',
+            'manageOwnFamilyMembers',
+            'createFamily',
+            'createFamilyMember',
         ),
         'bizRule' => null,
         'data' => null
@@ -189,7 +193,7 @@ return array(
             'removePhotoAttach',
             'restorePhotoAttach',
         ),
-        'bizRule' => 'return $params["entity"]->collection->getOwner()->id == \Yii::app()->user->id;',
+        'bizRule' => 'return $params["entity"]->collection->getAuthor()->id == \Yii::app()->user->id;',
         'data' => null,
     ),
     'removePhotoAttach' => array(
@@ -213,7 +217,7 @@ return array(
             'setCover',
             'moveAttaches',
         ),
-        'bizRule' => 'return $params["entity"]->getOwner()->id == \Yii::app()->user->id;',
+        'bizRule' => 'return $params["entity"]->getAuthor()->id == \Yii::app()->user->id;',
         'data' => null,
     ),
     'sortPhotoCollection' => array(
@@ -242,14 +246,70 @@ return array(
     ),
     'uploadPhoto' => array(
         'type' => CAuthItem::TYPE_TASK,
-        'description' => 'Загрузка фотографий',
+        'description' => 'Загрузка фото',
         'bizRule' => null,
         'data' => null
     ),
     'editPhoto' => array(
         'type' => CAuthItem::TYPE_TASK,
-        'description' => 'Загрузка фотографий',
+        'description' => 'Редактирование фото',
         'bizRule' => null,
         'data' => null
+    ),
+    'manageOwnFamily' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление своей семьей',
+        'children' => array(
+            'updateFamily',
+        ),
+        'bizRule' => 'return $params["entity"]->canManage(\Yii::app()->user->id);',
+        'data' => null,
+    ),
+    'createFamily' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Создание семьи',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'updateFamily' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Редактирование семьи',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'manageOwnFamilyMembers' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление членами семьи',
+        'children' => array(
+            'updateFamilyMember',
+            'removeFamilyMember',
+            'restoreFamilyMember',
+        ),
+        'bizRule' => 'return $params["entity"]->family->canManage(\Yii::app()->user->id);',
+        'data' => null,
+    ),
+    'createFamilyMember' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Создание члена семьи',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'updateFamilyMember' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Редактирование члена семьи',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'removeFamilyMember' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Удаление члена семьи',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'restoreFamilyMember' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Восстановление члена семьи',
+        'bizRule' => null,
+        'data' => null,
     ),
 );

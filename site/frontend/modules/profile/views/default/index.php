@@ -58,9 +58,11 @@ Yii::app()->clientScript->registerPackage('ko_profile');
             <?php $this->renderPartial('_ava', array('user' => $user)); ?>
             <div class="section-lilac_center-reg">с Веселым Жирафом <?= $user->withUs() ?></div>
         </div>
+        <?php if (false): ?>
         <div class="section-lilac_right">
             <?php $this->widget('FamilyWidget', array('user' => $user)); ?>
         </div>
+        <?php endif; ?>
     </div>
 </div>
 <div class="content-cols clearfix">

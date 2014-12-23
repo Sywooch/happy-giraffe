@@ -13,6 +13,9 @@ return array(
         'photo' => require(dirname(__FILE__) . '/../../frontend/modules/photo/config/main.php'),
     ),
     'components' => array(
+        'api' => array(
+            'class' => 'site\frontend\components\api\ApiComponent',
+        ),
         'apc' => array(
             'class' => 'CApcCache',
         ),

@@ -76,6 +76,11 @@ class Thumb extends \CComponent
         return $this->getDecorator()->show();
     }
 
+    public function __toString()
+    {
+        return $this->getUrl();
+    }
+
     protected function getDecorator()
     {
         $decorator = new ImageDecorator($this->photo->getImage(), $this->animated);

@@ -33,6 +33,13 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         'CommunityContent' => array(
             'default' => 'site\frontend\modules\photo\models\collections\CommunityContentPhotoCollection',
         ),
+        'FamilyMember' => array(
+            'default' => 'site\frontend\modules\photo\models\collections\FamilyMemberPhotoCollection',
+        ),
+        'Family' => array(
+            'default' => 'site\frontend\modules\photo\models\collections\FamilyPhotoCollection',
+            'all' => 'site\frontend\modules\photo\models\collections\FamilyAllPhotoCollection',
+        ),
     );
 
 	/**
@@ -96,7 +103,11 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
     protected function instantiate($attributes)
     {
-        $class = self::getClassName($attributes['entity'], $attributes['key']);
+        if (isset($attributes['entity'])) {
+            $class = self::getClassName($attributes['entity'], $attributes['key']);
+        } else {
+            $class = get_class($this);
+        }
         $model = new $class(null);
         return $model;
     }
@@ -125,6 +136,8 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
                 'possibleRelations' => array(
                     'PhotoAlbum' => '\site\frontend\modules\photo\models\PhotoAlbum',
                     'CommunityContent' => '\CommunityContent',
+                    'FamilyMember' => '\site\frontend\modules\family\models\FamilyMember',
+                    'Family' => '\site\frontend\modules\family\models\Family',
                 ),
             ),
             'UrlBehavior' => array(
@@ -137,7 +150,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     public function getUrlInternal($model)
     {
         $parentModel = $model->RelatedModelBehavior->relatedModel;
-        if ($parentModel->asa('UrlBehavior') || method_exists($parentModel, 'getUrl')) {
+        if ($parentModel !== null && $parentModel->asa('UrlBehavior') || method_exists($parentModel, 'getUrl')) {
             return $parentModel->getUrl();
         }
         return false;
@@ -337,7 +350,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         return $this->_observer;
     }
 
-    public function getOwner()
+    public function getAuthor()
     {
         return $this->RelatedModelBehavior->relatedModel->author;
     }

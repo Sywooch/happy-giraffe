@@ -1,27 +1,40 @@
 define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], function($, ko, template, User) {
-    function RegisterForm(params) {
+    function Register(params) {
         var self = this;
-        self.validateUrl = '/api/signup/validate/';
-        self.captchaUrl = '/signup/register/captcha/';
+        self.registerUrl = '/api/signup/register/';
+
         self.SCREEN_STEP_1 = 'screenStep1';
         self.SCREEN_STEP_2 = 'screenStep2';
         self.SCREEN_STEP_SOCIAL = 'screenSocial';
 
+
+
         self.step = ko.observable(self.SCREEN_STEP_1);
 
-        self.fields = {
-            firstName: new FormField(self, 'Никита'),
-            lastName: new FormField(self, 'Свистоплясов'),
-            birthday: new DateField(self, null),
-            gender: new FormField(self, '1'),
-            email: new FormField(self, 'nikitafsdf@happy-giraffe.ru'),
-            password: new FormField(self, '111111')
-        };
+        self.registerForm = new RegisterForm();
+        self.captchaForm = new CaptchaForm();
 
-        self.captcha = new FormField(self, '');
+
+
+        self.registerSimple = function() {
+            self.registerForm.validate(function(response) {
+                if (response.data.errors.length == 0) {
+                    self.step(self.SCREEN_STEP_2);
+                    console.log('1');
+                }
+                console.log('2');
+            });
+        };
+    }
+
+    function Form() {
+        var self = this;
+        self.fields = [];
 
         self.validate = function(callback) {
             $.post(self.validateUrl, JSON.stringify({ attributes: self.getValues() }), function(response) {
+
+
                 for (var attribute in self.fields) {
                     if (response.data.errors[attribute] !== undefined) {
                         self.fields[attribute].errors(response.data.errors[attribute]);
@@ -40,15 +53,38 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
             }
             return values;
         };
-
-        self.registerSimple = function() {
-            self.validate(function(response) {
-                if (response.data.errors.length == 0) {
-                    self.step(self.SCREEN_STEP_2);
-                }
-            });
-        }
     }
+
+    function RegisterForm() {
+        Form.apply(this, arguments);
+        var self = this;
+        self.validateUrl = '/api/signup/validate/';
+        self.fields = {
+            firstName: new FormField(self, 'Никита'),
+            lastName: new FormField(self, 'Свистоплясов'),
+            birthday: new DateField(self, null),
+            gender: new FormField(self, '1'),
+            email: new FormField(self, 'nikitafsdf@happy-giraffe.ru'),
+            password: new FormField(self, '111111')
+        };
+    }
+    RegisterForm.prototype = Object.create(Form.prototype);
+
+    function CaptchaForm() {
+        Form.apply(this, arguments);
+        var self = this;
+        self.validateUrl = '/api/signup/captcha/';
+        self._captchaUrl = '/signup/default/captcha/';
+
+        self.captchaUrl = function() {
+            return self._captchaUrl + '?' + Math.floor((Math.random() * 1000000) + 1);
+        };
+
+        self.fields = {
+            verifyCode: new FormField(self, '')
+        };
+    }
+    CaptchaForm.prototype = Object.create(Form.prototype);
 
     function FormField(parent, value) {
         var self = this;
@@ -66,6 +102,7 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
             return (self.errors().length > 0) ? 'error' : 'success';
         });
         self.validate = function() {
+            console.log(parent);
             parent.validate(function() {
                 self.isFilled(true);
             });
@@ -98,7 +135,7 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/User'], 
     DateField.prototype = Object.create(DateField.prototype);
 
     return {
-        viewModel: RegisterForm,
+        viewModel: Register,
         template: template
     };
 });

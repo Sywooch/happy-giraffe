@@ -10,6 +10,17 @@ use site\frontend\modules\signup\models\RegisterForm;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
+    public function actions()
+    {
+        return array(
+            'captcha' => array(
+                'class' => 'RegisterCaptchaAction',
+                'mode' => \CaptchaExtendedAction::MODE_WORDS,
+                'testLimit' => 0,
+            ),
+        );
+    }
+
     public function actionRegister(array $attributes)
     {
         $form = new RegisterForm();

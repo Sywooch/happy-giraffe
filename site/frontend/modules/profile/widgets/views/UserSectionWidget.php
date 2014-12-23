@@ -3,6 +3,8 @@
  * @var UserSectionWidget $this
  * @var \User $user
  */
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('userSection', array('kow'));
 ?>
 
 <section class="userSection visible-md-block">
@@ -44,11 +46,12 @@
                 <?php endif; ?>
             </div>
         </div>
-        <?php if (false): ?>
         <div class="userSection_right">
+        <family-section params="userId: <?= $user->id ?>"></family-section>
+        <?php if (false): ?>
             <?php $this->widget('profile.widgets.FamilyWidget', array('user' => $user)); ?>
-        </div>
         <?php endif; ?>
+        </div>
     </div>
     <div class="userSection_panel">
         <?php

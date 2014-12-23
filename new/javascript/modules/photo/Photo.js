@@ -28,7 +28,7 @@ define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions
                 PresetManager.presets = data.data;
                 this.presetHash(PresetManager.getPresetHash(this.preset));
             }
-        }
+        };
         this.getGeneratedPreset = function generatePreseted(preset) {
             if (this.presetHash() === undefined) {
                 if (PresetManager.presets === undefined || $.isPlainObject(PresetManager.presets)) {
@@ -39,6 +39,17 @@ define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions
                 }
             }
             return baseConfig + this.presetHash() + '/' + this.fsName();
+        };
+        this.getGeneratedHeight = function getGeneratedHeight(preset) {
+            if (this.presetHeight() === undefined) {
+                if (PresetManager.presets === undefined || $.isPlainObject(PresetManager.presets)) {
+                    this.preset = preset;
+                    PresetManager.getPresets(this.handlePresets.bind(this));
+                } else {
+                    this.presetHeight(PresetManager.getHeight(this.width(), this.height(), preset));
+                }
+            }
+            return this.presetHeight();
         };
         /**
          * Валидация

@@ -1,8 +1,8 @@
 <?php $this->beginContent('//layouts/lite/main'); ?>
-<div class="b-main_cont">
+<?php /*<div class="b-main_cont"> */ ?>
     <?php /* Тут происходит неведомая хрень. Я просто скопировал это из application.modules.community.views.default._links */ ?>
     <section class="b-section b-section__collection-<?= $this->club->id ?>">
-        <div class="b-section_hold">
+        <div class="b-section_hold b-main_cont">
             <div class="b-main_col-hold clearfix">
                 <div class="b-section_sidebar">
                     <a href="#" class="i-club i-club__section"> 
@@ -70,6 +70,6 @@
             </div>
         </div>
     </section>
-</div>
+<?php /*<div class="b-main_cont"> </div>*/ ?>
 <?= $content ?>
 <?php $this->endContent(); ?>

@@ -11,7 +11,7 @@ $cs->registerAMD('BlogRecordSettings', array('kow'));
             </div>
         </div>
         <div class="b-article_t-list"><a href="<?= $data->parsedUrl ?>" class="b-article_t-a"><?= $data->title ?></a></div>
-        <?php if ($data->templateObject->data['noWysiwyg']) { ?>
+        <?php if (isset($data->templateObject->data['noWysiwyg']) && $data->templateObject->data['noWysiwyg']) { ?>
             <?= $data->preview ?>
         <?php } else { ?>
             <div class="b-article_in clearfix"><div class="wysiwyg-content clearfix"><?= $data->preview ?></div></div>

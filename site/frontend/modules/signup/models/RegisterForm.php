@@ -52,16 +52,27 @@ class RegisterForm extends \CFormModel
 
     public function save()
     {
-
+        $transaction = \Yii::app()->db->beginTransaction();
+        try {
             $this->user = new \User();
-            $this->user->attributes = $this->attributes;
+            $this->user->first_name = $this->firstName;
+            $this->user->last_name = $this->lastName;
+            $this->user->birthday = $this->birthday;
+            $this->user->gender = $this->gender;
+            $this->user->email = $this->email;
+            $this->user->password = \User::hashPassword($this->password);
             if ($this->user->save()) {
-                echo $this->user->id;
+                $this->afterSave();
+                $transaction->commit();
+                return true;
             } else {
-                print_r($this->user->errors);
-
+                $transaction->rollback();
             }
-            die;
+        } catch (\Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+        return false;
     }
 
     protected function afterSave()

@@ -18,6 +18,10 @@ class DefaultController extends \HController
                 'mode' => \CaptchaExtendedAction::MODE_WORDS,
                 'testLimit' => 0,
             ),
+            'social' => array(
+                'class' => 'signup.components.SignupSocialAction',
+                'fromLogin' => false,
+            ),
         );
     }
 } 

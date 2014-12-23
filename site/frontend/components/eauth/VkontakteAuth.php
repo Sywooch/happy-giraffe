@@ -23,8 +23,8 @@ class VkontakteAuth extends VKontakteOAuthService
         $info = $info['response'][0];
 
         $this->attributes['uid'] = $info->uid;
-        $this->attributes['first_name'] = $info->first_name;
-        $this->attributes['last_name'] = $info->last_name;
+        $this->attributes['firstName'] = $info->first_name;
+        $this->attributes['lastName'] = $info->last_name;
         $this->setBirthdayAttributes($info);
         $this->attributes['gender'] = $info->sex == 0 ? null : $info->sex - 1;
         $this->setLocationAttributes($info);
@@ -70,9 +70,7 @@ class VkontakteAuth extends VKontakteOAuthService
             }
         }
 
-        $this->attributes['birthday_year'] = $year;
-        $this->attributes['birthday_month'] = $month;
-        $this->attributes['birthday_day'] = $day;
+        $this->attributes['birthday'] = implode('-', array($year, $month, $day));
     }
 
     protected function saveAccessToken($token)

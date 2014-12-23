@@ -19,6 +19,11 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = array(
             'errors' => $form->user->getErrors(),
         );
+        if ($this->success) {
+            $identity = new \UserIdentity($form->user->email, $form->password);
+            var_dump($identity->authenticate());
+            \Yii::app()->user->login($identity);
+        }
     }
 
     public function actionValidate(array $attributes)

@@ -173,4 +173,14 @@ return array(
             'familyMemberImage',
         ),
     ),
+    array(
+        'filter' => array(
+            'name' => 'lepilla',
+            'width' => 55,
+            'height' => 55,
+        ),
+        'usages' => array(
+            'familyMemberSmallWidget',
+        ),
+    )
 );

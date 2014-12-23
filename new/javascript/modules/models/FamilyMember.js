@@ -204,6 +204,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             this.photo = ko.observable(this.photoAttaching());
             this.errors = ko.observableArray();
             this.photo.subscribe(this.watchForPhoto.bind(this));
+            this.viewData = data.viewData;
             return this;
         }
 

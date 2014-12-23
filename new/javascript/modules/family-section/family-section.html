@@ -1,9 +1,30 @@
 <div class="b-family">
-    <div class="b-family_top b-family_top__white"></div>
-    <ul class="b-family_ul">
-        <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span> Жена</span></span></a></li>
-        <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span> Дочь</span><br><span> 8 лет</span></span></a></li>
-        <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-5"></span></span><span class="b-family_tx"><span> Дочь</span><br><span> 5 лет</span></span></a></li>
-        <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span> Сын</span><br><span> 2,5 года</span></span></a></li>
-    </ul>
+    <!-- ko if: loadingFamily() === false -->
+        <!-- ko if: family.members().length > 0 -->
+            <div class="b-family_top b-family_top__white"></div>
+            <!-- ko if: rightsForManipulation === true-->
+            <a href="#" class="ico-edit ico-edit__s" data-bind="href: editUrl"></a>
+            <!-- /ko -->
+            <ul class="b-family_ul" data-bind="foreach: { data: family.members, as: 'member' }">
+                <li class="b-family_li">
+                    <a href="" class="b-family_a">
+                        <span class="b-family_img-hold">
+                            <span class="ico-family ico-family__wife" data-bind="attr: { class: 'ico-family ico-family__' + member.viewData.cssClass }">
+                                <!-- ko if: member.photo() !== null -->
+                                    <img src="" alt="" data-bind="src: member.photo().getGeneratedPreset('familyMemberSmallWidget')"/>
+                                <!-- /ko -->
+                            </span>
+                        </span>
+                        <span class="b-family_tx">
+                            <span data-bind="text: member.viewData.asString"></span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        <!-- /ko -->
+        <!-- ko if: family.members().length === 0  && rightsForManipulation === true-->
+            <div class="b-family_top b-family_top__white"></div>
+            <a class="btn btn-secondary" href="" data-bind="href: editUrl">Добавить</a>
+        <!-- /ko -->
+    <!-- /ko -->
 </div>

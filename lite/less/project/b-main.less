@@ -19,7 +19,6 @@
 
         .bnr-base:first-child {margin-top: 20px;}
     }
-    &_col-sidebar:first-child {margin-left: 0;}
 
     &_row {
         position: relative;
@@ -62,16 +61,7 @@
     &_col-hold {
         &:extend(.clearfix all);
     }
-    /*&_col-article {
-        float: left;
-        width: 600px;
-    }
-    &_col-sidebar {
-        float: left;
-        width: 240px;
-        margin-left: 20px;
-    }*/
-    &_col-sidebar:first-child {margin-left: 0;}
+    /*&_col-sidebar:first-child {margin-left: 0;}*/
     // from new folder
     
     @media (min-width: @screen-phone-landscape) {
@@ -118,11 +108,21 @@
                 margin-bottom: 50px;
             }
         }
+        // Широкий контент
+        &_cont__broad {
+            margin: 0 35px;
+        }
+        &_cont__broad &_col-sidebar {
+            width: 300px;
+            margin-left: 30px;
+        }
+        
         &_col-sidebar {
             float: left;
             width: 240px;
             margin-left: 40px;
         }
+        &_col-sidebar:first-child {margin-left: 0;}
 
         &_row__blue-quotes {
             background-repeat: no-repeat;

@@ -279,3 +279,120 @@
     }
 }
 /* /b-ava-large */
+
+.i-ava-bubble {
+    display: block;
+    position: absolute;
+    /*left: 35px;
+    bottom: 3px;*/
+    height: 60px;
+    width: 60px;
+    background: #56aae1;
+    background: rgba(86,170,225,.9);
+    text-decoration: none;
+    .border-radius(30px);
+    
+    &:hover {background: #3998d1;}
+    /*&_bubble:hover &_ico       {background-position: 0 -30px;}
+    &_bubble:hover &_ico__blog {background-position: -30px -30px;}
+    &_bubble:hover &_ico__photo{background-position: -60px -30px;}*/
+    &:hover &_ico__friend-add{background-position: -120px 0;}
+    /*&_bubble:hover &_ico__friend-added{background-position: -120px 0;}
+    &_bubble:hover &_ico__friend {background-position: -150px 0px;}*/
+    &:hover &_bubble-tx{color: #fff;}
+    &__photo {
+        bottom: 50px;
+        left: auto;
+        right: 0;
+    }
+    &__photo:hover {background: #e68832;}
+    &__blog {
+        bottom: 3px;
+        left: auto;
+        right: 35px;
+    }
+    &__blog:hover {background: #63bb5b;}
+    &__friend-add-onhover,
+    &__friend-add {
+        bottom: 50px;
+        left: 0;
+        display: block;
+    }
+    &__friend-add-onhover {display: none;}
+    &__friend-add-onhover:hover,
+    &__friend-add:hover {background: #fbe170;}
+    /*&_bubble__friend-added {
+        bottom: 50px;
+        left: 0;
+        background: #fee652;
+        background: rgba(254,230,82,0.9);
+    }
+    &_bubble__friend-added:hover {background: #fee652;}*/
+    &__friend {
+        bottom: 50px;
+        left: 0;
+        background: #fee652;
+        /*background: rgba(254,230,82,0.9);*/
+    }
+    &__friend:hover {background: #fbe170;}
+    &__friend:hover &_bubble-tx,
+    &__friend &_bubble-tx {color: #6abc12;}
+    &_tx {
+        font-size: 10px;
+        line-height: 10px;
+        color: #cad9ed;
+        text-decoration: none;
+        display: block;
+    }
+    &_online {
+        position: absolute;
+        top: 10px;
+        left: 3px;
+        height: 40px;
+        width: 40px;
+        padding: 9px 0 0;
+        background: #03b23d;
+        color: #fff;
+        font-size: 10px;
+        line-height: 10px;
+        text-align: center;
+        z-index: 4;
+        .border-radius(19px);
+    }
+    &_lastvisit {
+        position: absolute;
+        .inline-block();
+        top: 10px;
+        right: 150px;
+        height: 30px;
+        min-width: 84px;
+        padding: 8px 0 0;
+        background: #a488bc;
+        color: #fff;
+        font-size: 9px;
+        line-height: 10px;
+        font-family: Tahoma, Arial, Verdana, sans-serif;
+        text-align: center;
+        z-index: 6;
+        .border-radius(19px);
+    }
+    &_ico {
+        display: block;
+        width: 30px;
+        height: 25px;
+        margin: 15px auto 0;
+        background: url('@{path-img}/b-ava-large_ico.png') no-repeat;
+    }
+    &_ico__blog  {background-position: -30px 0;}
+    &_ico__photo {background-position: -60px 0;}
+    &_ico__friend-add {background-position: -90px 0;}
+    /*&_ico__friend-added {background-position: -120px 0;}*/
+    &_ico__friend {background-position: -150px 0;}
+    &_a {
+        display: inline;
+        line-height: 15px;
+        color: #289fd7;
+        text-decoration: none;
+    }
+    &_a:hover {text-decoration: underline;}
+}

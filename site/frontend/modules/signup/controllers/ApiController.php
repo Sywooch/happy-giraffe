@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\signup\controllers;
+use site\frontend\modules\signup\components\UserIdentity;
 use site\frontend\modules\signup\models\CaptchaForm;
 use site\frontend\modules\signup\models\LoginForm;
 use site\frontend\modules\signup\models\PasswordRecoveryForm;
@@ -18,11 +19,17 @@ class ApiController extends \site\frontend\components\api\ApiController
         $form = new RegisterForm();
         $form->attributes = $attributes;
         $this->success = $form->save();
-        $this->data = array(
-            'errors' => $form->user->getErrors(),
-        );
         if ($this->success) {
-            $identity = new \UserIdentity($form->user->email, $form->password);
+            $this->data = array(
+                'returnUrl' => \Yii::app()->user->getReturnUrl(),
+            );
+        } else {
+            $this->data = array(
+                'errors' => $form->user->getErrors(),
+            );
+        }
+        if ($this->success) {
+            $identity = new UserIdentity($form->user->email, $form->password);
             if ($identity->authenticate()) {
                 \Yii::app()->user->login($identity);
             }

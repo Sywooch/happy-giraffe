@@ -62,7 +62,7 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
 
         }
         curl_close($curl);
-        $this->attributes['avatar_src'] = $result;
+        $this->attributes['avatarSrc'] = $result;
     }
 
     protected function setBirthdayAttributes($info)

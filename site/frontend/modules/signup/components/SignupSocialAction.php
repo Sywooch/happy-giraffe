@@ -16,6 +16,11 @@ class SignupSocialAction extends SocialAction
                 Yii::app()->user->login($identity);
                 $eauth->redirect(Yii::app()->user->returnUrl);
             } else {
+                Yii::app()->user->setState('socialService', array(
+                    'name' => $eauth->getServiceName(),
+                    'id' => $eauth->getAttribute('uid'),
+                ));
+
                 if ($identity->errorCode == SocialUserIdentity::ERROR_NOT_ASSOCIATED) {
                     $eauth->component->setRedirectView('signup.views.redirect');
                     $eauth->redirect(null, array(

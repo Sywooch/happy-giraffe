@@ -50,7 +50,7 @@ class VkontakteAuth extends VKontakteOAuthService
                 break;
             }
         }
-        $this->attributes['avatar_src'] = $result;
+        $this->attributes['avatarSrc'] = $result;
     }
 
     protected function setBirthdayAttributes($info)

@@ -18,10 +18,19 @@ class DefaultController extends \HController
                 'mode' => \CaptchaExtendedAction::MODE_WORDS,
                 'testLimit' => 0,
             ),
-            'social' => array(
+            'socialRegister' => array(
                 'class' => 'signup.components.SignupSocialAction',
                 'fromLogin' => false,
             ),
+            'socialLogin' => array(
+                'class' => 'signup.components.SignupSocialAction',
+                'fromLogin' => true,
+            ),
         );
+    }
+
+    public function actionTest()
+    {
+        var_dump(\Yii::app()->user->getState('socialService'));
     }
 } 

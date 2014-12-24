@@ -18,6 +18,7 @@ class RegisterForm extends \CFormModel
     public $gender;
     public $email;
     public $password;
+    public $avatarSrc;
     
     public $user;
 
@@ -28,10 +29,11 @@ class RegisterForm extends \CFormModel
             array('firstName', 'length', 'max' => 50),
             array('lastName', 'length', 'max' => 50),
             array('email', 'email'),
-            array('email', 'unique', 'className' => 'User', 'caseSensitive' => false, 'criteria' => array('condition' => 'deleted = 0 AND status = :active', 'params' => array(':active' => \User::STATUS_ACTIVE))),
+            array('email', 'unique', 'className' => 'User', 'caseSensitive' => false, 'criteria' => array('condition' => 'deleted = 0')),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
             array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE)),
             array('password', 'length', 'min' => 6, 'max' => 15),
+            array('avatarSrc', 'safe'),
         );
     }
 
@@ -77,6 +79,26 @@ class RegisterForm extends \CFormModel
 
     protected function afterSave()
     {
+        if (($socialService = \Yii::app()->user->getState('socialService')) !== null) {
+            $service = new \UserSocialService();
+            $service->service = $socialService['name'];
+            $service->service_id = $socialService['id'];
+            $service->user_id = $this->user->id;
+            $service->save();
+            \Yii::app()->user->setState('socialService', null);
+        }
+
+        if ($this->avatarSrc) {
+            $photo = \AlbumPhoto::createByUrl($this->avatarSrc, $this->user->id);
+            if ($photo) {
+                \UserAvatar::createUserAvatar($this->user->id, $photo->id, 0, 0, $photo->width, $photo->height);
+            }
+        }
+
+        $userAddress = new \UserAddress();
+        $userAddress->user_id = $this->user->id;
+        $userAddress->save();
+
         //рубрика для блога
         $rubric = new \CommunityRubric;
         $rubric->title = 'Обо всём';

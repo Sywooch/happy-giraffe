@@ -6,7 +6,7 @@ $this->pageTitle = $model->isNewRecord ? 'Добавление записи' : '
 
 <div class="post-add-page content-cols clearfix">
     <div class="col-23-middle">
-        <div class="heading-xl margin-l20">
+        <div class="heading-xl">
 
             <?php if ($model->type_id == CommunityContent::TYPE_POST): ?>
                 <span class="user-add-record_ico user-add-record_ico__article active"></span>

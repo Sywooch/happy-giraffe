@@ -19,11 +19,11 @@ class DefaultController extends \HController
                 'testLimit' => 0,
             ),
             'socialRegister' => array(
-                'class' => 'signup.components.SignupSocialAction',
+                'class' => 'site\frontend\modules\signup\components\SignupSocialAction',
                 'fromLogin' => false,
             ),
             'socialLogin' => array(
-                'class' => 'signup.components.SignupSocialAction',
+                'class' => 'site\frontend\modules\signup\components\SignupSocialAction',
                 'fromLogin' => true,
             ),
         );

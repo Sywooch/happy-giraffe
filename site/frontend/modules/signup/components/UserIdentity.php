@@ -28,10 +28,6 @@ class UserIdentity extends \CUserIdentity
             $this->errorMessage = 'Вы заблокированы';
         }
         else {
-            if ($model->status == \User::STATUS_INACTIVE) {
-                $model->activate();
-            }
-
             foreach ($model->attributes as $k => $v)
                 $this->setState($k, $v);
             $this->errorCode = self::ERROR_NONE;

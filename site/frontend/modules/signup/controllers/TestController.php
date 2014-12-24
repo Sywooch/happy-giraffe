@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Никита
- * @date 22/12/14
+ * @date 24/12/14
  */
 
 namespace site\frontend\modules\signup\controllers;

@@ -408,15 +408,18 @@ a.heading-link-xxl:hover {
         left: auto;
         right: -315px;
     }
+    &__r .i-photo-arrow {
+        &:extend(.i-photo-arrow__r all);
+    }
 
     @media (min-width: @screen-desktop) {
         & {
-            display: block;
         }
     }
 
     @media screen and (min-width: 1230px) {
-        &.visible {
+        & {
+            display: block;
             visibility: visible;
             .opacity(1);
         }

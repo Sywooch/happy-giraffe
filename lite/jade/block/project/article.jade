@@ -16,7 +16,14 @@ mixin bArticle-single(mod, vars)
                         span.icons-meta_tx 35
                     .icons-meta_view
                         span.icons-meta_tx 305
-            h1.b-article_t Самое лучшее утро - просыпаюсь, а ты рядом
+            h1.b-article_t 
+                | Самое лучшее утро - просыпаюсь, а ты рядом
+                if(vars.redactor)
+                    .redactor-panel
+                        a.ico-redactor.ico-redactor__interest.js-tooltipsy(href='#', title='Самое интересное')
+                        a.ico-redactor.ico-redactor__blog.js-tooltipsy(href='#', title='Блоги на главную')
+                        a.ico-redactor.ico-redactor__social.js-tooltipsy.active(href='#', title='Посты в соцсети')
+                        a.ico-redactor.ico-redactor__mail.js-tooltipsy(href='#', title='Посты в рассылку')
             .b-article_in.clearfix
                 .wysiwyg-content.clearfix
                     p
@@ -66,6 +73,10 @@ mixin bArticle-single(mod, vars)
 
 - bArticleSingle.user = {}
 - bArticleSingle.user.btnEdit = true
+
+- bArticleSingle.redactor = {}
+- bArticleSingle.redactor.btnEdit = true
+- bArticleSingle.redactor.redactor = true
 
 
 mixin bArticleListItem(mod, vars)
@@ -133,6 +144,9 @@ mixin bArticleListItem(mod, vars)
 
 - bArticleListItem.a = {}
 - bArticleListItem.a.type = 'text'
+
+- bArticleListItem.b = {}
+- bArticleListItem.b.type = 'video'
 
 - bArticleListItem.b = {}
 - bArticleListItem.b.type = 'video'

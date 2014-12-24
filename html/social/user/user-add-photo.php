@@ -89,7 +89,7 @@
 
 		<div class="post-add-page content-cols clearfix">
 			<div class="col-23-middle">
-				<div class="heading-xl margin-l20">
+				<div class="heading-xl">
 					<span class="user-add-record_ico user-add-record_ico__photo active"></span>
 					Редактировать фотопост
 				</div>

@@ -1,4 +1,4 @@
-define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 'signup/formField', 'models/Model', 'signup/bindings'], function(ko, template, Form, FormField, Model) {
+define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner', 'signup/bindings'], function(ko, template, Form, FormField, Model, customReturner) {
     function RecoverForm() {
         var self = this;
         self.sent = ko.observable(false);
@@ -22,6 +22,16 @@ define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 's
         }
     }
     RecoverForm.prototype = Form;
+
+    RecoverForm.prototype.open = function() {
+        $.magnificPopup.open({
+            items: {
+                src: customReturner('password-recovery-form'),
+                type: 'inline'
+            }
+        });
+        ko.applyBindings({}, $('password-recovery-form')[0]);
+    };
 
     return {
         viewModel: RecoverForm,

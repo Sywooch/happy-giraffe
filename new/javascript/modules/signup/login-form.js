@@ -1,4 +1,4 @@
-define(['text!signup/login-form.html', 'signup/form', 'signup/formField', 'models/Model', 'signup/eauth', 'signup/bindings'], function(template, Form, FormField, Model) {
+define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner', 'signup/eauth', 'signup/bindings'], function($, ko, template, Form, FormField, Model, customReturner) {
     function LoginForm() {
         var self = this;
         self.submitUrl = '/api/signup/login/';
@@ -26,6 +26,16 @@ define(['text!signup/login-form.html', 'signup/form', 'signup/formField', 'model
         $(".auth-service.odnoklassniki a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
     }
     LoginForm.prototype = Object.create(Form);
+
+    LoginForm.prototype.open = function() {
+        $.magnificPopup.open({
+            items: {
+                src: customReturner('login-form'),
+                type: 'inline'
+            }
+        });
+        ko.applyBindings({}, $('login-form')[0]);
+    };
 
     return {
         viewModel: LoginForm,

@@ -1,16 +1,10 @@
-define(['knockout', 'models/User', 'modules-helpers/component-custom-returner', 'kow'], function(ko, User, customReturner) {
+define(['knockout', 'models/User', 'signup/register-form', 'signup/login-form', 'signup/password-recovery-form', 'kow'], function(ko, User, RegisterForm, LoginForm, PasswordRecoveryForm) {
     ko.bindingHandlers.login = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             $(element).click(function (evt) {
                 if (User.isGuest) {
                     evt.preventDefault();
-                    $.magnificPopup.open({
-                        items: {
-                            src: customReturner('login-form'),
-                            type: 'inline'
-                        }
-                    });
-                    ko.applyBindings({}, $('login-form')[0]);
+                    LoginForm.viewModel.prototype.open();
                 }
             });
         }
@@ -21,13 +15,7 @@ define(['knockout', 'models/User', 'modules-helpers/component-custom-returner', 
             $(element).click(function (evt) {
                 if (User.isGuest) {
                     evt.preventDefault();
-                    $.magnificPopup.open({
-                        items: {
-                            src: customReturner('register-form'),
-                            type: 'inline'
-                        }
-                    });
-                    ko.applyBindings({}, $('register-form')[0]);
+                    RegisterForm.viewModel.prototype.open();
                 }
             });
         }
@@ -37,13 +25,7 @@ define(['knockout', 'models/User', 'modules-helpers/component-custom-returner', 
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             $(element).click(function (evt) {
                 evt.preventDefault();
-                $.magnificPopup.open({
-                    items: {
-                        src: customReturner('password-recovery-form'),
-                        type: 'inline'
-                    }
-                });
-                ko.applyBindings({}, $('password-recovery-form')[0]);
+                PasswordRecoveryForm.viewModel.prototype.open();
             });
         }
     };

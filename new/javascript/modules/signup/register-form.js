@@ -1,5 +1,5 @@
-define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 'signup/form', 'signup/formField', 'signup/dateField', 'signup/eauth', 'signup/bindings', 'ko_library'], function($, ko, template, Model, Form, FormField, DateField) {
-    function Register(params) {
+define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 'signup/form', 'signup/formField', 'signup/dateField', 'modules-helpers/component-custom-returner', 'kow', 'signup/eauth', 'signup/bindings', 'ko_library'], function($, ko, template, Model, Form, FormField, DateField, customReturner) {
+    function Register() {
         var self = this;
         self.redirectUrl = '/';
         self.SCREEN_STEP_1 = 'screenStep1';
@@ -53,6 +53,16 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         $(".auth-service.vkontakte a").eauth({"popup":{"width":585,"height":350},"id":"vkontakte"});
         $(".auth-service.odnoklassniki a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
     }
+
+    Register.prototype.open = function() {
+        $.magnificPopup.open({
+            items: {
+                src: customReturner('register-form'),
+                type: 'inline'
+            }
+        });
+        ko.applyBindings({}, $('register-form')[0]);
+    };
 
     function RegisterForm() {
         var self = this;

@@ -1,5 +1,5 @@
 <!-- ko if: loading() === false -->
 <div class="redactor-panel" data-bind="foreach: redactorManipulate">
-    <a href="" data-bind="attr: { class: 'ico-redactor powertip ico-redactor__' + class }, css: { 'active': active() === true }, click: $parent.requestAction.bind($parent)"></a>
+    <a href="" data-bind="attr: { class: 'ico-redactor powertip ico-redactor__' + $data.class }, css: { 'active': active() === true }, click: $parent.requestAction.bind($parent)"></a>
 </div>
 <!-- /ko -->

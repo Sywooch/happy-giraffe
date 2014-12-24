@@ -1,7 +1,7 @@
-define(['jquery', 'knockout', 'Model', 'text!redactor-panel/redactor-panel.html'], function RedactorPanelHandler($, ko, Model, template) {
+define(['jquery', 'knockout', 'models/Model', 'text!redactor-panel/redactor-panel.html'], function RedactorPanelHandler($, ko, Model, template) {
     function RedactorPanel(params) {
-        this.entity = 'test';
-        this.entityId = 123;
+        this.entity = params.entity;
+        this.entityId = params.entityId;
         this.redactorManipulate = [];
         this.loading = ko.observable(true);
         this.getRedactorTerms = function getRedactorTerms() {
@@ -12,8 +12,8 @@ define(['jquery', 'knockout', 'Model', 'text!redactor-panel/redactor-panel.html'
         };
         this.getRedactorTermsHandler = function getRedactorTermsHandler(redactorArray) {
             if (redactorArray) {
-                redactorArray.forEach(this.takeCareOfObservable);
-                this.redactorManipilate = redactorArray;
+                this.redactorManipulate = JSON.parse(redactorArray);
+                this.redactorManipulate.forEach(this.takeCareOfObservable);
             }
             this.loading(false);
         };

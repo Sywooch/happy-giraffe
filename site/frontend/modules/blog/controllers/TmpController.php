@@ -98,35 +98,25 @@ class TmpController extends HController
 
     public function actionFavourites($entity, $entityId)
     {
-        echo CJSON::encode(array(
-            array('class' => 'social', 'title' => 'Посты в соцсети', 'num' => 1, 'active' => true),
-            array('class' => 'mail', 'title' => 'Посты в рассылку', 'num' => 2, 'active' => false),
-            array('class' => 'interest', 'title' => 'На главную', 'num' => 3, 'active' => true),
-        ));
-        die;
+        $result = array();
+        $model = array(
+            'entity' => $entity,
+            'entityId' => $entityId,
+        );
         if (Yii::app()->user->model->checkAuthItem('manageFavourites')) {
             if ($entity == 'SimpleRecipe' || $entity == 'MultivarkaRecipe') {
-                /* <a class="ico-redactor ico-redactor__social js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS)) echo ' active'; ?>" href="#"
-                  onclick="Favourites.toggle(this, 7);return false;" title="Посты в соцсети"></a> */
+                $result[] = array('class' => 'social', 'title' => 'Посты в соцсети', 'num' => Favourites::BLOCK_SOCIAL_NETWORKS, 'active' => Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS));
             } else {
-
-                /* <a class="ico-redactor ico-redactor__interest js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::BLOCK_INTERESTING)) echo ' active'; ?>" href="#"
-                  onclick="Favourites.toggle(this, 2);return false;" title="На главную"></a>
-
-                  <a class="ico-redactor ico-redactor__social js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS)) echo ' active'; ?>" href="#"
-                  onclick="Favourites.toggle(this, 7);return false;" title="Посты в соцсети"></a>
-
-                  <a class="ico-redactor ico-redactor__mail js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::WEEKLY_MAIL)) echo ' active'; ?>" href="#"
-                  onclick="Favourites.toggle(this, <?=Favourites::WEEKLY_MAIL ?>);return false;" title="Посты в рассылку"></a> */
+                $result[] = array('class' => 'interest', 'title' => 'На главную', 'num' => Favourites::BLOCK_INTERESTING, 'active' => Favourites::inFavourites($model, Favourites::BLOCK_INTERESTING));
+                $result[] = array('class' => 'social', 'title' => 'Посты в соцсети', 'num' => Favourites::BLOCK_SOCIAL_NETWORKS, 'active' => Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS));
+                $result[] = array('class' => 'mail', 'title' => 'Посты в рассылку', 'num' => Favourites::WEEKLY_MAIL, 'active' => Favourites::inFavourites($model, Favourites::WEEKLY_MAIL));
             }
         }
 
-        if (Yii::app()->user->model->checkAuthItem('clubFavourites')) {
-            if (get_class($model) == 'CommunityContent') {
-                /* <a class="ico-redactor ico-redactor__interest js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::CLUB_MORE)) echo ' active'; ?>" href="#"
-                  onclick="Favourites.toggle(this, <?=Favourites::CLUB_MORE ?>);return false;" title="Интересное в клубах"></a> */
-            }
+        if ($entity == 'CommunityContent' && Yii::app()->user->model->checkAuthItem('clubFavourites')) {
+            $result[] = array('class' => 'interest', 'title' => 'Интересное в клубах', 'num' => Favourites::CLUB_MORE, 'active' => Favourites::inFavourites($model, Favourites::CLUB_MORE));
         }
+        echo CJSON::encode($result);
     }
 
 }

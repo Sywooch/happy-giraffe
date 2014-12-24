@@ -34,21 +34,21 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                           </div> */ ?>
                     </div>
                     <?php
-                    if (!isset($this->post->templateObject->data['type']) || $this->post->templateObject->data['type'] !== 'status') {
+                    if (!$this->post->templateObject->getAttr('hideTitle', false)) {
                         ?>
                         <h1 class="b-article_t"><?= $this->post->title ?></h1>
                         <?php
                     }
                     ?>
                     <div class="b-article_in clearfix">
-                        <?php if (isset($this->post->templateObject->data['noWysiwyg']) && $this->post->templateObject->data['noWysiwyg']) { ?>
+                        <?php if ($this->post->templateObject->getAttr('noWysiwyg', false)) { ?>
                             <?= $this->post->html ?>
                         <?php } else { ?>
                             <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
                         <?php } ?>
                         <div class="like-control-hold">
                             <?php
-                            if ($this->post->authorId == Yii::app()->user->id) {
+                            if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
                                 ?>
                                 <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
                                 <?php

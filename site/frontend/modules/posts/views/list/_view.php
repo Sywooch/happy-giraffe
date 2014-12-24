@@ -2,7 +2,7 @@
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('BlogRecordSettings', array('kow'));
 ?>
-<article class="b-article b-article__list clearfix">
+<article class="b-article clearfix b-article__list<?= $data->templateObject->getAttr('type') == 'status' ? ' b-article__user-status' : '' ?>">
     <div class="b-article_cont clearfix">
         <div class="b-article_header clearfix">
             <div class="float-l">
@@ -10,8 +10,10 @@ $cs->registerAMD('BlogRecordSettings', array('kow'));
                 <?= HHtml::timeTag($data, array('class' => 'tx-date'), null) ?>
             </div>
         </div>
-        <div class="b-article_t-list"><a href="<?= $data->parsedUrl ?>" class="b-article_t-a"><?= $data->title ?></a></div>
-        <?php if (isset($data->templateObject->data['noWysiwyg']) && $data->templateObject->data['noWysiwyg']) { ?>
+        <?php if (!$data->templateObject->getAttr('hideTitle', false)) { ?>
+            <div class="b-article_t-list"><a href="<?= $data->parsedUrl ?>" class="b-article_t-a"><?= $data->title ?></a></div>
+        <?php } ?>
+        <?php if ($data->templateObject->getAttr('noWysiwyg', false)) { ?>
             <?= $data->preview ?>
         <?php } else { ?>
             <div class="b-article_in clearfix"><div class="wysiwyg-content clearfix"><?= $data->preview ?></div></div>

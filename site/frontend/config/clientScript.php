@@ -599,6 +599,12 @@ return array(
         'lite_recipe_user' => array(
             'depends' => array('lite_posts_user'),
         ),
+        'lite_clubs' => array(
+            'depends' => array('lite_posts'),
+        ),
+        'lite_clubs_user' => array(
+            'depends' => array('lite_posts_user'),
+        ),
         'lite_family_user' => array(
             'depends' => array('lite_member_user'),
         ),

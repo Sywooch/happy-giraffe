@@ -6,7 +6,6 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
         restoreMemberUrl: '/api/family/restoreMember/',
         photo: ko.observable(null),
         photoCollection: ko.observable(null),
-        attach: ko.observable(null),
         memberTypes: {
             adult: {
                 name: 'adult',
@@ -181,6 +180,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             this.id = ko.observable(data.id || null);
             this.userId = parseInt(data.userId || null);
             this.type = Model.createStdProperty(data.type || null, 'type');
+            this.attach = ko.observable(null);
             this.relationshipStatus = Model.createStdProperty(data.relationshipStatus || null, 'relationshipStatus');
             if (data.gender === null) {
                 this.gender = Model.createStdProperty(data.gender || 'null', 'gender');
@@ -204,6 +204,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Family', 'user-config
             this.photo = ko.observable(this.photoAttaching());
             this.errors = ko.observableArray();
             this.photo.subscribe(this.watchForPhoto.bind(this));
+            this.viewData = data.viewData;
             return this;
         }
 

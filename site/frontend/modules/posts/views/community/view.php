@@ -8,5 +8,10 @@ $this->breadcrumbs = array(
     'Блог' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $this->user->id)),
     $this->post->title,
 );
+$comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
+        /** @todo Исправить класс при конвертации */
+        'entity' => 'BlogContent', //$this->post->originEntity,
+        'entity_id' => $this->post->originEntityId,
+        )));
 $this->renderPartial('site.frontend.modules.posts.views.post._view');
 ?>

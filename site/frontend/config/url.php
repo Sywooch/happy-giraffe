@@ -222,7 +222,7 @@ return array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>',
-            'trueRoute' => 'posts/post/view',
+            'trueRoute' => 'posts/community/view',
             'falseRoute' => 'community/default/view',
         ),
 

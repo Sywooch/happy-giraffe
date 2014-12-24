@@ -14,6 +14,7 @@ define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 's
                 }
                 if (response.success) {
                     self.sent(true);
+                    self.clear();
                 } else {
                     self.fillErrors(response.data.errors);
                 }

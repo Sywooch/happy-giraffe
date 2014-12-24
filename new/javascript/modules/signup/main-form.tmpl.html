@@ -1,6 +1,6 @@
 <div class="popup-sign_row">
     <div class="inp-valid inp-valid__abs" data-bind="css: fields.firstName.cssClass">
-        <input type="text" placeholder="Имя" class="itx-gray popup-sign_itx" data-bind="value: fields.firstName.value, event: { blur: fields.firstName.validate }">
+        <input type="text" placeholder="Имя" class="itx-gray popup-sign_itx" data-bind="value: fields.firstName.value, event: { blur: fields.firstName.validate }" name="firstName">
         <div class="inp-valid_error">
             <div class="errorMessage" data-bind="text: fields.firstName.firstError"></div>
         </div>
@@ -9,7 +9,7 @@
 </div>
 <div class="popup-sign_row">
     <div class="inp-valid inp-valid__abs" data-bind="css: fields.lastName.cssClass">
-        <input type="text" placeholder="Фамилия" class="itx-gray popup-sign_itx" data-bind="value: fields.lastName.value, event: { blur: fields.lastName.validate }">
+        <input type="text" placeholder="Фамилия" class="itx-gray popup-sign_itx" data-bind="value: fields.lastName.value, event: { blur: fields.lastName.validate }" name="lastName">
         <div class="inp-valid_error">
             <div class="errorMessage" data-bind="text: fields.lastName.firstError"></div>
         </div>
@@ -68,7 +68,7 @@
 </div>
 <div class="popup-sign_row">
     <div class="inp-valid inp-valid__abs" data-bind="css: fields.email.cssClass">
-        <input type="text" placeholder="Email" class="itx-gray popup-sign_itx" data-bind="value: fields.email.value, event: { blur: fields.email.validate }">
+        <input type="text" placeholder="Email" class="itx-gray popup-sign_itx" data-bind="value: fields.email.value, event: { blur: fields.email.validate }" name="email">
         <div class="inp-valid_error">
             <div class="errorMessage" data-bind="text: fields.email.firstError"></div>
         </div>
@@ -77,13 +77,10 @@
 </div>
 <div class="popup-sign_row">
     <div class="inp-valid inp-valid__abs" data-bind="css: fields.password.cssClass">
-        <input type="password" placeholder="Пароль" class="itx-gray popup-sign_itx" data-bind="value: fields.password.value, event: { blur: fields.password.validate }">
+        <input type="password" placeholder="Пароль" class="itx-gray popup-sign_itx" data-bind="value: fields.password.value, event: { blur: fields.password.validate }" name="password">
         <div class="inp-valid_error">
             <div class="errorMessage" data-bind="text: fields.password.firstError"></div>
         </div>
         <div class="inp-valid_success inp-valid_success__ico-check"></div>
     </div>
-</div>
-<div class="popup-sign_row">
-    <button class="btn-xl btn btn-success btn-block" data-bind="click: $parent.registerSimple">Зарегистрироваться</button>
 </div>

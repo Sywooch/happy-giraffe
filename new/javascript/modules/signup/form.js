@@ -1,9 +1,12 @@
-define(['models/Model'], function(Model) {
+define(['knockout', 'models/Model', 'signup/formField'], function(ko, Model, FormField) {
     var Form = {
+        loading: ko.observable(false),
         validate: function(callback) {
+            this.loading(true);
             Model.get(this.validateUrl, { attributes: this.getValues() }).done(function(response) {
-                self.fillErrors(response.data.errors);
+                this.fillErrors(response.data.errors);
                 callback(response);
+                this.loading(false);
             }.bind(this));
         },
         fillErrors: function(errors) {
@@ -18,8 +21,8 @@ define(['models/Model'], function(Model) {
         },
         getValues: function() {
             var values = {};
-            for (var i in this.fields) {
-                values[i] = this.fields[i].value();
+            for (var key in this.fields) {
+                values[key] = this.fields[key].value();
             }
             return values;
         },
@@ -29,6 +32,35 @@ define(['models/Model'], function(Model) {
                     this.fields[key].value(values[key]);
                 }
             }
+        },
+        clear: function() {
+            for (var attribute in this.fields) {
+                this.fields[attribute].value('');
+            }
+        },
+        setFilled: function() {
+            for (var attribute in this.fields) {
+                this.fields[attribute].isFilled(true);
+            }
+        },
+        submit: function(callback, validate) {
+            this.loading(true);
+            this.setFilled();
+            if (validate) {
+                this.validate(function(validateResponse) {
+                    if (validateResponse.success) {
+                        this.submitInternal(callback);
+                    }
+                });
+            } else {
+                this.submitInternal(callback);
+            }
+        },
+        submitInternal: function(callback) {
+            Model.get(this.submitUrl, { attributes: this.getValues() }).done(function(response) {
+                callback(response);
+                this.loading(false);
+            });
         }
     };
 

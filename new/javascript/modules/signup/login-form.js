@@ -21,6 +21,9 @@ define(['text!signup/login-form.html', 'signup/form', 'signup/formField', 'model
                 }
             });
         };
+
+        $(".auth-service.vkontakte a").eauth({"popup":{"width":585,"height":350},"id":"vkontakte"});
+        $(".auth-service.odnoklassniki a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
     }
     LoginForm.prototype = Object.create(Form);
 

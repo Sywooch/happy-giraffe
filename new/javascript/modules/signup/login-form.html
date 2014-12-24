@@ -10,7 +10,7 @@
             <div class="popup-sign_col popup-sign_col__left">
                 <div class="popup-sign_row">
                     <div class="inp-valid inp-valid__abs" data-bind="css: fields.email.cssClass">
-                        <input type="text" placeholder="Email" class="itx-gray popup-sign_itx" data-bind="value: fields.email.value">
+                        <input type="text" placeholder="Email" class="itx-gray popup-sign_itx" data-bind="value: fields.email.value" name="email">
                         <div class="inp-valid_error">
                             <div class="errorMessage" data-bind="text: fields.email.firstError"></div>
                         </div>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="popup-sign_row">
                     <div class="inp-valid inp-valid__abs" data-bind="css: fields.password.cssClass">
-                        <input type="text" placeholder="Пароль" class="itx-gray popup-sign_itx" data-bind="value: fields.password.value">
+                        <input type="password" placeholder="Пароль" class="itx-gray popup-sign_itx" data-bind="value: fields.password.value" name="password">
                         <div class="inp-valid_error">
                             <div class="errorMessage" data-bind="text: fields.password.firstError"></div>
                         </div>
@@ -30,7 +30,7 @@
                     <div class="float-r margin-t1"><a data-bind="passwordRecovery: {}">Забыли пароль?</a></div>
                     <div class="float-l">
                         <div class="radio-icons radio-icons__checkbox">
-                            <input id="checkboxid" type="checkbox" name="checkbox" class="radio-icons_radio" data-bind="checked: fields.rememberMe.value">
+                            <input id="checkboxid" type="checkbox" name="rememberMe" class="radio-icons_radio" data-bind="checked: fields.rememberMe.value">
                             <label for="checkboxid" class="radio-icons_label">Запомнить меня</label>
                         </div>
                     </div>
@@ -44,8 +44,8 @@
                     <div class="popup-sign_label textalign-c">или через</div>
                 </div>
                 <ul class="social-btns clearfix">
-                    <li class="auth-service odnoklassniki"><a class="social-btn social-btn__odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
-                    <li class="auth-service vkontakte"><a class="social-btn social-btn__vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
+                    <li class="auth-service odnoklassniki"><a class="social-btn social-btn__odnoklassniki" href="/signup/default/socialLogin/?service=odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
+                    <li class="auth-service vkontakte"><a class="social-btn social-btn__vkontakte" href="/signup/default/socialLogin/?service=vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
                 </ul>
             </div>
         </div>

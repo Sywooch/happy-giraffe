@@ -1,42 +1,45 @@
-define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 'signup/form', 'signup/formField', 'signup/dateField', 'signup/eauth', 'signup/bindings'], function($, ko, template, Model, Form, FormField, DateField) {
+define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 'signup/form', 'signup/formField', 'signup/dateField', 'signup/eauth', 'signup/bindings', 'ko_library'], function($, ko, template, Model, Form, FormField, DateField) {
     function Register(params) {
         var self = this;
-        self.registerUrl = '/api/signup/register/';
         self.redirectUrl = '/';
-
         self.SCREEN_STEP_1 = 'screenStep1';
         self.SCREEN_STEP_2 = 'screenStep2';
         self.SCREEN_STEP_SOCIAL = 'screenSocial';
 
-
-
         self.step = ko.observable(self.SCREEN_STEP_1);
-
         self.registerForm = new RegisterForm();
         self.captchaForm = new CaptchaForm();
 
-        self.registerSimple = function() {
+        self.submitSimple = function() {
             self.registerForm.validate(function(response) {
-                for (var attribute in self.registerForm.fields) {
-                    self.registerForm.fields[attribute].isFilled(true);
-                }
+                self.registerForm.setFilled();
                 if (response.data.errors.length == 0) {
                     self.step(self.SCREEN_STEP_2);
                 }
             });
         };
 
-        self.verifyCaptcha = function() {
+        self.submitCaptcha = function() {
             self.captchaForm.validate(function(response) {
-                for (var attribute in self.captchaForm.fields) {
-                    self.captchaForm.fields[attribute].isFilled(true);
-                }
+                self.captchaForm.setFilled();
                 if (response.data.errors.length == 0) {
-                    Model.get(self.registerUrl, { attributes: self.registerForm.getValues() }).done(function(response) {
-                        if (response.success) {
-                            window.location.href = self.redirectUrl;
-                        }
-                    });
+                    self.register();
+                }
+            });
+        };
+
+        self.submitSocial = function() {
+            self.registerForm.validate(function(response) {
+                if (response.data.errors.length == 0) {
+                    self.register();
+                }
+            });
+        };
+
+        self.register = function(response) {
+            self.registerForm.submit(function(response) {
+                if (response.success) {
+                    window.location.href = response.data.returnUrl;
                 }
             });
         };
@@ -54,13 +57,15 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
     function RegisterForm() {
         var self = this;
         self.validateUrl = '/api/signup/validate/';
+        self.submitUrl = '/api/signup/register/';
         self.fields = {
             firstName: new FormField(self, '1'),
             lastName: new FormField(self, '2'),
             birthday: new DateField(self, '1990-11-25'),
             gender: new FormField(self, '1'),
             email: new FormField(self, 'nikita+sdfsdf@happy-giraffe.ru'),
-            password: new FormField(self, '111111')
+            password: new FormField(self, '111111'),
+            avatarSrc: new FormField(self, null)
         };
     }
     RegisterForm.prototype = Object.create(Form);

@@ -8,16 +8,19 @@
             </div>
         </div>
         <div class="popup-sign_cont">
-            <div class="popup-sign_col popup-sign_col__left" data-bind="template: 'signup/form'">
-
+            <div class="popup-sign_col popup-sign_col__left">
+                <!-- ko template: 'signup/main-form' --> <!-- /ko -->
+                <div class="popup-sign_row">
+                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitSimple">Зарегистрироваться</button>
+                </div>
             </div>
             <div class="popup-sign_social">
                 <div class="popup-sign_row">
                     <div class="popup-sign_label textalign-c">или быстро через</div>
                 </div>
                 <ul class="social-btns clearfix">
-                    <li class="auth-service odnoklassniki"><a class="social-btn social-btn__odnoklassniki" href="/signup/default/social/?service=odnoklassnikit"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
-                    <li class="auth-service vkontakte"><a class="social-btn social-btn__vkontakte" href="/signup/default/social/?service=vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
+                    <li class="auth-service odnoklassniki"><a class="social-btn social-btn__odnoklassniki" href="/signup/default/socialRegister/?service=odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
+                    <li class="auth-service vkontakte"><a class="social-btn social-btn__vkontakte" href="/signup/default/socialRegister/?service=vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
                 </ul>
             </div>
         </div>
@@ -54,7 +57,7 @@
                     </div>
                 </div>
                 <div class="popup-sign_row">
-                    <button class="btn-xl btn btn-success btn-block" data-bind="click: $parent.verifyCaptcha">Продолжить</button>
+                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitCaptcha">Продолжить</button>
                 </div>
             </div>
         </div>
@@ -67,10 +70,15 @@
     <div class="popup-sign_hold">
         <div class="popup-sign_cont">
             <div class="popup-sign_col">
+                <!-- ko if: fields.avatarSrc.value() !== null -->
                 <div class="popup-sign_row textalign-c">
-                    <!-- ava--><span href="#" class="ava ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                    <span href="#" class="ava"><img alt="" class="ava_img" data-bind="src: fields.avatarSrc.value()"></span>
                 </div>
-
+                <!-- /ko -->
+                <!-- ko template: 'signup/main-form' --> <!-- /ko -->
+                <div class="popup-sign_row">
+                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitSocial">Зарегистрироваться</button>
+                </div>
             </div>
         </div>
     </div>

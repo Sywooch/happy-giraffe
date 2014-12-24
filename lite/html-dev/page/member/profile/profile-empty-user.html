@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/member-user.css' />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -28,6 +28,8 @@
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__lite">
   <div class="layout-container">
@@ -194,39 +196,27 @@
               <div class="b-crumbs_tx">Я здесь</div>
               <ul class="b-crumbs_ul">
                 <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная</a></li>
-                <li class="b-crumbs_li">
+                <li class="b-crumbs_li b-crumbs_li__last">
                   <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                 </li>
-                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Семья</span></li>
               </ul>
             </div>
           </div>
           <!-- userSection-->
-          <section class="userSection visible-md-block">
+          <section class="userSection">
             <div class="userSection_hold clearfix">
               <div class="userSection_center">
                 <div class="b-ava-large b-ava-large__nohover">
                   <div class="b-ava-large_ava-hold">
                     <!-- ava--><a href="#" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                  </div>
+                  </div><a href="#" title="Главное фото" class="i-ava-bubble i-ava-bubble__photo powertip">
+                    <div class="i-ava-bubble_ico i-ava-bubble_ico__photo"></div></a>
                 </div>
                 <div class="userSection_center-reg">с Веселым Жирафом 2 года 5 месяцев 203 дня</div>
               </div>
               <div class="userSection_left">
                 <h2 class="userSection_name">Ангелина Богоявленская</h2>
-                <div class="margin-b5 clearfix">33 года (28 января)</div>
-                <div class="location locationsmall clearfix"><span class="flag flag-ua"></span><span class="location_tx">
-                    Ярославская обл.
-                    Переславль-Залесский</span></div>
-                <div class="userSection_btn-hold clearfix">
-                  <!--
-                  виды кнопок друзья 
-                  userSection_btn__friend
-                  userSection_btn__friend-add
-                  userSection_btn__friend-added
-                  userSection_btn__friend-append
-                  --><a href="" class="userSection_btn userSection_btn__friend-add powertip"><span class="userSection_ico"></span></a><a href="" class="userSection_btn userSection_btn__dialog powertip"><span class="userSection_ico"></span></a>
-                </div>
+                <div class="margin-b5 clearfix">33 года (28 января)</div><a href="#" class="btn btn-white btn-xm"> <span class="ico-edit ico-edit__s-white"> </span> Редактировать</a>
               </div>
               <div class="userSection_right">
                 <!-- b-family-->
@@ -234,12 +224,7 @@
                   <div class="b-family_top-hold">
                     <div class="b-family_top b-family_top__white"></div>
                   </div>
-                  <ul class="b-family_ul">
-                    <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span> Жена</span></span></a></li>
-                    <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span> Дочь</span><br><span> 8 лет</span></span></a></li>
-                    <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-5"></span></span><span class="b-family_tx"><span> Дочь</span><br><span> 5 лет</span></span></a></li>
-                    <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span> Сын</span><br><span> 2,5 года</span></span></a></li>
-                  </ul>
+                  <div class="b-family_empty-tx">Добавьте информацию о своей семье</div><a href="#" class="btn btn-white btn-xm"><span class="ico-plus ico-plus__s"></span>Добавить</a>
                 </div>
                 <!-- /b-family-->
                 
@@ -255,169 +240,34 @@
             </div>
           </section>
           <!-- /userSection-->
-          <div class="b-main_cont b-main_cont__wide">
-            <div class="family-user">
-              <div class="family-user_edit-hold"> <a href="#" class="btn btn-secondary btn-l">
-                  <div class="ico-edit ico-edit__s"></div>&nbsp;
-                  Редактировать</a></div>
-              <!-- Как обложка альбома, только без некоторых элементов-->
-              <!-- b-album-->
-              <section class="b-album">
-                <div class="b-album_img-hold"><a href="#" class="b-album_img-a">
-                    <div class="b-album_img-pad">
-                      <!-- У изображений соотношения сторон сохраняются -->
-                      <!-- 0,65 соотношение сторон-->
-                    </div>
-                    <picture class="b-album_img-picture">
-                      <!--source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")--><img src="http://placekitten.com/880/587" alt="Фото" class="b-album_img-big">
-                    </picture></a>
-                  <div class="b-album_img-hold-ovr">
-                    <div class="ico-zoom ico-zoom__abs"></div>
+          <div class="b-main_cont b-main_cont__broad">
+            <div class="b-main_col-hold clearfix">
+              <!--/////     -->
+              <!-- Основная колонка  -->
+              <div class="b-main_col-article">
+                <div class="profile-cap">
+                  <div class="heading-sm">Моя активность</div>
+                  <div class="profile-cap_hold profile-cap_hold__article">
+                    <div class="profile-cap_tx">У вас пока нет активности на сайте, поделитесь чем-нибудь интересным с пользователями Веселого Жирафа.<br><a href="#">Добавить запись</a></div>
                   </div>
                 </div>
-                <div class="b-album_overlay"><a class="b-album_r">
-                    <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
-                    </div>
-                    <div class="b-album_ico-album"></div>
-                    <div class="b-album_arrow-all"></div></a>
-                  <ul class="b-album_prev clearfix visible-md-block">
-                    <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-                    <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                        <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">
-                        <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                        <div class="b-album_prev-hold"></div></a></li>
-                  </ul>
-                </div>
-              </section>
-              <!-- /b-album-->
-              
-              <!-- family-about-->
-              <div class="family-about">
-                <div class="family-about_bubble">
-                  <div class="family-about_t">О нашей семье</div>
-                  <div class="family-about_tx">Наша семья состоит из трех человек: папа Дима, мама Наташа и доченька Машенька. История нашего знакомства с главой семейства началась еще 2 года назад, когда я поехала в командировку в г. Саратов. Тогда я с двумя своими коллегами отправились повышать квалификацию. Проучившись три недели, мы успешно сдали экзамены и готовились отправиться домой. За 3 часа до отправления поезда моя коллега решила познакомить меня со своим братом и говорит, шутя, что привезла ему невесту. Мы все посмеялись, пошутили, потом встречи, расставания, бесконечные звонки, тысячи смс ... Дима показал </div>
-                </div>
-                <ul class="family-about_ul">
-                  <li class="family-about_li">
-                    <div class="family-about_img-hold">
-                      <div class="ico-family-big ico-family-big__husband"></div>
-                    </div>
-                    <div class="family-about_member">Я</div>
-                  </li>
-                  <li class="family-about_li">
-                    <div class="family-about_img-hold">
-                      <div class="ico-family-big ico-family-big__wife"></div>
-                    </div>
-                    <div class="family-about_member">Жена  Виктория</div>
-                  </li>
-                  <li class="family-about_li">
-                    <div class="family-about_img-hold">
-                      <div class="ico-family-big ico-family-big__boy-small"></div>
-                    </div>
-                    <div class="family-about_member">
-                       
-                      Сын Данилка
-                      16 месяцев
-                    </div>
-                  </li>
-                  <li class="family-about_li">
-                    <div class="family-about_img-hold">
-                      <div class="ico-family-big ico-family-big__girl-8"></div>
-                    </div>
-                    <div class="family-about_member">
-                       
-                      Дочь
-                      от 6 до 12 лет
-                    </div>
-                  </li>
-                  <li class="family-about_li">
-                    <div class="family-about_img-hold">
-                      <div class="ico-family-big ico-family-big__girl-8"></div>
-                    </div>
-                    <div class="family-about_member">
-                       
-                      Дочь
-                      от 6 до 12 лет
-                    </div>
-                  </li>
-                </ul>
               </div>
-              <!-- /family-about-->
-              <div class="visible-md">
-                <!-- family-member-->
-                <div class="family-member">
-                  <div class="family-member_row clearfix"><a href="#" class="family-member_i"><img src="/lite/images/example/w350-h450-1.jpg" alt="" class="family-member_img">
-                      <div class="family-member_overlay"><span class="ico-zoom ico-zoom__abs"></span></div></a>
-                    <!-- Ширину высчитывать в зависимости от фотографии 880 - щирина фото-->
-                    <!-- -->
-                    <div style="width: 530px;" class="family-member_about family-member_about__green family-member_about__right">
-                      <div class="family-member_about-in">
-                        <div class="family-member_about-hold">
-                          <div class="ico-family-big ico-family-big__wife"></div>
-                          <div class="family-member_about-name">
-                             
-                            Жена Виктория
-                          </div>
-                        </div>
-                        <div class="family-member_about-tx-hold">
-                          <div class="family-member_about-tx">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и покаВ половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и покаВ половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="family-member_row clearfix">
-                    <!-- Ширину высчитывать в зависимости от фотографии 880 - щирина фото-->
-                    <div style="width: 280px;" class="family-member_about family-member_about__carrot family-member_about__left">
-                      <div class="family-member_about-in">
-                        <div class="family-member_about-hold">
-                          <div class="ico-family-big ico-family-big__husband"></div>
-                          <div class="family-member_about-name">
-                             
-                            Муж Потап
-                          </div>
-                        </div>
-                        <div class="family-member_about-tx-hold">
-                          <div class="family-member_about-tx">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. </div>
-                        </div>
-                      </div>
-                    </div><a href="#" class="family-member_i"><img src="/lite/images/example/w600-h450-2.jpg" alt="" class="family-member_img">
-                      <div class="family-member_overlay"><span class="ico-zoom ico-zoom__abs"></span></div></a>
-                  </div>
-                  <div class="family-member_row clearfix"><a href="#" class="family-member_i"><img src="/lite/images/example/w600-h450-2.jpg" alt="" class="family-member_img">
-                      <div class="family-member_overlay"><span class="ico-zoom ico-zoom__abs"></span></div></a>
-                    <div style="width: 280px;" class="family-member_about family-member_about__blue family-member_about__right">
-                      <div class="family-member_about-in">
-                        <div class="family-member_about-hold">
-                          <div class="ico-family-big ico-family-big__boy-3"></div>
-                          <div class="family-member_about-name">
-                             
-                            Сын Вася 18 месяцев
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="family-member_row clearfix">
-                    <div style="width: 100%;" class="family-member_about family-member_about__lilac">
-                      <div class="family-member_about-in">
-                        <div class="family-member_about-hold">
-                          <div class="ico-family-big ico-family-big__baby"></div>
-                          <div class="family-member_about-name">
-                             
-                            Сын Вася 18 месяцев
-                          </div>
-                        </div>
-                        <div class="family-member_about-tx-hold">
-                          <div class="family-member_about-tx">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. </div>
-                        </div>
-                      </div>
-                    </div>
+              <!--/////-->
+              <!-- Сайд бар  -->
+              <aside class="b-main_col-sidebar visible-md">
+                <div class="profile-cap">
+                  <div class="heading-sm">Мои фото</div>
+                  <div class="profile-cap_hold profile-cap_hold__photo">
+                    <div class="profile-cap_tx">Вы еще не загрузили не одной фотографии<br><a href="#">Создать фотоальбом</a></div>
                   </div>
                 </div>
-                <!-- /family-member-->
-              </div>
+                <div class="profile-cap">
+                  <div class="heading-sm">Мои друзья</div>
+                  <div class="profile-cap_hold profile-cap_hold__friend">
+                    <div class="profile-cap_tx">Вы еще не добавили ни кого в друзья.<br><a href="#">Поиск друзей</a></div>
+                  </div>
+                </div>
+              </aside>
             </div>
           </div>
           <!-- Футер-->

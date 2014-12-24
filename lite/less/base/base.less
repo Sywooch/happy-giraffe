@@ -346,12 +346,15 @@
         line-height: 12px;
         .inline-block();
         vertical-align: middle;
-        padding: 0 5px 0 5px;
+        padding: 0 5px 3px 5px;
         color: #cdcdcd;
     }
     &_li__last:after {display: none;}
     &_last {
         color: @color-orange;
+    }
+    &_li__last .ava {
+        border: 1px solid @color-orange;
     }
     &_a {text-decoration: none;}
     &_a:hover {

@@ -160,6 +160,8 @@ return array(
         /* Временные страницы для редактирования */
         'post/add/type<type:[1235]>' => 'blog/tmp/index',
         'post/edit/content<id:\d+>' => 'blog/tmp/index',
+        /* Временные страницы для управления постами */
+        'blog/tmp/favourites' => 'blog/tmp/favourites',
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',

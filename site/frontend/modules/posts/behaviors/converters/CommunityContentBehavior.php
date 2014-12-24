@@ -139,33 +139,33 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
     protected function convertPhotoPost()
     {
-        /* $newPost = null;
-          $oldPost = null;
-          $this->convertCommon($oldPost, $newPost, 'oldPhotoPost');
+        $newPost = null;
+        $oldPost = null;
+        $this->convertCommon($oldPost, $newPost, 'oldPhotoPost');
 
-          $newPost->templateObject->data['type'] = 'photoPost';
-          $newPost->templateObject->data['noWysiwyg'] = true;
-          $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
-          $count = $collection->attachesCount;
-          $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
-          $url = $collection->observer->getSingle(0)->getUrl();
-          $photoAlbumTag = \CHtml::tag('photo-collection', array(
-          'params' =>
-          'id: ' . (int) $collection->id . ', ' .
-          'attachCount: ' . (int) $count . ', ' .
-          'coverId: ' . $collection->cover->id,
-          ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
+        $newPost->templateObject->data['type'] = 'photoPost';
+        $newPost->templateObject->data['noWysiwyg'] = true;
+        $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
+        $count = $collection->attachesCount;
+        $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
+        $url = $collection->observer->getSingle(0)->getUrl();
+        $photoAlbumTag = \CHtml::tag('photo-collection', array(
+                    'params' =>
+                    'id: ' . (int) $collection->id . ', ' .
+                    'attachCount: ' . (int) $count . ', ' .
+                    'coverId: ' . $collection->cover->id,
+                        ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
 
-          $newPost->text = $oldPost->photoPost->text;
-          $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopost', array('tag' => $photoAlbumTag, 'text' => $oldPost->photoPost->text));
-          $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopostPreview', array('tag' => $photoAlbumTag, 'text' => \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text))), 200, ' <span class="ico-more"></span>')));
-          $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
-          $newPost->isNoindex = false;
+        $newPost->text = $oldPost->photoPost->text;
+        $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopost', array('tag' => $photoAlbumTag, 'text' => $oldPost->photoPost->text));
+        $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopostPreview', array('tag' => $photoAlbumTag, 'text' => \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text))), 200, ' <span class="ico-more"></span>')));
+        $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
+        $newPost->isNoindex = false;
 
-          if (empty($newPost->metaObject->description))
-          $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text)));
+        if (empty($newPost->metaObject->description))
+            $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text)));
 
-          return $newPost->save(); */
+        return $newPost->save();
     }
 
     protected function convertVideoPost()

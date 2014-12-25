@@ -24,7 +24,7 @@ class AvatarManager
 
     public static function setAvatar(\User $user, Photo $photo, $cropData)
     {
-        $crop = \CJSON::decode(\Yii::app()->api->request('photo/photos', 'createCrop', array(
+        $crop = \CJSON::decode(\Yii::app()->api->request('photo/crops', 'create', array(
             'photoId' => $photo->id,
             'cropData' => $cropData,
         )));
@@ -34,9 +34,16 @@ class AvatarManager
             foreach (self::$_sizeToPreset as $size => $presetName) {
                 $user->avatarObject->$size = \Yii::app()->crops->getCrop($photo, self::$_sizeToPreset[$size], $cropData, $crop['data']['fsName'])->getUrl();
             }
-            return $user->save();
+            return ($user->save()) ? $user->avatarObject : false;
         }
         return false;
+    }
+
+    public static function removeAvatar(\User $user)
+    {
+        $user->avatarInfo = null;
+        $user->avatarId = null;
+        return $user->save();
     }
 
     public static function getAvatar(\User $user, $width)

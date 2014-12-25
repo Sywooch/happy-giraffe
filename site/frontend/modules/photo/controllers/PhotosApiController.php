@@ -80,14 +80,6 @@ class PhotosApiController extends ApiController
         }
     }
 
-    public function actionCreateCrop($photoId, array $cropData)
-    {
-        $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId);
-        $crop = PhotoCrop::create($photo, $cropData);
-        $this->success = $crop->save();
-        $this->data = $crop;
-    }
-
     /**
      * @todo workaround для того, чтобы работал экшн uploadFromComputer, получающий запрос от jquery file upload
      */

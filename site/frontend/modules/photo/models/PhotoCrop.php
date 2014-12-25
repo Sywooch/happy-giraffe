@@ -78,6 +78,18 @@ class PhotoCrop extends \CActiveRecord implements \IHToJSON
 		return parent::model($className);
 	}
 
+    public function behaviors()
+    {
+        return array(
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+        );
+    }
+
     public static function create($photo, $cropData)
     {
         $crop = new PhotoCrop();

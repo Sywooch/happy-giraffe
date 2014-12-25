@@ -16,7 +16,7 @@ class Manager
 {
     public static function convertAvatar(\User $user)
     {
-            if ($user->avatar_id === null || $user->avatarInfo != '') {
+            if ($user->avatar_id === null) {
                 return true;
             }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var UserSectionWidget $this
+ * @var site\frontend\modules\userProfile\widgets\UserSectionWidget $this
  * @var \User $user
  */
 $cs = Yii::app()->clientScript;

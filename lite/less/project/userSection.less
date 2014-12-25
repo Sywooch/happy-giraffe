@@ -24,13 +24,17 @@
     .location_tx {color: #fff;}
     .b-ava-large {margin: 0 auto;}
     .b-family_tx {color: #fff;}
+    .btn {margin-top: 10px;}
 
     &_hold {
+        text-align: center;
         padding: 20px 35px 10px;
     }
     &_left {
         width: 280px;
-        margin: 0 auto;
+        display: inline-block;
+        vertical-align: middle;
+        margin-bottom: 20px;
     }
     &_name {
         font-size: 30px;
@@ -43,8 +47,11 @@
     &_center {
         margin: 0 auto;
         width: 260px;
+        display: inline-block;
+        vertical-align: middle;
     }
     &_center-reg {
+        display: none;
         font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
         text-align: center;
         color: #f3edfc;
@@ -57,7 +64,7 @@
         color: #d9d2e9;
     }
     &_btn-hold {
-            margin: 15px 0 10px;
+        display: none;
     }
     &_btn {
         float: left;
@@ -138,36 +145,13 @@
             border-bottom: 6px solid #fff;
         }
     }
-    
-    @media (min-width: @screen-phone-landscape) {
-        /*
-        &_left {
-            float: left;
-            margin: 10px 5px 0 0;
-        }
-    }
-
-    @media (min-width: @screen-tablet) {*/
-        &_hold {
-            text-align: center;
-        }
-        &_left {
-            float: none;
-            .inline-block();
-            vertical-align: middle;
-        }
-        &_center {
-            .inline-block();
-            vertical-align: middle;
-        }
-    }
-    
+        
     @media (min-width: @screen-desktop) {
         &_hold {
             text-align: left;
         }
         &_left {
-            float: left;
+            margin-right: 40px;
         }
         &_center {
             width: 300px;
@@ -178,5 +162,11 @@
             margin-left: 20px;
             width: 280px;
         }
+
+        &_btn-hold {
+            display: block;
+            margin: 15px 0 10px;
+        }
+        &_center-reg {display: block;}
     }
 }

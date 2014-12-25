@@ -8,13 +8,13 @@ block layout
  
     .b-main
         .b-main_cont
-            .b-crumbs.b-crumbs__m
-                .b-crumbs_tx Я здесь
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
                 ul.b-crumbs_ul
                     li.b-crumbs_li
-                        a.b-crumbs_a(href="#") Главная
+                        a.b-crumbs_a(href="#") Мой жираф
                     li.b-crumbs_li.b-crumbs_li__last
-                        +ava('ava__small', ava.a)
+                        +ava('ava__small ava__female', ava.empty)
 
         +userSection('', userSection.baseUserEmpty)
     
@@ -32,7 +32,6 @@ block layout
                                 | У вас пока нет активности на сайте, поделитесь чем-нибудь интересным с пользователями Веселого Жирафа.
                                 br
                                 a(href='#') Добавить запись
-
 
                 ///////
                 // Сайд бар  

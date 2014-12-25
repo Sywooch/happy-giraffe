@@ -49,22 +49,32 @@
     overflow: hidden;
     
     &__small &_i {
-        width: 65px;
-        height: 60px;
-        .img-retina('@{path-img}/base/logo__small.png'; '@{path-img}/base/logo__small-2x.png'; 65px; 60px;);
+        width: 54px;
+        height: 80px;
+        background-image: url('@{path-img}/base/logo__xs.svg');
+    }
+    .no-svg &__small &_i {
+        background-image: url('@{path-img}/base/logo__xs.png');
     }
     &__l &_i {
         width: 320px;
         height: 100px;
-        .img-retina('@{path-img}/base/logo__big.png'; '@{path-img}/base/logo__big-2x.png'; 320px; 100px;);
+        background-image: url('@{path-img}/base/logo__l.svg');
     }
+    .no-svg &__l &_i {
+        background-image: url('@{path-img}/base/logo__l.png');
+    }
+
     &_i {
         display:block;
         width:230px;
         height:65px;
         text-indent:-9999px;
         margin:0 auto;
-        .img-retina('@{path-img}/base/logo.png'; '@{path-img}/base/logo-2x.png'; 230px; 65px;);
+        background-image: url('@{path-img}/base/logo.svg');
+    }
+    .no-svg &_i {
+        background-image: url('@{path-img}/base/logo.png');
     }
     &_slogan {
         position: absolute;
@@ -356,8 +366,13 @@
     &_last {
         color: @color-orange;
     }
+    &_li .ava {
+        border: 2px solid transparent;
+        .box-sizing(content-box);
+    }
+    &_li:hover .ava,
     &_li__last .ava {
-        border: 1px solid @color-orange;
+        border: 2px solid @color-orange;
     }
     &_a {text-decoration: none;}
     &_a:hover {

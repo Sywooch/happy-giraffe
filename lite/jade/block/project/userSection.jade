@@ -7,15 +7,6 @@ mixin userSection(mod, vars)
     // userSection
     section.userSection(class=mod)
         .userSection_hold.clearfix
-            .userSection_center
-                .b-ava-large.b-ava-large__nohover
-                    .b-ava-large_ava-hold
-                        +ava("ava__large ava__male", ava.c)
-                    //-span.b-ava-large_online На сайте
-                    if(vars.user)
-                        a.i-ava-bubble.i-ava-bubble__photo.powertip(href='#', title='Главное фото')
-                            .i-ava-bubble_ico.i-ava-bubble_ico__photo
-                .userSection_center-reg с Веселым Жирафом 2 года 5 месяцев 203 дня
             .userSection_left
                 h2.userSection_name Ангелина Богоявленская
                 .margin-b5.clearfix
@@ -43,6 +34,18 @@ mixin userSection(mod, vars)
                         span.ico-edit.ico-edit__s-white 
                         |  Редактировать
 
+            .userSection_center
+                .b-ava-large.b-ava-large__nohover
+                    .b-ava-large_ava-hold
+                        if(vars.ava)
+                            +ava("ava__large ava__male", ava.c)
+                        else
+                            +ava("ava__large ava__female", ava.empty)
+                    //-span.b-ava-large_online На сайте
+                    if(vars.user)
+                        a.i-ava-bubble.i-ava-bubble__photo.powertip(href='#', title='Главное фото')
+                            .i-ava-bubble_ico.i-ava-bubble_ico__photo
+                .userSection_center-reg с Веселым Жирафом 2 года 5 месяцев 203 дня
             .userSection_right
                 if(vars.family)
                     +bFamily('', bFamily.a)
@@ -77,6 +80,7 @@ mixin userSection(mod, vars)
 - userSection.baseUser.user = true
 - userSection.baseUser.familyEdit = true
 - userSection.baseUser.btnEdit = true
+- userSection.baseUser.ava = true
 
 - userSection.baseUserEmpty = {}
 - userSection.baseUserEmpty.user = true

@@ -1,5 +1,9 @@
 <!-- Немного подождите, пост ещё в обработке. -->
-
+<script> 
+    setTimeout(function(){
+       window.location.reload(1);
+    }, 5000);
+</script>
 <div class="b-main_cont b-main_cont__wide">
     <div class="postAdd b-main_col-hold clearfix">
       <!-- cap-empty-->

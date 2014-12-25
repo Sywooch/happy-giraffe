@@ -24,15 +24,10 @@ class AvatarManager
 
     public static function setAvatar(\User $user, Photo $photo, $cropData)
     {
-//        $crop = \CJSON::decode(\Yii::app()->api->request('photo/photos', 'createCrop', array(
-//            'photoId' => $photo->id,
-//            'cropData' => $cropData,
-//        )));
-
-        var_dump(\Yii::app()->api->request('photo/photos', 'createCrop', array(
+        $crop = \CJSON::decode(\Yii::app()->api->request('photo/photos', 'createCrop', array(
             'photoId' => $photo->id,
             'cropData' => $cropData,
-        ))); die;
+        )));
 
         if ($crop['success'] == true) {
             $user->avatarId = $crop['data']['id'];

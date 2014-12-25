@@ -82,13 +82,10 @@ class PhotosApiController extends ApiController
 
     public function actionCreateCrop($photoId, array $cropData)
     {
-        $crop = new PhotoCrop();
-        $crop->attributes = $cropData;
-        $crop->photoId = $photoId;
+        $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId);
+        $crop = PhotoCrop::create($photo, $cropData);
         $this->success = $crop->save();
-        if ($this->success) {
-            $this->data = $crop;
-        }
+        $this->data = $crop;
     }
 
     /**

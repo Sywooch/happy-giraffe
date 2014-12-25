@@ -78,16 +78,15 @@ class PhotoCrop extends \CActiveRecord implements \IHToJSON
 		return parent::model($className);
 	}
 
-    public function beforeSave()
+    public static function create($photo, $cropData)
     {
-        if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
-                $extension = pathinfo($this->photo->fs_name, PATHINFO_EXTENSION);
-                $this->fsName = $this->createFsName() . '.' . $extension;
-            }
-            return true;
-        }
-        return false;
+        $crop = new PhotoCrop();
+        $crop->attributes = $cropData;
+        $crop->photo = $photo;
+        $crop->photoId = $photo->id;
+        $extension = pathinfo($crop->photo->fs_name, PATHINFO_EXTENSION);
+        $crop->fsName = $crop->createFsName() . '.' . $extension;
+        return $crop;
     }
 
     protected function createFsName()

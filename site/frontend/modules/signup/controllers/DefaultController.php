@@ -14,7 +14,7 @@ class DefaultController extends \HController
     {
         return array(
             'captcha' => array(
-                'class' => 'RegisterCaptchaAction',
+                'class' => 'site\frontend\modules\signup\components\RegisterCaptchaAction',
                 'mode' => \CaptchaExtendedAction::MODE_WORDS,
                 'testLimit' => 0,
             ),

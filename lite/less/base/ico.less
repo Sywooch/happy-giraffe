@@ -73,6 +73,11 @@ a.ico-more:hover {&:extend(.ico-more-hover);}
         left: 50%;
         margin: -50px 0 0 -50px;
     }
+    &__s {
+        .scale(0.4);
+    }
+    .ie8 &__s,
+    .ie9 &__s {display: none;}
 }
 
 // /ico-base спрайт

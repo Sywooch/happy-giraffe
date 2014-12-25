@@ -1,0 +1,29 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member.css'; 
+ 
+block layout
+ 
+    .b-main
+        .b-main_cont
+            .b-crumbs.b-crumbs__m
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="#") Главная
+                    li.b-crumbs_li.b-crumbs_li__last
+                        +ava('ava__small', ava.a)
+
+        +userSection('', userSection.empty)
+    
+        .b-main_cont.b-main_cont__broad
+
+            .b-main_col-hold.clearfix
+                +cap-empty('cap-empty__user-profile', capEmpty.userProfile)
+
+        +layout-footer-lite()
+
+
+

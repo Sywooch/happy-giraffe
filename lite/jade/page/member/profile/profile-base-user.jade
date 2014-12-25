@@ -43,11 +43,33 @@ block layout
                 // Сайд бар  
                 aside.b-main_col-sidebar.visible-md
                     // +widgetUserPhoto('', subscribersWidget.a)
-                    .widgetUserPhoto
+                    .widget-user-photo
                         .heading-sm
                             a.heading-sm_a-r(href='#') Все фото 828
                             | Мои фото
-                            //- продожение
+                        ul.widget-user-photo_ul.clearfix
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/dog/300/200", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/goldfish/110/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs.ico-zoom__s
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/velociraptor/103/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs.ico-zoom__s
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    .cap-add
+                                        .cap-add_hold
+                                            .cap-add_in 
+                                                 
+
 
                     .widget-friend
                         .heading-sm 

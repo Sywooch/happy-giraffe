@@ -34,13 +34,36 @@ block layout
                 ///////
                 // Сайд бар  
                 aside.b-main_col-sidebar.visible-md
-                    // +widgetUserPhoto('', subscribersWidget.a)
-                    .widgetUserPhoto
+                    // виджет фото
+                    .widget-user-photo
                         .heading-sm
                             a.heading-sm_a-r(href='#') Все фото 828
                             | Мои фото
-                            //- продожение
+                        ul.widget-user-photo_ul.clearfix
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/dog/300/200", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/goldfish/110/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs.ico-zoom__s
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/puppy/80/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs.ico-zoom__s
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/red-panda/90/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs.ico-zoom__s
 
+                    // /виджет фото
+
+                    // виджет друзья
                     .widget-friend
                         .heading-sm 
                             a.heading-sm_a-r(href='#') Все друзья 3
@@ -61,7 +84,9 @@ block layout
                                 +ava('ava__middle', ava.b)
                             li.ava-list_li
                                 +ava('ava__middle', ava.a)
+                    // /виджет друзья
 
+                    // виджет клубы
                     .widget-club
                         .heading-sm Мои клубы
                         ul.widget-club_ul.clearfix
@@ -77,6 +102,7 @@ block layout
                             li.widget-club_li
                                 a.i-club.i-club__list-s.i-club__collection-1(href='#')
                                     .ico-club.ico-club__15
+                    // /виджет клубы
 
 
         +layout-footer-lite()

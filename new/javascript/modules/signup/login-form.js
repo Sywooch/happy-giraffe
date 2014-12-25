@@ -1,33 +1,46 @@
-define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner', 'signup/eauth', 'signup/bindings'], function($, ko, template, Form, FormField, Model, customReturner) {
+define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner', 'signup/eauth'], function($, ko, template, Form, FormField, Model, customReturner) {
     function LoginForm() {
-        var self = this;
-        self.submitUrl = '/api/signup/login/';
-        self.redirectUrl = '/';
-        self.fields = {
-            email: new FormField(self, ''),
-            password: new FormField(self, ''),
-            rememberMe: new FormField(self, false)
+        this.submitUrl = '/api/signup/login/';
+        this.redirectUrl = '/';
+        this.fields = {
+            email: new FormField(this, ''),
+            password: new FormField(this, ''),
+            rememberMe: new FormField(this, false)
         };
-
-        self.submit = function() {
-            Model.get(self.submitUrl, { attributes: self.getValues() }).done(function(response) {
-                for (var attribute in self.fields) {
-                    self.fields[attribute].isFilled(true);
-                }
-                if (response.success) {
-                    document.location.href = self.redirectUrl;
-                } else {
-                    self.fillErrors(response.data.errors);
-                }
-            });
+        this.vkObj = {
+            "popup": {
+                "width": 585,
+                "height": 350
+            },
+            "id": "vkontakte"
         };
-
-        $(".auth-service.vkontakte a").eauth({"popup":{"width":585,"height":350},"id":"vkontakte"});
-        $(".auth-service.odnoklassniki a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
+        this.okObj = {
+            "popup":{
+                "width": 680,
+                "height": 500
+            },
+            "id": "odnoklassniki"
+        };
+        this.submitLoginHandler = function submitHandler(response) {
+            var attribute;
+            for (attribute in this.fields) {
+                this.fields[attribute].isFilled(true);
+            }
+            if (response.success) {
+                document.location.href = this.redirectUrl;
+            } else {
+                this.fillErrors(response.data.errors);
+            }
+        };
+        this.submit = function submit() {
+            Model.get(this.submitUrl, { attributes: this.getValues() }).done(this.submitLoginHandler.bind(this));
+        };
+        $(".auth-service.vkontakte a").eauth(this.vkObj);
+        $(".auth-service.odnoklassniki a").eauth(this.okObj);
     }
     LoginForm.prototype = Object.create(Form);
 
-    LoginForm.prototype.open = function() {
+    LoginForm.prototype.open = function open() {
         $.magnificPopup.open({
             items: {
                 src: customReturner('login-form'),

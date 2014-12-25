@@ -1,29 +1,31 @@
-define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner', 'signup/bindings'], function(ko, template, Form, FormField, Model, customReturner) {
+define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner'], function(ko, template, Form, FormField, Model, customReturner) {
     function RecoverForm() {
-        var self = this;
-        self.sent = ko.observable(false);
-        self.submitUrl = '/api/signup/passwordRecovery/';
-        self.fields = {
-            email: new FormField(self, '')
+        this.sent = ko.observable(false);
+        this.submitUrl = '/api/signup/passwordRecovery/';
+        this.fields = {
+            email: new FormField(this, '')
         };
-
-        self.submit = function() {
-            Model.get(self.submitUrl, { attributes: self.getValues() }).done(function(response) {
-                for (var attribute in self.fields) {
-                    self.fields[attribute].isFilled(true);
+        this.submitHandler = function submitHandler(response) {
+            var attribute;
+            for (attribute in this.fields) {
+                if (this.fields.hasOwnProperty(attribute)) {
+                    this.fields[attribute].isFilled(true);
                 }
-                if (response.success) {
-                    self.sent(true);
-                    self.clear();
-                } else {
-                    self.fillErrors(response.data.errors);
-                }
-            });
-        }
+            }
+            if (response.success) {
+                this.sent(true);
+                this.clear();
+            } else {
+                this.fillErrors(response.data.errors);
+            }
+        };
+        this.submit = function submit() {
+            Model.get(this.submitUrl, { attributes: this.getValues() }).done(this.submitHandler.bind(this));
+        };
     }
     RecoverForm.prototype = Form;
 
-    RecoverForm.prototype.open = function() {
+    RecoverForm.prototype.open = function open() {
         $.magnificPopup.open({
             items: {
                 src: customReturner('password-recovery-form'),

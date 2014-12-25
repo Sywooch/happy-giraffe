@@ -4,14 +4,14 @@
         <div class="popup-sign_top">
             <div class="popup-sign_t popup-sign_t__logo"> <span class="logo logo__xs"></span>Регистрация </div>
             <div class="popup-sign_top-btns"><span class="popup-sign_t-tx">Уже зарегистрированы?</span>
-                <div class="btn btn-secondary btn-xm">Войти</div>
+                <div class="btn btn-secondary btn-xm login-button" data-bind="follow: {}">Войти</div>
             </div>
         </div>
         <div class="popup-sign_cont">
             <div class="popup-sign_col popup-sign_col__left">
                 <!-- ko template: 'signup/main-form' --> <!-- /ko -->
                 <div class="popup-sign_row">
-                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitSimple">Зарегистрироваться</button>
+                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitSimple.bind($parent)">Зарегистрироваться</button>
                 </div>
             </div>
             <div class="popup-sign_social">
@@ -45,19 +45,19 @@
                         <div class="textalign-c"><a class="a-gray" data-bind="click: regenerateCaptchaUrl">
                             <div class="ico-refresh"></div>Показать другое слово</a></div>
                     </div>
-                    <div class="popup-sign_row">
+                    <div class="popup-sign_row" data-bind="with: fields.verifyCode">
                         <!--.popup-sign_capcha-inp-->
-                        <div class="inp-valid inp-valid__abs" data-bind="css: fields.verifyCode.cssClass">
-                            <input type="text" placeholder="Введите слово" class="itx-gray popup-sign_itx" data-bind="textInput: fields.verifyCode.value">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: cssClass">
+                            <input type="text" placeholder="Введите слово" class="itx-gray popup-sign_itx" data-bind="textInput: value">
                             <div class="inp-valid_error">
-                                <div class="errorMessage" data-bind="text: fields.verifyCode.firstError"></div>
+                                <div class="errorMessage" data-bind="text: firstError"></div>
                             </div>
                             <div class="inp-valid_success inp-valid_success__ico-check"></div>
                         </div>
                     </div>
                 </div>
                 <div class="popup-sign_row">
-                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitCaptcha">Продолжить</button>
+                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitCaptcha.bind($parent)">Продолжить</button>
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@
                 <!-- /ko -->
                 <!-- ko template: 'signup/main-form' --> <!-- /ko -->
                 <div class="popup-sign_row">
-                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitSocial">Зарегистрироваться</button>
+                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitSocial.bind($parent)">Зарегистрироваться</button>
                 </div>
             </div>
         </div>

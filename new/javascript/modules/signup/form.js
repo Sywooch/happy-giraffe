@@ -1,17 +1,21 @@
 define(['knockout', 'models/Model', 'signup/formField'], function(ko, Model, FormField) {
     var Form = {
         loading: ko.observable(false),
-        validate: function(callback) {
-            this.loading(true);
-            Model.get(this.validateUrl, { attributes: this.getValues() }).done(function(response) {
+        validateDeffered: function validateDeffered(response) {
+            if (response.success === true) {
                 this.fillErrors(response.data.errors);
-                callback(response);
-                this.loading(false);
-            }.bind(this));
+            }
+            return response;
+        },
+        validate: function validate() {
+            this.loading(true);
+            return Model
+                .get(this.validateUrl, { attributes: this.getValues() })
+                .then(this.validateDeffered.bind(this));
         },
         fillErrors: function(errors) {
-            console.log(errors);
-            for (var attribute in this.fields) {
+            var attribute;
+            for (attribute in this.fields) {
                 if (errors[attribute] !== undefined) {
                     this.fields[attribute].errors(errors[attribute]);
                 } else {

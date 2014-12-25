@@ -2,8 +2,9 @@
     <div class="popup-sign_hold">
         <div class="popup-sign_top">
             <div class="popup-sign_t popup-sign_t__logo"> <span class="logo logo__xs"></span>Вход на сайт </div>
-            <div class="popup-sign_top-btns"><span class="popup-sign_t-tx">Не зарегистрированы?</span>
-                <div class="btn btn-secondary btn-xm" data-bind="register: {}">Регистрация</div>
+            <div class="popup-sign_top-btns">
+                <span class="popup-sign_t-tx">Не зарегистрированы?</span>
+                <div class="btn btn-secondary btn-xm registration-button" data-bind="follow: {}">Регистрация</div>
             </div>
         </div>
         <div class="popup-sign_cont">
@@ -27,7 +28,11 @@
                     </div>
                 </div>
                 <div class="popup-sign_row">
-                    <div class="float-r margin-t1"><a data-bind="passwordRecovery: {}">Забыли пароль?</a></div>
+                    <div class="float-r margin-t1">
+                        <!-- ko stopBinding: true -->
+                        <a class="password-recovery-button" data-bind="follow: {}">Забыли пароль?</a>
+                        <!-- /ko -->
+                    </div>
                     <div class="float-l">
                         <div class="radio-icons radio-icons__checkbox">
                             <input id="checkboxid" type="checkbox" name="rememberMe" class="radio-icons_radio" data-bind="checked: fields.rememberMe.value">

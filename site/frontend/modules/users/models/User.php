@@ -9,18 +9,9 @@ namespace site\frontend\modules\users\models;
  */
 class User extends \User
 {
-    private $_avatarObject;
-
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
-    }
-
-    public function rules()
-    {
-        return \CMap::mergeArray(parent::rules(), array(
-            array('avatar', 'filter', 'filter' => array($this->avatarObject, 'serialize')),
-        ));
     }
 
     public function toJSON()
@@ -36,15 +27,6 @@ class User extends \User
             'profileUrl' => $this->getUrl(true),
             'publicChannel' => $this->getPublicChannel(),
         );
-    }
-
-    public function getAvatarObject()
-    {
-        if ($this->_avatarObject === null) {
-            $this->_avatarObject = new UserAvatar($this->avatar, $this);
-        }
-
-        return $this->_avatarObject;
     }
 }
 

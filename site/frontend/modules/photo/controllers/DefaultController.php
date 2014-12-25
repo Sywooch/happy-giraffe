@@ -35,8 +35,8 @@ class DefaultController extends \LiteController
         $photo = Photo::model()->findByPk(140);
 
         $cropData = array(
-            'x' => 0,
-            'y' => 0,
+            'x' => 250,
+            'y' => 250,
             'w' => 100,
             'h' => 100,
         );

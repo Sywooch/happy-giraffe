@@ -46,6 +46,9 @@ return array(
         'familyMigrate' => array(
             'class' => 'site\frontend\modules\family\migration\commands\MigrateCommand',
         ),
+        'usersMigrate' => array(
+            'class' => 'site\frontend\modules\users\migration\Command',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

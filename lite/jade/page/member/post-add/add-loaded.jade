@@ -1,0 +1,16 @@
+include ../../../block/config
+extend ../../../extend/layout_base_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css';
+  
+block layout
+
+    .b-main
+        .b-main_cont.b-main_cont__wide
+
+            .postAdd.b-main_col-hold.clearfix
+
+                +cap-empty("cap-empty__post-loaded", capEmpty.postLoaded)
+
+        +layout-footer-lite()

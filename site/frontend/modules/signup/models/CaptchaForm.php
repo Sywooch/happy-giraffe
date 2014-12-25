@@ -15,7 +15,7 @@ class CaptchaForm extends \CFormModel
     {
         return array(
             array('verifyCode', 'required'),
-            array('verifyCode', 'CaptchaExtendedValidator', 'captchaAction' => '/signup/default/captcha'),
+            array('verifyCode', 'CaptchaExtendedValidator', 'captchaAction' => '/signup/default/captcha', 'allowEmpty' => ! \CCaptcha::checkRequirements()),
         );
     }
 } 

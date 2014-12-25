@@ -16,10 +16,8 @@ class Manager
 {
     public static function convertAvatar(\User $user)
     {
-        $transaction = \Yii::app()->db->beginTransaction();
-        try {
             if ($user->avatar_id === null || $user->avatarInfo != '') {
-                return;
+                return true;
             }
 
             if ($user->avatar->userAvatar) {
@@ -45,14 +43,6 @@ class Manager
                 );
             }
 
-            if (AvatarManager::setAvatar($user, $photo, $cropData)) {
-                $transaction->commit();
-            } else {
-                $transaction->rollback();
-            }
-        } catch (\Exception $e) {
-            $transaction->rollback();
-            throw $e;
-        }
+            return AvatarManager::setAvatar($user, $photo, $cropData);
     }
 } 

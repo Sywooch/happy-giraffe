@@ -8,7 +8,20 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         this.step = ko.observable(this.SCREEN_STEP_1);
         this.registerForm = new RegisterForm();
         this.captchaForm = new CaptchaForm();
-
+        this.vkObj = {
+            "popup": {
+                "width": 585,
+                "height": 350
+            },
+            "id": "vkontakte"
+        };
+        this.okObj = {
+            "popup":{
+                "width": 680,
+                "height": 500
+            },
+            "id": "odnoklassniki"
+        };
         this.validateHandler = function validateHandler(response) {
             this.registerForm.setFilled();
             if (response.data.errors.length === 0) {
@@ -59,8 +72,8 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         };
 
         registerForm = this;
-        $(".auth-service.vkontakte a").eauth({"popup":{"width":585,"height":350},"id":"vkontakte"});
-        $(".auth-service.odnoklassniki a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
+        $(".auth-service.vkontakte a").eauth(this.vkObj);
+        $(".auth-service.odnoklassniki a").eauth(this.okObj);
     }
 
     Register.prototype.open = function openRegister() {

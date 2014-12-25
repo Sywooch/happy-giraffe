@@ -25,7 +25,6 @@ define(['jquery', 'knockout', 'models/User', 'signup/register-form', 'signup/log
             };
         for (buttonsIter in buttons) {
             nodes = $('.' + buttons[buttonsIter].name);
-            console.log(buttons[buttonsIter].name, $('.' + buttons[buttonsIter].name));
             if (nodes.length > 0) {
                 nodes.each(nodesCrawling);
             }

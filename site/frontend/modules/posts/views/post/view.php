@@ -39,9 +39,12 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                         <h1 class="b-article_t"><?= $this->post->title ?></h1>
                         <?php
                     }
-                    Yii::app()->clientScript->registerAMD('photo-albums', array('kow'));
-                    ?>
-                    <redactor-panel params="entity: '<?= $this->post->originService == 'oldBlog' ? 'BlogContent' :$this->post->originEntity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
+                    if (Yii::app()->user->checkAccess('moderator')) {
+                        Yii::app()->clientScript->registerAMD('photo-albums', array('kow'));
+                        ?>
+                        <redactor-panel params="entity: '<?= $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
+                        <?php
+                    }
                     ?>
                     <div class="b-article_in clearfix">
                         <?php if ($this->post->templateObject->getAttr('noWysiwyg', false)) { ?>

@@ -19,6 +19,7 @@ class ConvertCommand extends \CConsoleCommand
         'oldBlog_CommunityContent_convert_video',
         'oldCommunity_CommunityContent_convert_video',
         'oldRecipe_CookRecipe_convert_recipe',
+        'oldRecipe_SimpleRecipe_convert_recipe',
     );
 
     /**

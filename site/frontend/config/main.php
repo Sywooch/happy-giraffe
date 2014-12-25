@@ -152,6 +152,9 @@ return array(
         'rss' => array(
             'class' => 'site\frontend\modules\rss\RssModule',
         ),
+        'userProfile' => array(
+            'class' => 'site\frontend\modules\userProfile\UserProfileModule',
+        ),
 	),
 	// application components
 	'components'=>array(

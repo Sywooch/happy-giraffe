@@ -52,16 +52,12 @@ class AvatarManager
             return null;
         }
 
-        $outputSize = null;
         foreach (self::$_sizeToPreset as $size => $presetName) {
             $presetWidth = \Yii::app()->crops->presets[$presetName]['width'];
-            $diff = abs($width - $presetWidth);
-            if (! isset($minDiff) || $diff < $minDiff) {
-                $minDiff = $diff;
-                $outputSize = $size;
+            if ($width <= $presetWidth || end(self::$_sizeToPreset) == $presetName) {
+                return self::getAvatarBySize($user, $size);
             }
         }
-        return self::getAvatarBySize($user, $outputSize);
     }
 
     protected static function getAvatarBySize(\User $user, $size)

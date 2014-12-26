@@ -25,7 +25,7 @@ class ApiController extends \site\frontend\components\api\ApiController
                 \Yii::app()->user->login($identity);
             }
             $this->data = array(
-                'returnUrl' => \Yii::app()->user->getReturnUrl(),
+                'returnUrl' => $this->createUrl('/profile/default/index/', array('user_id' => $form->user->id)),
             );
         } else {
             $this->data = array(

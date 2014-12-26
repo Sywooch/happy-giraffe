@@ -32,7 +32,7 @@
         <header class="header header__homepage">
           <div class="header_hold">
             <div class="clearfix">
-              <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+              <div class="header-login"><a class="header-login_a login-button" data-bind="follow: {}">Вход</a><a class="header-login_a registration-button" data-bind="follow: {}">Регистрация</a></div>
               
               <?php if ($this->module === null || $this->module->id != 'search'): ?>
                   <div class="sidebar-search clearfix sidebar-search__big">

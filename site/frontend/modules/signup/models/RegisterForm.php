@@ -114,7 +114,5 @@ class RegisterForm extends \CFormModel
         //create some tables
         \Yii::app()->db->createCommand()->insert(\UserPriority::model()->tableName(), array('user_id' => $this->user->id));
         \Yii::app()->db->createCommand()->insert(\UserScores::model()->tableName(), array('user_id' => $this->user->id));
-
-        \Yii::app()->user->returnUrl = \Yii::app()->createUrl('/profile/default/index/', array('user_id' => $this->user->id));
     }
 } 

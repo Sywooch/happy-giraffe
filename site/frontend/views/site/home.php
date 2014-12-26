@@ -71,7 +71,7 @@
                 <div class="homepage-desc_soc">
                   <span class="i-or-tx">или войти с помощью</span>
                   <!-- <span class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></span> -->
-                  <?php $this->widget('AuthWidget', array('action' => '/signup/login/social', 'view' => 'simple')); ?>
+                  <?php $this->widget('AuthWidget', array('action' => '/signup/default/socialLogin', 'view' => 'simple')); ?>
                 </div>
               </div>
             </div>

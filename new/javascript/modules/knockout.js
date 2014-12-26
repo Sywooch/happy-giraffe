@@ -2780,7 +2780,6 @@ ko.exportSymbol('bindingProvider', ko.bindingProvider);
 
     function applyBindingsToNodeInternal(node, sourceBindings, bindingContext, bindingContextMayDifferFromDomParentElement) {
         // Prevent multiple applyBindings calls for the same node, except when a binding value is specified
-        console.log(node, sourceBindings, bindingContext)
         var alreadyBound = ko.utils.domData.get(node, boundElementDomDataKey);
         if (!sourceBindings) {
             if (alreadyBound) {

@@ -90,12 +90,12 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         this.validateUrl = '/api/signup/validate/';
         this.submitUrl = '/api/signup/register/';
         this.fields = {
-            firstName: new FormField(this, '1'),
-            lastName: new FormField(this, '2'),
-            birthday: new DateField(this, '1990-11-25'),
-            gender: new FormField(this, '1'),
-            email: new FormField(this, 'nikita+sdfsdf@happy-giraffe.ru'),
-            password: new FormField(this, '111111'),
+            firstName: new FormField(this, ''),
+            lastName: new FormField(this, ''),
+            birthday: new DateField(this, ''),
+            gender: new FormField(this, ''),
+            email: new FormField(this, ''),
+            password: new FormField(this, ''),
             avatarSrc: new FormField(this, null)
         };
     }

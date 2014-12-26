@@ -49,11 +49,12 @@ class AvatarManager
         $user->avatarInfo = null;
         $user->avatarId = null;
         if ($user->save()) {
-            $response = \CJSON::decode(\Yii::app()->api->request('photo/crops', 'remove', array(
+            \Yii::app()->api->request('photo/crops', 'remove', array(
                 'id' => $oldAvatarId,
-            )));
-
+            ));
+            return true;
         }
+        return false;
     }
 
     public static function getAvatar(\User $user, $width)

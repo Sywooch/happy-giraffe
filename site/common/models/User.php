@@ -281,8 +281,6 @@ class User extends HActiveRecord
 //
 //            //login
 //            array('email, password', 'required', 'on' => 'login'),
-
-            array('avatarInfo', 'filter', 'filter' => array($this->avatarObject, 'serialize')),
         );
     }
 

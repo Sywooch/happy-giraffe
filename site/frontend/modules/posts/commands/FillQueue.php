@@ -50,6 +50,29 @@ class FillQueue extends \CConsoleCommand
         }
         echo "\ntotal " . $count . " items\n";
     }
+    
+    public function actionRecipe()
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->order = 'created desc';
+
+        \Yii::import('site.frontend.modules.cook.models.*');
+        $dataProvider = new \CActiveDataProvider(\CookRecipe::model()->resetScope(), array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
+        ));
+
+        $iterator = new \CDataProviderIterator($dataProvider);
+        $count = 0;
+        foreach ($iterator as $model) {
+            $model->addTaskToConvert();
+            $count++;
+            echo '.';
+        }
+        echo "\ntotal " . $count . " items\n";
+    }
 
 }
 

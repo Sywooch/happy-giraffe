@@ -4,6 +4,7 @@ namespace site\frontend\modules\archive\controllers;
 
 class DefaultController extends \LiteController
 {
+
     protected function beforeAction($action)
     {
         if (parent::beforeAction($action)) {
@@ -20,24 +21,14 @@ class DefaultController extends \LiteController
      */
     public function actionIndex($year, $month, $day)
     {
-        $criteria = new \CDbCriteria(array(
-            'condition' => 'DATE(created) = :date',
-            'params' => array(':date' => implode('-', array($year, $month, $day))),
-        ));
+        if (!checkdate($month, $day, $year)) {
+            throw new \CHttpException(404);
+        }
 
-        $postCriteria = clone $criteria;
-        $cookCriteria = clone $criteria;
-        $cookCriteria->with = array('tags', 'author');
-        $cookCriteria->scopes[] = 'active';
-        $postCriteria->scopes[] = 'full';
-
-        $dp = new \MultiModelDataProvider(array(
-            'CommunityContent' => $postCriteria,
-            'CookRecipe' => $cookCriteria,
-        ), 'created', array(
+        $dp = new \CActiveDataProvider(\site\frontend\modules\archive\models\Content::model()->byDay(mktime(1, 1, 1, $month, $day, $year)), array(
             'pagination' => array(
                 'pageVar' => 'page',
-                'pageSize' => YII_DEBUG ? 10 : 100,
+                'pageSize' => 100,
             ),
         ));
 
@@ -68,4 +59,5 @@ class DefaultController extends \LiteController
         $this->pageTitle = $this->meta_description = 'Карта сайта';
         $this->render('map', compact('sections'));
     }
+
 }

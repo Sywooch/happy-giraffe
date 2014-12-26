@@ -3,6 +3,7 @@
 namespace site\frontend\modules\posts\controllers;
 
 use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\rss\components\channels\UserRssChannel;
 
 /**
  * Description of ListController
@@ -43,8 +44,7 @@ class ListController extends \LiteController
 
     public function actionIndex($user_id)
     {
-        if (Content::model()->byAuthor($user_id)->exists())
-            $this->rssFeed = $this->createUrl('/rss/user', array('user_id' => $user_id));
+        $this->rssFeed = new UserRssChannel($user_id);
         $this->userId = $user_id;
         $this->listDataProvider = $this->getListDataProvider($user_id);
         $this->render('list');

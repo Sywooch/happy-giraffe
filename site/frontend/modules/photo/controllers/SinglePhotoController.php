@@ -47,7 +47,6 @@ class SinglePhotoController extends \LiteController
         $this->breadcrumbs = array(
             'Фото' => array('/photo/default/index', 'userId' => $album->author->id),
         );
-        $this->metaNoindex = true;
 
         $collection = $album->getPhotoCollection();
         $this->renderSinglePhoto($collection, $photoId);

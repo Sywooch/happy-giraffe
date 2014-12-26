@@ -14,7 +14,7 @@
         } else {
             registerForm = window.opener.registerForm;
             <?php if ($this->params['fromLogin']): ?>
-            registerForm.__proto__.open(registerForm);
+            registerForm.prototype.open(registerForm);
             <?php endif; ?>
             registerForm.social(attributes);
         }

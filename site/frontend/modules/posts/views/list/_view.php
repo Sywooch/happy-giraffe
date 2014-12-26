@@ -1,3 +1,4 @@
+<?php Yii::app()->clientScript->registerAMD('kow', array('kow')); ?>
 <article class="b-article b-article__list clearfix">
     <div class="b-article_cont clearfix">
         <div class="b-article_header clearfix">

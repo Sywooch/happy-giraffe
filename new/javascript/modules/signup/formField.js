@@ -4,6 +4,7 @@ define(['knockout'], function FormFieldHandler(ko) {
         this.isFilled = ko.observable(false);
         this.value = ko.observable(value);
         this.errors = ko.observableArray([]);
+        this.fired = ko.observable(false);
         this.firsErrorHandler = function firsErrorHandler() {
             return (this.errors().length > 0) ? this.errors()[0] : null;
         };
@@ -21,7 +22,10 @@ define(['knockout'], function FormFieldHandler(ko) {
             parent.loading(false);
         };
         this.validate = function validate() {
-            parent.validate().done(this.validateParentHanler.bind(this));
+            if (this.errors.length > 0 || this.fired() === false) {
+                parent.validate().done(this.validateParentHanler.bind(this));
+            }
+            this.fired(true);
         };
     }
 

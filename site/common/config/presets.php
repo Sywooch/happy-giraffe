@@ -74,6 +74,16 @@ return array(
     ),
     array(
         'filter' => array(
+            'name' => 'lepilla',
+            'width' => 300,
+            'height' => 200, // 3*2
+        ),
+        'usages' => array(
+            'myPhotosSectionCover',
+        ),
+    ),
+    array(
+        'filter' => array(
             'name' =>'lepilla',
             'width' => 1200,
             'height' => 900,

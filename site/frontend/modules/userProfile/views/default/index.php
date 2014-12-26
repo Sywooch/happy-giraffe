@@ -41,19 +41,7 @@ $this->pageTitle = $user->getFullName() . ' на Веселом Жирафе';
                 <friends-section params="userId: <?= $user->id ?>"></friends-section>
             <!-- /виджет друзья-->
             <!-- виджет клубы-->
-            <div class="widget-club">
-                <div class="heading-sm">Мои клубы</div>
-                <ul class="widget-club_ul clearfix">
-                    <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-3">
-                            <div class="ico-club ico-club__7"></div></a></li>
-                    <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-6">
-                            <div class="ico-club ico-club__20"></div></a></li>
-                    <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-2">
-                            <div class="ico-club ico-club__5"></div></a></li>
-                    <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-1">
-                            <div class="ico-club ico-club__15"></div></a></li>
-                </ul>
-            </div>
+                <clubs-section params="userId: <?= $user->id ?>"></clubs-section>
             <!-- /виджет клубы-->
 
         </aside>

@@ -4,9 +4,14 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         this.SCREEN_STEP_1 = 'screenStep1';
         this.SCREEN_STEP_2 = 'screenStep2';
         this.SCREEN_STEP_SOCIAL = 'screenSocial';
-
         this.step = ko.observable(this.SCREEN_STEP_1);
-        this.registerForm = new RegisterForm();
+        this.checkRegisterForm = function checkRegisterForm(RegisterForm) {
+            if (typeof(RegisterForm) === 'object') {
+                return RegisterForm;
+            }
+            return new RegisterForm();
+        };
+        this.registerForm = this.checkRegisterForm(RegisterForm);
         this.captchaForm = new CaptchaForm();
         this.vkObj = {
             "popup": {
@@ -70,20 +75,24 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
             this.registerForm.setValues(values);
             this.step(this.SCREEN_STEP_SOCIAL);
         };
-
         registerForm = this;
         $(".auth-service.vkontakte a").eauth(this.vkObj);
         $(".auth-service.odnoklassniki a").eauth(this.okObj);
     }
 
-    Register.prototype.open = function openRegister() {
+    Register.prototype.open = function openRegister(model) {
         $.magnificPopup.open({
             items: {
                 src: customReturner('register-form'),
                 type: 'inline'
             }
         });
-        ko.applyBindings({}, $('register-form')[0]);
+        if (model !== undefined) {
+            RegisterForm = model.registerForm;
+            ko.applyBindings(Register, $('register-form')[0]);
+        } else {
+            ko.applyBindings({}, $('register-form')[0]);
+        }
     };
 
     function RegisterForm() {

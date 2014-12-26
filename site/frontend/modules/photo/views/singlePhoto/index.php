@@ -13,6 +13,7 @@ $this->breadcrumbs += array(
     $attach->getTitle(),
 );
 $this->pageTitle = $attach->getTitle() . ' - ' . $collection->getTitle();
+$this->metaNoindex = true;
 $this->metaDescription = $photo->description;
 $this->metaCanonical = $collection->getUrl();
 if ($attachPrev !== null) {

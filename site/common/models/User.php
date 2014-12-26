@@ -922,9 +922,9 @@ class User extends HActiveRecord
     public function getUrlParams()
     {
         return array(
-            'profile/default/index',
+            'userProfile/default/index',
             array(
-                'user_id' => $this->id,
+                'userId' => $this->id,
             ),
         );
     }

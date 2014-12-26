@@ -29,7 +29,19 @@ define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 's
         $.magnificPopup.open({
             items: {
                 src: customReturner('password-recovery-form'),
-                type: 'inline'
+                type: 'inline',
+                overflowY: 'auto',
+                tClose: 'Закрыть',
+                fixedBgPos: true,
+                callbacks: {
+                    open: function() {
+                        $('html').addClass('mfp-html');
+                        addBaron('.scroll');
+                    },
+                    close: function() {
+                        $('html').removeClass('mfp-html');
+                    }
+                }
             }
         });
         ko.applyBindings({}, $('password-recovery-form')[0]);

@@ -21,14 +21,14 @@
 </div>
 <div class="popup-sign_row" data-bind="with: fields.birthday">
     <div class="inp-valid inp-valid__abs" data-bind="css: cssClass">
-        <div class="float-l w-70 margin-r10">
+        <div class="float-l w-80 margin-r5">
             <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: DateRange.days(), value: d, optionsCaption: '', select2: {
                 width: '100%',
                 minimumResultsForSearch: -1,
                 placeholder: 'День'
             }, event: { change: validate }"></select>
         </div>
-        <div class="float-l w-115 margin-r10">
+        <div class="float-l w-115 margin-r5">
             <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: DateRange.months(), value: m, optionsCaption: '', optionsText: 'name', optionsValue: 'id', select2: {
                 width: '100%',
                 minimumResultsForSearch: -1,

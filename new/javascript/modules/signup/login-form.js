@@ -44,7 +44,19 @@ define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'sig
         $.magnificPopup.open({
             items: {
                 src: customReturner('login-form'),
-                type: 'inline'
+                type: 'inline',
+                overflowY: 'auto',
+                tClose: 'Закрыть',
+                fixedBgPos: true,
+                callbacks: {
+                    open: function() {
+                        $('html').addClass('mfp-html');
+                        addBaron('.scroll');
+                    },
+                    close: function() {
+                        $('html').removeClass('mfp-html');
+                    }
+                }
             }
         });
         ko.applyBindings({}, $('login-form')[0]);

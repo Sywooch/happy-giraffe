@@ -85,7 +85,19 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         $.magnificPopup.open({
             items: {
                 src: customReturner('register-form'),
-                type: 'inline'
+                type: 'inline',
+                overflowY: 'auto',
+                tClose: 'Закрыть',
+                fixedBgPos: true,
+                callbacks: {
+                    open: function() {
+                        $('html').addClass('mfp-html');
+                        addBaron('.scroll');
+                    },
+                    close: function() {
+                        $('html').removeClass('mfp-html');
+                    }
+                }
             }
         });
         if (model !== undefined) {

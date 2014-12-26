@@ -26,21 +26,21 @@
                 width: '100%',
                 minimumResultsForSearch: -1,
                 placeholder: 'День'
-            }"></select>
+            }, event: { change: validate }"></select>
         </div>
         <div class="float-l w-115 margin-r10">
             <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: DateRange.months(), value: m, optionsCaption: '', optionsText: 'name', optionsValue: 'id', select2: {
                 width: '100%',
                 minimumResultsForSearch: -1,
                 placeholder: 'Месяц'
-            }"></select>
+            }, event: { change: validate }"></select>
         </div>
         <div class="float-l w-80">
             <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: DateRange.years(1925, 1999), value: y, optionsCaption: '', select2: {
                 width: '100%',
                 minimumResultsForSearch: -1,
                 placeholder: 'Год'
-            }"></select>
+            }, event: { change: validate }"></select>
         </div>
         <div class="inp-valid_error">
             <div class="errorMessage" data-bind="text: firstError"></div>

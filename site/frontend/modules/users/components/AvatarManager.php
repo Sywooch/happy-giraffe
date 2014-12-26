@@ -22,24 +22,25 @@ class AvatarManager
         self::SIZE_BIG => 'avatarBig',
     );
 
-    public static function setAvatar(\User $user, Photo $photo, $cropData)
+    public static function setAvatar(User $user, Photo $photo, $cropData)
     {
-        $crop = \CJSON::decode(\Yii::app()->api->request('photo/crops', 'create', array(
+        $response = \CJSON::decode(\Yii::app()->api->request('photo/crops', 'create', array(
             'photoId' => $photo->id,
             'cropData' => $cropData,
         )));
 
-        if ($crop['success'] == true) {
-            $user->avatarId = $crop['data']['id'];
+        if ($response['success'] == true) {
+            $user->avatarId = $response['data']['id'];
             foreach (self::$_sizeToPreset as $size => $presetName) {
-                $user->avatarObject->$size = \Yii::app()->crops->getCrop($photo, self::$_sizeToPreset[$size], $cropData, $crop['data']['fsName'])->getUrl();
+                $user->avatarObject->$size = \Yii::app()->crops->getCrop($photo, self::$_sizeToPreset[$size], $cropData, $response['data']['fsName'])->getUrl();
             }
-            return ($user->save()) ? $user->avatarObject : false;
+            $user->avatarInfo = $user->avatarObject->serialize();
+            return ($user->save(false, array('avatarId', 'avatarInfo'))) ? $user->avatarObject : false;
         }
         return false;
     }
 
-    public static function removeAvatar(\User $user)
+    public static function removeAvatar(User $user)
     {
         $oldAvatarId = $user->avatarId;
         if ($oldAvatarId === null) {
@@ -48,7 +49,7 @@ class AvatarManager
 
         $user->avatarInfo = null;
         $user->avatarId = null;
-        if ($user->save()) {
+        if ($user->save(false, array('avatarInfo', 'avatarId'))) {
             \Yii::app()->api->request('photo/crops', 'remove', array(
                 'id' => $oldAvatarId,
             ));
@@ -57,7 +58,7 @@ class AvatarManager
         return false;
     }
 
-    public static function getAvatar(\User $user, $width)
+    public static function getAvatar(User $user, $width)
     {
         if ($user->avatarId === null) {
             return null;

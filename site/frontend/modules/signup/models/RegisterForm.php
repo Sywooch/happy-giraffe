@@ -63,6 +63,7 @@ class RegisterForm extends \CFormModel
             $this->user->gender = $this->gender;
             $this->user->email = $this->email;
             $this->user->password = \User::hashPassword($this->password);
+            $this->user->status = \User::STATUS_ACTIVE;
             if ($this->user->save()) {
                 $this->afterSave();
                 $transaction->commit();
@@ -114,6 +115,6 @@ class RegisterForm extends \CFormModel
         \Yii::app()->db->createCommand()->insert(\UserPriority::model()->tableName(), array('user_id' => $this->user->id));
         \Yii::app()->db->createCommand()->insert(\UserScores::model()->tableName(), array('user_id' => $this->user->id));
 
-        \Yii::app()->user->returnUrl = \Yii::app()->request->getUrlReferrer();
+        \Yii::app()->user->returnUrl = \Yii::app()->createUrl('/profile/default/index/', array('user_id' => $this->user->id));
     }
 } 

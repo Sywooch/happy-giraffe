@@ -32,4 +32,6 @@ define(["jquery", "knockout"], function ($, ko) {
     $('friends-section').each(componentIterator);
     ko.components.register('clubs-section', { require: 'clubs-section/clubs-section' });
     $('clubs-section').each(componentIterator);
+    ko.components.register('album-section', { require: 'album-section/album-section' });
+    $('album-section').each(componentIterator);
 });

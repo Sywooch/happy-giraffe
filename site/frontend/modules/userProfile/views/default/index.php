@@ -60,32 +60,7 @@ $this->pageTitle = $user->getFullName() . ' на Веселом Жирафе';
             </div>
             <!-- /виджет фото-->
             <!-- виджет друзья-->
-            <div class="widget-friend">
-                <div class="heading-sm"> <a href="#" class="heading-sm_a-r">Все друзья 3</a>Мои друзья</div>
-                <ul class="ava-list">
-                    <li class="ava-list_li">
-                        <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                    </li>
-                    <li class="ava-list_li">
-                        <!-- ava--><a href="#" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
-                    </li>
-                    <li class="ava-list_li">
-                        <!-- ava--><a href="#" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                    </li>
-                    <li class="ava-list_li">
-                        <!-- ava--><a href="#" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
-                    </li>
-                    <li class="ava-list_li">
-                        <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                    </li>
-                    <li class="ava-list_li">
-                        <!-- ava--><a href="#" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
-                    </li>
-                    <li class="ava-list_li">
-                        <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                    </li>
-                </ul>
-            </div>
+                <friends-section params="userId: <?= $user->id ?>"></friends-section>
             <!-- /виджет друзья-->
             <!-- виджет клубы-->
             <div class="widget-club">

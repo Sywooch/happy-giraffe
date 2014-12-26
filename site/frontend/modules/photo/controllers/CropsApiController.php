@@ -25,4 +25,10 @@ class CropsApiController extends ApiController
         $this->success = $crop->save();
         $this->data = $crop;
     }
+
+    public function actionRemove($id)
+    {
+        $crop = $this->getModel('site\frontend\modules\photo\models\PhotoCrop', $id);
+        $this->success = $crop->delete();
+    }
 } 

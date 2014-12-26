@@ -7,6 +7,7 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         this.step = ko.observable(this.SCREEN_STEP_1);
         this.checkRegisterForm = function checkRegisterForm(RegisterForm) {
             if (typeof(RegisterForm) === 'object') {
+                this.step(this.SCREEN_STEP_SOCIAL);
                 return RegisterForm;
             }
             return new RegisterForm();

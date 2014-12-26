@@ -4,19 +4,20 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="text/javascript">
         document.domain = document.domain;
-//        require = window.opener.require
-//        registerForm = window.opener.registerForm;
-        window.opener.require(['signup/register-form'], function (Register) {
-            registerForm = new Register.viewModel();
-            registerForm.social(<?=CJSON::encode($this->params['attributes'])?>);
+        var attributes = <?=CJSON::encode($this->params['attributes'])?>;
+        if (typeof window.opener.registerForm === 'undefined') {
+            window.opener.require(['signup/register-form'], function (Register) {
+                registerForm = new Register.viewModel();
+                registerForm.social(attributes);
+                registerForm.__proto__.open(registerForm);
+            });
+        } else {
+            registerForm = window.opener.registerForm;
+            <?php if ($this->params['fromLogin']): ?>
             registerForm.__proto__.open(registerForm);
-        });
-//        registerForm = window.opener.registerForm;
-//        console.log(registerForm);
-        <?php if ($this->params['fromLogin']): ?>
-//        registerForm.prototype.open();
-        <?php endif; ?>
-//        registerForm.social(<?//=CJSON::encode($this->params['attributes'])?>//)
+            <?php endif; ?>
+            registerForm.social(attributes);
+        }
         window.close();
     </script>
 </head>

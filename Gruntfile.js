@@ -791,6 +791,22 @@ module.exports = function(grunt){
                 unit: 100
             }
         },
+        'ico-social__l': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-social__l",
+                spritePath: "lite/images/sprite/ico-social__l.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 50
+            }
+        },
         'markdown-day': {
             options: {
                 spriteElementPath: "lite/images/sprite/markdown-day",

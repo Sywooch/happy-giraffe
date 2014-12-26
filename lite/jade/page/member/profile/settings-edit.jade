@@ -1,0 +1,358 @@
+include ../../../block/config
+extend ../../../extend/layout_base_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css'; 
+ 
+block layout
+ 
+    script(src="#{path}javascript/select2.js")
+    script(src="#{path}javascript/select2_locale_ru.js")
+    script.
+        $(document).ready(function () {
+            //- function selectCus__SearchOnDesc(state) {
+            //-     if (!state.id) return state.text; // optgroup
+            //-     return "<div class='select2-result_i'>" + state.text + "</div><div class='select2-result_desc'>Текст описание</div>";
+            //- }
+            //- // Измененный tag select c инпутом поиска
+            //- $(".select-cus__search-on-desc").select2({
+            //-     width: '100%',
+            //-     dropdownCssClass: 'select2-drop__search-on',
+            //-     formatResult: selectCus__SearchOnDesc,
+            //-     formatSelection: selectCus__SearchOnDesc,
+            //-     escapeMarkup: function(m) { return m; }
+            //- });
+
+                // Измененный tag select
+            $(".select-cus__search-off").select2({
+                width: '100%',
+                minimumResultsForSearch: -1,
+                dropdownCssClass: 'select2-drop__search-off',
+                escapeMarkup: function(m) { return m; }
+            });
+            $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
+
+            // Измененный tag select c инпутом поиска
+            $(".select-cus__search-on").select2({
+                width: '100%',
+                dropdownCssClass: 'select2-drop__search-on',
+                searchInputPlaceholder: "Начните вводить",
+                escapeMarkup: function(m) { return m; }
+            });
+
+        });
+
+    .b-main
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="#") Мой жираф
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        a.b-crumbs_a(href="#") Настройки
+    
+        .b-main_cont.b-main_cont__broad
+
+            .b-main_col-hold.clearfix
+                ///////     
+                // Основная колонка  
+                .b-main_col-article
+                    .user-settings.form-edit
+                        .user-settings_hold
+                            .heading-xxl Настройки профиля
+                        .user-settings_hold
+                            //-.user-settings_row
+                                span.form-edit_name Александра
+                                a.ico-edit.ico-edit__s(href='#')
+                            .user-settings_row
+
+                                .inp-valid.inp-valid__abs
+                                    input.itx-gray.popup-sign_itx(type="text", placeholder="Имя")
+                                    .inp-valid_error
+                                        .errorMessage
+                                            | Ошибка
+                                    //-.inp-valid_success.inp-valid_success__ico-check
+                                .btn.btn-success.btn-xs Ok
+                            .user-settings_row
+
+                                .inp-valid.inp-valid__abs.error
+                                    input.itx-gray.popup-sign_itx(type="text", placeholder="Фамилия")
+                                    .inp-valid_error
+                                        .errorMessage
+                                            | Невозможная фамилия
+                                    //-.inp-valid_success.inp-valid_success__ico-check
+                                .btn.btn-success.btn-xs Ok
+                        .user-settings_hold
+                            //-.user-settings_row
+                                .user-settings_col-label
+                                    label.form-edit_label(for='') Дата рождения
+                                .user-settings_col-inp
+                                    span.form-edit_tx 28 января 1973
+                                    a.ico-edit.ico-edit__s(href='#')
+                            // Дата рождения
+                            .user-settings_row
+                                .user-settings_col-label
+                                    label.form-edit_label(for='') Дата рождения
+                                .user-settings_col-inp
+                                    
+                                    .inp-valid.inp-valid__abs.clearfix
+                                        .display-ib.w-80.margin-r5
+                                            // select2 sript
+                                            select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
+                                                option
+                                                option(value="1") 1
+                                                option(value="2") 2
+                                                option(value="3") 3
+                                                option(value="4") 4
+                                                option(value="5") 5
+                                                option(value="6") 6
+                                                option(value="7") 7
+                                                option(value="8") 8
+                                                option(value="8") 9
+                                                option(value="10") 10
+                                                option(value="11") 11
+                                                option(value="12") 12
+                                        .display-ib.w-135.margin-r5
+                                            select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
+                                                option
+                                                option(value="1") Января
+                                                option(value="2") Февраля
+                                                option(value="3") Марта
+                                                option(value="4") Апреля
+                                                option(value="5") Майя
+                                                option(value="6") Июня
+                                                option(value="7") Июля
+                                                option(value="8") Августа
+                                                option(value="9") Сентября
+                                                option(value="10") Октября
+                                                option(value="11") Ноября
+                                                option(value="12") Декабря
+                                        .display-ib.w-80
+                                            select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Год")
+                                                option
+                                                option(value="1") 1912
+                                                option(value="2") 1913
+                                                option(value="3") 1914
+                                                option(value="4") 1915
+                                                option(value="5") 1916
+                                                option(value="6") 1917
+                                                option(value="7") 1918
+                                                option(value="8") 1919
+                                                option(value="8") 1920
+                                                option(value="10") 1921
+                                                option(value="11") 1922
+                                                option(value="12") 1923
+                                        
+                                        .inp-valid_error
+                                            .errorMessage 
+                                                | Не выбрана дата
+                                        //-.inp-valid_success.inp-valid_success__ico-check
+                                    .btn.btn-success.btn-xs Ok
+                            // /Дата рождения
+
+                            // пол
+                            .user-settings_row
+                                .user-settings_col-label
+                                    label.form-edit_label(for='') Пол
+                                .user-settings_col-inp
+                                    
+                                    .inp-valid.inp-valid__abs
+                                        .radio-icons
+                                            input#radio4.radio-icons_radio(type='radio', name='b-radio2')
+                                            label.radio-icons_label(for='radio4')
+                                                | Мужской
+                                            input#radio3.radio-icons_radio(type='radio', name='b-radio2')
+                                            label.radio-icons_label(for='radio3')
+                                                | Женский
+                                        .inp-valid_error
+                                            .errorMessage 
+                                                | Выберите пол
+                                        .inp-valid_success.inp-valid_success__ico-check
+                            // /пол
+
+                            // Местоположение
+                            //-.user-settings_row
+                                .user-settings_col-label
+                                    label.form-edit_label(for='') Местоположение
+                                .user-settings_col-inp
+                                    //-.location.locationsmall.clearfix
+                                        span.flag.flag-ru
+                                        span.location_tx
+                                            | Ярославская обл.
+                                            | Переславль-Залесский
+                                    span.flag.flag-ru
+                                    span.form-edit_tx Россия, Ярославская область, Переславль-Залесский
+                                    a.ico-edit.ico-edit__s(href='#')
+                            // /Местоположение
+
+                            // Местоположение
+                            .user-settings_row
+                                .user-settings_col-label
+                                    label.form-edit_label(for='') Местоположение
+                                .user-settings_col-inp
+                                    
+                                    .user-settings_row
+                                        .inp-valid.inp-valid__abs.error
+                                            // select-cus__js-country только для подключения js
+                                            script.
+                                                $(function() {
+                                                    // Измененный tag select
+                                                    $(".select-cus__js-country").select2({
+                                                        width: '100%',
+                                                        minimumResultsForSearch: -1,
+                                                        dropdownCssClass: 'select2-drop__search-off select2-drop__separated-first-items',
+                                                        // escapeMarkup: function(m) { return m; }
+                                                    });
+                                                });
+                                            select.select-cus.select-cus__js-country.select-cus__gray(placeholder="Выберите страну")
+                                                option
+                                                option(value="1") Россия
+                                                option(value="2") Украина
+                                                option(value="3") Белоруссия
+                                                option(value="4") Казахстан
+                                                option(value="5") Австралия
+                                                option(value="6") Азербайджан
+                                                option(value="7") Венгрия
+                                                option(value="8") Грузия
+                                                option(value="9") Албания
+                                                option(value="10") Лимпопо
+                                                option(value="11") Замбия
+                                            .inp-valid_error
+                                                .errorMessage 
+                                                    | Страна не вабрана
+                                            .inp-valid_success.inp-valid_success__ico-check
+                                    .user-settings_row
+                                        .inp-valid.inp-valid__abs
+                                            select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите город")
+                                                option
+                                                option(value="1") Россия
+                                                option(value="2") Украина
+                                                option(value="3") Белоруссия
+                                                option(value="4") Казахстан
+                                                option(value="5") Австралия
+                                                option(value="6") Азербайджан
+                                                option(value="8") Грузия
+                                                option(value="9") Албания
+                                                option(value="10") Лимпопо
+                                                option(value="11") Замбия
+                                            .inp-valid_error
+                                                .errorMessage 
+                                                    | Ошибка
+                                            .inp-valid_success.inp-valid_success__ico-check
+                                    .user-settings_row
+                                        .btn.btn-success.btn-xs Ok
+
+                            // /Местоположение
+                        .user-settings_hold
+                            .heading-small Настройки аккаунта
+
+                            // email
+                            //-.user-settings_row
+                                .user-settings_col-label
+                                    label.form-edit_label(for='') E-mail
+                                .user-settings_col-inp
+                                    span.form-edit_tx akuv@mail.ru
+                                    a.ico-edit.ico-edit__s(href='#')
+                            // /email
+
+                            // email
+                            .user-settings_row
+                                .user-settings_col-label
+                                    label.form-edit_label(for='') E-mail
+                                .user-settings_col-inp
+                                    .inp-valid.inp-valid__abs.error
+                                        input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                                        .inp-valid_error
+                                            .errorMessage
+                                                | Невозможный e-mail
+                                        //-.inp-valid_success.inp-valid_success__ico-check
+                                    .btn.btn-success.btn-xs Ok
+                            // /email
+
+                            // пароль
+                            //-.user-settings_row
+                                .user-settings_col-label
+                                    label.form-edit_label(for='') Пароль
+                                .user-settings_col-inp
+                                    // Несколько точек и последние пару символов пароля
+                                    span.form-edit_tx &bull;&bull;&bull;&bull;7rb
+                                    a.ico-edit.ico-edit__s(href='#')
+                            // /пароль
+
+                            // пароль
+                            .user-settings_row
+                                .user-settings_col-label
+                                    label.form-edit_label(for='') Пароль
+                                .user-settings_col-inp
+
+                                    .user-settings_row
+                                        .inp-valid.inp-valid__abs
+                                            input.itx-gray.popup-sign_itx(type="text", placeholder="Старый пароль")
+                                            .inp-valid_error
+                                                .errorMessage
+                                                    | Ошибка
+                                            .inp-valid_success.inp-valid_success__ico-check
+                                    .user-settings_row
+                                        .inp-valid.inp-valid__abs
+                                            input.itx-gray.popup-sign_itx(type="text", placeholder="Новый пароль")
+                                            .inp-valid_error
+                                                .errorMessage
+                                                    | Ошибка
+                                            .inp-valid_success.inp-valid_success__ico-check
+                                            .tx-hint Придумайте сложный пароль, котрый нельзя подобрать, от 6 до 12 символов - цифры и английские буквы.
+                                    .user-settings_row
+                                        .inp-valid.inp-valid__abs.error
+                                            input.itx-gray.popup-sign_itx(type="text", placeholder="Новый пароль еще раз")
+                                            .inp-valid_error
+                                                .errorMessage
+                                                    | Пароли не совпадают
+                                            .inp-valid_success.inp-valid_success__ico-check
+                                    .user-settings_row
+                                        .btn.btn-success.btn-xs Ok
+                            // /пароль
+
+                        // соц сети
+                        .user-settings_hold
+                            .heading-small Coциальные сети
+                            .form-edit_tx Нажмите на соответствующую иконку соц. сети, чтобы связать ее с вашим аккаунтом.
+                            .user-settings_soc
+                                ul.ico-social-ul
+                                    li.ico-social-ul_li
+                                        a.ico-social.ico-social__l.ico-social__odnoklassniki(href='#')
+                                    li.ico-social-ul_li
+                                        a.ico-social.ico-social__l.ico-social__vkontakte(href='#')
+                        // /соц сети
+
+                        // Рассылки
+                        .user-settings_hold
+                            .heading-small Настройки рассылок на электронную почту
+                            .inp-valid.inp-valid__abs.w-a
+                                .radio-icons.radio-icons__checkbox
+                                    input#mail1.radio-icons_radio(type='checkbox', name='mail1')
+                                    label.radio-icons_label(for='mail1')
+                                        .form-edit_tx Я хочу получать еженедельные новости от Веселого жирафа.
+                                .inp-valid_error
+                                    .errorMessage 
+                                        | Ошибка
+                                .inp-valid_success.inp-valid_success__ico-check
+                        // /Рассылки
+
+                        // 
+                        .user-settings_hold
+                            .form-edit_tx 
+                                | Я  хочу 
+                                a.btn.btn-sm.btn-secondary Удалить анкету 
+                                |  , потеряв всю введенную информацию без возможности восстановления. 
+                        // /
+
+                ///////
+                // Сайд бар  
+                aside.b-main_col-sidebar.visible-md
+
+        +layout-footer-lite()
+
+
+

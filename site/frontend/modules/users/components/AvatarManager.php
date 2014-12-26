@@ -41,9 +41,19 @@ class AvatarManager
 
     public static function removeAvatar(\User $user)
     {
+        $oldAvatarId = $user->avatarId;
+        if ($oldAvatarId === null) {
+            return true;
+        }
+
         $user->avatarInfo = null;
         $user->avatarId = null;
-        return $user->save();
+        if ($user->save()) {
+            $response = \CJSON::decode(\Yii::app()->api->request('photo/crops', 'remove', array(
+                'id' => $oldAvatarId,
+            )));
+
+        }
     }
 
     public static function getAvatar(\User $user, $width)

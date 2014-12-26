@@ -24,24 +24,13 @@ class Command extends \CConsoleCommand
         Manager::convertAvatar($user);
     }
 
-    public function updateMember(\GearmanJob $job)
-    {
-        $userId = $job->workload();
-        /** @var \site\frontend\modules\family\models\FamilyMember $member */
-        $member = \site\frontend\modules\family\models\FamilyMember::model()->user($userId)->find();
-        if ($member !== null) {
-            $member->fillByUser($userId);
-            $member->save();
-        }
-    }
-
     public function actionAvatarSingle($userId)
     {
         $user = \User::model()->findByPk($userId);
         Manager::convertAvatar($user);
     }
 
-    public function actionAvatarAll()
+    public function actionFillQueue()
     {
         $dp = new \CActiveDataProvider('User', array(
             'criteria' => 'id ASC',

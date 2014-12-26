@@ -27,6 +27,6 @@ class PhotoWidget extends \CWidget
             'order' => 'RAND()',
         ));
         $album = PhotoAlbum::model()->find($criteria);
-        $this->render('PhotoWidget', compact($album));
+        $this->render('PhotoWidget', compact('album'));
     }
 } 

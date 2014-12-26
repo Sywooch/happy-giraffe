@@ -63,15 +63,16 @@
     .box-shadow(none);
     
     &.select2-drop-active {
-        border: 1px solid #a0ceee;
+        border: 1px solid #f5f5f5;
+        .box-shadow(0 0 4px rgba(0,0,0,0.2));
     }
     .select2-results {
-        margin: 3px 3px 3px 0;
+        margin: 0;
         padding: 0;
     }
     .select2-results .select2-highlighted {
-        background: #e5f0fe;
-        color: #333;
+        background: #fff;
+        color: @color-gray-light;
     }
     .select2-search {margin-top: 4px;}
     .select2-search input {

@@ -4,37 +4,39 @@
 @import "/include/mixins.less";
 
 /// Проектный слой
-@import "/project/aside-filter.less";
+/*@import "/project/aside-filter.less";*/
 @import "/project/comments.less";
 @import "/project/favorites.less";
 /*
 @import "/project/find-friend.less";*/
-@import "/project/friends-list.less";
+/*@import "/project/friends-list.less";*/
 /*@import "/project/im.less";
 // onair прямой эфир в фиксированном блоке скраю сайта
 @import "/project/onair.less";
 */
 @import "/project/redactor.hg.less";
 @import "/project/sidebar.less";
-@import "/project/start-page.less";
+/*@import "/project/start-page.less";*/
 @import "/project/social.less";
-@import "/project/user-notice.less";
+/*@import "/project/user-notice.less";*/
 @import "../redactor/redactor.less";
 /*@import "/project/vacancy.less";*/
 
 /// services
 @import "/project/services/cook.less";
 @import "/project/services/decree-time.less";
-@import "/project/services/disease.less";
+/*@import "/project/services/disease.less";*/
 @import "/project/services/embroidery.less";
 @import "/project/services/hair-type.less";
-@import "/project/services/horoscope.less";
-@import "/project/services/map-route.less";
+/*@import "/project/services/horoscope.less";*/
+/*@import "/project/services/map-route.less";*/
 @import "/project/services/names.less";
 @import "/project/services/repair.less";
-@import "/project/services/test-pregnancy.less";
+/*@import "/project/services/test-pregnancy.less";*/
 @import "/project/services/test-prikorm.less";
 
+
+@import "/project/comments-lite.less";
 
 
 /* not use 
@@ -3152,7 +3154,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* /widget-friends */
 
 /* user-awards */
-.user-awards {
+/*.user-awards {
     margin: 10px 0 40px;
 
     &_ul {margin: 20px -15px 10px 0;}
@@ -3228,7 +3230,7 @@ table.fr_recipe_tb td { width: 50%;}
         color: #ffe535;
     }
     &_popup-more {color: #c4dcf9;}
-}
+}*/
 /* /user-awards */
 
 /* club-list */
@@ -3736,7 +3738,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* /award-ico */
 
 /* b-award */
-.b-award {
+/*.b-award {
     padding: 15px 20px 60px;
     background: #f6f6f6;
 
@@ -3776,7 +3778,7 @@ table.fr_recipe_tb td { width: 50%;}
         font-weight: normal;
         color: #2274b7;
     }
-}
+}*/
 /* /b-award */
 
 /* ava-small-list */
@@ -4456,7 +4458,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* /clearblue */
 
 /* hainz-fruit-game */
-.hainz-fruit-game {
+/*.hainz-fruit-game {
     position: relative;
     width: 1000px;
     height: 320px;
@@ -4523,7 +4525,7 @@ table.fr_recipe_tb td { width: 50%;}
     50% { -webkit-transform: scale(0.9); }
     100% { -webkit-transform: scale(1); }
 }
-
+*/
 /* /hainz-fruit-game */
 
 .bann-heinz_in {
@@ -5177,6 +5179,7 @@ table.fr_recipe_tb td { width: 50%;}
 }
 
 
+
 // new 
 // ---------------------------------------------------------------------------------------------
 
@@ -5187,19 +5190,10 @@ table.fr_recipe_tb td { width: 50%;}
 
 @import "../new/less/include/mixins.less";
 
-@import "../new/less/project/popup-sign.less";
 @import "../new/less/plugins/jquery.Jcrop.less";
-@import "../new/less/plugins/magnific-popup.less";
-@import "../new/less/plugins/select2.less";
-@import "../new/less/plugins/select2.hg.less";
-@import "../new/less/project/form.less";
 /* Взять футер с дургого layout не лучшая идея */
 /*@import "../new/less/project/footer.less";*/
-@import "../new/less/project/msg-fast.less";
-@import "../new/less/project/photo-window.less";
-
-
-
+/*@import "../new/less/project/msg-fast.less";*/
 
 
 .popup {
@@ -5212,24 +5206,7 @@ table.fr_recipe_tb td { width: 50%;}
 @import "/banner/ban-route.less";
 @import "/banner/banner.less"; // на все layout 
 
-///////////////////////
-// lite
-// Переменные и примешивания
-@import "../lite/less/include/variables.less";
-@import "../lite/less/bootstrap/responsive-utilities.less";
-// Путь к изображениям
-@path-img : '/lite/images'; 
-@import "../lite/less/project/yandex-search-form.less";
-@import "../lite/less/project/article-anonce.less";
 
 
-@import "../lite/less/sprite/markdown-day-sprite.less";
-.no-svg .markdown-day__1 .markdown-day_t:after, .no-svg .markdown-day__2 .markdown-day_t:after, .no-svg .markdown-day__3 .markdown-day_t:after {
-    background-image: url("/lite/images/sprite/markdown-day.png");
-}
-
-.markdown-day__1 .markdown-day_t:after, .markdown-day__2 .markdown-day_t:after, .markdown-day__3 .markdown-day_t:after {
-    background-image: url("/lite/images/sprite/markdown-day.svg");
-}
-@import "../lite/less/project/b-markdown.less";
+@import "/project/from-lite.less";
 

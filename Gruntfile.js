@@ -171,7 +171,7 @@ module.exports = function(grunt){
           expand: true,
           cwd: 'lite/less/',
           src: ['*.less',],
-          dest: 'lite/css/dev/',
+          dest: '/lite/css/dev/',
           ext: '.css'
         }],
         // files: {
@@ -179,6 +179,9 @@ module.exports = function(grunt){
         // },
         options: {
           sourceMap: true,
+          //sourceMapFilename: "/lite/css/dev/*.map", //Write the source map to a separate file with the given filename.
+          sourceMapBasepath: "/lite/less", //Sets the base path for the Less file paths in the source map.
+          sourceMapRootpath: "/"//Adds this path onto the Less file paths in the source map.
         }
       },
       

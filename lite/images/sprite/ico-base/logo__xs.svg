@@ -1,39 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="54.2px"
-	 height="80px" viewBox="0 0 54.2 80" enable-background="new 0 0 54.2 80" xml:space="preserve">
-<g id="Направляющие_для_монтажной_области">
-</g>
-<g id="Слой_1">
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#73C869" d="M9,48.2c-3.8-0.4-5.8-1.7-7.6-3.1c-1.5,2.5-1.1,5-0.2,6.5
-		c0,0,0.5,1,7.8,0.3L9,48.2z"/>
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#64B9EB" d="M8.7,53.5c-3.2,0.3-4.7,0.6-7.5-0.3c-0.8,2.6-0.5,3.7,0.8,5.7
-		c0,0,2.9,1.1,6.9-1L8.7,53.5z"/>
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#FF8232" d="M8.8,59.5c-2.5,1.1-3.9,1.6-6.5,1.2c-0.5,1.3-0.9,3.4,0.5,5.2
-		c1.4-0.2,3.2,0.3,6.4-1.8L8.8,59.5z"/>
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#AA96D2" d="M10.1,65.8c-1.8,1.1-4.7,1.4-7,1.4c-0.9,2.4-0.6,3.4,1,4.9
-		c1.2-0.2,2.9,0,6.4-2.6L10.1,65.8z"/>
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#FF8232" d="M30.2,27.4l11.1-5.3c0,0,0.3,6.1-0.8,10.5
-		C39.7,36.2,30.2,27.4,30.2,27.4z"/>
-	<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFD72C" points="31.2,26.8 41.3,22.1 36.5,29.7 	"/>
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#FFE641" d="M7.4,43.8c0,0,0,26.6,0,29.7c0.1,8.2,17.6,8.5,17.6-0.1
-		c0-5,0-12.8,0-12.8s6.7,4.9,15.3-2.1c4.3,1.4,7.7-0.9,9.9-3.6c3.2-2.3,4.3-5.6,3.9-9.6c-0.3-2.9-2.4-4-5.4-6.5
-		c-2.9-2.5-4.7-12.3-19.5-14.5C25.5,18.8,20.7,12,20.7,12l-1.3,13.3l-7-10.9L11.2,30l-9-3.4C2.3,26.7-2.1,39.8,7.4,43.8z"/>
-	<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#C3640F" points="7.1,5.1 12.9,2.9 12.2,13.3 	"/>
-	<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#C3640F" points="16.5,2.6 22.4,0.2 20.4,10.7 	"/>
-	<polygon opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" fill="#FF8232" points="7.4,50 11.6,55.6 7.4,62 	"/>
-	<path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" fill="#FF8232" d="M7.4,64.2l5.5,8.5l-3.4,5c-1.8-1.2-2.2-3.8-2.2-3.8
-		L7.4,64.2z"/>
-	<polygon opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" fill="#FF8232" points="10.7,63.3 13.7,59.5 17.2,63.8 13.8,67.6 	
-		"/>
-	<circle fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" cx="27.7" cy="37.5" r="6.3"/>
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#333333" d="M27.3,40.1c2.2,0,3.9-1.8,3.9-3.9c0-2.2-1.8-3.9-3.9-3.9
-		c-2.2,0-3.9,1.8-3.9,3.9C23.4,38.3,25.1,40.1,27.3,40.1z"/>
-	<circle fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" cx="26.5" cy="34.7" r="1.6"/>
-	<circle fill-rule="evenodd" clip-rule="evenodd" fill="#C3640F" cx="46.3" cy="48.4" r="2.6"/>
-	<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FF8232" points="40.2,58.5 34.9,54.7 37.4,60.6 	"/>
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#FF8232" d="M2.4,26.7l7.5,10.5c0,0-3.2,1.1-2.5,7.9C2.2,42.6-3,36,2.4,26.7z"
-		/>
-</g>
+<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="55px" height="80px" viewBox="0 0 55 80" enable-background="new 0 0 55 80" xml:space="preserve">
+<path fill="#73C869" d="M9.5,47.9c-3.8-0.4-5.8-1.7-7.6-3.1c-1.5,2.5-1.1,5-0.2,6.5c0,0,0.5,1,7.7,0.3L9.5,47.9L9.5,47.9z"/>
+<path fill="#64B9EB" d="M9.3,53.2c-3.1,0.3-4.6,0.6-7.4-0.3c-0.8,2.6-0.5,3.6,0.8,5.6c0,0,2.9,1.1,6.8-1L9.3,53.2L9.3,53.2z"/>
+<path fill="#FF8232" d="M9.3,59.1c-2.5,1-3.8,1.6-6.4,1.2c-0.5,1.3-0.9,3.4,0.5,5.1c1.3-0.2,3.1,0.3,6.4-1.8L9.3,59.1z"/>
+<path fill="#AA96D2" d="M10.6,65.3c-1.7,1.1-4.7,1.4-6.9,1.4c-0.8,2.4-0.6,3.4,1,4.9c1.2-0.2,2.9,0,6.3-2.5L10.6,65.3z"/>
+<path fill="#FF8232" d="M30.6,27.3l11-5.3c0,0,0.3,6.1-0.7,10.4C40,35.9,30.6,27.3,30.6,27.3L30.6,27.3z"/>
+<polygon fill="#FFD72C" points="31.6,26.6 41.6,21.9 36.8,29.5 "/>
+<path fill="#FFE641" d="M54.2,45.1c-0.3-2.9-2.4-3.9-5.3-6.4c-2.9-2.5-4.6-12.2-19.4-14.4C25.9,18.7,21.2,12,21.2,12l-1.3,13.2
+	l-7-10.8l-1.2,15.4l-8.9-3.3c0,0-4.3,13,5.1,17v0c0,0-0.1,33.4,0,36.5h17.5c0-4.9-0.1-19.7-0.1-19.7s6.7,4.9,15.2-2.1
+	c4.3,1.4,7.6-0.9,9.9-3.6C53.5,52.3,54.6,49.1,54.2,45.1"/>
+<polygon fill="#C3640F" points="7.6,5.1 13.4,2.9 12.7,13.3 "/>
+<polygon fill="#C3640F" points="17,2.7 22.8,0.2 20.8,10.7 "/>
+<polygon fill="#FF8232" fill-opacity="0.502" points="7.9,49.7 12.2,55.3 7.9,61.6 "/>
+<path fill="#FF8232" fill-opacity="0.502" d="M8,63.7l5.5,8.5l-3.4,5c-1.8-1.1-2.2-3.8-2.2-3.8L8,63.7L8,63.7z"/>
+<polygon fill="#FF8232" fill-opacity="0.502" points="11.2,62.8 14.2,59.1 17.6,63.3 14.3,67.1 "/>
+<path fill="#FFFFFF" d="M28.1,31c3.5,0,6.3,2.8,6.3,6.3c0,3.5-2.8,6.3-6.3,6.3c-3.5,0-6.3-2.8-6.3-6.3C21.9,33.8,24.7,31,28.1,31z"
+	/>
+<circle fill="#333333" cx="27.7" cy="35.9" r="3.9"/>
+<path fill="#FFFFFF" d="M26.9,32.9c0.9,0,1.6,0.7,1.6,1.6c0,0.9-0.7,1.6-1.6,1.6c-0.9,0-1.6-0.7-1.6-1.6
+	C25.3,33.6,26,32.9,26.9,32.9z"/>
+<path fill="#C3640F" d="M46.5,45.5c1.4,0,2.6,1.2,2.6,2.6c0,1.4-1.2,2.6-2.6,2.6c-1.4,0-2.6-1.2-2.6-2.6
+	C43.9,46.6,45.1,45.5,46.5,45.5z"/>
+<polygon fill="#FF8232" points="40.5,58.1 35.2,54.3 37.7,60.2 "/>
+<path fill="#FF8232" d="M3,26.5l7.4,10.4c0,0-3.1,1.1-2.5,7.8C2.8,42.3-2.4,35.8,3,26.5L3,26.5z"/>
 </svg>

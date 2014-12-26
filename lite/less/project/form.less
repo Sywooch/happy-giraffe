@@ -258,7 +258,7 @@ textarea.error {
     &__abs &_error {
         position: absolute;
         bottom: 100%;
-        right: 5px;
+        right: 0;
         z-index: 1000;
         white-space: nowrap;
     }
@@ -280,8 +280,10 @@ textarea.error {
 
     &_error {
         display: none;
-        padding: 4px 9px;
+        padding: 2px 8px;
         background-color: #fc6c45;
+        color: #fff;
+        font-size: 11px;
         /*padding: 8px 10px 8px 33px;
         background: #fde3e3 url('@{path-img}/inp-valid_error.png') no-repeat 7px 6px;*/
     }
@@ -294,8 +296,8 @@ textarea.error {
         border-top-color: #fc6c45;
     }
     &_error .errorMessage {
-        color: #ffd4c8 !important;
-        font-size: 12px !important;
+        color: #fff !important;
+        font-size: 11px !important;
         line-height: 1;
         margin: 0;
     }

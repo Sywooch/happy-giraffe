@@ -20,6 +20,10 @@ class ApiController extends \site\frontend\components\api\ApiController
         $form->attributes = $attributes;
         $this->success = $form->save();
         if ($this->success) {
+            $identity = new UserIdentity($form->user->email, $form->password);
+            if ($identity->authenticate()) {
+                \Yii::app()->user->login($identity);
+            }
             $this->data = array(
                 'returnUrl' => \Yii::app()->user->getReturnUrl(),
             );
@@ -27,12 +31,6 @@ class ApiController extends \site\frontend\components\api\ApiController
             $this->data = array(
                 'errors' => $form->user->getErrors(),
             );
-        }
-        if ($this->success) {
-            $identity = new UserIdentity($form->user->email, $form->password);
-            if ($identity->authenticate()) {
-                \Yii::app()->user->login($identity);
-            }
         }
     }
 

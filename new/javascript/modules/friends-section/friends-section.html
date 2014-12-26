@@ -1,20 +1,22 @@
 <!-- виджет друзья-->
-    <!-- ko if: friends().length > 0 -->
-    <div class="widget-friend">
-        <div class="heading-sm"> <a href="#" class="heading-sm_a-r" data-bind="href: friendsUrl">Все друзья 3</a>Мои друзья</div>
-        <ul class="ava-list" data-bind="foreach: friends">
-            <li class="ava-list_li">
-                <!-- ava--><a href="#" class="ava ava__middle" data-bind="href: profileUrl"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"  data-bind="src: avatarUrl"></a>
-            </li>
-        </ul>
-    </div>
-    <!-- /ko -->
-    <!-- ko if: friends().length === 0 -->
-        <div class="profile-cap">
-            <div class="heading-sm">Мои друзья</div>
-            <div class="profile-cap_hold profile-cap_hold__friend">
-                <div class="profile-cap_tx">Вы еще не добавили ни кого в друзья.<br><a href="#" data-bind="href: friendsUrl">Поиск друзей</a></div>
-            </div>
+    <!-- ko if: loaded() === true -->
+        <!-- ko if: friends().length > 0 -->
+        <div class="widget-friend">
+            <div class="heading-sm"> <a href="#" class="heading-sm_a-r" data-bind="href: friendsUrl">Все друзья 3</a>Мои друзья</div>
+            <ul class="ava-list" data-bind="foreach: friends">
+                <li class="ava-list_li">
+                    <!-- ava--><a href="#" class="ava ava__middle" data-bind="href: profileUrl"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"  data-bind="src: avatarUrl"></a>
+                </li>
+            </ul>
         </div>
+        <!-- /ko -->
+        <!-- ko if: friends().length === 0 && rightsForManipulation === true -->
+            <div class="profile-cap">
+                <div class="heading-sm">Мои друзья</div>
+                <div class="profile-cap_hold profile-cap_hold__friend">
+                    <div class="profile-cap_tx">Вы еще не добавили ни кого в друзья.<br><a href="#" data-bind="href: friendsUrl">Поиск друзей</a></div>
+                </div>
+            </div>
+        <!-- /ko -->
     <!-- /ko -->
 <!-- /виджет друзья-->

@@ -21870,7 +21870,7 @@ body.gallery {
 }
 .popup-sign_col .btn-success.btn-block,
 .popup-sign_col .btn-green.btn-block {
-  margin-top: 15px;
+  margin: 5px 0 -10px;
 }
 .popup-sign_col__left {
   display: inline-block;
@@ -26328,4 +26328,4 @@ h2.calendar-serv-note_t {
 .bnr-enfomil2_btn:hover {
   background-position: 0px -33px;
 }
-/*# sourceMappingURL=/lite/css/dev/all.css.map */
+/*# sourceMappingURL=lite/css/dev/all.css.map */

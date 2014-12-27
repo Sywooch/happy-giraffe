@@ -12,8 +12,9 @@
                             <!-- ko if: member.photo() !== null -->
                                 <img src="" alt="" data-bind="src: member.photo().getGeneratedPreset('familyMemberSmallWidget')"/>
                             <!-- /ko -->
-                            <span class="ico-family ico-family__wife" data-bind="attr: { class: 'ico-family ico-family__' + member.viewData.cssClass }">
-                            </span>
+                            <!-- ko if: member.photo() === null -->
+                                <span class="ico-family ico-family__wife" data-bind="attr: { class: 'ico-family ico-family__' + member.viewData.cssClass }"></span>
+                            <!-- /ko -->
                         </span>
                         <span class="b-family_tx">
                             <span data-bind="text: member.viewData.asString"></span>

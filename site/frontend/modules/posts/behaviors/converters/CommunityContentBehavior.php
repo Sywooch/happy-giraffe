@@ -125,9 +125,9 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
         $photo = $oldPost->post->photo;
 
-        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <span class="ico-more"></span>') . '</p>';
+        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
         if ($photo) {
-            $newPost->preview = '<div class="b-article_in-img">' . $photo->getPreviewHtml(600, 1100) . '</div>' . $newPost->preview;
+            $newPost->preview = '<div class="b-article_in-img"><a href="' . $oldPost->url . '">' . $photo->getPreviewHtml(600, 1100) . '</a></div>' . $newPost->preview;
             $newPost->socialObject->imageUrl = $photo->getPreviewUrl(200, 200);
         }
 
@@ -193,6 +193,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $this->convertCommon($oldPost, $newPost, 'oldStatusPost');
 
         $newPost->templateObject->data['type'] = 'status';
+        $newPost->templateObject->data['noWysiwyg'] = true;
+        $newPost->templateObject->data['hideTitle'] = true;
         $newPost->isNoindex = true;
 
         $newPost->title = $oldPost->author->fullName . ' - статус от ' . date('d.m.y h:i', $newPost->dtimeCreate);

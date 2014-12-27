@@ -10,11 +10,18 @@ namespace site\frontend\modules\userProfile\widgets;
 class UserSectionWidget extends \CWidget
 {
     public $user;
+    public $showToOwner = false;
 
     public function run()
     {
-        if ($this->user->id != \Yii::app()->user->id) {
-            $this->render('UserSectionWidget', array('user' => $this->user));
+        if (! $this->show()) {
+            return;
         }
+        $this->render('UserSectionWidget', array('user' => $this->user));
+    }
+
+    protected function show()
+    {
+        return $this->showToOwner || ($this->user->id != \Yii::app()->user->id);
     }
 } 

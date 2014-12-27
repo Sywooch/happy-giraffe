@@ -7,7 +7,7 @@ block vars
 block layout
  
     .b-main
-        .b-main_cont
+        .b-main_cont.b-main_cont__broad
             .b-crumbs.b-crumbs__s
                 .b-crumbs_tx Я здесь:
                 ul.b-crumbs_ul
@@ -21,7 +21,37 @@ block layout
         .b-main_cont.b-main_cont__broad
 
             .b-main_col-hold.clearfix
-                +cap-empty('cap-empty__user-profile', capEmpty.userProfile)
+                ///////     
+                // Основная колонка  
+                .b-main_col-article
+                    +cap-empty('cap-empty__user-profile', capEmpty.userProfile)
+
+                ///////
+                // Сайд бар  
+                aside.b-main_col-sidebar.visible-md
+                    
+                    // виджет друзья
+                    .widget-friend
+                        .heading-sm 
+                            a.heading-sm_a-r(href='#') Все друзья 3
+                            | Мои друзья
+
+                        ul.ava-list
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.c)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                    // /виджет друзья
 
         +layout-footer-lite()
 

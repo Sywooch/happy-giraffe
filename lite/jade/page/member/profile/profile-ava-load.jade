@@ -7,7 +7,7 @@ block vars
 block layout
 
     .b-main
-        .b-main_cont
+        .b-main_cont.b-main_cont__broad
             .b-crumbs.b-crumbs__s
                 .b-crumbs_tx Я здесь:
                 ul.b-crumbs_ul
@@ -68,7 +68,7 @@ block block-hidden
 
                         // Блок обрезки аватара
                         .popup-add_ava-crop
-                            img#jcrop_target(src="http://placecreature.com/dog/450/450")
+                            img#jcrop_target(src="http://placecreature.com/dog/1450/950")
                             script(src='/lite/javascript/jquery.Jcrop.min.js')
                             script.
                                 jQuery(function($){
@@ -78,6 +78,7 @@ block block-hidden
                                       bgOpacity: 0.3,
                                       bgColor: '#fff',
                                       aspectRatio: 1,
+                                      boxWidth: 450,
                                       addClass: 'jcrop-circle'
                                     },function(){
                                       api = this;
@@ -94,7 +95,7 @@ block block-hidden
 
                 .popup-add_footer
                     .textalign-c
-                        a.btn.btn-secondary.margin-r10(href="#") Отмена
+                        a.btn.btn-secondary.margin-r10(href="#", onclick="$.magnificPopup.close();") Отмена
                         a.btn.btn-success(href="#") Добавить
                         
     // /popup-add 

@@ -8,6 +8,9 @@ block layout
  
     .b-main
         .b-main_cont
+            +userAddRecord('', userAddRecord.blog)
+            
+        .b-main_cont.b-main_cont__broad    
             .b-crumbs.b-crumbs__s
                 .b-crumbs_tx Я здесь:
                 ul.b-crumbs_ul
@@ -15,6 +18,7 @@ block layout
                         a.b-crumbs_a(href="#") Мой жираф
                     li.b-crumbs_li.b-crumbs_li__last
                         +ava('ava__small', ava.a)
+
 
         +userSection('', userSection.baseUser)
     

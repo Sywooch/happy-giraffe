@@ -9,7 +9,7 @@ mixin userSection(mod, vars)
         .userSection_hold.clearfix
             .userSection_left
                 h2.userSection_name Ангелина Богоявленская
-                .margin-b5.clearfix
+                .clearfix
                     | 33 года (28 января)
                 if(vars.lacation)
                     .location.locationsmall.clearfix
@@ -46,7 +46,7 @@ mixin userSection(mod, vars)
                             +ava("ava__large ava__female", ava.empty)
                     //-span.b-ava-large_online На сайте
                     if(vars.user)
-                        a.i-ava-bubble.i-ava-bubble__photo.powertip(href='#', title='Главное фото')
+                        a.i-ava-bubble.i-ava-bubble__photo.powertip(href='#', title='Изменить фото')
                             .i-ava-bubble_ico.i-ava-bubble_ico__photo
             .userSection_right
                 if(vars.family)

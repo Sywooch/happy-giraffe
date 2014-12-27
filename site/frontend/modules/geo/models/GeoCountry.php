@@ -124,6 +124,7 @@ class GeoCountry extends HActiveRecord implements IHToJSON
     {
         return array(
             'id' => (int) $this->id,
+            'isoCode' => $this->iso_code,
             'name' => $this->name,
             'pos' => (int) $this->pos,
             'citiesFilled' => (int) $this->citiesFilled,

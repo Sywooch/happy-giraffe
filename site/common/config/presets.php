@@ -74,6 +74,17 @@ return array(
     ),
     array(
         'filter' => array(
+            'name' => 'fixed',
+            'width' => 300,
+            'height' => 200,
+            'mode' => 'outbound',
+        ),
+        'usages' => array(
+            'myPhotosSectionCover',
+        ),
+    ),
+    array(
+        'filter' => array(
             'name' =>'lepilla',
             'width' => 1200,
             'height' => 900,

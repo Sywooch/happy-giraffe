@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: mikita
@@ -8,10 +9,19 @@
 
 namespace site\frontend\modules\archive\components;
 
-
 class MenuHelper
 {
+
+    /**
+     *
+     * @var array Список активных месяцев в выбранном году
+     */
     private static $_months;
+
+    /**
+     *
+     * @var array Список активных дней в выбранном году 
+     */
     private static $_days;
 
     public static function isActive($year, $month, $day)
@@ -23,20 +33,7 @@ class MenuHelper
     public static function isActiveMonth($year, $month)
     {
         if (self::$_months === null) {
-            $sql = <<<SQL
-    SELECT DISTINCT * FROM (
-    SELECT DISTINCT MONTH(created)
-    FROM community__contents
-    WHERE YEAR(created) = :year AND removed = 0 AND type_id != 5
-    UNION
-    SELECT DISTINCT MONTH(created)
-    FROM cook__recipes
-    WHERE YEAR(created) = :year AND removed = 0
-    ) src;
-SQL;
-            self::$_months = \Yii::app()->db->createCommand($sql)->queryColumn(array(
-                ':year' => $year,
-            ));
+            self::$_months = \site\frontend\modules\archive\models\Content::model()->getMonths($year);
         }
         return in_array($month, self::$_months);
     }
@@ -44,22 +41,9 @@ SQL;
     public static function isActiveDay($year, $month, $day)
     {
         if (self::$_days === null) {
-            $sql = <<<SQL
-SELECT DISTINCT * FROM (
-    SELECT DISTINCT DAY(created)
-    FROM community__contents
-    WHERE YEAR(created) = :year AND MONTH(created) = :month AND removed = 0 AND type_id != 5
-    UNION
-    SELECT DISTINCT DAY(created)
-    FROM cook__recipes
-    WHERE YEAR(created) = :year AND MONTH(created) = :month AND removed = 0
-) src;
-SQL;
-            self::$_days = \Yii::app()->db->createCommand($sql)->queryColumn(array(
-                ':year' => $year,
-                ':month' => $month,
-            ));
+            self::$_days = \site\frontend\modules\archive\models\Content::model()->getDays($year, $month);
         }
         return in_array($day, self::$_days);
     }
-} 
+
+}

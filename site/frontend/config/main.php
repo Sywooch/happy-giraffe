@@ -149,6 +149,9 @@ return array(
         'archive' => array(
            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),
+        'som' => array(
+            'class' => 'site\frontend\modules\som\SomModule',
+        ),
         'rss' => array(
             'class' => 'site\frontend\modules\rss\RssModule',
         ),

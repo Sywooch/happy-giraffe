@@ -108,10 +108,21 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'publicationAttribute' => 'dtimePublication',
                 'owerwriteAttributeIfSet' => false,
             ),
+            'ContentBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+                'pkAttribute' => 'originEntityId',
+                'entityClass' => array('\site\frontend\modules\posts\models\Content', 'getEntityClass'),
+            ),
             'RssBehavior' => array(
                 'class' => 'site\frontend\modules\rss\behaviors\ContentRssBehavior',
             ),
         );
+    }
+
+    public static function getEntityClass($obj)
+    {
+        // Костыль для блогов
+        return $obj->originService == 'oldBlog' ? 'BlogContent' : $obj->originEntity;
     }
 
     /**
@@ -223,8 +234,7 @@ class Content extends \CActiveRecord implements \IHToJSON
             if ($i === false) {
                 // старого тега больше нет
                 Tag::model()->deleteByPk(array('labelId' => $oldLabel->id, 'contentId' => $this->id));
-            }
-            else {
+            } else {
                 // тег уже есть
                 unset($labels[$i]);
             }

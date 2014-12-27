@@ -31,7 +31,7 @@ $cs->registerAMD('userSection', array('kow'));
                 userSection_btn__friend-append
                 -->
 
-                <!--<a href="" class="userSection_btn userSection_btn__friend-add powertip"><span class="userSection_ico"></span></a>-->
+                <friends-action-button params="friendId: <?= $user->id ?>"></friends-action-button>
                 <a href="<?=Yii::app()->user->isGuest ? '#loginWidget' : Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $user->id))?>" class="userSection_btn userSection_btn__dialog"><span class="userSection_ico"></span></a>
             </div>
         </div>

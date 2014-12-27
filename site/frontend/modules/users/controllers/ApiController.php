@@ -27,7 +27,31 @@ class ApiController extends \site\frontend\components\api\ApiController
         if ($avatarSize)
             $this->data['avatarUrl'] = $user->getAvatarUrl($avatarSize);
     }
-    
+
+    public function actionUpdate($id, array $attributes)
+    {
+        if (\Yii::app()->user->checkAccess('editSettings', array('userId' => $id))) {
+            throw new \CHttpException(403, 'Недостаточно прав');
+        }
+
+        $user = $this->getModel('\site\frontend\modules\users\models\User', $id);
+        $user->attributes = $attributes;
+        $this->success = $user->save();
+        $this->data = $user;
+    }
+
+    public function actionChangePassword($id, $password)
+    {
+        if (\Yii::app()->user->checkAccess('editSettings', array('userId' => $id))) {
+            throw new \CHttpException(403, 'Недостаточно прав');
+        }
+
+        /** @var \site\frontend\modules\users\models\User $user */
+        $user = $this->getModel('\site\frontend\modules\users\models\User', $id);
+        $user->password = \User::hashPassword($password);
+        $this->success = $user->save();
+        $this->data = $user;
+    }
 }
 
 ?>

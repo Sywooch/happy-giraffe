@@ -20,19 +20,33 @@ class Command extends \CConsoleCommand
     public function convertAvatar(\GearmanJob $job)
     {
         $userId = $job->workload();
-        $user = \User::model()->findByPk($userId);
+        $user = User::model()->findByPk($userId);
         Manager::convertAvatar($user);
     }
 
     public function actionAvatarSingle($userId)
     {
-        $user = \User::model()->findByPk($userId);
+        $user = User::model()->findByPk($userId);
         Manager::convertAvatar($user);
+    }
+
+    public function actionAvatarAll()
+    {
+        $dp = new \CActiveDataProvider('site\frontend\modules\users\models\User', array(
+            'order' => 'id ASC',
+            'criteria' => 'avatar_id IS NOT NULL',
+        ));
+        $iterator = new \CDataProviderIterator($dp, 100);
+        $total = $dp->totalItemCount;
+        foreach ($iterator as $i => $user) {
+            Manager::convertAvatar($user);
+            echo $i . '/' . $total . "\n";
+        }
     }
 
     public function actionFillQueue()
     {
-        $dp = new \CActiveDataProvider('User', array(
+        $dp = new \CActiveDataProvider('site\frontend\modules\users\models\User', array(
             'criteria' => 'id ASC',
         ));
         $iterator = new \CDataProviderIterator($dp, 100);

@@ -274,7 +274,7 @@ return array(
         
         /* компонент для кеширования по зависимости, без удаления записей */
         'dbCache' => array(
-            'class' => 'CDbCache',
+            'class' => 'site.frontend.components.InfinityCache',
             'connectionID' => 'db',
             // сборщик мусора не нужен, храним по зависимости, вечно
             'gCProbability' => 0,

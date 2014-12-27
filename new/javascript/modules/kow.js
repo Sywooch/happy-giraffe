@@ -36,4 +36,5 @@ define(["jquery", "knockout"], function ($, ko) {
     $('album-section').each(componentIterator);
     ko.components.register('friends-action-button', { require: 'friends-action-button/friends-action-button' });
     $('friends-action-button').each(componentIterator);
+    ko.components.register('avatar-uploader', { require: 'avatar-uploader/avatar-uploader' });
 });

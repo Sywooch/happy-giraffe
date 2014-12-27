@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/member-user.css' />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -28,8 +28,6 @@
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
-  <!-- livereload-->
-  <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__user body__lite">
   <!-- header-fix-->
@@ -164,53 +162,15 @@
         <!-- /header-->
       </div>
       <div class="layout-loose_hold clearfix">
-        <script src="/lite/javascript/select2.js"></script>
-        <script src="/lite/javascript/select2_locale_ru.js"></script>
-        <script>
-          $(document).ready(function () {
-              //- function selectCus__SearchOnDesc(state) {
-              //-     if (!state.id) return state.text; // optgroup
-              //-     return "<div class='select2-result_i'>" + state.text + "</div><div class='select2-result_desc'>Текст описание</div>";
-              //- }
-              //- // Измененный tag select c инпутом поиска
-              //- $(".select-cus__search-on-desc").select2({
-              //-     width: '100%',
-              //-     dropdownCssClass: 'select2-drop__search-on',
-              //-     formatResult: selectCus__SearchOnDesc,
-              //-     formatSelection: selectCus__SearchOnDesc,
-              //-     escapeMarkup: function(m) { return m; }
-              //- });
-          
-                  // Измененный tag select
-              $(".select-cus__search-off").select2({
-                  width: '100%',
-                  minimumResultsForSearch: -1,
-                  dropdownCssClass: 'select2-drop__search-off',
-                  escapeMarkup: function(m) { return m; }
-              });
-              $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
-          
-              // Измененный tag select c инпутом поиска
-              $(".select-cus__search-on").select2({
-                  width: '100%',
-                  dropdownCssClass: 'select2-drop__search-on',
-                  searchInputPlaceholder: "Начните вводить",
-                  escapeMarkup: function(m) { return m; }
-              });
-          
-          });
-          
-        </script>
         <div class="b-main">
           <div class="b-main_cont">
             <div class="b-crumbs b-crumbs__s">
               <div class="b-crumbs_tx">Я здесь:</div>
               <ul class="b-crumbs_ul">
                 <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Мой жираф</a></li>
-                <li class="b-crumbs_li">
-                  <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                <li class="b-crumbs_li b-crumbs_li__last">
+                  <!-- ava--><a href="#" class="ava ava__small ava__female"><img alt="" src="" class="ava_img"></a>
                 </li>
-                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Настройки</span></li>
               </ul>
             </div>
           </div>
@@ -219,130 +179,10 @@
               <!--/////     -->
               <!-- Основная колонка  -->
               <div class="b-main_col-article">
-                <div class="user-settings form-edit">
-                  <div class="user-settings_hold">
-                    <div class="heading-xxl">Настройки профиля</div>
-                  </div>
-                  <div class="user-settings_hold">
-                    <div class="user-settings_row"><span class="form-edit_name">Александра</span><a href="#" title="Редатировать" class="ico-edit ico-edit__s powertip"></a></div>
-                    <div class="user-settings_row"><span class="form-edit_name">Горбачева</span><a href="#" title="Редатировать" class="ico-edit ico-edit__s powertip"></a></div>
-                  </div>
-                  <div class="user-settings_hold">
-                    <div class="user-settings_row">
-                      <div class="user-settings_col-label">
-                        <label for="" class="form-edit_label">Дата рождения</label>
-                      </div>
-                      <div class="user-settings_col-inp"><span class="form-edit_tx">28 января 1973</span><a href="#" title="Редатировать" class="ico-edit ico-edit__s powertip"></a></div>
-                    </div>
-                    <!-- Дата рождения-->
-                    <!-- /Дата рождения-->
-                    <!-- пол-->
-                    <div class="user-settings_row">
-                      <div class="user-settings_col-label">
-                        <label for="" class="form-edit_label">Пол</label>
-                      </div>
-                      <div class="user-settings_col-inp">
-                        <div class="inp-valid inp-valid__abs user-settings_w-inp">
-                          <div class="radio-icons">
-                            <input id="radio4" type="radio" name="b-radio2" class="radio-icons_radio">
-                            <label for="radio4" class="radio-icons_label">Мужской</label>
-                            <input id="radio3" type="radio" name="b-radio2" class="radio-icons_radio">
-                            <label for="radio3" class="radio-icons_label">Женский</label>
-                          </div>
-                          <div class="inp-valid_error">
-                            <div class="errorMessage">
-                               
-                              Выберите пол
-                            </div>
-                          </div>
-                          <div class="inp-valid_success inp-valid_success__ico-check"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- /пол-->
-                    <!-- Местоположение-->
-                    <div class="user-settings_row">
-                      <div class="user-settings_col-label">
-                        <label for="" class="form-edit_label">Местоположение</label>
-                      </div>
-                      <div class="user-settings_col-inp"><span class="flag flag-ru"></span><span class="form-edit_tx">Россия, Ярославская область, Переславль-Залесский</span><a href="#" title="Редатировать" class="ico-edit ico-edit__s powertip"></a>
-                      </div>
-                    </div>
-                    <!-- /Местоположение-->
-                    <!-- Местоположение-->
-                    <!-- /Местоположение-->
-                  </div>
-                  <div class="user-settings_hold">
-                    <div class="heading-small">Настройки аккаунта</div>
-                    <!-- email-->
-                    <div class="user-settings_row">
-                      <div class="user-settings_col-label">
-                        <label for="" class="form-edit_label">E-mail</label>
-                      </div>
-                      <div class="user-settings_col-inp"><span class="form-edit_tx">akuv@mail.ru</span><a href="#" title="Редатировать" class="ico-edit ico-edit__s powertip"></a></div>
-                    </div>
-                    <!-- /email-->
-                    <!-- email-->
-                    <!-- /email-->
-                    <!-- пароль-->
-                    <div class="user-settings_row">
-                      <div class="user-settings_col-label">
-                        <label for="" class="form-edit_label">Пароль</label>
-                      </div>
-                      <div class="user-settings_col-inp">
-                        <!-- Несколько точек и последние пару символов пароля--><span class="form-edit_tx">&bull;&bull;&bull;&bull;7rb</span><a href="#" title="Редатировать" class="ico-edit ico-edit__s powertip"></a>
-                      </div>
-                    </div>
-                    <!-- /пароль-->
-                    <!-- пароль-->
-                    <!-- /пароль-->
-                  </div>
-                  <!-- соц сети-->
-                  <div class="user-settings_hold">
-                    <div class="heading-small">Coциальные сети</div>
-                    <div class="form-edit_tx">Нажмите на соответствующую иконку соц. сети, чтобы связать ее с вашим аккаунтом.</div>
-                    <div class="user-settings_soc">
-                      <ul class="ico-social-ul">
-                        <li class="ico-social-ul_li"><a href="#" class="ico-social ico-social__l ico-social__odnoklassniki active"></a></li>
-                        <li class="ico-social-ul_li"><a href="#" class="ico-social ico-social__l ico-social__vkontakte"></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <!-- /соц сети-->
-                  
-                  <!-- Рассылки-->
-                  <div class="user-settings_hold">
-                    <div class="heading-small">Настройки рассылок на электронную почту</div>
-                    <div class="inp-valid inp-valid__abs user-settings_w-inp w-a">
-                      <div class="radio-icons radio-icons__checkbox">
-                        <input id="mail1" type="checkbox" name="mail1" class="radio-icons_radio">
-                        <label for="mail1" class="radio-icons_label">
-                          <div class="form-edit_tx">Я хочу получать еженедельные новости от Веселого жирафа.</div>
-                        </label>
-                      </div>
-                      <div class="inp-valid_error">
-                        <div class="errorMessage">
-                           
-                          Ошибка
-                        </div>
-                      </div>
-                      <div class="inp-valid_success inp-valid_success__ico-check"></div>
-                    </div>
-                  </div>
-                  <!-- /Рассылки-->
-                  <!-- -->
-                  <div class="user-settings_hold">
-                    <div class="form-edit_tx">
-                       
-                      Я  хочу <a class="btn btn-sm btn-secondary">Удалить анкету </a> , потеряв всю введенную информацию без возможности восстановления. 
-                    </div>
-                  </div>
-                  <!-- /-->
+                <div class="margin-20">
+                  <h2>Загрузка аватара</h2><br><a href="#ava-load-first" class="popup-a popup-a__add">Первая загрузка аватара</a><br><br><a href="#ava-edit" class="popup-a popup-a__add">Настройка аватара</a><br><br>
                 </div>
               </div>
-              <!--/////-->
-              <!-- Сайд бар  -->
-              <aside class="b-main_col-sidebar visible-md"></aside>
             </div>
           </div>
           <!-- Футер-->
@@ -422,5 +262,81 @@
     </div>
   </div>
   <div class="popup-container display-n"> 
+    <!-- .popup-add-->
+    <!-- Первая загрузка аватара -->
+    <div id="ava-load-first" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix textalign-c">
+          <div class="popup-add_t">Добавить главное фото</div>
+        </div>
+        <div class="popup-add_in">              
+          <div class="popup-add_frame">
+            <div class="popup-add_cap">
+              <!-- Размер файла, необходимо указать программисту-->
+              <!-- cap-empty-->
+              <div class="cap-empty cap-empty__addPhoto">
+                <div class="verticalalign-m-help"></div>
+                <div class="cap-empty_hold">
+                  <div class="cap-empty_img"></div>
+                  <div class="cap-empty_t">Выберите файл с компьютера</div>
+                  <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp'></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div></div>
+                </div>
+              </div>
+              <!-- /cap-empty-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add -->
+    <!-- .popup-add-->
+    <!-- Первая загрузка аватара -->
+    <div id="ava-edit" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix textalign-c">
+          <div class="popup-add_t">Добавить главное фото</div>
+        </div>
+        <div class="popup-add_in">              
+          <div class="popup-add_frame">
+            <div class="popup-add_ava-upload">
+              <!-- Блок обрезки аватара-->
+              <div class="popup-add_ava-crop"><img id="jcrop_target" src="http://placecreature.com/dog/450/450">
+                <script src="/lite/javascript/jquery.Jcrop.min.js"></script>
+                <script>
+                  jQuery(function($){
+                      var api;
+                      $('#jcrop_target').Jcrop({
+                        // start off with jcrop-light class
+                        bgOpacity: 0.3,
+                        bgColor: '#fff',
+                        aspectRatio: 1,
+                        addClass: 'jcrop-circle'
+                      },function(){
+                        api = this;
+                        api.setSelect([50,50,400,400]);
+                        api.setOptions({ bgFade: true });
+                        api.ui.selection.addClass('jcrop-selection');
+                      });
+                  });
+                </script>
+              </div>
+              <div class="popup-add_ava-load">
+                <div class="file-fake">
+                  <input type="file" class="file-fake_inp"><a href="#" class="file-fake_btn btn btn-primary btn-s">
+                     
+                    Изменить </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="popup-add_footer">
+            <div class="textalign-c"><a href="#" class="btn btn-secondary margin-r10">Отмена</a><a href="#" class="btn btn-success">Добавить</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add -->
   </div>
 </body></html>

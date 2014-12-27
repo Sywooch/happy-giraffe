@@ -52,7 +52,7 @@ block layout
                     li.b-crumbs_li
                         +ava('ava__small', ava.a)
                     li.b-crumbs_li.b-crumbs_li__last
-                        a.b-crumbs_a(href="#") Настройки
+                        span.b-crumbs_last Настройки
     
         .b-main_cont.b-main_cont__broad
 
@@ -69,7 +69,7 @@ block layout
                                 a.ico-edit.ico-edit__s(href='#')
                             .user-settings_row
 
-                                .inp-valid.inp-valid__abs
+                                .inp-valid.inp-valid__abs.user-settings_w-inp
                                     input.itx-gray.popup-sign_itx(type="text", placeholder="Имя")
                                     .inp-valid_error
                                         .errorMessage
@@ -78,7 +78,7 @@ block layout
                                 .btn.btn-success.btn-xs Ok
                             .user-settings_row
 
-                                .inp-valid.inp-valid__abs.error
+                                .inp-valid.inp-valid__abs.user-settings_w-inp.error
                                     input.itx-gray.popup-sign_itx(type="text", placeholder="Фамилия")
                                     .inp-valid_error
                                         .errorMessage
@@ -98,7 +98,7 @@ block layout
                                     label.form-edit_label(for='') Дата рождения
                                 .user-settings_col-inp
                                     
-                                    .inp-valid.inp-valid__abs.clearfix
+                                    .inp-valid.inp-valid__abs.user-settings_w-inp.clearfix
                                         .display-ib.w-80.margin-r5
                                             // select2 sript
                                             select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
@@ -159,7 +159,7 @@ block layout
                                     label.form-edit_label(for='') Пол
                                 .user-settings_col-inp
                                     
-                                    .inp-valid.inp-valid__abs
+                                    .inp-valid.inp-valid__abs.user-settings_w-inp
                                         .radio-icons
                                             input#radio4.radio-icons_radio(type='radio', name='b-radio2')
                                             label.radio-icons_label(for='radio4')
@@ -195,7 +195,7 @@ block layout
                                 .user-settings_col-inp
                                     
                                     .user-settings_row
-                                        .inp-valid.inp-valid__abs.error
+                                        .inp-valid.inp-valid__abs.user-settings_w-inp.error
                                             // select-cus__js-country только для подключения js
                                             script.
                                                 $(function() {
@@ -225,7 +225,7 @@ block layout
                                                     | Страна не вабрана
                                             .inp-valid_success.inp-valid_success__ico-check
                                     .user-settings_row
-                                        .inp-valid.inp-valid__abs
+                                        .inp-valid.inp-valid__abs.user-settings_w-inp
                                             select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите город")
                                                 option
                                                 option(value="1") Россия
@@ -242,7 +242,7 @@ block layout
                                                 .errorMessage 
                                                     | Ошибка
                                             .inp-valid_success.inp-valid_success__ico-check
-                                    .user-settings_row
+                                    .user-settings_row.user-settings_w-inp.textalign-r
                                         .btn.btn-success.btn-xs Ok
 
                             // /Местоположение
@@ -263,7 +263,7 @@ block layout
                                 .user-settings_col-label
                                     label.form-edit_label(for='') E-mail
                                 .user-settings_col-inp
-                                    .inp-valid.inp-valid__abs.error
+                                    .inp-valid.inp-valid__abs.user-settings_w-inp.error
                                         input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
                                         .inp-valid_error
                                             .errorMessage
@@ -289,14 +289,14 @@ block layout
                                 .user-settings_col-inp
 
                                     .user-settings_row
-                                        .inp-valid.inp-valid__abs
+                                        .inp-valid.inp-valid__abs.user-settings_w-inp
                                             input.itx-gray.popup-sign_itx(type="text", placeholder="Старый пароль")
                                             .inp-valid_error
                                                 .errorMessage
                                                     | Ошибка
                                             .inp-valid_success.inp-valid_success__ico-check
                                     .user-settings_row
-                                        .inp-valid.inp-valid__abs
+                                        .inp-valid.inp-valid__abs.user-settings_w-inp
                                             input.itx-gray.popup-sign_itx(type="text", placeholder="Новый пароль")
                                             .inp-valid_error
                                                 .errorMessage
@@ -304,13 +304,13 @@ block layout
                                             .inp-valid_success.inp-valid_success__ico-check
                                             .tx-hint Придумайте сложный пароль, котрый нельзя подобрать, от 6 до 12 символов - цифры и английские буквы.
                                     .user-settings_row
-                                        .inp-valid.inp-valid__abs.error
+                                        .inp-valid.inp-valid__abs.user-settings_w-inp.error
                                             input.itx-gray.popup-sign_itx(type="text", placeholder="Новый пароль еще раз")
                                             .inp-valid_error
                                                 .errorMessage
                                                     | Пароли не совпадают
                                             .inp-valid_success.inp-valid_success__ico-check
-                                    .user-settings_row
+                                    .user-settings_row.user-settings_w-inp.textalign-r
                                         .btn.btn-success.btn-xs Ok
                             // /пароль
 
@@ -329,7 +329,7 @@ block layout
                         // Рассылки
                         .user-settings_hold
                             .heading-small Настройки рассылок на электронную почту
-                            .inp-valid.inp-valid__abs.w-a
+                            .inp-valid.inp-valid__abs.user-settings_w-inp.w-a
                                 .radio-icons.radio-icons__checkbox
                                     input#mail1.radio-icons_radio(type='checkbox', name='mail1')
                                     label.radio-icons_label(for='mail1')

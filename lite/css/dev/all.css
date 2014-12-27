@@ -7083,6 +7083,14 @@ a.ico-more:hover {
   margin: 10px 20px 10px 0;
   font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
   /*&__s {}*/
+  /*&_li .ava {
+        border: 2px solid transparent;
+        .box-sizing(content-box);
+    }
+    &_li:hover .ava,
+    &_li__last .ava {
+        border: 2px solid @color-orange;
+    }*/
 }
 .b-crumbs .ico-club__s {
   margin: -36px -12px -30px;
@@ -7127,17 +7135,6 @@ a.ico-more:hover {
 }
 .b-crumbs_last {
   color: #ff6900;
-}
-.b-crumbs_li .ava {
-  border: 2px solid transparent;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  -ms-box-sizing: content-box;
-  box-sizing: content-box;
-}
-.b-crumbs_li:hover .ava,
-.b-crumbs_li__last .ava {
-  border: 2px solid #ff6900;
 }
 .b-crumbs_a {
   text-decoration: none;
@@ -12415,6 +12412,258 @@ button.mfp-close__white:hover {
   font-size: .85em;
   padding: 10px;
 }
+/* jquery.Jcrop.css v0.9.12 - MIT License */
+/*
+  The outer-most container in a typical Jcrop instance
+  If you are having difficulty with formatting related to styles
+  on a parent element, place any fixes here or in a like selector
+
+  You can also style this element if you want to add a border, etc
+  A better method for styling can be seen below with .jcrop-light
+  (Add a class to the holder and style elements for that extended class)
+*/
+.jcrop-holder {
+  direction: ltr;
+  text-align: left;
+  /* IE10 touch compatibility */
+  -ms-touch-action: none;
+}
+/* Selection Border */
+.jcrop-vline,
+.jcrop-hline {
+  background: #ffffff url("Jcrop.gif");
+  font-size: 0;
+  position: absolute;
+}
+.jcrop-vline {
+  height: 100%;
+  width: 1px !important;
+}
+.jcrop-vline.right {
+  right: 0;
+}
+.jcrop-hline {
+  height: 1px !important;
+  width: 100%;
+}
+.jcrop-hline.bottom {
+  bottom: 0;
+  padding: 0;
+}
+/* Invisible click targets */
+.jcrop-tracker {
+  height: 100%;
+  width: 100%;
+  /* "turn off" link highlight */
+  -webkit-tap-highlight-color: transparent;
+  /* disable callout, image save panel */
+  -webkit-touch-callout: none;
+  /* disable cut copy paste */
+  -webkit-user-select: none;
+}
+/* Selection Handles */
+.jcrop-handle {
+  background-color: #fff;
+  border: 1px #fff solid;
+  width: 3px;
+  height: 3px;
+  font-size: 1px;
+  opacity: 1 !important;
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';
+}
+.jcrop-handle.ord-n {
+  left: 50%;
+  margin-left: -2px;
+  margin-top: -2px;
+  top: 0;
+}
+.jcrop-handle.ord-s {
+  bottom: 0;
+  left: 50%;
+  margin-bottom: -2px;
+  margin-left: -2px;
+}
+.jcrop-handle.ord-e {
+  margin-right: -2px;
+  margin-top: -2px;
+  right: 0;
+  top: 50%;
+}
+.jcrop-handle.ord-w {
+  left: 0;
+  margin-left: -2px;
+  margin-top: -2px;
+  top: 50%;
+}
+.jcrop-handle.ord-nw {
+  left: 0;
+  margin-left: -2px;
+  margin-top: -2px;
+  top: 0;
+}
+.jcrop-handle.ord-ne {
+  margin-right: -2px;
+  margin-top: -2px;
+  right: 0;
+  top: 0;
+}
+.jcrop-handle.ord-se {
+  bottom: 0;
+  margin-bottom: -2px;
+  margin-right: -2px;
+  right: 0;
+}
+.jcrop-handle.ord-sw {
+  bottom: 0;
+  left: 0;
+  margin-bottom: -2px;
+  margin-left: -2px;
+}
+/* Dragbars */
+.jcrop-dragbar.ord-n,
+.jcrop-dragbar.ord-s {
+  height: 7px;
+  width: 100%;
+}
+.jcrop-dragbar.ord-e,
+.jcrop-dragbar.ord-w {
+  height: 100%;
+  width: 7px;
+}
+.jcrop-dragbar.ord-n {
+  margin-top: -4px;
+}
+.jcrop-dragbar.ord-s {
+  bottom: 0;
+  margin-bottom: -4px;
+}
+.jcrop-dragbar.ord-e {
+  margin-right: -4px;
+  right: 0;
+}
+.jcrop-dragbar.ord-w {
+  margin-left: -4px;
+}
+/* The "jcrop-light" class/extension */
+.jcrop-light .jcrop-vline,
+.jcrop-light .jcrop-hline {
+  background: #ffffff;
+  filter: alpha(opacity=70) !important;
+  opacity: .70!important;
+}
+.jcrop-light .jcrop-handle {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #000000;
+  border-color: #ffffff;
+  border-radius: 3px;
+}
+/* The "jcrop-dark" class/extension */
+.jcrop-dark .jcrop-vline,
+.jcrop-dark .jcrop-hline {
+  background: #000000;
+  filter: alpha(opacity=70) !important;
+  opacity: 0.7 !important;
+}
+.jcrop-dark .jcrop-handle {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #ffffff;
+  border-color: #000000;
+  border-radius: 3px;
+}
+/* The "jcrop-blue" class/extension */
+.jcrop-blue .jcrop-vline,
+.jcrop-blue .jcrop-hline {
+  background: #fff;
+  filter: alpha(opacity=90) !important;
+  opacity: .90!important;
+}
+.jcrop-blue .jcrop-handle {
+  background-color: #fff;
+  border-color: #ffffff;
+  opacity: 0.9 !important;
+  filter: alpha(opacity=90) !important;
+}
+/* Simple macro to turn off the antlines */
+.solid-line .jcrop-vline,
+.solid-line .jcrop-hline {
+  background: #ffffff;
+}
+/* Fix for twitter bootstrap et al. */
+.jcrop-holder img,
+img.jcrop-preview {
+  max-width: none;
+}
+.jcrop-circle {
+  /*.jcrop-dragbar.ord-n,
+  .jcrop-dragbar.ord-s {
+    width: 100%;
+    height: 1px;
+    background-color: #4B90BF;
+  }*/
+}
+.jcrop-circle .jcrop-selection div:first-child {
+  border-radius: 50%;
+}
+.jcrop-circle .jcrop-vline,
+.jcrop-circle .jcrop-hline {
+  display: none;
+}
+.jcrop-circle .jcrop-handle {
+  background-color: transparent;
+  border-color: #4B90BF;
+  width: 9px;
+  height: 9px;
+}
+.jcrop-circle .jcrop-handle.ord-n {
+  left: 50%;
+  margin-left: -4px;
+  margin-top: -9px;
+  top: 0;
+}
+.jcrop-circle .jcrop-handle.ord-s {
+  bottom: 0;
+  left: 50%;
+  margin-bottom: -9px;
+  margin-left: -4px;
+}
+.jcrop-circle .jcrop-handle.ord-e {
+  margin-right: -9px;
+  margin-top: -4px;
+  right: 0;
+  top: 50%;
+}
+.jcrop-circle .jcrop-handle.ord-w {
+  left: 0;
+  margin-left: -9px;
+  margin-top: -4px;
+  top: 50%;
+}
+.jcrop-circle .jcrop-handle.ord-nw {
+  left: 0;
+  margin-left: -9px;
+  margin-top: -9px;
+  top: 0;
+}
+.jcrop-circle .jcrop-handle.ord-ne {
+  margin-right: -9px;
+  margin-top: -9px;
+  right: 0;
+  top: 0;
+}
+.jcrop-circle .jcrop-handle.ord-se {
+  bottom: 0;
+  margin-bottom: -9px;
+  margin-right: -9px;
+  right: 0;
+}
+.jcrop-circle .jcrop-handle.ord-sw {
+  bottom: 0;
+  left: 0;
+  margin-bottom: -9px;
+  margin-left: -9px;
+}
 /*
 Version: @@ver@@ Timestamp: @@timestamp@@
 */
@@ -17535,6 +17784,7 @@ add in old css
   vertical-align: top;
   position: relative;
   margin: 0 7px 13px;
+  width: 55px;
 }
 .no-touch .b-family_li .b-family_del {
   display: none;
@@ -17557,6 +17807,7 @@ add in old css
   text-align: center;
   background: #eee;
   background: rgba(0, 0, 0, 0.05);
+  line-height: 0;
 }
 .b-family_img {
   max-height: 100%;
@@ -18637,7 +18888,7 @@ add in old css
   position: relative;
   z-index: 2;
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 80px auto 0;
   font: normal 11px/16px tahoma, arial, helvetica, sens-serif;
   border-top: 1px solid #f4f4f4;
   /*.box-shadow(inset 0 10px 12px -12px rgba(0, 0, 0, 0.1));*/
@@ -21778,6 +22029,27 @@ body.gallery {
   float: left;
   margin-top: 6px;
 }
+.popup-add_ava-upload {
+  position: relative;
+  overflow: hidden;
+  height: 450px;
+  width: 690px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.popup-add_ava-crop {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+}
+.popup-add_ava-load {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 50;
+}
 .mfp-html-photoview .mfp-container {
   padding: 0;
   height: 100%;
@@ -22610,10 +22882,6 @@ body.gallery {
 .user-settings .heading-small {
   margin: 10px 0;
 }
-.user-settings .inp-valid {
-  display: inline-block;
-  width: 315px;
-}
 .user-settings .flag {
   margin-right: 5px;
 }
@@ -22638,6 +22906,10 @@ body.gallery {
 }
 .user-settings_soc {
   margin-bottom: 40px;
+}
+.user-settings_w-inp {
+  display: inline-block;
+  width: 315px;
 }
 /*
     Заглушка пустого раздела
@@ -23579,6 +23851,7 @@ body.gallery {
   }
   .userSection_left {
     margin-right: 40px;
+    margin-bottom: 5px;
   }
   .userSection_center {
     width: 300px;
@@ -23595,6 +23868,7 @@ body.gallery {
   }
   .userSection_center-reg {
     display: block;
+    margin-bottom: 7px;
   }
 }
 /* 
@@ -26765,4 +27039,3 @@ h2.calendar-serv-note_t {
 .bnr-enfomil2_btn:hover {
   background-position: 0px -33px;
 }
-/*# sourceMappingURL=lite/css/dev/all.css.map */

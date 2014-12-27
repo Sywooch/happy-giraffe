@@ -284,6 +284,7 @@ module.exports = function(grunt){
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -324,6 +325,7 @@ module.exports = function(grunt){
             /.fancybox+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -430,6 +432,7 @@ module.exports = function(grunt){
             /.flag+/,
             /.bx-wrapper+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -471,6 +474,7 @@ module.exports = function(grunt){
             /.flag+/,
             /.bx-wrapper+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [

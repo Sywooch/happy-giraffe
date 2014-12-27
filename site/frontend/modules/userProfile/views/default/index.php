@@ -4,6 +4,11 @@
  * @var \User $user
  */
 $this->pageTitle = $user->getFullName() . ' на Веселом Жирафе';
+$this->breadcrumbs[] = $this->widget('Avatar', array(
+    'user' => $user,
+    'size' => \Avatar::SIZE_MICRO,
+    'tag' => 'span',
+), true);
 ?>
 
 <?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $user, 'showToOwner' => true)); ?>

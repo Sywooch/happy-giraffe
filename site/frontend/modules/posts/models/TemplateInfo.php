@@ -21,6 +21,11 @@ class TemplateInfo extends SerializedModel
         );
     }
 
+    public function getAttr($name, $defaultValue = null)
+    {
+        return isset($this->data[$name]) ? $this->data[$name] : $defaultValue;
+    }
+
 }
 
 ?>

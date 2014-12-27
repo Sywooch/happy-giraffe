@@ -1,4 +1,4 @@
-\<?php
+<?php
 
 date_default_timezone_set('Europe/Moscow');
 return array(
@@ -71,6 +71,9 @@ return array(
         )
     ),
     'components' => array(
+        'widgetFactory' => array(
+            'class' => 'CWidgetFactory',
+        ),
         'statePersister' => array(
             'stateFile' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR . 'state.bin',
         ),

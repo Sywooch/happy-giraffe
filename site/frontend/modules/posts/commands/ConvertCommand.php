@@ -19,6 +19,7 @@ class ConvertCommand extends \CConsoleCommand
         'oldBlog_CommunityContent_convert_video',
         'oldCommunity_CommunityContent_convert_video',
         'oldRecipe_CookRecipe_convert_recipe',
+        'oldRecipe_SimpleRecipe_convert_recipe',
     );
 
     /**
@@ -98,8 +99,8 @@ class ConvertCommand extends \CConsoleCommand
     public function convertPost($job)
     {
         try {
-            \Yii::app()->db->setActive(true);
             $data = self::unserialize($job->workload());
+            \Yii::app()->db->setActive(true);
             usleep(100000); // на всякий случай поспим 0.1 сек, что бы быть уверенным, что реплика прошла
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
             if (!$model) {
@@ -110,6 +111,10 @@ class ConvertCommand extends \CConsoleCommand
         } catch (\Exception $e) {
             var_dump($data);
             echo $e;
+            if($e instanceof \CDbException) {
+                echo "db error, exit\n";
+                exit(1);
+            }
         }
     }
 

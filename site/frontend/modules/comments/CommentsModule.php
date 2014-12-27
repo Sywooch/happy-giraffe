@@ -22,12 +22,4 @@ class CommentsModule extends \CWebModule
         \Yii::app()->clientScript->registerCssFile("/lite/css/dev/all.css");
     }
 
-    public function beforeControllerAction($controller, $action)
-    {
-        if (parent::beforeControllerAction($controller, $action))
-            return YII_DEBUG;
-        else
-            return false;
-    }
-
 }

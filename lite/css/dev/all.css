@@ -7758,7 +7758,7 @@ a.ico-more:hover {
 .ico-social-ul {
   display: inline-block;
   vertical-align: middle;
-  margin: 4px;
+  margin: 4px 0;
 }
 .ico-social-hold_li,
 .ico-social-ul_li {
@@ -7766,7 +7766,7 @@ a.ico-more:hover {
 }
 .ico-social {
   display: inline-block;
-  margin: 0 4px;
+  margin: 0 8px 0 0;
   width: 22px;
   height: 22px;
   background: url('/lite/images/ico/ico-social.png') no-repeat;
@@ -7781,6 +7781,7 @@ a.ico-more:hover {
 }
 .ico-social:hover {
   opacity: 0.8;
+  filter: alpha(opacity=80);
 }
 .ico-social__odnoklassniki {
   background-position: 0 0;
@@ -7798,6 +7799,10 @@ a.ico-more:hover {
 }
 .ico-social__vkontakte.ico-social__m {
   background-position: -32px 0;
+}
+.ico-social__l:hover {
+  opacity: 1;
+  filter: alpha(opacity=100);
 }
 .ico-action-hg {
   display: inline-block;
@@ -8322,7 +8327,7 @@ a.ico-action-hg__like:hover,
   }
 }
 .heading-sm {
-  margin: 20px 0 15px;
+  margin: 20px 0;
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
@@ -8340,6 +8345,7 @@ a.ico-action-hg__like:hover,
   margin: 0;
   font-size: 16px;
   line-height: 20px;
+  font-weight: bold;
   color: #333;
   font-weight: normal;
 }
@@ -19117,8 +19123,8 @@ label {
   color: #666666;
 }
 .form-edit_name {
-  font-size: 25px;
-  line-height: 30px;
+  font-size: 30px;
+  line-height: 32px;
   font-weight: bold;
   color: #196eb9;
 }
@@ -19558,7 +19564,6 @@ textarea.error {
   position: absolute;
   top: 25px;
   right: 75px;
-  font-size: 14px;
 }
 @media (min-width: 1025px) {
   .header-login {
@@ -22031,7 +22036,6 @@ body.gallery {
 }
 .popup-add_ava-upload {
   position: relative;
-  overflow: hidden;
   height: 450px;
   width: 690px;
   display: table-cell;
@@ -22889,11 +22893,11 @@ body.gallery {
   margin-bottom: 30px;
 }
 .user-settings_row {
-  line-height: 32px;
+  line-height: 22px;
   margin-bottom: 5px;
 }
 .user-settings_row .radio-icons_label {
-  margin-top: 3px;
+  margin-top: 2px;
 }
 .user-settings_col-label {
   display: inline-block;
@@ -22905,11 +22909,12 @@ body.gallery {
   width: 430px;
 }
 .user-settings_soc {
-  margin-bottom: 40px;
+  margin: 10px 0 30px;
 }
 .user-settings_w-inp {
   display: inline-block;
   width: 315px;
+  margin: 0 2px 0 0;
 }
 /*
     Заглушка пустого раздела
@@ -27039,3 +27044,4 @@ h2.calendar-serv-note_t {
 .bnr-enfomil2_btn:hover {
   background-position: 0px -33px;
 }
+/*# sourceMappingURL=lite/css/dev/all.css.map */

@@ -43,7 +43,7 @@ block layout
         });
 
     .b-main
-        .b-main_cont
+        .b-main_cont__broad
             .b-crumbs.b-crumbs__s
                 .b-crumbs_tx Я здесь:
                 ul.b-crumbs_ul
@@ -70,7 +70,7 @@ block layout
                             .user-settings_row
 
                                 .inp-valid.inp-valid__abs.user-settings_w-inp
-                                    input.itx-gray.popup-sign_itx(type="text", placeholder="Имя")
+                                    input.itx-gray.form-edit_itx(type="text", placeholder="Имя")
                                     .inp-valid_error
                                         .errorMessage
                                             | Ошибка
@@ -79,7 +79,7 @@ block layout
                             .user-settings_row
 
                                 .inp-valid.inp-valid__abs.user-settings_w-inp.error
-                                    input.itx-gray.popup-sign_itx(type="text", placeholder="Фамилия")
+                                    input.itx-gray.form-edit_itx(type="text", placeholder="Фамилия")
                                     .inp-valid_error
                                         .errorMessage
                                             | Невозможная фамилия
@@ -264,7 +264,7 @@ block layout
                                     label.form-edit_label(for='') E-mail
                                 .user-settings_col-inp
                                     .inp-valid.inp-valid__abs.user-settings_w-inp.error
-                                        input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                                        input.itx-gray.form-edit_itx(type="text", placeholder="E-mail")
                                         .inp-valid_error
                                             .errorMessage
                                                 | Невозможный e-mail
@@ -290,22 +290,22 @@ block layout
 
                                     .user-settings_row
                                         .inp-valid.inp-valid__abs.user-settings_w-inp
-                                            input.itx-gray.popup-sign_itx(type="text", placeholder="Старый пароль")
+                                            input.itx-gray.form-edit_itx(type="text", placeholder="Старый пароль")
                                             .inp-valid_error
                                                 .errorMessage
                                                     | Ошибка
                                             .inp-valid_success.inp-valid_success__ico-check
                                     .user-settings_row
                                         .inp-valid.inp-valid__abs.user-settings_w-inp
-                                            input.itx-gray.popup-sign_itx(type="text", placeholder="Новый пароль")
+                                            input.itx-gray.form-edit_itx(type="text", placeholder="Новый пароль")
                                             .inp-valid_error
                                                 .errorMessage
                                                     | Ошибка
                                             .inp-valid_success.inp-valid_success__ico-check
-                                            .tx-hint Придумайте сложный пароль, котрый нельзя подобрать, от 6 до 12 символов - цифры и английские буквы.
+                                            //-.tx-hint Придумайте сложный пароль, котрый нельзя подобрать, от 6 до 12 символов - цифры и английские буквы.
                                     .user-settings_row
                                         .inp-valid.inp-valid__abs.user-settings_w-inp.error
-                                            input.itx-gray.popup-sign_itx(type="text", placeholder="Новый пароль еще раз")
+                                            input.itx-gray.form-edit_itx(type="text", placeholder="Новый пароль еще раз")
                                             .inp-valid_error
                                                 .errorMessage
                                                     | Пароли не совпадают
@@ -321,9 +321,9 @@ block layout
                             .user-settings_soc
                                 ul.ico-social-ul
                                     li.ico-social-ul_li
-                                        a.ico-social.ico-social__l.ico-social__odnoklassniki.active(href='#')
+                                        a.ico-social.ico-social__l.ico-social__odnoklassniki(href='#')
                                     li.ico-social-ul_li
-                                        a.ico-social.ico-social__l.ico-social__vkontakte(href='#')
+                                        a.ico-social.ico-social__l.ico-social__vkontakte.active(href='#')
                         // /соц сети
 
                         // Рассылки

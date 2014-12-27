@@ -163,7 +163,7 @@
       </div>
       <div class="layout-loose_hold clearfix">
         <div class="b-main">
-          <div class="b-main_cont">
+          <div class="b-main_cont b-main_cont__broad">
             <div class="b-crumbs b-crumbs__s">
               <div class="b-crumbs_tx">Я здесь:</div>
               <ul class="b-crumbs_ul">
@@ -302,7 +302,7 @@
           <div class="popup-add_frame">
             <div class="popup-add_ava-upload">
               <!-- Блок обрезки аватара-->
-              <div class="popup-add_ava-crop"><img id="jcrop_target" src="http://placecreature.com/dog/450/450">
+              <div class="popup-add_ava-crop"><img id="jcrop_target" src="http://placecreature.com/dog/1450/950">
                 <script src="/lite/javascript/jquery.Jcrop.min.js"></script>
                 <script>
                   jQuery(function($){
@@ -312,6 +312,7 @@
                         bgOpacity: 0.3,
                         bgColor: '#fff',
                         aspectRatio: 1,
+                        boxWidth: 450,
                         addClass: 'jcrop-circle'
                       },function(){
                         api = this;
@@ -332,7 +333,7 @@
             </div>
           </div>
           <div class="popup-add_footer">
-            <div class="textalign-c"><a href="#" class="btn btn-secondary margin-r10">Отмена</a><a href="#" class="btn btn-success">Добавить</a></div>
+            <div class="textalign-c"><a href="#" onclick="$.magnificPopup.close();" class="btn btn-secondary margin-r10">Отмена</a><a href="#" class="btn btn-success">Добавить</a></div>
           </div>
         </div>
       </div>

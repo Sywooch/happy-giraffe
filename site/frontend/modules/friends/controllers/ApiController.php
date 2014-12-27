@@ -7,23 +7,6 @@
  */
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }
-
-    public function accessRules()
-    {
-        return array(
-            array('deny',
-                'actions' => array('relationshipData'),
-                'users' => array('?'),
-            ),
-        );
-    }
-
     public function actionList($userId, $limit = 20)
     {
         if ($limit > 100)
@@ -44,11 +27,11 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = true;
     }
 
-    public function actionRelationshipData($userId)
+    public function actionRelationshipStatus($user1Id, $user2Id)
     {
-        $isFriend = Friend::model()->areFriends($userId, Yii::app()->user->id);
-        $hasIncomingRequest = FriendRequest::model()->findPendingRequest($userId, Yii::app()->user->id) !== null;
-        $hasOutgoingRequest = FriendRequest::model()->findPendingRequest(Yii::app()->user->id, $userId) !== null;
+        $isFriend = Friend::model()->areFriends($user1Id, $user2Id);
+        $hasIncomingRequest = FriendRequest::model()->findPendingRequest($user1Id, $user2Id) !== null;
+        $hasOutgoingRequest = FriendRequest::model()->findPendingRequest($user2Id, $user2Id) !== null;
         $this->data = compact('isFriend', 'hasIncomingRequest', 'hasOutgoingRequest');
         $this->success = true;
     }

@@ -1,5 +1,6 @@
 define('friend', ["knockout", "giraffe-extend", "knockout-amd-helpers"], function(ko, extend) {
     function FriendUser(data) {
+        console.log(data);
         var self = this;
         self.FRIENDS_STATE_FRIENDS = 0;
         self.FRIENDS_STATE_OUTGOING = 1;

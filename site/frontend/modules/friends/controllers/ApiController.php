@@ -19,11 +19,13 @@ class ApiController extends \site\frontend\components\api\ApiController
             'limit' => $limit,
             'order' => 'friend.online DESC, friend.id ASC'
         ));
-        
-        $this->data = array_map(function($friend) {
+
+        $this->data['list'] = array_map(function($friend) {
             return array('id' => $friend->friend_id);
         }, $friends);
-        
+
+        $this->data['total'] = (int) Friend::model()->countByAttributes(array('user_id' => $userId));
+
         $this->success = true;
     }
 

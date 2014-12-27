@@ -7,6 +7,7 @@
 namespace site\frontend\modules\photo\models\collections;
 
 
+use site\frontend\modules\family\models\FamilyMember;
 use site\frontend\modules\photo\models\PhotoCollection;
 
 class FamilyMemberPhotoCollection extends PhotoCollection
@@ -21,6 +22,7 @@ class FamilyMemberPhotoCollection extends PhotoCollection
     public function getAuthor()
     {
         $familyMember = $this->RelatedModelBehavior->relatedModel;
-        return \User::model()->findByPk($familyMember->user->id);
+        $ownerMember = FamilyMember::model()->family($familyMember->familyId)->real()->find();
+        return \User::model()->findByPk($ownerMember->userId);
     }
 } 

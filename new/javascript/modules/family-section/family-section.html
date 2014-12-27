@@ -9,11 +9,11 @@
                 <li class="b-family_li">
                     <a href="" class="b-family_a">
                         <span class="b-family_img-hold">
-                        </span>
-                        <span class="ico-family ico-family__wife" data-bind="attr: { class: 'ico-family ico-family__' + member.viewData.cssClass }">
                             <!-- ko if: member.photo() !== null -->
                                 <img src="" alt="" data-bind="src: member.photo().getGeneratedPreset('familyMemberSmallWidget')"/>
                             <!-- /ko -->
+                            <span class="ico-family ico-family__wife" data-bind="attr: { class: 'ico-family ico-family__' + member.viewData.cssClass }">
+                            </span>
                         </span>
                         <span class="b-family_tx">
                             <span data-bind="text: member.viewData.asString"></span>

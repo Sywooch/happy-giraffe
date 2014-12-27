@@ -284,6 +284,7 @@ module.exports = function(grunt){
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -324,6 +325,7 @@ module.exports = function(grunt){
             /.fancybox+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -430,6 +432,7 @@ module.exports = function(grunt){
             /.flag+/,
             /.bx-wrapper+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -471,6 +474,7 @@ module.exports = function(grunt){
             /.flag+/,
             /.bx-wrapper+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -789,6 +793,22 @@ module.exports = function(grunt){
                 },
                 // refSize: 100,
                 unit: 100
+            }
+        },
+        'ico-social__l': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-social__l",
+                spritePath: "lite/images/sprite/ico-social__l.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 50
             }
         },
         'markdown-day': {

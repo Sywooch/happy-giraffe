@@ -21,13 +21,14 @@ mixin userSection(mod, vars)
                     .userSection_btn-hold.clearfix
                         //
                             виды кнопок друзья 
-                            userSection_btn__friend
-                            userSection_btn__friend-add
-                            userSection_btn__friend-added
-                            userSection_btn__friend-append
-                        a.userSection_btn.userSection_btn__friend-add.powertip(href='')
+                            У каждого разный title
+                            userSection_btn__friend title = Приглашение отправлено  - 
+                            userSection_btn__friend-add title = Добавить в друзья
+                            userSection_btn__friend-added title = Друг
+                            userSection_btn__friend-append title = Хочет дружить  
+                        a.userSection_btn.userSection_btn__friend-add.powertip(href='', title='Добавить в друзья')
                             span.userSection_ico
-                        a.userSection_btn.userSection_btn__dialog.powertip(href='')
+                        a.userSection_btn.userSection_btn__dialog.powertip(href='', title='Написать сообщение')
                             span.userSection_ico
                 if(vars.btnEdit)
                     a.btn.btn-white.btn-xm(href='#') 
@@ -35,7 +36,9 @@ mixin userSection(mod, vars)
                         |  Редактировать
 
             .userSection_center
+                .userSection_center-reg с Веселым Жирафом 2 года 5 месяцев 203 дня
                 .b-ava-large.b-ava-large__nohover
+                    span.b-ava-large_online На сайте
                     .b-ava-large_ava-hold
                         if(vars.ava)
                             +ava("ava__large ava__male", ava.c)
@@ -45,7 +48,6 @@ mixin userSection(mod, vars)
                     if(vars.user)
                         a.i-ava-bubble.i-ava-bubble__photo.powertip(href='#', title='Главное фото')
                             .i-ava-bubble_ico.i-ava-bubble_ico__photo
-                .userSection_center-reg с Веселым Жирафом 2 года 5 месяцев 203 дня
             .userSection_right
                 if(vars.family)
                     +bFamily('', bFamily.a)

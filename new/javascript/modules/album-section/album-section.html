@@ -12,7 +12,7 @@
                 </a>
             </li>
             <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
-                <!-- ko if: rightForManipulation === true && $index + 1 === photoAlbum.photoCollection().attaches().length -->
+                <!-- ko if: $parent.rightForManipulation === true && $index + 1 === photoAlbum.photoCollection().attaches().length -->
                     <li class="widget-user-photo_li">
                         <a href="#" class="widget-user-photo_i" data-bind="src: $parent.albumUrl">
                             <div class="cap-add">
@@ -23,7 +23,7 @@
                         </a>
                     </li>
                 <!-- /ko -->
-                <!-- ko ifnot: rightForManipulation === true && $index + 1 === photoAlbum.photoCollection().attaches().length -->
+                <!-- ko ifnot: $parent.rightForManipulation === true && $index + 1 === photoAlbum.photoCollection().attaches().length -->
                     <li class="widget-user-photo_li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
                         <a href="#" class="widget-user-photo_i">
                             <img src="" alt="" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">

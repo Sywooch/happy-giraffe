@@ -3,7 +3,7 @@
         <!-- ko if: family.members().length > 0 -->
             <div class="b-family_top b-family_top__white"></div>
             <!-- ko if: rightsForManipulation === true-->
-            <a href="#" class="ico-edit ico-edit__s" data-bind="href: editUrl"></a>
+                <a href="#" class="ico-edit ico-edit__s-white" data-bind="href: editUrl"></a>
             <!-- /ko -->
             <ul class="b-family_ul" data-bind="foreach: { data: family.members, as: 'member' }">
                 <li class="b-family_li">
@@ -24,7 +24,10 @@
         <!-- /ko -->
         <!-- ko if: family.members().length === 0  && rightsForManipulation === true-->
             <div class="b-family_top b-family_top__white"></div>
-            <a class="btn btn-secondary" href="" data-bind="href: editUrl">Добавить</a>
+            <div class="b-family_empty-tx">Добавьте информацию о своей семье</div>
+            <a href="#" class="btn btn-white btn-xm" data-bind="href: editUrl">
+                <span class="ico-plus ico-plus__s"></span>Добавить
+            </a>
         <!-- /ko -->
     <!-- /ko -->
 </div>

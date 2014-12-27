@@ -4,7 +4,7 @@
  * @var \User $user
  */
 $cs = Yii::app()->clientScript;
-$cs->registerAMD('userSection', array('kow'));
+$cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
 ?>
 
 <section class="userSection visible-md-block">
@@ -44,6 +44,9 @@ $cs->registerAMD('userSection', array('kow'));
                 <?php if ($user->online): ?>
                     <span class="b-ava-large_online">На сайте</span>
                 <?php endif; ?>
+                <a id="avatar-upload" href="#" class="i-ava-bubble i-ava-bubble__photo powertip" data-bind="avatarUpload: { data: { multiple: false } }">
+                    <div class="i-ava-bubble_ico i-ava-bubble_ico__photo"></div>
+                </a>
             </div>
         </div>
         <div class="userSection_right">

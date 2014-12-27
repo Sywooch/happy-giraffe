@@ -11,13 +11,14 @@ use site\frontend\modules\photo\components\MigrateManager;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoCrop;
 use site\frontend\modules\users\components\AvatarManager;
+use site\frontend\modules\users\models\User;
 
 class Manager
 {
-    public static function convertAvatar(\User $user)
+    public static function convertAvatar(User $user)
     {
             if ($user->avatar_id === null) {
-                return true;
+                return;
             }
 
             if ($user->avatar->userAvatar) {
@@ -31,18 +32,8 @@ class Manager
                     'w' => $userAvatar->w,
                     'h' => $userAvatar->h,
                 );
-            } else {
-                $oldPhoto = $user->avatar;
-                $photoId = MigrateManager::movePhoto($oldPhoto);
-                $photo = Photo::model()->findByPk($photoId);
-                $cropData = array(
-                    'x' => ($oldPhoto->width - 200) / 2,
-                    'y' => ($oldPhoto->height - 200) / 2,
-                    'w' => 200,
-                    'h' => 200,
-                );
+                AvatarManager::setAvatar($user, $photo, $cropData);
             }
 
-            return AvatarManager::setAvatar($user, $photo, $cropData);
     }
 } 

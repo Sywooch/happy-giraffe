@@ -64,6 +64,25 @@ class ApiController extends \site\frontend\components\api\ApiController
         );
     }
 
+    public function actionChangLocation($id, $countryId = null, $regionId = null, $cityId = null)
+    {
+        /** @var \site\frontend\modules\users\models\User $user */
+        $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
+        if ($cityId) {
+            $user->address->city_id = $cityId;
+        }
+        if ($regionId) {
+            $user->address->region_id = $regionId;
+        }
+        if ($countryId) {
+            $user->address->country_id = $countryId;
+        }
+        $this->success = $user->address->save();
+        $this->data = ($this->success) ? $user : array(
+            'errors' => $user->address->errors,
+        );
+    }
+
     public function actionMailSubscription($id, $value)
     {
         /** @var \site\frontend\modules\users\models\User $user */

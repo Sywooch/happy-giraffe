@@ -1,4 +1,4 @@
-define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'photo/PhotoAlbum'], function AlbumSectionHandler(ko, template, Model, PhotoAlbum) {
+define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'photo/PhotoAlbum', 'extensions/sliderBinding'], function AlbumSectionHandler(ko, template, Model, PhotoAlbum) {
     function AlbumSection(params) {
         this.randomAlbum = params.randomAlbum;
         this.userId = params.userId;
@@ -21,7 +21,9 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'ph
                 }
             }
         };
-        this.photoAlbum.get(this.userId, false, this.getPhotoAlbum.bind(this));
+        if (this.userId !== null) {
+            this.photoAlbum.get(this.userId, false, this.getPhotoAlbum.bind(this));
+        }
     }
     return {
         viewModel: AlbumSection,

@@ -2,12 +2,14 @@ define(['knockout', 'models/Model', 'models/User'], function FriendHandler(ko, M
     var Friend = {
         getFriendsUrl: '/api/friends/list/',
         getUserUrl: '/api/users/get/',
+        total: 0,
         getFriends: function getFriends(userId, limit) {
             return Model.get(this.getFriendsUrl, { userId: userId, limit: limit });
         },
         retrieveFriendsArray: function retrieveFriendsArray(data) {
             if (data.success === true) {
-                return Model.get(this.getUserUrl, { pack: data.data, avatarSize: 40 });
+                this.total = data.data.total;
+                return Model.get(this.getUserUrl, { pack: data.data.list, avatarSize: 40 });
             }
             return data;
         },

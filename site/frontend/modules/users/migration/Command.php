@@ -34,8 +34,8 @@ class Command extends \CConsoleCommand
     {
         $dp = new \CActiveDataProvider('site\frontend\modules\users\models\User', array(
             'criteria' => array(
-                'condition' => 'avatar_id IS NOT NULL',
-                'order' => 'id ASC',
+                'condition' => 'avatar_id IS NOT NULL AND avatarId IS NULL',
+                'order' => 'id DESC',
             )
         ));
         $iterator = new \CDataProviderIterator($dp, 100);

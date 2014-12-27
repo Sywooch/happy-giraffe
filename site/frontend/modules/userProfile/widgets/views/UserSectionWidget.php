@@ -22,18 +22,15 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
                 <?php endif; ?>
             </div>
             <?php endif; ?>
+            <?php if ($user->id !== Yii::app()->user->id): ?>
             <div class="userSection_btn-hold clearfix">
-                <!--
-                виды кнопок друзья
-                userSection_btn__friend
-                userSection_btn__friend-add
-                userSection_btn__friend-added
-                userSection_btn__friend-append
-                -->
-
                 <friends-action-button params="friendId: <?= $user->id ?>"></friends-action-button>
                 <a href="<?=Yii::app()->user->isGuest ? '#loginWidget' : Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $user->id))?>" class="userSection_btn userSection_btn__dialog"><span class="userSection_ico"></span></a>
             </div>
+            <?php endif; ?>
+            <?php if ($user->id == Yii::app()->user->id): ?>
+                <a href="<?=Yii::app()->createUrl('/profile/settings/personal')?>" class="btn btn-white btn-xm"> <span class="ico-edit ico-edit__s-white"> </span> Редактировать</a>
+            <?php endif; ?>
         </div>
         <div class="userSection_center">
             <div class="userSection_center-reg">с Веселым Жирафом <?=$user->withUs()?></div>
@@ -41,6 +38,9 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
                 <div class="b-ava-large_ava-hold">
                     <?php $this->widget('Avatar', array('user' => $user, 'size' => Avatar::SIZE_LARGE, 'largeAdvanced' => false)); ?>
                 </div>
+                <a href="#" class="i-ava-bubble i-ava-bubble__photo powertip">
+                    <div class="i-ava-bubble_ico i-ava-bubble_ico__photo"></div>
+                </a>
                 <?php if ($user->online): ?>
                     <span class="b-ava-large_online">На сайте</span>
                 <?php endif; ?>
@@ -66,7 +66,7 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
             'items' => array(
                 array(
                     'label' => 'Анкета',
-                    'url' => array('/profile/default/index', 'user_id' => $user->id),
+                    'url' => array('/userProfile/default/index', 'userId' => $user->id),
                     'linkOptions' => array('class' => 'userSection_panel-a'),
                 ),
                 array(

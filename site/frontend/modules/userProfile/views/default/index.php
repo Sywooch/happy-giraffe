@@ -6,7 +6,7 @@
 $this->pageTitle = $user->getFullName() . ' на Веселом Жирафе';
 ?>
 
-<?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $user)); ?>
+<?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $user, 'showToOwner' => true)); ?>
 
 <div class="b-main_cont b-main_cont__broad">
     <div class="b-main_col-hold clearfix">

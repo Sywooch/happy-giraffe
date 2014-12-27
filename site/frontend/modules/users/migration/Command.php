@@ -33,8 +33,10 @@ class Command extends \CConsoleCommand
     public function actionAvatarAll()
     {
         $dp = new \CActiveDataProvider('site\frontend\modules\users\models\User', array(
-            'order' => 'id ASC',
-            'criteria' => 'avatar_id IS NOT NULL',
+            'criteria' => array(
+                'condition' => 'avatar_id IS NOT NULL',
+                'order' => 'id ASC',
+            )
         ));
         $iterator = new \CDataProviderIterator($dp, 100);
         $total = $dp->totalItemCount;

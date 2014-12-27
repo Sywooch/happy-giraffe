@@ -1,5 +1,8 @@
 <?php
 
+namespace site\frontend\modules\photo\models;
+use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
+
 /**
  * This is the model class for table "photo__collections".
  *
@@ -13,14 +16,10 @@
  * @property string $updated
  *
  * The followings are the available model relations:
- * @property site\frontend\modules\photo\models\PhotoAttach[] $attaches
+ * @property \site\frontend\modules\photo\models\PhotoAttach[] $attaches
  * @property int $attachesCount $attachesCount
- * @property site\frontend\modules\photo\models\PhotoAttach $userDefinedCover
+ * @property \site\frontend\modules\photo\models\PhotoAttach $userDefinedCover
  */
-
-namespace site\frontend\modules\photo\models;
-
-use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
 
 class PhotoCollection extends \HActiveRecord implements \IHToJSON
 {

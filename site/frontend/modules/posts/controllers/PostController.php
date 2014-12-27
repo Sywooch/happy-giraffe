@@ -26,8 +26,12 @@ class PostController extends \LiteController
      */
     public function actionView($content_id)
     {
+        // Включим прочтение сигналов
+        \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
         /** @todo добавить условие byService для полноценного использования индекса */
         $this->post = Content::model()->byEntity('CommunityContent', $content_id)->find();
+        // Выключим прочтение сигналов
+        \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = false;
         if (!$this->post || $this->post->parsedUrl !== \Yii::app()->request->requestUri) {
             // Временная заглушка, если пост ещё не сконвертировался
             if (\Yii::app()->user->getState('newPost' . $content_id)) {

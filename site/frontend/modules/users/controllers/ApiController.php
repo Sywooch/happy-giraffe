@@ -1,6 +1,9 @@
 <?php
 
 namespace site\frontend\modules\users\controllers;
+use site\frontend\modules\users\models\ChangeEmailForm;
+use site\frontend\modules\users\models\ChangePasswordForm;
+use site\frontend\modules\users\models\User;
 
 /**
  * Description of ApiController
@@ -30,27 +33,55 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionUpdate($id, array $attributes)
     {
-        if (\Yii::app()->user->checkAccess('editSettings', array('userId' => $id))) {
-            throw new \CHttpException(403, 'Недостаточно прав');
-        }
-
-        $user = $this->getModel('\site\frontend\modules\users\models\User', $id);
+        /** @var \site\frontend\modules\users\models\User $user */
+        $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
         $user->attributes = $attributes;
         $this->success = $user->save();
-        $this->data = $user;
+        $this->data = ($this->success) ? $user : array(
+            'errors' => $user->errors,
+        );
     }
 
     public function actionChangePassword($id, $password)
     {
-        if (\Yii::app()->user->checkAccess('editSettings', array('userId' => $id))) {
-            throw new \CHttpException(403, 'Недостаточно прав');
-        }
-
         /** @var \site\frontend\modules\users\models\User $user */
-        $user = $this->getModel('\site\frontend\modules\users\models\User', $id);
-        $user->password = \User::hashPassword($password);
-        $this->success = $user->save();
-        $this->data = $user;
+        $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
+        $form = new ChangePasswordForm($user, $password);
+        $this->success = $form->validate() && $form->save();
+        $this->data = ($this->success) ? $user : array(
+            'errors' => $form->errors,
+        );
+    }
+
+    public function actionChangeEmail($id, $email)
+    {
+        /** @var \site\frontend\modules\users\models\User $user */
+        $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
+        $form = new ChangeEmailForm($user, $email);
+        $this->success = $form->validate() && $form->save();
+        $this->data = ($this->success) ? $user : array(
+            'errors' => $form->errors,
+        );
+    }
+
+    public function actionMailSubscription($id, $value)
+    {
+        /** @var \site\frontend\modules\users\models\User $user */
+        $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
+        $user->getMailSubs()->weekly_news = $value;
+        $this->success = $user->getMailSubs()->save();
+    }
+
+    public function actionRemove($id)
+    {
+        /** @var \site\frontend\modules\users\models\User $user */
+        $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
+        $user->deleted = 1;
+        $this->success = $user->save(false, array('deleted'));
+        if ($this->success) {
+            User::clearCache();
+            \Yii::app()->user->logout();
+        }
     }
 }
 

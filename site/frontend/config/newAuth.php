@@ -41,7 +41,7 @@ return array(
         'children' => array(
             'editSettings',
         ),
-        'bizRule' => 'return $params["userId"] == \Yii::app()->user->id;',
+        'bizRule' => 'return $params["entity"]->id == \Yii::app()->user->id;',
         'data' => null
     ),
     'manageOwnContent' => array(

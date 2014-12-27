@@ -35,6 +35,7 @@ mixin userSection(mod, vars)
                         |  Редактировать
 
             .userSection_center
+                .userSection_center-reg с Веселым Жирафом 2 года 5 месяцев 203 дня
                 .b-ava-large.b-ava-large__nohover
                     .b-ava-large_ava-hold
                         if(vars.ava)
@@ -45,7 +46,6 @@ mixin userSection(mod, vars)
                     if(vars.user)
                         a.i-ava-bubble.i-ava-bubble__photo.powertip(href='#', title='Главное фото')
                             .i-ava-bubble_ico.i-ava-bubble_ico__photo
-                .userSection_center-reg с Веселым Жирафом 2 года 5 месяцев 203 дня
             .userSection_right
                 if(vars.family)
                     +bFamily('', bFamily.a)

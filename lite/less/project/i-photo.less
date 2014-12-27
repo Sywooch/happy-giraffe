@@ -7,6 +7,7 @@
     width: 155px;
     margin: 0 5px 13px;
 
+    .ico-close4,
     .ico-close5 {
         position: absolute;
         top: -9px;
@@ -31,6 +32,15 @@
     &__load &_hold {
         padding: 90px 30px 0;
         background: url('@{path-img}/i-photo__load_hold.png') no-repeat 50% 25px;
+    }
+    &__load-video {
+        height: 140px;
+        background-color: #fff;
+        text-align: center;
+    }
+    &__load-video &_hold {
+        padding: 90px 30px 0;
+        background: url('@{path-img}/i-photo__load-video_hold.png') no-repeat 50% 18px;
     }
     &__ie {
         width: 280px;
@@ -72,6 +82,18 @@
         text-align: center;
         background-color: #aaa;
         background-color: rgba(0,0,0,.4);
+        text-align: left;
+
+        .radio-icons {
+            float: right;
+        }
+        .radio-icons_label {
+            margin: 3px 0 0;
+            padding: 0 24px 0 0;
+            background-position: 100% 0;
+            color: #fff;
+            font-size: 11px;
+        }
     }
     &_rotate {
         .inline-block();

@@ -214,9 +214,11 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             dropZone: '.popup-add_frame__multi',
             sequentialUploads: true,
             add: function (e, data) {
-                data.formData = {
-                    collectionId: self.collectionId
-                };
+                if (self.collectionId !== undefined) {
+                    data.formData = {
+                        collectionId: self.collectionId
+                    };
+                }
                 if (self.photos().length < 300) {
                     self.added(self.populatePhoto(data));
                 }

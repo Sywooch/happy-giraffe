@@ -4,6 +4,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.getAttachesUrl = '/api/photo/collections/getAttaches/';
         this.getNotSortedAttaches = '/api/photo/collections/getByUser/';
         this.getAttachUrl = '/api/photo/attaches/get/';
+        this.addPhotosUrl = '/api/photo/collections/addPhotos/';
         this.pageCount = null;
         this.id = ko.observable(data.id);
         this.attaches = ko.observableArray();
@@ -107,9 +108,11 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.handleCoverById = function handleCover(photoAttach) {
             if (photoAttach.success === true) {
                 this.cover(new PhotoAttach(photoAttach.data));
-                this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
-                this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
-                this.cover().photo().presetHash(PresetManager.getPresetHash('myPhotosAlbumCover'));
+                if (PresetManager.presets) {
+                    this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                    this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                    this.cover().photo().presetHash(PresetManager.getPresetHash('myPhotosAlbumCover'));
+                }
                 this.loading(false);
             }
         };
@@ -344,6 +347,9 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 }
 
             }
+        };
+        this.addPhotos = function addPhotos(photosIds) {
+            return Model.get(this.addPhotosUrl, { photosIds: photosIds })
         };
     }
 

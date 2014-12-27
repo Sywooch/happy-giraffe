@@ -6,13 +6,13 @@ mixin iPhoto(mod, vars)
     // Блок фотографии 
         Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
     .i-photo(class=mod)
-        - if (vars.type == "empty")
+        if(vars.type == "empty")
             .i-photo_hold
-        - else
-            if (vars.delete)
+        else
+            if(vars.delete)
                 a.ico-close4(href="#")
         // Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость
-        - if (vars.type == "load")
+        if(vars.type == "load")
             // Загрузка фото
             .i-photo_hold
                 .i-photo_progress
@@ -21,13 +21,13 @@ mixin iPhoto(mod, vars)
                     .progress.progress-striped.active.progress__cont
                         .progress-bar.progress-bar__cont(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style='width: 100%')
                     .tx-hint Загрузка
-        - if (vars.type == "error")
+        if(vars.type == "error")
             // Ошибка
             .i-photo_hold.error
                 .tx-hint IMG_5295.JPG
                 .tx-hint Ошибка загрузки
 
-        - if (vars.type == "ie")
+        if(vars.type == "ie")
             // Вид для ие
             .i-photo_hold
                 .i-photo_file-name IMG_5295.JPG
@@ -35,27 +35,37 @@ mixin iPhoto(mod, vars)
                 // Продумать текст
             .tx-hint Для предпросмотра загружаемых изображений нужно обновить браузер на более новый.
         
-        - if (vars.type == "loaded")
+        if(vars.type == "loaded")
             // Загруженное фото
             .i-photo_hold
                 .i-photo_img-hold
-                    img.i-photo_img(src='#{vars.src}', alt="")
+                    if(vars.iframe)
+                        != vars.iframe
+                    else
+                        img.i-photo_img(src='#{vars.src}', alt="")
                     if(vars.edit)
                         .i-photo_overlay
                             a.ico-photo-edit.powertip(href='#', title='Редатировать')
+                            if(vars.onIndex)
+                                //-a.color-white(href='#') На обложку
+                                .radio-icons.radio-icons__checkbox
+                                    label.radio-icons_label(for='checkboxid')
+                                        | Обложка
+                                    input#checkboxid.radio-icons_radio(type='checkbox', name='checkbox')
+
                     if(vars.rotate)
                         .i-photo_overlay
-                            a.i-photo_rotate(href="") 
-                            a.i-photo_rotate.i-photo_rotate__r(href="") 
+                            a.i-photo_rotate(href="#") 
+                            a.i-photo_rotate.i-photo_rotate__r(href="#") 
                 // input.i-photo_itx.itx-gray(type="text", placeholder='')
 
-        - if (vars.type == "ico-family")
+        if(vars.type == "ico-family")
             .i-photo_hold
                 .i-photo_img-hold
                     .ico-family-m.ico-family-m__baby
                     .i-photo_overlay
-                        a.i-photo_rotate(href="") 
-                        a.i-photo_rotate.i-photo_rotate__r(href="") 
+                        a.i-photo_rotate(href="#") 
+                        a.i-photo_rotate.i-photo_rotate__r(href="#") 
                 // input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок')
     // /Блок фотографии
 
@@ -75,29 +85,41 @@ mixin iPhoto(mod, vars)
 - iPhoto.loaded.delete = true
 - iPhoto.loaded.rotate = true
 - iPhoto.loaded.type = "loaded"
-- iPhoto.loaded.src = "/new/images/example/w155-h140.jpg"
+- iPhoto.loaded.src = "/lite/images/example/w155-h140.jpg"
+
+- iPhoto.loadedVideo = {}
+- iPhoto.loadedVideo.delete = true
+- iPhoto.loadedVideo.rotate = false
+- iPhoto.loadedVideo.type = "loaded"
+- iPhoto.loadedVideo.iframe = "<iframe width='155' height='140' src='//www.youtube.com/embed/xEhaVhta7sI' frameborder='0' allowfullscreen></iframe>"
 
 - iPhoto.ie = {}
 - iPhoto.ie.type = "ie"
-- iPhoto.ie.src = "/new/images/example/w155-h140-2.jpg"
-
+- iPhoto.ie.src = "/lite/images/example/w155-h140-2.jpg"
 
 
 - iPhoto.familySettingsEdit = {}
 - iPhoto.familySettingsEdit.type = "loaded"
 - iPhoto.familySettingsEdit.delete = true
 - iPhoto.familySettingsEdit.edit = true
-- iPhoto.familySettingsEdit.src = "/new/images/example/w155-h140.jpg"
+- iPhoto.familySettingsEdit.src = "/lite/images/example/w155-h140.jpg"
 
 - iPhoto.familySettings = {}
 - iPhoto.familySettings.type = "loaded"
 - iPhoto.familySettings.delete = flase
 - iPhoto.familySettings.edit = false
-- iPhoto.familySettings.src = "/new/images/example/w155-h140.jpg"
+- iPhoto.familySettings.src = "/lite/images/example/w155-h140.jpg"
 
 - iPhoto.familySettingsIco = {}
 - iPhoto.familySettingsIco.type = "ico-family"
 - iPhoto.familySettingsIco.delete = flase
 - iPhoto.familySettingsIco.edit = false
-- iPhoto.familySettingsIco.src = "/new/images/example/w155-h140.jpg"
+- iPhoto.familySettingsIco.src = "/lite/images/example/w155-h140.jpg"
+
+- iPhoto.familySettingsIndex = {}
+- iPhoto.familySettingsIndex.type = "loaded"
+- iPhoto.familySettingsIndex.delete = true
+- iPhoto.familySettingsIndex.edit = true
+- iPhoto.familySettingsIndex.onIndex = true
+- iPhoto.familySettingsIndex.src = "/lite/images/example/w155-h140.jpg"
 

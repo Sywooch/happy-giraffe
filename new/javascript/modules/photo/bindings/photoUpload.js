@@ -42,8 +42,14 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'phot
             var defaultCallback = function(photoInstance) {
                 if (observable() instanceof Array) {
                     // photoInstance.photo = photoInstance;
-                    photoInstance = new PhotoAttach(photoInstance);
-                    observable.push(photoInstance);
+                    if (photoInstance.hasOwnProperty('photo')) {
+                        photoInstance = new PhotoAttach(photoInstance);
+                        observable.push(photoInstance);
+                    }
+                    else {
+                        photoInstance = new Photo(photoInstance);
+                        observable.push(photoInstance);
+                    }
                 } else {
                     if (photoInstance.hasOwnProperty('photo')) {
                         observable(new PhotoAttach(photoInstance));
@@ -51,9 +57,7 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'phot
                     else {
                         observable(photoInstance);
                     }
-                    console.log('upload');
                 }
-
             };
 
             var callback = value.callback || defaultCallback;

@@ -3,6 +3,7 @@
     <div class="widget-user-photo">
         <div class="heading-sm"><a href="#" class="heading-sm_a-r">Все фото 828</a>Мои фото</div>
         <ul class="widget-user-photo_ul clearfix">
+            <!-- ko if: photoAlbum.photoCollection().cover() !== undefined -->
             <li class="widget-user-photo_li">
                 <a href="#" class="widget-user-photo_i" data-bind="photoSlider: { photo: photoAlbum.photoCollection().cover().id(), collectionId: photoAlbum.photoCollection().id() }">
                     <img src="" alt="Заголовок фото"  data-bind="src: photoAlbum.photoCollection().cover().photo().getGeneratedPreset('myPhotosSectionCover')">
@@ -11,6 +12,7 @@
                     </div>
                 </a>
             </li>
+            <!-- /ko -->
             <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
                 <!-- ko if: $parent.rightForManipulation === true && $index + 1 === $parent.photoAlbum.photoCollection().attaches().length -->
                     <li class="widget-user-photo_li">

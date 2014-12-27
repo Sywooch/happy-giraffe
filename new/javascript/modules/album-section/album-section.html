@@ -3,7 +3,6 @@
     <div class="widget-user-photo">
         <div class="heading-sm"><a href="#" class="heading-sm_a-r">Все фото 828</a>Мои фото</div>
         <ul class="widget-user-photo_ul clearfix">
-
             <li class="widget-user-photo_li">
                 <a href="#" class="widget-user-photo_i" data-bind="photoSlider: { photo: photoAlbum.photoCollection().cover().id(), collectionId: photoAlbum.photoCollection().id() }">
                     <img src="" alt="Заголовок фото"  data-bind="src: photoAlbum.photoCollection().cover().photo().getGeneratedPreset('myPhotosSectionCover')">
@@ -13,7 +12,7 @@
                 </a>
             </li>
             <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
-                <!-- ko if: $parent.rightForManipulation === true && $index + 1 === photoAlbum.photoCollection().attaches().length -->
+                <!-- ko if: $parent.rightForManipulation === true && $index + 1 === $parent.photoAlbum.photoCollection().attaches().length -->
                     <li class="widget-user-photo_li">
                         <a href="#" class="widget-user-photo_i" data-bind="src: $parent.albumUrl">
                             <div class="cap-add">
@@ -24,7 +23,7 @@
                         </a>
                     </li>
                 <!-- /ko -->
-                <!-- ko ifnot: $parent.rightForManipulation === true && $index + 1 === photoAlbum.photoCollection().attaches().length -->
+                <!-- ko ifnot: $parent.rightForManipulation === true && $index + 1 === $parent.photoAlbum.photoCollection().attaches().length -->
                     <li class="widget-user-photo_li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
                         <a href="#" class="widget-user-photo_i" data-bind="photoSlider: { photo: id(), collectionId: $parent.photoAlbum.photoCollection().id() }">
                             <img src="" alt="" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">

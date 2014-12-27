@@ -63,7 +63,7 @@ $cs->registerAMD('userSection', array('kow'));
             'items' => array(
                 array(
                     'label' => 'Анкета',
-                    'url' => array('/profile/default/index', 'user_id' => $user->id),
+                    'url' => array('/userProfile/default/index', 'userId' => $user->id),
                     'linkOptions' => array('class' => 'userSection_panel-a'),
                 ),
                 array(

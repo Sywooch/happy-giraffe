@@ -21,7 +21,9 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'ph
                 }
             }
         };
-        this.photoAlbum.get(this.userId, false, this.getPhotoAlbum.bind(this));
+        if (this.userId !== null) {
+            this.photoAlbum.get(this.userId, false, this.getPhotoAlbum.bind(this));
+        }
     }
     return {
         viewModel: AlbumSection,

@@ -16,6 +16,7 @@ class CommunityController extends PostController
     public $layout = '/layouts/newCommunityPost';
     protected $_club = null;
     protected $_forum = null;
+    protected $_rubric = null;
 
     public function getClub()
     {

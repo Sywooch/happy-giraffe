@@ -51,7 +51,6 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'phot
                     else {
                         observable(photoInstance);
                     }
-                    console.log('upload');
                 }
 
             };

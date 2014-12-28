@@ -4,7 +4,7 @@
         <div class="popup-add_top clearfix textalign-c">
             <div class="popup-add_t">Добавить главное фото</div>
         </div>
-        <div class="popup-add_in">
+        <div id="photo-tab-computer">
             <div class="popup-add_frame">
                 <div class="popup-add_cap">
                     <!-- Размер файла, необходимо указать программисту-->
@@ -24,6 +24,39 @@
                     </div>
                     <!-- /cap-empty-->
                 </div>
+                <div class="textalign-c" data-bind="if: photo() !== null">
+                    <div class="i-photo" data-bind="css: photo().cssClass()"><a href="" class="ico-close5" data-bind="click: $root.removePhoto"></a>
+                        <!-- ko if: photo().status() === photo().STATUS_SUCCESS -->
+                        <div class="i-photo_hold">
+                            <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
+                                <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: photo().rotateRight"></a></div>
+                            </div>
+                            <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- ko if: photo().status() === photo().STATUS_LOADING -->
+                        <div class="i-photo_hold">
+                            <div class="i-photo_progress">
+                                <div class="progress progress-striped active progress__cont">
+                                    <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                </div>
+                                <div class="tx-hint">Загрузка</div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- ko if: photo().status() === photo().STATUS_FAIL -->
+                        <div class="i-photo_hold error">
+                            <div class="tx-hint" data-bind="text: photo().photo.originalname"></div>
+                            <div class="tx-hint" data-bind="text: photo().photo.error"></div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+            <div class="popup-add_footer" data-bind="visible: photo() !== null">
+                <div class="textalign-c"><button class="btn btn-success" data-bind="disable: loading, disable: successPhotos().length === 0, click: add">Добавить</button></div>
             </div>
         </div>
     </div>

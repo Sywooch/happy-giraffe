@@ -66,8 +66,10 @@ block block-hidden
                 .popup-add_frame
                     .popup-add_ava-upload
 
+                        +bLoader('b-loader__abs', bLoader.photoWindow) 
+
                         // Блок обрезки аватара
-                        .popup-add_ava-crop
+                        .popup-add_ava-crop.display-n
                             img#jcrop_target(src="http://placecreature.com/dog/1450/950")
                             script(src='/lite/javascript/jquery.Jcrop.min.js')
                             script.
@@ -87,6 +89,7 @@ block block-hidden
                                       api.ui.selection.addClass('jcrop-selection');
                                     });
                                 });
+                        // прелоадер
                         .popup-add_ava-load
                             .file-fake
                                 input.file-fake_inp(type="file")

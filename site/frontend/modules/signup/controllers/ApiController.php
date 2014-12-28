@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\signup\controllers;
+use site\frontend\modules\signup\components\SafeUserIdentity;
 use site\frontend\modules\signup\components\UserIdentity;
 use site\frontend\modules\signup\models\CaptchaForm;
 use site\frontend\modules\signup\models\LoginForm;
@@ -20,7 +21,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         $form->attributes = $attributes;
         $this->success = $form->save();
         if ($this->success) {
-            $identity = new UserIdentity($form->user->email, $form->password);
+            $identity = new SafeUserIdentity($form->user);
             if ($identity->authenticate()) {
                 \Yii::app()->user->login($identity);
                 sleep(1);

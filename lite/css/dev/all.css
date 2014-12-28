@@ -8345,9 +8345,8 @@ a.ico-action-hg__like:hover,
   margin: 0;
   font-size: 16px;
   line-height: 20px;
-  font-weight: bold;
   color: #333;
-  font-weight: normal;
+  font-weight: bold;
 }
 @media (min-width: 480px) {
   .heading-small,

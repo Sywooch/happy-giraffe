@@ -163,4 +163,10 @@ class CommunityRubric extends HActiveRecord
             ->order('id asc')
             ->queryScalar();
     }
+    
+    public function toLabel()
+    {
+        return 'Рубрика: ' . $this->title;
+    }
+
 }

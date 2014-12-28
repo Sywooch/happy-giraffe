@@ -70,7 +70,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 </div>
             </article>
             <!-- /b-article-->
-            <?php $this->renderPartial('_lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
+            <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
             <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
             <!-- comments-->
             <section class="comments comments__buble">

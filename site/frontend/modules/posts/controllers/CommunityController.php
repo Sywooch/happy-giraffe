@@ -21,7 +21,7 @@ class CommunityController extends PostController
     {
         if (is_null($this->_club)) {
             $id = \Yii::app()->request->getParam('forum_id');
-            $this->_forum = \Community::model()->with('club')->findByPk($id);
+            $this->_forum = \Community::model()->with(array('club', 'section'))->findByPk($id);
             $this->_club = $this->_forum->club;
         }
 

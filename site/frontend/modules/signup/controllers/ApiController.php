@@ -23,10 +23,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             $identity = new UserIdentity($form->user->email, $form->password);
             if ($identity->authenticate()) {
                 \Yii::app()->user->login($identity);
-                var_dump('1'); die;
-            } else {
-                var_dump($identity->errorMessage);
-                die;
+                \Yii::app()->user->setFlash('redirected', true);
             }
             $this->data = array(
                 'returnUrl' => $this->createUrl('/profile/default/index/', array('user_id' => $form->user->id)),

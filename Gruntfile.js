@@ -179,6 +179,9 @@ module.exports = function(grunt){
         // },
         options: {
           sourceMap: true,
+          syncImport: true,
+          strictImports: true,
+          //rootpath: '/',
         }
       },
       

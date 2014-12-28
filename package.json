@@ -9,7 +9,7 @@
     "grunt-contrib-connect": "latest",
     "grunt-contrib-watch": "latest",
     "grunt-newer": "latest",
-    "grunt-contrib-less": "latest",
+    "grunt-contrib-less": "v0.11.3",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-uncss": "latest",
     "grunt-combine-media-queries": "latest",

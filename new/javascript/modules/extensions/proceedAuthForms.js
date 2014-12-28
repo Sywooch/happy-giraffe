@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'models/User', 'signup/register-form', 'signup/login-form', 'signup/password-recovery-form'], function regLogRemHandler($, ko, User, RegisterForm, LoginForm, PasswordRecoveryForm) {
+define(['jquery', 'knockout', 'user-config', 'signup/register-form', 'signup/login-form', 'signup/password-recovery-form'], function regLogRemHandler($, ko, userConfig, RegisterForm, LoginForm, PasswordRecoveryForm) {
 
     var proceedAuthForms = function proceedAuthForms() {
         var buttons = {
@@ -37,7 +37,7 @@ define(['jquery', 'knockout', 'models/User', 'signup/register-form', 'signup/log
                 proceedAuthForms();
             } else {
                 $(element).click(function followBindigsClicker(evt) {
-                    if (User.isGuest) {
+                    if (userConfig .isGuest) {
                         evt.preventDefault();
                         viewModel.open();
                         proceedAuthForms();

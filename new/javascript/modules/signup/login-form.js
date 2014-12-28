@@ -31,8 +31,10 @@ define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'sig
             } else {
                 this.fillErrors(response.data.errors);
             }
+            this.loading(false);
         };
         this.submit = function submit() {
+            this.loading(true);
             Model.get(this.submitUrl, { attributes: this.getValues() }).done(this.submitLoginHandler.bind(this));
         };
         $(".auth-service.vkontakte a").eauth(this.vkObj);

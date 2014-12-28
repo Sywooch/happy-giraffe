@@ -18,8 +18,10 @@ define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 's
             } else {
                 this.fillErrors(response.data.errors);
             }
+            this.loading(false);
         };
         this.submit = function submit() {
+            this.loading(true);
             Model.get(this.submitUrl, { attributes: this.getValues() }).done(this.submitHandler.bind(this));
         };
     }

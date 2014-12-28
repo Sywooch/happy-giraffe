@@ -12,7 +12,7 @@
             <div class="popup-sign_col popup-sign_col__left">
                 <!-- ko template: 'signup/main-form' --> <!-- /ko -->
                 <div class="popup-sign_row">
-                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitSimple.bind($parent)">Зарегистрироваться</button>
+                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, disable: loading, click: $parent.submitSimple.bind($parent)">Зарегистрироваться</button>
                 </div>
             </div>
             <div class="popup-sign_social">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="popup-sign_row">
-                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitCaptcha.bind($parent)">Продолжить</button>
+                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, disable: loading, click: $parent.submitCaptcha.bind($parent)">Продолжить</button>
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@
                 <!-- /ko -->
                 <!-- ko template: 'signup/main-form' --> <!-- /ko -->
                 <div class="popup-sign_row">
-                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, click: $parent.submitSocial.bind($parent)">Зарегистрироваться</button>
+                    <button class="btn-xl btn btn-success btn-block" data-bind="css: { loading: loading }, disable: loading, click: $parent.submitSocial.bind($parent)">Зарегистрироваться</button>
                 </div>
             </div>
         </div>

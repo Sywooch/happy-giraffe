@@ -21,10 +21,10 @@ class ApiController extends \site\frontend\components\api\ApiController
         $form->attributes = $attributes;
         $this->success = $form->save();
         if ($this->success) {
+            sleep(1);
             $identity = new SafeUserIdentity($form->user);
             if ($identity->authenticate()) {
                 \Yii::app()->user->login($identity);
-                sleep(1);
             }
             $this->data = array(
                 'returnUrl' => $this->createUrl('/profile/default/index/', array('user_id' => $form->user->id)),

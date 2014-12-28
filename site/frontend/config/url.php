@@ -217,7 +217,15 @@ return array(
         'family-holiday' => array('community/default/section', 'defaultParams' => array('section_id' => 6)),
 
         'community/<_a:(subscribe)>/' => 'community/default/<_a>',
-        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
+        
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
+            'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
+            'trueRoute' => 'posts/communityList/index',
+            'falseRoute' => 'community/default/forum',
+        ),
+        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index', //'community/default/forum',
 
         //'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         array(

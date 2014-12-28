@@ -46,6 +46,8 @@ class Content extends \CActiveRecord implements \IHToJSON
     protected $labelDelimiter = '|';
     protected $_relatedModels = array();
     protected $_user = null;
+    // запомним соответствие тег-id
+    protected static $_tags = array();
 
     /**
      * @return string the associated database table name
@@ -393,6 +395,38 @@ class Content extends \CActiveRecord implements \IHToJSON
         return $this;
     }
 
+    public function byTags($tags)
+    {
+        $tagIds = array();
+        $criteria = $this->getDbCriteria();
+
+        // поищем теги в кеше
+        foreach ($tags as $k => $tag) {
+            if (isset(self::$_tags[$tag])) {
+                $tagIds[] = self::$_tags[$tag];
+                unset($tags[$k]);
+            }
+        }
+
+        if (!empty($tags)) {
+            // Спросим id в базе
+            $labelModels = \site\frontend\modules\posts\models\Label::model()->byTags($tags)->findAll();
+            foreach ($labelModels as $label) {
+                // Запомним и добавим к списку
+                self::$_tags[$label['text']] = $label->id;
+                $tagIds[] = $label->id;
+            }
+        }
+
+        $criteria->with[] = 'tagModels';
+        $criteria->together = true;
+        foreach ($tagIds as $tagId) {
+            $criteria->addColumnCondition(array('tagModels.labelId' => $tagId));
+        }
+
+        return $this;
+    }
+
     public function byEntityClass($entity)
     {
         $this->getDbCriteria()->addColumnCondition(array('originEntity' => $entity));
@@ -431,4 +465,5 @@ class Content extends \CActiveRecord implements \IHToJSON
 
         return $this;
     }
+
 }

@@ -85,4 +85,12 @@ class Label extends \CActiveRecord
         return parent::model($className);
     }
 
+    public function byTags($tags)
+    {
+        $criteria = $this->getDbCriteria();
+        $criteria->compare('text', $tags);
+
+        return $this;
+    }
+
 }

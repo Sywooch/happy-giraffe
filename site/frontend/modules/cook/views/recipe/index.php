@@ -1,6 +1,6 @@
-<div class="heading-title margin-b10 margin-t15 clearfix">
+<!--<div class="heading-title margin-b10 margin-t15 clearfix">
     <?=CookRecipe::model()->getTypeString($type) ?>
-</div>
+</div>-->
 <div class="b-main_col-hold clearfix">
     <?php
     $this->widget('LiteListView', array(

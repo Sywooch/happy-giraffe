@@ -1,4 +1,4 @@
-define(['knockout', 'text!avatar-uploader/avatar-uploader.html', 'ko_photoUpload', "user-config", 'bootstrap', 'jquery.Jcrop.min'], function AvatarUploaderHandler(ko, template, uploader, userConfig) {
+define(['knockout', 'text!avatar-uploader/avatar-uploader.html', 'ko_photoUpload', "user-config", 'models/Model', 'photo/Photo', 'bootstrap', 'jquery.Jcrop.min'], function AvatarUploaderHandler(ko, template, uploader, userConfig, Model, Photo) {
     function AvatarUploader(params) {
         this.initData = params.initData;
         this.initData.form = params.initData;

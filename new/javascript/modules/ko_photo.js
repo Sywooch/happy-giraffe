@@ -1,4 +1,4 @@
-define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/PhotoAttach', 'photo/PhotoAlbum', 'user-config', 'bootstrap', 'jquery_file_upload', 'jquery.ui', 'photo/bindings/thumb', 'photo/bindings/photoUpload'], function(ko, mapping, Photo, PhotoAttach, PhotoAlbum, userConfig) {
+define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Model', 'photo/Photo', 'photo/PhotoAttach', 'photo/PhotoAlbum', 'user-config', 'jquery.Jcrop.min', 'bootstrap', 'jquery_file_upload', 'jquery.ui', 'photo/bindings/thumb', 'photo/bindings/photoUpload'], function($, ko, mapping, Model, Photo, PhotoAttach, PhotoAlbum, userConfig, Jcrop) {
 
 
     // Биндинг для плагина jQuery File Upload
@@ -124,27 +124,61 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             if (response.success) {
                 ko.mapping.fromJS((response.data.attach || response.data.photo), {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
-                $(function($){
+            } else {
+                photo.error(response.error);
+                photo.status(PhotoUpload.prototype.STATUS_FAIL);
+            }
+        };
+
+        self.processAvatar = function(photo, response) {
+            if (response.success) {
+                ko.mapping.fromJS((response.data.attach || response.data.photo), {}, photo);
+                photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
+
+                $(function($) {
                     var api;
                     $('#jcrop_target').Jcrop({
                         // start off with jcrop-light class
                         bgOpacity: 0.3,
                         bgColor: '#fff',
                         aspectRatio: 1,
-                        boxWidth: 450,
+                        boxWidth: 700,
+                        boxHeight: 470,
                         addClass: 'jcrop-circle'
-                    },function(){
+                    }, function afterRelease() {
                         api = this;
-                        api.setSelect([50,50,400,400]);
+                        var wh = api.getBounds(),
+                            scale = api.getScaleFactor();
+                        var yMeasure = (wh[0] / 2 + 200),
+                            xMeasure = (wh[1] / 2 - 200);
+                        api.setSelect([xMeasure, xMeasure, yMeasure, yMeasure]);
                         api.setOptions({ bgFade: true });
                         api.ui.selection.addClass('jcrop-selection');
+                        photo.cropLoaded(true);
+                        $('#adding-avatar').on('click', function (event) {
+                            event.preventDefault();
+                            var apiSizes = api.tellSelect();
+                            var cropObj = {
+                                x: parseInt(apiSizes.x),
+                                y: parseInt(apiSizes.y),
+                                w: parseInt(apiSizes.w),
+                                h: parseInt(apiSizes.h),
+                            };
+                            Model
+                                .get('/api/users/setAvatar/', { photoId: photo.id(), userId: userConfig.userId, cropData: cropObj })
+                                .done(function (data) { $.magnificPopup.close(); });
+                        });
+                        $('#canceling-avatar').on('click', function (event) {
+                            event.preventDefault();
+                            $.magnificPopup.close();
+                        });
                     });
                 });
             } else {
                 photo.error(response.error);
                 photo.status(PhotoUpload.prototype.STATUS_FAIL);
             }
-        }
+        };
     }
     PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
     PhotoUploadViewModel.prototype.add = function() {
@@ -223,7 +257,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             },
             done: function (e, data) {
                 self.photo().file = data.files[0];
-                self.processResponse(self.photo(), data.result);
+                self.processAvatar(self.photo(), data.result);
             },
             fail: function(e, data) {
                 if (data.errorThrown != 'abort') {
@@ -335,6 +369,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         self.jqXHR = jqXHR;
         self.status = ko.observable(PhotoUpload.prototype.STATUS_LOADING);
         self.error = ko.observable();
+        self.cropLoaded = ko.observable(false);
 
         self.rotateLeft = function() {
             self.rotate(false);

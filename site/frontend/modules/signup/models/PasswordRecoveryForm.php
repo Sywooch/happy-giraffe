@@ -1,9 +1,13 @@
 <?php
+
+namespace site\frontend\modules\signup\models;
+use site\frontend\modules\signup\components\SignupEmailHelper;
+
 /**
  * Форма генерации нового пароля
  */
 
-class PasswordRecoveryForm extends CFormModel
+class PasswordRecoveryForm extends \CFormModel
 {
     public $email;
 
@@ -29,16 +33,12 @@ class PasswordRecoveryForm extends CFormModel
      */
     public function send()
     {
-
-        /** @var User $user */
-        $user = User::model()->active()->findByAttributes(array('email' => $this->email));
-        $newPassword = User::createPassword(8);
-        $user->password = User::hashPassword($newPassword);
+        /** @var \User $user */
+        $user = \User::model()->active()->findByAttributes(array('email' => $this->email));
+        $newPassword = \User::createPassword(8);
+        $user->password = \User::hashPassword($newPassword);
         if ($user->update(array('password'))) {
-            if ($user->status == 1)
-                SignupEmailHelper::passwordRecovery($user, $newPassword);
-            else
-                SignupEmailHelper::register($user, $newPassword);
+            SignupEmailHelper::passwordRecovery($user, $newPassword);
             return true;
         }
         $this->addError('email', 'Неизвестная ошибка, попробуйте еще раз');

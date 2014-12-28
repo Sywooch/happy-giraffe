@@ -42,8 +42,8 @@ class Command extends \CConsoleCommand
         $iterator = new \CDataProviderIterator($dp, 100);
         $total = $dp->totalItemCount;
         foreach ($iterator as $i => $user) {
+            echo $user->id . "\n";
             Manager::convertAvatar($user);
-            echo $i . '/' . $total . "\n";
         }
     }
 

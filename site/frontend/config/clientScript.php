@@ -587,6 +587,12 @@ return array(
                 'lite/css/min/blog.css'
             ),
         ),
+        'lite_member_user' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/member-user.css'
+            ),
+        ),
         'lite_family_user' => array(
             'depends' => array('lite_member_user'),
         ),

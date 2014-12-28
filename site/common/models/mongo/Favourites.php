@@ -123,9 +123,21 @@ class Favourites extends EMongoDocument
      */
     public static function inFavourites($model, $block)
     {
+        if(!is_array($model)) {
+            $entity = array(
+                'class' => get_class($model),
+                'id' => $model->primaryKey,
+            );
+        } else {
+            $entity = array(
+                'class' => $model['entity'],
+                'id' => $model['entityId'],
+            );
+        }
+        
         $criteria = new EMongoCriteria;
-        $criteria->entity('==', get_class($model));
-        $criteria->entity_id('==', (int) $model->primaryKey);
+        $criteria->entity('==', $entity['class']);
+        $criteria->entity_id('==', (int) $entity['id']);
         $criteria->block('==', (int) $block);
 
         $fav = self::model()->find($criteria);

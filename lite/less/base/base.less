@@ -45,10 +45,11 @@
     padding: 0;
     overflow: hidden;
     
+    &__xs {
+        
+    }
     &__small &_i {
-        width: 65px;
-        height: 60px;
-        .img-retina('@{path-img}/base/logo__small.png'; '@{path-img}/base/logo__small-2x.png'; 65px; 60px;);
+        &:extend(.logo__xs);
     }
     &__l &_i {
         width: 320px;

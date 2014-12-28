@@ -124,7 +124,7 @@ a.heading-link-xxl:hover {
 .tx-content {
     font-size: 14px;
     line-height: 20px;
-    color: @color-gray-dark;
+    /*color: @color-gray-dark;*/
 }
 .tx-date {
     font: @fontsmallest;
@@ -168,11 +168,20 @@ a.heading-link-xxl:hover {
     border-bottom:1px dotted @color-gray;
 }
 .a-gray {
-    color: @color-gray-light;
-}
-.a-gray:hover {
     color: @color-gray;
 }
+.a-gray:hover {
+    color: @color-gray-dark;
+}
+/*.a-color-gray-light {
+    text-decoration: underline;
+    color:  @color-gray-light;
+    border-color:  @color-gray-light;
+    &:hover {
+        text-decoration: underline;
+        color: @color-gray-dark;
+    }
+}*/
 // /Ссылки
 
 // Items
@@ -449,15 +458,18 @@ a.heading-link-xxl:hover {
         left: auto;
         right: -315px;
     }
+    &__r .i-photo-arrow {
+        &:extend(.i-photo-arrow__r all);
+    }
 
     @media (min-width: @screen-desktop) {
         & {
-            display: block;
         }
     }
 
     @media screen and (min-width: 1230px) {
-        &.visible {
+        & {
+            display: block;
             visibility: visible;
             .opacity(1);
         }

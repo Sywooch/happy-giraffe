@@ -85,6 +85,12 @@
     }
     &__profile-family &_t {margin: 20px;}
 
+    &__post-loaded {
+        margin-top: 100px;
+        height: 500px;
+    }
+    &__post-loaded &_t {margin: 20px;}
+
     &__addPhoto {}
     &__addPhoto &_img {
         height: 120px;
@@ -129,6 +135,7 @@
     }
 
     &_hold {
+        display: inline-block;
         font-size: 12px;
         line-height: 16px;
     }
@@ -145,6 +152,12 @@
         height: 180px;
         width: 455px;
         background: url('@{path-img}/base/cap-empty_img__family-big.png') no-repeat 50% 0;
+    }
+    &_img__post-loaded {
+        height: 100px;
+        width: 100px;
+        background: url('@{path-img}/base/cap-empty_img__post-loaded.png') no-repeat 50% 0;
+        .animation(loadercircle 3s infinite linear);
     }
     &_t {
         margin: 5px 0;

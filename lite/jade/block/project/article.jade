@@ -16,12 +16,19 @@ mixin bArticle-single(mod, vars)
                         span.icons-meta_tx 35
                     .icons-meta_view
                         span.icons-meta_tx 305
-            h1.b-article_t Самое лучшее утро - просыпаюсь, а ты рядом
+            h1.b-article_t 
+                | Самое лучшее утро - просыпаюсь, а ты рядом
+                if(vars.redactor)
+                    .redactor-panel
+                        a.ico-redactor.ico-redactor__interest.powertip(href='#', title='Самое интересное')
+                        a.ico-redactor.ico-redactor__blog.powertip(href='#', title='Блоги на главную')
+                        a.ico-redactor.ico-redactor__social.powertip.active(href='#', title='Посты в соцсети')
+                        a.ico-redactor.ico-redactor__mail.powertip(href='#', title='Посты в рассылку')
             .b-article_in.clearfix
                 .wysiwyg-content.clearfix
                     p
                         | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
-                    .b-article_in-img
+                    .b-article_in-img.b-article_in-img__l
                         a(href='#')
                             img(alt='', src='#{path}images/example/w600-h415.jpg')
                     p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
@@ -66,6 +73,10 @@ mixin bArticle-single(mod, vars)
 
 - bArticleSingle.user = {}
 - bArticleSingle.user.btnEdit = true
+
+- bArticleSingle.redactor = {}
+- bArticleSingle.redactor.btnEdit = true
+- bArticleSingle.redactor.redactor = true
 
 
 mixin bArticleListItem(mod, vars)
@@ -133,6 +144,9 @@ mixin bArticleListItem(mod, vars)
 
 - bArticleListItem.a = {}
 - bArticleListItem.a.type = 'text'
+
+- bArticleListItem.b = {}
+- bArticleListItem.b.type = 'video'
 
 - bArticleListItem.b = {}
 - bArticleListItem.b.type = 'video'

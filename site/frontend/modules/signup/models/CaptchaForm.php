@@ -18,4 +18,11 @@ class CaptchaForm extends \CFormModel
             array('verifyCode', 'CaptchaExtendedValidator', 'captchaAction' => '/signup/default/captcha', 'allowEmpty' => ! \CCaptcha::checkRequirements()),
         );
     }
+
+    public function attributeLabels()
+    {
+        return array(
+            'verifyCode' => 'Код проверки',
+        );
+    }
 } 

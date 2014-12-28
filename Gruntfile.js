@@ -214,6 +214,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /placeholder+/,
             /.dropdown+/,
             /.flag+/,
             /.jcrop+/,
@@ -271,6 +272,7 @@ module.exports = function(grunt){
             // Выбираем все стили где в начале .class
             // /.dropdown+/,
             /#ctrlcopy+/,
+            /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
@@ -309,6 +311,7 @@ module.exports = function(grunt){
             // Выбираем все стили где в начале .class
             // /.dropdown+/,
             /#ctrlcopy+/,
+            /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
@@ -317,6 +320,7 @@ module.exports = function(grunt){
             /.header-+/,
             /.fast-articles3+/,
             //.tooltip+/,
+            /.body+/,
             
             /.bx-wrapper+/,
 
@@ -348,6 +352,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
@@ -380,6 +385,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
@@ -416,6 +422,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
@@ -454,6 +461,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
@@ -498,6 +506,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /placeholder+/,
             /.mfp+/,
             /.select2+/,
             /@font-face+/,

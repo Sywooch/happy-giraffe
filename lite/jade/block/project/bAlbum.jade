@@ -166,18 +166,18 @@ mixin bAlbumPhotopost(mod, vars)
                 picture.b-album_img-picture
                 
                     //-source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
-                    img.b-album_img-big(src='http://placekitten.com/600/450', alt="Фото")
-
-                .b-album_count-hold.b-album_count-hold__in
-                    .b-album_count 240
-                    .b-album_count-tx фото
+                    img.b-album_img-big(src='http://placecreature.com/flying-squirrel/600/400/', alt="Фото")
+                .b-album_top
+                    .b-album_count-hold
+                        .b-album_count 240
+                        .b-album_count-tx фото
             //-.b-album_img-hold-ovr
                 .ico-zoom.ico-zoom__abs
             - if (vars.arrow)
                 // Стрелки показывать скрывать по тапу (касанию пальца)
                 a.i-photo-arrow.i-photo-arrow__l.i-photo-arrow__abs(href="#")
                 a.i-photo-arrow.i-photo-arrow__r.i-photo-arrow__abs(href="#")
-        //-.b-album_overlay
+        .b-album_overlay
             a.b-album_r
                 - if (vars.tx)
                     .b-album_tx
@@ -224,5 +224,15 @@ mixin bAlbumPhotopost(mod, vars)
 - bAlbumPhotopost.a.icoAlbumMod = ''
 - bAlbumPhotopost.a.prevCount = 3
 - bAlbumPhotopost.a.prevAdd = false
+
+
+- bAlbumPhotopost.b = {}
+- bAlbumPhotopost.b.top = false
+- bAlbumPhotopost.b.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
+- bAlbumPhotopost.b.tx = 'Смотреть <br> все фото'
+- bAlbumPhotopost.b.icoAlbumMod = ''
+- bAlbumPhotopost.b.prevCount = 3
+- bAlbumPhotopost.b.arrow = true
+- bAlbumPhotopost.b.prevAdd = false
 
 

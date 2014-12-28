@@ -139,7 +139,7 @@ a.heading-link-xxl:hover {
 .tx-content {
     font-size: 14px;
     line-height: 20px;
-    color: @color-gray-dark;
+    /*color: @color-gray-dark;*/
 }
 .tx-date {
     font: @fontsmallest;
@@ -175,13 +175,28 @@ a.heading-link-xxl:hover {
     text-decoration:none;
     border-bottom:1px dotted #289FD7;
 }
+.a-pseudo-gray:hover,
 .a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
-.a-gray {
-    color: @color-gray-light;
+.a-pseudo-gray {
+    color: @color-gray;
+    text-decoration:none;
+    border-bottom:1px dotted @color-gray;
 }
-.a-gray:hover {
+.a-gray {
     color: @color-gray;
 }
+.a-gray:hover {
+    color: @color-gray-dark;
+}
+/*.a-color-gray-light {
+    text-decoration: underline;
+    color:  @color-gray-light;
+    border-color:  @color-gray-light;
+    &:hover {
+        text-decoration: underline;
+        color: @color-gray-dark;
+    }
+}*/
 // /Ссылки
 
 // Items
@@ -250,6 +265,7 @@ a.heading-link-xxl:hover {
         z-index: 100;
     }
 }
+
 .i-club {
     display: inline-block;
     text-align: center;
@@ -276,6 +292,26 @@ a.heading-link-xxl:hover {
     &__collection-4 {background-color: #FFFEEA;}
     &__collection-5 {background-color: #F3FEF2;}
     &__collection-6 {background-color: #FAF6FF;}
+}
+
+.i-video-serv {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+    width: 60px;
+    height: 30px;
+    background: url('@{path-img}/i/i-video-serv.png') no-repeat;
+    .opacity(0.3);
+
+
+    &.active {.opacity(1)}
+    &__youtube {background-position: 0 0;}
+    /*&__youtube.active {background-position: 0 0;}*/
+    &__rutube  {background-position: -60px 0;}
+    /*&__rutube.active  {background-position: -60px 0;}*/
+    &__vimeo   {background-position: -120px 0;}
+    /*&__vimeo.active   {background-position: -120px 0;}*/
+
 }
 // /Items
 
@@ -426,15 +462,18 @@ a.heading-link-xxl:hover {
         left: auto;
         right: -315px;
     }
+    &__r .i-photo-arrow {
+        &:extend(.i-photo-arrow__r all);
+    }
 
     @media (min-width: @screen-desktop) {
         & {
-            display: block;
         }
     }
 
     @media screen and (min-width: 1230px) {
-        &.visible {
+        & {
+            display: block;
             visibility: visible;
             .opacity(1);
         }

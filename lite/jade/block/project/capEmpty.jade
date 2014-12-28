@@ -37,9 +37,9 @@ mixin cap-empty(mod, vars)
     
 - var capEmpty = {}
 - capEmpty.friendsListItem = {}
-- capEmpty.friendsListItem.txTop = "<a href='' class='b-ava-large_a'>Алекс Брянский</a>"
+- capEmpty.friendsListItem.txTop = "<a href='#' class='b-ava-large_a'>Алекс Брянский</a>"
 - capEmpty.friendsListItem.t = "Удален из друзей",
-- capEmpty.friendsListItem.txSub = "<a href=''>Восстановить</a>"
+- capEmpty.friendsListItem.txSub = "<a href='#'>Восстановить</a>"
 
 - capEmpty.addPhoto = {}
 - capEmpty.addPhoto.t = "Выберите файл с компьютера",
@@ -56,11 +56,15 @@ mixin cap-empty(mod, vars)
 
 - capEmpty.albumPhotoDel = {}
 - capEmpty.albumPhotoDel.t = "Фотография удалена ",
-- capEmpty.albumPhotoDel.tx = "<a href=''>Восстановить</a>"
+- capEmpty.albumPhotoDel.tx = "<a href='#'>Восстановить</a>"
 
 - capEmpty.photoalbumDel = {}
 - capEmpty.photoalbumDel.t = "Фотоальбом удален ",
-- capEmpty.photoalbumDel.tx = "<a href=''>Восстановить</a>"
+- capEmpty.photoalbumDel.tx = "<a href='#'>Восстановить</a>"
+
+- capEmpty.articleDel = {}
+- capEmpty.articleDel.t = "Статья удалена ",
+- capEmpty.articleDel.tx = "<a href='#'>Восстановить</a>"
 
 
 - capEmpty.familySettingsDel = {}
@@ -72,6 +76,15 @@ mixin cap-empty(mod, vars)
 - capEmpty.familyFirstEdit.t = "РЈ РІР°СЃ РЅРµ Р·Р°РїРѕР»РЅРµРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РІР°С€РµР№ СЃРµРјСЊРµ",
 - capEmpty.familyFirstEdit.txSub = "<a href='#' class='btn btn-success btn-xm'>Р—Р°РїРѕР»РЅРёС‚СЊ</a>"
 
-
 - capEmpty.userProfile = {}
 - capEmpty.userProfile.t = "Пользователь пока не был активен на сайте ",
+
+- capEmpty.addVideo = {}
+- capEmpty.addVideo.t = "Выберите видео из интернета",
+- capEmpty.addVideo.tx = '<input type="text" placeholder="Вставте ссылку на изображение" class="itx-gray">',
+- capEmpty.addVideo.txSub = "Поддерживаемые сервисы: <div class='i-video-serv i-video-serv__youtube active'></div> <div class='i-video-serv i-video-serv__rutube'></div> <div class='i-video-serv i-video-serv__vimeo'></div>"
+
+- capEmpty.postLoaded = {}
+- capEmpty.postLoaded.imgMod = 'cap-empty_img__post-loaded',
+- capEmpty.postLoaded.t = "Ваша статья ещё обрабатывается, подождите ещё немного",
+- capEmpty.postLoaded.txSub = "<a href='#' class=''>Вернуться в блог</a>"

@@ -2,7 +2,7 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
     function PhotoCollectionView(params) {
         params.attachesCount = 1;
         this.photoCollection = new PhotoCollection(params);
-        this.photoCollection.pageCount = 5;
+        this.photoCollection.pageCount = 3;
         this.photoCollection.usablePreset('myPhotosPreview');
         this.opened = ko.observable(false);
         this.currentPhoto = ko.observable();
@@ -21,11 +21,15 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
         /**
          * handler presets getting
          * @param presets
+         *
          */
         this.handlePresets = function handlePresets(presets) {
-            this.photoCollection.getAttachesPage(0);
-            this.collectionCount(params.attachCount);
-            params.presets = presets;
+            if (presets.success === true) {
+                this.photoCollection.getAttachesPage(0);
+                this.collectionCount(params.attachCount);
+                params.presets = presets.data;
+            }
+
         };
         /**
          * Openening current photo

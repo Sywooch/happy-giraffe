@@ -124,7 +124,9 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                         tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
                     }
                 })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
-                this.addViews();
+                if (adsConfig.isProduction === true) {
+                    this.addViews();
+                }
             };
         };
         /**

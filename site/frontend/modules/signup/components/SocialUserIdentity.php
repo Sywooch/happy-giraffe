@@ -1,9 +1,12 @@
 <?php
+
+namespace site\frontend\modules\signup\components;
+
 /**
  * Класс для аутентификации через социальную сеть
  */
 
-class SocialUserIdentity extends CBaseUserIdentity
+class SocialUserIdentity extends \CBaseUserIdentity
 {
     const ERROR_BANNED = 3;
     const ERROR_INACTIVE = 4;
@@ -25,7 +28,7 @@ class SocialUserIdentity extends CBaseUserIdentity
             $this->errorMessage = 'Вы не авторизовались в социальной сети';
         }
         else {
-            $serviceModel = UserSocialService::model()->findByAttributes(array(
+            $serviceModel = \UserSocialService::model()->findByAttributes(array(
                 'service' => $this->service->getServiceName(),
                 'service_id' => $this->service->getAttribute('uid'),
             ), array(
@@ -37,14 +40,10 @@ class SocialUserIdentity extends CBaseUserIdentity
                 $this->errorMessage = 'Этот социальный аккаунт не привязан';
             }
             else {
-                /** @var User _model */
+                /** @var \User _model */
                 $this->_model = $serviceModel->user;
 
-                if ($this->_model->status == User::STATUS_INACTIVE) {
-                    $this->errorCode = self::ERROR_INACTIVE;
-                    $this->errorMessage = 'Вы не подтвердили свой e-mail';
-                }
-                elseif ($this->_model->isBanned) {
+                if ($this->_model->isBanned) {
                     $this->errorCode = self::ERROR_BANNED;
                     $this->errorMessage = 'Вы заблокированы';
                 }
@@ -69,7 +68,7 @@ class SocialUserIdentity extends CBaseUserIdentity
     }
 
     /**
-     * @return User
+     * @return \User
      */
     public function getUserModel()
     {

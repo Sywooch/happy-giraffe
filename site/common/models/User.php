@@ -1607,4 +1607,13 @@ class User extends HActiveRecord
         $this->email_confirmed = 1;
         $this->update(array('status', 'email_confirmed'));
     }
+
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+        return array(
+            'condition' => $t . '.status = :active',
+            'params' => array(':active' => self::STATUS_ACTIVE),
+        );
+    }
 }

@@ -449,6 +449,9 @@ return array(
         'photo/default/presets' => 'photo/default/presets',
         'photo/photo/thumb' => 'photo/photo/thumb',
 
+        'reg/test' => 'signup/test/reg',
+        'signup/default/captcha' => 'signup/default/captcha',
+
         'onair' => 'blog/air/index',
 
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),

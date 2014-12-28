@@ -53,6 +53,16 @@ class ApiController extends \site\frontend\components\api\ApiController
         $user = $this->getModel('\site\frontend\modules\users\models\User', $userId);
         $this->success = AvatarManager::removeAvatar($user);
     }
+
+    public function actionGetAvatar($userId)
+    {
+        $user = $this->getModel('\site\frontend\modules\users\models\User', $userId);
+        if ($user->avatarId !== null) {
+            $crop = \Yii::app()->api->request('photo/crops', 'get', array('id' => $user->avatarId));
+            $this->data = \CJSON::decode($crop);
+        }
+        $this->success = $user->avatarId !== null;
+    }
 }
 
 ?>

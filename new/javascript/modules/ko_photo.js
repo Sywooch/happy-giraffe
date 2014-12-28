@@ -124,6 +124,22 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             if (response.success) {
                 ko.mapping.fromJS((response.data.attach || response.data.photo), {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
+                $(function($){
+                    var api;
+                    $('#jcrop_target').Jcrop({
+                        // start off with jcrop-light class
+                        bgOpacity: 0.3,
+                        bgColor: '#fff',
+                        aspectRatio: 1,
+                        boxWidth: 450,
+                        addClass: 'jcrop-circle'
+                    },function(){
+                        api = this;
+                        api.setSelect([50,50,400,400]);
+                        api.setOptions({ bgFade: true });
+                        api.ui.selection.addClass('jcrop-selection');
+                    });
+                });
             } else {
                 photo.error(response.error);
                 photo.status(PhotoUpload.prototype.STATUS_FAIL);
@@ -190,6 +206,34 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     }
     FromComputerSingleViewModel.prototype = Object.create(PhotoUploadViewModel.prototype);
     asFromComputer.call(FromComputerSingleViewModel.prototype);
+
+
+    // Модель одиночной загрузки файла с компьютера
+    function AvatarSingleViewModel(data) {
+        var self = this;
+        PhotoUploadViewModel.apply(self, arguments);
+        $.extend(self.fileUploadSettings, {
+            add: function (e, data) {
+                if (self.collectionId !== undefined) {
+                    data.formData = {
+                        collectionId: self.collectionId
+                    };
+                }
+                self.added(self.populatePhoto(data));
+            },
+            done: function (e, data) {
+                self.photo().file = data.files[0];
+                self.processResponse(self.photo(), data.result);
+            },
+            fail: function(e, data) {
+                if (data.errorThrown != 'abort') {
+                    self.photo().status(PhotoUpload.prototype.STATUS_FAIL);
+                }
+            }
+        });
+    }
+    AvatarSingleViewModel.prototype = Object.create(PhotoUploadViewModel.prototype);
+    asFromComputer.call(AvatarSingleViewModel.prototype);
 
     // Модель множественной загрузки с компьютера
     function FromComputerMultipleViewModel(data) {
@@ -394,7 +438,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             }, 'json');
         };
 
-        self.selectAttach = function(attach) {;
+        self.selectAttach = function(attach) {
             if (attach.isActive()) {
                 self.removePhoto(attach.photo());
             } else {
@@ -416,6 +460,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         FromComputerSingleViewModel: FromComputerSingleViewModel,
         FromComputerMultipleViewModel: FromComputerMultipleViewModel,
         FromAlbumsViewModel: FromAlbumsViewModel,
-        ByUrlViewModel: ByUrlViewModel
+        ByUrlViewModel: ByUrlViewModel,
+        AvatarSingleViewModel: AvatarSingleViewModel
     };
 });

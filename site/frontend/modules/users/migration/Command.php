@@ -34,8 +34,9 @@ class Command extends \CConsoleCommand
     {
         $dp = new \CActiveDataProvider('site\frontend\modules\users\models\User', array(
             'criteria' => array(
-                'condition' => 'avatar_id IS NOT NULL AND avatarId IS NULL',
-                'order' => 'id DESC',
+                'condition' => 'avatarId IS NULL',
+                'join' => 'JOIN album__photos p ON p.id = t.avatar_id JOIN user__avatars a ON a.avatar_id = p.id',
+                'order' => 't.id DESC',
             )
         ));
         $iterator = new \CDataProviderIterator($dp, 100);

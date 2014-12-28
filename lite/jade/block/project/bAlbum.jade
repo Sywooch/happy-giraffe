@@ -167,10 +167,10 @@ mixin bAlbumPhotopost(mod, vars)
                 
                     //-source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
                     img.b-album_img-big(src='http://placecreature.com/flying-squirrel/600/400/', alt="Фото")
-
-                .b-album_count-hold.b-album_count-hold__in
-                    .b-album_count 240
-                    .b-album_count-tx фото
+                .b-album_top
+                    .b-album_count-hold
+                        .b-album_count 240
+                        .b-album_count-tx фото
             //-.b-album_img-hold-ovr
                 .ico-zoom.ico-zoom__abs
             - if (vars.arrow)

@@ -179,9 +179,6 @@ module.exports = function(grunt){
         // },
         options: {
           sourceMap: true,
-          //sourceMapFilename: "/lite/css/dev/*.map", //Write the source map to a separate file with the given filename.
-          sourceMapBasepath: "/lite/less", //Sets the base path for the Less file paths in the source map.
-          sourceMapRootpath: "/"//Adds this path onto the Less file paths in the source map.
         }
       },
       
@@ -322,6 +319,7 @@ module.exports = function(grunt){
             /.header-+/,
             /.fast-articles3+/,
             //.tooltip+/,
+            /.body+/,
             
             /.bx-wrapper+/,
 

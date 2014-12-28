@@ -1,0 +1,24 @@
+//- .cap-add
+//- Заглушка добавления
+    vars   
+        tx
+
+mixin capAdd(mod, vars)
+    // cap-add
+    // Блок Добавления
+    .cap-add(class=mod)
+        .cap-add_hold
+            .cap-add_in 
+                .cap-add_tx 
+                    != vars.tx
+    
+- var capAdd = {}
+
+- capAdd.a = {}
+- capAdd.a.tx = 'Добавить фотографии'
+
+- capAdd.b = {}
+- capAdd.b.tx = 'Добавить еще <br> фотографии'
+
+- capAdd.video = {}
+- capAdd.video.tx = 'Добавить видео'

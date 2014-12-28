@@ -52,7 +52,7 @@ mixin likeControlCont(mod, vars)
         if (vars.articleEdit)
             // Блок редактирования статьи
             // Поставить на родительский блок на .like-control-hold
-            .article-settings
+            //.article-settings
                 .article-settings_i
                         a.article-settings_a.article-settings_a__settings.powertip(href='#')
                     .article-settings_hold.display-b
@@ -142,3 +142,31 @@ mixin likeControlCont(mod, vars)
 - likeControl.articleUser.center = true
 - likeControl.articleUser.title = true
 - likeControl.articleUser.articleEdit = true
+
+
+mixin articleSettings (mod, vars)
+
+    .article-settings
+        .article-settings_i
+                a.article-settings_a.article-settings_a__settings.powertip(href='#')
+            .article-settings_hold.display-b
+                .article-settings_i
+                    a.article-settings_a.article-settings_a__pin.powertip(href='#')
+                .article-settings_i
+                    a.article-settings_a.article-settings_a__edit.powertip(href='#')
+                .article-settings_i
+                    a.ico-users.ico-users__friend.active.powertip(href='javascript:void(0)')
+                    .article-settings_drop.display-b
+                        .article-settings_drop-i
+                            a.article-settings_drop-a(href='#')
+                                span.ico-users.ico-users__all
+                                | Показывать всем
+                        .article-settings_drop-i
+                            a.article-settings_drop-a(href='#')
+                                span.ico-users.ico-users__friend
+                                | Только друзьям
+                .article-settings_i
+                    a.article-settings_a.article-settings_a__delete.powertip(href='#')
+
+- articleSettings = {}
+- articleSettings.base = {}

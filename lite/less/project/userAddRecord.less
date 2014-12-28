@@ -147,9 +147,10 @@
         color: @color-gray-dark;
     }
     &_ico {
-        .inline-block();
-        vertical-align: middle;
+        &:extend(.ico-post-type);
         margin: 5px 32px;
+        /*.inline-block();
+        vertical-align: middle;
         width: 40px;
         padding-top: 42px;
         font-size: 11px;
@@ -158,11 +159,11 @@
         color: #b8b7b8;
         text-align: center;
         text-decoration: none;
-        background: url('@{path-img}/userAddRecord_ico.png') no-repeat;
+        background: url('@{path-img}/userAddRecord_ico.png') no-repeat;*/
     }
     &_ico.active,
     &_ico:hover {color: #000;}
-    &_ico__article {background-position: 0 0;}
+    &_ico__article {background-position: 0 0}
     &_ico__article.active,
     &_ico__article:hover {background-position: 0 -100px;}
     &_ico__photo {background-position: -100px 0;}

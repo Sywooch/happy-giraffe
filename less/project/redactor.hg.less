@@ -172,6 +172,7 @@
 	}
 	.redactor_editor:focus {
         margin-left: 60px !important;
+        padding: 10px 20px !important;
         border-color: #A0CEEE;
     }
 	.redactor-popup_b-photo {
@@ -202,9 +203,13 @@
 	.wysiwyg-toolbar {
 		position: relative;
 		float: left;
-		margin: 20px 0 0;
-		padding: 5px 10px 5px 0;
+		margin: 0;
+		padding: 5px 10px 5px;
+        .box-sizing(border-box);
 	}
+    .wysiwyg-toolbar-btn {
+        padding-top: 40px;
+    }
 
 }
 /* /wysiwyg-v */

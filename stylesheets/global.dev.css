@@ -767,6 +767,7 @@
 }
 .wysiwyg-v .redactor_editor:focus {
   margin-left: 60px !important;
+  padding: 10px 20px !important;
   border-color: #A0CEEE;
 }
 .wysiwyg-v .redactor-popup_b-photo {
@@ -801,8 +802,15 @@
 .wysiwyg-v .wysiwyg-toolbar {
   position: relative;
   float: left;
-  margin: 20px 0 0;
-  padding: 5px 10px 5px 0;
+  margin: 0;
+  padding: 5px 10px 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.wysiwyg-v .wysiwyg-toolbar-btn {
+  padding-top: 40px;
 }
 /* /wysiwyg-v */
 /* redactor-popup */
@@ -12339,6 +12347,88 @@ table.fr_recipe_tb td {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
 /* /popup-user-add-record */
+/* post-add-page */
+.post-add-page {
+  /*.b-settings-blue__article .b-settings-blue_head .w-400 {width: 580px !important;} */
+  /*.b-settings-blue__video {
+        padding: 20px 0;
+    }*/
+  /*.b-settings-blue_head {
+        width: auto;
+    }*/
+}
+.post-add-page .chzn-itx-simple .chzn-container-single .chzn-single {
+  border-color: #E0E1E2;
+}
+.post-add-page .chzn-itx-simple .chzn-container-single .chzn-single div b {
+  background: url('/lite/images/plugins/select-cus_arrow-b-gray.png') no-repeat 50% 50%;
+}
+.post-add-page .wysiwyg-blue .redactor_editor {
+  border-color: #E0E1E2;
+}
+.post-add-page .b-settings-blue {
+  border: none;
+  padding: 5px 35px;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.post-add-page .b-settings-blue_tale {
+  display: none;
+}
+.post-add-page .b-settings-blue_head {
+  width: auto;
+  margin: 0 0 20px;
+}
+.post-add-page .b-settings-blue_head .w-400 {
+  width: 100% !important;
+}
+.post-add-page .b-settings-blue_label {
+  display: none;
+  color: #666;
+}
+.post-add-page .b-settings-blue_row-desc {
+  color: #ccc;
+}
+.post-add-page .wysiwyg-v .redactor_editor {
+  width: auto;
+}
+.post-add-page .errorSummary {
+  margin: 15px 0;
+}
+.post-add-page .heading-xl {
+  margin: 15px 0 0 35px;
+}
+.post-add-page .heading-xl .user-add-record_ico {
+  margin: 0 5px 10px 0;
+}
+.post-add-page .b-add-img {
+  background-color: #fafafa;
+  border-color: #E0E1E2;
+  border-radius: 0;
+}
+.post-add-page .b-add-img:hover {
+  border-color: #ccc;
+}
+.post-add-page .b-add-img_i {
+  border-color: #E0E1E2;
+}
+.post-add-page .b-add-img_html5-tx {
+  color: #999;
+}
+.post-add-page .b-settings-blue_video {
+  width: 580px;
+  margin: 0 auto 15px;
+}
+.post-add-page .b-settings-blue_add-video {
+  /*border: 2px dashed #D6D6D6;*/
+  padding-left: 60px;
+  background: #fafafa url(/images/b-settings-blue_add-video.png) no-repeat 50% 0;
+}
+.post-add-page .privacy-select {
+  display: none;
+}
+/* /post-add-page */
 /* popup-transparent-close */
 .popup-transparent-close {
   position: absolute;
@@ -12617,8 +12707,8 @@ table.fr_recipe_tb td {
 .b-settings-blue_add-video .errorMessage {
   position: absolute;
   top: 150px;
-  left: 25px;
-  width: 540px;
+  left: 0;
+  width: 100%;
   text-align: center;
   font-size: 13px;
   color: #f86161;
@@ -12626,8 +12716,8 @@ table.fr_recipe_tb td {
 .b-settings-blue_add-video-load {
   position: absolute;
   top: 150px;
-  left: 25px;
-  width: 540px;
+  left: 0;
+  width: 100%;
   text-align: center;
   font-size: 14px;
   color: #b6b6b6;
@@ -12638,8 +12728,8 @@ table.fr_recipe_tb td {
 }
 .b-settings-blue_video-del {
   position: absolute;
-  top: -18px;
-  right: -22px;
+  top: -10px;
+  right: -12px;
 }
 .b-settings-blue_textarea {
   width: 100%;
@@ -12760,12 +12850,12 @@ table.fr_recipe_tb td {
   color: #98c1da;
 }
 .b-add-img__for-single {
-  background-image: url(/images/b-add-img__for-single.png);
+  background-image: url('/lite/images/base/cap-empty__addPhoto_img.png');
   background-position: 50% 110px;
   background-repeat: no-repeat;
 }
 .b-add-img__for-multi {
-  background-image: url(/images/b-add-img__for-multi.png);
+  background-image: url('/lite/images/base/cap-empty__addPhoto_img.png');
   background-position: 50% 100px;
   background-repeat: no-repeat;
 }
@@ -20044,7 +20134,7 @@ body #ya-site-form0 .ya-site-suggest-list {
   margin: 0 auto 47px;
 }
 .popup-sign_col .btn-success.btn-block {
-  margin-top: 15px;
+  margin: 5px 0 -10px;
 }
 .popup-sign_col__left {
   display: inline-block;

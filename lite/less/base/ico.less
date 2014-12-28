@@ -5,6 +5,7 @@
     margin: 0 5px;
     .img-retina('@{path-img}/ico/ico-lock-big.png'; '@{path-img}/ico/ico-lock-big-2x.png'; 35px; 45px);
 }
+.ico-arrow-d-white,
 .ico-arrow-d,
 .ico-arrow-r,
 .ico-arrow-l {
@@ -29,7 +30,6 @@
     
     &:hover {background-position: 0 -24px;}
 }
-.ico-close4:hover {background-position: 0 0;}
 
 ////////////////////////////////////////////////
 // ico-base спрайт
@@ -360,18 +360,22 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
 .ico-edit {
     .inline-block();
 }
-.ico-edit__s {
+/*.ico-edit__s {
     width: 15px;
     height: 15px;
     background: url('@{path-img}/ico/ico-edit-s.png') no-repeat;
 
     &:hover {background-position: 0 -50px;}
 }
+.ico-edit__xl {
+
+}
+.ico-edit__xl:hover {}
 .ico-edit__s-white {
     width: 15px;
     height: 15px;
     background: url('@{path-img}/ico/ico-edit-s-white.png') no-repeat;
-}
+}*/
 
 .ico-trash,
 .ico-photo-edit,
@@ -392,3 +396,52 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
 }
 
 //////////////////
+
+
+
+.ico-post-type {
+    .inline-block();
+    vertical-align: middle;
+    margin: 0;
+    width: 40px;
+    padding-top: 42px;
+    font-size: 11px;
+    line-height: 13px;
+    font-family: Tahoma, Arial, Verdana, sans-serif;
+    color: #b8b7b8;
+    text-align: center;
+    text-decoration: none;
+    background: url('@{path-img}/userAddRecord_ico.png') no-repeat;
+    
+
+    &.active,
+    a&:hover {color: #000;}
+    &__article {background-position: 0 0;}
+    &__article.active,
+    a&__article:hover {background-position: 0 -100px;}
+    &__photo {background-position: -100px 0;}
+    &__photo.active,
+    a&__photo:hover {background-position: -100px -100px;}
+    &__video {background-position: -200px 0;}
+    &__video.active,
+    a&__video:hover {background-position: -200px -100px;}
+    &__status {background-position: -300px 0;}
+    &__status.active,
+    a&__status:hover {background-position: -300px -100px;}
+    &__link {background-position: -500px 0;}
+    &__link.active,
+    a&__link:hover {background-position: -500px -100px;}
+    &__photo-add {background-position: -600px 0;}
+    &__photo-add.active,
+    a&__photo-add:hover {background-position: -600px -100px;}
+    &__album {background-position: -700px 0;}
+    &__album.active,
+    a&__album:hover {background-position: -700px -100px;}
+    &__question {
+        width: 50px;
+        margin-right: 10px;
+        background-position: -390px 0;
+    }
+    &__question.active,
+    a&__question:hover {background-position: -390px -100px;}
+}

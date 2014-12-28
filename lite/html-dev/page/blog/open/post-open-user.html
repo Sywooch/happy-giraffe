@@ -15,6 +15,7 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
   <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
@@ -194,11 +195,15 @@
                         <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
                       </div>
                     </div>
-                    <h1 class="b-article_t">Самое лучшее утро - просыпаюсь, а ты рядом</h1>
+                    <h1 class="b-article_t">
+                       
+                      Самое лучшее утро - просыпаюсь, а ты рядом
+                      <div class="redactor-panel"><a href="#" title="Самое интересное" class="ico-redactor ico-redactor__interest powertip"></a><a href="#" title="Блоги на главную" class="ico-redactor ico-redactor__blog powertip"></a><a href="#" title="Посты в соцсети" class="ico-redactor ico-redactor__social powertip active"></a><a href="#" title="Посты в рассылку" class="ico-redactor ico-redactor__mail powertip"></a></div>
+                    </h1>
                     <div class="b-article_in clearfix">
                       <div class="wysiwyg-content clearfix">
                         <p>Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
-                        <div class="b-article_in-img"><a href="#"><img alt="" src="/lite/images/example/w600-h415.jpg"></a></div>
+                        <div class="b-article_in-img b-article_in-img__l"><a href="#"><img alt="" src="/lite/images/example/w600-h415.jpg"></a></div>
                         <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
                         <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. </p>
                         <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
@@ -227,10 +232,7 @@
                         <p>Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
                       </div>
                     </div>
-                    <div class="like-control-hold">
-                      <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
-                      <!-- Блок редактирования статьи-->
-                      <!-- Поставить на родительский блок на .like-control-hold-->
+                    <div class="b-article_like clearfix">
                       <div class="article-settings">
                         <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
                         <div class="article-settings_hold display-b">
@@ -245,43 +247,71 @@
                           <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__delete powertip"></a></div>
                         </div>
                       </div>
-                      <div class="like-control like-control__line">
-                        <div class="like-control_hold"><a href="#" title="Нравится" class="like-control_i powertip">
-                            <div class="like-control_t">Мне нравится!</div>
-                            <div class="ico-action-hg ico-action-hg__like"></div>
-                            <div class="like-control_tx">865</div></a></div>
-                        <div class="like-control_hold"><a href="#" title="В избранное" class="like-control_i powertip">
-                            <div class="like-control_t">В закладки</div>
-                            <div class="ico-action-hg ico-action-hg__favorite"></div>
-                            <div class="like-control_tx">8634</div></a>
-                          <!-- .favorites-add-popup.favorites-add-popup__right.display-n
-                          .favorites-add-popup_t Добавить запись в избранное
-                          .favorites-add-popup_i.clearfix
-                              img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
-                              .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
-                          .favorites-add-popup_row
-                              label.favorites-add-popup_label(for='') Теги:
-                              span.favorites-add-popup_tag
-                                  a.favorites-add-popup_tag-a(href='') отношения
-                                  a.ico-close(href='#')
-                              span.favorites-add-popup_tag
-                                  a.favorites-add-popup_tag-a(href='') любовь
-                                  a.ico-close(href='#')
-                          .favorites-add-popup_row.margin-b10
-                              a.textdec-none(href='#')
-                                  span.ico-plus2.margin-r5
-                                  span.a-pseudo-gray.color-gray Добавить тег
-                          .favorites-add-popup_row
-                              label.favorites-add-popup_label(for='') Комментарий:
-                              .float-r.color-gray 0/150
-                          .favorites-add-popup_row
-                              textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
-                          .favorites-add-popup_row.textalign-c.margin-t10
-                              a.btn-secondary.btn-s(href='#') Отменить
-                              a.btn-success.btn-s(href='#') Добавить
-                          
-                          
-                          -->
+                      <div class="like-control-hold">
+                        <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
+                        <!-- Блок редактирования статьи-->
+                        <!-- Поставить на родительский блок на .like-control-hold-->
+                        <!--.article-settings
+                        .article-settings_i
+                                a.article-settings_a.article-settings_a__settings.powertip(href='#')
+                            .article-settings_hold.display-b
+                                .article-settings_i
+                                    a.article-settings_a.article-settings_a__pin.powertip(href='#')
+                                .article-settings_i
+                                    a.article-settings_a.article-settings_a__edit.powertip(href='#')
+                                .article-settings_i
+                                    a.ico-users.ico-users__friend.active.powertip(href='javascript:void(0)')
+                                    .article-settings_drop.display-b
+                                        .article-settings_drop-i
+                                            a.article-settings_drop-a(href='#')
+                                                span.ico-users.ico-users__all
+                                                | Показывать всем
+                                        .article-settings_drop-i
+                                            a.article-settings_drop-a(href='#')
+                                                span.ico-users.ico-users__friend
+                                                | Только друзьям
+                                .article-settings_i
+                                    a.article-settings_a.article-settings_a__delete.powertip(href='#')
+                        
+                        -->
+                        <div class="like-control like-control__line">
+                          <div class="like-control_hold"><a href="#" title="Нравится" class="like-control_i powertip">
+                              <div class="like-control_t">Мне нравится!</div>
+                              <div class="ico-action-hg ico-action-hg__like"></div>
+                              <div class="like-control_tx">865</div></a></div>
+                          <div class="like-control_hold"><a href="#" title="В избранное" class="like-control_i powertip">
+                              <div class="like-control_t">В закладки</div>
+                              <div class="ico-action-hg ico-action-hg__favorite"></div>
+                              <div class="like-control_tx">8634</div></a>
+                            <!-- .favorites-add-popup.favorites-add-popup__right.display-n
+                            .favorites-add-popup_t Добавить запись в избранное
+                            .favorites-add-popup_i.clearfix
+                                img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
+                                .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
+                            .favorites-add-popup_row
+                                label.favorites-add-popup_label(for='') Теги:
+                                span.favorites-add-popup_tag
+                                    a.favorites-add-popup_tag-a(href='') отношения
+                                    a.ico-close(href='#')
+                                span.favorites-add-popup_tag
+                                    a.favorites-add-popup_tag-a(href='') любовь
+                                    a.ico-close(href='#')
+                            .favorites-add-popup_row.margin-b10
+                                a.textdec-none(href='#')
+                                    span.ico-plus2.margin-r5
+                                    span.a-pseudo-gray.color-gray Добавить тег
+                            .favorites-add-popup_row
+                                label.favorites-add-popup_label(for='') Комментарий:
+                                .float-r.color-gray 0/150
+                            .favorites-add-popup_row
+                                textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
+                            .favorites-add-popup_row.textalign-c.margin-t10
+                                a.btn-secondary.btn-s(href='#') Отменить
+                                a.btn-success.btn-s(href='#') Добавить
+                            
+                            
+                            -->
+                          </div>
                         </div>
                       </div>
                     </div>

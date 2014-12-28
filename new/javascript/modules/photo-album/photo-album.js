@@ -27,12 +27,14 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.figureNewImage = function figureNewImage(val) {
                 if (this.photoAlbum.photoCollection().presets === undefined) {
                     PresetManager.presets = this.presets;
-                }
-                else {
+                } else {
                     PresetManager.presets = this.photoAlbum.photoCollection().presets;
                 }
                 for (var i=0; i < val.length; i++) {
                     if(val[i].photo().presetHeight() === undefined || val[i].photo().presetWidth() === undefined) {
+                        if (this.photoAlbum.photoCollection().cover() === undefined && i === 0) {
+                            this.photoAlbum.photoCollection().cover(val[i]);
+                        }
                         val[i].photo().presetWidth(PresetManager.getWidth(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
                         val[i].photo().presetHeight(PresetManager.getHeight(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
                     }

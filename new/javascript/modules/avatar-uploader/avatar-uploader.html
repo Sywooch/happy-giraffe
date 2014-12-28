@@ -6,6 +6,7 @@
         </div>
         <!-- ko stopBinding: true -->
         <div id="photo-tab-computer">
+            <div class="popup-add_in">
             <div class="popup-add_frame">
                 <!-- ko if: photo() === null -->
                 <div class="popup-add_cap">
@@ -23,26 +24,7 @@
                     <!-- Блок обрезки аватара-->
                     <div class="popup-add_ava-crop">
                         <!-- ko if: photo().status() === photo().STATUS_SUCCESS -->
-                            <img id="jcrop_target" src="" data-bind="src: photo().originalUrl()">
-                            <script src="/lite/javascript/jquery.Jcrop.min.js"></script>
-                            <script>
-                                jQuery(function($){
-                                    var api;
-                                    $('#jcrop_target').Jcrop({
-                                        // start off with jcrop-light class
-                                        bgOpacity: 0.3,
-                                        bgColor: '#fff',
-                                        aspectRatio: 1,
-                                        boxWidth: 450,
-                                        addClass: 'jcrop-circle'
-                                    },function(){
-                                        api = this;
-                                        api.setSelect([50,50,400,400]);
-                                        api.setOptions({ bgFade: true });
-                                        api.ui.selection.addClass('jcrop-selection');
-                                    });
-                                });
-                            </script>
+                            <img id="jcrop_target" src="http://placecreature.com/dog/1450/950">
                         <!-- /ko -->
                     </div>
                     <div class="popup-add_ava-load">
@@ -83,10 +65,28 @@
                     <!--</div>-->
                 <!--</div>-->
             </div>
+            </div>
             <div class="popup-add_footer" data-bind="visible: photo() !== null">
                 <div class="textalign-c"><button class="btn btn-success" data-bind="disable: loading, disable: successPhotos().length === 0, click: add">Добавить</button></div>
             </div>
         </div>
         <!-- /ko -->
+    </div>
+</div>
+<div id="ava-edit" class="popup popup-add popup-add__photos">
+    <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+    <div class="popup-add_hold">
+        <div class="popup-add_top clearfix textalign-c">
+            <div class="popup-add_t">Добавить главное фото</div>
+        </div>
+        <div class="popup-add_in">
+            <div class="popup-add_frame">
+                <div class="popup-add_ava-upload">
+                    <div class="popup-add_ava-crop">
+                        <img id="jcrop_target" src="http://placecreature.com/dog/1450/950" alt=""/>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

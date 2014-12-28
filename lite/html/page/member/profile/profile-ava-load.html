@@ -308,17 +308,17 @@
                   jQuery(function($){
                       var api;
                       $('#jcrop_target').Jcrop({
-                        // start off with jcrop-light class
-                        bgOpacity: 0.3,
-                        bgColor: '#fff',
-                        aspectRatio: 1,
-                        boxWidth: 450,
-                        addClass: 'jcrop-circle'
-                      },function(){
-                        api = this;
-                        api.setSelect([50,50,400,400]);
-                        api.setOptions({ bgFade: true });
-                        api.ui.selection.addClass('jcrop-selection');
+                            // start off with jcrop-light class
+                            bgOpacity: 0.3,
+                            bgColor: '#fff',
+                            aspectRatio: 1,
+                            boxWidth: 450,
+                            addClass: 'jcrop-circle'
+                          },function(){
+                            api = this;
+                            api.setSelect([50,50,400,400]);
+                            api.setOptions({ bgFade: true });
+                            api.ui.selection.addClass('jcrop-selection');
                       });
                   });
                 </script>

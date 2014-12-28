@@ -7,7 +7,8 @@
         <!-- ko stopBinding: true -->
         <div id="photo-tab-computer">
             <div class="popup-add_frame">
-                <div class="popup-add_cap" data-bind="if: photo() === null">
+                <!-- ko if: photo() === null -->
+                <div class="popup-add_cap">
                     <div class="cap-empty cap-empty__addPhoto">
                         <div class="cap-empty_hold">
                             <div class="cap-empty_img"></div>
@@ -17,6 +18,7 @@
                         <div class="verticalalign-m-help"></div>
                     </div>
                 </div>
+                <!-- /ko -->
                 <div class="popup-add_ava-upload" data-bind="if: photo() !== null">
                     <!-- Блок обрезки аватара-->
                     <div class="popup-add_ava-crop">

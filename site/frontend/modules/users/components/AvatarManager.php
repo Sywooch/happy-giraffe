@@ -58,7 +58,7 @@ class AvatarManager
         return false;
     }
 
-    public static function getAvatar(User $user, $width)
+    public static function getAvatar(\User $user, $width)
     {
         if ($user->avatarId === null) {
             return null;

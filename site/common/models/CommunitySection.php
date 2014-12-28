@@ -12,6 +12,7 @@
  */
 class CommunitySection extends HActiveRecord
 {
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -61,7 +62,7 @@ class CommunitySection extends HActiveRecord
     public function getUrl()
     {
         return Yii::app()->createUrl('community/default/section', array(
-            'section_id' => $this->id,
+                    'section_id' => $this->id,
         ));
     }
 
@@ -71,9 +72,15 @@ class CommunitySection extends HActiveRecord
     public function getClubIds()
     {
         $r = array();
-        foreach($this->clubs as $club)
+        foreach ($this->clubs as $club)
             $r [] = $club->id;
 
         return $r;
     }
+
+    public function toLabel()
+    {
+        return 'Секция: ' . $this->title;
+    }
+
 }

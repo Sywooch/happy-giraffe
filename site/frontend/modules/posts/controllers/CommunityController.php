@@ -31,9 +31,8 @@ class CommunityController extends PostController
 
     public function getRubric()
     {
-        $id = \Yii::app()->request->getParam('rubric_id');
-        if (is_null($this->_rubric) && !is_null($id)) {
-            $this->_rubric = \CommunityRubric::model()->findByPk($id);
+        if (is_null($this->_rubric)) {
+            $this->_rubric = $this->post->rubric;
         }
 
         return $this->_rubric;

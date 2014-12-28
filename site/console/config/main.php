@@ -46,6 +46,9 @@ return array(
         'familyMigrate' => array(
             'class' => 'site\frontend\modules\family\migration\commands\MigrateCommand',
         ),
+        'checkLabels' => array(
+            'class' => 'site\frontend\modules\clubs\commands\CheckLabels',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

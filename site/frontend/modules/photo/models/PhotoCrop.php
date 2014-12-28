@@ -110,11 +110,11 @@ class PhotoCrop extends \CActiveRecord implements \IHToJSON
     public function toJSON()
     {
         return array(
-            'id' => $this->id,
-            'x' => $this->x,
-            'y' => $this->y,
-            'w' => $this->w,
-            'h' => $this->h,
+            'id' => (int) $this->id,
+            'x' => (int) $this->x,
+            'y' => (int) $this->y,
+            'w' => (int) $this->w,
+            'h' => (int) $this->h,
             'photo' => $this->photo,
             'fsName' => $this->fsName,
         );

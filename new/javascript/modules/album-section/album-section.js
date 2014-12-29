@@ -23,6 +23,8 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'ph
         };
         if (this.userId !== null) {
             this.photoAlbum.get(this.userId, false, this.getPhotoAlbum.bind(this));
+        } else {
+            this.loaded(true);
         }
     }
     return {

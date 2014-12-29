@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\signup\controllers;
+use site\frontend\modules\signup\components\SafeUserIdentity;
 use site\frontend\modules\signup\components\UserIdentity;
 use site\frontend\modules\signup\models\CaptchaForm;
 use site\frontend\modules\signup\models\LoginForm;
@@ -16,11 +17,14 @@ class ApiController extends \site\frontend\components\api\ApiController
 {
     public function actionRegister(array $attributes)
     {
+        // Отключим слейвы, чтобы UserIdentity нашла пользователя
+        \Yii::app()->db->enableSlave = false;
+
         $form = new RegisterForm();
         $form->attributes = $attributes;
         $this->success = $form->save();
         if ($this->success) {
-            $identity = new UserIdentity($form->user->email, $form->password);
+            $identity = new UserIdentity($form->email, $form->password);
             if ($identity->authenticate()) {
                 \Yii::app()->user->login($identity);
             }

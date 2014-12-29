@@ -59,7 +59,7 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
         },
         checkRights: function checkRights(externalId) {
             if (User.userId !== null) {
-                if (parseInt(User.userId) === externalId) {
+                if (parseInt(User.userId) === parseInt(externalId)) {
                     return true;
                 }
             }

@@ -46,8 +46,6 @@ class Content extends \CActiveRecord implements \IHToJSON
     protected $labelDelimiter = '|';
     protected $_relatedModels = array();
     protected $_user = null;
-    // запомним соответствие тег-id
-    protected static $_tags = array();
 
     /**
      * @return string the associated database table name
@@ -396,37 +394,34 @@ class Content extends \CActiveRecord implements \IHToJSON
         return $this;
     }
 
+    /**
+     * Поиск по id тегов
+     * 
+     * @param type $tags
+     * @return \site\frontend\modules\posts\models\Content
+     */
     public function byTags($tags)
     {
-        $tagIds = array();
         $criteria = $this->getDbCriteria();
-
-        // поищем теги в кеше
-        foreach ($tags as $k => $tag) {
-            if (isset(self::$_tags[$tag])) {
-                $tagIds[] = self::$_tags[$tag];
-                unset($tags[$k]);
-            }
-        }
-
-        if (!empty($tags)) {
-            // Спросим id в базе
-            $labelModels = \site\frontend\modules\posts\models\Label::model()->byTags($tags)->findAll();
-            foreach ($labelModels as $label) {
-                // Запомним и добавим к списку
-                self::$_tags[$label['text']] = $label->id;
-                $tagIds[] = $label->id;
-            }
-        }
-
         $criteria->with[] = 'tagModels';
         $criteria->together = true;
-        $criteria->addInCondition('tagModels.labelId', $tagIds);
+        $criteria->addInCondition('tagModels.labelId', $tags);
         //$criteria->select = 't.* , count(tagModelss.labelId) as c';
         $criteria->group = 't.id';
-        $criteria->having = 'count(tagModels.labelId) = '. count($tagIds);
+        $criteria->having = 'count(tagModels.labelId) = ' . count($tags);
 
         return $this;
+    }
+
+    /**
+     * Поиск по текстовым "ярлыкам"
+     * 
+     * @param type $labels
+     * @return type
+     */
+    public function byLabels($labels)
+    {
+        return $this->byTags(\site\frontend\modules\posts\models\Label::getIdsByLabels($labels));
     }
 
     public function byEntityClass($entity)

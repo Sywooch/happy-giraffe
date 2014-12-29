@@ -8,5 +8,11 @@ $this->breadcrumbs = array(
     'Блог' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $this->user->id)),
     $this->post->title,
 );
-$this->renderPartial('site.frontend.modules.posts.views.post._view');
 ?>
+<div class="b-main_cont">
+    <div class="b-main_col-hold clearfix">
+        <?php
+        $this->renderPartial('site.frontend.modules.posts.views.post._view');
+        ?>
+    </div>
+</div>

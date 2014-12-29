@@ -32,9 +32,11 @@ class CommunityController extends PostController
     public function getRubric()
     {
         if (is_null($this->_rubric)) {
-            $this->_rubric = $this->post->rubric;
+            $this->_rubric = \CommunityRubric::model()->findByAttributes(array(
+                'label_id' => \site\frontend\modules\posts\models\Label::getIdsByLabels($this->getTags()),
+            ));
         }
-
+        
         return $this->_rubric;
     }
 
@@ -48,21 +50,7 @@ class CommunityController extends PostController
 
     public function getTags()
     {
-        $tags = array();
-        $rubric = $this->getRubric();
-        while ($rubric) {
-            $tags[] = 'Рубрика: ' . $rubric->title;
-            $rubric = $rubric->parent;
-        }
-        if ($this->getRubric()->community) {
-            $tags[] = 'Форум: ' . $this->getRubric()->community->title;
-            if ($this->getRubric()->community->club)
-                $tags[] = 'Клуб: ' . $this->getRubric()->community->club->title;
-            if ($this->getRubric()->community->club && $this->getRubric()->community->club->section)
-                $tags[] = 'Секция: ' . $this->getRubric()->community->club->section->title;
-        }
-
-        return $tags;
+        return $this->post->labelsArray;
     }
 
     public function getLeftPost()

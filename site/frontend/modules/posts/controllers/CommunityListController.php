@@ -55,20 +55,16 @@ class CommunityListController extends ListController
             $tags[] = 'Рубрика: ' . $rubric->title;
             $rubric = $rubric->parent;
         }
-        if ($this->getRubric()->community) {
-            $tags[] = 'Форум: ' . $this->getRubric()->community->title;
-            if ($this->getRubric()->community->club)
-                $tags[] = 'Клуб: ' . $this->getRubric()->community->club->title;
-            if ($this->getRubric()->community->club && $this->getRubric()->community->club->section)
-                $tags[] = 'Секция: ' . $this->getRubric()->community->club->section->title;
-        }
+        $tags[] = 'Форум: ' . $this->forum->title;
+        $tags[] = 'Клуб: ' . $this->club->title;
+        $tags[] = 'Секция: ' . $this->club->section->title;
 
         return $tags;
     }
 
     public function getListDataProvider()
     {
-        return new \CActiveDataProvider(Content::model()->byService('oldCommunity')->byTags($this->tags)->orderDesc(), array(
+        return new \CActiveDataProvider(Content::model()->byService('oldCommunity')->byLabels($this->tags)->orderDesc(), array(
             'pagination' => array(
                 'pageSize' => 10,
                 'pageVar' => 'CommunityContent_page',

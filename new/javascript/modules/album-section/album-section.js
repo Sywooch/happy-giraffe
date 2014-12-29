@@ -17,8 +17,8 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'ph
                 album = this.photoAlbum.findById(this.randomAlbum, passedData.data.albums);
                 if (album) {
                     this.photoAlbum.init(album);
-                    this.loaded(true);
                 }
+                this.loaded(true);
             }
         };
         if (this.userId !== null) {

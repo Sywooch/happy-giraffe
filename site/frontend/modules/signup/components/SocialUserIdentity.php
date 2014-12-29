@@ -35,7 +35,7 @@ class SocialUserIdentity extends \CBaseUserIdentity
                 'with' => 'user',
                 'condition' => 'user.deleted = 0',
             ));
-            if ($serviceModel === null) {
+            if ($serviceModel === null || $serviceModel->user->status == \User::STATUS_INACTIVE) {
                 $this->errorCode = self::ERROR_NOT_ASSOCIATED;
                 $this->errorMessage = 'Этот социальный аккаунт не привязан';
             }

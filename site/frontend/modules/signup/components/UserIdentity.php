@@ -15,7 +15,7 @@ class UserIdentity extends \CUserIdentity
     {
         /** @var \User $model */
         $model = \User::model()->active()->findByAttributes(array('email' => $this->username));
-        if ($model === null) {
+        if ($model === null || $model->status == \User::STATUS_INACTIVE) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
             $this->errorMessage = 'Пользователя с таким e-mail не существует';
         }

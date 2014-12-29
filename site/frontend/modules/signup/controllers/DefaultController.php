@@ -18,14 +18,14 @@ class DefaultController extends \HController
                 'mode' => \CaptchaExtendedAction::MODE_WORDS,
                 'testLimit' => 0,
             ),
-            'socialRegister' => array(
-                'class' => 'site\frontend\modules\signup\components\SignupSocialAction',
-                'fromLogin' => false,
-            ),
-            'socialLogin' => array(
-                'class' => 'site\frontend\modules\signup\components\SignupSocialAction',
-                'fromLogin' => true,
-            ),
+//            'socialRegister' => array(
+//                'class' => 'site\frontend\modules\signup\components\SignupSocialAction',
+//                'fromLogin' => false,
+//            ),
+//            'socialLogin' => array(
+//                'class' => 'site\frontend\modules\signup\components\SignupSocialAction',
+//                'fromLogin' => true,
+//            ),
         );
     }
 

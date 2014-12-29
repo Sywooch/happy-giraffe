@@ -21,7 +21,11 @@ class Command extends \CConsoleCommand
     {
         $userId = $job->workload();
         $user = User::model()->findByPk($userId);
-        Manager::convertAvatar($user);
+        try {
+            Manager::convertAvatar($user);
+        } catch (\Exception $e) {
+            echo $user->id . "\n";
+        }
     }
 
     public function actionAvatarSingle($userId)
@@ -37,7 +41,7 @@ class Command extends \CConsoleCommand
                 'condition' => 'avatarId IS NULL',
                 'join' => 'JOIN album__photos p ON p.id = t.avatar_id JOIN user__avatars a ON a.avatar_id = p.id',
                 'order' => 't.id DESC',
-            )
+            ),
         ));
         $iterator = new \CDataProviderIterator($dp, 100);
         $total = $dp->totalItemCount;
@@ -50,12 +54,15 @@ class Command extends \CConsoleCommand
     public function actionFillQueue()
     {
         $dp = new \CActiveDataProvider('site\frontend\modules\users\models\User', array(
-            'criteria' => 'id ASC',
+            'criteria' => array(
+                'condition' => 'avatarId IS NULL',
+                'join' => 'JOIN album__photos p ON p.id = t.avatar_id JOIN user__avatars a ON a.avatar_id = p.id',
+                'order' => 't.id DESC',
+            ),
         ));
         $iterator = new \CDataProviderIterator($dp, 100);
         foreach ($iterator as $user) {
-            \Yii::app()->gearman->client()->doBackground('migrateUser', $user->id);
+            \Yii::app()->gearman->client()->doBackground('convertAvatar', $user->id);
         }
     }
-
 } 

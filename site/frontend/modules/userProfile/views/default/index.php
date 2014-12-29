@@ -39,7 +39,7 @@ $this->breadcrumbs[] = $this->widget('Avatar', array(
             <?php else: ?>
                 <?php if ($user->id == Yii::app()->user->id): ?>
                     <div class="profile-cap_hold profile-cap_hold__article">
-                        <div class="profile-cap_tx">У вас пока нет активности на сайте, поделитесь чем-нибудь интересным с пользователями Веселого Жирафа.<br><a href="/blog/form/type1/?useAMD=1" class="fancy">Добавить запись</a></div>
+                        <div class="profile-cap_tx">У вас пока нет активности на сайте, поделитесь чем-нибудь интересным с пользователями Веселого Жирафа.<br><a href="<?= $this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_POST, 'useAMD' => true)) ?>" class="fancy">Добавить запись</a></div>
                     </div>
                 <?php endif; ?>
                 <div class="cap-empty cap-empty__user-profile">

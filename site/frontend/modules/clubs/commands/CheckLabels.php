@@ -32,11 +32,42 @@ class CheckLabels extends \CConsoleCommand
                 }, $objects);
                 foreach ($labels as $label) {
                     $exist = \site\frontend\modules\posts\models\Label::model()->exists('text = :text', array(':text' => $label));
-                    if(!$exist) {
+                    if (!$exist) {
                         var_dump($label);
                     }
                 }
             }
+        }
+    }
+
+    public function actionFixRubrics($type = 'all')
+    {
+        $criteria = new \CDbCriteria();
+        //$criteria->select = 'distinct(`title`) as title';
+        $criteria->addCondition('label_id IS NULL');
+        if ($type == 'all') {
+            // nothing
+        } elseif ($type == 'clubs') {
+            $criteria->addCondition('community_id IS NOT NULL');
+        } elseif ($type == 'blogs') {
+            $criteria->addCondition('community_id IS NULL');
+        } else {
+            echo 'err';
+            die();
+        }
+
+        $dataProvider = new \CActiveDataProvider(\CommunityRubric::model(), array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 1000,
+            ),
+        ));
+
+        $iterator = new \CDataProviderIterator($dataProvider);
+
+        foreach ($iterator as $model) {
+            $model->getLabelId();
+            //echo '.';
         }
     }
 

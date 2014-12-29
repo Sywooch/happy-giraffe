@@ -10,6 +10,7 @@ $this->breadcrumbs = array(
     $this->club->section->title => $this->club->section->getUrl(),
     $this->club->title => $this->club->getUrl(),
     (isset($this->club->communities) && count($this->club->communities) > 1) ? $this->forum->title : 'Форум' => $this->forum->getUrl(),
+    $this->getRubric()->title => $this->getRubric()->url,
     $this->post->title,
 );
 

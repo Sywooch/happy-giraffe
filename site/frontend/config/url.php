@@ -236,7 +236,15 @@ return array(
             'falseRoute' => 'community/default/view',
         ),
 
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
+            'pattern' => 'community/<forum_id:\d+>/forum/',
+            'trueRoute' => 'posts/communityList/index',
+            'falseRoute' => 'community/default/forum',
+        ),
         'community/<forum_id:\d+>/forum/' => 'community/default/forum',
+        
         'community/default/save' => 'community/default/save',
         'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
         'community/default/photoWidget' => 'community/default/photoWidget',

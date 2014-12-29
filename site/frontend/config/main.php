@@ -149,6 +149,9 @@ return array(
         'archive' => array(
            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),
+        'som' => array(
+            'class' => 'site\frontend\modules\som\SomModule',
+        ),
         'rss' => array(
             'class' => 'site\frontend\modules\rss\RssModule',
         ),
@@ -274,7 +277,7 @@ return array(
         
         /* компонент для кеширования по зависимости, без удаления записей */
         'dbCache' => array(
-            'class' => 'CDbCache',
+            'class' => 'site.frontend.components.InfinityCache',
             'connectionID' => 'db',
             // сборщик мусора не нужен, храним по зависимости, вечно
             'gCProbability' => 0,

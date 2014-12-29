@@ -1,7 +1,7 @@
 <?php
 $this->beginContent('//layouts/lite/main');
-/*
-if (!Yii::app()->user->isGuest && $this->user->id == Yii::app()->user->id) {
+
+/*if (!Yii::app()->user->isGuest) {
     ?>
     <!-- userAddRecord-->
     <div class="userAddRecord clearfix  userAddRecord__blog">

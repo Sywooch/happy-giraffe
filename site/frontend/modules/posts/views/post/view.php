@@ -12,7 +12,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
         /** @todo Исправить класс при конвертации */
         'entity' => 'BlogContent', //$this->post->originEntity,
         'entity_id' => $this->post->originEntityId,
-    )));
+        )));
 ?>
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">
@@ -30,30 +30,33 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                             <?= HHtml::timeTag($this->post, array('class' => 'tx-date'), null); ?>
                         </div>
                         <?php /* <div class="icons-meta"><a href="<?= $this->post->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
-                            <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->incViewsByPath($this->post->parsedUrl) ?></span></div>
-                        </div> */ ?>
+                          <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->incViewsByPath($this->post->parsedUrl) ?></span></div>
+                          </div> */ ?>
                     </div>
                     <?php
-                    if (!isset($this->post->templateObject->data['type']) || $this->post->templateObject->data['type'] !== 'status') {
+                    if (!$this->post->templateObject->getAttr('hideTitle', false)) {
                         ?>
                         <h1 class="b-article_t"><?= $this->post->title ?></h1>
                         <?php
                     }
+                    if (Yii::app()->user->checkAccess('moderator')) {
+                        Yii::app()->clientScript->registerAMD('photo-albums', array('kow'));
+                        ?>
+                        <redactor-panel params="entity: '<?= $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
+                        <?php
+                    }
                     ?>
                     <div class="b-article_in clearfix">
-                        <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
+                        <?php if ($this->post->templateObject->getAttr('noWysiwyg', false)) { ?>
+                            <?= $this->post->html ?>
+                        <?php } else { ?>
+                            <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
+                        <?php } ?>
                         <div class="like-control-hold">
                             <?php
-                            if ($this->post->authorId == Yii::app()->user->id) {
+                            if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
                                 ?>
-                                <div class="article-settings">
-                                    <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
-                                    <div class="article-settings_hold display-b">
-                                        <!--<div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>-->
-                                        <div class="article-settings_i"><a href="<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>" class="article-settings_a article-settings_a__edit powertip"></a></div>
-                                        <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__delete powertip"></a></div>
-                                    </div>
-                                </div>
+                                <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
                                 <?php
                             }
                             ?>
@@ -136,11 +139,11 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <!-- ________________________AdFox Asynchronous code START__________________________ -->
                 <script type="text/javascript">
                     <!--
-                    if (typeof(pr) == 'undefined') {
+                    if (typeof (pr) == 'undefined') {
                         var pr = Math.floor(Math.random() * 1000000);
                     }
-                    if (typeof(document.referrer) != 'undefined') {
-                        if (typeof(afReferrer) == 'undefined') {
+                    if (typeof (document.referrer) != 'undefined') {
+                        if (typeof (afReferrer) == 'undefined') {
                             afReferrer = escape(document.referrer);
                         }
                     } else {

@@ -17,12 +17,14 @@ class ApiController extends \site\frontend\components\api\ApiController
 {
     public function actionRegister(array $attributes)
     {
+        // Отключим слейвы, чтобы UserIdentity нашла пользователя
+        \Yii::app()->db->enableSlave = false;
+
         $form = new RegisterForm();
         $form->attributes = $attributes;
         $this->success = $form->save();
         if ($this->success) {
-            sleep(1);
-            $identity = new SafeUserIdentity($form->user);
+            $identity = new UserIdentity($form->email, $form->password);
             if ($identity->authenticate()) {
                 \Yii::app()->user->login($identity);
             }

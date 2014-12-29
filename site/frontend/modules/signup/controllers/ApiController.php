@@ -17,8 +17,10 @@ class ApiController extends \site\frontend\components\api\ApiController
 {
     public function actionRegister(array $attributes)
     {
-        // Отключим слейвы, чтобы UserIdentity нашла пользователя
-        \Yii::app()->db->enableSlave = false;
+        if (\Yii::app()->db instanceof \DbConnectionMan) {
+            // Отключим слейвы, чтобы UserIdentity нашла пользователя
+            \Yii::app()->db->enableSlave = false;
+        }
 
         $form = new RegisterForm();
         $form->attributes = $attributes;

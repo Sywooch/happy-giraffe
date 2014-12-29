@@ -288,6 +288,7 @@ module.exports = function(grunt){
             /.ico-social-hold+/,
             /.ico-club+/,
             /.i-club+/,
+            /.b-section+/,
 
           ],
         },
@@ -334,6 +335,7 @@ module.exports = function(grunt){
             /.ico-social-hold+/,
             /.ico-club+/,
             /.i-club+/,
+            /.b-section+/,
           ],
         },
         src: [
@@ -369,6 +371,7 @@ module.exports = function(grunt){
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.b-section+/,
           ],
         },
         src: [
@@ -399,6 +402,7 @@ module.exports = function(grunt){
             /.cook-choose .wysiwyg-content+/,
 
 
+            /.b-section+/,
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
@@ -434,6 +438,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header-banner+/,
             /.header_+/,
+            /.b-section+/,
 
             /.ico-family+/,
             /.fast-articles3+/,
@@ -478,6 +483,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.ico-family+/,
+            /.b-section+/,
             
             /.fast-articles3+/,
             /.body+/,

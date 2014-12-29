@@ -242,6 +242,7 @@ class Content extends \CActiveRecord implements \IHToJSON
             }
         }
         $ids = array();
+
         foreach ($labels as $label) {
             $model = Label::model()->findByAttributes(array('text' => $label));
             if (!$model) {
@@ -420,9 +421,10 @@ class Content extends \CActiveRecord implements \IHToJSON
 
         $criteria->with[] = 'tagModels';
         $criteria->together = true;
-        foreach ($tagIds as $tagId) {
-            $criteria->addColumnCondition(array('tagModels.labelId' => $tagId));
-        }
+        $criteria->addInCondition('tagModels.labelId', $tagIds);
+        //$criteria->select = 't.* , count(tagModelss.labelId) as c';
+        $criteria->group = 't.id';
+        $criteria->having = 'count(tagModels.labelId) = '. count($tagIds);
 
         return $this;
     }

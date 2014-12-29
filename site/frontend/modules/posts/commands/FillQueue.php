@@ -50,7 +50,51 @@ class FillQueue extends \CConsoleCommand
         }
         echo "\ntotal " . $count . " items\n";
     }
-    
+
+    public function actionCommunity($id)
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->with[] = 'rubric';
+        $criteria->together = true;
+        $criteria->addColumnCondition(array('rubric.community_id' => $id));
+        $dataProvider = new \CActiveDataProvider(\CommunityContent::model(), array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
+        ));
+
+        $iterator = new \CDataProviderIterator($dataProvider);
+        $count = 0;
+        foreach ($iterator as $model) {
+            $model->addTaskToConvert();
+            $count++;
+            echo '.';
+        }
+        echo "\ntotal " . $count . " items\n";
+    }
+
+    public function actionRubric($id)
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->addColumnCondition(array('rubric_id' => $id));
+        $dataProvider = new \CActiveDataProvider(\CommunityContent::model(), array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
+        ));
+
+        $iterator = new \CDataProviderIterator($dataProvider);
+        $count = 0;
+        foreach ($iterator as $model) {
+            $model->addTaskToConvert();
+            $count++;
+            echo '.';
+        }
+        echo "\ntotal " . $count . " items\n";
+    }
+
     public function actionRecipe()
     {
         $criteria = new \CDbCriteria();

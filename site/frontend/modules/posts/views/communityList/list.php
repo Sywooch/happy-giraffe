@@ -12,7 +12,7 @@ $this->breadcrumbs = array(
         <?php
         $this->widget('LiteListView', array(
             'dataProvider' => $this->listDataProvider,
-            'itemView' => '_view',
+            'itemView' => 'site.frontend.modules.posts.views.list._view',
             'tagName' => 'div',
             'htmlOptions' => array(
                 'class' => 'b-main_col-article'

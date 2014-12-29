@@ -1,55 +1,73 @@
 <!-- ko stopBinding: true -->
         <div id="photo-tab-computer">
-            <!-- ko if: photo() === null -->
-                <div id="ava-load-first" class="popup popup-add popup-add__photos">
-                    <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
-                    <div class="popup-add_hold">
-                        <div class="popup-add_top clearfix textalign-c">
-                            <div class="popup-add_t">Добавить главное фото</div>
-                        </div>
-                            <div class="popup-add_in">
-                                <div class="popup-add_frame">
-                                    <div class="popup-add_cap">
-                                        <div class="cap-empty cap-empty__addPhoto">
-                                            <div class="cap-empty_hold">
-                                                <div class="cap-empty_img"></div>
-                                                <div class="cap-empty_t">Выберите файл с компьютера</div>
-                                                <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' name="image" data-bind="fileUpload: fileUploadSettings" accept="image/gif, image/jpeg, image/png"></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 8 Мб.</div></div>
+            <!-- ko if: loaded() === true -->
+                <!-- ko if: photo() === null -->
+                    <div id="ava-load-first" class="popup popup-add popup-add__photos">
+                        <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+                        <div class="popup-add_hold">
+                            <div class="popup-add_top clearfix textalign-c">
+                                <div class="popup-add_t">Добавить главное фото</div>
+                            </div>
+                                <div class="popup-add_in">
+                                    <div class="popup-add_frame">
+                                        <div class="popup-add_cap">
+                                            <div class="cap-empty cap-empty__addPhoto">
+                                                <div class="cap-empty_hold">
+                                                    <div class="cap-empty_img"></div>
+                                                    <div class="cap-empty_t">Выберите файл с компьютера</div>
+                                                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' name="image" data-bind="fileUpload: fileUploadSettings" accept="image/gif, image/jpeg, image/png"></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 8 Мб.</div></div>
+                                                </div>
+                                                <div class="verticalalign-m-help"></div>
                                             </div>
-                                            <div class="verticalalign-m-help"></div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                    </div>
-                </div>
-            <!-- /ko -->
-                <div id="ava-edit" class="popup popup-add popup-add__photos" data-bind="visible: photo() !== null">
-                    <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
-                    <div class="popup-add_hold">
-                        <div class="popup-add_top clearfix textalign-c">
-                            <div class="popup-add_t">Добавить главное фото</div>
                         </div>
-                        <div class="popup-add_in">
-                            <div class="popup-add_frame">
-                                <!-- ko if: photo() !== null -->
-                                <div class="popup-add_ava-upload">
-                                    <!-- ko if: photo().status() === 1 -->
-                                    <div class="popup-add_ava-crop" data-bind="visible: photo().cropLoaded() === true">
-                                        <img id="jcrop_target" src="" alt="" data-bind="src: photo().originalUrl()" />
+                    </div>
+                <!-- /ko -->
+                    <div id="ava-edit" class="popup popup-add popup-add__photos" data-bind="visible: photo() !== null">
+                        <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+                        <div class="popup-add_hold">
+                            <div class="popup-add_top clearfix textalign-c">
+                                <div class="popup-add_t">Добавить главное фото</div>
+                            </div>
+                            <div class="popup-add_in">
+                                <div class="popup-add_frame">
+                                    <div class="popup-add_ava-upload">
+                                        <!-- ko if: photo() !== null && photo().status() === 1 -->
+                                        <div class="popup-add_ava-crop" data-bind="visible: photo().cropLoaded() === true">
+                                            <img id="jcrop_target" src="" alt="" data-bind="src: photo().originalUrl()" />
+                                        </div>
+                                        <div class="popup-add_ava-load">
+                                            <div class="file-fake">
+                                                <input type="file" class="file-fake_inp"  name="image" data-bind="fileUpload: fileUploadSettings" accept="image/gif, image/jpeg, image/png">
+                                                <a href="#" class="file-fake_btn btn btn-primary btn-s">Изменить </a>
+                                            </div>
+                                        </div>
+                                        <!-- /ko -->
+                                        <!-- ko if: photo() === null || photo().status() !== 1 || photo().cropLoaded() === false -->
+                                        <div class="b-loader b-loader__abs">
+                                            <div class="b-loader_hold">
+                                                <div vars.size class="b-loader_circle b-loader_circle__l"><?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 125 125" enable-background="new 0 0 125 125"><defs><path id="a" d="M62.5 0C28 0 0 28 0 62.5S28 125 62.5 125 125 97 125 62.5 97 0 62.5 0zm0 112.5c-27.6 0-50-22.4-50-50s22.4-50 50-50 50 22.4 50 50-22.4 50-50 50z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><path fill-rule="evenodd" clip-rule="evenodd" fill="#AA96D2" d="M2 8.7l60.2 54.4 32.7-75z" clip-path="url(#b)"/><path fill-rule="evenodd" clip-rule="evenodd" fill="#FF8232" d="M94.6-11.8l-33 74.6 82.2 6.6z" clip-path="url(#b)"/><path fill-rule="evenodd" clip-rule="evenodd" fill="#FFE641" d="M61.1 62.6l19.9 79 62.8-73.2z" clip-path="url(#b)"/><path fill-rule="evenodd" clip-rule="evenodd" fill="#64B9EB" d="M61.6 62.8l-68.4 39.7 88 38.6z" clip-path="url(#b)"/><path fill-rule="evenodd" clip-rule="evenodd" fill="#73C869" d="M3.1 8.6l-9 94.6 67.8-40.4z" clip-path="url(#b)"/></svg>
+                                                </div>
+                                                <div class="b-loader_tx">
+                                                    Загрузка фото
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /ko -->
                                     </div>
-                                    <!-- /ko -->
                                 </div>
-                                <!-- /ko -->
-                            </div>
-                            <div class="popup-add_footer">
-                                <div class="textalign-c">
-                                    <a id="canceling-avatar" href="#" class="btn btn-secondary margin-r10">Отмена</a>
-                                    <a id="adding-avatar" href="#" class="btn btn-success">Добавить</a>
+                                <div class="popup-add_footer">
+                                    <div class="textalign-c">
+                                        <a id="canceling-avatar" href="#" class="btn btn-secondary margin-r10">Отмена</a>
+                                        <a id="adding-avatar" href="#" class="btn btn-success">Добавить</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-        </div>
+            <!-- /ko -->
+            </div>
+
 <!-- /ko -->

@@ -1,4 +1,4 @@
-define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Model', 'photo/Photo', 'photo/PhotoAttach', 'photo/PhotoAlbum', 'user-config', 'jquery.Jcrop.min', 'bootstrap', 'jquery_file_upload', 'jquery.ui', 'photo/bindings/thumb', 'photo/bindings/photoUpload'], function($, ko, mapping, Model, Photo, PhotoAttach, PhotoAlbum, userConfig, Jcrop) {
+define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Model', 'photo/Photo', 'photo/PhotoAttach', 'photo/PhotoAlbum', 'user-config', 'extensions/jcropInit', 'bootstrap', 'jquery_file_upload', 'jquery.ui', 'photo/bindings/thumb', 'photo/bindings/photoUpload'], function($, ko, mapping, Model, Photo, PhotoAttach, PhotoAlbum, userConfig, jcropInit) {
 
 
     // Биндинг для плагина jQuery File Upload
@@ -134,50 +134,7 @@ define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Mode
             if (response.success) {
                 ko.mapping.fromJS((response.data.attach || response.data.photo), {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
-
-                $(function($) {
-                    var api;
-                    $('#jcrop_target').Jcrop({
-                        // start off with jcrop-light class
-                        bgOpacity: 0.3,
-                        bgColor: '#fff',
-                        aspectRatio: 1,
-                        boxWidth: 700,
-                        boxHeight: 470,
-                        addClass: 'jcrop-circle'
-                    }, function afterRelease() {
-                        api = this;
-                        var wh = api.getBounds(),
-                            scale = api.getScaleFactor();
-                        var yMeasure = (wh[0] / 2 + 200),
-                            xMeasure = (wh[1] / 2 - 200);
-                        api.setSelect([xMeasure, xMeasure, yMeasure, yMeasure]);
-                        api.setOptions({ bgFade: true });
-                        api.ui.selection.addClass('jcrop-selection');
-                        photo.cropLoaded(true);
-                        $('#adding-avatar').on('click', function (event) {
-                            event.preventDefault();
-                            var apiSizes = api.tellSelect();
-                            var cropObj = {
-                                x: parseInt(apiSizes.x),
-                                y: parseInt(apiSizes.y),
-                                w: parseInt(apiSizes.w),
-                                h: parseInt(apiSizes.h),
-                            };
-                            Model
-                                .get('/api/users/setAvatar/', { photoId: photo.id(), userId: userConfig.userId, cropData: cropObj })
-                                .done(
-                                function (data) {
-                                    $.magnificPopup.close();
-                                    location.reload(false);
-                                });
-                        });
-                        $('#canceling-avatar').on('click', function (event) {
-                            event.preventDefault();
-                            $.magnificPopup.close();
-                        });
-                    });
-                });
+                jcropInit(photo);
             } else {
                 photo.error(response.error);
                 photo.status(PhotoUpload.prototype.STATUS_FAIL);

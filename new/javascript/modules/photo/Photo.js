@@ -33,7 +33,7 @@ define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions
             this.status = ko.observable(data.status);
         };
         if (data.cropLoaded !== undefined) {
-            this.status = ko.observable(data.cropLoaded);
+            this.cropLoaded = ko.observable(data.cropLoaded);
         };
         this.getGeneratedPreset = function generatePreseted(preset) {
             if (this.presetHash() === undefined) {

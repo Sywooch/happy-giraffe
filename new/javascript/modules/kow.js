@@ -26,7 +26,6 @@ define(["jquery", "knockout"], function ($, ko) {
     $('photo-single').each(componentIterator);
     ko.components.register('comment-widget', { require: 'comment-widget/comment-widget' });
     $('comment-widget').each(componentIterator);
-<<<<<<< HEAD
     ko.components.register('family-section', { require: 'family-section/family-section' });
     $('family-section').each(componentIterator);
     ko.components.register('friends-section', { require: 'friends-section/friends-section' });
@@ -38,7 +37,6 @@ define(["jquery", "knockout"], function ($, ko) {
     ko.components.register('friends-action-button', { require: 'friends-action-button/friends-action-button' });
     $('friends-action-button').each(componentIterator);
     ko.components.register('avatar-uploader', { require: 'avatar-uploader/avatar-uploader' });
-=======
     ko.components.register('register-form', { require: 'signup/register-form' });
     ko.components.register('login-form', { require: 'signup/login-form' });
     ko.components.register('password-recovery-form', { require: 'signup/password-recovery-form' });
@@ -50,5 +48,4 @@ define(["jquery", "knockout"], function ($, ko) {
     $('article-settings').each(componentIterator);
     ko.components.register('redactor-panel', { require: 'redactor-panel/redactor-panel' });
     $('redactor-panel').each(componentIterator);
->>>>>>> develop
 });

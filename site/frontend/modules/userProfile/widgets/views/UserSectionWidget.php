@@ -38,9 +38,6 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
                 <div class="b-ava-large_ava-hold">
                     <?php $this->widget('Avatar', array('user' => $user, 'size' => Avatar::SIZE_LARGE, 'largeAdvanced' => false)); ?>
                 </div>
-                <a href="#" class="i-ava-bubble i-ava-bubble__photo powertip">
-                    <div class="i-ava-bubble_ico i-ava-bubble_ico__photo"></div>
-                </a>
                 <?php if ($user->online): ?>
                     <span class="b-ava-large_online">На сайте</span>
                 <?php endif; ?>

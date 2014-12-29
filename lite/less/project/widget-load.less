@@ -26,7 +26,7 @@
 
 .b-loader {
     position: relative;
-    color: @color-gray;
+    color: @color-gray-light;
     &:extend(.verticalalign-m-el-hold all);
 
     &__abs {
@@ -51,7 +51,7 @@
         margin: 0 auto;
         width: 50px;
         height: 50px;
-        .animation(loadercircle 3s infinite linear);
+        .animation(loadercircle 1.5s infinite linear);
     }
     &_circle__l {
         width: 125px;
@@ -296,19 +296,13 @@ transform:scale(.3)}
 
 
 @-webkit-keyframes loadercircle {
-    0% {
-        transform: rotateZ(0deg);
-    }
-    100% {
-        transform: rotateZ(360deg);
-    }
+    0% { .rotate(0deg); }
+    5% { .rotate(14deg); }
+    100% { .rotate(360deg); }
 }
 
 @keyframes loadercircle {
-    0% {
-        transform: rotateZ(0deg);
-    }
-    100% {
-        transform: rotateZ(360deg);
-    }
+    0% { .rotate(0deg); }
+    5% { .rotate(14deg); }
+    100% { .rotate(360deg); }
 }

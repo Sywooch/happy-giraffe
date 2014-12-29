@@ -296,7 +296,8 @@ class DefaultController extends HController
     public function actionSave($id = null)
     {
         $model = ($id === null) ? new BlogContent() : BlogContent::model()->findByPk($id);
-        if (! $model->isNewRecord && ! $model->canEdit())
+        $new = $model->isNewRecord;
+        if (! $new && ! $model->canEdit())
             throw new CHttpException(403);
         $model->scenario = 'default';
         $model->attributes = $_POST['BlogContent'];
@@ -312,16 +313,16 @@ class DefaultController extends HController
         $model->$slug = $slaveModel;
         $success = $model->withRelated->save(true, array($slug));
 
+        // Небольшой костыль для не сконвертированных постов
+        if($new) {
+            Yii::app()->user->setState('newPost' . $model->id, true);
+        }
+        
         if ($success) {
             if (isset($_POST['redirect']))
                 $this->redirect($_POST['redirect']);
             else
                 $this->redirect($model->url);
-        } else {
-            echo 'Root:<br />';
-            var_dump($model->getErrors());
-            echo 'Slave:<br />';
-            var_dump($slaveModel->getErrors());
         }
     }
 

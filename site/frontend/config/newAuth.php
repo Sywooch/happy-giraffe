@@ -14,6 +14,7 @@ return array(
             'manageOwnProfile',
             'manageOwnContent',
             'createComment',
+            'createPost',
             'manageOwnPhotoCollection',
             'createPhotoAlbum',
             'managePhotoAttach',
@@ -50,10 +51,31 @@ return array(
         'description' => 'Управление своим контентом (где автор)',
         'children' => array(
             'manageComment',
+            'managePost',
             'managePhotoAlbum',
             'editPhoto',
         ),
-        'bizRule' => 'return $params["entity"]->author_id == \Yii::app()->user->id;',
+        'bizRule' => 'return \site\frontend\components\AuthManager::checkOwner($params["entity"], \Yii::app()->user->id);',
+        'data' => null
+    ),
+    'createPost' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Добавление общих типов контента',
+        'children' => array(
+            'createPhotopost',
+            'createStatus',
+        ),
+        'bizRule' => null,
+        'data' => null
+    ),
+    'managePost' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление общими типами контента',
+        'children' => array(
+            'managePhotopost',
+            'manageStatus',
+        ),
+        'bizRule' => null,
         'data' => null
     ),
     'manageComment' => array(
@@ -81,9 +103,62 @@ return array(
     'removeComment' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Удаление комментария',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'managePhotopost' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление фотопостом',
         'children' => array(
-            'manageComment',
+            'updatePhotopost',
+            'removePhotopost',
         ),
+        'bizRule' => null,
+        'data' => null
+    ),
+    'createPhotopost' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Добавление фотопоста',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'updatePhotopost' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Редактирование фотопоста',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'removePhotopost' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Удаление фотопоста',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'manageStatus' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление статусом',
+        'children' => array(
+            'updateStatus',
+            'removeStatus',
+        ),
+        'bizRule' => null,
+        'data' => null
+    ),
+    'createStatus' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Добавление статуса',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'updateStatus' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Редактирование статуса',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'removeStatus' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Удаление статуса',
         'bizRule' => null,
         'data' => null
     ),

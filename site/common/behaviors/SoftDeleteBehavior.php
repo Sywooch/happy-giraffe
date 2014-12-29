@@ -9,9 +9,11 @@
 class SoftDeleteBehavior extends CActiveRecordBehavior
 {
 
+    public $removeAttribute = 'removed';
+
     public function attach($owner)
     {
-        if (!$owner->hasAttribute('removed'))
+        if (!$owner->hasAttribute($this->removeAttribute))
             throw new Exception('На данную модель нельзя добавить поведение ' . __CLASS__);
 
         return parent::attach($owner);
@@ -37,8 +39,8 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
             $model->entity_id = $this->owner->id;
             $model->user_id = Yii::app()->user->id;
             $result = $model->save();
-            $this->owner->removed = 1;
-            $result = $result && $this->owner->updateByPk($this->owner->id, array('removed' => $this->owner->removed));
+            $this->owner->{$this->removeAttribute} = 1;
+            $result = $result && $this->owner->updateByPk($this->owner->id, array($this->removeAttribute => $this->owner->{$this->removeAttribute}));
             if ($result) {
                 $this->afterSoftDelete();
             }
@@ -50,8 +52,8 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
     {
         $result = false;
         if ($this->beforeSoftRestore()) {
-            $this->owner->removed = 0;
-            $result = $this->owner->updateByPk($this->owner->id, array('removed' => $this->owner->removed));
+            $this->owner->{$this->removeAttribute} = 0;
+            $result = $this->owner->updateByPk($this->owner->id, array($this->removeAttribute => $this->owner->{$this->removeAttribute}));
             if ($result) {
                 $this->afterSoftRestore();
             }
@@ -117,4 +119,3 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
     }
 
 }
-

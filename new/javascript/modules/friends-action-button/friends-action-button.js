@@ -9,7 +9,7 @@ define(['../knockout', 'models/Friend', 'models/User', 'text!friends-action-butt
         this.endLoading = function endLoading() {
             this.loaded(true);
         };
-        if (this.userId !== undefined && parseInt(this.userId) !== parseInt(this.friendId) ) {
+        if (this.userId !== undefined && this.userId !== null && parseInt(this.userId) !== parseInt(this.friendId) ) {
             dfd = this.friend.getRelationshipStatus(this.userId);
             dfd.then(this.friend.getRelationshipStatusParsed.bind(this.friend));
             dfd.done(this.endLoading.bind(this));

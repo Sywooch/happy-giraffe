@@ -37,7 +37,9 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'phot
             });
         }
     };
-    ko.applyBindings({}, document.getElementById('avatar-upload'));
+    if ($('#avatar-upload').length > 0) {
+        ko.applyBindings({}, document.getElementById('avatar-upload'));
+    }
 });
 
 

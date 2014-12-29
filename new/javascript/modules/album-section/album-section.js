@@ -1,7 +1,11 @@
-define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'photo/PhotoAlbum', 'extensions/sliderBinding'], function AlbumSectionHandler(ko, template, Model, PhotoAlbum) {
+define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'models/User', 'photo/PhotoAlbum', 'extensions/sliderBinding'], function AlbumSectionHandler(ko, template, Model, User, PhotoAlbum) {
     function AlbumSection(params) {
         this.randomAlbum = params.randomAlbum;
-        this.userId = params.userId;
+        if (params.userId === undefined) {
+            this.userId = User.userId;
+        } else {
+            this.userId = params.userId;
+        }
         this.photoAlbum = Object.create(PhotoAlbum);
         this.loaded = ko.observable(false);
         this.photoAlbum.usablePreset = 'myPhotosPreview';
@@ -17,9 +21,9 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'ph
                 album = this.photoAlbum.findById(this.randomAlbum, passedData.data.albums);
                 if (album) {
                     this.photoAlbum.init(album);
-                    this.loaded(true);
                 }
             }
+            this.loaded(true);
         };
         if (this.userId !== null) {
             this.photoAlbum.get(this.userId, false, this.getPhotoAlbum.bind(this));
@@ -28,5 +32,5 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'ph
     return {
         viewModel: AlbumSection,
         template: template
-    }
+    };
 });

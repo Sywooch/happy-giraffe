@@ -166,7 +166,11 @@ define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Mode
                             };
                             Model
                                 .get('/api/users/setAvatar/', { photoId: photo.id(), userId: userConfig.userId, cropData: cropObj })
-                                .done(function (data) { $.magnificPopup.close(); });
+                                .done(
+                                function (data) {
+                                    $.magnificPopup.close();
+                                    location.reload(false);
+                                });
                         });
                         $('#canceling-avatar').on('click', function (event) {
                             event.preventDefault();

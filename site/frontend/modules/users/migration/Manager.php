@@ -21,6 +21,10 @@ class Manager
                 return;
             }
 
+            if ($user->avatarId !== null) {
+                return;
+            }
+
             if ($user->avatar->userAvatar) {
                 $userAvatar = $user->avatar->userAvatar;
                 $oldPhoto = $userAvatar->source;

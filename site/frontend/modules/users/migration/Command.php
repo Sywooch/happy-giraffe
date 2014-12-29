@@ -19,13 +19,13 @@ class Command extends \CConsoleCommand
 
     public function convertAvatar(\GearmanJob $job)
     {
-//        $userId = $job->workload();
-//        $user = User::model()->findByPk($userId);
-//        try {
-//            Manager::convertAvatar($user);
-//        } catch (\Exception $e) {
-//            echo $user->id . "\n";
-//        }
+        $userId = $job->workload();
+        $user = User::model()->findByPk($userId);
+        try {
+            Manager::convertAvatar($user);
+        } catch (\Exception $e) {
+            echo $user->id . "\n";
+        }
     }
 
     public function actionAvatarSingle($userId)

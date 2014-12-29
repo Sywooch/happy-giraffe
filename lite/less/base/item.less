@@ -2,8 +2,9 @@
 
 // Заголовки
 .heading-xxl {
-    margin: 15px 0; // Можно изменить на необходимый
-    font-size: 40px;
+    margin: 20px 0; // Можно изменить на необходимый
+    font-size: 35px;
+    font-weight: bold;
     color: @color-base;
 }
 .heading-xl {
@@ -32,12 +33,27 @@
         }
     }
 }
+.heading-sm {
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 20px;
+    letter-spacing: -0.4px;
+
+    &_a-r {
+        float: right;
+        margin-top: 3px;
+        font-size: 12px;
+        font-weight: normal;
+        letter-spacing: 0;
+    }
+}
 .heading-small {
     margin: 0;
     font-size: 16px;
     line-height: 20px;
     color: #333;
-    font-weight: normal;
+    font-weight: bold;
 
     @media (min-width: @screen-phone) {
         & {
@@ -250,6 +266,34 @@ a.heading-link-xxl:hover {
     }
 }
 
+.i-club {
+    display: inline-block;
+    text-align: center;
+
+    &:hover .ico-club {.scale(1.2);}
+    &__section {
+        background-color: #FFF;
+        border-color: #FFF;
+        line-height: 1;
+        padding: 15px;
+        border: 2px solid #FFF;
+        background-color: #FFF;
+        border-radius: 50%;
+    }
+
+    &__list-s {
+        padding: 7px;
+        .border-radius(5px);
+    }
+
+    &__collection-1 {background-color: #FAF6FF;}
+    &__collection-2 {background-color: #F3FCFF;}
+    &__collection-3 {background-color: #FFFBF8;}
+    &__collection-4 {background-color: #FFFEEA;}
+    &__collection-5 {background-color: #F3FEF2;}
+    &__collection-6 {background-color: #FAF6FF;}
+}
+
 .i-video-serv {
     display: inline-block;
     vertical-align: middle;
@@ -267,6 +311,7 @@ a.heading-link-xxl:hover {
     /*&__rutube.active  {background-position: -60px 0;}*/
     &__vimeo   {background-position: -120px 0;}
     /*&__vimeo.active   {background-position: -120px 0;}*/
+
 }
 // /Items
 

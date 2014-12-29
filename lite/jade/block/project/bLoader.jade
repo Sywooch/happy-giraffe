@@ -1,0 +1,27 @@
+//- лайки от яндекса
+    mod
+    vars
+mixin bLoader(mod, vars)
+    .b-loader(class=mod)
+        .b-loader_hold
+            // Размеры можно задавать:
+            // через классы (рекомендовано) 
+            // .b-loader_img - 50px
+            // .b-loader_img__l - 125px
+            // или через style
+            // style='width: 125px; height: 125px;'
+            .b-loader_circle(vars.size)
+                include ../../../../lite/images/loader.svg 
+            if(vars.tx)
+            .b-loader_tx 
+                != vars.tx
+
+- var bLoader = {}
+
+- bLoader.photoWindow = {}
+- bLoader.photoWindow.size = 'b-loader_circle__l'
+- bLoader.photoWindow.tx = 'Загрузка фото'
+
+- bLoader.avaload = {}
+- bLoader.avaload.size = 'b-loader_circle__l'
+- bLoader.avaload.tx = 'Загрузка фото'

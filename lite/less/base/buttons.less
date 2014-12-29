@@ -194,6 +194,14 @@
         display: inline-block;
         .button-variant(#757575; #f0f0f0; #f3f3f3);
     }
+    &-white {
+        display: inline-block;
+        .button-variant(@color-white; transparent; #fff);
+
+        &:hover {
+            .opacity(0.8);
+        }
+    }
 
 
     &-success-dark {

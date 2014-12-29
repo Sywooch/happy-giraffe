@@ -286,6 +286,7 @@ module.exports = function(grunt){
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -328,6 +329,7 @@ module.exports = function(grunt){
             /.fancybox+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -437,6 +439,7 @@ module.exports = function(grunt){
             /.flag+/,
             /.bx-wrapper+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -479,6 +482,7 @@ module.exports = function(grunt){
             /.flag+/,
             /.bx-wrapper+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -644,7 +648,9 @@ module.exports = function(grunt){
           plugins: [{
               removeViewBox: false
           }, {
-              removeUselessStrokeAndFill: false
+              removeUselessStrokeAndFill: true
+          }, {
+              removeXMLProcInst: false
           }, {
               convertPathData: { 
                   straightCurves: false // advanced SVGO plugin option
@@ -654,9 +660,9 @@ module.exports = function(grunt){
       dist: {                     // Target
           files: [{               // Dictionary of files
               expand: true,       // Enable dynamic expansion.
-              cwd: 'lite/images',     // Src matches are relative to this path.
-              src: ['*.svg'],  // Actual pattern(s) to match.
-              dest: 'lite/images',       // Destination path prefix.
+              cwd: 'lite/images/',     // Src matches are relative to this path.
+              src: ['**/*.svg'],  // Actual pattern(s) to match.
+              dest: 'lite/images/',       // Destination path prefix.
               ext: '.svg'     // Dest filepaths will have this extension.
               // ie: optimise img/src/branding/logo.svg and store it in img/branding/logo.min.svg
           }]
@@ -798,6 +804,22 @@ module.exports = function(grunt){
                 },
                 // refSize: 100,
                 unit: 100
+            }
+        },
+        'ico-social__l': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-social__l",
+                spritePath: "lite/images/sprite/ico-social__l.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 50
             }
         },
         'markdown-day': {

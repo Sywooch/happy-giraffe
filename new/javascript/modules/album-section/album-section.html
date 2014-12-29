@@ -1,0 +1,50 @@
+<!-- ko if: loaded() == true -->
+    <!-- ko if: photoAlbum.id() !== undefined -->
+    <div class="widget-user-photo">
+        <div class="heading-sm"><a href="#" class="heading-sm_a-r" data-bind="href: albumUrl, text: 'Все фото '  + photoAlbum.photoCollection().attachesCount()"></a>Мои фото</div>
+        <ul class="widget-user-photo_ul clearfix">
+            <!-- ko if: photoAlbum.photoCollection().cover() !== undefined -->
+            <li class="widget-user-photo_li">
+                <a href="#" class="widget-user-photo_i" data-bind="photoSlider: { photo: photoAlbum.photoCollection().cover().id(), collectionId: photoAlbum.photoCollection().id() }">
+                    <img src="" alt="Заголовок фото"  data-bind="src: photoAlbum.photoCollection().cover().photo().getGeneratedPreset('myPhotosSectionCover')">
+                    <div class="widget-user-photo_overlay">
+                        <div class="ico-zoom ico-zoom__abs"></div>
+                    </div>
+                </a>
+            </li>
+            <!-- /ko -->
+            <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
+                <!-- ko if: $parent.rightForManipulation === true && $index + 1 === $parent.photoAlbum.photoCollection().attaches().length -->
+                    <li class="widget-user-photo_li">
+                        <a href="#" class="widget-user-photo_i" data-bind="src: $parent.albumUrl">
+                            <div class="cap-add">
+                                <div class="cap-add_hold">
+                                    <div class="cap-add_in"> </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                <!-- /ko -->
+                <!-- ko ifnot: $parent.rightForManipulation === true && $index + 1 === $parent.photoAlbum.photoCollection().attaches().length -->
+                    <li class="widget-user-photo_li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
+                        <a href="#" class="widget-user-photo_i" data-bind="photoSlider: { photo: id(), collectionId: $parent.photoAlbum.photoCollection().id() }">
+                            <img src="" alt="" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">
+                            <div class="widget-user-photo_overlay">
+                                <div class="ico-zoom ico-zoom__abs ico-zoom__s"></div>
+                            </div>
+                        </a>
+                    </li>
+                <!-- /ko -->
+            <!-- /ko -->
+        </ul>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: photoAlbum.id() === undefined && rightForManipulation === true -->
+        <div class="profile-cap">
+            <div class="heading-sm">Мои фото</div>
+            <div class="profile-cap_hold profile-cap_hold__photo">
+                <div class="profile-cap_tx">Вы еще не загрузили не одной фотографии<br><a href="#" data-bind="href: albumCreationUrl">Создать фотоальбом</a></div>
+            </div>
+        </div>
+    <!-- /ko -->
+<!-- /ko -->

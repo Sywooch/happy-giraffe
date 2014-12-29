@@ -1,0 +1,22 @@
+<!-- ko if: loaded() === true -->
+    <!-- ko if: friend.isFriend() === true  -->
+        <a href="" class="userSection_btn powertip userSection_btn__friend-added">
+            <span class="userSection_ico"></span>
+        </a>
+    <!-- /ko -->
+    <!-- ko if: friend.hasNoRelationship() === true  -->
+    <a href="" class="userSection_btn powertip userSection_btn__friend-add" data-bind="click: friend.friendsInvite.bind(friend)">
+        <span class="userSection_ico"></span>
+    </a>
+    <!-- /ko -->
+    <!-- ko if: friend.hasOutgoingRequest() === true  -->
+    <a href="" class="userSection_btn powertip userSection_btn__friend">
+        <span class="userSection_ico"></span>
+    </a>
+    <!-- /ko -->
+    <!-- ko if: friend.hasIncomingRequest() === true  -->
+    <a href="" class="userSection_btn powertip userSection_btn__friend" data-bind="click: friend.friendsAccept.bind(friend)">
+        <span class="userSection_ico"></span>
+    </a>
+    <!-- /ko -->
+<!-- /ko -->

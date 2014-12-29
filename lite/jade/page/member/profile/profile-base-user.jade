@@ -1,0 +1,136 @@
+include ../../../block/config
+extend ../../../extend/layout_base_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css'; 
+ 
+block layout
+ 
+    .b-main
+        .b-main_cont
+            +userAddRecord('', userAddRecord.blog)
+            
+        .b-main_cont.b-main_cont__broad    
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="#") Мой жираф
+                    li.b-crumbs_li.b-crumbs_li__last
+                        +ava('ava__small', ava.a)
+
+
+        +userSection('', userSection.baseUser)
+    
+        .b-main_cont.b-main_cont__broad
+
+            .b-main_col-hold.clearfix
+                ///////     
+                // Основная колонка  
+                .b-main_col-article
+
+                    //-.profile-cap
+                        .heading-sm Моя активность
+                        .profile-cap_hold.profile-cap_hold__article
+                            .profile-cap_tx
+                                | У вас пока нет активности на сайте, поделитесь чем-нибудь интересным с пользователями Веселого Жирафа.
+                                br
+                                a(href='#') Добавить запись
+
+                    .heading-sm Моя активность
+                    +bArticleListItem('', bArticleListItem.a)
+
+                    +bArticleListItem('', bArticleListItem.b) 
+
+
+                ///////
+                // Сайд бар  
+                aside.b-main_col-sidebar.visible-md
+                    // +widgetUserPhoto('', subscribersWidget.a)
+                    .widget-user-photo
+                        .heading-sm
+                            a.heading-sm_a-r(href='#') Все фото 828
+                            | Мои фото
+                        ul.widget-user-photo_ul.clearfix
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/dog/300/200", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/goldfish/110/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs.ico-zoom__s
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/velociraptor/103/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs.ico-zoom__s
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    .cap-add
+                                        .cap-add_hold
+                                            .cap-add_in 
+                                                 
+
+
+                    .widget-friend
+                        .heading-sm 
+                            a.heading-sm_a-r(href='#') Все друзья 3
+                            | Мои друзья
+
+                        ul.ava-list
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.c)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+
+                    .widget-club
+                        .heading-sm Мои клубы
+                        ul.widget-club_ul.clearfix
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-3(href='#')
+                                    .ico-club.ico-club__7
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-6(href='#')
+                                    .ico-club.ico-club__20
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-2(href='#')
+                                    .ico-club.ico-club__5
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-1(href='#')
+                                    .ico-club.ico-club__15
+
+                    //-.profile-cap
+                        .heading-sm Мои фото
+                        .profile-cap_hold.profile-cap_hold__photo
+                            .profile-cap_tx
+                                | Вы еще не загрузили не одной фотографии
+                                br
+                                a(href='#') Создать фотоальбом
+
+                    //-.profile-cap
+                        .heading-sm Мои друзья
+                        .profile-cap_hold.profile-cap_hold__friend
+                            .profile-cap_tx
+                                | Вы еще не добавили ни кого в друзья.
+                                br
+                                a(href='#') Поиск друзей
+
+
+
+        +layout-footer-lite()
+
+
+

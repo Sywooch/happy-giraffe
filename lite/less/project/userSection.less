@@ -24,15 +24,17 @@
     .location_tx {color: #fff;}
     .b-ava-large {margin: 0 auto;}
     .b-family_tx {color: #fff;}
+    .btn {margin-top: 10px;}
 
     &_hold {
-        padding: 20px 30px 10px;
+        text-align: center;
+        padding: 20px 35px 10px;
     }
     &_left {
-        .inline-block();
-        vertical-align: middle;
         width: 280px;
-        margin: 0 5px 0 40px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-bottom: 20px;
     }
     &_name {
         font-size: 30px;
@@ -43,27 +45,26 @@
         letter-spacing: -0.6px;
     }
     &_center {
-        .inline-block();
+        margin: 0 auto;
+        width: 260px;
+        display: inline-block;
         vertical-align: middle;
-        width: 300px;
     }
     &_center-reg {
+        display: none;
         font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
         text-align: center;
         color: #f3edfc;
-        margin: 10px 0;
+        margin: 0 0;
     }
     &_right {
-        .inline-block();
-        vertical-align: middle;
-        margin-left: 20px;
-        width: 280px;
+        display: none;
     }
     &_help {
         color: #d9d2e9;
     }
     &_btn-hold {
-            margin: 15px 0 10px;
+        display: none;
     }
     &_btn {
         float: left;
@@ -100,27 +101,16 @@
     }
     &_panel-ul {}
     &_panel-li {
-        .inline-block();
-        margin: 0 -3px 0 0;
+        float: left;
+        width: 50%;
     }
     &_panel-li.active &_panel-a {
         background-color: #53b4f3;
     }
-    &_panel-li.active &_panel-a:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        margin-left: -8px;
-        width: 0;
-        height: 0;
-        border: 8px solid transparent;
-        border-bottom: 6px solid #fff;
-    }
 
     &_panel-a {
+        display: block;
         position: relative;
-        .inline-block();
         padding: 16px 22px;
         font-size: 16px;
         line-height: 18px;
@@ -131,5 +121,56 @@
         background-color: #927fb3;
         text-decoration: none;
         color: #fff;
+    }
+
+    @media (min-width: @screen-phone) {
+        &_panel-li {
+            float: none;
+            width: auto;
+            .inline-block();
+            margin: 0 -3px 0 0;
+        }
+        &_panel-a {
+            display: inline-block;
+        }
+        &_panel-li.active &_panel-a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left: -8px;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            border-bottom: 6px solid #fff;
+        }
+    }
+        
+    @media (min-width: @screen-desktop) {
+        &_hold {
+            text-align: left;
+        }
+        &_left {
+            margin-right: 40px;
+            margin-bottom: 5px;
+        }
+        &_center {
+            width: 300px;
+        }
+        &_right {
+            .inline-block();
+            vertical-align: middle;
+            margin-left: 20px;
+            width: 280px;
+        }
+
+        &_btn-hold {
+            display: block;
+            margin: 15px 0 10px;
+        }
+        &_center-reg {
+            display: block;
+            margin-bottom: 7px;
+        }
     }
 }

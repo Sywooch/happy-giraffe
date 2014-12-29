@@ -6,25 +6,39 @@
 mixin bFamily(mod, vars)
     // b-family
     .b-family
-        - if (vars.title)
-            .b-family_top(class=vars.title)
-        ul.b-family_ul
-            - each item in vars.items
-                li.b-family_li
-                    a.b-family_a(href='')
-                        span.b-family_img-hold
-                            - if (item.photo)
-                                //- Размеры изображений 55*55пк 
-                                img.b-family_img(alt='', src='/images/example/w41-h49-1.jpg')
-                            - else
-                                span.ico-family(class='ico-family__#{item.ico}')
-                        span.b-family_tx
-                            span 
-                                = item.kinship
-                            - if (item.age)
-                                br
+        if(vars.title)
+            .b-family_top-hold
+                .b-family_top(class=vars.title)
+                if(vars.edit)
+                    a.ico-edit.ico-edit__s-white(href='#')
+        if(vars.emptyTx)
+            .b-family_empty-tx
+                | Добавьте информацию о своей семье
+            a.btn.btn-white.btn-xm(href='#')
+                span.ico-plus.ico-plus__s
+                | Добавить
+        else
+            ul.b-family_ul
+                - each item in vars.items
+                    li.b-family_li
+                        a.b-family_a(href='')
+                            span.b-family_img-hold
+                                - if (item.photo)
+                                    //- Размеры изображений 55*55пк 
+                                    img.b-family_img(alt='', src='/images/example/w41-h49-1.jpg')
+                                - else
+                                    span.ico-family(class='ico-family__#{item.ico}')
+                            span.b-family_tx
                                 span 
-                                    = item.age
+                                    = item.kinship
+                                - if (item.age)
+                                    br
+                                    span 
+                                        = item.age
+        if(vars.btnEdit)
+            a.btn.btn-white.btn-xm(href='#')
+                span.ico-edit.ico-edit__s-white
+                | Редактировать
     // /b-family
 
 
@@ -85,3 +99,12 @@ mixin bFamily(mod, vars)
 - bFamily.a = {}
 - bFamily.a.title = 'b-family_top__white'
 - bFamily.a.items = bFamily.f4.items
+
+- bFamily.userEmpty = {}
+- bFamily.userEmpty.title = 'b-family_top__white'
+- bFamily.userEmpty.emptyTx = true
+
+- bFamily.userEdit = {}
+- bFamily.userEdit.title = 'b-family_top__white'
+- bFamily.userEdit.items = bFamily.f4.items
+- bFamily.userEdit.edit = true

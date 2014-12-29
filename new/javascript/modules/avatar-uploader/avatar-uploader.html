@@ -1,0 +1,55 @@
+<!-- ko stopBinding: true -->
+        <div id="photo-tab-computer">
+            <!-- ko if: photo() === null -->
+                <div id="ava-load-first" class="popup popup-add popup-add__photos">
+                    <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+                    <div class="popup-add_hold">
+                        <div class="popup-add_top clearfix textalign-c">
+                            <div class="popup-add_t">Добавить главное фото</div>
+                        </div>
+                            <div class="popup-add_in">
+                                <div class="popup-add_frame">
+                                    <div class="popup-add_cap">
+                                        <div class="cap-empty cap-empty__addPhoto">
+                                            <div class="cap-empty_hold">
+                                                <div class="cap-empty_img"></div>
+                                                <div class="cap-empty_t">Выберите файл с компьютера</div>
+                                                <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' name="image" data-bind="fileUpload: fileUploadSettings" accept="image/gif, image/jpeg, image/png"></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 8 Мб.</div></div>
+                                            </div>
+                                            <div class="verticalalign-m-help"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            <!-- /ko -->
+                <div id="ava-edit" class="popup popup-add popup-add__photos" data-bind="visible: photo() !== null">
+                    <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+                    <div class="popup-add_hold">
+                        <div class="popup-add_top clearfix textalign-c">
+                            <div class="popup-add_t">Добавить главное фото</div>
+                        </div>
+                        <div class="popup-add_in">
+                            <div class="popup-add_frame">
+                                <!-- ko if: photo() !== null -->
+                                <div class="popup-add_ava-upload">
+                                    <!-- ko if: photo().status() === 1 -->
+                                    <div class="popup-add_ava-crop" data-bind="visible: photo().cropLoaded() === true">
+                                        <img id="jcrop_target" src="" alt="" data-bind="src: photo().originalUrl()" />
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                                <!-- /ko -->
+                            </div>
+                            <div class="popup-add_footer">
+                                <div class="textalign-c">
+                                    <a id="canceling-avatar" href="#" class="btn btn-secondary margin-r10">Отмена</a>
+                                    <a id="adding-avatar" href="#" class="btn btn-success">Добавить</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+<!-- /ko -->

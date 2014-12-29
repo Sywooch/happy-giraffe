@@ -19,7 +19,7 @@
         .box-shadow( 0 2px 5px rgba(0,0,0,0.05));
     }*/
     &_hold {
-        margin: 0 auto 20px;
+        margin: 0 auto;
         background-color: #fff;
     }
 
@@ -27,6 +27,9 @@
         .layout-header {margin-top: 20px;}
         &_hold__personal {
             background: none;
+        }
+        &_hold {
+            margin: 0 auto 20px;
         }
     }
 }
@@ -45,24 +48,40 @@
     padding: 0;
     overflow: hidden;
     
-    &__xs {
-        
+    // logo in svg
+    // &__xs
+
+    /*&__small &_i {
+        width: 54px;
+        height: 80px;
+        background-image: url('@{path-img}/base/logo__xs.svg');
     }
+    .no-svg &__small &_i {
+        background-image: url('@{path-img}/base/logo__xs.png');
+    }*/
+
     &__small &_i {
         &:extend(.logo__xs);
     }
     &__l &_i {
         width: 320px;
         height: 100px;
-        .img-retina('@{path-img}/base/logo__big.png'; '@{path-img}/base/logo__big-2x.png'; 320px; 100px;);
+        background-image: url('@{path-img}/base/logo__l.svg');
     }
+    .no-svg &__l &_i {
+        background-image: url('@{path-img}/base/logo__l.png');
+    }
+
     &_i {
         display:block;
         width:230px;
         height:65px;
         text-indent:-9999px;
         margin:0 auto;
-        .img-retina('@{path-img}/base/logo.png'; '@{path-img}/base/logo-2x.png'; 230px; 65px;);
+        background-image: url('@{path-img}/base/logo.svg');
+    }
+    .no-svg &_i {
+        background-image: url('@{path-img}/base/logo.png');
     }
     &_slogan {
         position: absolute;
@@ -347,13 +366,21 @@
         line-height: 12px;
         .inline-block();
         vertical-align: middle;
-        padding: 0 5px 0 5px;
+        padding: 0 5px 3px 5px;
         color: #cdcdcd;
     }
     &_li__last:after {display: none;}
     &_last {
         color: @color-orange;
     }
+    /*&_li .ava {
+        border: 2px solid transparent;
+        .box-sizing(content-box);
+    }
+    &_li:hover .ava,
+    &_li__last .ava {
+        border: 2px solid @color-orange;
+    }*/
     &_a {text-decoration: none;}
     &_a:hover {
         text-decoration: none;

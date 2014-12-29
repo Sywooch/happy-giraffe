@@ -29,6 +29,15 @@ define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions
                 this.presetHash(PresetManager.getPresetHash(this.preset));
             }
         };
+<<<<<<< HEAD
+        if (data.status !== undefined) {
+            this.status = ko.observable(data.status);
+        }
+        if (data.cropLoaded !== undefined) {
+            this.status = ko.observable(data.cropLoaded);
+        }
+=======
+>>>>>>> develop
         this.getGeneratedPreset = function generatePreseted(preset) {
             if (this.presetHash() === undefined) {
                 if (PresetManager.presets === undefined || $.isPlainObject(PresetManager.presets)) {

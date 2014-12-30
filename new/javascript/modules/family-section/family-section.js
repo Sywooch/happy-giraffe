@@ -5,6 +5,7 @@ define(['jquery', 'knockout', 'text!family-section/family-section.html', 'models
         this.membersArray = ko.observableArray();
         this.loadingFamily = ko.observable(true);
         this.editUrl = '/user/' + this.family.userId + '/family/edit/';
+        this.familyUrl = '/user/' + this.family.userId + '/family/';
         this.rightsForManipulation = Model.checkRights(params.userId);
         this.familyHandler = function familyHandler(familyData) {
             if (familyData.success === true) {

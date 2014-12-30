@@ -7,7 +7,7 @@
             <!-- /ko -->
             <ul class="b-family_ul" data-bind="foreach: { data: family.members, as: 'member' }">
                 <li class="b-family_li">
-                    <a href="" class="b-family_a">
+                    <a href="" class="b-family_a" data-bind="href: familyUrl">
                         <span class="b-family_img-hold">
                             <!-- ko if: member.photo() !== null -->
                                 <img src="" alt="" data-bind="src: member.photo().getGeneratedPreset('familyMemberSmallWidget')"/>

@@ -1,4 +1,5 @@
 <?php
+Yii::app()->clientScript->registerAMD('BlogRecordSettings', array('kow'));
 /** @todo перенести обработку $this->post->metaObject в контроллер */
 $this->pageTitle = $this->post->title;
 $this->metaDescription = $this->post->metaObject->description;
@@ -40,7 +41,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                         <?php
                     }
                     if (Yii::app()->user->checkAccess('moderator')) {
-                        Yii::app()->clientScript->registerAMD('photo-albums', array('kow'));
                         ?>
                         <redactor-panel params="entity: '<?= $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
                         <?php
@@ -54,7 +54,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                         <?php } ?>
                         <div class="like-control-hold">
                             <?php
-                            if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
+                            if ($this->post->authorId == Yii::app()->user->id && $this->post->pubUnixTime > strtotime('-1 month')) {
                                 ?>
                                 <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
                                 <?php

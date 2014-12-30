@@ -98,7 +98,7 @@
         <div class="b-article_like clearfix">
 
             <?php
-            if ($data->authorId == Yii::app()->user->id) {
+            if ($data->authorId == Yii::app()->user->id && $data->pubUnixTime > strtotime('-1 month')) {
                 ?>
                 <article-settings params="articleId: <?= $data->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $data->originEntityId)) ?>'"></article-settings>
                 <!--                <div class="article-settings">-->

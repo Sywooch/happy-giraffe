@@ -9,7 +9,6 @@ namespace site\frontend\modules\users\models;
  */
 class User extends \User
 {
-
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -29,7 +28,6 @@ class User extends \User
             'publicChannel' => $this->getPublicChannel(),
         );
     }
-
 }
 
 ?>

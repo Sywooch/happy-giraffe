@@ -1,5 +1,10 @@
 <?php
 
+namespace site\frontend\modules\photo\models;
+use site\frontend\modules\photo\components\ImageFile;
+use site\frontend\modules\photo\helpers\FsNameHelper;
+use site\frontend\modules\photo\helpers\ImageSizeHelper;
+
 /**
  * This is the model class for table "photo__photos".
  *
@@ -16,81 +21,77 @@
  * @property string $author_id
  *
  * The followings are the available model relations:
- * @property site\frontend\modules\photo\models\PhotoAttach[] $photoAttaches
+ * @property \site\frontend\modules\photo\models\PhotoAttach[] $photoAttaches
  * @property \User $author
  */
 
-namespace site\frontend\modules\photo\models;
-use site\frontend\modules\photo\components\ImageFile;
-use site\frontend\modules\photo\helpers\ImageSizeHelper;
-
 class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
 {
-    private $_imageFile;
+    protected $imageStringBuffer;
 
     const FS_NAME_LEVELS = 2;
     const FS_NAME_SYMBOLS_PER_LEVEL = 2;
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'photo__photos';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'photo__photos';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		return array(
-			array('title', 'length', 'max' => 150),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        return array(
+            array('title', 'length', 'max' => 150),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'photoAttaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\PhotoAttach', 'photo_id'),
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'photoAttaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\PhotoAttach', 'photo_id'),
             'oldPhoto' => array(self::HAS_ONE, '\AlbumPhoto', 'newPhotoId'),
-		);
-	}
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'title' => 'Title',
-			'description' => 'Description',
-			'width' => 'Width',
-			'height' => 'Height',
-			'original_name' => 'Original Name',
-			'fs_name' => 'Fs Name',
-			'created' => 'Created',
-			'updated' => 'Updated',
-			'author_id' => 'Author',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'title' => 'Title',
+            'description' => 'Description',
+            'width' => 'Width',
+            'height' => 'Height',
+            'original_name' => 'Original Name',
+            'fs_name' => 'Fs Name',
+            'created' => 'Created',
+            'updated' => 'Updated',
+            'author_id' => 'Author',
+        );
+    }
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return Photo the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * @param string $className active record class name.
+     * @return Photo the static model class
+     */
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
 
     public function behaviors()
     {
@@ -104,22 +105,19 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
             'AuthorBehavior' => array(
                 'class' => 'site\common\behaviors\AuthorBehavior',
             ),
+            'FsBehavior' => array(
+                'class' => 'site\frontend\modules\photo\behaviors\FsBehavior',
+                'fs' => \Yii::app()->fs,
+                'prefix' => 'originals',
+                'fsName' => 'fs_name',
+            ),
         );
     }
 
-    protected function createFsName($extension)
+    protected function createFsName()
     {
         $hash = md5(uniqid($this->original_name . microtime(), true));
-
-        $path = '';
-        for ($i = 0; $i < self::FS_NAME_LEVELS; $i++) {
-            $dirName = substr($hash, $i * self::FS_NAME_SYMBOLS_PER_LEVEL, self::FS_NAME_SYMBOLS_PER_LEVEL);
-            $path .= $dirName . DIRECTORY_SEPARATOR;
-        }
-
-        $path .= substr($hash, self::FS_NAME_LEVELS * self::FS_NAME_SYMBOLS_PER_LEVEL) . '.' . $extension;
-
-        return $path;
+        return FsNameHelper::createFsName($hash);
     }
 
     public function toJSON()
@@ -132,21 +130,13 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
             'width' => (int) $this->width,
             'height' => (int) $this->height,
             'fsName' => $this->fs_name,
-            'originalUrl' => $this->getImageFile()->getOriginalUrl(),
+            'originalUrl' => \Yii::app()->fs->getUrl($this->getFile()->getKey()),
         );
-    }
-
-    public function getImageFile($refresh = false)
-    {
-        if ($this->_imageFile === null || $refresh) {
-            $this->_imageFile = new ImageFile($this);
-        }
-        return $this->_imageFile;
     }
 
     protected function writeImage(\CEvent $event)
     {
-        $event->isValid = $this->getImageFile()->write();
+        $event->isValid = $this->getFile()->setContent($this->imageStringBuffer);
     }
 
     protected function createThumbs(\CEvent $event)
@@ -173,14 +163,14 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
         $this->width = $imageSize[0];
         $this->height = $imageSize[1];
         $extension = \Yii::app()->getModule('photo')->types[$imageSize[2]];
-        $this->fs_name = $this->createFsName($extension);
-        $this->getImageFile()->buffer = $imageString;
+        $this->fs_name = $this->createFsName() . '.' . $extension;
+        $this->imageStringBuffer = $imageString;
         $this->attachEventHandler('onBeforeSave', array($this, 'writeImage'));
     }
 
     public function getImage()
     {
-        return $this->getImageFile()->read();
+        return $this->getFile()->getContent();
     }
 
     /*

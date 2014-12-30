@@ -1,8 +1,10 @@
 <?php
 /**
- * @var UserSectionWidget $this
+ * @var site\frontend\modules\userProfile\widgets\UserSectionWidget $this
  * @var \User $user
  */
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
 ?>
 
 <section class="userSection visible-md-block">
@@ -20,18 +22,15 @@
                 <?php endif; ?>
             </div>
             <?php endif; ?>
+            <?php if ($user->id !== Yii::app()->user->id): ?>
             <div class="userSection_btn-hold clearfix">
-                <!--
-                виды кнопок друзья
-                userSection_btn__friend
-                userSection_btn__friend-add
-                userSection_btn__friend-added
-                userSection_btn__friend-append
-                -->
-
-                <!--<a href="" class="userSection_btn userSection_btn__friend-add powertip"><span class="userSection_ico"></span></a>-->
+                <friends-action-button params="friendId: <?= $user->id ?>"></friends-action-button>
                 <a href="<?=Yii::app()->user->isGuest ? '#loginWidget' : Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $user->id))?>" class="userSection_btn userSection_btn__dialog"><span class="userSection_ico"></span></a>
             </div>
+            <?php endif; ?>
+            <?php if ($user->id == Yii::app()->user->id): ?>
+                <a href="<?=Yii::app()->createUrl('/profile/settings/personal')?>" class="btn btn-white btn-xm"> <span class="ico-edit ico-edit__s-white"> </span> Редактировать</a>
+            <?php endif; ?>
         </div>
         <div class="userSection_center">
             <div class="userSection_center-reg">с Веселым Жирафом <?=$user->withUs()?></div>
@@ -42,13 +41,19 @@
                 <?php if ($user->online): ?>
                     <span class="b-ava-large_online">На сайте</span>
                 <?php endif; ?>
+                <?php if ($user->id == Yii::app()->user->id): ?>
+                <a id="avatar-upload" href="#" class="i-ava-bubble i-ava-bubble__photo powertip" data-bind="avatarUpload: { data: { multiple: false } }">
+                    <div class="i-ava-bubble_ico i-ava-bubble_ico__photo"></div>
+                </a>
+                <?php endif; ?>
             </div>
         </div>
-        <?php if (false): ?>
         <div class="userSection_right">
+        <family-section params="userId: <?= $user->id ?>"></family-section>
+        <?php if (false): ?>
             <?php $this->widget('profile.widgets.FamilyWidget', array('user' => $user)); ?>
-        </div>
         <?php endif; ?>
+        </div>
     </div>
     <div class="userSection_panel">
         <?php
@@ -60,7 +65,7 @@
             'items' => array(
                 array(
                     'label' => 'Анкета',
-                    'url' => array('/profile/default/index', 'user_id' => $user->id),
+                    'url' => array('/userProfile/default/index', 'userId' => $user->id),
                     'linkOptions' => array('class' => 'userSection_panel-a'),
                 ),
                 array(

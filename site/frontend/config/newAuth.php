@@ -11,6 +11,7 @@ return array(
         'description' => 'Пользователь',
         'children' => array(
             'guest',
+            'manageOwnProfile',
             'manageOwnContent',
             'createComment',
             'createPost',
@@ -33,6 +34,16 @@ return array(
             'user',
         ),
         'bizRule' => null,
+        'data' => null
+    ),
+    'manageOwnProfile' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление личной информацией о пользователе',
+        'children' => array(
+            'setAvatar',
+            'removeAvatar',
+        ),
+        'bizRule' => 'return $params["userId"] == \Yii::app()->user->id;',
         'data' => null
     ),
     'manageOwnContent' => array(
@@ -309,6 +320,18 @@ return array(
     'restoreFamilyMember' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Восстановление члена семьи',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'setAvatar' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Изменение аватары',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'removeAvatar' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Изменение аватары',
         'bizRule' => null,
         'data' => null,
     ),

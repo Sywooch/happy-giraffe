@@ -8,7 +8,10 @@ class ApiController extends \site\frontend\components\api\ApiController
 {
     public function actionGetUserSubscriptions($userId)
     {
-        $subscriptions = UserClubSubscription::model()->with('club')->findAllByAttributes(array('user_id' => $userId));
+        $criteria = new CDbCriteria();
+        $criteria->compare('user_id', $userId);
+        $criteria->addNotInCondition('club_id', array(21, 22));
+        $subscriptions = UserClubSubscription::model()->with('club')->findAll($criteria);
 
         $this->data = array_map(function($model) {
             return array(

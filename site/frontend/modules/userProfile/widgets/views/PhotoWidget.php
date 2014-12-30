@@ -4,4 +4,4 @@
  */
 ?>
 
-<album-section params="userId: <?=($album === null) ? null : $album->author_id?>, randomAlbum: <?=($album === null) ? null : $album->id?>"></album-section>
+<album-section params="userId: <?=$this->user->id?>, randomAlbum: <?=($album === null) ? null : $album->id?>"></album-section>

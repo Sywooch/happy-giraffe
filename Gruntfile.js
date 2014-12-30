@@ -660,8 +660,14 @@ module.exports = function(grunt){
       dist: {                     // Target
           files: [{               // Dictionary of files
               expand: true,       // Enable dynamic expansion.
-              cwd: 'lite/images/',     // Src matches are relative to this path.
-              src: ['**/*.svg'],  // Actual pattern(s) to match.
+              //cwd: 'lite/images/',     // Src matches are relative to this path.
+              src: [
+                '!lite/images/sprite/**/*.svg',
+                'lite/images/sprite/*.svg',
+                'lite/images/**/*.svg',
+                //'!lite/html/page/comments/comments-page.html',
+
+              ],  // Actual pattern(s) to match.
               dest: 'lite/images/',       // Destination path prefix.
               ext: '.svg'     // Dest filepaths will have this extension.
               // ie: optimise img/src/branding/logo.svg and store it in img/branding/logo.min.svg

@@ -109,7 +109,7 @@ class RegisterForm extends \CFormModel
         \Yii::import('site.frontend.modules.myGiraffe.models.*');
         \ViewedPost::getInstance($this->user->id);
 
-        \Friend::model()->addCommentatorAsFriend($this->user->id);
+        //\Friend::model()->addCommentatorAsFriend($this->user->id);
 
         //create some tables
         \Yii::app()->db->createCommand()->insert(\UserPriority::model()->tableName(), array('user_id' => $this->user->id));

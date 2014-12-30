@@ -7,8 +7,12 @@ block vars
 block layout
  
     .b-main
-        .b-main_cont
-            +userAddRecord('', userAddRecord.blog)
+
+        .b-main_cols.clearfix
+            .b-main_col-1 
+                +sidebarSearch('sidebar-search__big', sidebarSearch.a )
+            .b-main_col-23
+                +userAddRecord('userAddRecord__s', userAddRecord.a)
             
         .b-main_cont.b-main_cont__broad    
             .b-crumbs.b-crumbs__s

@@ -438,9 +438,6 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function leftFor($post)
     {
-        $this->getDbCriteria()->addColumnCondition(array(
-            'authorId' => $post->authorId,
-        ));
         $this->getDbCriteria()->compare('dtimePublication', '<' . $post->dtimePublication);
         $this->orderDesc();
 
@@ -454,9 +451,6 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function rightFor($post)
     {
-        $this->getDbCriteria()->addColumnCondition(array(
-            'authorId' => $post->authorId,
-        ));
         $this->getDbCriteria()->compare('dtimePublication', '>' . $post->dtimePublication);
         $this->orderAsc();
 

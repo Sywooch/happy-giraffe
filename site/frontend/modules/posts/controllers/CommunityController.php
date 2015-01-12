@@ -56,7 +56,7 @@ class CommunityController extends PostController
     public function getLeftPost()
     {
         if (is_null($this->_leftPost)) {
-            $this->_leftPost = Content::model()->byService('oldCommunity')->byTags($this->tags)->leftFor($this->post)->find();
+            $this->_leftPost = Content::model()->byService('oldCommunity')->byLabels($this->tags)->leftFor($this->post)->find();
         }
 
         return $this->_leftPost;
@@ -65,7 +65,7 @@ class CommunityController extends PostController
     public function getRightPost()
     {
         if (is_null($this->_rightPost)) {
-            $this->_rightPost = Content::model()->byService('oldCommunity')->byTags($this->tags)->rightFor($this->post)->find();
+            $this->_rightPost = Content::model()->byService('oldCommunity')->byLabels($this->tags)->rightFor($this->post)->find();
         }
 
         return $this->_rightPost;

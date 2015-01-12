@@ -96,7 +96,7 @@
   </div>
   <!-- /header-fix-->
   <div class="layout-container">
-    <div class="layout-loose layout-loose__white">
+    <div class="layout-loose">
       <div class="layout-header">
         <!-- header-->
         <div class="header header__user header__base">
@@ -153,26 +153,65 @@
         </div>
         <!-- /header-->
       </div>
+      <!-- .layout-loose_hold__personal-->
       <div class="layout-loose_hold clearfix">
         <div class="b-main">
-          <div class="b-main_cont b-main_cont__broad">
+          <div class="b-main_cols clearfix">
+            <div class="b-main_col-1"> 
+              <div class="sidebar-search clearfix sidebar-search__big">
+                <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+              </div>
+            </div>
+            <div class="b-main_col-23">
+              <!-- userAddRecord-->
+              <div class="userAddRecord clearfix userAddRecord__s userAddRecord__s">
+                <div class="userAddRecord_ava-hold">
+                  <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                </div>
+                <div class="userAddRecord_hold">
+                  <div class="userAddRecord_tx"> Я хочу добавить
+                  </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a>
+                </div>
+              </div>
+              <!-- /userAddRecord-->
+            </div>
+          </div>
+        </div>
+        <div class="b-main">
+          <div class="b-main_cont b-main_cont__broad">   
             <div class="b-crumbs b-crumbs__s">
               <div class="b-crumbs_tx">Я здесь:</div>
               <ul class="b-crumbs_ul">
-                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Мой жираф</a></li>
-                <li class="b-crumbs_li b-crumbs_li__last">
-                  <!-- ava--><a href="#" class="ava ava__small ava__female"><img alt="" src="" class="ava_img"></a>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная</a></li>
+                <li class="b-crumbs_li">
+                  <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                 </li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Блог </span></li>
               </ul>
             </div>
           </div>
-          <div class="b-main_cont b-main_cont__broad">
-            <div class="b-main_col-hold clearfix">
-              <!--/////     -->
-              <!-- Основная колонка  -->
-              <div class="b-main_col-article">
-                <div class="margin-20">
-                  <h2>Загрузка аватара</h2><br><a href="#ava-load-first" class="popup-a popup-a__add">Первая загрузка аватара</a><br><br><a href="#ava-load" class="popup-a popup-a__add">аватара загурзка</a><br><br><a href="#ava-error" class="popup-a popup-a__add">аватара ошбка загурзки</a><br><br><a href="#ava-edit" class="popup-a popup-a__add">Настройка аватара</a><br><br>
+        </div>
+        <div class="b-main">
+          <div class="b-main_cont">
+            <div class="section-empty section-empty__blog">
+              <div class="section-empty_t">Что бы вы хотели добавить в свой блог</div>
+              <ul class="section-empty_ul">
+                <li class="section-empty_li"><a href="#" class="section-empty_i">
+                    <div class="section-empty_ico section-empty_ico__blog"></div>
+                    <div class="section-empty_ico-tx">Запись</div></a></li>
+                <li class="section-empty_li"><a href="#" class="section-empty_i">
+                    <div class="section-empty_ico section-empty_ico__photo"></div>
+                    <div class="section-empty_ico-tx">Фотопост</div></a></li>
+                <li class="section-empty_li"><a href="#" class="section-empty_i">
+                    <div class="section-empty_ico section-empty_ico__video"></div>
+                    <div class="section-empty_ico-tx">Видео </div></a></li>
+                <li class="section-empty_li"><a href="#" class="section-empty_i">
+                    <div class="section-empty_ico section-empty_ico__status"></div>
+                    <div class="section-empty_ico-tx">Статус</div></a></li>
+              </ul>
+              <div class="section-empty_desc-hold">
+                <div class="section-empty_desc">
+                  <div class="section-empty_desc-tx">Добавляйте записи в свой блог ополучайте баллы в свою личную копилку успехов! Скрасте записи фотографиями, видео, ссылками и делитесь ими с друзьями.</div>
                 </div>
               </div>
             </div>
@@ -254,181 +293,5 @@
     </div>
   </div>
   <div class="popup-container display-n"> 
-    <!-- .popup-add-->
-    <!-- Первая загрузка аватара -->
-    <div id="ava-load-first" class="popup popup-add popup-add__photos">
-      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
-      <div class="popup-add_hold">
-        <div class="popup-add_top clearfix textalign-c">
-          <div class="popup-add_t">Добавить главное фото</div>
-        </div>
-        <div class="popup-add_in">              
-          <div class="popup-add_frame">
-            <div class="popup-add_cap">
-              <!-- Размер файла, необходимо указать программисту-->
-              <!-- cap-empty-->
-              <div class="cap-empty cap-empty__addPhoto">
-                <div class="verticalalign-m-help"></div>
-                <div class="cap-empty_hold">
-                  <div class="cap-empty_img"></div>
-                  <div class="cap-empty_t">Выберите файл с компьютера</div>
-                  <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp'></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div></div>
-                </div>
-              </div>
-              <!-- /cap-empty-->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /popup-add -->
-    <!-- .popup-add-->
-    <!-- Первая загрузка аватара -->
-    <div id="ava-load" class="popup popup-add popup-add__photos">
-      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
-      <div class="popup-add_hold">
-        <div class="popup-add_top clearfix textalign-c">
-          <div class="popup-add_t">Добавить главное фото</div>
-        </div>
-        <div class="popup-add_in">              
-          <div class="popup-add_frame">
-            <div class="popup-add_ava-upload">
-              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
-              -->
-              <div class="i-photo i-photo__abs"><a href="#" class="ico-close4"></a>
-                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
-                <!-- Загрузка фото-->
-                <div class="i-photo_hold">
-                  <div class="i-photo_progress">
-                    <!-- boostrap progressbar-->
-                    <!-- progressbar изначально уже весь заполнен-->
-                    <div class="progress progress-striped active progress__cont">
-                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
-                    </div>
-                    <div class="tx-hint">Загрузка</div>
-                  </div>
-                </div>
-              </div>
-              <!-- /Блок фотографии-->
-              <!-- прелоадер-->
-              <div class="popup-add_ava-load">
-                <div class="file-fake">
-                  <input type="file" class="file-fake_inp"><a href="#" class="file-fake_btn btn btn-primary btn-s">
-                     
-                    Изменить </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="popup-add_footer">
-            <div class="textalign-c"><a href="#" onclick="$.magnificPopup.close();" class="btn btn-secondary margin-r10">Отмена</a><a href="#" class="btn btn-success">Добавить</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /popup-add -->
-    <!-- .popup-add-->
-    <!-- Первая загрузка аватара -->
-    <div id="ava-error" class="popup popup-add popup-add__photos">
-      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
-      <div class="popup-add_hold">
-        <div class="popup-add_top clearfix textalign-c">
-          <div class="popup-add_t">Добавить главное фото</div>
-        </div>
-        <div class="popup-add_in">              
-          <div class="popup-add_frame">
-            <div class="popup-add_ava-upload">
-              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
-              -->
-              <div class="i-photo i-photo__abs i-photo__error"><a href="#" class="ico-close4"></a>
-                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
-                <!-- Ошибка-->
-                <div class="i-photo_hold error">
-                  <div class="tx-hint">IMG_5295.JPG</div>
-                  <div class="tx-hint">Ошибка загрузки</div>
-                </div>
-              </div>
-              <!-- /Блок фотографии-->
-              <!-- прелоадер-->
-              <div class="popup-add_ava-load">
-                <div class="file-fake">
-                  <input type="file" class="file-fake_inp"><a href="#" class="file-fake_btn btn btn-primary btn-s">
-                     
-                    Изменить </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="popup-add_footer">
-            <div class="textalign-c"><a href="#" onclick="$.magnificPopup.close();" class="btn btn-secondary margin-r10">Отмена</a><a href="#" class="btn btn-success">Добавить</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /popup-add -->
-    <!-- .popup-add-->
-    <!-- Первая загрузка аватара -->
-    <div id="ava-edit" class="popup popup-add popup-add__photos">
-      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
-      <div class="popup-add_hold">
-        <div class="popup-add_top clearfix textalign-c">
-          <div class="popup-add_t">Добавить главное фото</div>
-        </div>
-        <div class="popup-add_in">              
-          <div class="popup-add_frame">
-            <div class="popup-add_ava-upload">
-              <div class="b-loader b-loader__abs">
-                <div class="b-loader_hold">
-                  <!-- Размеры можно задавать:-->
-                  <!-- через классы (рекомендовано) -->
-                  <!-- .b-loader_circle - 50px-->
-                  <!-- .b-loader_circle__l - 125px-->
-                  <!-- или через style-->
-                  <!-- style='width: 125px; height: 125px;'-->
-                  <div vars.size class="b-loader_circle"><?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 125 125" enable-background="new 0 0 125 125"><defs><path id="a" d="M62.5 0C28 0 0 28 0 62.5S28 125 62.5 125 125 97 125 62.5 97 0 62.5 0zm0 112.5c-27.6 0-50-22.4-50-50s22.4-50 50-50 50 22.4 50 50-22.4 50-50 50z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><path fill-rule="evenodd" clip-rule="evenodd" fill="#AA96D2" d="M2 8.7l60.2 54.4 32.7-75z" clip-path="url(#b)"/><path fill-rule="evenodd" clip-rule="evenodd" fill="#FF8232" d="M94.6-11.8l-33 74.6 82.2 6.6z" clip-path="url(#b)"/><path fill-rule="evenodd" clip-rule="evenodd" fill="#FFE641" d="M61.1 62.6l19.9 79 62.8-73.2z" clip-path="url(#b)"/><path fill-rule="evenodd" clip-rule="evenodd" fill="#64B9EB" d="M61.6 62.8l-68.4 39.7 88 38.6z" clip-path="url(#b)"/><path fill-rule="evenodd" clip-rule="evenodd" fill="#73C869" d="M3.1 8.6l-9 94.6 67.8-40.4z" clip-path="url(#b)"/></svg>
-                  </div>
-                  <div class="b-loader_tx"> Загрузка фото
-                  </div>
-                </div>
-              </div>
-              <!-- Блок обрезки аватара-->
-              <div class="popup-add_ava-crop display-n"><img id="jcrop_target" src="http://placecreature.com/dog/1450/950">
-                <script src="/lite/javascript/jquery.Jcrop.min.js"></script>
-                <script>
-                  jQuery(function($){
-                      var api;
-                      $('#jcrop_target').Jcrop({
-                        // start off with jcrop-light class
-                        bgOpacity: 0.3,
-                        bgColor: '#fff',
-                        aspectRatio: 1,
-                        boxWidth: 450,
-                        addClass: 'jcrop-circle'
-                      },function(){
-                        api = this;
-                        api.setSelect([50,50,400,400]);
-                        api.setOptions({ bgFade: true });
-                        api.ui.selection.addClass('jcrop-selection');
-                      });
-                  });
-                </script>
-              </div>
-              <!-- прелоадер-->
-              <div class="popup-add_ava-load">
-                <div class="file-fake">
-                  <input type="file" class="file-fake_inp"><a href="#" class="file-fake_btn btn btn-primary btn-s">
-                     
-                    Изменить </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="popup-add_footer">
-            <div class="textalign-c"><a href="#" onclick="$.magnificPopup.close();" class="btn btn-secondary margin-r10">Отмена</a><a href="#" class="btn btn-success">Добавить</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /popup-add -->
   </div>
 </body></html>

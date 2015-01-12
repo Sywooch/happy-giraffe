@@ -1,0 +1,62 @@
+include ../../block/config
+extend ../../extend/layout_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css'; 
+
+block layout
+
+    .b-main
+
+        .b-main_cols.clearfix
+            .b-main_col-1 
+                +sidebarSearch('sidebar-search__big', sidebarSearch.a )
+            .b-main_col-23
+                +userAddRecord('userAddRecord__s', userAddRecord.a)
+            
+
+    .b-main
+        .b-main_cont.b-main_cont__broad    
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="#") Главная
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Блог 
+
+    .b-main
+        .b-main_cont
+            .section-empty.section-empty__blog
+                .section-empty_t Что бы вы хотели добавить в свой блог
+                ul.section-empty_ul
+                    li.section-empty_li
+                        a.section-empty_i(href="#")
+                            .section-empty_ico.section-empty_ico__blog
+                            .section-empty_ico-tx Запись
+                    li.section-empty_li
+                        a.section-empty_i(href="#")
+                            .section-empty_ico.section-empty_ico__photo
+                            .section-empty_ico-tx Фотопост
+                    li.section-empty_li
+                        a.section-empty_i(href="#")
+                            .section-empty_ico.section-empty_ico__video
+                            .section-empty_ico-tx Видео 
+                    li.section-empty_li
+                        a.section-empty_i(href="#")
+                            .section-empty_ico.section-empty_ico__status
+                            .section-empty_ico-tx Статус
+                    //-li.section-empty_li
+                        a.section-empty_i(href="#")
+                            .section-empty_ico.section-empty_ico__link
+                            .section-empty_ico-tx Ссылку
+                .section-empty_desc-hold
+                    .section-empty_desc
+                        .section-empty_desc-tx Добавляйте записи в свой блог ополучайте баллы в свою личную копилку успехов! Скрасте записи фотографиями, видео, ссылками и делитесь ими с друзьями.
+
+              
+        +layout-footer-lite()
+
+

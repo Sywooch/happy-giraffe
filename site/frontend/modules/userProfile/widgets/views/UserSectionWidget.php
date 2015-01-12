@@ -42,7 +42,7 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
                     <span class="b-ava-large_online">На сайте</span>
                 <?php endif; ?>
                 <?php if ($user->id == Yii::app()->user->id): ?>
-                <a id="avatar-upload" href="#" class="i-ava-bubble i-ava-bubble__photo powertip" data-bind="avatarUpload: { data: { multiple: false } }">
+                <a id="avatar-upload" href="#" class="i-ava-bubble i-ava-bubble__photo powertip" data-bind="tooltip: 'Загрузить главное фото', avatarUpload: { data: { multiple: false } }">
                     <div class="i-ava-bubble_ico i-ava-bubble_ico__photo"></div>
                 </a>
                 <?php endif; ?>

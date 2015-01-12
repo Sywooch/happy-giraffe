@@ -179,6 +179,18 @@ return array(
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
 
+        // пагинация в клубах
+        'communityRubricListNew' => array(
+            'class' => 'UrlRule',
+            'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
+            'route' => 'posts/communityList/index',
+        ),
+        'communityListNew' => array(
+            'class' => 'UrlRule',
+            'pattern' => 'community/<forum_id:\d+>/forum/',
+            'route' => 'posts/communityList/index',
+        ),
+
         // posts
         'posts' => 'posts/default/index',
         'posts/<_a>' => 'posts/default/<_a>',

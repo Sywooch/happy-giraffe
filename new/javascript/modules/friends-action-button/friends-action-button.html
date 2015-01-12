@@ -1,16 +1,16 @@
 <!-- ko if: loaded() === true -->
     <!-- ko if: friend.isFriend() === true  -->
-        <a href="" class="userSection_btn powertip userSection_btn__friend-added">
+        <a href="" class="userSection_btn powertip userSection_btn__friend-added" title='Друг'>
             <span class="userSection_ico"></span>
         </a>
     <!-- /ko -->
     <!-- ko if: friend.hasNoRelationship() === true  -->
-    <a href="" class="userSection_btn powertip userSection_btn__friend-add" data-bind="click: friend.friendsInvite.bind(friend)">
+    <a href="" class="userSection_btn powertip userSection_btn__friend-add" data-bind="click: friend.friendsInvite.bind(friend)" title='Добавить в друзья'>
         <span class="userSection_ico"></span>
     </a>
     <!-- /ko -->
     <!-- ko if: friend.hasOutgoingRequest() === true  -->
-    <a href="" class="userSection_btn powertip userSection_btn__friend">
+    <a href="" class="userSection_btn powertip userSection_btn__friend" title='Приглашение отправлено'>
         <span class="userSection_ico"></span>
     </a>
     <!-- /ko -->

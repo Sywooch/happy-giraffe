@@ -72,18 +72,21 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
                     'label' => 'Семья',
                     'url' => array('/family/default/index', 'userId' => $user->id),
                     'linkOptions' => array('class' => 'userSection_panel-a'),
+                    'visible' => $this->hasFamily(),
                 ),
                 array(
                     'label' => 'Блог',
                     'url' => array('/blog/default/index', 'user_id' => $user->id),
                     'linkOptions' => array('class' => 'userSection_panel-a'),
                     'active' => Yii::app()->controller->module !== null && in_array(Yii::app()->controller->module->id, array('posts', 'blog')),
+                    'visible' => $this->hasBlog(),
                 ),
                 array(
                     'label' => 'Фото',
                     'url' => array('/photo/default/index', 'userId' => $user->id),
                     'linkOptions' => array('class' => 'userSection_panel-a'),
                     'active' => Yii::app()->controller->module !== null && Yii::app()->controller->module->id == 'photo',
+                    'visible' => $this->hasPhotos(),
                 ),
             ),
         ));

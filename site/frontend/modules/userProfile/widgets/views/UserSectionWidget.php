@@ -7,7 +7,7 @@ $cs = Yii::app()->clientScript;
 $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
 ?>
 
-<section class="userSection visible-md-block">
+<section class="userSection">
     <div class="userSection_hold">
         <div class="userSection_left">
             <h2 class="userSection_name"><?=$user->getFullName()?></h2>

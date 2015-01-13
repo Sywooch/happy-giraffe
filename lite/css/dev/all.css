@@ -8844,22 +8844,22 @@ a.heading-link-xxl:hover {
   border-radius: 5px;
 }
 .i-club__collection-1 {
-  background-color: #FAF6FF;
+  background-color: #f3fcff;
 }
 .i-club__collection-2 {
-  background-color: #F3FCFF;
+  background-color: #fffbf8;
 }
 .i-club__collection-3 {
-  background-color: #FFFBF8;
+  background-color: #fffeea;
 }
 .i-club__collection-4 {
-  background-color: #FFFEEA;
+  background-color: #faf6ff;
 }
 .i-club__collection-5 {
-  background-color: #F3FEF2;
+  background-color: #f3fef2;
 }
 .i-club__collection-6 {
-  background-color: #FAF6FF;
+  background-color: #faf6ff;
 }
 .i-video-serv {
   display: inline-block;
@@ -17826,8 +17826,8 @@ add in old css
   color: #a0a09f;
 }
 .cap-empty__profile-family {
-  margin-top: 150px;
-  height: 500px;
+  margin-top: 110px;
+  height: 400px;
 }
 .cap-empty__profile-family .cap-empty_t {
   margin: 20px;

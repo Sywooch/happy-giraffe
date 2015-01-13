@@ -214,6 +214,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.dropdown+/,
             /.flag+/,
@@ -272,6 +273,7 @@ module.exports = function(grunt){
             // Выбираем все стили где в начале .class
             // /.dropdown+/,
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -311,6 +313,7 @@ module.exports = function(grunt){
             // Выбираем все стили где в начале .class
             // /.dropdown+/,
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -352,6 +355,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -385,6 +389,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -422,6 +427,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -461,6 +467,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -506,6 +513,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.mfp+/,
             /.select2+/,

@@ -148,7 +148,23 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $photo = $oldPost->post->photo;
 
         $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
-        if ($photo) {
+        if ($oldPost->gallery) {
+            // Скопировано из convertPhotoPost
+            $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
+            $count = $collection->attachesCount;
+            $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
+            $url = '#';//$collection->observer->getSingle(0)->getUrl();
+            $photoAlbumTag = \CHtml::tag('photo-collection', array(
+                        'params' =>
+                        'id: ' . (int) $collection->id . ', ' .
+                        'attachCount: ' . (int) $count . ', ' .
+                        'coverId: ' . $collection->cover->id,
+                            ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
+
+            $newPost->html .= $photoAlbumTag;
+            $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopostPreview', array('tag' => $photoAlbumTag, 'text' => \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($newPost->text))), 200, ' <span class="ico-more"></span>')));
+            $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
+        } elseif ($photo) {
             $newPost->preview = '<div class="b-article_in-img"><a href="' . $oldPost->url . '">' . $photo->getPreviewHtml(600, 1100) . '</a></div>' . $newPost->preview;
             $newPost->socialObject->imageUrl = $photo->getPreviewUrl(200, 200);
         }

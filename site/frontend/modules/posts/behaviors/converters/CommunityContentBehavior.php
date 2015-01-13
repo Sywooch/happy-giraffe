@@ -29,6 +29,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             return $this->convertVideoPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_STATUS)
             return $this->convertStatus();
+        elseif ($this->owner->type_id == \CommunityContent::TYPE_QUESTION)
+            return $this->convertQuestion();
     }
 
     public function afterSave($event)
@@ -109,6 +111,26 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $newPost->socialObject->description = $newPost->metaObject->description;
         $newPost->isAutoSocial = true;
+    }
+
+    protected function convertQuestion()
+    {
+        $newPost = null;
+        $oldPost = null;
+        $this->convertCommon($oldPost, $newPost, 'oldQuestion');
+
+        $newPost->templateObject->data['type'] = 'question';
+        $oldPost->question->purified->clearCache();
+        $newPost->html = $oldPost->question->purified->text;
+        $newPost->text = $oldPost->question->text;
+        $clearText = $newPost->fillText();
+        $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
+        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
+
+        if (empty($newPost->metaObject->description))
+            $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->question->text)));
+
+        return $newPost->save();
     }
 
     protected function convertPost()

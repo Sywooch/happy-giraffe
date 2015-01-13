@@ -9,7 +9,6 @@ namespace site\frontend\modules\users\controllers;
 
 class DefaultController extends \LiteController
 {
-    public $layout = '//lite/common';
     public $litePackage = 'member';
 
     public function actionSettings()

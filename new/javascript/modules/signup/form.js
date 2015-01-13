@@ -30,6 +30,14 @@ define(['knockout', 'models/Model', 'signup/formField'], function(ko, Model, For
                 }
             }
         },
+        isAllFilled: function isAllFilled() {
+            for (var attribute in this.fields) {
+                if (this.fields[attribute].isFilled() === false && attribute !== 'avatarSrc') {
+                    return false;
+                }
+            }
+            return true;
+        },
         getValues: function() {
             var values = {};
             for (var key in this.fields) {

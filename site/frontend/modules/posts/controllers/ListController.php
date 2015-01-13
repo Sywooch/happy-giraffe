@@ -15,11 +15,18 @@ class ListController extends \LiteController
 
     public $layout = 'newBlogPost';
     public $litePackage = 'posts';
+    /**
+     * @var null|\CActiveDataProvider
+     */
     public $listDataProvider = null;
     public $hideUserAdd = false;
     public $userId;
     protected $_user = null;
 
+    /**
+     * @return \site\frontend\components\api\models\User
+     * @throws \site\frontend\components\api\ApiException
+     */
     public function getUser()
     {
         if (is_null($this->_user)) {

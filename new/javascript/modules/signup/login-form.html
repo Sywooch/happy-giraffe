@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="popup-sign_cont">
-            <div class="popup-sign_col popup-sign_col__left">
+            <form class="popup-sign_col popup-sign_col__left" action=''>
                 <div class="popup-sign_row">
                     <div class="inp-valid inp-valid__abs" data-bind="css: fields.email.cssClass">
                         <input type="text" placeholder="Email" class="itx-gray popup-sign_itx" data-bind="value: fields.email.value" name="email">
@@ -42,9 +42,9 @@
                     </div>
                 </div>
                 <div class="popup-sign_row">
-                    <div class="btn-xl btn btn-success" data-bind="css: { loading: loading }, disable: loading, click: submit">Войти на сайт</div>
+                    <a href="" class="btn-xl btn btn-success" data-bind="css: { loading: loading }, disable: loading, click: submit">Войти на сайт</a>
                 </div>
-            </div>
+            </form>
             <div class="popup-sign_social">
                 <div class="popup-sign_row">
                     <div class="popup-sign_label textalign-c">или через</div>

@@ -245,9 +245,15 @@
         margin-right: 0;
     }
     &_li__dropin.active .header-drop {display: block;}
+    &_li__dropin.active &_ico {top: 0;}
+    &_li__dropin.active &_tx {
+        color: @color-gray;
+    }
+    &_li__dropin.active .active &_tx {color: @color-orange;}
 
+    /*
     // kinder реклама
-/*    &_li__kinderino,
+    &_li__kinderino,
     &_li__kindergold {
         margin: 0 0 0 20px;
     }
@@ -267,9 +273,9 @@
         width: 78px;
         height: 97px; 
         background: url('@{path-img}/header-menu_kinderino.jpg') no-repeat 50% 50%;
-    }*/
+    }
     // kinder реклама
-
+    */
     &_a {
         width: 76px;
         .inline-block();

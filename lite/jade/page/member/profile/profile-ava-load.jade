@@ -29,6 +29,12 @@ block layout
                         a.popup-a.popup-a__add(href="#ava-load-first") Первая загрузка аватара
                         br
                         br
+                        a.popup-a.popup-a__add(href="#ava-load") аватара загурзка
+                        br
+                        br
+                        a.popup-a.popup-a__add(href="#ava-error") аватара ошбка загурзки
+                        br
+                        br
                         a.popup-a.popup-a__add(href="#ava-edit") Настройка аватара
                         br
                         br
@@ -51,6 +57,64 @@ block block-hidden
                     .popup-add_cap
                         // Размер файла, необходимо указать программисту
                         +cap-empty("cap-empty__addPhoto", capEmpty.addPhoto)
+                        
+    // /popup-add 
+
+    // .popup-add
+    // Первая загрузка аватара 
+    #ava-load.popup.popup-add.popup-add__photos
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
+        .popup-add_hold
+            .popup-add_top.clearfix.textalign-c
+                .popup-add_t Добавить главное фото
+            .popup-add_in               
+                
+                .popup-add_frame
+                    .popup-add_ava-upload
+
+                        //-+bLoader('b-loader__abs', bLoader.photoWindow) 
+                        +iPhoto('i-photo__abs', iPhoto.load)
+
+                        // прелоадер
+                        .popup-add_ava-load
+                            .file-fake
+                                input.file-fake_inp(type="file")
+                                a.file-fake_btn.btn.btn-primary.btn-s(href="#") 
+                                    | Изменить 
+
+                .popup-add_footer
+                    .textalign-c
+                        a.btn.btn-secondary.margin-r10(href="#", onclick="$.magnificPopup.close();") Отмена
+                        a.btn.btn-success(href="#") Добавить
+                        
+    // /popup-add 
+
+    // .popup-add
+    // Первая загрузка аватара 
+    #ava-error.popup.popup-add.popup-add__photos
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
+        .popup-add_hold
+            .popup-add_top.clearfix.textalign-c
+                .popup-add_t Добавить главное фото
+            .popup-add_in               
+                
+                .popup-add_frame
+                    .popup-add_ava-upload
+
+                        //-+bLoader('b-loader__abs', bLoader.photoWindow) 
+                        +iPhoto('i-photo__abs i-photo__error', iPhoto.error)
+
+                        // прелоадер
+                        .popup-add_ava-load
+                            .file-fake
+                                input.file-fake_inp(type="file")
+                                a.file-fake_btn.btn.btn-primary.btn-s(href="#") 
+                                    | Изменить 
+
+                .popup-add_footer
+                    .textalign-c
+                        a.btn.btn-secondary.margin-r10(href="#", onclick="$.magnificPopup.close();") Отмена
+                        a.btn.btn-success(href="#") Добавить
                         
     // /popup-add 
 

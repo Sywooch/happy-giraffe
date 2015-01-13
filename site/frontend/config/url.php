@@ -114,8 +114,7 @@ return array(
         'blog/form/type<type:\d+>' => 'blog/default/form',
         'blog/settings/<_a>' => 'blog/settings/<_a>',
 
-        'user/settings/' => 'profile/settings/personal',
-        'user/settings/<_a>' => 'profile/settings/<_a>',
+        'user/settings' => 'users/default/settings',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',

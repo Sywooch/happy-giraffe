@@ -11,6 +11,6 @@ $avatarUrl = $this->user->getAvatarUrl($this->size);
         <span class="ico-status ico-status__online"></span>
     <?php endif ?>
     <?php if ($avatarUrl !== false): ?>
-        <?=CHtml::image($avatarUrl, $this->user->getFullName(), array('class' => 'ava_img', 'width' => $this->size, 'height' => $this->size)) ?>
+        <?=CHtml::image($avatarUrl, '', array('class' => 'ava_img', 'width' => $this->size, 'height' => $this->size)) ?>
     <?php endif; ?>
 <?=CHtml::closeTag($tag); ?>

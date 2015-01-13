@@ -1,7 +1,7 @@
 <?php
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
         /** @todo Исправить класс при конвертации */
-        'entity' => 'BlogContent', //$this->post->originEntity,
+        'entity' => $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity,
         'entity_id' => $this->post->originEntityId,
         )));
 ?>
@@ -111,6 +111,12 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
         </div>
     </section>
     <!-- /comments-->
+    <?php
+    if ($this->post->templateObject->getAttr('type', false) == 'question') {
+        // Виджет "задать вопрос"
+        $this->widget('site.frontend.modules.community.widgets.CommunityQuestionWidget', array('forumId' => $this->forum->id));
+    }
+    ?>
 </div>
 <!-- /Основная колонка-->
 <!--/////-->

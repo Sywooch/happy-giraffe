@@ -22,8 +22,17 @@ class AvatarManager
         self::SIZE_BIG => 'avatarBig',
     );
 
-    public static function setAvatar(User $user, Photo $photo, $cropData)
+    public static function setAvatar(\User $user, Photo $photo, $cropData = null)
     {
+        if ($cropData === null) {
+            $cropData = array(
+                'x' => 0,
+                'y' => 0,
+                'w' => $photo->width,
+                'h' => $photo->height,
+            );
+        }
+
         $response = \CJSON::decode(\Yii::app()->api->request('photo/crops', 'create', array(
             'photoId' => $photo->id,
             'cropData' => $cropData,
@@ -40,7 +49,7 @@ class AvatarManager
         return false;
     }
 
-    public static function removeAvatar(User $user)
+    public static function removeAvatar(\User $user)
     {
         $oldAvatarId = $user->avatarId;
         if ($oldAvatarId === null) {

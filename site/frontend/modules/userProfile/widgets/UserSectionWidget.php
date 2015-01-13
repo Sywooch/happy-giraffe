@@ -1,6 +1,9 @@
 <?php
 
 namespace site\frontend\modules\userProfile\widgets;
+use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\family\models\Family;
+use site\frontend\modules\photo\models\PhotoAlbum;
 
 /**
  * @author Никита
@@ -23,5 +26,28 @@ class UserSectionWidget extends \CWidget
     protected function show()
     {
         return $this->showToOwner || ($this->user->id != \Yii::app()->user->id);
+    }
+
+    public function hasBlog()
+    {
+        $nPosts = Content::model()->byService('oldBlog')->byAuthor($this->user->id)->count();
+        return $nPosts > 0;
+    }
+
+    public function hasPhotos()
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->with = array(
+            'photoCollections' => array(
+                'scopes' => array('notEmpty'),
+            ),
+        );
+        $nAlbums = PhotoAlbum::model()->count($criteria);
+        return $nAlbums > 0;
+    }
+
+    public function hasFamily()
+    {
+        return Family::model()->hasMember(\Yii::app()->user->id)->exists();
     }
 } 

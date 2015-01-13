@@ -1,6 +1,8 @@
 <?php
 
 namespace site\frontend\modules\signup\models;
+use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\users\components\AvatarManager;
 
 /**
  * @author Никита
@@ -19,7 +21,7 @@ class RegisterForm extends \CFormModel
     public $email;
     public $password;
     public $avatarSrc;
-    
+
     public $user;
 
     public function rules()
@@ -67,18 +69,33 @@ class RegisterForm extends \CFormModel
             if ($this->user->save()) {
                 $this->afterSave();
                 $transaction->commit();
-                return true;
             } else {
                 $transaction->rollback();
+                return false;
             }
         } catch (\Exception $e) {
             $transaction->rollback();
             throw $e;
         }
-        return false;
+        $this->createAvatar();
+        $this->createSocialService();
+        return true;
     }
 
-    protected function afterSave()
+    protected function createAvatar()
+    {
+        if ($this->avatarSrc) {
+            $photo = new Photo();
+            $photo->author_id = $this->user->id;
+            $photo->original_name = pathinfo($this->avatarSrc, PATHINFO_BASENAME);
+            $photo->image = file_get_contents($this->avatarSrc);
+            if ($photo->save()) {
+                AvatarManager::setAvatar($this->user, $photo);
+            }
+        }
+    }
+
+    protected function createSocialService()
     {
         if (($socialService = \Yii::app()->user->getState('socialService')) !== null) {
             $service = new \UserSocialService();
@@ -88,30 +105,39 @@ class RegisterForm extends \CFormModel
             $service->save();
             \Yii::app()->user->setState('socialService', null);
         }
+    }
 
-        if ($this->avatarSrc) {
-            $photo = \AlbumPhoto::createByUrl($this->avatarSrc, $this->user->id);
-            if ($photo) {
-                \UserAvatar::createUserAvatar($this->user->id, $photo->id, 0, 0, $photo->width, $photo->height);
-            }
-        }
+    protected function afterSave()
+    {
+        $this->createUserAddress();
+        $this->createBlogRubric();
+        $this->setupMyGiraffe();
+        $this->createRelatedTables();
+    }
 
+    protected function createUserAddress()
+    {
         $userAddress = new \UserAddress();
         $userAddress->user_id = $this->user->id;
         $userAddress->save();
+    }
 
-        //рубрика для блога
+    protected function createBlogRubric()
+    {
         $rubric = new \CommunityRubric;
         $rubric->title = 'Обо всём';
         $rubric->user_id = $this->user->id;
         $rubric->save();
+    }
 
+    protected function setupMyGiraffe()
+    {
         \Yii::import('site.frontend.modules.myGiraffe.models.*');
         \ViewedPost::getInstance($this->user->id);
+    }
 
-        //\Friend::model()->addCommentatorAsFriend($this->user->id);
-
-        //create some tables
+    protected function createRelatedTables()
+    {
         \Yii::app()->db->createCommand()->insert(\UserPriority::model()->tableName(), array('user_id' => $this->user->id));
         \Yii::app()->db->createCommand()->insert(\UserScores::model()->tableName(), array('user_id' => $this->user->id));
     }

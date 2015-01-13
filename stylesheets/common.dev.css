@@ -8702,7 +8702,7 @@ textarea.error,
   }
   .layout-footer_hold {
     width: auto;
-    margin: 0 60px;
+    margin: 0 35px;
   }
   .layout-footer_tx {
     margin-right: 20px;
@@ -8787,7 +8787,7 @@ textarea.error,
 .footer-menu_li {
   display: inline-block;
   vertical-align: top;
-  padding: 0 0 0 35px;
+  padding: 0 0 0 43px;
   /*border-left: 1px solid #c3c3c3;*/
   /*font-weight: bold;*/
 }

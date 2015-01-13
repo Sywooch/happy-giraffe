@@ -65,7 +65,7 @@
         background: #290b45;
         background: rgba(41,11,69,.35);
         .transition(all 0.4s ease);
-        opacity: 0;
+        /*opacity: 0;*/
     }
     .ie8 &_overlay {display: none;filter: alpha(opacity=0);}
     
@@ -191,9 +191,15 @@
     }
     &_ico-ava:hover {background-position: 0 -50px;}
     &_ico-ava:hover:after {display: block;}
-    &_ico-ava.active {background-position: 0 -100px;}
-    &_ico-ava.active:hover {background-position: 0 -100px;}
-    &_ico-ava.active:hover:after {display: none;}
+    &_ico-ava.active {
+        background-position: 0 -100px;
+        z-index: 20;
+    }
+    /*&_ico-ava.active:hover {background-position: 0 -100px;}*/
+    &_ico-ava.active:hover:after {
+        display: block;
+        content: 'Главное в анкете';
+    }
     &_ico-ava:after {
         content: 'На главную анкеты';
         display: none;
@@ -218,9 +224,15 @@
     }
     &_ico-album:hover {background-position: 0 -50px;}
     &_ico-album:hover:after {display: block;}
-    &_ico-album.active {background-position: 0 -100px;}
-    &_ico-album.active:hover {background-position: 0 -100px;}
-    &_ico-album.active:hover:after {display: none;}
+    &_ico-album.active {
+        background-position: 0 -100px;
+        z-index: 20;
+    }
+    /*&_ico-album.active:hover {background-position: 0 -100px;}*/
+    &_ico-album.active:hover:after {
+        display: block;
+        content: 'Обложка альбома';
+    }
     &_ico-album:after {
         content: 'На обложку альбома';
         display: none;

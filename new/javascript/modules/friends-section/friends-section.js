@@ -4,7 +4,7 @@ define(['jquery', 'knockout', 'text!friends-section/friends-section.html', 'mode
         this.userLimit = 12;
         this.friend = Object.create(Friend);
         this.friends = ko.observableArray();
-        this.friendsUrl = '/friends/';
+        this.friendsUrl = '/user/' +  this.userId + '/friends/';
         this.loaded = ko.observable(false);
         this.rightsForManipulation = Model.checkRights(this.userId);
         this.getFriends = function getFriends() {

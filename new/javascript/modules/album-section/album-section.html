@@ -1,7 +1,7 @@
 <!-- ko if: loaded() === true -->
     <!-- ko if: photoAlbum.id() !== undefined -->
     <div class="widget-user-photo">
-        <div class="heading-sm"><a href="#" class="heading-sm_a-r" data-bind="href: albumUrl, text: 'Все фото '  + photoAlbum.photoCollection().attachesCount()"></a>Мои фото</div>
+        <div class="heading-sm"><a href="#" class="heading-sm_a-r" data-bind="href: albumUrl, text: 'Все фото '  + allPhotoCount()"></a>Мои фото</div>
         <ul class="widget-user-photo_ul clearfix">
             <!-- ko if: photoAlbum.photoCollection().cover() !== undefined -->
             <li class="widget-user-photo_li">

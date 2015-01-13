@@ -5,7 +5,7 @@ define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 's
         this.fields = {
             email: new FormField(this, '')
         };
-        this.submitHandler = function submitHandler(response) {
+        this.validateHandler = function validateHandler(response) {
             var attribute;
             for (attribute in this.fields) {
                 if (this.fields.hasOwnProperty(attribute)) {
@@ -22,7 +22,7 @@ define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 's
         };
         this.submit = function submit() {
             this.loading(true);
-            Model.get(this.submitUrl, { attributes: this.getValues() }).done(this.submitHandler.bind(this));
+            Model.get(this.submitUrl, { attributes: this.getValues() }).done(this.validateHandler.bind(this));
         };
     }
     RecoverForm.prototype = Form;

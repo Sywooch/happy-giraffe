@@ -7,7 +7,7 @@ define(['jquery', 'models/Model', 'user-config', 'jquery.Jcrop.min'], function (
         if (cropSelectMark !== undefined) {
             return [cropSelectMark.x1Measure, cropSelectMark.y1Measure, cropSelectMark.x2Measure, cropSelectMark.y2Measure];
         }
-        return [wh[0] / 2 - 100, wh[1] / 2 + 100, wh[0] / 2 + 100, wh[1] / 2 - 100];
+        return [wh[0] / 2 - (100 * scale[0]), wh[1] / 2 + (100 * scale[1]), wh[0] / 2 + (100 * scale[0]), wh[1] / 2 - (100 * scale[1])];
     };
     var jcropInit = function jcropInit(photoObject, cropSelect) {
         var api;

@@ -46,6 +46,12 @@ define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Mode
     };
 
 
+    var loadingErrorsObject = {
+      tooBig: {
+          string: "Request Entity Too Large",
+          name: "Слишком большое фото"
+      }
+    };
 
     // Основная модель вставки фотографий
     function PhotoAddViewModel(data) {
@@ -221,7 +227,15 @@ define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Mode
                 self.processAvatar(self.photo(), data.result);
             },
             fail: function(e, data) {
-                if (data.errorThrown != 'abort') {
+                if (data.errorThrown !== 'abort') {
+                    self.photo().cropLoaded(true);
+                    for(var errorIt in loadingErrorsObject) {
+                        if (data.errorThrown === loadingErrorsObject[errorIt].string) {
+                            self.photo().error(loadingErrorsObject[errorIt].name);
+                        } else {
+                            self.photo().error(false);
+                        }
+                    }
                     self.photo().status(PhotoUpload.prototype.STATUS_FAIL);
                 }
             }

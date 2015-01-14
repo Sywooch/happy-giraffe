@@ -40,7 +40,4 @@ class User extends \User implements \IHToJSON
             'publicChannel' => $this->getPublicChannel(),
         );
     }
-
 }
-
-?>

@@ -22,13 +22,25 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function packGet($id, $avatarSize = false)
     {
-        $user = \site\frontend\modules\users\models\User::model()->findByPk($id);
+        $user = User::model()->findByPk($id);
         if (!$user)
             throw new \CHttpException(404, 'Пользователь ' . $id . ' не найден');
         $this->success = true;
         $this->data = $user->toJSON();
         if ($avatarSize)
             $this->data['avatarUrl'] = $user->getAvatarUrl($avatarSize);
+    }
+
+    public function actionGetCurrentUser()
+    {
+        $user = User::model()->findByPk(\Yii::app()->user->id);
+        $data = $user->toJSON();
+        $data['email'] = $user->email;
+        $data['address'] = $user->address->toJSON();
+        $data['socialServices'] = $user->userSocialServices;
+        $data['subscription'] = $user->mail_subs === null ? 1 : $user->mail_subs->weekly_news == 1 ? 1 : 0;
+        $this->success = true;
+        $this->data = $data;
     }
 
     public function actionUpdate($id, array $attributes)
@@ -64,7 +76,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         );
     }
 
-    public function actionChangLocation($id, $countryId = null, $regionId = null, $cityId = null)
+    public function actionChangeLocation($id, $countryId = null, $regionId = null, $cityId = null)
     {
         /** @var \site\frontend\modules\users\models\User $user */
         $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');

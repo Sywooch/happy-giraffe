@@ -17,7 +17,7 @@
  * @property GeoCity $center
  * @property GeoCountry $country
  */
-class GeoRegion extends HActiveRecord
+class GeoRegion extends HActiveRecord implements IHToJSON
 {
     /**
      * Returns the static model of the specified AR class.
@@ -143,5 +143,13 @@ class GeoRegion extends HActiveRecord
                 'isCity'=> $region->isCity()
             );
         return $result;
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'id' => (int) $this->id,
+            'name' => $this->name,
+        );
     }
 }

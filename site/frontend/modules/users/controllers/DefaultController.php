@@ -25,6 +25,25 @@ class DefaultController extends \LiteController
         );
     }
 
+    public function actions()
+    {
+        return array(
+            'social' => array(
+                'class' => 'SocialAction',
+                'successCallback' => function($eauth) {
+                    $model = new \UserSocialService();
+                    $model->user_id = \Yii::app()->user->id;
+                    $model->service_id = $eauth->getAttribute('uid');
+                    $model->service = $eauth->getServiceName();
+                    $model->name = $eauth->getAttribute('first_name') . ' ' . $eauth->getAttribute('last_name');
+                    $model->save();
+
+                    $eauth->redirect(\Yii::app()->controller->createUrl('settings'));
+                },
+            ),
+        );
+    }
+
     public $litePackage = 'member';
 
     public function actionSettings()

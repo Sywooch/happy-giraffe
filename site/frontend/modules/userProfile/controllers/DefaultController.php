@@ -16,7 +16,6 @@ class DefaultController extends \LiteController
         return new \CActiveDataProvider('\site\frontend\modules\posts\models\Content', array(
             'criteria' => array(
                 'scopes' => array(
-                    'byService' => 'oldBlog',
                     'byAuthor' => $authorId,
                     'orderDesc',
                 ),

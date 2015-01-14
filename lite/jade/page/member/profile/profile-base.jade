@@ -5,7 +5,7 @@ block vars
     - global.cssFile = 'member.css'; 
  
 block layout
- 
+
     .b-main
         .b-main_cont.b-main_cont__broad
             .b-crumbs.b-crumbs__s
@@ -29,6 +29,8 @@ block layout
                     +bArticleListItem('', bArticleListItem.a)
 
                     +bArticleListItem('', bArticleListItem.b) 
+
+                    +paginationSmall('', paginationSmall.base)
 
 
                 ///////
@@ -91,17 +93,23 @@ block layout
                         .heading-sm Мои клубы
                         ul.widget-club_ul.clearfix
                             li.widget-club_li
-                                a.i-club.i-club__list-s.i-club__collection-3(href='#')
-                                    .ico-club.ico-club__7
-                            li.widget-club_li
                                 a.i-club.i-club__list-s.i-club__collection-6(href='#')
                                     .ico-club.ico-club__20
                             li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-5(href='#')
+                                    .ico-club.ico-club__17
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-4(href='#')
+                                    .ico-club.ico-club__15
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-3(href='#')
+                                    .ico-club.ico-club__12
+                            li.widget-club_li
                                 a.i-club.i-club__list-s.i-club__collection-2(href='#')
-                                    .ico-club.ico-club__5
+                                    .ico-club.ico-club__9
                             li.widget-club_li
                                 a.i-club.i-club__list-s.i-club__collection-1(href='#')
-                                    .ico-club.ico-club__15
+                                    .ico-club.ico-club__3
                     // /виджет клубы
 
 

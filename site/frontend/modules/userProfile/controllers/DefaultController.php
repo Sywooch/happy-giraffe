@@ -13,7 +13,14 @@ class DefaultController extends \LiteController
 
     public function getListDataProvider($authorId)
     {
-        return new \CActiveDataProvider(\site\frontend\modules\posts\models\Content::model()->byService('oldBlog')->byAuthor($authorId)->orderDesc(), array(
+        return new \CActiveDataProvider('\site\frontend\modules\posts\models\Content', array(
+            'criteria' => array(
+                'scopes' => array(
+                    'byService' => 'oldBlog',
+                    'byAuthor' => $authorId,
+                    'orderDesc',
+                ),
+            ),
             'pagination' => array(
                 'pageSize' => 10,
                 'pageVar' => 'page',

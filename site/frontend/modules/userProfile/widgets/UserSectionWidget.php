@@ -30,8 +30,7 @@ class UserSectionWidget extends \CWidget
 
     public function hasBlog()
     {
-        $nPosts = Content::model()->byService('oldBlog')->byAuthor($this->user->id)->count();
-        return $nPosts > 0;
+        return Content::model()->byService('oldBlog')->byAuthor($this->user->id)->exists();
     }
 
     public function hasPhotos()
@@ -42,12 +41,11 @@ class UserSectionWidget extends \CWidget
                 'scopes' => array('notEmpty'),
             ),
         );
-        $nAlbums = PhotoAlbum::model()->count($criteria);
-        return $nAlbums > 0;
+        return PhotoAlbum::model()->exists($criteria);
     }
 
     public function hasFamily()
     {
-        return Family::model()->hasMember(\Yii::app()->user->id)->exists();
+        return Family::model()->hasMember($this->user->id)->exists();
     }
 } 

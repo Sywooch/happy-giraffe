@@ -153,7 +153,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
             $count = $collection->attachesCount;
             $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
-            $url = '#';//$collection->observer->getSingle(0)->getUrl();
+            $url = $collection->observer->getSingle(0)->getUrl();
             $photoAlbumTag = \CHtml::tag('photo-collection', array(
                         'params' =>
                         'id: ' . (int) $collection->id . ', ' .

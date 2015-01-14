@@ -51,6 +51,27 @@ class FillQueue extends \CConsoleCommand
         echo "\ntotal " . $count . " items\n";
     }
 
+    public function actionOldPhotoPost()
+    {
+        $dataProvider = new \CActiveDataProvider(\CommunityContent::model()->resetScope(), array(
+            'criteria' => array(
+                'condition' => 't.id in (SELECT cc.id from community__contents cc join community__content_gallery ccg on ccg.content_id = cc.id WHERE cc.type_id = 1 AND cc.removed = 0)',
+            ),
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
+        ));
+
+        $iterator = new \CDataProviderIterator($dataProvider);
+        $count = 0;
+        foreach ($iterator as $model) {
+            $model->addTaskToConvert();
+            $count++;
+            echo '.';
+        }
+        echo "\ntotal " . $count . " items\n";
+    }
+
     public function actionCommunity($id)
     {
         $criteria = new \CDbCriteria();

@@ -77,7 +77,6 @@ return array(
             'name' => 'fixed',
             'width' => 300,
             'height' => 200,
-            'mode' => 'outbound',
         ),
         'usages' => array(
             'myPhotosSectionCover',
@@ -105,9 +104,9 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'relativeResize',
-            'method' => 'heighten',
-            'parameter' => 70,
+            'name' =>'lepilla',
+            'width' => 92,
+            'height' => 70,
         ),
         'usages' => array(
             'myPhotosPreview',

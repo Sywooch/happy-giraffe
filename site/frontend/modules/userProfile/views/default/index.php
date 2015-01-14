@@ -27,7 +27,6 @@ $this->breadcrumbs[] = $this->widget('Avatar', array(
                     'tagName' => 'div',
                     'itemsTagName' => false,
                     'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
-                    'enablePagination' => false,
                     'pager' => array(
                         'class' => 'LitePager',
                         'maxButtonCount' => 10,

@@ -8,6 +8,7 @@ namespace site\frontend\modules\userProfile\widgets;
 
 
 use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoAttach;
 
 class PhotoWidget extends \CWidget
 {
@@ -27,6 +28,19 @@ class PhotoWidget extends \CWidget
             'order' => 'RAND()',
         ));
         $album = PhotoAlbum::model()->find($criteria);
-        $this->render('PhotoWidget', compact('album'));
+        $count = $this->getCount();
+        $this->render('PhotoWidget', compact('album', 'count'));
+    }
+
+    protected function getCount()
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->with = array(
+            'photoCollections' => array(
+                'with' => array('attaches'),
+            ),
+        );
+        $criteria->compare('t.author_id', $this->user->id);
+        return PhotoAlbum::model()->count($criteria);
     }
 } 

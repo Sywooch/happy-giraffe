@@ -16,10 +16,13 @@ define(['knockout'], function FormFieldHandler(ko) {
             return (this.errors().length > 0) ? 'error' : 'success';
         };
         this.cssClass = ko.computed(this.cssClassHandler, this);
-
         this.validateParentHanler = function validateParentHanler() {
             this.isFilled(true);
-            parent.loading(false);
+            if (parent.isAllFilled() === true) {
+                parent.validate().done(parent.validateHandler.bind(parent));
+            } else {
+                parent.loading(false);
+            }
         };
         this.validate = function validate() {
             if (this.errors.length > 0 || this.fired() === false) {

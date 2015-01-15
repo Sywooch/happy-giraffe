@@ -3,12 +3,13 @@
 $this->pageTitle = $this->forum->title;
 $this->metaNoindex = true;
 $this->breadcrumbs = array(
-    $this->club->section->title => $this->club->section->getUrl(),
     $this->club->title => $this->club->getUrl(),
 );
 $forumTitle = (isset($this->club->communities) && count($this->club->communities) > 1) ? $this->forum->title : 'Форум';
 if ($this->rubric) {
-    $this->breadcrumbs[$forumTitle] = $this->forum->getUrl();
+    if (isset($this->club->communities) && count($this->club->communities) > 1) {
+        $this->breadcrumbs[$forumTitle] = $this->forum->getUrl();
+    }
     $this->breadcrumbs[] = $this->rubric->title;
 } else {
     $this->breadcrumbs[] = $forumTitle;

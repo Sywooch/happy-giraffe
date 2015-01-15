@@ -43,7 +43,7 @@
                                         <div class="popup-add_ava-load">
                                             <div class="file-fake">
                                                 <input type="file" class="file-fake_inp"  name="image" data-bind="fileUpload: fileUploadSettings" accept="image/gif, image/jpeg, image/png">
-                                                <!-- ko ifnot: photo() !== null && photo().status() === 2 -->
+                                                <!-- ko if: photo() !== null && photo().status() === 1 && photo().cropLoaded() === true -->
                                                     <a href="#" class="file-fake_btn btn btn-primary btn-s">Изменить </a>
                                                 <!-- /ko -->
                                                 <!-- ko if: photo() !== null && photo().status() === 2 -->
@@ -65,7 +65,7 @@
                                             </div>
                                         </div>
                                         <!-- /ko -->
-                                        <!-- ko if: photo() === null || photo().cropLoaded() === false -->
+                                        <!-- ko if: photo() === null || (photo().cropLoaded() === false && (photo().status() === 0 || photo().status() === 1)) -->
                                         <div class="i-photo i-photo__abs i-photo__load">
                                             <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
                                             <!-- Ошибка-->
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="popup-add_footer">
                                     <div class="textalign-c">
-                                        <!-- ko if: photo() !== null && photo().status() === 1 -->
+                                        <!-- ko if: photo() !== null && photo().status() === 1 && photo().cropLoaded() === true -->
                                             <a id="canceling-avatar" href="#" class="btn btn-secondary margin-r10">Отмена</a>
                                             <a id="adding-avatar" href="#" class="btn btn-success">Добавить</a>
                                         <!-- /ko -->

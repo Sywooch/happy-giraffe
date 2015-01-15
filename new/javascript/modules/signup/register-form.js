@@ -52,6 +52,7 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         };
 
         this.validateSocialHandler = function validateSocialHandler(response) {
+            this.registerForm.setFilled();
             if (response.data.errors.length === 0) {
                 this.register();
             }
@@ -59,6 +60,7 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         };
 
         this.submitSocial = function submitSocial() {
+            console.log('submitted');
             this.registerForm.validate().done(this.validateSocialHandler.bind(this));
         };
 

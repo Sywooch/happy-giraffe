@@ -10,6 +10,7 @@
                 registerForm = new Register.viewModel();
                 registerForm.social(attributes);
                 registerForm.__proto__.open(registerForm);
+                registerForm.submitSocial();
             });
         } else {
             registerForm = window.opener.registerForm;
@@ -17,6 +18,7 @@
             registerForm.prototype.open(registerForm);
             <?php endif; ?>
             registerForm.social(attributes);
+            registerForm.submitSocial();
         }
         window.close();
     </script>

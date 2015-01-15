@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\userProfile\controllers;
+use site\frontend\modules\posts\models\Content;
 
 /**
  * @author Никита
@@ -14,14 +15,9 @@ class DefaultController extends \LiteController
     public function getListDataProvider($authorId)
     {
         return new \CActiveDataProvider('\site\frontend\modules\posts\models\Content', array(
-            'criteria' => array(
-                'scopes' => array(
-                    'byAuthor' => $authorId,
-                    'orderDesc',
-                ),
-            ),
+            'criteria' => Content::model()->byAuthor($authorId)->orderDesc()->getDbCriteria(),
             'pagination' => array(
-                'pageSize' => 1,
+                'pageSize' => 10,
                 'pageVar' => 'page',
             )
         ));

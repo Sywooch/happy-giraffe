@@ -41,7 +41,7 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
                         'size' => Avatar::SIZE_LARGE,
                         'largeAdvanced' => false,
                         'htmlOptions' => array(
-                            'class' => 'ava__base-x',
+                            'class' => 'ava__base-xs',
                         ),
                     )); ?>
                 </div>

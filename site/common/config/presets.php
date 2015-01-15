@@ -76,7 +76,7 @@ return array(
         'filter' => array(
             'name' => 'fixed',
             'width' => 300,
-            'height' => 200,
+            'height' => 300,
         ),
         'usages' => array(
             'myPhotosSectionCover',

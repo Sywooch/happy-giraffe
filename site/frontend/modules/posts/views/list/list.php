@@ -5,12 +5,11 @@
 $this->pageTitle = 'Блог - ' . $this->user->fullName;
 $this->metaNoindex = true;
 $this->breadcrumbs = array(
-    '<span class="ava ava__small">' . CHtml::image($this->user->avatarUrl, $this->user->fullName, array('class' => 'ava_img')) . "</span>" => $this->user->profileUrl,
     'Блог',
 );
 ?>
 
-<?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => User::model()->findByPk($this->getUser()->id))); ?>
+<?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $this->owner)); ?>
 
 <div class="b-main_cont">
     <?php if ($this->listDataProvider->totalItemCount == 0 && $this->getUser()->id == Yii::app()->user->id): ?>
@@ -48,13 +47,13 @@ $this->breadcrumbs = array(
                 ),
                 'itemsTagName' => 'div',
                 'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
-                'pager' => array(
-                    'class' => 'LitePager',
-                    'maxButtonCount' => 10,
-                    'prevPageLabel' => '&nbsp;',
-                    'nextPageLabel' => '&nbsp;',
-                    'showPrevNext' => true,
-                ),
+//                'pager' => array(
+//                    'class' => 'LitePager',
+//                    'maxButtonCount' => 10,
+//                    'prevPageLabel' => '&nbsp;',
+//                    'nextPageLabel' => '&nbsp;',
+//                    'showPrevNext' => true,
+//                ),
             ));
             ?>
             <aside class="b-main_col-sidebar visible-md"></aside>

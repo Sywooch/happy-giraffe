@@ -54,6 +54,7 @@ class ListController extends \LiteController
         $this->rssFeed = new UserRssChannel($user_id);
         $this->userId = $user_id;
         $this->listDataProvider = $this->getListDataProvider($user_id);
+        $this->owner = \User::model()->findByPk($user_id);
         $this->render('list');
     }
 

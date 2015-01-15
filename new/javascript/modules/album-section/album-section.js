@@ -7,7 +7,7 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'mo
             this.userId = params.userId;
         }
         this.photoAlbum = Object.create(PhotoAlbum);
-        this.allPhotoCount = ko.observable();
+        this.allPhotoCount = ko.observable(params.count);
         this.loaded = ko.observable(false);
         this.photoAlbum.usablePreset = 'myPhotosPreview';
         this.colorsArray = Model.colorsArray;
@@ -15,7 +15,7 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'mo
         this.rightForManipulation = Model.checkRights(this.userId);
         this.albumCreationUrl = '/user/' + this.userId + '/albums/create/';
         this.albumUrl = '/user/' + this.userId + '/albums/';
-        this.photoAlbum.pageCount = 3;
+        this.photoAlbum.pageCount = 4;
         this.fillCount = function fillCount(getObj) {
             if (getObj.success === true) {
                 if (getObj.data.hasOwnProperty('all')) {
@@ -29,7 +29,9 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'mo
                 album = this.photoAlbum.findById(this.randomAlbum, passedData.data.albums);
                 if (album) {
                     this.photoAlbum.init(album);
-                    Model.get('/api/photo/collections/getByUser/', { userId: this.userId }).done(this.fillCount.bind(this));
+                    if (this.allPhotoCount() === undefined) {
+                        Model.get('/api/photo/collections/getByUser/', { userId: this.userId }).done(this.fillCount.bind(this));
+                    }
                 }
             }
             this.loaded(true);

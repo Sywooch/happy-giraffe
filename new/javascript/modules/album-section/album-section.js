@@ -29,6 +29,7 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'mo
                 album = this.photoAlbum.findById(this.randomAlbum, passedData.data.albums);
                 if (album) {
                     this.photoAlbum.init(album);
+                    this.photoAlbum.photoCollection().cover().photo().usablePreset('myPhotosSectionCover');
                     if (this.allPhotoCount() === undefined) {
                         Model.get('/api/photo/collections/getByUser/', { userId: this.userId }).done(this.fillCount.bind(this));
                     }

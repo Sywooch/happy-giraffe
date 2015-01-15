@@ -36,7 +36,14 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
             <div class="userSection_center-reg">с Веселым Жирафом <?=$user->withUs()?></div>
             <div class="b-ava-large b-ava-large__nohover">
                 <div class="b-ava-large_ava-hold">
-                    <?php $this->widget('Avatar', array('user' => $user, 'size' => Avatar::SIZE_LARGE, 'largeAdvanced' => false)); ?>
+                    <?php $this->widget('Avatar', array(
+                        'user' => $user,
+                        'size' => Avatar::SIZE_LARGE,
+                        'largeAdvanced' => false,
+                        'htmlOptions' => array(
+                            'class' => 'ava__base-x',
+                        ),
+                    )); ?>
                 </div>
                 <?php if ($user->online): ?>
                     <span class="b-ava-large_online">На сайте</span>
@@ -55,41 +62,43 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
         <?php endif; ?>
         </div>
     </div>
-    <div class="userSection_panel">
-        <?php
-        $this->widget('zii.widgets.CMenu', array(
-            'htmlOptions' => array(
-                'class' => 'userSection_panel-ul',
-            ),
-            'itemCssClass' => 'userSection_panel-li',
-            'items' => array(
-                array(
-                    'label' => 'Анкета',
-                    'url' => array('/userProfile/default/index', 'userId' => $user->id),
-                    'linkOptions' => array('class' => 'userSection_panel-a'),
+    <?php if ($this->user->id !== Yii::app()->user->id || Yii::app()->controller->route != 'userProfile/default/index'): ?>
+        <div class="userSection_panel">
+            <?php
+            $this->widget('zii.widgets.CMenu', array(
+                'htmlOptions' => array(
+                    'class' => 'userSection_panel-ul clearfix',
                 ),
-                array(
-                    'label' => 'Семья',
-                    'url' => array('/family/default/index', 'userId' => $user->id),
-                    'linkOptions' => array('class' => 'userSection_panel-a'),
-                    'visible' => $this->hasFamily() || ($this->user->id == \Yii::app()->user->id),
+                'itemCssClass' => 'userSection_panel-li',
+                'items' => array(
+                    array(
+                        'label' => 'Анкета',
+                        'url' => array('/userProfile/default/index', 'userId' => $user->id),
+                        'linkOptions' => array('class' => 'userSection_panel-a'),
+                    ),
+                    array(
+                        'label' => 'Семья',
+                        'url' => array('/family/default/index', 'userId' => $user->id),
+                        'linkOptions' => array('class' => 'userSection_panel-a'),
+                        'visible' => $this->hasFamily() || ($this->user->id == \Yii::app()->user->id),
+                    ),
+                    array(
+                        'label' => 'Блог',
+                        'url' => array('/blog/default/index', 'user_id' => $user->id),
+                        'linkOptions' => array('class' => 'userSection_panel-a'),
+                        'active' => Yii::app()->controller->module !== null && in_array(Yii::app()->controller->module->id, array('posts', 'blog')),
+                        'visible' => $this->hasBlog() || ($this->user->id == \Yii::app()->user->id),
+                    ),
+                    array(
+                        'label' => 'Фото',
+                        'url' => array('/photo/default/index', 'userId' => $user->id),
+                        'linkOptions' => array('class' => 'userSection_panel-a'),
+                        'active' => Yii::app()->controller->module !== null && Yii::app()->controller->module->id == 'photo',
+                        'visible' => $this->hasPhotos() || ($this->user->id == \Yii::app()->user->id),
+                    ),
                 ),
-                array(
-                    'label' => 'Блог',
-                    'url' => array('/blog/default/index', 'user_id' => $user->id),
-                    'linkOptions' => array('class' => 'userSection_panel-a'),
-                    'active' => Yii::app()->controller->module !== null && in_array(Yii::app()->controller->module->id, array('posts', 'blog')),
-                    'visible' => $this->hasBlog() || ($this->user->id == \Yii::app()->user->id),
-                ),
-                array(
-                    'label' => 'Фото',
-                    'url' => array('/photo/default/index', 'userId' => $user->id),
-                    'linkOptions' => array('class' => 'userSection_panel-a'),
-                    'active' => Yii::app()->controller->module !== null && Yii::app()->controller->module->id == 'photo',
-                    'visible' => $this->hasPhotos() || ($this->user->id == \Yii::app()->user->id),
-                ),
-            ),
-        ));
-        ?>
-    </div>
+            ));
+            ?>
+        </div>
+    <?php endif; ?>
 </section>

@@ -9,6 +9,8 @@
 namespace site\frontend\modules\photo\controllers;
 use site\frontend\components\api\ApiController;
 use site\frontend\modules\photo\components\InlinePhotoModifier;
+use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\photo\models\PhotoCrop;
 use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
 use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
 

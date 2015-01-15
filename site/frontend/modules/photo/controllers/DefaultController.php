@@ -12,6 +12,8 @@ use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\upload\PopupForm;
+use site\frontend\modules\users\components\AvatarManager;
+use site\frontend\modules\users\models\User;
 
 class DefaultController extends \LiteController
 {
@@ -29,9 +31,16 @@ class DefaultController extends \LiteController
 
     public function actionPresets()
     {
-        $photo = Photo::model()->findByPk(222);
-        $thumb = \Yii::app()->thumbs->getThumb($photo, 'uploadPreview');
-        echo $thumb->getUrl();
+        $user = User::model()->findByPk(12936);
+        $photo = Photo::model()->findByPk(140);
+
+        $cropData = array(
+            'x' => 250,
+            'y' => 250,
+            'w' => 100,
+            'h' => 100,
+        );
+        AvatarManager::setAvatar($user, $photo, $cropData);
     }
 
     public function actionIndex($userId)

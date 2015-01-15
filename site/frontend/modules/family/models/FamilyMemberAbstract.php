@@ -23,5 +23,16 @@ abstract class FamilyMemberAbstract extends FamilyMember
         return $this->viewData;
     }
 
+    public function toJSON()
+    {
+        return \CMap::mergeArray(parent::toJSON(), array(
+            'viewData' => array(
+                'title' => $this->getViewData()->getTitle(),
+                'cssClass' => $this->getViewData()->getCssClass(),
+                'asString' => $this->getViewData()->getAsString(),
+            ),
+        ));
+    }
+
     abstract protected function getViewDataInternal();
 } 

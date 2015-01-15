@@ -14,10 +14,10 @@ class CroppedThumbsManager extends ThumbsManager
 {
     public $presets;
 
-    public function getCrop(Photo $photo, $presetName, $cropData, $replace = false)
+    public function getCrop(Photo $photo, $presetName, $cropData, $fsName, $replace = false)
     {
         $filter = $this->createFilter($presetName, $cropData);
-        $thumb = $this->getThumbInternal($photo, $filter, $this->getFsPath($photo, $presetName, $cropData), false, $replace);
+        $thumb = $this->getThumbInternal($photo, $filter, $this->getFsPath($presetName, $fsName), false, $replace);
         return $thumb;
     }
 
@@ -32,9 +32,12 @@ class CroppedThumbsManager extends ThumbsManager
         return $filter;
     }
 
-    protected function getFsPath(Photo $photo, $presetName, $cropData)
+    protected function getFsPath($presetName, $fsName)
     {
-        $fsName = substr_replace($photo->fs_name, '_' . implode('x', $cropData), strrpos($photo->fs_name, '.'), 0);
-        return 'crops/' . $presetName . '/' . $fsName;
+        return implode('/', array(
+            'crops',
+            $presetName,
+            $fsName,
+        ));
     }
 } 

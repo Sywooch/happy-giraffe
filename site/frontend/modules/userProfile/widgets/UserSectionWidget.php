@@ -30,7 +30,7 @@ class UserSectionWidget extends \CWidget
 
     public function hasBlog()
     {
-        return Content::model()->byService('oldBlog')->byAuthor($this->user->id)->exists();
+        return Content::model()->byAuthor($this->user->id)->exists();
     }
 
     public function hasPhotos()

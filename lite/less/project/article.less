@@ -2,7 +2,7 @@
 /* b-article */
 .b-article {
     position: relative;
-    margin: 20px 0;
+    margin: 20px 0 20px;
     
     .heading-link-xl {margin-top: 0;}
     .custom-likes-b {margin: 0 0 30px;}
@@ -40,9 +40,9 @@
         &:extend(.ico-more-hover);
         cursor: pointer;
     }*/
-    &__list &_in-img {
+    /*&__list &_in-img {
         text-align: center;
-    }
+    }*/
     /*&__list .wysiwyg-content p:hover {
         color: @color-gray;
         cursor: pointer;
@@ -55,7 +55,8 @@
     }
     &_in-img {
         position: relative;
-        margin: 8px 0;
+        margin: 0 0 8px;
+        text-align: center;
         background-color: #fafafa;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
@@ -113,21 +114,20 @@
 
     @media (min-width: @screen-tablet) {
         .wysiwyg-content {
-            margin: 0 0 10px; 
+            margin: 0; 
         }
         .b-album {margin: 0;}
-        // Компенсация отступа текста
         &_in-img { 
             margin: 5px 0 15px 0;
         }
         &_t-list {
-            margin: 20px 0;
+            margin: 20px 0 15px;
         }
     }
 
     @media (min-width: @screen-desktop) {
         & {
-            margin: 20px 0 20px;
+            margin: 20px 0 30px;
             padding: 15px 0 0;
         }
         & .adv-yandex {

@@ -1,0 +1,67 @@
+include ../../../block/config
+extend ../../../extend/layout_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css'; 
+ 
+block layout
+
+    .b-main
+        .b-main_cols.clearfix
+            .b-main_col-1 
+                +sidebarSearch('sidebar-search__big', sidebarSearch.a )
+            .b-main_col-23
+                +userAddRecord('userAddRecord__s', userAddRecord.a)
+
+
+    .b-main.clearfix
+        .b-main_cont.b-main_cont__broad
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Фотоальбомы
+    .b-main
+        .b-main_cont.b-main_cont__wide
+            
+                .user-album
+                    .user-album_t-create
+                        .user-album_t-create-ico
+                        | Новый фотоальбом
+
+
+                    // Добавление 
+                    .position-rel(style="height: 350px; width: 600px; margin-top: 10px;")
+
+                        +bLoader('b-loader__abs', bLoader.photoWindow)
+
+                    //-.postAdd
+                        .postAdd_hold.margin-t40
+                            .postAdd_row
+                                .postAdd_cont
+                                    .inp-valid.inp-valid__abs
+                                        input.itx-gray(type='text', placeholder="Заголовок альбома")
+                                        .inp-valid_count 150
+
+                            .postAdd_row
+                                .postAdd_cont
+                                    .inp-valid.inp-valid__abs
+                                        textarea.itx-gray(rows='5', cols='40', placeholder="Описание альбома")
+                                        .inp-valid_count 450
+                            .postAdd_row
+                                .postAdd_cont
+                                    .postAdd_btns-hold
+                                        a.btn.btn-default.btn-xm.margin-r15(href="") Отменить
+                                        a.btn.btn-success.btn-xm.loading(href="") Создать альбом
+
+                       
+                // /Добавление 
+
+        +layout-footer-lite()
+
+
+

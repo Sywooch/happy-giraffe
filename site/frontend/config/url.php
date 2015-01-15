@@ -230,6 +230,9 @@ return array(
 
         'community/<_a:(subscribe)>/' => 'community/default/<_a>',
         
+        
+        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index',
+        
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
@@ -240,6 +243,9 @@ return array(
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index', //'community/default/forum',
 
         //'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
+        
+        'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'posts/community/view',
+        
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',

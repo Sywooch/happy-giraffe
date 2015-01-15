@@ -47,11 +47,13 @@ $this->beginContent('//layouts/lite/community');
 
             <div class="menu-simple">
                 <ul class="menu-simple_ul">
-                    <?php foreach ($this->forum->rubrics as $rubric): ?>
-                        <li class="menu-simple_li<?php if ($this->rubric && $this->rubric->id == $rubric->id): ?> active<?php endif; ?>">
-                            <?= HHtml::link($rubric->title, $rubric->url, array('class' => 'menu-simple_a')) ?>
-                        </li>
-                    <?php endforeach; ?>
+                    <?php
+                    foreach ($this->forum->rubrics as $rubric) {
+                        echo CHtml::tag(
+                                'li', array('class' => 'menu-simple_li' . ($this->rubric && $this->rubric->id == $rubric->id) ? ' active' : ''), HHtml::link($rubric->title, $rubric->url, array('class' => 'menu-simple_a'))
+                        );
+                    }
+                    ?>
                 </ul>
             </div>
 

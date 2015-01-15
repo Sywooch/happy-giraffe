@@ -17,8 +17,10 @@ class ApiController extends \site\frontend\components\api\ApiController
 {
     public function actionRegister(array $attributes)
     {
-        // Отключим слейвы, чтобы UserIdentity нашла пользователя
-        \Yii::app()->db->enableSlave = false;
+        if (\Yii::app()->db instanceof \DbConnectionMan) {
+            // Отключим слейвы, чтобы UserIdentity нашла пользователя
+            \Yii::app()->db->enableSlave = false;
+        }
 
         $form = new RegisterForm();
         $form->attributes = $attributes;
@@ -29,7 +31,7 @@ class ApiController extends \site\frontend\components\api\ApiController
                 \Yii::app()->user->login($identity);
             }
             $this->data = array(
-                'returnUrl' => $this->createUrl('/profile/default/index/', array('user_id' => $form->user->id)),
+                'returnUrl' => $form->user->getUrl(),
             );
         } else {
             $this->data = array(

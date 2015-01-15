@@ -4,6 +4,9 @@
  * @var integer $userId
  */
 $this->pageTitle = 'Моя семья';
+$this->breadcrumbs = array(
+    'Семья',
+);
 ?>
 
 <div class="b-main_cont b-main_cont__wide">

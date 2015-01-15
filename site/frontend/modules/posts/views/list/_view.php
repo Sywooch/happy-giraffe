@@ -1,6 +1,4 @@
-<?php
-Yii::app()->clientScript->registerAMD('BlogRecordSettings', array('kow'));
-?>
+<?php Yii::app()->clientScript->registerAMD('kow', array('kow')); ?>
 <article class="b-article clearfix b-article__list<?= $data->templateObject->getAttr('type') == 'status' ? ' b-article__user-status' : '' ?>">
     <div class="b-article_cont clearfix">
         <div class="b-article_header clearfix">

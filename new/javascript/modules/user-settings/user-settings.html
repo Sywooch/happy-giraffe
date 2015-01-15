@@ -36,11 +36,39 @@
         </div>
     </div>
     <div class="user-settings_hold">
-        <div class="user-settings_row">
-            <div class="user-settings_col-label">
-                <label for="" class="form-edit_label">Дата рождения</label>
-            </div>
-            <div class="user-settings_col-inp"><span class="form-edit_tx">28 января 1973</span><a href="#" class="ico-edit ico-edit__s powertip"></a></div>
+        <div class="user-settings_row" data-bind="with: user.birthday">
+            <!-- ko if: $data.editing() === false && $data.value() -->
+                <div class="user-settings_col-label">
+                    <label for="" class="form-edit_label">Дата рождения</label>
+                </div>
+                <div class="user-settings_col-inp">
+                    <span class="form-edit_tx" data-bind="text: $data.value()"></span>
+                    <a href="#" class="ico-edit ico-edit__s powertip" data-bind="click: $parent.beginEditField"></a>
+                </div>
+            <!-- /ko -->
+            <!-- ko if: $data.editing() === true -->
+                <div class="user-settings_col-label">
+                    <label for="" class="form-edit_label">Дата рождения</label>
+                </div>
+                <div class="user-settings_col-inp">
+                    <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                        <div class="float-l w-80 margin-r10">
+                            <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true, optionsCaption: 'День'">
+                            </select>
+                        </div>
+                        <div class="float-l w-135 margin-r10">
+                            <select placeholder="Месяц" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.months, optionsText: 'name', optionsValue: 'id', value: $data.month, valueAllowUnset: true, optionsCaption: 'Месяц'">
+                            </select>
+                        </div>
+                        <div class="float-l w-80">
+                            <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.years, value: $data.year, valueAllowUnset: true, optionsCaption: 'Год'">
+                            </select>
+                        </div>
+                        <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
+                    </div>
+                    <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">Ok</div>
+                </div>
+            <!-- /ko -->
         </div>
         <!-- Дата рождения-->
         <!-- /Дата рождения-->
@@ -87,22 +115,59 @@
             <div class="user-settings_col-label">
                 <label for="" class="form-edit_label">E-mail</label>
             </div>
-            <div class="user-settings_col-inp">
-                <span class="form-edit_tx" data-bind="text: value"></span>
-                <a href="#" class="ico-edit ico-edit__s powertip"></a>
-            </div>
+            <!-- ko if: $data.editing() === false && $data.value() -->
+                <div class="user-settings_col-inp">
+                    <span class="form-edit_tx" data-bind="text: value"></span>
+                    <a href="#" class="ico-edit ico-edit__s powertip" data-bind="click: $parent.beginEditField"></a>
+                </div>
+            <!-- /ko -->
+            <!-- ko if: $data.editing() === true -->
+                <div class="user-settings_w-inp" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                    <input type="text" placeholder="Email" class="itx-gray form-edit_itx" data-bind="value: $data.value">
+                    <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0">
+                        <div class="errorMessage" data-bind="text: $data.errors()[0]">Ошибка</div>
+                    </div>
+                </div>
+                <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">Ok</div>
+            <!-- /ko -->
         </div>
         <!-- /email-->
         <!-- email-->
         <!-- /email-->
         <!-- пароль-->
-        <div class="user-settings_row">
+        <div class="user-settings_row" data-bind="with: user.newPassword">
             <div class="user-settings_col-label">
                 <label for="" class="form-edit_label">Пароль</label>
             </div>
+            <!-- ko if: $data.editing() === false -->
+                <div class="user-settings_col-inp">
+                    <span class="form-edit_tx">••••••••</span>
+                    <a href="#" class="ico-edit ico-edit__s powertip" data-bind="click: $parent.beginEditField"></a>
+                </div>
+            <!-- /ko -->
+            <!-- ko if: $data.editing() === true -->
             <div class="user-settings_col-inp">
-                <!-- Несколько точек и последние пару символов пароля--><span class="form-edit_tx">••••••••</span><a href="#" class="ico-edit ico-edit__s powertip"></a>
+                <div class="user-settings_row">
+                    <div class="inp-valid inp-valid__abs user-settings_w-inp" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                        <input type="password" placeholder="Новый пароль" class="itx-gray form-edit_itx" data-bind="value: $data.value">
+                        <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0">
+                            <div class="errorMessage" data-bind="text: $data.errors()[0]">Ошибка</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-settings_row">
+                    <div class="inp-valid inp-valid__abs user-settings_w-inp" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                        <input type="password" placeholder="Новый пароль еще раз" class="itx-gray form-edit_itx" data-bind="value: $data.value">
+                        <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0">
+                            <div class="errorMessage" data-bind="text: $data.errors()[0]">Ошибка</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-settings_row user-settings_w-inp textalign-r">
+                    <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">Ok</div>
+                </div>
             </div>
+            <!-- /ko -->
         </div>
         <!-- /пароль-->
         <!-- пароль-->

@@ -10,7 +10,6 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
             if (userData.success === true) {
                 this.user.settleSettings(userData.data);
                 this.loaded(true);
-                console.log(this.user);
             }
         };
         this.beginEditField = function beginEditField(data, event) {
@@ -20,8 +19,14 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         this.endEditField = function endEditField(data, event) {
             var attribute = {};
             attribute[data.name] = data.value();
-            //this.familyMember.updateMember(attribute).done(this.submitMemberHandler.bind(this));
+            this.user.update(attribute).done(this.submitMemberHandler.bind(this));
             data.editing(false);
+        };
+        this.submitMemberHandler = function submitMemberHandler(familyMemberData) {
+            if (familyMemberData.success === true) {
+                this.user.updateModel(familyMemberData.data);
+            }
+            this.user.errorHandler(familyMemberData);
         };
         User.getCurrentUser(40).done(this.getUserHandler.bind(this));
 

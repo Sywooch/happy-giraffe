@@ -5,7 +5,9 @@
             <div class="heading-sm"> <a href="#" class="heading-sm_a-r" data-bind="href: friendsUrl, text: 'Все друзья ' + friend.total"></a>Мои друзья</div>
             <ul class="ava-list" data-bind="foreach: friends">
                 <li class="ava-list_li">
-                    <!-- ava--><a href="#" class="ava ava__middle" data-bind="href: profileUrl"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"  data-bind="src: avatarUrl"></a>
+                    <!-- ava--><a href="#" class="ava ava__middle" data-bind="css: { 'ava__male': gender === 1, 'ava__female': gender === 0 }, href: profileUrl">
+                    <span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"  data-bind="src: avatarUrl">
+                </a>
                 </li>
             </ul>
         </div>

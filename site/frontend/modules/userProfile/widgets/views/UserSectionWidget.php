@@ -25,7 +25,7 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
             <?php if ($user->id !== Yii::app()->user->id): ?>
             <div class="userSection_btn-hold clearfix">
                 <friends-action-button params="friendId: <?= $user->id ?>"></friends-action-button>
-                <a href="<?=Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $user->id))?>" class="userSection_btn userSection_btn__dialog login-button" data-bind="follow: {}"><span class="userSection_ico"></span></a>
+                <a href="<?=Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $user->id))?>" class="userSection_btn userSection_btn__dialog registration-button" data-bind="follow: {}"><span class="userSection_ico"></span></a>
             </div>
             <?php endif; ?>
             <?php if ($user->id == Yii::app()->user->id): ?>

@@ -21,7 +21,7 @@ class DefaultController extends \LiteController
                 ),
             ),
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => 1,
                 'pageVar' => 'page',
             )
         ));
@@ -33,8 +33,13 @@ class DefaultController extends \LiteController
         if ($user === null) {
             throw new \CHttpException(404);
         }
-        \NoindexHelper::setNoIndex($user);
-        $this->render('index', array('user' => $user, 'dataProvider' => $this->getListDataProvider($userId)));
+        $dp = $this->getListDataProvider($userId);
+        if (isset($_GET[$dp->pagination->pageVar])) {
+            $this->metaNoindex = true;
+        } else {
+            \NoindexHelper::setNoIndex($user);
+        }
+        $this->render('index', array('user' => $user, 'dataProvider' => $dp));
     }
 
 }

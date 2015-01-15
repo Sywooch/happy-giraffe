@@ -43,6 +43,8 @@ define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions
                 } else {
                     this.presetHash(PresetManager.getPresetHash(preset));
                 }
+            } else {
+                this.presetHash(PresetManager.getPresetHash(preset));
             }
             return baseConfig + this.presetHash() + '/' + this.fsName();
         };

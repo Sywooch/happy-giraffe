@@ -10,7 +10,7 @@ $this->breadcrumbs = array(
 );
 ?>
 
-<?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $this->getUser())); ?>
+<?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => User::model()->findByPk($this->getUser()->id))); ?>
 
 <div class="b-main_cont">
     <?php if ($this->listDataProvider->totalItemCount == 0 && $this->getUser()->id == Yii::app()->user->id): ?>

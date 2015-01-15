@@ -271,7 +271,7 @@ class TempCommand extends CConsoleCommand
         }
     }
 
-    public function actionModerStats()
+    public function actionModerStats($dateFrom, $dateTo)
     {
         $moders = array(
             15426,
@@ -280,8 +280,6 @@ class TempCommand extends CConsoleCommand
             175718,
         );
         sort($moders);
-        $dateFrom = '2014-12-22';
-        $dateTo = '2014-12-27';
 
         $commentsCounts = Yii::app()->db->createCommand()
             ->select('author_id, DATE(created) AS d, COUNT(*) AS c')

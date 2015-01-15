@@ -226,6 +226,7 @@ module.exports = function(grunt){
             /.header_+/,
             /.header-+/,
             /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
           ],
         },
@@ -283,6 +284,7 @@ module.exports = function(grunt){
             /.header_+/,
             /.header-+/,
             /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
             //.tooltip+/,
             
@@ -324,6 +326,7 @@ module.exports = function(grunt){
             /.header_+/,
             /.header-+/,
             /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
             //.tooltip+/,
             /.body+/,
@@ -366,6 +369,7 @@ module.exports = function(grunt){
             /.header_+/,
             /.header-+/,
             /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
@@ -409,6 +413,7 @@ module.exports = function(grunt){
             /.header_+/,
             /.header-+/,
             /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
@@ -441,6 +446,7 @@ module.exports = function(grunt){
             /.header-banner+/,
             /.header_+/,
             /.ava+/,
+            /.ico-club+/,
 
             /.ico-family+/,
             /.fast-articles3+/,
@@ -488,6 +494,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.ava+/,
+            /.ico-club+/,
             /.ico-family+/,
             
             /.fast-articles3+/,
@@ -530,6 +537,7 @@ module.exports = function(grunt){
             /.body+/,
             /.bnr+/,
             /.ava+/,
+            /.ico-club+/,
             
             /.ico-social-hold+/,
           ],

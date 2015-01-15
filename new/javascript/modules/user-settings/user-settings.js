@@ -19,10 +19,14 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         this.endEditField = function endEditField(data, event) {
             var attribute = {};
             attribute[data.name] = data.value();
-            this.user.update(attribute).done(this.submitMemberHandler.bind(this));
+            this.user.update(attribute).done(this.submitUserHandler.bind(this));
             data.editing(false);
         };
-        this.submitMemberHandler = function submitMemberHandler(familyMemberData) {
+        this.changeEmailField = function changeEmailField(data, event) {
+            this.user.changeEmail().done(this.submitUserHandler.bind(this));
+            data.editing(false);
+        };
+        this.submitUserHandler = function submitUserHandler(familyMemberData) {
             if (familyMemberData.success === true) {
                 this.user.updateModel(familyMemberData.data);
             }

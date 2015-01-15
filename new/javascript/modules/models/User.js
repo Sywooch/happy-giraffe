@@ -34,7 +34,7 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
             return Model.get(this.changePasswordUrl, { id: this.id, password: newPassword });
         },
         changeEmail: function changeEmail() {
-            return Model.get(this.changeEmailUrl, { id: this.id });
+            return Model.get(this.changeEmailUrl, { id: this.id, email: this.email.value() });
         },
         remove: function remove() {
             return Model.get(this.removeUserUrl, { id: this.id });
@@ -162,6 +162,7 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
                 this.birthday.year = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getFullYear() : null);
                 this.birthday.value = ko.computed(this.getBirthdayValue, this.birthday);
                 this.newPassword = Model.createStdProperty('', 'password');
+                this.errors = ko.observableArray();
                 return this;
             }
         }

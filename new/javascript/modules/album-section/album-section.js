@@ -15,7 +15,7 @@ define(['knockout', 'text!album-section/album-section.html', 'models/Model', 'mo
         this.rightForManipulation = Model.checkRights(this.userId);
         this.albumCreationUrl = '/user/' + this.userId + '/albums/create/';
         this.albumUrl = '/user/' + this.userId + '/albums/';
-        this.photoAlbum.pageCount = 3;
+        this.photoAlbum.pageCount = 4;
         this.fillCount = function fillCount(getObj) {
             if (getObj.success === true) {
                 if (getObj.data.hasOwnProperty('all')) {

@@ -9,6 +9,9 @@ $this->breadcrumbs = array(
     'Блог',
 );
 ?>
+
+<?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $this->owner)); ?>
+
 <div class="b-main_cont">
     <?php if ($this->listDataProvider->totalItemCount == 0 && $this->getUser()->id == Yii::app()->user->id): ?>
         <div class="section-empty section-empty__blog">

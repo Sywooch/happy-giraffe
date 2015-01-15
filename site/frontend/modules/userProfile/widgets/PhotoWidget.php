@@ -35,6 +35,7 @@ class PhotoWidget extends \CWidget
     protected function getCount()
     {
         $criteria = new \CDbCriteria();
+        $criteria->select = 'COUNT(attaches.id) AS count';
         $criteria->with = array(
             'photoCollections' => array(
                 'with' => array('attaches'),

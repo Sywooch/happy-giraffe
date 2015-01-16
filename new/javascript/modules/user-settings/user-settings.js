@@ -6,6 +6,7 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         this.days = DateRange.days();
         this.months = DateRange.months();
         this.years = DateRange.years(1920, 2015);
+        this.equalPassword = ko.observable('');
         this.getUserHandler = function getUserHandler(userData) {
             if (userData.success === true) {
                 this.user.settleSettings(userData.data);
@@ -27,10 +28,14 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
             data.editing(false);
         };
         this.submitUserHandler = function submitUserHandler(familyMemberData) {
-            if (familyMemberData.success === true) {
-                this.user.updateModel(familyMemberData.data);
-            }
             this.user.errorHandler(familyMemberData);
+        };
+        this.changeGender = function changeGender(data, event) {
+            data.value(data.value().toString());
+        };
+        this.changeSubscribtion = function changeGender(data, event) {
+            console.log(data.value());
+            this.user.updateSubscribtion();
         };
         User.getCurrentUser(40).done(this.getUserHandler.bind(this));
 

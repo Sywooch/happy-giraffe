@@ -42,7 +42,7 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
         update: function update(attributes) {
             return Model.get(this.updateUserUrl, { id: this.id, attributes: attributes });
         },
-        updateModel: function updateModel (data) {
+        updateModel: function updateModel(data) {
             for (var prop in data) {
                 if (prop === 'birthday') {
                     this.birthday.day = ko.observable((data.birthday !== undefined) ? new Date(data.birthday).getDate() : null);
@@ -52,9 +52,6 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
                 } else {
                     if (this[prop] !== undefined) {
                         if (this[prop].value !== undefined) {
-                            if (prop === 'gender' && this[prop].value() === null) {
-                                data[prop] = 'null';
-                            }
                             this[prop].value(data[prop]);
                             this[prop].editing(false);
                         } else {
@@ -84,7 +81,7 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
             }
         },
         mailSubscribe: function mailSubscribe() {
-            return Model.get(this.mailSubscriptionUrl, { id: this.id, value: this.subscriptionMail });
+            return Model.get(this.mailSubscriptionUrl, { id: this.id, value: (this.subscriptionMail.value() === false) ? 0 : 1 });
         },
         getBirthdayValue: function getBirthdayValue() {
             var months,
@@ -105,41 +102,35 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
             }
             return socialObject;
         },
+        handlingRequest: function handlingRequest(userData) {
+            this.errorHandler(userData);
+        },
+        updateGender: function updateGender() {
+            this.update({ gender: parseInt(this.gender.value()) }).done(this.handlingRequest.bind(this));
+        },
+        updateSubscribtion: function updateSubscribtion() {
+            this.mailSubscribe().done(this.handlingRequest.bind(this));
+        },
         /**
          * init юзера
          * @param object
          * @returns {User}
          */
         init: function init(object) {
-
             if (object !== undefined) {
-
                 this.avatarId = object.avatarId;
-
                 this.avatarUrl = object.avatarUrl;
-
                 this.firstName = object.firstName;
-
                 this.gender = object.gender;
-
                 this.id = object.id;
-
                 this.isOnline = object.isOnline;
-
                 this.lastName = object.lastName;
-
                 this.birthday = object.birthday;
-
                 this.profileUrl = object.profileUrl;
-
                 this.publicChannel = object.publicChannel;
-
                 this.email = object.email;
-
-                this.subscriptionMail = object.subscriptionMail;
-
+                this.subscriptionMail = object.subscription;
                 this.fullName = this.fullName();
-
                 return this;
             }
         },
@@ -150,11 +141,9 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
                 this.publicChannel = object.publicChannel;
                 this.isOnline = object.isOnline;
                 this.firstName = Model.createStdProperty(object.firstName, 'first_name');
-                this.gender = Model.createStdProperty(object.gender, 'gender');
                 this.lastName = Model.createStdProperty(object.lastName, 'last_name');
-                this.birthday = Model.createStdProperty(object.birthday), 'birthday';
+                this.birthday = Model.createStdProperty(object.birthday, 'birthday');
                 this.email = Model.createStdProperty(object.email, 'email');
-                this.subscriptionMail = Model.createStdProperty(object.subscriptionMail, 'subscriptionMail');
                 this.socialServices = Model.createStdProperty(this.parseSocialServices(object.socialServices), 'socialServices');
                 this.address = Model.createStdProperty(object.address, 'address');
                 this.birthday.day = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getDate() : null);
@@ -163,6 +152,10 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
                 this.birthday.value = ko.computed(this.getBirthdayValue, this.birthday);
                 this.newPassword = Model.createStdProperty('', 'password');
                 this.errors = ko.observableArray();
+                this.gender = Model.createStdProperty(object.gender.toString(), 'gender');
+                this.gender.value.subscribe(this.updateGender, this);
+                this.subscriptionMail = Model.createStdProperty((object.subscription === 1) ? true : false, 'subscriptionMail');
+                this.subscriptionMail.value.subscribe(this.updateSubscribtion, this);
                 return this;
             }
         }

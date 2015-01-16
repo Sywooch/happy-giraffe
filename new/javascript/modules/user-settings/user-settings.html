@@ -80,9 +80,9 @@
             <div class="user-settings_col-inp">
                 <div class="inp-valid inp-valid__abs user-settings_w-inp">
                     <div class="radio-icons">
-                        <input id="radio4" type="radio" name="b-radio2" class="radio-icons_radio" value="1" data-bind="checked: value() + ''">
+                        <input id="radio4" type="radio" name="b-radio2" class="radio-icons_radio" value="1" data-bind="checked: value, event: { change: $parent.changeGender.bind($parent) }">
                         <label for="radio4" class="radio-icons_label">Мужской</label>
-                        <input id="radio3" type="radio" name="b-radio2" class="radio-icons_radio" value="0" data-bind="checked: value() + ''">
+                        <input id="radio3" type="radio" name="b-radio2" class="radio-icons_radio" value="0" data-bind="checked: value, event: { change: $parent.changeGender.bind($parent) }">
                         <label for="radio3" class="radio-icons_label">Женский</label>
                     </div>
                     <div class="inp-valid_error">
@@ -134,7 +134,7 @@
         <!-- /email-->
         <!-- email-->
         <!-- /email-->
-        <!-- пароль-->
+        <!-- пароль -->
         <div class="user-settings_row" data-bind="with: user.newPassword">
             <div class="user-settings_col-label">
                 <label for="" class="form-edit_label">Пароль</label>
@@ -156,11 +156,13 @@
                     </div>
                 </div>
                 <div class="user-settings_row">
-                    <div class="inp-valid inp-valid__abs user-settings_w-inp" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
-                        <input type="password" placeholder="Новый пароль еще раз" class="itx-gray form-edit_itx" data-bind="value: $data.value">
-                        <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0">
-                            <div class="errorMessage" data-bind="text: $data.errors()[0]">Ошибка</div>
+                    <div class="inp-valid inp-valid__abs user-settings_w-inp" data-bind="css: $parent.equalPassword() !== $data.value() ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                        <input type="password" placeholder="Новый пароль еще раз" class="itx-gray form-edit_itx" data-bind="value: $parent.equalPassword">
+                        <!-- ko if: $parent.equalPassword() !== $data.value() -->
+                        <div class="inp-valid_error">
+                            <div class="errorMessage">Пароли не совпадают</div>
                         </div>
+                        <!-- /ko -->
                     </div>
                 </div>
                 <div class="user-settings_row user-settings_w-inp textalign-r">
@@ -191,7 +193,7 @@
         <div class="heading-small">Настройки рассылок на электронную почту</div>
         <div class="inp-valid inp-valid__abs user-settings_w-inp w-a">
             <div class="radio-icons radio-icons__checkbox" data-bind="with: user.subscriptionMail">
-                <input id="mail1" type="checkbox" name="mail1" value="1" class="radio-icons_radio" data-bind="checked: value() + ''">
+                <input id="mail1" type="checkbox" name="mail1" class="radio-icons_radio" data-bind="checked: value">
                 <label for="mail1" class="radio-icons_label">
                     <div class="form-edit_tx">Я хочу получать еженедельные новости от Веселого жирафа.</div>
                 </label>

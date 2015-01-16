@@ -12,8 +12,9 @@ class WebUser extends CWebUser
     public function getModel()
     {
         Yii::import('site.common.models.User');
-        if (! $this->isGuest && $this->_model === null)
+        if (! $this->isGuest && $this->_model === null) {
             $this->_model = User::model()->findByPk($this->id);
+        }
         return $this->_model;
     }
 
@@ -31,13 +32,13 @@ class WebUser extends CWebUser
         Yii::app()->request->cookies['not_guest'] = new CHttpCookie('not_guest', '1', array('expire' => time() + 3600*24*100));
     }
 
-    protected function afterLogout()
+    protected function beforeLogout()
     {
         $model = $this->getModel();
-
         OnlineManager::offline($model);
-
+        \User::clearCache();
         unset(Yii::app()->request->cookies['not_guest']);
+        return parent::beforeLogout();
     }
 
     protected function beforeLogin($id, $states, $fromCookie)
@@ -49,8 +50,9 @@ class WebUser extends CWebUser
             $loginUrl = Yii::app()->createAbsoluteUrl($route,array_splice($loginUrl,1));
         }
 
-        if ($referrer !== null && $referrer != $loginUrl)
+        if ($referrer !== null && $referrer != $loginUrl) {
             Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
+        }
         return parent::beforeLogin($id, $states, $fromCookie);
     }
 
@@ -61,8 +63,9 @@ class WebUser extends CWebUser
 
     public function login($identity, $duration = null)
     {
-        if ($duration === null)
+        if ($duration === null) {
             $duration = $this->getRememberDuration();
+        }
         return parent::login($identity, $duration);
     }
 }

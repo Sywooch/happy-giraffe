@@ -110,7 +110,6 @@ class ApiController extends \site\frontend\components\api\ApiController
         $user->deleted = 1;
         $this->success = $user->save(false, array('deleted'));
         if ($this->success) {
-            User::clearCache();
             \Yii::app()->user->logout();
         }
     }

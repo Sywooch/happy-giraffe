@@ -86,28 +86,68 @@
 
     @media (max-width: @screen-md-max) {
         &__small-md {.square(24px);}
+        &__small-md&__female {background-position:-240px -456px;}
+        &__small-md&__male {background-position:-240px -216px;}
+
         &__middle-md {.square(40px);}
+        &__middle-md&__female {background-position:-240px -340px;}
+        &__middle-md&__male {background-position:-240px -100px;}
+
         &__base-md {.square(72px);}
+        &__base-md&__female {background-position:-240px -240px;}
+        &__base-md&__male {background-position:-240px 0;}
     }
     @media (max-width: @screen-sm-max) {
         &__small-sm {.square(24px);}
+        &__small-sm&__female {background-position:-240px -456px;}
+        &__small-sms&__male {background-position:-240px -216px;}
+
         &__middle-sm {.square(40px);}
+        &__middle-sm&__female {background-position:-240px -340px;}
+        &__middle-sm&__male {background-position:-240px -100px;}
+
         &__base-sm {.square(72px);}
+        &__base-sm&__female {background-position:-240px -240px;}
+        &__base-sm&__male {background-position:-240px 0;}
     }
     @media (max-width: @screen-sm-mid-max) {
         &__small-sm-mid {.square(24px);}
+        &__small-sm-mid&__female {background-position:-240px -456px;}
+        &__small-sm-mids&__male {background-position:-240px -216px;}
+
         &__middle-sm-mid {.square(40px);}
+        &__middle-sm-mid&__female {background-position:-240px -340px;}
+        &__middle-sm-mid&__male {background-position:-240px -100px;}
+
         &__base-sm-mid {.square(72px);}
+        &__base-sm-mid&__female {background-position:-240px -240px;}
+        &__base-sm-mid&__male {background-position:-240px 0;}
     }
     @media (max-width: @screen-xs-max) {
         &__small-xs {.square(24px);}
+        &__small-xs&__female {background-position:-240px -456px;}
+        &__small-xs&__male {background-position:-240px -216px;}
+
         &__middle-xs {.square(40px);}
+        &__middle-xs&__female {background-position:-240px -340px;}
+        &__middle-xs&__male {background-position:-240px -100px;}
+
         &__base-xs {.square(72px);}
+        &__base-xs&__female {background-position:-240px -240px;}
+        &__base-xs&__male {background-position:-240px 0;}
     }
     @media (max-width: @screen-xxs-max) {
         &__small-xxs {.square(24px);}
+        &__small-xxs&__female {background-position:-240px -456px;}
+        &__small-xxs&__male {background-position:-240px -216px;}
+
         &__middle-xxs {.square(40px);}
+        &__middle-xxs&__female {background-position:-240px -340px;}
+        &__middle-xxs&__male {background-position:-240px -100px;}
+
         &__base-xxs {.square(72px);}
+        &__base-xxs&__female {background-position:-240px -240px;}
+        &__base-xxs&__male {background-position:-240px 0;}
     }
 }
 /* /ava */
@@ -117,20 +157,8 @@
 .b-ava-large {
     display: block;
     margin: 20px auto;
-    width: 206px;
     text-align: center;
     position: relative;
-
-    &:hover a.ava__large:after {display: block;}
-    .ie7 &:hover .ava__large:after,
-    .ie8 &:hover .ava__large:after {display: none;}
-    
-    &:hover &_online{display: none;}
-    &:hover &_bubble {display: block;}
-    &:hover &_photo-change {display: block;}
-
-    &__nohover:hover a.ava__large:after {display: none;}
-    &__nohover:hover &_online{display: block;}
 
     .ava__large {
         float: none;
@@ -221,6 +249,153 @@
         display: block;
     }
     &_online {
+        display: none;
+    }
+    &_lastvisit {
+        position: absolute;
+        .inline-block();
+        top: 10px;
+        right: 150px;
+        height: 30px;
+        min-width: 84px;
+        padding: 8px 0 0;
+        background: #a488bc;
+        color: #fff;
+        font-size: 9px;
+        line-height: 10px;
+        font-family: Tahoma, Arial, Verdana, sans-serif;
+        text-align: center;
+        z-index: 6;
+        .border-radius(19px);
+    }
+    &_ico {
+        display: block;
+        width: 30px;
+        height: 25px;
+        margin: 15px auto 0;
+        background: url('@{path-img}/b-ava-large_ico.png') no-repeat;
+    }
+    &_ico__blog  {background-position: -30px 0;}
+    &_ico__photo {background-position: -60px 0;}
+    &_ico__friend-add {background-position: -90px 0;}
+    /*&_ico__friend-added {background-position: -120px 0;}*/
+    &_ico__friend {background-position: -150px 0;}
+    &_a {
+        display: inline;
+        line-height: 15px;
+        color: #289fd7;
+        text-decoration: none;
+    }
+    &_a:hover {text-decoration: underline;}
+    &_age {
+        color: @color-gray;
+        font: @fontsmallest;
+        margin-left: 3px;
+        white-space: nowrap;
+    }
+
+    @media (min-width: @screen-phone-landscape) {
+        & {
+            width: 206px;
+        }
+
+        &:hover a.ava__large:after {display: block;}
+        .ie7 &:hover .ava__large:after,
+        .ie8 &:hover .ava__large:after {display: none;}
+        
+        &:hover &_online{display: none;}
+        &:hover &_bubble {display: block;}
+        &:hover &_photo-change {display: block;}
+
+        &__nohover:hover a.ava__large:after {display: none;}
+        &__nohover:hover &_online{display: block;}
+
+        &_online {
+            display: block;
+            position: absolute;
+            top: 10px;
+            left: 3px;
+            height: 40px;
+            width: 40px;
+            padding: 9px 0 0;
+            background: #03b23d;
+            color: #fff;
+            font-size: 10px;
+            line-height: 10px;
+            text-align: center;
+            z-index: 4;
+            .border-radius(19px);
+        }
+
+    }
+}
+/* /b-ava-large */
+
+.i-ava-bubble {
+    display: block;
+    position: absolute;
+    /*left: 35px;
+    bottom: 3px;*/
+    height: 60px;
+    width: 60px;
+    background: #56aae1;
+    background: rgba(86,170,225,.9);
+    text-decoration: none;
+    .border-radius(30px);
+    
+    &:hover {background: #3998d1;}
+    /*&_bubble:hover &_ico       {background-position: 0 -30px;}
+    &_bubble:hover &_ico__blog {background-position: -30px -30px;}
+    &_bubble:hover &_ico__photo{background-position: -60px -30px;}*/
+    &:hover &_ico__friend-add{background-position: -120px 0;}
+    /*&_bubble:hover &_ico__friend-added{background-position: -120px 0;}
+    &_bubble:hover &_ico__friend {background-position: -150px 0px;}*/
+    &:hover &_bubble-tx{color: #fff;}
+    &__photo {
+        bottom: 50px;
+        left: auto;
+        right: 0;
+    }
+    &__photo:hover {background: #e68832;}
+    &__blog {
+        bottom: 3px;
+        left: auto;
+        right: 35px;
+    }
+    &__blog:hover {background: #63bb5b;}
+    &__friend-add-onhover,
+    &__friend-add {
+        bottom: 50px;
+        left: 0;
+        display: block;
+    }
+    &__friend-add-onhover {display: none;}
+    &__friend-add-onhover:hover,
+    &__friend-add:hover {background: #fbe170;}
+    /*&_bubble__friend-added {
+        bottom: 50px;
+        left: 0;
+        background: #fee652;
+        background: rgba(254,230,82,0.9);
+    }
+    &_bubble__friend-added:hover {background: #fee652;}*/
+    &__friend {
+        bottom: 50px;
+        left: 0;
+        background: #fee652;
+        /*background: rgba(254,230,82,0.9);*/
+    }
+    &__friend:hover {background: #fbe170;}
+    &__friend:hover &_bubble-tx,
+    &__friend &_bubble-tx {color: #6abc12;}
+    &_tx {
+        font-size: 10px;
+        line-height: 10px;
+        color: #cad9ed;
+        text-decoration: none;
+        display: block;
+    }
+    &_online {
         position: absolute;
         top: 10px;
         left: 3px;
@@ -271,11 +446,4 @@
         text-decoration: none;
     }
     &_a:hover {text-decoration: underline;}
-    &_age {
-        color: @color-gray;
-        font: @fontsmallest;
-        margin-left: 3px;
-        white-space: nowrap;
-    }
 }
-/* /b-ava-large */

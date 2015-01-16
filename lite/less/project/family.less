@@ -1,8 +1,6 @@
 
 /* b-family */
 .b-family {
-    font-size: 9px;
-    line-height: 10px;
     text-align: center;
 
     &__bg-dark &_more {color: #fff;}
@@ -60,10 +58,12 @@
     }
     &__w100 &_li {width: 55px;}
 
-    &_top {
+    &_top-hold {
         margin: 0 auto 15px;
+        text-align: center;
     }
     &_top__white {
+        display: inline-block;
         height: 22px;
         width: 190px;
         background: url(/images/b-famyli_top__white.png) no-repeat;
@@ -85,6 +85,7 @@
         vertical-align: top;
         position: relative;
         margin: 0 7px 13px;
+        width: 55px;
     }
     .no-touch &_li &_del {display: none;}
     &_li:hover &_del {display: block;}
@@ -100,19 +101,22 @@
         text-align: center;
         background: #eee;
         background: rgba(0,0,0,.05);
+        line-height: 0;
     }
     &_img {max-height: 100%;}
     &_tx {
         display: block;
-        width: 55px;
         margin: 0 auto;
-        padding: 2px 0 5px;
+        padding: 3px 0 5px;
         color: #6a6a6a;
+        font-size: 9px;
+        line-height: 10px;
     }
     &_empty {
         font-size: 12px;
         color: #ded2e9;
     }
+    &_empty-tx {margin-bottom: 5px;}
     &_more {font-size: 12px;}
     &_add {
         display: block;
@@ -744,6 +748,7 @@
         text-decoration: none;
         background-color: #59b94e; // зеленый можно изменить
     }
+    /* Семья */
     &__family-member,
     &__green {background-color: #7fcc77;}
     &__family-member:hover,
@@ -760,7 +765,7 @@
     &__family-member &_hold {background: url('@{path-img}/family/cap-add__family-member.png') no-repeat 50% 50%;}
     &__family-photo &_hold {background: url('@{path-img}/family/cap-add__family-photo.png') no-repeat 50% 50%;}
     &__family-text &_hold {background: url('@{path-img}/family/cap-add__family-text.png') no-repeat 50% 50%;}
-    /**/
+    /* в блок добавления фото */
     &__i-photo {
         margin: 0;
         padding: 7px;
@@ -787,7 +792,7 @@
     }  
     /**/
 
-    /**/
+    /* Маленькая как большая */
     &__l-s {
         padding: 18px;
         font-size: 25px;
@@ -808,7 +813,7 @@
         height: 100px;
         border: 3px dashed #fff;
     }  
-    /**/
+    /* Большая */
     &__l {
         padding: 18px;
         font-size: 25px;
@@ -830,6 +835,7 @@
         border: 3px dashed #fff;
     } 
     /**/
+    
     &_hold {
         display: table-cell;
         vertical-align: middle;
@@ -950,6 +956,7 @@
         margin-right: 50px;
         text-align: left;
     }
+    &_photo .i-photo_overlay {text-align: left;}
     &_r {
         display: inline-block;
         vertical-align: top;

@@ -1,0 +1,34 @@
+<div class="b-family">
+    <!-- ko if: loadingFamily() === false -->
+        <!-- ko if: family.members().length > 0 -->
+            <div class="b-family_top b-family_top__white"></div>
+            <!-- ko if: rightsForManipulation === true-->
+                <a href="#" class="ico-edit ico-edit__s-white" data-bind="href: editUrl"></a>
+            <!-- /ko -->
+            <ul class="b-family_ul" data-bind="foreach: { data: family.members, as: 'member' }">
+                <li class="b-family_li">
+                    <a href="" class="b-family_a" data-bind="href: $parent.familyUrl">
+                        <span class="b-family_img-hold">
+                            <!-- ko if: member.photo() !== null -->
+                                <img src="" alt="" data-bind="src: member.photo().getGeneratedPreset('familyMemberSmallWidget')"/>
+                            <!-- /ko -->
+                            <!-- ko if: member.photo() === null -->
+                                <span class="ico-family ico-family__wife" data-bind="attr: { class: 'ico-family ico-family__' + member.viewData.cssClass }"></span>
+                            <!-- /ko -->
+                        </span>
+                        <span class="b-family_tx">
+                            <span data-bind="text: member.viewData.asString"></span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        <!-- /ko -->
+        <!-- ko if: family.members().length === 0  && rightsForManipulation === true-->
+            <div class="b-family_top b-family_top__white"></div>
+            <div class="b-family_empty-tx">Добавьте информацию о своей семье</div>
+            <a href="#" class="btn btn-white btn-xm" data-bind="href: editUrl">
+                <span class="ico-plus ico-plus__s"></span>Добавить
+            </a>
+        <!-- /ko -->
+    <!-- /ko -->
+</div>

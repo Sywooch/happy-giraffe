@@ -29,6 +29,12 @@ define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions
                 this.presetHash(PresetManager.getPresetHash(this.preset));
             }
         };
+        if (data.status !== undefined) {
+            this.status = ko.observable(data.status);
+        };
+        if (data.cropLoaded !== undefined) {
+            this.cropLoaded = ko.observable(data.cropLoaded);
+        };
         this.getGeneratedPreset = function generatePreseted(preset) {
             if (this.presetHash() === undefined) {
                 if (PresetManager.presets === undefined || $.isPlainObject(PresetManager.presets)) {
@@ -37,6 +43,8 @@ define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions
                 } else {
                     this.presetHash(PresetManager.getPresetHash(preset));
                 }
+            } else {
+                this.presetHash(PresetManager.getPresetHash(preset));
             }
             return baseConfig + this.presetHash() + '/' + this.fsName();
         };

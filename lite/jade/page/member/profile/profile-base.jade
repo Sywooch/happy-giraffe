@@ -1,0 +1,119 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member.css'; 
+ 
+block layout
+
+    .b-main
+        .b-main_cont.b-main_cont__broad
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="#") Главная
+                    li.b-crumbs_li.b-crumbs_li__last
+                        +ava('ava__small', ava.a)
+
+        +userSection('', userSection.base)
+    
+        .b-main_cont.b-main_cont__broad
+
+            .b-main_col-hold.clearfix
+                ///////     
+                // Основная колонка
+                .b-main_col-article
+
+                    .heading-sm Моя активность
+                    +bArticleListItem('', bArticleListItem.a)
+
+                    +bArticleListItem('', bArticleListItem.b) 
+
+                    +paginationSmall('', paginationSmall.base)
+
+
+                ///////
+                // Сайд бар  
+                aside.b-main_col-sidebar.visible-md
+                    // виджет фото
+                    .widget-user-photo
+                        .heading-sm
+                            a.heading-sm_a-r(href='#') Все фото 828
+                            | Мои фото
+                        ul.widget-user-photo_ul.clearfix
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/dog/300/200", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/goldfish/110/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs.ico-zoom__s
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/puppy/80/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs.ico-zoom__s
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/red-panda/90/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        .ico-zoom.ico-zoom__abs.ico-zoom__s
+
+                    // /виджет фото
+
+                    // виджет друзья
+                    .widget-friend
+                        .heading-sm 
+                            a.heading-sm_a-r(href='#') Все друзья 3
+                            | Мои друзья
+
+                        ul.ava-list
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.c)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                    // /виджет друзья
+
+                    // виджет клубы
+                    .widget-club
+                        .heading-sm Мои клубы
+                        ul.widget-club_ul.clearfix
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-6(href='#')
+                                    .ico-club.ico-club__20
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-5(href='#')
+                                    .ico-club.ico-club__17
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-4(href='#')
+                                    .ico-club.ico-club__15
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-3(href='#')
+                                    .ico-club.ico-club__12
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-2(href='#')
+                                    .ico-club.ico-club__9
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-1(href='#')
+                                    .ico-club.ico-club__3
+                    // /виджет клубы
+
+
+        +layout-footer-lite()
+
+
+

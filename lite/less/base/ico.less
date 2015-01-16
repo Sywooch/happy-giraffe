@@ -73,6 +73,11 @@ a.ico-more:hover {&:extend(.ico-more-hover);}
         left: 50%;
         margin: -50px 0 0 -50px;
     }
+    &__s {
+        .scale(0.4);
+    }
+    .ie8 &__s,
+    .ie9 &__s {display: none;}
 }
 
 // /ico-base спрайт
@@ -82,7 +87,7 @@ a.ico-more:hover {&:extend(.ico-more-hover);}
 .ico-social-ul {
     .inline-block();
     vertical-align: middle;
-    margin: 4px;
+    margin: 4px 0;
 
     &_li {
         display: inline-block;
@@ -90,13 +95,13 @@ a.ico-more:hover {&:extend(.ico-more-hover);}
 }
 .ico-social {
     .inline-block();
-    margin: 0 4px;
+    margin: 0 8px 0 0;
     width: 22px;
     height: 22px;
     background: url('@{path-img}/ico/ico-social.png') no-repeat;
     
     &:hover {
-        opacity: 0.8;
+        .opacity(0.8);
     }
     &__odnoklassniki {background-position: 0 0;}
     &__vkontakte {background-position: -22px 0;}
@@ -106,7 +111,20 @@ a.ico-more:hover {&:extend(.ico-more-hover);}
         height: 32px;
         background: url('@{path-img}/ico/ico-social__m.png') no-repeat;
     }
-    &__vkontakte.ico-social__m {background-position: -32px 0;}
+    &__odnoklassniki.ico-social__m {background-position: 0 0;}
+    &__vkontakte.ico-social__m     {background-position: -32px 0;}
+    
+    &__l:hover {
+        .opacity(1);
+    }
+    /* &__l  - svg sprite */
+    /*&__l {
+        width: 58px;
+        height: 58px;
+        background: url('@{path-img}/ico/ico-social__l.svg') no-repeat;
+    }
+    &__odnoklassniki.ico-social__l {background-position: 0 0;}
+    &__vkontakte.ico-social__l     {background-position: -32px 0;}*/
 }
 
 //////////////////////////

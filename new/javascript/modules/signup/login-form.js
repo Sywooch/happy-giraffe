@@ -21,7 +21,7 @@ define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'sig
             },
             "id": "odnoklassniki"
         };
-        this.submitLoginHandler = function submitHandler(response) {
+        this.validateHandler = function validateHandler(response) {
             var attribute;
             for (attribute in this.fields) {
                 this.fields[attribute].isFilled(true);
@@ -35,7 +35,7 @@ define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'sig
         };
         this.submit = function submit() {
             this.loading(true);
-            Model.get(this.submitUrl, { attributes: this.getValues() }).done(this.submitLoginHandler.bind(this));
+            Model.get(this.submitUrl, { attributes: this.getValues() }).done(this.validateHandler.bind(this));
         };
         $(".auth-service.vkontakte a").eauth(this.vkObj);
         $(".auth-service.odnoklassniki a").eauth(this.okObj);

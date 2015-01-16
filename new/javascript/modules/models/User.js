@@ -11,6 +11,13 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
         fullName: function fullName() {
             return this.firstName + ' ' + this.lastName;
         },
+        parsePack: function parsePack(element) {
+            if (element.success === true) {
+                var userInst = Object.create(User);
+                userInst.init(element.data);
+                return userInst;
+            }
+        },
         /**
          * init юзера
          * @param object

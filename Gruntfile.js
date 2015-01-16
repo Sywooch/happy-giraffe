@@ -214,6 +214,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.dropdown+/,
             /.flag+/,
@@ -224,6 +225,8 @@ module.exports = function(grunt){
             /.tooltip+/,
             /.header_+/,
             /.header-+/,
+            /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
           ],
         },
@@ -272,6 +275,7 @@ module.exports = function(grunt){
             // Выбираем все стили где в начале .class
             // /.dropdown+/,
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -279,6 +283,10 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.header-+/,
+            /.ava+/,
+            /.ico-club+/,
+            /.ico-family+/,
+            /.flag+/,
             /.fast-articles3+/,
             //.tooltip+/,
             
@@ -289,7 +297,7 @@ module.exports = function(grunt){
             /.ico-club+/,
             /.i-club+/,
             /.b-section+/,
-
+            /.userSection_btn+/,
           ],
         },
         src: [
@@ -315,6 +323,7 @@ module.exports = function(grunt){
             // Выбираем все стили где в начале .class
             // /.dropdown+/,
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -322,6 +331,10 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.header-+/,
+            /.ava+/,
+            /.ico-club+/,
+            /.ico-family+/,
+            /.flag+/,
             /.fast-articles3+/,
             //.tooltip+/,
             /.body+/,
@@ -336,16 +349,17 @@ module.exports = function(grunt){
             /.ico-club+/,
             /.i-club+/,
             /.b-section+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
-          'lite/html/page/photo-window/**/*.html', 
+          'lite/html/page/photo-window/**/*.html',
           'lite/html/page/cook-recipe/**/*.html', 
-          '!lite/html/page/sign/**/*.html', 
 
-          'lite/html/page/**/*-user.html', // стариницы зареганого 
+          '!lite/html/page/sign/**/*.html', 
+          //'lite/html/page/**/*-user.html', // стариницы зареганого 
           '!lite/html/page/comments/comments-page.html'
         ],
         dest: 'lite/css/min/blog-user.css'
@@ -359,12 +373,15 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
             /.header_+/,
             /.header-+/,
+            /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
@@ -393,6 +410,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -401,13 +419,14 @@ module.exports = function(grunt){
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
 
-
             /.b-section+/,
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
             /.header_+/,
             /.header-+/,
+            /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
@@ -431,6 +450,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -439,21 +459,25 @@ module.exports = function(grunt){
             /.header-banner+/,
             /.header_+/,
             /.b-section+/,
-
+            /.ava+/,
+            /.ico-club+/,
             /.ico-family+/,
+            /.flag+/,
+
             /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
             
             // Для страниц собранных разделов
-            /.flag+/,
             /.bx-wrapper+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
+          'lite/html/page/blog/**/*.html', // статьи в ленте
           'lite/html/page/comments/**/*.html', 
-          'lite/html/page/sign/**/*.html', 
+          'lite/html/page/sign/**/*.html',
           'lite/html/page/member/**/*.html', 
           'lite/html/page/photo-window/**/*.html', 
 
@@ -470,6 +494,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.jcrop+/,
             /.mfp+/,
@@ -482,19 +507,23 @@ module.exports = function(grunt){
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
             /.header_+/,
+            /.ava+/,
+            /.ico-club+/,
             /.ico-family+/,
             /.b-section+/,
+            /.flag+/,
             
             /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
             // Для страниц собранных разделов
-            /.flag+/,
             /.bx-wrapper+/,
             /.ico-social-hold+/,
+            /.userSection_btn+/,
           ],
         },
         src: [
+          'lite/html/page/blog/**/*.html', // статьи в ленте
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/user/**/*.html', 
           'lite/html/page/member/**/*.html', 
@@ -515,12 +544,15 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
+            /#powerTip+/,
             /placeholder+/,
             /.mfp+/,
             /.select2+/,
             /@font-face+/,
             /.body+/,
             /.bnr+/,
+            /.ava+/,
+            /.ico-club+/,
             
             /.ico-social-hold+/,
           ],
@@ -657,7 +689,9 @@ module.exports = function(grunt){
           plugins: [{
               removeViewBox: false
           }, {
-              removeUselessStrokeAndFill: false
+              removeUselessStrokeAndFill: true
+          }, {
+              removeXMLProcInst: false
           }, {
               convertPathData: { 
                   straightCurves: false // advanced SVGO plugin option
@@ -667,9 +701,15 @@ module.exports = function(grunt){
       dist: {                     // Target
           files: [{               // Dictionary of files
               expand: true,       // Enable dynamic expansion.
-              cwd: 'lite/images',     // Src matches are relative to this path.
-              src: ['*.svg'],  // Actual pattern(s) to match.
-              dest: 'lite/images',       // Destination path prefix.
+              cwd: 'lite/images/',     // Src matches are relative to this path.//cwd: 'lite/images/',     
+              src: [
+                '!sprite/**/*.svg',
+                //'lite/images/sprite/*.svg',
+                '!**/*.svg',
+                //'!lite/html/page/comments/comments-page.html',
+
+              ],  // Actual pattern(s) to match.
+              dest: 'lite/images/',       // Destination path prefix.
               ext: '.svg'     // Dest filepaths will have this extension.
               // ie: optimise img/src/branding/logo.svg and store it in img/branding/logo.min.svg
           }]
@@ -811,6 +851,22 @@ module.exports = function(grunt){
                 },
                 // refSize: 100,
                 unit: 100
+            }
+        },
+        'ico-social__l': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-social__l",
+                spritePath: "lite/images/sprite/ico-social__l.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 50
             }
         },
         'markdown-day': {

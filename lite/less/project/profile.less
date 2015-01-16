@@ -1,0 +1,133 @@
+
+
+/* profile-cap */
+.profile-cap {
+    margin: 0 0 30px;
+
+    .heading-sm {
+        margin-bottom: 10px;
+    }
+    &_hold {
+        position: relative;
+        padding-left: 60px;
+        .tx-content();
+    }
+    &_hold:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50px;
+        height: 40px;
+        background: url('@{path-img}/profile-cap_hold.png') no-repeat;
+    }
+    &_hold__article:before {background-position: 0 0;}
+    &_hold__photo:before   {background-position: -53px 0;}
+    &_hold__friend:before  {background-position: -100px 0;}
+    &_tx {
+        color: @color-gray-dark;
+    }
+    &_tx a {font-size: 12px;}
+}
+/* /profile-cap */
+
+/* .widget-club */
+.widget-club {
+    margin: 0 0 30px;
+
+    &_ul {
+        margin-right: -16px;
+    }
+    &_li {
+        float: left;
+        margin: 0 15px 15px 0;
+    }
+}
+/* /widget-club */
+
+/* .widget-friend */
+.widget-friend {
+    margin: 0 0 30px;
+    
+    .ava-list {
+        margin-right: -10px;
+    }
+    .ava-list_li {
+        margin: 0 9px 10px 0;
+    }
+}
+/* /widget-friend */
+
+/* widget-user-photo */
+.widget-user-photo {
+    margin: 0 0 30px;
+    
+    .cap-add {
+        margin: 0;
+        width: 75px;
+        height: 70px;
+        font-size: 46px;
+    }
+    &_ul {
+        margin-right: -15px;
+    }
+    &_li {
+        float: left;
+        margin: 0 4px 4px 0;
+    }
+    &_i {
+        display: block;
+        position: relative;
+    }
+    &_i:hover &_overlay {display: block;}
+    &_overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 5;
+        background: #290B45;
+        background: rgba(41, 11, 69, 0.35);
+        cursor: pointer;
+    }
+}
+/* /widget-user-photo */
+
+/* user-settings */
+.user-settings {
+    margin: 0 0 30px;
+    
+    .heading-small {margin: 10px 0;}
+    .flag {
+        margin-right: 5px;
+    }
+    &_hold {
+        margin-bottom: 30px;
+    }
+    &_row {
+        line-height: 22px;
+        margin-bottom: 5px;
+
+        .radio-icons_label {margin-top: 2px;}
+    }
+    &_col-label {
+        display: inline-block;
+        vertical-align: top;
+        width: 160px;
+    }
+    &_col-inp {
+        display: inline-block;
+        width: 430px;
+    }
+    &_soc {
+        margin: 10px 0 30px;
+    }
+    &_w-inp {
+        .inline-block();
+        width: 315px;
+        margin: 0 2px 0 0;
+    }
+}
+/* /user-settings */

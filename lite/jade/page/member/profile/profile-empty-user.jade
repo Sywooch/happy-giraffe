@@ -1,0 +1,63 @@
+include ../../../block/config
+extend ../../../extend/layout_base_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css'; 
+ 
+block layout
+
+    .b-main
+        .b-main_cont
+            +userAddRecord('', userAddRecord.blog)
+
+        .b-main_cont.b-main_cont__broad
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="#") Мой жираф
+                    li.b-crumbs_li.b-crumbs_li__last
+                        +ava('ava__small ava__female', ava.empty)
+
+        +userSection('', userSection.baseUserEmpty)
+    
+        .b-main_cont.b-main_cont__broad
+
+            .b-main_col-hold.clearfix
+                ///////     
+                // Основная колонка  
+                .b-main_col-article
+
+                    .profile-cap
+                        .heading-sm Моя активность
+                        .profile-cap_hold.profile-cap_hold__article
+                            .profile-cap_tx
+                                | У вас пока нет активности на сайте, поделитесь чем-нибудь интересным с пользователями Веселого Жирафа.
+                                br
+                                a(href='#') Добавить запись
+
+                ///////
+                // Сайд бар  
+                aside.b-main_col-sidebar.visible-md
+                    .profile-cap
+                        .heading-sm Мои фото
+                        .profile-cap_hold.profile-cap_hold__photo
+                            .profile-cap_tx
+                                | Вы еще не загрузили не одной фотографии
+                                br
+                                a(href='#') Создать фотоальбом
+
+                    .profile-cap
+                        .heading-sm Мои друзья
+                        .profile-cap_hold.profile-cap_hold__friend
+                            .profile-cap_tx
+                                | Вы еще не добавили ни кого в друзья.
+                                br
+                                a(href='#') Поиск друзей
+
+
+
+        +layout-footer-lite()
+
+
+

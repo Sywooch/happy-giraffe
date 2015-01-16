@@ -14,8 +14,14 @@
 
 */
 .section-empty {
-    margin: 80px 0 180px;
+    margin: 80px 0 100px;
 
+    &__blog &_li {
+        margin: 0 10px 25px;
+    }
+    &__blog &_i {
+        padding: 15px 5px 24px;
+    }
     &_t {
         margin: 15px 0;
         font-size: 25px;
@@ -49,6 +55,14 @@
     &_i:hover &_ico__photo {background-position: 0 -70px;}
     &_li.active &_ico__album,
     &_i:hover &_ico__album {background-position: -100px -70px;}
+    &_li.active &_ico__blog,
+    &_i:hover &_ico__blog {background-position: -200px -70px;}
+    &_li.active &_ico__video,
+    &_i:hover &_ico__video {background-position: -300px -70px;}
+    &_li.active &_ico__status,
+    &_i:hover &_ico__status {background-position: -400px -70px;}
+    &_li.active &_ico__link,
+    &_i:hover &_ico__link {background-position: -500px -70px;}
     &_ico {
         display: block;
         margin: 0 auto 5px;
@@ -58,6 +72,10 @@
     }
     &_ico__photo {background-position: 0 0;}
     &_ico__album {background-position: -100px 0;}
+    &_ico__blog  {background-position: -200px 0;}
+    &_ico__video {background-position: -300px 0;}
+    &_ico__status{background-position: -400px 0;}
+    &_ico__link  {background-position: -500px 0;}
 
     &_desc {
         &:extend(.tx-content);

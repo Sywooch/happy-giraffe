@@ -1,8 +1,8 @@
-<!-- ko if: rightsForManipulation -->
+<!-- ko if: rightsForManipulation && photoAlbums().length !== 0 -->
 <div class="userAddRecord clearfix userAddRecord__blog userAddRecord__blog">
     <div class="userAddRecord_hold">
-        <div class="userAddRecord_tx">Я хочу добавить
-        </div>
+        <!-- <div class="userAddRecord_tx">Я хочу добавить
+        </div> -->
         <a href="" data-theme="transparent" class="userAddRecord_i" data-bind="href: newPhotoAlbumUrl">
             <div class="userAddRecord_ico userAddRecord_ico__album"></div>
             <div class="userAddRecord_desc">Фотоальбом</div>
@@ -11,9 +11,28 @@
 </div>
 <!-- /ko -->
 <!-- ko if: photoAlbums().length === 0 && loading() === false -->
-<div class="section-empty">
-    <div class="section-empty_t">У этого пользователя нет фотографий</div>
-</div>
+    <!-- ko if: rightsForManipulation -->
+        <div class="section-empty">
+            <div class="section-empty_t">Что бы вы хотели добавить в раздел «Мои фото»?</div>
+            <ul class="section-empty_ul">
+                <li class="section-empty_li"><a href="" class="section-empty_i" data-bind="href: newPhotoAlbumUrl">
+                    <div class="section-empty_ico section-empty_ico__album"></div>
+                    <div class="section-empty_ico-tx">Новый <br> фотоальбом</div></a></li>
+            </ul>
+            <div class="section-empty_desc-hold">
+                <!-- Табы на ховер-->
+                <!-- Менять отображение элементов на ховер а.section-empty_i с помощью js-->
+                <div class="section-empty_desc">
+                    <div class="section-empty_desc-tx">Создавайте свои фотоальбомы и делитесь ими со своими друзьями и Веселым Жирафом. А также получайте за это дополнительные баллы в вашу общую копилку.</div>
+                </div>
+            </div>
+        </div>
+    <!-- /ko -->
+    <!-- ko if: ! rightsForManipulation -->
+        <div class="section-empty">
+            <div class="section-empty_t">У этого пользователя нет фотографий</div>
+        </div>
+    <!-- /ko -->
 <!-- /ko -->
 <!-- ko if: photoAlbums().length !== 0 && loading() === false -->
         <!-- <photo-collection style="display: block;" params="id: 3, attachCount: 24, coverId: 27, userId: userId"></photo-collection> -->

@@ -1,4 +1,4 @@
-define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/PhotoAttach', 'photo/PhotoAlbum', 'user-config', 'bootstrap', 'jquery_file_upload', 'jquery.ui', 'photo/bindings/thumb', 'photo/bindings/photoUpload'], function(ko, mapping, Photo, PhotoAttach, PhotoAlbum, userConfig) {
+define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Model', 'photo/Photo', 'photo/PhotoAttach', 'photo/PhotoAlbum', 'user-config', 'extensions/jcropInit', 'bootstrap', 'jquery_file_upload', 'jquery.ui', 'photo/bindings/thumb', 'photo/bindings/photoUpload'], function($, ko, mapping, Model, Photo, PhotoAttach, PhotoAlbum, userConfig, jcropInit) {
 
 
     // Биндинг для плагина jQuery File Upload
@@ -46,6 +46,12 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     };
 
 
+    var loadingErrorsObject = {
+      tooBig: {
+          string: "Request Entity Too Large",
+          name: "Слишком большое фото"
+      }
+    };
 
     // Основная модель вставки фотографий
     function PhotoAddViewModel(data) {
@@ -128,7 +134,18 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                 photo.error(response.error);
                 photo.status(PhotoUpload.prototype.STATUS_FAIL);
             }
-        }
+        };
+
+        self.processAvatar = function(photo, response) {
+            if (response.success) {
+                ko.mapping.fromJS((response.data.attach || response.data.photo), {}, photo);
+                photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
+                jcropInit(photo);
+            } else {
+                photo.error(response.error);
+                photo.status(PhotoUpload.prototype.STATUS_FAIL);
+            }
+        };
     }
     PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
     PhotoUploadViewModel.prototype.add = function() {
@@ -190,6 +207,42 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     }
     FromComputerSingleViewModel.prototype = Object.create(PhotoUploadViewModel.prototype);
     asFromComputer.call(FromComputerSingleViewModel.prototype);
+
+
+    // Модель одиночной загрузки файла с компьютера
+    function AvatarSingleViewModel(data) {
+        var self = this;
+        PhotoUploadViewModel.apply(self, arguments);
+        $.extend(self.fileUploadSettings, {
+            add: function (e, data) {
+                if (self.collectionId !== undefined) {
+                    data.formData = {
+                        collectionId: self.collectionId
+                    };
+                }
+                self.added(self.populatePhoto(data));
+            },
+            done: function (e, data) {
+                self.photo().file = data.files[0];
+                self.processAvatar(self.photo(), data.result);
+            },
+            fail: function(e, data) {
+                if (data.errorThrown !== 'abort') {
+                    self.photo().cropLoaded(true);
+                    for(var errorIt in loadingErrorsObject) {
+                        if (data.errorThrown === loadingErrorsObject[errorIt].string) {
+                            self.photo().error(loadingErrorsObject[errorIt].name);
+                        } else {
+                            self.photo().error(false);
+                        }
+                    }
+                    self.photo().status(PhotoUpload.prototype.STATUS_FAIL);
+                }
+            }
+        });
+    }
+    AvatarSingleViewModel.prototype = Object.create(PhotoUploadViewModel.prototype);
+    asFromComputer.call(AvatarSingleViewModel.prototype);
 
     // Модель множественной загрузки с компьютера
     function FromComputerMultipleViewModel(data) {
@@ -293,6 +346,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         self.jqXHR = jqXHR;
         self.status = ko.observable(PhotoUpload.prototype.STATUS_LOADING);
         self.error = ko.observable();
+        self.cropLoaded = ko.observable(false);
 
         self.rotateLeft = function() {
             self.rotate(false);
@@ -396,7 +450,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             }, 'json');
         };
 
-        self.selectAttach = function(attach) {;
+        self.selectAttach = function(attach) {
             if (attach.isActive()) {
                 self.removePhoto(attach.photo());
             } else {
@@ -418,6 +472,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         FromComputerSingleViewModel: FromComputerSingleViewModel,
         FromComputerMultipleViewModel: FromComputerMultipleViewModel,
         FromAlbumsViewModel: FromAlbumsViewModel,
-        ByUrlViewModel: ByUrlViewModel
+        ByUrlViewModel: ByUrlViewModel,
+        AvatarSingleViewModel: AvatarSingleViewModel
     };
 });

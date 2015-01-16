@@ -6,13 +6,33 @@ block vars
 
 block layout
 
-    .b-main
+    .b-main.clearfix
+        .b-main_cols.clearfix
+            .b-main_col-1 
+                +sidebarSearch('sidebar-search__big', sidebarSearch.a )
+            .b-main_col-23
+                +userAddRecord('userAddRecord__s', userAddRecord.a)
+            
+    .b-main.clearfix
+        .b-main_cont.b-main_cont__broad
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Блог
+                        
+    .b-main.clearfix
+        +userSection('', userSection.base)
+        
         .b-main_cont.b-main_cont__wide
 
-            +userAddRecord('', userAddRecord.blog)
+            //-+userAddRecord('', userAddRecord.blog)
 
     
-            //+userSection('visible-md-block')
                               
             //+userSubscribers('visible-md-block')
 

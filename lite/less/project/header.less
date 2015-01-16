@@ -11,7 +11,6 @@
     position: absolute;
     top: 25px;
     right: 75px;
-    font-size: 14px;
     
     @media (min-width: @screen-desktop) {
         display: block;
@@ -51,7 +50,7 @@
 
     &__user .logo {
         float: left;
-        margin: 5px 10px 5px 30px;
+        margin: 5px 10px 5px 40px;
     }
     &__user .logo__small {margin: 0 25px 0 35px;}
 
@@ -192,7 +191,7 @@
 */
 .header-menu {
     display: inline-block;
-    margin: 5px 19px 0 0;
+    margin: 5px 0 0 0;
    
     .ava {
         float: none;
@@ -203,7 +202,7 @@
         position: relative;
         .inline-block();
         vertical-align: top;
-        margin: 0 12px;
+        margin: 0 11px;
         text-align: center;
     }
     
@@ -234,11 +233,11 @@
     &_a:hover &_ico__logout      {background-position: -650px -50px;}
     &_a:hover,
     &_li.active &_a {
-        background: url('@{path-img}/header-menu_a.png') no-repeat 4px 0;
+        /*background: url('@{path-img}/header-menu_a.png') no-repeat 4px 0;*/
     }
     &_a:hover &_tx,
     &_li.active &_tx {
-        color: #808080;
+        color: @color-orange;
         text-decoration: none;
     }
     &_li__dropin {
@@ -246,9 +245,16 @@
         margin-right: 0;
     }
     &_li__dropin.active .header-drop {display: block;}
+    &_li__dropin.active &_ico {top: 0;}
+    &_li__dropin.active &_tx {
+        color: @color-gray;
+    }
+    &_li__dropin.active &_a:hover &_tx,
+    &_li__dropin.active .active &_tx {color: @color-orange;}
 
+    /*
     // kinder реклама
-/*    &_li__kinderino,
+    &_li__kinderino,
     &_li__kindergold {
         margin: 0 0 0 20px;
     }
@@ -268,9 +274,9 @@
         width: 78px;
         height: 97px; 
         background: url('@{path-img}/header-menu_kinderino.jpg') no-repeat 50% 50%;
-    }*/
+    }
     // kinder реклама
-
+    */
     &_a {
         width: 76px;
         .inline-block();

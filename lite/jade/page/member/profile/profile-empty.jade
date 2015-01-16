@@ -1,0 +1,60 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member.css'; 
+ 
+block layout
+ 
+    .b-main
+        .b-main_cont.b-main_cont__broad
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="#") Главная
+                    li.b-crumbs_li.b-crumbs_li__last
+                        +ava('ava__small', ava.a)
+
+        +userSection('', userSection.empty)
+    
+        .b-main_cont.b-main_cont__broad
+
+            .b-main_col-hold.clearfix
+                ///////     
+                // Основная колонка  
+                .b-main_col-article
+                    .heading-sm 
+                        | Моя акивность
+                    +cap-empty('cap-empty__user-profile', capEmpty.userProfile)
+
+                ///////
+                // Сайд бар  
+                aside.b-main_col-sidebar.visible-md
+                    
+                    // виджет друзья
+                    .widget-friend
+                        .heading-sm 
+                            a.heading-sm_a-r(href='#') Все друзья 3
+                            | Мои друзья
+
+                        ul.ava-list
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.c)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                    // /виджет друзья
+
+        +layout-footer-lite()
+
+

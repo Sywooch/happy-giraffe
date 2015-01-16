@@ -1,0 +1,16 @@
+<!-- виджет клубы-->
+<!-- ko if: loaded() === true -->
+    <!-- ko if: clubs().length > 0 -->
+    <div class="widget-club">
+        <div class="heading-sm">Мои клубы</div>
+        <ul class="widget-club_ul clearfix" data-bind="foreach: clubs">
+            <li class="widget-club_li">
+                <a href="#" class=""  data-bind="attr: { class: 'i-club i-club__list-s i-club__collection-' + sectionId }, href: url">
+                    <div class="" data-bind="attr: { class: 'ico-club ico-club__' + id }"></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- /ko -->
+<!-- /ko -->
+<!-- /виджет клубы-->

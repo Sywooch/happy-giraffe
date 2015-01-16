@@ -19,6 +19,6 @@ $visitorsLength = strlen($visitors);
                 <?php if ($showClosing): ?></div><?php endif; ?>
             <?php endfor; ?>
         </div>
-        <div class="homepage_desc-tx">будущих и настоящих мам и пап</div><a href="#registerWidget" class="homepage_btn-sign btn btn-success btn-xxl popup-a">Присоединяйся!</a>
+        <div class="homepage_desc-tx">будущих и настоящих мам и пап</div><a class="homepage_btn-sign btn btn-success btn-xxl registration-button" data-bind="follow: {}">Присоединяйся!</a>
     </div>
 </div>

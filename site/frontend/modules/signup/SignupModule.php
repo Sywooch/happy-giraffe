@@ -2,6 +2,8 @@
 
 class SignupModule extends CWebModule
 {
+    public $controllerNamespace = '\site\frontend\modules\signup\controllers';
+
 	public function init()
 	{
 		// this method is called when the module is being created

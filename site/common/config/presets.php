@@ -74,6 +74,16 @@ return array(
     ),
     array(
         'filter' => array(
+            'name' => 'fixed',
+            'width' => 300,
+            'height' => 300,
+        ),
+        'usages' => array(
+            'myPhotosSectionCover',
+        ),
+    ),
+    array(
+        'filter' => array(
             'name' =>'lepilla',
             'width' => 1200,
             'height' => 900,
@@ -94,9 +104,9 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'relativeResize',
-            'method' => 'heighten',
-            'parameter' => 70,
+            'name' =>'lepilla',
+            'width' => 92,
+            'height' => 70,
         ),
         'usages' => array(
             'myPhotosPreview',
@@ -173,4 +183,14 @@ return array(
             'familyMemberImage',
         ),
     ),
+    array(
+        'filter' => array(
+            'name' => 'lepilla',
+            'width' => 55,
+            'height' => 55,
+        ),
+        'usages' => array(
+            'familyMemberSmallWidget',
+        ),
+    )
 );

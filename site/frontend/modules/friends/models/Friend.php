@@ -147,12 +147,16 @@ class Friend extends CActiveRecord
         if (!$f1->validate() || !$f2->validate())
             return false;
 
-        $transaction = Yii::app()->db->beginTransaction();
+        if (Yii::app()->db->getCurrentTransaction() === null) {
+            $transaction = Yii::app()->db->beginTransaction();
+        }
         try {
             $f1->save();
             $f2->save();
 
-            $transaction->commit();
+            if (isset($transaction)) {
+                $transaction->commit();
+            }
 
             Scoring::friendAdded($user1Id, $user2Id);
             MessagingThread::model()->findOrCreate($user1Id, $user2Id);
@@ -163,7 +167,9 @@ class Friend extends CActiveRecord
             $comet->send($user2Id);
             return true;
         } catch (Exception $e) {
-            $transaction->rollback();
+            if (isset($transaction)) {
+                $transaction->rollback();
+            }
             return false;
         }
     }

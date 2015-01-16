@@ -52,6 +52,9 @@ return array(
         'checkLabels' => array(
             'class' => 'site\frontend\modules\clubs\commands\CheckLabels',
         ),
+        'usersMigrate' => array(
+            'class' => 'site\frontend\modules\users\migration\Command',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

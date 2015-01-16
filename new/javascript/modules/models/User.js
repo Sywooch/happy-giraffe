@@ -24,24 +24,63 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
                 return userInst;
             }
         },
+        /**
+         * Get User
+         * @param avatarSize
+         * @returns {$.ajax}
+         */
         get: function get(avatarSize) {
             return Model.get(this.getUserUrl, { id: this.userId, avatarSize: avatarSize });
         },
+        /**
+         * Get current user
+         * @param avatarSize
+         * @returns {$.ajax}
+         */
         getCurrentUser: function getCurrentUser(avatarSize) {
             return Model.get(this.getCurrentUserUrl, { id: this.userId, avatarSize: avatarSize });
         },
-        changePassword: function changePassword(newPassword) {
-            return Model.get(this.changePasswordUrl, { id: this.id, password: newPassword });
+        /**
+         * Change users password
+         * @returns {$.ajax}
+         */
+        changePassword: function changePassword() {
+            return Model.get(this.changePasswordUrl, { id: this.id, password: this.newPassword.value() });
         },
+        /**
+         * Change users email
+         * @returns {$.ajax}
+         */
         changeEmail: function changeEmail() {
             return Model.get(this.changeEmailUrl, { id: this.id, email: this.email.value() });
         },
+        /**
+         * Remove user
+         * @returns {$.ajax}
+         */
         remove: function remove() {
             return Model.get(this.removeUserUrl, { id: this.id });
         },
+        /**
+         * Update user attributes
+         * @param attributes
+         * @returns {$.ajax}
+         */
         update: function update(attributes) {
             return Model.get(this.updateUserUrl, { id: this.id, attributes: attributes });
         },
+        /**
+         * Update date attribs
+         * @param attributes
+         * @returns {$.ajax}
+         */
+        updateDate: function updateDate(attributes) {
+            return Model.get(this.updateUserUrl, { id: this.id, attributes: { birthday: this.birthday.year() + '-' + this.birthday.month() + '-' + this.birthday.day() } });
+        },
+        /**
+         * Update user model
+         * @param data
+         */
         updateModel: function updateModel(data) {
             for (var prop in data) {
                 if (prop === 'birthday') {
@@ -65,6 +104,10 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
                 }
             }
         },
+        /**
+         * Error user handler
+         * @param errorData
+         */
         errorHandler: function errorHandler(errorData) {
             this.errors([]);
             if (errorData.success === false) {
@@ -80,9 +123,17 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
                 }
             }
         },
+        /**
+         * Mail subscribe
+         * @returns {$.ajax}
+         */
         mailSubscribe: function mailSubscribe() {
             return Model.get(this.mailSubscriptionUrl, { id: this.id, value: (this.subscriptionMail.value() === false) ? 0 : 1 });
         },
+        /**
+         * get birthday value
+         * @returns {string}
+         */
         getBirthdayValue: function getBirthdayValue() {
             var months,
                 month;
@@ -93,6 +144,11 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
             }
             return this.day() + ' ' + this.month() + ' ' + this.year();
         },
+        /**
+         * parse social services
+         * @param socialServices
+         * @returns {{}}
+         */
         parseSocialServices: function parseSocialServices(socialServices) {
             var socialObject = {};
             if (socialServices.length > 0) {
@@ -102,9 +158,16 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
             }
             return socialObject;
         },
+        /**
+         * handling request
+         * @param userData
+         */
         handlingRequest: function handlingRequest(userData) {
             this.errorHandler(userData);
         },
+        /**
+         * update
+         */
         updateGender: function updateGender() {
             this.update({ gender: parseInt(this.gender.value()) }).done(this.handlingRequest.bind(this));
         },

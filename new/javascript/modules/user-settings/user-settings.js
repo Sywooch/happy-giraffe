@@ -7,6 +7,10 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         this.months = DateRange.months();
         this.years = DateRange.years(1920, 2015);
         this.equalPassword = ko.observable('');
+        this.mainPageUrl = '/';
+        this.redirectUser = function redirectUser() {
+            document.location.href = this.mainPageUrl;
+        };
         this.getUserHandler = function getUserHandler(userData) {
             if (userData.success === true) {
                 this.user.settleSettings(userData.data);
@@ -23,8 +27,16 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
             this.user.update(attribute).done(this.submitUserHandler.bind(this));
             data.editing(false);
         };
+        this.endEditDateField = function endEditDateField(data, event) {
+            this.user.updateDate().done(this.submitUserHandler.bind(this));
+            data.editing(false);
+        };
         this.changeEmailField = function changeEmailField(data, event) {
             this.user.changeEmail().done(this.submitUserHandler.bind(this));
+            data.editing(false);
+        };
+        this.changePasswordField = function changeEmailField(data, event) {
+            this.user.changePassword().done(this.submitUserHandler.bind(this));
             data.editing(false);
         };
         this.submitUserHandler = function submitUserHandler(familyMemberData) {
@@ -33,8 +45,10 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         this.changeGender = function changeGender(data, event) {
             data.value(data.value().toString());
         };
+        this.removeUser = function removeUser() {
+            this.user.remove().done(this.redirectUser.bind(this));
+        };
         this.changeSubscribtion = function changeGender(data, event) {
-            console.log(data.value());
             this.user.updateSubscribtion();
         };
         User.getCurrentUser(40).done(this.getUserHandler.bind(this));

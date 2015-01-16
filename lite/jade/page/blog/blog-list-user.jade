@@ -26,12 +26,13 @@ block layout
                         span.b-crumbs_last Блог
                         
     .b-main.clearfix
+        +userSection('', userSection.base)
+        
         .b-main_cont.b-main_cont__wide
 
             //-+userAddRecord('', userAddRecord.blog)
 
     
-            +userSection('', userSection.base)
                               
             //+userSubscribers('visible-md-block')
 

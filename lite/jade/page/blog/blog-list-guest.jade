@@ -19,8 +19,11 @@ block layout
                     li.b-crumbs_li.b-crumbs_li__last
                         span.b-crumbs_last Блог
 
-            +userSection('visible-md-block', userSection.base)
-                              
+    .b-main.clearfix
+        +userSection('visible-md-block', userSection.base)
+            
+    .b-main.clearfix    
+        .b-main_cont              
             +userSubscribers('visible-md-block')
 
             .b-main_col-hold.clearfix

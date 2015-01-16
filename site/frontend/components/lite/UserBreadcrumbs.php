@@ -20,7 +20,7 @@ class UserBreadcrumbs extends \CBreadcrumbs
                 'size' => \Avatar::SIZE_MICRO,
                 'tag' => 'span',
             ), true);
-            $this->links = array($avatar => array('/profile/default/index', 'user_id' => $this->user->id)) + $this->links;
+            $this->links = array($avatar => array('/userProfile/default/index', 'userId' => $this->user->id)) + $this->links;
         }
         parent::run();
     }

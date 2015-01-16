@@ -46,7 +46,7 @@ class AdultViewData extends FamilyMemberViewData
 
     public function getTitle()
     {
-        return $this->dictionary[$this->model->relationshipStatus][$this->model->gender]['title'];
+        return ($this->model->userId !== null) ? 'Я' : $this->dictionary[$this->model->relationshipStatus][$this->model->gender]['title'];
     }
 
     public function getAsString()

@@ -1,9 +1,13 @@
 <?php
+
+namespace site\frontend\modules\signup\models;
+use site\frontend\modules\signup\components\UserIdentity;
+
 /**
  * Форма для авторизации пользователя по паролю
  */
 
-class LoginForm extends CFormModel
+class LoginForm extends \CFormModel
 {
     public $email;
     public $password;
@@ -60,7 +64,7 @@ class LoginForm extends CFormModel
         if ($this->_identity->errorCode === UserIdentity::ERROR_NONE)
         {
             $duration = $this->rememberMe ? null : 0;
-            Yii::app()->user->login($this->_identity, $duration);
+            \Yii::app()->user->login($this->_identity, $duration);
             return true;
         }
         else

@@ -163,7 +163,7 @@ return array(
         /* Временные страницы для управления постами */
         'blog/tmp/favourites' => 'blog/tmp/favourites',
 
-        'user/<user_id:\d+>' => 'profile/default/index',
+        'user/<userId:\d+>' => 'userProfile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
         'user/<user_id:\d+>/award/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'award')),
         'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),
@@ -476,6 +476,9 @@ return array(
         'user/<userId:\d+>/albums/<albumId:\d+>/photo<photoId:\d+>' => 'photo/singlePhoto/album',
         'photo/default/presets' => 'photo/default/presets',
         'photo/photo/thumb' => 'photo/photo/thumb',
+
+        'reg/test' => 'signup/test/reg',
+        'signup/default/captcha' => 'signup/default/captcha',
 
         'onair' => 'blog/air/index',
 

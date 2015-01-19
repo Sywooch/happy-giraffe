@@ -97,15 +97,49 @@
         </div>
         <!-- /пол-->
         <!-- Местоположение-->
-        <div class="user-settings_row">
+        <div class="user-settings_row" data-bind="with: user.address">
             <div class="user-settings_col-label">
                 <label for="" class="form-edit_label">Местоположение</label>
             </div>
-            <div class="user-settings_col-inp"><span class="flag flag-ru"></span><span class="form-edit_tx">Россия, Ярославская область, Переславль-Залесский</span><a href="#" class="ico-edit ico-edit__s powertip"></a>
+            <!-- ko if: $data.editing() === false && $data.value() -->
+            <div class="user-settings_col-inp">
+                <span class="flag flag-ru"></span>
+                <span class="form-edit_tx">Россия, Ярославская область, Переславль-Залесский</span>
+                <a href="#" class="ico-edit ico-edit__s powertip" data-bind="click: $parent.beginLocationEditField.bind($parent)"></a>
             </div>
+            <!-- /ko -->
+            <!-- ko if: $data.editing() === true -->
+            <div class="user-settings_col-inp">
+                <div class="user-settings_row">
+                    <div class="inp-valid inp-valid__abs user-settings_w-inp">
+                        <!-- ko if: $parent.countries().length > 0 -->
+                        <select placeholder="Выберите страну" class="select-cus select-cus__js-country select-cus__gray" data-bind="options: $parent.countries, optionsText: 'name', optionsValue: 'id', value: $data.value().country.id"></select>
+                        <div class="inp-valid_error">
+                            <div class="errorMessage">
+                            </div>
+                        </div>
+                        <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- ko if: $data.value().country.citiesFilled === 1  -->
+                <div class="user-settings_row">
+                    <div class="inp-valid inp-valid__abs user-settings_w-inp">
+                        <input type="hidden" class="select-cus select-cus__search-on select-cus__gray" placeholder="Выберите город" value="$data.value().city.name" />
+                        <div class="inp-valid_error">
+                            <div class="errorMessage">
+                            </div>
+                        </div>
+                        <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <div class="user-settings_row user-settings_w-inp textalign-r">
+                    <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditDateField.bind($parent)">Ok</div>
+                </div>
+            </div>
+            <!-- /ko -->
         </div>
-        <!-- /Местоположение-->
-        <!-- Местоположение-->
         <!-- /Местоположение-->
     </div>
     <div class="user-settings_hold">

@@ -7,7 +7,7 @@ return array(
         100 => 90,
         200 => 85,
         350 => 80,
-        75,
+        30,
     ),
     'types' => array(
         IMAGETYPE_JPEG => 'jpg',

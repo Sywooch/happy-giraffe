@@ -94,9 +94,8 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'relativeResize',
-            'method' => 'widen',
-            'parameter' => 600,
+            'name' =>'widen',
+            'width' => 600,
         ),
         'usages' => array(
             'postImage',

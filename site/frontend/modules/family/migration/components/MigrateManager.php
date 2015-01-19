@@ -267,9 +267,8 @@ FROM family__families;")->execute();
             $cover = $photoIds[0];
             if ($old->main_photo_id !== null) {
                 $oldPhoto = \AlbumPhoto::model()->findByPk($old->main_photo_id);
-                $newPhotoId = \site\frontend\modules\photo\components\MigrateManager::movePhoto($oldPhoto);
-                if ($newPhotoId !== false) {
-                    $cover = $newPhotoId;
+                if ($newPhoto = \site\frontend\modules\photo\components\MigrateManager::movePhoto($oldPhoto)) {
+                    $cover = $newPhoto->id;
                 }
             }
             $new->photoCollection->attachPhotos(array($cover));

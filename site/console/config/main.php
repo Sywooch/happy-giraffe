@@ -66,6 +66,7 @@ return array(
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
         'site.frontend.extensions.directmongosuite.*',
+        'site.frontend.extensions.YiiMongoDbSuite.*',
         'site.frontend.modules.antispam.models.*',
         'site.frontend.modules.antispam.components.*',
         'site.frontend.modules.onlineManager.widgets.*',

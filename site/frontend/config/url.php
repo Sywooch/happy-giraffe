@@ -115,7 +115,7 @@ return array(
         'blog/settings/<_a>' => 'blog/settings/<_a>',
 
         'user/settings' => 'users/default/settings',
-        'users/default/social' => 'users/default/social',
+        'users/default/addSocialService' => 'users/default/addSocialService',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',

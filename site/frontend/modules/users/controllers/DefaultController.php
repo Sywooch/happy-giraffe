@@ -28,7 +28,7 @@ class DefaultController extends \LiteController
     public function actions()
     {
         return array(
-            'social' => array(
+            'addSocialService' => array(
                 'class' => 'SocialAction',
                 'successCallback' => function($eauth) {
                     $model = new \UserSocialService();

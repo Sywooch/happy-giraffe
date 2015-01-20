@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 'signup/form', 'signup/formField', 'signup/dateField', 'modules-helpers/component-custom-returner', 'kow', 'signup/eauth', 'ko_library'], function($, ko, template, Model, Form, FormField, DateField, customReturner) {
+define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 'signup/form', 'signup/formField', 'signup/dateField', 'modules-helpers/component-custom-returner', 'kow', 'eauth', 'ko_library'], function($, ko, template, Model, Form, FormField, DateField, customReturner) {
     function Register() {
         this.redirectUrl = '/';
         this.SCREEN_STEP_1 = 'screenStep1';

@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner', 'signup/eauth'], function($, ko, template, Form, FormField, Model, customReturner) {
+define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner', 'eauth'], function($, ko, template, Form, FormField, Model, customReturner) {
     function LoginForm() {
         this.submitUrl = '/api/signup/login/';
         this.redirectUrl = '/';

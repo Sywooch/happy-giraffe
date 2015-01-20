@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/User', 'models/Geography'], function userSettingsHandler($, ko, template, User, Geography) {
+define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/User', 'models/Geography', 'eauth'], function userSettingsHandler($, ko, template, User, Geography) {
     function UserSettings(params) {
         this.userId = User.userId;
         this.loaded = ko.observable(false);

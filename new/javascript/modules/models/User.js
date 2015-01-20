@@ -7,6 +7,7 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
         removeUserUrl: '/api/users/remove/',
         updateUserUrl: '/api/users/update/',
         mailSubscriptionUrl: '/api/users/mailSubscription/',
+        removeSocialServicesUrl: '/api/users/removeSocialService/',
         isGuest: userConfig.isGuest,
         isModer: userConfig.isModer,
         userId: userConfig.userId,
@@ -162,6 +163,11 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
                 }
             }
             return socialObject;
+        },
+        removeSocial: function removeSocial(data, event) {
+            delete this.socialServices.value()[data.service];
+            console.log(this.socialServices.value(), data.service);
+            return Model.get(this.removeSocialServicesUrl, { id: data.id });
         },
         /**
          * handling request

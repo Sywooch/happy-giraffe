@@ -213,10 +213,28 @@
     <div class="user-settings_hold">
         <div class="heading-small">Coциальные сети</div>
         <div class="form-edit_tx">Нажмите на соответствующую иконку соц. сети, чтобы связать ее с вашим аккаунтом.</div>
-        <div class="user-settings_soc" data-bind="with: user.socialServices">
+        <div class="user-settings_soc">
             <ul class="ico-social-ul">
-                <li class="ico-social-ul_li"><a href="/users/default/addSocialService/?service=odnoklassniki" class="ico-social ico-social__l ico-social__odnoklassniki" data-bind="css: { 'active': value().odnoklassniki !== undefined }"></a></li>
-                <li class="ico-social-ul_li"><a href="/users/default/addSocialService/?service=vkontakte" class="ico-social ico-social__l ico-social__vkontakte" data-bind="css: { 'active': value().vkontakte !== undefined }"></a></li>
+                <!-- ko if: user.socialServices.value().odnoklassniki -->
+                <li class="ico-social-ul_li" data-bind="with: user.socialServices.value().odnoklassniki">
+                    <a href="/users/default/addSocialService/?service=odnoklassniki" class="ico-social ico-social__l ico-social__odnoklassniki active" data-bind="click: $parent.user.removeSocial.bind($parent.user)"></a>
+                </li>
+                <!-- /ko -->
+                <!-- ko ifnot: user.socialServices.value().odnoklassniki -->
+                <li class="ico-social-ul_li">
+                    <a href="/users/default/addSocialService/?service=odnoklassniki" class="ico-social ico-social__l ico-social__odnoklassniki"></a>
+                </li>
+                <!-- /ko -->
+                <!-- ko if: user.socialServices.value().vkontakte -->
+                <li class="ico-social-ul_li" data-bind="with: user.socialServices.value().vkontakte">
+                    <a href="/users/default/addSocialService/?service=vkontakte" class="ico-social ico-social__l ico-social__vkontakte active" data-bind="click: $parent.user.removeSocial.bind($parent.user)"></a>
+                </li>
+                <!-- /ko -->
+                <!-- ko ifnot: user.socialServices.value().vkontakte -->
+                <li class="ico-social-ul_li">
+                    <a href="/users/default/addSocialService/?service=vkontakte" class="ico-social ico-social__l ico-social__vkontakte"></a>
+                </li>
+                <!-- /ko -->
             </ul>
         </div>
     </div>

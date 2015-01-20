@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/User', 'models/Geography', 'eauth'], function userSettingsHandler($, ko, template, User, Geography) {
+define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/User', 'models/Geography', 'extensions/SocialNetworks', 'eauth'], function userSettingsHandler($, ko, template, User, Geography, SocialNetworks) {
     function UserSettings(params) {
         this.userId = User.userId;
         this.loaded = ko.observable(false);
@@ -16,6 +16,7 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
             if (userData.success === true) {
                 this.user.settleSettings(userData.data);
                 this.loaded(true);
+                SocialNetworks.init(this.user.socialServices.value, 'a.ico-social__vkontakte', 'a.ico-social__odnoklassniki');
             }
         };
         this.beginEditField = function beginEditField(data, event) {

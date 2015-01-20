@@ -104,7 +104,7 @@ return array(
     array(
         'filter' => array(
             'name' =>'widen',
-            'width' => 300,
+            'width' => 450,
         ),
         'usages' => array(
             'postImageMobile',

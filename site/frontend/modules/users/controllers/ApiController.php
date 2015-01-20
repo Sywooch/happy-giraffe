@@ -98,7 +98,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionRemoveSocialService($id)
     {
         $service = $this->getModel('\UserSocialService', $id);
-        if (! \Yii::app()->checkAccess('editSettings', array('entity' => $service))) {
+        if (! \Yii::app()->user->checkAccess('editSettings', array('entity' => $service))) {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 

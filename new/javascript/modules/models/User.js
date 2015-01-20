@@ -1,4 +1,4 @@
-define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandler(ko, Model, userConfig) {
+define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validation', 'extensions/validatorRules'], function PresetManagerHandler(ko, Model, userConfig) {
     var User = {
         getUserUrl: '/api/users/get/',
         getCurrentUserUrl: '/api/users/getCurrentUser/',
@@ -17,6 +17,11 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
         fullName: function fullName() {
             return this.firstName + ' ' + this.lastName;
         },
+        /**
+         * parse pack
+         * @param element
+         * @returns {User}
+         */
         parsePack: function parsePack(element) {
             if (element.success === true) {
                 var userInst = Object.create(User);
@@ -45,7 +50,7 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
          * @returns {$.ajax}
          */
         changePassword: function changePassword() {
-            return Model.get(this.changePasswordUrl, { id: this.id, password: this.newPassword.value() });
+            return Model.get(this.changePasswordUrl, { id: this.id, password: this.password.value() });
         },
         /**
          * Change users email
@@ -166,13 +171,33 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
             this.errorHandler(userData);
         },
         /**
-         * update
+         * update gender
          */
         updateGender: function updateGender() {
             this.update({ gender: parseInt(this.gender.value()) }).done(this.handlingRequest.bind(this));
         },
+        /**
+         * update subscription
+         */
         updateSubscribtion: function updateSubscribtion() {
             this.mailSubscribe().done(this.handlingRequest.bind(this));
+        },
+        /**
+         * return address
+         * @returns {string}
+         */
+        returnAddress: function returnAddress() {
+            var addressString = '';
+            if (this.address.value().hasOwnProperty('country')) {
+                addressString += this.address.value().country.name;
+            }
+            if (this.address.value().hasOwnProperty('region')) {
+                addressString += ', ' + this.address.value().region.name;
+            }
+            if (this.address.value().hasOwnProperty('city')) {
+                addressString += ', ' + this.address.value().city.name;
+            }
+            return addressString;
         },
         /**
          * init юзера
@@ -197,6 +222,11 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
                 return this;
             }
         },
+        /**
+         * settle properties for settings manipulation
+         * @param object
+         * @returns {User}
+         */
         settleSettings: function settleSettings(object) {
             if (object !== undefined) {
                 this.id = object.id;
@@ -209,16 +239,23 @@ define(['knockout', 'models/Model', 'user-config'], function PresetManagerHandle
                 this.email = Model.createStdProperty(object.email, 'email');
                 this.socialServices = Model.createStdProperty(this.parseSocialServices(object.socialServices), 'socialServices');
                 this.address = Model.createStdProperty(object.address, 'address');
+                this.fullGeography = ko.computed(this.returnAddress, this);
                 this.birthday.day = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getDate() : null);
                 this.birthday.month = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getMonth() + 1 : null);
                 this.birthday.year = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getFullYear() : null);
                 this.birthday.value = ko.computed(this.getBirthdayValue, this.birthday);
-                this.newPassword = Model.createStdProperty('', 'password');
+                this.password = Model.createStdProperty('', 'password');
                 this.errors = ko.observableArray();
                 this.gender = Model.createStdProperty(object.gender.toString(), 'gender');
                 this.gender.value.subscribe(this.updateGender, this);
                 this.subscriptionMail = Model.createStdProperty((object.subscription === 1) ? true : false, 'subscriptionMail');
                 this.subscriptionMail.value.subscribe(this.updateSubscribtion, this);
+                this.firstName.value.extend({ mustFill: true });
+                this.lastName.value.extend({ mustFill: true });
+                this.birthday.day.extend({ dateMustFill: true });
+                this.birthday.month.extend({ dateMustFill: true });
+                this.birthday.year.extend({ dateMustFill: true });
+                this.email.value.extend({ mustFill: true });
                 return this;
             }
         }

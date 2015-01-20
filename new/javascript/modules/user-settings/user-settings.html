@@ -16,7 +16,7 @@
                     <div class="errorMessage" data-bind="text: $data.errors()[0]">Ошибка</div>
                 </div>
             </div>
-            <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">Ok</div>
+            <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent), css: { 'disabled': $data.value.isValid() === false }">Ok</div>
             <!-- /ko -->
         </div>
         <div class="user-settings_row" data-bind="with: user.lastName">
@@ -31,7 +31,7 @@
                     <div class="errorMessage" data-bind="text: $data.errors()[0]">Ошибка</div>
                 </div>
             </div>
-            <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent)">Ok</div>
+            <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent), css: { 'disabled': $data.value.isValid() === false }"">Ok</div>
             <!-- /ko -->
         </div>
     </div>
@@ -103,8 +103,8 @@
             </div>
             <!-- ko if: $data.editing() === false && $data.value() -->
             <div class="user-settings_col-inp">
-                <span class="flag flag-ru"></span>
-                <span class="form-edit_tx">Россия, Ярославская область, Переславль-Залесский</span>
+                <span data-bind="attr: { class: 'flag flag-' + $data.value().country.isoCode }"></span>
+                <span class="form-edit_tx" data-bind="text: $parent.user.fullGeography"></span>
                 <a href="#" class="ico-edit ico-edit__s powertip" data-bind="click: $parent.beginLocationEditField.bind($parent)"></a>
             </div>
             <!-- /ko -->
@@ -169,7 +169,7 @@
         <!-- email-->
         <!-- /email-->
         <!-- пароль -->
-        <div class="user-settings_row" data-bind="with: user.newPassword">
+        <div class="user-settings_row" data-bind="with: user.password">
             <div class="user-settings_col-label">
                 <label for="" class="form-edit_label">Пароль</label>
             </div>

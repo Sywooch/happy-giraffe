@@ -35,20 +35,36 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         this.endEditField = function endEditField(data, event) {
             var attribute = {};
             attribute[data.name] = data.value();
-            this.user.update(attribute).done(this.submitUserHandler.bind(this));
-            data.editing(false);
+            this.user.update(attribute).done(function (userData) {
+                this.submitWithHandling(userData, data);
+            }.bind(this));
         };
         this.endEditDateField = function endEditDateField(data, event) {
-            this.user.updateDate().done(this.submitUserHandler.bind(this));
-            data.editing(false);
+            this.user.updateDate().done(function (userData) {
+                this.submitWithHandling(userData, data);
+            }.bind(this));
         };
         this.changeEmailField = function changeEmailField(data, event) {
-            this.user.changeEmail().done(this.submitUserHandler.bind(this));
-            data.editing(false);
+            this.user.changeEmail().done(function (userData) {
+                this.submitWithHandling(userData, data);
+            }.bind(this));
         };
         this.changePasswordField = function changeEmailField(data, event) {
-            this.user.changePassword().done(this.submitUserHandler.bind(this));
-            data.editing(false);
+            this.user.changePassword().done(function (userData) {
+                this.submitWithHandling(userData, data);
+            }.bind(this));
+        };
+        this.preSubmitUserHandler = function preSubmitUserHandler(userData) {
+            this.submitWithHandling(userData, data);
+        };
+        this.submitWithHandling = function submitWithHandling(userData, fieldData) {
+            fieldData.errors([]);
+            this.user.errorHandler(userData);
+            if (fieldData.errors().length > 0) {
+                fieldData.editing(true);
+            } else {
+                fieldData.editing(false);
+            }
         };
         this.submitUserHandler = function submitUserHandler(familyMemberData) {
             this.user.errorHandler(familyMemberData);
@@ -63,6 +79,23 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
             this.user.updateSubscribtion();
         };
         User.getCurrentUser(40).done(this.getUserHandler.bind(this));
+        var resultsShuffling = function resultsShuffling(data, page) {
+                return {
+                    results: $.map(data.data.cities, function (item) {
+                        return {
+                            text: item.name,
+                            slug: item.name,
+                            id: item.id
+                        };
+                    })
+                };
+            },
+            dataTravesting = function dataTravesting(params) {
+                return JSON.stringify({
+                    term: params,
+                    countryId: country.id
+                });
+            };
         function initSelect2() {
             // Измененный tag select
             $("select.select-cus__search-off").select2({
@@ -78,7 +111,7 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
                 width: '100%',
                 minimumResultsForSearch: -1,
                 dropdownCssClass: 'select2-drop__search-off select2-drop__separated-first-items',
-                // escapeMarkup: function(m) { return m; }
+            // escapeMarkup: function(m) { return m; }
             });
             // Измененный tag select c инпутом поиска
             $(".select-cus__search-on").select2({
@@ -95,23 +128,8 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
                     dataType: 'json',
                     type: "POST",
                     delay: 250,
-                    data: function (params) {
-                        return JSON.stringify({
-                            term: params,
-                            countryId: country.id
-                        });
-                    },
-                    results: function (data, page) {
-                        return {
-                            results: $.map(data.data.cities, function (item) {
-                                return {
-                                    text: item.name,
-                                    slug: item.name,
-                                    id: item.id
-                                };
-                            })
-                        };
-                    },
+                    data: dataTravesting,
+                    results: resultsShuffling,
                     minimumInputLength: 1
                 }
             });

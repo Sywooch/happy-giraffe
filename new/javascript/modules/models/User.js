@@ -138,6 +138,9 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
             return Model.get(this.mailSubscriptionUrl, { id: this.id, value: (this.subscriptionMail.value() === false) ? 0 : 1 });
         },
         changeLocation: function changeLocation() {
+            if (this.address.value().city().id() === null) {
+                return Model.get(this.changeLocationUrl, { id: this.id, countryId: this.address.value().country().id() });
+            }
             return Model.get(this.changeLocationUrl, { id: this.id, countryId: this.address.value().country().id(), cityId: this.address.value().city().id() });
         },
         /**
@@ -197,11 +200,11 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
          */
         returnAddress: function returnAddress() {
             var addressString = '';
-            if (this.address.value().hasOwnProperty('country')) {
+            if (this.address.value().country() !== null) {
                 addressString += this.address.value().country().name();
             }
-            if (this.address.value().hasOwnProperty('city')) {
-                if (this.address.value().city().id()) {
+            if (this.address.value().city().id() !== null) {
+                if (this.address.value().city().name) {
                     addressString += ', ' + this.address.value().city().name();
                 }
             }
@@ -248,8 +251,11 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
                 this.socialServices = Model.createStdProperty(this.parseSocialServices(object.socialServices), 'socialServices');
                 this.address = Model.createStdProperty(ko.mapping.fromJS(object.address, {}), 'address');
                 this.address.value().country = ko.observable(this.address.value().country);
-                this.address.value().region = ko.observable(this.address.value().region);
-                this.address.value().city = ko.observable(this.address.value().city);
+                if (!ko.isObservable(this.address.value().city)) {
+                    this.address.value().city = ko.observable(this.address.value().city);
+                } else {
+                    this.address.value().city({ id: ko.observable(null), name: ko.observable(null) });
+                }
                 this.countryId = ko.observable(this.address.value().country().id());
                 this.fullGeography = ko.computed(this.returnAddress, this);
                 this.birthday.day = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getDate() : null);

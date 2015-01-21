@@ -26,8 +26,10 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         };
         this.countrySubs = function countrySubs(val) {
             this.user.address.value().country(ko.mapping.fromJS(this.findById(val, this.countries())));
-            this.user.address.value().city().id(null);
-            this.user.address.value().city().name(null);
+            if (this.user.address.value().city().id() !== null) {
+                this.user.address.value().city().id(null);
+                this.user.address.value().city().name(null);
+            }
             if (this.user.address.value().country().citiesFilled() === 1) {
                 // Измененный tag select c инпутом поиска
                 fireSelectCity(val);

@@ -52,7 +52,7 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
          * @returns {$.ajax}
          */
         changePassword: function changePassword() {
-            return Model.get(this.changePasswordUrl, { id: this.id, password: this.password.value() });
+            return Model.get(this.changePasswordUrl, { id: this.id, password: this.password.value(), oldPassword: this.oldPassword.value() });
         },
         /**
          * Change users email
@@ -263,6 +263,7 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
                 this.birthday.year = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getFullYear() : null);
                 this.birthday.value = ko.computed(this.getBirthdayValue, this.birthday);
                 this.password = Model.createStdProperty('', 'password');
+                this.oldPassword = Model.createStdProperty('', 'oldPassword');
                 this.errors = ko.observableArray();
                 this.gender = Model.createStdProperty(object.gender.toString(), 'gender');
                 this.gender.value.subscribe(this.updateGender, this);

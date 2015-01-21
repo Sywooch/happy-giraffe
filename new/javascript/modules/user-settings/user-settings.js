@@ -93,8 +93,9 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         };
         this.submitWithHandling = function submitWithHandling(userData, fieldData) {
             fieldData.errors([]);
+            this.user.oldPassword.errors([]);
             this.user.errorHandler(userData);
-            if (fieldData.errors().length > 0) {
+            if (fieldData.errors().length > 0 || this.user.oldPassword.errors().length > 0) {
                 fieldData.editing(true);
             } else {
                 fieldData.editing(false);

@@ -172,6 +172,14 @@
             <!-- ko if: $data.editing() === true -->
             <div class="user-settings_col-inp">
                 <div class="user-settings_row">
+                    <div class="inp-valid inp-valid__abs user-settings_w-inp" data-bind="css: $parent.user.oldPassword.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                        <input type="password" placeholder="Старый пароль" class="itx-gray form-edit_itx" data-bind="value: $parent.user.oldPassword.value">
+                        <div class="inp-valid_error" data-bind="visible: $parent.user.oldPassword.errors().length > 0">
+                            <div class="errorMessage" data-bind="text: $parent.user.oldPassword.errors()[0]">Ошибка</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-settings_row">
                     <div class="inp-valid inp-valid__abs user-settings_w-inp" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                         <input type="password" placeholder="Новый пароль" class="itx-gray form-edit_itx" data-bind="value: $data.value">
                         <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0">
@@ -190,7 +198,7 @@
                     </div>
                 </div>
                 <div class="user-settings_row user-settings_w-inp textalign-r">
-                    <div class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.equalPassword() !== $data.value() || $parent.equalPassword() === '' }, click: $parent.changePasswordField.bind($parent)" data-bind="click: $parent.endEditField.bind($parent)">Ok</div>
+                    <div class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.equalPassword() !== $data.value() || $parent.equalPassword() === '' }, click: $parent.changePasswordField.bind($parent)">Ok</div>
                 </div>
             </div>
             <!-- /ko -->

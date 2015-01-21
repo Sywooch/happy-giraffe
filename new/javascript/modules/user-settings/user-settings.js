@@ -48,9 +48,12 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
             data.editing(true);
             initSelect2();
         };
+        this.sortCountries = function sortCountries(a, b) {
+            return a.pos - b.pos;
+        };
         this.parseCountries = function parseCountries(countriesResponse) {
             if (countriesResponse.success === true) {
-                this.countries(countriesResponse.data);
+                this.countries(countriesResponse.data.sort(this.sortCountries));
                 initGeographySelect2(this.user.address.value().country(), this.user.address.value().city());
             }
         };

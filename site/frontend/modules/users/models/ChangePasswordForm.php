@@ -11,19 +11,29 @@ class ChangePasswordForm extends \CFormModel
 {
     public $user;
     public $password;
+    public $oldPassword;
 
-    public function __construct(User $user, $password)
+    public function __construct(User $user, $password, $oldPassword)
     {
         $this->user = $user;
         $this->password = $password;
+        $this->oldPassword = $oldPassword;
     }
 
     public function rules()
     {
         return array(
-            array('password', 'required'),
+            array('password, oldPassword', 'required'),
+            array('oldPassword', 'validateOldPassword'),
             array('password', 'length', 'min' => 6, 'max' => 15),
         );
+    }
+
+    public function validateOldPassword($attribute)
+    {
+        if (User::hashPassword($this->$attribute) != $this->user->password) {
+            $this->addError($attribute, 'Текущий пароль введен неверно');
+        }
     }
 
     public function save()

@@ -80,15 +80,9 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         /** @var \site\frontend\modules\users\models\User $user */
         $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
-        if ($cityId) {
-            $user->address->city_id = $cityId;
-        }
-        if ($regionId) {
-            $user->address->region_id = $regionId;
-        }
-        if ($countryId) {
-            $user->address->country_id = $countryId;
-        }
+        $user->address->city_id = ($cityId === null) ? null : $cityId;
+        $user->address->region_id = ($regionId === null) ? null : $regionId;
+        $user->address->country_id = ($countryId === null) ? null : $countryId;
         $this->success = $user->address->save();
         $this->data = ($this->success) ? $user : array(
             'errors' => $user->address->errors,

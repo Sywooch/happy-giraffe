@@ -54,11 +54,11 @@ class ApiController extends \site\frontend\components\api\ApiController
         );
     }
 
-    public function actionChangePassword($id, $password)
+    public function actionChangePassword($id, $password, $oldPassword)
     {
         /** @var \site\frontend\modules\users\models\User $user */
         $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
-        $form = new ChangePasswordForm($user, $password);
+        $form = new ChangePasswordForm($user, $password, $oldPassword);
         $this->success = $form->validate() && $form->save();
         $this->data = ($this->success) ? $user : array(
             'errors' => $form->errors,

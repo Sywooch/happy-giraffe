@@ -1,8 +1,9 @@
-define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validation', 'extensions/validatorRules'], function PresetManagerHandler(ko, Model, userConfig) {
+define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validation', 'extensions/validatorRules', 'knockout.mapping'], function PresetManagerHandler(ko, Model, userConfig) {
     var User = {
         getUserUrl: '/api/users/get/',
         getCurrentUserUrl: '/api/users/getCurrentUser/',
         changePasswordUrl: '/api/users/changePassword/',
+        changeLocationUrl: '/api/users/changeLocation/',
         changeEmailUrl: '/api/users/changeEmail/',
         removeUserUrl: '/api/users/remove/',
         updateUserUrl: '/api/users/update/',
@@ -136,6 +137,9 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
         mailSubscribe: function mailSubscribe() {
             return Model.get(this.mailSubscriptionUrl, { id: this.id, value: (this.subscriptionMail.value() === false) ? 0 : 1 });
         },
+        changeLocation: function changeLocation() {
+            return Model.get(this.changeLocationUrl, { id: this.id, countryId: this.address.value().country().id(), cityId: this.address.value().city().id() });
+        },
         /**
          * get birthday value
          * @returns {string}
@@ -166,7 +170,6 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
         },
         removeSocial: function removeSocial(data, event) {
             delete this.socialServices.value()[data.service];
-            console.log(this.socialServices.value(), data.service);
             return Model.get(this.removeSocialServicesUrl, { id: data.id });
         },
         /**
@@ -195,13 +198,12 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
         returnAddress: function returnAddress() {
             var addressString = '';
             if (this.address.value().hasOwnProperty('country')) {
-                addressString += this.address.value().country.name;
-            }
-            if (this.address.value().hasOwnProperty('region')) {
-                addressString += ', ' + this.address.value().region.name;
+                addressString += this.address.value().country().name();
             }
             if (this.address.value().hasOwnProperty('city')) {
-                addressString += ', ' + this.address.value().city.name;
+                if (this.address.value().city().id()) {
+                    addressString += ', ' + this.address.value().city().name();
+                }
             }
             return addressString;
         },
@@ -244,7 +246,11 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
                 this.birthday = Model.createStdProperty(object.birthday, 'birthday');
                 this.email = Model.createStdProperty(object.email, 'email');
                 this.socialServices = Model.createStdProperty(this.parseSocialServices(object.socialServices), 'socialServices');
-                this.address = Model.createStdProperty(object.address, 'address');
+                this.address = Model.createStdProperty(ko.mapping.fromJS(object.address, {}), 'address');
+                this.address.value().country = ko.observable(this.address.value().country);
+                this.address.value().region = ko.observable(this.address.value().region);
+                this.address.value().city = ko.observable(this.address.value().city);
+                this.countryId = ko.observable(this.address.value().country().id());
                 this.fullGeography = ko.computed(this.returnAddress, this);
                 this.birthday.day = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getDate() : null);
                 this.birthday.month = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getMonth() + 1 : null);
@@ -255,7 +261,13 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
                 this.gender = Model.createStdProperty(object.gender.toString(), 'gender');
                 this.gender.value.subscribe(this.updateGender, this);
                 this.subscriptionMail = Model.createStdProperty((object.subscription === 1) ? true : false, 'subscriptionMail');
+                /**
+                 * Susbscribtion
+                 */
                 this.subscriptionMail.value.subscribe(this.updateSubscribtion, this);
+                /***
+                 * Validation
+                 */
                 this.firstName.value.extend({ mustFill: true });
                 this.lastName.value.extend({ mustFill: true });
                 this.birthday.day.extend({ dateMustFill: true });

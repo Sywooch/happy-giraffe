@@ -16,7 +16,6 @@ define(['jquery', 'knockout', 'eauth'], function SocialNetworksHandler($, ko) {
         },
         init: function init(social, vkIdentity, okIdentity) {
             if (!social().hasOwnProperty('vkontakte')) {
-                console.log(social());
                 $(vkIdentity).eauth(this.vkObj);
             }
             if (!social().hasOwnProperty('odnoklassniki')) {

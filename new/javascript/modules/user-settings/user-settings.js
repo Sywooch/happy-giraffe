@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/User', 'models/Geography', 'extensions/SocialNetworks', 'eauth'], function userSettingsHandler($, ko, template, User, Geography, SocialNetworks) {
+define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/User', 'models/Geography', 'extensions/SocialNetworks', 'eauth', 'knockout.mapping'], function userSettingsHandler($, ko, template, User, Geography, SocialNetworks) {
     function UserSettings(params) {
         this.userId = User.userId;
         this.loaded = ko.observable(false);
@@ -12,11 +12,34 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         this.redirectUser = function redirectUser() {
             document.location.href = this.mainPageUrl;
         };
+        this.findById =  function findById(id, array) {
+            var iterator;
+            for (iterator = 0; iterator < array.length; iterator++) {
+                if (id === array[iterator].id) {
+                    return array[iterator];
+                }
+            }
+            return false;
+        };
+        this.citySubs = function citySubs(val) {
+            this.user.address.value().city().name($('.city-worshiper .select2-chosen').text());
+        };
+        this.countrySubs = function countrySubs(val) {
+            this.user.address.value().country(ko.mapping.fromJS(this.findById(val, this.countries())));
+            this.user.address.value().city().id(null);
+            this.user.address.value().city().name(null);
+            if (this.user.address.value().country().citiesFilled() === 1) {
+                // Измененный tag select c инпутом поиска
+                fireSelectCity(val);
+            }
+        };
         this.getUserHandler = function getUserHandler(userData) {
             if (userData.success === true) {
                 this.user.settleSettings(userData.data);
                 this.loaded(true);
                 SocialNetworks.init(this.user.socialServices.value, 'a.ico-social__vkontakte', 'a.ico-social__odnoklassniki');
+                this.user.countryId.subscribe(this.countrySubs, this);
+                this.user.address.value().city().id.subscribe(this.citySubs, this);
             }
         };
         this.beginEditField = function beginEditField(data, event) {
@@ -26,7 +49,7 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         this.parseCountries = function parseCountries(countriesResponse) {
             if (countriesResponse.success === true) {
                 this.countries(countriesResponse.data);
-                initGeographySelect2(this.user.address.value().country, this.user.address.value().city);
+                initGeographySelect2(this.user.address.value().country(), this.user.address.value().city());
             }
         };
         this.beginLocationEditField = function beginEditField(data, event) {
@@ -52,6 +75,11 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         };
         this.changePasswordField = function changeEmailField(data, event) {
             this.user.changePassword().done(function (userData) {
+                this.submitWithHandling(userData, data);
+            }.bind(this));
+        };
+        this.changeGeographyField = function changeGeographyField(data, event) {
+            this.user.changeLocation().done(function (userData) {
                 this.submitWithHandling(userData, data);
             }.bind(this));
         };
@@ -106,6 +134,28 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
                 escapeMarkup: function(m) { return m; }
             });
         };
+        function fireSelectCity(val) {
+            $(".select-cus__search-on").select2({
+                width: '100%',
+                dropdownCssClass: 'select2-drop__search-on',
+                searchInputPlaceholder: "Начните вводить",
+                escapeMarkup: function(m) { return m; },
+                ajax: {
+                    url: "/api/geo/searchCities/",
+                    dataType: 'json',
+                    type: "POST",
+                    delay: 250,
+                    data: function dataTravesting(params) {
+                        return JSON.stringify({
+                            term: params,
+                            countryId: val
+                        });
+                    },
+                    results: resultsShuffling,
+                    minimumInputLength: 1
+                }
+            });
+        };
         function initGeographySelect2(country, city) {
             // Измененный tag select
             $(".select-cus__js-country").select2({
@@ -121,7 +171,7 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
                 searchInputPlaceholder: "Начните вводить",
                 escapeMarkup: function(m) { return m; },
                 initSelection : function (element, callback) {
-                    var data = {id: city.id, text: city.name};
+                    var data = {id: city.id(), text: city.name()};
                     callback(data);
                 },
                 ajax: {
@@ -129,7 +179,12 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
                     dataType: 'json',
                     type: "POST",
                     delay: 250,
-                    data: dataTravesting,
+                    data: function dataTravesting(params) {
+                        return JSON.stringify({
+                            term: params,
+                            countryId: country.id
+                        });
+                    },
                     results: resultsShuffling,
                     minimumInputLength: 1
                 }

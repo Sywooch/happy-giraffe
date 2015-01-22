@@ -47,6 +47,11 @@
                         </a>
                     </li>
                     <!-- /ko -->
+                    <!-- ko if: rightsForManipulation === true -->
+                    <li class="b-album_prev-li">
+                        <a href="" class="album-photo-add" data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id() }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent"></a>
+                    </li>
+                    <!-- /ko -->
                 <!-- /ko -->
             </ul>
         </div>
@@ -73,7 +78,7 @@
             <a href="" data-bind="href: photoAlbum.url, text: photoAlbum.title()" class="album-empty_t"></a>
             <a href="" data-bind="href: photoAlbum.url, text: photoAlbum.description()" class="album-empty_desc"></a>
         </div>
-        <a href="" data-bind="href: photoAlbum.url" class="album-photo-add"></a>
+        <a href="" class="album-photo-add"  data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id() }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent"></a>
         <a href="" data-bind="href: photoAlbum.url, click: remove" class="album-empty_del"></a>
         <div class="album-empty_count">0</div>
         <!-- ko if: removed() === true -->

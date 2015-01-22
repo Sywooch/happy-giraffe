@@ -52,6 +52,12 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.openPhoto = function openPhoto() {
             return customReturner('photo-slider');
         };
+        this.loadPhotoComponent = function () {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            if (this.photoAlbum.photoCollection().presets === undefined) {
+                PresetManager.getPresets(this.handlePresets.bind(this));
+            }
+        };
     }
     return { viewModel: PhotoAlbumCompact, template: template };
 });

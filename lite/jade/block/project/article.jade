@@ -174,8 +174,9 @@ mixin bArticleListPhotopost(mod, vars)
                         span.icons-meta_tx 305
             .b-article_t-list
                 a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
-
-            +bAlbumPhotopost('', bAlbumPhotopost.a)
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    +bAlbumPhotopost('', bAlbumPhotopost.a)
 
             //-.b-article_in.clearfix
                 .wysiwyg-content.clearfix

@@ -160,14 +160,17 @@ body.gallery {overflow:hidden;}
 	}*/
 	&_close {
 		position: absolute;
-		top: 10px;
-		right: 15px;
-		width: 31px;
-		height: 31px;
-		background: url(/images/photo-window_close.png) no-repeat;
-		z-index: 100;
+		top: 13px;
+		right: 20px;
+		width: 30px;
+		height: 30px;
+		background: url('@{path-img}/photo-window_close.png') no-repeat;
+		z-index: 110;
+        .scale(0.7);
 	}
-	&_close:hover {background-position: 0 -31px;}
+	&_close:hover {
+        .opacity(.7);
+    }
 
 	&_col {
 		display: none;
@@ -210,10 +213,12 @@ body.gallery {overflow:hidden;}
 		line-height: 16px;
 	}
 	&_count {
-		margin: 5px 0 0 0;
-		font-size: 11px;
-		font-family: Tahoma, Arial, Verdana, sans-serif;
-		color: #bdb3c5;
+		margin: 13px 0 0 0;
+        text-align: left;
+        text-shadow: 0 0 1px rgba(0, 0, 0, .7);
+		/*font-size: 11px;
+		font-family: Tahoma, Arial, Verdana, sans-serif;*/
+		/*color: #bdb3c5;*/
 	}
     &_date {
         float: left;
@@ -251,13 +256,14 @@ body.gallery {overflow:hidden;}
 	&_top {
 		position: absolute;
 		top: 0;
-		right: 20px;
-		left: 20px;
+		right: 0;
+		left: 0;
+        padding: 0 20px 10px;
 		text-align: center;
 		margin: 0;
-		font-size: 11px;
-		font-family: Tahoma, Arial, Verdana, sans-serif;
-		color: #bdb3c5;
+        font: @fontnormal;
+		color: #fff;
+        /*background-color: rgba(0, 0, 0, 0.3);*/
 		z-index: 100;
 	}
 	&_about {
@@ -299,7 +305,7 @@ body.gallery {overflow:hidden;}
 		position: absolute;
 		top: 50%;
 		margin-top: -37px;
-		left: 45px;
+		left: 20px;
 		opacity: 1;
 		/*width: 59px;
 		height: 160px;
@@ -320,7 +326,7 @@ body.gallery {overflow:hidden;}
 	/*&_arrow:hover {background-position: 0 -160px;}*/
 	.i-photo-arrow__r {
 		left: auto;
-		right: 45px;
+		right: 20px;
 		/*background-position: -59px 0;*/
 	}
 	.post-arrow .i-photo-arrow {opacity: 1;}
@@ -336,6 +342,7 @@ body.gallery {overflow:hidden;}
 	*/
 	// bottom 
     &_b {
+        display: none;
         position: absolute;
         bottom: 0;
         left: 0;
@@ -400,6 +407,9 @@ body.gallery {overflow:hidden;}
 		.i-photo-arrow {
 			opacity: 0;
 		}
+        &_close {
+            .scale(1);
+        }
 		&_c:hover .i-photo-arrow {opacity: 1;}
 
 		&_col {
@@ -407,13 +417,10 @@ body.gallery {overflow:hidden;}
 		}
 		&_top {
 			/*display: block;*/
-			right: 20px;
-			left: 320px;
+			left: 300px;
 		}
 		&_c {
-			top: 50px;
-			left: 300px;
-			bottom: 50px;
+            left: 300px;
 		}
 		&_b {
 			/*display: block;*/

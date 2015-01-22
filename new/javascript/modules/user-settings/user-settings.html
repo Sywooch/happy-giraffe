@@ -31,7 +31,7 @@
                     <div class="errorMessage" data-bind="text: $data.errors()[0]">Ошибка</div>
                 </div>
             </div>
-            <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent), css: { 'disabled': $data.value.isValid() === false }"">Ok</div>
+            <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditField.bind($parent), css: { 'disabled': $data.value.isValid() === false }">Ok</div>
             <!-- /ko -->
         </div>
     </div>
@@ -51,7 +51,7 @@
                     <label for="" class="form-edit_label">Дата рождения</label>
                 </div>
                 <div class="user-settings_col-inp">
-                    <div class="inp-valid inp-valid__abs" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                    <div class="inp-valid inp-valid__abs user-settings_w-inp" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error user-settings_w-inp' : 'inp-valid inp-valid__abs user-settings_w-inp'">
                         <div class="float-l w-80 margin-r10">
                             <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray" data-bind="options: $parent.days, value: $data.day, valueAllowUnset: true, optionsCaption: 'День'">
                             </select>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0"><div class="errorMessage" data-bind="text: $data.errors()[0]"></div></div>
                     </div>
-                    <div class="btn btn-success btn-xs" data-bind="click: $parent.endEditDateField.bind($parent)">Ok</div>
+                    <button class="btn btn-success btn-xs" data-bind="click: $parent.endEditDateField.bind($parent)">Ok</button>
                 </div>
             <!-- /ko -->
         </div>
@@ -122,11 +122,9 @@
                     <div class="inp-valid inp-valid__abs user-settings_w-inp city-worshiper">
                         <input type="hidden" class="select-cus select-cus__search-on select-cus__gray" placeholder="Выберите город" data-bind="value: $data.value().city().id" />
                     </div>
+                    <button class="btn btn-success btn-xs" data-bind="click: $parent.changeGeographyField.bind($parent)">Ok</button>
                 </div>
                 <!-- /ko -->
-                <div class="user-settings_row user-settings_w-inp textalign-r">
-                    <div class="btn btn-success btn-xs" data-bind="click: $parent.changeGeographyField.bind($parent)">Ok</div>
-                </div>
             </div>
             <!-- /ko -->
         </div>
@@ -152,7 +150,7 @@
                         <div class="errorMessage" data-bind="text: $data.errors()[0]">Ошибка</div>
                     </div>
                 </div>
-                <div class="btn btn-success btn-xs" data-bind="click: $parent.changeEmailField.bind($parent)">Ok</div>
+                <button class="btn btn-success btn-xs" data-bind="click: $parent.changeEmailField.bind($parent)">Ok</button>
             <!-- /ko -->
         </div>
         <!-- /email-->
@@ -196,9 +194,7 @@
                         </div>
                         <!-- /ko -->
                     </div>
-                </div>
-                <div class="user-settings_row user-settings_w-inp textalign-r">
-                    <div class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.equalPassword() !== $data.value() || $parent.equalPassword() === '' }, click: $parent.changePasswordField.bind($parent)">Ok</div>
+                    <button class="btn btn-success btn-xs" data-bind="css: { 'disabled': $parent.equalPassword() !== $data.value() || $parent.equalPassword() === '' }, click: $parent.changePasswordField.bind($parent)">Ok</button>
                 </div>
             </div>
             <!-- /ko -->

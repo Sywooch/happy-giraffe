@@ -134,7 +134,7 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'fixed',
+            'name' => 'fixedV2',
             'width' => 600,
             'height' => 400, // 3*2
         ),

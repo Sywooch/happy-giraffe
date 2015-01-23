@@ -447,11 +447,11 @@ a.heading-link-xxl:hover {
     }
     &_in {
         position: absolute;
-        top: 25px;
-        left: -315px;
-        height: 105px;
-        width: 315px;
-        padding: 10px;
+        top: 32px;
+        left: -270px;
+        height: 100px;
+        width: 270px;
+        padding: 15px 10px;
         background-color: #fff;
         text-align: center;
         .box-shadow(0 0 9px rgba(0,0,0,0.2));
@@ -461,10 +461,20 @@ a.heading-link-xxl:hover {
     &_img-hold {
         display: inline-block;
         vertical-align: middle;
-        height: 85px;
-        max-width: 120px;
+        height: 70px;
+        width: 70px;
         margin-right: 7px;
         text-align: center;
+
+        .userAddRecord {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0;
+            padding: 0;
+        }
+        .userAddRecord_ico {
+            margin: 0;
+        }
     }
     &_img {
         max-height: 100%;
@@ -499,16 +509,11 @@ a.heading-link-xxl:hover {
     }
     &__r &_in {
         left: auto;
-        right: -315px;
+        right: -270px;
     }
-    &__r .i-photo-arrow {
+    /*&__r .i-photo-arrow {
         &:extend(.i-photo-arrow__r all);
-    }
-
-    @media (min-width: @screen-desktop) {
-        & {
-        }
-    }
+    }*/
 
     @media screen and (min-width: 1230px) {
         & {

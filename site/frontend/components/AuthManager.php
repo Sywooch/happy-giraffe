@@ -7,11 +7,14 @@ namespace site\frontend\components;
  *
  * @author Кирилл
  */
-class AuthManager extends \CPhpAuthManager
+class AuthManager extends \CDbAuthManager
 {
 
     public $authFile = false;
     public $defaultRoles = array('guest');
+    public $assignmentTable = 'newauth__assignments';
+    public $itemTable = 'newauth__items';
+    public $itemChildTable = 'newauth__items_childs';
 
     public function __construct()
     {

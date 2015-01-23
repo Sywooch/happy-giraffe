@@ -1,4 +1,5 @@
 <?php
+Yii::app()->clientScript->registerAMD('kow', array('kow'));
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
         /** @todo Исправить класс при конвертации */
         'entity' => $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity,
@@ -28,7 +29,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?php
             }
             if (Yii::app()->user->checkAccess('moderator')) {
-                Yii::app()->clientScript->registerAMD('photo-albums', array('kow'));
                 ?>
                 <redactor-panel params="entity: '<?= $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
                 <?php

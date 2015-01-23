@@ -1,6 +1,5 @@
 <?php
-$cs = Yii::app()->clientScript;
-$cs->registerAMD('BlogRecordSettings', array('kow'));
+Yii::app()->clientScript->registerAMD('kow', array('kow'));
 ?>
 <article class="b-article clearfix b-article__list<?= $data->templateObject->getAttr('type') == 'status' ? ' b-article__user-status' : '' ?>">
     <div class="b-article_cont clearfix">
@@ -101,7 +100,7 @@ $cs->registerAMD('BlogRecordSettings', array('kow'));
         <div class="b-article_like clearfix">
 
             <?php
-            if ($data->authorId == Yii::app()->user->id) {
+            if (\Yii::app()->user->checkAccess('managePost', array('entity' => $data))) {
                 ?>
                 <article-settings params="articleId: <?= $data->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $data->originEntityId)) ?>'"></article-settings>
                 <!--                <div class="article-settings">-->

@@ -58,9 +58,7 @@
 <!-- Piwik -->
 <script type="text/javascript">
     var _paq = _paq || [];
-    <?php if (! Yii::app()->user->isGuest): ?>
-    _paq.push(['setUserId'], '<?=Yii::app()->user->id?>');
-    <?php endif; ?>
+    _paq.push(['setUserId', 'USER_ID_HERE']);
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {
@@ -72,6 +70,4 @@
     })();
 </script>
 <noscript><p><img src="//piwik.happy-giraffe.ru/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
-<!-- End Piwik Code -->
-
 <!-- End Piwik Code -->

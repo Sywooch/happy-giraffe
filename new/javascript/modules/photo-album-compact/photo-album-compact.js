@@ -29,7 +29,7 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
          */
         this.checkDescriptionLength = function checkDescriptionLength(description) {
             if (description.length > this.limitDescSymbols) {
-                return description.substr(0, 200) + ' <span class="ico-more ico-more__white"></span>';
+                return description.substr(0, this.limitDescSymbols) + ' <span class="ico-more ico-more__white"></span>';
             }
             return description;
         };

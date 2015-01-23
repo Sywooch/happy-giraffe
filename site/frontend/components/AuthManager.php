@@ -21,11 +21,14 @@ class AuthManager extends \CDbAuthManager
         $this->authFile = \Yii::getPathOfAlias('site.frontend.config') . '/newAuth.php';
     }
 
-    public function init()
+    public function getAuthAssignments($userId)
     {
-        parent::init();
-        if (!\Yii::app()->user->isGuest)
-            $this->assign('user', \Yii::app()->user->id);
+        $assigments = parent::getAuthAssignments($userId);
+        // Добавим к назначенным правам ещё роль user
+        if (!is_null($userId)) {
+            $assigments['user'] = new \CAuthAssignment($this, 'user', $userId, NULL, NULL);
+        }
+        return $assigments;
     }
 
     public static function checkOwner($entity, $user)

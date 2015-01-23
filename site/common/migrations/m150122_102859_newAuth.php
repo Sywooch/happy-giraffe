@@ -65,6 +65,7 @@ INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALU
 INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('moderator',2,'Модератор',NULL,'');
 INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('manageOwnProfile',1,'Управление личной информацией о пользователе','return $params[\"userId\"] == \\Yii::app()->user->id;',NULL);
 INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('manageOwnContent',1,'Управление своим контентом (где автор)','return \\site\\frontend\\components\\AuthManager::checkOwner($params[\"entity\"], \\Yii::app()->user->id);',NULL);
+INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('manageTimedContent',1,'Запрет редактирвоания контента спустя определённое время','return ($params[\"entity\"]->dtimeCreate > strtotime(\"-1 month\"));',NULL);
 INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('createPost',1,'Добавление общих типов контента',NULL,NULL);
 INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('managePost',1,'Управление общими типами контента',NULL,NULL);
 INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('manageComment',1,'Управление комментариями',NULL,NULL);
@@ -122,12 +123,14 @@ INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('user','manageOwn
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('user','createFamily');
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('user','createFamilyMember');
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('moderator','user');
+INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('moderator','managePost');
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('manageOwnProfile','setAvatar');
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('manageOwnProfile','removeAvatar');
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('manageOwnContent','manageComment');
-INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('manageOwnContent','managePost');
+INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('manageOwnContent','manageTimedContent');
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('manageOwnContent','managePhotoAlbum');
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('manageOwnContent','editPhoto');
+INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('manageTimedContent','managePost');
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('createPost','createPhotopost');
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('createPost','createStatus');
 INSERT INTO `newauth__items_childs` (`parent`,`child`) VALUES ('managePost','managePhotopost');

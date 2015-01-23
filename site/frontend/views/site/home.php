@@ -304,6 +304,9 @@
           var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.happy-giraffe.ru/";
           _paq.push(["setTrackerUrl", u+"piwik.php"]);
           _paq.push(["setSiteId", "3"]);
+          <?php if (! Yii::app()->user->isGuest): ?>
+          _paq.push(['setUserId'], <?=Yii::app()->user->id?>);
+          <?php endif; ?>
           var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
           g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
       })();

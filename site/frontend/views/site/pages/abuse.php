@@ -58,7 +58,9 @@
 <!-- Piwik -->
 <script type="text/javascript">
     var _paq = _paq || [];
-    _paq.push(['setUserId', 'USER_ID_HERE']);
+    <?php if (! Yii::app()->user->isGuest): ?>
+        _paq.push(['setUserId', <?=CJavaScript::encode(Yii::app()->user->id)?>]);
+    <?php endif; ?>
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {

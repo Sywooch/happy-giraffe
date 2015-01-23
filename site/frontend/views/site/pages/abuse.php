@@ -67,6 +67,7 @@
         <?php if (! Yii::app()->user->isGuest): ?>
             _paq.push(['setUserId'], '<?=Yii::app()->user->id?>');
         <?php endif; ?>
+        _paq.push(['trackPageView']);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
         g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
     })();

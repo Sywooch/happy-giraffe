@@ -12,7 +12,7 @@ use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use site\frontend\modules\photo\components\thumbs\filters\CustomFilterInterface;
 
-class FixedFilter implements CustomFilterInterface
+class ThumbnailFilter implements CustomFilterInterface
 {
     protected $width;
     protected $height;

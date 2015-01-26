@@ -15,17 +15,18 @@
  */
 class CommunityRubric extends HActiveRecord
 {
+
     private $_typeCounts = null;
 
     public function getCount($type_id = null)
     {
         if ($this->_typeCounts === null) {
             $raw = Yii::app()->db->createCommand()
-                ->select('type_id, count(*)')
-                ->from('community__contents c')
-                ->where('c.rubric_id = :rubric_id', array(':rubric_id' => $this->id))
-                ->group('c.type_id')
-                ->queryAll();
+                    ->select('type_id, count(*)')
+                    ->from('community__contents c')
+                    ->where('c.rubric_id = :rubric_id', array(':rubric_id' => $this->id))
+                    ->group('c.type_id')
+                    ->queryAll();
 
             $this->_typeCounts['total'] = 0;
             foreach ($raw as $r) {
@@ -125,13 +126,13 @@ class CommunityRubric extends HActiveRecord
     {
         if (empty($this->user_id))
             return Yii::app()->createUrl('community/default/forum/', array(
-                'forum_id' => $this->community_id,
-                'rubric_id' => $this->id,
+                        'forum_id' => $this->community_id,
+                        'rubric_id' => $this->id,
             ));
         else
             return Yii::app()->createUrl('/blog/default/index', array(
-                'user_id' => $this->user_id,
-                'rubric_id' => $this->id
+                        'user_id' => $this->user_id,
+                        'rubric_id' => $this->id
             ));
     }
 
@@ -144,10 +145,10 @@ class CommunityRubric extends HActiveRecord
     public static function notEmptyUserRubricIds($user_id)
     {
         return Yii::app()->db->createCommand()
-            ->select('rubric_id')
-            ->from('community__contents')
-            ->where('author_id = :user_id AND removed = 0', array(':user_id' => $user_id))
-            ->queryColumn();
+                        ->select('rubric_id')
+                        ->from('community__contents')
+                        ->where('author_id = :user_id AND removed = 0', array(':user_id' => $user_id))
+                        ->queryColumn();
     }
 
     /**
@@ -157,10 +158,26 @@ class CommunityRubric extends HActiveRecord
     public static function getDefaultUserRubric($user_id)
     {
         return Yii::app()->db->createCommand()
-            ->select('id')
-            ->from(self::model()->tableName())
-            ->where('user_id = :user_id', array(':user_id' => $user_id))
-            ->order('id asc')
-            ->queryScalar();
+                        ->select('id')
+                        ->from(self::model()->tableName())
+                        ->where('user_id = :user_id', array(':user_id' => $user_id))
+                        ->order('id asc')
+                        ->queryScalar();
     }
+
+    public function toLabel()
+    {
+        return 'Рубрика: ' . $this->title;
+    }
+
+    public function getLabelId()
+    {
+        if (is_null($this->label_id)) {
+            $this->label_id = \site\frontend\modules\posts\models\Label::getIdByLabel($this->toLabel(), true);
+            $this->updateByPk($this->id, array('label_id' => $this->label_id));
+        }
+        
+        return $this->label_id;
+    }
+
 }

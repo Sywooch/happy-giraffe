@@ -34,6 +34,9 @@ define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'sig
             this.loading(false);
         };
         this.submit = function submit() {
+            //Баг в FF
+            $("input").trigger("change");
+            //Баг в FF
             this.loading(true);
             Model.get(this.submitUrl, { attributes: this.getValues() }).done(this.validateHandler.bind(this));
         };

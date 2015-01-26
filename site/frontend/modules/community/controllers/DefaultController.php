@@ -79,7 +79,7 @@ class DefaultController extends HController
         $this->layout = '//layouts/main';
         $this->loadClub($club);
         $this->breadcrumbs = array(
-            $this->club->section->title => $this->club->section->getUrl(),
+            //$this->club->section->title => $this->club->section->getUrl(),
             $this->club->title,
         );
 

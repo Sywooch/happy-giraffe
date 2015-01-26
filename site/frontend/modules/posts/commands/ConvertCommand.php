@@ -20,6 +20,7 @@ class ConvertCommand extends \CConsoleCommand
         'oldCommunity_CommunityContent_convert_video',
         'oldRecipe_CookRecipe_convert_recipe',
         'oldRecipe_SimpleRecipe_convert_recipe',
+        'oldCommunity_CommunityContent_convert_question',
     );
 
     /**
@@ -45,6 +46,7 @@ class ConvertCommand extends \CConsoleCommand
             \CommunityContent::TYPE_VIDEO => 'video',
             \CommunityContent::TYPE_PHOTO_POST => 'photopost',
             \CommunityContent::TYPE_STATUS => 'status',
+            \CommunityContent::TYPE_QUESTION => 'question',
             999 => 'recipe',
         );
         $type = $oldPost instanceof \CookRecipe ? 999 : $oldPost->type_id;

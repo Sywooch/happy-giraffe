@@ -212,4 +212,10 @@ class Community extends HActiveRecord
             ->where('community_id=' . $community_id)
             ->queryColumn();
     }
+    
+    public function toLabel()
+    {
+        return 'Форум: ' . $this->title;
+    }
+
 }

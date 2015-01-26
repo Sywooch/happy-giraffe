@@ -11,7 +11,44 @@ use site\frontend\modules\analytics\models\PageView;
 
 class VisitsManager
 {
+    const INC_LAST_RUN = 'VisitsManager.incLastRun';
+
     public $timeout = 300;
+
+    public function inc()
+    {
+        $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
+        $start = time();
+        $response = \Yii::app()->getModule('analytics')->piwik->makeRequest('Live.getLastVisitsDetails', array(
+            'minTimestamp' => $lastRun,
+        ));
+
+        $urls = array();
+        foreach ($response as $row) {
+            foreach ($row['actionDetails'] as $action) {
+                $urls[] = $action['url'];
+            }
+        }
+
+        $counts = array_count_values($urls);
+
+        foreach ($counts as $url => $count) {
+            $model = $this->getModel($url);
+            $model->visits += $count;
+            $model->save();
+        }
+        \Yii::app()->setGlobalState(self::INC_LAST_RUN, $start);
+    }
+
+    protected function getModel($url)
+    {
+        $model = PageView::model()->findByPk($url);
+        if ($model === null) {
+            $model = new PageView();
+            $model->_id = $url;
+        }
+        return $model;
+    }
 
     public function sync($class)
     {
@@ -21,35 +58,11 @@ class VisitsManager
             ),
         ));
         $iterator = new \CDataProviderIterator($dp, 100);
-        /**
-         * @var int $i
-         * @var \CActiveRecord $model
-         */
-        foreach ($iterator as $i => $model) {
-            $visits = $this->getVisits($model->url);
-            if ($model->views != $visits) {
-                $model->views = $visits;
-                $model->update(array('views'));
-            }
+        /** @var \CActiveRecord $model */
+        foreach ($iterator as $model) {
+            $model->views = $this->getModel($model->url)->visits;
+            $model->update(array('views'));
         }
-    }
-
-    public function getVisits($url)
-    {
-        /** @var \site\frontend\modules\analytics\models\PageView $model */
-        $model = PageView::model()->findByPk($url);
-        if ($model === null) {
-            $model = new PageView();
-            $model->_id = $url;
-            $model->updated = time();
-            $model->visits = 1;
-            $model->save(false);
-        } elseif (($model->updated + $this->timeout) > time()) {
-            $model->updated = time();
-            $model->visits = $this->fetchVisitsCount($url);
-            $model->save(false);
-        }
-        return $model->visits;
     }
 
     protected function fetchVisitsCount($url)

@@ -1,5 +1,6 @@
 <?php
 namespace site\frontend\modules\analytics\controllers;
+use site\frontend\modules\analytics\components\VisitsManager;
 
 /**
  * @author Никита
@@ -10,6 +11,7 @@ class DefaultController extends \HController
 {
     public function actionTest()
     {
-        var_dump($this->module->piwik->getVisits('http://purple.dev.happy-giraffe.ru/gavno/'));
+        $vm = new VisitsManager();
+        $vm->inc();
     }
 } 

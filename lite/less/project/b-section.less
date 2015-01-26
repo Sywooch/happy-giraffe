@@ -1,0 +1,213 @@
+/* b-section */
+.b-section {
+    margin: 0 0 20px; 
+    padding: 15px 0 15px;
+    background: #fafafa;
+    text-align: center;
+    
+    &__collection {
+        padding: 20px 0 15px;
+        background: #5a4072;
+        .box-shadow(inset 0 0 5px rgba(0,0,0,0.2));
+    }
+    &__club {min-height:275px;}
+    &__club-2 &_transp {width: 600px;margin-left: 60px;}
+    &__club-15 &_transp {width: 540px;margin-left: 90px;}
+    &__club-1 {background:#5a4072 url(/images/club/1-header.jpg) no-repeat 50% 0;}
+    &__club-2 {background:#5a4072 url(/images/club/2-header.jpg) no-repeat 50% 0;}
+    &__club-3 {background:#5a4072 url(/images/club/3-header.jpg) no-repeat 50% 0;}
+    &__club-4 {background:#5a4072 url(/images/club/4-header.jpg) no-repeat 50% 0;}
+    &__club-5 {background:#5a4072 url(/images/club/5-header.jpg) no-repeat 50% 0;}
+    &__club-6 {background:#5a4072 url(/images/club/6-header.jpg) no-repeat 50% 0;}
+    &__club-7 {background:#5a4072 url(/images/club/7-header.jpg) no-repeat 50% 0;}
+    &__club-8 {background:#5a4072 url(/images/club/8-header.jpg) no-repeat 50% 0;}
+    &__club-9 {background:#5a4072 url(/images/club/9-header.jpg) no-repeat 50% 0;}
+    &__club-10 {background:#5a4072 url(/images/club/10-header.jpg) no-repeat 50% 0;}
+    &__club-11 {background:#5a4072 url(/images/club/11-header.jpg) no-repeat 50% 0;}
+    &__club-12 {background:#5a4072 url(/images/club/12-header.jpg) no-repeat 50% 0;}
+    &__club-13 {background:#5a4072 url(/images/club/13-header.jpg) no-repeat 50% 0;}
+    &__club-14 {background:#5a4072 url(/images/club/14-header.jpg) no-repeat 50% 0;}
+    &__club-15 {background:#5a4072 url(/images/club/15-header.jpg) no-repeat 50% 0;}
+    &__club-16 {background:#5a4072 url(/images/club/16-header.jpg) no-repeat 50% 0;}
+    &__club-17 {background:#5a4072 url(/images/club/17-header.jpg) no-repeat 50% 0;}
+    &__club-18 {background:#5a4072 url(/images/club/18-header.jpg) no-repeat 50% 0;}
+    &__club-19 {background:#5a4072 url(/images/club/19-header.jpg) no-repeat 50% 0;}
+    &__club-20 {background:#5a4072 url(/images/club/20-header.jpg) no-repeat 50% 0;}
+    &__contest {
+        background: rgba(255,255,255,.7);
+        margin-bottom: 35px;
+    }
+
+    &__collection-1 {background-color: #f3fcff;}
+    &__collection-2 {background-color: #fffbf8;}
+    &__collection-3 {background-color: #fffeea;}
+    &__collection-4 {background-color: #faf6ff;}
+    &__collection-5 {background-color: #f3fef2;}
+    &__collection-6 {background-color: #faf6ff;}
+
+    .club-list,
+    .club-list_ul,
+    .club-list_li {margin: 0;}
+
+    &_t {
+        &:extend(.heading-link-xl all);
+        margin: 0;
+        padding: 0;
+    }
+    &_t > a {color: #186fb8;}
+    &_t > a:hover {color: @color-orange;}
+    &_t__onair {
+        margin: 0 20px 20px;
+    } 
+    &_ul {margin: 10px 0 0;}
+    &_ul__white {
+        margin: 250px 0 0 30px;
+        width: 100%;
+    }
+    &_ul__white &_li-a {color: #fff;}
+    &_li {
+        .inline-block();
+        vertical-align: middle;
+        /*width: 200px;*/
+        margin: 0 15px 5px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    &_li-a.active {
+        font-weight: bold;
+        color: #fd7700;
+        text-decoration: none;
+    }
+    &_transp {
+        float: left;
+        width: 510px;
+        margin: 0 0 0 105px;
+        padding: 8px 0 10px;
+        text-align: center;
+        color: #fff;
+        background: rgba(0,0,0,.25);
+        .border-radius(5px);
+    }
+    &_transp-t {
+        margin-bottom: 0;
+        font: bold 50px/55px Arial, Tahoma, Verdana, sans-serif;
+        color: #fff;
+        text-shadow: 0 2px 3px rgba(0,0,0,.5);
+    }
+    &_transp-desc {
+        height: 48px;
+        line-height: 16px;
+        padding: 0 30px;
+        text-shadow: 0 2px 3px rgba(0,0,0,.5);
+    }
+    &_club-add {
+        .inline-block();
+        margin: 11px 0 0;
+        padding: 28px 10px 40px 90px;
+        background: url(/images/b-section_club-add.png) no-repeat;
+        color: #fff;
+        text-decoration: none;
+    }
+    &_club-add:hover &_club-add-tx {border-bottom-color: transparent;}
+    &_club-add-tx {
+        font-size: 24px;
+        border-bottom: 1px dashed #fff;
+    }
+    &_club-moder {
+        margin: 10px 0 10px;
+        text-align: center;
+        font-size: 16px;
+    }
+    &_club-moder .ava {
+        float: none;
+        .inline-block();
+        vertical-align: middle;
+        border: 2px solid #fff;
+    }
+    &_club-moder-tx {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 5px;
+        text-align: right;
+        text-shadow: 0 2px 3px rgba(0,0,0,.5);
+    }
+    &_collection {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    &_collection-img {
+        .inline-block();
+        vertical-align: middle;
+    }
+    &_collection-t {
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 0 0 60px;
+        font: 60px/1em Arial, Tahoma, sans-serif;
+        color: #fff;
+    }
+
+    /* contest */
+    /*&_contest {margin: 0 20px 10px;}
+    &_t-contest {
+        font: 45px/45px Arial, Tahoma, sans-serif;
+        color: #000;
+    }
+    &_t-contest-small {
+        .inline-block();
+        margin-right: 20px;
+        font-size: 17px;
+        font-family: Arial, Tahoma, Verdana, sans-serif;
+        color: #2a2a2a;
+    }
+    &_contest-rule {
+        .inline-block();
+        margin-top: 16px;
+        color: #555;
+        font-size: 12px;
+    }
+    &_contest-tx {
+        font-size: 13px;
+        line-height: 17px;
+        color: #333;
+        margin: 0 0 10px;
+    }
+    &_contest-end {
+        float: right;
+        margin: 16px 0 0;
+        font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
+        color: #593d39;
+        text-align: right;
+    }
+    &_contest-end-t {
+        font-size: 14px;
+        color: #fe2424;
+    }*/
+    /* /contest */
+
+    @media (min-width: @screen-desktop) {
+
+        & {
+            margin: 0 0 20px; 
+            padding: 15px 0 15px;
+            text-align: left;
+        }
+        
+        &_sidebar {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 20px;
+        }
+        &_article {
+            display: inline-block;
+            width: 700px;
+        }
+        &_t {
+            margin-top: 20px;
+        }
+        &_li {
+            margin: 0 30px 5px 0;
+        }
+    }
+}
+/* /b-section */

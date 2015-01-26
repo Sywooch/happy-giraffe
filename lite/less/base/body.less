@@ -1,5 +1,9 @@
 .body {
     word-wrap: break-word;
+    -moz-hyphens:none; // запретить пернос слов по слогам
+    -ms-hyphens:none;
+    -webkit-hyphens: none;
+    hyphens:none;
     height: 100%;
     
     &__white {background: #fff;}
@@ -38,7 +42,7 @@
     }
     @media (min-width: @screen-desktop) {
         &__cont-wide .b-main_cont{
-            margin: 0 60px;
+            margin: 0 35px;
         }
     }
 }

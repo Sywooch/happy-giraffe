@@ -1,0 +1,70 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'blog.css';
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Готовим на кухне
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Рецепты
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Салаты
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Салат фантазия
+
+            //-+userSection('visible-md-block')
+            //-+sectionClub('', sectionClub.cook)
+                              
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+  
+                    +bArticleCook('', bArticleCook.cook)
+
+                    //-+bArticleStatus('', bArticleStatus.list) 
+
+                    //-+bArticleListPhotopost('', bArticleListPhotopost.base)
+    
+                    //-+paginationSmall('yiipagination__center', paginationSmall.base)
+  
+                    +customLikes('', customLikes.base)
+                    
+                    +adv-yandex()
+                    +commentsOpen('', commentsOpen.b)
+
+                    .interesting
+                        .block-title Вам может быть интересно
+                        ul
+                            li
+                                a(href='#') мясо шпигованное технологическая карта
+                            li
+                                a(href='#') французская ватрушка
+                            li
+                                a(href='#') деруны по гуцульски
+ 
+                // /Основная колонкa
+                
+
+                ///////
+                // Сайд бар
+                // Содержимое загружaть отложено
+                aside.b-main_col-sidebar.visible-md
+                    +sidebarRecipe('', sidebarRecipe.base)
+
+        +layout-footer-lite('layout-footer__in')
+
+    
+    
+ 

@@ -21,20 +21,20 @@ block layout
         +userSection('visible-md-block', userSection.base)
     
         .b-main_cont
+            photo-albums
+                +bAlbum('', bAlbum.d)
+                +bAlbum('', bAlbum.e)
 
-            +bAlbum('', bAlbum.d)
-            +bAlbum('', bAlbum.e)
+                .visible-md-block
+                    .heading-small.margin-t40 
+                        | Последние добавленные фото
+                        .float-r
+                            .btn.btn-link.btn-link-gray.btn-s Все фотографии 628
+     
+                    +imgGrid('', imgGrid.e)
 
-            .visible-md-block
-                .heading-small.margin-t40 
-                    | Последние добавленные фото
-                    .float-r
-                        .btn.btn-link.btn-link-gray.btn-s Все фотографии 628
- 
-                +imgGrid('', imgGrid.e)
-
-                .i-allphoto 
-                    a.i-allphoto_a(href="#")
-                        | Смотреть все фотографии  
+                    .i-allphoto 
+                        a.i-allphoto_a(href="#")
+                            | Смотреть все фотографии  
 
         +layout-footer-lite()

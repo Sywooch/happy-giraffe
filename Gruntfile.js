@@ -294,6 +294,9 @@ module.exports = function(grunt){
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.ico-club+/,
+            /.i-club+/,
+            /.b-section+/,
             /.userSection_btn+/,
           ],
         },
@@ -301,6 +304,7 @@ module.exports = function(grunt){
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/photo-window/**/*.html', 
+          'lite/html/page/cook-recipe/**/*.html', 
           'lite/html/page/sign/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого 
@@ -342,13 +346,17 @@ module.exports = function(grunt){
             /.fancybox+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.ico-club+/,
+            /.i-club+/,
+            /.b-section+/,
             /.userSection_btn+/,
           ],
         },
         src: [
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
-          'lite/html/page/photo-window/**/*.html', 
+          'lite/html/page/photo-window/**/*.html',
+          'lite/html/page/cook-recipe/**/*.html', 
 
           '!lite/html/page/sign/**/*.html', 
           //'lite/html/page/**/*-user.html', // стариницы зареганого 
@@ -380,6 +388,7 @@ module.exports = function(grunt){
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.b-section+/,
           ],
         },
         src: [
@@ -410,6 +419,7 @@ module.exports = function(grunt){
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
 
+            /.b-section+/,
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
@@ -448,6 +458,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header-banner+/,
             /.header_+/,
+            /.b-section+/,
             /.ava+/,
             /.ico-club+/,
             /.ico-family+/,
@@ -499,6 +510,7 @@ module.exports = function(grunt){
             /.ava+/,
             /.ico-club+/,
             /.ico-family+/,
+            /.b-section+/,
             /.flag+/,
             
             /.fast-articles3+/,

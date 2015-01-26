@@ -34,7 +34,7 @@
     <div class="layout-loose">
       <div class="layout-header">
         <!-- header-->
-        <header class="header header__guest header__kinder-gold">
+        <header class="header header__guest">
           <div class="header_hold clearfix">
             <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
             <!-- logo-->
@@ -172,13 +172,6 @@
                 </li>
               </ul>
             </div>
-            <!-- 
-            header_kindergold
-            header_kinderino
-            -->
-            <div class="header-ad-kinderino header-ad-kinderino__guest"><a href="#" class="header-ad-kinderino header-ad-kinderino__guest">
-                <!-- header_kindergold.jpgheader_kinderino.jpg
-                --><img src="/lite/images/banner/header_kinderino-2.gif" alt="Kinder"><span onMouseOver="this.style.backgroundPosition='0 -20px'" onMouseOut="this.style.backgroundPosition='0 0'"></span></a></div>
             <!-- /header-menu-->
             <div class="sidebar-search clearfix sidebar-search__big">
               <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
@@ -259,6 +252,7 @@
             </div>
           </section>
           <!-- /userSection-->
+          
         </div>
         <div class="b-main clearfix">   
           <div class="b-main_cont">             
@@ -652,38 +646,45 @@
                       </div>
                     </div>
                     <div class="b-article_t-list"><a href="#" class="b-article_t-a">Самое лучшее утро - просыпаюсь, а ты рядом</a></div>
-                    <!-- b-album-->
-                    <section class="b-album">
-                      <div class="b-album_img-hold"><a href="#" class="b-album_img-a">
-                          <div class="b-album_img-pad">
-                            <!-- У изображений соотношения сторон сохраняются -->
-                            <!-- 0,65 соотношение сторон-->
+                    <div class="b-article_in clearfix">
+                      <div class="wysiwyg-content clearfix">
+                        <!-- b-album-->
+                        <section class="b-album">
+                          <div class="b-album_img-hold"><a href="#" class="b-album_img-a">
+                              <div class="b-album_img-pad">
+                                <!-- У изображений соотношения сторон сохраняются -->
+                                <!-- 0,65 соотношение сторон-->
+                              </div>
+                              <picture class="b-album_img-picture"><img src="http://placecreature.com/flying-squirrel/600/400/" alt="Фото" class="b-album_img-big">
+                              </picture>
+                              <div class="b-album_img-hold-ovr">
+                                <div class="ico-zoom ico-zoom__abs"></div>
+                              </div>
+                              <div class="b-album_top">
+                                <div class="b-album_count-hold">
+                                  <div class="b-album_count">240</div>
+                                  <div class="b-album_count-tx">фото</div>
+                                </div>
+                              </div></a>
                           </div>
-                          <picture class="b-album_img-picture"><img src="http://placecreature.com/flying-squirrel/600/400/" alt="Фото" class="b-album_img-big">
-                          </picture>
-                          <div class="b-album_top">
-                            <div class="b-album_count-hold">
-                              <div class="b-album_count">240</div>
-                              <div class="b-album_count-tx">фото</div>
-                            </div>
-                          </div></a>
-                      </div>
-                      <div class="b-album_overlay"><a class="b-album_r">
-                          <div class="b-album_tx">Смотреть <br> все фото
+                          <div class="b-album_overlay"><a class="b-album_r">
+                              <div class="b-album_tx">Смотреть <br> все фото
+                              </div>
+                              <div class="b-album_ico-album"></div>
+                              <div class="b-album_arrow-all"></div></a>
+                            <ul class="b-album_prev clearfix visible-md-block">
+                              <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
+                                  <div class="b-album_prev-hold"></div></a></li>
+                              <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">
+                                  <div class="b-album_prev-hold"></div></a></li>
+                              <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
+                                  <div class="b-album_prev-hold"></div></a></li>
+                            </ul>
                           </div>
-                          <div class="b-album_ico-album"></div>
-                          <div class="b-album_arrow-all"></div></a>
-                        <ul class="b-album_prev clearfix visible-md-block">
-                          <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                              <div class="b-album_prev-hold"></div></a></li>
-                          <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">
-                              <div class="b-album_prev-hold"></div></a></li>
-                          <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                              <div class="b-album_prev-hold"></div></a></li>
-                        </ul>
+                        </section>
+                        <!-- /b-album-->
                       </div>
-                    </section>
-                    <!-- /b-album-->
+                    </div>
                     <div class="b-article_like clearfix">
                       <div class="article-settings">
                         <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>

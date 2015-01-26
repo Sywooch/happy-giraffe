@@ -63,9 +63,10 @@ a.ico-more:hover {&:extend(.ico-more-hover);}
 }
 .ico-zoom {
     display: inline-block;
-    width: 99px;
+    .scale(0.6);
+    /*width: 99px;
     height: 99px;
-    background: url('@{path-img}/ico/ico-zoom.png') no-repeat;
+    background: url('@{path-img}/ico/ico-zoom.png') no-repeat;*/
 
     &__abs {
         position: absolute;
@@ -73,11 +74,18 @@ a.ico-more:hover {&:extend(.ico-more-hover);}
         left: 50%;
         margin: -50px 0 0 -50px;
     }
-    &__s {
-        .scale(0.4);
+
+    @media (min-width: @screen-phone-landscape) {
+        & {
+            .scale(1);
+        }
+        
+        &__s {
+            .scale(0.6);
+        }
+        .ie8 &__s,
+        .ie9 &__s {display: none;}
     }
-    .ie8 &__s,
-    .ie9 &__s {display: none;}
 }
 
 // /ico-base спрайт

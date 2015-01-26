@@ -57,7 +57,7 @@
         position: relative;
         margin: 0 0 8px;
         text-align: center;
-        background-color: #fafafa;
+        background-color: #f9f9f9;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
@@ -104,6 +104,16 @@
         margin: 20px 0 0;
     }
 
+    &_more {
+        display: inline-block;
+        margin: 0 15px 15px 0;
+        padding: 0 20px 0 0;
+        background: url(/images/i-more.png) no-repeat 100% 10px;
+        color: #378BCB;
+        font: 20px/22px Tahoma,Arial,Verdana,sans-serif;
+        text-decoration: none;
+    }
+
     @media (min-width: @screen-phone) {
         
         &_header .tx-date {
@@ -139,7 +149,7 @@
         }
         &__list:hover {border-color: #e4e4e4;}
         &__list &_in-img {
-            margin: 5px -14px 10px -14px;
+            margin: 5px -14px 15px -14px;
         }
         &__user-status .user-status {
             padding-left: 20px;
@@ -220,7 +230,13 @@
         padding: 5px 0 5px 27px;
         background: url(/images/bullet.png) no-repeat 4px 10px;
     }
-    li .b-article_in-img {margin-left: -47px;}
+    .b-album_prev {margin: 0;}
+    .b-album_prev-li {
+        margin: 0 5px 0 0;
+        padding: 0;
+        background: none;
+    }
+    /*li .b-article_in-img {margin-left: -27px;}*/
     ol {
         margin: 15px 0;
         padding: 0;

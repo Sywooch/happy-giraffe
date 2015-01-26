@@ -28,7 +28,7 @@ class Manager
             if ($user->avatar->userAvatar) {
                 $userAvatar = $user->avatar->userAvatar;
                 $oldPhoto = $userAvatar->source;
-                $photoId = MigrateManager::movePhoto($oldPhoto);
+                $photoId = MigrateManager::movePhoto($oldPhoto)->id;
                 $photo = Photo::model()->findByPk($photoId);
                 $cropData = array(
                     'x' => $userAvatar->x,

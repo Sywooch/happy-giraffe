@@ -24,8 +24,9 @@ class MigrateManager
         $photoIds = array();
         foreach ($post->gallery->items as $item)
         {
-            if ($photoId = self::movePhoto($item->photo, array('title' => $item->photo->title, 'description' => $item->description)))
-                $photoIds[] = $photoId;
+            if ($photo = self::movePhoto($item->photo, array('title' => $item->photo->title, 'description' => $item->description))) {
+                $photoIds[] = $photo->id;
+            }
         }
         if (empty($photoIds))
             $photoIds[] = 3;
@@ -39,9 +40,8 @@ class MigrateManager
     {
         $photosIds = array();
         foreach ($oldModel->$relation as $oldAttach) {
-            $photoId = self::movePhoto($oldAttach->photo);
-            if ($photoId !== false) {
-                $photosIds[] = $photoId;
+            if ($photo = self::movePhoto($oldAttach->photo)) {
+                $photosIds[] = $photo->id;
             }
         }
         return $photosIds;
@@ -86,9 +86,8 @@ class MigrateManager
 
                 $photoIds = array();
                 foreach ($album->photos as $photo) {
-                    $photoId = self::movePhoto($photo);
-                    if ($photoId !== false) {
-                        $photoIds[] = $photoId;
+                    if ($newPhoto = self::movePhoto($photo)) {
+                        $photoIds[] = $newPhoto->id;
                     }
                 }
                 $collection = $newAlbum->photoCollection;
@@ -114,7 +113,7 @@ class MigrateManager
     public static function movePhoto(\AlbumPhoto $oldPhoto, $attributes = array())
     {
         if ($oldPhoto->newPhotoId !== null) {
-            return $oldPhoto->newPhotoId;
+            return $oldPhoto->newPhoto;
         }
 
         if (! is_file($oldPhoto->getOriginalPath())) {
@@ -134,7 +133,7 @@ class MigrateManager
         }
 
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
-        return $photo->id;
+        return $photo;
     }
 
     public static function updatePhoto(\AlbumPhoto $oldPhoto, $attributes = array())

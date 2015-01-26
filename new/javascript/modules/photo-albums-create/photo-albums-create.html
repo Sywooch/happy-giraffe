@@ -10,8 +10,8 @@
             <div class="postAdd_hold margin-t40">
                 <div class="postAdd_row">
                     <div class="postAdd_cont">
-                        <div class="inp-valid inp-valid__abs"  data-bind="css: photoAlbum.title.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
-                            <input type="text" placeholder="Заголовок альбома" class="itx-gray" data-bind="textInput: photoAlbum.title" autofocus>
+                        <div class="inp-valid inp-valid__abs"  data-bind="css: (photoAlbum.title.isValid() === false && photoAlbum.title() !== undefined) ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                            <input type="text" placeholder="Заголовок альбома" class="itx-gray" data-bind="textInput: photoAlbum.title">
                             <div class="inp-valid_count" data-bind="text: titleLength">150</div>
                             <div class="inp-valid_error" data-bind="validationMessage: photoAlbum.title"></div>
                         </div>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="postAdd_row">
                     <div class="postAdd_cont">
-                        <div class="inp-valid inp-valid__abs" data-bind="css: photoAlbum.description.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: photoAlbum.description.isValid() === false ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                             <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray" data-bind="textInput: photoAlbum.description"></textarea>
                             <div class="inp-valid_count" data-bind="text: descriptionLength">450</div>
                             <div class="inp-valid_error" data-bind="validationMessage: photoAlbum.description"></div>

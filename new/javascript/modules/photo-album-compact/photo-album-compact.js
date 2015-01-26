@@ -14,6 +14,7 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.photoAlbum.init(params.album);
         this.opened = ko.observable(false);
         this.userId = params.userId;
+        this.limitDescSymbols = 200;
         /**
          * Removing album
          */
@@ -21,6 +22,18 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
             this.photoAlbum.delete();
             this.removed(true);
         };
+        /**
+         * Adding span tag
+         * @param description
+         * @returns {*}
+         */
+        this.checkDescriptionLength = function checkDescriptionLength(description) {
+            if (description.length > this.limitDescSymbols) {
+                return description.substr(0, this.limitDescSymbols) + ' <span class="ico-more ico-more__white"></span>';
+            }
+            return description;
+        };
+        this.photoAlbum.description(this.checkDescriptionLength(this.photoAlbum.description()));
         /**
          * Choosing current attach by click
          * @param photoAttach
@@ -51,6 +64,12 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         };
         this.openPhoto = function openPhoto() {
             return customReturner('photo-slider');
+        };
+        this.loadPhotoComponent = function () {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            if (this.photoAlbum.photoCollection().presets === undefined) {
+                PresetManager.getPresets(this.handlePresets.bind(this));
+            }
         };
     }
     return { viewModel: PhotoAlbumCompact, template: template };

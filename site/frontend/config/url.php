@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
+    //'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -468,5 +468,7 @@ return array(
         'status' => 'som/status/default/index',
         'status/<_c>' => 'som/status/<_c>/index',
         'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
+
+        'views' => 'analytics/default/index',
     ),
 );

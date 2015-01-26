@@ -158,6 +158,9 @@ return array(
         'userProfile' => array(
             'class' => 'site\frontend\modules\userProfile\UserProfileModule',
         ),
+        'analytics' => array(
+            'class' => 'site\frontend\modules\analytics\AnalyticsModule',
+        ),
 	),
 	// application components
 	'components'=>array(

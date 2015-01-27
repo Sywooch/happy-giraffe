@@ -2,6 +2,7 @@
 /**
  * @author Никита
  * @date 26/01/15
+ * @todo тест
  */
 
 namespace site\frontend\modules\analytics\components;

@@ -31,7 +31,7 @@
             <!-- ko if: photoCollection.attaches().length > 0 -->
                 <!-- ko foreach: photoCollection.attaches() -->
                 <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
-                    <a href="#" class="b-album_prev-a" data-bind="photoSlider: { photo: $data.id(), collectionId: $parent.photoCollection.id() }">
+                    <a href="#" class="b-album_prev-a" data-bind="href: url(), photoSlider: { photo: $data.id(), collectionId: $parent.photoCollection.id() }">
                         <img src="" alt="" class="b-album_prev-img" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">
                         <div class="b-album_prev-hold"></div>
                     </a>

@@ -6,7 +6,8 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         this.SCREEN_STEP_SOCIAL = 'screenSocial';
         this.checkRegisterForm = function checkRegisterForm(RegisterForm) {
             if (typeof(RegisterForm) === 'object') {
-                RegisterForm.step(this.registerForm.SCREEN_STEP_SOCIAL);
+                console.log(RegisterForm);
+                RegisterForm.step(RegisterForm.SCREEN_STEP_SOCIAL);
                 return RegisterForm;
             }
             return new RegisterForm();

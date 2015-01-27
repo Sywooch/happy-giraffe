@@ -7,12 +7,8 @@
         </div>
     </div>
     <!-- ko if: photoCollection.cover() -->
-    <div href="#" class="b-album_img-hold" data-bind="click: function () { openPhotoHandler(photoCollection.cover()); }">
+    <div href="#" class="b-album_img-hold" data-bind="photoSlider: { photo: photoCollection.cover().id(), collectionId: photoCollection.id() }">
         <div class="b-album_img-a">
-            <!-- <div class="verticalalign-m-help"></div>
-            <div class="verticalalign-m-el">
-                <img src="" alt="" class="b-album_img-big" data-bind="src: photoCollection.cover().photo().getGeneratedPreset('postCollectionCover')">
-            </div> -->
             <div class="b-album_img-pad"></div>
             <div class="b-album_img-picture">
                 <img src="" alt="" class="b-album_img-big" data-bind="src: photoCollection.cover().photo().getGeneratedPreset('postCollectionCover')">
@@ -24,7 +20,7 @@
     </div>
     <!-- /ko -->
     <div class="b-album_overlay">
-        <a class="b-album_r" data-bind="click: function () { openPhotoHandler(photoCollection.cover()); }">
+        <a class="b-album_r" data-bind="photoSlider: { photo: photoCollection.cover().id(), collectionId: photoCollection.id() }">
             <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
             </div>
             <div class="b-album_ico-album"></div>
@@ -35,7 +31,7 @@
             <!-- ko if: photoCollection.attaches().length > 0 -->
                 <!-- ko foreach: photoCollection.attaches() -->
                 <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
-                    <a href="#" class="b-album_prev-a" data-bind="href: url(), click: function () { $parent.openPhotoHandler($data); }">
+                    <a href="#" class="b-album_prev-a" data-bind="href: url(), photoSlider: { photo: $data.id(), collectionId: $parent.photoCollection.id() }">
                         <img src="" alt="" class="b-album_prev-img" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">
                         <div class="b-album_prev-hold"></div>
                     </a>
@@ -45,7 +41,4 @@
         </ul>
     </div>
 </section>
-<!-- /ko -->
-<!-- ko if: opened() === true -->
-    <photo-slider params="photo: currentPhoto(), collectionId: photoCollection.id, userId: userId"></photo-slider>
 <!-- /ko -->

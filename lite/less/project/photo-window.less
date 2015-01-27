@@ -212,14 +212,6 @@ body.gallery {overflow:hidden;}
 		font-size: 12px;
 		line-height: 16px;
 	}
-	&_count {
-		margin: 13px 0 0 0;
-        text-align: left;
-        text-shadow: 0 0 1px rgba(0, 0, 0, .7);
-		/*font-size: 11px;
-		font-family: Tahoma, Arial, Verdana, sans-serif;*/
-		/*color: #bdb3c5;*/
-	}
     &_date {
         float: left;
         margin: 10px 0 0;
@@ -258,14 +250,25 @@ body.gallery {overflow:hidden;}
 		top: 0;
 		right: 0;
 		left: 0;
-        padding: 0 20px 10px;
+        padding: 13px 20px 20px;
 		text-align: center;
 		margin: 0;
         font: @fontnormal;
 		color: #fff;
         /*background-color: rgba(0, 0, 0, 0.3);*/
 		z-index: 100;
+        background: -ms-linear-gradient(top,  rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 100%); /* W3C */
 	}
+
+    &_count {
+        margin: 0;
+        text-align: left;
+        text-shadow: 0 0 1px rgba(0, 0, 0, .7);
+        /*font-size: 11px;
+        font-family: Tahoma, Arial, Verdana, sans-serif;*/
+        /*color: #bdb3c5;*/
+    }
 	&_about {
 		margin: 5px 0;
 		font-size: 11px;
@@ -410,7 +413,7 @@ body.gallery {overflow:hidden;}
         &_close {
             .scale(1);
         }
-		&_c:hover .i-photo-arrow {opacity: 1;}
+		&_c:hover .i-photo-arrow {.opacity(.8);}
 
 		&_col {
 			display: block;

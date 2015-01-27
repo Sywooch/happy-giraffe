@@ -74,9 +74,9 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' => 'fixed',
+            'name' => 'fixedV2',
             'width' => 300,
-            'height' => 300,
+            'height' => 200,
         ),
         'usages' => array(
             'myPhotosSectionCover',
@@ -84,9 +84,10 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'lepilla',
-            'width' => 1200,
-            'height' => 900,
+            'name' =>'fixed',
+            'mode' => 'inset',
+            'width' => 1620,
+            'height' => 1080,
         ),
         'usages' => array(
             'sliderPhoto',

@@ -1,5 +1,5 @@
 <div style="margin: 15px;">
-    <?php if ($data instanceof CommunityContent): ?>
+    <?php if ($data instanceof CommunityContent || ($data instanceof \site\frontend\modules\posts\models\Content && $data->originService == 'oldCommunity')): ?>
     <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'yandex-direct')); ?>
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_footer"></div>

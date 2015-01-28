@@ -883,6 +883,7 @@ class AlbumPhoto extends HActiveRecord
     public static function getPhotoFromUrl($url)
     {
         if (strpos($url, 'v2') !== false) {
+            die('123');
             $a = explode('/', $url);
             $fsName = implode('/', array_slice($a, -3));
             $photo = \site\frontend\modules\photo\models\Photo::model()->findByAttributes(array('fs_name' => $fsName));

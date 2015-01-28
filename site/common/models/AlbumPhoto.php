@@ -900,6 +900,7 @@ class AlbumPhoto extends HActiveRecord
                 return $photo->oldPhoto;
             }
         }
+        die('123');
 
         if (preg_match('/' . preg_quote(Yii::app()->params['photos_url'], '/') . '\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
             $user_id = $m[1];

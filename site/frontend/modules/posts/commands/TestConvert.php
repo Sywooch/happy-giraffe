@@ -13,7 +13,7 @@ class TestConvert extends \CConsoleCommand
     public function actionIndex($id)
     {
         $model = \CommunityContent::model()->resetScope()->findByPk($id);
-        $model->content->save();
+        var_dump($model->content->save());
         var_dump($model->convertToNewPost());
     }
 

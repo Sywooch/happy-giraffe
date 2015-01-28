@@ -28,7 +28,6 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
 
     public function beforeSave($event)
     {
-        die('234');
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
 
         $attributes = array_keys($this->owner->getAttributes($this->attributes));

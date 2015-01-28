@@ -882,7 +882,6 @@ class AlbumPhoto extends HActiveRecord
      */
     public static function getPhotoFromUrl($url)
     {
-        die('123');
         if (strpos($url, 'v2') !== false) {
             $a = explode('/', $url);
             $fsName = implode('/', array_slice($a, -3));

@@ -85,9 +85,9 @@ return array(
     array(
         'filter' => array(
             'name' =>'fixed',
-            'mode' => 'inset',
             'width' => 1620,
             'height' => 1080,
+            'mode' => 'inset',
         ),
         'usages' => array(
             'sliderPhoto',

@@ -886,6 +886,7 @@ class AlbumPhoto extends HActiveRecord
             $a = explode('/', $url);
             $fsName = implode('/', array_slice($a, -3));
             $photo = \site\frontend\modules\photo\models\Photo::model()->findByAttributes(array('fs_name' => $fsName));
+            var_dump($photo);
             if ($photo->oldPhoto === null) {
                 $criteria = new CDbCriteria();
                 $criteria->addCondition('t.id > :id');
@@ -893,6 +894,7 @@ class AlbumPhoto extends HActiveRecord
                 $photo = \site\frontend\modules\photo\models\Photo::model()->findByAttributes(array(
                     'fs_name' => $fsName,
                 ), $criteria);
+                var_dump($photo);
                 return ($photo === null) ? null : $photo->oldPhoto;
             } else {
                 return $photo->oldPhoto;

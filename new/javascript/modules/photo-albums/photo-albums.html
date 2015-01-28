@@ -35,6 +35,7 @@
     <!-- /ko -->
 <!-- /ko -->
 <!-- ko if: photoAlbums().length !== 0 && loading() === false -->
+        <!-- <photo-collection style="display: block;" params="id: 3, attachCount: 24, coverId: 27, userId: userId"></photo-collection> -->
     <!-- ko foreach: photoAlbums() -->
         <photo-album-compact style="display: block;" params="album: $data, presets: $parent.presets, userId: $parent.userId">
         </photo-album-compact>

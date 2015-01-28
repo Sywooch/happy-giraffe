@@ -8,7 +8,7 @@ define(['jquery', 'knockout', 'photo-slider/photo-slider'], function sliderBindi
             $(element).on('click', function sliderClickHandler(evt) {
                 evt.preventDefault();
                 if ( $(tagName).length === 0 ) {
-                    $('body').append('<' + tagName + ' params="{ photo: ' + photo + ', collectionId: ' + collectionId + '}"></' + tagName + '>');
+                    $(element).after('<' + tagName + ' params="{ photo: ' + photo + ', collectionId: ' + collectionId + '}"></' + tagName + '>');
                     ko.cleanNode($(tagName)[0]);
                     ko.applyBindings({}, $(tagName)[0]);
                 }

@@ -110,7 +110,7 @@ class MigrateManager
         }
     }
 
-    public static function movePhoto(\AlbumPhoto $oldPhoto, $attributes = array())
+    public static function movePhoto(\AlbumPhoto &$oldPhoto, $attributes = array())
     {
         if ($oldPhoto->newPhotoId !== null) {
             return $oldPhoto->newPhoto;
@@ -132,6 +132,7 @@ class MigrateManager
             return false;
         }
 
+        $oldPhoto->newPhotoId = $photo->id;
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
         return $photo;
     }

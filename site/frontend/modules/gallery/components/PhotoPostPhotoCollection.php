@@ -1,6 +1,6 @@
 <?php
 
-class PhotoPostPhotoCollection extends PhotoCollection
+class PhotoPostPhotoCollection extends \PhotoCollection
 {
     public $contentId;
 

@@ -886,17 +886,7 @@ class AlbumPhoto extends HActiveRecord
             $a = explode('/', $url);
             $fsName = implode('/', array_slice($a, -3));
             $photo = \site\frontend\modules\photo\models\Photo::model()->findByAttributes(array('fs_name' => $fsName));
-            if ($photo->oldPhoto === null) {
-                $criteria = new CDbCriteria();
-                $criteria->addCondition('t.id > :id');
-                $criteria->params = array(':id' => $photo->id);
-                $photo = \site\frontend\modules\photo\models\Photo::model()->findByAttributes(array(
-                    'original_name' => $photo->original_name,
-                ), $criteria);
-                return ($photo === null) ? null : $photo->oldPhoto;
-            } else {
-                return $photo->oldPhoto;
-            }
+            return $photo->oldPhoto;
         }
 
         if (preg_match('/' . preg_quote(Yii::app()->params['photos_url'], '/') . '\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {

@@ -64,6 +64,7 @@ return array(
         'site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget',
         'application.widgets.userAvatarWidget.*',
         'gallery.components.*',
+        'gallery.components.PhotoCollection',
         'gallery.widgets.*',
         'application.modules.myGiraffe.models.*',
         'application.modules.myGiraffe.components.*',

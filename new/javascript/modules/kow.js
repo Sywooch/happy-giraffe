@@ -48,4 +48,6 @@ define(["jquery", "knockout"], function ($, ko) {
     $('article-settings').each(componentIterator);
     ko.components.register('redactor-panel', { require: 'redactor-panel/redactor-panel' });
     $('redactor-panel').each(componentIterator);
+    ko.components.register('community-add', { require: 'community-add/community-add' });
+    $('community-add').each(componentIterator);
 });

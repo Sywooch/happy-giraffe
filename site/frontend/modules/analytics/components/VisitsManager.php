@@ -9,7 +9,8 @@ namespace site\frontend\modules\analytics\components;
 
 
 use site\frontend\modules\analytics\models\PageView;
-use site\frontend\modules\editorialDepartment\models\Content;
+use site\frontend\modules\posts\models\Content;
+
 
 class VisitsManager
 {
@@ -82,7 +83,7 @@ class VisitsManager
     {
         if (preg_match('#user/(?:\d+)/blog/post(\d+)#', $url, $matches)) {
             $id = $matches[1];
-            return Content::model()->findByPk($id);
+            return Content::model()->byEntity('CommunityContent', $id)->find();
         }
         return null;
     }

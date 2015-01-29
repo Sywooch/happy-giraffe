@@ -21,9 +21,17 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
     public function convertToNewPost()
     {
-        if ($this->owner->type_id == \CommunityContent::TYPE_POST)
-            return $this->convertPost();
-        elseif ($this->owner->type_id == \CommunityContent::TYPE_PHOTO_POST)
+        if ($this->owner->type_id == \CommunityContent::TYPE_POST) {
+            $advContent = \site\frontend\modules\editorialDepartment\models\Content::model()->findByAttributes(array(
+                'entity' => $this->owner->getIsFromBlog() ? 'BlogContent' : 'CommunityContent',
+                'entityId' => (int) $this->owner->id
+            ));
+            if (!is_null($advContent)) {
+                return $this->convertAdvPost($advContent);
+            } else {
+                return $this->convertPost();
+            }
+        } elseif ($this->owner->type_id == \CommunityContent::TYPE_PHOTO_POST)
             return $this->convertPhotoPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_VIDEO)
             return $this->convertVideoPost();
@@ -111,6 +119,18 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $newPost->socialObject->description = $newPost->metaObject->description;
         $newPost->isAutoSocial = true;
+    }
+    
+    protected function convertAdvPost(\site\frontend\modules\editorialDepartment\models\Content $advContent) {
+        $newPost = null;
+        $oldPost = null;
+        $this->convertCommon($oldPost, $newPost, 'advPost');
+        $newPost->preview = $advContent->htmlTextPreview;
+        $newPost->html = $advContent->htmlText;
+        $newPost->templateObject->data['type'] = 'advPost';
+        $newPost->isNoindex = false;
+        
+        return $newPost->save();
     }
 
     protected function convertQuestion()

@@ -33,7 +33,7 @@ $this->beginContent('//layouts/lite/common');
             </div>
         </div>
     <?php endif; ?>
-    <div class="b-main_cont">
+    <div class="b-main_cont b-main_cont__broad">
         <?php if ($this->breadcrumbs): ?>
             <div class="b-crumbs b-crumbs__s">
                 <div class="b-crumbs_tx">Я здесь:</div>

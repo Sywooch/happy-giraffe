@@ -34,6 +34,32 @@ class SinglePhotoController extends \LiteController
         );
 
         $collection = $post->getPhotoCollection();
+        $this->owner = $collection->getAuthor();
+        $this->renderSinglePhoto($collection, $oldPhoto->newPhoto->id);
+    }
+
+    public function actionPhotoPostCommunity($community_id, $content_id, $photo_id)
+    {
+        $oldPhoto = \AlbumPhoto::model()->with('newPhoto')->findByPk($photo_id);
+        if ($oldPhoto === null || $oldPhoto->newPhoto === null) {
+            throw new \CHttpException(404);
+        }
+
+        $post = \CommunityContent::model()->with('author')->findByPk($content_id);
+        if ($post === null || $post->rubric->community_id != $community_id) {
+            throw new \CHttpException(404);
+        }
+
+        $forum = $post->rubric->community;
+        $club = $forum->club;
+        $this->breadcrumbs = array(
+            $club->title => $club->getUrl(),
+        );
+        if (isset($club->communities) && count($club->communities) > 1) {
+            $this->breadcrumbs[$forum->title] = $forum->getUrl();
+        }
+
+        $collection = $post->getPhotoCollection();
         $this->renderSinglePhoto($collection, $oldPhoto->newPhoto->id);
     }
 
@@ -49,6 +75,7 @@ class SinglePhotoController extends \LiteController
         );
 
         $collection = $album->getPhotoCollection();
+        $this->owner = $collection->getAuthor();
         $this->renderSinglePhoto($collection, $photoId);
     }
 
@@ -62,6 +89,7 @@ class SinglePhotoController extends \LiteController
         $this->metaCanonical = $family->getUrl();
 
         $collection = $family->getPhotoCollection('all');
+        $this->owner = $collection->getAuthor();
         $this->renderSinglePhoto($collection, $photoId);
     }
 

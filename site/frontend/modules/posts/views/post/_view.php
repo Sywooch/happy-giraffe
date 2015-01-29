@@ -62,7 +62,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 </div>
                 <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>
                 <!-- Реклама яндекса-->
-                <?php $this->renderPartial('//banners/_direct_others'); ?>
+                <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
             </div>
         </div>
     </article>

@@ -76,6 +76,8 @@ class ConvertCommand extends \CConsoleCommand
 
     public function actionIndex(Array $command = array(), $fake = false)
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         // Загрузим возможные модели
         \Yii::import('site.frontend.modules.cook.models.*');
         

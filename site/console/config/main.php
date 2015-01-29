@@ -52,6 +52,9 @@ return array(
         'checkLabels' => array(
             'class' => 'site\frontend\modules\clubs\commands\CheckLabels',
         ),
+        'usersMigrate' => array(
+            'class' => 'site\frontend\modules\users\migration\Command',
+        ),
     ),
     'import' => array(
         'site.common.components.*',
@@ -63,6 +66,7 @@ return array(
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
         'site.frontend.extensions.directmongosuite.*',
+        'site.frontend.extensions.YiiMongoDbSuite.*',
         'site.frontend.modules.antispam.models.*',
         'site.frontend.modules.antispam.components.*',
         'site.frontend.modules.onlineManager.widgets.*',

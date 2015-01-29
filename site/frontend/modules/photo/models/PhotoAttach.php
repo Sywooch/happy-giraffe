@@ -1,4 +1,7 @@
 <?php
+
+namespace site\frontend\modules\photo\models;
+
 /**
  * This is the model class for table "photo__attaches".
  *
@@ -13,11 +16,9 @@
  * @property string $removed
  *
  * The followings are the available model relations:
- * @property site\frontend\modules\photo\models\Photo $photo
- * @property site\frontend\modules\photo\models\PhotoCollection $collection
+ * @property \site\frontend\modules\photo\models\Photo $photo
+ * @property \site\frontend\modules\photo\models\PhotoCollection $collection
  */
-
-namespace site\frontend\modules\photo\models;
 
 class PhotoAttach extends \HActiveRecord implements \IHToJSON
 {

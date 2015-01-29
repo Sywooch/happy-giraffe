@@ -1,4 +1,5 @@
 <?php
+Yii::app()->clientScript->registerAMD('BlogRecordSettings', array('kow'));
 /** @todo перенести обработку $this->post->metaObject в контроллер */
 $this->pageTitle = $this->post->title;
 $this->metaDescription = $this->post->metaObject->description;

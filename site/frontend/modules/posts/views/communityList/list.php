@@ -14,9 +14,9 @@ if ($this->rubric) {
     $this->breadcrumbs[] = $forumTitle;
 }
 $cs = Yii::app()->clientScript;
-$cs->registerAMD('photoAlbumsView', array("kow");
+$cs->registerAMD('photoAlbumsView', array("kow"));
 ?>
-<community-add params="forumId: <?= $this->forum->id ?>, clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
+<community-add params="forumId: <?= $this->forum->id ?>, clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id)) ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
 <?php
 $this->widget('LiteListView', array(
     'dataProvider' => $this->listDataProvider,

@@ -81,6 +81,7 @@ class VisitsManager
     protected function getModelByUrl($url)
     {
         if (preg_match('#user/(:?\d+)/blog/post(\d+)#', $url, $matches)) {
+            die('123');
             $id = $matches[1];
             return Content::model()->findByPk($id);
         }

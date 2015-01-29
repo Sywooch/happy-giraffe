@@ -166,13 +166,13 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
             var socialObject = {};
             if (socialServices.length > 0) {
                 for (var service in socialServices) {
-                    socialObject[socialServices[service].service] = socialServices[service];
+                    socialObject[socialServices[service].service] = ko.observable(socialServices[service]);
                 }
             }
             return socialObject;
         },
         removeSocial: function removeSocial(data, event) {
-            delete this.socialServices.value()[data.service];
+            this.socialServices.value()[data.service](null);
             return Model.get(this.removeSocialServicesUrl, { id: data.id });
         },
         /**

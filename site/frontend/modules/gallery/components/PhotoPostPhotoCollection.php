@@ -1,8 +1,6 @@
 <?php
 
-Yii::import('gallery.components.PhotoCollection');
-
-class PhotoPostPhotoCollection extends PhotoCollection
+class PhotoPostPhotoCollection extends \PhotoCollection
 {
     public $contentId;
 

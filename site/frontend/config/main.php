@@ -65,6 +65,7 @@ return array(
         'application.widgets.userAvatarWidget.*',
         'application.modules.gallery.components.*',
         'application.modules.gallery.widgets.*',
+        'gallery.components.PhotoCollection',
         'application.modules.myGiraffe.models.*',
         'application.modules.myGiraffe.components.*',
         'application.modules.community.models.*',

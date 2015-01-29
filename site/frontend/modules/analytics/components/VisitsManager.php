@@ -82,7 +82,6 @@ class VisitsManager
     {
         if (preg_match('#user/(?:\d+)/blog/post(\d+)#', $url, $matches)) {
             $id = $matches[1];
-            var_dump($id); die;
             return Content::model()->findByPk($id);
         }
         return null;

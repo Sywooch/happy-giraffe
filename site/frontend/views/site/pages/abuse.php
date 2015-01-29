@@ -54,22 +54,3 @@
         </div>
     </div>
 </div>
-
-<!-- Piwik -->
-<script type="text/javascript">
-    var _paq = _paq || [];
-    <?php if (! Yii::app()->user->isGuest): ?>
-        _paq.push(['setUserId', <?=CJavaScript::encode(Yii::app()->user->id)?>]);
-    <?php endif; ?>
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-        var u="//piwik.happy-giraffe.ru/";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', 3]);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-    })();
-</script>
-<noscript><p><img src="//piwik.happy-giraffe.ru/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
-<!-- End Piwik Code -->

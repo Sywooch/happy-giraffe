@@ -32,6 +32,14 @@ class PiwikHttpApi extends \CApplicationComponent
         return \CJSON::decode($response);
     }
 
+    public function getTrackingCode()
+    {
+        return \Yii::app()->controller->renderPartial('application.modules.analytics.views.piwik', array(
+            'idSite' => $this->idSite,
+            'baseUrl' => $this->baseUrl,
+        ), true);
+    }
+
     protected function getDefaultParams()
     {
         return array(

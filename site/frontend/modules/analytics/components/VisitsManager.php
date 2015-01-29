@@ -16,7 +16,7 @@ class VisitsManager
 
     public function inc()
     {
-        $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
+        $lastRun = 0;// \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
         $start = time();
         $response = \Yii::app()->getModule('analytics')->piwik->makeRequest('Live.getLastVisitsDetails', array(
             'minTimestamp' => $lastRun,

@@ -20,7 +20,8 @@ class PiwikHttpApi extends \CApplicationComponent
             'date' => '2015-01-01,today',
             'segment' => 'pageUrl==' . $url,
         );
-        return $this->makeRequest('VisitsSummary.getVisits', $params);
+        $response = $this->makeRequest('VisitsSummary.getVisits', $params);
+        return $response['value'];
     }
 
     public function makeRequest($method, $params = array())

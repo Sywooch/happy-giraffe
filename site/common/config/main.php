@@ -69,5 +69,8 @@ return array(
         'imagine' => array(
             'class' => '\site\common\components\ImagineComponent',
         ),
+        'analytics' => array(
+            'class' => 'site\frontend\modules\analytics\AnalyticsModule',
+        ),
     ),
 );

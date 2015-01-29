@@ -15,6 +15,8 @@ if ($this->owner->id == Yii::app()->user->id) {
 }
 ?>
 
+<?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $this->owner)); ?>
+
 <div class="b-main_cont b-main_cont__wide">
     <div class="family-user">
         <div class="textalign-c">

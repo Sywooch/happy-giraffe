@@ -72,6 +72,23 @@ class FillQueue extends \CConsoleCommand
         echo "\ntotal " . $count . " items\n";
     }
 
+    public function actionAdvPost()
+    {
+        $dataProvider = new \EMongoDocumentDataProvider(\site\frontend\modules\editorialDepartment\models\Content::model());
+        $iterator = new \CDataProviderIterator($dataProvider, 100);
+        $count = 0;
+        foreach ($iterator as $content) {
+            $model = \CActiveRecord::model($content->entity)->findByPk($content->entityId);
+            if ($model) {
+                $model->addTaskToConvert();
+                $count++;
+                echo '.';
+            }
+        }
+
+        echo "\ntotal " . $count . " items\n";
+    }
+
     public function actionCommunity($id)
     {
         $criteria = new \CDbCriteria();

@@ -94,7 +94,7 @@ return array(
         'user/<user_id:\d+>/blog' => 'blog/default/index',
         'newblog/<_a:>' => 'blog/default/<_a>',
 
-        'user/<user_id:\d+>' => 'profile/default/index',
+        'user/<userId:\d+>' => 'userProfile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
         'user/<user_id:\d+>/award/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'award')),
         'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),

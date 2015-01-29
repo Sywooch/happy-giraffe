@@ -74,9 +74,20 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'lepilla',
-            'width' => 1200,
-            'height' => 900,
+            'name' => 'fixedV2',
+            'width' => 300,
+            'height' => 200,
+        ),
+        'usages' => array(
+            'myPhotosSectionCover',
+        ),
+    ),
+    array(
+        'filter' => array(
+            'name' =>'fixed',
+            'width' => 1620,
+            'height' => 1080,
+            'mode' => 'inset',
         ),
         'usages' => array(
             'sliderPhoto',
@@ -84,9 +95,8 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'relativeResize',
-            'method' => 'widen',
-            'parameter' => 600,
+            'name' =>'widen',
+            'width' => 600,
         ),
         'usages' => array(
             'postImage',
@@ -94,9 +104,9 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'relativeResize',
-            'method' => 'heighten',
-            'parameter' => 70,
+            'name' =>'lepilla',
+            'width' => 92,
+            'height' => 70,
         ),
         'usages' => array(
             'myPhotosPreview',
@@ -124,7 +134,7 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'fixed',
+            'name' => 'fixedV2',
             'width' => 600,
             'height' => 400, // 3*2
         ),
@@ -173,4 +183,14 @@ return array(
             'familyMemberImage',
         ),
     ),
+    array(
+        'filter' => array(
+            'name' => 'lepilla',
+            'width' => 55,
+            'height' => 55,
+        ),
+        'usages' => array(
+            'familyMemberSmallWidget',
+        ),
+    )
 );

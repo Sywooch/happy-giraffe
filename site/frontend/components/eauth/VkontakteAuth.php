@@ -9,6 +9,8 @@
 
 class VkontakteAuth extends VKontakteOAuthService
 {
+    protected $scope = 'email';
+
     protected function fetchAttributes() {
         $info = (array)$this->makeSignedRequest('https://api.vk.com/method/users.get.json', array(
             'query' => array(
@@ -21,11 +23,10 @@ class VkontakteAuth extends VKontakteOAuthService
         $info = $info['response'][0];
 
         $this->attributes['uid'] = $info->uid;
-        $this->attributes['first_name'] = $info->first_name;
-        $this->attributes['last_name'] = $info->last_name;
-        $this->attributes['email'] = null;
+        $this->attributes['firstName'] = $info->first_name;
+        $this->attributes['lastName'] = $info->last_name;
         $this->setBirthdayAttributes($info);
-        $this->attributes['gender'] = $info->sex == 0 ? null : $info->sex - 1;
+        $this->attributes['gender'] = $info->sex == 0 ? null : (($info->sex == 1 ? '0' : '1'));
         $this->setLocationAttributes($info);
         $this->setAvatarAttribute($info);
     }
@@ -49,7 +50,7 @@ class VkontakteAuth extends VKontakteOAuthService
                 break;
             }
         }
-        $this->attributes['avatar_src'] = $result;
+        $this->attributes['avatarSrc'] = $result;
     }
 
     protected function setBirthdayAttributes($info)
@@ -69,9 +70,15 @@ class VkontakteAuth extends VKontakteOAuthService
             }
         }
 
-        $this->attributes['birthday_year'] = $year;
-        $this->attributes['birthday_month'] = $month;
-        $this->attributes['birthday_day'] = $day;
+        $this->attributes['birthday'] = implode('-', array($year, $month, $day));
+    }
+
+    protected function saveAccessToken($token)
+    {
+        if (isset($token->email)) {
+            $this->attributes['email'] = $token->email;
+        }
+        parent::saveAccessToken($token);
     }
 
     protected function setLocationAttributes($info)

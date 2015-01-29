@@ -37,11 +37,18 @@ return array(
 //        ),
         //'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         array(
-            'class' => 'site.frontend.components.PhotoUrlRule',
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>',
-            'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
-            'blog' => false,
+            'trueRoute' => 'photo/singlePhoto/photoPostCommunity',
+            'falseRoute' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         ),
+//        array(
+//            'class' => 'site.frontend.components.PhotoUrlRule',
+//            'pattern' => 'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>',
+//            'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+//            'blog' => false,
+//        ),
         'cook/recipe/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'SimpleRecipe')),
         'cook/multivarka/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'MultivarkaRecipe')),
         'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
@@ -163,7 +170,7 @@ return array(
         /* Временные страницы для управления постами */
         'blog/tmp/favourites' => 'blog/tmp/favourites',
 
-        'user/<user_id:\d+>' => 'profile/default/index',
+        'user/<userId:\d+>' => 'userProfile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
         'user/<user_id:\d+>/award/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'award')),
         'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),
@@ -180,15 +187,19 @@ return array(
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
 
         // пагинация в клубах
-        'communityRubricListNew' => array(
-            'class' => 'UrlRule',
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
-            'route' => 'posts/communityList/index',
+            'trueRoute' => 'posts/communityList/index',
+            'falseRoute' => 'community/default/forum',
         ),
-        'communityListNew' => array(
-            'class' => 'UrlRule',
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<forum_id:\d+>/forum/',
-            'route' => 'posts/communityList/index',
+            'trueRoute' => 'posts/communityList/index',
+            'falseRoute' => 'community/default/forum',
         ),
 
         // posts
@@ -240,7 +251,7 @@ return array(
             'trueRoute' => 'posts/communityList/index',
             'falseRoute' => 'community/default/forum',
         ),
-        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index', //'community/default/forum',
+        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
 
         //'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         
@@ -482,6 +493,9 @@ return array(
         'user/<userId:\d+>/albums/<albumId:\d+>/photo<photoId:\d+>' => 'photo/singlePhoto/album',
         'photo/default/presets' => 'photo/default/presets',
         'photo/photo/thumb' => 'photo/photo/thumb',
+
+        'reg/test' => 'signup/test/reg',
+        'signup/default/captcha' => 'signup/default/captcha',
 
         'onair' => 'blog/air/index',
 

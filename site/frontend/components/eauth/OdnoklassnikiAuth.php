@@ -22,11 +22,11 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         ));
 
         $this->attributes['uid'] = $info->uid;
-        $this->attributes['first_name'] = $info->first_name;
-        $this->attributes['last_name'] = $info->last_name;
+        $this->attributes['firstName'] = $info->first_name;
+        $this->attributes['lastName'] = $info->last_name;
         $this->attributes['email'] = null;
         $this->setBirthdayAttributes($info);
-        $this->attributes['gender'] = $info->gender == 'male' ? 1 : 0;
+        $this->attributes['gender'] = $info->gender == 'male' ? '1' : '0';
         $this->setLocationAttributes($info);
         $this->setAvatarAttribute($info);
     }
@@ -62,7 +62,7 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
 
         }
         curl_close($curl);
-        $this->attributes['avatar_src'] = $result;
+        $this->attributes['avatarSrc'] = $result;
     }
 
     protected function setBirthdayAttributes($info)

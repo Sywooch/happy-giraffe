@@ -11,17 +11,20 @@ class ChangeEmailForm extends \CFormModel
 {
     public $user;
     public $email;
+    public $oldPassword;
 
-    public function __construct(User $user, $email)
+    public function __construct(User $user, $email, $oldPassword)
     {
         $this->user = $user;
         $this->email = $email;
+        $this->oldPassword = $oldPassword;
     }
 
     public function rules()
     {
         return array(
             array('email', 'email'),
+            array('oldPassword', 'site\frontend\modules\users\components\OldPasswordValidator', 'passwordHash' => $this->user->password),
             array('email', 'unique', 'className' => '\site\frontend\modules\users\models\User', 'caseSensitive' => false, 'criteria' => array('condition' => 'deleted = 0')),
         );
     }

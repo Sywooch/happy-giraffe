@@ -65,11 +65,11 @@ class ApiController extends \site\frontend\components\api\ApiController
         );
     }
 
-    public function actionChangeEmail($id, $email)
+    public function actionChangeEmail($id, $email, $oldPassword)
     {
         /** @var \site\frontend\modules\users\models\User $user */
         $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
-        $form = new ChangeEmailForm($user, $email);
+        $form = new ChangeEmailForm($user, $email, $oldPassword);
         $this->success = $form->validate() && $form->save();
         $this->data = ($this->success) ? $user : array(
             'errors' => $form->errors,

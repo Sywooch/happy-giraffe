@@ -24,16 +24,9 @@ class ChangePasswordForm extends \CFormModel
     {
         return array(
             array('password, oldPassword', 'required'),
-            array('oldPassword', 'validateOldPassword'),
+            array('oldPassword', 'site\frontend\modules\users\components\OldPasswordValidator', 'passwordHash' => $this->user->password),
             array('password', 'length', 'min' => 6, 'max' => 15),
         );
-    }
-
-    public function validateOldPassword($attribute)
-    {
-        if (User::hashPassword($this->$attribute) != $this->user->password) {
-            $this->addError($attribute, 'Текущий пароль введен неверно');
-        }
     }
 
     public function save()

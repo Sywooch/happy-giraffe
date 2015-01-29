@@ -14,12 +14,9 @@ if ($this->rubric) {
     $this->breadcrumbs[] = $forumTitle;
 }
 $cs = Yii::app()->clientScript;
-$cs->registerAMD('photoAlbumsView', array('ko' => 'knockout', 'CommunitySubscription' => 'ko_community', 'common' => 'common'), "vm = new CommunitySubscription(" . CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id)) . ", " . $this->club->id . ", " . (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) . "); $('.js-community-subscription').each(function(index, el) {ko.applyBindings(vm, el)});");
+$cs->registerAMD('photoAlbumsView', array("kow");
 ?>
-
-<div class="clearfix margin-r20 margin-b20 js-community-subscription" data-bind="visible: active">
-    <a class="btn-blue btn-h46 float-r fancy-top" href="/blog/form/type1/?club_id=<?= $this->forum->id ?>&useAMD=1">Добавить в клуб</a>
-</div>
+<community-add params="forumId: <?= $this->forum->id ?>, clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
 <?php
 $this->widget('LiteListView', array(
     'dataProvider' => $this->listDataProvider,

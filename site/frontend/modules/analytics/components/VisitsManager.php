@@ -14,8 +14,6 @@ class VisitsManager
 {
     const INC_LAST_RUN = 'VisitsManager.incLastRun';
 
-    public $timeout = 300;
-
     public function inc()
     {
         $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
@@ -31,11 +29,11 @@ class VisitsManager
             }
         }
 
-        $counts = array_count_values($urls);
+        $urls = array_unique($urls);
 
-        foreach ($counts as $url => $count) {
+        foreach ($urls as $url) {
             $model = $this->getModel($url);
-            $model->visits += $count;
+            $model->visits += $this->fetchVisitsCount($url);
             $model->save();
         }
         \Yii::app()->setGlobalState(self::INC_LAST_RUN, $start);

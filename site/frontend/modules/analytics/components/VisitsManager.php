@@ -38,8 +38,10 @@ class VisitsManager
             $model->save();
 
             $m = $this->getModelByUrl($url);
-            $m->views = $model->visits;
-            $m->update(array('views'));
+            if ($m !== null) {
+                $m->views = $model->visits;
+                $m->update(array('views'));
+            }
         }
         //\Yii::app()->setGlobalState(self::INC_LAST_RUN, $start);
     }

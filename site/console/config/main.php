@@ -49,6 +49,9 @@ return array(
         'usersMigrate' => array(
             'class' => 'site\frontend\modules\users\migration\Command',
         ),
+        'analytics' => array(
+            'class' => 'site\frontend\modules\analytics\commands\ViewsCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

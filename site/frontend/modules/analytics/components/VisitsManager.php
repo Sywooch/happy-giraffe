@@ -9,6 +9,7 @@ namespace site\frontend\modules\analytics\components;
 
 
 use site\frontend\modules\analytics\models\PageView;
+use site\frontend\modules\editorialDepartment\models\Content;
 
 class VisitsManager
 {
@@ -35,6 +36,10 @@ class VisitsManager
             $model = $this->getModel($url);
             $model->visits = $this->fetchVisitsCount($url);
             $model->save();
+
+            $m = $this->getModelByUrl($url);
+            $m->views = $model->visits;
+            $m->update(array('views'));
         }
         //\Yii::app()->setGlobalState(self::INC_LAST_RUN, $start);
     }
@@ -62,6 +67,15 @@ class VisitsManager
             $model->views = $this->getModel($model->url)->visits;
             $model->update(array('views'));
         }
+    }
+
+    protected function getModelByUrl($url)
+    {
+        if (preg_match('#user/(:?\d+)/blog/post(\d+)#', $url, $matches)) {
+            $id = $matches[1];
+            return Content::model()->findByPk($id);
+        }
+        return null;
     }
 
     protected function fetchVisitsCount($url)

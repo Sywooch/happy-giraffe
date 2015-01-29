@@ -13,6 +13,6 @@ class ViewsCommand extends \CConsoleCommand
     {
         $vm = new VisitsManager();
         $vm->inc();
-        $vm->sync('\site\frontend\modules\posts\models\Content');
+        //$vm->sync('\site\frontend\modules\posts\models\Content');
     }
 } 

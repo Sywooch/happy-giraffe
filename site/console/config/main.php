@@ -69,7 +69,7 @@ return array(
         'site.frontend.modules.onlineManager.components.*',
         'site.frontend.modules.geo.models.*',
         'site.frontend.modules.geo.components.*',
-        'ext.YiiMongoDbSuite.*',
+        'site.frontend.extensions.YiiMongoDbSuite.*',
     ),
     'behaviors' => array(
         'edms' => array(

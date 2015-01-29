@@ -47,6 +47,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     }
                     ?>
                     <div class="b-article_in clearfix">
+                        <p>Просмотров: <?=$this->post->views?></p>
                         <?php if ($this->post->templateObject->getAttr('noWysiwyg', false)) { ?>
                             <?= $this->post->html ?>
                         <?php } else { ?>

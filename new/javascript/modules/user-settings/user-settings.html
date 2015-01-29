@@ -134,16 +134,28 @@
         <div class="heading-small">Настройки аккаунта</div>
         <!-- email-->
         <div class="user-settings_row" data-bind="with: user.email">
-            <div class="user-settings_col-label">
-                <label for="" class="form-edit_label">E-mail</label>
-            </div>
             <!-- ko if: $data.editing() === false && $data.value() -->
+                <div class="user-settings_col-label">
+                    <label for="" class="form-edit_label">E-mail</label>
+                </div>
                 <div class="user-settings_col-inp">
                     <span class="form-edit_tx" data-bind="text: value"></span>
                     <a href="#" class="ico-edit ico-edit__s powertip" data-bind="click: $parent.beginEditField"></a>
                 </div>
             <!-- /ko -->
             <!-- ko if: $data.editing() === true -->
+                <div class="user-settings_col-label">
+                    <label for="" class="form-edit_label">E-mail</label>
+                </div>
+                <div class="inp-valid inp-valid__abs user-settings_w-inp" data-bind="css: $parent.user.oldPassword.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                    <input type="password" placeholder="Старый пароль" class="itx-gray form-edit_itx" data-bind="value: $parent.user.oldPassword.value">
+                    <div class="inp-valid_error" data-bind="visible: $parent.user.oldPassword.errors().length > 0">
+                        <div class="errorMessage" data-bind="text: $parent.user.oldPassword.errors()[0]">Ошибка</div>
+                    </div>
+                </div>
+                <div class="user-settings_col-label">
+                    <label for="" class="form-edit_label"></label>
+                </div>
                 <div class="user-settings_w-inp" data-bind="css: $data.errors().length > 0 ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                     <input type="text" placeholder="Email" class="itx-gray form-edit_itx" data-bind="value: $data.value">
                     <div class="inp-valid_error" data-bind="visible: $data.errors().length > 0">

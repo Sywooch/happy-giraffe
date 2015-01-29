@@ -59,7 +59,7 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
          * @returns {$.ajax}
          */
         changeEmail: function changeEmail() {
-            return Model.get(this.changeEmailUrl, { id: this.id, email: this.email.value() });
+            return Model.get(this.changeEmailUrl, { id: this.id, email: this.email.value(), oldPassword: this.oldPassword.value() });
         },
         /**
          * Remove user

@@ -33,6 +33,7 @@ class VisitsManager
 
         foreach ($urls as $url) {
             $model = $this->getModel($url);
+            var_dump($this->fetchVisitsCount($url)); die;
             $model->visits += $this->fetchVisitsCount($url);
             $model->save();
         }

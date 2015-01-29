@@ -33,15 +33,22 @@ class VisitsManager
         $urls = array_unique($urls);
 
         foreach ($urls as $url) {
+            $data = array();
+            $data[] = $url;
+
             $model = $this->getModel($url);
             $model->visits = $this->fetchVisitsCount($url);
             $model->save();
 
+            $data[] = $model->visits;
+
             $m = $this->getModelByUrl($url);
             if ($m !== null) {
+                $data[] = $m->id;
                 $m->views = $model->visits;
                 $m->update(array('views'));
             }
+            echo implode(',', $data) . "\n";
         }
         //\Yii::app()->setGlobalState(self::INC_LAST_RUN, $start);
     }

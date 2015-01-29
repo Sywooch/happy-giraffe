@@ -66,6 +66,6 @@ class VisitsManager
 
     protected function fetchVisitsCount($url)
     {
-        return \Yii::app()->piwik->getVisits($url);
+        return \Yii::app()->getModule('analytics')->piwik->getVisits($url);
     }
 } 

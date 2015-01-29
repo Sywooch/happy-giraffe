@@ -36,7 +36,7 @@ class VisitsManager
             $model->visits += $this->fetchVisitsCount($url);
             $model->save();
         }
-        \Yii::app()->setGlobalState(self::INC_LAST_RUN, $start);
+        //\Yii::app()->setGlobalState(self::INC_LAST_RUN, $start);
     }
 
     protected function getModel($url)

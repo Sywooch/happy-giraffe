@@ -66,7 +66,7 @@ class PageView extends \EMongoDocument
         return $model;
     }
 
-    protected function getEntity()
+    public function getEntity()
     {
         if (preg_match('#user/(?:\d+)/blog/post(\d+)#', $this->_id, $matches)) {
             $id = $matches[1];

@@ -30,7 +30,7 @@ class PageView extends \EMongoDocument
     {
         return array(
             array('visits, correction', 'filter', 'filter' => 'intval'),
-            array('_id', 'filter', 'filter' => array(self, 'path')),
+            array('_id', 'filter', 'filter' => array('site\frontend\modules\analytics\models\PageView', 'path')),
         );
     }
 

@@ -24,28 +24,16 @@ class VisitsManager
         ));
         $urls = $this->parseLiveReport($response);
         foreach ($urls as $url) {
-            $model = PageView::getModel($url);
-            $model->visits = $this->fetchVisitsCount($url);
-            $model->save();
-            $entity = $model->getEntity();
-            if ($entity !== null) {
-                $data[] = $entity->id;
-                $entity->views = $model->getCounter();
-                $entity->update(array('views'));
-            }
+            \Yii::app()->gearman->client()->doBackground('processUrl', $url);
         }
         //\Yii::app()->setGlobalState(self::INC_LAST_RUN, time());
     }
 
-    protected function parseLiveReport($response)
+    public function processUrl($url)
     {
-        $urls = array();
-        foreach ($response as $row) {
-            foreach ($row['actionDetails'] as $action) {
-                $urls[] = $action['url'];
-            }
-        }
-        return array_unique($urls);
+        $model = PageView::getModel($url);
+        $model->visits = $this->fetchVisitsCount($url);
+        $model->save();
     }
 
     public function sync($class)
@@ -61,6 +49,17 @@ class VisitsManager
             $model->views = PageView::getModel($model->url)->getCounter();
             $model->update(array('views'));
         }
+    }
+
+    protected function parseLiveReport($response)
+    {
+        $urls = array();
+        foreach ($response as $row) {
+            foreach ($row['actionDetails'] as $action) {
+                $urls[] = $action['url'];
+            }
+        }
+        return array_unique($urls);
     }
 
     protected function fetchVisitsCount($url)

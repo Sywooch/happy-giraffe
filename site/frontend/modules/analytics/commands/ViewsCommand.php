@@ -11,6 +11,13 @@ use site\frontend\modules\analytics\models\PageView;
 
 class ViewsCommand extends \CConsoleCommand
 {
+    public function actionWorker()
+    {
+        $vm = new VisitsManager();
+        \Yii::app()->gearman->worker()->addFunction('updateMember', array($vm, 'processUrl'));
+        while (\Yii::app()->gearman->worker()->work());
+    }
+
     public function actionIndex()
     {
         $vm = new VisitsManager();

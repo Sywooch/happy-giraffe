@@ -51,6 +51,16 @@ class PageView extends \EMongoDocument
         );
     }
 
+    public function afterSave()
+    {
+        $entity = $this->getEntity();
+        if ($entity !== null) {
+            $entity->views = $this->getCounter();
+            $entity->update(array('views'));
+        }
+        parent::afterSave();
+    }
+
     public function getCounter()
     {
         return $this->visits + $this->correction;
@@ -67,12 +77,27 @@ class PageView extends \EMongoDocument
         return $model;
     }
 
-    public function getEntity()
+    protected function getEntity()
     {
-        if (preg_match('#user/(?:\d+)/blog/post(\d+)#', $this->_id, $matches)) {
-            $id = $matches[1];
-            return Content::model()->byEntity('CommunityContent', $id)->find();
+        foreach ($this->getRoutes() as $pattern => $callback) {
+            if (preg_match($pattern, $this->_id, $matches)) {
+                return call_user_func($callback, $matches);
+            }
         }
         return null;
+    }
+
+    private function getRoutes()
+    {
+        return array(
+            '#^/user/\d+/blog/post(\d+)/$#' => function($matches) {
+                $id = $matches[1];
+                return Content::model()->byEntity('CommunityContent', $id)->find();
+            },
+            '#^/community/\d+/forum/\w+/(\d+)/$#' => function($matches) {
+                $id = $matches[1];
+                return Content::model()->byEntity('CommunityContent', $id)->find();
+            },
+        );
     }
 } 

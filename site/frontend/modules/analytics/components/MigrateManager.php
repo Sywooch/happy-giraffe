@@ -39,14 +39,21 @@ class MigrateManager
         $page = 0;
         do {
             $page++;
-            $response = $this->ga->getReport(array(
-                'metrics' => 'ga:visits',
-                'start-index' => ($page - 1) * 1000 + 1,
-                'max-results' => 1000,
-                'dimensions' => 'ga:pagePath',
-                'filters' => 'ga:pagePath=~' . urlencode($pattern),
-            ));
-
+            $response = null;
+            do {
+                try {
+                    $response = $this->ga->getReport(array(
+                        'metrics' => 'ga:visits',
+                        'start-index' => ($page - 1) * 1000 + 1,
+                        'max-results' => 1000,
+                        'dimensions' => 'ga:pagePath',
+                        'filters' => 'ga:pagePath=~' . urlencode($pattern),
+                    ));
+                    break;
+                } catch (\Exception $e) {
+                    sleep(10);
+                }
+            } while ($response === null);
             $this->processResponse($response);
         } while (count($response) > 0);
     }

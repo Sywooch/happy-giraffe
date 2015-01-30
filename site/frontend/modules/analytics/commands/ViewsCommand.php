@@ -11,10 +11,19 @@ use site\frontend\modules\analytics\models\PageView;
 
 class ViewsCommand extends \CConsoleCommand
 {
+    public function init()
+    {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        parent::init();
+    }
+
     public function actionWorker()
     {
         $vm = new VisitsManager();
-        \Yii::app()->gearman->worker()->addFunction('updateMember', array($vm, 'processUrl'));
+        \Yii::app()->gearman->worker()->addFunction('updateMember', function(\GearmanJob $job) use ($vm) {
+            $vm->processUrl($job->workload());
+        });
         while (\Yii::app()->gearman->worker()->work());
     }
 

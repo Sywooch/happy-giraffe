@@ -47,9 +47,7 @@ class MigrateManager
                 'filters' => 'ga:pagePath=~' . urlencode($pattern),
             ));
 
-            foreach ($response as $path => $row) {
-                $this->processRow($row);
-            }
+            $this->processResponse($response);
         } while (count($response) > 0);
     }
 

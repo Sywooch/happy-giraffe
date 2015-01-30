@@ -30,11 +30,11 @@ class PageView extends \EMongoDocument
     {
         return array(
             array('visits, correction', 'filter', 'filter' => 'intval'),
-            array('_id', 'filter', 'filter' => array($this, 'path')),
+            array('_id', 'filter', 'filter' => array(self, 'path')),
         );
     }
 
-    public function path($url)
+    public static function path($url)
     {
         return parse_url($url, PHP_URL_PATH);
     }
@@ -58,7 +58,8 @@ class PageView extends \EMongoDocument
 
     public static function getModel($url)
     {
-        $model = self::model()->findByPk($url);
+        $path = self::path($url);
+        $model = self::model()->findByPk($path);
         if ($model === null) {
             $model = new PageView();
             $model->_id = $url;

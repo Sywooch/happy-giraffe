@@ -21,7 +21,7 @@ class ViewsCommand extends \CConsoleCommand
     public function actionWorker()
     {
         $vm = new VisitsManager();
-        \Yii::app()->gearman->worker()->addFunction('updateMember', function(\GearmanJob $job) use ($vm) {
+        \Yii::app()->gearman->worker()->addFunction('processUrl', function(\GearmanJob $job) use ($vm) {
             echo $job->workload() . "\n";
             $vm->processUrl($job->workload());
         });

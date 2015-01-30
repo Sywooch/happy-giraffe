@@ -7,9 +7,12 @@
 namespace site\frontend\modules\analytics\models;
 
 
+use site\frontend\modules\posts\models\Content;
+
 class PageView extends \EMongoDocument
 {
     public $visits = 0;
+    public $correction = 0;
     public $created;
     public $updated;
 
@@ -23,6 +26,19 @@ class PageView extends \EMongoDocument
         return parent::model($className);
     }
 
+    public function rules()
+    {
+        return array(
+            array('visits, correction', 'filter', 'filter' => 'intval'),
+            array('_id', 'filter', 'filter' => array($this, 'path')),
+        );
+    }
+
+    public function path($url)
+    {
+        return parse_url($url, PHP_URL_PATH);
+    }
+
     public function behaviors()
     {
         return array(
@@ -33,5 +49,29 @@ class PageView extends \EMongoDocument
                 'setUpdateOnCreate' => true,
             )
         );
+    }
+
+    public function getCounter()
+    {
+        return $this->visits + $this->correction;
+    }
+
+    public static function getModel($url)
+    {
+        $model = self::model()->findByPk($url);
+        if ($model === null) {
+            $model = new PageView();
+            $model->_id = $url;
+        }
+        return $model;
+    }
+
+    protected function getEntity()
+    {
+        if (preg_match('#user/(?:\d+)/blog/post(\d+)#', $this->_id, $matches)) {
+            $id = $matches[1];
+            return Content::model()->byEntity('CommunityContent', $id)->find();
+        }
+        return null;
     }
 } 

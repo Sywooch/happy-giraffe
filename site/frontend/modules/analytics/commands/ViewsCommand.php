@@ -1,6 +1,8 @@
 <?php
 namespace site\frontend\modules\analytics\commands;
+use site\frontend\modules\analytics\components\MigrateManager;
 use site\frontend\modules\analytics\components\VisitsManager;
+use site\frontend\modules\analytics\models\PageView;
 
 /**
  * @author Никита
@@ -14,5 +16,11 @@ class ViewsCommand extends \CConsoleCommand
         $vm = new VisitsManager();
         $vm->inc();
         //$vm->sync('\site\frontend\modules\posts\models\Content');
+    }
+
+    public function actionMigrate()
+    {
+        $manager = new MigrateManager();
+        $manager->run();
     }
 } 

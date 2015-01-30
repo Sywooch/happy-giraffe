@@ -19,49 +19,33 @@ class VisitsManager
     public function inc()
     {
         $lastRun = 0;// \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
-        $start = time();
         $response = \Yii::app()->getModule('analytics')->piwik->makeRequest('Live.getLastVisitsDetails', array(
             'minTimestamp' => $lastRun,
         ));
+        $urls = $this->parseLiveReport($response);
+        foreach ($urls as $url) {
+            $model = PageView::getModel($url);
+            $model->visits = $this->fetchVisitsCount($url);
+            $model->save();
+            $entity = $model->getEntity();
+            if ($entity !== null) {
+                $data[] = $entity->id;
+                $entity->views = $model->getCounter();
+                $entity->update(array('views'));
+            }
+        }
+        //\Yii::app()->setGlobalState(self::INC_LAST_RUN, time());
+    }
 
+    protected function parseLiveReport($response)
+    {
         $urls = array();
         foreach ($response as $row) {
             foreach ($row['actionDetails'] as $action) {
                 $urls[] = $action['url'];
             }
         }
-
-        $urls = array_unique($urls);
-
-        foreach ($urls as $url) {
-            $data = array();
-            $data[] = $url;
-
-            $model = $this->getModel($url);
-            $model->visits = $this->fetchVisitsCount($url);
-            $model->save();
-
-            $data[] = $model->visits;
-
-            $m = $this->getModelByUrl($url);
-            if ($m !== null) {
-                $data[] = $m->id;
-                $m->views = $model->visits;
-                $m->update(array('views'));
-            }
-            echo implode(',', $data) . "\n";
-        }
-        //\Yii::app()->setGlobalState(self::INC_LAST_RUN, $start);
-    }
-
-    protected function getModel($url)
-    {
-        $model = PageView::model()->findByPk($url);
-        if ($model === null) {
-            $model = new PageView();
-            $model->_id = $url;
-        }
-        return $model;
+        return array_unique($urls);
     }
 
     public function sync($class)
@@ -74,18 +58,9 @@ class VisitsManager
         $iterator = new \CDataProviderIterator($dp, 100);
         /** @var \CActiveRecord $model */
         foreach ($iterator as $model) {
-            $model->views = $this->getModel($model->url)->visits;
+            $model->views = PageView::getModel($model->url)->getCounter();
             $model->update(array('views'));
         }
-    }
-
-    protected function getModelByUrl($url)
-    {
-        if (preg_match('#user/(?:\d+)/blog/post(\d+)#', $url, $matches)) {
-            $id = $matches[1];
-            return Content::model()->byEntity('CommunityContent', $id)->find();
-        }
-        return null;
     }
 
     protected function fetchVisitsCount($url)

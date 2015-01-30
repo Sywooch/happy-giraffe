@@ -15,7 +15,7 @@ class MigrateManager
     public $ga;
 
     private $_patterns = array(
-        //'^/community/\d+/forum/\w+/\d+/$',
+        '^/community/\d+/forum/\w+/\d+/$',
         '^/user/\d+/blog/post\d+/$',
     );
 
@@ -24,37 +24,13 @@ class MigrateManager
         \Yii::import('site.frontend.extensions.GoogleAnalytics');
         $this->ga = new \GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
         $this->ga->setProfile('ga:53688414');
-        $this->ga->setDateRange('2011-01-01', '2015-01-30');
+        $this->ga->setDateRange('2012-08-01', '2015-01-30');
     }
 
     public function run()
     {
-//        foreach ($this->_patterns as $pattern) {
-//            $this->processByRegex($pattern);
-//        }
-
-        $dp = new \CActiveDataProvider('site\frontend\modules\posts\models\Content', array(
-            'criteria' => array(
-                'order' => 'id DESC',
-                'limit' => 1000,
-            ),
-        ));
-        $iterator = new \CDataProviderIterator($dp, 100);
-
-        $filter = array();
-        foreach ($iterator as $i => $post) {
-            $path = parse_url($post->url, PHP_URL_PATH);
-            $filter[] = 'ga:pagePath==' . $path;
-
-            if ((($i + 1) % 100) == 0) {
-                $response = $this->ga->getReport(array(
-                    'metrics' => 'ga:visits',
-                    'dimensions' => 'ga:pagePath',
-                    'filters' => implode(',', $filter),
-                ));
-                var_dump($filter); die;
-                $this->processResponse($response);
-            }
+        foreach ($this->_patterns as $pattern) {
+            $this->processByRegex($pattern);
         }
     }
 
@@ -75,7 +51,6 @@ class MigrateManager
                 $this->processRow($row);
             }
         } while (count($response) > 0);
-        var_dump($response);
     }
 
     protected function processResponse($response)
@@ -84,6 +59,6 @@ class MigrateManager
             $model = PageView::getModel($row);
             $model->correction = $row['ga:visits'];
             $model->save();
-        }e
+        }
     }
 }

@@ -241,22 +241,20 @@ return array(
 
         'community/<_a:(subscribe)>/' => 'community/default/<_a>',
         
+        'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'posts/community/view',
         array(
+            'class' => 'UrlRule',
+            'pattern' => 'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>',
+            'route' => 'community/default/view',
+        ),
+/*        array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>',
             'trueRoute' => 'posts/community/view',
             'falseRoute' => 'community/default/view',
-        ),
+        ),*/
 
-        array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'condition' => 'Yii::app()->user->isGuest',
-            'pattern' => 'community/<forum_id:\d+>/forum/',
-            'trueRoute' => 'posts/communityList/index',
-            'falseRoute' => 'community/default/forum',
-        ),
-        
         'community/default/save' => 'community/default/save',
         'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
         'community/default/photoWidget' => 'community/default/photoWidget',

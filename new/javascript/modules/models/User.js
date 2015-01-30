@@ -12,6 +12,7 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
         isGuest: userConfig.isGuest,
         isModer: userConfig.isModer,
         userId: userConfig.userId,
+        socialServices: ['vkontakte', 'odnoklassniki'],
         /**
          * Полное имя
          * @returns {string}
@@ -164,9 +165,11 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
          */
         parseSocialServices: function parseSocialServices(socialServices) {
             var socialObject = {};
-            if (socialServices.length > 0) {
-                for (var service in socialServices) {
-                    socialObject[socialServices[service].service] = ko.observable(socialServices[service]);
+            for (var serviceItem in this.socialServices) {
+                if (socialServices[serviceItem] !== undefined) {
+                    socialObject[this.socialServices[serviceItem]] = ko.observable(socialServices[serviceItem]);
+                } else {
+                    socialObject[this.socialServices[serviceItem]] = ko.observable(null);
                 }
             }
             return socialObject;

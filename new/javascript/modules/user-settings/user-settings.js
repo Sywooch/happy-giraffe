@@ -39,9 +39,9 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
             if (userData.success === true) {
                 this.user.settleSettings(userData.data);
                 this.loaded(true);
-                SocialNetworks.init(this.user.socialServices.value, 'a.ico-social__vkontakte', 'a.ico-social__odnoklassniki');
                 this.user.countryId.subscribe(this.countrySubs, this);
                 this.user.address.value().city().id.subscribe(this.citySubs, this);
+                SocialNetworks.init(this.user.socialServices.value, 'a.ico-social__vkontakte', 'a.ico-social__odnoklassniki');
             }
         };
         this.beginEditField = function beginEditField(data, event) {
@@ -109,6 +109,10 @@ define(['jquery', 'knockout', 'text!user-settings/user-settings.html', 'models/U
         };
         this.removeUser = function removeUser() {
             this.user.remove().done(this.redirectUser.bind(this));
+        };
+        this.removeSocialBond = function removeSocialBond(data, event) {
+            this.user.removeSocial(data, event);
+            SocialNetworks.init(this.user.socialServices.value, 'a.ico-social__vkontakte', 'a.ico-social__odnoklassniki');
         };
         this.changeSubscribtion = function changeGender(data, event) {
             this.user.updateSubscribtion();

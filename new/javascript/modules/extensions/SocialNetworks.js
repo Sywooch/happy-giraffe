@@ -15,10 +15,10 @@ define(['jquery', 'knockout', 'eauth'], function SocialNetworksHandler($, ko) {
             "id": "odnoklassniki"
         },
         init: function init(social, vkIdentity, okIdentity) {
-            if (!social().hasOwnProperty('vkontakte')) {
+            if (social().vkontakte() === null) {
                 $(vkIdentity).eauth(this.vkObj);
             }
-            if (!social().hasOwnProperty('odnoklassniki')) {
+            if (social().odnoklassniki() === null) {
                 $(okIdentity).eauth(this.okObj);
             }
         }

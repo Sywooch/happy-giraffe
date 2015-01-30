@@ -49,7 +49,6 @@ class MigrateManager
                         'dimensions' => 'ga:pagePath',
                         'filters' => 'ga:pagePath=~' . urlencode($pattern),
                     ));
-                    break;
                 } catch (\Exception $e) {
                     sleep(10);
                 }

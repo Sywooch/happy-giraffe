@@ -155,6 +155,8 @@ class User extends HActiveRecord
         'friends' => 'только друзья',
     );
 
+    private $_avatarObject;
+
     public function getAccessLabel()
     {
         return $this->accessLabels[$this->access];
@@ -922,9 +924,9 @@ class User extends HActiveRecord
     public function getUrlParams()
     {
         return array(
-            'profile/default/index',
+            'userProfile/default/index',
             array(
-                'user_id' => $this->id,
+                'userId' => $this->id,
             ),
         );
     }
@@ -1380,6 +1382,10 @@ class User extends HActiveRecord
      */
     public function getAvatarUrl($size = 72)
     {
+        if ($this->avatarId !== null) {
+            return \site\frontend\modules\users\components\AvatarManager::getAvatar($this, $size);
+        }
+
         if (empty($this->avatar_id))
             return false;
 
@@ -1606,5 +1612,14 @@ class User extends HActiveRecord
         $this->status = self::STATUS_ACTIVE;
         $this->email_confirmed = 1;
         $this->update(array('status', 'email_confirmed'));
+    }
+
+    public function getAvatarObject()
+    {
+        if ($this->_avatarObject === null) {
+            $this->_avatarObject = new \site\frontend\modules\users\models\UserAvatar($this->avatarInfo, $this);
+        }
+
+        return $this->_avatarObject;
     }
 }

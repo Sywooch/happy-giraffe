@@ -25,6 +25,21 @@ class AuthManager extends \CPhpAuthManager
             $this->assign('user', \Yii::app()->user->id);
     }
 
+    public static function checkOwner($entity, $user)
+    {
+        $user = $user instanceof \User ? $user->id : (int) $user;
+        if (isset($entity->author_id)) {
+            return $entity->author_id == $user;
+        } elseif (isset($entity->authorId)) {
+            return $entity->authorId == $user;
+        } elseif (isset($entity->user_id)) {
+            return $entity->user_id == $user;
+        } elseif (isset($entity->userId)) {
+            return $entity->userId == $user;
+        }
+        return false;
+    }
+
 }
 
 ?>

@@ -113,6 +113,7 @@ class ClientScript extends CClientScript
         $this->scripts[self::POS_HEAD] = array(
             'amd' => 'require.config(' . CJSON::encode($conf) . ");\n" . $eval . " require(['happyDebug'], function(happyDebug) {happyDebug.log('main', 'info', 'RequireJS инициализирован', " . CJSON::encode($this->amd) . ")})",
             ) + $this->scripts[self::POS_HEAD];
+        $this->registerAMD('proceedAuthForms', array('proceedAuthForms' => 'extensions/proceedAuthForms'), 'proceedAuthForms();');
     }
 
     /**

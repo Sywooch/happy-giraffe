@@ -1,4 +1,7 @@
 <?php
+
+namespace site\frontend\modules\signup\components;
+
 /**
  * Created by JetBrains PhpStorm.
  * User: mikita
@@ -7,13 +10,13 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class RegisterCaptchaAction extends CaptchaExtendedAction
+class RegisterCaptchaAction extends \CaptchaExtendedAction
 {
     public function validate($input,$caseSensitive){
         // open session, if necessary generate new code
         $this->getVerifyCode();
         // read result
-        $session = Yii::app()->session;
+        $session = \Yii::app()->session;
         $name = $this->getSessionKey();
         $result = $session[$name . 'result'];
         // input always taken without whitespaces

@@ -63,8 +63,9 @@ return array(
         'application.modules.favourites.components.*',
         'site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget',
         'application.widgets.userAvatarWidget.*',
-        'application.modules.gallery.components.*',
-        'application.modules.gallery.widgets.*',
+        'gallery.components.*',
+        'gallery.components.PhotoCollection',
+        'gallery.widgets.*',
         'application.modules.myGiraffe.models.*',
         'application.modules.myGiraffe.components.*',
         'application.modules.community.models.*',
@@ -149,8 +150,14 @@ return array(
         'archive' => array(
            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),
+        'som' => array(
+            'class' => 'site\frontend\modules\som\SomModule',
+        ),
         'rss' => array(
             'class' => 'site\frontend\modules\rss\RssModule',
+        ),
+        'userProfile' => array(
+            'class' => 'site\frontend\modules\userProfile\UserProfileModule',
         ),
 	),
 	// application components
@@ -271,7 +278,7 @@ return array(
         
         /* компонент для кеширования по зависимости, без удаления записей */
         'dbCache' => array(
-            'class' => 'CDbCache',
+            'class' => 'site.frontend.components.InfinityCache',
             'connectionID' => 'db',
             // сборщик мусора не нужен, храним по зависимости, вечно
             'gCProbability' => 0,

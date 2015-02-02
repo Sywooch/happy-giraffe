@@ -1,5 +1,7 @@
 <?php
 
+namespace site\frontend\modules\photo\models;
+
 /**
  * This is the model class for table "photo__albums".
  *
@@ -15,8 +17,6 @@
  * The followings are the available model relations:
  * @property \User $author
  */
-
-namespace site\frontend\modules\photo\models;
 
 class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
 {
@@ -114,7 +114,7 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
     {
         $t = $this->getTableAlias(false, false);
         return array(
-            'condition' => $t . '.removed = 0 AND ' . $t . '.source IN ("myPhotos", "privateAlbum")',
+            'condition' => $t . '.removed = 0',
         );
     }
 

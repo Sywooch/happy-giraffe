@@ -882,6 +882,13 @@ class AlbumPhoto extends HActiveRecord
      */
     public static function getPhotoFromUrl($url)
     {
+        if (strpos($url, 'v2') !== false) {
+            $a = explode('/', $url);
+            $fsName = implode('/', array_slice($a, -3));
+            $photo = \site\frontend\modules\photo\models\Photo::model()->findByAttributes(array('fs_name' => $fsName));
+            return $photo->oldPhoto;
+        }
+
         if (preg_match('/' . preg_quote(Yii::app()->params['photos_url'], '/') . '\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
             $user_id = $m[1];
             $photo_name = $m[2];

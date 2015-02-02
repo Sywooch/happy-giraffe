@@ -108,10 +108,21 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'publicationAttribute' => 'dtimePublication',
                 'owerwriteAttributeIfSet' => false,
             ),
+            'ContentBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+                'pkAttribute' => 'originEntityId',
+                'entityClass' => array('\site\frontend\modules\posts\models\Content', 'getEntityClass'),
+            ),
             'RssBehavior' => array(
                 'class' => 'site\frontend\modules\rss\behaviors\ContentRssBehavior',
             ),
         );
+    }
+
+    public static function getEntityClass($obj)
+    {
+        // Костыль для блогов
+        return $obj->originService == 'oldBlog' ? 'BlogContent' : $obj->originEntity;
     }
 
     /**
@@ -223,13 +234,13 @@ class Content extends \CActiveRecord implements \IHToJSON
             if ($i === false) {
                 // старого тега больше нет
                 Tag::model()->deleteByPk(array('labelId' => $oldLabel->id, 'contentId' => $this->id));
-            }
-            else {
+            } else {
                 // тег уже есть
                 unset($labels[$i]);
             }
         }
         $ids = array();
+
         foreach ($labels as $label) {
             $model = Label::model()->findByAttributes(array('text' => $label));
             if (!$model) {
@@ -383,6 +394,36 @@ class Content extends \CActiveRecord implements \IHToJSON
         return $this;
     }
 
+    /**
+     * Поиск по id тегов
+     * 
+     * @param type $tags
+     * @return \site\frontend\modules\posts\models\Content
+     */
+    public function byTags($tags)
+    {
+        $criteria = $this->getDbCriteria();
+        $criteria->with[] = 'tagModels';
+        $criteria->together = true;
+        $criteria->addInCondition('tagModels.labelId', $tags);
+        //$criteria->select = 't.* , count(tagModelss.labelId) as c';
+        $criteria->group = 't.id';
+        $criteria->having = 'count(tagModels.labelId) = ' . count($tags);
+
+        return $this;
+    }
+
+    /**
+     * Поиск по текстовым "ярлыкам"
+     * 
+     * @param type $labels
+     * @return type
+     */
+    public function byLabels($labels)
+    {
+        return $this->byTags(\site\frontend\modules\posts\models\Label::getIdsByLabels($labels));
+    }
+
     public function byEntityClass($entity)
     {
         $this->getDbCriteria()->addColumnCondition(array('originEntity' => $entity));
@@ -397,9 +438,6 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function leftFor($post)
     {
-        $this->getDbCriteria()->addColumnCondition(array(
-            'authorId' => $post->authorId,
-        ));
         $this->getDbCriteria()->compare('dtimePublication', '<' . $post->dtimePublication);
         $this->orderDesc();
 
@@ -413,12 +451,10 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function rightFor($post)
     {
-        $this->getDbCriteria()->addColumnCondition(array(
-            'authorId' => $post->authorId,
-        ));
         $this->getDbCriteria()->compare('dtimePublication', '>' . $post->dtimePublication);
         $this->orderAsc();
 
         return $this;
     }
+
 }

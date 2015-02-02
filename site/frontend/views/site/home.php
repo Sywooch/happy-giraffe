@@ -4,14 +4,22 @@
  */
 
   /* Предотвратим случайное переключение шаблона в контроллере */
-  $this->layout = false;
-  Yii::app()->ads->addVerificationTags();
+    $this->layout = false;
+    Yii::app()->ads->addVerificationTags();
 
-  $cs = Yii::app()->clientScript;
-  $cs
-      ->registerCssFile('/lite/css/min/homepage.css')
-      ->registerCssFile('http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin')
-  ;
+    $cs = Yii::app()->clientScript;
+    $cs
+        ->registerCssFile('/lite/css/min/homepage.css')
+        ->registerCssFile('http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin')
+    ;
+
+    if ($openLogin == 'register') {
+        $cs->registerAmd('openLogin', array('RegisterForm' => 'signup/register-form'), 'RegisterForm.viewModel.prototype.open();');
+    }
+
+    if ($openLogin == 'login') {
+        $cs->registerAmd('openLogin', array('LoginForm' => 'signup/login-form'), 'LoginForm.viewModel.prototype.open();');
+    }
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
@@ -32,7 +40,7 @@
         <header class="header header__homepage">
           <div class="header_hold">
             <div class="clearfix">
-              <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+              <div class="header-login"><a class="header-login_a login-button" data-bind="follow: {}">Вход</a><a class="header-login_a registration-button" data-bind="follow: {}">Регистрация</a></div>
               
               <?php if ($this->module === null || $this->module->id != 'search'): ?>
                   <div class="sidebar-search clearfix sidebar-search__big">
@@ -59,7 +67,7 @@
           <div class="homepage-desc_hold">
             <div class="homepage-desc_b clearfix">
               <div class="homepage-desc_l">Веселый Жираф - это социальная сеть<br><span class="homepage-desc_mark">для всей семьи</span>, которая собрала <br>миллионы мам и пап со всей  России</div>
-              <div class="homepage-desc_r"><a href="#registerWidget" class="homepage_btn-sign btn btn-success btn-xxl popup-a">Присоединяйся!</a>
+              <div class="homepage-desc_r"><a class="homepage_btn-sign btn btn-success btn-xxl registration-button" data-bind="follow: {}">Присоединяйся!</a>
                 <div class="homepage-desc_soc">
                   <span class="i-or-tx">или войти с помощью</span>
                   <!-- <span class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></span> -->
@@ -205,7 +213,7 @@
                       <div class="homepage-clubs_tx">Цветы в доме</div></a></li>
                   <li class="homepage-clubs_li"><a href="/fishing/" class="homepage-clubs_a"> 
                       <div class="homepage-clubs_ico-hold">
-                        <div class="ico-club ico-club__21"></div>
+                        <div class="ico-club ico-club__19"></div>
                       </div>
                       <div class="homepage-clubs_tx">Рыбалка</div></a></li>
                 </ul>
@@ -218,12 +226,12 @@
                 <ul class="homepage-clubs_ul">
                   <li class="homepage-clubs_li"><a href="/weekends/" class="homepage-clubs_a"> 
                       <div class="homepage-clubs_ico-hold">
-                        <div class="ico-club ico-club__20"></div>
+                        <div class="ico-club ico-club__21"></div>
                       </div>
                       <div class="homepage-clubs_tx">Выходные с семьей</div></a></li>
                   <li class="homepage-clubs_li"><a href="/travel/" class="homepage-clubs_a"> 
                       <div class="homepage-clubs_ico-hold">
-                        <div class="ico-club ico-club__19"></div>
+                        <div class="ico-club ico-club__20"></div>
                       </div>
                       <div class="homepage-clubs_tx">Мы путешествуем</div></a></li>
                   <li class="homepage-clubs_li"><a href="/holidays/" class="homepage-clubs_a"> 
@@ -235,7 +243,7 @@
               </div>
             </div>
             <div class="homepage-clubs_b">
-              <div class="homepage-clubs_btn-hold"><a href="#registerWidget" class="homepage_btn-sign btn btn-xxl popup-a">Начни общаться!</a></div>
+              <div class="homepage-clubs_btn-hold"><a class="homepage_btn-sign btn btn-xxl registration-button" data-bind="follow: {}">Начни общаться!</a></div>
               <div class="homepage_desc-tx">узнавай новое, делись самым интересным </div>
             </div>
           </div>

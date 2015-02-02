@@ -3,40 +3,23 @@
  * Author: choo
  * Date: 31.05.2012
  */
-class RecipeController extends HController
+class RecipeController extends LiteController
 {
     public $counts;
     public $currentType = null;
     public $modelName;
     public $section;
     public $club;
+    public $litePackage = 'recipe';
 
     public function filters()
     {
         $filters = array(
             'accessControl',
-//            array(
-//                'CHttpCacheFilter + view',
-//                'lastModified' => $this->lastModified(),
-//            ),
             'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
         );
 
-        if (Yii::app()->user->isGuest) {
-            $filters [] = array(
-                'COutputCache + view',
-                'duration' => 300,
-                'varyByParam' => array('id'),
-            );
-
-            $filters [] = array(
-                'COutputCache + index',
-                'duration' => 300,
-                'varyByParam' => array('type', 'section'),
-            );
-        }
-
-        return $filters;
+        return CMap::mergeArray(parent::filters(), $filters);
     }
 
     public function accessRules()
@@ -95,7 +78,7 @@ class RecipeController extends HController
             );
 
         $this->breadcrumbs = array(
-            $this->club->section->title => $this->club->section->getUrl(),
+            //$this->club->section->title => $this->club->section->getUrl(),
             $this->club->title => $this->club->getUrl(),
         );
         if ($type != 0) {
@@ -137,7 +120,7 @@ class RecipeController extends HController
 
         if (empty($type))
             $this->breadcrumbs = array(
-                'Кулинария' => array('/cook'),
+                //'Кулинария' => array('/cook'),
                 'Кулинарные рецепты' => array('/cook/recipe'),
                 strip_tags($model->title)
             );
@@ -349,10 +332,10 @@ class RecipeController extends HController
         $this->pageTitle = $recipe->title . ' - Кулинарные рецепты от Веселого Жирафа';
 
         $this->breadcrumbs = array(
-            $this->club->section->title => $this->club->section->getUrl(),
+            //$this->club->section->title => $this->club->section->getUrl(),
             $this->club->title => $this->club->getUrl(),
             ($this->section == 0 ? 'Рецепты' : 'Для мультиварки') => array('/cook/recipe/index', 'section' => $this->section),
-            $recipe->typeString => array('/cook/recipe/index', 'type' => $recipe->type, 'section' => $this->section),
+            //$recipe->typeString => array('/cook/recipe/index', 'type' => $recipe->type, 'section' => $this->section),
             $recipe->title,
         );
 

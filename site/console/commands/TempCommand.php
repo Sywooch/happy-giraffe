@@ -271,7 +271,7 @@ class TempCommand extends CConsoleCommand
         }
     }
 
-    public function actionModerStats()
+    public function actionModerStats($dateFrom, $dateTo)
     {
         $moders = array(
             15426,
@@ -280,8 +280,6 @@ class TempCommand extends CConsoleCommand
             175718,
         );
         sort($moders);
-        $dateFrom = '2014-10-21';
-        $dateTo = '2014-11-11';
 
         $commentsCounts = Yii::app()->db->createCommand()
             ->select('author_id, DATE(created) AS d, COUNT(*) AS c')
@@ -695,6 +693,22 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         $iterator = new CDataProviderIterator($dp, 100);
         foreach ($iterator as $post) {
             $post->addTaskToConvert();
+        }
+    }
+
+    public function actionFixAnounces()
+    {
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'type_id = 1 AND created > "2015-01-26 00:00:00"',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 100);
+        $total = $dp->totalItemCount;
+        foreach ($iterator as $i => $post) {
+            $post->content->save();
+            $post->convertToNewPost();
+            echo $i . '/' . $total;
         }
     }
 }

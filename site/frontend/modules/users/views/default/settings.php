@@ -1,6 +1,10 @@
 <?php
-    $cs = Yii::app()->clientScript;
-    $cs->registerAMD('user-settings', array('kow'));
+/**
+ * @var site\frontend\modules\users\controllers\DefaultController $this
+ */
+$this->pageTitle = 'Мои настройки';
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('user-settings', array('kow'));
 ?>
 <div class="b-main_cont b-main_cont__broad">
     <div class="b-main_col-hold clearfix">

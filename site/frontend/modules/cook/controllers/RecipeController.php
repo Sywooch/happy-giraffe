@@ -78,7 +78,7 @@ class RecipeController extends LiteController
             );
 
         $this->breadcrumbs = array(
-            $this->club->section->title => $this->club->section->getUrl(),
+            //$this->club->section->title => $this->club->section->getUrl(),
             $this->club->title => $this->club->getUrl(),
         );
         if ($type != 0) {
@@ -120,7 +120,7 @@ class RecipeController extends LiteController
 
         if (empty($type))
             $this->breadcrumbs = array(
-                'Кулинария' => array('/cook'),
+                //'Кулинария' => array('/cook'),
                 'Кулинарные рецепты' => array('/cook/recipe'),
                 strip_tags($model->title)
             );
@@ -332,10 +332,10 @@ class RecipeController extends LiteController
         $this->pageTitle = $recipe->title . ' - Кулинарные рецепты от Веселого Жирафа';
 
         $this->breadcrumbs = array(
-            $this->club->section->title => $this->club->section->getUrl(),
+            //$this->club->section->title => $this->club->section->getUrl(),
             $this->club->title => $this->club->getUrl(),
             ($this->section == 0 ? 'Рецепты' : 'Для мультиварки') => array('/cook/recipe/index', 'section' => $this->section),
-            $recipe->typeString => array('/cook/recipe/index', 'type' => $recipe->type, 'section' => $this->section),
+            //$recipe->typeString => array('/cook/recipe/index', 'type' => $recipe->type, 'section' => $this->section),
             $recipe->title,
         );
 

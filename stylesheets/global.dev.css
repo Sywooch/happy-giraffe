@@ -16283,10 +16283,10 @@ table.fr_recipe_tb td {
 }
 /* cover-contest */
 .cover-contest {
-  margin: 283px 0 209px;
+  margin: 283px 0 -50px;
 }
 .body-guest .cover-contest {
-  margin-top: 235px;
+  margin-top: 180px;
 }
 .cover-contest__pets1 {
   background: #4e4064 url(/images/contest/club/pets1/cover-contest__pets1.jpg) no-repeat 50% 0;
@@ -21021,16 +21021,16 @@ body.gallery {
   top: 0;
   right: 0;
   left: 0;
-  padding: 13px 20px 20px;
+  padding: 13px 20px 30px;
   text-align: center;
   margin: 0;
   font: 12px/16px Tahoma, Arial, Verdana, sans-serif;
   color: #fff;
   /*background-color: rgba(0, 0, 0, 0.3);*/
   z-index: 100;
-  background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 100%);
+  background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 100%);
   /* W3C */
 }
 .photo-window_count {

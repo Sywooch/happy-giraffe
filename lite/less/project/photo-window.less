@@ -203,6 +203,9 @@ body.gallery {overflow:hidden;}
 		resize:none;
 		line-height: 16px;
 	}
+    &_cont-t {
+        margin-bottom: 10px;
+    }
 	&_t {
 		margin: 5px 0;
 		font: bold 30px/30px Arial, Tahoma, Verdana, sans-serif;
@@ -250,15 +253,15 @@ body.gallery {overflow:hidden;}
 		top: 0;
 		right: 0;
 		left: 0;
-        padding: 13px 20px 20px;
+        padding: 13px 20px 30px;
 		text-align: center;
 		margin: 0;
         font: @fontnormal;
 		color: #fff;
         /*background-color: rgba(0, 0, 0, 0.3);*/
 		z-index: 100;
-        background: -ms-linear-gradient(top,  rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-        background: linear-gradient(to bottom,  rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 100%); /* W3C */
+        background: -ms-linear-gradient(top,  rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 100%); /* W3C */
 	}
 
     &_count {
@@ -309,7 +312,7 @@ body.gallery {overflow:hidden;}
 		top: 50%;
 		margin-top: -37px;
 		left: 20px;
-		opacity: 1;
+		.opacity(0.8);
 		/*width: 59px;
 		height: 160px;
 		margin-top: -80px;*/
@@ -332,7 +335,7 @@ body.gallery {overflow:hidden;}
 		right: 20px;
 		/*background-position: -59px 0;*/
 	}
-	.post-arrow .i-photo-arrow {opacity: 1;}
+	.i-photo-arrow:hover {opacity: 1;}
 	/*&_arrow__r:hover {background-position: -59px -160px;}*/
 
 	/*

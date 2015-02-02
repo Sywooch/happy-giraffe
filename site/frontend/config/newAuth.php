@@ -324,11 +324,12 @@ return array(
         'bizRule' => null,
         'data' => null,
     ),
-<<<<<<< HEAD
     'editSettings' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Редактирование настроек',
-=======
+        'bizRule' => null,
+        'data' => null,
+    ),
     'setAvatar' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Изменение аватары',
@@ -338,7 +339,6 @@ return array(
     'removeAvatar' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Изменение аватары',
->>>>>>> develop
         'bizRule' => null,
         'data' => null,
     ),

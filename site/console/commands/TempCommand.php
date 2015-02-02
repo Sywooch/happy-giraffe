@@ -695,5 +695,21 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             $post->addTaskToConvert();
         }
     }
+
+    public function actionFixAnounces()
+    {
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'type_id = 1 AND created > "2015-01-26 00:00:00"',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 100);
+        $total = $dp->totalItemCount;
+        foreach ($iterator as $i => $post) {
+            $post->content->save();
+            $post->convertToNewPost();
+            echo $i . '/' . $total;
+        }
+    }
 }
 

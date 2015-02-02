@@ -13,11 +13,12 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
         <!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
         <div class="photo-window_c">
             <div class="photo-window_img-hold" data-bind="click: nextHandler">
-                <img alt="" class="photo-window_img" data-bind="attr: { src : currentPhoto().src }">
-                <div class="verticalalign-m-help"></div>
+                <div class="verticalalign-m-el-hold">
+                    <img alt="" class="photo-window_img" data-bind="attr: { src : currentPhoto().src }">
+                </div>
             </div>
-            <a class="photo-window_arrow photo-window_arrow__l" data-bind="click: prevHandler"></a>
-            <a class="photo-window_arrow photo-window_arrow__r" data-bind="click: nextHandler"></a>
+            <a href='#' class="i-photo-arrow i-photo-arrow__l" data-bind="click: prevHandler"></a>
+            <a href='#' class="i-photo-arrow i-photo-arrow__r" data-bind="click: nextHandler"></a>
 
             <div class="like-control clearfix">
                 <!-- ko with: currentPhoto() -->

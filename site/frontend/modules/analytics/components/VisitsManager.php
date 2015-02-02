@@ -18,7 +18,8 @@ class VisitsManager
 
     public function inc()
     {
-        $lastRun = 0;// \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
+        $startTime = time();
+        $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
         $response = \Yii::app()->getModule('analytics')->piwik->makeRequest('Live.getLastVisitsDetails', array(
             'minTimestamp' => $lastRun,
         ));
@@ -26,7 +27,7 @@ class VisitsManager
         foreach ($urls as $url) {
             \Yii::app()->gearman->client()->doBackground('processUrl', $url);
         }
-        //\Yii::app()->setGlobalState(self::INC_LAST_RUN, time());
+        \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);
     }
 
     public function processUrl($url)

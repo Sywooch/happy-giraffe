@@ -91,7 +91,7 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             value: ko.observable(null)
         },
         createStdProperty: function createStdProperty(value, name) {
-            var stdProperty = Object.create({ editing: ko.observable((value !== null && value !== 'null-null-null' && $.isPlainObject(value) === false) ? false : true), value: ko.observable(value), name: name, errors: ko.observableArray([]) });
+            var stdProperty = Object.create({ editing: ko.observable((value !== null && value !== 'null-null-null' && ($.isEmptyObject(value) === false || $.isPlainObject(value) === false)) ? false : true), value: ko.observable(value), name: name, errors: ko.observableArray([]) });
             return stdProperty;
         }
     };

@@ -41,7 +41,9 @@ class ListController extends \LiteController
 
     public function getListDataProvider($authorId)
     {
-        return new \CActiveDataProvider(Content::model()->byService('oldBlog')->byAuthor($authorId)->orderDesc(), array(
+        $criteria = Content::model()->byService('oldBlog')->byAuthor($authorId)->orderDesc()->getDbCriteria();
+        return new \CActiveDataProvider('\site\frontend\modules\posts\models\Content', array(
+            'criteria' => clone $criteria,
             'pagination' => array(
                 'pageSize' => 10,
                 'pageVar' => 'BlogContent_page',

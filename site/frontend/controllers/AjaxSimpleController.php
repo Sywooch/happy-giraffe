@@ -209,8 +209,10 @@ class AjaxSimpleController extends CController
 
     public function actionUploadPhoto()
     {
-        foreach ($_FILES as $file)
+        foreach ($_FILES as $file) {
             $model = AlbumPhoto::model()->createUserTempPhoto($file);
+            \site\frontend\modules\photo\components\MigrateManager::movePhoto($model);
+        }
 
         echo CJSON::encode(array(
             'status' => 200,

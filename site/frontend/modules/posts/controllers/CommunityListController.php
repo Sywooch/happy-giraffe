@@ -24,6 +24,10 @@ class CommunityListController extends ListController
             $id = \Yii::app()->request->getParam('forum_id');
             $this->_forum = \Community::model()->with(array('club', 'club.section'))->findByPk($id);
             $this->_club = $this->_forum->club;
+            if(is_null($this->_club)) {
+                // Так случилось, что в некоторых форумах нету клубов, и это не про текущие посты.
+                throw new \CHttpException(404);
+            }
         }
 
         return $this->_club;

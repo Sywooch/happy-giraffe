@@ -125,8 +125,8 @@ return array(
         'blog/form/type<type:\d+>' => 'blog/default/form',
         'blog/settings/<_a>' => 'blog/settings/<_a>',
 
-        'user/settings/' => 'profile/settings/personal',
-        'user/settings/<_a>' => 'profile/settings/<_a>',
+        'user/settings' => 'users/default/settings',
+        'users/default/addSocialService' => 'users/default/addSocialService',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',
         'user/blog/photopost/create' => 'posts/form/photopost',
@@ -187,15 +187,19 @@ return array(
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
 
         // пагинация в клубах
-        'communityRubricListNew' => array(
-            'class' => 'UrlRule',
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
-            'route' => 'posts/communityList/index',
+            'trueRoute' => 'posts/communityList/index',
+            'falseRoute' => 'community/default/forum',
         ),
-        'communityListNew' => array(
-            'class' => 'UrlRule',
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<forum_id:\d+>/forum/',
-            'route' => 'posts/communityList/index',
+            'trueRoute' => 'posts/communityList/index',
+            'falseRoute' => 'community/default/forum',
         ),
 
         // posts
@@ -244,7 +248,7 @@ return array(
             'trueRoute' => 'posts/communityList/index',
             'falseRoute' => 'community/default/forum',
         ),
-        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index', //'community/default/forum',
+        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
 
         //'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         array(

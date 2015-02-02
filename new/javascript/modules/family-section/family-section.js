@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!family-section/family-section.html', 'models/Model', 'models/Family', 'models/FamilyMember'], function FamilyUserViewModelHandler($, ko, template, Model, Family, FamilyMember) {
+define(['jquery', 'knockout', 'text!family-section/family-section.html', 'models/User', 'models/Family', 'models/FamilyMember'], function FamilyUserViewModelHandler($, ko, template, User, Family, FamilyMember) {
     function FamilySection(params) {
         this.family = Object.create(Family);
         this.family.userId = params.userId;
@@ -6,7 +6,7 @@ define(['jquery', 'knockout', 'text!family-section/family-section.html', 'models
         this.loadingFamily = ko.observable(true);
         this.editUrl = '/user/' + this.family.userId + '/family/edit/';
         this.familyUrl = '/user/' + this.family.userId + '/family/';
-        this.rightsForManipulation = Model.checkRights(params.userId);
+        this.rightsForManipulation = User.checkRights(params.userId);
         this.familyHandler = function familyHandler(familyData) {
             if (familyData.success === true) {
                 if (familyData.data !== undefined) {

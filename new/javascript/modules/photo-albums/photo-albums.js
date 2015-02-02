@@ -4,7 +4,7 @@ define(['jquery', 'knockout', 'text!photo-albums/photo-albums.html', 'photo/Phot
         this.photoAlbums = ko.observableArray();
         this.emptyPhotoAlbums = ko.observableArray();
         this.loading = ko.observable(true);
-        this.rightsForManipulation = Model.checkRights(params.userId);
+        this.rightsForManipulation = User.checkRights(params.userId);
         this.userId = params.userId;
         this.newPhotoAlbumUrl = '/user/' + User.userId + '/albums/create/';
         /**

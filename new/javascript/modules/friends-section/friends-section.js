@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!friends-section/friends-section.html', 'models/Model', 'models/Friend', 'ko_library'], function FriendsSectionHandler ($, ko, template, Model, Friend) {
+define(['jquery', 'knockout', 'text!friends-section/friends-section.html', 'models/User', 'models/Friend', 'ko_library'], function FriendsSectionHandler ($, ko, template, User, Friend) {
     function FriendsSection(params) {
         this.userId = params.userId;
         this.userLimit = 12;
@@ -6,7 +6,7 @@ define(['jquery', 'knockout', 'text!friends-section/friends-section.html', 'mode
         this.friends = ko.observableArray();
         this.friendsUrl = '/user/' +  this.userId + '/friends/';
         this.loaded = ko.observable(false);
-        this.rightsForManipulation = Model.checkRights(this.userId);
+        this.rightsForManipulation = User.checkRights(this.userId);
         this.getFriends = function getFriends() {
             return this.friend.getFriendsUsers(this.userId, this.userLimit, 40);
         };

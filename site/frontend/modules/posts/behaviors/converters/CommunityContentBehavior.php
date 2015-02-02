@@ -215,8 +215,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
                         ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
 
         $newPost->text = $oldPost->photoPost->text;
-        $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopost', array('tag' => $photoAlbumTag, 'text' => $oldPost->photoPost->text));
-        $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopostPreview', array('tag' => $photoAlbumTag, 'text' => \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text))), 200, ' <span class="ico-more"></span>')));
+        $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopost', array('tag' => $photoAlbumTag, 'text' => nl2br($oldPost->photoPost->text)));
+        $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopostPreview', array('tag' => $photoAlbumTag, 'text' => str_replace("\n", "\n ", \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text))), 200, ' <span class="ico-more"></span>'))));
         $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
         $newPost->isNoindex = false;
 

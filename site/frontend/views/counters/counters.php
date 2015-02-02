@@ -14,7 +14,7 @@
 <?php $this->endWidget(); ?>
 <?php $this->beginWidget('AdsWidget', array(
     'dummyTag' => 'piwik',
-    'show' => true,
+    'show' => Yii::app()->ads->isProduction(),
     'lazyAdsOn' => false,
 )); ?>
 <?=Yii::app()->getModule('analytics')->piwik->getTrackingCode()?>

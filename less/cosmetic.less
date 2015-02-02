@@ -134,17 +134,28 @@
 .verticalalign-base {vertical-align: baseline;}
 .verticalalign-b {vertical-align: bottom !important;}
 
+// Ставить перед элементом, что выравнивается по центру
 .verticalalign-m-help {
-	.inline-block();
-	vertical-align: middle;
-	width: 1px;
-	margin: 0 -1px 0 0;
-	height: 100%;
+    .inline-block();
+    vertical-align: middle;
+    width: 0;
+    margin-right: -0.25em;
+    height: 100%;
+    font-size: 0;
 }
 .verticalalign-m-el {
     .inline-block();
     vertical-align: middle;
 }
+.verticalalign-m-el-hold:before { /// вертикальное выравниевание 
+    content: " ";
+    display: inline-block;
+    min-height: inherit;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+}
+
 
 .color-carrot {color: #fe5333 !important;}
 .color-gray {color: #B1B1B1 !important;border-color: #B1B1B1;}

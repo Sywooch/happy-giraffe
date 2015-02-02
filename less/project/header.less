@@ -251,8 +251,8 @@
         
         .header-menu_li__dropin.active .header-menu_ico,
         .header-menu_li__dropin:hover .header-menu_ico {top: 0;}
-        .header-menu_li__dropin.active .header-menu_tx,
-        .header-menu_li__dropin:hover .header-menu_tx {color: #acacac;}
+        /*.header-menu_li__dropin.active .header-menu_tx,
+        .header-menu_li__dropin:hover .header-menu_tx {color: #acacac;}*/
     }
     
     &__guest .logo {
@@ -371,11 +371,11 @@
     &_a:hover &_ico__logout      {background-position: -650px -50px;}
     &_a:hover,
     &_li.active &_a {
-        background: url(/new/images/header-menu_a.png) no-repeat 4px 0;
+        /*background: url(/new/images/header-menu_a.png) no-repeat 4px 0;*/
     }
     &_a:hover &_tx,
     &_li.active &_tx {
-        color: #808080;
+        color: @color-orange;
 		text-decoration: none;
     }
     &_li__dropin {
@@ -383,7 +383,13 @@
         margin-right: 0;
     }
     &_li__dropin.active .header-drop {display: block;}
-
+    &_li__dropin.active &_ico {top: 0;}
+    &_li__dropin.active &_tx {
+        color: @color-gray;
+    }
+    &_li__dropin.active &_a:hover &_tx,
+    &_li__dropin.active .active &_tx {color: @color-orange;}
+    
     // kinder реклама
     /*&_li__kinderino,
     &_li__kindergold {
@@ -415,10 +421,10 @@
         text-decoration: none;
         text-align: center;
     }
-    &_a:hover &_tx {
+    /*&_a:hover &_tx {
         text-decoration: none;
         color: #808080;
-    }
+    }*/
     &_a:hover &_ico__dropin {background-position: -50px -600px;}
     &_ico {
         position: relative;

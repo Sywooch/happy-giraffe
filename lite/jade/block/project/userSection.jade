@@ -22,11 +22,11 @@ mixin userSection(mod, vars)
                         //
                             виды кнопок друзья 
                             У каждого разный title
-                            userSection_btn__friend title = Приглашение отправлено  - 
+                            userSection_btn__friend title = Приглашение отправлено
                             userSection_btn__friend-add title = Добавить в друзья
                             userSection_btn__friend-added title = Друг
                             userSection_btn__friend-append title = Хочет дружить  
-                        a.userSection_btn.userSection_btn__friend-add.powertip(href='', title='Добавить в друзья')
+                        a.userSection_btn.userSection_btn__friend-append.powertip(href='', title='Хочет дружить')
                             span.userSection_ico
                         a.userSection_btn.userSection_btn__dialog.powertip(href='', title='Написать сообщение')
                             span.userSection_ico
@@ -41,9 +41,9 @@ mixin userSection(mod, vars)
                     span.b-ava-large_online На сайте
                     .b-ava-large_ava-hold
                         if(vars.ava)
-                            +ava("ava__large ava__male", ava.c)
+                            +ava("ava__large ava__male ava__base-xs", ava.c)
                         else
-                            +ava("ava__large ava__female", ava.empty)
+                            +ava("ava__large ava__female ava__base-xs", ava.empty)
                     //-span.b-ava-large_online На сайте
                     if(vars.user)
                         a.i-ava-bubble.i-ava-bubble__photo.powertip(href='#', title='Изменить фото')
@@ -68,6 +68,7 @@ mixin userSection(mod, vars)
                 li.userSection_panel-li
                     a.userSection_panel-a(href="") Фото
     // /userSection
+
 
 - userSection = {}
 

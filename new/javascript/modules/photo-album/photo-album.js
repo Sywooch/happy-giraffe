@@ -31,6 +31,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
                     PresetManager.presets = this.photoAlbum.photoCollection().presets;
                 }
                 for (var i=0; i < val.length; i++) {
+                    this.photoAlbum.photoCollection().attachesCount(i+1);
                     if(val[i].photo().presetHeight() === undefined || val[i].photo().presetWidth() === undefined) {
                         if (this.photoAlbum.photoCollection().cover() === undefined && i === 0) {
                             this.photoAlbum.photoCollection().cover(val[i]);

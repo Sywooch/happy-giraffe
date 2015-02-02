@@ -1,3 +1,9 @@
+/* Родительский тег для всех фотоальбомов */
+photo-albums {
+    display: block;
+    margin: 0 auto;
+    max-width: 880px; // Устаревающая ширина базового layout 
+}
 /* 
     .b-album
         a.b-album_img-hold
@@ -17,7 +23,7 @@
 */
 .b-album {
     position: relative;
-    margin: 25px 0 30px;
+    margin: 30px 0 30px;
     
     /*&__photopost {margin: 15px 0;}
     &__photopost &_count-hold__in {
@@ -115,11 +121,12 @@
         left: 0;
         right: 0;
         z-index: 5;
-        background: #290b45;
-        background: rgba(41,11,69,.35);
+        /*background: #290b45;
+        background: rgba(41,11,69,.35);*/
         cursor: pointer;
     }
     &_overlay {
+        display: none;
         position: absolute;
         bottom: 0;
         left: 0;
@@ -221,12 +228,12 @@
         right: 10px;
     }
     &_count {
-        font-size: 23px;
-        line-height: 18px;
+        font-size: 25px;
+        line-height: 22px;
     }
     &_count-tx {
-        font-size: 14px;
-        line-height: 14px;
+        font-size: 16px;
+        line-height: 16px;
     }
 
 
@@ -238,6 +245,7 @@
         /*&_img-allheight {
             height: 320px;
         }*/
+        &_overlay {display: block;}
         &_top {
             margin-bottom: 10px;
         }
@@ -496,7 +504,6 @@
         text-decoration: none;
     }
     &_t:hover {
-        text-decoration: underline;
         color: @color-gray-dark;
     }
     &_desc {

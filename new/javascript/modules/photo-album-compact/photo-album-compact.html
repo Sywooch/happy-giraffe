@@ -3,17 +3,12 @@
         <div class="b-album_top">
             <div class="tx-date">Обновлен <span data-bind="moment: photoAlbum.photoCollection().updated()"></span></div>
             <h2 class="b-album_title"><a href="#" class="b-album_title-a heading-link-xl" data-bind="href: photoAlbum.url, text: photoAlbum.title()"></a></h2>
-            <a href="#" class="b-album_desc" data-bind="href: photoAlbum.url, text: photoAlbum.description()"></a>
+            <a href="#" class="b-album_desc" data-bind="href: photoAlbum.url, html: photoAlbum.description()"></a>
             <div class="b-album_count-hold">
-                <div class="b-album_count" data-bind="text: photoAlbum.photoCount()">240</div>
+                <div class="b-album_count" data-bind="text: photoAlbum.photoCount()"></div>
                 <div class="b-album_count-tx">фото</div>
             </div>
         </div>
-        <!-- 
-        В адаптивности высота на блоке не нужна
-        Задание высоты
-        , attr: { 'style': 'height: ' + photoAlbum.photoCollection().cover().photo().presetHeight() + 'px;' } 
-        -->
         <div href="#" class="b-album_img-hold" data-bind="click: function () { openPhotoHandler(photoAlbum.photoCollection().cover()); }">
             <div class="b-album_img-a">
                 <!-- <div class="verticalalign-m-help"></div>
@@ -47,6 +42,11 @@
                         </a>
                     </li>
                     <!-- /ko -->
+                    <!-- ko if: rightsForManipulation === true -->
+                    <li class="b-album_prev-li">
+                        <a href="" class="album-photo-add" data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id() }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent"></a>
+                    </li>
+                    <!-- /ko -->
                 <!-- /ko -->
             </ul>
         </div>
@@ -73,7 +73,7 @@
             <a href="" data-bind="href: photoAlbum.url, text: photoAlbum.title()" class="album-empty_t"></a>
             <a href="" data-bind="href: photoAlbum.url, text: photoAlbum.description()" class="album-empty_desc"></a>
         </div>
-        <a href="" data-bind="href: photoAlbum.url" class="album-photo-add"></a>
+        <a href="" class="album-photo-add"  data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id() }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent"></a>
         <a href="" data-bind="href: photoAlbum.url, click: remove" class="album-empty_del"></a>
         <div class="album-empty_count">0</div>
         <!-- ko if: removed() === true -->

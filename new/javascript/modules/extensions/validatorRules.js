@@ -5,7 +5,7 @@ define(['knockout', 'extensions/knockout.validation'], function (ko) {
         insertMessages: false
     });
     ko.validation.rules.mustFill = {
-        validator: function (val, bool) {
+        validator: function mustFillHandler(val, bool) {
             if (val !== undefined && val !== null) {
                 if (bool && val.trim() !== '') {
                     return true;
@@ -16,7 +16,7 @@ define(['knockout', 'extensions/knockout.validation'], function (ko) {
         message: 'Это обязательное поле'
     };
     ko.validation.rules.dateMustFill = {
-        validator: function (val, bool) {
+        validator: function dateMustFillHandler(val, bool) {
             if (val !== undefined && val !== null) {
                 if (bool) {
                     return true;

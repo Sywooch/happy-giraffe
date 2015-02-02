@@ -7,6 +7,7 @@
     font-weight: bold;
     color: @color-base;
 }
+.heading-title, // old
 .heading-xl {
     margin: 15px 0; // Можно изменить на необходимый
     font-size: 25px;
@@ -269,6 +270,44 @@ a.heading-link-xxl:hover {
 .i-club {
     display: inline-block;
     text-align: center;
+    /*<<<<<<< HEAD
+        line-height: 1;
+        padding: 15px;
+        border: 2px solid #fff;
+        background-color: #fff;
+        .border-radius(50%);
+        text-align: center;
+        
+        &__collection-1 {
+            border-color: #FAF6FF;
+            background-color: #FAF6FF;
+        }
+        &__collection-1 {
+            border-color: #FAF6FF;
+            background-color: #FAF6FF;
+        }
+        &__collection-3 {
+            border-color: #FFFBF8;
+            background-color: #FFFBF8;
+        }
+        &__collection-4 {
+            border-color: #FFFBF8;
+            background-color: #FFFBF8;
+        }
+        &__collection-5 {
+            border-color: #FFFBF8;
+            background-color: #FFFBF8;
+        }
+
+        &__section {
+            background-color: #fff;
+            border-color: #fff;
+        }
+        
+        &:hover .ico-club {.scale(1.2)}
+        .ico-club {display: block;}
+    }
+    =======*/
 
     &:hover .ico-club {.scale(1.2);}
     &__section {
@@ -408,11 +447,11 @@ a.heading-link-xxl:hover {
     }
     &_in {
         position: absolute;
-        top: 25px;
-        left: -315px;
-        height: 105px;
-        width: 315px;
-        padding: 10px;
+        top: 32px;
+        left: -270px;
+        height: 100px;
+        width: 270px;
+        padding: 15px 10px;
         background-color: #fff;
         text-align: center;
         .box-shadow(0 0 9px rgba(0,0,0,0.2));
@@ -422,10 +461,20 @@ a.heading-link-xxl:hover {
     &_img-hold {
         display: inline-block;
         vertical-align: middle;
-        height: 85px;
-        max-width: 120px;
+        height: 70px;
+        width: 70px;
         margin-right: 7px;
         text-align: center;
+
+        .userAddRecord {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0;
+            padding: 0;
+        }
+        .userAddRecord_ico {
+            margin: 0;
+        }
     }
     &_img {
         max-height: 100%;
@@ -460,16 +509,11 @@ a.heading-link-xxl:hover {
     }
     &__r &_in {
         left: auto;
-        right: -315px;
+        right: -270px;
     }
-    &__r .i-photo-arrow {
+    /*&__r .i-photo-arrow {
         &:extend(.i-photo-arrow__r all);
-    }
-
-    @media (min-width: @screen-desktop) {
-        & {
-        }
-    }
+    }*/
 
     @media screen and (min-width: 1230px) {
         & {
@@ -487,6 +531,7 @@ a.heading-link-xxl:hover {
     height: 74px;
     background: url('@{path-img}/i/i-photo-arrow.png') no-repeat -350px 0;
     z-index: 7;
+    .opacity(.8);
     .transition(opacity 0.3s ease);
 
     &:hover    {background-position: -350px -170px;}

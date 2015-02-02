@@ -2,6 +2,24 @@
 // Стили для yandex поиска
 // Независимы от всего остального кода
 
+// color
+@color-base: #333;
+@color-gray-darken: #555;
+@color-gray-dark: #666;
+@color-gray: #999;
+@color-gray-light: #ccc;
+@color-white: #fff;
+
+@color-link: #289fd7;
+@color-link-title: #196eb9;
+@color-link-light: #289fd7;
+@color-link-hover: #ff6900;
+
+@color-carrot: #fe5333;
+@color-orange: #ff6900;
+@color-green: #27ae60;
+@color-brown: #d1a770;
+
 //== Media queries breakpoints
 //
 //## Define the breakpoints at which your layout will change, adapting to different screen sizes.
@@ -171,6 +189,7 @@
 
 // Список выдачи
 #ya-site-results {
+    margin-top: 5px;
     color: #333;
 }
 .b-body-items {
@@ -203,16 +222,16 @@
 
 #ya-site-results .b-serp-item__title-link:link, 
 #ya-site-results .b-serp-item__title-link {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
     color: #196eb9;
-    text-decoration: underline;
+    text-decoration: none;
 }
 #ya-site-results .b-serp-item__title-link:link:hover, 
 #ya-site-results .b-serp-item__title-link:visited:hover, 
 #ya-site-results .b-pseudo-link:hover {
-    color: #90c3ef !important;
-    text-decoration: underline;
+    color: @color-orange !important;
+    text-decoration: none;
 }
 #ya-site-results .b-serp-list :visited,  
 #ya-site-results .b-serp-list .b-copyright__link:visited {

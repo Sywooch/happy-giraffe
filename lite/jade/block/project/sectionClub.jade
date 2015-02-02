@@ -1,0 +1,42 @@
+//- sectionClub
+    Блок анкеты пользователя
+    mod     
+    vars 
+        
+mixin sectionClub(mod, vars)
+    // userSection
+    section.b-section(class=mod)
+
+        .b-section_hold.b-main_cont
+            .b-main_col-hold.clearfix
+                .b-section_sidebar
+                    a.i-club.i-club__section(href='#') 
+                        .ico-club.ico-club__7
+                    //-.club-list.club-list__l.clearfix
+                        ul.club-list_ul.textalign-c.clearfix
+                            li.club-list_li
+                                a.club-list_i(href='#')
+                                    span.club-list_img-hold
+                                        img.club-list_img(src='/images/club/7-w130.png', alt='Кулинария')
+                .b-section_article
+                    h1.b-section_t
+                        a(href='#') Готовим на кухне
+                    .clearfix
+                        ul.b-section_ul.clearfix
+                            li.b-section_li
+                                span.b-section_li-a.active Рецепты
+                            li.b-section_li
+                                a.b-section_li-a(href='#') Для детей
+                            li.b-section_li
+                                a.b-section_li-a(href='#') Для мультиварки
+                            li.b-section_li
+                                a.b-section_li-a(href='#') Форум
+                            li.b-section_li
+                                a.b-section_li-a(href='#') Сервисы
+    // /userSection
+
+- sectionClub = {}
+
+- sectionClub.a = {}
+
+- sectionClub.cook = {}

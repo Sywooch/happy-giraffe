@@ -2,7 +2,7 @@
 /* b-article */
 .b-article {
     position: relative;
-    margin: 20px 0;
+    margin: 20px 0 20px;
     
     .heading-link-xl {margin-top: 0;}
     .custom-likes-b {margin: 0 0 30px;}
@@ -15,7 +15,7 @@
         margin: 0 -14px;
     }
     .b-album {
-        margin: 0 0 15px;
+        margin: 0 0 10px;
     }
     .b-album_top {
         position: absolute;
@@ -23,7 +23,7 @@
         left: 0;
         right: 0;
         z-index: 12;
-        padding: 15px 15px;
+        padding: 10px;
         color: @color-white;
         background: -ms-linear-gradient(top,  rgba(0,0,0,.6) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
         background: linear-gradient(to bottom,  rgba(0,0,0,.6) 0%,rgba(0,0,0,0) 100%); /* W3C */
@@ -40,9 +40,9 @@
         &:extend(.ico-more-hover);
         cursor: pointer;
     }*/
-    &__list &_in-img {
+    /*&__list &_in-img {
         text-align: center;
-    }
+    }*/
     /*&__list .wysiwyg-content p:hover {
         color: @color-gray;
         cursor: pointer;
@@ -55,7 +55,9 @@
     }
     &_in-img {
         position: relative;
-        margin: 8px 0;
+        margin: 0 0 8px;
+        text-align: center;
+        background-color: #f9f9f9;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
@@ -102,6 +104,16 @@
         margin: 20px 0 0;
     }
 
+    &_more {
+        display: inline-block;
+        margin: 0 15px 15px 0;
+        padding: 0 20px 0 0;
+        background: url(/images/i-more.png) no-repeat 100% 10px;
+        color: #378BCB;
+        font: 20px/22px Tahoma,Arial,Verdana,sans-serif;
+        text-decoration: none;
+    }
+
     @media (min-width: @screen-phone) {
         
         &_header .tx-date {
@@ -112,21 +124,22 @@
 
     @media (min-width: @screen-tablet) {
         .wysiwyg-content {
-            margin: 0 0 10px; 
+            margin: 0; 
         }
-        .b-album {margin: 0;}
-        // Компенсация отступа текста
+        .b-album_top {
+            padding: 15px;
+        }
         &_in-img { 
             margin: 5px 0 15px 0;
         }
         &_t-list {
-            margin: 20px 0;
+            margin: 20px 0 15px;
         }
     }
 
     @media (min-width: @screen-desktop) {
         & {
-            margin: 20px 0 20px;
+            margin: 20px 0 30px;
             padding: 15px 0 0;
         }
         & .adv-yandex {
@@ -138,7 +151,7 @@
         }
         &__list:hover {border-color: #e4e4e4;}
         &__list &_in-img {
-            margin: 5px -14px 10px -14px;
+            margin: 5px -14px 15px -14px;
         }
         &__user-status .user-status {
             padding-left: 20px;
@@ -219,7 +232,13 @@
         padding: 5px 0 5px 27px;
         background: url(/images/bullet.png) no-repeat 4px 10px;
     }
-    li .b-article_in-img {margin-left: -47px;}
+    .b-album_prev {margin: 0;}
+    .b-album_prev-li {
+        margin: 0 5px 0 0;
+        padding: 0;
+        background: none;
+    }
+    /*li .b-article_in-img {margin-left: -27px;}*/
     ol {
         margin: 15px 0;
         padding: 0;
@@ -592,7 +611,7 @@
 
 /* article-also */
 .article-also {
-    margin: 0 0 30px;
+    margin: 0;
     text-align: center;
 
     .like-control {

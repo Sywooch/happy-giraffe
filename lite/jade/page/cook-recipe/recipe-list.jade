@@ -1,0 +1,97 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'blog.css';
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') 
+                            .ico-club.ico-club__s.ico-club__7
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Рецепты
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Салаты
+
+            //-+userSection('visible-md-block')
+        +sectionClub('b-section__collection-3', sectionClub.cook)
+         
+        .b-main_cont                     
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+
+                    .cook-title-cat
+                        h1.cook-title-cat-h1
+                            span.cook-title-cat-h1-text Самые вкусные блюда
+                        p
+                            | «Самые вкусные блюда не могут быть собраны в одном месте!» - с сожалением думали раньше пользователи глобальной сети и отправлялись звонить знакомым, дабы узнать, что вкусненького они готовили в последнее время. Но это в прошлом: на нашем сайте чудесная подборка, где есть не только самые вкусные блюда, но и фото к ним. Черпайте кулинарное вдохновение!
+
+  
+                    +bArticleListItem('', bArticleListItem.a) 
+
+                    +bArticleListItem('', bArticleListItem.b) 
+
+                    //-+bArticleStatus('', bArticleStatus.list) 
+
+                    //-+bArticleListPhotopost('', bArticleListPhotopost.base)
+
+                    .giraffe-story
+                        .giraffe-story-frame
+                            .giraffe-story-holder.clearfix
+                                .giraffe-story-title
+                                    span Притча про самые вкусные блюда
+                                .giraffe-story-img
+                                    img(src='http://www.happy-giraffe.ru/images/giraffe-story-logo.png', alt='')
+                                .giraffe-story-text
+                                    p  
+                                    p
+                                        | Поспорили как-то три мудреца о том, какие блюда самые вкусные. Тогда еще не было айфонов и айподов, и вопрос о том, какой гаджет самый крутой, не возникал. Первый мудрец утверждал, что вкуснейшие блюда – это те, что желание их есть не пропадает даже тогда, когда в желудке не остается свободного места.
+                                    p  
+                                    p
+                                        | Второй мудрец выслушал первого, но не согласился с его точкой зрения. Он считал, что самые вкусные блюда  - это блюда, ингредиенты которых человек считает своими любимыми. Иными словами, если мужчина любит рыбу, то самыми лучшими для него будут блюда из рыбы, а не, к примеру, из говядины.
+                                    p  
+                                    p
+                                        | Третий мудрец, слушая первых двух, неодобрительно качал головой, и как только они замолчали, озвучил свою гипотезу. Он был уверен, что вкуснейшими блюдами можно назвать лишь те, которые популярны среди самого большого количества людей.
+                                    p  
+                                    p
+                                        | «Самые вкусные блюда – это те, которые готовит мама», - сказал чей-то детский голос. Мудрецы осмотрелись по сторонам и увидели мальчонку, который стал случайным свидетелем их спора.
+                                    p  
+                                    p
+                                        | «И правда», - подумали они и перестали спорить друг с другом. Кто же станет отрицать, что блюда самого дорогого на свете человека не самые вкусные?!
+                                    p  
+                                    p
+                                        | Читайте рецепты, которые уже есть на сайте и делитесь своими – теми, которые достались вам от мамы или мамы вашей мамы, они ведь самые вкусные.
+
+    
+                    +paginationSmall('yiipagination__center', paginationSmall.base)
+                    
+
+                // /Основная колонкa
+                
+
+                ///////
+                // Сайд бар
+                // Содержимое загружaть отложено
+                aside.b-main_col-sidebar.visible-md
+                    +sidebarRecipe('', sidebarRecipe.base)
+
+        +layout-footer-lite('layout-footer__in')
+
+        // Для отмены очистки классов uncss
+        // Класс для позиции текстового элемента
+        .display-n
+            .textalign-r
+            .b-article_more
+            .heading-title
+    

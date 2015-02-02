@@ -6,7 +6,8 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         this.SCREEN_STEP_SOCIAL = 'screenSocial';
         this.checkRegisterForm = function checkRegisterForm(RegisterForm) {
             if (typeof(RegisterForm) === 'object') {
-                RegisterForm.step(this.registerForm.SCREEN_STEP_SOCIAL);
+                console.log(RegisterForm);
+                RegisterForm.step(RegisterForm.SCREEN_STEP_SOCIAL);
                 return RegisterForm;
             }
             return new RegisterForm();
@@ -52,6 +53,7 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         };
 
         this.validateSocialHandler = function validateSocialHandler(response) {
+            this.registerForm.setFilled();
             if (response.data.errors.length === 0) {
                 this.register();
             }
@@ -59,6 +61,7 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
         };
 
         this.submitSocial = function submitSocial() {
+            console.log('submitted');
             this.registerForm.validate().done(this.validateSocialHandler.bind(this));
         };
 

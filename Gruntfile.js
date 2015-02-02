@@ -225,6 +225,8 @@ module.exports = function(grunt){
             /.tooltip+/,
             /.header_+/,
             /.header-+/,
+            /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
           ],
         },
@@ -281,6 +283,10 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.header-+/,
+            /.ava+/,
+            /.ico-club+/,
+            /.ico-family+/,
+            /.flag+/,
             /.fast-articles3+/,
             //.tooltip+/,
             
@@ -288,6 +294,9 @@ module.exports = function(grunt){
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.ico-club+/,
+            /.i-club+/,
+            /.b-section+/,
             /.userSection_btn+/,
           ],
         },
@@ -295,6 +304,7 @@ module.exports = function(grunt){
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/photo-window/**/*.html', 
+          'lite/html/page/cook-recipe/**/*.html', 
           'lite/html/page/sign/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого 
@@ -321,6 +331,10 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.header-+/,
+            /.ava+/,
+            /.ico-club+/,
+            /.ico-family+/,
+            /.flag+/,
             /.fast-articles3+/,
             //.tooltip+/,
             /.body+/,
@@ -332,16 +346,20 @@ module.exports = function(grunt){
             /.fancybox+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.ico-club+/,
+            /.i-club+/,
+            /.b-section+/,
             /.userSection_btn+/,
           ],
         },
         src: [
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
-          'lite/html/page/photo-window/**/*.html', 
-          '!lite/html/page/sign/**/*.html', 
+          'lite/html/page/photo-window/**/*.html',
+          'lite/html/page/cook-recipe/**/*.html', 
 
-          'lite/html/page/**/*-user.html', // стариницы зареганого 
+          '!lite/html/page/sign/**/*.html', 
+          //'lite/html/page/**/*-user.html', // стариницы зареганого 
           '!lite/html/page/comments/comments-page.html'
         ],
         dest: 'lite/css/min/blog-user.css'
@@ -362,12 +380,15 @@ module.exports = function(grunt){
             /.select2+/,
             /.header_+/,
             /.header-+/,
+            /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
+            /.b-section+/,
           ],
         },
         src: [
@@ -398,12 +419,14 @@ module.exports = function(grunt){
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
 
-
+            /.b-section+/,
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
             /.header_+/,
             /.header-+/,
+            /.ava+/,
+            /.ico-club+/,
             /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
@@ -435,22 +458,26 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header-banner+/,
             /.header_+/,
-
+            /.b-section+/,
+            /.ava+/,
+            /.ico-club+/,
             /.ico-family+/,
+            /.flag+/,
+
             /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
             
             // Для страниц собранных разделов
-            /.flag+/,
             /.bx-wrapper+/,
             /.ico-social-hold+/,
             /.userSection_btn+/,
           ],
         },
         src: [
+          'lite/html/page/blog/**/*.html', // статьи в ленте
           'lite/html/page/comments/**/*.html', 
-          'lite/html/page/sign/**/*.html', 
+          'lite/html/page/sign/**/*.html',
           'lite/html/page/member/**/*.html', 
           'lite/html/page/photo-window/**/*.html', 
 
@@ -480,19 +507,23 @@ module.exports = function(grunt){
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
             /.header_+/,
+            /.ava+/,
+            /.ico-club+/,
             /.ico-family+/,
+            /.b-section+/,
+            /.flag+/,
             
             /.fast-articles3+/,
             /.body+/,
             /.bnr+/,
             // Для страниц собранных разделов
-            /.flag+/,
             /.bx-wrapper+/,
             /.ico-social-hold+/,
             /.userSection_btn+/,
           ],
         },
         src: [
+          'lite/html/page/blog/**/*.html', // статьи в ленте
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/user/**/*.html', 
           'lite/html/page/member/**/*.html', 
@@ -520,6 +551,8 @@ module.exports = function(grunt){
             /@font-face+/,
             /.body+/,
             /.bnr+/,
+            /.ava+/,
+            /.ico-club+/,
             
             /.ico-social-hold+/,
           ],

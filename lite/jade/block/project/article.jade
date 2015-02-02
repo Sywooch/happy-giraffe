@@ -53,6 +53,7 @@ mixin bArticle-single(mod, vars)
                         .video-container
                             iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
                     p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    .b-album
 
             .b-article_like.clearfix
                 if (vars.btnEdit)
@@ -174,8 +175,9 @@ mixin bArticleListPhotopost(mod, vars)
                         span.icons-meta_tx 305
             .b-article_t-list
                 a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
-
-            +bAlbumPhotopost('', bAlbumPhotopost.a)
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    +bAlbumPhotopost('', bAlbumPhotopost.a)
 
             //-.b-article_in.clearfix
                 .wysiwyg-content.clearfix
@@ -314,6 +316,265 @@ mixin sidebarArticle(mod, vars)
 
 - sidebarArticle.base = {}
 
+
+mixin sidebarRecipe(mod, vars)
+    ///////
+    // Сайд бар
+    // Содержимое загружaть отложено
+    aside.b-main_col-sidebar.visible-md
+
+        a.btn.btn-primary.btn-xl.margin-t20(href='#') Добавить рецепт
+
+        .menu-simple
+            ul.menu-simple_ul
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Блюда из рыбы
+                    .menu-simple_count 158
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Все рецепты
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Первые блюда
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Вторые блюда 
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Салаты  
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Закуски и бутерброды 
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Сладкая выпечка 
+                    .menu-simple_count 7
+                li.menu-simple_li.active
+                    a.menu-simple_a(href='') Торты и пирожные 
+                    .menu-simple_count 79
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Несладкая выпечка 
+                    .menu-simple_count 123789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Торты и пирожные 
+                    .menu-simple_count 79
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Десерты 
+                    .menu-simple_count 9
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Напитки 
+                    .menu-simple_count 71189
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Соусы и кремы 
+                    .menu-simple_count 23434
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Консервация 
+                    .menu-simple_count 782239
+
+        .bnr-base
+            a(href='#') 
+                img(src="#{path}images/example/w300-h250-1.jpg", alt="")
+
+    // Сайд бар
+
+- var sidebarRecipe = {}
+
+- sidebarRecipe.base = {}
+
+
+mixin bArticleCook(mod, vars)
+    // Статья с текстом
+    // b-article
+    article.b-article.hrecipe.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                .icons-meta
+                    a.icons-meta_comment(href='#')
+                        span.icons-meta_tx 35
+                    .icons-meta_view
+                        span.icons-meta_tx 305
+            .b-article_t-list
+                a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
+
+
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                        //.wysiwyg-content.clearfix
+                        p
+                            | У меня есть уже один рецепт "Зебры".А этим рецептом поделилась со мной моя читательница...Я обещала попробовать сделать, и вот... я сделала! Эта "Зебра" у меня  получилась  воздушнее, мягче, рассыпчатей... По вкусу напомнила кекс... Остается мягкой и вкусной даже на следующий день!
+                        .b-article_in-img
+                            img.content-img(alt='Ночные гости - кто они фото 1', src='http://lorempixel.com/600/400/food/1', title='Ночные гости - кто они фото 1')
+                        // 
+                        .recipe-desc.clearfix
+                            .location.clearfix
+                                span.flag-big.flag-big-ua
+                                span.location_tx Украинская кухня
+                            .recipe-desc_holder
+                                .recipe-desc_i
+                                    .recipe-desc_ico.recipe-desc_ico__time-1.powertip(title='Время подготовки')
+                                    | 02 : 00
+                                .recipe-desc_i
+                                    .recipe-desc_ico.recipe-desc_ico__time-2.powertip(title='Время приготовления')
+                                    | 02 : 00
+                            .recipe-desc_i
+                                .recipe-desc_ico.recipe-desc_ico__yield.powertip(title='Количество порций')
+                                | на
+                                span.yeild 6 персон
+                        .clearfix
+                            .nutrition.float-r
+                                // Клик на ссылку меняет отображение nutrition_hold display:none; display:block;
+                                a.nutrition_t.a-pseudo(href='#') Калорийность блюда - 588 ккал
+                                .nutrition_hold.display-b
+                                    .nutrition_portion
+                                        a.nutrition_portion-a.active(href='#') На 100 г
+                                        a.nutrition_portion-a.disabled(href='#') На порцию
+                                    ul.nutrition_ul
+                                        li.nutrition_li
+                                            .nutrition_icon.nutrition_icon__calories
+                                                i К
+                                            .nutrition_tx
+                                                | Калории - 
+                                                span.calories 11589,2
+                                                span.nutrition_measure ккал.
+                                        li.nutrition_li
+                                            .nutrition_icon.nutrition_icon__protein
+                                                i Б
+                                            .nutrition_tx
+                                                | Белки - 
+                                                span.protein 18
+                                                span.nutrition_measure г.
+                                        li.nutrition_li
+                                            .nutrition_icon.nutrition_icon__fat
+                                                i Ж
+                                            .nutrition_tx
+                                                | Жиры - 
+                                                span.fat 10
+                                                span.nutrition_measure г.
+                                        li.nutrition_li
+                                            .nutrition_icon.nutrition_icon__carbohydrates
+                                                i У
+                                            .nutrition_tx
+                                                | Углеводы - 
+                                                span.carbohydrates 70
+                                                span.nutrition_measure г.
+                            h2.wysiwyg-content_t-sub Ингредиенты
+                            ul.ingredients
+                                li.ingredient
+                                    span.name Скумбрия 
+                                    | - 
+                                    span.amount
+                                        | 1 штука
+                                li.ingredient
+                                    span.name Лимон 
+                                    | - 
+                                    span.amount
+                                        | 1 штука 
+                                li.ingredient
+                                    span.name Лук репчатый 
+                                    | - 
+                                    span.amount
+                                        | 1 штука 
+                                li.ingredient
+                                    span.name Прованские травы 
+                                    | - 
+                                    span.amount
+                                        | 25 граммов 
+                        h2.wysiwyg-content_t-sub Приготовление
+                        p
+                            | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
+                        ol
+                            li
+                                | Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же 
+                                a(href='#') Роберт Паттинсон 
+                                | и Кристен Стюарт расстались и пока реши
+                            li
+                                p
+                                    | Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем,
+                                .b-article_in-img
+                                    img.content-img(title='Ночные гости - кто они фото 1', src='http://lorempixel.com/600/300/food/3', alt='Ночные гости - кто они фото 1')
+                                p
+                                    | что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же 
+                                    | и Кристен Стюарт расстались и пока реши
+                            li
+                                a(href='#') Роберт Паттинсон 
+                                | и Кристен Стюарт расстались и пока реши
+                            li
+                                | Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же 
+                                a(href='#') Роберт Паттинсон 
+                                | и Кристен Стюарт расстались и пока реши
+                        p
+                            | Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же
+                            | и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                        h2 H2 Где можно поменять название трека
+                        p
+                            | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
+                        .b-article_in-img
+                            img.content-img(title='Ночные гости - кто они фото 1', src='http://lorempixel.com/600/300/food/2', alt='Ночные гости - кто они фото 1')
+                        ul
+                            li
+                                | я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически
+                            li я не нашел, где можно поменять название трека.
+                            li
+                                | Меняя название трека в
+                                strong Меняя название трека
+                                | альбоме он автоматически производит поиск 
+                                a(href='#') Меняя название трека  
+                                | по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека.
+                                b Меняя название трека
+                                | в альбоме он автоматически
+                        p
+                            | и подцепляет естественно студийные версии песен вместо нужных. и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически  и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически
+                        .clearfix
+                            .cook-diabets
+                                //
+                                    Диаграмма для диабетиков имеет 4 состояния на сколько не подходит 
+                                    val0 (по умолчанию даже без класса) 
+                                    val33
+                                    val66
+                                    val100
+                                                                                                                
+                                .cook-diabets-chart.val33
+                                    span.text 20.5
+                                .cook-diabets-desc Подходит для диабетиков
+                            .cook-article-tags
+                                .cook-article-tags-title Теги
+                                ul.cook-article-tags-list
+                                    li
+                                        a(href='#') Рыбные блюда
+                                    li
+                                        a(href='#') Рыбные блюда
+                                    li
+                                        a(href='#') Рыбные 
+                                    li
+                                        a(href='#') Рыбные 234234 блюда
+                                    li
+                                        a(href='#') Рыбные блюда
+                                    li
+                                        a(href='#') Рыбные блюда
+                                    li
+                                        a(href='#') Рыбны
+
+            .article-also
+                .article-also_row
+                    +likeControl('like-control__small', likeControl.articleList)
+                .article-also_row
+                    .article-also_tx Смотреть все 
+                        a(href='#') комментарии
+                        .visible-md-inline-block
+                            | ,
+                            a(href='#')  нравится, 
+                        .visible-md-inline-block
+                            a(href='#')  закладки 
+                        | .
+
+
+    // /b-article
+
+- var bArticleCook = {}
+- bArticleCook.base = {}
 
 
 

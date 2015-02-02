@@ -156,4 +156,10 @@ class CommunityClub extends HActiveRecord
             'criteria' => $criteria,
         )) : CommunityContent::model()->findAll($criteria);
     }
+    
+    public function toLabel()
+    {
+        return 'Клуб: ' . $this->title;
+    }
+
 }

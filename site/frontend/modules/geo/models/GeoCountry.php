@@ -9,7 +9,7 @@
  * @property integer $iso_code
  * @property integer $pos
  */
-class GeoCountry extends HActiveRecord
+class GeoCountry extends HActiveRecord implements IHToJSON
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -118,5 +118,16 @@ class GeoCountry extends HActiveRecord
                 'citiesFilled' => (bool) $country->citiesFilled,
             );
         return $result;
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'id' => (int) $this->id,
+            'isoCode' => $this->iso_code,
+            'name' => $this->name,
+            'pos' => (int) $this->pos,
+            'citiesFilled' => (int) $this->citiesFilled,
+        );
     }
 }

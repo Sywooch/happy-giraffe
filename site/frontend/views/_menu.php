@@ -1,6 +1,6 @@
 <!-- ko stopBinding: true -->
 <div class="layout-header clearfix">
-    <?php $this->renderPartial('//_menu_fix'); ?>
+    <?php // $this->renderPartial('//_menu_fix'); ?>
     <?php $this->renderPartial('//_menu_base'); ?>
 </div>
 <!-- /ko -->

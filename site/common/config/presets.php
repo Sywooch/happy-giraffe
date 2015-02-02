@@ -74,7 +74,7 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' => 'fixed',
+            'name' => 'fixedV2',
             'width' => 300,
             'height' => 200,
         ),
@@ -84,9 +84,10 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'lepilla',
-            'width' => 1200,
-            'height' => 900,
+            'name' =>'fixed',
+            'mode' => 'inset',
+            'width' => 1620,
+            'height' => 1080,
         ),
         'usages' => array(
             'sliderPhoto',
@@ -94,9 +95,8 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'relativeResize',
-            'method' => 'widen',
-            'parameter' => 600,
+            'name' =>'widen',
+            'width' => 600,
         ),
         'usages' => array(
             'postImage',
@@ -134,7 +134,7 @@ return array(
     ),
     array(
         'filter' => array(
-            'name' =>'fixed',
+            'name' => 'fixedV2',
             'width' => 600,
             'height' => 400, // 3*2
         ),

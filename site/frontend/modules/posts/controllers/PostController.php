@@ -60,7 +60,7 @@ class PostController extends \LiteController
     public function getLeftPost()
     {
         if (is_null($this->_leftPost)) {
-            $this->_leftPost = Content::model()->cache(3600)->byService('oldBlog')->leftFor($this->post)->find();
+            $this->_leftPost = Content::model()->cache(3600)->byService('oldBlog')->byAuthor($this->post->authorId)->leftFor($this->post)->find();
         }
 
         return $this->_leftPost;
@@ -69,7 +69,7 @@ class PostController extends \LiteController
     public function getRightPost()
     {
         if (is_null($this->_rightPost)) {
-            $this->_rightPost = Content::model()->cache(3600)->byService('oldBlog')->rightFor($this->post)->find();
+            $this->_rightPost = Content::model()->cache(3600)->byService('oldBlog')->byAuthor($this->post->authorId)->rightFor($this->post)->find();
         }
 
         return $this->_rightPost;

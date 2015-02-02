@@ -13,7 +13,7 @@ class DefaultController extends \LiteController
 
     public function getListDataProvider($authorId)
     {
-        $criteria = \site\frontend\modules\posts\models\Content::model()->byAuthor($authorId)->orderDesc()->getDbCriteria();
+        $criteria = \site\frontend\modules\posts\models\Content::model()->byService('oldBlog')->byAuthor($authorId)->orderDesc()->getDbCriteria();
         return new \CActiveDataProvider('\site\frontend\modules\posts\models\Content', array(
             'criteria' => clone $criteria,
             'pagination' => array(

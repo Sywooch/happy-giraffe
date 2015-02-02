@@ -55,6 +55,9 @@ return array(
         'usersMigrate' => array(
             'class' => 'site\frontend\modules\users\migration\Command',
         ),
+        'analytics' => array(
+            'class' => 'site\frontend\modules\analytics\commands\ViewsCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',
@@ -73,6 +76,7 @@ return array(
         'site.frontend.modules.onlineManager.components.*',
         'site.frontend.modules.geo.models.*',
         'site.frontend.modules.geo.components.*',
+        'site.frontend.extensions.YiiMongoDbSuite.*',
     ),
     'behaviors' => array(
         'edms' => array(

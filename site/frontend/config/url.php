@@ -37,11 +37,18 @@ return array(
 //        ),
         //'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         array(
-            'class' => 'site.frontend.components.PhotoUrlRule',
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>',
-            'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
-            'blog' => false,
+            'trueRoute' => 'photo/singlePhoto/photoPostCommunity',
+            'falseRoute' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         ),
+//        array(
+//            'class' => 'site.frontend.components.PhotoUrlRule',
+//            'pattern' => 'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>',
+//            'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+//            'blog' => false,
+//        ),
         'cook/recipe/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'SimpleRecipe')),
         'cook/multivarka/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'MultivarkaRecipe')),
         'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
@@ -59,12 +66,16 @@ return array(
         'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
+        //'my/friends' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 2)),
+        //'my/blogs' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 3)),
+        //'my/community' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 4)),
+        //'my' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 1)),
         'subscribes' => 'myGiraffe/default/subscribes',
         'recommends' => 'myGiraffe/default/recommends',
+        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
         'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
         'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
         'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
-        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
         'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller
@@ -117,16 +128,19 @@ return array(
         'user/settings' => 'users/default/settings',
         'users/default/addSocialService' => 'users/default/addSocialService',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
-        array(
+        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',
+        'user/blog/photopost/create' => 'posts/form/photopost',
+        'user/blog/status/create' => 'posts/form/status',
+        /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
             'trueRoute' => 'posts/post/view',
             'falseRoute' => 'blog/default/view',
-        ),
+        ),*/
 
         //'user/<user_id:\d+>/blog' => 'blog/default/index',
-        'user/<user_id:\d+>/blog' => 'blog/default/index',
+        'user/<user_id:\d+>/blog' => 'posts/list/index',
         /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
@@ -153,21 +167,40 @@ return array(
         /* Временные страницы для редактирования */
         'post/add/type<type:[1235]>' => 'blog/tmp/index',
         'post/edit/content<id:\d+>' => 'blog/tmp/index',
+        /* Временные страницы для управления постами */
+        'blog/tmp/favourites' => 'blog/tmp/favourites',
 
-        'user/<user_id:\d+>' => 'profile/default/index',
+        'user/<userId:\d+>' => 'userProfile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
         'user/<user_id:\d+>/award/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'award')),
         'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),
         'user/<user_id:\d+>/awards' => 'profile/default/awards',
         'profile/<_a>' => 'profile/default/<_a>',
-
+        
         'user/<userId:\d+>/rss/page<page:\d+>' => 'rss/default/user',
         'user/<userId:\d+>/rss' => 'rss/default/user',
         'user/<userId:\d+>/comments/rss/page<page:\d+>' => 'rss/default/comments',
         'user/<userId:\d+>/comments/rss' => 'rss/default/comments',
+
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
+
+        // пагинация в клубах
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
+            'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
+            'trueRoute' => 'posts/communityList/index',
+            'falseRoute' => 'community/default/forum',
+        ),
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
+            'pattern' => 'community/<forum_id:\d+>/forum/',
+            'trueRoute' => 'posts/communityList/index',
+            'falseRoute' => 'community/default/forum',
+        ),
 
         // posts
         'posts' => 'posts/default/index',
@@ -207,18 +240,34 @@ return array(
         'family-holiday' => array('community/default/section', 'defaultParams' => array('section_id' => 6)),
 
         'community/<_a:(subscribe)>/' => 'community/default/<_a>',
+        
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
+            'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
+            'trueRoute' => 'posts/communityList/index',
+            'falseRoute' => 'community/default/forum',
+        ),
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
 
-        'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
-        /*array(
+        //'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
+        array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>',
-            'trueRoute' => 'posts/post/view',
+            'trueRoute' => 'posts/community/view',
             'falseRoute' => 'community/default/view',
-        ),*/
+        ),
 
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
+            'pattern' => 'community/<forum_id:\d+>/forum/',
+            'trueRoute' => 'posts/communityList/index',
+            'falseRoute' => 'community/default/forum',
+        ),
         'community/<forum_id:\d+>/forum/' => 'community/default/forum',
+        
         'community/default/save' => 'community/default/save',
         'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
         'community/default/photoWidget' => 'community/default/photoWidget',
@@ -439,6 +488,9 @@ return array(
         'photo/default/presets' => 'photo/default/presets',
         'photo/photo/thumb' => 'photo/photo/thumb',
 
+        'reg/test' => 'signup/test/reg',
+        'signup/default/captcha' => 'signup/default/captcha',
+
         'onair' => 'blog/air/index',
 
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
@@ -446,7 +498,14 @@ return array(
         
         /* API */
         'api/comments/<_a>' => 'comments/api/<_a>',
+        'api/status/<_a>' => 'som/status/api/<_a>',
+        'api/photopost/<_a>' => 'som/photopost/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
+        
+        /* SOM */
+        'status' => 'som/status/default/index',
+        'status/<_c>' => 'som/status/<_c>/index',
+        'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
     ),
 );

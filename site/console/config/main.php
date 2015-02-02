@@ -1,4 +1,4 @@
-\<?php
+<?php
 
 date_default_timezone_set('Europe/Moscow');
 return array(
@@ -40,11 +40,20 @@ return array(
         'postFillQueue' => array(
             'class' => 'site\frontend\modules\posts\commands\FillQueue',
         ),
+        'testConvert' => array(
+            'class' => 'site\frontend\modules\posts\commands\TestConvert',
+        ),
         'family' => array(
             'class' => 'site\frontend\modules\family\commands\DefaultCommand',
         ),
         'familyMigrate' => array(
             'class' => 'site\frontend\modules\family\migration\commands\MigrateCommand',
+        ),
+        'checkLabels' => array(
+            'class' => 'site\frontend\modules\clubs\commands\CheckLabels',
+        ),
+        'usersMigrate' => array(
+            'class' => 'site\frontend\modules\users\migration\Command',
         ),
     ),
     'import' => array(
@@ -57,6 +66,7 @@ return array(
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
         'site.frontend.extensions.directmongosuite.*',
+        'site.frontend.extensions.YiiMongoDbSuite.*',
         'site.frontend.modules.antispam.models.*',
         'site.frontend.modules.antispam.components.*',
         'site.frontend.modules.onlineManager.widgets.*',
@@ -71,6 +81,9 @@ return array(
         )
     ),
     'components' => array(
+        'widgetFactory' => array(
+            'class' => 'CWidgetFactory',
+        ),
         'statePersister' => array(
             'stateFile' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR . 'state.bin',
         ),

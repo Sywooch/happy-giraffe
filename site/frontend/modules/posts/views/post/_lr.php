@@ -22,7 +22,7 @@ if ($right)
     $this->metaNavigation->next = $right->parsedUrl;
     ?>
     <a href="<?= $right->parsedUrl ?>" class="post-arrow post-arrow__r" rel="next">
-        <div class="i-photo-arrow"></div>
+        <div class="i-photo-arrow i-photo-arrow__r"></div>
         <div class="post-arrow_in-hold">
             <div class="post-arrow_in">
                 <div class="verticalalign-m-help"></div>

@@ -40,18 +40,20 @@ if (!$hide_text)
 else
     $story = '';
 
-$this->widget('zii.widgets.CListView', array(
-    'cssFile'=>false,
-    'ajaxUpdate' => false,
-    'dataProvider' => $dp,
-    'itemView' => '_recipe',
-    'summaryText' => 'Показано: {start}-{end} из {count}',
-    'pager' => array(
-        'class' => 'AlbumLinkPager',
-    ),
-    'template' => '{items}'.$story.'
-            <div class="pagination pagination-center clearfix">
-                {pager}
-            </div>
-        ',
-));
+$this->widget('LiteListView', array(
+        'dataProvider' => $dp,
+        'itemView' => '_recipe',
+        'tagName' => 'div',
+        'htmlOptions' => array(
+            'class' => 'b-main_col-article'
+        ),
+        'itemsTagName' => 'div',
+        'template' => '{items}'.$story.'<div class="yiipagination yiipagination__center">{pager}</div>',
+        'pager' => array(
+            'class' => 'LitePager',
+            'maxButtonCount' => 10,
+            'prevPageLabel' => '&nbsp;',
+            'nextPageLabel' => '&nbsp;',
+            'showPrevNext' => true,
+        ),
+    ));

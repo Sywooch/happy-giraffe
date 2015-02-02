@@ -56,7 +56,7 @@ return array(
                     'width' => 24,
                     'height' => 24,
                 ),
-                'avatar' => array(
+                'avatarMedium' => array(
                     'width' => 72,
                     'height' => 72,
                 ),

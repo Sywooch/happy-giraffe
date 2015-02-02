@@ -21,14 +21,24 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
     public function convertToNewPost()
     {
-        if ($this->owner->type_id == \CommunityContent::TYPE_POST)
-            return $this->convertPost();
-        elseif ($this->owner->type_id == \CommunityContent::TYPE_PHOTO_POST)
+        if ($this->owner->type_id == \CommunityContent::TYPE_POST) {
+            $advContent = \site\frontend\modules\editorialDepartment\models\Content::model()->findByAttributes(array(
+                'entity' => $this->owner->getIsFromBlog() ? 'BlogContent' : 'CommunityContent',
+                'entityId' => (int) $this->owner->id
+            ));
+            if (!is_null($advContent)) {
+                return $this->convertAdvPost($advContent);
+            } else {
+                return $this->convertPost();
+            }
+        } elseif ($this->owner->type_id == \CommunityContent::TYPE_PHOTO_POST)
             return $this->convertPhotoPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_VIDEO)
             return $this->convertVideoPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_STATUS)
             return $this->convertStatus();
+        elseif ($this->owner->type_id == \CommunityContent::TYPE_QUESTION)
+            return $this->convertQuestion();
     }
 
     public function afterSave($event)
@@ -110,6 +120,38 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->socialObject->description = $newPost->metaObject->description;
         $newPost->isAutoSocial = true;
     }
+    
+    protected function convertAdvPost(\site\frontend\modules\editorialDepartment\models\Content $advContent) {
+        $newPost = null;
+        $oldPost = null;
+        $this->convertCommon($oldPost, $newPost, 'advPost');
+        $newPost->preview = $advContent->htmlTextPreview;
+        $newPost->html = $advContent->htmlText;
+        $newPost->templateObject->data['type'] = 'advPost';
+        $newPost->isNoindex = false;
+        
+        return $newPost->save();
+    }
+
+    protected function convertQuestion()
+    {
+        $newPost = null;
+        $oldPost = null;
+        $this->convertCommon($oldPost, $newPost, 'oldQuestion');
+
+        $newPost->templateObject->data['type'] = 'question';
+        $oldPost->question->purified->clearCache();
+        $newPost->html = $oldPost->question->purified->text;
+        $newPost->text = $oldPost->question->text;
+        $clearText = $newPost->fillText();
+        $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
+        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
+
+        if (empty($newPost->metaObject->description))
+            $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->question->text)));
+
+        return $newPost->save();
+    }
 
     protected function convertPost()
     {
@@ -125,9 +167,25 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
         $photo = $oldPost->post->photo;
 
-        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <span class="ico-more"></span>') . '</p>';
-        if ($photo) {
-            $newPost->preview = '<div class="b-article_in-img">' . $photo->getPreviewHtml(600, 1100) . '</div>' . $newPost->preview;
+        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
+        if ($oldPost->gallery) {
+            // Скопировано из convertPhotoPost
+            $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
+            $count = $collection->attachesCount;
+            $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
+            $url = $collection->observer->getSingle(0)->getUrl();
+            $photoAlbumTag = \CHtml::tag('photo-collection', array(
+                        'params' =>
+                        'id: ' . (int) $collection->id . ', ' .
+                        'attachCount: ' . (int) $count . ', ' .
+                        'coverId: ' . $collection->cover->id,
+                            ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
+
+            $newPost->html .= $photoAlbumTag;
+            $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopostPreview', array('tag' => $photoAlbumTag, 'text' => \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($newPost->text))), 200, ' <span class="ico-more"></span>')));
+            $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
+        } elseif ($photo) {
+            $newPost->preview = '<div class="b-article_in-img"><a href="' . $oldPost->url . '">' . $photo->getPreviewHtml(600, 1100) . '</a></div>' . $newPost->preview;
             $newPost->socialObject->imageUrl = $photo->getPreviewUrl(200, 200);
         }
 
@@ -144,20 +202,21 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $this->convertCommon($oldPost, $newPost, 'oldPhotoPost');
 
         $newPost->templateObject->data['type'] = 'photoPost';
+        $newPost->templateObject->data['noWysiwyg'] = true;
         $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
         $count = $collection->attachesCount;
         $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
         $url = $collection->observer->getSingle(0)->getUrl();
         $photoAlbumTag = \CHtml::tag('photo-collection', array(
-                'params' =>
-                'id: ' . (int) $collection->id . ', ' .
-                'attachCount: ' . (int) $count . ', ' .
-                'coverId: ' . $collection->cover->photo->id,
-                ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
+                    'params' =>
+                    'id: ' . (int) $collection->id . ', ' .
+                    'attachCount: ' . (int) $count . ', ' .
+                    'coverId: ' . $collection->cover->id,
+                        ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
 
-        $newPost->html = $photoAlbumTag . $oldPost->photoPost->text;
         $newPost->text = $oldPost->photoPost->text;
-        $newPost->preview = $photoAlbumTag . '<p>' . \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text))), 200, ' <span class="ico-more"></span>') . '</p>';
+        $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopost', array('tag' => $photoAlbumTag, 'text' => nl2br($oldPost->photoPost->text)));
+        $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopostPreview', array('tag' => $photoAlbumTag, 'text' => str_replace("\n", "\n ", \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text))), 200, ' <span class="ico-more"></span>'))));
         $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
         $newPost->isNoindex = false;
 
@@ -192,6 +251,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $this->convertCommon($oldPost, $newPost, 'oldStatusPost');
 
         $newPost->templateObject->data['type'] = 'status';
+        $newPost->templateObject->data['noWysiwyg'] = true;
+        $newPost->templateObject->data['hideTitle'] = true;
         $newPost->isNoindex = true;
 
         $newPost->title = $oldPost->author->fullName . ' - статус от ' . date('d.m.y h:i', $newPost->dtimeCreate);
@@ -201,7 +262,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->status->text)));
-        
+
         return $newPost->save();
     }
 
@@ -210,8 +271,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $file = \Yii::getPathOfAlias($file) . '.php';
         if (\Yii::app() instanceof \CConsoleApplication) {
             return \Yii::app()->command->renderFile($file, $data, true);
-        }
-        else {
+        } else {
             return \Yii::app()->controller->renderInternal($file, $data, true);
         }
     }

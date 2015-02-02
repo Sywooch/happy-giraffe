@@ -19,6 +19,8 @@ class ConvertCommand extends \CConsoleCommand
         'oldBlog_CommunityContent_convert_video',
         'oldCommunity_CommunityContent_convert_video',
         'oldRecipe_CookRecipe_convert_recipe',
+        'oldRecipe_SimpleRecipe_convert_recipe',
+        'oldCommunity_CommunityContent_convert_question',
     );
 
     /**
@@ -44,6 +46,7 @@ class ConvertCommand extends \CConsoleCommand
             \CommunityContent::TYPE_VIDEO => 'video',
             \CommunityContent::TYPE_PHOTO_POST => 'photopost',
             \CommunityContent::TYPE_STATUS => 'status',
+            \CommunityContent::TYPE_QUESTION => 'question',
             999 => 'recipe',
         );
         $type = $oldPost instanceof \CookRecipe ? 999 : $oldPost->type_id;
@@ -73,6 +76,8 @@ class ConvertCommand extends \CConsoleCommand
 
     public function actionIndex(Array $command = array(), $fake = false)
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         // Загрузим возможные модели
         \Yii::import('site.frontend.modules.cook.models.*');
         
@@ -98,8 +103,8 @@ class ConvertCommand extends \CConsoleCommand
     public function convertPost($job)
     {
         try {
-            \Yii::app()->db->setActive(true);
             $data = self::unserialize($job->workload());
+            \Yii::app()->db->setActive(true);
             usleep(100000); // на всякий случай поспим 0.1 сек, что бы быть уверенным, что реплика прошла
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
             if (!$model) {
@@ -110,6 +115,10 @@ class ConvertCommand extends \CConsoleCommand
         } catch (\Exception $e) {
             var_dump($data);
             echo $e;
+            if($e instanceof \CDbException) {
+                echo "db error, exit\n";
+                exit(1);
+            }
         }
     }
 

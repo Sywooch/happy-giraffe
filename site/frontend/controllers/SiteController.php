@@ -82,8 +82,10 @@ class SiteController extends HController
 	/**
 	 * @sitemap changefreq=daily
 	 */
-	public function actionIndex($openLogin = false)
+	public function actionIndex($openLogin = false, $openRegister = false)
 	{
+        Yii::app()->clientScript->useAMD = true;
+
         if ($openLogin !== false)
             Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl(''));
 
@@ -91,7 +93,7 @@ class SiteController extends HController
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
 
         $this->layout = false;
-        $this->render('home', compact('openLogin'));
+        $this->render('home', compact('openLogin', 'openRegister'));
 	}
 
 	/**

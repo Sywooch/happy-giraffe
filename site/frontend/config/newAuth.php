@@ -40,10 +40,11 @@ return array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Управление личной информацией о пользователе',
         'children' => array(
+            'editSettings',
             'setAvatar',
             'removeAvatar',
         ),
-        'bizRule' => 'return $params["userId"] == \Yii::app()->user->id;',
+        'bizRule' => 'return $params["entity"]->id == \Yii::app()->user->id;',
         'data' => null
     ),
     'manageOwnContent' => array(
@@ -323,6 +324,11 @@ return array(
         'bizRule' => null,
         'data' => null,
     ),
+<<<<<<< HEAD
+    'editSettings' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Редактирование настроек',
+=======
     'setAvatar' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Изменение аватары',
@@ -332,6 +338,7 @@ return array(
     'removeAvatar' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Изменение аватары',
+>>>>>>> develop
         'bizRule' => null,
         'data' => null,
     ),

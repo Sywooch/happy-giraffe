@@ -19,7 +19,7 @@
  * @property GeoRegion $region
  * @property User $user
  */
-class UserAddress extends HActiveRecord
+class UserAddress extends HActiveRecord implements IHToJSON
 {
     /**
      * Returns the static model of the specified AR class.
@@ -217,5 +217,15 @@ class UserAddress extends HActiveRecord
         }
 
         return $value;
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'user_id' => (int) $this->user_id,
+            'country' => $this->country,
+            'region' => $this->region,
+            'city' => $this->city,
+        );
     }
 }

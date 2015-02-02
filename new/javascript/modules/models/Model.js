@@ -1,7 +1,5 @@
 define(["jquery", "knockout", "models/User"], function ($, ko, User) {
-
     var Model = {
-
         /**
          * [get асинхронный запрос к api]
          * @param  {string} url        url к которому обращаемся
@@ -19,7 +17,6 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
                 }
             );
         },
-
         /**
          * [when асинхронный запрос к api]
          * @param ajaxOne
@@ -95,6 +92,5 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             return stdProperty;
         }
     };
-
     return Model;
 });

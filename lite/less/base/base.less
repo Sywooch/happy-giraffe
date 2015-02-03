@@ -11,6 +11,8 @@
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
+    min-height: 100vh;
+    background-color: #fff;
 
 
     /*&__white {
@@ -20,16 +22,14 @@
     }*/
     &_hold {
         margin: 0 auto;
-        background-color: #fff;
     }
 
     @media (min-width: @screen-desktop) {
-        .layout-header {margin-top: 20px;}
+        & {
+            margin: 20px auto;
+        }
         &_hold__personal {
             background: none;
-        }
-        &_hold {
-            margin: 0 auto 20px;
         }
     }
 }

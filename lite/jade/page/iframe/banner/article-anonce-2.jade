@@ -12,12 +12,12 @@ head
     // livereload
     script(src='//localhost:35729/livereload.js')
 
-    +articleAnonceCss()
-
-/// layout out 
+    //-+articleAnonceCss()
+    // Встраивать стили из файла
+    link(rel='stylesheet', type='text/css', href='/lite/css/min/article-anonce.css')
+/// layout out
 body
 
     +articleAnonce('article-anonce__blue', articleAnonce.d)
 
 | </html>
- 

@@ -233,7 +233,7 @@ module.exports = function(grunt){
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
         dest: 'new/css/all1.css'
       },
-      // Блог
+      // Анонс через google tag iframe
       'article-anonce-1': {
         options: {
           stylesheets  : ['/css/dev/all.css'],
@@ -242,27 +242,15 @@ module.exports = function(grunt){
           htmlroot     : 'lite',
           ignore       : [
             // Выбираем все стили где в начале .class
-            // /.dropdown+/,
-            // /#ctrlcopy+/,
-            // /.jcrop+/,
-            // /.mfp+/,
-            // /.select2+/,
-            // /.header-menu_li+/,
-            // /.header_+/,
-            // /.header-+/,
-            // /.fast-articles3+/,
-            // //.tooltip+/,
-            
-            // /.bx-wrapper+/,
-            // /.body+/,
-            // /.bnr+/,
-            // /.ico-social-hold+/,
+            /.ico-ovrPlay+/,
+            /.ava+/,
+            /.article-anonce+/,
           ],
         },
         src: [
-          'lite/html-dev/page/iframe/banner/article-anonce-1.html', 
+          'lite/html-dev/page/iframe/banner/article-anonce-1.html',
         ],
-        dest: 'lite/css/min/article-anonce-1.css'
+        dest: 'lite/css/min/article-anonce.css'
       },
       // Блог
       lite_blog: {
@@ -1045,6 +1033,8 @@ module.exports = function(grunt){
   //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
   grunt.registerTask('new-css', [/*'jade:new',*/ 'less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
+  grunt.registerTask('new-css', [/*'jade:new',*/ 'less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
+
   // lite tasks
   // bild lite версии
   grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user', 'uncss:member', 'uncss:member_user', 'uncss:lite_homepage',  'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
@@ -1068,6 +1058,8 @@ module.exports = function(grunt){
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // сервисы
   grunt.registerTask('services', ['jade:lite_prod', 'less:litedev','uncss:services', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  // Анонс через google tag iframe
+  grunt.registerTask('article-anonce-css', ['less:litedev','uncss:article-anonce-1', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
   // Базовый для разработки верстки
   grunt.registerTask('default', [

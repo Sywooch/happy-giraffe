@@ -86,6 +86,19 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
             return Model.get(this.updateUserUrl, { id: this.id, attributes: { birthday: this.birthday.year() + '-' + this.birthday.month() + '-' + this.birthday.day() } });
         },
         /**
+         * Check rights
+         * @param externalId
+         * @returns {boolean}
+         */
+        checkRights: function checkRights(externalId) {
+            if (this.userId !== null) {
+                if (parseInt(this.userId) === parseInt(externalId)) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        /**
          * Update user model
          * @param data
          */

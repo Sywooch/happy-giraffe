@@ -1,7 +1,5 @@
-define(["jquery", "knockout", "models/User"], function ($, ko, User) {
-
+define(["jquery", "knockout"], function ($, ko) {
     var Model = {
-
         /**
          * [get асинхронный запрос к api]
          * @param  {string} url        url к которому обращаемся
@@ -19,7 +17,6 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
                 }
             );
         },
-
         /**
          * [when асинхронный запрос к api]
          * @param ajaxOne
@@ -57,14 +54,6 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             }
             return false;
         },
-        checkRights: function checkRights(externalId) {
-            if (User.userId !== null) {
-                if (parseInt(User.userId) === parseInt(externalId)) {
-                    return true;
-                }
-            }
-            return false;
-        },
         checkFieldsToPass: function checkFieldsToPass(fieldsNames, object) {
             var returnableObject = {};
                 for (var i=0; i < fieldsNames.length; i++) {
@@ -95,6 +84,5 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             return stdProperty;
         }
     };
-
     return Model;
 });

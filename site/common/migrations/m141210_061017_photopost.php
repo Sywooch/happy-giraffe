@@ -6,7 +6,7 @@ class m141210_061017_photopost extends CDbMigration
     public function up()
     {
         $this->execute(<<<SQL
-CREATE TABLE IF NOT EXISTS `happy_giraffe`.`som__photopost` (
+CREATE TABLE IF NOT EXISTS `som__photopost` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NOT NULL,
   `collectionId` INT(10) UNSIGNED NOT NULL,

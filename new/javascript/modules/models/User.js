@@ -1,4 +1,4 @@
-define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validation', 'extensions/validatorRules', 'knockout.mapping'], function PresetManagerHandler(ko, Model, userConfig) {
+define(['knockout', 'models/Model', 'user-config', 'extensions/helpers', 'extensions/knockout.validation', 'extensions/validatorRules', 'knockout.mapping'], function PresetManagerHandler(ko, Model, userConfig, Helpers) {
     var User = {
         getUserUrl: '/api/users/get/',
         getCurrentUserUrl: '/api/users/getCurrentUser/',
@@ -12,7 +12,7 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
         isGuest: userConfig.isGuest,
         isModer: userConfig.isModer,
         userId: userConfig.userId,
-        socialServices: ['vkontakte', 'odnoklassniki'],
+        socialServices: ['odnoklassniki', 'vkontakte'],
         /**
          * Полное имя
          * @returns {string}
@@ -151,6 +151,10 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
         mailSubscribe: function mailSubscribe() {
             return Model.get(this.mailSubscriptionUrl, { id: this.id, value: (this.subscriptionMail.value() === false) ? 0 : 1 });
         },
+        /**
+         * Change location of current User
+         * @returns {$.ajax}
+         */
         changeLocation: function changeLocation() {
             if (this.address.value().city().id() === null) {
                 return Model.get(this.changeLocationUrl, { id: this.id, countryId: this.address.value().country().id() });
@@ -172,21 +176,38 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
             return this.day() + ' ' + this.month() + ' ' + this.year();
         },
         /**
+         * get social services by their names in array
+         * @param value
+         * @param array
+         * @returns {*}
+         */
+        getSocialByServiceName: function getSocialByServiceName(value, array) {
+            return Helpers.findByProperty('service', value, array);
+        },
+        /**
          * parse social services
          * @param socialServices
          * @returns {{}}
          */
         parseSocialServices: function parseSocialServices(socialServices) {
-            var socialObject = {};
+            var socialObject = {},
+                socialIterator;
             for (var serviceItem in this.socialServices) {
-                if (socialServices[serviceItem] !== undefined) {
-                    socialObject[this.socialServices[serviceItem]] = ko.observable(socialServices[serviceItem]);
+                socialIterator = this.getSocialByServiceName(this.socialServices[serviceItem], socialServices);
+                if (socialIterator) {
+                    socialObject[this.socialServices[serviceItem]] = ko.observable(socialIterator);
                 } else {
                     socialObject[this.socialServices[serviceItem]] = ko.observable(null);
                 }
             }
             return socialObject;
         },
+        /**
+         * remove social service
+         * @param data
+         * @param event
+         * @returns {$.ajax}
+         */
         removeSocial: function removeSocial(data, event) {
             this.socialServices.value()[data.service](null);
             return Model.get(this.removeSocialServicesUrl, { id: data.id });

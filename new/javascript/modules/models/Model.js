@@ -1,4 +1,4 @@
-define(["jquery", "knockout"], function ($, ko) {
+define(["jquery", "knockout", 'extensions/helpers'], function ($, ko, Helpers) {
     var Model = {
         /**
          * [get асинхронный запрос к api]
@@ -26,15 +26,8 @@ define(["jquery", "knockout"], function ($, ko) {
         when: function when(ajaxOne, ajaxTwo) {
             return $.when(ajaxOne, ajaxTwo);
         },
-
         findById: function findById(id, array) {
-            var iterator;
-            for (iterator = 0; iterator < array.length; iterator++) {
-                if (id === array[iterator].id) {
-                    return array[iterator];
-                }
-            }
-            return false;
+            return Helpers.findByProperty('id', id, array);
         },
         findByIdObservable: function findByIdObservable(id, array) {
             var iterator;

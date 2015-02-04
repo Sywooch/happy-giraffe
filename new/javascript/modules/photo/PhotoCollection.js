@@ -1,10 +1,12 @@
-define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'models/Model', 'extensions/imagesloaded', 'extensions/masonry', 'extensions/PresetManager', 'extensions/isotope', 'extensions/packery'], function PhotoCollectionModel($, ko, PhotoAttach, Model, imagesLoaded, Masonry, PresetManager, Isotope, Packery) {
+define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'models/Model', 'extensions/imagesloaded', 'extensions/masonry', 'extensions/PresetManager', 'extensions/isotope', 'extensions/packery', 'extensions/waypoints/waypoints'], function PhotoCollectionModel($, ko, PhotoAttach, Model, imagesLoaded, Masonry, PresetManager, Isotope, Packery) {
     "use strict";
     function PhotoCollection(data) {
+        this.getCollectionUrl = '/api/photo/collections/get/';
         this.getAttachesUrl = '/api/photo/collections/getAttaches/';
         this.getNotSortedAttaches = '/api/photo/collections/getByUser/';
         this.getAttachUrl = '/api/photo/attaches/get/';
         this.addPhotosUrl = '/api/photo/collections/addPhotos/';
+        this.listAttachesUrl = '/api/photo/collections/listAttaches/';
         this.pageCount = null;
         this.id = ko.observable(data.id);
         this.attaches = ko.observableArray();
@@ -15,6 +17,8 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.loading = ko.observable(true);
         this.circular = ko.observable(false);
         this.presets = data.presets;
+        this.isLast = ko.observable(false);
+        this.page = ko.observable(0);
         this.pckry = {};
         PresetManager.presets = data.presets;
         /**
@@ -153,11 +157,23 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          * get page of attaches
          * @param offset
          */
-        this.getAttachesPage = function getAttachesPage(offset) {
+        this.getAttachesPage = function getAttachesPage(offset, length, circular) {
             if (this.attachesCount() > 0) {
+                this.loading(true);
                 Model
-                    .get(this.getAttachesUrl, { collectionId: this.id(), length: this.pageCount, offset: offset, circular: this.circular })
+                    .get(this.getAttachesUrl, { collectionId: this.id(), length: length || this.pageCount, offset: offset, circular: circular || this.circular })
                     .done(this.getAttaches.bind(this));
+            }
+        };
+        /**
+         * list attaches
+         */
+        this.listAttachesPage = function listAttachesPage(page, pageSize) {
+            if (this.attachesCount() > 0) {
+                this.loading(true);
+                Model
+                    .get(this.listAttachesUrl, { collectionId: this.id(), page: page, pageSize: pageSize })
+                    .done(this.listAttaches.bind(this));
             }
         };
         /**
@@ -208,6 +224,37 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             result = image.isLoaded ? 'loaded' : 'broken';
         };
         /**
+         * handling waypoints event
+         */
+        this.handlingWaypoints = function handlingWaypoints() {
+            if (this.loading() === false && this.isLast() === false) {
+                this.page(this.page() + 1);
+                this.listAttachesPage(this.page(), 20);
+            }
+        };
+        /**
+         * hooking waypoints on element
+         */
+        this.defferedLoadImagesFunctionHandler = function defferedLoadImagesFunctionHandler() {
+            var photoCollection = this,
+                hookElement = '.layout-footer',
+                offset = '100%';
+            var waypoints = $(hookElement).waypoint({
+                handler: function handler() {
+                    photoCollection.handlingWaypoints();
+                },
+                offset: offset
+            });
+        };
+        /**
+         * hooking events on imagesLoaded object
+         * @param imgLoad
+         */
+        this.imgLoadEventsHook = function imgLoadEventsHook(event, loadingAlgorithm, imgLoad) {
+            imgLoad.on(event, loadingAlgorithm.bind(this));
+            imgLoad.jqDeferred.then(this.defferedLoadImagesFunctionHandler.bind(this));
+        };
+        /**
          * Controling loading flow
          * @param event
          * @param elemName
@@ -215,10 +262,8 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          */
         this.loadImagesCreation = function loadImagesCreation(event, elemName, container) {
             if ($(container).length > 0) {
-                var imgLoad = imagesLoaded(elemName);
                 this.pckry = new Packery(container, { itemSelector: '.img-grid_i' });
-                var imageLoadAlg = this.loadImagesAlg;
-                imgLoad.on(event, imageLoadAlg.bind(this));
+                this.imgLoadEventsHook(event, this.loadImagesAlg, imagesLoaded(elemName));
             }
         };
         /**
@@ -253,31 +298,22 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 PresetManager.presets = presets.data;
                 this.presets = presets.data;
                 if (PresetManager.presets !== undefined) {
-                    this.attaches(ko.utils.arrayMap(this.attachesCache, this.iterateAttaches.bind(this)));
+                    this.attaches.push.apply(this.attaches, ko.utils.arrayMap(this.attachesCache, this.iterateAttaches.bind(this)));
                     if (this.attaches().length > 0) {
                         this.loadImagesCreation('progress', 'photo-album', '#imgs');
                     }
                 }
-            }
-            else {
+            } else {
                 this.presets = presets;
                 if (PresetManager.presets !== undefined) {
-                    this.attaches(ko.utils.arrayMap(this.attachesCache, this.iterateAttaches.bind(this)));
+                    this.attaches.push.apply(this.attaches, ko.utils.arrayMap(this.attachesCache, this.iterateAttaches.bind(this)));
                     if (this.attaches().length > 0) {
                         this.loadImagesCreation('progress', 'photo-album', '#imgs');
                     }
                 }
             }
+            this.loading(false);
 
-        };
-        /**
-         * Get collection Count
-         * @param id
-         */
-        this.getCollectionCount = function getCollectionCount(id) {
-            Model
-                .get(this.getAttachesUrl, { collectionId: this.id(), offset: 0 })
-                .done(this.countAttaches.bind(this));
         };
         /**
          * get part of current collection
@@ -311,15 +347,6 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
         };
         /**
-         * Count attaches
-         * @param attaches
-         */
-        this.countAttaches = function countAttaches(attaches) {
-            if (attaches.success) {
-                this.attachesCount(attaches.data.attaches.length);
-            }
-        };
-        /**
          * get all attaches and not sorted at all
          * @param attaches
          */
@@ -345,11 +372,37 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 } else {
                     this.gainPhotoInLine(PresetManager.presets);
                 }
-
             }
         };
+        /**
+         * Handle list attaches
+         * @param photosIds
+         * @returns {$.ajax}
+         */
+        this.listAttaches = function listAttaches(attaches) {
+            if (attaches.success) {
+                this.attachesCache = attaches.data.attaches;
+                this.isLast(attaches.data.isLast);
+                if ($.isEmptyObject(PresetManager.presets) || PresetManager.presets === undefined) {
+                    PresetManager.getPresets(this.gainPhotoInLine.bind(this));
+                } else {
+                    this.gainPhotoInLine(PresetManager.presets);
+                }
+            }
+        };
+        /**
+         * add photos
+         * @param photosIds
+         * @returns {$.ajax}
+         */
         this.addPhotos = function addPhotos(photosIds) {
             return Model.get(this.addPhotosUrl, { photosIds: photosIds })
+        };
+        /**
+         * get collection by id
+         */
+        this.get = function get(id) {
+            return Model.get(this.getCollectionUrl, { id: id });
         };
     }
 

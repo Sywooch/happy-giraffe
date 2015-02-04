@@ -39,10 +39,20 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 .done(this.userHandler.bind(this));
         };
         /**
+         * retrieve collection meta data
+         * @param collectionMeta
+         */
+        this.retrieveCollectionMeta = function retrieveCollectionMeta(collectionMeta) {
+            if (collectionMeta.success === true) {
+                this.collection.attachesCount(collectionMeta.data.attachesCount);
+                this.collection.cover(collectionMeta.data.cover);
+            }
+        };
+        /**
          * Getting collection
          */
         this.getCollection = function getCollection() {
-            this.collection.getCollectionCount(this.collection.id());
+            this.collection.get(this.collection.id()).done(this.retrieveCollectionMeta.bind(this));
         };
         /**
          * imgBinding

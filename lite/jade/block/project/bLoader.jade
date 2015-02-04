@@ -7,10 +7,10 @@ mixin bLoader(mod, vars)
             // Размеры можно задавать:
             // через классы (рекомендовано) 
             // .b-loader_circle - 50px
-            // .b-loader_circle__l - 125px
+            // .b-loader_circle__l - 100px
             // или через style
             // style='width: 125px; height: 125px;'
-            .b-loader_circle(vars.size)
+            .b-loader_circle(class=vars.size)
                 include ../../../../lite/images/loader.svg 
             if(vars.tx)
             .b-loader_tx 
@@ -23,5 +23,7 @@ mixin bLoader(mod, vars)
 - bLoader.photoWindow.tx = 'Загрузка фото'
 
 - bLoader.avaload = {}
-- bLoader.avaload.size = 'b-loader_circle__l'
 - bLoader.avaload.tx = 'Загрузка фото'
+
+- bLoader.familyBig = {}
+- bLoader.familyBig.tx = 'Загрузка семьи'

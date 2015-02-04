@@ -266,13 +266,18 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
                 this.email = Model.createStdProperty(object.email, 'email');
                 this.socialServices = Model.createStdProperty(this.parseSocialServices(object.socialServices), 'socialServices');
                 this.address = Model.createStdProperty(ko.mapping.fromJS(object.address, {}), 'address');
-                this.address.value().country = ko.observable(this.address.value().country);
                 if (!ko.isObservable(this.address.value().city)) {
                     this.address.value().city = ko.observable(this.address.value().city);
                 } else {
                     this.address.value().city({ id: ko.observable(null), name: ko.observable(null) });
                 }
-                this.countryId = ko.observable(this.address.value().country().id());
+                if (!ko.isObservable(this.address.value().country)) {
+                    this.address.value().country = ko.observable(this.address.value().country);
+                    this.countryId = ko.observable(this.address.value().country().id());
+                } else {
+                    this.countryId = ko.observable(null);
+                    this.address.value().country({ id: ko.observable(null), name: ko.observable(null), citiesFilled: ko.observable(0) });
+                }
                 this.fullGeography = ko.computed(this.returnAddress, this);
                 this.birthday.day = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getDate() : null);
                 this.birthday.month = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getMonth() + 1 : null);

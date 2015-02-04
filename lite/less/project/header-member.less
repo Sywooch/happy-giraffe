@@ -2,25 +2,33 @@
 .header-member {
 
     &__settings {
-        height: 66px;
+        height: 65px;
         padding: 10px 15px 10px 35px;
         background-color: #664E92;
     }
 
     &_back {
         float: right;
-        margin: 20px 0 0 20px;
+        margin: 8px 0 0 20px;
         font-size: 14px;
+        color: #fff;
+        .opacity(.8);
+    }
+    &_back:hover {
+        .opacity(1);
         color: #fff;
     }
     &_back:after {
         content: '';
         display: inline-block;
         vertical-align: middle;
-        width: 20px;
-        height: 20px;
         margin: 0 8px 3px;
-        background: url('@{path-img}/ico/ico-close5.svg') no-repeat 50% 50%;
+        /*background: url('@{path-img}/ico/ico-close5.svg') no-repeat 50% 50%;*/
+        width: 30px;
+        height: 30px;
+        background: url('@{path-img}/photo-window_close.png') no-repeat;
+        z-index: 110;
+        .scale(0.7);
     }
     &_ava {
         display: inline-block;
@@ -32,7 +40,7 @@
         vertical-align: top;
         margin: 0 0 0 -5px;
         width: 58px;
-        height: 53px;
+        height: 55px;
         background: url('@{path-img}/header-member_ico-settings.svg') no-repeat;
     }
 }

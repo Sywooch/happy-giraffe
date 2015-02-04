@@ -6,6 +6,15 @@ define(['jquery', 'knockout'], function sliderBindingHandler($, ko) {
         getCurrentHash: function getCurrentHash() {
             return window.location.hash.slice(1);
         },
+        findByProperty: function findByProperty(propertyName, value, array) {
+            var arrayKey;
+            for (arrayKey in array) {
+                if (array[arrayKey][propertyName] === value) {
+                    return array[arrayKey];
+                }
+            }
+            return false;
+        },
         checkUrlForHash: function checkUrlForHash(hash) {
             return this.checkStrings(this.getCurrentHash(), hash);
         }

@@ -19,6 +19,9 @@ return array(
                 ),
             ),
         ),
+        'ads' => array(
+            'class' => 'site\frontend\modules\ads\AdsModule',
+        ),
     ),
     'components' => array(
         'api' => array(

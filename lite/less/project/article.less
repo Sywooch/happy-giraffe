@@ -58,14 +58,18 @@
         margin: 0 0 8px;
         text-align: center;
         background-color: #f9f9f9;
+        // Что бне залазило изображение на имя кому отвечаеш в комментарии (имя флотнуто)
+        width: 100%;
+        overflow: hidden;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
         display: block;
         height: auto !important;
     }
-    &_in-img iframe {max-width:100%;}
-    &_in-img__l iframe,
+    &_in-img iframe {
+        width:100%;
+    }
     &_in-img__l img {
         width: 100%;
     }
@@ -91,6 +95,7 @@
     }
     &_t {
         &:extend(.heading-link-xxl);
+        margin: 10px 0;
     }
     &_t-list {
         margin: 10px 0;
@@ -133,21 +138,21 @@
             margin: 5px 0 15px 0;
         }
         &_t-list {
-            margin: 20px 0 15px;
+            margin: 10px 0 10px;
         }
     }
 
     @media (min-width: @screen-desktop) {
         & {
             margin: 20px 0 30px;
-            padding: 15px 0 0;
+            padding: 0;
         }
         & .adv-yandex {
             margin: 30px 0 0;
         }
         &__list {
             border: 1px solid #f0f0f0;
-            padding: 14px;
+            padding: 14px 14px 20px;
         }
         &__list:hover {border-color: #e4e4e4;}
         &__list &_in-img {
@@ -181,11 +186,11 @@
     &:extend(.tx-content);
 
     p {margin: 0 0 10px;}
-    img {
+    /*img {
         .inline-block();
         vertical-align: bottom;
         margin: 0 0 5px;
-    }
+    }*/
     .content-img  {
         float: none;
         margin: 0 0 10px;

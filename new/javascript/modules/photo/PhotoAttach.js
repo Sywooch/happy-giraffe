@@ -13,6 +13,7 @@
         this.broke = ko.observable(false);
         this.removed = ko.observable(false);
         this.isCover = ko.observable(false);
+        this.uploaded = ko.observable(false);
         this.urlPart = 'photo' + this.photo().id() + '/';
         /**
          * Removing attach

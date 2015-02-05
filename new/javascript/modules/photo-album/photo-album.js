@@ -21,19 +21,10 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
             this.photoAlbum.photoCollection().loadImagesCreation('progress', 'photo-album', '#imgs');
         };
         /**
-         * mapping attaches
-         * @param attach
-         * @param index
+         * Resolve presets problems
+         * @param collectionPresets
+         * @returns {*}
          */
-        this.mappingAttach = function mappingAttach(attach, index) {
-            if (attach.photo().presetHeight() === undefined || attach.photo().presetWidth() === undefined) {
-                if (this.photoAlbum.photoCollection().cover() === undefined && index === 0) {
-                    this.photoAlbum.photoCollection().cover(attach);
-                }
-                attach.photo().presetWidth(PresetManager.getWidth(attach.photo().width(), attach.photo().height(), this.photoAlbum.usablePreset));
-                attach.photo().presetHeight(PresetManager.getHeight(attach.photo().width(), attach.photo().height(), this.photoAlbum.usablePreset));
-            }
-        };
         this.resolvePresets = function resolvePresets(collectionPresets) {
             if (collectionPresets === undefined) {
                 return this.presets;
@@ -45,9 +36,13 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
          * @param val - new array value
          */
         this.figureNewImage = function figureNewImage(val) {
+            var count = this.photoAlbum.photoCount();
             PresetManager.presets = this.resolvePresets(this.photoAlbum.photoCollection().presets);
             for (var i=0; i < val.length; i++) {
-                this.mappingAttach(val[i], i);
+                this.photoAlbum.photoCollection().checkUploaded(val[i], count);
+                if (val[i].loading() === true) {
+                    this.photoAlbum.photoCollection().mappingAttach(val[i], i, this.photoAlbum.usablePreset);
+                }
             }
             //!quick for fix for the time being
             setTimeout(this.reloadImagesAfterAdding.bind(this), 1500);

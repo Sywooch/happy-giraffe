@@ -396,13 +396,38 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          * @returns {$.ajax}
          */
         this.addPhotos = function addPhotos(photosIds) {
-            return Model.get(this.addPhotosUrl, { photosIds: photosIds })
+            return Model.get(this.addPhotosUrl, { photosIds: photosIds });
         };
         /**
          * get collection by id
          */
         this.get = function get(id) {
             return Model.get(this.getCollectionUrl, { id: id });
+        };
+        /**
+         * increment photo counter
+         * @param countOld
+         * @param countNew
+         * @returns {boolean}
+         */
+        this.checkUploaded = function incrementPhotoCount(attach, count) {
+            if (attach.uploaded() === true) {
+                this.attachesCount(count + 1);
+            }
+        };
+        /**
+         * mapping attaches
+         * @param attach
+         * @param index
+         */
+        this.mappingAttach = function mappingAttach(attach, index, preset) {
+            if (attach.photo().presetHeight() === undefined || attach.photo().presetWidth() === undefined) {
+                if (this.cover() === undefined && index === 0) {
+                    this.cover(attach);
+                }
+                attach.photo().presetWidth(PresetManager.getWidth(attach.photo().width(), attach.photo().height(), preset));
+                attach.photo().presetHeight(PresetManager.getHeight(attach.photo().width(), attach.photo().height(), preset));
+            }
         };
     }
 

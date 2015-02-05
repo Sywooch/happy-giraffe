@@ -11,10 +11,11 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.returnNewColor = Model.returnNewColor;
         params.album.presets = params.presets;
         this.removed = ko.observable(false);
-        this.photoAlbum.init(params.album);
+        this.photoAlbum = this.photoAlbum.init(params.album);
         this.opened = ko.observable(false);
         this.userId = params.userId;
         this.limitDescSymbols = 200;
+        this.attaches = this.photoAlbum.photoCollection().attaches();
         /**
          * Removing album
          */
@@ -22,6 +23,18 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
             this.photoAlbum.delete();
             this.removed(true);
         };
+        /**
+         * new images in album
+         * @param val - new array value
+         */
+        this.figureNewImage = function figureNewImage(val) {
+            console.log(this.title(), val, val.length);
+            var count = this.photoCount();
+            for (var i=0; i < val.length; i++) {
+                this.photoCollection().checkUploaded(val[i], count);
+            }
+        };
+        this.photoAlbum.photoCollection().attaches.subscribe(this.figureNewImage.bind(this.photoAlbum));
         /**
          * Adding span tag
          * @param description

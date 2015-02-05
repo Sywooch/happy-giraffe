@@ -1,6 +1,6 @@
 <?php
-namespace site\frontend\modules\analytics\components;
-\Yii::import('site.common.vendor.Google.src.Google');
+namespace site\frontend\modules\ads\components;
+\Yii::import('site.common.vendor.Google.src.*');
 require_once 'Google/Api/Ads/Dfp/Lib/DfpUser.php';
 require_once 'Google/Api/Ads/Common/Util/MediaUtils.php';
 
@@ -30,5 +30,6 @@ class DfpHelper
         $customCreative->htmlSnippet = '<h1>Lol ok</h1>';
         $customCreative->size = new \Size(300, 250, FALSE);
         $customCreatives = $creativeService->createCreatives(array($customCreative));
+        return $customCreatives[0]->previewUrl;
     }
 }

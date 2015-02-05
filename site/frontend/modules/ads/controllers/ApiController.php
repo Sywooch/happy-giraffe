@@ -1,6 +1,6 @@
 <?php
-namespace site\frontend\modules\analytics\controllers;
-use site\frontend\modules\analytics\components\DfpHelper;
+namespace site\frontend\modules\ads\controllers;
+use site\frontend\modules\ads\components\DfpHelper;
 
 /**
  * @author Никита
@@ -12,6 +12,6 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionTest()
     {
         $dfp = new DfpHelper();
-        $dfp->addCreative();
+        $this->data = $dfp->addCreative();
     }
 }

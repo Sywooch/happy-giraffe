@@ -14,7 +14,7 @@ class CreativeInfoProvider
 
     public function __construct($template, \CActiveRecord $model)
     {
-        if ($model->asa('advertised') === null) {
+        if ($model->asa('AdvertisedBehavior') === null) {
             throw new \CException('Модель должна иметь поведение Advertised');
         }
 
@@ -40,7 +40,9 @@ class CreativeInfoProvider
     }
 
     public function getSize()
-    {}
+    {
+        return \Yii::app()->getModule('ads')->templates[$this->template]['size'];
+    }
 
     protected function getViewFile()
     {

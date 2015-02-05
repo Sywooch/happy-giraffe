@@ -26,4 +26,13 @@ return array(
             ),
         ),
     ),
+    'components' => array(
+        'dfp' => array(
+            'class' => 'site\frontend\modules\ads\components\DfpHelper',
+            'advertiserId' => 52506489,
+        ),
+        'manager' => array(
+            'class' => 'site\frontend\modules\ads\components\AdsManager'
+        ),
+    ),
 );

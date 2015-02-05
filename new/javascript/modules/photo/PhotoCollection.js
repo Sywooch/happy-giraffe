@@ -315,6 +315,28 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             this.loading(false);
 
         };
+
+        this.getSliderCollection = function getSliderCollection(id, offset, length) {
+            Model
+                .when(
+                    PresetManager.get(),
+                    Model.get(this.getAttachesUrl, { collectionId: id || this.id(), offset: offset, length: length })
+                ).done(this.getSliderCollectionHandler.bind(this));
+        };
+
+
+        this.getSliderCollectionHandler = function getSliderCollectionHandler(presets, attaches) {
+            var attachesData = attaches[0],
+                presetsData = presets[0];
+            if (attachesData.success && presetsData.success === true) {
+                PresetManager.presets = presetsData.data;
+                this.presets = presetsData.data;
+                if (PresetManager.presets !== undefined) {
+                    this.attaches.push.apply(this.attaches, ko.utils.arrayMap(attachesData.data.attaches, this.iterateAttaches.bind(this)));
+                }
+            }
+        };
+
         /**
          * get part of current collection
          * @param id
@@ -325,7 +347,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             Model
                 .when(
                     PresetManager.get(),
-                    Model.get(this.getAttachesUrl, { collectionId: this.id(), offset: offset, length: length })
+                    Model.get(this.getAttachesUrl, { collectionId: id || this.id(), offset: offset, length: length })
                 )
                 .done(this.getPartsCollectionHandler.bind(this));
         };

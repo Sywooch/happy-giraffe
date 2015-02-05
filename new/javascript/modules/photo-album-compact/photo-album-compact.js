@@ -24,18 +24,6 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
             this.removed(true);
         };
         /**
-         * new images in album
-         * @param val - new array value
-         */
-        this.figureNewImage = function figureNewImage(val) {
-            console.log(this.title(), val, val.length);
-            var count = this.photoCount();
-            for (var i=0; i < val.length; i++) {
-                this.photoCollection().checkUploaded(val[i], count);
-            }
-        };
-        this.photoAlbum.photoCollection().attaches.subscribe(this.figureNewImage.bind(this.photoAlbum));
-        /**
          * Adding span tag
          * @param description
          * @returns {*}

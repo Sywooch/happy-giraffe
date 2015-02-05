@@ -59,7 +59,7 @@
         text-align: center;
         background-color: #f9f9f9;
         // Что бне залазило изображение на имя кому отвечаеш в комментарии (имя флотнуто)
-        width: 100%;
+        min-width: 100%;
         overflow: hidden;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
@@ -81,7 +81,7 @@
     }
     
     &_header {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
     &_header .tx-date {display: block;}
     &_header .ava {
@@ -95,15 +95,15 @@
     }
     &_t {
         &:extend(.heading-link-xxl);
-        margin: 10px 0;
+        margin: 8px 0;
     }
     &_t-list {
-        margin: 10px 0;
+        margin: 8px 0;
     }
     &_t-a {
         &:extend(.heading-link-xl);
+        margin: 8px;
     }
-    &_t-a:hover { }
     &_like .article-settings {
         float: left;
         margin: 20px 0 0;
@@ -138,17 +138,17 @@
             margin: 5px 0 15px 0;
         }
         &_t-list {
-            margin: 10px 0 10px;
+            margin: 8px 0;
         }
     }
 
     @media (min-width: @screen-desktop) {
         & {
-            margin: 20px 0 30px;
+            margin: 20px 0 40px;
             padding: 0;
         }
         & .adv-yandex {
-            margin: 30px 0 0;
+            margin: 30px 0 10px;
         }
         &__list {
             border: 1px solid #f0f0f0;

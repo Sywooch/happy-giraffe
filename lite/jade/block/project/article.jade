@@ -178,7 +178,10 @@ mixin bArticleListPhotopost(mod, vars)
                 a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
             .b-article_in.clearfix
                 .wysiwyg-content.clearfix
-                    +bAlbumPhotopost('', bAlbumPhotopost.a)
+                    if(vars.content == 'empty')
+                        +bAlbumCap('b-album__load', bAlbumCap.base)
+                    if(!vars.content)
+                        +bAlbumPhotopost('', bAlbumPhotopost.a)
 
             //-.b-article_in.clearfix
                 .wysiwyg-content.clearfix
@@ -209,6 +212,9 @@ mixin bArticleListPhotopost(mod, vars)
 
 - var bArticleListPhotopost = {}
 - bArticleListPhotopost.base = {}
+
+- bArticleListPhotopost.baseEmpty = {}
+- bArticleListPhotopost.baseEmpty.content = 'empty'
 
 
 mixin bArticleStatus(mod, vars)

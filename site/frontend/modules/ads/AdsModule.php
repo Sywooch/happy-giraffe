@@ -9,6 +9,8 @@ namespace site\frontend\modules\ads;
 class AdsModule extends \CWebModule
 {
     public $advertiserId;
+    public $lines;
+    public $templates;
 
     public $controllerNamespace = '\site\frontend\modules\ads\controllers';
 }

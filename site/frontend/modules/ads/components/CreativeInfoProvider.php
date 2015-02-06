@@ -1,5 +1,11 @@
 <?php
 /**
+ * @property string $name
+ * @property string $url
+ * @property string $html
+ * @property int width
+ * @property int height
+ *
  * @author Никита
  * @date 05/02/15
  */
@@ -7,7 +13,7 @@
 namespace site\frontend\modules\ads\components;
 
 
-class CreativeInfoProvider
+class CreativeInfoProvider extends \CComponent
 {
     public $template;
     public $model;
@@ -46,6 +52,6 @@ class CreativeInfoProvider
 
     protected function getViewFile()
     {
-        return \Yii::getPathOfAlias('ads.views.template') . DIRECTORY_SEPARATOR . $this->template;
+        return 'ads.views.templates.' . $this->template;
     }
 }

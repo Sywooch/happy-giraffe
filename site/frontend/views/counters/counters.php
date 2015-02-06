@@ -12,5 +12,12 @@
 )); ?>
 <?php Yii::app()->controller->renderPartial('//counters/_metrika'); ?>
 <?php $this->endWidget(); ?>
+<?php $this->beginWidget('AdsWidget', array(
+    'dummyTag' => 'piwik',
+    'show' => Yii::app()->ads->isProduction(),
+    'lazyAdsOn' => false,
+)); ?>
+<?=Yii::app()->getModule('analytics')->piwik->getTrackingCode()?>
+<?php $this->endWidget(); ?>
 <?php //Yii::app()->controller->renderPartial('//counters/_ga'); ?>
 <?php //Yii::app()->controller->renderPartial('//counters/_top100'); ?>

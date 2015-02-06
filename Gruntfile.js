@@ -279,6 +279,7 @@ module.exports = function(grunt){
             //.tooltip+/,
             
             /.bx-wrapper+/,
+            /input+/,
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
@@ -325,6 +326,7 @@ module.exports = function(grunt){
             /.flag+/,
             /.fast-articles3+/,
             //.tooltip+/,
+            /input+/,
             /.body+/,
             
             /.bx-wrapper+/,
@@ -373,6 +375,7 @@ module.exports = function(grunt){
             /.fast-articles3+/,
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
+            /input+/,
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
@@ -416,6 +419,7 @@ module.exports = function(grunt){
             /.ava+/,
             /.ico-club+/,
             /.fast-articles3+/,
+            /input+/,
             /.body+/,
             /.bnr+/,
             /.ico-social-hold+/,
@@ -453,6 +457,7 @@ module.exports = function(grunt){
             /.flag+/,
 
             /.fast-articles3+/,
+            /input+/,
             /.body+/,
             /.bnr+/,
             
@@ -502,6 +507,7 @@ module.exports = function(grunt){
             /.flag+/,
             
             /.fast-articles3+/,
+            /input+/,
             /.body+/,
             /.bnr+/,
             // Для страниц собранных разделов
@@ -537,6 +543,7 @@ module.exports = function(grunt){
             /.mfp+/,
             /.select2+/,
             /@font-face+/,
+            /input+/,
             /.body+/,
             /.bnr+/,
             /.ava+/,

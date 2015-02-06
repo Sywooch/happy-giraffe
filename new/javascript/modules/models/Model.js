@@ -1,7 +1,5 @@
-define(["jquery", "knockout", "models/User"], function ($, ko, User) {
-
+define(["jquery", "knockout", 'extensions/helpers'], function ($, ko, Helpers) {
     var Model = {
-
         /**
          * [get асинхронный запрос к api]
          * @param  {string} url        url к которому обращаемся
@@ -19,7 +17,6 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
                 }
             );
         },
-
         /**
          * [when асинхронный запрос к api]
          * @param ajaxOne
@@ -29,15 +26,8 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
         when: function when(ajaxOne, ajaxTwo) {
             return $.when(ajaxOne, ajaxTwo);
         },
-
         findById: function findById(id, array) {
-            var iterator;
-            for (iterator = 0; iterator < array.length; iterator++) {
-                if (id === array[iterator].id) {
-                    return array[iterator];
-                }
-            }
-            return false;
+            return Helpers.findByProperty('id', id, array);
         },
         findByIdObservable: function findByIdObservable(id, array) {
             var iterator;
@@ -53,14 +43,6 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             for (iterator = 0; iterator < array.length; iterator++) {
                 if (id === array[iterator].id()) {
                     return { element: ko.observable(array[iterator]), index: ko.observable(iterator) };
-                }
-            }
-            return false;
-        },
-        checkRights: function checkRights(externalId) {
-            if (User.userId !== null) {
-                if (parseInt(User.userId) === parseInt(externalId)) {
-                    return true;
                 }
             }
             return false;
@@ -95,6 +77,5 @@ define(["jquery", "knockout", "models/User"], function ($, ko, User) {
             return stdProperty;
         }
     };
-
     return Model;
 });

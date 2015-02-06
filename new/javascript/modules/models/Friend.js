@@ -59,13 +59,5 @@ define(['jquery', 'knockout', 'models/Model', 'models/User'], function FriendHan
             }, this);
         }
     };
-
-var maybe = MONAD(function (monad, value) {
-    if (value === null || value === undefined) {
-        monad.is_null = true;
-        monad.bind = function () {
-            return monad;
-        }
-    }
-}
+    return Friend;
 });

@@ -260,4 +260,49 @@
 }
 /* /counter-users */
 
+/* homepage-family */
+.homepage-family {
+    margin: 30px 0;
 
+    &_t {
+        font: bold 50px/50px 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+        margin: 0 0 30px;
+        color: @color-gray;
+        text-align: center;
+    }
+    &_reload {
+        display: inline-block;
+        vertical-align: middle;
+        width: 101px;
+        height: 101px;
+        margin-left: 30px;
+        background: url('@{path-img}/homepage-family_reload.png') no-repeat;
+        .transition(all 1.2s ease);
+    }
+    &_reload__animate {
+        .rotate(360deg);
+    }
+    &_hold {
+        position: relative;
+        min-height: 666px;
+        background: #524261;
+    }
+    &_r {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 290px;
+        background: rgba(0, 0, 0, .4);
+        text-align: center;
+
+        .friends-list {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .friends-list_li {
+            background-color: #fff;
+        }
+    }
+}
+/* /homepage-family */

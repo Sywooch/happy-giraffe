@@ -71,6 +71,10 @@
     &__s &_t {
         font-size: 18px;
     }
+    &__s &_bottom {
+        border-width: 0;
+        padding: 10px 0;
+    }
 
     &__green  &_hold {border-color: #52b547;}
     &__green  &_tag  {background-color: #52b547;}
@@ -92,8 +96,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        border: 2px solid #fff;
-        z-index: 5;
+        border: 3px solid #fff;
+        z-index: 8;
     }
     &_author {
         display: block;
@@ -108,14 +112,19 @@
         /*max-width: 150px;*/
     }
     &_hold {
+        position: relative;
         display: block;
         border-top: 5px solid #8970b4;
     }
-    &_hold:hover &_t {
-        color: @color-link-hover;
-    }
-    &_hold:hover &_img {
-        .opacity(0.8);
+    &_ico-hold:hover &_img-overlay,
+    &_hold:hover &_img-overlay {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0,0,0,.09);
     }
 
     &_bottom {
@@ -131,6 +140,9 @@
         letter-spacing: -0.15px;
         font-weight: bold;
         color: @color-link-title;
+    }
+    &_t:hover {
+        color: @color-link-hover;
     }
     /*&_t:hover {
         .opacity(0.7);
@@ -159,6 +171,9 @@
         width: 100%;
         z-index: 2;
         #gradient > .vertical(@start-color: rgba(0,0,0,.7); @end-color: rgba(0,0,0,0); @start-percent: 0%; @end-percent: 100%)
+    }
+    &_img-overlay {
+        display: none;
     }
     &_count-hold {
         margin: 15px;
@@ -191,16 +206,17 @@
         position: relative;
         top: auto;
         left: auto;
+        background: none;
     }
     &__ico &_t {
         display: inline-block;
         margin: 10px 20px;
         color: #fff;
     }
-    &__ico &_hold:hover &_t {
+    /*&__ico &_hold:hover &_t {
         color: #fff;
         .opacity(0.7);
-    }
+    }*/
 
     &_ico-hold {
         height: 410px;
@@ -213,6 +229,8 @@
     &_ico-a {
         display: inline-block;
         vertical-align: middle;
+        position: relative;
+        z-index: 8;
     }
     &_ico {margin: 20px 0 15px;}
     /* /__ico*/

@@ -1,0 +1,79 @@
+/*
+    friends-list
+    Список друзей
+
+    friends-list
+        friends-list_i
+            <b-ava-large>
+            friends-list_location
+                <flag>
+            <b-family>
+*/
+.friends-list {
+    position: relative;
+    .clearfix;
+
+    /*&__family &_i {
+        border: 1px solid #e5e4e4;
+        background: #f0f0f0;
+        padding: 0 5px 15px;
+        margin: 0 7px 20px 6px;
+        .border-radius(5px);
+    }*/
+    .location {margin: 0 0 15px;}
+    .b-ava-large_close {
+        top: 5px;
+        right: -10px;
+    }
+    .ico-close2 {
+        display: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .friend-offer_hold {
+        width: auto;
+        padding: 15px;
+        margin: 0 10px 10px;
+    }
+    .filter-group {
+        margin: 40px 0 30px;
+    }
+    .heading-smallest {
+        margin: 0 30px;
+    }
+    &_ul {
+        margin: 15px 10px 20px 17px;
+    }
+    &_li {
+        margin: 10px 10px 20px 10px;
+        .inline-block();
+        vertical-align: top;
+        .transition(all 0.2s ease);
+    }
+    &_banner {display: none;}
+    /*&_banner:nth-child(3) .cap-empty,
+    &_banner:nth-child(3) &_i {display: none;}*/
+    &_banner:nth-child(11) {.inline-block();}
+    &_i {
+        position: relative;
+        width: 258px;
+        border: 1px solid #f0f0f0;
+        text-align: center;
+        .border-radius(4px);
+    }
+    &_i:hover {border-color: #e4e4e4;}
+    &_i:hover .ico-close2 {display: block;}
+
+    &_ico {
+        display: block;
+        width: 30px;
+        height: 25px;
+        margin: 15px auto 0;
+        background: url(/images/friends-list_ico.png) no-repeat;
+    }
+    &_ico__blog  {background-position: -30px 0;}
+    &_ico__photo {background-position: -60px 0;}
+    &_ico__friend-add {background-position: -90px 0;}
+    &_ico__friend-added {background-position: -120px 0;}
+}

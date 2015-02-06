@@ -222,9 +222,9 @@ body.body.body__lite.body__bg2(class='body__homepage')
                                 //- .homepage-posts_col 
 
                                 .article-anonce.article-anonce__xl
-                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-5.html", width='615px', height="450px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-5.html", width='615px', height="480px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
                                 .article-anonce.article-anonce__ico
-                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-6.html", width='300px', height="450px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+                                    iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-6.html", width='300px', height="480px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
 
 
                                 .article-anonce
@@ -237,18 +237,19 @@ body.body.body__lite.body__bg2(class='body__homepage')
 
                                 +articleAnonce('article-anonce__red article-anonce__xl', articleAnonce.xl)
                                 +articleAnonce('article-anonce__lilac article-anonce__ico', articleAnonce.ico1)
-                                +articleAnonce('article-anonce__yellow', articleAnonce.d)
+                                +articleAnonce('article-anonce__green', articleAnonce.d)
                                 +articleAnonce('article-anonce__yellow', articleAnonce.a)
-                                +articleAnonce('article-anonce__blue', articleAnonce.f)
-                                //+articleAnonce('article-anonce__green', articleAnonce.d)
+                                +articleAnonce('article-anonce__blue', articleAnonce.f) 
 
-                                //+articleAnonce('article-anonce__lilac', articleAnonce.f)
-                                //+articleAnonce('article-anonce__blue', articleAnonce.b)
+                                //-+articleAnonce('article-anonce__green', articleAnonce.d)
+
+                                //-+articleAnonce('article-anonce__lilac', articleAnonce.f)
+                                //-+articleAnonce('article-anonce__blue', articleAnonce.b)
                                 //-.bnr-base 
                                     a(href='#') 
                                         img(src="#{path}images/example/w240-h400-2.jpg", alt="")
                             
-                               //- +articleAnonce('article-anonce__green', articleAnonce.f) 
+                               //- +articleAnonce('article-anonce__green', articleAnonce.f)
 
                 // Посты 
                 .homepage_row
@@ -262,6 +263,38 @@ body.body.body__lite.body__bg2(class='body__homepage')
                             +articleSimilar('article-similar__green', articleSimilar.e)
                             +articleSimilarIcons('article-similar__blue', articleSimilarIcons.a)
                 // /Посты
+
+                // Семья
+                .homepage-family
+                    .homepage-family_t
+                        | Представляем нашу семью
+                        // .homepage-family_reload__animate - переключатель анимации 1-го круга анимации, 
+                        // клик - добавили класс, 1 раз повернулось,
+                        // 2 клик - убрали класс, повернулось 1 раз назад ))
+                        a.homepage-family_reload.homepage-family_reload__animate(href='#')
+                    .homepage-family_hold
+                        .homepage-family_img-hold
+                            img.homepage-family_img-l(src="#{path}images/example/w1000-h666.jpg", alt="")
+                        .homepage-family_r
+                            .verticalalign-m-help
+                            ul.friends-list
+                                +friendsListItem('', friendsListItem.a)
+
+                // /Семья
+
+                // Семья
+                .homepage-family
+                    .homepage-family_t
+                        | Представляем нашу семью
+                        // .homepage-family_reload__animate - переключатель анимации 1-го круга анимации, 
+                        // клик - добавили класс, 1 раз повернулось,
+                        // 2 клик - убрали класс, повернулось 1 раз назад ))
+                        a.homepage-family_reload.homepage-family_reload__animate(href='#')
+                    .homepage-family_hold
+                        // Пока семья загружается
+                        +bLoader('b-loader__abs', bLoader.familyBig)
+
+                // /Семья
 
                 // Посетители
                 .homepage_row

@@ -1,0 +1,31 @@
+//- friends-list
+    mod
+    vars
+        itemBanner boolean 
+        bAvaLarge array 
+        capEmpty array
+mixin friendsListItem(mod, vars)
+    li.friends-list_li
+        .friends-list_i
+            if (vars.del)
+                span.ico-close2.powertip(title="Удалить из друзей")
+                        
+            +b-ava-large('', vars.bAvaLarge)
+            if (vars.capEmpty)
+                +cap-empty('cap-empty__abs cap-empty__white', vars.capEmpty )
+                        
+
+- var friendsListItem = {}
+
+- friendsListItem.a = {}
+- friendsListItem.a.del = false
+- friendsListItem.a.bAvaLarge = bAvaLarge.b
+- friendsListItem.a.capEmpty = false
+
+- friendsListItem.b = {}
+- friendsListItem.b.bAvaLarge = bAvaLarge.b
+- friendsListItem.b.capEmpty = capEmpty.friendsListItem
+
+- friendsListItem.c = {}
+- friendsListItem.c.bAvaLarge = bAvaLarge.c
+- friendsListItem.c.capEmpty = false

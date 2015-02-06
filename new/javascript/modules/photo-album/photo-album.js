@@ -10,7 +10,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.photoAlbum.usablePreset = 'albumList';
         this.photoAlbum.pageCount = null;
         this.currentPhoto = ko.observable();
-        this.rightsForManipulation = Model.checkRights(params.userId);
+        this.rightsForManipulation = User.checkRights(params.userId);
         this.userId = params.userId;
         this.presets = {};
         this.opened = ko.observable(false);

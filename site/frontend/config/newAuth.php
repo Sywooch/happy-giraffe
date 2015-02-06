@@ -40,10 +40,11 @@ return array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Управление личной информацией о пользователе',
         'children' => array(
+            'editSettings',
             'setAvatar',
             'removeAvatar',
         ),
-        'bizRule' => 'return $params["userId"] == \Yii::app()->user->id;',
+        'bizRule' => 'return $params["entity"]->id == \Yii::app()->user->id;',
         'data' => null
     ),
     'manageOwnContent' => array(
@@ -320,6 +321,12 @@ return array(
     'restoreFamilyMember' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Восстановление члена семьи',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'editSettings' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Редактирование настроек',
         'bizRule' => null,
         'data' => null,
     ),

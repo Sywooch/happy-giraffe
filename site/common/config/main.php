@@ -11,6 +11,14 @@ return array(
     ),
     'modules' => array(
         'photo' => require(dirname(__FILE__) . '/../../frontend/modules/photo/config/main.php'),
+        'analytics' => array(
+            'class' => 'site\frontend\modules\analytics\AnalyticsModule',
+            'components' => array(
+                'piwik' => array(
+                    'class' => 'site\frontend\modules\analytics\components\PiwikHttpApi',
+                ),
+            ),
+        ),
     ),
     'components' => array(
         'api' => array(

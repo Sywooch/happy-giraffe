@@ -22,7 +22,7 @@
  * @property GeoRegion $region
  * @property GeoZip[] $zips
  */
-class GeoCity extends HActiveRecord
+class GeoCity extends HActiveRecord implements IHToJSON
 {
     /**
      * Returns the static model of the specified AR class.
@@ -243,5 +243,13 @@ class GeoCity extends HActiveRecord
         else
             $label = $this->name;
         return $label;
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'id' => (int) $this->id,
+            'name' => $this->name,
+        );
     }
 }

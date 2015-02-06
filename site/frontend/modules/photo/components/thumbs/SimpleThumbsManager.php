@@ -75,8 +75,13 @@ class SimpleThumbsManager extends ThumbsManager
     protected function createFilter($config)
     {
         $className = '\site\frontend\modules\photo\components\thumbs\filters\\' . ucfirst($config['name']) . 'Filter';
-        $params = array_slice($config, 1);
+        $params = $config;
+        unset($params['name']);
         $reflect  = new \ReflectionClass($className);
+        // исправим последовательность параметров
+        $params = array_merge(array_flip(array_map(function(\ReflectionParameter $param) {
+            return $param->getName();
+        }, $reflect->getConstructor()->getParameters())), $params);
         $filter = $reflect->newInstanceArgs($params);
         return $filter;
     }

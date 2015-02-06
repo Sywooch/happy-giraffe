@@ -69,14 +69,13 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * @returns {*}
          */
         this.creatingTitle = function creatingTitle(currentElement) {
-            return (currentElement.element().photo().title() !== "") ? currentElement.element().photo().title() : (currentElement.element().position() + 1);
+            return (currentElement.element().photo().title() !== "") ? currentElement.element().photo().title() : (currentElement.element().index() + 1);
         };
         /**
          * Начало
          * @param newAttaches
          */
         this.lookForStart = function lookForStart() {
-            console.log(this.collection.attaches());
             var title;
             if (this.current().element === undefined) {
                 this.current(Model.findByIdObservableIndex(this.photoAttach(), this.collection.attaches()));
@@ -87,6 +86,8 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 //FCUK quick fix
                 setTimeout(this.addImageBinding.bind(this), this.setDelay);
                 //---FCUK quick fix
+            } else {
+                this.current(Model.findByIdObservableIndex(this.current().element().id(), this.collection.attaches()));
             }
         };
         /**
@@ -118,6 +119,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                     this.collection.getSliderCollection(this.collection.id(), this.calculatePostOffset(position, false), this.photoLength);
                 }
                 if ((index - this.offsetMinimal) === 0) {
+                    console.log('left loading fire');
                     this.collection.getSliderCollection(this.collection.id(), this.calculatePostOffset(position, true), this.photoLength);
                 }
             }
@@ -126,24 +128,24 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * Next slide
          */
         this.next = function next() {
-            var position = this.current().element().position() + 1,
+            var position = this.current().element().index() + 1,
                 index = this.current().index();
             if (position !== this.collection.attachesCount()) {
                 this.current().index(index + 1);
                 this.sliderManipulations();
-                this.needMorePictures(this.current().element().position(), this.current().index());
+                this.needMorePictures(this.current().element().index(), this.current().index());
             }
         };
         /**
          * Prev Slide
          */
         this.prev = function prev() {
-            var position = this.current().element().position() + 1,
+            var position = this.current().element().index() + 1,
                 index = this.current().index();
             if (position > 1) {
                 this.current().index(index - 1);
                 this.sliderManipulations();
-                this.needMorePictures(this.current().element().position(), this.current().index());
+                this.needMorePictures(this.current().element().index(), this.current().index());
             }
         };
         this.collection.attaches.subscribe(this.lookForStart.bind(this));
@@ -180,23 +182,27 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             };
         };
         /**
-         * Calculating starting offset
-         * @param position
-         * @returns {number}
-         */
-        this.calculatePostOffset = function calculateOffset(position, left) {
-            if (left) {
-                return position - this.offsetMinimal;
-            }
-            return position + this.offsetMinimal;
-        };
-        /**
          * Calculating post offset
          * @param position
          * @returns {number}
          */
-        this.calculateOffset = function calculatePostOffset(position) {
-            var splitted = this.photoLength / 2;
+        this.calculatePostOffset = function calculatePostOffset(position, left) {
+            var calculates;
+            if (left) {
+                calculates = position - this.photoLength;
+                return calculates >= 0 ? calculates : 0;
+            }
+            calculates = position + this.offsetMinimal;
+            return calculates;
+        };
+        /**
+         * Calculating starting offset
+         * @param position
+         * @returns {number}
+         */
+        this.calculateOffset = function calculateOffset(position) {
+            var splitted = this.photoLength / 2,
+                calculated;
             if (position <= splitted) {
                 return 0;
             }
@@ -208,7 +214,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          */
         this.observeAttach = function observeAttach(receivedData) {
             if (receivedData.success === true) {
-                this.collection.getSliderCollection(this.collection.id(), this.calculateOffset(receivedData.data.position), this.photoLength);
+                this.collection.getSliderCollection(this.collection.id(), this.calculateOffset(receivedData.data.index), this.photoLength);
             }
         };
         /**

@@ -315,7 +315,12 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             this.loading(false);
 
         };
-
+        /**
+         * Получение коллекции для слайдер
+         * @param id
+         * @param offset
+         * @param length
+         */
         this.getSliderCollection = function getSliderCollection(id, offset, length) {
             Model
                 .when(
@@ -323,16 +328,40 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                     Model.get(this.getAttachesUrl, { collectionId: id || this.id(), offset: offset, length: length })
                 ).done(this.getSliderCollectionHandler.bind(this));
         };
-
-
+        /**
+         * Решить в каком направлении наполнять массив
+         * @param oldAttaches
+         * @param newAttaches
+         * @returns {boolean}
+         */
+        this.decideToWhatSliderDirection = function decideToWhatSliderDirection(oldAttaches, newAttaches) {
+            if (oldAttaches.length > 0) {
+                console.log(newAttaches[0].index() < oldAttaches[0].index());
+                return newAttaches[0].index() < oldAttaches[0].index();
+            }
+            return false;
+        };
+        /**
+         * Манипуляции данными в разрезе формирования линейки фото для слайдера
+         * @param presets
+         * @param attaches
+         */
         this.getSliderCollectionHandler = function getSliderCollectionHandler(presets, attaches) {
             var attachesData = attaches[0],
-                presetsData = presets[0];
+                presetsData = presets[0],
+                direction,
+                newAttaches;
             if (attachesData.success && presetsData.success === true) {
                 PresetManager.presets = presetsData.data;
                 this.presets = presetsData.data;
                 if (PresetManager.presets !== undefined) {
-                    this.attaches.push.apply(this.attaches, ko.utils.arrayMap(attachesData.data.attaches, this.iterateAttaches.bind(this)));
+                    newAttaches = ko.utils.arrayMap(attachesData.data.attaches, this.iterateAttaches.bind(this));
+                    direction = this.decideToWhatSliderDirection(this.attaches(), newAttaches);
+                    if (direction) {
+                        this.attaches(newAttaches.concat(this.attaches()));
+                    } else {
+                        this.attaches.push.apply(this.attaches, newAttaches);
+                    }
                 }
             }
         };

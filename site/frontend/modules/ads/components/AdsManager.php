@@ -13,11 +13,11 @@ class AdsManager extends \CApplicationComponent
 {
     public function toggle(\CActiveRecord $model, $line, $template)
     {
-        $ad = Ad::model()->entity($model)->line($line)->template($template);
+        $ad = Ad::model()->entity($model)->line(\Yii::app()->getModule('ads')->lines[$line])->find();
         if ($ad === null) {
             return $this->add($model, $line, $template);
         } else {
-            return $this->remove($ad);
+            return ($ad->active == 1) ? $this->remove($ad) : $this->reactivate($ad);
         }
     }
 
@@ -27,10 +27,18 @@ class AdsManager extends \CApplicationComponent
 
     }
 
-    protected function add(\CActiveRecord $model, $line, $template)
+    public function add(\CActiveRecord $model, $line, $template)
     {
+        $lineConfig = $lineId = \Yii::app()->getModule('ads')->lines[$line];
         $creativeInfo = new CreativeInfoProvider($template, $model);
-        $creative = \Yii::app()->getModule('ads')->dfp->addCreative($creativeInfo);
+        $creative = \Yii::app()->getModule('ads')->dfp->addCreative(array(
+            'destinationUrl' => $creativeInfo->url,
+            'name' => $creativeInfo->name,
+            'htmlSnippet' => $creativeInfo->html,
+        ), $lineConfig['size']);
+        $lineId = $lineConfig['lineId'];
+
+        $lica = \Yii::app()->getModule('ads')->dfp->addLica($lineId, $creative->id);
 
 
 
@@ -42,8 +50,17 @@ class AdsManager extends \CApplicationComponent
         return $ad->save();
     }
 
+    protected function reactivate(Ad $ad)
+    {
+        \Yii::app()->getModule('ads')->dfp->activateLica($ad->lineId, $ad->creativeId);
+        $ad->active = 1;
+        return $ad->save(true, array('active'));
+    }
+
     protected function remove(Ad $ad)
     {
-
+        \Yii::app()->getModule('ads')->dfp->deactivateLica($ad->lineId, $ad->creativeId);
+        $ad->active = 0;
+        return $ad->save(true, array('active'));
     }
 }

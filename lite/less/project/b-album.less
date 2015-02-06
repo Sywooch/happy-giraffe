@@ -1,8 +1,23 @@
+/* Родительский тег для фотопостов */
+photo-collection {
+    display: block;
+    margin: 0 auto;
+
+    &.loading {
+        padding: 66.6% 0 0;
+        background: #F9F9F9 url('@{path-img}/b-album-loading.svg') no-repeat 50% 50%;
+    }
+}
 /* Родительский тег для всех фотоальбомов */
 photo-albums {
     display: block;
     margin: 0 auto;
     max-width: 880px; // Устаревающая ширина базового layout 
+
+    &.loading {
+        padding: 66.6% 0 0;
+        background: #F9F9F9 url('@{path-img}/b-album-loading.svg') no-repeat 50% 50%;
+    }
 }
 /* 
     .b-album

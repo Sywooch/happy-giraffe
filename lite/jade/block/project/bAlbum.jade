@@ -243,10 +243,8 @@ mixin bAlbumPhotopost(mod, vars)
     vars 
 mixin bAlbumCap(mod, vars)
     // b-album
-    section.b-album(class=mod)
-        .b-album_img-hold
-            .b-album_img-pad
-            +bLoader('b-loader__abs', bLoader.load)
+    photo-collection.loading
+        
 
 - var bAlbumCap = {}
 - bAlbumCap.base = {}

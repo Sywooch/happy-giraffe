@@ -13,8 +13,9 @@ class ApiController extends \site\frontend\components\api\ApiController
 {
     public function actionTest()
     {
-        $post = Content::model()->find();
+        $post = Content::model()->byEntity('CommunityContent', 52301)->find();
         $info = new CreativeInfoProvider('bigPost', $post);
-        $this->module->dfp->addCreative($info);
+        $this->module->manager->toggle($post, 'bigPost', 'bigPost');
+
     }
 }

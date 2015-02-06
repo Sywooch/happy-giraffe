@@ -1,4 +1,6 @@
 <?php
+namespace site\frontend\modules\ads\components;
+
 /**
  * @property string $name
  * @property string $url
@@ -10,13 +12,11 @@
  * @date 05/02/15
  */
 
-namespace site\frontend\modules\ads\components;
-
 
 class CreativeInfoProvider extends \CComponent
 {
-    public $template;
-    public $model;
+    protected $template;
+    protected $model;
 
     public function __construct($template, \CActiveRecord $model)
     {
@@ -45,13 +45,13 @@ class CreativeInfoProvider extends \CComponent
         ), true);
     }
 
-    public function getSize()
+    public function getWidth()
     {
-        return \Yii::app()->getModule('ads')->templates[$this->template]['size'];
+        return \Yii::app()->getModule('ads')->templates[$this->template]['size']['width'];
     }
 
-    protected function getViewFile()
+    public function getHeight()
     {
-        return 'ads.views.templates.' . $this->template;
+        return \Yii::app()->getModule('ads')->templates[$this->template]['size']['height'];
     }
 }

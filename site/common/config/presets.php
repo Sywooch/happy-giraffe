@@ -192,5 +192,15 @@ return array(
         'usages' => array(
             'familyMemberSmallWidget',
         ),
-    )
+    ),
+    array(
+        'filter' => array(
+            'name' => 'fixedV2',
+            'width' => 615,
+            'height' => 450,
+        ),
+        'usages' => array(
+            'postAnnouncementBig',
+        ),
+    ),
 );

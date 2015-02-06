@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $this site\frontend\modules\ads\components\renderers\PostRenderer
+ */
+?>
+
 <!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 
@@ -393,7 +399,7 @@ article-anonce__red
 article-anonce__yellow
 -->
 <div class="article-anonce article-anonce__red article-anonce__xl">
-    <div class="article-anonce_top"><a href="#" class="article-anonce_header-a">
+    <div class="article-anonce_top"><a href="%%CLICK_URL_UNESC%%" class="article-anonce_header-a">
             <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="article-anonce_author">Марина Правдинина</span></a></div><a href="#" class="article-anonce_hold">
         <div class="article-anonce_img-hold">
             <div class="article-anonce_img-top">
@@ -401,12 +407,12 @@ article-anonce__yellow
                     <div class="article-anonce_count-t">128</div>
                     <div class="article-anonce_count-tx">фото</div>
                 </div>
-            </div><img src="http://lorempixel.com/615/410/people/5" alt="Наши первые движения они родились в разных странах " class="article-anonce_img">
+            </div><img src="<?=Yii::app()->thumbs->getThumb()?>" alt="Наши первые движения они родились в разных странах " class="article-anonce_img">
         </div>
         <div class="article-anonce_bottom">
             <!-- может быть, а может и не быть тег-->
-            <div class="article-anonce_tag">Праздники</div>
-            <div class="article-anonce_t">Наши первые движения они родились в разных странах
+            <div class="article-anonce_tag"><?=$this->getClubTitle()?></div>
+            <div class="article-anonce_t"><?=$this->model->title?>
             </div>
         </div></a>
 </div>

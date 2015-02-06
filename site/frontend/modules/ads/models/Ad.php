@@ -4,10 +4,10 @@ namespace site\frontend\modules\ads\models;
 /**
  * @property int $id
  * @property string $entity
- * @property int $entityId
- * @property int $lineId
- * @property int $creativeId
- * @property int $licaId
+ * @property string $entityId
+ * @property string $lineId
+ * @property string $creativeId
+ * @property bool $active
  * @property int $dtimeCreate
  * @property int $dtimeUpdate
  *

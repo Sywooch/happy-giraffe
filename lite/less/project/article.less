@@ -64,7 +64,7 @@
     }
     &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
-        display: block;
+        display: inline-block;
         height: auto !important;
     }
     &_in-img iframe {
@@ -72,6 +72,15 @@
     }
     &_in-img__l img {
         width: 100%;
+    }
+    &_in-img-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, .08);
     }
 
     &_cont {

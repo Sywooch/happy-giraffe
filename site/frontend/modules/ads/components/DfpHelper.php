@@ -33,7 +33,7 @@ class DfpHelper extends \CApplicationComponent
         return $customCreatives[0];
     }
 
-    protected function addLica($lineId, $creativeId)
+    public function addLica($lineId, $creativeId)
     {
         $licaService = $this->user->GetService('LineItemCreativeAssociationService', 'v201411');
         $lica = new \LineItemCreativeAssociation();

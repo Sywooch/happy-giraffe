@@ -1,10 +1,11 @@
 <?php
 
 return array(
+    'class' => 'site\frontend\modules\ads\AdsModule',
     'lines' => array(
-        'bigPost' => 225619569,
-        'smallPost' => 225619929,
-        'photoPost' => 225620289,
+        'bigPost' => 231258382,
+        'smallPost' => 231258622,
+        'photoPost' => 231258862,
     ),
     'templates' => array(
         'bigPost' => array(
@@ -29,7 +30,7 @@ return array(
     'components' => array(
         'dfp' => array(
             'class' => 'site\frontend\modules\ads\components\DfpHelper',
-            'advertiserId' => 52506489,
+            'advertiserId' => 119452822,
         ),
         'manager' => array(
             'class' => 'site\frontend\modules\ads\components\AdsManager'

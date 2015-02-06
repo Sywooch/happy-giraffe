@@ -1,6 +1,8 @@
 <?php
 namespace site\frontend\modules\ads\controllers;
+use site\frontend\modules\ads\components\CreativeInfoProvider;
 use site\frontend\modules\ads\components\DfpHelper;
+use site\frontend\modules\posts\models\Content;
 
 /**
  * @author Никита
@@ -11,7 +13,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 {
     public function actionTest()
     {
-        $dfp = new DfpHelper();
-        $this->data = $dfp->addCreative();
+        $post = Content::model()->find();
+        $info = new CreativeInfoProvider('bigPost', $post);
+        $this->module->dfp->addCreative($info);
     }
 }

@@ -122,5 +122,14 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                 );
             }
 
+            public function afterSave()
+            {
+                $result = parent::afterSave();
+                
+                $post = new \site\frontend\modules\posts\models\api\Content();
+                
+                return $result;
+            }
+
         }
         

@@ -37,7 +37,7 @@ define(['jquery', 'knockout', 'user-config', 'signup/register-form', 'signup/log
                 proceedAuthForms();
             } else {
                 $(element).click(function followBindigsClicker(evt) {
-                    if (userConfig .isGuest) {
+                    if (userConfig.isGuest) {
                         evt.preventDefault();
                         viewModel.open();
                         proceedAuthForms();

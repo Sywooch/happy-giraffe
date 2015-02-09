@@ -112,7 +112,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
     </section>
     <!-- /comments-->
     <?php
-    if ($this->post->templateObject->getAttr('type', false) == 'question') {
+    if (false && $this->post->templateObject->getAttr('type', false) == 'question') {
         // Виджет "задать вопрос"
         $this->widget('site.frontend.modules.community.widgets.CommunityQuestionWidget', array('forumId' => $this->forum->id));
     }

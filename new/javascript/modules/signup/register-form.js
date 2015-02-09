@@ -1,4 +1,5 @@
-define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 'signup/form', 'signup/formField', 'signup/dateField', 'modules-helpers/component-custom-returner', 'kow', 'eauth', 'ko_library'], function($, ko, template, Model, Form, FormField, DateField, customReturner) {
+define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 'signup/form', 'signup/formField', 'signup/dateField', 'modules-helpers/component-custom-returner', 'extensions/helpers', 'kow', 'eauth', 'ko_library'], function($, ko, template, Model, Form, FormField, DateField, customReturner, Helpers) {
+
     function Register() {
         this.redirectUrl = '/';
         this.SCREEN_STEP_1 = 'screenStep1';
@@ -154,7 +155,13 @@ define(['jquery', 'knockout', 'text!signup/register-form.html', 'models/Model', 
             verifyCode: new FormField(this, '')
         };
     }
+
     CaptchaForm.prototype = Object.create(Form);
+
+    /**
+     * Открытие регистрации по хэшу
+     */
+    Helpers.fireMethodOnHash('open-registration-button', Register.prototype.open);
 
     return {
         viewModel: Register,

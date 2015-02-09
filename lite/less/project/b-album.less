@@ -2,22 +2,12 @@
 photo-collection {
     display: block;
     margin: 0 auto;
-
-    &.loading {
-        padding: 66.6% 0 0;
-        background: #fafafa url('@{path-img}/b-album-loading.svg') no-repeat 50% 50%;
-    }
 }
 /* Родительский тег для всех фотоальбомов */
 photo-albums {
     display: block;
     margin: 0 auto;
     max-width: 880px; // Устаревающая ширина базового layout 
-
-    &.loading {
-        padding: 66.6% 0 0;
-        background: #fafafa url('@{path-img}/b-album-loading.svg') no-repeat 50% 50%;
-    }
 }
 /* 
     .b-album
@@ -566,3 +556,16 @@ photo-albums {
     }
 }
 /* /album-empty */
+
+/* b-album-cap */
+.b-album-cap {
+    position: relative;
+
+    photo-collection {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+}
+/* /b-album-cap */

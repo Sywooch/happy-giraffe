@@ -1,0 +1,104 @@
+include ../../../block/config
+extend ../../../extend/layout_header_empty
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css';
+  
+block layout
+
+    .b-main
+        .b-main_cont.b-main_cont__wide
+
+            //-+userAddRecord('', userAddRecord.blog)
+            .postAdd.b-main_col-hold.clearfix
+                a.ico-close6(href='#') ×
+                // основная колонка
+                .b-main_col-article
+                    .postAdd_hold
+                        .postAdd_row
+                            .heading-xxl
+                                .ico-post-type.ico-post-type__article.active
+                                | Добавить запись
+                        .postAdd_row 
+                            .inp-valid.inp-valid__abs
+                                .inp-valid_count 30
+                                input.itx-gray(placeholder="Заголовок") 
+                                .inp-valid_error Ошибка
+                            
+                    
+                        .postAdd_row 
+                            
+                            // wisywig
+                            script(src="#{path}redactor/redactor.js")
+                            script(src="#{path}redactor/lang/ru.js")
+                            script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")
+                            script(src="#{path}redactor/plugins/btnvideo/btnvideo.js")
+                            script(src="#{path}redactor/plugins/formatbtn/formatbtn.js")
+                            script.
+                                $(document).ready(function () { 
+                                  $('.wysiwyg-redactor').redactor({
+                                      autoresize: true,
+                                      toolbarExternal: '.wysiwyg-toolbar-btn',
+                                      minHeight: 450,
+                                      cleanFontTag: false ,
+                                      cleanup: false,
+                                      lang: 'ru',
+                                      convertDivs: false,
+                                      plugins: [ 'formatbtn', 'btnvideo' ,'fullscreen'],
+                                      buttons: [  'image', ],
+                                      focusCallback: function()
+                                        {
+                                            addBaron('.scroll');
+                                        }
+                                  });
+                                });
+                            .wysiwyg-post.redactor_box
+                                .wysiwyg-toolbar
+                                    .wysiwyg-toolbar-btn
+                                //-.scroll
+                                    .scroll_scroller
+                                        .scroll_cont
+                                textarea.wysiwyg-redactor(name=''. colrow="9")
+                                    p Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))
+                                    p Не знаю насколько это правда, 
+                                        b но я задумалась, 
+                                        |а что же на самом деле нужно 
+                                        i нашим мужчинам чтобы они чувствовали себя счастливыми.
+                                    p Ведь на самом деле, 
+                                        small запросы у женщин очень большие,
+                                        | так ли это обстоит  у наших мужчин?
+                                    h2 Что же на самом деле нужно нашим мужчинам
+                                    p Может конечно они не признаются в своих самых заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему 
+                                        strike мужчине.
+                                        |  Как вы считаете?
+                                    h3 Что же на самом деле нужно нашим мужчинам
+                                    p Может конечно они не признаются в своих самых 
+                                    ul
+                                        li Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только 
+                                        li Письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.
+                                    h3 Плетение из бисера кактус
+                                    p Может конечно они не признаются в своих самых 
+                                    p Из бисера можно творить что угодно. Кто-то делает забавнейших животных, кто-то вышивает бисером невероятные цветы, кто-то создает бижутерию, ну а мы попробуем сплести из бисера кактусы. 
+                                    ol
+                                        li Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только 
+                                        li Письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.
+                                    p заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему
+                                    h4 Недавно услышала такую фразу
+                                    pre Текст без форматирования. Программный код и т.д. inp-valid.inp-valid__abs.error
+
+                                    //-.scroll_bar-hold
+                                        .scroll_bar
+                                            .scroll_bar-in
+
+
+                    // Строка кнопок
+                    +postAddRowBtns('', postAddRowBtns.a)
+                    // /Строка кнопок
+                // /основная колонка 
+                // сайдбар
+                .b-main_col-sidebar
+
+                // /сайдбар
+
+        //-+layout-footer-lite()
+

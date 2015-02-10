@@ -43,32 +43,71 @@
                 <div class="postAdd_hold">
                   <div class="postAdd_row">
                     <div class="heading-xxl">
-                      <div class="ico-post-type ico-post-type__video active"></div>Создать видео
+                      <div class="ico-post-type ico-post-type__article active"></div>Добавить запись
                     </div>
                   </div>
                   <div class="postAdd_row"> 
-                    <div class="inp-valid inp-valid__abs error">
+                    <div class="inp-valid inp-valid__abs">
                       <div class="inp-valid_count">30</div>
                       <input placeholder="Заголовок" class="itx-gray">
                       <div class="inp-valid_error">Ошибка</div>
                     </div>
                   </div>
-                  <div class="postAdd_row">
-                    <!-- cap-add-->
-                    <!-- Блок Добавления-->
-                    <div class="cap-add cap-add__l cap-add__lilac">
-                      <div class="cap-add_hold">
-                        <div class="cap-add_in"> 
-                          <div class="cap-add_tx"> Добавить видео
-                          </div>
-                        </div>
+                  <div class="postAdd_row"> 
+                    <!-- wisywig-->
+                    <script src="/lite/redactor/redactor.js"></script>
+                    <script src="/lite/redactor/lang/ru.js"></script>
+                    <script src="/lite/redactor/plugins/fullscreen/fullscreen.js"></script>
+                    <script src="/lite/redactor/plugins/btnvideo/btnvideo.js"></script>
+                    <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
+                    <script>
+                      $(document).ready(function () { 
+                        $('.wysiwyg-redactor').redactor({
+                            autoresize: true,
+                            toolbarExternal: '.wysiwyg-toolbar-btn',
+                            minHeight: 450,
+                            cleanFontTag: false ,
+                            cleanup: false,
+                            lang: 'ru',
+                            convertDivs: false,
+                            plugins: [ 'formatbtn', 'btnvideo' ,'fullscreen'],
+                            buttons: [  'image', ],
+                            focusCallback: function()
+                              {
+                                  addBaron('.scroll');
+                              }
+                        });
+                      });
+                    </script>
+                    <div class="wysiwyg-post redactor_box">
+                      <div class="wysiwyg-toolbar">
+                        <div class="wysiwyg-toolbar-btn"></div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="postAdd_row">
-                    <div class="inp-valid inp-valid__abs">
-                      <textarea rows="5" cols="40" placeholder="Ваш комментарий к видео" class="itx-gray"></textarea>
-                      <div class="inp-valid_count">450</div>
+                      <textarea name="9" class="wysiwyg-redactor">
+                        <p>Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))</p>
+                        <p>Не знаю насколько это правда, <b>но я задумалась, </b>а что же на самом деле нужно <i>нашим мужчинам чтобы они чувствовали себя счастливыми.</i></p>
+                        <p>Ведь на самом деле, <small>запросы у женщин очень большие,</small>так ли это обстоит  у наших мужчин?</p>
+                        <h2>Что же на самом деле нужно нашим мужчинам</h2>
+                        <p>Может конечно они не признаются в своих самых заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему 
+                          <strike>мужчине.</strike> Как вы считаете?
+                        </p>
+                        <h3>Что же на самом деле нужно нашим мужчинам</h3>
+                        <p>Может конечно они не признаются в своих самых </p>
+                        <ul>
+                          <li>Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только </li>
+                          <li>Письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.</li>
+                        </ul>
+                        <h3>Плетение из бисера кактус</h3>
+                        <p>Может конечно они не признаются в своих самых </p>
+                        <p>Из бисера можно творить что угодно. Кто-то делает забавнейших животных, кто-то вышивает бисером невероятные цветы, кто-то создает бижутерию, ну а мы попробуем сплести из бисера кактусы. </p>
+                        <ol>
+                          <li>Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только </li>
+                          <li>Письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.</li>
+                        </ol>
+                        <p>заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему</p>
+                        <h4>Недавно услышала такую фразу</h4>
+                        <pre>Текст без форматирования. Программный код и т.д. inp-valid.inp-valid__abs.error</pre>
+                      </textarea>
                     </div>
                   </div>
                 </div>

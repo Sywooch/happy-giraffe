@@ -90,7 +90,8 @@ class CommentWidget extends \CWidget
             $data = array($text, $this->_actions);
             $this->getCacheComponent()->set($this->cacheKey, $data, 0, $this->getCacheDependency());
         }
-        \Yii::app()->clientScript->registerScript('commentFix', "function openLoginPopup(event) { event.preventDefault(); require(['signup/login-form'], function (LoginForm) { LoginForm.viewModel.prototype.open();  }) }", \CClientScript::POS_HEAD);
+        // Жёсткий фикс
+        echo "<script>function openLoginPopup(event) { event.preventDefault(); require(['signup/login-form'], function (LoginForm) { LoginForm.viewModel.prototype.open();  }) }</script>";
         echo $text;
     }
 

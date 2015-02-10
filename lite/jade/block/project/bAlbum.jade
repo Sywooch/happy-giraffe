@@ -154,8 +154,13 @@ mixin bAlbumPhotopost(mod, vars)
 
     .b-album-cap
         .b-album-cap_hold
-            a.b-album-cap_a(href='#')
-                img.b-album-cap_img(src="http://placecreature.com/flying-squirrel/600/400/", alt="Название фото")
+            .b-album
+                .b-album_img-hold
+                    a.b-album_img-a(href="#")
+                        .b-album_img-pad
+                        img.b-album_img-big(src="http://placecreature.com/flying-squirrel/600/400/", alt="Название фото")
+                    .b-album_img-hold-ovr
+                        .ico-zoom.ico-zoom__abs
         photo-collection
             // b-album
             section.b-album(class=mod)
@@ -250,13 +255,14 @@ mixin bAlbumPhotopost(mod, vars)
 mixin bAlbumCap(mod, vars)
     // b-album
     .b-album-cap
-        .b-album
-            .b-album_img-hold
-                a.b-album_img-a(href="#")
-                    .b-album_img-pad
-                    img.b-album_img-big(src="http://placecreature.com/flying-squirrel/600/400/", alt="Название фото")
-                .b-album_img-hold-ovr
-                    .ico-zoom.ico-zoom__abs
+        .b-album-cap_hold
+            .b-album
+                .b-album_img-hold
+                    a.b-album_img-a(href="#")
+                        .b-album_img-pad
+                        img.b-album_img-big(src="http://placecreature.com/flying-squirrel/600/400/", alt="Название фото")
+                    .b-album_img-hold-ovr
+                        .ico-zoom.ico-zoom__abs
         photo-collection
         
 

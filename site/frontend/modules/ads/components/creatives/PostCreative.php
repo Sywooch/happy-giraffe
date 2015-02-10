@@ -11,12 +11,12 @@ require_once('simple_html_dom.php');
 
 class PostCreative extends BaseCreative
 {
-    const TYPE_SMALL = 'small';
-    const TYPE_BIG = 'big';
+    const SIZE_SMALL = 'small';
+    const SIZE_BIG = 'big';
 
-    public $template = 'smallPost';
+    public $template = 'post';
     public $modelClass = 'site\frontend\modules\posts\models\Content';
-    public $type;
+    public $size;
 
     /**
      * @var \site\frontend\modules\posts\models\Content
@@ -35,11 +35,6 @@ class PostCreative extends BaseCreative
         $originEntity = \CommunityContent::model()->findByPk($this->model->originEntityId);
         $club = $originEntity->rubric->community->club;
         return $club->title;
-    }
-
-    public function getUser()
-    {
-        return $this->model->getUser();
     }
 
     public function getPhotosCount()

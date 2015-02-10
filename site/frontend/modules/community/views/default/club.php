@@ -22,10 +22,20 @@ Yii::app()->clientScript->registerPackage('ko_community');
                     <div class="b-section_transp-t"><?=$this->club->title ?></div>
 
                     <div class="b-section_transp-desc"><?=$this->club->description ?></div>
-
-                    <a href="" class="b-section_club-add" data-bind="click: subscribe, visible: !active()">
-                        <span class="b-section_club-add-tx">Вступить в клуб</span>
-                    </a>
+                    <?php if(Yii::app()->user->isGuest) {
+                        ?>
+                            <a href="/#open-registration-button" class="b-section_club-add">
+                                <span class="b-section_club-add-tx">Вступить в клуб</span>
+                            </a>
+                        <?php
+                    } else {
+                        ?>
+                            <a href="" class="b-section_club-add" data-bind="click: subscribe, visible: !active()">
+                                <span class="b-section_club-add-tx">Вступить в клуб</span>
+                            </a>
+                        <?php
+                    } ?>
+                    
 
                     <div class="b-section_club-moder" style="display: none;">
                         <span class="b-section_club-moder-tx">Модераторы <br> клуба</span>

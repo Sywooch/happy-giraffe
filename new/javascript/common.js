@@ -576,22 +576,24 @@ function showLoginWindow() {
     $('a[href="#login"]').trigger('click');
 }
 
-function openLoginPopup() {
-    $.magnificPopup.open({
-        type: 'inline',
-        overflowY: 'auto',
-        tClose: 'Закрыть',
-        fixedBgPos: true,
-        items: { src: '#loginWidget' },
-        callbacks: {
-            open: function() {
-                $('html').addClass('mfp-html');
-            },
-            close: function() {
-                $('html').removeClass('mfp-html');
+if (typeof window.openLoginPopup === 'undefined') {
+    window.openLoginPopup = function openLoginPopup() {
+        $.magnificPopup.open({
+            type: 'inline',
+            overflowY: 'auto',
+            tClose: 'Закрыть',
+            fixedBgPos: true,
+            items: { src: '#loginWidget' },
+            callbacks: {
+                open: function() {
+                    $('html').addClass('mfp-html');
+                },
+                close: function() {
+                    $('html').removeClass('mfp-html');
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function SeCounter() {

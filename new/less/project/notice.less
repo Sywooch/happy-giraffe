@@ -64,6 +64,7 @@
     }
     &_li-hold {padding: 20px 10px 20px 25px;}
     &_li-hold:hover {background: #fcfcfc;}
+    &_li-hold:hover &_desc-go {display: block;}
     &_li-hold .ava-list_li {margin-bottom: 0;margin-top: 3px;}
     &_b {
         .inline-block();
@@ -87,7 +88,6 @@
         text-decoration: none;
         color: @color-gray-dark;
     }
-    &_spec:hover &_desc-go {display: block;}
     &_count {
         font-size: 35px;
         color: @color-link-title;

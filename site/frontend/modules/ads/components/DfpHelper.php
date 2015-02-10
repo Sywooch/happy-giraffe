@@ -34,7 +34,7 @@ class DfpHelper extends \CApplicationComponent
         $customCreative->advertiserId = $this->advertiserId;
         $customCreative->size = new \Size($size['width'], $size['height'], false);
         foreach ($options as $option => $value) {
-            if (property_exists($customCreative, $value)) {
+            if (property_exists($customCreative, $option)) {
                 $customCreative->$option = $value;
             }
         }

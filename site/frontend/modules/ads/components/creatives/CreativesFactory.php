@@ -11,7 +11,7 @@ class CreativesFactory extends \CApplicationComponent
 {
     public $presets;
 
-    public function create($presetName, $modelId, $properties = array())
+    public function create($presetName, $modelPk, $properties = array())
     {
         if (! isset($this->presets[$presetName])) {
             throw new \CException('Пресет не определен');
@@ -23,7 +23,7 @@ class CreativesFactory extends \CApplicationComponent
         $class = $config['class'];
         unset($config['class']);
         $renderer = new $class();
-        $renderer->model = \CActiveRecord::model($renderer->modelClass)->findByPk($modelId);
+        $renderer->model = \CActiveRecord::model($renderer->modelClass)->findByPk($modelPk);
         $properties = \CMap::mergeArray($config, $properties);
         foreach ($properties as $name => $value) {
             $renderer->$name = $value;

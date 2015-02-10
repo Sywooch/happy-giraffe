@@ -1,8 +1,9 @@
 <?php
 /**
- * @var $this site\frontend\modules\ads\components\renderers\PostRenderer
+ * @var $this site\frontend\modules\ads\components\creatives\PostCreative
  */
 ?>
+
 <!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 
@@ -19,7 +20,7 @@
     <!-- Встраивать стили из файла-->
     <link rel="stylesheet" type="text/css" href="/lite/css/min/article-anonce.css">
 </head>
-<!--/ layout out-->
+<!--/ layout out -->
 <body>
 <!-- Варианты цветов блока
 article-anonce__green
@@ -28,20 +29,27 @@ article-anonce__lilac
 article-anonce__red
 article-anonce__yellow
 -->
-<div class="article-anonce article-anonce__yellow">
+<div class="article-anonce article-anonce__red<?php if ($this->size == $this::SIZE_BIG): ?> article-anonce__xl<?php endif; ?>">
     <div class="article-anonce_top">
-        <a href="<?=$this->user->profileUrl?>" class="article-anonce_header-a">
-            <span class="ava"><img alt="<?=$this->user->fullName?>" src="<?=$this->user->avatarUrl?>" class="ava_img"></span>
-            <span class="article-anonce_author"><?=$this->user->fullName?></span>
+        <a href="<?=$this->model->user->profileUrl?>" class="article-anonce_header-a">
+            <span href="#" class="ava"><img alt="<?=$this->model->user->fullName?>" src="<?=$this->model->user->avatarUrl?>" class="ava_img"></span>
+            <span class="article-anonce_author"><?=$this->model->user->fullName?></span>
         </a>
     </div>
     <a href="%%CLICK_URL_UNESC%%" class="article-anonce_hold">
         <div class="article-anonce_img-hold">
-            <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncement')?>" alt="<?=$this->model->title?>" class="article-anonce_img">
+            <?php if ($this->size == $this::SIZE_BIG && $this->getPhotosCount() > 0): ?>
+                <div class="article-anonce_img-top">
+                    <div class="article-anonce_count-hold">
+                        <div class="article-anonce_count-t"><?=$this->getPhotosCount()?></div>
+                        <div class="article-anonce_count-tx">фото</div>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), ($this->size == $this::SIZE_BIG) ? 'postAnnouncementBig' : 'postAnnouncement')?>" alt="<?=$this->model->title?>" class="article-anonce_img">
             <div class="article-anonce_img-overlay"></div>
         </div>
         <div class="article-anonce_bottom">
-            <!-- может быть, а может и не быть тег название клуба-->
             <div class="article-anonce_tag"><?=$this->getClubTitle()?></div>
             <div class="article-anonce_t"><?=$this->model->title?>
             </div>

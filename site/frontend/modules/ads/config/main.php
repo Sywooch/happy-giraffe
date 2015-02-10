@@ -39,11 +39,11 @@ return array(
             'presets' => array(
                 'bigPost' => array(
                     'class' => 'site\frontend\modules\ads\components\creatives\PostCreative',
-                    'type' => 'big',
+                    'size' => 'big',
                 ),
                 'smallPost' => array(
                     'class' => 'site\frontend\modules\ads\components\creatives\PostCreative',
-                    'type' => 'small',
+                    'size' => 'small',
                 ),
             ),
         ),

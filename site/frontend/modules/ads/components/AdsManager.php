@@ -32,6 +32,7 @@ class AdsManager extends \CApplicationComponent
 
     public function add(\CActiveRecord $model, BaseCreative $localCreative, $line)
     {
+
         $lineConfig = \Yii::app()->getModule('ads')->lines[$line];
         $creative = \Yii::app()->getModule('ads')->dfp->addCreative(array(
             'destinationUrl' => $localCreative->getUrl(),
@@ -47,7 +48,7 @@ class AdsManager extends \CApplicationComponent
         $ad = new Ad();
         $ad->entity = get_class($model);
         $ad->entityId = $model->id;
-        $ad->lineId = \Yii::app()->getModule('ads')->lines[$line];
+        $ad->lineId = $lineConfig['lineId'];
         $ad->creativeId = $creative->id;
         return $ad->save();
     }

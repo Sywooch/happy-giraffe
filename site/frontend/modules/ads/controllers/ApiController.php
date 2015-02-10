@@ -11,9 +11,9 @@ use site\frontend\modules\posts\models\Content;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    public function actionToggle($preset, $entityId, $line, array $properties = array())
+    public function actionToggle($preset, $modelPk, $line, array $properties = array())
     {
-        $creative = \Yii::app()->getModule('ads')->creativesFactory->create($preset, $entityId, $properties);
+        $creative = \Yii::app()->getModule('ads')->creativesFactory->create($preset, $modelPk, $properties);
         \Yii::app()->getModule('ads')->manager->toggle($creative, $line);
     }
 }

@@ -8,8 +8,8 @@ namespace site\frontend\modules\ads\components\creatives;
 
 abstract class BaseCreative extends \CBaseController
 {
-    public $model;
     public $template;
+    public $model;
     public $modelClass;
 
     public function init()

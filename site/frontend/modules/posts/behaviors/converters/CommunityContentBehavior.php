@@ -176,9 +176,21 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'postCollectionCover');
             $url = $collection->observer->getSingle(0)->getUrl();
 
-            $photoAlbumTag = '<div class="b-album-cap"><div class="b-album-cap_hold"><a class="b-album-cap_a" href="'
-                    . $url . '" title="Начать просмотр"><img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album-cap_img" alt="'
-                    . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '"></a></div>'
+            $photoAlbumTag = '<div class="b-album-cap">'
+                    . '<div class="b-album-cap_hold">'
+                        . '<div class="b-album">'
+                            . '<a class="b-album_img-hold" href="' . $url . '" title="Начать просмотр">'
+                                . '<div class="b-album-img_a">'
+                                    . '<div class="b-album_img-pad"></div>'
+                                    . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
+                                    . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
+                                . '</div>'
+                                . '<div class="b-album_img-hold-ovr">'
+                                    . '<div class="ico-zoom ico-zoom__abs"></div>'
+                                . '</div>'
+                            . '</a>'
+                        . '</div>'
+                    . '</div>'
                     . \CHtml::tag('photo-collection', array(
                         'params' =>
                         'id: ' . (int) $collection->id . ', ' .
@@ -214,9 +226,21 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'postCollectionCover');
         $url = $collection->observer->getSingle(0)->getUrl();
 
-        $photoAlbumTag = '<div class="b-album-cap"><div class="b-album-cap_hold"><a class="b-album-cap_a" href="'
-                . $url . '" title="Начать просмотр"><img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album-cap_img" alt="'
-                . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '"></a></div>'
+        $photoAlbumTag = '<div class="b-album-cap">'
+                . '<div class="b-album-cap_hold">'
+                    . '<div class="b-album">'
+                        . '<a class="b-album_img-hold" href="' . $url . '" title="Начать просмотр">'
+                            . '<div class="b-album-img_a">'
+                                . '<div class="b-album_img-pad"></div>'
+                                . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
+                                . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
+                            . '</div>'
+                            . '<div class="b-album_img-hold-ovr">'
+                                . '<div class="ico-zoom ico-zoom__abs"></div>'
+                            . '</div>'
+                        . '</a>'
+                    . '</div>'
+                . '</div>'
                 . \CHtml::tag('photo-collection', array(
                     'params' =>
                     'id: ' . (int) $collection->id . ', ' .

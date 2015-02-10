@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'models/Model', 'text!redactor-panel/redactor-panel.html'], function RedactorPanelHandler($, ko, Model, template) {
+define(['jquery', 'knockout', 'models/Model', 'text!redactor-panel/redactor-panel.html', 'ko_library'], function RedactorPanelHandler($, ko, Model, template) {
     function RedactorPanel(params) {
         this.entity = params.entity;
         this.entityId = params.entityId;

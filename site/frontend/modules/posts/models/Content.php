@@ -117,7 +117,7 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'class' => 'site\frontend\modules\rss\behaviors\ContentRssBehavior',
             ),
             'AdvertisedBehavior' => array(
-                'class' => 'site\frontend\modules\ads\behaviors\ContentAdvertisedBehavior',
+                'class' => 'site\frontend\modules\ads\behaviors\AdvertisedBehavior',
             ),
         );
     }

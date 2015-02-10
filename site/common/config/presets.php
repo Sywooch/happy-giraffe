@@ -203,4 +203,14 @@ return array(
             'postAnnouncementBig',
         ),
     ),
+    array(
+        'filter' => array(
+            'name' => 'fixedV2',
+            'width' => 300,
+            'height' => 200,
+        ),
+        'usages' => array(
+            'postAnnouncement',
+        ),
+    ),
 );

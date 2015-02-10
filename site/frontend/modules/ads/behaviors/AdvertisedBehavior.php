@@ -7,13 +7,10 @@
 namespace site\frontend\modules\ads\behaviors;
 
 
-abstract class AdvertisedBehavior extends \CActiveRecordBehavior
+class AdvertisedBehavior extends \CActiveRecordBehavior
 {
     public function afterSave()
     {
 
     }
-
-    abstract public function getCreativeName();
-    abstract public function getCreativeUrl();
 }

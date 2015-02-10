@@ -31,24 +31,25 @@ block layout
                             // wisywig
                             script(src="#{path}redactor/redactor.min.js")
                             script(src="#{path}redactor/lang/ru.js")
-                            script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")
-                            script(src="#{path}redactor/plugins/btnvideo/btnvideo.js")
+                            //script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")
                             script(src="#{path}redactor/plugins/formatbtn/formatbtn.js")
+                            script(src="#{path}redactor/plugins/btnaddphoto/btnaddphoto.js")
+                            script(src="#{path}redactor/plugins/btnaddvideo/btnaddvideo.js")
+                            script(src="#{path}redactor/plugins/btnaddsmile/btnaddsmile.js")
+                            script(src="#{path}redactor/plugins/btnaddlink/btnaddlink.js")
                             script.
                                 $(document).ready(function () { 
                                   $('.wysiwyg-redactor').redactor({
                                       minHeight: 450,
-                                      cleanFontTag: false ,
-                                      cleanup: false,
                                       lang: 'ru',
-                                      convertDivs: false,
+                                      linkTooltip: false,
                                       
-                                      plugins: [ 'formatbtn', 'btnvideo' ,'fullscreen'],
-                                      buttons: [ 'image','bold','formatting', ],
+                                      plugins: [ 'formatbtn', 'btnaddphoto', 'btnaddvideo', 'btnaddlink', 'btnaddsmile', ],
+                                      buttons: [ ''],
                                   });
                                 });
                             .wysiwyg-post.redactor_box
-                                .wysiwyg-toolbar
+                                //-.wysiwyg-toolbar
                                     .wysiwyg-toolbar-btn
                                 //-.scroll
                                     .scroll_scroller
@@ -81,9 +82,6 @@ block layout
                                     h4 Недавно услышала такую фразу
                                     pre Текст без форматирования. Программный код и т.д. inp-valid.inp-valid__abs.error
 
-                                //-.scroll_bar-hold
-                                    .scroll_bar
-                                        .scroll_bar-in
 
 
                     // Строка кнопок

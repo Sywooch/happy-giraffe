@@ -57,27 +57,25 @@
                     <!-- wisywig-->
                     <script src="/lite/redactor/redactor.min.js"></script>
                     <script src="/lite/redactor/lang/ru.js"></script>
-                    <script src="/lite/redactor/plugins/fullscreen/fullscreen.js"></script>
-                    <script src="/lite/redactor/plugins/btnvideo/btnvideo.js"></script>
+                    <!--script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")-->
                     <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
+                    <script src="/lite/redactor/plugins/btnaddphoto/btnaddphoto.js"></script>
+                    <script src="/lite/redactor/plugins/btnaddvideo/btnaddvideo.js"></script>
+                    <script src="/lite/redactor/plugins/btnaddsmile/btnaddsmile.js"></script>
+                    <script src="/lite/redactor/plugins/btnaddlink/btnaddlink.js"></script>
                     <script>
                       $(document).ready(function () { 
                         $('.wysiwyg-redactor').redactor({
                             minHeight: 450,
-                            cleanFontTag: false ,
-                            cleanup: false,
                             lang: 'ru',
-                            convertDivs: false,
+                            linkTooltip: false,
                             
-                            plugins: [ 'formatbtn', 'btnvideo' ,'fullscreen'],
-                            buttons: [ 'image','bold','formatting', ],
+                            plugins: [ 'formatbtn', 'btnaddphoto', 'btnaddvideo', 'btnaddlink', 'btnaddsmile', ],
+                            buttons: [ ''],
                         });
                       });
                     </script>
                     <div class="wysiwyg-post redactor_box">
-                      <div class="wysiwyg-toolbar">
-                        <div class="wysiwyg-toolbar-btn"></div>
-                      </div>
                       <textarea name="" colrow="9" class="wysiwyg-redactor">
                         <p>Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))</p>
                         <p>Не знаю насколько это правда, <b>но я задумалась, </b>а что же на самом деле нужно <i>нашим мужчинам чтобы они чувствовали себя счастливыми.</i></p>

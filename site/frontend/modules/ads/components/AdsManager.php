@@ -7,15 +7,18 @@
 namespace site\frontend\modules\ads\components;
 
 
+use site\frontend\modules\ads\components\creatives\BaseCreative;
 use site\frontend\modules\ads\models\Ad;
 
 class AdsManager extends \CApplicationComponent
 {
-    public function toggle(\CActiveRecord $model, $line, $template)
+    public function toggle(BaseCreative $creative, $line)
     {
-        $ad = Ad::model()->entity($model)->line(\Yii::app()->getModule('ads')->lines[$line])->find();
+        $model = $creative->model;
+        $lineId = \Yii::app()->getModule('ads')->lines[$line]['lineId'];
+        $ad = Ad::model()->entity($model)->line($lineId)->find();
         if ($ad === null) {
-            return $this->add($model, $line, $template);
+            return $this->add($model, $creative, $line);
         } else {
             return ($ad->active == 1) ? $this->remove($ad) : $this->reactivate($ad);
         }
@@ -27,18 +30,17 @@ class AdsManager extends \CApplicationComponent
 
     }
 
-    public function add(\CActiveRecord $model, $line, $template)
+    public function add(\CActiveRecord $model, BaseCreative $localCreative, $line)
     {
-        $lineConfig = $lineId = \Yii::app()->getModule('ads')->lines[$line];
-        $creativeInfo = new CreativeInfoProvider($template, $model);
+        $lineConfig = \Yii::app()->getModule('ads')->lines[$line];
         $creative = \Yii::app()->getModule('ads')->dfp->addCreative(array(
-            'destinationUrl' => $creativeInfo->url,
-            'name' => $creativeInfo->name,
-            'htmlSnippet' => $creativeInfo->html,
+            'destinationUrl' => $localCreative->getUrl(),
+            'name' => $localCreative->getName(),
+            'htmlSnippet' => $localCreative->getHtml(),
         ), $lineConfig['size']);
-        $lineId = $lineConfig['lineId'];
 
-        $lica = \Yii::app()->getModule('ads')->dfp->addLica($lineId, $creative->id);
+
+        $lica = \Yii::app()->getModule('ads')->dfp->addLica($lineConfig['lineId'], $creative->id);
 
 
 

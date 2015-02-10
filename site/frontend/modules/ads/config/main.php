@@ -25,20 +25,6 @@ return array(
             ),
         ),
     ),
-    'templates' => array(
-        'bigPost' => array(
-            'render' => 'site\frontend\modules\ads\components\renderers\BaseRenderer',
-
-        ),
-        'smallPost' => array(
-            'render' => 'site\frontend\modules\ads\components\renderers\BaseRenderer',
-
-        ),
-        'photoPost' => array(
-            'render' => 'site\frontend\modules\ads\components\renderers\BaseRenderer',
-
-        ),
-    ),
     'components' => array(
         'dfp' => array(
             'class' => 'site\frontend\modules\ads\components\DfpHelper',
@@ -47,6 +33,19 @@ return array(
         ),
         'manager' => array(
             'class' => 'site\frontend\modules\ads\components\AdsManager'
+        ),
+        'creativesFactory' => array(
+            'class' => 'site\frontend\modules\ads\components\creatives\creativesFactory',
+            'presets' => array(
+                'bigPost' => array(
+                    'class' => 'site\frontend\modules\ads\components\creatives\PostCreative',
+                    'type' => 'big',
+                ),
+                'smallPost' => array(
+                    'class' => 'site\frontend\modules\ads\components\creatives\PostCreative',
+                    'type' => 'small',
+                ),
+            ),
         ),
     ),
 );

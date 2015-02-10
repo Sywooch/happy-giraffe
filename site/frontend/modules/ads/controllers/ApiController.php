@@ -11,11 +11,9 @@ use site\frontend\modules\posts\models\Content;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    public function actionTest()
+    public function actionToggle($preset, $entityId, $line, array $properties = array())
     {
-        $post = Content::model()->byEntity('CommunityContent', 52301)->find();
-        $info = new CreativeInfoProvider('bigPost', $post);
-        $this->module->manager->toggle($post, 'bigPost', 'bigPost');
-
+        $creative = \Yii::app()->getModule('ads')->creativesFactory->create($preset, $entityId, $properties);
+        \Yii::app()->getModule('ads')->manager->toggle($creative, $line);
     }
 }

@@ -55,7 +55,7 @@
                   </div>
                   <div class="postAdd_row"> 
                     <!-- wisywig-->
-                    <script src="/lite/redactor/redactor.js"></script>
+                    <script src="/lite/redactor/redactor.min.js"></script>
                     <script src="/lite/redactor/lang/ru.js"></script>
                     <script src="/lite/redactor/plugins/fullscreen/fullscreen.js"></script>
                     <script src="/lite/redactor/plugins/btnvideo/btnvideo.js"></script>
@@ -63,19 +63,14 @@
                     <script>
                       $(document).ready(function () { 
                         $('.wysiwyg-redactor').redactor({
-                            autoresize: true,
-                            toolbarExternal: '.wysiwyg-toolbar-btn',
                             minHeight: 450,
                             cleanFontTag: false ,
                             cleanup: false,
                             lang: 'ru',
                             convertDivs: false,
+                            
                             plugins: [ 'formatbtn', 'btnvideo' ,'fullscreen'],
-                            buttons: [  'image', ],
-                            focusCallback: function()
-                              {
-                                  addBaron('.scroll');
-                              }
+                            buttons: [ 'image','bold','formatting', ],
                         });
                       });
                     </script>
@@ -83,7 +78,7 @@
                       <div class="wysiwyg-toolbar">
                         <div class="wysiwyg-toolbar-btn"></div>
                       </div>
-                      <textarea name="9" class="wysiwyg-redactor">
+                      <textarea name="" colrow="9" class="wysiwyg-redactor">
                         <p>Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))</p>
                         <p>Не знаю насколько это правда, <b>но я задумалась, </b>а что же на самом деле нужно <i>нашим мужчинам чтобы они чувствовали себя счастливыми.</i></p>
                         <p>Ведь на самом деле, <small>запросы у женщин очень большие,</small>так ли это обстоит  у наших мужчин?</p>

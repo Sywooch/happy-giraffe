@@ -29,7 +29,7 @@ block layout
                         .postAdd_row 
                             
                             // wisywig
-                            script(src="#{path}redactor/redactor.js")
+                            script(src="#{path}redactor/redactor.min.js")
                             script(src="#{path}redactor/lang/ru.js")
                             script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")
                             script(src="#{path}redactor/plugins/btnvideo/btnvideo.js")
@@ -37,19 +37,14 @@ block layout
                             script.
                                 $(document).ready(function () { 
                                   $('.wysiwyg-redactor').redactor({
-                                      autoresize: true,
-                                      toolbarExternal: '.wysiwyg-toolbar-btn',
                                       minHeight: 450,
                                       cleanFontTag: false ,
                                       cleanup: false,
                                       lang: 'ru',
                                       convertDivs: false,
+                                      
                                       plugins: [ 'formatbtn', 'btnvideo' ,'fullscreen'],
-                                      buttons: [  'image', ],
-                                      focusCallback: function()
-                                        {
-                                            addBaron('.scroll');
-                                        }
+                                      buttons: [ 'image','bold','formatting', ],
                                   });
                                 });
                             .wysiwyg-post.redactor_box
@@ -58,7 +53,7 @@ block layout
                                 //-.scroll
                                     .scroll_scroller
                                         .scroll_cont
-                                textarea.wysiwyg-redactor(name=''. colrow="9")
+                                textarea.wysiwyg-redactor(name='', colrow="9")
                                     p Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))
                                     p Не знаю насколько это правда, 
                                         b но я задумалась, 
@@ -86,9 +81,9 @@ block layout
                                     h4 Недавно услышала такую фразу
                                     pre Текст без форматирования. Программный код и т.д. inp-valid.inp-valid__abs.error
 
-                                    //-.scroll_bar-hold
-                                        .scroll_bar
-                                            .scroll_bar-in
+                                //-.scroll_bar-hold
+                                    .scroll_bar
+                                        .scroll_bar-in
 
 
                     // Строка кнопок

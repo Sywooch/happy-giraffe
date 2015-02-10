@@ -120,8 +120,9 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->socialObject->description = $newPost->metaObject->description;
         $newPost->isAutoSocial = true;
     }
-    
-    protected function convertAdvPost(\site\frontend\modules\editorialDepartment\models\Content $advContent) {
+
+    protected function convertAdvPost(\site\frontend\modules\editorialDepartment\models\Content $advContent)
+    {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'advPost');
@@ -172,15 +173,19 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             // Скопировано из convertPhotoPost
             $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
             $count = $collection->attachesCount;
-            $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
+            $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'postCollectionCover');
             $url = $collection->observer->getSingle(0)->getUrl();
-            $photoAlbumTag = \CHtml::tag('photo-collection', array(
+
+            $photoAlbumTag = '<div class="b-album-cap"><div class="b-album-cap_hold"><a class="b-album-cap_a" href="'
+                    . $url . '" title="Начать просмотр"><img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album-cap_img" alt="'
+                    . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '"></a></div>'
+                    . \CHtml::tag('photo-collection', array(
                         'params' =>
                         'id: ' . (int) $collection->id . ', ' .
                         'attachCount: ' . (int) $count . ', ' .
                         'userId: ' . (int) $newPost->authorId . ', ' .
                         'coverId: ' . $collection->cover->id,
-                            ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
+                            ), '') . '</div>';
 
             $newPost->html .= $photoAlbumTag;
             $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopostPreview', array('tag' => $photoAlbumTag, 'text' => \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($newPost->text))), 200, ' <span class="ico-more"></span>')));
@@ -206,15 +211,19 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->templateObject->data['noWysiwyg'] = true;
         $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
         $count = $collection->attachesCount;
-        $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
+        $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'postCollectionCover');
         $url = $collection->observer->getSingle(0)->getUrl();
-        $photoAlbumTag = \CHtml::tag('photo-collection', array(
+
+        $photoAlbumTag = '<div class="b-album-cap"><div class="b-album-cap_hold"><a class="b-album-cap_a" href="'
+                . $url . '" title="Начать просмотр"><img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album-cap_img" alt="'
+                . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '"></a></div>'
+                . \CHtml::tag('photo-collection', array(
                     'params' =>
                     'id: ' . (int) $collection->id . ', ' .
                     'attachCount: ' . (int) $count . ', ' .
                     'userId: ' . (int) $newPost->authorId . ', ' .
                     'coverId: ' . $collection->cover->id,
-                        ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
+                        ), '') . '</div>';
 
         $newPost->text = $oldPost->photoPost->text;
         $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopost', array('tag' => $photoAlbumTag, 'text' => nl2br($oldPost->photoPost->text)));

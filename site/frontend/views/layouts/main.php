@@ -153,7 +153,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                     <?php if ($this->breadcrumbs): ?>
                         <div class="crumbs-small clearfix">
                             <?php $this->widget('HBreadcrumbs', array(
-                                'homeLink' => Yii::app()->user->isGuest ? null : false,
+                                'homeLink' => false,
                                 'links' => $this->breadcrumbs,
                             )); ?>
                         </div>

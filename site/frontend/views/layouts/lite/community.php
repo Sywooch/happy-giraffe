@@ -30,7 +30,7 @@
                                     </li>
                                 <?php endforeach; ?>
                             <?php endif ?>
-                            <?php if (count($this->club->communities) == 1 && (count($this->club->services) > 0)): ?>
+                            <?php if (count($this->club->communities) == 1 /*&& (count($this->club->services) > 0)*/): ?>
                                 <li class="b-section_li">
                                     <a href="<?=
                                     $this->createUrl('/community/default/forum', array(
@@ -43,7 +43,7 @@
                                 </li>
                             <?php endif ?>
 
-                            <?php if (count($this->club->services) < 2): ?>
+                            <?php /*if (count($this->club->services) < 2): ?>
                                 <?php foreach ($this->club->services as $service): ?>
                                     <li class="b-section_li">
                                         <a href="<?= $service->getUrl() ?>" class="b-section_li-a<?php if (isset($this->service) && $this->service->id = $service->id) echo ' active' ?>"><?= $service->title ?></a>
@@ -53,7 +53,7 @@
                                 <li class="b-section_li">
                                     <a href="<?= $this->createUrl('/community/default/services', array('club' => $this->club->slug)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'services') echo ' active' ?>">Сервисы</a>
                                 </li>
-                            <?php endif ?>
+                            <?php endif*/ ?>
 
                             <?php if (!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->model->checkAuthItem('clubFavourites')): ?>
                                 <li class="b-section_li">

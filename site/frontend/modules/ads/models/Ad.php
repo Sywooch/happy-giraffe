@@ -5,6 +5,8 @@ namespace site\frontend\modules\ads\models;
  * @property int $id
  * @property string $entity
  * @property string $entityId
+ * @property string $preset
+ * @property string $properties
  * @property string $lineId
  * @property string $creativeId
  * @property bool $active

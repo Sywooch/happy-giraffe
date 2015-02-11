@@ -22,7 +22,9 @@ class CreativesFactory extends \CApplicationComponent
         }
         $class = $config['class'];
         unset($config['class']);
+        /** @var \site\frontend\modules\ads\components\creatives\BaseCreative $renderer */
         $renderer = new $class();
+        $renderer->presetName = $presetName;
         $renderer->model = \CActiveRecord::model($renderer->modelClass)->findByPk($modelPk);
         $properties = \CMap::mergeArray($config, $properties);
         foreach ($properties as $name => $value) {

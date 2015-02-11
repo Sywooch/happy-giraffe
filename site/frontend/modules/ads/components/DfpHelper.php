@@ -33,13 +33,32 @@ class DfpHelper extends \CApplicationComponent
         $customCreative = new \CustomCreative();
         $customCreative->advertiserId = $this->advertiserId;
         $customCreative->size = new \Size($size['width'], $size['height'], false);
-        foreach ($options as $option => $value) {
-            if (property_exists($customCreative, $option)) {
-                $customCreative->$option = $value;
-            }
-        }
+        $this->setOptions($customCreative, $options);
         $customCreatives = $creativeService->createCreatives(array($customCreative));
         return $customCreatives[0];
+    }
+
+    public function updateCreative(array $options, $id)
+    {
+        $creativeService = $this->getService('CreativeService');
+        $statementBuilder = new \StatementBuilder();
+        $statementBuilder->Where('id = :id')
+            ->OrderBy('id ASC')
+            ->Limit(1)
+            ->WithBindVariableValue('id', $id);
+        $page = $creativeService->getCreativesByStatement($statementBuilder->ToStatement());
+        $creative = $page->results[0];
+        $this->setOptions($creative, $options);
+        $creatives = $creativeService->updateCreatives(array($creative));
+    }
+
+    protected function setOptions(&$creative, $options)
+    {
+        foreach ($options as $option => $value) {
+            if (property_exists($creative, $option)) {
+                $creative->$option = $value;
+            }
+        }
     }
 
     public function addLica($lineId, $creativeId)

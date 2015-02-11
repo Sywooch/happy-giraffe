@@ -67,6 +67,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             //---FCUK quick fix
         };
         this.addViews = function addViews() {
+            _paq.push(['trackPageView']);
             dataLayer.push({'event': 'virtualView'});
             yaCounter11221648.hit(this.current().element().url());
         };

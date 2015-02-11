@@ -11,6 +11,7 @@ abstract class BaseCreative extends \CBaseController
     public $template;
     public $model;
     public $modelClass;
+    public $presetName;
 
     public function init()
     {

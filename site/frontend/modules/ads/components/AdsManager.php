@@ -50,6 +50,7 @@ class AdsManager extends \CApplicationComponent
         $ad->entityId = $model->id;
         $ad->lineId = $lineConfig['lineId'];
         $ad->creativeId = $creative->id;
+        $ad->
         return $ad->save();
     }
 

@@ -12,13 +12,13 @@ use site\frontend\modules\ads\models\Ad;
 
 class AdsManager extends \CApplicationComponent
 {
-    public function toggle(BaseCreative $creative, $line)
+    public function toggle($preset, $modelPk, $line, $properties)
     {
-        $model = $creative->model;
+        $creative = \Yii::app()->getModule('ads')->creativesFactory->create($preset, $modelPk, $properties);
         $lineId = \Yii::app()->getModule('ads')->lines[$line]['lineId'];
-        $ad = Ad::model()->entity($model)->line($lineId)->find();
+        $ad = Ad::model()->entity($creative->model)->line($lineId)->find();
         if ($ad === null) {
-            return $this->add($model, $creative, $line);
+            return $this->add($preset, $modelPk, $line, $properties);
         } else {
             return ($ad->active == 1) ? $this->remove($ad) : $this->reactivate($ad);
         }
@@ -30,9 +30,9 @@ class AdsManager extends \CApplicationComponent
 
     }
 
-    public function add(\CActiveRecord $model, BaseCreative $localCreative, $line)
+    public function add($preset, $modelPk, $line, $properties)
     {
-
+        $localCreative = \Yii::app()->getModule('ads')->creativesFactory->create($preset, $modelPk, $properties);
         $lineConfig = \Yii::app()->getModule('ads')->lines[$line];
         $creative = \Yii::app()->getModule('ads')->dfp->addCreative(array(
             'destinationUrl' => $localCreative->getUrl(),
@@ -46,11 +46,11 @@ class AdsManager extends \CApplicationComponent
 
 
         $ad = new Ad();
-        $ad->entity = get_class($model);
-        $ad->entityId = $model->id;
+        $ad->entity = get_class($localCreative->model);
+        $ad->entityId = $localCreative->model->id;
+        $ad->preset = $preset;
         $ad->lineId = $lineConfig['lineId'];
         $ad->creativeId = $creative->id;
-        $ad->
         return $ad->save();
     }
 

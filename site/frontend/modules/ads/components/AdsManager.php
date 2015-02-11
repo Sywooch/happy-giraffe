@@ -26,8 +26,12 @@ class AdsManager extends \CApplicationComponent
 
     public function update(Ad $ad)
     {
-
-
+        $creative = \Yii::app()->getModule('ads')->creativesFactory->create($ad->preset, $ad->entityId, \CJSON::decode($ad->properties));
+        \Yii::app()->dfp->updateCreative(array(
+            'destinationUrl' => $creative->getUrl(),
+            'name' => $creative->getName(),
+            'htmlSnippet' => $creative->getHtml(),
+        ), $creative->creativeId);
     }
 
     public function add($preset, $modelPk, $line, $properties)
@@ -49,6 +53,7 @@ class AdsManager extends \CApplicationComponent
         $ad->entity = get_class($localCreative->model);
         $ad->entityId = $localCreative->model->id;
         $ad->preset = $preset;
+        $ad->properties = \CJSON::encode($properties);
         $ad->lineId = $lineConfig['lineId'];
         $ad->creativeId = $creative->id;
         return $ad->save();

@@ -3,7 +3,6 @@
  * @var $this site\frontend\modules\ads\components\creatives\PostCreative
  */
 ?>
-
 <!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 
@@ -12,23 +11,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Happy Giraffe</title>
-    <!-- css для теста, что вообще такие стили существуют-->
-    <!-- в рабочей реализации не использовать-->
-    <!--link(rel='stylesheet', type='text/css', href='/lite/css/dev/all.css')-->
-    <!-- livereload-->
-    <script src="//localhost:35729/livereload.js"></script>
-    <!-- Встраивать стили из файла-->
-    <link rel="stylesheet" type="text/css" href="/lite/css/min/article-anonce.css">
+    <link rel="stylesheet" type="text/css" href="http://www.happy-giraffe.ru/lite/css/min/article-anonce.css">
 </head>
 <!--/ layout out -->
 <body>
-<!-- Варианты цветов блока
-article-anonce__green
-article-anonce__blue
-article-anonce__lilac
-article-anonce__red
-article-anonce__yellow
--->
 <div class="article-anonce article-anonce__red<?php if ($this->size == $this::SIZE_BIG): ?> article-anonce__xl<?php endif; ?>">
     <div class="article-anonce_top">
         <a href="<?=$this->model->user->profileUrl?>" class="article-anonce_header-a">

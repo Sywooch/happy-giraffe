@@ -15,6 +15,7 @@ use site\frontend\modules\posts\models\Content;
 class VisitsManager
 {
     const INC_LAST_RUN = 'VisitsManager.incLastRun';
+    const TIMEOUT = 600;
 
     public function inc()
     {
@@ -33,8 +34,11 @@ class VisitsManager
     public function processUrl($url)
     {
         $model = PageView::getModel($url);
-        $model->visits = $this->fetchVisitsCount($url);
-        $model->save();
+        $timeLeft = time() - $model->updated;
+        if ($timeLeft > self::TIMEOUT) {
+            $model->visits = $this->fetchVisitsCount($url);
+            $model->save();
+        }
     }
 
     public function sync($class)

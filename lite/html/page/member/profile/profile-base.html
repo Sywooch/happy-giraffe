@@ -268,6 +268,20 @@
                         <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
                       </div>
                     </div>
+                    <!-- блок активность пользователя внутри статьи-->
+                    <div class="user-activity-post">
+                      <div class="user-activity-post_hold clearfix">
+                        <!-- иконки, нужно к .ico-post-type-s добавить один из классов-->
+                        <!-- ico-post-type-s__article    - статья-->
+                        <!-- ico-post-type-s__comment    - оставлен комментарий-->
+                        <!-- ico-post-type-s__like       - лайкнул-->
+                        <!-- ico-post-type-s__photo      - добавлено фото в фотоальбом-->
+                        <!-- ico-post-type-s__photopost  - фотопост-->
+                        <!-- ico-post-type-s__status     - статус-->
+                        <!-- ico-post-type-s__video      - видеопост--><span class="ico-post-type-s ico-post-type-s__article"></span><span class="user-activity-post_tx"> добавила статью</span>
+                      </div>
+                    </div>
+                    <!-- /блок активность пользователя внутри статьи-->
                     <div class="b-article_t-list"><a href="#" class="b-article_t-a">Самое лучшее утро - просыпаюсь, а ты рядом</a></div>
                     <div class="b-article_in clearfix">
                       <div class="wysiwyg-content clearfix">
@@ -359,20 +373,6 @@
                     </section>
                     <!-- /comments-->
                     <div class="b-article_like clearfix">
-                      <div class="article-settings">
-                        <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
-                        <div class="article-settings_hold display-b">
-                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>
-                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__edit powertip"></a></div>
-                          <div class="article-settings_i"><a href="javascript:void(0)" class="ico-users ico-users__friend active powertip"></a>
-                            <div class="article-settings_drop display-b">
-                              <div class="article-settings_drop-i"><a href="#" class="article-settings_drop-a"><span class="ico-users ico-users__all"></span>Показывать всем</a></div>
-                              <div class="article-settings_drop-i"><a href="#" class="article-settings_drop-a"><span class="ico-users ico-users__friend"></span>Только друзьям</a></div>
-                            </div>
-                          </div>
-                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__delete powertip"></a></div>
-                        </div>
-                      </div>
                       <div class="article-also">
                         <div class="article-also_row">
                           <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
@@ -442,6 +442,20 @@
                         <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
                       </div>
                     </div>
+                    <!-- блок активность пользователя внутри статьи-->
+                    <div class="user-activity-post">
+                      <div class="user-activity-post_hold clearfix">
+                        <!-- иконки, нужно к .ico-post-type-s добавить один из классов-->
+                        <!-- ico-post-type-s__article    - статья-->
+                        <!-- ico-post-type-s__comment    - оставлен комментарий-->
+                        <!-- ico-post-type-s__like       - лайкнул-->
+                        <!-- ico-post-type-s__photo      - добавлено фото в фотоальбом-->
+                        <!-- ico-post-type-s__photopost  - фотопост-->
+                        <!-- ico-post-type-s__status     - статус-->
+                        <!-- ico-post-type-s__video      - видеопост--><span class="ico-post-type-s ico-post-type-s__video"></span><span class="user-activity-post_tx"> добавила видео</span>
+                      </div>
+                    </div>
+                    <!-- /блок активность пользователя внутри статьи-->
                     <div class="b-article_t-list"><a href="#" class="b-article_t-a">Самое лучшее утро - просыпаюсь, а ты рядом</a></div>
                     <div class="b-article_in clearfix">
                       <div class="wysiwyg-content clearfix">
@@ -457,20 +471,6 @@
                       </div>
                     </div>
                     <div class="b-article_like clearfix">
-                      <div class="article-settings">
-                        <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
-                        <div class="article-settings_hold display-b">
-                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>
-                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__edit powertip"></a></div>
-                          <div class="article-settings_i"><a href="javascript:void(0)" class="ico-users ico-users__friend active powertip"></a>
-                            <div class="article-settings_drop display-b">
-                              <div class="article-settings_drop-i"><a href="#" class="article-settings_drop-a"><span class="ico-users ico-users__all"></span>Показывать всем</a></div>
-                              <div class="article-settings_drop-i"><a href="#" class="article-settings_drop-a"><span class="ico-users ico-users__friend"></span>Только друзьям</a></div>
-                            </div>
-                          </div>
-                          <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__delete powertip"></a></div>
-                        </div>
-                      </div>
                       <div class="article-also">
                         <div class="article-also_row">
                           <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
@@ -527,6 +527,123 @@
                 </article>
                 <!-- /b-article-->
                 
+                <!-- Добавлен комментарий-->
+                <!-- b-article-->
+                <article class="b-article b-article__list clearfix">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_header clearfix">
+                      <div class="float-l">
+                        <!-- ava--><a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                        <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      </div>
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
+                      </div>
+                    </div>
+                    <!-- блок активность пользователя внутри статьи-->
+                    <div class="user-activity-post">
+                      <div class="user-activity-post_hold clearfix">
+                        <!-- иконки, нужно к .ico-post-type-s добавить один из классов-->
+                        <!-- ico-post-type-s__article    - статья-->
+                        <!-- ico-post-type-s__comment    - оставлен комментарий-->
+                        <!-- ico-post-type-s__like       - лайкнул-->
+                        <!-- ico-post-type-s__photo      - добавлено фото в фотоальбом-->
+                        <!-- ico-post-type-s__photopost  - фотопост-->
+                        <!-- ico-post-type-s__status     - статус-->
+                        <!-- ico-post-type-s__video      - видеопост--><span class="ico-post-type-s ico-post-type-s__comment"></span><span class="user-activity-post_tx"> добавила комментарий</span>
+                      </div>
+                    </div>
+                    <!-- /блок активность пользователя внутри статьи-->
+                    <div class="b-article_in clearfix">
+                      <div class="comments comments__buble comments__anonce">
+                        <div class="comments_hold">
+                          <!-- 
+                          варианты цветов комментов. В такой последовательности
+                          .comments_li__lilac
+                          .comments_li__yellow
+                          .comments_li__red
+                          .comments_li__blue
+                          .comments_li__green
+                          -->
+                          <div class="comments_li comments_li__lilac">
+                            <div class="comments_i clearfix">
+                              <div class="comments_frame">
+                                <div class="comments_cont">
+                                  <div class="wysiwyg-content">
+                                    <p>
+                                       
+                                       Большое спасибо автору рецепта Светлане Хмелевской (Великоиваненко), за рецепт, и у ней же прошу извинения за внесенные мной изменения в рецепт. вот что у нас получилось))) итак  нам нужно 150 г
+                                    </p>
+                                    <!-- одно фото в блок (ссылку)--><a href="#" class="comments_cont-img-w">
+                                      <!-- размеры превью максимум 400*400 пк--><img alt="" src="/images/example/w220-h309-1.jpg" class="content-img"></a>
+                                    <p>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- .b-post-anonce-s-->
+                      <div class="b-post-anonce-s">
+                        <div class="b-post-anonce-s_img"><img src="http://placecreature.com/flying-squirrel/70/70" alt="Заголовок статьи"></div>
+                        <div class="b-post-anonce-s_hold">
+                          <div class="b-post-anonce-s_header clearfix">
+                            <!-- ava--><a href="#" class="ava ava__female ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="b-post-anonce-s_author">Ангелина Богоявленская</a>
+                            <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                          </div><a href="#" class="b-post-anonce-s_t">Большое спасибо автору рецепта</a>
+                        </div>
+                      </div>
+                      <!-- /b-post-anonce-s-->
+                    </div>
+                  </div>
+                </article>
+                <!-- /b-article-->
+                
+                <!-- Добавлен лайк-->
+                <!-- b-article-->
+                <article class="b-article b-article__list clearfix">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_header clearfix">
+                      <div class="float-l">
+                        <!-- ava--><a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                        <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      </div>
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
+                      </div>
+                    </div>
+                    <!-- блок активность пользователя внутри статьи-->
+                    <div class="user-activity-post">
+                      <div class="user-activity-post_hold clearfix">
+                        <!-- иконки, нужно к .ico-post-type-s добавить один из классов-->
+                        <!-- ico-post-type-s__article    - статья-->
+                        <!-- ico-post-type-s__comment    - оставлен комментарий-->
+                        <!-- ico-post-type-s__like       - лайкнул-->
+                        <!-- ico-post-type-s__photo      - добавлено фото в фотоальбом-->
+                        <!-- ico-post-type-s__photopost  - фотопост-->
+                        <!-- ico-post-type-s__status     - статус-->
+                        <!-- ico-post-type-s__video      - видеопост--><span class="ico-post-type-s ico-post-type-s__like"></span><span class="user-activity-post_tx"> отметила Нравится!</span>
+                      </div>
+                    </div>
+                    <!-- /блок активность пользователя внутри статьи-->
+                    <div class="b-article_in clearfix">
+                      <!-- .b-post-anonce-s-->
+                      <div class="b-post-anonce-s">
+                        <div class="b-post-anonce-s_img"><img src="http://placecreature.com/dog/70/70" alt="Заголовок статьи"></div>
+                        <div class="b-post-anonce-s_hold">
+                          <div class="b-post-anonce-s_header clearfix">
+                            <!-- ava--><a href="#" class="ava ava__female ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="b-post-anonce-s_author">Ангелина Богоявленская</a>
+                            <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                          </div><a href="#" class="b-post-anonce-s_t">Это захватывающий сюжет, из которого вы можете узнать все о растяжке</a>
+                        </div>
+                      </div>
+                      <!-- /b-post-anonce-s-->
+                    </div>
+                  </div>
+                </article>
+                <!-- /b-article-->
+                
                 <!-- paginator-->
                 <div class="yiipagination">
                   <div class="pager">
@@ -549,7 +666,7 @@
                 <!-- /paginator-->
               </div>
               <!--/////-->
-              <!-- Сайд бар  -->
+              <!-- Сайд бар-->
               <aside class="b-main_col-sidebar visible-md">
                 <!-- виджет фото-->
                 <div class="widget-user-photo">

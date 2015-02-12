@@ -5,7 +5,7 @@ namespace site\frontend\modules\ads\commands;
  * @date 11/02/15
  */
 
-\Yii::import('site.frontend.widgets.Avatar');
+\Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
 \Yii::import('site.common.vendor.Google.src.*');
 require_once 'Google/Api/Ads/Dfp/Util/DateTimeUtils.php';
 

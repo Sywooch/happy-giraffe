@@ -323,5 +323,10 @@
 <?php if (Yii::app()->user->isGuest): ?>
     <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
 <?php endif; ?>
+<script>
+    require(['iframeResizer'], function(resizer) {
+        $('iframe').iFrameResize();
+    });
+</script>
 </body>
 </html>

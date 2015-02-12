@@ -16,7 +16,7 @@ class AdsManager extends \CApplicationComponent
     {
         $creative = \Yii::app()->getModule('ads')->creativesFactory->create($preset, $modelPk, $properties);
         $lineId = \Yii::app()->getModule('ads')->lines[$line]['lineId'];
-        $ad = Ad::model()->entity($creative->model)->line($lineId)->find();
+        $ad = Ad::model()->preset($preset)->entity($creative->model)->line($lineId)->find();
         if ($ad === null) {
             return $this->add($preset, $modelPk, $line, $properties);
         } else {
@@ -27,11 +27,11 @@ class AdsManager extends \CApplicationComponent
     public function update(Ad $ad)
     {
         $creative = \Yii::app()->getModule('ads')->creativesFactory->create($ad->preset, $ad->entityId, \CJSON::decode($ad->properties));
-        \Yii::app()->dfp->updateCreative(array(
+        \Yii::app()->getModule('ads')->dfp->updateCreative(array(
             'destinationUrl' => $creative->getUrl(),
             'name' => $creative->getName(),
             'htmlSnippet' => $creative->getHtml(),
-        ), $creative->creativeId);
+        ), $ad->creativeId);
     }
 
     public function add($preset, $modelPk, $line, $properties)

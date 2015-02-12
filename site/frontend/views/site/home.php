@@ -29,6 +29,32 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <title>Веселый Жираф - сайт для всей семьи</title>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
+
+    <script type='text/javascript'>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+        (function() {
+            var gads = document.createElement('script');
+            gads.async = true;
+            gads.type = 'text/javascript';
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') +
+            '//www.googletagservices.com/tag/js/gpt.js';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        })();
+    </script>
+
+    <script type='text/javascript'>
+        googletag.cmd.push(function() {
+            googletag.defineSlot('/51841849/anounce_big', [615, 450], 'div-gpt-ad-1423665595592-0').addService(googletag.pubads());
+            googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-1').addService(googletag.pubads());
+            googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-2').addService(googletag.pubads());
+            googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-3').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
 </head>
 <body class="body body__lite  body__bg2 body__homepage <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>  ">
   <?php Yii::app()->ads->showCounters(); ?>
@@ -256,27 +282,30 @@
             <div class="homepage-posts">
                 <div class="homepage_title"> Лучшие записи </div>
                 <div class="homepage-posts_col-hold">
-                    <?php
-                    if ($this->beginCache('homepageArticles', array('duration' => 300)))
-                    {
-                        $models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 6);
-                        ?>
-                        <!-- <div class="homepage-posts_col"> -->
-                            <? isset($models[0]) ? $this->renderPartial('_home_article', array('model' => $models[0], 'color' => 'lilac')) : ''; ?>
-                            <? isset($models[1]) ? $this->renderPartial('_home_article', array('model' => $models[1], 'color' => 'yellow')) : ''; ?>
-                        <!-- </div> -->
-                        
-                            <? isset($models[2]) ? $this->renderPartial('_home_article', array('model' => $models[3], 'color' => 'blue')) : ''; ?>
-                            <? isset($models[3]) ? $this->renderPartial('_home_article', array('model' => $models[4], 'color' => 'green')) : ''; ?>
-
-
-                            <? isset($models[4]) ? $this->renderPartial('_home_article', array('model' => $models[2], 'color' => 'red')) : ''; ?>
-                            <? isset($models[5]) ? $this->renderPartial('_home_article', array('model' => $models[5], 'color' => 'lilac')) : ''; ?>
-                        
-                        <?php
-                        $this->endCache();
-                    }
-                    ?>
+                    <!-- anounce_big -->
+                    <div id='div-gpt-ad-1423665595592-0' class="article-anonce article-anonce__ico">
+                        <script type='text/javascript'>
+                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-0'); });
+                        </script>
+                    </div>
+                    <div class="article-anonce article-anonce__ico">
+                        <iframe src="/lite/html-dev/page/iframe/banner/article-anonce-6.html" width="300px" height="480px" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" style="border: 0px; vertical-align: bottom;"></iframe>
+                    </div>
+                    <div class="article-anonce">
+                        <script type='text/javascript'>
+                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-1'); });
+                        </script>
+                    </div>
+                    <div class="article-anonce">
+                        <script type='text/javascript'>
+                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-2'); });
+                        </script>
+                    </div>
+                    <div class="article-anonce">
+                        <script type='text/javascript'>
+                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-3'); });
+                        </script>
+                    </div>
                 </div>
             </div>
         </div>

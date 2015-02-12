@@ -31,8 +31,9 @@ mixin postAddRowBtns(mod, vars)
                                         | только
                                         | друзьям
             .postAdd_btns-hold
-                a.btn.btn-secondary.margin-r15(href="#") Отменить
-                a.btn.btn-success.margin-r15(href="#") Опубликовать
+                a.btn.btn-secondary.btn-xm.margin-r15(href="#") Отменить
+                a.btn.btn-success.btn-xm(href="#") Опубликовать
+                // Вид с выпадающим меню
                 //.btn-group.dropup
                     span.btn.btn-xm.postAdd_btn-out(class='btn-'+vars.btnType) 
                         = vars.btnTx

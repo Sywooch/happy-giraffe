@@ -41,64 +41,20 @@
                 <div class="postAdd_hold">
                   <div class="postAdd_row">
                     <div class="heading-xxl">
-                      <div class="ico-post-type ico-post-type__article active"></div>Добавить запись
+                      <div class="ico-post-type ico-post-type__photo active"></div>Создать фотоальбом
                     </div>
                   </div>
                   <div class="postAdd_row"> 
-                    <div class="inp-valid inp-valid__abs">
+                    <div class="inp-valid inp-valid__abs error">
                       <div class="inp-valid_count">30</div>
-                      <input placeholder="Заголовок" class="itx-gray">
+                      <input placeholder="Заголовок альбома" class="itx-gray">
                       <div class="inp-valid_error">Ошибка</div>
                     </div>
                   </div>
-                  <div class="postAdd_row"> 
-                    <!-- wisywig-->
-                    <script src="/lite/redactor/redactor.min.js"></script>
-                    <script src="/lite/redactor/lang/ru.js"></script>
-                    <!--script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")-->
-                    <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
-                    <script src="/lite/redactor/plugins/btnaddphoto/btnaddphoto.js"></script>
-                    <script src="/lite/redactor/plugins/btnaddvideo/btnaddvideo.js"></script>
-                    <script src="/lite/redactor/plugins/btnaddsmile/btnaddsmile.js"></script>
-                    <script src="/lite/redactor/plugins/btnaddlink/btnaddlink.js"></script>
-                    <script>
-                      $(document).ready(function () { 
-                        $('.wysiwyg-redactor').redactor({
-                            minHeight: 450,
-                            lang: 'ru',
-                            linkTooltip: false,
-                            
-                            plugins: [ 'formatbtn', 'btnaddphoto', 'btnaddvideo', 'btnaddlink', 'btnaddsmile', ],
-                            buttons: [ ''],
-                        });
-                      });
-                    </script>
-                    <div class="wysiwyg-post redactor_box">
-                      <textarea name="" colrow="9" class="wysiwyg-redactor">
-                        <p>Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))</p>
-                        <p>Не знаю насколько это правда, <b>но я задумалась, </b>а что же на самом деле нужно <i>нашим мужчинам чтобы они чувствовали себя счастливыми.</i></p>
-                        <p>Ведь на самом деле, <small>запросы у женщин очень большие,</small>так ли это обстоит  у наших мужчин?</p>
-                        <h2>Что же на самом деле нужно нашим мужчинам</h2>
-                        <p>Может конечно они не признаются в своих самых заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему 
-                          <strike>мужчине.</strike> Как вы считаете?
-                        </p>
-                        <h3>Что же на самом деле нужно нашим мужчинам</h3>
-                        <p>Может конечно они не признаются в своих самых </p>
-                        <ul>
-                          <li>Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только </li>
-                          <li>Письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.</li>
-                        </ul>
-                        <h3>Плетение из бисера кактус</h3>
-                        <p>Может конечно они не признаются в своих самых </p>
-                        <p>Из бисера можно творить что угодно. Кто-то делает забавнейших животных, кто-то вышивает бисером невероятные цветы, кто-то создает бижутерию, ну а мы попробуем сплести из бисера кактусы. </p>
-                        <ol>
-                          <li>Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только </li>
-                          <li>Письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.</li>
-                        </ol>
-                        <p>заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему</p>
-                        <h4>Недавно услышала такую фразу</h4>
-                        <pre>Текст без форматирования. Программный код и т.д. inp-valid.inp-valid__abs.error</pre>
-                      </textarea>
+                  <div class="postAdd_row">
+                    <div class="inp-valid inp-valid__abs">
+                      <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray"></textarea>
+                      <div class="inp-valid_count">450</div>
                     </div>
                   </div>
                 </div>
@@ -132,7 +88,8 @@
                                             | только
                                             | друзьям
                     -->
-                    <div class="postAdd_btns-hold"><a href="#" class="btn btn-secondary margin-r15">Отменить</a><a href="#" class="btn btn-success margin-r15">Опубликовать</a>
+                    <div class="postAdd_btns-hold"><a href="#" class="btn btn-secondary btn-xm margin-r15">Отменить</a><a href="#" class="btn btn-success btn-xm">Опубликовать</a>
+                      <!-- Вид с выпадающим меню-->
                       <!--.btn-group.dropup
                       span.btn.btn-xm.postAdd_btn-out(class='btn-'+vars.btnType) 
                           = vars.btnTx

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/member-user.css' />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -28,6 +28,8 @@
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__user body__lite">
   <div class="layout-container">
@@ -41,31 +43,19 @@
                 <div class="postAdd_hold">
                   <div class="postAdd_row">
                     <div class="heading-xxl">
-                      <div class="ico-post-type ico-post-type__video active"></div>Создать видео
+                      <div class="ico-post-type ico-post-type__photo active"></div>Создать фотоальбом
                     </div>
                   </div>
                   <div class="postAdd_row"> 
                     <div class="inp-valid inp-valid__abs error">
                       <div class="inp-valid_count">30</div>
-                      <input placeholder="Заголовок" class="itx-gray">
+                      <input placeholder="Заголовок альбома" class="itx-gray">
                       <div class="inp-valid_error">Ошибка</div>
                     </div>
                   </div>
                   <div class="postAdd_row">
-                    <!-- cap-add-->
-                    <!-- Блок Добавления-->
-                    <div class="cap-add cap-add__l cap-add__lilac">
-                      <div class="cap-add_hold">
-                        <div class="cap-add_in"> 
-                          <div class="cap-add_tx"> Добавить видео
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="postAdd_row">
                     <div class="inp-valid inp-valid__abs">
-                      <textarea rows="5" cols="40" placeholder="Ваш комментарий к видео" class="itx-gray"></textarea>
+                      <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray"></textarea>
                       <div class="inp-valid_count">450</div>
                     </div>
                   </div>

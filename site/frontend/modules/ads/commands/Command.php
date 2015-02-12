@@ -10,7 +10,7 @@ require_once 'Google/Api/Ads/Dfp/Util/DateTimeUtils.php';
 
 class Command extends \CConsoleCommand
 {
-    public function actionIndex()
+    public function actionIndex($all = false)
     {
         $dp = new \CActiveDataProvider('\site\frontend\modules\ads\models\Ad', array(
             'criteria' => array(
@@ -29,7 +29,7 @@ class Command extends \CConsoleCommand
             $creativeLastModified = \DateTimeUtils::FromDfpDateTime($creative->lastModifiedDateTime)->getTimestamp();
             $updateAttribute = $originEntity->HTimestampBehavior->updateAttribute;
             $originEntityLastModified = $originEntity->$updateAttribute;
-            if ($originEntityLastModified > $creativeLastModified) {
+            if ($all || ($originEntityLastModified > $creativeLastModified)) {
                 \Yii::app()->getModule('ads')->manager->update($ad);
             }
         }

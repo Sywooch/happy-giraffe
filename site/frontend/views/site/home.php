@@ -291,17 +291,17 @@
                     <div class="article-anonce article-anonce__ico">
                         <iframe src="/lite/html-dev/page/iframe/banner/article-anonce-6.html" width="300px" height="480px" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" style="border: 0px; vertical-align: bottom;"></iframe>
                     </div>
-                    <div class="article-anonce">
+                    <div id="div-gpt-ad-1423665595592-1" class="article-anonce">
                         <script type='text/javascript'>
                             googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-1'); });
                         </script>
                     </div>
-                    <div class="article-anonce">
+                    <div id="div-gpt-ad-1423665595592-2" class="article-anonce">
                         <script type='text/javascript'>
                             googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-2'); });
                         </script>
                     </div>
-                    <div class="article-anonce">
+                    <div id="div-gpt-ad-1423665595592-3" class="article-anonce">
                         <script type='text/javascript'>
                             googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-3'); });
                         </script>

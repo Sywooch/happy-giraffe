@@ -151,7 +151,19 @@
         .scale(1.2);
     }
     &_a:hover &_ico-hold {background-color: #fff;}
+    &_a:hover &_ico-overlay {
+        background-color: #46C246;
+        background-color: rgba(70, 194, 70, .4);
+        background-image: url('@{path-img}/homepage-clubs_ico-overlay-hover.svg');
+    }
+    &_a:hover &_ico-overlay.active {
+        background-color: #FC7A00;
+        background-color: rgba(252, 120, 0, .5);
+        background-image: url('@{path-img}/homepage-clubs_ico-overlay-hover.svg');
+        .rotate(45deg);
+    }
     &_ico-hold {
+        position: relative;
         height: 108px;
         width: 108px;
         margin-bottom: 5px;
@@ -159,6 +171,21 @@
         border: 2px solid #faf6ff;
         background-color: #faf6ff;
         .border-radius(54px);
+    }
+    &_ico-overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        .border-radius(54px);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+    &_ico-overlay.active {
+        background-color: #23A1F5;
+        background-color: rgba(35, 161, 245, .3);
+        background-image: url('@{path-img}/homepage-clubs_ico-overlay-active.svg');
     }
 
     &_b {

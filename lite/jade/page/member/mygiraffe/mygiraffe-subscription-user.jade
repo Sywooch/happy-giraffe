@@ -1,0 +1,196 @@
+include ../../../block/config
+extend ../../../extend/layout_header_empty
+block vars
+    - var bodyClass = 'body__lite body__bg2';
+    - global.cssFile = 'member-user.css';
+  
+block layout
+
+    .b-main
+        .b-main_cont.b-main_cont__wide
+
+            .mygiraffe.b-main_col-hold.clearfix
+                a.ico-close6(href='#') ×
+                
+                .mygiraffe-subs
+                    .mygiraffe-subs_t
+                        .heading-xxl
+                            .ico-post-type.ico-post-type__subscription.active
+                            | Мои подписки
+
+                    .i-info Чтобы не пропустить ничего интересного в Моем Жирафе подпишитесь на все интересующие вас тематические клубы
+
+
+                    // Клубы
+                    .homepage-clubs
+                        .homepage-clubs_hold
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__1
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Муж и жена
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__14
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Свадьба
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Отписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__15
+                                                .homepage-clubs_ico-overlay.active
+                                            .homepage-clubs_tx Отношение в семье 
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__2
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Беременность и дети
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__1
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Планирование
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__2
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Беременность и роды
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__3
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Дети до года
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__4
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Дети старше года
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__5
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Дошкольники
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__6
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Школьники
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__3
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Наш дом
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__7
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Готовим на кухне
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__9
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Домашние хлопоты
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__11
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Наши питомцы
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__10
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Сад и огород 
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__8
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Ремонт в доме
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__4
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Красота и здоровье
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__12
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Красота и мода
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__13
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Наше здоровье
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__5
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Интересы и увлечения
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__18
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Наш автомобиль
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__16
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Рукоделие
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__17
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Цветы в доме
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__19
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Рыбалка
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__6
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Семейный отдых
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__21
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Выходные с семьей
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__20
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Мы путешествуем
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a.powertip(href='#', title='Подписаться') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__22
+                                                .homepage-clubs_ico-overlay
+                                            .homepage-clubs_tx Семейные праздники
+
+                    // /Клубы 
+                    
+                    .mygiraffe-subs_bottom
+                        span.mygiraffe-subs_bottom-tx
+                            | Выбрано: 3 клуба
+                        a.btn.btn-success.btn-xm Сохранить
+

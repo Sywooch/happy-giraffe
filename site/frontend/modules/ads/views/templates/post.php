@@ -42,5 +42,5 @@
         </div>
     </a>
 </div>
-<script type="text/javascript" src="https://raw.githubusercontent.com/davidjbradshaw/iframe-resizer/master/src/iframeResizer.contentWindow.js"></script>
+<script type="text/javascript" src="http://davidjbradshaw.com/iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
 </body></html>

@@ -325,7 +325,7 @@
 <?php endif; ?>
 <script>
     require(['iframeResizer'], function(resizer) {
-        $('#google_ads_iframe_\\/51841849\\/anounce_small_0').iFrameResize({ log: true, enablePublicMethods     : true, });
+        $('iframe').iFrameResize({ log: true, heightCalculationMethod: 'max' });
     });
 </script>
 </body>

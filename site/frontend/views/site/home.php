@@ -283,7 +283,7 @@
                 <div class="homepage_title"> Лучшие записи </div>
                 <div class="homepage-posts_col-hold">
                     <!-- anounce_big -->
-                    <div id='div-gpt-ad-1423665595592-0' class="article-anonce article-anonce__ico">
+                    <div id='div-gpt-ad-1423665595592-0' class="article-anonce article-anonce__xl">
                         <script type='text/javascript'>
                             googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-0'); });
                         </script>

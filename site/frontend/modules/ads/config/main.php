@@ -53,6 +53,7 @@ return array(
             'class' => 'site\frontend\modules\ads\components\DfpHelper',
             'advertiserId' => 52506489,
             'version' => 'v201411',
+            'enableLogs' => YII_DEBUG,
         ),
         'manager' => array(
             'class' => 'site\frontend\modules\ads\components\AdsManager'

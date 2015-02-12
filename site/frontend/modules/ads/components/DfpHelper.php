@@ -5,6 +5,7 @@ require_once 'Google/Api/Ads/Dfp/Lib/DfpUser.php';
 require_once 'Google/Api/Ads/Common/Util/MediaUtils.php';
 require_once 'Google/Api/Ads/Dfp/Util/DateTimeUtils.php';
 require_once 'Google/Api/Ads/Dfp/Util/StatementBuilder.php';
+require_once 'Google/Api/Ads/Common/Util/Logger.php';
 
 /**
  * @author Никита
@@ -18,6 +19,7 @@ class DfpHelper extends \CApplicationComponent
 
     public $advertiserId;
     public $version;
+    public $enableLogs;
 
     protected $user;
 
@@ -119,7 +121,9 @@ class DfpHelper extends \CApplicationComponent
     protected function logIn()
     {
         $user = new \DfpUser();
-        $user->LogDefaults();
+        if ($this->enableLogs) {
+            $user->LogDefaults();
+        }
         return $user;
     }
 }

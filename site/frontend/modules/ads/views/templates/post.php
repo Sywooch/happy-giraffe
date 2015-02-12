@@ -22,7 +22,7 @@
             <span class="article-anonce_author"><?=$this->model->user->fullName?></span>
         </a>
     </div>
-    <a href="%%CLICK_URL_UNESC%%" class="article-anonce_hold">
+    <a href="%%DEST_URL%%" class="article-anonce_hold">
         <div class="article-anonce_img-hold">
             <?php if ($this->size == $this::SIZE_BIG && $this->getPhotosCount() > 0): ?>
                 <div class="article-anonce_img-top">

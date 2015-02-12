@@ -47,6 +47,9 @@
 
     <script type='text/javascript'>
         googletag.cmd.push(function() {
+            googletag.pubads().addEventListener('slotRenderEnded', function(event) {
+                console.log(event);
+            });
             googletag.defineSlot('/51841849/anounce_big', [615, 450], 'div-gpt-ad-1423665595592-0').addService(googletag.pubads());
             googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-1').addService(googletag.pubads());
             googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-2').addService(googletag.pubads());

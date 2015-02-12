@@ -17,12 +17,12 @@
 <body>
 <div class="article-anonce article-anonce__red<?php if ($this->size == $this::SIZE_BIG): ?> article-anonce__xl<?php endif; ?>">
     <div class="article-anonce_top">
-        <a href="<?=$this->model->user->profileUrl?>" class="article-anonce_header-a">
+        <a target="_top" href="<?=$this->model->user->profileUrl?>" class="article-anonce_header-a">
             <span href="#" class="ava"><img alt="<?=$this->model->user->fullName?>" src="<?=$this->model->user->avatarUrl?>" class="ava_img"></span>
             <span class="article-anonce_author"><?=$this->model->user->fullName?></span>
         </a>
     </div>
-    <a href="%%DEST_URL%%" class="article-anonce_hold">
+    <a target="_top" href="%%CLICK_URL_UNESC%%%%DEST_URL%%" class="article-anonce_hold">
         <div class="article-anonce_img-hold">
             <?php if ($this->size == $this::SIZE_BIG && $this->getPhotosCount() > 0): ?>
                 <div class="article-anonce_img-top">

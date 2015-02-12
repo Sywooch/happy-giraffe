@@ -47,9 +47,9 @@ class Ad extends \HActiveRecord
         return $this;
     }
 
-    public function template($templateId)
+    public function preset($preset)
     {
-        $this->getDbCriteria()->compare('t.templateId', $templateId);
+        $this->getDbCriteria()->compare('t.preset', $preset);
         return $this;
     }
 
@@ -58,5 +58,10 @@ class Ad extends \HActiveRecord
         $this->getDbCriteria()->compare('t.entity', get_class($model));
         $this->getDbCriteria()->compare('t.entityId', $model->id);
         return $this;
+    }
+
+    public function getOriginEntity()
+    {
+        return \CActiveRecord::model($this->entity)->findByPk($this->entityId);
     }
 }

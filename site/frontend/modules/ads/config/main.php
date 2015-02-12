@@ -2,23 +2,46 @@
 
 return array(
     'class' => 'site\frontend\modules\ads\AdsModule',
+//    'lines' => array(
+//        'bigPost' => array(
+//            'lineId' => 231258382,
+//            'size' => array(
+//                'width' => 615,
+//                'height' => 450,
+//            ),
+//        ),
+//        'smallPost' => array(
+//            'lineId' => 231258622,
+//            'size' => array(
+//                'width' => 300,
+//                'height' => 315,
+//            ),
+//        ),
+//        'photoPost' => array(
+//            'lineId' => 231258862,
+//            'size' => array(
+//                'width' => 300,
+//                'height' => 450,
+//            ),
+//        ),
+//    ),
     'lines' => array(
         'bigPost' => array(
-            'lineId' => 231258382,
+            'lineId' => 225619569,
             'size' => array(
                 'width' => 615,
                 'height' => 450,
             ),
         ),
         'smallPost' => array(
-            'lineId' => 231258622,
+            'lineId' => 225619929,
             'size' => array(
                 'width' => 300,
                 'height' => 315,
             ),
         ),
         'photoPost' => array(
-            'lineId' => 231258862,
+            'lineId' => 225620289,
             'size' => array(
                 'width' => 300,
                 'height' => 450,
@@ -28,7 +51,7 @@ return array(
     'components' => array(
         'dfp' => array(
             'class' => 'site\frontend\modules\ads\components\DfpHelper',
-            'advertiserId' => 119452822,
+            'advertiserId' => 52506489,
             'version' => 'v201411',
         ),
         'manager' => array(

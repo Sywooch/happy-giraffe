@@ -7,6 +7,16 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 ?>
 <!-- Основная колонка-->
 <div class="b-main_col-article">
+    <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
+        'model' => $this->post,
+        'line' => 'bigPost',
+        'preset' => 'bigPost',
+    )); ?>
+    <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
+        'model' => $this->post,
+        'line' => 'smallPost',
+        'preset' => 'smallPost',
+    )); ?>
     <!-- Статья с текстом-->
     <!-- b-article-->
     <article class="b-article b-article__single clearfix b-article__lite">

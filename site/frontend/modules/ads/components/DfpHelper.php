@@ -41,6 +41,14 @@ class DfpHelper extends \CApplicationComponent
     public function updateCreative(array $options, $id)
     {
         $creativeService = $this->getService('CreativeService');
+        $creative = $this->getCreative($id);
+        $this->setOptions($creative, $options);
+        $creatives = $creativeService->updateCreatives(array($creative));
+    }
+
+    public function getCreative($id)
+    {
+        $creativeService = $this->getService('CreativeService');
         $statementBuilder = new \StatementBuilder();
         $statementBuilder->Where('id = :id')
             ->OrderBy('id ASC')
@@ -48,8 +56,7 @@ class DfpHelper extends \CApplicationComponent
             ->WithBindVariableValue('id', $id);
         $page = $creativeService->getCreativesByStatement($statementBuilder->ToStatement());
         $creative = $page->results[0];
-        $this->setOptions($creative, $options);
-        $creatives = $creativeService->updateCreatives(array($creative));
+        return $creative;
     }
 
     protected function setOptions(&$creative, $options)

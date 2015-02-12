@@ -58,7 +58,7 @@ return array(
             'class' => 'site\frontend\modules\ads\components\AdsManager'
         ),
         'creativesFactory' => array(
-            'class' => 'site\frontend\modules\ads\components\creatives\creativesFactory',
+            'class' => 'site\frontend\modules\ads\components\creatives\CreativesFactory',
             'presets' => array(
                 'bigPost' => array(
                     'class' => 'site\frontend\modules\ads\components\creatives\PostCreative',

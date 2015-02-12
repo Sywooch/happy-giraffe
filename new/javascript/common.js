@@ -181,7 +181,7 @@ $(function() {
         var $w = $(window);
         $w.on('scroll', function showPostArrowsOnScroll(event) {
             if ($w.scrollTop() > 200) {
-                $('.post-arrow').show();
+                $('.post-arrow').removeClass('display-n');
                 $w.off('scroll');
             }
         });

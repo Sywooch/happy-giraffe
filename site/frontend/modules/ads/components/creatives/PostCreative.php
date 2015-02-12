@@ -32,7 +32,7 @@ class PostCreative extends BaseCreative
     public function getClubTitle()
     {
         /** @var \CommunityContent $originEntity */
-        $originEntity = \CommunityContent::model()->findByPk($this->model->originEntityId);
+        $originEntity = $this->getOriginEntity();
         $club = $originEntity->rubric->community->club;
         return $club->title;
     }
@@ -58,5 +58,10 @@ class PostCreative extends BaseCreative
     public function getUrl()
     {
         return $this->model->url;
+    }
+
+    public function getOriginEntity()
+    {
+        return \CommunityContent::model()->findByPk($this->model->originEntityId);
     }
 }

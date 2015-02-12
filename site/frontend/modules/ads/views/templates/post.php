@@ -16,7 +16,7 @@
 </head>
 <!--/ layout out -->
 <body>
-<div class="article-anonce article-anonce__color-<?=$this->getOriginEntity()->rubric->forum->club->section_id?><?php if ($this->size == $this::SIZE_BIG): ?> article-anonce__xl<?php endif; ?>">
+<div class="article-anonce article-anonce__color-<?=$this->getOriginEntity()->rubric->community->club->section_id?><?php if ($this->size == $this::SIZE_BIG): ?> article-anonce__xl<?php endif; ?>">
     <div class="article-anonce_top">
         <a target="_top" href="<?=$this->model->user->profileUrl?>" class="article-anonce_header-a">
             <span href="#" class="ava"><img alt="<?=$this->model->user->fullName?>" src="<?=$this->model->user->avatarUrl?>" class="ava_img"></span>

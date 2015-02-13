@@ -22,6 +22,10 @@
         font-size: 20px;
         margin-left: 8px;
     }
+    &_close:hover {
+        color: #fff;
+        .opacity(0.8);
+    }
     &_date {
         font-size: 13px;
         color: #fff;
@@ -40,6 +44,33 @@
     }
     .btn-link:hover {
         background-color: #efd61f;
+        text-decoration: none;
     }
 }
-/* /contest */
+
+/* contest-commentator-bnr */
+.contest-commentator-bnr {
+    margin: 30px 0;
+    
+    &_a {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 600px;
+        background: url('@{path-img}/contest/commentator/contest-commentator-bnr.png') no-repeat;
+        .border-radius(8px);
+    }
+    .btn-link {
+        position: absolute;
+        top: 485px;
+        left: 35px;
+        background-color: #ffe535;
+        color: #000;
+        font-size: 24px;
+    }
+    .btn-link:hover {
+        background-color: #efd61f;
+        text-decoration: none;
+    }
+}
+/* /contest-commentator-bnr */

@@ -26,7 +26,7 @@ class VisitsManager
         ));
         $urls = $this->parseLiveReport($response);
         foreach ($urls as $url) {
-            \Yii::app()->gearman->client()->doBackground('processUrl', $url);
+            \Yii::app()->gearman->client()->doBackground('processUrl', $url, $url);
         }
         \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);
     }

@@ -7,19 +7,21 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 ?>
 <!-- Основная колонка-->
 <div class="b-main_col-article">
-    <?php if ($this->post->originService == 'oldCommunity'): ?>
-        <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
-            'model' => $this->post,
-            'line' => 'bigPost',
-            'preset' => 'bigPost',
-            'title' => 'Большой пост',
-        )); ?>
-        <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
-            'model' => $this->post,
-            'line' => 'smallPost',
-            'preset' => 'smallPost',
-            'title' => 'Маленький пост',
-        )); ?>
+    <?php if (Yii::app()->user->checkAccess('toggleAnounces')): ?>
+        <?php if ($this->post->originService == 'oldCommunity'): ?>
+            <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
+                'model' => $this->post,
+                'line' => 'bigPost',
+                'preset' => 'bigPost',
+                'title' => 'Большой пост',
+            )); ?>
+            <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
+                'model' => $this->post,
+                'line' => 'smallPost',
+                'preset' => 'smallPost',
+                'title' => 'Маленький пост',
+            )); ?>
+        <?php endif; ?>
     <?php endif; ?>
     <!-- Статья с текстом-->
     <!-- b-article-->

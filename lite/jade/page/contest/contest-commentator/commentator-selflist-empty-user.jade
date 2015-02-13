@@ -1,0 +1,36 @@
+include ../../../block/config
+extend ../../../extend/layout_header_empty
+block vars
+    - var bodyClass = 'body__lite body__contest-commentator';
+    - global.cssFile = 'contest-commentator.css'; 
+ 
+block layout
+
+    .contest
+        a.i-giraffe-back(href='#')
+        .contest-commentator
+
+            +contestCommentatorHeader('', contestCommentatorHeader.user)
+              
+            +contestCommentatorRatingSelf('', contestCommentatorRatingSelf.userEmpty)
+
+            //-+contestCommentatorRating('', contestCommentatorRating.user)
+            // комментарии
+            .contest-commentator-list
+                h2.contest-commentator-list_t
+                    | Моя лента
+                     
+                .contest-commentator-list_desc
+                    p 
+                        | Ангелина, поздравляем Вас теперь вы равноправный участник конкурса!
+                        | На этой странице будет отражаться ваша лента комментариев, засчитанных 
+                        | системой модерирования.
+                    //-+contestCommentatorComments('', contestCommentatorComments.base)
+            // /комментарии
+            
+
+            //-.contest-commentator_more
+                a.a-pseudo.tx-content(href='#') Показать еще 50
+        +layout-footer-lite()
+
+

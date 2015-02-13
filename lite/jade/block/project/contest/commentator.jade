@@ -1,0 +1,209 @@
+mixin contestCommentatorHeader(mod, vars)
+    // Шапка
+    .contest-commentator-header
+        .contest-commentator-header_date Сроки проведения:  с 20 февраля по 31 марта
+        h1.contest-commentator-header_t Лучший комментатор
+        ul.contest-commentator-header_ul
+            li.contest-commentator-header_li 
+                a.btn.btn-xm.btn-link(href='#') 
+                    | Правила
+            li.contest-commentator-header_li 
+                a.btn.btn-xxl.btn-link(href='#') 
+                    | О конкурсе
+            li.contest-commentator-header_li 
+                a.btn.btn-xxl.btn-link(href='#') 
+                    | Лидеры
+            if(vars.user)
+                li.contest-commentator-header_li 
+                    a.btn.btn-xm.btn-link(href='#') 
+                        | Моя лента
+    // Шапка
+
+- var contestCommentatorHeader = {}
+- contestCommentatorHeader.base = {}
+- contestCommentatorHeader.base.user = false
+
+- contestCommentatorHeader.user = {}
+- contestCommentatorHeader.user.user = true
+
+
+mixin contestCommentatorComments(mod, vars)
+    // comments
+    section.comments.comments__buble
+        
+            .comments_hold
+                ul.comments_ul
+                    // 
+                        варианты цветов комментов. В такой последовательности
+                        .comments_li__lilac
+                        .comments_li__yellow
+                        .comments_li__red
+                        .comments_li__blue
+                        .comments_li__green
+                    li.comments_li.comments_li__lilac
+                        .comments_i.clearfix
+                            .comments_ava
+                                // Аватарки размером 40*40
+                                +ava("ava__middle ava__small-xs", ava.b)
+                            .comments_frame
+                                .comments_header
+                                    a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
+                                    time.tx-date(datetime='2012-12-23') 2 минуты назад
+                                .comments_cont
+                                    .wysiwyg-content
+                                        p 
+                                            |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                        // одно фото в блок (ссылку)
+                                        a.comments_cont-img-w(href='#')
+                                            // размеры превью максимум 400*400 пк
+                                            img.content-img(alt='', src='/images/example/w220-h309-1.jpg')
+                                        p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+                                .from-article-s.clearfix
+                                    .from-article-s_ava
+                                        +ava('ava__small', ava.a)
+                                    .from-article-s_hold
+                                        .from-article-s_head
+                                            a.a-light(href='#') Ангелина Богоявленская
+                                            time.tx-date(datetime='2012-12-23') 2 минуты назад
+
+                                        a.from-article-s_t(href='#') Я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически 
+                               
+                    // / комментарий  
+
+                    // комментарий     
+                    li.comments_li.comments_li__red
+                        .comments_i.clearfix
+                            .comments_ava
+                                // Аватарки размером 40*40
+                                +ava("ava__middle ava__small-xs", ava.c)
+                            .comments_frame
+                                .comments_header
+                                    a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
+                                    time.tx-date(datetime='2014-11-04T18:20:54+00:00') 2 минуты назад
+                                .comments_cont
+                                    .wysiwyg-content
+                                        p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+                                .from-article-s.clearfix
+                                    .from-article-s_ava
+                                        +ava('ava__small', ava.a)
+                                    .from-article-s_hold
+                                        .from-article-s_head
+                                            a.a-light(href='#') Ангелина Богоявленская
+                                            time.tx-date(datetime='2012-12-23') 2 минуты назад
+
+                                        a.from-article-s_t(href='#') Я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически 
+
+- var contestCommentatorComments = {}
+- contestCommentatorComments.base = {}
+
+
+
+mixin contestCommentatorRating(mod, vars)
+    // рейтинг
+    // .contest-commentator-rating__main
+    .contest-commentator-rating(class=mod)
+        .contest-commentator-rating_hold
+            h2.contest-commentator-rating_t 
+                span.contest-commentator-rating_ico-cap
+                != vars.title
+            ul.contest-commentator-rating_ul
+                +contestCommentatorRatingItem('', contestCommentatorRatingItem.user1)
+                +contestCommentatorRatingItem('', contestCommentatorRatingItem.user2)
+                +contestCommentatorRatingItem('', contestCommentatorRatingItem.user3)
+                +contestCommentatorRatingItem('', contestCommentatorRatingItem.user4)
+                +contestCommentatorRatingItem('', contestCommentatorRatingItem.user5)
+                if(vars.manyUsers)
+                    +contestCommentatorRatingItem('', contestCommentatorRatingItem.user55)
+        if(!vars.manyUsers)
+            .contest-commentator-rating_btn-hold
+                a.btn.btn-xl.contest-commentator-rating_btn(href='#') Смотреть весь рейтинг
+    // /рейтинг
+
+- var contestCommentatorRating = {}
+- contestCommentatorRating.main = {}
+- contestCommentatorRating.main.title = 'Лидеры конкурса'
+
+- contestCommentatorRating.user = {}
+- contestCommentatorRating.user.title = 'Рейтинг конкурса'
+- contestCommentatorRating.user.manyUsers = true
+
+
+mixin contestCommentatorRatingItem(mod, vars)
+    li.contest-commentator-rating_li
+        .contest-commentator-rating_place(class=vars.placeClass)
+            != vars.place
+        .contest-commentator-rating_user
+            a.contest-commentator-rating_user-a(href='#') 
+                +ava('', ava.e)
+                a.contest-commentator-rating_name(href='#') 
+                    != vars.name
+        .contest-commentator-rating_count
+            .contest-commentator-rating_buble
+            != vars.count
+
+- var contestCommentatorRatingItem = {}
+
+- contestCommentatorRatingItem.user1 = {}
+- contestCommentatorRatingItem.user1.place = 1
+- contestCommentatorRatingItem.user1.placeClass = 'contest-commentator-rating_place__big'
+- contestCommentatorRatingItem.user1.name = 'Ангелина Богоявленская'
+- contestCommentatorRatingItem.user1.count = '99 456'
+
+- contestCommentatorRatingItem.user2 = {}
+- contestCommentatorRatingItem.user2.place = 2
+- contestCommentatorRatingItem.user2.placeClass = 'contest-commentator-rating_place__big'
+- contestCommentatorRatingItem.user2.name = '@@@@Ангелина Богоявленская@@@@'
+- contestCommentatorRatingItem.user2.count = '19 456'
+
+- contestCommentatorRatingItem.user3 = {}
+- contestCommentatorRatingItem.user3.place = 3
+- contestCommentatorRatingItem.user3.placeClass = 'contest-commentator-rating_place__big'
+- contestCommentatorRatingItem.user3.name = 'гелина Богоя'
+- contestCommentatorRatingItem.user3.count = '9 456'
+
+- contestCommentatorRatingItem.user4 = {}
+- contestCommentatorRatingItem.user4.place = 4
+- contestCommentatorRatingItem.user4.placeClass = 'contest-commentator-rating_place__big'
+- contestCommentatorRatingItem.user4.name = 'Татьяна Владимировна ☺♥♥ Родионова'
+- contestCommentatorRatingItem.user4.count = '3 456'
+
+- contestCommentatorRatingItem.user5 = {}
+- contestCommentatorRatingItem.user5.place = 5
+- contestCommentatorRatingItem.user5.placeClass = 'contest-commentator-rating_place__big'
+- contestCommentatorRatingItem.user5.name = 'Татьяна Владимировна ☺♥♥ Родионова'
+- contestCommentatorRatingItem.user5.count = '3 456'
+
+- contestCommentatorRatingItem.user55 = {}
+- contestCommentatorRatingItem.user55.place = 55
+- contestCommentatorRatingItem.user55.placeClass = ''
+- contestCommentatorRatingItem.user55.name = 'Татьяна Владимировна ☺♥♥ Родионова'
+- contestCommentatorRatingItem.user55.count = '3 456'
+
+
+
+mixin contestCommentatorRatingSelf(mod, vars)
+    .contest-commentator-rating.contest-commentator-rating__self
+        ul.contest-commentator-rating_ul
+            li.contest-commentator-rating_li
+                .contest-commentator-rating_place.contest-commentator-rating_place__big
+                    != vars.place
+                .contest-commentator-rating_user
+                    a.contest-commentator-rating_user-a(href='#') 
+                        +ava('', ava.e)
+                        span.contest-commentator-rating_name 
+                            != vars.name
+                .contest-commentator-rating_count
+                    a.contest-commentator-rating_buble(href='#')
+                    != vars.count
+
+- var contestCommentatorRatingSelf = {}
+
+- contestCommentatorRatingSelf.user1 = {}
+- contestCommentatorRatingSelf.user1.place = 135
+- contestCommentatorRatingSelf.user1.name = 'Ангелина Богоявленская'
+- contestCommentatorRatingSelf.user1.count = '99 456'
+
+- contestCommentatorRatingSelf.userEmpty = {}
+- contestCommentatorRatingSelf.userEmpty.place = ''
+- contestCommentatorRatingSelf.userEmpty.name = 'Ангелина Богоявленская'
+- contestCommentatorRatingSelf.userEmpty.count = '0'

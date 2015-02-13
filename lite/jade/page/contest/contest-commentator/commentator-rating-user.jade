@@ -1,0 +1,23 @@
+include ../../../block/config
+extend ../../../extend/layout_header_empty
+block vars
+    - var bodyClass = 'body__lite body__contest-commentator';
+    - global.cssFile = 'contest-commentator.css'; 
+ 
+block layout
+
+    .contest
+        a.i-giraffe-back(href='#')
+        .contest-commentator
+
+            +contestCommentatorHeader('', contestCommentatorHeader.user)
+
+            +contestCommentatorRatingSelf('', contestCommentatorRatingSelf.user1)
+
+            +contestCommentatorRating('', contestCommentatorRating.user)
+            
+            .contest-commentator_more
+                a.a-pseudo.tx-content(href='#') Показать еще 50
+        +layout-footer-lite()
+
+

@@ -1,0 +1,284 @@
+/* 
+    Конкурс комментаторов
+*/
+.contest-commentator {
+    min-width: 1000px;
+    
+    &_btn-orange {
+        background-color: #ff8400;
+        color: #fff;
+    }
+    &_btn-orange:hover {
+        background-color: #f17700;
+        color: #fff;
+    }
+    &_more {
+        text-align: center;
+    }
+}
+/* /contest-commentator */
+
+/* contest-commentator-header */
+.contest-commentator-header {
+    position: relative;
+    height: 340px;
+    margin: 0 0 30px;
+    background: url('@{path-img}/contest/commentator/contest-commentator-header.png') no-repeat;
+    
+    .btn-link {
+        background-color: #fcfcfc;
+        color: #a5a2a2;
+    }
+    .btn-link:hover {
+        background-color: #ffe535;
+        color: #010101;
+        text-decoration: none;
+    }
+    .btn-xm {
+
+    }
+    .btn-xxl {
+        font-size: 28px;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    &_date {
+        position: absolute;
+        top: 45px;
+        left: 455px;
+        color: #fff;
+        font-size: 16px;
+    }
+    &_t {
+        position: absolute;
+        top: 65px;
+        left: 374px;
+        width: 530px;
+        text-align: center;
+        color: #fff;
+        font-size: 84px;
+        line-height: 70px;
+    }
+    &_ul {
+        padding-top: 265px;
+        text-align: center;
+    }
+    &_li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+}
+/* /contest-commentator-header */
+
+/* contest-commentator-desc */
+.contest-commentator-desc {
+    margin: 40px 0 90px;
+    padding: 0 60px 0 100px;
+    background: url('@{path-img}/contest/commentator/contest-commentator-desc.png') no-repeat 595px 20px;
+    
+    &_hold {
+        width: 520px;
+        padding: 40px 0 95px;
+    }
+    &_t {
+        margin: 20px 0 10px;
+        font-size: 40px;
+        line-height: 40px;
+        font-weight: bold;
+        color: #000;
+    }
+    &_tx {
+        margin: 10px 30px 35px 0;
+        color: @color-gray;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    &_btn-hold {
+        text-align: center;
+    }
+}
+/* /contest-commentator-desc */
+
+/* contest-commentator-prize */
+.contest-commentator-prize {
+    background-color: #3baf08;
+    padding: 50px 150px 90px;
+    color: #fff;
+
+    &_t {
+        text-align: center;
+        font-size: 50px;
+        margin-bottom: 35px;
+    }
+    &_sub {
+        margin: 40px 0 15px;
+        padding: 0 80px 20px 0;
+        text-align: center;
+        font-size: 32px;
+        line-height: 1em;
+        background: url('@{path-img}/contest/commentator/contest-commentator-prize_sub.png') no-repeat 98% 0;
+    }
+    &_btn-hold {
+        text-align: center;
+    }
+}
+/* /contest-commentator-prize */
+
+/* .contest-commentator-rating */
+.contest-commentator-rating {
+    margin: 40px 35px;
+
+    &__main {
+        margin: 0;
+        padding: 60px 40px;
+        background-color: #ff9000;
+        color: #fff;
+    }
+    &__main &_user-a {color: #fff;}
+    &__main &_user-a:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+    &__main &_count {color: #fff;}
+
+    &__self {margin: 30px 35px;}
+    &__self &_li {border: 1px solid #f1f1f1;}
+    &__self &_li:hover {background-color: rgba(255, 255, 255, .15);}
+    &__self &_user {
+        text-align: center;
+        padding-left: 135px;
+    }
+    &__self &_user .ava {
+        display: block;
+        margin: 0 auto 5px;
+    }
+    &__self &_buble {display: inline-block;}
+
+    &_t {
+        margin: 0 0 40px;
+        text-align: center;
+        font-size: 50px;
+        font-weight: bold;
+    }
+    &_ico-cap {
+        display: inline-block;
+        width: 58px;
+        height: 54px;
+        margin-right: 15px;
+        background: url('@{path-img}/contest/commentator/contest-commentator-rating_ico-cap.png') no-repeat;
+    }
+    &_ul {}
+    &_li {
+        margin: 0;
+        padding: 12px;
+    }
+    &_li:hover {background-color: #fcfcfc;}
+    &_li:hover &_buble {display: inline-block;}
+    &_place {
+        display: inline-block;
+        vertical-align: middle;
+        width: 150px;
+        padding: 0 20px;
+        text-align: right;
+        font-size: 25px;
+        font-weight: bold;
+        color: #ffe115;
+        text-align: center;
+    }
+    &_place__big {font-size: 50px;}
+    &_user {
+        display: inline-block;
+        vertical-align: middle;
+        width: 450px;
+
+        .ava {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 15px;
+        }
+    }
+    // &_user-a {}
+    &_count {
+        display: inline-block;
+        vertical-align: middle;
+        width: 260px;
+        text-align: right;
+        font-size: 50px;
+        line-height: 1;
+        color: @color-gray;
+    }
+    &_buble {
+        display: none;
+        vertical-align: bottom;
+        margin: 0 15px 3px 0;
+        width: 44px;
+        height: 44px;
+        background: url('@{path-img}/contest/commentator/contest-commentator-rating_buble.png') no-repeat;
+    }
+    &_btn-hold {
+        margin: 25px 0 0;
+        text-align: center;
+    }
+    &_btn {
+        border: 2px solid #fff;
+        color: #fff;
+    }
+    &_btn:hover {
+        .opacity(.75);
+        color: #fff;
+    }
+}
+/* /contest-commentator-rating */
+
+/* .contest-commentator-list */
+.contest-commentator-list {
+    margin: 50px 0;
+
+    &_t {
+        margin: 30px 0;
+        font-size: 50px;
+        line-height: 1em;
+        text-align: center;
+    }
+    &_load {
+        display: inline-block;
+        margin-left: 15px;
+        width: 32px;
+        height: 32px;
+        background: url('@{path-img}/contest/commentator/contest-commentator-list_load.png') no-repeat;
+    }
+    &_load.active {
+      .animation(loadercircle 3s infinite linear);
+    }
+    &_hold {
+        margin: 20px auto;
+        width: 520px;
+    }
+    &_desc {
+        width: 530px;
+        margin: 30px auto 150px;
+        text-align: center;
+        .tx-content();
+    }
+}
+/* /contest-commentator-list */
+
+/* .from-article-s */
+.from-article-s {
+    margin: 10px 10px;
+
+    &_ava {
+        float: left;
+    }
+    &_hold {
+        margin-left: 33px;
+    }
+    &_t {
+        margin: 5px 0;
+        font-size: 14px;
+        line-height: 1em;
+        font-weight: bold;
+        color: @color-link-title;
+    }
+}
+/* /from-article-s */

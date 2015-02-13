@@ -24,6 +24,7 @@ class Command extends \CConsoleCommand
         $iterator = new \CDataProviderIterator($dp, 100);
         /** @var \site\frontend\modules\ads\models\Ad $ad */
         foreach ($iterator as $ad) {
+            echo $ad->id . "\n";
             $originEntity = $ad->getOriginEntity();
             if ($originEntity->asa('HTimestampBehavior') === null) {
                 continue;

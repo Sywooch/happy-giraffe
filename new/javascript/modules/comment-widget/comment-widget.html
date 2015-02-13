@@ -121,7 +121,20 @@
 
         <!-- ko if: comment.removed -->
           <!-- ko if: $parent.authUser.id() === comment.user.id() -->
-          <div class="im-message_tx color-gray" data-bind="click: restore">Комментарий удален. <a href="#" class="font-s">Восстановить</a></div>
+          <div class="comments_i clearfix">
+              <div class="comments_ava">
+                  <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: comment.user.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: comment.user.avatarUrl()"></a>
+              </div>
+              <div class="comments_frame">
+                  <div class="comments_header">
+                      <a href="" rel="author" class="a-light comments_author" data-bind="text: comment.user.fullName(), href: comment.user.profileUrl()"></a>
+                      <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(comment.dtimeCreate()).format('YYYY-MM-DD') }, moment: comment.dtimeCreate"></time>
+                  </div>
+                  <div class="comments_cont">
+                      <div class="im-message_tx color-gray" data-bind="click: restore">Комментарий удален. <a href="#" class="font-s">Восстановить</a></div>
+                  </div>
+              </div>
+          </div>
           <!-- /ko -->
         <!-- /ko -->
 
@@ -212,7 +225,20 @@
                 <!-- /ko -->
                 <!-- ko if: commentInner.removed -->
                     <!-- ko if: $parents[1].authUser.id() === commentInner.user.id() -->
-                    <div class="im-message_tx color-gray" data-bind="click: commentInner.restore">Комментарий удален. <a href="#" class="font-s">Восстановить</a></div>
+                    <div class="comments_i clearfix">
+                        <div class="comments_ava">
+                            <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: commentInner.user.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: commentInner.user.avatarUrl()"></a>
+                        </div>
+                        <div class="comments_frame">
+                            <div class="comments_header">
+                                <a href="" rel="author" class="a-light comments_author" data-bind="text: commentInner.user.fullName(), href: commentInner.user.profileUrl()"></a>
+                                <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(commentInner.dtimeCreate()).format('YYYY-MM-DD') }, moment: commentInner.dtimeCreate"></time>
+                            </div>
+                            <div class="comments_cont">
+                                <div class="im-message_tx color-gray" data-bind="click: commentInner.restore">Комментарий удален. <a href="#" class="font-s">Восстановить</a></div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- /ko -->
                 <!-- /ko -->
             </li>

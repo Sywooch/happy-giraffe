@@ -12,7 +12,7 @@
         <div class="cap-empty_hold">
           <div class="cap-empty_img cap-empty_img__post-loaded"></div>
           <div class="cap-empty_t">Ваша статья ещё обрабатывается, подождите ещё немного</div>
-          <div class="cap-empty_tx-sub"><a href="#" class="">Вернуться в блог</a></div>
+          <div class="cap-empty_tx-sub"><a href="<?= Yii::app()->user->model->getBlogUrl() ?>" class="">Вернуться в блог</a></div>
         </div>
       </div>
       <!-- /cap-empty-->

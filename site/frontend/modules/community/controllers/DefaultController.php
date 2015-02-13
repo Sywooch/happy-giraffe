@@ -183,6 +183,8 @@ class DefaultController extends HController
 
     public function actionServices($club)
     {
+        // Закрываем страницу с сервисами.
+        throw new CHttpException(404);
         $this->loadClub($club);
         $this->pageTitle = $this->club->title.' - Сервисы';
         $this->breadcrumbs = array(

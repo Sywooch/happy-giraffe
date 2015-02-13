@@ -90,6 +90,8 @@ class CommentWidget extends \CWidget
             $data = array($text, $this->_actions);
             $this->getCacheComponent()->set($this->cacheKey, $data, 0, $this->getCacheDependency());
         }
+        // Жёсткий фикс
+        echo "<script>function openLoginPopup(event) { event.preventDefault(); require(['signup/login-form'], function (LoginForm) { LoginForm.viewModel.prototype.open();  }) }</script>";
         echo $text;
     }
 

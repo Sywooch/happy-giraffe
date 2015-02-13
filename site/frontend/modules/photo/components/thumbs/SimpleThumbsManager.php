@@ -85,9 +85,10 @@ class SimpleThumbsManager extends ThumbsManager
         unset($params['name']);
         $reflect  = new \ReflectionClass($className);
         // исправим последовательность параметров
-        $params = array_merge(array_flip(array_map(function(\ReflectionParameter $param) {
+        $paramsNames = array_map(function(\ReflectionParameter $param) {
             return $param->getName();
-        }, $reflect->getConstructor()->getParameters())), $params);
+        }, $reflect->getConstructor()->getParameters());
+        $params = \CMap::mergeArray(array_slice(array_flip($paramsNames), 0, count($params)), $params);
         $filter = $reflect->newInstanceArgs($params);
         return $filter;
     }

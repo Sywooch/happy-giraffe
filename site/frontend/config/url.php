@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -187,19 +187,19 @@ return array(
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
 
         // пагинация в клубах
+        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index',
+        'community/<forum_id:\d+>/forum/' => 'posts/communityList/index',
+        
+        /* т.к. некоторые ссылки используют эти роуты при построении запросов */
         array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'condition' => 'Yii::app()->user->isGuest',
+            'class' => 'UrlRule',
             'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
-            'trueRoute' => 'posts/communityList/index',
-            'falseRoute' => 'community/default/forum',
+            'route' => 'community/default/forum',
         ),
         array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'condition' => 'Yii::app()->user->isGuest',
+            'class' => 'UrlRule',
             'pattern' => 'community/<forum_id:\d+>/forum/',
-            'trueRoute' => 'posts/communityList/index',
-            'falseRoute' => 'community/default/forum',
+            'route' => 'community/default/forum',
         ),
 
         // posts
@@ -241,33 +241,20 @@ return array(
 
         'community/<_a:(subscribe)>/' => 'community/default/<_a>',
         
+        'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'posts/community/view',
         array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'condition' => 'Yii::app()->user->isGuest',
-            'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
-            'trueRoute' => 'posts/communityList/index',
-            'falseRoute' => 'community/default/forum',
+            'class' => 'UrlRule',
+            'pattern' => 'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>',
+            'route' => 'community/default/view',
         ),
-        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
-
-        //'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
-        array(
+/*        array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>',
             'trueRoute' => 'posts/community/view',
             'falseRoute' => 'community/default/view',
-        ),
+        ),*/
 
-        array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'condition' => 'Yii::app()->user->isGuest',
-            'pattern' => 'community/<forum_id:\d+>/forum/',
-            'trueRoute' => 'posts/communityList/index',
-            'falseRoute' => 'community/default/forum',
-        ),
-        'community/<forum_id:\d+>/forum/' => 'community/default/forum',
-        
         'community/default/save' => 'community/default/save',
         'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
         'community/default/photoWidget' => 'community/default/photoWidget',

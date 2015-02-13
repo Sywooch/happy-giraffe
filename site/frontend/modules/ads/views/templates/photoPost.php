@@ -22,7 +22,7 @@
             <span class="article-anonce_author"><?=$this->model->user->fullName?></span>
         </a>
     </div>
-    <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" class="article-anonce_hold">
+    <a target="_top" href="%%CLICK_URL_UNESC%%%%DEST_URL%%" class="article-anonce_hold">
         <div class="article-anonce_ico-hold">
             <div class="article-anonce_ico-a">
                 <div class="article-anonce_ico"><img src="<?=$this->iconSrc?>" alt="<?=$this->model->title?>" class="article-anonce_img"></div>

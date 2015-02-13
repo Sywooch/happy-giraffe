@@ -23,9 +23,9 @@ define(['knockout', 'models/Model', 'models/User', 'user-config', 'models/Family
         },
         photoAttaching: function photoAttaching () {
             if (this.photoCollection().attachesCount() > 0) {
-               return this.photoCollection().cover();
+                return this.photoCollection().cover;
             }
-            return null;
+            return ko.observable(null);
         },
         removeFamilyPhoto: function removeFamilyPhoto() {
             this.photo().remove();
@@ -36,7 +36,7 @@ define(['knockout', 'models/Model', 'models/User', 'user-config', 'models/Family
             this.description = Model.createStdProperty(data.description || null, 'description');
             this.description.editing(false);
             this.photoCollection(new PhotoCollection(data.photoCollection));
-            this.photo(this.photoAttaching());
+            this.photo = this.photoAttaching();
             if (data.members !== undefined) {
                 if (data.members.length > 0) {
                     for (var i=0; i < data.members.length; i++) {

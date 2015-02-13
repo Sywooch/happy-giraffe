@@ -5,6 +5,8 @@ namespace site\frontend\modules\ads\commands;
  * @date 11/02/15
  */
 
+use site\frontend\modules\posts\models\Content;
+
 \Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
 \Yii::import('site.common.vendor.Google.src.*');
 require_once 'Google/Api/Ads/Dfp/Util/DateTimeUtils.php';
@@ -38,6 +40,7 @@ class Command extends \CConsoleCommand
 
     public function actionAddPhotoPost($id, $iconSrc)
     {
-        \Yii::app()->getModule('ads')->manager->add('photoPost', $id, 'photoPost', compact('iconSrc'));
+        $post = Content::model()->byEntity('CommunityContent', $id);
+        \Yii::app()->getModule('ads')->manager->add('photoPost', $post->id, 'photoPost', compact('iconSrc'));
     }
 }

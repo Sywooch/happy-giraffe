@@ -56,6 +56,7 @@
             googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-1').addService(googletag.pubads());
             googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-2').addService(googletag.pubads());
             googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-3').addService(googletag.pubads());
+            googletag.defineSlot('/51841849/anounce_photo', [300, 450], 'div-gpt-ad-1423665595592-4').addService(googletag.pubads());
             googletag.pubads().enableSingleRequest();
             googletag.enableServices();
         });
@@ -293,8 +294,10 @@
                             googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-0'); });
                         </script>
                     </div>
-                    <div class="article-anonce article-anonce__ico">
-                        <iframe src="/lite/html-dev/page/iframe/banner/article-anonce-6.html" width="300px" height="480px" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" style="border: 0px; vertical-align: bottom;"></iframe>
+                    <div id="div-gpt-ad-1423665595592-4" class="article-anonce article-anonce__ico">
+                        <script type='text/javascript'>
+                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-4'); });
+                        </script>
                     </div>
                     <div id="div-gpt-ad-1423665595592-1" class="article-anonce">
                         <script type='text/javascript'>

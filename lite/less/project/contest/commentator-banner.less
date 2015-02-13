@@ -1,0 +1,45 @@
+/* 
+    Виджет конкурса комментаров в ленту статей
+*/
+.w-contest-commentator {
+    margin: 30px 0;
+    padding: 15px 15px 35px;
+    position: relative;
+    background: #6db3fa url('@{path-img}/contest/commentator/w-contest-commentator.png') no-repeat;
+    .border-radius(8px);
+
+    &_close {
+        position: absolute;
+        top: 8px;
+        right: 15px;
+        color: #fff;
+        font-size: 12px;
+    }
+    &_close:after {
+        content: '×';
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 20px;
+        margin-left: 8px;
+    }
+    &_date {
+        font-size: 13px;
+        color: #fff;
+    }
+    &_avas {
+        margin: 200px 30px 20px;
+        text-align: center;
+    }
+    &_btn-hold {
+        text-align: center;
+    }
+    .btn-link {
+        background-color: #ffe535;
+        color: #000;
+        font-size: 24px;
+    }
+    .btn-link:hover {
+        background-color: #efd61f;
+    }
+}
+/* /contest */

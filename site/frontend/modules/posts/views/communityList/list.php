@@ -1,5 +1,4 @@
 <?php
-
 $this->pageTitle = $this->forum->title;
 $this->metaNoindex = true;
 $this->breadcrumbs = array(
@@ -14,6 +13,11 @@ if ($this->rubric) {
 } else {
     $this->breadcrumbs[] = $forumTitle;
 }
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('photoAlbumsView', array("kow"));
+?>
+
+<?php
 $this->widget('LiteListView', array(
     'dataProvider' => $this->listDataProvider,
     'itemView' => 'site.frontend.modules.posts.views.list._view',

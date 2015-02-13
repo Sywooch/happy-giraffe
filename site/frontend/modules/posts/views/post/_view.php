@@ -1,4 +1,5 @@
 <?php
+Yii::app()->clientScript->registerAMD('kow', array('kow'));
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
         /** @todo Исправить класс при конвертации */
         'entity' => $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity,
@@ -44,7 +45,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?php
             }
             if (Yii::app()->user->checkAccess('moderator')) {
-                Yii::app()->clientScript->registerAMD('photo-albums', array('kow'));
                 ?>
                 <redactor-panel params="entity: '<?= $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
                 <?php
@@ -56,14 +56,14 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?php } else { ?>
                     <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
                 <?php } ?>
-                <div class="like-control-hold">
-                    <?php
-                    if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
-                        ?>
-                        <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
-                        <?php
-                    }
+                <?php
+                if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
                     ?>
+                    <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
+                <?php
+                }
+                ?>
+                <div class="like-control-hold">
                     <div class="like-control like-control__line">
                         <!--<div class="like-control_hold"><a href="#" onclick="openLoginPopup(event)" title="Нравится" class="like-control_i like-control_i__like powertip">
                                 <div class="like-control_t">Мне нравится!</div>
@@ -128,7 +128,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
     </section>
     <!-- /comments-->
     <?php
-    if ($this->post->templateObject->getAttr('type', false) == 'question') {
+    if (false && $this->post->templateObject->getAttr('type', false) == 'question') {
         // Виджет "задать вопрос"
         $this->widget('site.frontend.modules.community.widgets.CommunityQuestionWidget', array('forumId' => $this->forum->id));
     }

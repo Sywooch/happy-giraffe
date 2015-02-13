@@ -12,10 +12,10 @@ use site\frontend\modules\posts as posts;
 class ApiController extends \site\frontend\components\api\ApiController
 {
 
-    public function create()
+    public function actionCreate()
     {
         $request = $this->getActionParams();
-        $post = new posts\models\Content('migrate');
+        $post = new posts\models\Content($request['scenario']);
         $post->setAttributes($request);
         $post->save();
     }

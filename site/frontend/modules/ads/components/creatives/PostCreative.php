@@ -14,7 +14,6 @@ class PostCreative extends BaseCreative
     const SIZE_SMALL = 'small';
     const SIZE_BIG = 'big';
 
-    public $template = 'post';
     public $modelClass = 'site\frontend\modules\posts\models\Content';
     public $size;
 

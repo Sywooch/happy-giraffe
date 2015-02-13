@@ -63,14 +63,17 @@ return array(
             'presets' => array(
                 'bigPost' => array(
                     'class' => 'site\frontend\modules\ads\components\creatives\PostCreative',
+                    'template' => 'post',
                     'size' => 'big',
                 ),
                 'smallPost' => array(
                     'class' => 'site\frontend\modules\ads\components\creatives\PostCreative',
+                    'template' => 'post',
                     'size' => 'small',
                 ),
                 'photoPost' => array(
                     'class' => 'site\frontend\modules\ads\components\creatives\PhotoPostCreative',
+                    'template' => 'photoPost',
                 ),
             ),
         ),

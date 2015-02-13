@@ -40,14 +40,14 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?php } else { ?>
                     <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
                 <?php } ?>
-                <div class="like-control-hold">
-                    <?php
-                    if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
-                        ?>
-                        <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
-                        <?php
-                    }
+                <?php
+                if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
                     ?>
+                    <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
+                <?php
+                }
+                ?>
+                <div class="like-control-hold">
                     <div class="like-control like-control__line">
                         <!--<div class="like-control_hold"><a href="#" onclick="openLoginPopup(event)" title="Нравится" class="like-control_i like-control_i__like powertip">
                                 <div class="like-control_t">Мне нравится!</div>

@@ -69,6 +69,9 @@ return array(
                     'class' => 'site\frontend\modules\ads\components\creatives\PostCreative',
                     'size' => 'small',
                 ),
+                'photoPost' => array(
+                    'class' => 'site\frontend\modules\ads\components\creatives\PhotoPostCreative',
+                ),
             ),
         ),
     ),

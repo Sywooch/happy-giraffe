@@ -35,4 +35,9 @@ class Command extends \CConsoleCommand
             }
         }
     }
+
+    public function actionAddPhotoPost($id, $iconSrc)
+    {
+        \Yii::app()->getModule('ads')->manager->add('photoPost', $id, 'photoPost', compact('iconSrc'));
+    }
 }

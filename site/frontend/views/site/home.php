@@ -49,14 +49,14 @@
         googletag.cmd.push(function() {
             googletag.pubads().addEventListener('slotRenderEnded', function(event) {
                 require(['iframeResizer'], function(resizer) {
-                    $('#' + event.slot.b.d).find('iframe').iFrameResize({ heightCalculationMethod: 'max', checkOrigin: false, autoResize: false });
+                    $('#' + event.slot.b.d).find('iframe').iFrameResize({ heightCalculationMethod: 'lowestElement', checkOrigin: false, autoResize: false });
                 });
             });
             googletag.defineSlot('/51841849/anounce_big', [615, 450], 'div-gpt-ad-1423665595592-0').addService(googletag.pubads());
             googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-1').addService(googletag.pubads());
             googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-2').addService(googletag.pubads());
             googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-3').addService(googletag.pubads());
-            googletag.defineSlot('/51841849/anounce_photo', [300, 450], 'div-gpt-ad-1423665595592-4').addService(googletag.pubads());
+            googletag.defineSlot('/51841849/anounce_photo', [300, 450], 'div-gpt-ad-1423823199518-0').addService(googletag.pubads());
             googletag.pubads().enableSingleRequest();
             googletag.enableServices();
         });
@@ -294,9 +294,9 @@
                             googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-0'); });
                         </script>
                     </div>
-                    <div id="div-gpt-ad-1423665595592-4" class="article-anonce article-anonce__ico">
+                    <div id="div-gpt-ad-1423823199518-0" class="article-anonce article-anonce__ico">
                         <script type='text/javascript'>
-                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423665595592-4'); });
+                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423823199518-0'); });
                         </script>
                     </div>
                     <div id="div-gpt-ad-1423665595592-1" class="article-anonce">

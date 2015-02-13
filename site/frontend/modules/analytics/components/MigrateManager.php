@@ -60,6 +60,7 @@ class MigrateManager
     protected function processResponse($response)
     {
         foreach ($response as $path => $row) {
+            echo $path . "\n";
             $model = PageView::getModel($path);
             $model->correction = $row['ga:visits'];
             $model->save();

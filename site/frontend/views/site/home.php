@@ -49,7 +49,7 @@ if ($openLogin == 'login') {
         googletag.cmd.push(function() {
             googletag.pubads().addEventListener('slotRenderEnded', function(event) {
                 require(['iframeResizer'], function(resizer) {
-                    $('#' + event.slot.b.d).find('iframe').iFrameResize({ heightCalculationMethod: 'lowestElement', checkOrigin: false, autoResize: false });
+                   // $('#' + event.slot.b.d).find('iframe').iFrameResize({ heightCalculationMethod: 'lowestElement', checkOrigin: false, autoResize: false });
                 });
             });
             googletag.defineSlot('/51841849/anounce_big', [615, 450], 'div-gpt-ad-1423826092090-0').addService(googletag.pubads());

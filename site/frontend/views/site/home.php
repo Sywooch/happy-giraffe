@@ -48,7 +48,9 @@
     <script type='text/javascript'>
         googletag.cmd.push(function() {
             googletag.pubads().addEventListener('slotRenderEnded', function(event) {
-                console.log(event);
+                require(['iframeResizer'], function(resizer) {
+                    $('#' + event.slot.b.d).find('iframe').iFrameResize({ heightCalculationMethod: 'max', checkOrigin: false, autoResize: false });
+                });
             });
             googletag.defineSlot('/51841849/anounce_big', [615, 450], 'div-gpt-ad-1423665595592-0').addService(googletag.pubads());
             googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423665595592-1').addService(googletag.pubads());
@@ -326,10 +328,5 @@
 <?php if (Yii::app()->user->isGuest): ?>
     <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
 <?php endif; ?>
-<script>
-    require(['iframeResizer'], function(resizer) {
-        $('iframe').iFrameResize({ heightCalculationMethod: 'max', checkOrigin: false, autoResize: false });
-    });
-</script>
 </body>
 </html>

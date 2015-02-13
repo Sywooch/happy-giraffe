@@ -15,4 +15,9 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         \Yii::app()->getModule('ads')->manager->toggle($preset, $modelPk, $line, $properties);
     }
+
+    public function actionTest()
+    {
+        sleep(20);
+    }
 }

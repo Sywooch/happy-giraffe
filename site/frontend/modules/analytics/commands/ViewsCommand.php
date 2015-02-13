@@ -22,8 +22,7 @@ class ViewsCommand extends \CConsoleCommand
     {
         $vm = new VisitsManager();
         \Yii::app()->gearman->worker()->addFunction('processUrl', function(\GearmanJob $job) use ($vm) {
-            echo $job->workload() . "\n";
-            $vm->processUrl($job->workload());
+
         });
         while (\Yii::app()->gearman->worker()->work());
     }

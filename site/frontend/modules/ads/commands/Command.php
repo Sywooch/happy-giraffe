@@ -40,7 +40,7 @@ class Command extends \CConsoleCommand
 
     public function actionAddPhotoPost($id, $iconSrc)
     {
-        $post = Content::model()->byEntity('CommunityContent', $id);
+        $post = Content::model()->byEntity('CommunityContent', $id)->find();
         \Yii::app()->getModule('ads')->manager->add('photoPost', $post->id, 'photoPost', compact('iconSrc'));
     }
 }

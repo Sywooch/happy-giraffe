@@ -22,9 +22,15 @@ class ViewsCommand extends \CConsoleCommand
     {
         $vm = new VisitsManager();
         \Yii::app()->gearman->worker()->addFunction('processUrl', function(\GearmanJob $job) use ($vm) {
-
+            echo $job->workload() . "\n";
         });
         while (\Yii::app()->gearman->worker()->work());
+    }
+
+    public function actionTest()
+    {
+        \Yii::app()->gearman->client()->doBackground('processUrl', 'http://www.happy-giraffe.ru/', 'http://www.happy-giraffe.ru/');
+        \Yii::app()->gearman->client()->doBackground('processUrl', 'http://www.happy-giraffe.ru/', 'http://www.happy-giraffe.ru/');
     }
 
     public function actionIndex()

@@ -1,0 +1,7 @@
+<!-- ko if: loading -->
+<span>Загрузка...</span>
+<!-- /ko -->
+
+<!-- ko if: ! loading() -->
+<input type="checkbox" data-bind="checked: active, click: toggle">
+<!-- /ko -->

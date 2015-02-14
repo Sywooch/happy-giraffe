@@ -2,7 +2,11 @@ include ../../../block/config
 extend ../../../extend/layout_base_user
 block vars
     - var bodyClass = 'body__lite';
-    - global.cssFile = 'member-user.css'; 
+    - global.cssFile = 'member-user.css';
+    
+    - googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
+
+    - global.headItem = googlefont 
  
 block layout
  
@@ -47,6 +51,8 @@ block layout
                     .w-contest-commentator
                         a.w-contest-commentator_close(href='#') Скрыть
                         .w-contest-commentator_date 20 февраля - 31 марта
+                        h2.w-contest-commentator_t Лучший комментатор
+                        .w-contest-commentator_t-sub Лидеры конкурса
                         .w-contest-commentator_avas
 
                             ul.ava-list
@@ -68,6 +74,36 @@ block layout
                     +bArticleListItem('', bArticleListItem.b) 
 
 
+                    .w-contest-commentator.w-contest-commentator__self
+                        a.w-contest-commentator_close(href='#') Скрыть
+                        .w-contest-commentator_date 20 февраля - 31 марта
+                        h2.w-contest-commentator_t Лучший комментатор
+                        .w-contest-commentator_in
+                            .w-contest-commentator_place 26
+                            .w-contest-commentator_user 
+                                +ava('', ava.a)
+                            .w-contest-commentator_count
+                                a.w-contest-commentator_buble(href='#')
+                                | 45 256
+
+                        //-.w-contest-commentator_avas
+                            ul.ava-list
+                                li.ava-list_li
+                                    +ava('ava__male', ava.a)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.b)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.c)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.b)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.a)
+                        .w-contest-commentator_btn-hold
+
+                            a.btn.btn-xxl.btn-link(href='#') 
+                                | Моя лента
+                            a.btn.btn-xxl.btn-default(href='#') 
+                                | Весь рейтинг
                 ///////
                 // Сайд бар  
                 aside.b-main_col-sidebar.visible-md

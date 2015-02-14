@@ -7,13 +7,21 @@
     &_btn-orange {
         background-color: #ff8400;
         color: #fff;
+        font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+        font-weight: bold;
     }
     &_btn-orange:hover {
-        background-color: #f17700;
-        color: #fff;
+        background-color: #ffe535;
+        color: #010101;
     }
     &_more {
         text-align: center;
+    }
+    &_t {
+        text-align: center;
+        font-size: 50px;
+        font-weight: bold;
+        font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
     }
 }
 /* /contest-commentator */
@@ -29,6 +37,7 @@
         background-color: #fcfcfc;
         color: #a5a2a2;
     }
+    .btn-link.active,
     .btn-link:hover {
         background-color: #ffe535;
         color: #010101;
@@ -38,9 +47,10 @@
 
     }
     .btn-xxl {
-        font-size: 28px;
         padding-left: 40px;
         padding-right: 40px;
+        font-size: 28px;
+        font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
     }
     &_date {
         position: absolute;
@@ -56,8 +66,7 @@
         width: 530px;
         text-align: center;
         color: #fff;
-        font-size: 84px;
-        line-height: 70px;
+        font: bold 84px/70px 'pt sans', Arial, Tahoma, Verdana, sans-serif;
     }
     &_ul {
         padding-top: 265px;
@@ -65,7 +74,7 @@
     }
     &_li {
         display: inline-block;
-        margin: 0 10px;
+        margin: 0 7px;
     }
 }
 /* /contest-commentator-header */
@@ -82,9 +91,7 @@
     }
     &_t {
         margin: 20px 0 10px;
-        font-size: 40px;
-        line-height: 40px;
-        font-weight: bold;
+        font: bold 40px/40px 'pt sans', Arial, Tahoma, Verdana, sans-serif;
         color: #000;
     }
     &_tx {
@@ -105,9 +112,7 @@
     padding: 50px 150px 90px;
     color: #fff;
 
-    &_t {
-        text-align: center;
-        font-size: 50px;
+    .contest-commentator_t {
         margin-bottom: 35px;
     }
     &_sub {
@@ -116,6 +121,7 @@
         text-align: center;
         font-size: 32px;
         line-height: 1em;
+        font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
         background: url('@{path-img}/contest/commentator/contest-commentator-prize_sub.png') no-repeat 98% 0;
     }
     &_btn-hold {
@@ -128,22 +134,27 @@
 .contest-commentator-rating {
     margin: 40px 35px;
 
+    .contest-commentator_t {
+        margin: 0 0 40px;
+    }
+
     &__main {
-        margin: 0;
+        margin: 0 0 -80px;
         padding: 60px 40px;
         background-color: #ff9000;
         color: #fff;
     }
-    &__main &_user-a {color: #fff;}
-    &__main &_user-a:hover {
+    &__main &_name {color: #fff;}
+    &__main &_name:hover {
         color: #fff;
         text-decoration: underline;
     }
     &__main &_count {color: #fff;}
+    &__main &_li:hover { background-color: rgba(255, 255, 255, .15);}
 
     &__self {margin: 30px 35px;}
     &__self &_li {border: 1px solid #f1f1f1;}
-    &__self &_li:hover {background-color: rgba(255, 255, 255, .15);}
+    &__self &_li:hover {background-color: #fff;}
     &__self &_user {
         text-align: center;
         padding-left: 135px;
@@ -154,12 +165,6 @@
     }
     &__self &_buble {display: inline-block;}
 
-    &_t {
-        margin: 0 0 40px;
-        text-align: center;
-        font-size: 50px;
-        font-weight: bold;
-    }
     &_ico-cap {
         display: inline-block;
         width: 58px;
@@ -234,11 +239,8 @@
 .contest-commentator-list {
     margin: 50px 0;
 
-    &_t {
+    .contest-commentator_t {
         margin: 30px 0;
-        font-size: 50px;
-        line-height: 1em;
-        text-align: center;
     }
     &_load {
         display: inline-block;
@@ -263,9 +265,106 @@
 }
 /* /contest-commentator-list */
 
+/* contest-commentator-how */
+.contest-commentator-how {
+    margin: 40px 0 60px;
+    
+    .contest-commentator_t {
+        margin: 20px;
+    }
+    &_hold {
+        width: 600px;
+        margin: 0 auto;
+    }
+    &_i {
+        min-height: 135px;
+        margin-bottom: 25px;
+        padding: 25px 10px 20px 160px;
+    }
+    &_i__1 {background: url('@{path-img}/contest/commentator/contest-commentator-how_i__1.png') no-repeat;}
+    &_i__2 {background: url('@{path-img}/contest/commentator/contest-commentator-how_i__2.png') no-repeat;}
+    &_i__3 {background: url('@{path-img}/contest/commentator/contest-commentator-how_i__3.png') no-repeat;}
+    &_tx {
+        .tx-content();
+    }
+}
+/* /contest-commentator-how */
+
+/* contest-commentator-example */
+.contest-commentator-example {
+    margin: 40px 0 80px;
+
+    .comments {margin: 0;}
+    .comments_li {
+        margin: 0;
+    }
+    .comments_frame {
+        margin-left: 90px;
+        width: 600px;
+    }
+    .comments_cont {
+        background-color: #fff;
+    }
+    .comments .wysiwyg-content {
+        .tx-content();
+    }
+    .from-article-s_hold {
+        margin-left: 50px;
+    }
+
+    &_in {
+        width: 810px;
+        margin: 30px auto;
+        padding: 20px 35px;
+        background-color: #e3f8ff;
+        .border-radius(20px);
+    }
+}
+/* /contest-commentator-example */
+
+/* contest-commentator-rule */
+.contest-commentator-rule {
+    margin: 40px 100px 100px;
+    .tx-content();
+
+    ol {
+        margin: 0;
+        padding: 0;
+        counter-reset: section;
+        list-style-type: none;
+    }
+    ol li { 
+        counter-increment: section;
+        margin-left: 45px; 
+    }
+    ol li:before{ 
+        content: counters(section, ".") ". "; 
+        float: left;
+        font-weight: bold;
+        margin-left: -45px;
+    }
+    ol p {margin-bottom: 5px;}
+    &_ol {
+        margin: 30px 0;
+        padding: 0;
+    }
+    & ol > &_li {
+        margin: 0 0 35px;
+    }
+    &_li:before {
+        display: none;
+    }
+    &_t-sub {
+        margin: 20px 0 15px;
+        font: bold 18px/18px 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+        text-align: center;
+    }
+}
+/* /contest-commentator-rule */
+
 /* .from-article-s */
 .from-article-s {
-    margin: 10px 10px;
+    margin: 15px 10px 10px 0;
 
     &_ava {
         float: left;

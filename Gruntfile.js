@@ -473,6 +473,7 @@ module.exports = function(grunt){
           'lite/html/page/sign/**/*.html',
           'lite/html/page/member/**/*.html', 
           'lite/html/page/photo-window/**/*.html', 
+          'lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого пользователя
           '!lite/html/page/comments/comments-page.html',
@@ -522,6 +523,7 @@ module.exports = function(grunt){
           'lite/html/page/user/**/*.html', 
           'lite/html/page/member/**/*.html', 
           'lite/html/page/photo-window/**/*.html',
+          'lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
 
           '!lite/html/page/comments/comments-page.html',
         ],
@@ -560,6 +562,31 @@ module.exports = function(grunt){
 
         ],
         dest: 'lite/css/min/homepage.css'
+      },
+      // конкурс комментаторов
+      'contest_commentator': {
+        options: {
+          ignoreSheets : [/fonts.googleapis/],
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            /#ctrlcopy+/,
+            /#powerTip+/,
+            /input+/,
+            /.body+/,
+            /.ava+/,
+            
+          ],
+           
+        },
+        src: [
+          'lite/html/page/contest/contest-commentator/**/*.html', 
+          '!lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
+        ],
+        dest: 'lite/css/min/contest-commentator.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -1044,10 +1071,23 @@ module.exports = function(grunt){
 
   // lite tasks
   // bild lite версии
-  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user', 'uncss:member', 'uncss:member_user', 'uncss:lite_homepage',  'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('lite', [
+    'jade:lite_prod', 
+    'less:litedev',
+    'uncss:lite_blog',
+    'uncss:services', 
+    'uncss:services_user', 
+    'uncss:member', 
+    'uncss:member_user', 
+    'uncss:lite_homepage', 
+    'uncss:contest_commentator', //  конкурс комментаторов 
+    'cmq:redactor', 
+    'cmq:lite', 
+    'cssmin:lite', 
+    'csso:lite'
+  ]);
 
   grunt.registerTask('lite-css', [
-    /*'jade:lite_prod',*/ 
     'less:litedev',
     'uncss:lite_blog',
     'uncss:lite_blog_user',
@@ -1056,6 +1096,7 @@ module.exports = function(grunt){
     'uncss:member', 
     'uncss:member_user', 
     'uncss:lite_homepage', 
+    'uncss:contest_commentator', //  конкурс комментаторов
     'cmq:redactor', 
     'cmq:lite', 
     'cssmin:lite', 
@@ -1067,6 +1108,8 @@ module.exports = function(grunt){
   grunt.registerTask('services', ['jade:lite_prod', 'less:litedev','uncss:services', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // Анонс через google tag iframe
   grunt.registerTask('article-anonce-css', ['less:litedev','uncss:article-anonce-1', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  // конкурс комментаторов
+  grunt.registerTask('contest_commentator-css', ['less:litedev','uncss:contest_commentator', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
   // Базовый для разработки верстки
   grunt.registerTask('default', [

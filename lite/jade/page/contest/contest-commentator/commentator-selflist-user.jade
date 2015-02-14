@@ -3,6 +3,10 @@ extend ../../../extend/layout_header_empty
 block vars
     - var bodyClass = 'body__lite body__contest-commentator';
     - global.cssFile = 'contest-commentator.css'; 
+    
+    - googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
+
+    - global.headItem = googlefont
  
 block layout
 
@@ -17,7 +21,7 @@ block layout
             //-+contestCommentatorRating('', contestCommentatorRating.user)
             // комментарии
             .contest-commentator-list
-                h2.contest-commentator-list_t
+                h2.contest-commentator_t
                     | Моя лента
                      
                 .contest-commentator-list_hold

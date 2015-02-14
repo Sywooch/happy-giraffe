@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" /><link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -31,7 +31,7 @@
   <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
-<body class="body body__user body__lite body__contest-commentator">
+<body class="body body__lite body__contest-commentator">
   <div class="layout-container">
     <div class="layout-loose layout-loose__white">
       <div class="layout-loose_hold clearfix">
@@ -67,7 +67,7 @@
             <!-- описание конкурса-->
             <!-- призы-->
             <div class="contest-commentator-prize">
-              <h2 class="contest-commentator-prize_t">Призы победителям!</h2>
+              <h2 class="contest-commentator_t">Призы победителям!</h2>
               <div class="contest-commentator-prize_img"><img src="/lite/images/contest/commentator/contest-commentator-prize_img.jpg" alt=""></div>
               <div class="contest-commentator-prize_sub">
                  
@@ -78,7 +78,7 @@
             <!-- призы-->
             <!-- комментарии-->
             <div class="contest-commentator-list">
-              <div class="contest-commentator-list_t">Последние комментарии
+              <div class="contest-commentator_t">Последние комментарии
                 <!-- active добавлять для отображения загрузки, по умолчанию без этого класса--><a href="#" class="contest-commentator-list_load active"> </a>
               </div>
               <div class="contest-commentator-list_hold">
@@ -168,41 +168,50 @@
             <!-- .contest-commentator-rating__main-->
             <div class="contest-commentator-rating contest-commentator-rating__main">
               <div class="contest-commentator-rating_hold">
-                <h2 class="contest-commentator-rating_t"> <span class="contest-commentator-rating_ico-cap"></span>Лидеры конкурса
+                <h2 class="contest-commentator_t"> <span class="contest-commentator-rating_ico-cap"></span>Лидеры конкурса
                 </h2>
                 <ul class="contest-commentator-rating_ul">
                   <li class="contest-commentator-rating_li">
-                    <div class="contest-commentator-rating_place"> 1
+                    <div class="contest-commentator-rating_place contest-commentator-rating_place__big">1
                     </div>
                     <div class="contest-commentator-rating_user"><a href="#" class="contest-commentator-rating_user-a"> 
-                        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="contest-commentator-rating_name"> Ангелина Богоявленская</span></a></div>
+                        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><a href="#" class="contest-commentator-rating_name"> Ангелина Богоявленская</a></a></div>
                     <div class="contest-commentator-rating_count">
                       <div class="contest-commentator-rating_buble"></div>99 456
                     </div>
                   </li>
                   <li class="contest-commentator-rating_li">
-                    <div class="contest-commentator-rating_place"> 2
+                    <div class="contest-commentator-rating_place contest-commentator-rating_place__big">2
                     </div>
                     <div class="contest-commentator-rating_user"><a href="#" class="contest-commentator-rating_user-a"> 
-                        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="contest-commentator-rating_name"> @@@@Ангелина Богоявленская@@@@</span></a></div>
+                        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><a href="#" class="contest-commentator-rating_name"> @@@@Ангелина Богоявленская@@@@</a></a></div>
                     <div class="contest-commentator-rating_count">
                       <div class="contest-commentator-rating_buble"></div>19 456
                     </div>
                   </li>
                   <li class="contest-commentator-rating_li">
-                    <div class="contest-commentator-rating_place"> 3
+                    <div class="contest-commentator-rating_place contest-commentator-rating_place__big">3
                     </div>
                     <div class="contest-commentator-rating_user"><a href="#" class="contest-commentator-rating_user-a"> 
-                        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="contest-commentator-rating_name"> гелина Богоя</span></a></div>
+                        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><a href="#" class="contest-commentator-rating_name"> гелина Богоя</a></a></div>
                     <div class="contest-commentator-rating_count">
                       <div class="contest-commentator-rating_buble"></div>9 456
                     </div>
                   </li>
                   <li class="contest-commentator-rating_li">
-                    <div class="contest-commentator-rating_place"> 4
+                    <div class="contest-commentator-rating_place contest-commentator-rating_place__big">4
                     </div>
                     <div class="contest-commentator-rating_user"><a href="#" class="contest-commentator-rating_user-a"> 
-                        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="contest-commentator-rating_name"> Татьяна Владимировна ☺♥♥ Родионова</span></a></div>
+                        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><a href="#" class="contest-commentator-rating_name"> Татьяна Владимировна ☺♥♥ Родионова</a></a></div>
+                    <div class="contest-commentator-rating_count">
+                      <div class="contest-commentator-rating_buble"></div>3 456
+                    </div>
+                  </li>
+                  <li class="contest-commentator-rating_li">
+                    <div class="contest-commentator-rating_place contest-commentator-rating_place__big">5
+                    </div>
+                    <div class="contest-commentator-rating_user"><a href="#" class="contest-commentator-rating_user-a"> 
+                        <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><a href="#" class="contest-commentator-rating_name"> Татьяна Владимировна ☺♥♥ Родионова</a></a></div>
                     <div class="contest-commentator-rating_count">
                       <div class="contest-commentator-rating_buble"></div>3 456
                     </div>

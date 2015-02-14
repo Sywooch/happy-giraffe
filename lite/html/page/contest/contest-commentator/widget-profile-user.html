@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/member-user.css' /><link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -28,167 +28,94 @@
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
-  <!-- livereload-->
-  <script src="//localhost:35729/livereload.js"></script>
 </head>
-<body class="body body__lite">
+<body class="body body__user body__lite">
+  <!-- +header-fix()-->
   <div class="layout-container">
-    <div class="layout-loose">
+    <div class="layout-loose layout-loose__white">
       <div class="layout-header">
         <!-- header-->
-        <header class="header header__guest">
+        <div class="header header__user header__base">
           <div class="header_hold clearfix">
-            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
             <!-- logo-->
             <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
             <!-- /logo-->
             <!-- header-menu-->
             <div class="header-menu">
-              <!-- js улучшить. Закрывать попап при клике не на нем.-->
-              <script>
-                $(document).ready(function () {
-                  $('a.header-menu_a').on('click', function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                
-                        var $this = $(this),
-                            activeClass = 'active';
-                
-                        var $currentPopup =  $this.siblings('div.header-popup');
-                
-                        $this
-                          .parent()
-                            .toggleClass(activeClass)
-                            .siblings()
-                              .removeClass(activeClass);
-                
-                        $this
-                          .children('span.header-menu_count:visible')
-                          .hide();
-                
-                        $(document).on('click', function() {
-                            $('li.header-menu_li').removeClass(activeClass);
-                            $(this).unbind();
-                            $currentPopup.unbind();
-                        });
-                
-                        $currentPopup.on('click', function (e) {
-                          e.stopPropagation();
-                        });
-                      });
-                  });
-              </script>
               <ul class="header-menu_ul clearfix">
-                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
-                  <!-- Конверсионный попап-->
-                  <div class="header-popup header-popup__club">
-                    <div class="header-popup_hold">
-                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
-                      <div class="header-popup_club">
-                        <!-- 18 клубов-->
-                        <div class="b-clubs">
-                          <ul class="b-clubs_ul">
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__1"></div>
-                                <div class="b-clubs_tx">Планирование</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__2"></div>
-                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__3"></div>
-                                <div class="b-clubs_tx">Дети до года</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__4"></div>
-                                <div class="b-clubs_tx">Дети старше года</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__5"></div>
-                                <div class="b-clubs_tx">Дошкольники</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__6"></div>
-                                <div class="b-clubs_tx">Школьники</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__7"></div>
-                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__8"></div>
-                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__9"></div>
-                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__10"></div>
-                                <div class="b-clubs_tx">Сад и огород</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__11"></div>
-                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__12"></div>
-                                <div class="b-clubs_tx">Красота и мода</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__13"></div>
-                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__14"></div>
-                                <div class="b-clubs_tx">Свадьба</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__15"></div>
-                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__16"></div>
-                                <div class="b-clubs_tx">Рукоделие</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__17"></div>
-                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
-                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
-                                <div class="ico-club ico-club__18"></div>
-                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="header-popup_b clearfix">
-                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
-                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
-                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
-                        </div>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li active"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+                <li class="header-menu_li header-menu_li__dropin"><a href="#" class="header-menu_a">
+                    <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                  <div class="header-drop">
+                    <div class="header-menu clearfix">
+                      <ul class="header-menu_ul">
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                              <!-- ava--><span href="#" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                      </ul>
+                    </div>
+                    <!-- header-drop_b-->
+                    <div class="header-drop_b">
+                      <div class="float-r margin-t3"><a href="#">Жираф рекомендует</a></div>
+                      <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                      <div class="club-list club-list__small clearfix">
+                        <ul class="club-list_ul clearfix">
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                        </ul>
                       </div>
                     </div>
+                    <!-- /header-drop_b-->
                   </div>
-                  <!-- /Конверсионный попап-->
-                </li>
-                <!-- Класс active отвечает за видимость попапапа-->
-                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
-                  <!-- Конверсионный попап-->
-                  <div class="header-popup header-popup__msg">
-                    <div class="header-popup_hold">
-                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
-                      <div class="header-popup_msg"></div>
-                      <div class="header-popup_b clearfix">
-                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
-                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
-                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /Конверсионный попап-->
+                  <!-- /header-drop -->
                 </li>
               </ul>
             </div>
             <!-- /header-menu-->
-            <div class="sidebar-search clearfix sidebar-search__big">
-              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
-            </div>
           </div>
-        </header>
+        </div>
         <!-- /header-->
       </div>
       <div class="layout-loose_hold clearfix">
         <div class="b-main">
-          <div class="b-main_cont b-main_cont__broad">
+          <div class="b-main_cols clearfix">
+            <div class="b-main_col-1"> 
+              <div class="sidebar-search clearfix sidebar-search__big">
+                <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+              </div>
+            </div>
+            <div class="b-main_col-23">
+              <!-- userAddRecord-->
+              <div class="userAddRecord clearfix userAddRecord__s userAddRecord__s">
+                <div class="userAddRecord_ava-hold">
+                  <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                </div>
+                <div class="userAddRecord_hold">
+                  <div class="userAddRecord_tx"> Я хочу добавить
+                  </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a>
+                </div>
+              </div>
+              <!-- /userAddRecord-->
+            </div>
+          </div>
+          <div class="b-main_cont b-main_cont__broad">   
             <div class="b-crumbs b-crumbs__s">
               <div class="b-crumbs_tx">Я здесь:</div>
               <ul class="b-crumbs_ul">
-                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная</a></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Мой жираф</a></li>
                 <li class="b-crumbs_li b-crumbs_li__last">
                   <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                 </li>
@@ -200,34 +127,22 @@
             <div class="userSection_hold clearfix">
               <div class="userSection_left">
                 <h2 class="userSection_name">Ангелина Богоявленская</h2>
-                <div class="clearfix">33 года (28 января)</div>
-                <div class="location locationsmall clearfix"><span class="flag flag-ua"></span><span class="location_tx">
-                    Ярославская обл.
-                    Переславль-Залесский</span></div>
-                <div class="userSection_btn-hold clearfix">
-                  <!--
-                  виды кнопок друзья 
-                  У каждого разный title
-                  userSection_btn__friend title = Приглашение отправлено
-                  userSection_btn__friend-add title = Добавить в друзья
-                  userSection_btn__friend-added title = Друг
-                  userSection_btn__friend-append title = Хочет дружить  
-                  --><a href="" title="Хочет дружить" class="userSection_btn userSection_btn__friend-append powertip"><span class="userSection_ico"></span></a><a href="" title="Написать сообщение" class="userSection_btn userSection_btn__dialog powertip"><span class="userSection_ico"></span></a>
-                </div>
+                <div class="clearfix">33 года (28 января)</div><a href="#" class="btn btn-white btn-xm"> <span class="ico-edit ico-edit__s-white"> </span> Редактировать</a>
               </div>
               <div class="userSection_center">
                 <div class="userSection_center-reg">с Веселым Жирафом 2 года 5 месяцев 203 дня</div>
                 <div class="b-ava-large b-ava-large__nohover"><span class="b-ava-large_online">На сайте</span>
                   <div class="b-ava-large_ava-hold">
-                    <!-- ava--><a href="#" class="ava ava__large ava__female ava__base-xs"><img alt="" src="" class="ava_img"></a>
-                  </div>
+                    <!-- ava--><a href="#" class="ava ava__large ava__male ava__base-xs"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                  </div><a href="#" title="Изменить фото" class="i-ava-bubble i-ava-bubble__photo powertip">
+                    <div class="i-ava-bubble_ico i-ava-bubble_ico__photo"></div></a>
                 </div>
               </div>
               <div class="userSection_right">
                 <!-- b-family-->
                 <div class="b-family">
                   <div class="b-family_top-hold">
-                    <div class="b-family_top b-family_top__white"></div>
+                    <div class="b-family_top b-family_top__white"></div><a href="#" class="ico-edit ico-edit__s-white"></a>
                   </div>
                   <ul class="b-family_ul">
                     <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span> Жена</span></span></a></li>
@@ -254,7 +169,7 @@
           <div class="b-main_cont b-main_cont__broad">
             <div class="b-main_col-hold clearfix">
               <!--/////     -->
-              <!-- Основная колонка-->
+              <!-- Основная колонка  -->
               <div class="b-main_col-article">
                 <div class="heading-sm">Моя активность</div>
                 <!-- Статья с текстом-->
@@ -431,6 +346,33 @@
                 </article>
                 <!-- /b-article-->
                 
+                <div class="w-contest-commentator"><a href="#" class="w-contest-commentator_close">Скрыть</a>
+                  <div class="w-contest-commentator_date">20 февраля - 31 марта</div>
+                  <h2 class="w-contest-commentator_t">Лучший комментатор</h2>
+                  <div class="w-contest-commentator_t-sub">Лидеры конкурса</div>
+                  <div class="w-contest-commentator_avas">
+                    <ul class="ava-list">
+                      <li class="ava-list_li">
+                        <!-- ava--><a href="#" class="ava ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                      </li>
+                      <li class="ava-list_li">
+                        <!-- ava--><a href="#" class="ava ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                      </li>
+                      <li class="ava-list_li">
+                        <!-- ava--><a href="#" class="ava ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                      </li>
+                      <li class="ava-list_li">
+                        <!-- ava--><a href="#" class="ava ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                      </li>
+                      <li class="ava-list_li">
+                        <!-- ava--><a href="#" class="ava ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="w-contest-commentator_btn-hold"><a href="#" class="btn btn-xxl btn-link">
+                       
+                      Принять участие!</a></div>
+                </div>
                 <!-- Статья с текстом-->
                 <!-- b-article-->
                 <article class="b-article b-article__list clearfix">
@@ -529,54 +471,50 @@
                 </article>
                 <!-- /b-article-->
                 
-                <!-- paginator-->
-                <div class="yiipagination">
-                  <div class="pager">
-                    <ul class="yiiPager">
-                      <li class="previous"><a href=""></a></li>
-                      <li class="page"><a href="">1</a></li>
-                      <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
-                      <li class="page-points">...</li>
-                      <li class="page"><a href="">6</a></li>
-                      <li class="page selected"><a href="">7</a></li>
-                      <li class="page"><a href="">8</a></li>
-                      <li class="page hidden"><a href="">8</a></li>
-                      <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
-                      <li class="page-points">...</li>
-                      <li class="page"><a href="">15</a></li>
-                      <li class="next"><a href=""></a></li>
-                    </ul>
+                <div class="w-contest-commentator w-contest-commentator__self"><a href="#" class="w-contest-commentator_close">Скрыть</a>
+                  <div class="w-contest-commentator_date">20 февраля - 31 марта</div>
+                  <h2 class="w-contest-commentator_t">Лучший комментатор</h2>
+                  <div class="w-contest-commentator_in">
+                    <div class="w-contest-commentator_place">26</div>
+                    <div class="w-contest-commentator_user"> 
+                      <!-- ava--><a href="#" class="ava"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                    </div>
+                    <div class="w-contest-commentator_count"><a href="#" class="w-contest-commentator_buble"></a>45 256</div>
                   </div>
+                  <div class="w-contest-commentator_btn-hold"><a href="#" class="btn btn-xxl btn-link">
+                       
+                      Моя лента</a><a href="#" class="btn btn-xxl btn-default">
+                       
+                      Весь рейтинг</a></div>
                 </div>
-                <!-- /paginator-->
               </div>
               <!--/////-->
               <!-- Сайд бар  -->
               <aside class="b-main_col-sidebar visible-md">
-                <!-- виджет фото-->
+                <!-- +widgetUserPhoto('', subscribersWidget.a)-->
                 <div class="widget-user-photo">
                   <div class="heading-sm"><a href="#" class="heading-sm_a-r">Все фото 828</a>Мои фото</div>
                   <ul class="widget-user-photo_ul clearfix">
                     <li class="widget-user-photo_li"><a href="#" class="widget-user-photo_i"> <img src="http://placecreature.com/dog/300/200" alt="Заголовок фото">
                         <div class="widget-user-photo_overlay">
-                          <div class="ico-zoom ico-zoom__abs"></div>
+                          <!--.ico-zoom.ico-zoom__abs-->
                         </div></a></li>
                     <li class="widget-user-photo_li"><a href="#" class="widget-user-photo_i"> <img src="http://placecreature.com/goldfish/110/70" alt="Заголовок фото">
                         <div class="widget-user-photo_overlay">
                           <!--.ico-zoom.ico-zoom__abs.ico-zoom__s-->
                         </div></a></li>
-                    <li class="widget-user-photo_li"><a href="#" class="widget-user-photo_i"> <img src="http://placecreature.com/puppy/80/70" alt="Заголовок фото">
+                    <li class="widget-user-photo_li"><a href="#" class="widget-user-photo_i"> <img src="http://placecreature.com/velociraptor/103/70" alt="Заголовок фото">
                         <div class="widget-user-photo_overlay">
                           <!--.ico-zoom.ico-zoom__abs.ico-zoom__s-->
                         </div></a></li>
-                    <li class="widget-user-photo_li"><a href="#" class="widget-user-photo_i"> <img src="http://placecreature.com/red-panda/90/70" alt="Заголовок фото">
-                        <div class="widget-user-photo_overlay">
-                          <!--.ico-zoom.ico-zoom__abs.ico-zoom__s-->
+                    <li class="widget-user-photo_li"><a href="#" class="widget-user-photo_i"> 
+                        <div class="cap-add">
+                          <div class="cap-add_hold">
+                            <div class="cap-add_in"> </div>
+                          </div>
                         </div></a></li>
                   </ul>
                 </div>
-                <!-- /виджет фото-->
-                <!-- виджет друзья-->
                 <div class="widget-friend">
                   <div class="heading-sm"> <a href="#" class="heading-sm_a-r">Все друзья 3</a>Мои друзья</div>
                   <ul class="ava-list">
@@ -603,27 +541,21 @@
                     </li>
                   </ul>
                 </div>
-                <!-- /виджет друзья-->
-                <!-- виджет клубы-->
                 <div class="widget-club">
                   <div class="heading-sm">Мои клубы</div>
                   <ul class="widget-club_ul clearfix">
+                    <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-3">
+                        <div class="ico-club ico-club__7"></div></a></li>
                     <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-6">
                         <div class="ico-club ico-club__20"></div></a></li>
-                    <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-5">
-                        <div class="ico-club ico-club__17"></div></a></li>
-                    <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-4">
-                        <div class="ico-club ico-club__15"></div></a></li>
-                    <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-3">
-                        <div class="ico-club ico-club__12"></div></a></li>
                     <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-2">
-                        <div class="ico-club ico-club__9"></div></a></li>
+                        <div class="ico-club ico-club__5"></div></a></li>
                     <li class="widget-club_li"><a href="#" class="i-club i-club__list-s i-club__collection-1">
-                        <div class="ico-club ico-club__3"></div></a></li>
+                        <div class="ico-club ico-club__15"></div></a></li>
                   </ul>
                 </div>
-                <!-- /виджет клубы-->
-                
+                <div class="contest-commentator-bnr"><a href="#" class="contest-commentator-bnr_a"> 
+                    <div class="btn btn-xxl btn-link">Принять участие!</div></a></div>
               </aside>
             </div>
           </div>

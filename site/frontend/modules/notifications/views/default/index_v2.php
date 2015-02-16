@@ -53,7 +53,7 @@
             </div>
             <div class="page-col_cont">
                 <div class="u-notice_hold scroll">
-                    <div class="scroll_scroller" data-bind="show: {selector: 'li:gt(-5)', callback: load}">
+                    <div class="scroll_scroller" data-bind="show: {selector: 'li.u-notice_li:eq(-5)', callback: load}">
                         <div class="scroll_cont">
                             <div class="cap-empty cap-empty__abs" data-bind="visible: notifications().length == 0, css: {'cap-empty__notice-new': tab() == 0, 'cap-empty__notice-arhive': tab() == 1}">
                                 <div class="cap-empty_hold">

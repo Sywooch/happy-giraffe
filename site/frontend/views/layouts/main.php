@@ -50,9 +50,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 <?php endif ?>
 
 <div class="layout-w1">
-    <?php if (! Yii::app()->user->isGuest): ?>
-        <?php $this->renderPartial('//_menu_fix'); ?>
-    <?php endif; ?>
     <div class="layout-container" id="layout-container">
         <?php if (Yii::app()->user->isGuest): ?>
             <?php $this->renderPartial('//_header_guest'); ?>

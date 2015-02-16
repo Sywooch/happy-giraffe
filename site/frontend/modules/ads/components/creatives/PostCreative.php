@@ -21,11 +21,13 @@ class PostCreative extends BaseCreative
      * @var \site\frontend\modules\posts\models\Content
      */
     protected $post;
-    protected $dom;
+    protected $html;
+    protected $preview;
 
     public function init()
     {
-        $this->dom = str_get_html($this->model->html);
+        $this->html = str_get_html($this->model->html);
+        $this->preview = str_get_html($this->model->preview);
     }
 
     public function getClubTitle()
@@ -38,15 +40,21 @@ class PostCreative extends BaseCreative
 
     public function getPhotosCount()
     {
-        return count($this->dom->find('img'));
+        return count($this->html->find('img'));
     }
 
     public function getPhoto()
     {
-        $img = $this->dom->find('img', 0);
-        $src = $img->src;
-        $photo = \Yii::app()->thumbs->getPhotoByUrl($src);
-        return $photo;
+        $docs = array($this->preview, $this->html);
+        foreach ($docs as $doc) {
+            $img = $doc->find('img', 0);
+            if ($img !== null) {
+                $src = $img->src;
+                $photo = \Yii::app()->thumbs->getPhotoByUrl($src);
+                return $photo;
+            }
+        }
+        return null;
     }
 
     public function getName()

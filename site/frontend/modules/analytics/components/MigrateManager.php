@@ -77,7 +77,7 @@ class MigrateManager
             $model = PageView::getModel($path);
             $model->correction = $row['ga:visits'];
             try {
-                $model->save();
+                //$model->save();
             } catch (\Exception $e) {
                 echo '123';
             }

@@ -68,6 +68,7 @@ class MigrateManager
             $model = PageView::getModel($path);
             $model->correction = $row['ga:visits'];
             $model->save();
+            echo "saved\n";
         }
         echo "end processResponse:\n";
     }

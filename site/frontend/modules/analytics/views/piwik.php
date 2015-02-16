@@ -12,6 +12,7 @@
     _paq.push(['enableLinkTracking']);
     (function() {
         var u="<?=$baseUrl?>";
+        _paq.push(['appendToTrackingUrl', 'bots=1']);
         _paq.push(['setTrackerUrl', u+'piwik.php']);
         _paq.push(['setSiteId', <?=$idSite?>]);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];

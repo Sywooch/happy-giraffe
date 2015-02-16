@@ -62,11 +62,13 @@ class MigrateManager
 
     protected function processResponse($response)
     {
+        echo "start processResponse:\n";
         foreach ($response as $path => $row) {
             echo ++$this->i . '-' . $path . "\n";
             $model = PageView::getModel($path);
             $model->correction = $row['ga:visits'];
             $model->save();
         }
+        echo "end processResponse:\n";
     }
 }

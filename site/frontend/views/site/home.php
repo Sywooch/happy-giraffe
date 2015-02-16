@@ -29,38 +29,6 @@ if ($openLogin == 'login') {
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <title>Веселый Жираф - сайт для всей семьи</title>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
-
-    <script type='text/javascript'>
-        var googletag = googletag || {};
-        googletag.cmd = googletag.cmd || [];
-        (function() {
-            var gads = document.createElement('script');
-            gads.async = true;
-            gads.type = 'text/javascript';
-            var useSSL = 'https:' == document.location.protocol;
-            gads.src = (useSSL ? 'https:' : 'http:') +
-            '//www.googletagservices.com/tag/js/gpt.js';
-            var node = document.getElementsByTagName('script')[0];
-            node.parentNode.insertBefore(gads, node);
-        })();
-    </script>
-
-    <script type='text/javascript'>
-        googletag.cmd.push(function() {
-            googletag.pubads().addEventListener('slotRenderEnded', function(event) {
-                require(['iframeResizer'], function(resizer) {
-                   $('#' + event.slot.b.d).find('iframe').iFrameResize({ heightCalculationMethod: 'lowestElement', checkOrigin: false, autoResize: false });
-                });
-            });
-            googletag.defineSlot('/51841849/anounce_big', [615, 450], 'div-gpt-ad-1423826092090-0').addService(googletag.pubads());
-            googletag.defineSlot('/51841849/anounce_photo', [300, 450], 'div-gpt-ad-1423826092090-1').addService(googletag.pubads());
-            googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423826092090-2').addService(googletag.pubads());
-            googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423826092090-3').addService(googletag.pubads());
-            googletag.defineSlot('/51841849/anounce_small', [300, 315], 'div-gpt-ad-1423826092090-4').addService(googletag.pubads());
-            googletag.pubads().enableSingleRequest();
-            googletag.enableServices();
-        });
-    </script>
 </head>
 <body class="body body__lite  body__bg2 body__homepage <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>  ">
 <?php Yii::app()->ads->showCounters(); ?>
@@ -288,32 +256,7 @@ if ($openLogin == 'login') {
                 <div class="homepage-posts">
                     <div class="homepage_title"> Лучшие записи </div>
                     <div class="homepage-posts_col-hold">
-                        <!-- anounce_big -->
-                        <div id='div-gpt-ad-1423826092090-0' class="article-anonce article-anonce__xl">
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423826092090-0'); });
-                            </script>
-                        </div>
-                        <div id="div-gpt-ad-1423826092090-1" class="article-anonce article-anonce__ico">
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423826092090-1'); });
-                            </script>
-                        </div>
-                        <div id="div-gpt-ad-1423826092090-2" class="article-anonce">
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423826092090-2'); });
-                            </script>
-                        </div>
-                        <div id="div-gpt-ad-1423826092090-3" class="article-anonce">
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423826092090-3'); });
-                            </script>
-                        </div>
-                        <div id="div-gpt-ad-1423826092090-4" class="article-anonce">
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function() { googletag.display('div-gpt-ad-1423826092090-4'); });
-                            </script>
-                        </div>
+
                     </div>
                 </div>
             </div>

@@ -46,8 +46,8 @@ class MigrateManager
                 try {
                     $response = $this->ga->getReport(array(
                         'metrics' => 'ga:visits',
-                        'start-index' => ($page - 1) * 100 + 1,
-                        'max-results' => 100,
+                        'start-index' => ($page - 1) * 1000 + 1,
+                        'max-results' => 1000,
                         'dimensions' => 'ga:pagePath',
                         'filters' => 'ga:pagePath=~' . urlencode($pattern),
                     ));
@@ -55,7 +55,7 @@ class MigrateManager
                     sleep(10);
                 }
             } while ($response === null);
-            $this->processResponse($response);
+            var_dump($response);
         } while (count($response) > 0);
     }
 

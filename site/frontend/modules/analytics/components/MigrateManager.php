@@ -14,8 +14,6 @@ class MigrateManager
 {
     public $ga;
 
-    private $i = 0;
-
     private $_patterns = array(
         '^/community/\d+/forum/\w+/\d+/$',
         '^/user/\d+/blog/post\d+/$',
@@ -31,6 +29,7 @@ class MigrateManager
 
     public function run()
     {
+        ini_set('max_execution_time', 0);
         foreach ($this->_patterns as $pattern) {
             $this->processByRegex($pattern);
         }
@@ -62,16 +61,10 @@ class MigrateManager
 
     protected function processResponse($response)
     {
-        echo "start processResponse:\n";
         foreach ($response as $path => $row) {
-            echo ++$this->i . '-' . $path . "\n";
             $model = PageView::getModel($path);
-            echo "got model\n";
             $model->correction = $row['ga:visits'];
-            echo "correction set\n";
-            var_dump($model->save());
-            echo "saved\n";
+            $model->save();
         }
-        echo "end processResponse:\n";
     }
 }

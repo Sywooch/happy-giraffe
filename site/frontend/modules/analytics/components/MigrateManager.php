@@ -71,7 +71,7 @@ class MigrateManager
     protected function processResponse($response)
     {
         foreach ($response as $path => $row) {
-            echo $this->t . "\n";
+            echo (time() - $this->t) . "\n";
             echo ++$this->i . '-' . $path . "\n";
             $model = PageView::getModel($path);
             $model->correction = $row['ga:visits'];

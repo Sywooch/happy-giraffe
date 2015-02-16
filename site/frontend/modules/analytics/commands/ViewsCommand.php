@@ -39,4 +39,13 @@ class ViewsCommand extends \CConsoleCommand
         $manager = new MigrateManager();
         $manager->run();
     }
+
+    public function actionTest()
+    {
+        $i = 0;
+        while (true) {
+            echo ++$i . "\n";
+            sleep(1);
+        }
+    }
 } 

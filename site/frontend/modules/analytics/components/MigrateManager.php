@@ -15,6 +15,7 @@ class MigrateManager
     public $ga;
 
     private $i = 0;
+    private $t;
 
     private $_patterns = array(
         '^/community/\d+/forum/\w+/\d+/$',
@@ -31,6 +32,7 @@ class MigrateManager
 
     public function run()
     {
+        $this->t = time();
         ini_set('max_execution_time', 0);
         ini_set('max_input_time', -1);
         set_time_limit(0);
@@ -69,6 +71,7 @@ class MigrateManager
     protected function processResponse($response)
     {
         foreach ($response as $path => $row) {
+            echo $this->t . "\n";
             echo ++$this->i . '-' . $path . "\n";
             $model = PageView::getModel($path);
             $model->correction = $row['ga:visits'];

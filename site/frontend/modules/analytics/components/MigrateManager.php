@@ -55,7 +55,7 @@ class MigrateManager
                     sleep(10);
                 }
             } while ($response === null);
-            echo count($response);
+            $this->processResponse($response);
         } while (count($response) > 0);
     }
 

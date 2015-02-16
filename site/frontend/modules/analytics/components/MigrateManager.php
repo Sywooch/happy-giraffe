@@ -69,7 +69,7 @@ class MigrateManager
             echo "got model\n";
             $model->correction = $row['ga:visits'];
             echo "correction set\n";
-            $model->save();
+            var_dump($model->save());
             echo "saved\n";
         }
         echo "end processResponse:\n";

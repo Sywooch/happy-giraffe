@@ -46,7 +46,7 @@ class MigrateManager
                 try {
                     $response = $this->ga->getReport(array(
                         'metrics' => 'ga:visits',
-                        'start-index' => ($page - 1) * 1000 + 1,
+                        'start-index' => ($page - 1) * 1000 + 401,
                         'max-results' => 1000,
                         'dimensions' => 'ga:pagePath',
                         'filters' => 'ga:pagePath=~' . urlencode($pattern),

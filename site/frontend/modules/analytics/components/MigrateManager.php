@@ -55,7 +55,7 @@ class MigrateManager
                     sleep(10);
                 }
             } while ($response === null);
-            echo "page $page\n";
+            echo "page $page(" . count($response) . ") \n";
             $this->processResponse($response);
         } while (count($response) > 0);
     }

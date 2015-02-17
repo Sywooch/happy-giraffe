@@ -14,7 +14,7 @@ class ViewsCommand extends \CConsoleCommand
     public function init()
     {
         \Yii::app()->db->enableSlave = false;
-        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        //\Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         parent::init();
     }
 

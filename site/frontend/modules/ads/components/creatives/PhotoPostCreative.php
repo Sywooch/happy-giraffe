@@ -10,4 +10,9 @@ namespace site\frontend\modules\ads\components\creatives;
 class PhotoPostCreative extends PostCreative
 {
     public $iconSrc;
+
+    public function getUrl()
+    {
+        return parent::getUrl() . '#openGallery';
+    }
 }

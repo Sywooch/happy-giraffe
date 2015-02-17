@@ -19,6 +19,7 @@ return array(
                 ),
             ),
         ),
+        'ads' => require(dirname(__FILE__) . '/../../frontend/modules/ads/config/main.php'),
     ),
     'components' => array(
         'api' => array(

@@ -58,6 +58,9 @@ return array(
         'analytics' => array(
             'class' => 'site\frontend\modules\analytics\commands\ViewsCommand',
         ),
+        'ads' => array(
+            'class' => 'site\frontend\modules\ads\commands\Command',
+        ),
     ),
     'import' => array(
         'site.common.components.*',
@@ -82,7 +85,8 @@ return array(
         'edms' => array(
             'class' => 'EDMSBehavior',
             'connectionId' => 'mongodb',
-        )
+        ),
+        'viewRenderer'=>'application.components.CAViewRendererBehavior',
     ),
     'components' => array(
         'widgetFactory' => array(

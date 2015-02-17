@@ -43,12 +43,18 @@ class TmpController extends HController
             throw new CHttpException(403);
         }
 
+        if($model->isFromBlog) {
+            $rubrics = Yii::app()->user->model->blog_rubrics;
+        } else {
+            $rubrics = $model->rubric->community->rubrics;
+        }
+        
         $rubricsList = array_map(function ($rubric) {
             return array(
                 'id' => $rubric->id,
                 'title' => $rubric->title,
             );
-        }, Yii::app()->user->model->blog_rubrics);
+        }, $rubrics);
 
         $json = array(
             'title' => (string) $model->title,

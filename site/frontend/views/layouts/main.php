@@ -13,7 +13,7 @@ if(! $cs->useAMD) {
 
 if (! Yii::app()->user->isGuest) {
     $cometJs = 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');';
-    $menuJs = "var menuVm = new MenuViewModel( " . CJSON::encode($this->menuData) . ");ko.applyBindings(menuVm, $('.header-fix')[0]);ko.applyBindings(menuVm, $('.header')[0]);";
+    $menuJs = "var menuVm = new MenuViewModel( " . CJSON::encode($this->menuData) . ");ko.applyBindings(menuVm, $('.header')[0]);";
 
     if (! $cs->useAMD) {
         $cs
@@ -50,9 +50,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 <?php endif ?>
 
 <div class="layout-w1">
-    <?php if (! Yii::app()->user->isGuest): ?>
-        <?php $this->renderPartial('//_menu_fix'); ?>
-    <?php endif; ?>
     <div class="layout-container" id="layout-container">
         <?php if (Yii::app()->user->isGuest): ?>
             <?php $this->renderPartial('//_header_guest'); ?>

@@ -209,7 +209,8 @@ class DefaultController extends HController
     {
         $contest_id = Yii::app()->request->getPost('contest_id');
         $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
-        if (! $model->isNewRecord && ! $model->canEdit())
+        $new = $model->isNewRecord;
+        if (! $new && ! $model->canEdit())
             throw new CHttpException(403);
         $model->scenario = 'default_club';
         $model->attributes = $_POST['CommunityContent'];
@@ -235,6 +236,11 @@ class DefaultController extends HController
         else
             $success = $model->withRelated->save(true, array($slug));
 
+        // Небольшой костыль для не сконвертированных постов
+        if($new) {
+            Yii::app()->user->setState('newPost' . $model->id, true);
+        }
+        
         if ($success) {
             if (isset($_POST['redirect']))
                 $this->redirect($_POST['redirect']);

@@ -1,6 +1,6 @@
 <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'yandex-direct')); ?>
 <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
-<div id="yandex_ad_sidebar"></div>
+<div id="yandex_ad_sidebar" class="bnr-base"></div>
 <script type="text/javascript">
     (function(w, d, n, s, t) {
         w[n] = w[n] || [];

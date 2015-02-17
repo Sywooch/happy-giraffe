@@ -84,6 +84,7 @@ class PageView extends \EMongoDocument
     {
         foreach ($this->getRoutes() as $pattern => $callback) {
             if (preg_match($pattern, $this->_id, $matches)) {
+                echo "got route\n";
                 return call_user_func($callback, $matches);
             }
         }
@@ -98,6 +99,7 @@ class PageView extends \EMongoDocument
                 return Content::model()->byEntity('CommunityContent', $id)->find();
             },
             '#^/community/\d+/forum/\w+/(\d+)/$#' => function($matches) {
+                echo "callback\n";
                 $id = $matches[1];
                 return Content::model()->byEntity('CommunityContent', $id)->find();
             },

@@ -104,7 +104,9 @@ class PageView extends \EMongoDocument
                 echo "callback\n";
                 $id = $matches[1];
                 var_dump($id);
-                return Content::model()->byEntity('CommunityContent', $id)->find();
+                $a = Content::model()->byEntity('CommunityContent', $id)->find();
+                var_dump($a === null);
+                return $a;
             },
         );
     }

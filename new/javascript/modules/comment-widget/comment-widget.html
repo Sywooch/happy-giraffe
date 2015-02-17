@@ -35,7 +35,7 @@
   <!-- /ko -->
   <!-- ko if: parsedData().length > 0 -->
    <ul class="comments_ul" data-bind="foreach: { data: parsedData(), as: 'comment' }">
-      <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + color() }">
+      <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + color(), id: 'comment_' + comment.id() }">
         <!-- ko ifnot: comment.removed -->
          <div class="comments_i clearfix" >
              <div class="comments_ava">
@@ -139,7 +139,7 @@
         <!-- /ko -->
 
           <ul class="comments_ul" data-bind="if comment.answers.length > 0, foreach: { data: comment.answers(), as: 'commentInner' }">
-            <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + $parent.color() }">
+            <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + $parent.color(), id: 'comment_' + commentInner.id()  }">
                     <!-- ko ifnot: commentInner.removed -->
                        <div class="comments_i clearfix">
                            <div class="comments_ava">

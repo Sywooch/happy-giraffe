@@ -15,6 +15,8 @@ class ViewsCommand extends \CConsoleCommand
     {
         \Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        \Yii::app()->db->createCommand('SET SESSION net_write_timeout = 28800;')->execute();
+        \Yii::app()->db->createCommand('SET SESSION net_read_timeout = 28800;')->execute();
         var_dump(\Yii::app()->db->createCommand('SHOW SESSION VARIABLES LIKE \'wait_timeout\';')->queryRow());
         parent::init();
     }

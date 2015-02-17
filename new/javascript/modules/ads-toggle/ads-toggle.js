@@ -1,7 +1,5 @@
 define(['knockout', 'models/Model', 'text!ads-toggle/ads-toggle.html'], function(ko, Model, template) {
     function ToggleWidget(params) {
-        console.log(params);
-
         this.active = ko.observable(params.isActive);
         this.loading = ko.observable(false);
 

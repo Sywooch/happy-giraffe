@@ -64,4 +64,13 @@ class Ad extends \HActiveRecord
     {
         return \CActiveRecord::model($this->entity)->findByPk($this->entityId);
     }
+
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => 'active = 1',
+            ),
+        );
+    }
 }

@@ -82,7 +82,9 @@ class PageView extends \EMongoDocument
 
     protected function getEntity()
     {
+        echo "get entity in\n";
         foreach ($this->getRoutes() as $pattern => $callback) {
+            echo "get entity foreach\n";
             if (preg_match($pattern, $this->_id, $matches)) {
                 echo "got route\n";
                 return call_user_func($callback, $matches);

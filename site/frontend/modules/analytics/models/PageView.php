@@ -55,6 +55,7 @@ class PageView extends \EMongoDocument
     {
         echo "get entity\n";
         $entity = $this->getEntity();
+        echo "got entity\n";
         if ($entity !== null) {
             echo "update\n";
             $entity->views = $this->getCounter();

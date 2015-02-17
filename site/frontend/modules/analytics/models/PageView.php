@@ -53,6 +53,7 @@ class PageView extends \EMongoDocument
 
     public function afterSave()
     {
+        echo "afterSave\n";
         $entity = $this->getEntity();
         if ($entity !== null) {
             $entity->views = $this->getCounter();

@@ -58,6 +58,8 @@ mixin paginationSmall(mod, vars)
                 a(href='') 7
               li.page
                 a(href='') 8
+              li.page.hidden
+                a(href='') 8
               // class .page-points нужно заменить на стандартный класс yii для этого элемента
               li.page-points
                 | ...
@@ -93,7 +95,7 @@ mixin paginationAll(mod)
                 a(href='') 9
               li.page
                 a(href='') 10
-              li.page
+              li.page.hidden
                 a(href='') 11
 
     // /paginator
@@ -117,7 +119,7 @@ mixin paginationRevers(mod)
                 a(href='') 17
               li.page
                 a(href='') 16
-              li.page
+              li.page.hidden
                 a(href='') 15
               // class .page-points нужно заменить на стандартный класс yii для этого элемента
               li.page-points

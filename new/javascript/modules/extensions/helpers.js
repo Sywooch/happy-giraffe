@@ -17,6 +17,11 @@ define(['jquery', 'knockout'], function sliderBindingHandler($, ko) {
         },
         checkUrlForHash: function checkUrlForHash(hash) {
             return this.checkStrings(this.getCurrentHash(), hash);
+        },
+        fireMethodOnHash: function fireMethodOnHash(hash, method) {
+            if (this.checkUrlForHash(hash)) {
+                method();
+            }
         }
     };
     return Helpers;

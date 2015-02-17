@@ -1,3 +1,8 @@
+/* Родительский тег для фотопостов */
+photo-collection {
+    display: block;
+    margin: 0 auto;
+}
 /* Родительский тег для всех фотоальбомов */
 photo-albums {
     display: block;
@@ -40,6 +45,9 @@ photo-albums {
     &__photolink &_overlay {
         display: none;
     }
+    &__load &_img-hold {
+        background-color: #F9F9F9;
+    }
     
     &_img-center {
         display: inline;
@@ -69,6 +77,7 @@ photo-albums {
         display: inline-block;
     }
     &_img-hold {
+        display: block;
         position: relative;
         background: #4d445c;
         text-align: center;
@@ -548,3 +557,16 @@ photo-albums {
     }
 }
 /* /album-empty */
+
+/* b-album-cap */
+.b-album-cap {
+    position: relative;
+
+    photo-collection {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+}
+/* /b-album-cap */

@@ -37,7 +37,7 @@
             </div>
         </div>
         <!-- /ko -->
-        <!-- ko if: family.photo() !== null -->
+        <!-- ko if: family.photoCollection() && family.photo() -->
         <div class="family-photo">
             <a href="#" class="ico-close4" data-bind="click: family.removeFamilyPhoto.bind(family)"></a>
             <div class="family-photo_t">Семейное фото</div>

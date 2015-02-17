@@ -58,16 +58,29 @@
         margin: 0 0 8px;
         text-align: center;
         background-color: #f9f9f9;
+        // Что бне залазило изображение на имя кому отвечаеш в комментарии (имя флотнуто)
+        min-width: 100%;
+        overflow: hidden;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
         display: inline-block;
         height: auto !important;
     }
-    &_in-img iframe {max-width:100%;}
-    &_in-img__l iframe,
+    &_in-img iframe {
+        width:100%;
+    }
     &_in-img__l img {
         width: 100%;
+    }
+    &_in-img-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, .08);
     }
 
     &_cont {
@@ -77,7 +90,7 @@
     }
     
     &_header {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
     &_header .tx-date {display: block;}
     &_header .ava {
@@ -91,14 +104,15 @@
     }
     &_t {
         &:extend(.heading-link-xxl);
+        margin: 8px 0;
     }
     &_t-list {
-        margin: 10px 0;
+        margin: 8px 0;
     }
     &_t-a {
         &:extend(.heading-link-xl);
+        margin: 8px 0;
     }
-    &_t-a:hover { }
     &_like .article-settings {
         float: left;
         margin: 20px 0 0;
@@ -133,21 +147,21 @@
             margin: 5px 0 15px 0;
         }
         &_t-list {
-            margin: 20px 0 15px;
+            margin: 8px 0;
         }
     }
 
     @media (min-width: @screen-desktop) {
         & {
-            margin: 20px 0 30px;
-            padding: 15px 0 0;
+            margin: 20px 0 40px;
+            padding: 0;
         }
         & .adv-yandex {
-            margin: 30px 0 0;
+            margin: 30px 0 10px;
         }
         &__list {
             border: 1px solid #f0f0f0;
-            padding: 14px;
+            padding: 14px 14px 20px;
         }
         &__list:hover {border-color: #e4e4e4;}
         &__list &_in-img {
@@ -166,9 +180,15 @@
         &__list .user-status {
             margin-bottom: 10px;
         }
-        &__list .b-album {
-            margin: 0 -14px 10px;
+        .b-album-cap {
+            margin: 10px 0;
         }
+        &__list .b-album-cap {
+            margin: 10px -14px;
+        }
+        /*&__list .b-album {
+            margin: 0 -14px 10px;
+        }*/
 
     }
 }
@@ -181,11 +201,11 @@
     &:extend(.tx-content);
 
     p {margin: 0 0 10px;}
-    img {
+    /*img {
         .inline-block();
         vertical-align: bottom;
         margin: 0 0 5px;
-    }
+    }*/
     .content-img  {
         float: none;
         margin: 0 0 10px;

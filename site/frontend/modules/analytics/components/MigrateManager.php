@@ -55,7 +55,7 @@ class MigrateManager
                 try {
                     $response = $this->ga->getReport(array(
                         'metrics' => 'ga:visits',
-                        'start-index' => ($page - 1) * 1000 + 301,
+                        'start-index' => ($page - 1) * 1000 + 1,
                         'max-results' => 1000,
                         'dimensions' => 'ga:pagePath',
                         'filters' => 'ga:pagePath=~' . urlencode($pattern),
@@ -76,11 +76,7 @@ class MigrateManager
             echo ++$this->i . '-' . $path . "\n";
             $model = PageView::getModel($path);
             $model->correction = $row['ga:visits'];
-            try {
-                //$model->save();
-            } catch (\Exception $e) {
-                echo '123';
-            }
+            $model->save();
         }
     }
 }

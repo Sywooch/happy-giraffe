@@ -39,7 +39,7 @@ define(['jquery', 'knockout', 'models/Model', 'models/User'], function FriendHan
             return Model.get(this.getRelationshipStatusUrl, { user1Id: userId, user2Id: this.id });
         },
         friendsInvite: function friendsInvite() {
-            this.hasOutgoingRequest(true);
+            this.hasIncomingRequest(true);
             return $.post('/friendRequests/send/', { to_id : this.id });
         },
         friendsAccept: function friendsAccept() {

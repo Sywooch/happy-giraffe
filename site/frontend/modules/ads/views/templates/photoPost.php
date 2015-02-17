@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Happy Giraffe</title>
-    <link rel="stylesheet" type="text/css" href="http://beta.happy-giraffe.ru/lite/css/min/article-anonce.css">
+    <link rel="stylesheet" type="text/css" href="http://www.happy-giraffe.ru/lite/css/min/article-anonce.css">
 </head>
 <!--/ layout out -->
 <body>

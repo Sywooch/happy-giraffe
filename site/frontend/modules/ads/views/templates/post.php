@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Happy Giraffe</title>
-    <link rel="stylesheet" type="text/css" href="http://beta.happy-giraffe.ru/lite/css/min/article-anonce.css">
+    <link rel="stylesheet" type="text/css" href="http://www.happy-giraffe.ru/lite/css/min/article-anonce.css">
 </head>
 <!--/ layout out -->
 <body>
@@ -42,5 +42,5 @@
         </div>
     </a>
 </div>
-<script type="text/javascript" src="http://beta.happy-giraffe.ru/new/javascript/iframeResizer.contentWindow.js"></script>
+<script type="text/javascript" src="http://www.happy-giraffe.ru/new/javascript/iframeResizer.contentWindow.js"></script>
 </body></html>

@@ -21,7 +21,7 @@ class OnOffWidget extends \CWidget
 
     public function getIsActive()
     {
-        $ad = Ad::model()->preset($this->preset)->line(\Yii::app()->getModule('ads')->lines[$this->line]['lineId'])->entity($this->model)->find();
+        $ad = Ad::model()->active()->preset($this->preset)->line(\Yii::app()->getModule('ads')->lines[$this->line]['lineId'])->entity($this->model)->find();
         return $ad !== null;
     }
 

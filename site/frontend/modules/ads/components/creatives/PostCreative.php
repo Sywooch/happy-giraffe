@@ -51,7 +51,9 @@ class PostCreative extends BaseCreative
             if ($img !== null) {
                 $src = $img->src;
                 $photo = \Yii::app()->thumbs->getPhotoByUrl($src);
-                return $photo;
+                if ($photo !== null) {
+                    return $photo;
+                }
             }
         }
         return null;

@@ -8,6 +8,22 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 ?>
 <!-- Основная колонка-->
 <div class="b-main_col-article">
+    <?php if (Yii::app()->user->checkAccess('toggleAnounces')): ?>
+        <?php if ($this->post->originService == 'oldCommunity'): ?>
+            <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
+                'model' => $this->post,
+                'line' => 'bigPost',
+                'preset' => 'bigPost',
+                'title' => 'Большой пост',
+            )); ?>
+            <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
+                'model' => $this->post,
+                'line' => 'smallPost',
+                'preset' => 'smallPost',
+                'title' => 'Маленький пост',
+            )); ?>
+        <?php endif; ?>
+    <?php endif; ?>
     <!-- Статья с текстом-->
     <!-- b-article-->
     <article class="b-article b-article__single clearfix b-article__lite">
@@ -124,7 +140,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 <!-- Содержимое загружaть отложено-->
 <aside class="b-main_col-sidebar visible-md">
     <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
-    <div class="banner">
+    <div class="bnr-base">
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->

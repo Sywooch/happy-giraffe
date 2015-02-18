@@ -10,11 +10,7 @@ use site\frontend\modules\posts\models\Content;
 
 \Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
 \Yii::import('site.common.vendor.Google.src.*');
-require_once 'Google/Api/Ads/Dfp/Lib/DfpUser.php';
-require_once 'Google/Api/Ads/Common/Util/MediaUtils.php';
 require_once 'Google/Api/Ads/Dfp/Util/DateTimeUtils.php';
-require_once 'Google/Api/Ads/Dfp/Util/StatementBuilder.php';
-require_once 'Google/Api/Ads/Common/Util/Logger.php';
 
 class Command extends \CConsoleCommand
 {
@@ -90,7 +86,7 @@ class Command extends \CConsoleCommand
     public function actionUpdateLicas()
     {
         $options = array(
-            'endDateTime' => \DateTimeUtils::ToDfpDateTime(new \DateTime('+5 year', new \DateTimeZone('Europe/Moscow'))),
+            'endDateTime' => new \DateTime('+5 year', new \DateTimeZone('Europe/Moscow')),
         );
 
         $ads = Ad::model()->preset('photoPost')->findAll();

@@ -9,8 +9,9 @@ use site\frontend\modules\ads\models\Ad;
 use site\frontend\modules\posts\models\Content;
 
 \Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
-\Yii::import('site.common.vendor.Google.src.*', true);
+\Yii::import('site.common.vendor.Google.src.*');
 require_once 'Google/Api/Ads/Dfp/Util/DateTimeUtils.php';
+require_once 'Google/Api/Ads/Dfp/Lib/DfpUser.php';
 
 class Command extends \CConsoleCommand
 {

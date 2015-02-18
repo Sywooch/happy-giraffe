@@ -45,4 +45,10 @@ class ViewsCommand extends \CConsoleCommand
         $model = PageView::model()->find();
         var_dump(0 > $model->synced);
     }
+
+    public function actionProcess($url)
+    {
+        $vm = new VisitsManager();
+        $vm->processUrl($url);
+    }
 } 

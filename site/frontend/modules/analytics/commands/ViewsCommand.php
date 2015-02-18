@@ -39,4 +39,9 @@ class ViewsCommand extends \CConsoleCommand
         $manager = new MigrateManager();
         $manager->run();
     }
+
+    public function actionTest()
+    {
+        echo \Yii::app()->getGlobalState(VisitsManager::INC_LAST_RUN, 0);
+    }
 } 

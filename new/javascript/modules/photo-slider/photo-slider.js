@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory) {
+define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'ads-config', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory, adsConfig) {
 
     function PhotoSlider(params) {
         var collectionData = {};
@@ -61,10 +61,16 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : (this.current().index() + 1);
             this.currentId(this.current().element().id());
             AdHistory.pushState(null, title, this.current().element().url());
-            AdHistory.bannerInit(this.current().element().url());
+            this.bannerInit();
             //FCUK quick fix
             setTimeout(this.addImageBinding.bind(this), this.setDelay);
             //---FCUK quick fix
+        };
+        this.addViews = function addViews() {
+            _paq.push(['setCustomUrl', this.current().element().url()]);
+            _paq.push(['trackPageView']);
+            dataLayer.push({'event': 'virtualView'});
+            yaCounter11221648.hit(this.current().element().url());
         };
         /**
          * Next slide
@@ -77,7 +83,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 this.current().element(this.collection.attaches()[this.current().index()]);
                 AdHistory.pushState(null, title, this.current().element().url());
                 this.addImageBinding();
-                AdHistory.reloadBanner();
+                this.photoChange();
             }
         };
         /**
@@ -91,11 +97,40 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 this.current().element(this.collection.attaches()[this.current().index()]);
                 AdHistory.pushState(null, title, this.current().element().url());
                 this.addImageBinding();
-                AdHistory.reloadBanner();
+                this.photoChange();
             }
 
         };
         this.collection.attaches.subscribe(this.lookForStart.bind(this));
+        /**
+         * Event on photo change
+         */
+        this.photoChange = function photoChange() {
+            if (adsConfig.isProduction === true) {
+                this.addViews();
+            }
+            if (adsConfig.showAds === true) {
+                adfox_reloadBanner('bn-1');
+            }
+        };
+        this.bannerInit = function bannerInit() {
+            if (adsConfig.showAds === true) {
+                (function (bannerPlaceId, requestSrc, defaultLoad) {
+                    var
+                        tgNS = window.ADFOX.RELOAD_CODE,
+                        initData = tgNS.initBanner(bannerPlaceId, requestSrc);
+
+                    $('#photo-window_banner .display-ib').html(initData.html);
+
+                    if (defaultLoad) {
+                        tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
+                    }
+                })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
+                if (adsConfig.isProduction === true) {
+                    this.addViews();
+                }
+            };
+        };
         /**
          * Init slider
          */

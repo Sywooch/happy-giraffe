@@ -14,17 +14,13 @@ class FsBehavior extends \CBehavior
     public $prefix;
     public $fsName;
 
-    protected $file;
-
     /**
      * @return \Gaufrette\File
      */
     public function getFile()
     {
-        if ($this->file === null) {
-            $this->file = $this->fs->createFile($this->getPath());
-        }
-        return $this->file;
+        $key = $this->getPath();
+        return $this->fs->get($key, true);
     }
 
     protected function getPath()

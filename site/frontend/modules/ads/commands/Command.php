@@ -74,6 +74,8 @@ class Command extends \CConsoleCommand
                     if ($ad === null) {
                         \Yii::app()->getModule('ads')->manager->add('photoPost', $post->id, 'photoPost', compact('iconSrc'));
                         $nAdded++;
+                    } else {
+                        \Yii::app()->getModule('ads')->manager->update($ad);
                     }
                 }
                 $row++;

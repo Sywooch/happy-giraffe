@@ -27,7 +27,9 @@ class VisitsManager
             'filter_limit' => -1,
         ));
         $urls = $this->parseLiveReport($response);
+        echo count($urls) . " urls\n";
         foreach ($urls as $url => $count) {
+            echo $url . "\n";
             $model = PageView::getModel($url);
             $model->visits += $count;
             $model->save();

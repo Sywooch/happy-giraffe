@@ -29,12 +29,11 @@ class VisitsManager
         $urls = $this->parseLiveReport($response);
         foreach ($urls as $url => $count) {
             $model = PageView::getModel($url);
-            $timeLeft = time() - $model->updated;
+            $model->visits += $count;
+            $model->save();
+            $timeLeft = time() - $model->synced;
             if ($timeLeft > self::TIMEOUT) {
                 \Yii::app()->gearman->client()->doBackground('processUrl', $url, md5($url));
-            } else {
-                $model->visits += $count;
-                $model->save();
             }
         }
         \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);
@@ -44,6 +43,7 @@ class VisitsManager
     {
         $model = PageView::getModel($url);
         $model->visits = $this->fetchVisitsCount($url);
+        $model->synced = time();
         $model->save();
     }
 

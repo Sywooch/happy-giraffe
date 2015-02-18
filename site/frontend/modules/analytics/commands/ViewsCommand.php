@@ -42,6 +42,7 @@ class ViewsCommand extends \CConsoleCommand
 
     public function actionTest()
     {
-        echo \Yii::app()->getGlobalState(VisitsManager::INC_LAST_RUN, 0);
+        $model = PageView::model()->find();
+        var_dump(0 > $model->synced);
     }
 } 

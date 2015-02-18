@@ -15,6 +15,7 @@ class PageView extends \EMongoDocument
     public $correction = 0;
     public $created;
     public $updated;
+    public $synced;
 
     public function getCollectionName()
     {

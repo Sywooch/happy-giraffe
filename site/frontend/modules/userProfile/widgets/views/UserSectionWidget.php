@@ -29,7 +29,7 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
             </div>
             <?php endif; ?>
             <?php if ($user->id == Yii::app()->user->id): ?>
-                <a href="<?=Yii::app()->createUrl('/profile/settings/personal')?>" class="btn btn-white btn-xm"> <span class="ico-edit ico-edit__s-white"> </span> Редактировать</a>
+                <a href="<?=Yii::app()->createUrl('/users/default/settings')?>" class="btn btn-white btn-xm"> <span class="ico-edit ico-edit__s-white"> </span> Редактировать</a>
             <?php endif; ?>
         </div>
         <div class="userSection_center">

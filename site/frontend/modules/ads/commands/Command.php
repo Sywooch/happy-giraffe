@@ -5,6 +5,7 @@ namespace site\frontend\modules\ads\commands;
  * @date 11/02/15
  */
 
+use site\frontend\modules\ads\models\Ad;
 use site\frontend\modules\posts\models\Content;
 
 \Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
@@ -43,5 +44,31 @@ class Command extends \CConsoleCommand
     {
         $post = Content::model()->byEntity('CommunityContent', $id)->find();
         \Yii::app()->getModule('ads')->manager->add('photoPost', $post->id, 'photoPost', compact('iconSrc'));
+    }
+
+    public function actionSyncPhotoPosts()
+    {
+        $file = \Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'dfp.csv';
+        if (($handle = fopen($file, "r")) !== false) {
+            $row = 0;
+            while (($data = fgetcsv($handle)) !== false) {
+                if ($row !== 0 && ! empty($data[5])) {
+                    $title = $data[5];
+                    $iconSrc = $data[4];
+                    $url = $data[2];
+                    $post = Content::model()->findByAttributes(array('url' => $url));
+                    if ($post->title != $title) {
+                        $post->title = $title;
+                        $post->update(array('title'));
+                    }
+                    $ad = Ad::model()->entity($post)->find();
+                    if ($ad === null) {
+                        \Yii::app()->getModule('ads')->manager->add('photoPost', $post->id, 'photoPost', compact('iconSrc'));
+                    }
+                }
+                $row++;
+            }
+            fclose($handle);
+        }
     }
 }

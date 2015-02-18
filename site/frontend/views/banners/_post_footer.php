@@ -1,4 +1,4 @@
-<div style="margin: 15px;">
+<div style="margin: 15px 15px 15px 0;">
     <?php if ($data instanceof CommunityContent || ($data instanceof \site\frontend\modules\posts\models\Content && $data->originService == 'oldCommunity')): ?>
     <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'yandex-direct')); ?>
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->

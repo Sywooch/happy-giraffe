@@ -365,7 +365,7 @@ define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Mode
             } else {
                 $.post('/api/photo/photos/rotate/', JSON.stringify({ clockwise : clockwise, photoId : self.id() }), function(response) {
                     if (response.success) {
-                        ko.mapping.fromJS(new Photo(response.data), {}, self);
+                        ko.mapping.fromJS(response.data, {}, self);
                     }
                 }, 'json');
             }

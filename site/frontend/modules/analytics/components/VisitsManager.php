@@ -15,7 +15,7 @@ use site\frontend\modules\posts\models\Content;
 class VisitsManager
 {
     const INC_LAST_RUN = 'VisitsManager.incLastRun';
-    const TIMEOUT = 600; // данные по ссылке обновляются не чаще, чем раз в TIMEOUT секунд
+    const TIMEOUT = 3600; // данные по ссылке обновляются не чаще, чем раз в TIMEOUT секунд
     const INTERVAL = 600; // после релиза, данные о действиях за INTERVAL период времени
 
     public function inc()
@@ -26,8 +26,15 @@ class VisitsManager
             'minTimestamp' => $lastRun,
         ));
         $urls = $this->parseLiveReport($response);
-        foreach ($urls as $url) {
-            \Yii::app()->gearman->client()->doBackground('processUrl', $url, md5($url));
+        foreach ($urls as $url => $count) {
+            $model = PageView::getModel($url);
+            $timeLeft = time() - $model->updated;
+            if ($timeLeft > self::TIMEOUT) {
+                \Yii::app()->gearman->client()->doBackground('processUrl', $url, md5($url));
+            } else {
+                $model->visits += $count;
+                $model->save();
+            }
         }
         \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);
     }
@@ -35,11 +42,8 @@ class VisitsManager
     public function processUrl($url)
     {
         $model = PageView::getModel($url);
-        $timeLeft = time() - $model->updated;
-        if ($timeLeft > self::TIMEOUT) {
-            $model->visits = $this->fetchVisitsCount($url);
-            $model->save();
-        }
+        $model->visits = $this->fetchVisitsCount($url);
+        $model->save();
     }
 
     public function sync($class)
@@ -65,7 +69,7 @@ class VisitsManager
                 $urls[] = $action['url'];
             }
         }
-        return array_unique($urls);
+        return array_count_values($urls);
     }
 
     protected function fetchVisitsCount($url)

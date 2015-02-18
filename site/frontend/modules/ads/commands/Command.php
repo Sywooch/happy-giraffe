@@ -49,6 +49,7 @@ class Command extends \CConsoleCommand
     public function actionSyncPhotoPosts()
     {
         $file = \Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'dfp.csv';
+        $nAdded = 0;
         if (($handle = fopen($file, "r")) !== false) {
             $row = 0;
             while (($data = fgetcsv($handle)) !== false) {
@@ -56,6 +57,7 @@ class Command extends \CConsoleCommand
                     $title = $data[5];
                     $icon = $data[4];
                     $url = $data[2];
+
                     $post = Content::model()->findByAttributes(array('url' => $url));
                     if ($post->title != $title) {
                         $post->title = $title;
@@ -67,11 +69,13 @@ class Command extends \CConsoleCommand
                     $iconSrc = 'http://www.happy-giraffe.ru/lite/images/banner/anonce/anonce-' . $matches[0] . '.png';
                     if ($ad === null) {
                         \Yii::app()->getModule('ads')->manager->add('photoPost', $post->id, 'photoPost', compact('iconSrc'));
+                        $nAdded++;
                     }
                 }
                 $row++;
             }
             fclose($handle);
         }
+        echo $nAdded . "added\n";
     }
 }

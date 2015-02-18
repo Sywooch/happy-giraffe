@@ -65,6 +65,9 @@ class DfpHelper extends \CApplicationComponent
     {
         foreach ($options as $option => $value) {
             if (property_exists($creative, $option)) {
+                if ($value instanceof \DateTime) {
+                    $value = \DateTimeUtils::ToDfpDateTime($value);
+                }
                 $creative->$option = $value;
             }
         }

@@ -59,6 +59,10 @@ class Command extends \CConsoleCommand
                     $url = $data[2];
 
                     $post = Content::model()->findByAttributes(array('url' => $url));
+                    if ($post === null) {
+                        echo "problem: $url\n";
+                    }
+
                     if ($post->title != $title) {
                         $post->title = $title;
                         $post->update(array('title'));

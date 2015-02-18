@@ -92,6 +92,16 @@ class DfpHelper extends \CApplicationComponent
         $this->updateLicaStatus($lineId, $creativeId, self::LICA_DEACTIVATE);
     }
 
+    public function updateLica($lineId, $creativeId, $options)
+    {
+        $licaService = $this->user->GetService('LineItemCreativeAssociationService', 'v201411');
+        $statementBuilder = $this->prepareLicaStatement($lineId, $creativeId);
+        $page = $licaService->getLineItemCreativeAssociationsByStatement($statementBuilder->ToStatement());
+        $lica = $page->results[0];
+        $this->setOptions($lica, $options);
+        $licaService->updateLineItemCreativeAssociations(array($lica));
+    }
+
     protected function updateLicaStatus($lineId, $creativeId, $action)
     {
         $licaService = $this->user->GetService('LineItemCreativeAssociationService', 'v201411');

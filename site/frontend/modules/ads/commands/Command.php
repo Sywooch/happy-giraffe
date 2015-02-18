@@ -54,7 +54,7 @@ class Command extends \CConsoleCommand
             while (($data = fgetcsv($handle)) !== false) {
                 if ($row !== 0 && ! empty($data[5])) {
                     $title = $data[5];
-                    $iconSrc = $data[4];
+                    $icon = $data[4];
                     $url = $data[2];
                     $post = Content::model()->findByAttributes(array('url' => $url));
                     if ($post->title != $title) {
@@ -62,6 +62,9 @@ class Command extends \CConsoleCommand
                         $post->update(array('title'));
                     }
                     $ad = Ad::model()->entity($post)->find();
+
+                    preg_match('#\d+#', $icon, $matches);
+                    $iconSrc = 'http://www.happy-giraffe.ru/lite/images/banner/anonce/anonce-' . $matches[0] . '.png';
                     if ($ad === null) {
                         \Yii::app()->getModule('ads')->manager->add('photoPost', $post->id, 'photoPost', compact('iconSrc'));
                     }

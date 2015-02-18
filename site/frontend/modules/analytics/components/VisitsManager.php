@@ -15,12 +15,13 @@ use site\frontend\modules\posts\models\Content;
 class VisitsManager
 {
     const INC_LAST_RUN = 'VisitsManager.incLastRun';
-    const TIMEOUT = 600;
+    const TIMEOUT = 600; // данные по ссылке обновляются не чаще, чем раз в TIMEOUT секунд
+    const INTERVAL = 600; // после релиза, данные о действиях за INTERVAL период времени
 
     public function inc()
     {
         $startTime = time();
-        $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
+        $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, time() - self::INTERVAL);
         $response = \Yii::app()->getModule('analytics')->piwik->makeRequest('Live.getLastVisitsDetails', array(
             'minTimestamp' => $lastRun,
         ));

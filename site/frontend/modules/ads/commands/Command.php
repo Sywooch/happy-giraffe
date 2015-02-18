@@ -82,4 +82,16 @@ class Command extends \CConsoleCommand
         }
         echo $nAdded . "added\n";
     }
+
+    public function actionUpdateLicas()
+    {
+        $options = array(
+            'endDateTime' => \DateTimeUtils::ToDfpDateTime(new \DateTime('+5 year', new \DateTimeZone('Europe/Moscow'))),
+        );
+
+        $ads = Ad::model()->preset('photoPost')->findAll();
+        foreach ($ads as $ad) {
+            \Yii::app()->getModule('ads')->dfp->updateLica($ad->lineId, $ad->creativeId, $options);
+        }
+    }
 }

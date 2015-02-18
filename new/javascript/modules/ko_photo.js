@@ -161,10 +161,18 @@ define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Mode
     };
     PhotoUploadViewModel.prototype.removePhotoInternal = function(photo) {
         var self = this;
-        if (photo.status() == PhotoUpload.prototype.STATUS_LOADING) {
-            photo.jqXHR.abort();
+        if (ko.isObservable(photo.photo)) {
+            if (photo.photo().status() == PhotoUpload.prototype.STATUS_LOADING) {
+                photo.photo().jqXHR.abort();
+            }
+            PhotoAddViewModel.prototype.removePhotoInternal.call(self, photo.photo());
+        } else {
+            if (photo.status() == PhotoUpload.prototype.STATUS_LOADING) {
+                photo.jqXHR.abort();
+            }
+            PhotoAddViewModel.prototype.removePhotoInternal.call(self, photo);
         }
-        PhotoAddViewModel.prototype.removePhotoInternal.call(self, photo);
+
     };
 
 

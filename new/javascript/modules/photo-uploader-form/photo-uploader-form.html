@@ -302,7 +302,7 @@
             </div>
         </div>
         <div class="textalign-c" data-bind="if: photo() !== null">
-            <div class="i-photo" data-bind="css: photo().cssClass"><a href="" class="ico-close5" data-bind="click: $root.removePhoto"></a>
+            <div class="i-photo" data-bind="css: photo().cssClass"><a href="" class="ico-close5" data-bind="click: removePhoto"></a>
                 <!-- ko if: photo().status() === photo().STATUS_SUCCESS -->
                 <div class="i-photo_hold">
                     <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo().photo, preset: 'uploadPreview' }">
@@ -324,8 +324,10 @@
 
                 <!-- ko if: photo().status() === photo().STATUS_FAIL -->
                 <div class="i-photo_hold error">
+                    <!-- ko if: photo().photo -->
                     <div class="tx-hint" data-bind="text: photo().photo.originalname"></div>
                     <div class="tx-hint" data-bind="text: photo().photo.error"></div>
+                    <!-- /ko -->
                 </div>
                 <!-- /ko -->
             </div>

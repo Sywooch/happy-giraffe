@@ -22,7 +22,7 @@ class VisitsManager
     {
         $startTime = time();
         $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
-        $minTimestamp = max($lastRun, time() - self::TIMEOUT);
+        $minTimestamp = max($lastRun, time() - self::INTERVAL);
         $response = \Yii::app()->getModule('analytics')->piwik->makeRequest('Live.getLastVisitsDetails', array(
             'minTimestamp' => $minTimestamp,
             'filter_limit' => -1,

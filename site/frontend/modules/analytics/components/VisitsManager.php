@@ -31,14 +31,14 @@ class VisitsManager
         echo "urls: " . count($urls) . "\n";
         $syncQueue = 0;
         foreach ($urls as $url => $count) {
-            echo $url . "\n";
             $model = PageView::getModel($url);
-            $model->visits += $count;
-            $model->save();
             $timeLeft = time() - $model->synced;
             if ($timeLeft > self::TIMEOUT) {
                 \Yii::app()->gearman->client()->doBackground('processUrl', $url, md5($url));
                 $syncQueue++;
+            } else {
+                $model->visits += $count;
+                $model->save();
             }
         }
         \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);

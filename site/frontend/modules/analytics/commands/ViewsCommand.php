@@ -43,11 +43,12 @@ class ViewsCommand extends \CConsoleCommand
 
     public function actionTest()
     {
+        $i = 0;
         while (true) {
             $post = Content::model()->find(array(
                 'order' => 'RAND()',
             ));
-            echo $post->id . "\n";
+            echo $i . "-" . $post->id . "\n";
             sleep(1);
         }
     }

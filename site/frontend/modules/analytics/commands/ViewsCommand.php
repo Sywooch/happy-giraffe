@@ -14,6 +14,8 @@ class ViewsCommand extends \CConsoleCommand
 {
     public function init()
     {
+        ini_set('display_errors', true );
+        error_reporting( E_ALL & ~E_NOTICE );
         \Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         parent::init();

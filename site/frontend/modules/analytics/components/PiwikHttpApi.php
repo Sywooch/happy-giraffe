@@ -17,7 +17,7 @@ class PiwikHttpApi extends \CApplicationComponent
     {
         $params = array(
             'period' => 'range',
-            'date' => '2015-02-13,yesterday',
+            'date' => '2015-02-13,today',
             'segment' => 'pageUrl==' . $url,
         );
         $response = $this->makeRequest('VisitsSummary.getVisits', $params);

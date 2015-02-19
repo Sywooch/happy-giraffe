@@ -33,9 +33,9 @@
                 </div>
             <?php endif; ?>
             <?php if ($this->size == $this::SIZE_BIG): ?>
-                <img src="<?=Yii::app()->thumbs->getThumb('postAnnouncementBig')?>" alt="<?=$this->model->title?>" class="article-anonce_img" width="615" height="450">
+                <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncementBig')?>" alt="<?=$this->model->title?>" class="article-anonce_img" width="615" height="450">
             <?php else: ?>
-                <img src="<?=Yii::app()->thumbs->getThumb('postAnnouncement')?>" alt="<?=$this->model->title?>" class="article-anonce_img" width="300" height="200">
+                <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncement')?>" alt="<?=$this->model->title?>" class="article-anonce_img" width="300" height="200">
             <?php endif; ?>
             <div class="article-anonce_img-overlay"></div>
         </div>

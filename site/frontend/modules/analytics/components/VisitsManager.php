@@ -28,21 +28,10 @@ class VisitsManager
             'filter_limit' => -1,
         ));
         $urls = $this->parseLiveReport($response);
-        $urlsCounts = array_count_values($urls);
         echo "urls: " . count($urls) . "\n";
-        $syncQueue = 0;
-        foreach ($urlsCounts as $url => $count) {
-            $model = PageView::getModel($url);
-            $timeLeft = time() - $model->synced;
-            if ($timeLeft > self::TIMEOUT) {
-                \Yii::app()->gearman->client()->doBackground('processUrl', $url, md5($url));
-                $syncQueue++;
-            } else {
-                $model->visits += $count;
-                $model->save();
-            }
+        foreach ($urls as $url) {
+            \Yii::app()->gearman->client()->doBackground('processUrl', $url, md5($url));
         }
-        echo "added to sync: $syncQueue\n";
         echo "time left: " . (time() - $startTime) . "\n";
         \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);
     }
@@ -50,9 +39,12 @@ class VisitsManager
     public function processUrl($url)
     {
         $model = PageView::getModel($url);
-        $model->visits = $this->fetchVisitsCount($url);
-        $model->synced = time();
-        $model->save();
+        $timeLeft = time() - $model->synced;
+        if ($timeLeft > self::TIMEOUT) {
+            $model->visits = $this->fetchVisitsCount($url);
+            $model->synced = time();
+            $model->save();
+        }
     }
 
     public function sync($class)

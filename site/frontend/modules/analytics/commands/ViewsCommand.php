@@ -3,6 +3,7 @@ namespace site\frontend\modules\analytics\commands;
 use site\frontend\modules\analytics\components\MigrateManager;
 use site\frontend\modules\analytics\components\VisitsManager;
 use site\frontend\modules\analytics\models\PageView;
+use site\frontend\modules\posts\models\Content;
 
 /**
  * @author Никита
@@ -42,8 +43,13 @@ class ViewsCommand extends \CConsoleCommand
 
     public function actionTest()
     {
-        $model = PageView::model()->find();
-        var_dump(0 > $model->synced);
+        while (true) {
+            $post = Content::model()->find(array(
+                'order' => 'RAND()',
+            ));
+            echo $post->id . "\n";
+            sleep(1);
+        }
     }
 
     public function actionProcess($url)

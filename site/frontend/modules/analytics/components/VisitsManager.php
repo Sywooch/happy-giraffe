@@ -28,9 +28,10 @@ class VisitsManager
             'filter_limit' => -1,
         ));
         $urls = $this->parseLiveReport($response);
+        $urlsCounts = array_count_values($urls);
         echo "urls: " . count($urls) . "\n";
         $syncQueue = 0;
-        foreach ($urls as $url => $count) {
+        foreach ($urlsCounts as $url => $count) {
             $model = PageView::getModel($url);
             $timeLeft = time() - $model->synced;
             if ($timeLeft > self::TIMEOUT) {
@@ -74,13 +75,12 @@ class VisitsManager
         $urls = array();
         foreach ($response as $row) {
             foreach ($row['actionDetails'] as $action) {
-                $urls[] = $action['url'];
+                    $urls[] = $action['url'];
             }
         }
-
-        var_dump($urls);
-
-        return array_count_values($urls);
+        return array_filter($urls, function($v, $k) {
+            return ($v !== null) && (strpos($v, \Yii::app()->homeUrl) !== false);
+        });
     }
 
     protected function fetchVisitsCount($url)

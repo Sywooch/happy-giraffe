@@ -341,6 +341,19 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
             return false;
         };
+        this.preloadImage = function preloadImage(src) {
+            $("<img />").attr("src", src);
+        };
+        /**
+         * iterate slider attaches for the sake of presets handling
+         * @param attach
+         * @returns {PhotoAttach}
+         */
+        this.iterateSliderAttaches = function iterateSliderAttaches(attach) {
+            var photoAttach = this.iterateAttaches(attach);
+            this.preloadImage(photoAttach.photo().getGeneratedPreset(this.usablePreset()));
+            return photoAttach;
+        };
         /**
          * Манипуляции данными в разрезе формирования линейки фото для слайдера
          * @param presets
@@ -355,7 +368,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 PresetManager.presets = presetsData.data;
                 this.presets = presetsData.data;
                 if (PresetManager.presets !== undefined) {
-                    newAttaches = ko.utils.arrayMap(attachesData.data.attaches, this.iterateAttaches.bind(this));
+                    newAttaches = ko.utils.arrayMap(attachesData.data.attaches, this.iterateSliderAttaches.bind(this));
                     direction = this.decideToWhatSliderDirection(this.attaches(), newAttaches);
                     if (direction) {
                         this.attaches(newAttaches.concat(this.attaches()));

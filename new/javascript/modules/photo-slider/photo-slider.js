@@ -107,12 +107,10 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          */
         this.needMorePictures = function needMorePictures(position, index) {
             if ((position + this.offsetMinimal) !== this.collection.attachesCount() && (position - this.offsetMinimal) !== 0 && this.collection.attachesCount() !== this.collection.attaches().length) {
-                console.log(index, this.collection.attaches().length);
                 if ((index + this.offsetMinimal) === this.collection.attaches().length) {
                     this.collection.getSliderCollection(this.collection.id(), this.calculatePostOffset(position, false), this.photoLength);
                 }
                 if ((index - this.offsetMinimal) === 0) {
-                    console.log('left loading fire');
                     this.collection.getSliderCollection(this.collection.id(), this.calculatePostOffset(position, true), this.photoLength);
                 }
             }

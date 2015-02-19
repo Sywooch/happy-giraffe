@@ -31,7 +31,6 @@ define(['jquery', 'knockout'], function sliderBindingHandler($, ko) {
             for (arrayKey in array) {
                 if (ko.isObservable(array[arrayKey][propertyName])) {
                     if (array[arrayKey][propertyName]() === value) {
-                        console.log(array[arrayKey]);
                         return { element: ko.observable(array[arrayKey]), index: ko.observable(parseInt(arrayKey)) };
                     }
                 } else {

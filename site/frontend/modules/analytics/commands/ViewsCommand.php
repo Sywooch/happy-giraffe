@@ -50,7 +50,6 @@ class ViewsCommand extends \CConsoleCommand
                 'order' => 'RAND()',
             ));
             echo $i . "-" . $post->id . "\n";
-            sleep(1);
         }
     }
 

@@ -73,13 +73,13 @@ class DfpHelper extends \CApplicationComponent
         }
     }
 
-    public function addLica($lineId, $creativeId)
+    public function addLica($lineId, $creativeId, $options)
     {
         $licaService = $this->getService('LineItemCreativeAssociationService');
         $lica = new \LineItemCreativeAssociation();
         $lica->creativeId = $creativeId;
         $lica->lineItemId = $lineId;
-        $lica->endDateTime = \DateTimeUtils::ToDfpDateTime(new \DateTime('+2 day', new \DateTimeZone('Europe/Moscow')));
+        $this->setOptions($lica, $options);
         $licas = array($lica);
         $licas = $licaService->createLineItemCreativeAssociations($licas);
         return $licas[0];

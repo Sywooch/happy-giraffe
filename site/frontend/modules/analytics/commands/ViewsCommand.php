@@ -45,6 +45,7 @@ class ViewsCommand extends \CConsoleCommand
     {
         $i = 0;
         while (true) {
+            $i++;
             $post = Content::model()->find(array(
                 'order' => 'RAND()',
             ));

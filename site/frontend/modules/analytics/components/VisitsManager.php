@@ -77,6 +77,9 @@ class VisitsManager
                 $urls[] = $action['url'];
             }
         }
+
+        var_dump($urls);
+
         return array_count_values($urls);
     }
 

@@ -1,5 +1,18 @@
 document.domain = document.domain;
 
+/**
+ * if exists
+ * @param el
+ */
+
+$.fn.exists = function(callback) {
+    var args = [].slice.call(arguments, 1);
+    if (this.length) {
+        callback.call(this, args);
+    }
+    return this;
+};
+
 function addBaron(el) {
     $(el).each(function() {
         if (this.baron) {
@@ -159,6 +172,22 @@ $(function() {
     $.fn.wysiwygHG = function() {
         new HgWysiwyg(this);
     };
+
+    /**
+     * Открытие стрелок в посте
+     * @type {*|jQuery|HTMLElement}
+     */
+    $('a.post-arrow').exists(function showPostArrows() {
+        var $w = $(window);
+        $w.on('scroll', function showPostArrowsOnScroll(event) {
+            if ($w.scrollTop() > 200) {
+                $('.post-arrow').removeClass('display-n');
+                $w.off('scroll');
+            }
+        });
+    });
+
+
 });
 
 // Старый common.js
@@ -576,22 +605,24 @@ function showLoginWindow() {
     $('a[href="#login"]').trigger('click');
 }
 
-function openLoginPopup() {
-    $.magnificPopup.open({
-        type: 'inline',
-        overflowY: 'auto',
-        tClose: 'Закрыть',
-        fixedBgPos: true,
-        items: { src: '#loginWidget' },
-        callbacks: {
-            open: function() {
-                $('html').addClass('mfp-html');
-            },
-            close: function() {
-                $('html').removeClass('mfp-html');
+if (typeof window.openLoginPopup === 'undefined') {
+    window.openLoginPopup = function openLoginPopup() {
+        $.magnificPopup.open({
+            type: 'inline',
+            overflowY: 'auto',
+            tClose: 'Закрыть',
+            fixedBgPos: true,
+            items: { src: '#loginWidget' },
+            callbacks: {
+                open: function() {
+                    $('html').addClass('mfp-html');
+                },
+                close: function() {
+                    $('html').removeClass('mfp-html');
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function SeCounter() {

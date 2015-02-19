@@ -64,6 +64,7 @@
     }
     &_li-hold {padding: 20px 10px 20px 25px;}
     &_li-hold:hover {background: #fcfcfc;}
+    &_li-hold:hover &_desc-go {display: block;}
     &_li-hold .ava-list_li {margin-bottom: 0;margin-top: 3px;}
     &_b {
         .inline-block();
@@ -87,7 +88,6 @@
         text-decoration: none;
         color: @color-gray-dark;
     }
-    &_spec:hover &_desc-go {display: block;}
     &_count {
         font-size: 35px;
         color: @color-link-title;
@@ -104,10 +104,13 @@
         margin-top: 2px;
         font: @fontsmall;
         color: #3498db;
-        text-decoration: underline;
+        text-decoration: none;
+        &:hover {
+          color: @color-orange;
+        }
     }
     &_users {
-        width: 220px;
+        width: 180px;
     }
     &_post-ico {
         .inline-block();
@@ -122,12 +125,16 @@
     &_post-ico__question {background-position: -100px 0;}
     &_post {
         .inline-block();
-        margin-left: 10px;
-        width: 219px;
+        margin-left: 5px;
+        width: 280px;
     }
     &_post-a {
         font-weight: bold;
         color: @color-link-title;
+        text-decoration: none;
+        &:hover{
+          color: @color-orange;
+        }
     }
     &_comment {
         .inline-block();
@@ -154,7 +161,7 @@
     }
     &_check {
         position: relative;
-        margin-left: 27px;
+        margin-left: 20px;
         width: 45px;
         text-align: center;
         text-decoration: none;

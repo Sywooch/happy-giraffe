@@ -42,9 +42,9 @@ class VisitsManager
                 $model->save();
             }
         }
-        \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);
         echo "added to sync: $syncQueue\n";
         echo "time left: " . (time() - $startTime) . "\n";
+        \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);
     }
 
     public function processUrl($url)

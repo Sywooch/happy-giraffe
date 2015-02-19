@@ -97,9 +97,7 @@ class PageView extends \EMongoDocument
             },
             '#^/community/\d+/forum/\w+/(\d+)/$#' => function($matches) {
                 $id = $matches[1];
-                var_dump($id);
                 $a = Content::model()->byEntity('CommunityContent', $id)->find();
-                var_dump($a === null);
                 return $a;
             },
         );

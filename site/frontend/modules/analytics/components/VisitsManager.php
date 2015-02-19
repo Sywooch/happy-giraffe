@@ -78,7 +78,7 @@ class VisitsManager
                     $urls[] = $action['url'];
             }
         }
-        return array_filter($urls, function($v, $k) {
+        return array_filter($urls, function($v) {
             return ($v !== null) && (strpos($v, \Yii::app()->homeUrl) !== false);
         });
     }

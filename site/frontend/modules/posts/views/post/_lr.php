@@ -3,7 +3,7 @@ if ($left)
 {
     $this->metaNavigation->prev = $left->parsedUrl;
     ?>
-    <a href="<?= $left->parsedUrl ?>" class="post-arrow post-arrow__l" rel="prev">
+    <a href="<?= $left->parsedUrl ?>" class="post-arrow display-n post-arrow__l" rel="prev">
         <div class="i-photo-arrow"></div>
         <div class="post-arrow_in-hold">
             <div class="post-arrow_in">
@@ -21,7 +21,7 @@ if ($right)
 {
     $this->metaNavigation->next = $right->parsedUrl;
     ?>
-    <a href="<?= $right->parsedUrl ?>" class="post-arrow post-arrow__r" rel="next">
+    <a href="<?= $right->parsedUrl ?>" class="post-arrow display-n post-arrow__r" rel="next">
         <div class="i-photo-arrow i-photo-arrow__r"></div>
         <div class="post-arrow_in-hold">
             <div class="post-arrow_in">

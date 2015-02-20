@@ -24,7 +24,7 @@
  *
  * @package    GoogleApiAdsDfp
  * @subpackage v201411
- * @category   WebServices
+ * @category   WebServicese
  * @copyright  2014, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0

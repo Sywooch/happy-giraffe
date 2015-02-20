@@ -13,7 +13,7 @@ class TempController extends \LiteController
     public $litePackage = 'posts';
     public function actionTemp()
     {
-        $this->render('index');
+        var_dump(\site\frontend\modules\som\modules\photopost\models\Photopost::model()->find()->save());
     }
 
 }

@@ -4,10 +4,12 @@ namespace site\frontend\modules\ads\models;
 /**
  * @property int $id
  * @property string $entity
- * @property int $entityId
- * @property int $lineId
- * @property int $creativeId
- * @property int $licaId
+ * @property string $entityId
+ * @property string $preset
+ * @property string $properties
+ * @property string $lineId
+ * @property string $creativeId
+ * @property bool $active
  * @property int $dtimeCreate
  * @property int $dtimeUpdate
  *
@@ -45,9 +47,9 @@ class Ad extends \HActiveRecord
         return $this;
     }
 
-    public function template($templateId)
+    public function preset($preset)
     {
-        $this->getDbCriteria()->compare('t.templateId', $templateId);
+        $this->getDbCriteria()->compare('t.preset', $preset);
         return $this;
     }
 
@@ -56,5 +58,19 @@ class Ad extends \HActiveRecord
         $this->getDbCriteria()->compare('t.entity', get_class($model));
         $this->getDbCriteria()->compare('t.entityId', $model->id);
         return $this;
+    }
+
+    public function getOriginEntity()
+    {
+        return \CActiveRecord::model($this->entity)->findByPk($this->entityId);
+    }
+
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => 'active = 1',
+            ),
+        );
     }
 }

@@ -38,12 +38,15 @@ class VisitsManager
 
     public function processUrl($url)
     {
+        /** @var \site\frontend\modules\analytics\models\PageView $model */
         $model = PageView::getModel($url);
-        $timeLeft = time() - $model->synced;
-        if ($timeLeft > self::TIMEOUT) {
-            $model->visits = $this->fetchVisitsCount($url);
-            $model->synced = time();
-            $model->save();
+        if ($model->getEntity() !== null) {
+            $timeLeft = time() - $model->synced;
+            if ($timeLeft > self::TIMEOUT) {
+                $model->visits = $this->fetchVisitsCount($url);
+                $model->synced = time();
+                $model->save();
+            }
         }
     }
 

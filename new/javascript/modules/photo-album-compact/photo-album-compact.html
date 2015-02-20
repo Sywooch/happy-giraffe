@@ -33,8 +33,8 @@
             </a>
             <ul class="b-album_prev clearfix visible-md-block">
                 <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-                <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
-                    <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
+                <!-- ko if: attaches.length > 0 -->
+                    <!-- ko foreach: attaches -->
                     <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
                         <a href="#" class="b-album_prev-a" data-bind="href: $parent.photoAlbum.url + $data.urlPart, click: function () { $parent.openPhotoHandler($data); }">
                             <img src="" alt="" class="b-album_prev-img" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">

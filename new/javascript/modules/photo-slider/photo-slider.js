@@ -20,6 +20,8 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.setDelay = 1000;
         this.tagName = 'photo-slider';
         this.currentId = ko.observable();
+        this.photoLength = 20;
+        this.offsetMinimal = 5;
         /**
          * getting User
          * @param user
@@ -39,10 +41,20 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 .done(this.userHandler.bind(this));
         };
         /**
+         * retrieve collection meta data
+         * @param collectionMeta
+         */
+        this.retrieveCollectionMeta = function retrieveCollectionMeta(collectionMeta) {
+            if (collectionMeta.success === true) {
+                this.collection.attachesCount(collectionMeta.data.attachesCount);
+                this.collection.cover(collectionMeta.data.cover);
+            }
+        };
+        /**
          * Getting collection
          */
         this.getCollection = function getCollection() {
-            this.collection.getCollectionCount(this.collection.id());
+            this.collection.get(this.collection.id()).done(this.retrieveCollectionMeta.bind(this));
         };
         /**
          * imgBinding
@@ -52,55 +64,123 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
         };
         /**
+         * Creating title for photo
+         * @param currentElement
+         * @returns {*}
+         */
+        this.creatingTitle = function creatingTitle(currentElement) {
+            return (currentElement.element().photo().title() !== "") ? currentElement.element().photo().title() : (currentElement.element().index() + 1);
+        };
+        /**
          * Начало
          * @param newAttaches
          */
-        this.lookForStart = function lookForStart(newAttaches) {
+        this.lookForStart = function lookForStart() {
             var title;
-            this.current(Model.findByIdObservableIndex(this.photoAttach(), this.collection.attaches()));
-            title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : (this.current().index() + 1);
-            this.currentId(this.current().element().id());
+            if (this.current().element === undefined) {
+                this.current(Model.findByIdObservableIndex(this.photoAttach(), this.collection.attaches()));
+                title = this.creatingTitle(this.current());
+                this.currentId(this.current().element().id());
+                AdHistory.pushState(null, title, this.current().element().url());
+                AdHistory.bannerInit(this.current().element().url());
+                //FCUK quick fix
+                setTimeout(this.addImageBinding.bind(this), this.setDelay);
+                //---FCUK quick fix
+            } else {
+                this.current(Model.findByIdObservableIndex(this.current().element().id(), this.collection.attaches()));
+            }
+        };
+        /**
+         * Same actions on manipulating slider
+         */
+        this.sliderManipulations = function sliderManipulations() {
+            var title = this.creatingTitle(this.current());
+            this.current().element(this.collection.attaches()[this.current().index()]);
             AdHistory.pushState(null, title, this.current().element().url());
-            AdHistory.bannerInit(this.current().element().url());
-            //FCUK quick fix
-            setTimeout(this.addImageBinding.bind(this), this.setDelay);
-            //---FCUK quick fix
+            AdHistory.reloadBanner();
+            this.addImageBinding();
+        };
+        /**
+         * load more pictures
+         * @param positon
+         * @param index
+         */
+        this.needMorePictures = function needMorePictures(position, index) {
+            if ((position + this.offsetMinimal) !== this.collection.attachesCount() && (position - this.offsetMinimal) !== 0 && this.collection.attachesCount() !== this.collection.attaches().length) {
+                if ((index + this.offsetMinimal) === this.collection.attaches().length) {
+                    this.collection.getSliderCollection(this.collection.id(), this.calculatePostOffset(position, false), this.photoLength);
+                }
+                if ((index - this.offsetMinimal) === 0) {
+                    this.collection.getSliderCollection(this.collection.id(), this.calculatePostOffset(position, true), this.photoLength);
+                }
+            }
         };
         /**
          * Next slide
          */
         this.next = function next() {
-            if ((this.current().index() + 1) !== this.collection.attachesCount()) {
-                var oldIndex = this.current().index(),
-                    title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : (this.current().index() + 1);
-                this.current().index(oldIndex + 1);
-                this.current().element(this.collection.attaches()[this.current().index()]);
-                AdHistory.pushState(null, title, this.current().element().url());
-                this.addImageBinding();
-                AdHistory.reloadBanner();
+            var position = this.current().element().index() + 1,
+                index = this.current().index();
+            if (position !== this.collection.attachesCount()) {
+                this.current().index(index + 1);
+                this.sliderManipulations();
+                this.needMorePictures(this.current().element().index(), this.current().index());
             }
         };
         /**
          * Prev Slide
          */
         this.prev = function prev() {
-            if ((this.current().index() + 1) > 1) {
-                var oldIndex = this.current().index(),
-                    title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : (this.current().index() + 1);
-                this.current().index(oldIndex - 1);
-                this.current().element(this.collection.attaches()[this.current().index()]);
-                AdHistory.pushState(null, title, this.current().element().url());
-                this.addImageBinding();
-                AdHistory.reloadBanner();
+            var position = this.current().element().index() + 1,
+                index = this.current().index();
+            if (position > 1) {
+                this.current().index(index - 1);
+                this.sliderManipulations();
+                this.needMorePictures(this.current().element().index(), this.current().index());
             }
-
         };
         this.collection.attaches.subscribe(this.lookForStart.bind(this));
+        /**
+         * Calculating post offset
+         * @param position
+         * @returns {number}
+         */
+        this.calculatePostOffset = function calculatePostOffset(position, left) {
+            var calculates;
+            if (left) {
+                calculates = position - this.photoLength;
+                return calculates >= 0 ? calculates : 0;
+            }
+            calculates = position + this.offsetMinimal;
+            return calculates;
+        };
+        /**
+         * Calculating starting offset
+         * @param position
+         * @returns {number}
+         */
+        this.calculateOffset = function calculateOffset(position) {
+            var splitted = this.photoLength / 2,
+                calculated;
+            if (position <= splitted) {
+                return 0;
+            }
+            return position - splitted;
+        };
+        /**
+         * receiving attaches
+         * @param receivedData
+         */
+        this.observeAttach = function observeAttach(receivedData) {
+            if (receivedData.success === true) {
+                this.collection.getSliderCollection(this.collection.id(), this.calculateOffset(receivedData.data.index), this.photoLength);
+            }
+        };
         /**
          * Init slider
          */
         this.initializeSlider = function initializeSlider() {
-            this.collection.getPartsCollection(this.collection.id(), 0, null);
+            Model.get(this.collection.getAttachUrl, { id: this.photoAttach() }).done(this.observeAttach.bind(this));
             if (this.userSliderId) {
                 this.getUser();
             }

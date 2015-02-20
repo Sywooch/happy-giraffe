@@ -44,6 +44,7 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'phot
                     // photoInstance.photo = photoInstance;
                     if (photoInstance.hasOwnProperty('photo')) {
                         photoInstance = new PhotoAttach(photoInstance);
+                        photoInstance.uploaded(true);
                         observable.push(photoInstance);
                     }
                     else {
@@ -52,6 +53,7 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'phot
                     }
                 } else {
                     if (photoInstance.hasOwnProperty('photo')) {
+                        photoInstance.uploaded(true);
                         observable(new PhotoAttach(photoInstance));
                     }
                     else {

@@ -30,22 +30,10 @@ define(["jquery", "knockout", 'extensions/helpers'], function ($, ko, Helpers) {
             return Helpers.findByProperty('id', id, array);
         },
         findByIdObservable: function findByIdObservable(id, array) {
-            var iterator;
-            for (iterator = 0; iterator < array.length; iterator++) {
-                if (id === array[iterator].id()) {
-                    return array[iterator];
-                }
-            }
-            return false;
+            return Helpers.findByProperty('id', id, array);
         },
         findByIdObservableIndex: function findByIdObservable(id, array) {
-            var iterator;
-            for (iterator = 0; iterator < array.length; iterator++) {
-                if (id === array[iterator].id()) {
-                    return { element: ko.observable(array[iterator]), index: ko.observable(iterator) };
-                }
-            }
-            return false;
+            return Helpers.findByPropertyReturnIndex('id', id, array);
         },
         checkFieldsToPass: function checkFieldsToPass(fieldsNames, object) {
             var returnableObject = {};

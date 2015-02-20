@@ -8,7 +8,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.elementCssClass = 'img-grid_loading img-grid_loading__';
         this.returnNewColor = Model.returnNewColor;
         this.photoAlbum.usablePreset = 'albumList';
-        this.photoAlbum.pageCount = null;
+        this.photoAlbum.pageCount = 20;
         this.currentPhoto = ko.observable();
         this.rightsForManipulation = User.checkRights(params.userId);
         this.userId = params.userId;
@@ -21,28 +21,32 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
             this.photoAlbum.photoCollection().loadImagesCreation('progress', 'photo-album', '#imgs');
         };
         /**
+         * Resolve presets problems
+         * @param collectionPresets
+         * @returns {*}
+         */
+        this.resolvePresets = function resolvePresets(collectionPresets) {
+            if (collectionPresets === undefined) {
+                return this.presets;
+            }
+            return collectionPresets;
+        };
+        /**
          * new images in album
          * @param val - new array value
          */
         this.figureNewImage = function figureNewImage(val) {
-                if (this.photoAlbum.photoCollection().presets === undefined) {
-                    PresetManager.presets = this.presets;
-                } else {
-                    PresetManager.presets = this.photoAlbum.photoCollection().presets;
+            var count = this.photoAlbum.photoCount();
+            PresetManager.presets = this.resolvePresets(this.photoAlbum.photoCollection().presets);
+            for (var i=0; i < val.length; i++) {
+                this.photoAlbum.photoCollection().checkUploaded(val[i], count);
+                if (val[i].loading() === true) {
+                    this.photoAlbum.photoCollection().mappingAttach(val[i], i, this.photoAlbum.usablePreset);
                 }
-                for (var i=0; i < val.length; i++) {
-                    this.photoAlbum.photoCollection().attachesCount(i+1);
-                    if(val[i].photo().presetHeight() === undefined || val[i].photo().presetWidth() === undefined) {
-                        if (this.photoAlbum.photoCollection().cover() === undefined && i === 0) {
-                            this.photoAlbum.photoCollection().cover(val[i]);
-                        }
-                        val[i].photo().presetWidth(PresetManager.getWidth(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
-                        val[i].photo().presetHeight(PresetManager.getHeight(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
-                    }
-                }
-                //!quick for fix for the time being
-                setTimeout(this.reloadImagesAfterAdding.bind(this), 1500);
-                //!quick for fix for the time being
+            }
+            //!quick for fix for the time being
+            setTimeout(this.reloadImagesAfterAdding.bind(this), 1500);
+            //!quick for fix for the time being
         };
         /**
          * getting album

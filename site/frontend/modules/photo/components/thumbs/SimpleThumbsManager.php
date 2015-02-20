@@ -38,16 +38,22 @@ class SimpleThumbsManager extends ThumbsManager
 
     public function getThumbByUrl($url)
     {
+        $photo = $this->getPhotoByUrl($url);
         $array = explode('/', $url);
-        $fsName = implode('/', array_slice($array, -3));
         $hash = $array[count($array) - 4];
         $config = $this->getConfigByHash($hash);
         $filter = $this->createFilter($config);
-        $photo = Photo::model()->findByAttributes(array(
+        $path = 'thumbs/' . $hash . '/' . $photo->fs_name;
+        return $this->getThumbInternal($photo, $filter, $path, true, false);
+    }
+
+    public function getPhotoByUrl($url)
+    {
+        $array = explode('/', $url);
+        $fsName = implode('/', array_slice($array, -3));
+        return Photo::model()->findByAttributes(array(
             'fs_name' => $fsName
         ));
-        $path = 'thumbs/' . $hash . '/' . $fsName;
-        return $this->getThumbInternal($photo, $filter, $path, true, false);
     }
 
     /**
@@ -79,9 +85,10 @@ class SimpleThumbsManager extends ThumbsManager
         unset($params['name']);
         $reflect  = new \ReflectionClass($className);
         // исправим последовательность параметров
-        $params = array_merge(array_flip(array_map(function(\ReflectionParameter $param) {
+        $paramsNames = array_map(function(\ReflectionParameter $param) {
             return $param->getName();
-        }, $reflect->getConstructor()->getParameters())), $params);
+        }, $reflect->getConstructor()->getParameters());
+        $params = \CMap::mergeArray(array_slice(array_flip($paramsNames), 0, count($params)), $params);
         $filter = $reflect->newInstanceArgs($params);
         return $filter;
     }

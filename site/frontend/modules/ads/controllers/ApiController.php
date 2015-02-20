@@ -11,10 +11,13 @@ use site\frontend\modules\posts\models\Content;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
+    public function actionToggle($preset, $modelPk, $line, array $properties = array())
+    {
+        \Yii::app()->getModule('ads')->manager->toggle($preset, $modelPk, $line, $properties);
+    }
+
     public function actionTest()
     {
-        $post = Content::model()->find();
-        $info = new CreativeInfoProvider('bigPost', $post);
-        $this->module->dfp->addCreative($info);
+        sleep(20);
     }
 }

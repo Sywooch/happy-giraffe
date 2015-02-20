@@ -53,8 +53,11 @@ class PageView extends \EMongoDocument
 
     public function afterSave()
     {
+        echo "get entity\n";
         $entity = $this->getEntity();
+        echo "got entity\n";
         if ($entity !== null) {
+            echo "update\n";
             $entity->views = $this->getCounter();
             $entity->update(array('views'));
         }
@@ -79,8 +82,11 @@ class PageView extends \EMongoDocument
 
     protected function getEntity()
     {
+        echo "get entity in\n";
         foreach ($this->getRoutes() as $pattern => $callback) {
+            echo "get entity foreach\n";
             if (preg_match($pattern, $this->_id, $matches)) {
+                echo "got route\n";
                 return call_user_func($callback, $matches);
             }
         }
@@ -95,8 +101,12 @@ class PageView extends \EMongoDocument
                 return Content::model()->byEntity('CommunityContent', $id)->find();
             },
             '#^/community/\d+/forum/\w+/(\d+)/$#' => function($matches) {
+                echo "callback\n";
                 $id = $matches[1];
-                return Content::model()->byEntity('CommunityContent', $id)->find();
+                var_dump($id);
+                $a = Content::model()->byEntity('CommunityContent', $id)->find();
+                var_dump($a === null);
+                return $a;
             },
         );
     }

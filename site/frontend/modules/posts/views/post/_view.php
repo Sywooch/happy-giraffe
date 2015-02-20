@@ -1,4 +1,5 @@
 <?php
+Yii::app()->clientScript->registerAMD('kow', array('kow'));
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
         /** @todo Исправить класс при конвертации */
         'entity' => $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity,
@@ -7,6 +8,22 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 ?>
 <!-- Основная колонка-->
 <div class="b-main_col-article">
+    <?php if (Yii::app()->user->checkAccess('toggleAnounces')): ?>
+        <?php if ($this->post->originService == 'oldCommunity'): ?>
+            <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
+                'model' => $this->post,
+                'line' => 'bigPost',
+                'preset' => 'bigPost',
+                'title' => 'Большой пост',
+            )); ?>
+            <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
+                'model' => $this->post,
+                'line' => 'smallPost',
+                'preset' => 'smallPost',
+                'title' => 'Маленький пост',
+            )); ?>
+        <?php endif; ?>
+    <?php endif; ?>
     <!-- Статья с текстом-->
     <!-- b-article-->
     <article class="b-article b-article__single clearfix b-article__lite">
@@ -17,9 +34,9 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     <a href="<?= $this->user->profileUrl ?>" class="ava ava__female ava__small-xs ava__middle-sm"><span class="ico-status ico-status__online"></span><img alt="" src="<?= $this->user->avatarUrl ?>" class="ava_img"></a><a href="<?= $this->user->profileUrl ?>" class="b-article_author"><?= $this->user->fullName ?></a>
                     <?= HHtml::timeTag($this->post, array('class' => 'tx-date'), null); ?>
                 </div>
-                <?php /* <div class="icons-meta"><a href="<?= $this->post->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
-                  <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->incViewsByPath($this->post->parsedUrl) ?></span></div>
-                  </div> */ ?>
+                <div class="icons-meta"><a href="<?=$this->post->commentsUrl?>" class="icons-meta_comment"><span class="icons-meta_tx"><?=$comments->count?></span></a>
+                    <div class="icons-meta_view"><span class="icons-meta_tx"><?=$this->post->views?></span></div>
+                </div>
             </div>
             <?php
             if (!$this->post->templateObject->getAttr('hideTitle', false)) {
@@ -28,7 +45,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?php
             }
             if (Yii::app()->user->checkAccess('moderator')) {
-                Yii::app()->clientScript->registerAMD('photo-albums', array('kow'));
                 ?>
                 <redactor-panel params="entity: '<?= $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
                 <?php
@@ -40,14 +56,14 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?php } else { ?>
                     <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
                 <?php } ?>
-                <div class="like-control-hold">
-                    <?php
-                    if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
-                        ?>
-                        <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
-                        <?php
-                    }
+                <?php
+                if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
                     ?>
+                    <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
+                <?php
+                }
+                ?>
+                <div class="like-control-hold">
                     <div class="like-control like-control__line">
                         <!--<div class="like-control_hold"><a href="#" onclick="openLoginPopup(event)" title="Нравится" class="like-control_i like-control_i__like powertip">
                                 <div class="like-control_t">Мне нравится!</div>
@@ -112,7 +128,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
     </section>
     <!-- /comments-->
     <?php
-    if ($this->post->templateObject->getAttr('type', false) == 'question') {
+    if (false && $this->post->templateObject->getAttr('type', false) == 'question') {
         // Виджет "задать вопрос"
         $this->widget('site.frontend.modules.community.widgets.CommunityQuestionWidget', array('forumId' => $this->forum->id));
     }
@@ -124,7 +140,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 <!-- Содержимое загружaть отложено-->
 <aside class="b-main_col-sidebar visible-md">
     <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
-    <div class="banner">
+    <div class="bnr-base">
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->

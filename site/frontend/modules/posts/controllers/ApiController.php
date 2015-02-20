@@ -17,7 +17,17 @@ class ApiController extends \site\frontend\components\api\ApiController
         $request = $this->getActionParams();
         $post = new posts\models\Content($request['scenario']);
         $post->setAttributes($request);
-        $post->save();
+        if ($post->save())
+        {
+            $post->refresh();
+            $this->success = true;
+            $this->data = $post->toJSON();
+        }
+        else
+        {
+            $this->errorCode = 1;
+            $this->errorMessage = $post->getErrors();
+        }
     }
 
 }

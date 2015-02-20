@@ -55,6 +55,7 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                         );
                     } else {
                         return array(
+                            'content_type_slug' => 'nppost',
                             'user_id' => $model->authorId,
                             'content_id' => $model->id,
                         );
@@ -127,6 +128,24 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                 $result = parent::afterSave();
                 
                 $post = new \site\frontend\modules\posts\models\api\Content();
+                $post->url = $this->getUrl(false);
+                $post->authorId = $this->authorId;
+                $post->dtimeCreate = $this->dtimeCreate;
+                $post->dtimePublication = $post->dtimeCreate;
+                $post->dtimeUpdate = time();
+                $post->isRemoved = $this->isRemoved;
+                $post->isDraft = $this->isDraft;
+                $post->title = $this->title;
+                $post->text = '';
+                $post->html = '123';
+                $post->preview = '';
+                $post->labels = $this->labels;
+                $post->originEntity = get_class($this);
+                $post->originEntityId = $this->id;
+                $post->originService = 'photopost';
+                
+                var_dump($post->attributes);
+                //var_dump($post->save());
                 
                 return $result;
             }

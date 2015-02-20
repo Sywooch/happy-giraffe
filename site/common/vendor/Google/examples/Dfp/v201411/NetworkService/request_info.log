@@ -1,0 +1,2 @@
+[Feb 05 2015 14:52:12.000000 - INFO] email= service=NetworkService method=getCurrentNetwork responseTime=376 requestId=2573e2bed711557535e4d3f153d93c4a server=ads.google.com isFault= faultMessage=null
+[Feb 05 2015 14:52:22.000000 - INFO] email= service=NetworkService method=makeTestNetwork responseTime=2209 requestId=fb850f33847639a8ac5a80f0cba452c1 server=ads.google.com isFault= faultMessage=null

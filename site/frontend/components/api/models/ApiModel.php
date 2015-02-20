@@ -15,7 +15,7 @@ abstract class ApiModel extends \CModel
     /** @todo Впилить работу с составным первичным ключом */
     protected static $_models = array();
     private $_attributes = array();
-    private $_new = false;
+    private $_new = true;
     public $api = false;
     public $expire = 3600;
     
@@ -130,7 +130,7 @@ abstract class ApiModel extends \CModel
             foreach ($attributes['insert'] as $attribute)
                 $request[$attribute] = $this->$attribute;
 
-            $result = $this->request('create', $params);
+            $result = $this->request('create', $request);
 
             if ($result['success'])
             {
@@ -255,6 +255,9 @@ abstract class ApiModel extends \CModel
 
             return $result;
         }
+        var_dump($params);
+        var_dump(\Yii::app()->api->request($this->api, $action, $params));die;
+        
         return \Yii::app()->api->request($this->api, $action, $params);
     }
 

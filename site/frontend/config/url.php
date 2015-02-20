@@ -15,6 +15,18 @@ return array(
         // global
         '.*/index' => 404,
 
+        /* API */
+        'api/comments/<_a>' => 'comments/api/<_a>',
+        'api/status/<_a>' => 'som/status/api/<_a>',
+        'api/photopost/<_a>' => 'som/photopost/api/<_a>',
+        'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
+        'api/<_m>/<_a>' => '<_m>/api/<_a>',
+        
+        /* SOM */
+        'status' => 'som/status/default/index',
+        'status/<_c>' => 'som/status/<_c>/index',
+        'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
+
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
         'findFriends/byInterests' => array('friends/find', 'defaultParams' => array('type' => 2)),
@@ -128,7 +140,11 @@ return array(
         'user/settings' => 'users/default/settings',
         'users/default/addSocialService' => 'users/default/addSocialService',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
-        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',
+        // Парсим и составляем новые урлы
+        'user/<user_id:\d+>/blog/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/post/view',
+        // Парсим старые урлы и добавляем параметр
+        'user/<user_id:\d+>/blog/post<content_id:\d+>' => array('posts/post/view', 'defaultParams' => array('content_type_slug' => 'post')),
+        
         'user/blog/photopost/create' => 'posts/form/photopost',
         'user/blog/status/create' => 'posts/form/status',
         /*array(
@@ -483,18 +499,6 @@ return array(
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
         'map' => 'archive/default/map',
         
-        /* API */
-        'api/comments/<_a>' => 'comments/api/<_a>',
-        'api/status/<_a>' => 'som/status/api/<_a>',
-        'api/photopost/<_a>' => 'som/photopost/api/<_a>',
-        'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
-        'api/<_m>/<_a>' => '<_m>/api/<_a>',
-        
-        /* SOM */
-        'status' => 'som/status/default/index',
-        'status/<_c>' => 'som/status/<_c>/index',
-        'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
-
         'views' => 'analytics/default/index',
     ),
 );

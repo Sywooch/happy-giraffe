@@ -46,6 +46,15 @@ class Content extends \CActiveRecord implements \IHToJSON
     protected $labelDelimiter = '|';
     protected $_relatedModels = array();
     protected $_user = null;
+    public static $slugAliases = array(
+        'nppost' => 'NewPhotoPost',
+        'post' => 'CommunityContent',
+    );
+    public static $entityAliases = array(
+        'CommunityContent' => 'CommunityContent',
+        'BlogContent' => 'BlogContent',
+        'NewPhotoPost' => 'site\frontend\modules\som\modules\photopost\models\Photopost',
+    );
 
     /**
      * @return string the associated database table name
@@ -119,10 +128,31 @@ class Content extends \CActiveRecord implements \IHToJSON
         );
     }
 
-    public static function getEntityClass($obj)
+    public function getSlug()
+    {
+        return array_search($this->originEntity, Content::$slugAliases);
+    }
+
+    public function setSlug($slug)
+    {
+        $this->originEntity = Content::$slugAliases[$slug];
+    }
+
+    public static function getEntityByObject($obj)
     {
         // Костыль для блогов
-        return $obj->originService == 'oldBlog' ? 'BlogContent' : $obj->originEntity;
+        $entity = $obj->originService == 'oldBlog' ? 'BlogContent' : $obj->originEntity;
+        return Content::$entityAliases[$entity];
+    }
+    
+    public static function getClass()
+    {
+        return Content::$entityAliases[$this->originEntity];
+    }
+
+    public function setEntityClass($class)
+    {
+        $this->originEntity = array_search($class, Content::$entityAliases);
     }
 
     /**
@@ -364,6 +394,11 @@ class Content extends \CActiveRecord implements \IHToJSON
         ));
 
         return $this;
+    }
+
+    public function bySlug($slug, $entityId)
+    {
+        return $this->byEntity(Content::$slugAliases[$slug], $entityId);
     }
 
     public function published()

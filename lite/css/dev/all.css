@@ -29322,7 +29322,7 @@ h2.calendar-serv-note_t {
 .contest-commentator-rating_ico-cap {
   display: inline-block;
   width: 58px;
-  height: 54px;
+  height: 40px;
   margin-right: 15px;
   background: url('/lite/images/contest/commentator/contest-commentator-rating_ico-cap.png') no-repeat;
 }
@@ -29373,7 +29373,7 @@ h2.calendar-serv-note_t {
   display: none;
   vertical-align: bottom;
   margin: 0 15px 3px 0;
-  width: 44px;
+  width: 48px;
   height: 44px;
   background: url('/lite/images/contest/commentator/contest-commentator-rating_buble.png') no-repeat;
 }

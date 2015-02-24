@@ -90,7 +90,8 @@ require_once('simple_html_dom.php');
                 $image_url = $model->getContentImage(580, 1000);
 
                 if ($model->type_id == CommunityContent::TYPE_POST) {
-                    $docs = array(str_get_html($model->preview), str_get_html($model->html));
+                    $post = \site\frontend\modules\posts\models\Content::model()->byEntity('CommunityContent', $model->id)->find();
+                    $docs = array(str_get_html($post->preview), str_get_html($post->html));
                     foreach ($docs as $doc) {
                         $img = $doc->find('img', 0);
                         if ($img !== null) {

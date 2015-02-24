@@ -60,4 +60,18 @@ class ViewsCommand extends \CConsoleCommand
         $vm = new VisitsManager();
         $vm->processUrl($url);
     }
+
+    public function actionCheat($url, $perDay)
+    {
+        $day = 60*60*24;
+        $val = $perDay / $day;
+        $int = floor($val);
+        $float = $val - $int;
+        $rnd = mt_rand() / mt_getrandmax();
+        $res = $int + (($rnd < $float) ? 1 : 0);
+        echo "$res\n";
+        $model = PageView::getModel($url);
+        $model->result += $res;
+        $model->update(array('correction'));
+    }
 } 

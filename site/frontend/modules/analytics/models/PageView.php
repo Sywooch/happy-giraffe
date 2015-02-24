@@ -13,6 +13,7 @@ class PageView extends \EMongoDocument
 {
     public $visits = 0;
     public $correction = 0;
+    public $result = null;
     public $created;
     public $updated;
     public $synced;
@@ -64,6 +65,9 @@ class PageView extends \EMongoDocument
 
     public function getCounter()
     {
+        if ($this->result !== null) {
+            return $this->result;
+        }
         return $this->visits + $this->correction;
     }
 

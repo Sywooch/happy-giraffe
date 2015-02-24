@@ -72,6 +72,6 @@ class ViewsCommand extends \CConsoleCommand
         echo "$res\n";
         $model = PageView::getModel($url);
         $model->result += $res;
-        $model->update(array('correction'));
+        $model->save();
     }
 } 

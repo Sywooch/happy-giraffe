@@ -32,21 +32,36 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
             return collectionPresets;
         };
         /**
+         * acceptPresets - function acceprs resolved presets
+         *
+         * @param  {type} presets description
+         * @return {type}         description
+         */
+        this.acceptPresets = function acceptPresets(imgArray) {
+            PresetManager.presets = this.resolvePresets(this.photoAlbum.photoCollection().presets);
+            return imgArray;
+        };
+        this.mappingNewImages = function mappingNewImages(imgArray) {
+            for (var i=0; i < imgArray.length; i++) {
+                this.photoAlbum.photoCollection().checkUploaded(imgArray[i], this.photoAlbum.photoCount());
+                if (imgArray[i].loading() === true) {
+                    this.photoAlbum.photoCollection().mappingAttach(imgArray[i], i, this.photoAlbum.usablePreset);
+                }
+            }
+            return imgArray;
+        };
+        /**
          * new images in album
          * @param val - new array value
          */
         this.figureNewImage = function figureNewImage(val) {
-            var count = this.photoAlbum.photoCount();
-            PresetManager.presets = this.resolvePresets(this.photoAlbum.photoCollection().presets);
-            for (var i=0; i < val.length; i++) {
-                this.photoAlbum.photoCollection().checkUploaded(val[i], count);
-                if (val[i].loading() === true) {
-                    this.photoAlbum.photoCollection().mappingAttach(val[i], i, this.photoAlbum.usablePreset);
-                }
-            }
-            //!quick for fix for the time being
-            setTimeout(this.reloadImagesAfterAdding.bind(this), 1500);
-            //!quick for fix for the time being
+            var dfd = $.Deferred();
+            dfd
+              .then(this.acceptPresets.bind(this))
+              .then(this.mappingNewImages.bind(this))
+              .done(this.reloadImagesAfterAdding.bind(this));
+            //resolving deffered
+            dfd.resolve(val);
         };
         /**
          * getting album

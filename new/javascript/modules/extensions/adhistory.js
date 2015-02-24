@@ -1,10 +1,10 @@
 define(['ads-config', 'extensions/history'], function (adsConfig) {
 	var AdHistory = {
         pushState: function (first, title, currentUrl) {
-			history.pushState(first, title, currentUrl);
-			//Яндекс счетчик, переменная пока глобальная и захардкожена
+					  history.pushState(first, title, currentUrl);
+						//Яндекс счетчик, переменная пока глобальная и захардкожена
             this.addViews(currentUrl);
-		},
+				},
         addViews: function addViews(currentUrl) {
             if (adsConfig.isProduction === true) {
                 _paq.push(['setCustomUrl', currentUrl]);

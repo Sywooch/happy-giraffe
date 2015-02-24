@@ -160,6 +160,9 @@ class Comment extends HActiveRecord
             'RssBehavior' => array(
                 'class' => 'site\frontend\modules\rss\behaviors\CommentRssBehavior',
             ),
+            'ContestBehavior' => array(
+                'class' => 'site\frontend\modules\comments\modules\contest\behaviors\ContestBehavior',
+            ),
         );
     }
 

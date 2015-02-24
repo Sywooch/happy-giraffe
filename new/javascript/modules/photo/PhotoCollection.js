@@ -336,7 +336,6 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          */
         this.decideToWhatSliderDirection = function decideToWhatSliderDirection(oldAttaches, newAttaches) {
             if (oldAttaches.length > 0) {
-                console.log(newAttaches[0].index() < oldAttaches[0].index());
                 return newAttaches[0].index() < oldAttaches[0].index();
             }
             return false;

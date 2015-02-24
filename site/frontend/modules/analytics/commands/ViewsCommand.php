@@ -69,7 +69,7 @@ class ViewsCommand extends \CConsoleCommand
         $float = $val - $int;
         $rnd = mt_rand() / mt_getrandmax();
         $res = $int + (($rnd < $float) ? 1 : 0);
-        echo "$res\n";
+        echo "$float\n$rnd\n$res\n";
         $model = PageView::getModel($url);
         $model->result += $res;
         $model->save();

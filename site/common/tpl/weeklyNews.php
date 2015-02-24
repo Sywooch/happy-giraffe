@@ -4,6 +4,8 @@
  */
 $remowax = date("Y-m-d") == '2014-09-12' || date("Y-m-d") == '2014-09-15' | date("Y-m-d") == '2014-09-16';
 $i = 0;
+\Yii::import('site.frontend.vendor.simplehtmldom_1_5.*');
+require_once('simple_html_dom.php');
 ?>
 
 <?php if ($remowax): ?>
@@ -88,13 +90,16 @@ $i = 0;
                 $image_url = $model->getContentImage(580, 1000);
 
                 if ($model->type_id == CommunityContent::TYPE_POST) {
-                    $previewObserver = $model->getAttributePhotoCollection('preview')->observer;
-                    if ($previewObserver->getCount() > 0) {
-                        $image_url = Yii::app()->thumbs->getThumb($previewObserver->getSingle(0)->photo, 'weeklyNews', true)->getUrl();
-                    }
-                    $textObserver = $model->content->getAttributePhotoCollection('text')->observer;
-                    if ($textObserver->getCount() > 0) {
-                        $image_url = Yii::app()->thumbs->getThumb($textObserver->getSingle(0)->photo, 'weeklyNews', true)->getUrl();
+                    $docs = array(str_get_html($model->preview), str_get_html($model->html));
+                    foreach ($docs as $doc) {
+                        $img = $doc->find('img', 0);
+                        if ($img !== null) {
+                            $src = $img->src;
+                            $photo = \Yii::app()->thumbs->getPhotoByUrl($src);
+                            if ($photo !== null) {
+                                $image_url = Yii::app()->thumbs->getThumb($photo, 'weeklyNews')->getUrl();
+                            }
+                        }
                     }
                 }
 

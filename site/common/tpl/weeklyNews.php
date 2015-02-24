@@ -79,7 +79,7 @@ require_once('simple_html_dom.php');
 
                 <div style="margin-bottom:10px;">
                 <span style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;">
-                    <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>?utm_source=email" target="_blank" style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;"><?php echo $model->title ?></a></span>
+                    <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>" target="_blank" style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;"><?php echo $model->title ?></a></span>
                 </div>
 
                 <div style="margin-bottom:5px;">
@@ -112,7 +112,7 @@ require_once('simple_html_dom.php');
                 if ($image_size[0]>100) {
                 ?>
                 <div style="margin-bottom:5px;">
-                    <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>?utm_source=email" target="_blank" style="text-decoration: none;">
+                    <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>" target="_blank" style="text-decoration: none;">
                         <img src="<?php echo $image_url ?>" width="318" border="0" style="display:block;"></a>
                 </div>
                 <?php } ?>
@@ -120,7 +120,7 @@ require_once('simple_html_dom.php');
                 <div style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
                     <?php echo  $model->getContentText(450); ?>
                     <span style="color:#0d81d5;">
-                    <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>?utm_source=email" target="_blank" style="color:#0d81d5;">Читать&nbsp;всю&nbsp;запись&nbsp;<img
+                    <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>" target="_blank" style="color:#0d81d5;">Читать&nbsp;всю&nbsp;запись&nbsp;<img
                         src="http://www.happy-giraffe.ru/images/mail/icon_more.gif" style="margin-left:5px;"></a>
                 </span>
                 </div>
@@ -136,7 +136,7 @@ require_once('simple_html_dom.php');
                         </td>
                         <td style="padding-right:15px;">
                         <span style="color:#31a4f6;font:12px arial, helvetica, sans-serif;">
-                            <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>?utm_source=email#comment_list" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img
+                            <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>#comment_list" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img
                                 src="http://www.happy-giraffe.ru/images/mail/icon_comments.gif"
                                 style="margin-right:5px;vertical-align:top;"><?php echo $model->getCommentsCount() ?></a></span>
                         </td>

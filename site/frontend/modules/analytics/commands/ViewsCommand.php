@@ -63,7 +63,7 @@ class ViewsCommand extends \CConsoleCommand
 
     public function actionCheat($url, $perDay)
     {
-        $day = 60*60*24;
+        $day = 60*24;
         $val = $perDay / $day;
         $int = floor($val);
         $float = $val - $int;

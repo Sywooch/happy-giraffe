@@ -99,6 +99,7 @@ require_once('simple_html_dom.php');
                             $photo = \Yii::app()->thumbs->getPhotoByUrl($src);
                             if ($photo !== null) {
                                 $image_url = Yii::app()->thumbs->getThumb($photo, 'weeklyNews')->getUrl();
+                                break;
                             }
                         }
                     }

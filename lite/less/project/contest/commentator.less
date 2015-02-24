@@ -1,9 +1,9 @@
-/* 
+/*
     Конкурс комментаторов
 */
 .contest-commentator {
     min-width: 1000px;
-    
+
     &_btn-orange {
         background-color: #ff8400;
         color: #fff;
@@ -32,7 +32,7 @@
     height: 340px;
     margin: 0 0 30px;
     background: url('@{path-img}/contest/commentator/contest-commentator-header.png') no-repeat;
-    
+
     .btn-link {
         background-color: #fcfcfc;
         color: #a5a2a2;
@@ -57,7 +57,7 @@
         top: 45px;
         left: 455px;
         color: #fff;
-        font-size: 16px;
+        font-size: 14px;
     }
     &_t {
         position: absolute;
@@ -84,7 +84,7 @@
     margin: 40px 0 90px;
     padding: 0 60px 0 100px;
     background: url('@{path-img}/contest/commentator/contest-commentator-desc.png') no-repeat 595px 20px;
-    
+
     &_hold {
         width: 520px;
         padding: 40px 0 95px;
@@ -268,9 +268,9 @@
 /* contest-commentator-how */
 .contest-commentator-how {
     margin: 40px 0 60px;
-    
+
     .contest-commentator_t {
-        margin: 20px;
+        margin: 20px 20px 40px;
     }
     &_hold {
         width: 600px;
@@ -278,7 +278,7 @@
     }
     &_i {
         min-height: 135px;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
         padding: 25px 10px 20px 160px;
     }
     &_i__1 {background: url('@{path-img}/contest/commentator/contest-commentator-how_i__1.png') no-repeat;}
@@ -333,12 +333,12 @@
         counter-reset: section;
         list-style-type: none;
     }
-    ol li { 
+    ol li {
         counter-increment: section;
-        margin-left: 45px; 
+        margin-left: 45px;
     }
-    ol li:before{ 
-        content: counters(section, ".") ". "; 
+    ol li:before{
+        content: counters(section, ".") ". ";
         float: left;
         font-weight: bold;
         margin-left: -45px;
@@ -358,6 +358,9 @@
         margin: 20px 0 15px;
         font: bold 18px/18px 'pt sans', Arial, Tahoma, Verdana, sans-serif;
         text-align: center;
+    }
+    .contest-commentator_t {
+        margin-bottom: 40px;
     }
 }
 /* /contest-commentator-rule */

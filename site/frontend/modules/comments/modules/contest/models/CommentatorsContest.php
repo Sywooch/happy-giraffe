@@ -30,4 +30,42 @@ class CommentatorsContest extends \HActiveRecord
             ),
         );
     }
+
+    public function relations()
+    {
+        return array(
+            'participants' => array(self::HAS_MANY, 'site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant', 'contestId'),
+        );
+    }
+
+    public function register($userId)
+    {
+        if ($this->isRegistered($userId)) {
+            return false;
+        }
+        $participant = new CommentatorsContestParticipant();
+        $participant->userId = $userId;
+        $participant->contestId = $this->id;
+        $participant->place = CommentatorsContestParticipant::model()->contest($this->id)->count() + 1;
+        return $participant->save();
+    }
+
+    public function isRegistered($userId)
+    {
+        return CommentatorsContestParticipant::model()->findByPk(array(
+            'contestId' => $this->id,
+            'userId' => $userId,
+        )) !== null;
+    }
+
+    public function updatePositions()
+    {
+        $participants = CommentatorsContestParticipant::model()->contest($this->id)->findAll(array(
+            'order' => 'score DESC',
+        ));
+        foreach ($participants as $i => $p) {
+            $p->place = $i + 1;
+            $p->update('place');
+        }
+    }
 }

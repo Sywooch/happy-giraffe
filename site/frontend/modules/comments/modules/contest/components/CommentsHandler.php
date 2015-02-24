@@ -15,27 +15,32 @@ class CommentsHandler
 
     public static function added(Comment $comment)
     {
-        self::process($comment, function($participant) {
+        if ($participant = self::getParticipant($comment)) {
             $participant->score += 1;
-            $participant->update(array('scope'));
-        });
+            $participant->update(array('score'));
+        }
+    }
+
+    public static function updated(Comment $comment, $oldText)
+    {
+        if ($participant = self::getParticipant($comment)) {
+            $oldCounts = self::counts($oldText);
+            $newCounts = self::counts($comment);
+            $result = -intval($oldCounts) + $newCounts;
+            $participant->score += $result;
+            $participant->update(array('score'));
+        }
     }
 
     public static function removed(Comment $comment)
     {
-        if (! self::isValid($comment)) {
-            return;
+        if ($participant = self::getParticipant($comment)) {
+            $counts = self::counts($comment->text);
+            if ($counts) {
+                $participant->score -= 1;
+                $participant->update(array('score'));
+            }
         }
-
-
-    }
-
-    protected function process(Comment $comment, $callback) {
-        $participant = $this->getParticipant($comment);
-        if (! self::isValid($comment) || $participant === null) {
-            return;
-        }
-        call_user_func($callback, $participant);
     }
 
     protected function getParticipant(Comment $comment)
@@ -48,8 +53,8 @@ class CommentsHandler
         ));
     }
 
-    protected function isValid(Comment $comment)
+    protected function counts($text)
     {
-        return strlen(strip_tags($comment->text)) >= self::MIN_LENGTH;
+        return strlen(strip_tags($text)) >= self::MIN_LENGTH;
     }
 }

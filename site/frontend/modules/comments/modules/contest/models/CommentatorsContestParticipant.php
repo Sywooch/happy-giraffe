@@ -31,6 +31,7 @@ class CommentatorsContestParticipant extends \HActiveRecord
             'HTimestampBehavior' => array(
                 'class' => 'HTimestampBehavior',
                 'createAttribute' => 'dtimeRegister',
+                'updateAttribute' => null,
             ),
         );
     }
@@ -38,6 +39,19 @@ class CommentatorsContestParticipant extends \HActiveRecord
     public function contest($contestId)
     {
         $this->getDbCriteria()->compare('t.contestId', $contestId);
+        return $this;
+    }
+
+    public function relations()
+    {
+        return array(
+            'contest' => array(self::BELONGS_TO, 'site\frontend\modules\comments\modules\contest\models\CommentatorsContest', 'contestId'),
+        );
+    }
+
+    public function orderDesc()
+    {
+        $this->getDbCriteria()->order = $this->tableAlias . '.place DESC';
         return $this;
     }
 }

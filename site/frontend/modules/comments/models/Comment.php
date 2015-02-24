@@ -234,7 +234,6 @@ class Comment extends \Comment implements \IHToJSON
 
         return $model['entity'] . '_' . $model['entityId'];
     }
-
 }
 
 ?>

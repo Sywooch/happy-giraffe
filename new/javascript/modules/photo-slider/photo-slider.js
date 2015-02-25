@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory) {
+define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'extensions/keyboard', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory, Keyboard) {
 
     function PhotoSlider(params) {
         var collectionData = {};
@@ -159,6 +159,23 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             }
         };
         this.collection.attaches.subscribe(this.lookForStart.bind(this));
+
+        /**
+         * keypressTest - влево, вправо, выход
+         *
+         * @param  obj data  description
+         * @param  object event description
+         * @return
+         */
+        this.keypressTest = function keypressTest(event) {
+            var prop = Keyboard.onHandler(event, Keyboard.sliderKeys);
+            if (prop === 'right' || prop === 'space') {
+                this.next();
+            }
+            if (prop === 'left') {
+                this.prev();
+            }
+        };
         /**
          * Calculating post offset
          * @param position
@@ -238,6 +255,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 bar: '.scroll_bar'
             });
         });
+        $(document).on("keydown", this.keypressTest.bind(this));
         $(window).resize(function () {
             photoWindColH();
         });

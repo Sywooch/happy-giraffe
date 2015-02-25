@@ -1,4 +1,4 @@
-define(['jquery', 'knockout'], function sliderBindingHandler($, ko) {
+define(['jquery', 'knockout'], function helpersHandler($, ko) {
     var Helpers = {
         checkStrings: function checkStrings(stringOne, stringTwo) {
             return stringOne === stringTwo;
@@ -37,6 +37,14 @@ define(['jquery', 'knockout'], function sliderBindingHandler($, ko) {
                     if (array[arrayKey][propertyName] === value) {
                         return { element: array[arrayKey], index: parseInt(arrayKey) };
                     }
+                }
+            }
+            return false;
+        },
+        hasOwnValue: function hasOwnValue(val, object) {
+            for(var prop in object) {
+                if(object.hasOwnProperty(prop) && object[prop] === val) {
+                    return prop;
                 }
             }
             return false;

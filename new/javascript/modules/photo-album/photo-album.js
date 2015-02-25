@@ -41,6 +41,12 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
             PresetManager.presets = this.resolvePresets(this.photoAlbum.photoCollection().presets);
             return imgArray;
         };
+        /**
+         * mappingNewImages - новые изображения при загрузке и подгрузке
+         *
+         * @param  array imgArray
+         * @return array
+         */
         this.mappingNewImages = function mappingNewImages(imgArray) {
             for (var i=0; i < imgArray.length; i++) {
                 this.photoAlbum.photoCollection().checkUploaded(imgArray[i], this.photoAlbum.photoCount());

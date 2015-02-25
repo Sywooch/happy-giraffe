@@ -17,16 +17,23 @@
         this.uploaded = ko.observable(false);
         this.urlPart = 'photo' + this.photo().id() + '/';
         /**
+         * doneRemoving
+         *
+         * @param  {type} response description
+         * @return {type}          description
+         */
+        this.doneRemoving = function doneRemoving(response) {
+          if (response.success === true) {
+              this.removed(true);
+          }
+        };
+        /**
          * Removing attach
          */
-        this.remove = function () {
+        this.remove = function removingAttach() {
             Model.get(this.removeUrl, {
                 id: this.id()
-            }).done(function (response) {
-                if (response.success === true) {
-                    this.removed(true);
-                }
-            }.bind(this));
+            }).done(this.doneRemoving.bind(this));
         };
         /**
          * Getting attach

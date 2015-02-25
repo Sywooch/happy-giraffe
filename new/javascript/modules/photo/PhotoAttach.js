@@ -19,12 +19,23 @@
         /**
          * doneRemoving
          *
-         * @param  {type} response description
-         * @return {type}          description
+         * @param  obj response
+         * @return
          */
         this.doneRemoving = function doneRemoving(response) {
           if (response.success === true) {
               this.removed(true);
+          }
+        };
+        /**
+         * doneRestoring
+         *
+         * @param  obj response
+         * @return
+         */
+        this.doneRestoring = function doneRestoring(reponse) {
+          if (response.success === true) {
+              this.removed(false);
           }
         };
         /**
@@ -51,11 +62,7 @@
         this.restore = function () {
             Model.get(this.restoreUrl, {
                 id: this.id()
-            }).done(function (response) {
-                if (response.success === true) {
-                    this.removed(false);
-                }
-            }.bind(this));
+            }).done(this.doneRestoring.bind(this));
         };
         /**
          * Setting attach as cover

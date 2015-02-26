@@ -523,6 +523,13 @@ return array(
                 'lite/css/min/member-user.css',
             ),
         ),
+        'lite_contest_commentator' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/contest-commentator.css',
+            ),
+        ),
         'lite_routes' => array(
             'depends' => array('lite_services'),
         ),

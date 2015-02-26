@@ -12,7 +12,7 @@ namespace site\frontend\modules\comments\modules\contest\models;
 
 
 
-class CommentatorsContestComment extends \HActiveRecord
+class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
 {
     public function tableName()
     {
@@ -35,7 +35,50 @@ class CommentatorsContestComment extends \HActiveRecord
     {
         return array(
             'participant' => array(self::BELONGS_TO, 'site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant', 'participantId'),
-            'comment' => array(self::HAS_ONE, 'site\frontend\modules\comments\models\Comment', 'commentId')
+            'comment' => array(self::BELONGS_TO, 'site\frontend\modules\comments\models\Comment', 'commentId')
+        );
+    }
+
+    public function participant($participantId)
+    {
+        $this->getDbCriteria()->compare('t.participantId', $participantId);
+        return $this;
+    }
+
+    public function contest($contestId)
+    {
+        $this->getDbCriteria()->with[] = 'participant';
+        $this->getDbCriteria()->compare('participant.contestId', $contestId);
+        return $this;
+    }
+
+    public function counts($counts)
+    {
+        $this->getDbCriteria()->compare('t.counts', intval($counts));
+        return $this;
+    }
+
+    public function orderDesc()
+    {
+        $c = $this->getDbCriteria();
+
+        if (! isset($c->with['comment'])) {
+            $c->with[] = 'comment';
+        }
+
+        $this->getDbCriteria()->order = 'comment.created DESC';
+        return $this;
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'comment' => $this->comment->toJSON(),
+            'entity' => $this->comment->commentEntity === null ? null : array(
+                'userId' => $this->comment->commentEntity->author->id,
+                'title' => $this->comment->commentEntity->contentTitle,
+                'url' => $this->comment->commentEntity->url,
+            ),
         );
     }
 }

@@ -47,5 +47,26 @@ SQL;
                 ':dtimeRegister' => time(),
             ));
         }
+
+        $sql = <<<SQL
+SELECT id FROM commentators__contests_participants;
+SQL;
+        $participantsIds = \Yii::app()->db->createCommand($sql)->queryColumn();
+
+        $sql = <<<SQL
+SELECT id FROM comments  WHERE entity = 'CommunityContent' LIMIT 10000
+SQL;
+        $commentsIds = \Yii::app()->db->createCommand($sql)->queryColumn();
+
+        $insert = <<<SQL
+INSERT INTO commentators__contests_comments (participantId, commentId, counts)
+VALUES (:participantId, :commentId, 1)
+SQL;
+        foreach ($participantsIds as $i => $p) {
+            \Yii::app()->db->createCommand($insert)->execute(array(
+                ':participantId' => $p,
+                ':commentId' => $commentsIds[$i],
+            ));
+        }
     }
 }

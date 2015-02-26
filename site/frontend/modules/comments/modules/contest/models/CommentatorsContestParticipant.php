@@ -13,7 +13,7 @@ namespace site\frontend\modules\comments\modules\contest\models;
  */
 
 
-class CommentatorsContestParticipant extends \HActiveRecord
+class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
 {
     public function tableName()
     {
@@ -60,5 +60,15 @@ class CommentatorsContestParticipant extends \HActiveRecord
     {
         $this->getDbCriteria()->order = $this->tableAlias . '.place DESC';
         return $this;
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'id' => (int) $this->id,
+            'userId' => (int) $this->userId,
+            'score' => (int) $this->score,
+            'place' => (int) $this->place,
+        );
     }
 }

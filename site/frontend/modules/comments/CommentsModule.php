@@ -19,7 +19,7 @@ class CommentsModule extends \CWebModule
         
         \Yii::app()->clientScript->useAMD = true;
         /** @todo так не делать */
-        \Yii::app()->clientScript->registerCssFile("/lite/css/dev/all.css");
+        //\Yii::app()->clientScript->registerCssFile("/lite/css/dev/all.css");
 
         $this->setModules(array(
             'contest' => array(

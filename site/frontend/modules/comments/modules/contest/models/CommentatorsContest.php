@@ -40,6 +40,8 @@ class CommentatorsContest extends \HActiveRecord
 
     public function register($userId)
     {
+        var_dump($userId);
+        var_dump($this->isRegistered($userId));
         if ($this->isRegistered($userId)) {
             return false;
         }
@@ -52,10 +54,7 @@ class CommentatorsContest extends \HActiveRecord
 
     public function isRegistered($userId)
     {
-        return CommentatorsContestParticipant::model()->findByPk(array(
-            'contestId' => $this->id,
-            'userId' => $userId,
-        )) !== null;
+        return CommentatorsContestParticipant::model()->user($userId)->contest($this->id)->find() !== null;
     }
 
     public function updatePositions()

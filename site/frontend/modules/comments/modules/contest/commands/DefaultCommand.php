@@ -8,6 +8,7 @@ namespace site\frontend\modules\comments\modules\contest\commands;
 
 
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContest;
+use site\frontend\modules\comments\modules\contest\models\CommentatorsContestRating;
 
 class DefaultCommand extends \CConsoleCommand
 {
@@ -16,6 +17,14 @@ class DefaultCommand extends \CConsoleCommand
         $contest = CommentatorsContest::model()->active()->find();
         if ($contest !== null) {
             $contest->updatePositions();
+        }
+    }
+
+    public function actionTest()
+    {
+        $ratings = CommentatorsContestRating::model()->findAll();
+        foreach ($ratings as $r) {
+            echo implode(',', $r->attributes) . "\n";
         }
     }
 

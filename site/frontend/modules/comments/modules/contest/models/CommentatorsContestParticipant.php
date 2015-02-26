@@ -42,10 +42,17 @@ class CommentatorsContestParticipant extends \HActiveRecord
         return $this;
     }
 
+    public function user($userId)
+    {
+        $this->getDbCriteria()->compare('t.userId', $userId);
+        return $this;
+    }
+
     public function relations()
     {
         return array(
             'contest' => array(self::BELONGS_TO, 'site\frontend\modules\comments\modules\contest\models\CommentatorsContest', 'contestId'),
+            'comments' => array(self::HAS_MANY, 'site\frontend\modules\comments\modules\contest\models\CommentatorsContestComment', 'commentId'),
         );
     }
 

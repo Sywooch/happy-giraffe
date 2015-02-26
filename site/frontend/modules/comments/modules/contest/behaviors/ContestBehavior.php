@@ -1,5 +1,6 @@
 <?php
 namespace site\frontend\modules\comments\modules\contest\behaviors;
+use site\frontend\modules\comments\modules\contest\components\CommentsHandler;
 
 /**
  * @author Никита
@@ -8,25 +9,42 @@ namespace site\frontend\modules\comments\modules\contest\behaviors;
 
 class ContestBehavior extends \CActiveRecordBehavior
 {
-    private $_textBackup;
-
-    public function beforeValidate()
+    public function events()
     {
-        $this->_textBackup = $this->owner->text;
+        return array_merge(parent::events(), array(
+            'onAfterSoftDelete' => 'afterSoftDelete',
+            'onAfterSoftRestore' => 'afterSoftRestore',
+        ));
     }
 
     public function afterSave()
     {
         if ($this->owner->isNewRecord) {
-            die('123');
-            \Yii::app()->gearman->client()->doBackground('commentAdded', serialize(array($this->owner->id)));
+            \Yii::app()->gearman->client()->doBackground('handleComment', serialize(array(
+                'commentId' => $this->owner->id,
+                'event' => CommentsHandler::EVENT_ADD,
+            )));
         } else {
-            \Yii::app()->gearman->client()->doBackground('commentUpdated', serialize(array($this->owner->id, $this->_textBackup)));
+            \Yii::app()->gearman->client()->doBackground('handleComment', serialize(array(
+                'commentId' => $this->owner->id,
+                'event' => CommentsHandler::EVENT_UPDATE,
+            )));
         }
     }
 
-    public function afterDelete()
+    public function afterSoftDelete()
     {
-        \Yii::app()->gearman->client()->doBackground('commentRemoved', serialize(array($this->owner->id)));
+        \Yii::app()->gearman->client()->doBackground('handleComment', serialize(array(
+            'commentId' => $this->owner->id,
+            'event' => CommentsHandler::EVENT_REMOVE,
+        )));
+    }
+
+    public function afterSoftRestore()
+    {
+        \Yii::app()->gearman->client()->doBackground('handleComment', serialize(array(
+            'commentId' => $this->owner->id,
+            'event' => CommentsHandler::EVENT_RESTORE,
+        )));
     }
 }

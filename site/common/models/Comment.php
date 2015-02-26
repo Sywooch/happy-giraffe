@@ -251,6 +251,7 @@ class Comment extends HActiveRecord
 
         Scoring::commentRemoved($this);
 
+        $this->softDelete->afterSoftDelete();
         return false;
     }
 
@@ -559,5 +560,14 @@ class Comment extends HActiveRecord
 
         return $this;
     }
-    
+
+    public function onAfterSoftDelete()
+    {
+        // заглушка, для того, что бы можно было слушать события от SoftDeleteBehavior
+    }
+
+    public function onAfterSoftRestore()
+    {
+        // заглушка, для того, что бы можно было слушать события от SoftDeleteBehavior
+    }
 }

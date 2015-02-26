@@ -1,22 +1,16 @@
 <?php
 namespace site\frontend\modules\comments\modules\contest\commands;
 
+use site\frontend\modules\comments\modules\contest\components\CommentsHandler;
+
 class QueueCommand extends \CConsoleCommand
 {
-    private $taskToMethod = array(
-        'commentAdded' => 'added',
-        'commentUpdated' => 'updated',
-        'commentRemoved' => 'removed',
-    );
-
     public function actionWorker()
     {
-        foreach ($this->taskToMethod as $task => $method) {
-            \Yii::app()->gearman->worker()->addFunction($task, function (\GearmanJob $job) use ($method) {
-                $args = unserialize($job->workload());
-                call_user_func_array(array('site\frontend\modules\comments\modules\contest\components\CommentsHandler', $method), $args);
-            });
-        }
+        \Yii::app()->gearman->worker()->addFunction('handleComment', function (\GearmanJob $job) {
+            $workload = $job->workload();
+            call_user_func_array(array('site\frontend\modules\comments\modules\contest\components\CommentsHandler', 'handle'), unserialize($workload));
+        });
         while (\Yii::app()->gearman->worker()->work()) {
             echo "ok\n";
         };

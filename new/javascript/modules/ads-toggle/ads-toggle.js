@@ -11,7 +11,7 @@ define(['knockout', 'models/Model', 'text!ads-toggle/ads-toggle.html'], function
                     this.active(! this.active());
                 }
             }.bind(this));
-        }
+        };
     }
 
     return {

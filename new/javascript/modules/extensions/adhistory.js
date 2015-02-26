@@ -32,7 +32,7 @@ define(['ads-config', 'extensions/history'], function (adsConfig) {
                     }
                 })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
                 this.addViews(currentUrl);
-            };
+            }
         }
 	};
 	return AdHistory;

@@ -25,7 +25,6 @@ class DefaultController extends \LiteController
 
     public function actionRating($contestId)
     {
-        $participant = CommentatorsContestParticipant::model()->contest($contestId)->user(\Yii::app()->user->id)->find();
         $this->loadContest($contestId);
         $this->render('/rating', compact('participant'));
     }

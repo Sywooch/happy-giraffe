@@ -1,3 +1,7 @@
+<?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\ParticipantWidget', array(
+    'userId' => Yii::app()->user->id,
+    'contestId' => $this->contest->id,
+)); ?>
 <div class="contest-commentator-list">
     <h2 class="contest-commentator_t">Моя лента</h2>
     <div class="contest-commentator-list_hold">

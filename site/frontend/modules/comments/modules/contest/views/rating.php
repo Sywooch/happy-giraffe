@@ -3,7 +3,10 @@
  * @var site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant $participant
  */
 ?>
-
+<?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\ParticipantWidget', array(
+    'userId' => Yii::app()->user->id,
+    'contestId' => $this->contest->id,
+)); ?>
 <!-- рейтинг-->
 <!-- .contest-commentator-rating__main-->
 <div class="contest-commentator-rating">

@@ -30,6 +30,11 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionAddFixtures()
     {
+        \Yii::app()->db->createCommand("INSERT INTO `commentators__contests` (`id`, `startDate`, `endDate`)
+VALUES
+	(1, '2015-03-02', '2015-03-16');
+")->execute();
+
         $sql = <<<SQL
 SELECT id
 FROM users

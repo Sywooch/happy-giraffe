@@ -22,7 +22,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionRatingList($contestId, $limit, $offset = 0)
     {
-        $participants = CommentatorsContestParticipant::model()->contest($contestId)->findAll(array(
+        $participants = CommentatorsContestParticipant::model()->contest($contestId)->orderDesc()->findAll(array(
             'limit' => $limit,
             'offset' => $offset,
         ));
@@ -48,11 +48,11 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = true;
     }
 
-    public function actionComments($contestId, $limit, $offset = 0, $participantId = null)
+    public function actionComments($contestId, $limit, $offset = 0, $userId = null)
     {
         $model = CommentatorsContestComment::model()->orderDesc()->counts(true);
-        if ($participantId === null) {
-            $model->participant($participantId);
+        if ($userId === null) {
+            $model->user($userId);
         } else {
             $model->contest($contestId);
         }

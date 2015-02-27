@@ -51,6 +51,7 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
     public function relations()
     {
         return array(
+            'user' => array(self::BELONGS_TO, '\User', 'userId'),
             'contest' => array(self::BELONGS_TO, 'site\frontend\modules\comments\modules\contest\models\CommentatorsContest', 'contestId'),
             'comments' => array(self::HAS_MANY, 'site\frontend\modules\comments\modules\contest\models\CommentatorsContestComment', 'commentId'),
         );

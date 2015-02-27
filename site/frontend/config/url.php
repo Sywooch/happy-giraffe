@@ -497,7 +497,8 @@ return array(
         'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
 
 
-        'commentatorsContest' => 'comments/contest/default/index',
+        'commentatorsContest/<contestId:\d+>' => 'comments/contest/default/index',
+        'commentatorsContest/<contestId:\d+>/<_a>' => 'comments/contest/default/<_a>',
 
         'views' => 'analytics/default/index',
     ),

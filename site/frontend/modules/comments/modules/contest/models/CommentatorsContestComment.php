@@ -45,6 +45,13 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    public function user($userId)
+    {
+        $this->getDbCriteria()->with[] = 'participant';
+        $this->getDbCriteria()->compare('userId', $userId);
+        return $this;
+    }
+
     public function contest($contestId)
     {
         $this->getDbCriteria()->with[] = 'participant';

@@ -113,6 +113,7 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'pkAttribute' => 'originEntityId',
                 'entityClass' => array('\site\frontend\modules\posts\models\Content', 'getEntityClass'),
             ),
+            'site\frontend\modules\som\modules\activity\behaviors\PostBehavior',
             'RssBehavior' => array(
                 'class' => 'site\frontend\modules\rss\behaviors\ContentRssBehavior',
             ),
@@ -332,6 +333,31 @@ class Content extends \CActiveRecord implements \IHToJSON
     public function getParsedUrl()
     {
         return parse_url($this->url, PHP_URL_PATH);
+    }
+
+    /**
+     * 
+     * @return string blog|community|other
+     */
+    public function getPostType()
+    {
+        $blogs = array(
+            'oldBlog',
+        );
+        $community = array(
+            'oldCommunity',
+            'oldRecipe',
+        );
+        
+        if(in_array($this->originService, $blogs)) {
+            return 'blog';
+        }
+        
+        if(in_array($this->originService, $community)) {
+            return 'community';
+        }
+        
+        return 'other';
     }
 
     /* scopes */

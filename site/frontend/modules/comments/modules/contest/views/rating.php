@@ -1,15 +1,9 @@
-<div class="contest-commentator-rating contest-commentator-rating__self">
-    <ul class="contest-commentator-rating_ul">
-        <li class="contest-commentator-rating_li">
-            <div class="contest-commentator-rating_place contest-commentator-rating_place__big">135
-            </div>
-            <div class="contest-commentator-rating_user"><a href="#" class="contest-commentator-rating_user-a">
-                    <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="contest-commentator-rating_name"> Ангелина Богоявленская</span></a></div>
-            <div class="contest-commentator-rating_count"><a href="#" class="contest-commentator-rating_buble"></a>99 456
-            </div>
-        </li>
-    </ul>
-</div>
+<?php
+/**
+ * @var site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant $participant
+ */
+?>
+
 <!-- рейтинг-->
 <!-- .contest-commentator-rating__main-->
 <div class="contest-commentator-rating">

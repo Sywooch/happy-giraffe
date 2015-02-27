@@ -4,7 +4,7 @@
         <h3 class="contest-commentator-desc_t">Что нужно для участия?</h3>
         <div class="contest-commentator-desc_tx">Все очень легко! Просто добавляйте комментарии к тому , что вам интересно, отвечайте на комментарии других.</div>
         <h3 class="contest-commentator-desc_t">Как стать лидером?</h3>
-        <div class="contest-commentator-desc_tx">Для того чтобы стать лидером нужно написать много интересных и полезных комментариев.</div><a href="#" class="contest-commentator-desc_a">Полные правила и рекомендации</a>
+        <div class="contest-commentator-desc_tx">Для того чтобы стать лидером нужно написать много интересных и полезных комментариев.</div><a href="<?=$this->createUrl('/comments/contest/default/rules', array('contestId' => $this->contest->id))?>" class="contest-commentator-desc_a">Полные правила и рекомендации</a>
     </div>
     <div class="contest-commentator-desc_btn-hold"> <a href="#" class="btn btn-xxxl contest-commentator_btn-orange">Принять участие!</a></div>
 </div>

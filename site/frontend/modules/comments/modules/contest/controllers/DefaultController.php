@@ -8,6 +8,7 @@ namespace site\frontend\modules\comments\modules\contest\controllers;
 
 
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContest;
+use site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant;
 
 class DefaultController extends \LiteController
 {
@@ -24,8 +25,9 @@ class DefaultController extends \LiteController
 
     public function actionRating($contestId)
     {
+        $participant = CommentatorsContestParticipant::model()->contest($contestId)->user(\Yii::app()->user->id)->find();
         $this->loadContest($contestId);
-        $this->render('/rating');
+        $this->render('/rating', compact('participant'));
     }
 
     public function actionRules($contestId)

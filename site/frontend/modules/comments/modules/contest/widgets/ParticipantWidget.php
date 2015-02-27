@@ -6,8 +6,10 @@
 
 class LeadersWidget extends CWidget
 {
+    public $participant;
+
     public function run()
     {
-
+        $this->render('ParticipantWidget');
     }
 }

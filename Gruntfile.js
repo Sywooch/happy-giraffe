@@ -550,6 +550,7 @@ module.exports = function(grunt){
             /.bnr+/,
             /.ava+/,
             /.ico-club+/,
+            /.article-anonce+/,
             
             /.ico-social-hold+/,
           ],

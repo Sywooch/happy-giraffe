@@ -109,7 +109,7 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
                 this.photoCollection().usablePreset(this.usablePreset);
                 this.photoCollection().updated(data.photoCollections.default.updated);
                 this.photoCollection().circular = this.circular();
-                this.photoCollection().getAttachesPage(this.offset());
+                this.photoCollection().listAttachesPage(this.photoCollection().page(), this.pageCount);
             }
             this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше " + this.maxTitleLength }, mustFill: true });
             this.description.extend({ maxLength: { params: this.maxDescriptionLength, message: "Количество символов не больше " + this.maxDescriptionLength } });
@@ -119,6 +119,7 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
                     return this.photoCollection().attachesCount();
                 }
             }, this);
+            return this;
         }
     };
     PhotoAlbum.title.extend({ maxLength: { params: PhotoAlbum.maxTitleLength, message: "Количество символов не больше " + PhotoAlbum.maxTitleLength }, mustFill: true });

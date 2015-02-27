@@ -19,4 +19,4 @@ define(['../knockout', 'models/Friend', 'models/User', 'text!friends-action-butt
         viewModel: FriendsActionButton,
         template: template
     };
-})
+});

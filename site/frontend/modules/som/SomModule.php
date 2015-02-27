@@ -26,6 +26,9 @@ class SomModule extends \CWebModule
             'photopost' => array(
                 'class' => 'site\frontend\modules\som\modules\photopost\PhotopostModule',
             ),
+            'activity' => array(
+                'class' => 'site\frontend\modules\som\modules\activity\ActivityModule',
+            ),
         ));
     }
 

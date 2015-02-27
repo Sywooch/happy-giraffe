@@ -487,6 +487,7 @@ return array(
         'api/comments/<_a>' => 'comments/api/<_a>',
         'api/status/<_a>' => 'som/status/api/<_a>',
         'api/photopost/<_a>' => 'som/photopost/api/<_a>',
+        'api/activity/<_a>' => 'som/activity/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
         

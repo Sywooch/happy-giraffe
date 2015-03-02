@@ -17,6 +17,9 @@ class ApiController extends \site\frontend\components\api\ApiController
         $contest = CommentatorsContest::model()->active()->find();
         if ($contest !== null) {
             $this->success = $contest->register(\Yii::app()->user->id);
+            $this->data = array(
+                'redirectUrl' => $this->createUrl('/comments/contest/default/my', array('contestId' => $contest->id)),
+            );
         }
     }
 

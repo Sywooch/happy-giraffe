@@ -29,7 +29,6 @@ class PostBehavior extends \CActiveRecordBehavior
             return;
         }
 
-        var_dump($this->owner->isRemoved);
         if ($this->owner->isRemoved == 0) {
             $this->addActivity();
         }
@@ -55,20 +54,19 @@ class PostBehavior extends \CActiveRecordBehavior
         );
         $activity->dtimeCreate = (int) $this->owner->dtimeCreate;
         $activity->userId = (int) $this->owner->authorId;
-        $activity->typeId = $this->owner->getPostType() == 'blog' ? 'blogContent' : 'communityContent';
+        $activity->typeId = isset($this->owner->templateObject->data['type']) ? $this->owner->templateObject->data['type'] : 'post';
         $activity->hash = $this->getActivityId();
         try {
-            var_dump($activity->attributes);
-            var_dump($activity->save());
+            $activity->save();
         } catch (Exception $ex) {
-            echo 'fail';
+            
         }
     }
 
     public function delActivity()
     {
         try {
-            var_dump(Activity::model()->request('removeByHash', array('hash' => $this->getActivityId())));
+            Activity::model()->request('removeByHash', array('hash' => $this->getActivityId()));
         } catch (\Exception $ex) {
             
         }

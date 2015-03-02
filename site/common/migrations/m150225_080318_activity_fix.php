@@ -9,8 +9,13 @@ class m150225_080318_activity_fix extends CDbMigration
         $this->execute('ALTER TABLE `som__activity` ADD COLUMN `hash` VARCHAR(32) NOT NULL AFTER `data`, ADD UNIQUE INDEX `hash_UNIQUE` (`hash` ASC);');
         $this->execute('ALTER TABLE `som__activity` ADD INDEX `sort_dtimeCreate` (`dtimeCreate` DESC);');
         $this->execute(<<<SQL
-            INSERT INTO `som__activity_type` (`typeId`,`title`,`description`) VALUES ('blogContent','Запись в блоге','Добавлена новая запись в блог');
-            INSERT INTO `som__activity_type` (`typeId`,`title`,`description`) VALUES ('communityContent','Запись в клубе','Добавлена новая запись в клуб');
+            INSERT INTO `som__activity_type` (`typeId`,`title`,`description`) VALUES ('post','Статья','Добавлена новая статья');
+            INSERT INTO `som__activity_type` (`typeId`,`title`,`description`) VALUES ('video','Видео','Добавлено новое видео');
+            INSERT INTO `som__activity_type` (`typeId`,`title`,`description`) VALUES ('photopost','Фотопост','Добавлен новый фотопост');
+            INSERT INTO `som__activity_type` (`typeId`,`title`,`description`) VALUES ('status','Статус','Добавлен новый статус');
+            INSERT INTO `som__activity_type` (`typeId`,`title`,`description`) VALUES ('question','Вопрос','Добавлен новый вопрос');
+            INSERT INTO `som__activity_type` (`typeId`,`title`,`description`) VALUES ('comment','Комментарий','Добавлен новый комментарий');
+            INSERT INTO `som__activity_type` (`typeId`,`title`,`description`) VALUES ('photo','Фотографии','Добавлены фотографии в альбом');
 SQL
         );
     }

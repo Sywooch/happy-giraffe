@@ -61,6 +61,9 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionCheckRemoved()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
         $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model(), array(
             'criteria' => array(
                 'condition' => 'isNoindex = 1 OR isRemoved = 1',

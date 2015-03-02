@@ -7,7 +7,7 @@ module.exports = function(grunt){
   grunt.initConfig({
 
     jade: {
-      
+
       // Пересобираем все шаблоны
       new: {
         files: [{
@@ -30,7 +30,7 @@ module.exports = function(grunt){
           expand: true,
 
           cwd: 'new/jade',
-          src: ['docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
+          src: ['docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade',
           dest: 'new/html',
           ext: ".html"
         }],
@@ -46,7 +46,7 @@ module.exports = function(grunt){
         files: [{
           expand: true,
           cwd: 'lite/jade',
-          src: ['docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
+          src: ['docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade',
           dest: 'lite/html',
           ext: ".html"
         }],
@@ -118,7 +118,7 @@ module.exports = function(grunt){
           'stylesheets/global.css': ['less/all2.less'],
           // стили страницы вакансий
           'stylesheets/vacancy.css': ['less/vacancy.less'],
-          // стили html баннеров, независимы от всего 
+          // стили html баннеров, независимы от всего
           // 'stylesheets/banner.css': ['less/banner.less']
         },
         options: {
@@ -139,7 +139,7 @@ module.exports = function(grunt){
 
       newestdev: {
         files: {
-          'new/css/all1.dev.css': ['new/less/all1.less'] 
+          'new/css/all1.dev.css': ['new/less/all1.less']
         },
         options: {
           sourceMap: true,
@@ -147,7 +147,7 @@ module.exports = function(grunt){
       },
       // newest: {
       //   files: {
-      //     'new/css/all1.css': ['new/less/all1.less'] 
+      //     'new/css/all1.css': ['new/less/all1.less']
       //   },
       //   options: {
       //     compress: true,
@@ -156,7 +156,7 @@ module.exports = function(grunt){
       // },
       aviary: {
         files: {
-          'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less'] 
+          'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less']
         },
         options: {
           compress: true,
@@ -166,7 +166,7 @@ module.exports = function(grunt){
 
 
       litedev: {
-        
+
         files: [{
           expand: true,
           cwd: 'lite/less/',
@@ -175,16 +175,16 @@ module.exports = function(grunt){
           ext: '.css'
         }],
         // files: {
-        //   'lite/css/dev/all.css': ['lite/less/all.less'] 
+        //   'lite/css/dev/all.css': ['lite/less/all.less']
         // },
         options: {
           sourceMap: true,
         }
       },
-      
+
       // newest: {
       //   files: {
-      //     'new/css/all1.css': ['new/less/all1.less'] 
+      //     'new/css/all1.css': ['new/less/all1.less']
       //   },
       //   options: {
       //     compress: true,
@@ -193,7 +193,7 @@ module.exports = function(grunt){
       // },
       aviary: {
         files: {
-          'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less'] 
+          'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less']
         },
         options: {
           compress: true,
@@ -277,7 +277,7 @@ module.exports = function(grunt){
             /.flag+/,
             /.fast-articles3+/,
             //.tooltip+/,
-            
+
             /.bx-wrapper+/,
             /input+/,
             /.body+/,
@@ -290,13 +290,13 @@ module.exports = function(grunt){
           ],
         },
         src: [
-          'lite/html/page/blog/**/*.html', 
-          'lite/html/page/comments/**/*.html', 
-          'lite/html/page/photo-window/**/*.html', 
-          'lite/html/page/cook-recipe/**/*.html', 
-          'lite/html/page/sign/**/*.html', 
+          'lite/html/page/blog/**/*.html',
+          'lite/html/page/comments/**/*.html',
+          'lite/html/page/photo-window/**/*.html',
+          'lite/html/page/cook-recipe/**/*.html',
+          'lite/html/page/sign/**/*.html',
 
-          '!lite/html/page/**/*-user.html', // стариницы зареганого 
+          '!lite/html/page/**/*-user.html', // стариницы зареганого
           '!lite/html/page/comments/comments-page.html'
         ],
         dest: 'lite/css/min/blog.css'
@@ -328,7 +328,7 @@ module.exports = function(grunt){
             //.tooltip+/,
             /input+/,
             /.body+/,
-            
+
             /.bx-wrapper+/,
 
             /.chzn+/,
@@ -343,13 +343,13 @@ module.exports = function(grunt){
           ],
         },
         src: [
-          'lite/html/page/blog/**/*.html', 
-          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/blog/**/*.html',
+          'lite/html/page/comments/**/*.html',
           'lite/html/page/photo-window/**/*.html',
-          'lite/html/page/cook-recipe/**/*.html', 
+          'lite/html/page/cook-recipe/**/*.html',
 
-          '!lite/html/page/sign/**/*.html', 
-          //'lite/html/page/**/*-user.html', // стариницы зареганого 
+          '!lite/html/page/sign/**/*.html',
+          //'lite/html/page/**/*-user.html', // стариницы зареганого
           '!lite/html/page/comments/comments-page.html'
         ],
         dest: 'lite/css/min/blog-user.css'
@@ -383,11 +383,11 @@ module.exports = function(grunt){
           ],
         },
         src: [
-          'lite/html/page/comments/**/*.html', 
-          'lite/html/page/sign/**/*.html', 
-          'lite/html/page/services/**/*.html', 
+          'lite/html/page/comments/**/*.html',
+          'lite/html/page/sign/**/*.html',
+          'lite/html/page/services/**/*.html',
 
-          '!lite/html/page/**/*-user.html', // стариницы зареганого 
+          '!lite/html/page/**/*-user.html', // стариницы зареганого
           '!lite/html/page/comments/comments-page.html',
         ],
         dest: 'lite/css/min/services.css'
@@ -426,10 +426,10 @@ module.exports = function(grunt){
           ],
         },
         src: [
-          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/comments/**/*.html',
           '!lite/html/page/comments/comments-page.html',
-          'lite/html/page/user/**/*.html', 
-          'lite/html/page/services/**/*.html', 
+          'lite/html/page/user/**/*.html',
+          'lite/html/page/services/**/*.html',
 
         ],
         dest: 'lite/css/min/services-user.css'
@@ -460,7 +460,7 @@ module.exports = function(grunt){
             /input+/,
             /.body+/,
             /.bnr+/,
-            
+
             // Для страниц собранных разделов
             /.bx-wrapper+/,
             /.ico-social-hold+/,
@@ -469,10 +469,10 @@ module.exports = function(grunt){
         },
         src: [
           'lite/html/page/blog/**/*.html', // статьи в ленте
-          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/comments/**/*.html',
           'lite/html/page/sign/**/*.html',
-          'lite/html/page/member/**/*.html', 
-          'lite/html/page/photo-window/**/*.html', 
+          'lite/html/page/member/**/*.html',
+          'lite/html/page/photo-window/**/*.html',
           'lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого пользователя
@@ -506,7 +506,7 @@ module.exports = function(grunt){
             /.ico-family+/,
             /.b-section+/,
             /.flag+/,
-            
+
             /.fast-articles3+/,
             /input+/,
             /.body+/,
@@ -519,9 +519,9 @@ module.exports = function(grunt){
         },
         src: [
           'lite/html/page/blog/**/*.html', // статьи в ленте
-          'lite/html/page/comments/**/*.html', 
-          'lite/html/page/user/**/*.html', 
-          'lite/html/page/member/**/*.html', 
+          'lite/html/page/comments/**/*.html',
+          'lite/html/page/user/**/*.html',
+          'lite/html/page/member/**/*.html',
           'lite/html/page/photo-window/**/*.html',
           'lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
 
@@ -551,15 +551,15 @@ module.exports = function(grunt){
             /.ava+/,
             /.ico-club+/,
             /.article-anonce+/,
-            
+
             /.ico-social-hold+/,
           ],
-           
+
         },
         src: [
-          'lite/html/page/homepage/**/*.html', 
-          'lite/html/page/sign/**/*.html', 
-          // 'lite/html/page/member/**/*.html', 
+          'lite/html/page/homepage/**/*.html',
+          'lite/html/page/sign/**/*.html',
+          // 'lite/html/page/member/**/*.html',
 
         ],
         dest: 'lite/css/min/homepage.css'
@@ -579,12 +579,13 @@ module.exports = function(grunt){
             /input+/,
             /.body+/,
             /.ava+/,
-            
+            /.mfp+/
+
           ],
-           
+
         },
         src: [
-          'lite/html/page/contest/contest-commentator/**/*.html', 
+          'lite/html/page/contest/contest-commentator/**/*.html',
           '!lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
         ],
         dest: 'lite/css/min/contest-commentator.css'
@@ -716,7 +717,7 @@ module.exports = function(grunt){
           }, {
               removeXMLProcInst: false
           }, {
-              convertPathData: { 
+              convertPathData: {
                   straightCurves: false // advanced SVGO plugin option
               }
           }]
@@ -724,7 +725,7 @@ module.exports = function(grunt){
       dist: {                     // Target
           files: [{               // Dictionary of files
               expand: true,       // Enable dynamic expansion.
-              cwd: 'lite/images/',     // Src matches are relative to this path.//cwd: 'lite/images/',     
+              cwd: 'lite/images/',     // Src matches are relative to this path.//cwd: 'lite/images/',
               src: [
                 '!sprite/**/*.svg',
                 //'lite/images/sprite/*.svg',
@@ -909,7 +910,7 @@ module.exports = function(grunt){
             }
         },
         // 'cook-choose': {
-                //refSize: 75, 
+                //refSize: 75,
                 // sizes: {
                 //     large: 130,
                 //     mid: 75
@@ -973,7 +974,7 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
-      // Следим за старым less 
+      // Следим за старым less
       lessold: {
         files: ['less/**/*.less'],
         tasks: ['less:old', 'less:old_dev'],
@@ -1051,7 +1052,7 @@ module.exports = function(grunt){
               'new/less/plugins/aviary.hg.less': ['new/less/plugins/aviary.hg.less'],
           },
       },
-        
+
     },
 
     // Поднимаем сервер
@@ -1073,18 +1074,18 @@ module.exports = function(grunt){
   // lite tasks
   // bild lite версии
   grunt.registerTask('lite', [
-    'jade:lite_prod', 
+    'jade:lite_prod',
     'less:litedev',
     'uncss:lite_blog',
-    'uncss:services', 
-    'uncss:services_user', 
-    'uncss:member', 
-    'uncss:member_user', 
-    'uncss:lite_homepage', 
-    'uncss:contest_commentator', //  конкурс комментаторов 
-    'cmq:redactor', 
-    'cmq:lite', 
-    'cssmin:lite', 
+    'uncss:services',
+    'uncss:services_user',
+    'uncss:member',
+    'uncss:member_user',
+    'uncss:lite_homepage',
+    'uncss:contest_commentator', //  конкурс комментаторов
+    'cmq:redactor',
+    'cmq:lite',
+    'cssmin:lite',
     'csso:lite'
   ]);
 
@@ -1092,15 +1093,15 @@ module.exports = function(grunt){
     'less:litedev',
     'uncss:lite_blog',
     'uncss:lite_blog_user',
-    'uncss:services', 
+    'uncss:services',
     'uncss:services_user',
-    'uncss:member', 
-    'uncss:member_user', 
-    'uncss:lite_homepage', 
+    'uncss:member',
+    'uncss:member_user',
+    'uncss:lite_homepage',
     'uncss:contest_commentator', //  конкурс комментаторов
-    'cmq:redactor', 
-    'cmq:lite', 
-    'cssmin:lite', 
+    'cmq:redactor',
+    'cmq:lite',
+    'cssmin:lite',
     'csso:lite'
   ]);
   // Блоги
@@ -1115,6 +1116,6 @@ module.exports = function(grunt){
   // Базовый для разработки верстки
   grunt.registerTask('default', [
     'connect',
-    'watch', 
+    'watch',
   ]);
 };

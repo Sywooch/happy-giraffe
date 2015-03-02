@@ -6,6 +6,14 @@ define(['knockout', 'models/Model', 'models/User', 'models/Contest'], function C
     ContestComments.getContestComments = function getContestComments(userId) {
         return Model.get(this.getContestCommentsUrl, { contestId: this.id, limit: this.commentsLimit, offset: this.commentsOffset, userId: userId });
     };
+    ContestComments.redirectToCommentsMy = function redirectToCommentsMy(response) {
+        if (response.success === true) {
+            document.location.href = response.data.redirectUrl;
+        }
+    };
+    ContestComments.join = function joinContestComments(){
+        Model.get(this.joinContestCommentsUrl).done(this.redirectToCommentsMy.bind(this));
+    };
     Object.defineProperties(ContestComments, {
         "getRatingListUrl": {
             value: '/api/commentatorsContest/ratingList/',
@@ -13,6 +21,10 @@ define(['knockout', 'models/Model', 'models/User', 'models/Contest'], function C
         },
         "getContestCommentsUrl": {
             value: '/api/commentatorsContest/comments/',
+            writable: false
+        },
+        "joinContestCommentsUrl": {
+            value: '/api/commentatorsContest/register/',
             writable: false
         },
         "ratingLimit": {

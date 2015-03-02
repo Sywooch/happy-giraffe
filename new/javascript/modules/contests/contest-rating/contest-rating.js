@@ -16,7 +16,6 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
         this.resolveContestRatings = function resolveContestRatings(response) {
             if (response.success === true) {
                 this.overload(this.checkingIfTheresMore(response.data));
-                console.log(this.overload());
                 this.contestants(ko.utils.arrayMap(response.data, this.mappingContestantsArray.bind(this)));
             }
         };

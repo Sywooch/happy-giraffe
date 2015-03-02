@@ -579,13 +579,12 @@ module.exports = function(grunt){
             /input+/,
             /.body+/,
             /.ava+/,
-            /.mfp+/,
-            /.popup+/,
             /placeholder+/,
             /.mfp+/,
             /.select2+/,
             /@font-face+/,
-            /input+/
+            /.bnr+/,
+            /.ico-club+/
 
           ],
 

@@ -592,6 +592,7 @@ module.exports = function(grunt){
         src: [
           'lite/html/page/contest/contest-commentator/**/*.html',
           '!lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
+          'lite/html/page/sign/**/*.html'
         ],
         dest: 'lite/css/min/contest-commentator.css'
       },

@@ -36,6 +36,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             'pack' => array_map(function($participant) {
                 return array(
                     'id' => $participant->userId,
+                    'avatarSize' => \Avatar::SIZE_MEDIUM,
                 );
             }, $participants),
         )));

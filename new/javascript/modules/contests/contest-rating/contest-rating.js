@@ -2,6 +2,7 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
     function ContestRatingViewModel(params) {
         this.contest = Object.create(ContestComments);
         this.contest.id = params.contestId;
+        this.main = params.main;
         this.contestants = ko.observableArray([]);
         this.mappingContestantsArray = function mappingContestantsArray(object) {
             var contestant = Object.create(Contestant);

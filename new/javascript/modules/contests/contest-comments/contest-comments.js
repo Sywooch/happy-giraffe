@@ -1,8 +1,8 @@
 define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/Comment', 'models/User', 'text!contests/contest-comments/contest-comments.html'], function ContestCommentsViewHandler($, ko, Model, ContestComments, Comment, User, template) {
     function ContestCommentsViewModel(params) {
         this.contest = Object.create(ContestComments);
-        this.contest.id = params.contestId;
         this.defaultTitle = 'Последние комментарии';
+        this.contest.id = params.contestId;
         this.contest.userId = params.userId || null;
         this.title = params.title || this.defaultTitle;
         this.usersPile = [];

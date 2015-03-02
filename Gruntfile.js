@@ -579,7 +579,13 @@ module.exports = function(grunt){
             /input+/,
             /.body+/,
             /.ava+/,
-            /.mfp+/
+            /.mfp+/,
+            /.popup+/,
+            /placeholder+/,
+            /.mfp+/,
+            /.select2+/,
+            /@font-face+/,
+            /input+/
 
           ],
 

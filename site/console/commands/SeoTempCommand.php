@@ -75,6 +75,7 @@ class SeoTempCommand extends CConsoleCommand
 
         $result = array();
         foreach ($iterator as $i => $post) {
+            echo $i . "\n";
             $url = str_replace('http://www.happy-giraffe.ru', '', $post->url);
             $filter = 'ga:pagePath==' . urlencode($url);
 

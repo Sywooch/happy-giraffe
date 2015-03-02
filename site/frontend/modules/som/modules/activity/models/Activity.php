@@ -45,6 +45,19 @@ class Activity extends \CActiveRecord implements \IHToJSON
         );
     }
 
+    public function behaviors()
+    {
+        return array(
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
+                'createAttribute' => 'dtimeCreate',
+                'updateAttribute' => null,
+                'publicationAttribute' => null,
+                'owerwriteAttributeIfSet' => false,
+            ),
+        );
+    }
+
     /**
      * @return array relational rules.
      */
@@ -105,7 +118,7 @@ class Activity extends \CActiveRecord implements \IHToJSON
     {
         return \CJSON::decode($this->data);
     }
-    
+
     public function setDataArray($value)
     {
         $this->data = \CJSON::encode($value);
@@ -131,6 +144,22 @@ class Activity extends \CActiveRecord implements \IHToJSON
             'dtimeCreate' => (int) $this->dtimeCreate,
             'data' => $this->dataArray,
         );
+    }
+
+    /* scopes */
+
+    public function defaultScope()
+    {
+        return array(
+            'order' => $this->getTableAlias(false, false) . '.`dtimeCreate` DESC',
+        );
+    }
+
+    public function byUser($userId)
+    {
+        $this->getDbCriteria()->addColumnCondition(array('userId' => $userId));
+
+        return $this;
     }
 
 }

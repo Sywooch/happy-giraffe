@@ -47,7 +47,6 @@ class PostBehavior extends \CActiveRecordBehavior
     {
         $activity = new Activity();
         $activity->data = array(
-            'authorId' => $this->owner->authorId,
             'title' => $this->owner->title,
             'url' => $this->owner->url,
             'text' => $this->owner->preview,
@@ -71,5 +70,5 @@ class PostBehavior extends \CActiveRecordBehavior
             
         }
     }
-
+    
 }

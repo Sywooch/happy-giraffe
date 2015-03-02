@@ -1,13 +1,14 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: mikita
  * Date: 11/08/14
  * Time: 16:49
  */
-
 class NoindexHelper
 {
+
     public static function setNoIndex($model)
     {
         $noindex = false;
@@ -20,11 +21,15 @@ class NoindexHelper
         }
 
         if ($noindex) {
-            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+            if (Yii::app()->controller instanceof LiteController) {
+                Yii::app()->controller->metaNoindex = true;
+            } else {
+                Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+            }
         }
     }
 
-    protected  static function byUser(User $user)
+    protected static function byUser(User $user)
     {
         if (isset($_GET['BlogContent_page'])) {
             return true;
@@ -39,8 +44,9 @@ class NoindexHelper
         return $count == 0;
     }
 
-    protected  static function byPost(CommunityContent $post)
+    protected static function byPost(CommunityContent $post)
     {
         return (is_numeric($post->uniqueness) && $post->uniqueness < 50) || $post->type_id == CommunityContent::TYPE_STATUS;
     }
-} 
+
+}

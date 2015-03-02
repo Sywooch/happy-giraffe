@@ -70,7 +70,7 @@ class SeoTempCommand extends CConsoleCommand
                 'order' => 'id DESC',
             ),
         ));
-        $iterator = new CDataProviderIterator($dp, 1000);
+        $iterator = new CDataProviderIterator($dp, 100);
         $this->ga->setDateRange('2011-01-01', date('Y-m-d'));
 
         $filters = array();
@@ -79,7 +79,7 @@ class SeoTempCommand extends CConsoleCommand
             $url = str_replace('http://www.happy-giraffe.ru', '', $post->url);
             $filters[] = 'ga:pagePath==' . urlencode($url);
 
-            if ($i % 1000 == 0) {
+            if ($i % 100 == 0) {
                 $response = $this->getReport(array(
                     'metrics' => 'ga:organicSearches',
                     'dimensions' => 'ga:pagePath',

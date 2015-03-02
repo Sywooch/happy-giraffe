@@ -48,7 +48,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Contest'], function C
             writable: true
         },
         "comments": {
-            value: [],
+            value: ko.observableArray([]),
             writable: true
         }
     });

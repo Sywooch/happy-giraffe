@@ -2,6 +2,9 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
     function ContestCommentsViewModel(params) {
         this.contest = Object.create(ContestComments);
         this.contest.id = params.contestId;
+        this.defaultTitle = 'Последние комментарии';
+        this.contest.userId = params.userId || null;
+        this.title = params.title || this.defaultTitle;
         this.usersPile = [];
         this.users = [];
         this.avatarSize = 40;
@@ -88,7 +91,7 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
          * @return
          */
         this.putUsersInComments = function putUsersInComments() {
-            this.contest.comments = ko.utils.arrayMap(this.contest.comments, this.mappingPutUsersInComments.bind(this));
+            this.contest.comments(ko.utils.arrayMap(this.contest.comments(), this.mappingPutUsersInComments.bind(this)));
             this.loading(false);
         };
 
@@ -101,7 +104,7 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
         this.resolveContestComments = function resolveContestComments(response) {
             if (response.success === true) {
                 this.usersPile = [];
-                this.contest.comments = ko.utils.arrayMap(response.data, this.mappingCommentsArray.bind(this));
+                this.contest.comments(ko.utils.arrayMap(response.data, this.mappingCommentsArray.bind(this)));
                 this
                     .downingUsers(this.avatarSize)
                         .then(this.parseUsers.bind(this))
@@ -118,7 +121,7 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
             this.loading(true);
             this.contest.getContestComments(null).done(this.resolveContestComments.bind(this));
         };
-        this.contest.getContestComments(null).done(this.resolveContestComments.bind(this));
+        this.contest.getContestComments(this.contest.userId).done(this.resolveContestComments.bind(this));
     }
     return {
         viewModel: ContestCommentsViewModel,

@@ -1,12 +1,13 @@
 <!-- комментарии-->
 <div class="contest-commentator-list">
-    <div class="contest-commentator_t">Последние комментарии
+    <div class="contest-commentator_t">
+        <span data-bind="text: title"></span>
         <!-- active добавлять для отображения загрузки, по умолчанию без этого класса--><a href="#" class="contest-commentator-list_load" data-bind="css: {'active': loading() === true}, click: reload"> </a>
     </div>
-    <div class="contest-commentator-list_hold">
+    <div class="contest-commentator-list_hold" data-bind="if: loading() === false && contest.comments().length > 0">
         <!-- comments-->
         <section class="comments comments__buble">
-            <div class="comments_hold" data-bind="if: loading() === false">
+            <div class="comments_hold">
                 <ul class="comments_ul" data-bind="foreach: contest.comments">
                     <!--
                     варианты цветов комментов. В такой последовательности
@@ -49,6 +50,9 @@
                 </ul>
             </div>
         </section>
+    </div>
+    <div class="contest-commentator-list_desc" data-bind="if: loading() === false && contest.comments().length === 0">
+      Поздравляем Вас теперь вы равноправный участник конкурса! На этой странице будет отражаться ваша лента комментариев, засчитанных системой модерирования.
     </div>
 </div>
 <!-- /комментарии-->

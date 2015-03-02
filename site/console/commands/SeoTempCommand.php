@@ -90,7 +90,6 @@ class SeoTempCommand extends CConsoleCommand
                     $response['']['ga:organicSearches'],
                 );
             }
-            break;
         }
 
         $this->writeCsv('checkRemoved', $result);

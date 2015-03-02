@@ -60,34 +60,6 @@
     <div class=" clearfix">
         <button class="btn-blue btn-h46 float-r" data-bind="click: add, css: { 'btn-inactive': upload().photos().length < 3}"><?=$model->isNewRecord ? 'Добавить' : 'Сохранить'?></button>
         <a href="" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close();return false;">Отменить</a>
-
-        <?php if (empty($club_id)):?>
-            <div class="float-l">
-                <div class="privacy-select clearfix">
-                    <?=$form->hiddenField($model, 'privacy', array('data-bind' => 'value: selectedPrivacyOption().value()')) ?>
-                    <div class="privacy-select_hold clearfix">
-                        <div class="privacy-select_tx">Для кого:</div>
-                        <div class="privacy-select_drop-hold">
-                            <a class="privacy-select_a"
-                               data-bind="click: $root.toggleDropdown, with: selectedPrivacyOption()">
-                                <span class="ico-users active" data-bind="css: 'ico-users__' + cssClass()"></span>
-                                <span class="privacy-select_a-tx" data-bind="html: title"></span>
-                            </a>
-                        </div>
-                        <div class="privacy-select_drop" data-bind="css: { 'display-b' : showDropdown}">
-                            <!-- ko foreach: privacyOptions -->
-                            <div class="privacy-select_i">
-                                <a class="privacy-select_a" data-bind="click: select">
-                                    <span class="ico-users" data-bind="css: 'ico-users__' + cssClass()"></span>
-                                    <span class="privacy-select_a-tx" data-bind="html: title"></span>
-                                </a>
-                            </div>
-                            <!-- /ko -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php endif ?>
     </div>
 
     <?php $this->endWidget(); ?>

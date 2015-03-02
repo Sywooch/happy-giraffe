@@ -21,29 +21,33 @@ class VisitsManager
     public function inc()
     {
         $startTime = time();
-        $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, time() - self::INTERVAL);
+        $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
+        $minTimestamp = max($lastRun, time() - self::INTERVAL);
         $response = \Yii::app()->getModule('analytics')->piwik->makeRequest('Live.getLastVisitsDetails', array(
-            'minTimestamp' => $lastRun,
+            'minTimestamp' => $minTimestamp,
+            'filter_limit' => -1,
         ));
         $urls = $this->parseLiveReport($response);
-        foreach ($urls as $url => $count) {
-            $model = PageView::getModel($url);
-            $timeLeft = time() - $model->updated;
-            if ($timeLeft > self::TIMEOUT) {
-                \Yii::app()->gearman->client()->doBackground('processUrl', $url, md5($url));
-            } else {
-                $model->visits += $count;
-                $model->save();
-            }
+        echo "urls: " . count($urls) . "\n";
+        foreach ($urls as $url) {
+            \Yii::app()->gearman->client()->doBackground('processUrl', $url, md5($url));
         }
+        echo "time left: " . (time() - $startTime) . "\n";
         \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);
     }
 
     public function processUrl($url)
     {
+        /** @var \site\frontend\modules\analytics\models\PageView $model */
         $model = PageView::getModel($url);
-        $model->visits = $this->fetchVisitsCount($url);
-        $model->save();
+        if ($model->getEntity() !== null) {
+            $timeLeft = time() - $model->synced;
+            if ($timeLeft > self::TIMEOUT) {
+                $model->visits = $this->fetchVisitsCount($url);
+                $model->synced = time();
+                $model->save();
+            }
+        }
     }
 
     public function sync($class)
@@ -66,10 +70,12 @@ class VisitsManager
         $urls = array();
         foreach ($response as $row) {
             foreach ($row['actionDetails'] as $action) {
-                $urls[] = $action['url'];
+                    $urls[] = $action['url'];
             }
         }
-        return array_count_values($urls);
+        return array_filter($urls, function($v) {
+            return ($v !== null) && (strpos($v, \Yii::app()->homeUrl) !== false);
+        });
     }
 
     protected function fetchVisitsCount($url)

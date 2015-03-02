@@ -85,7 +85,7 @@ class SeoTempCommand extends CConsoleCommand
                 'filters' => $filter,
             ));
 
-            var_dump($response[]['ga:organicSearches']); die;
+            var_dump($response['']['ga:organicSearches']); die;
 
             if (! empty($response)) {
                 $result[] = array(

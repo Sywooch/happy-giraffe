@@ -82,6 +82,9 @@ class SeoTempCommand extends CConsoleCommand
                 'metrics' => 'ga:organicSearches',
                 'filters' => $filter,
             ));
+
+            var_dump($response); die;
+
             $result[] = array(
                 $post->url,
                 $response['ga:organicSearches'],

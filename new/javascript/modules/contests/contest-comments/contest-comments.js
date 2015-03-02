@@ -105,10 +105,15 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
             if (response.success === true) {
                 this.usersPile = [];
                 this.contest.comments(ko.utils.arrayMap(response.data, this.mappingCommentsArray.bind(this)));
-                this
-                    .downingUsers(this.avatarSize)
-                        .then(this.parseUsers.bind(this))
-                        .done(this.putUsersInComments.bind(this));
+                if (this.contest.comments().length > 0) {
+                    this
+                        .downingUsers(this.avatarSize)
+                            .then(this.parseUsers.bind(this))
+                            .done(this.putUsersInComments.bind(this));
+                } else {
+                    this.loading(false);
+                }
+
             }
         };
 

@@ -7,7 +7,7 @@ html {
     min-width: 1000px;
     background:#af9bd2;
     word-wrap: break-word;
-    
+
     &__bg-base,
     &__im,
     &__snow {background:#9b8ec9 url('@{path-img}/body-circle-candy.jpg') no-repeat 50% 0;}
@@ -19,8 +19,13 @@ html {
     &__bg2 {
         /*background:#56437B url('/lite/images/body__bg/body__bg2.jpg') 50% 100%;
         background-attachment: fixed;*/
-        background:#544078 url('/lite/images/body__bg/body-circle-candy__dark.png') no-repeat 50% 0;
-        background-attachment: fixed;
+
+    //    regular bg
+    /*  background:#544078 url('/lite/images/body__bg/body-circle-candy__dark.png') no-repeat 50% 0;
+        background-attachment: fixed; */
+    //spring bg
+    background:#B1D9F1 url('@{path-img}/body__bg/body-on-vesna.png') no-repeat 50% 0;
+    background-attachment: fixed;
     }
     &__lite {
         min-width: 240px;
@@ -37,7 +42,7 @@ html {
     position: relative;
     width: 960px;
     margin: 0 auto;
-    
+
     .page-col {width: 880px;}
     &_hold {
         margin: 20px auto;
@@ -46,7 +51,7 @@ html {
     }
     &_frame {
         margin: 20px auto;
-    } 
+    }
 }
 .layout-loose {
     position: relative;
@@ -215,7 +220,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 .i-allphoto {
     margin: 40px 0;
     text-align: center;
-    
+
     &__family &_a {background-image: url('@{path-img}/i-allphoto__family.png');}
     &_a {
         .inline-block();
@@ -304,7 +309,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     height: 224px;
     margin-top: -112px;
     background: url('@{path-img}/post-arrow.png') no-repeat 0 0;
-    
+
     &:hover {background-position: 0 -224px;}
     @media screen and (min-width: 1230px) {
         & {display: block;}
@@ -312,8 +317,8 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 }
 // /отдельные элементы
 
-/* 
-    page-col 
+/*
+    page-col
 
     page-col __sidebar
         page-col_top
@@ -325,7 +330,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     background: #fff;
     .border-radius(10px);
     border-top-left-radius:0;
-    
+
     .b-main_col-sidebar {margin-left: 30px;}
     &__friend &_cont {min-height: 570px;}
     &__aside-in &_hold {
@@ -442,7 +447,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         display: table-cell;
         width: 260px;
         .border-right-radius(10px);
-        
+
         .aside-filter_hold {width: 220px;}
     }
 }
@@ -467,7 +472,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         margin-left: 20px;
         float:left;
         position: relative;
-        
+
         .b-ava-large {margin: 0 0 30px;}
     }
 
@@ -541,8 +546,8 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 }
 /* /b-control */
 
-/* 
-    friend-offer 
+/*
+    friend-offer
     Блок предложения дружбы
 
     friend-offer
@@ -595,7 +600,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 }
 /* /friend-offer */
 
-/*  
+/*
     Блок пользователя с автаркой и именем
     b-user
         b-user_ava
@@ -615,7 +620,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     }
 
     &__w300 {width: 300px;}
-    
+
     &_ava {
         .inline-block();
         vertical-align: top;
@@ -631,7 +636,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         .text-dec_onhover;
         display: block;
     }
-    
+
     // in antispam
     &_del,
     &_check,
@@ -673,7 +678,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     }
 }
 
-/* 
+/*
     utilites-error
 */
 .utilites-error {
@@ -709,7 +714,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 /* /utilites-error */
 
 /*
-    Группа фильтров 
+    Группа фильтров
     filter-group
         filter-group_i  active
 */
@@ -752,7 +757,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     color: #b6b6b6;
     font-size: 14px;
     padding: 7px;
-    
+
     &__b-gray {
         margin: 30px auto 40px;
         padding: 0;
@@ -782,7 +787,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 .b-crumbs {
     margin: 10px 20px 10px 30px;
     font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
-    
+
     &__m {
         font-size: 13px;
         margin: 21px 0;
@@ -792,7 +797,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     &__m &_last{
         color: @color-gray-dark;
     }
-    
+
     &_tx {
         .inline-block();
         vertical-align: middle;
@@ -842,7 +847,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 }
 
 .tabs-simple {
-    
+
     &__inline { // vertical-align: middle;
         .inline-block();
         vertical-align: middle;
@@ -881,13 +886,13 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 
 
 
-/* 
+/*
 ------------------------------------------------------------------
-    js plugin class 
+    js plugin class
 ------------------------------------------------------------------
 */
 
-/* 
+/*
     scroll custom
 
     scroll   __on
@@ -917,7 +922,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     &_cont {overflow: hidden;}
     &_bar-hold {
         display: none;
-        position: absolute;    
+        position: absolute;
         z-index: 1;
         top: 0;
         bottom: 0;
@@ -984,8 +989,8 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 }
 /* powerTip */
 
-/* 
-    docs 
+/*
+    docs
     Правила для внешнего вида документации
     Нужно наверно вынести в отдельный файл, что б не попадали стили на www
 */
@@ -993,7 +998,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     position: relative;
     margin: 0;
     padding: 10px 0;
-    
+
     &_h1 {
         margin: 20px 20px;
         text-align: center;
@@ -1025,6 +1030,3 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     }
 }
 /* /docs */
-
-
-

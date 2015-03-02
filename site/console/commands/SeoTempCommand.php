@@ -85,6 +85,8 @@ class SeoTempCommand extends CConsoleCommand
                 'filters' => $filter,
             ));
 
+            var_dump($response); die;
+
             if (! empty($response)) {
                 $result[] = array(
                     $post->url,

@@ -51,11 +51,9 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionComments($contestId, $limit, $offset = 0, $userId = null)
     {
-        $model = CommentatorsContestComment::model()->orderDesc()->counts(true);
-        if ($userId === null) {
+        $model = CommentatorsContestComment::model()->orderDesc()->contest($contestId)->counts(true);
+        if ($userId !== null) {
             $model->user($userId);
-        } else {
-            $model->contest($contestId);
         }
         $comments = $model->findAll(array(
             'limit' => $limit,

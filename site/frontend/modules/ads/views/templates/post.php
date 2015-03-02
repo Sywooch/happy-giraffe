@@ -32,7 +32,11 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), ($this->size == $this::SIZE_BIG) ? 'postAnnouncementBig' : 'postAnnouncement')?>" alt="<?=$this->model->title?>" class="article-anonce_img">
+            <?php if ($this->size == $this::SIZE_BIG): ?>
+                <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncementBig')?>" alt="<?=$this->model->title?>" class="article-anonce_img" width="615" height="450">
+            <?php else: ?>
+                <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncement')?>" alt="<?=$this->model->title?>" class="article-anonce_img" width="300" height="200">
+            <?php endif; ?>
             <div class="article-anonce_img-overlay"></div>
         </div>
         <div class="article-anonce_bottom">

@@ -59,6 +59,44 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionCheckRemoved()
+    {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
+        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model(), array(
+            'criteria' => array(
+                'condition' => 'isNoindex = 1 OR isRemoved = 1',
+                'order' => 'id DESC',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 100);
+        $this->ga->setDateRange('2011-01-01', date('Y-m-d'));
+
+        $result = array();
+        foreach ($iterator as $i => $post) {
+            echo $i . "\n";
+            $url = str_replace('http://www.happy-giraffe.ru', '', $post->url);
+            $filter = 'ga:pagePath==' . urlencode($url);
+
+            $response = $this->getReport(array(
+                'metrics' => 'ga:organicSearches',
+                'filters' => $filter,
+            ));
+
+            if (! empty($response)) {
+                $result[] = array(
+                    $post->url,
+                    $response['']['ga:organicSearches'],
+                    $post->isRemoved,
+                    $post->isNoindex,
+                );
+            }
+        }
+
+        $this->writeCsv('checkRemoved', $result);
+    }
+
     public function actionDumbTest()
     {
         $this->ga->setDateRange('2014-06-01', '2014-07-31');

@@ -88,6 +88,8 @@ class SeoTempCommand extends CConsoleCommand
                 $result[] = array(
                     $post->url,
                     $response['']['ga:organicSearches'],
+                    $post->isRemoved,
+                    $post->isNoindex,
                 );
             }
         }

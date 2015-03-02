@@ -40,8 +40,6 @@ class CommentatorsContest extends \HActiveRecord
 
     public function register($userId)
     {
-        var_dump($userId);
-        var_dump($this->isRegistered($userId));
         if ($this->isRegistered($userId)) {
             return false;
         }

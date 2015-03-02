@@ -25,7 +25,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionRatingList($contestId, $limit, $offset = 0)
     {
-        $participants = CommentatorsContestParticipant::model()->contest($contestId)->orderDesc()->findAll(array(
+        $participants = CommentatorsContestParticipant::model()->contest($contestId)->top()->findAll(array(
             'limit' => $limit,
             'offset' => $offset,
         ));

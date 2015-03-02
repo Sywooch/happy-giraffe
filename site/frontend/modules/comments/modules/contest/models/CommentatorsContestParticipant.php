@@ -57,9 +57,9 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function orderDesc()
+    public function top()
     {
-        $this->getDbCriteria()->order = $this->tableAlias . '.place DESC';
+        $this->getDbCriteria()->order = $this->tableAlias . '.place ASC';
         return $this;
     }
 

@@ -59,6 +59,42 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionCheckRemoved()
+    {
+        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model(), array(
+            'criteria' => array(
+                'condition' => 'isNoindex = 1 OR isRemoved = 1',
+                'order' => 'id DESC',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        $this->ga->setDateRange('2011-01-01', date('Y-m-d'));
+
+        $filters = array();
+        $result = array();
+        foreach ($iterator as $i => $post) {
+            $url = str_replace('http://www.happy-giraffe.ru', '', $post->url);
+            $filters[] = 'ga:pagePath==' . urlencode($url);
+
+            if ($i % 1000 == 0) {
+                $response = $this->getReport(array(
+                    'metrics' => 'ga:organicSearches',
+                    'dimensions' => 'ga:pagePath',
+                    'filters' => implode(',', $filters),
+                ));
+                foreach ($response as $path => $row) {
+                    $result[] = array(
+                        $path,
+                        $row['ga:organicSearches'],
+                    );
+                }
+                $filters = array();
+            }
+        }
+
+        $this->writeCsv('checkRemoved', $result);
+    }
+
     public function actionDumbTest()
     {
         $this->ga->setDateRange('2014-06-01', '2014-07-31');

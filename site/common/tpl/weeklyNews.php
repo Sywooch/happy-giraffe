@@ -128,12 +128,14 @@ require_once('simple_html_dom.php');
                 <table cellpadding="0" cellspacing="0" style="margin-top:20px;">
                     <tbody>
                     <tr>
+                        <?php if (false): ?>
                         <td style="padding-right:10px;">
                         <span style="color:#737575;font:12px arial, helvetica, sans-serif;">
                             <img src="http://www.happy-giraffe.ru/images/mail/icon_views.gif"
                                  style="margin-right:5px;vertical-align:top;"><?php echo PageView::model()->viewsByPath(ltrim($model->url, '.'), true); ?>
                         </span>
                         </td>
+                        <?php endif; ?>
                         <td style="padding-right:15px;">
                         <span style="color:#31a4f6;font:12px arial, helvetica, sans-serif;">
                             <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>#comment_list" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img

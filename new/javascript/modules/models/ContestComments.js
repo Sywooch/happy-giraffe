@@ -1,19 +1,10 @@
 define(['knockout', 'models/Model', 'models/User', 'models/Contest'], function ContestCommentsHandler(ko, Model, User, Contest) {
     var ContestComments = Object.create(Contest);
     ContestComments.getRatingList = function getRatingList() {
-        return Model.get(this.getRatingListUrl, { contestId: this.id, limit: this.limit, offset: this.offset});
+        return Model.get(this.getRatingListUrl, { contestId: this.id, limit: this.ratingLimit, offset: this.ratingOffset});
     };
     ContestComments.getContestComments = function getContestComments(userId) {
-        return Model.get(this.getContestCommentsUrl, { contestId: this.id, limit: this.limit, offset: this.offset, userId: userId });
-    };
-    ContestComments.init = function initContestComments(object) {
-        this.participantId = this.participantId;
-        this.place = object.place;
-        this.score = object.score;
-        this.user = Object.create(User);
-        this.user = User.init(object.user);
-        this.userId = object.userId;
-        return this;
+        return Model.get(this.getContestCommentsUrl, { contestId: this.id, limit: this.commentsLimit, offset: this.commentsOffset, userId: userId });
     };
     Object.defineProperties(ContestComments, {
         "getRatingListUrl": {
@@ -24,11 +15,19 @@ define(['knockout', 'models/Model', 'models/User', 'models/Contest'], function C
             value: '/api/commentatorsContest/comments/',
             writable: false
         },
-        "limit": {
+        "ratingLimit": {
+            value: 5,
+            writable: true
+        },
+        "commentsLimit": {
             value: 3,
             writable: true
         },
-        "offset": {
+        "commentsOffset": {
+            value: null,
+            writable: true
+        },
+        "ratingOffset": {
             value: null,
             writable: true
         },

@@ -56,4 +56,6 @@ define(["jquery", "knockout"], function ($, ko) {
     $('ads-toggle').each(componentIterator);
     ko.components.register('contest-comments', { require: 'contests/contest-comments/contest-comments' });
     $('contest-comments').each(componentIterator);
+    ko.components.register('contest-rating', { require: 'contests/contest-rating/contest-rating' });
+    $('contest-rating').each(componentIterator);
 });

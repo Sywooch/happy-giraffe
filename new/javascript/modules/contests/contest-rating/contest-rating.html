@@ -1,0 +1,30 @@
+<!-- рейтинг-->
+<!-- .contest-commentator-rating__main-->
+<div class="contest-commentator-rating contest-commentator-rating__main">
+  <div class="contest-commentator-rating_hold">
+    <h2 class="contest-commentator_t"> <span class="contest-commentator-rating_ico-cap"></span>Лидеры конкурса
+    </h2>
+    <!-- ko if: contestants().length > 0 -->
+    <ul class="contest-commentator-rating_ul" data-bind="foreach: contestants">
+      <li class="contest-commentator-rating_li">
+        <div class="contest-commentator-rating_place contest-commentator-rating_place__big" data-bind="text: $index() + 1">
+        </div>
+        <div class="contest-commentator-rating_user">
+            <a href="" class="contest-commentator-rating_user-a" data-bind="href: user.profileUrl">
+            <!-- ava-->
+                <span href="#" class="ava">
+                    <img alt="" src="" class="ava_img"  data-bind="src: user.avatarUrl">
+                </span>
+            </a>
+                <a href="" class="contest-commentator-rating_name" data-bind="href: user.profileUrl"><span data-bind="text: user.fullName"></span></a>
+        </div>
+            <div class="contest-commentator-rating_count">
+              <div class="contest-commentator-rating_buble"></div><span data-bind="text: score"></span>
+            </div>
+      </li>
+    </ul>
+    <!-- /ko -->
+  </div>
+  <div class="contest-commentator-rating_btn-hold"><a href="#" class="btn btn-xl contest-commentator-rating_btn">Смотреть весь рейтинг</a></div>
+</div>
+<!-- /рейтинг-->

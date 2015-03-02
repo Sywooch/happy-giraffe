@@ -6,11 +6,11 @@
 ?>
 
 <?php $this->beginContent('//layouts/lite/common'); ?>
-<div class="contest"><a href="#" class="i-giraffe-back"></a>
+<div class="contest"><a href="<?=$this->createUrl('/site/index')?>" class="i-giraffe-back"></a>
     <div class="contest-commentator">
         <!-- Шапка-->
         <div class="contest-commentator-header">
-            <div class="contest-commentator-header_date">Сроки проведения:  с 20 февраля по 31 марта</div>
+            <div class="contest-commentator-header_date">Сроки проведения:  с <?=Yii::app()->dateFormatter->format('d MMMM', $this->contest->startDate)?> по <?=Yii::app()->dateFormatter->format('d MMMM', $this->contest->endDate)?></div>
             <h1 class="contest-commentator-header_t">Лучший комментатор</h1>
             <?php
                 $this->widget('zii.widgets.CMenu', array(

@@ -218,6 +218,5 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
       <div class="article-similar_row"><a href="" class="article-similar_t">Обязательства мешают любовным отношениям</a></div>
       <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
       </div> */ ?>
-    <?php $this->renderPartial('//banners/_sidebar'); ?>
 </aside>
 <!-- Сайд бар-->

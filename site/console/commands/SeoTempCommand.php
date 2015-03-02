@@ -83,13 +83,12 @@ class SeoTempCommand extends CConsoleCommand
                 'filters' => $filter,
             ));
 
-            var_dump($response); die;
-
-            $result[] = array(
-                $post->url,
-                $response['ga:organicSearches'],
-            );
-            break;
+            if (! empty($response)) {
+                $result[] = array(
+                    $post->url,
+                    $response['ga:organicSearches'],
+                );
+            }
         }
 
         $this->writeCsv('checkRemoved', $result);

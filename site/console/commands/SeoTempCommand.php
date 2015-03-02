@@ -77,6 +77,7 @@ class SeoTempCommand extends CConsoleCommand
         foreach ($iterator as $i => $post) {
             echo $i . "\n";
             $url = str_replace('http://www.happy-giraffe.ru', '', $post->url);
+            $url = '/community/2/forum/photoPost/103402/';
             $filter = 'ga:pagePath==' . urlencode($url);
 
             $response = $this->getReport(array(
@@ -90,6 +91,7 @@ class SeoTempCommand extends CConsoleCommand
                     $response['ga:organicSearches'],
                 );
             }
+            break;
         }
 
         $this->writeCsv('checkRemoved', $result);

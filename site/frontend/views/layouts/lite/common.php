@@ -17,14 +17,9 @@
 <?php endif ?>
 <div class="layout-container">
     <div class="layout-loose layout-loose__white">
-        <div class="layout-header">
-            <?php if (Yii::app()->user->isGuest): ?>
-                <?php $this->renderPartial('//_header_guest'); ?>
-            <?php  else: ?>
-                <?php $this->renderDynamic(array($this, 'renderPartial'), '//_menu', null, true); ?>
-            <?php endif; ?>
+        <div class="layout-loose_hold clearfix">
+            <?= $content ?>
         </div>
-        <?= $content ?>
         <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
     </div>
 </div>

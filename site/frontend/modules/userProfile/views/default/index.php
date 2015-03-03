@@ -23,7 +23,10 @@ $this->breadcrumbs[] = $this->widget('Avatar', array(
                 <?php
                 $this->widget('LiteListView', array(
                     'dataProvider' => $dataProvider,
-                    'itemView' => 'site.frontend.modules.posts.views.list._view',
+                    'itemView' => '_row',
+                    'viewData' => array(
+                        'user' => $user,
+                    ),
                     'tagName' => 'div',
                     'itemsTagName' => false,
                     'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',

@@ -63,6 +63,10 @@ class SeoTempCommand extends CConsoleCommand
     {
         \Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        $patterns = array(
+            '^/community/\d+/forum/\w+/\d+/$',
+            '^/user/\d+/blog/post\d+/$',
+        );
 
         $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model(), array(
             'criteria' => array(
@@ -74,25 +78,28 @@ class SeoTempCommand extends CConsoleCommand
         $this->ga->setDateRange('2011-01-01', date('Y-m-d'));
 
         $urlToCount = array();
-        $page = 0;
-        do {
-            $page++;
-            $mr = 10000;
-            $si = ($page - 1) * $mr + 1;
-            $response = $this->getReport(array(
-                'metrics' => 'ga:organicSearches',
-                'dimensions' => 'ga:pagePath',
-                'filters' => 'ga:pagePath=~' . urlencode('^/community/\d+/forum/\w+/(\d+)/$'),
-                'max-results' => $mr,
-                'start-index' => $si,
-            ));
-            foreach ($response as $path => $row) {
-                $urlToCount[$path] = $row['ga:organicSearches'];
-            }
-        } while(count($response) > 0);
+        foreach ($patterns as $pattern) {
+            $page = 0;
+            do {
+                $page++;
+                $mr = 10000;
+                $si = ($page - 1) * $mr + 1;
+                $response = $this->getReport(array(
+                    'metrics' => 'ga:organicSearches',
+                    'dimensions' => 'ga:pagePath',
+                    'filters' => 'ga:pagePath=~' . urlencode($pattern),
+                    'max-results' => $mr,
+                    'start-index' => $si,
+                ));
+                echo "response " . count($response) . "\n";
+                foreach ($response as $path => $row) {
+                    $urlToCount[$path] = $row['ga:organicSearches'];
+                }
+            } while (count($response) > 0);
+        }
 
 
-        var_dump($response);
+        echo count($urlToCount) . "\n";
 
         $result = array();
         foreach ($iterator as $i => $post) {

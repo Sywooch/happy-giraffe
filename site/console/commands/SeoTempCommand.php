@@ -73,21 +73,34 @@ class SeoTempCommand extends CConsoleCommand
         $iterator = new CDataProviderIterator($dp, 100);
         $this->ga->setDateRange('2011-01-01', date('Y-m-d'));
 
-        $result = array();
-        foreach ($iterator as $i => $post) {
-            echo $i . "\n";
-            $url = str_replace('http://www.happy-giraffe.ru', '', $post->url);
-            $filter = 'ga:pagePath==' . urlencode($url);
-
+        $urlToCount = array();
+        $page = 0;
+        do {
+            $page++;
+            $mr = 10000;
+            $si = ($page - 1) * $mr;
             $response = $this->getReport(array(
                 'metrics' => 'ga:organicSearches',
-                'filters' => $filter,
+                'dimensions' => 'ga:pagePath',
+                'filters' => 'ga:pagePath=~^/community/\d+/forum/\w+/(\d+)/$',
+                'max-results' => $mr,
+                'start-index' => $si,
             ));
+            foreach ($response as $path => $row) {
+                $urlToCount[$path] = $row['ga:organicSearches'];
+            }
+        } while(! empty ($response));
 
-            if (! empty($response)) {
+        var_dump($urlToCount);
+
+        $result = array();
+        foreach ($iterator as $i => $post) {
+
+            $url = str_replace('http://www.happy-giraffe.ru', '', $post->url);
+            if (isset($urlToCount[$url])) {
                 $result[] = array(
                     $post->url,
-                    $response['']['ga:organicSearches'],
+                    $urlToCount[$url],
                     $post->isRemoved,
                     $post->isNoindex,
                 );

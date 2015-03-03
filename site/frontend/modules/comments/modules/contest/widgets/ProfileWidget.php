@@ -16,6 +16,10 @@ class ProfileWidget extends \CWidget
 
     public function run()
     {
+        if (\UserAttributes::get(\Yii::app()->user->id, $this->getAttributeKey(), 0) == 1) {
+            return;
+        }
+
         $contest = CommentatorsContest::model()->active()->find();
         $participant = CommentatorsContestParticipant::model()->contest($contest->id)->user($this->userId)->find();
         $leaders = CommentatorsContestParticipant::model()->contest($contest->id)->top()->findAll(array(
@@ -24,5 +28,10 @@ class ProfileWidget extends \CWidget
         if ($participant !== null) {
             $this->render('ProfileWidget', compact('contest', 'participant', 'leaders'));
         }
+    }
+
+    public function getAttributeKey()
+    {
+        return get_class($this) . '.' . 'hide';
     }
 }

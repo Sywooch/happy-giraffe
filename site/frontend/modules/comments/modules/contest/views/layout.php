@@ -34,7 +34,7 @@
                             'label' => 'Моя лента',
                             'url' => array('/comments/contest/default/my', 'contestId' => $this->contest->id),
                             'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
-                            'visible' => $this->contest->isRegistered(Yii::app()->user->id),
+                            'visible' => ! Yii::app()->user->isGuest && $this->contest->isRegistered(Yii::app()->user->id),
                         ),
                     ),
                     'itemCssClass' => 'contest-commentator-header_li',

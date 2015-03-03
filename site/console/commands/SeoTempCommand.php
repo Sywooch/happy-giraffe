@@ -89,9 +89,10 @@ class SeoTempCommand extends CConsoleCommand
             foreach ($response as $path => $row) {
                 $urlToCount[$path] = $row['ga:organicSearches'];
             }
-        } while(! empty ($response));
+        } while(count($response) > 0);
 
-        var_dump($urlToCount);
+
+        var_dump($response);
 
         $result = array();
         foreach ($iterator as $i => $post) {

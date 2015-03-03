@@ -61,6 +61,7 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionCheckRemoved()
     {
+        \Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
         \Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         $patterns = array(

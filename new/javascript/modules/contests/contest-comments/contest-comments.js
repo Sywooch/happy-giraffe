@@ -124,7 +124,7 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
          */
         this.reload = function reloadComments() {
             this.loading(true);
-            this.contest.getContestComments(null).done(this.resolveContestComments.bind(this));
+            this.contest.getContestComments(this.contest.userId).done(this.resolveContestComments.bind(this));
         };
         this.contest.getContestComments(this.contest.userId).done(this.resolveContestComments.bind(this));
     }

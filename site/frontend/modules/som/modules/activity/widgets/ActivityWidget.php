@@ -49,7 +49,7 @@ class ActivityWidget extends \CWidget
     public function getUserInfo($id)
     {
         if (!isset($this->_users[$id])) {
-            $this->_users[$id] = \site\frontend\components\api\models\User::model()->query('get', array('id' => $id, 'avatarSize' => 72));
+            $this->_users[$id] = \site\frontend\components\api\models\User::model()->query('get', array('id' => (int) $id, 'avatarSize' => 72));
         }
         return $this->_users[$id];
     }

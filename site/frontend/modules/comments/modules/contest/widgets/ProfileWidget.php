@@ -32,6 +32,6 @@ class ProfileWidget extends \CWidget
 
     public function getAttributeKey()
     {
-        return get_class($this) . '.' . 'hide';
+        return 'ProfileWidget.hide';
     }
 }

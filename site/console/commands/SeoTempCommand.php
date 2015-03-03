@@ -111,6 +111,8 @@ class SeoTempCommand extends CConsoleCommand
                     $urlToCount[$url],
                     $post->isRemoved,
                     $post->isNoindex,
+                    $post->authorId,
+                    $post->uniqueIndex,
                 );
             }
         }

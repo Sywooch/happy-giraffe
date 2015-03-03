@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="w-contest-commentator"><a href="javascript:void(0)" onclick="var div = this; $.post('/ajax/setUserAttribute/', {key: '<?=$this->getAttributeKey()?>', value: '1'}, function() {$(div).hide();});" class="w-contest-commentator_close">Скрыть</a>
+<div class="w-contest-commentator"><a href="javascript:void(0)" onclick="var link = this; $.post('/ajax/setUserAttribute/', {key: '<?=$this->getAttributeKey()?>', value: '1'}, function() {$(link).parent().hide();});" class="w-contest-commentator_close">Скрыть</a>
     <div class="w-contest-commentator_date"><?=Yii::app()->dateFormatter->format('d MMMM', $contest->startDate)?> - <?=Yii::app()->dateFormatter->format('d MMMM', $contest->endDate)?></div>
     <h2 class="w-contest-commentator_t">Лучший комментатор</h2>
     <div class="w-contest-commentator_t-sub">Лидеры конкурса</div>

@@ -78,7 +78,7 @@ class SeoTempCommand extends CConsoleCommand
         do {
             $page++;
             $mr = 10000;
-            $si = ($page - 1) * $mr;
+            $si = ($page - 1) * $mr + 1;
             $response = $this->getReport(array(
                 'metrics' => 'ga:organicSearches',
                 'dimensions' => 'ga:pagePath',

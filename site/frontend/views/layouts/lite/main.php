@@ -4,7 +4,13 @@
  */
 $this->beginContent('//layouts/lite/common');
 ?>
-<div class="layout-loose_hold clearfix">
+<div class="layout-header">
+    <?php if (Yii::app()->user->isGuest): ?>
+        <?php $this->renderPartial('//_header_guest'); ?>
+    <?php  else: ?>
+        <?php $this->renderDynamic(array($this, 'renderPartial'), '//_menu', null, true); ?>
+    <?php endif; ?>
+</div>
 <!-- b-main -->
 <div class="b-main clearfix">
     <?php if (!Yii::app()->user->isGuest && !($this instanceof LiteController && $this->hideUserAdd)): ?>
@@ -86,5 +92,4 @@ $this->beginContent('//layouts/lite/common');
 </div>
 <!-- /layout-footer-->
 <?php endif; ?>
-</div>
 <?php $this->endContent(); ?>

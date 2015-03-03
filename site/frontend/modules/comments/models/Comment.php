@@ -54,7 +54,7 @@ class Comment extends \Comment implements \IHToJSON
 
     public function getSpecialistLabel()
     {
-        return ($this->entity == 'CommunityContent' && $this->commentEntity->type_id == \CommunityContentType::TYPE_QUESTION && ($specialist = $this->author->getSpecialist($this->commentEntity->rubric->community_id)) !== null) ? mb_strtolower($specialist->title, 'UTF-8') : null;
+        return ($this->entity == 'CommunityContent' && $this->commentEntity !== null && $this->commentEntity->type_id == \CommunityContentType::TYPE_QUESTION && ($specialist = $this->author->getSpecialist($this->commentEntity->rubric->community_id)) !== null) ? mb_strtolower($specialist->title, 'UTF-8') : null;
     }
 
     public function getLikesCount()
@@ -234,7 +234,6 @@ class Comment extends \Comment implements \IHToJSON
 
         return $model['entity'] . '_' . $model['entityId'];
     }
-
 }
 
 ?>

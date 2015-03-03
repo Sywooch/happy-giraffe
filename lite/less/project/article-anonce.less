@@ -3,7 +3,7 @@
 .article-anonce {
     position: relative;
     display: block;
-    margin: 20px 0;
+    margin: 0;
     text-align: left;
 
     .ico-ovrPlay__s {
@@ -73,10 +73,10 @@
     }
     &__s &_bottom {
         border-width: 0;
-        padding: 10px 0;
+        padding: 2px 0 10px;
     }
 
-    &__green  &_hold {border-color: #52b547;}
+    /*&__green  &_hold {border-color: #52b547;}
     &__green  &_tag  {background-color: #52b547;}
     &__blue   &_hold {border-color: #47aef3;}
     &__blue   &_tag  {background-color: #47aef3;}
@@ -84,8 +84,28 @@
     &__lilac  &_tag  {background-color: #8970b4;}
     &__red    &_hold {border-color: #ff8232;}
     &__red    &_tag  {background-color: #ff8232;}
-    &__yellow &_hold {border-color: #facf32;}
-    &__yellow &_tag  {background-color: #facf32;}
+    &__yellow &_hold {border-color: #f3cf0a;}
+    &__yellow &_tag  {background-color: #f3cf0a;}*/
+    /*
+    1 Беременность и дети
+    2 Наш дом 
+    3 Красота и здоровье 
+    4 Муж и жена
+    5 Интересы и увлечения
+    6 Семейный отдых
+    */
+    &__color-1 &_hold {border-color: #4fa5e0;}
+    &__color-1 &_tag  {background-color: #4fa5e0;}
+    &__color-2 &_hold {border-color: #ff8232;}
+    &__color-2 &_tag  {background-color: #ff8232;}
+    &__color-3 &_hold {border-color: #f3cf0a;}
+    &__color-3 &_tag  {background-color: #f3cf0a;}
+    &__color-4 &_hold {border-color: #8970b4;}
+    &__color-4 &_tag  {background-color: #8970b4;}
+    &__color-5 &_hold {border-color: #5bbb50;}
+    &__color-5 &_tag  {background-color: #5bbb50;}
+    &__color-6 &_hold {border-color: #8970b4;}
+    &__color-6 &_tag  {background-color: #8970b4;}
     
     &_top {
         position: relative;
@@ -195,11 +215,18 @@
     }
 
     /* __ico*/
-    &__ico&__green  &_hold {background-color: #52b547;}
+    /*&__ico&__green  &_hold {background-color: #52b547;}
     &__ico&__blue   &_hold {background-color: #47aef3;}
     &__ico&__lilac  &_hold {background-color: #8970b4;}
     &__ico&__red    &_hold {background-color: #ff8232;}
-    &__ico&__yellow &_hold {background-color: #facf32;}
+    &__ico&__yellow &_hold {background-color: #facf32;}*/
+
+    &__ico&__color-1 &_hold  {background-color: #4fa5e0;}
+    &__ico&__color-2 &_hold  {background-color: #ff8232;}
+    &__ico&__color-3 &_hold  {background-color: #f3cf0a;}
+    &__ico&__color-4 &_hold  {background-color: #8970b4;}
+    &__ico&__color-5 &_hold  {background-color: #5bbb50;}
+    &__ico&__color-6 &_hold  {background-color: #8970b4;}
 
     &__ico &_img {width: auto;}
     &__ico &_tag {

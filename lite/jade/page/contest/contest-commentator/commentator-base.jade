@@ -1,0 +1,59 @@
+include ../../../block/config
+extend ../../../extend/layout_header_empty
+block vars
+    - var bodyClass = 'body__lite body__contest-commentator';
+    - global.cssFile = 'contest-commentator.css'; 
+
+    if (debug)
+        - googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
+
+    - global.headItem = googlefont
+
+block layout
+
+    .contest
+        a.i-giraffe-back(href='#')
+        .contest-commentator
+
+            +contestCommentatorHeader('', contestCommentatorHeader.base)
+                        
+            // описание конкурса
+            .contest-commentator-desc
+                .contest-commentator-desc_hold
+                    h3.contest-commentator-desc_t Что нужно для участия?
+                    .contest-commentator-desc_tx Все очень просто! Добавляйте комментарии к тому, что вам нравится и отвечайте на комментарии других.
+                    h3.contest-commentator-desc_t Как стать лидером?
+                    .contest-commentator-desc_tx Для того чтобы стать лидером нужно написать много интересных и полезных комментариев.
+                    a.contest-commentator-desc_a(href='#') Полные правила и рекомендации
+                .contest-commentator-desc_btn-hold 
+                    a.btn.btn-xxxl.contest-commentator_btn-orange(href='#') Принять участие!
+            // описание конкурса
+
+            // призы
+            .contest-commentator-prize
+                h2.contest-commentator_t Призы победителям!
+                .contest-commentator-prize_img
+                    img(src="#{path}images/contest/commentator/contest-commentator-prize_img.jpg", alt="")
+                .contest-commentator-prize_sub 
+                    | Лучшим 10 комментаторам зачисляется 
+                    br
+                    | 1000 рублей на мобильный телефон!
+                .contest-commentator-prize_btn-hold
+                    a.btn.btn-xxxl.contest-commentator_btn-orange(href='#') Хочу приз!
+
+            // призы
+
+            // комментарии
+            .contest-commentator-list
+                .contest-commentator_t
+                    | Последние комментарии
+                    // active добавлять для отображения загрузки, по умолчанию без этого класса
+                    a.contest-commentator-list_load.active(href='#') 
+                .contest-commentator-list_hold
+                    +contestCommentatorComments('', contestCommentatorComments.base)
+            // /комментарии
+            
+            +contestCommentatorRating('contest-commentator-rating__main', contestCommentatorRating.main)
+           
+
+        +layout-footer-lite()

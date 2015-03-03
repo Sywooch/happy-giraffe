@@ -52,4 +52,10 @@ define(["jquery", "knockout"], function ($, ko) {
     $('user-settings').each(componentIterator);
     ko.components.register('community-add', { require: 'community-add/community-add' });
     $('community-add').each(componentIterator);
+    ko.components.register('ads-toggle', { require: 'ads-toggle/ads-toggle' });
+    $('ads-toggle').each(componentIterator);
+    ko.components.register('contest-comments', { require: 'contests/contest-comments/contest-comments' });
+    $('contest-comments').each(componentIterator);
+    ko.components.register('contest-rating', { require: 'contests/contest-rating/contest-rating' });
+    $('contest-rating').each(componentIterator);
 });

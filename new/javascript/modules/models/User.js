@@ -33,6 +33,25 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/helpers', 'extens
             }
         },
         /**
+         * создания пака из массива с id пользователей
+         * @param  {Array} array Массив с id пользователей
+         * @return {Array}       Массив с объектами типа { id: number }
+         */
+        createPackList: function createPackList(array) {
+            if (array.length > 0) {
+                var i;
+                /**
+                 * Добавляем автора к пользователям
+                 */
+                for (i = 0; i < array.length; i++) {
+                    array[i] = { id: array[i] };
+                }
+
+                return array;
+            }
+            return false;
+        },
+        /**
          * Get User
          * @param avatarSize
          * @returns {$.ajax}

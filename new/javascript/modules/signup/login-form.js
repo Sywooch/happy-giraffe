@@ -3,7 +3,7 @@ define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'sig
         this.submitUrl = '/api/signup/login/';
         this.redirectUrl = '/';
         this.fields = {
-            email: new FormField(this, ''),
+            email: new FormField(this, this.email || ''),
             password: new FormField(this, ''),
             rememberMe: new FormField(this, false)
         };
@@ -45,7 +45,7 @@ define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'sig
     }
     LoginForm.prototype = Object.create(Form);
 
-    LoginForm.prototype.open = function open() {
+    LoginForm.prototype.open = function open(email) {
         $.magnificPopup.open({
             items: {
                 src: customReturner('login-form'),
@@ -64,6 +64,9 @@ define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'sig
                 }
             }
         });
+        if (email) {
+            this.email = email;
+        }
         ko.applyBindings({}, $('login-form')[0]);
     };
 

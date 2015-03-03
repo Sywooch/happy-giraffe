@@ -33,25 +33,25 @@ $this->pageTitle = 'Лучший комментатор - Правила';
                     <li class="comments_li comments_li__blue">
                         <div class="comments_i clearfix">
                             <div class="comments_ava">
-                                <!-- ava--><a href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                                <!-- ava--><a href="http://www.happy-giraffe.ru/user/264378/" class="ava"><img alt="" src="http://img.happy-giraffe.ru/v2/crops/avatarMedium/dd/a7/1878659de374ee67273e67b83cb8.jpg" class="ava_img"></a>
                             </div>
                             <div class="comments_frame">
-                                <div class="comments_header"><a href="#" rel="author" class="a-light comments_author"> Иванна Хлебникова</a>
+                                <div class="comments_header"><a href="http://www.happy-giraffe.ru/user/264378/" rel="author" class="a-light comments_author">Кристина Ткаченко</a>
                                     <time datetime="2012-12-23" class="tx-date">2 минуты назад</time>
                                 </div>
                                 <div class="comments_cont">
                                     <div class="wysiwyg-content">
-                                        <p> ​Кошка просто прелесть! Интересно, в чем ее секрет долголетия? Хотелось бы, чтоб хозяйка дола подробнее интервью. У моей сестры Джонику - сиамскому коту, уже 16 лет, хотелось бы чтоб он прожил еще много и много лет!</p>
+                                        <p>Ну ты прям прелесть. Такой кругленький пупсик))) Осталось и в правду совсем малость. Как все ж быстро летят недельки)) А чего мужчинкам своим дарила? Как в целом себя чувствуешь? Уже наверно тяжело долго ходить?</p>
                                     </div>
                                 </div>
                                 <div class="from-article-s clearfix">
                                     <div class="from-article-s_ava">
-                                        <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                                        <!-- ava--><a href="http://www.happy-giraffe.ru/user/246395/" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/v2/crops/avatarMedium/44/d5/ba3f55a8b4dde7f7f568177f9e44.jpg" class="ava_img"></a>
                                     </div>
                                     <div class="from-article-s_hold">
-                                        <div class="from-article-s_head"><a href="#" class="a-light">Ангелина Богоявленская</a>
+                                        <div class="from-article-s_head"><a href="http://www.happy-giraffe.ru/user/246395/" class="a-light">Мария Алексеева</a>
                                             <time datetime="2012-12-23" class="tx-date">2 минуты назад</time>
-                                        </div><a href="#" class="from-article-s_t">Я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически</a>
+                                        </div><a href="http://www.happy-giraffe.ru/user/246395/blog/post241539/" class="from-article-s_t">♥23-24 февраля♥</a>
                                     </div>
                                 </div>
                             </div>

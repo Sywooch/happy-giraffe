@@ -59,6 +59,9 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
 
     public function top()
     {
+        $this->getDbCriteria()->join .= ' LEFT OUTER JOIN newauth__assignments a ON a.itemname = "moderator" AND a.userId = ' . $this->tableAlias . '.userId';
+        $this->getDbCriteria()->addCondition('a.itemname IS NULL');
+        $this->getDbCriteria()->addCondition($this->tableAlias . '.score != 0');
         $this->getDbCriteria()->order = $this->tableAlias . '.place ASC';
         return $this;
     }

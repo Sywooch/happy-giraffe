@@ -82,7 +82,7 @@ class SeoTempCommand extends CConsoleCommand
             $response = $this->getReport(array(
                 'metrics' => 'ga:organicSearches',
                 'dimensions' => 'ga:pagePath',
-                'filters' => 'ga:pagePath=~^/community/\d+/forum/\w+/(\d+)/$',
+                'filters' => 'ga:pagePath=~' . urlencode('^/community/\d+/forum/\w+/(\d+)/$'),
                 'max-results' => $mr,
                 'start-index' => $si,
             ));

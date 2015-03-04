@@ -7,7 +7,6 @@ $cs = Yii::app()->clientScript;
 $cs->registerAMD('contestCommentsIndex', array('kow'));
 ?>
 <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\ParticipantWidget', array(
-    'userId' => Yii::app()->user->id,
     'contestId' => $this->contest->id,
 ));
 ?>

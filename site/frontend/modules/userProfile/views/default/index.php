@@ -18,8 +18,12 @@ $this->breadcrumbs[] = $this->widget('Avatar', array(
         <!--/////     -->
         <!-- Основная колонка-->
         <div class="b-main_col-article">
-            <?php if ($dataProvider->totalItemCount > 0): ?>
             <div class="heading-sm">Моя активность</div>
+            <?php $contestWidget = $this->widget('site\frontend\modules\comments\modules\contest\widgets\ProfileWidget', array(
+                'userId' => $user->id,
+            )); ?>
+
+            <?php if ($dataProvider->totalItemCount > 0): ?>
                 <?php
                 $this->widget('LiteListView', array(
                     'dataProvider' => $dataProvider,
@@ -39,9 +43,8 @@ $this->breadcrumbs[] = $this->widget('Avatar', array(
                     ),
                 ));
                 ?>
-            <?php else: ?>
+            <?php elseif ($contestWidget->participant === null): ?>
                 <?php if ($user->id == Yii::app()->user->id): ?>
-                    <div class="heading-sm">Моя активность</div>
                     <div class="profile-cap_hold profile-cap_hold__article">
                         <div class="profile-cap_tx">У вас пока нет активности на сайте, поделитесь чем-нибудь интересным с пользователями Веселого Жирафа.<br><a href="<?= $this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_POST, 'useAMD' => true)) ?>" class="fancy">Добавить запись</a></div>
                     </div>

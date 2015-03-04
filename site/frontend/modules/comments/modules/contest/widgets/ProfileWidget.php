@@ -13,25 +13,21 @@ use site\frontend\modules\comments\modules\contest\models\CommentatorsContestPar
 class ProfileWidget extends \CWidget
 {
     public $userId;
+    public $contest;
+    public $participant;
 
-    public function run()
+    public function init()
     {
-        if (\UserAttributes::get(\Yii::app()->user->id, $this->getAttributeKey(), 0) == 1) {
-            return;
-        }
-
-        $contest = CommentatorsContest::model()->active()->find();
-        $participant = CommentatorsContestParticipant::model()->contest($contest->id)->user($this->userId)->find();
-        $leaders = CommentatorsContestParticipant::model()->contest($contest->id)->top()->findAll(array(
-            'limit' => 5,
-        ));
-        if ($participant !== null) {
-            $this->render('ProfileWidget', compact('contest', 'participant', 'leaders'));
+        $this->contest = CommentatorsContest::model()->active()->find();
+        if ($this->contest) {
+            $this->participant = CommentatorsContestParticipant::model()->contest($this->contest->id)->user($this->userId)->find();
         }
     }
 
-    public function getAttributeKey()
+    public function run()
     {
-        return 'ProfileWidget.hide';
+        if ($this->participant !== null) {
+            $this->render('ProfileWidget');
+        }
     }
 }

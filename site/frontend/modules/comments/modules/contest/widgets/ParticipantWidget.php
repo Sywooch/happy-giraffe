@@ -10,16 +10,17 @@ use site\frontend\modules\comments\modules\contest\models\CommentatorsContestPar
 class ParticipantWidget extends \CWidget
 {
     public $contestId;
+    public $participant;
+
+    public function init()
+    {
+        $this->participant = CommentatorsContestParticipant::model()->contest($this->contestId)->user(\Yii::app()->user->id)->find();
+    }
 
     public function run()
     {
-        if (\Yii::app()->user->isGuest) {
-            return;
-        }
-
-        $participant = CommentatorsContestParticipant::model()->contest($this->contestId)->user(\Yii::app()->user->id)->find();
-        if ($participant !== null) {
-            $this->render('ParticipantWidget', compact('participant'));
+        if (! \Yii::app()->user->isGuest && $this->participant !== null) {
+            $this->render('ParticipantWidget');
         }
     }
 }

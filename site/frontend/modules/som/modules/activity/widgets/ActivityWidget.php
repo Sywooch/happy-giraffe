@@ -22,6 +22,7 @@ class ActivityWidget extends \CWidget
         'photo' => array('photo', 'article', array('добавила фотографии', 'добавил фотографии')),
         'photoPost' => array('photopost', 'article', array('добавила фотопост', 'добавил фотопост')),
         'post' => array('article', 'article', array('добавила статью', 'добавил статью')),
+        'advPost' => array('article', 'article', array('добавила статью', 'добавил статью')),
         'question' => array('article', 'article', array('добавила статью', 'добавил статью')),
         'status' => array('status', 'status', array('добавила статус', 'добавил статус')),
         'videoPost' => array('video', 'article', array('добавила видео', 'добавил видео')),

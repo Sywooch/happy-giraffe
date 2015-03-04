@@ -17,6 +17,31 @@ class DefaultController extends \LiteController
     public $bodyClass = 'body__contest-commentator';
     public $contest;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'actions' => array('my'),
+                'users' => array('?'),
+            ),
+            array('allow',
+                'actions' => array('counts'),
+                'roles' => array('moderator'),
+            ),
+            array('deny',
+                'actions' => array('counts'),
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function actionIndex($contestId)
     {
         $this->loadContest($contestId);
@@ -39,6 +64,11 @@ class DefaultController extends \LiteController
     {
         $this->loadContest($contestId);
         $this->render('/my');
+    }
+
+    public function actionCounts($contestId)
+    {
+        echo CommentatorsContestParticipant::model()->contest($contestId)->count();
     }
 
     protected function loadContest($contestId)

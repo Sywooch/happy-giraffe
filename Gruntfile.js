@@ -473,10 +473,9 @@ module.exports = function(grunt){
           'lite/html/page/sign/**/*.html',
           'lite/html/page/member/**/*.html',
           'lite/html/page/photo-window/**/*.html',
-          'lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
-
           '!lite/html/page/**/*-user.html', // стариницы зареганого пользователя
           '!lite/html/page/comments/comments-page.html',
+          'lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
         ],
         dest: 'lite/css/min/member.css'
       },

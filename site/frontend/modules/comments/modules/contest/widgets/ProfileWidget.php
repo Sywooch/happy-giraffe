@@ -22,9 +22,6 @@ class ProfileWidget extends \CWidget
 
         $contest = CommentatorsContest::model()->active()->find();
         $participant = CommentatorsContestParticipant::model()->contest($contest->id)->user($this->userId)->find();
-        $leaders = CommentatorsContestParticipant::model()->contest($contest->id)->top()->findAll(array(
-            'limit' => 5,
-        ));
         if ($participant !== null) {
             $this->render('ProfileWidget', compact('contest', 'participant', 'leaders'));
         }

@@ -19,7 +19,7 @@
                             array(
                                 'label' => 'Правила',
                                 'url' => array('/comments/contest/default/rules', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
+                                'linkOptions' => array('class' => 'btn btn-xm btn-link'),
                             ),
                             array(
                                 'label' => 'О конкурсе',
@@ -34,7 +34,7 @@
                             array(
                                 'label' => 'Моя лента',
                                 'url' => array('/comments/contest/default/my', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
+                                'linkOptions' => array('class' => 'btn btn-xm btn-link'),
                                 'visible' => ! Yii::app()->user->isGuest && $this->contest->isRegistered(Yii::app()->user->id),
                             ),
                         ),

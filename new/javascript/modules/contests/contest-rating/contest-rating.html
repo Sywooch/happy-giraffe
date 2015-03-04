@@ -1,0 +1,37 @@
+<!-- рейтинг-->
+<!-- .contest-commentator-rating__main-->
+<div class="contest-commentator-rating" data-bind="css: { 'contest-commentator-rating__main': main === true } ">
+  <div class="contest-commentator-rating_hold">
+    <h2 class="contest-commentator_t"> <span class="contest-commentator-rating_ico-cap"></span>Лидеры конкурса
+    </h2>
+    <!-- ko if: contestants().length > 0 -->
+    <ul class="contest-commentator-rating_ul" data-bind="foreach: contestants">
+      <li class="contest-commentator-rating_li">
+        <div class="contest-commentator-rating_place" data-bind="css: { 'contest-commentator-rating_place__big': $parent.contest.ratingOffset === null || $parent.contest.ratingOffset === 0 }, text: $index() + 1">
+        </div>
+        <div class="contest-commentator-rating_user">
+            <a href="" class="contest-commentator-rating_user-a" data-bind="href: user.profileUrl">
+            <!-- ava-->
+                <span href="#" class="ava">
+                    <img alt="" src="" class="ava_img"  data-bind="src: user.avatarUrl">
+                </span>
+            </a>
+                <a href="" class="contest-commentator-rating_name" data-bind="href: user.profileUrl"><span data-bind="text: user.fullName"></span></a>
+        </div>
+            <div class="contest-commentator-rating_count">
+              <div class="contest-commentator-rating_buble"></div><span data-bind="text: score"></span>
+            </div>
+      </li>
+    </ul>
+    <!-- /ko -->
+  </div>
+  <!-- ko if: main === true -->
+  <div class="contest-commentator-rating_btn-hold"><a href="rating/" class="btn btn-xl contest-commentator-rating_btn">Смотреть весь рейтинг</a></div>
+  <!-- /ko -->
+  <!-- ko ifnot: main === true  -->
+      <!-- ko if: contestants().length > 0 && overload() === false -->
+          <div class="contest-commentator_more"><a href="#" class="a-pseudo tx-content" data-bind="click: loadMore">Показать еще <span data-bind="text: loadingCount"></span></a></div>
+      <!-- /ko -->
+  <!-- /ko -->
+</div>
+<!-- /рейтинг-->

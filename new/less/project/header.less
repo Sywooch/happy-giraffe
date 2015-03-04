@@ -1,8 +1,8 @@
 
-/* 
-    logo 
+/*
+    logo
     Главное лого сайта
-    
+
     logo __small
         logo_i
         logo_slogan
@@ -12,7 +12,7 @@
     margin: 0 auto;
     padding: 0;
     overflow: hidden;
-    
+
     &__small &_i {
         width: 65px;
         height: 60px;
@@ -41,7 +41,7 @@
     margin-left: -4px;
 }
 
-/* 
+/*
     Ссылки логина и регастрации в шапке у незарегестрированного пользователя
     header-login
         &_a
@@ -62,8 +62,8 @@
 }
 /* /header-login */
 
-/* 
-    header 
+/*
+    header
     Главная шапка сайта
 
     header  __small     __base
@@ -78,11 +78,11 @@
     position: relative;
     background:#fff url('@{path-img}/header.png') repeat-x 0 0;
     z-index: 10;
-    
+
     &__small &_hold {padding: 10px 0 10px;}
     // desktop размер
     &__base {
-        
+
         .header-menu_li__dropin.active .header-menu_ico,
         .header-menu_li__dropin:hover .header-menu_ico {top: 0;}
         /*
@@ -132,14 +132,14 @@
 }
 /* /header */
 
-/* 
+/*
     header-menu
     меню в шапке
-    
+
     header-menu
         header-menu_ul
             header-menu_li  active
-                header-menu_a 
+                header-menu_a
                     header-menu_ico
                     header-menu_tx
 */
@@ -148,7 +148,7 @@
     margin: 5px 20px 0 0;
     /*width: 700px;
     text-align: right;*/
-    
+
     .ava {
         float: none;
         .inline-block();
@@ -230,6 +230,7 @@
     &_ico__favorite  {background-position: -550px 0;}
     &_ico__settings  {background-position: -600px 0;}
     &_ico__logout    {background-position: -650px 0;}
+    &_ico__contest   {background-position: -700px 0;}
 
     &_ico__profile .ava {
         position: absolute;
@@ -259,7 +260,7 @@
 }
 
 
-/* header-drop 
+/* header-drop
     Выпадающий попап в верхнем меню
     header-drop
         <header-menu>
@@ -314,7 +315,7 @@
 /* /header-drop */
 
 
-/* header-fix 
+/* header-fix
     Фиксировання шапка
     header-fix  __rel
         header-fix_hold
@@ -335,7 +336,7 @@
     background: #fff;
     .box-shadow(0 0 3px rgba(0,0,0,0.15));
     z-index: 700;
-    
+
     &__rel {
         position: relative;
         display: block;
@@ -401,12 +402,12 @@
             display: none !important;
         }
     }
-    
+
 }
 /* /header-fix */
 
 
-/* .header-fix-menu 
+/* .header-fix-menu
     Меню в фиксированной шапке
     header-fix-menu
         header-fix-menu_ul
@@ -420,7 +421,7 @@
     width: 60%;
     margin: 0 auto;
     text-align: right;
-    
+
     /*@media screen and (min-width: 630px) {
         & {width: 66%;}
     }*/
@@ -436,7 +437,7 @@
         text-align: center;
         vertical-align: middle;
     }
-    
+
     &_a {
         display: block;
         text-decoration: none;

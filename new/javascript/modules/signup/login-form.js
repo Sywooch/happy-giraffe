@@ -1,7 +1,6 @@
 define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner', 'eauth'], function($, ko, template, Form, FormField, Model, customReturner) {
     function LoginForm() {
         this.submitUrl = '/api/signup/login/';
-        this.redirectUrl = '/';
         this.fields = {
             email: new FormField(this, this.email || ''),
             password: new FormField(this, ''),
@@ -27,7 +26,7 @@ define(['jquery', 'knockout', 'text!signup/login-form.html', 'signup/form', 'sig
                 this.fields[attribute].isFilled(true);
             }
             if (response.success) {
-                document.location.href = this.redirectUrl;
+                document.location.href = response.data.returnUrl;
             } else {
                 this.fillErrors(response.data.errors);
             }

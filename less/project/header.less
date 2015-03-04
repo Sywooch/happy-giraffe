@@ -1,5 +1,5 @@
 /*
-    Блок в шапке зазывающий на регистрацию. 
+    Блок в шапке зазывающий на регистрацию.
     Заменен на баннер
 .b-join {
     margin: 0 0 0 20px;
@@ -96,7 +96,7 @@
     margin-left: -4px;
 }
 
-/* 
+/*
     Ссылки логина и регастрации в шапке у незарегестрированного пользователя
     header-login
         &_a
@@ -122,7 +122,7 @@
     position: absolute;
     top: 25px;
     right: 35px;
-    
+
     /*@media (min-width: @screen-desktop) {
         display: block;
     }*/
@@ -146,7 +146,7 @@
 .layout-header {
    position:relative;
    z-index: 10;
-   
+
     &__nologin {}
     &__nologin &_scrolltop {
         float: right;
@@ -188,10 +188,10 @@
 
 
 
-/* 
-    logo 
+/*
+    logo
     Главное лого сайта
-    
+
     logo __small
         logo_i
         logo_slogan
@@ -227,8 +227,8 @@
 }
 /* /logo */
 
-/* 
-    header 
+/*
+    header
     Главная шапка сайта
 
     header  __small     __base
@@ -239,22 +239,22 @@
                 header_user-name
             header_i-arrow
 */
-.header {    
+.header {
     position: relative;
     z-index: 10;
     margin: 0 0 20px;
     background:#fff url(/new/images/header.png) repeat-x 0 0;
-    
+
     &__small &_hold {padding: 10px 0 10px;}
     // desktop размер
     &__base {
-        
+
         .header-menu_li__dropin.active .header-menu_ico,
         .header-menu_li__dropin:hover .header-menu_ico {top: 0;}
         /*.header-menu_li__dropin.active .header-menu_tx,
         .header-menu_li__dropin:hover .header-menu_tx {color: #acacac;}*/
     }
-    
+
     &__guest .logo {
         float: none;
         display: inline-block;
@@ -267,7 +267,7 @@
     &__guest .sidebar-search {
         display: inline-block;
         vertical-align: top;
-        width: 45%;
+        width: 35%;
         margin: 30px 0 0 30px;
     }
     &__kinder-gold .sidebar-search {
@@ -316,21 +316,21 @@
 }
 /* /header */
 
-/* 
+/*
     header-menu
     меню в шапке
-    
+
     header-menu
         header-menu_ul
             header-menu_li  active
-                header-menu_a 
+                header-menu_a
                     header-menu_ico
                     header-menu_tx
 */
 .header-menu {
     float: right;
     margin: 5px 20px 0 0;
-    
+
     .ava {
         float: none;
         .inline-block();
@@ -343,7 +343,7 @@
         margin: 0 11px;
         text-align: center;
     }
-    
+
     &_li.active .header-popup {display: block;}
     &_li__dropin &_a:hover &_ico,
     &_li__dropin &_li.active &_ico,
@@ -389,7 +389,7 @@
     }
     &_li__dropin.active &_a:hover &_tx,
     &_li__dropin.active .active &_tx {color: @color-orange;}
-    
+
     // kinder реклама
     /*&_li__kinderino,
     &_li__kindergold {
@@ -404,12 +404,12 @@
     }
     &_kindergold {
         width: 78px;
-        height: 74px; 
+        height: 74px;
         background: url('/lite/images/header-menu_kindergold.jpg') no-repeat 0 0;
     }
     &_kinderino {
         width: 78px;
-        height: 97px; 
+        height: 97px;
         background: url('/lite/images/header-menu_kinderino.jpg') no-repeat 50% 50%;
     }*/
     // kinder реклама
@@ -449,6 +449,7 @@
     &_ico__favorite  {background-position: -550px 0;}
     &_ico__settings  {background-position: -600px 0;}
     &_ico__logout    {background-position: -650px 0;}
+	&_ico__contest   {background-position: -700px 0;}
 
     &_ico__profile .ava {
         position: absolute;
@@ -483,7 +484,7 @@
 }
 
 
-/* header-drop 
+/* header-drop
     Выпадающий попап в верхнем меню
     header-drop
         <header-menu>
@@ -538,7 +539,7 @@
 /* /header-drop */
 
 
-/* club-list 
+/* club-list
     Клубы пользователя
 */
 /*.club-list {
@@ -615,7 +616,7 @@
 /* /club-list */
 
 
-/* header-fix 
+/* header-fix
     Фиксировання шапка
     header-fix  __rel
         header-fix_hold
@@ -636,7 +637,7 @@
     .box-shadow(0 0 3px rgba(0,0,0,0.15));
     z-index: 700;
     height: 50px;
-    
+
     &__rel {
         position: relative;
         display: block;
@@ -707,7 +708,7 @@
 /* /header-fix */
 
 
-/* .header-fix-menu 
+/* .header-fix-menu
     Меню в фиксированной шапке
     header-fix-menu
         header-fix-menu_ul
@@ -737,7 +738,7 @@
         text-align: center;
         vertical-align: middle;
     }
-    
+
     &_a {
         display: block;
         text-decoration: none;
@@ -764,4 +765,3 @@
     }
 }
 /* /header-fix-menu */
-

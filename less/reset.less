@@ -116,11 +116,21 @@ body {
 .body-gray #content,
 .body-gray .layout-content {margin-right: 0;}
 .body {
-	
+
     &__bg2 {
-        background:#544078 url('/lite/images/body__bg/body-circle-candy__dark.png') no-repeat 50% 0;
-        background-attachment: fixed;
+		//    regular bg
+	    /*  background:#544078 url('/lite/images/body__bg/body-circle-candy__dark.png') no-repeat 50% 0;
+	        background-attachment: fixed; */
+	    //spring bg
+	        background:#B1D9F1 url('/lite/images/body__bg/body-on-vesna.png') no-repeat 50% 0;
+	        background-attachment: fixed;
+
     }
+	@media (min-width: 1920px) {
+		&__bg2 {
+			background-size: cover;
+		}
+	}
 }
 /* /reset layout
 ------------------------------------------------------- */

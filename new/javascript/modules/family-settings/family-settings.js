@@ -51,7 +51,7 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
             var attributes = Model.checkFieldsToPass(this.familyMember.memberTypes[this.familyMember.type.value()].fields, this.familyMember);
             this.familyMember.createMember(attributes).done(this.submitMemberHandler.bind(this));
         };
-    };
+    }
 
     function initSelect2() {
         // Измененный tag select
@@ -61,7 +61,7 @@ define(['jquery', 'knockout', 'text!family-settings/family-settings.html', 'mode
             dropdownCssClass: 'select2-drop__search-off',
             escapeMarkup: function(m) { return m; }
         });
-    };
+    }
 
     return {
         viewModel: FamilySettingsViewModel,

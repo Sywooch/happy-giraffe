@@ -17,7 +17,7 @@ class CommentsModule extends \CWebModule
             'class' => '\site\frontend\components\AuthManager',
         ));
         
-        \Yii::app()->clientScript->useAMD = true;
+        //\Yii::app()->clientScript->useAMD = true;
         /** @todo так не делать */
         //\Yii::app()->clientScript->registerCssFile("/lite/css/dev/all.css");
 

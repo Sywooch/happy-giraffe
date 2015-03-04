@@ -6,10 +6,9 @@ $cs->registerAMD('contestCommentsIndex', array('kow'));
 
 <?php
 $this->widget('site\frontend\modules\comments\modules\contest\widgets\ParticipantWidget', array(
-    'userId' => Yii::app()->user->id,
     'contestId' => $this->contest->id,
 ));
 ?>
 
 <!-- призы-->
-<contest-comments params="contestId: <?=$this->contest->id?>, userId: 23, title: 'Моя лента'"></contest-comments>
+<contest-comments params="contestId: <?=$this->contest->id?>, userId: <?=Yii::app()->user->id?>, title: 'Моя лента'"></contest-comments>

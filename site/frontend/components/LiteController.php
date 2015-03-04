@@ -17,6 +17,7 @@ class LiteController extends HController
 
     protected $_metaCanonical = null;
     protected $_metaNavigation = null;
+    public $adaptive = true; // если true, то выводится meta-тег viewport
     public $layout = '//layouts/lite/main';
     public $hideUserAdd = false;
     public $litePackage = false;
@@ -34,11 +35,6 @@ class LiteController extends HController
     {
         if ($this->litePackage)
         {
-            /**
-             * @todo понадобилось из-за того, что при инициализации в CommentsModule значение useAMD устанавливается в true и registerPackage() не работает
-             */
-            \Yii::app()->clientScript->useAMD = false;
-
             $guestPackage = 'lite_' . $this->litePackage;
             $userPackage = 'lite_' . $this->litePackage . '_user';
             // если не гость и если есть отдельный пакет для пользователя, то подключаем его, иначе - общий.

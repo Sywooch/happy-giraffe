@@ -6,6 +6,9 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
         this.loadingCount = 10;
         this.contestants = ko.observableArray([]);
         this.overload = ko.observable(false);
+        if (!this.main) {
+            this.contest.ratingLimit = this.loadingCount;
+        }
         this.mappingContestantsArray = function mappingContestantsArray(object) {
             var contestant = Object.create(Contestant);
             return contestant.init(object);

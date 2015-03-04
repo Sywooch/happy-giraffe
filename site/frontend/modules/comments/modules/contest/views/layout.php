@@ -3,6 +3,7 @@
  * @var site\frontend\modules\comments\modules\contest\controllers\DefaultController $this
  * @var string $content
  */
+$this->adaptive = false;
 ?>
 
 <?php $this->beginContent('//layouts/lite/common'); ?>
@@ -27,7 +28,7 @@
                                 'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
                             ),
                             array(
-                                'label' => 'Лидеры',
+                                'label' => 'Рейтинг',
                                 'url' => array('/comments/contest/default/rating', 'contestId' => $this->contest->id),
                                 'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
                             ),

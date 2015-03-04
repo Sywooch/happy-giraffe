@@ -18,6 +18,7 @@ $user = Yii::app()->user->model;
             <li class="header-menu_li"><a href="<?=$this->createUrl('/photo/default/index', array('userId' => $user->id))?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
             <li class="header-menu_li"><a href="<?=$this->createUrl('/favourites/default/index')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
             <li class="header-menu_li"><a href="<?=$this->createUrl('/users/default/settings')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+            <li class="header-menu_li"><a href="<?=$this->createUrl('/comments/contest/default/index', array('contestId' => 1))?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__contest"></span><span class="header-menu_tx">Конкурс</span></a></li>
             <li class="header-menu_li"><a href="<?=Yii::app()->createUrl('/site/logout')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
         </ul>
     </div>

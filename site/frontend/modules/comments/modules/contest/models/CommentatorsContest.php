@@ -57,7 +57,7 @@ class CommentatorsContest extends \HActiveRecord
 
     public function updatePositions()
     {
-        $participants = CommentatorsContestParticipant::model()->contest($this->id)->findAll(array(
+        $participants = CommentatorsContestParticipant::model()->contest($this->id)->noModers()->findAll(array(
             'order' => 'score DESC',
         ));
         foreach ($participants as $i => $p) {

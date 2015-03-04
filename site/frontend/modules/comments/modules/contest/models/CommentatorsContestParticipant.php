@@ -59,6 +59,7 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
 
     public function top()
     {
+        $this->getDbCriteria()->addCondition($this->tableAlias . '.score != 0');
         $this->getDbCriteria()->order = $this->tableAlias . '.place ASC';
         return $this;
     }

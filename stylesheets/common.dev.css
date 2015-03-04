@@ -8079,13 +8079,13 @@ textarea.error,
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   .header-menu_ico {
     background-image: url("/new/images/header-menu_ico-2x.png");
-    background-size: 700px 95px;
+    background-size: 750px 95px;
   }
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi) {
   .header-menu_ico {
     background-image: url("/new/images/header-menu_ico-2x.png");
-    background-size: 700px 95px;
+    background-size: 750px 95px;
   }
 }
 .header-menu_ico__giraffe {

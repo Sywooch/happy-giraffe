@@ -13,13 +13,21 @@ use site\frontend\modules\comments\modules\contest\models\CommentatorsContestPar
 class ProfileWidget extends \CWidget
 {
     public $userId;
+    public $contest;
+    public $participant;
+
+    public function init()
+    {
+        $this->contest = CommentatorsContest::model()->active()->find();
+        if ($this->contest) {
+            $this->participant = CommentatorsContestParticipant::model()->contest($this->contest->id)->user($this->userId)->find();
+        }
+    }
 
     public function run()
     {
-        $contest = CommentatorsContest::model()->active()->find();
-        $participant = CommentatorsContestParticipant::model()->contest($contest->id)->user($this->userId)->find();
-        if ($participant !== null) {
-            $this->render('ProfileWidget', compact('contest', 'participant', 'leaders'));
+        if ($this->participant !== null) {
+            $this->render('ProfileWidget');
         }
     }
 }

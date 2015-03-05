@@ -76,7 +76,7 @@ class MailQuestionsParser
     protected function makeRequest($url)
     {
         do {
-            $response = @file_get_contents(self::BASE_URL . $url);
+            $response = file_get_contents(self::BASE_URL . $url);
             sleep(10);
         } while($response === false);
         return $response;

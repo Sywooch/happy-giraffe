@@ -32,7 +32,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Contest'], function C
             writable: true
         },
         "commentsLimit": {
-            value: 3,
+            value: 5,
             writable: true
         },
         "commentsOffset": {

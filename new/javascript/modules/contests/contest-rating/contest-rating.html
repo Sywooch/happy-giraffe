@@ -12,7 +12,7 @@
         <div class="contest-commentator-rating_user">
             <a href="" class="contest-commentator-rating_user-a" data-bind="href: user.profileUrl">
             <!-- ava-->
-                <span href="#" class="ava">
+                <span href="#" class="ava" data-bind="css: { 'ava__male': user.gender === 1, 'ava__female': user.gender === 0 }">
                     <img alt="" src="" class="ava_img"  data-bind="src: user.avatarUrl">
                 </span>
             </a>

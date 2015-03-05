@@ -17,7 +17,7 @@ class CommentsHandler
     const EVENT_REMOVE = 2;
     const EVENT_RESTORE = 3;
 
-    const MIN_LENGTH = 60;
+    const MIN_LENGTH = 40;
 
     public static function handle($commentId, $event)
     {
@@ -117,6 +117,6 @@ class CommentsHandler
 
     protected static function counts($text)
     {
-        return strlen(strip_tags($text)) >= self::MIN_LENGTH;
+        return mb_strlen(strip_tags($text), 'UTF-8') >= self::MIN_LENGTH;
     }
 }

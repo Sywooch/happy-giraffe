@@ -59,6 +59,14 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionParseMailRu()
+    {
+        $parser = new MailQuestionsParser();
+        $parser->run();
+
+        $this->writeCsv('questions', $parser->emails);
+    }
+
     public function actionCheckRemoved()
     {
         \Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');

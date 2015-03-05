@@ -51,6 +51,8 @@ class MailQuestionsParser
             $this->processProfile($url);
         }
         $this->processedQuestions[] = $url;
+
+        echo count($this->emails) . "\n";
     }
 
     protected function processProfile($url)

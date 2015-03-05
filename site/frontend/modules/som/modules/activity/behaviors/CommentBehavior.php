@@ -20,35 +20,41 @@ class CommentBehavior extends ActivityBehavior
     );
     protected $_content = null;
 
-    public function attach(\Comment $owner)
+    public function afterSave($event)
     {
-        if (in_array($owner->entity, $this->permittedClasses)) {
-            parent::attach($owner);
+        if (in_array($this->owner->entity, $this->permittedClasses)) {
+            return parent::afterSave($event);
         }
     }
 
     public function getActivityId()
     {
-        return md5($this->owner->originService . '|' . $this->owner->originEntity . '|' . $this->owner->originEntityId);
+        return md5('comments|' . $this->owner->id);
     }
 
     public function getActivityModel()
     {
-        $activity = new Activiy();
+        $activity = new Activity();
         $cover = false;
-        if($this->content->gallery) {
-            $newPhoto = \site\frontend\modules\photo\components\MigrateManager::movePhoto($this->content->gallery->items[0]->photo);
-            $cover = \Yii::app()->thumbs->getThumb($newPhoto, 'smallPostPreview');
+        if ($this->content->gallery) {
+            $gallery = $this->content->gallery->items;
+            $newPhoto = \site\frontend\modules\photo\components\MigrateManager::movePhoto($gallery[0]->photo);
+            $cover = \Yii::app()->thumbs->getThumb($newPhoto, 'smallPostPreview')->url;
         }
         $activity->data = array(
-            'url' => $this->content->url,
-            'text' => $this->owner->preview,
-            'authorId' => $this->content->author_id,
-            'cover' => $cover,
+            'url' => $this->owner->url,
+            'text' => $this->owner->purified->text,
+            'content' => array(
+                'title' => $this->content->title,
+                'url' => $this->content->url,
+                'authorId' => $this->content->author_id,
+                'dtimeCreate' => $this->content->getPubUnixTime(),
+                'cover' => $cover,
+            ),
         );
-        $activity->dtimeCreate = (int) $this->owner->dtimeCreate;
-        $activity->userId = (int) $this->owner->authorId;
-        $activity->typeId = isset($this->owner->templateObject->data['type']) ? $this->owner->templateObject->data['type'] : 'post';
+        $activity->dtimeCreate = (int) $this->owner->getPubUnixTime();
+        $activity->userId = (int) $this->owner->author_id;
+        $activity->typeId = 'comment';
 
         return $activity;
     }

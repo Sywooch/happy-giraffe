@@ -26,7 +26,8 @@ hr,
 
 .layout-header {
     &-contest {
-        display: block;
+		cursor: pointer;
+        display: none;
         text-align: right;
         .btn-link {
             margin: 65px 20px 0 0;
@@ -38,6 +39,7 @@ hr,
 @media (min-width: @screen-desktop) {
     .layout-header {
         &-contest {
+			display: block;
             background: url('/lite/images/contest/commentator/header-contest-part.png') no-repeat;
             height: 150px;
         }

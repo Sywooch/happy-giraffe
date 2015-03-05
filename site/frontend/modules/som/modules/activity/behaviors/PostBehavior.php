@@ -11,41 +11,17 @@ use site\frontend\modules\som\modules\activity\models\api\Activity;
  * 
  * @author Кирилл
  */
-class PostBehavior extends \CActiveRecordBehavior
+class PostBehavior extends ActivityBehavior
 {
-
-    public $isRemoved = null;
-
-    public function attach($owner)
-    {
-        $this->isRemoved = $owner->isRemoved;
-        return parent::attach($owner);
-    }
-
-    public function afterSave($event)
-    {
-        if ($this->isRemoved === $this->owner->isRemoved) {
-            // Ничего не изменилось
-            return;
-        }
-
-        if ($this->owner->isRemoved == 0) {
-            $this->addActivity();
-        }
-
-        if ($this->owner->isRemoved == 1) {
-            $this->delActivity();
-        }
-    }
 
     public function getActivityId()
     {
         return md5($this->owner->originService . '|' . $this->owner->originEntity . '|' . $this->owner->originEntityId);
     }
 
-    public function addActivity()
+    public function getActivityModel()
     {
-        $activity = new Activity();
+        $activity = new Activiy();
         $activity->data = array(
             'title' => $this->owner->title,
             'url' => $this->owner->url,
@@ -54,21 +30,13 @@ class PostBehavior extends \CActiveRecordBehavior
         $activity->dtimeCreate = (int) $this->owner->dtimeCreate;
         $activity->userId = (int) $this->owner->authorId;
         $activity->typeId = isset($this->owner->templateObject->data['type']) ? $this->owner->templateObject->data['type'] : 'post';
-        $activity->hash = $this->getActivityId();
-        try {
-            $activity->save();
-        } catch (Exception $ex) {
-            
-        }
+
+        return $activity;
     }
 
-    public function delActivity()
+    public function getIsRemoved()
     {
-        try {
-            Activity::model()->request('removeByHash', array('hash' => $this->getActivityId()));
-        } catch (\Exception $ex) {
-            
-        }
+        return $this->owner->isRemoved;
     }
-    
+
 }

@@ -21,7 +21,7 @@ class PostBehavior extends ActivityBehavior
 
     public function getActivityModel()
     {
-        $activity = new Activiy();
+        $activity = new Activity();
         $activity->data = array(
             'title' => $this->owner->title,
             'url' => $this->owner->url,

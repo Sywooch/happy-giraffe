@@ -24,7 +24,10 @@ html {
     /*  background:#544078 url('/lite/images/body__bg/body-circle-candy__dark.png') no-repeat 50% 0;
         background-attachment: fixed; */
     //spring bg
-        background:#B1D9F1 url('/lite/images/body__bg/body-on-vesna.png') no-repeat 50% 0;
+/*         background:#B1D9F1 url('/lite/images/body__bg/body-on-vesna.png') no-repeat 50% 0;
+background-attachment: fixed; */
+        //contest background
+        background:#B1D9F1 url('/lite/images/contest/commentator/bg-contest.png') no-repeat 50% 0;
         background-attachment: fixed;
     }
     &__lite {
@@ -68,6 +71,32 @@ html {
         margin: 0 auto 30px;
     }
 }
+
+
+.layout-header {
+    &-contest {
+        cursor: pointer;
+        display: none;
+        text-align: right;
+        .btn-link {
+            margin: 65px 20px 0 0 !important;
+            padding: 0 40px;
+        }
+    }
+}
+
+@media (min-width: @screen-desktop) {
+    .layout-header {
+        &-contest {
+            display: block;
+            background: url('/lite/images/contest/commentator/header-contest-part.png') no-repeat;
+            height: 150px;
+            width: 1000px;
+            margin: 0 auto;
+        }
+    }
+}
+
 
 ////////////////////////////////////////////////////////////////
 // Отдельные элементы

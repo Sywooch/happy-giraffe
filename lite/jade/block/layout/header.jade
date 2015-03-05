@@ -253,6 +253,10 @@ mixin header-drop(mod, vars)
                         span.header-menu_tx Настройки
                 li.header-menu_li
                     a.header-menu_a(href='#')
+                        span.header-menu_ico.header-menu_ico__award
+                        span.header-menu_tx Успехи
+                li.header-menu_li
+                    a.header-menu_a(href='#')
                         span.header-menu_ico.header-menu_ico__logout
                         span.header-menu_tx
         // header-drop_b
@@ -302,6 +306,12 @@ mixin header(mod, vars)
                 ul.header-menu_ul.clearfix
                     li.header-menu_li
                         a.header-menu_a(href='#')
+                            span.header-menu_ico.header-menu_ico__contest
+                            span.header-menu_tx
+                                | Конкурс
+                            span.header-menu_count.blue 423
+                    li.header-menu_li
+                        a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__broadcast
                             span.header-menu_tx
                                 | Прямой эфир
@@ -339,11 +349,6 @@ mixin header(mod, vars)
                                 img(src="#{path}images/banner/header_kinderino-2.gif", alt="Kinder", )
                                 span(onMouseOver="this.style.backgroundPosition='0 -20px'", onMouseOut="this.style.backgroundPosition='0 0'")
 
-                    li.header-menu_li
-                        a.header-menu_a(href='#')
-                            span.header-menu_ico.header-menu_ico__award
-                            span.header-menu_tx
-                                | Успехи
                     li.header-menu_li.header-menu_li__dropin
                         a.header-menu_a(href='#')
                             +ava("ava__middle ava__female", avaVars)

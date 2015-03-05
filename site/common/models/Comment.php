@@ -161,6 +161,9 @@ class Comment extends HActiveRecord
                 'class' => 'site\frontend\modules\rss\behaviors\CommentRssBehavior',
             ),
             'site\frontend\modules\som\modules\activity\behaviors\CommentBehavior',
+            'ContestBehavior' => array(
+                'class' => 'site\frontend\modules\comments\modules\contest\behaviors\ContestBehavior',
+            ),
         );
     }
 
@@ -249,6 +252,7 @@ class Comment extends HActiveRecord
 
         Scoring::commentRemoved($this);
 
+        $this->softDelete->afterSoftDelete();
         return false;
     }
 
@@ -557,5 +561,14 @@ class Comment extends HActiveRecord
 
         return $this;
     }
-    
+
+    public function onAfterSoftDelete()
+    {
+        // заглушка, для того, что бы можно было слушать события от SoftDeleteBehavior
+    }
+
+    public function onAfterSoftRestore()
+    {
+        // заглушка, для того, что бы можно было слушать события от SoftDeleteBehavior
+    }
 }

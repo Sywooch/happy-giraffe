@@ -61,6 +61,12 @@ return array(
         'ads' => array(
             'class' => 'site\frontend\modules\ads\commands\Command',
         ),
+        'commentatorsContest' => array(
+            'class' => 'site\frontend\modules\comments\modules\contest\commands\DefaultCommand',
+        ),
+        'commentatorsContestQueue' => array(
+            'class' => 'site\frontend\modules\comments\modules\contest\commands\QueueCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

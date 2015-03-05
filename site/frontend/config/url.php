@@ -485,6 +485,7 @@ return array(
         
         /* API */
         'api/comments/<_a>' => 'comments/api/<_a>',
+        'api/commentatorsContest/<_a>' => 'comments/contest/api/<_a>',
         'api/status/<_a>' => 'som/status/api/<_a>',
         'api/photopost/<_a>' => 'som/photopost/api/<_a>',
         'api/activity/<_a>' => 'som/activity/api/<_a>',
@@ -495,6 +496,10 @@ return array(
         'status' => 'som/status/default/index',
         'status/<_c>' => 'som/status/<_c>/index',
         'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
+
+
+        'commentatorsContest/<contestId:\d+>' => 'comments/contest/default/index',
+        'commentatorsContest/<contestId:\d+>/<_a>' => 'comments/contest/default/<_a>',
 
         'views' => 'analytics/default/index',
     ),

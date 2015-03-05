@@ -12,6 +12,8 @@ use site\frontend\modules\ads\models\Ad;
 
 class AdsManager extends \CApplicationComponent
 {
+    const DURATION = '+2 day';
+
     public function toggle($preset, $modelPk, $line, $properties)
     {
         $creative = \Yii::app()->getModule('ads')->creativesFactory->create($preset, $modelPk, $properties);
@@ -45,7 +47,9 @@ class AdsManager extends \CApplicationComponent
         ), $lineConfig['size']);
 
 
-        $lica = \Yii::app()->getModule('ads')->dfp->addLica($lineConfig['lineId'], $creative->id);
+        $lica = \Yii::app()->getModule('ads')->dfp->addLica($lineConfig['lineId'], $creative->id, array(
+            'endDateTime' => $this->getEndDateTime(),
+        ));
 
 
 
@@ -62,6 +66,9 @@ class AdsManager extends \CApplicationComponent
     protected function reactivate(Ad $ad)
     {
         \Yii::app()->getModule('ads')->dfp->activateLica($ad->lineId, $ad->creativeId);
+        \Yii::app()->getModule('ads')->dfp->updateLica($ad->lineId, $ad->creativeId, array(
+            'endDateTime' => $this->getEndDateTime(),
+        ));
         $ad->active = 1;
         return $ad->save(true, array('active'));
     }
@@ -71,5 +78,10 @@ class AdsManager extends \CApplicationComponent
         \Yii::app()->getModule('ads')->dfp->deactivateLica($ad->lineId, $ad->creativeId);
         $ad->active = 0;
         return $ad->save(true, array('active'));
+    }
+
+    private function getEndDateTime()
+    {
+        return new \DateTime(self::DURATION);
     }
 }

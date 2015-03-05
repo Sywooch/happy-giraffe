@@ -65,18 +65,21 @@ class DfpHelper extends \CApplicationComponent
     {
         foreach ($options as $option => $value) {
             if (property_exists($creative, $option)) {
+                if ($value instanceof \DateTime) {
+                    $value = \DateTimeUtils::ToDfpDateTime($value);
+                }
                 $creative->$option = $value;
             }
         }
     }
 
-    public function addLica($lineId, $creativeId)
+    public function addLica($lineId, $creativeId, $options)
     {
         $licaService = $this->getService('LineItemCreativeAssociationService');
         $lica = new \LineItemCreativeAssociation();
         $lica->creativeId = $creativeId;
         $lica->lineItemId = $lineId;
-        $lica->endDateTime = \DateTimeUtils::ToDfpDateTime(new \DateTime('+2 day', new \DateTimeZone('Europe/Moscow')));
+        $this->setOptions($lica, $options);
         $licas = array($lica);
         $licas = $licaService->createLineItemCreativeAssociations($licas);
         return $licas[0];
@@ -90,6 +93,16 @@ class DfpHelper extends \CApplicationComponent
     public function deactivateLica($lineId, $creativeId)
     {
         $this->updateLicaStatus($lineId, $creativeId, self::LICA_DEACTIVATE);
+    }
+
+    public function updateLica($lineId, $creativeId, $options)
+    {
+        $licaService = $this->user->GetService('LineItemCreativeAssociationService', 'v201411');
+        $statementBuilder = $this->prepareLicaStatement($lineId, $creativeId);
+        $page = $licaService->getLineItemCreativeAssociationsByStatement($statementBuilder->ToStatement());
+        $lica = $page->results[0];
+        $this->setOptions($lica, $options);
+        $licaService->updateLineItemCreativeAssociations(array($lica));
     }
 
     protected function updateLicaStatus($lineId, $creativeId, $action)

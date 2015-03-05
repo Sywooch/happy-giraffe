@@ -6,7 +6,9 @@
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php if ($this->adaptive): ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php endif; ?>
     <title><?=$this->pageTitle?></title>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
@@ -17,13 +19,6 @@
 <?php endif ?>
 <div class="layout-container">
     <div class="layout-loose layout-loose__white">
-        <div class="layout-header">
-            <?php if (Yii::app()->user->isGuest): ?>
-                <?php $this->renderPartial('//_header_guest'); ?>
-            <?php  else: ?>
-                <?php $this->renderDynamic(array($this, 'renderPartial'), '//_menu', null, true); ?>
-            <?php endif; ?>
-        </div>
         <?= $content ?>
         <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
     </div>

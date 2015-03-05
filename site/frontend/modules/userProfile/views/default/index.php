@@ -18,6 +18,9 @@ $this->breadcrumbs[] = $this->widget('Avatar', array(
         <!--/////     -->
         <!-- Основная колонка-->
         <div class="b-main_col-article">
+            <?php $contestWidget = $this->widget('site\frontend\modules\comments\modules\contest\widgets\ProfileWidget', array(
+                'userId' => $user->id,
+            )); ?>
             <?php
             $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
                 'setNoindexIfEmpty' => true,

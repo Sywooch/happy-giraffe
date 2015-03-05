@@ -1,18 +1,18 @@
 <div style="margin: 15px 15px 15px 0;">
     <?php if ($data instanceof CommunityContent || ($data instanceof \site\frontend\modules\posts\models\Content && $data->originService == 'oldCommunity')): ?>
-    <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'yandex-direct')); ?>
+    <?php $widget = $this->beginWidget('AdsWidget', array('dummyTag' => 'yandex-direct')); ?>
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
-    <div id="yandex_ad_footer"></div>
+    <div id="yandex_ad_<?=$widget->id?>"></div>
     <script type="text/javascript">
         (function(w, d, n, s, t) {
             w[n] = w[n] || [];
             w[n].push(function() {
-                Ya.Direct.insertInto(87026, "yandex_ad_footer", {
-                    stat_id: 17,
+                Ya.Direct.insertInto(87026, "yandex_ad_<?=$widget->id?>", {
+                    stat_id: 26,
                     ad_format: "direct",
                     font_size: 1.1,
-                    type: "flat",
-                    limit: 3,
+                    type: "vertical",
+                    limit: 2,
                     title_font_size: 3,
                     links_underline: true,
                     site_bg_color: "FFFFFF",
@@ -23,7 +23,7 @@
                     no_sitelinks: true
                 });
             });
-            t = d.getElementsByTagName("head")[0];
+            t = d.getElementsByTagName("script")[0];
             s = d.createElement("script");
             s.src = "//an.yandex.ru/system/context.js";
             s.type = "text/javascript";

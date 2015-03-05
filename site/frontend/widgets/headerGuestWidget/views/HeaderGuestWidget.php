@@ -8,33 +8,35 @@
 $cs = Yii::app()->clientScript;
 $js = '$(document).ready(function () {
             $(\'a.header-menu_a\').on(\'click\', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                var $this = $(this),
-                    activeClass = \'active\';
-
-                var $currentPopup =  $this.siblings(\'div.header-popup\');
-
-                $this
-                    .parent()
-                    .toggleClass(activeClass)
-                    .siblings()
-                    .removeClass(activeClass);
-
-                $this
-                    .children(\'span.header-menu_count:visible\')
-                    .hide();
-
-                $(document).on(\'click\', function() {
-                    $(\'li.header-menu_li\').removeClass(activeClass);
-                    $(this).unbind();
-                    $currentPopup.unbind();
-                });
-
-                $currentPopup.on(\'click\', function (e) {
+                if (!$(this).hasClass("not-modified")) {
+                    e.preventDefault();
                     e.stopPropagation();
-                });
+
+                    var $this = $(this),
+                        activeClass = \'active\';
+
+                    var $currentPopup =  $this.siblings(\'div.header-popup\');
+
+                    $this
+                        .parent()
+                        .toggleClass(activeClass)
+                        .siblings()
+                        .removeClass(activeClass);
+
+                    $this
+                        .children(\'span.header-menu_count:visible\')
+                        .hide();
+
+                    $(document).on(\'click\', function() {
+                        $(\'li.header-menu_li\').removeClass(activeClass);
+                        $(this).unbind();
+                        $currentPopup.unbind();
+                    });
+
+                    $currentPopup.on(\'click\', function (e) {
+                        e.stopPropagation();
+                    });
+                }
             });
         });
 ';
@@ -91,5 +93,8 @@ if ($cs->useAMD) {
             </div>
             <!-- /Конверсионный попап-->
         </li>
+        <li class="header-menu_li">
+            <a href="/commentatorsContest/1/" class="header-menu_a not-modified"><span class="header-menu_ico header-menu_ico__contest"></span><span class="header-menu_tx">Конкурс</span><span class="header-menu_count">1</span></a>
+            </li>
     </ul>
 </div>

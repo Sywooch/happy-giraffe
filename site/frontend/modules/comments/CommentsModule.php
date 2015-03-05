@@ -17,9 +17,15 @@ class CommentsModule extends \CWebModule
             'class' => '\site\frontend\components\AuthManager',
         ));
         
-        \Yii::app()->clientScript->useAMD = true;
+        //\Yii::app()->clientScript->useAMD = true;
         /** @todo так не делать */
-        \Yii::app()->clientScript->registerCssFile("/lite/css/dev/all.css");
+        //\Yii::app()->clientScript->registerCssFile("/lite/css/dev/all.css");
+
+        $this->setModules(array(
+            'contest' => array(
+                'class' => 'site\frontend\modules\comments\modules\contest\CommentatorsContestModule',
+            ),
+        ));
     }
 
 }

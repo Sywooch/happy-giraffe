@@ -17,14 +17,14 @@ class MailQuestionsParser
         $i = 0;
         do {
             $i++;
-            $url = self::BASE_URL . '/family/?pg=' . $i;
+            $url = '/family/?pg=' . $i;
             $this->processPage($url);
         } while (count($this->emails) < 50000);
     }
 
     protected function processPage($url)
     {
-        $html = file_get_contents($url);
+        $html = $this->makeRequest($url);
         $doc = str_get_html($html);
         $questionsLinks = $doc->find('.list a.blue');
         $questionUrls = array_map(function($a) {
@@ -41,7 +41,7 @@ class MailQuestionsParser
             return;
         }
 
-        $html = file_get_contents(self::BASE_URL . $url);
+        $html = $this->makeRequest($url);
         $doc = str_get_html($html);
         $links = $doc->find('a[href*=profile]');
         $urls = array_map(function($a) {
@@ -61,7 +61,7 @@ class MailQuestionsParser
             return;
         }
 
-        $html = file_get_contents(self::BASE_URL . $url);
+        $html = $this->makeRequest($url);
         $doc = str_get_html($html);
         $links = $doc->find('.list_profile a');
         foreach ($links as $link) {
@@ -71,5 +71,14 @@ class MailQuestionsParser
             }
         }
         $this->processedProfiles[] = $url;
+    }
+
+    protected function makeRequest($url)
+    {
+        do {
+            $response = @file_get_contents(self::BASE_URL . $url);
+            sleep(10);
+        } while($response === false);
+        return $response;
     }
 }

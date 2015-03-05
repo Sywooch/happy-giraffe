@@ -1,3 +1,5 @@
+<div class="layout-header-contest" onclick="document.location.href = '/commentatorsContest/1/';"><a href="/commentatorsContest/1/" class="btn btn-xxl btn-link yellow">Принять участие</a></div>
+
 <!-- header-->
 <header class="header header__simple header__guest">
     <div class="header_hold clearfix">

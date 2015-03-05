@@ -2,6 +2,8 @@
 $user = Yii::app()->user->model;
 ?>
 
+<div class="layout-header-contest" onclick="document.location.href = '/commentatorsContest/1/';"><a href="/commentatorsContest/1/" class="btn btn-xxl btn-link yellow">Принять участие</a></div>
+
 <!-- header-->
 <!-- ko stopBinding: true -->
 <div class="header header__user header__base">

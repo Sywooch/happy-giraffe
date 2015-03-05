@@ -74,7 +74,7 @@
     </div>
     <div class="col-23-middle col-gray">
 
-        <?php // $this->widget('site\frontend\modules\comments\modules\contest\widgets\MyGiraffeWidget'); ?>
+        <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\MyGiraffeWidget'); ?>
 
         <?php $this->widget('CommunityContestWidget'); ?>
 

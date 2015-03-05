@@ -1,4 +1,4 @@
-/* @layout  base 
+/* @layout  base
 --------------------------------------------------------*/
 hr,
 .hr {
@@ -22,6 +22,26 @@ hr,
 
 .flydiv {
 	z-index: 9999;
+}
+
+.layout-header {
+    &-contest {
+        display: block;
+        text-align: right;
+        .btn-link {
+            margin: 65px 20px 0 0;
+            padding: 0 40px;
+        }
+    }
+}
+
+@media (min-width: @screen-desktop) {
+    .layout-header {
+        &-contest {
+            background: url('/lite/images/contest/commentator/header-contest-part.png') no-repeat;
+            height: 150px;
+        }
+    }
 }
 
 .file-fake {display:inline-block;*zoom:1;*display:inline;position:relative;cursor:pointer;overflow:hidden;}
@@ -205,7 +225,7 @@ a.pseudo:hover,
 .ava.male {background-position:-240px 0;}
 .ava,
 .ava_img,
-.ava img { 
+.ava img {
 	position:relative;
 	width:72px;
 	height:72px;
@@ -216,7 +236,7 @@ a.pseudo:hover,
 .ava img[src=""] {display: none !important;}
 .ava:hover,
 .ava_img:hover,
-.ava img:hover {.box-shadow(none);} 
+.ava img:hover {.box-shadow(none);}
 .ava_img,
 .ava img {
 	margin-top: 0;
@@ -308,7 +328,7 @@ a.pseudo:hover,
 .ava.filled .photo {display:none;}
 .b-ava-hover {
 	position: relative;
-	
+
 	&:hover {z-index: 10;}
 	&:hover &_hold {display: block;}
 	&:hover .ava {
@@ -532,7 +552,7 @@ a.pseudo:hover,
     width: 22px;
     height: 22px;
     background: url('/lite/images/ico/ico-social.png') no-repeat;
-    
+
     &:hover {
         opacity: 0.8;
     }
@@ -939,7 +959,7 @@ a.pseudo:hover,
 	width: 18px;
 	height: 18px;
 	background: url(/new/images/base/b-control_ico.png) no-repeat;
-/*	
+/*
 	&__edit          {background-position: -80px 0;}
 	&__edit.active,
 	&__edit:hover    {background-position: -80px -15px;}
@@ -1002,7 +1022,7 @@ a.pseudo:hover,
 	margin: 0 auto;
 	padding: 10px 0 15px;
 	overflow: hidden;
-	
+
 	&__big &_i {
 		width: 280px;
 		height: 160px;
@@ -1067,7 +1087,7 @@ textarea.error,
     &_cont {overflow: hidden;}
     &_bar-hold {
     	display: none;
-        position: absolute;    
+        position: absolute;
         z-index: 1;
         top: 0;
         bottom: 0;

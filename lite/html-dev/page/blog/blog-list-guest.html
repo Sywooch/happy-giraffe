@@ -9,7 +9,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
-    
+
   </script>
   <script src="/lite/javascript/modernizr.custom.js"></script>
   <!-- Адаптивные изображения tag picture-->
@@ -50,28 +50,28 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                
+
                         var $this = $(this),
                             activeClass = 'active';
-                
+
                         var $currentPopup =  $this.siblings('div.header-popup');
-                
+
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                
+
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                
+
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                
+
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
@@ -210,12 +210,12 @@
                     Переславль-Залесский</span></div>
                 <div class="userSection_btn-hold clearfix">
                   <!--
-                  виды кнопок друзья 
+                  виды кнопок друзья
                   У каждого разный title
                   userSection_btn__friend title = Приглашение отправлено
                   userSection_btn__friend-add title = Добавить в друзья
                   userSection_btn__friend-added title = Друг
-                  userSection_btn__friend-append title = Хочет дружить  
+                  userSection_btn__friend-append title = Хочет дружить
                   --><a href="" title="Хочет дружить" class="userSection_btn userSection_btn__friend-append powertip"><span class="userSection_ico"></span></a><a href="" title="Написать сообщение" class="userSection_btn userSection_btn__dialog powertip"><span class="userSection_ico"></span></a>
                 </div>
               </div>
@@ -241,7 +241,7 @@
                   </ul>
                 </div>
                 <!-- /b-family-->
-                
+
               </div>
             </div>
             <div class="userSection_panel">
@@ -254,10 +254,10 @@
             </div>
           </section>
           <!-- /userSection-->
-          
+
         </div>
-        <div class="b-main clearfix">   
-          <div class="b-main_cont">             
+        <div class="b-main clearfix">
+          <div class="b-main_cont">
             <div class="userSubscribers visible-md-block"><span class="userSubscribers_tx">У моего блога 468 подписчиков</span>
               <ul class="ava-list">
                 <li class="ava-list_li">
@@ -308,7 +308,7 @@
                     <section class="comments">
                       <div id="commentsList" class="comments_hold">
                         <ul class="comments_ul">
-                          <!-- 
+                          <!--
                           варианты цветов комментов. В такой последовательности
                           .comments_li__lilac
                           .comments_li__yellow
@@ -329,8 +329,8 @@
                                 <div class="comments_cont">
                                   <div class="wysiwyg-content">
                                     <p>
-                                       
-                                       Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+
+                                       Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже!
                                     </p>
                                     <!-- одно фото в блок (ссылку)--><a href="#" class="comments_cont-img-w">
                                       <!-- размеры превью максимум 400*400 пк--><img alt="" src="/images/example/w220-h309-1.jpg"></a>
@@ -437,8 +437,8 @@
                               .favorites-add-popup_row.textalign-c.margin-t10
                                   a.btn-secondary.btn-s(href='#') Отменить
                                   a.btn-success.btn-s(href='#') Добавить
-                              
-                              
+
+
                               -->
                             </div>
                           </div>
@@ -454,7 +454,7 @@
                   </div>
                 </article>
                 <!-- /b-article-->
-                
+
                 <!-- Статья с текстом-->
                 <!-- b-article-->
                 <article class="b-article b-article__list clearfix">
@@ -535,8 +535,8 @@
                               .favorites-add-popup_row.textalign-c.margin-t10
                                   a.btn-secondary.btn-s(href='#') Отменить
                                   a.btn-success.btn-s(href='#') Добавить
-                              
-                              
+
+
                               -->
                             </div>
                           </div>
@@ -552,7 +552,7 @@
                   </div>
                 </article>
                 <!-- /b-article-->
-                
+
                 <!-- Статья статус-->
                 <!-- b-article-->
                 <article class="b-article b-article__user-status clearfix  b-article__list">
@@ -619,8 +619,8 @@
                             .favorites-add-popup_row.textalign-c.margin-t10
                                 a.btn-secondary.btn-s(href='#') Отменить
                                 a.btn-success.btn-s(href='#') Добавить
-                            
-                            
+
+
                             -->
                           </div>
                         </div>
@@ -755,8 +755,8 @@
                               .favorites-add-popup_row.textalign-c.margin-t10
                                   a.btn-secondary.btn-s(href='#') Отменить
                                   a.btn-success.btn-s(href='#') Добавить
-                              
-                              
+
+
                               -->
                             </div>
                           </div>
@@ -858,8 +858,8 @@
                               .favorites-add-popup_row.textalign-c.margin-t10
                                   a.btn-secondary.btn-s(href='#') Отменить
                                   a.btn-success.btn-s(href='#') Добавить
-                              
-                              
+
+
                               -->
                             </div>
                           </div>
@@ -897,7 +897,7 @@
                 <!-- /paginator-->
               </div>
               <!-- /Основная колонкa-->
-              
+
               <!--/////-->
               <!-- Сайд бар-->
               <!-- Содержимое загружaть отложено-->
@@ -912,7 +912,7 @@
                 article-anonce__yellow
                 -->
                 <div class="article-anonce article-anonce__s">
-                  <div class="article-anonce_top"><a href="#" class="article-anonce_header-a"> 
+                  <div class="article-anonce_top"><a href="#" class="article-anonce_header-a">
                       <!-- ava--><span href="#" class="ava"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="article-anonce_author">Антон Привольный</span></a></div><a href="#" class="article-anonce_hold">
                     <div class="article-anonce_img-hold"><img src="http://lorempixel.com/300/200/people/6" alt="Дети Нью-Йорка: они родились в разных странах и очень скучают по родине..." class="article-anonce_img">
                       <div class="article-anonce_img-overlay"></div>
@@ -1005,10 +1005,10 @@
         </div>
         <!-- /layout-footer-->
         <!-- /Футер-->
-        
+
       </div>
     </div>
   </div>
-  <div class="popup-container display-n"> 
+  <div class="popup-container display-n">
   </div>
 </body></html>

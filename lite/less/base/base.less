@@ -23,8 +23,25 @@
         background-color: #fff;
     }
 
+    .layout-header {
+        &-contest {
+            display: block;
+            text-align: right;
+            .btn-link {
+                margin: 65px 20px 0 0;
+                padding: 0 40px;
+            }
+        }
+    }
+
     @media (min-width: @screen-desktop) {
-        .layout-header {margin-top: 20px;}
+        .layout-header {
+            margin-top: 20px;
+            &-contest {
+                background: url('@{path-img}/contest/commentator/header-contest-part.png') no-repeat;
+                height: 150px;
+            }
+        }
         &_hold__personal {
             background: none;
         }
@@ -33,11 +50,11 @@
         }
     }
 }
- 
-/* 
-    logo 
+
+/*
+    logo
     Главное лого сайта
-    
+
     logo __small
         logo_i
         logo_slogan
@@ -47,7 +64,7 @@
     margin: 0 auto;
     padding: 0;
     overflow: hidden;
-    
+
     // logo in svg
     // &__xs
 
@@ -108,7 +125,7 @@
         margin: 0 4px;
         cursor: pointer;
     }
-    
+
     &_i:hover &_tx {color: @color-base;}
     &_i__favorite &_ico {background-position: 0 0;}
     &_i__favorite.active &_ico,
@@ -134,7 +151,7 @@
         vertical-align: bottom;
         .square(18px);
         background: url('@{path-img}/base/b-control_ico.png') no-repeat;
-       
+
     }
     &_drop {display: none;}
     &_tx {
@@ -149,7 +166,7 @@
 }
 /* /b-control */
 
-/*  
+/*
     Блок пользователя с автаркой и именем
     b-user
         b-user_ava
@@ -169,7 +186,7 @@
     }
 
     &__w300 {width: 300px;}
-    
+
     &_ava {
         .inline-block();
         vertical-align: top;
@@ -185,7 +202,7 @@
         .text-dec_onhover;
         display: block;
     }
-    
+
     // in antispam
     &_del,
     &_check,
@@ -233,7 +250,7 @@
     }
 }
 
-/* 
+/*
     utilites-error
 */
 .utilites-error {
@@ -269,7 +286,7 @@
 /* /utilites-error */
 
 /*
-    Группа фильтров 
+    Группа фильтров
     filter-group
         filter-group_i  active
 */
@@ -312,7 +329,7 @@
     color: #b6b6b6;
     font-size: 14px;
     padding: 7px;
-    
+
     &__b-gray {
         margin: 30px auto 40px;
         padding: 0;
@@ -333,7 +350,7 @@
 .b-crumbs {
     margin: 10px 20px 10px 0;
     font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
-    
+
     /*&__s {}*/
     .ico-club__s {
         margin: -36px -12px -30px;
@@ -352,7 +369,7 @@
     &__s {
         font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
     }
-    
+
     &_tx {
         display: inline;
         margin-right: 10px;
@@ -449,7 +466,7 @@
         height: 9px;
         background: url(/images/menu-simple_li__with-drop.png) no-repeat 0 0;
     }
-    
+
     &_count {
         .inline-block();
         margin: 0 4px;
@@ -467,8 +484,8 @@
 /* /menu-simple */
 
 .tabs-simple {
-    
-    &__inline { 
+
+    &__inline {
         .inline-block();
         vertical-align: middle;
 
@@ -484,9 +501,9 @@
     }
 }
 
-/* 
+/*
 ------------------------------------------------------------------
-    js plugin class 
+    js plugin class
 ------------------------------------------------------------------
 */
 

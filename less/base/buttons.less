@@ -236,7 +236,7 @@
         color: #666;
         border-color: #CCC;
     }
-} 
+}
 
 .btn-gray-simple {
     color: @color-gray;
@@ -246,7 +246,7 @@
         background-color: #ebebeb;
         color: @color-gray-dark;
     }
-} 
+}
 
 .btn-orange {
 	color: #fff;
@@ -456,3 +456,29 @@
 
 
 .btn-block {display: block;}
+
+.btn-link {
+    text-decoration: none;
+
+    &:hover {text-decoration: underline;}
+    &-gray {
+        &:extend(.btn-link all);
+        color: @color-gray;
+
+        &:hover {
+            color: @color-gray-dark;
+            text-decoration: none;
+        }
+    }
+    &.yellow {
+        margin: 0 15px;
+        background-color: #FFE535;
+        color: #000;
+        font-size: 24px;
+        &:hover {
+            background-color: #FF8400;
+            color: #FFF;
+            text-decoration: none;
+        }
+    }
+}

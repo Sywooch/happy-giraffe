@@ -16,13 +16,15 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
 
     public function attach($owner)
     {
-        $this->isRemoved = $owner->isRemoved;
-        return parent::attach($owner);
+        parent::attach($owner);
+        $this->isRemoved = $this->owner->isNewRecord ? null : $this->getIsRemoved();
     }
 
     public function afterSave($event)
     {
         if ($this->isRemoved === $this->getIsRemoved()) {
+            var_dump('nope');
+            var_dump($this->isRemoved, $this->getIsRemoved());
             // Ничего не изменилось
             return;
         }

@@ -50,18 +50,26 @@ class HHtml extends CHtml
     public static function timeTag($model, $htmlOptions = array(), $content = false)
     {
         $id = substr(strrchr(get_class($model), '\\'), 1) . '_' . $model->id . '_' . 'time';
-        $htmlOptions['datetime'] = $model->pubDate;
-        $htmlOptions['data-bind'] = 'moment: ' . $model->pubUnixTime;
         $htmlOptions['id'] = $id;
-        if ($content === false)
+        if ($content === false) {
             $content = Yii::app()->format->formatDatetime($model->pubUnixTime);
+        }
+        return self::timeTagByOptions($model->pubUnixTime, $htmlOptions, $content);
+    }
+
+    public static function timeTagByOptions($unixTime, $htmlOptions, $content = false)
+    {
+        $htmlOptions['data-bind'] = 'moment: ' . $unixTime;
+        $htmlOptions['datetime'] = date('Y-m-d\TH:i:sP', $unixTime);
 
         $cs = Yii::app()->clientScript;
+        $id = $htmlOptions['id'];
         $js = 'ko.cleanNode(document.getElementById(\'' . $id . '\')); ko.applyBindings({}, document.getElementById(\'' . $id . '\'));';
-        if ($cs->useAMD)
+        if ($cs->useAMD) {
             $cs->registerAMD($id, array('ko' => 'knockout', 'ko_library' => 'ko_library'), $js);
-        else
+        } else {
             $cs->registerScript($id, $js);
+        }
 
         return '<!-- ko stopBinding: true -->' . self::tag('time', $htmlOptions, $content) . '<!-- /ko -->';
     }

@@ -45,6 +45,7 @@ class DefaultCommand extends \CConsoleCommand
             $contest->register($comment->author_id);
             $participant = CommentatorsContestParticipant::model()->user($comment->author_id)->contest($contest->id)->find();
             CommentsHandler::added($comment, $participant);
+            $participant->update(array('score'));
         }
     }
 

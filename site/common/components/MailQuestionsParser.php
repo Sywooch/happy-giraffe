@@ -19,7 +19,7 @@ class MailQuestionsParser
             $i++;
             $url = '/family/?pg=' . $i;
             $this->processPage($url);
-        } while (count($this->emails) < 50000);
+        } while (count($this->emails) < 3000);
     }
 
     protected function processPage($url)

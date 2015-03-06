@@ -17,7 +17,7 @@ class CommentsHandler
     const EVENT_REMOVE = 2;
     const EVENT_RESTORE = 3;
 
-    const MIN_LENGTH = 60;
+    const MIN_LENGTH = 40;
 
     public static function handle($commentId, $event)
     {
@@ -43,7 +43,7 @@ class CommentsHandler
         return $participant->update(array('score'));
     }
 
-    protected static function added(Comment $comment, CommentatorsContestParticipant $participant)
+    public static function added(Comment $comment, CommentatorsContestParticipant $participant)
     {
         $counts = self::counts($comment->text);
 
@@ -58,7 +58,7 @@ class CommentsHandler
         }
     }
 
-    protected static function updated(Comment $comment, CommentatorsContestParticipant $participant)
+    public static function updated(Comment $comment, CommentatorsContestParticipant $participant)
     {
         $newCounts = self::counts($comment->text);
 
@@ -76,7 +76,7 @@ class CommentsHandler
         $participant->score += $result;
     }
 
-    protected static function removed(Comment $comment, CommentatorsContestParticipant $participant)
+    public static function removed(Comment $comment, CommentatorsContestParticipant $participant)
     {
         $counts = self::counts($comment->text);
 
@@ -94,7 +94,7 @@ class CommentsHandler
         }
     }
 
-    protected static function restored(Comment $comment, CommentatorsContestParticipant $participant)
+    public static function restored(Comment $comment, CommentatorsContestParticipant $participant)
     {
         $counts = self::counts($comment->text);
 
@@ -117,6 +117,6 @@ class CommentsHandler
 
     protected static function counts($text)
     {
-        return strlen(strip_tags($text)) >= self::MIN_LENGTH;
+        return mb_strlen(strip_tags($text), 'UTF-8') >= self::MIN_LENGTH;
     }
 }

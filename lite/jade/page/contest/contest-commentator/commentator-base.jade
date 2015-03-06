@@ -1,5 +1,5 @@
 include ../../../block/config
-extend ../../../extend/layout_header_empty
+extend ../../../extend/layout_base
 block vars
     - var bodyClass = 'body__lite body__contest-commentator';
     - global.cssFile = 'contest-commentator.css'; 
@@ -12,9 +12,7 @@ block vars
 block layout
 
     .contest
-        a.i-giraffe-back(href='#')
         .contest-commentator
-
             +contestCommentatorHeader('', contestCommentatorHeader.base)
                         
             // описание конкурса

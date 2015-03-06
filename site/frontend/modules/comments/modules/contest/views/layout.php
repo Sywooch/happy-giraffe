@@ -6,9 +6,9 @@
 $this->adaptive = false;
 ?>
 
-<?php $this->beginContent('//layouts/lite/common'); ?>
-<div class="layout-loose_hold clearfix">
-    <div class="contest"><a href="<?=$this->createUrl('/site/index')?>" class="i-giraffe-back"></a>
+<?php $this->beginContent('//layouts/lite/main'); ?>
+
+
         <div class="contest-commentator">
             <!-- Шапка-->
             <div class="contest-commentator-header">
@@ -50,6 +50,6 @@ $this->adaptive = false;
             <?=$content?>
         </div>
         <?php $this->renderPartial('//_footer'); ?>
-    </div>
-</div>
+
+
 <?php $this->endContent(); ?>

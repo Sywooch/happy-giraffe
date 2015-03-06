@@ -49,7 +49,4 @@ $this->adaptive = false;
             <!-- Шапка-->
             <?=$content?>
         </div>
-        <?php $this->renderPartial('//_footer'); ?>
-
-
 <?php $this->endContent(); ?>

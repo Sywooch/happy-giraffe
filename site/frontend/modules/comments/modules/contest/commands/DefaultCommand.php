@@ -7,7 +7,9 @@
 namespace site\frontend\modules\comments\modules\contest\commands;
 
 
+use site\frontend\modules\comments\modules\contest\components\CommentsHandler;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContest;
+use site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContestRating;
 
 class DefaultCommand extends \CConsoleCommand
@@ -25,6 +27,25 @@ class DefaultCommand extends \CConsoleCommand
         $ratings = CommentatorsContestRating::model()->findAll();
         foreach ($ratings as $r) {
             echo implode(',', $r->attributes) . "\n";
+        }
+    }
+
+    public function actionRegisterCommentators()
+    {
+        $dp = new \CActiveDataProvider('site\frontend\modules\comments\models\Comment', array(
+            'criteria' => array(
+                'order' => 'id ASC',
+                'join' => 'LEFT OUTER JOIN commentators__contests_comments cc ON t.id = cc.commentId',
+                'condition' => 'created > "2015-03-03 14:45:58" AND cc.commentId IS NULL AND author_id NOT IN (15426, 175718, 15814, 15994)',
+            ),
+        ));
+        $iterator = new \CDataProviderIterator($dp, 100);
+        $contest = CommentatorsContest::model()->active()->find();
+        foreach ($iterator as $comment) {
+            $contest->register($comment->author_id);
+            $participant = CommentatorsContestParticipant::model()->user($comment->author_id)->contest($contest->id)->find();
+            CommentsHandler::added($comment, $participant);
+            $participant->update(array('score'));
         }
     }
 

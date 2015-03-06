@@ -37,8 +37,10 @@ class DefaultCommand extends \CConsoleCommand
                 'condition' => 'created > "2015-03-03 14:45:58" AND cc.commentId IS NULL AND author_id NOT IN (15426, 175718, 15814, 15994)',
             ),
         ));
+        $iterator = new \CDataProviderIterator($dp, 100);
+        foreach ($iterator as $comment) {
 
-        echo $dp->totalItemCount;
+        }
     }
 
     public function actionAddFixtures()

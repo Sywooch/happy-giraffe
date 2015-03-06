@@ -32,7 +32,7 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionRegisterCommentators()
     {
-        $dp = new \CActiveDataProvider('Comment', array(
+        $dp = new \CActiveDataProvider('site\frontend\modules\comments\models\Comment', array(
             'criteria' => array(
                 'order' => 'id ASC',
                 'join' => 'LEFT OUTER JOIN commentators__contests_comments cc ON t.id = cc.commentId',

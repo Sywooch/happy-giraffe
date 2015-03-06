@@ -5,6 +5,7 @@
 $this->beginContent('//layouts/lite/common');
 ?>
 <div class="layout-header">
+    <?php $this->renderPartial('application.modules.comments.modules.contest.views._banner'); ?>
     <?php if (Yii::app()->user->isGuest): ?>
         <?php $this->renderPartial('//_header_guest'); ?>
     <?php  else: ?>

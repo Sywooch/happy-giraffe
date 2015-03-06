@@ -33,7 +33,7 @@ class DefaultCommand extends \CConsoleCommand
         $dp = new \CActiveDataProvider('Comment', array(
             'criteria' => array(
                 'order' => 'id ASC',
-                'join' => 'LEFT OUTER JOIN commentators__contests_comments cc ON c.id = cc.commentId',
+                'join' => 'LEFT OUTER JOIN commentators__contests_comments cc ON t.id = cc.commentId',
                 'condition' => 'created > "2015-03-03 14:45:58" AND cc.commentId IS NULL',
             ),
         ));

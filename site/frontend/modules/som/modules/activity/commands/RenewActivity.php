@@ -13,16 +13,20 @@ use site\frontend\modules\som\modules\activity\models\api\Activity;
 class RenewActivity extends \CConsoleCommand
 {
 
-    public function actionIndex()
+    public function actionIndex($posts = true, $comments = true)
     {
         $dataProvider = new \CActiveDataProvider('User', array('criteria' => array('select' => 'id', 'order' => 'id ASC')));
 
         $iterator = new \CDataProviderIterator($dataProvider);
         $count = 0;
         foreach ($iterator as $model) {
-            echo "\n ----------- \n user " . $userId . "\n";
-            $count+= $this->renewAllUsersPost($model->id);
-            $count+= $this->renewAllUsersComment($model->id);
+            echo "\n ----------- \n user " . $model->id . "\n";
+            if ($posts) {
+                $count+= $this->renewAllUsersPost($model->id);
+            }
+            if ($comments) {
+                $count+= $this->renewAllUsersComment($model->id);
+            }
         }
         echo "\ntotal " . $count . " items\n";
     }
@@ -79,7 +83,7 @@ class RenewActivity extends \CConsoleCommand
                     break;
                 }
             } catch (\Exception $ex) {
-
+                echo 'f';
             }
         }
 

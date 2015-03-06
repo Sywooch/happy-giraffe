@@ -34,7 +34,7 @@ class DefaultCommand extends \CConsoleCommand
             'criteria' => array(
                 'order' => 'id ASC',
                 'join' => 'LEFT OUTER JOIN commentators__contests_comments cc ON t.id = cc.commentId',
-                'condition' => 'created > "2015-03-03 14:45:58" AND cc.commentId IS NULL',
+                'condition' => 'created > "2015-03-03 14:45:58" AND cc.commentId IS NULL AND author_id NOT IN (15426, 175718, 15814, 15994)',
             ),
         ));
 

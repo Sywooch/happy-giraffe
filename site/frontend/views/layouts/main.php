@@ -49,6 +49,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     </div>
 <?php endif ?>
 
+<?php $this->renderPartial('application.modules.comments.modules.contest.views._banner'); ?>
 <div class="layout-w1">
     <div class="layout-container" id="layout-container">
         <?php if (Yii::app()->user->isGuest): ?>

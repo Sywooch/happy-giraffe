@@ -47,7 +47,7 @@ class CommentatorsContest extends \HActiveRecord
         $participant->userId = $userId;
         $participant->contestId = $this->id;
         $participant->place = CommentatorsContestParticipant::model()->contest($this->id)->count() + 1;
-        return $participant->save();
+        $participant->save();
     }
 
     public function isRegistered($userId)

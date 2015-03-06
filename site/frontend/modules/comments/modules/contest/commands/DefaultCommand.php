@@ -7,7 +7,9 @@
 namespace site\frontend\modules\comments\modules\contest\commands;
 
 
+use site\frontend\modules\comments\modules\contest\components\CommentsHandler;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContest;
+use site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContestRating;
 
 class DefaultCommand extends \CConsoleCommand
@@ -38,8 +40,11 @@ class DefaultCommand extends \CConsoleCommand
             ),
         ));
         $iterator = new \CDataProviderIterator($dp, 100);
+        $contest = CommentatorsContest::model()->active()->find();
         foreach ($iterator as $comment) {
-
+            $contest->register($comment->author_id);
+            $participant = CommentatorsContestParticipant::model()->user($comment->author_id)->contest($contest->id)->find();
+            CommentsHandler::added($comment, $participant);
         }
     }
 

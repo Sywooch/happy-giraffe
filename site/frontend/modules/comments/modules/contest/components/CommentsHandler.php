@@ -43,7 +43,7 @@ class CommentsHandler
         return $participant->update(array('score'));
     }
 
-    protected static function added(Comment $comment, CommentatorsContestParticipant $participant)
+    public static function added(Comment $comment, CommentatorsContestParticipant $participant)
     {
         $counts = self::counts($comment->text);
 
@@ -58,7 +58,7 @@ class CommentsHandler
         }
     }
 
-    protected static function updated(Comment $comment, CommentatorsContestParticipant $participant)
+    public static function updated(Comment $comment, CommentatorsContestParticipant $participant)
     {
         $newCounts = self::counts($comment->text);
 
@@ -76,7 +76,7 @@ class CommentsHandler
         $participant->score += $result;
     }
 
-    protected static function removed(Comment $comment, CommentatorsContestParticipant $participant)
+    public static function removed(Comment $comment, CommentatorsContestParticipant $participant)
     {
         $counts = self::counts($comment->text);
 
@@ -94,7 +94,7 @@ class CommentsHandler
         }
     }
 
-    protected static function restored(Comment $comment, CommentatorsContestParticipant $participant)
+    public static function restored(Comment $comment, CommentatorsContestParticipant $participant)
     {
         $counts = self::counts($comment->text);
 

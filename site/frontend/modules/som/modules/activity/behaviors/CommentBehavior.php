@@ -14,15 +14,37 @@ use site\frontend\modules\som\modules\activity\models\api\Activity;
 class CommentBehavior extends ActivityBehavior
 {
 
-    public $permittedClasses = array(
+    public static $permittedClasses = array(
         'CommunityContent',
         'BlogContent',
     );
     protected $_content = null;
 
+    public function events()
+    {
+        return array_merge(parent::events(), array(
+            'onAfterSoftDelete' => 'afterSoftDelete',
+            'onAfterSoftRestore' => 'afterSoftRestore',
+        ));
+    }
+
     public function afterSave($event)
     {
-        if (in_array($this->owner->entity, $this->permittedClasses)) {
+        if (in_array($this->owner->entity, self::$permittedClasses) && $this->content) {
+            return parent::afterSave($event);
+        }
+    }
+
+    public function afterSoftDelete($event)
+    {
+        if (in_array($this->owner->entity, self::$permittedClasses) && $this->content) {
+            return parent::afterSave($event);
+        }
+    }
+
+    public function afterSoftRestore($event)
+    {
+        if (in_array($this->owner->entity, self::$permittedClasses) && $this->content) {
             return parent::afterSave($event);
         }
     }
@@ -39,7 +61,9 @@ class CommentBehavior extends ActivityBehavior
         if ($this->content->gallery) {
             $gallery = $this->content->gallery->items;
             $newPhoto = \site\frontend\modules\photo\components\MigrateManager::movePhoto($gallery[0]->photo);
-            $cover = \Yii::app()->thumbs->getThumb($newPhoto, 'smallPostPreview')->url;
+            if ($newPhoto) {
+                $cover = \Yii::app()->thumbs->getThumb($newPhoto, 'smallPostPreview')->url;
+            }
         }
         $activity->data = array(
             'url' => $this->owner->url,
@@ -63,6 +87,9 @@ class CommentBehavior extends ActivityBehavior
     {
         if (is_null($this->_content)) {
             $this->_content = \CActiveRecord::model($this->owner->entity)->findByPk($this->owner->entity_id);
+            if (!$this->_content) {
+                throw new \Exception('Нет оригинального контента, скорее всего он удалён.');
+            }
         }
 
         return $this->_content;

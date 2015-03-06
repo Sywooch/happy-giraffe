@@ -42,7 +42,7 @@ class ActivityWidget extends \CWidget
     public function run()
     {
         if ($this->setNoindexIfPage && isset($_GET[$this->getDataProvider()->pagination->pageVar])) {
-            $this->metaNoindex = true;
+            $this->owner->metaNoindex = true;
         };
         $this->render($this->view);
     }

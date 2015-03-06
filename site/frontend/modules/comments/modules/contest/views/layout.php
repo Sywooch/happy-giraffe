@@ -6,7 +6,7 @@
 $this->adaptive = false;
 ?>
 
-<?php $this->beginContent('//layouts/lite/main'); ?>
+<?php $this->beginContent('//layouts/lite/common_menu'); ?>
 
 
         <div class="contest-commentator">

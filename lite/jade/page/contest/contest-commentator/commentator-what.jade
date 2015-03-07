@@ -1,0 +1,37 @@
+include ../../../block/config
+extend ../../../extend/layout_base_user
+block vars
+    - var bodyClass = 'body__lite body__contest-commentator';
+    - global.cssFile = 'contest-commentator.css'; 
+
+    if (debug)
+        - googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
+
+    - global.headItem = googlefont
+block layout
+
+    .contest
+        .contest-commentator
+            .contest-commentator-blog
+                +contestCommentatorHeader('', contestCommentatorHeader.base)
+                .contest-commentator-blog_top
+                    h4.contest-commentator-blog_top__bold
+                        | Мы вам поможем и предложим проккоментировать интересные записи!
+                    p
+                        | Для того, чтобы вам было проще, мы предлагаем том - 20 актуальнейших статей, которые будут
+                        | постоянно обновляться! Комментируйте их, отвечайте на комментарии других пользователей,
+                        | создавайте свои темыи и главный приз в 1000 рублей станет вашим! 
+                
+                .contest-commentator-blog_hold
+                    
+                    +bArticleListItem('', bArticleListItem.care) 
+
+                    +bArticleListItem('', bArticleListItem.careVideo) 
+
+                    +bArticleStatus('', bArticleStatus.careStatus)
+
+                    +bArticleListPhotopost('', bArticleListPhotopost.carePhotoPost)
+                    // Заглушка загрузки фотопоста, фотоальбома
+                    +bArticleListPhotopost('', bArticleListPhotopost.carePhoto)
+
+        +layout-footer-lite()

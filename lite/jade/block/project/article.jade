@@ -92,13 +92,15 @@ mixin bArticleListItem(mod, vars)
                     +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
                     a.b-article_author(href='#') Ангелина Богоявленская
                     time.tx-date(pubdate='1957-10-04') Сегодня 13:25
-                .icons-meta
-                    a.icons-meta_comment(href='#')
-                        span.icons-meta_tx 35
-                    .icons-meta_view
-                        span.icons-meta_tx 305
+                if (vars.empty != true)
+                    .icons-meta
+                        a.icons-meta_comment(href='#')
+                            span.icons-meta_tx 35
+                        .icons-meta_view
+                            span.icons-meta_tx 305
             if(vars.userActivityPost)
                 +userActivityPost('', vars.userActivityPost)
+
             .b-article_t-list
                 a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
             .b-article_in.clearfix
@@ -124,27 +126,26 @@ mixin bArticleListItem(mod, vars)
                         a.ico-more-hover.display-n(href='#')
 
             if (vars.type == 'text')
-                +commentsList('', commentsList.b)
-
-            .b-article_like.clearfix
-                if(vars.delete)
-                    +cap-empty('cap-empty__abs cap-empty__white', capEmpty.articleDel)
-                if(vars.btnEdit)
-                    +articleSettings('', articleSettings.base)
-
-                .article-also
-                    .article-also_row
-                        +likeControl('like-control__small', likeControl.articleList)
-                    .article-also_row
-                        .article-also_tx Смотреть все 
-                            a(href='#') комментарии
-                            .visible-md-inline-block
-                                | ,
-                                a(href='#')  нравится, 
-                            .visible-md-inline-block
-                                a(href='#')  закладки 
-                            | .
-
+                if (vars.empty != true)
+                    +commentsList('', commentsList.b)
+            if (vars.empty != true)
+                .b-article_like.clearfix
+                    if(vars.delete)
+                        +cap-empty('cap-empty__abs cap-empty__white', capEmpty.articleDel)
+                    if(vars.btnEdit)
+                        +articleSettings('', articleSettings.base)
+                    .article-also
+                        .article-also_row
+                            +likeControl('like-control__small', likeControl.articleList)
+                        .article-also_row
+                            .article-also_tx Смотреть все 
+                                a(href='#') комментарии
+                                .visible-md-inline-block
+                                    | ,
+                                    a(href='#')  нравится, 
+                                .visible-md-inline-block
+                                    a(href='#')  закладки 
+                                | .
     // /b-article
 
 
@@ -170,6 +171,14 @@ mixin bArticleListItem(mod, vars)
 - bArticleListItem.del.type = 'text'
 - bArticleListItem.del.delete = true
 
+- bArticleListItem.care = {}
+- bArticleListItem.care.type = 'text'
+- bArticleListItem.care.empty = true
+
+- bArticleListItem.careVideo = {}
+- bArticleListItem.careVideo.type = 'video'
+- bArticleListItem.careVideo.empty = true
+
 
 //- Фотопост
 mixin bArticleListPhotopost(mod, vars)
@@ -182,13 +191,15 @@ mixin bArticleListPhotopost(mod, vars)
                     +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
                     a.b-article_author(href='#') Ангелина Богоявленская
                     time.tx-date(pubdate='1957-10-04') Сегодня 13:25
-                .icons-meta
-                    a.icons-meta_comment(href='#')
-                        span.icons-meta_tx 35
-                    .icons-meta_view
-                        span.icons-meta_tx 305
+                if (vars.empty != true)
+                    .icons-meta
+                        a.icons-meta_comment(href='#')
+                            span.icons-meta_tx 35
+                        .icons-meta_view
+                            span.icons-meta_tx 305
             if(vars.userActivityPost)
                 +userActivityPost('', vars.userActivityPost)
+
             .b-article_t-list
                 a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
             .b-article_in.clearfix
@@ -207,23 +218,23 @@ mixin bArticleListPhotopost(mod, vars)
             if (vars.type == 'text')
                 +commentsList('', commentsList.b)
 
+            if (vars.empty != true)
+                .b-article_like.clearfix
 
-            .b-article_like.clearfix
-
-                if(vars.btnEdit)
-                    +articleSettings('', articleSettings.base)
-                .article-also
-                    .article-also_row
-                        +likeControl('like-control__small', likeControl.articleList)
-                    .article-also_row
-                        .article-also_tx Смотреть все 
-                            a(href='#') комментарии
-                            .visible-md-inline-block
-                                | ,
-                                a(href='#')  нравится, 
-                            .visible-md-inline-block
-                                a(href='#')  закладки 
-                            | .
+                    if(vars.btnEdit)
+                        +articleSettings('', articleSettings.base)
+                    .article-also
+                        .article-also_row
+                            +likeControl('like-control__small', likeControl.articleList)
+                        .article-also_row
+                            .article-also_tx Смотреть все 
+                                a(href='#') комментарии
+                                .visible-md-inline-block
+                                    | ,
+                                    a(href='#')  нравится, 
+                                .visible-md-inline-block
+                                    a(href='#')  закладки 
+                                | .
 
     // /b-article
 
@@ -243,6 +254,14 @@ mixin bArticleListPhotopost(mod, vars)
 - bArticleListPhotopost.baseEmpty.content = 'empty'
 
 //- Статус пользователя
+- bArticleListPhotopost.carePhotoPost = {}
+- bArticleListPhotopost.carePhotoPost.empty = true
+
+- bArticleListPhotopost.carePhoto = {}
+- bArticleListPhotopost.carePhoto.content = 'empty'
+- bArticleListPhotopost.carePhoto.empty = true
+
+
 mixin bArticleStatus(mod, vars)
     // Статья статус
     if (vars.status !== 'open')
@@ -255,13 +274,15 @@ mixin bArticleStatus(mod, vars)
                     +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
                     a.b-article_author(href='#') Ангелина Богоявленская
                     time.tx-date(pubdate='2014-10-04') минуту назад
-                .icons-meta
-                    a.icons-meta_comment(href='#')
-                        span.icons-meta_tx 35
-                    .icons-meta_view
-                        span.icons-meta_tx 305
+                if (vars.empty != true)
+                    .icons-meta
+                        a.icons-meta_comment(href='#')
+                            span.icons-meta_tx 35
+                        .icons-meta_view
+                            span.icons-meta_tx 305
             if(vars.userActivityPost)
                 +userActivityPost('', vars.userActivityPost)
+
             .b-article_in.clearfix
                 .user-status.user-status__base
                     .user-status_hold
@@ -281,18 +302,19 @@ mixin bArticleStatus(mod, vars)
 
 
             if (vars.status == 'list')
-                .article-also
-                    .article-also_row
-                        +likeControl('like-control__small', likeControl.articleList)
-                    .article-also_row
-                        .article-also_tx Смотреть все 
-                            a(href='#') комментарии
-                            .visible-md-inline-block
-                                | ,
-                                a(href='#')  нравится, 
-                            .visible-md-inline-block
-                                a(href='#')  закладки 
-                            | .
+                if (vars.empty != true)
+                    .article-also
+                        .article-also_row
+                            +likeControl('like-control__small', likeControl.articleList)
+                        .article-also_row
+                            .article-also_tx Смотреть все 
+                                a(href='#') комментарии
+                                .visible-md-inline-block
+                                    | ,
+                                    a(href='#')  нравится, 
+                                .visible-md-inline-block
+                                    a(href='#')  закладки 
+                                | .
                             
             if (vars.status == 'open')
                 +likeControl('like-control__line', likeControl.base)
@@ -312,6 +334,11 @@ mixin bArticleStatus(mod, vars)
 - bArticleStatus.userProfileStatus = {}
 - bArticleStatus.userProfileStatus.type = 'status'
 - bArticleStatus.userProfileStatus.userActivityPost = userActivityPost.status
+
+- bArticleStatus.careStatus = {}
+- bArticleStatus.careStatus.status = 'list'
+- bArticleStatus.careStatus.empty = true
+
 
 //- Рецепт
 mixin bArticleCook(mod, vars)

@@ -8,20 +8,20 @@
         <!-- comments-->
         <section class="comments comments__buble">
             <div class="comments_hold">
+                <!--
+                варианты цветов комментов. В такой последовательности
+                .comments_li__lilac
+                .comments_li__yellow
+                .comments_li__red
+                .comments_li__blue
+                .comments_li__green
+                -->
                 <ul class="comments_ul" data-bind="foreach: contest.comments">
-                    <!--
-                    варианты цветов комментов. В такой последовательности
-                    .comments_li__lilac
-                    .comments_li__yellow
-                    .comments_li__red
-                    .comments_li__blue
-                    .comments_li__green
-                    -->
                     <li class="comments_li comments_li__lilac">
                         <div class="comments_i clearfix">
                             <div class="comments_ava">
                                 <!-- Аватарки размером 40*40-->
-                                <!-- ava--><a href="#" class="ava ava__middle ava__small-xs" data-bind="href: $data.comment.user.profileUrl"><img alt="" src="" class="ava_img" data-bind="src: $data.comment.user.avatarUrl"></a>
+                                <!-- ava--><a href="#" class="ava ava__middle ava__small-xs" data-bind="css: { 'ava__male': $data.comment.user.gender === 1, 'ava__female': $data.comment.user.gender === 0 }, href: $data.comment.user.profileUrl"><img alt="" src="" class="ava_img" data-bind="src: $data.comment.user.avatarUrl"></a>
                             </div>
                             <div class="comments_frame">
                                 <div class="comments_header"><a href="#" rel="author" class="a-light comments_author" data-bind="href: $data.comment.user.profileUrl"><span data-bind="text: $data.comment.user.fullName"></span></a>
@@ -34,7 +34,7 @@
                                 <!-- ko if: $data.entity -->
                                 <div class="from-article-s clearfix">
                                     <div class="from-article-s_ava">
-                                        <!-- ava--><a href="#" class="ava ava__small" data-bind="href: $data.entity.user.profileUrl"><span class="ico-status ico-status__online"></span><img data-bind="src: $data.entity.user.avatarUrl" alt="" src="" class="ava_img"></a>
+                                        <!-- ava--><a href="#" class="ava ava__small" data-bind="css: { 'ava__male': $data.comment.user.gender === 1, 'ava__female': $data.comment.user.gender === 0 }, href: $data.entity.user.profileUrl"><span class="ico-status ico-status__online"></span><img data-bind="src: $data.entity.user.avatarUrl" alt="" src="" class="ava_img"></a>
                                     </div>
                                     <div class="from-article-s_hold">
                                         <div class="from-article-s_head"><a href="#" class="a-light" data-bind="href: $data.entity.user.profileUrl"><span data-bind="text: $data.entity.user.fullName"></span></a>
@@ -51,8 +51,10 @@
             </div>
         </section>
     </div>
-    <div class="contest-commentator-list_desc" data-bind="if: loading() === false && contest.comments().length === 0">
+    <!-- ko if: loading() === false && contest.comments().length === 0 -->
+    <div class="contest-commentator-list_desc">
       Поздравляем Вас теперь вы равноправный участник конкурса! На этой странице будет отражаться ваша лента комментариев, засчитанных системой модерирования.
     </div>
+    <!-- /ko -->
 </div>
 <!-- /комментарии-->

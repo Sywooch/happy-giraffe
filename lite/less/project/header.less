@@ -1,5 +1,5 @@
 
-/* 
+/*
     Ссылки логина и регастрации в шапке у незарегестрированного пользователя
     header-login
         &_a
@@ -11,7 +11,7 @@
     position: absolute;
     top: 30px;
     right: 50px;
-    
+
     @media (min-width: @screen-desktop) {
         display: block;
     }
@@ -28,8 +28,8 @@
 }
 /* /header-login */
 
-/* 
-    header 
+/*
+    header
     Главная шапка сайта
 
 */
@@ -37,7 +37,7 @@
     position: relative;
     background:#fff url('@{path-img}/header.png') repeat-x 0 0;
     /*z-index: 10;*/
-    
+
     .logo {
         margin: 5px auto 15px;
     }
@@ -46,7 +46,7 @@
 
     @media (min-width: @screen-desktop) {
         &__guest .header-menu {display: inline-block;}
-        
+
     }
 
     &__user .logo {
@@ -61,7 +61,7 @@
         padding: 25px 0 18px;
     }
 
-    
+
     &_t-big {
         float: left;
         margin: 15px 5px;
@@ -140,7 +140,7 @@
     }
     @media (min-width: @screen-desktop) {
         .sidebar-search {
-            width: 46.6%;
+            width: 35.6%;
         }
         &_hold {
             width: auto;
@@ -179,21 +179,21 @@
 }
 /* /header */
 
-/* 
+/*
     header-menu
     меню в шапке
-    
+
     header-menu
         header-menu_ul
             header-menu_li  active
-                header-menu_a 
+                header-menu_a
                     header-menu_ico
                     header-menu_tx
 */
 .header-menu {
     display: inline-block;
     margin: 5px 0 0 0;
-   
+
     .ava {
         float: none;
         .inline-block();
@@ -206,7 +206,7 @@
         margin: 0 11px;
         text-align: center;
     }
-    
+
     &_li.active .header-popup {display: block;}
     &_li__dropin &_a:hover &_ico,
     &_li__dropin &_li.active &_ico,
@@ -268,12 +268,12 @@
     }
     &_kindergold {
         width: 78px;
-        height: 74px; 
+        height: 74px;
         background: url('@{path-img}/header-menu_kindergold.jpg') no-repeat 0 0;
     }
     &_kinderino {
         width: 78px;
-        height: 97px; 
+        height: 97px;
         background: url('@{path-img}/header-menu_kinderino.jpg') no-repeat 50% 50%;
     }
     // kinder реклама
@@ -295,7 +295,7 @@
         width: 50px;
         height: 45px;
         margin: 0 auto 2px;
-        .img-retina('@{path-img}/header-menu_ico.png'; '@{path-img}/header-menu_ico-2x.png'; 700px; 95px;);
+        .img-retina('@{path-img}/header-menu_ico.png'; '@{path-img}/header-menu_ico-2x.png'; 750px; 95px;);
     }
 
     &_ico__giraffe   {background-position: 0 0;}
@@ -312,6 +312,7 @@
     &_ico__favorite  {background-position: -550px 0;}
     &_ico__settings  {background-position: -600px 0;}
     &_ico__logout    {background-position: -650px 0;}
+    &_ico__contest   {background-position: -700px 0;}
 
     &_ico__profile .ava {
         position: absolute;
@@ -337,11 +338,14 @@
         color: #fff;
         background-color: #ff6900;
         .border-radius(30px);
+        &.blue {
+            background-color: #6DB3FA;
+        }
     }
 }
 
 
-/* header-drop 
+/* header-drop
     Выпадающий попап в верхнем меню
     header-drop
         <header-menu>
@@ -397,7 +401,7 @@
 
 
 
-/* header-fix 
+/* header-fix
     Фиксировання шапка
     header-fix  __rel
         header-fix_hold
@@ -418,7 +422,7 @@
     .box-shadow(0 0 3px rgba(0,0,0,0.15));
     z-index: 700;
     height: 50px;
-    
+
     &__rel {
         position: relative;
         display: block;
@@ -481,7 +485,7 @@
 /* /header-fix */
 
 
-/* .header-fix-menu 
+/* .header-fix-menu
     Меню в фиксированной шапке
     header-fix-menu
         header-fix-menu_ul
@@ -511,7 +515,7 @@
         text-align: center;
         vertical-align: middle;
     }
-    
+
     &_a {
         display: block;
         text-decoration: none;

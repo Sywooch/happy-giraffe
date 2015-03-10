@@ -80,6 +80,13 @@
     &_li {
         display: inline-block;
         margin: 0 7px;
+        &.active {
+            .btn-link {
+                background-color: #ffe535;
+                color: #010101;
+                text-decoration: none;
+            }
+        }
     }
 }
 /* /contest-commentator-header */
@@ -266,6 +273,24 @@
         margin: 30px auto 150px;
         text-align: center;
         .tx-content();
+    }
+}
+
+.contest-commentator-blog {
+    &_hold {
+        margin: 20px auto;
+        width: 600px; 
+    }
+    &_top {
+        width: 700px;
+        margin: 0 auto 40px;
+        text-align: center;
+        &__bold {
+            font-weight: bold;
+        }
+        p {
+            font-size: 14px;
+        }
     }
 }
 /* /contest-commentator-list */

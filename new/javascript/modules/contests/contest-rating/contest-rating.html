@@ -7,12 +7,12 @@
     <!-- ko if: contestants().length > 0 -->
     <ul class="contest-commentator-rating_ul" data-bind="foreach: contestants">
       <li class="contest-commentator-rating_li">
-        <div class="contest-commentator-rating_place contest-commentator-rating_place__big" data-bind="text: $index() + 1">
+        <div class="contest-commentator-rating_place" data-bind="css: { 'contest-commentator-rating_place__big': $parent.contest.ratingOffset === null || $parent.contest.ratingOffset === 0 }, text: $index() + 1">
         </div>
         <div class="contest-commentator-rating_user">
             <a href="" class="contest-commentator-rating_user-a" data-bind="href: user.profileUrl">
             <!-- ava-->
-                <span href="#" class="ava">
+                <span href="#" class="ava" data-bind="css: { 'ava__male': user.gender === 1, 'ava__female': user.gender === 0 }">
                     <img alt="" src="" class="ava_img"  data-bind="src: user.avatarUrl">
                 </span>
             </a>

@@ -48,6 +48,16 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    public function active()
+    {
+        $this->getDbCriteria()->with = array(
+            'contest' => array(
+                'joinType' => 'INNER JOIN',
+                'scopes' => 'active',
+            ),
+        );
+    }
+
     public function relations()
     {
         return array(

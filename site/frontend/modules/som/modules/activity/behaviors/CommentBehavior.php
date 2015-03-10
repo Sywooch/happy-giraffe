@@ -60,7 +60,7 @@ class CommentBehavior extends ActivityBehavior
         $cover = false;
         if ($this->content->gallery) {
             $gallery = $this->content->gallery->items;
-            if ($gallery[0]->photo) {
+            if (isset($gallery[0]) && $gallery[0]->photo) {
                 $newPhoto = \site\frontend\modules\photo\components\MigrateManager::movePhoto($gallery[0]->photo);
                 if ($newPhoto) {
                     $cover = \Yii::app()->thumbs->getThumb($newPhoto, 'smallPostPreview')->url;

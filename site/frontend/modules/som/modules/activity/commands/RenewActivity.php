@@ -13,9 +13,15 @@ use site\frontend\modules\som\modules\activity\models\api\Activity;
 class RenewActivity extends \CConsoleCommand
 {
 
-    public function actionIndex($posts = true, $comments = true)
+    public function actionIndex($posts = true, $comments = true, $fromUser = 0)
     {
-        $dataProvider = new \CActiveDataProvider('User', array('criteria' => array('select' => 'id', 'order' => 'id ASC')));
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        $dataProvider = new \CActiveDataProvider('User', array('criteria' => array(
+                'select' => 'id',
+                'condition' => '`id` >= ' . ((int) $fromUser),
+                'order' => 'id ASC',
+        )));
 
         $iterator = new \CDataProviderIterator($dataProvider);
         $count = 0;

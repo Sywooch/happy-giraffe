@@ -60,17 +60,12 @@ class CommentsHandler
 
     public static function updated(Comment $comment, CommentatorsContestParticipant $participant)
     {
+        $contestComment = self::getContestComment($comment, $participant);
+        if ($contestComment === null) {
+            return;
+        }
         $newCounts = self::counts($comment->text);
-
-        var_dump($newCounts);
-
-        $contestComment = CommentatorsContestComment::model()->findByPk(array(
-            'commentId' => $comment->id,
-            'participantId' => $participant->id,
-        ));
-
         $result = -intval($contestComment->counts) + intval($newCounts);
-
         $contestComment->counts = $newCounts;
         $contestComment->update(array('counts'));
         $participant->score += $result;
@@ -78,17 +73,13 @@ class CommentsHandler
 
     public static function removed(Comment $comment, CommentatorsContestParticipant $participant)
     {
+        $contestComment = self::getContestComment($comment, $participant);
+        if ($contestComment === null) {
+            return;
+        }
         $counts = self::counts($comment->text);
-
-        var_dump($counts);
-
-        $contestComment = CommentatorsContestComment::model()->findByPk(array(
-            'commentId' => $comment->id,
-            'participantId' => $participant->id,
-        ));
         $contestComment->counts = 0;
         $contestComment->update(array('counts'));
-
         if ($counts) {
             $participant->score -= 1;
         }
@@ -96,17 +87,23 @@ class CommentsHandler
 
     public static function restored(Comment $comment, CommentatorsContestParticipant $participant)
     {
+        $contestComment = self::getContestComment($comment, $participant);
+        if ($contestComment === null) {
+            return;
+        }
         $counts = self::counts($comment->text);
-
-        $contestComment = CommentatorsContestComment::model()->findByPk(array(
-            'commentId' => $comment->id,
-            'participantId' => $participant->id,
-        ));
         $contestComment->counts = $counts;
-
         if ($counts) {
             $participant->score += 1;
         }
+    }
+
+    protected static function getContestComment(Comment $comment, CommentatorsContestParticipant $participant)
+    {
+        return CommentatorsContestComment::model()->findByPk(array(
+            'commentId' => $comment->id,
+            'participantId' => $participant->id,
+        ));
     }
 
     protected static function getParticipant(Comment $comment)

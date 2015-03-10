@@ -25,7 +25,7 @@ $this->adaptive = false;
                             array(
                                 'label' => 'О конкурсе',
                                 'url' => array('/comments/contest/default/index', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
+                                'linkOptions' => array('class' => 'btn btn-link ' . ((! Yii::app()->user->isGuest && $this->contest->isRegistered(Yii::app()->user->id)) ? 'btn-xm' : 'btn-xxl')),
                             ),
                             array(
                                 'label' => 'Рейтинг',
@@ -35,7 +35,7 @@ $this->adaptive = false;
                             array(
                                 'label' => 'Моя лента',
                                 'url' => array('/comments/contest/default/my', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xm btn-link'),
+                                'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
                                 'visible' => ! Yii::app()->user->isGuest && $this->contest->isRegistered(Yii::app()->user->id),
                             ),
                             array(

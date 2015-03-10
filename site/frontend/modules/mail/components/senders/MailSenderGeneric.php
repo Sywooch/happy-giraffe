@@ -20,9 +20,18 @@ class MailSenderGeneric extends MailSender
     public function process(User $user)
     {
         $message = new MailMessageGeneric($user, array(
-            'subject' => $this->subject,
+            'subject' => $this->prepareSubject($this->subject, $user),
             'templateFile' => $this->templateFile,
         ));
         Yii::app()->postman->send($message);
+    }
+
+    protected function prepareSubject($subject, $user)
+    {
+        $replacements = array(
+            '{firstName}' => $user->first_name,
+        );
+
+        return str_replace(array_keys($replacements), array_values($replacements), $subject);
     }
 }

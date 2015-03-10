@@ -16,6 +16,7 @@ class Favourites extends EMongoDocument
     const BLOCK_SOCIAL_NETWORKS = 7;
     const CLUB_MORE = 8;
     const BLOCK_MAIL = 9;
+    const BLOCK_COMMENTATORS_CONTEST = 10;
 
     public $block;
     public $entity;
@@ -330,4 +331,15 @@ class Favourites extends EMongoDocument
         return $modelsIds;
     }
 
+    public function block($block)
+    {
+        $this->getDbCriteria()->addCond('block', '==', $block);
+        return $this;
+    }
+
+    public function orderDesc()
+    {
+        $this->getDbCriteria()->sort('created', EMongoCriteria::SORT_DESC);
+        return $this;
+    }
 }

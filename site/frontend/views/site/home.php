@@ -35,7 +35,6 @@ if ($openLogin == 'login') {
 <div class="layout-container homepage">
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
-            <?php $this->renderPartial('application.modules.comments.modules.contest.views._banner'); ?>
             <!-- header-->
             <header class="header header__homepage">
                 <div class="header_hold">

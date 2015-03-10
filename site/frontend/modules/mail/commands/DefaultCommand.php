@@ -28,6 +28,12 @@ class DefaultCommand extends CConsoleCommand
         $sender->sendAll();
     }
 
+    public function actionGeneric($subject, $tpl)
+    {
+        $sender = new MailSenderGeneric($subject, $tpl);
+        $sender->sendAll();
+    }
+
     /**
      * Отправка ежедневной рассылки
      */

@@ -38,12 +38,12 @@ $this->adaptive = false;
                                 'linkOptions' => array('class' => 'btn btn-xm btn-link'),
                                 'visible' => ! Yii::app()->user->isGuest && $this->contest->isRegistered(Yii::app()->user->id),
                             ),
-                            array(
-                                'label' => 'Что комментировать?',
-                                'url' => array('/comments/contest/default/posts', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xm btn-link'),
-                                'visible' => ! Yii::app()->user->isGuest && $this->contest->isRegistered(Yii::app()->user->id),
-                            ),
+//                            array(
+//                                'label' => 'Что комментировать?',
+//                                'url' => array('/comments/contest/default/posts', 'contestId' => $this->contest->id),
+//                                'linkOptions' => array('class' => 'btn btn-xm btn-link'),
+//                                'visible' => ! Yii::app()->user->isGuest && $this->contest->isRegistered(Yii::app()->user->id),
+//                            ),
                         ),
                         'itemCssClass' => 'contest-commentator-header_li',
                         'htmlOptions' => array(

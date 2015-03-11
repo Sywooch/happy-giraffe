@@ -45,6 +45,7 @@ abstract class ApiModel extends \CModel
     {
         if (!\Yii::app()->api)
             throw new Exception('Компонент api должен быть сконфигурирован');
+        $this->_new = true;
     }
 
     public function init()
@@ -130,7 +131,7 @@ abstract class ApiModel extends \CModel
             foreach ($attributes['insert'] as $attribute)
                 $request[$attribute] = $this->$attribute;
 
-            $result = $this->request('create', $params);
+            $result = $this->request('create', $request);
 
             if ($result['success'])
             {
@@ -199,7 +200,7 @@ abstract class ApiModel extends \CModel
     public function query($action, $params)
     {
         $this->beforeFind();
-        $result = $this->extract($this->request($action, $params));
+        $result = $this->request($action, $params);
         if (!$result['success'])
             throw new \site\frontend\components\api\ApiException($result['errorMessage'], $result['errorCode'] ? : 0);
         if (isset($result['isPack']))
@@ -248,14 +249,14 @@ abstract class ApiModel extends \CModel
                 if (!$result)
                 {
                     $this->trace('try api');
-                    $result = \Yii::app()->api->request($this->api, $action, $params);
+                    $result = $this->extract(\Yii::app()->api->request($this->api, $action, $params));
                     $this->cacheSet($action, $params, $result);
                 }
             }
 
             return $result;
         }
-        return \Yii::app()->api->request($this->api, $action, $params);
+        return $this->extract(\Yii::app()->api->request($this->api, $action, $params));
     }
 
     public function getCache()

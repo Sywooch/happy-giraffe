@@ -6,7 +6,7 @@
 
 class MailSenderGeneric extends MailSender
 {
-    protected $debugMode = self::DEBUG_TESTING;
+    protected $debugMode = self::DEBUG_PRODUCTION;
 
     public $templateFile;
 

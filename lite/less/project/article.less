@@ -3,7 +3,7 @@
 .b-article {
     position: relative;
     margin: 20px 0 20px;
-    
+
     .heading-link-xl {margin-top: 0;}
     .custom-likes-b {margin: 0 0 30px;}
     .wysiwyg-content {
@@ -50,9 +50,8 @@
 
     &_cont-tale {display: none;}
 
-    &_in {
-        word-wrap: break-word;
-    }
+    &_in {word-wrap: break-word;}
+
     &_in-img {
         position: relative;
         margin: 0 0 8px;
@@ -89,7 +88,7 @@
         /*min-height: 321px;*/
         padding: 0;
     }
-    
+
     &_header {
         margin-bottom: 8px;
     }
@@ -130,7 +129,7 @@
     }
 
     @media (min-width: @screen-phone) {
-        
+
         &_header .tx-date {
             display: inline-block;
             margin-left: 4px;
@@ -139,12 +138,12 @@
 
     @media (min-width: @screen-tablet) {
         .wysiwyg-content {
-            margin: 0; 
+            margin: 0;
         }
         .b-album_top {
             padding: 15px;
         }
-        &_in-img { 
+        &_in-img {
             margin: 5px 0 15px 0;
         }
         &_t-list {
@@ -173,6 +172,7 @@
             padding-right: 20px;
         }
         &__list&__user-status .user-status {
+            margin-top: 10px;
             margin-left: -14px;
             margin-right: -14px;
             padding-left: 34px;
@@ -198,7 +198,7 @@
 /* wysiwyg-content  */
 .wysiwyg-content {
     word-wrap: break-word;
-    
+
     &:extend(.tx-content);
 
     p {margin: 0 0 10px;}
@@ -212,7 +212,7 @@
         margin: 0 0 10px;
     }
     .smile {vertical-align: middle;}
-    
+
     h2 {
         margin: 20px 0 15px;
         font-size: 16px;
@@ -285,8 +285,8 @@
     position: relative;
     padding-bottom: 56.25%;
     padding-top: 30px; height: 0; overflow: hidden;
-    
-     
+
+
     iframe,
     object,
     embed {
@@ -309,7 +309,7 @@
     padding: 10px 0;*/
     margin: 10px auto;
     text-align: center;
-    
+
     .ico-action-hg {
         margin: 6px 0;
     }
@@ -327,7 +327,7 @@
         border-left: 1px solid #e7d24f;
     }
     &__line &_hold:first-child {border-left: none;}
-    
+
     &__small {
         .inline-block();
         width: auto;
@@ -463,7 +463,7 @@
     &__lilac  {background-color: #9e87c7;}
     &__red    {background-color: #ff8232;}
     &__yellow {background-color: #facf32;}
-    
+
     &_row {
         margin: 10px 12px 10px;
     }
@@ -594,12 +594,12 @@
 .article-users {
     margin: 20px 5px;
     padding: 10px 0;
-    
+
     /*&_t {
         margin: 15px 0 10px;
         font-size: 15px;
         line-height: 22px;
-    }*/ 
+    }*/
     .ava-list {
         display: inline-block;
         vertical-align: middle;
@@ -650,7 +650,7 @@
     }
 
     @media (min-width: @screen-desktop) {
-        
+
         &_row {
             display: block;
         }
@@ -662,7 +662,7 @@
 /* ava-list */
 .ava-list {
     margin: 10px 0;
-    
+
     .ava {display: block;}
     &_ul {}
     &_li {
@@ -693,7 +693,7 @@
         height: 15px;
         background: url(/images/user-actions_ico__small.png) no-repeat;
     }
-    
+
     &_i {
         .inline-block();
         margin: 0 1px;
@@ -745,3 +745,79 @@
 }
 /* /ingredients */
 
+/* user-activity-post */
+.user-activity-post {
+    display: block;
+    margin: 15px 0 5px;
+
+    .ico-post-type-s {
+        margin: -10px 6px 0 0;
+        top: 2px;
+    }
+    .ico-post-type-s__comment {
+        top: 3px;
+    }
+
+    &_hold {
+        position: relative;
+        display: inline-block;
+        margin: 0 0 0 12px;
+        padding: 2px 8px;
+        background-color: #CDECFF;
+    }
+    &_hold:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -24px;
+        width: 0;
+        height: 0;
+        border: 12px solid #fff;
+        border-right-color: #CDECFF;
+    }
+    &_tx {
+        display: inline-block;
+        font-size: @font-m;
+    }
+
+}
+/* /user-activity-post */
+
+/* b-post-anonce-s */
+.b-post-anonce-s {
+    margin: 10px 0;
+
+    &_img {
+        float: left;
+        margin-right: 10px;
+    }
+    &_hold {
+        overflow: hidden;
+    }
+    &_header {
+        margin-bottom: 8px;
+    }
+    &_header .tx-date {display: block;}
+    &_header .ava {
+        margin: 0 7px 0 0;
+        float: left;
+    }
+    &_author {
+        .inline-block();
+        line-height: 12px;
+        padding-right: 5px;
+    }
+    &_t {
+        &:extend(.heading-link-l);
+        margin: 8px 0;
+    }
+
+    @media (min-width: @screen-phone) {
+
+        &_header .tx-date {
+            display: inline-block;
+            margin-left: 4px;
+        }
+    }
+}
+/* /b-post-anonce-s */

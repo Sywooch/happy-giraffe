@@ -53,7 +53,7 @@ mixin bAlbum(mod, vars)
                 // Стрелки показывать скрывать по тапу (касанию пальца)
                 a.i-photo-arrow.i-photo-arrow__l.i-photo-arrow__abs(href="#")
                 a.i-photo-arrow.i-photo-arrow__r.i-photo-arrow__abs(href="#")
-        if (vars.bottomNo)
+        if (vars.bottom)
             .b-album_overlay
                 a.b-album_r
                     - if (vars.tx)
@@ -132,7 +132,7 @@ mixin bAlbum(mod, vars)
 - bAlbum.family.img = 'http://placekitten.com/880/587'
 - bAlbum.family.tx = 'Смотреть  <br> все фото &nbsp;'
 - bAlbum.family.prevAdd = false
-- bAlbum.family.bottomNo = true
+- bAlbum.family.bottom = false
 
 
 - bAlbum.photolink = {}

@@ -18,38 +18,71 @@
     }
 
     &__buble &_li__red &_cont {border-color: #fee6d6;}
-    &__buble &_li__red &_cont:after {background-position: 0 0;}
     &__buble &_li__yellow &_cont {border-color: #fff5ce;}
-    &__buble &_li__yellow &_cont:after {background-position: 0 -20px;}
     &__buble &_li__blue &_cont {border-color: #d4edfd;}
-    &__buble &_li__blue &_cont:after {background-position: 0 -40px;}
     &__buble &_li__green &_cont {border-color: #cbf6c7;}
-    &__buble &_li__green &_cont:after {background-position: 0 -60px;}
     &__buble &_li__lilac &_cont {border-color: #e4dbf2;}
-    &__buble &_li__lilac &_cont:after {background-position: 0 -80px;}
-    &__buble &_cont:after {
-        content: '';
-        display: none;
-        position: absolute;
-        top: 15px;
-        left: -13px;
-        width: 13px;
-        height: 17px;
-        background: url('@{path-img}/comments/comments__buble_li.png') no-repeat;
-    }
+
     @media (min-width: @screen-desktop) {
         &__buble &_cont {
             padding: 8px 50px 8px 12px;
             border: 2px solid transparent;
             .border-radius(5px);
         }
-        &__buble &_cont:after {display: block;}
+        &__buble &_cont:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 15px;
+            left: -13px;
+            width: 13px;
+            height: 17px;
+            background: url('@{path-img}/comments/comments__buble_li.png') no-repeat;
+        }
+        &__buble &_li__red &_cont:after {background-position: 0 0;}
+        &__buble &_li__yellow &_cont:after {background-position: 0 -20px;}
+        &__buble &_li__blue &_cont:after {background-position: 0 -40px;}
+        &__buble &_li__green &_cont:after {background-position: 0 -60px;}
+        &__buble &_li__lilac &_cont:after {background-position: 0 -80px;}
     }
 
     &__title {
         margin: 15px 0 0;
     }
 
+    &__anonce,
+    &__anonce &_li,{margin: 5px 0;}
+    @media (min-width: @screen-desktop) {
+        &__anonce&__buble &_cont:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -16px;
+            left: 27px;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            border-bottom-color: #fff;
+            z-index: 2;
+        }
+        &__anonce&__buble &_cont:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -20px;
+            left: 25px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-bottom-color: #e4dbf2;
+            background: none;
+        }
+        &__anonce&__buble &_li__red &_cont:after {border-bottom-color: #fee6d6;}
+        &__anonce&__buble &_li__yellow &_cont:after {border-bottom-color: #fff5ce;}
+        &__anonce&__buble &_li__blue &_cont:after {border-bottom-color: #d4edfd;}
+        &__anonce&__buble &_li__green &_cont:after {border-bottom-color: #cbf6c7;}
+        &__anonce&__buble &_li__lilac &_cont:after {border-bottom-color: #e4dbf2;}
+    }
     &_t {
         margin: 0 0 15px;
         font-size: 18px;
@@ -161,6 +194,7 @@
     &_sort:hover {
         color: @color-gray-dark;
     }
+
     @media (min-width: @screen-phone) {
         &_hold {
             margin-right: 20px;
@@ -168,6 +202,10 @@
         &_cont {padding-right: 20px;}
     }
     @media (min-width: @screen-phone-landscape) {
+
+        &__anonce &_frame {
+            margin-left: 0;
+        }
         &_frame {
             margin-left: 47px;
             width: 463px;
@@ -186,8 +224,8 @@
         }
     }
     @media (min-width: @screen-desktop) {
-        &_all {display: none;}
         .yiipagination {display: block;}
+        &_all {display: none;}
     }
 
 

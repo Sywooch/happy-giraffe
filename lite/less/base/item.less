@@ -98,6 +98,7 @@
         }
     }
 }
+a.heading-link-l:hover,
 a.heading-link-xl:hover,
 a.heading-link-xxl:hover {
     color: @color-orange;
@@ -124,6 +125,31 @@ a.heading-link-xxl:hover {
             margin: 15px 0;
             font-size: 35px;
             line-height: 35px;
+        }
+    }
+}
+.heading-link-l {
+    margin: 8px 0;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: bold;
+    color: @color-link-title;
+    text-decoration: none;
+    letter-spacing: -0.3px;
+
+
+    @media (min-width: @screen-phone) {
+        & {
+            font-size: 18px;
+            line-height: 18px;
+        }
+    }
+
+    @media (min-width: @screen-tablet) {
+        & {
+            margin: 10px 0;
+            font-size: 20px;
+            line-height: 20px;
         }
     }
 }

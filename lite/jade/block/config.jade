@@ -1,5 +1,10 @@
 - var path = "/lite/";
 
+//- ////////////////////////////////////////////
+//- Порядок подключения должен зависеть от порядка использования (( это ооочень плохо, нужно искать решение
+//- Как вариант писать переменные в отдельных файлах и подлючать в самом верху.
+//- --------------------------------------------
+
 //- Базовые блоки
 include base/ava
 include base/base
@@ -14,6 +19,7 @@ include layout/scripts
 
 //- Проектные блоки для разных модулей
 include project/albumPreview
+include project/userActivityPost
 include project/article
 include project/articleAnonce
 include project/articleNearby
@@ -41,8 +47,8 @@ include project/sectionClub
 include project/sidebar
 include project/sidebar-search
 include project/subscribersWidget
-include project/userAddRecord
 include project/user-menu
+include project/userAddRecord
 include project/userSection
 include project/userSubscribers
 include project/yiipagination

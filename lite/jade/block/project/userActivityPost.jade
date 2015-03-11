@@ -1,0 +1,46 @@
+mixin userActivityPost(mod, vars)
+    // блок активность пользователя внутри статьи
+    .user-activity-post
+        .user-activity-post_hold.clearfix
+            // иконки, нужно к .ico-post-type-s добавить один из классов
+            // ico-post-type-s__article    - статья
+            // ico-post-type-s__comment    - оставлен комментарий
+            // ico-post-type-s__like       - лайкнул
+            // ico-post-type-s__photo      - добавлено фото в фотоальбом
+            // ico-post-type-s__photopost  - фотопост
+            // ico-post-type-s__status     - статус
+            // ico-post-type-s__video      - видеопост
+            span.ico-post-type-s(class='ico-post-type-s__'+vars.ico)
+            span.user-activity-post_tx 
+                != vars.tx
+    // /блок активность пользователя внутри статьи
+
+- var userActivityPost = {}
+
+- userActivityPost.article = {}
+- userActivityPost.article.ico = 'article'
+- userActivityPost.article.tx = 'добавила статью'
+
+- userActivityPost.photopost = {}
+- userActivityPost.photopost.ico = 'photopost'
+- userActivityPost.photopost.tx = 'добавила фотопост'
+
+- userActivityPost.photo = {}
+- userActivityPost.photo.ico = 'photo'
+- userActivityPost.photo.tx = 'добавлены фото в фотоальбом'
+
+- userActivityPost.status = {}
+- userActivityPost.status.ico = 'status'
+- userActivityPost.status.tx = 'статус'
+
+- userActivityPost.video = {}
+- userActivityPost.video.ico = 'video'
+- userActivityPost.video.tx = 'добавила видео'
+
+- userActivityPost.comment = {}
+- userActivityPost.comment.ico = 'comment'
+- userActivityPost.comment.tx = 'оставлен комментарий'
+
+- userActivityPost.like = {}
+- userActivityPost.like.ico = 'like'
+- userActivityPost.like.tx = 'лайкнула'

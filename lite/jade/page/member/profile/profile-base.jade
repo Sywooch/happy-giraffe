@@ -26,15 +26,26 @@ block layout
                 .b-main_col-article
 
                     .heading-sm Моя активность
-                    +bArticleListItem('', bArticleListItem.a)
 
-                    +bArticleListItem('', bArticleListItem.b) 
+                    +bArticleListItem('', bArticleListItem.userProfileArticle)
+                    
+                    +bArticleListPhotopost('', bArticleListPhotopost.userProfilePhotopost)
+                    
+                    +bArticleListPhotopost('', bArticleListPhotopost.userProfilePhoto)
+                    
+                    +bArticleStatus('', bArticleStatus.userProfileStatus)
+
+                    +bArticleListItem('', bArticleListItem.userProfileVideo) 
+
+                    +bArticleComment('', bArticleComment.base)
+
+                    +bArticleLike('', bArticleLike.base) 
 
                     +paginationSmall('', paginationSmall.base)
 
 
                 ///////
-                // Сайд бар  
+                // Сайд бар
                 aside.b-main_col-sidebar.visible-md
                     // виджет фото
                     .widget-user-photo

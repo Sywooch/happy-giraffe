@@ -88,7 +88,7 @@ class DefaultCommand extends CConsoleCommand
 
         Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) {
             $message = unserialize($job->workload());
-            call_user_func_array(array(Yii::app()->postman, 'sendEmail'), $message);
+            call_user_func_array(array(Yii::app()->postman, 'sendEmail'), array($message));
         });
         while (Yii::app()->gearman->worker()->work()) {
             echo "OK\n";

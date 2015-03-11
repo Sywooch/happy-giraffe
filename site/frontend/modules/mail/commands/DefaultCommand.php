@@ -83,6 +83,7 @@ class DefaultCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.status.EStatusBehavior');
         Yii::import('zii.behaviors.CTimestampBehavior');
         Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
+        Yii::import('site.common.extensions.wr.WithRelatedBehavior');
 
         Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) {
             $message = unserialize($job->workload());

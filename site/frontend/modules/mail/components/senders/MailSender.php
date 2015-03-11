@@ -110,6 +110,7 @@ abstract class MailSender extends CComponent
     {
         $criteria = new CDbCriteria();
 
+        $criteria->compare('t.deleted', 0);
         switch ($this->debugMode) {
             case self::DEBUG_DEVELOPMENT:
                 $criteria->compare('t.id', 12936);

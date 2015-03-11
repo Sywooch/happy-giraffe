@@ -22,4 +22,12 @@ class MailSenderGeneric extends MailSender
         ));
         Yii::app()->postman->send($message);
     }
+
+    protected function getUsersCriteria()
+    {
+        $criteria = parent::getUsersCriteria();
+        $criteria->join .= ' LEFT OUTER JOIN commentators__contests_participants p ON t.id = p.userId';
+        $criteria->addCondition('p.userId IS NULL');
+        return $criteria;
+    }
 }

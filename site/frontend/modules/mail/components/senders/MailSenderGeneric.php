@@ -27,7 +27,7 @@ class MailSenderGeneric extends MailSender
     {
         $criteria = parent::getUsersCriteria();
         $criteria->join .= ' LEFT OUTER JOIN commentators__contests_participants p ON t.id = p.userId LEFT OUTER JOIN mail__delivery d ON t.id = d.user_id AND d.type = ""';
-        $criteria->addCondition('p.userId IS NULL AND d.id IS NOT NULL');
+        $criteria->addCondition('p.userId IS NULL AND d.id IS NULL');
         return $criteria;
     }
 }

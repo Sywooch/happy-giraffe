@@ -29,13 +29,8 @@ class DefaultController extends \LiteController
         if ($user === null) {
             throw new \CHttpException(404);
         }
-        $dp = $this->getListDataProvider($userId);
-        if (isset($_GET[$dp->pagination->pageVar])) {
-            $this->metaNoindex = true;
-        } else {
-            \NoindexHelper::setNoIndex($user);
-        }
-        $this->render('index', array('user' => $user, 'dataProvider' => $dp));
+        \NoindexHelper::setNoIndex($user);
+        $this->render('index', array('user' => $user));
     }
 
 }

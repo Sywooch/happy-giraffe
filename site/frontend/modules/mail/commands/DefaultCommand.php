@@ -30,6 +30,7 @@ class DefaultCommand extends CConsoleCommand
 
     public function actionGeneric($subject, $tpl)
     {
+        ini_set('unserialize_callback_func', 'spl_autoload_call');
         $sender = new MailSenderGeneric($subject, $tpl);
         $sender->sendAll();
     }

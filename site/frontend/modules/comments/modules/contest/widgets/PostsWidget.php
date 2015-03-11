@@ -17,7 +17,9 @@ class PostsWidget extends \CWidget
 
     public function init()
     {
-        $favourites = \Favourites::model()->block(\Favourites::BLOCK_COMMENTATORS_CONTEST)->orderDesc()->findAll();
+        $favourites = \Favourites::model()->block(\Favourites::BLOCK_COMMENTATORS_CONTEST)->orderDesc()->findAll(array(
+            'limit' => self::LIMIT,
+        ));
         $ids = array_map(function($f) {
             return $f->entity_id;
         }, $favourites);

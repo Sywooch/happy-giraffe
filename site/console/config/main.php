@@ -40,8 +40,14 @@ return array(
         'postFillQueue' => array(
             'class' => 'site\frontend\modules\posts\commands\FillQueue',
         ),
+        'sendMessage' => array(
+            'class' => 'site.frontend.modules.messaging.commands.SendCommand',
+        ),
         'testConvert' => array(
             'class' => 'site\frontend\modules\posts\commands\TestConvert',
+        ),
+        'activityRenew' => array(
+            'class' => 'site\frontend\modules\som\modules\activity\commands\RenewActivity',
         ),
         'family' => array(
             'class' => 'site\frontend\modules\family\commands\DefaultCommand',

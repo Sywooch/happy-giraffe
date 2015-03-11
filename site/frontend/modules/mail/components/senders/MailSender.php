@@ -95,6 +95,8 @@ abstract class MailSender extends CComponent
             'pagination' => false,
         ));
 
+        echo $dp->totalItemCount; die;
+
         return new CDataProviderIterator($dp, 1000);
     }
 

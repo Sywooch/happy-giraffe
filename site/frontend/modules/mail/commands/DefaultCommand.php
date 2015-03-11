@@ -15,6 +15,8 @@ class DefaultCommand extends CConsoleCommand
      */
     public function init()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         Yii::import('site.frontend.modules.mail.MailModule');
         MailModule::externalImport();
     }
@@ -80,8 +82,6 @@ class DefaultCommand extends CConsoleCommand
 
     public function actionWorker()
     {
-        \Yii::app()->db->enableSlave = false;
-        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         Yii::import('site.frontend.extensions.status.EStatusBehavior');
         Yii::import('zii.behaviors.CTimestampBehavior');
         Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');

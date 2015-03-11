@@ -30,8 +30,6 @@ class DefaultCommand extends CConsoleCommand
 
     public function actionGeneric($subject, $tpl)
     {
-        echo "123\n";
-        ini_set('unserialize_callback_func', 'spl_autoload_call');
         $sender = new MailSenderGeneric($subject, $tpl);
         $sender->sendAll();
     }
@@ -82,6 +80,8 @@ class DefaultCommand extends CConsoleCommand
 
     public function actionWorker()
     {
+        echo "123\n";
+        ini_set('unserialize_callback_func', 'spl_autoload_call');
         Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) {
             $message = unserialize($job->workload());
             call_user_func_array(array('MailPostman', 'sendEmail'), $message);

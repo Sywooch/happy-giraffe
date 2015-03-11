@@ -1,7 +1,8 @@
 <?php
 /**
- * @var MailMessage $message
+ * @var MailMessageGeneric $message
  */
+$message->subject = $message->user->first_name . ', принимай участие в конкурсе «Лучший комментатор»!';
 ?>
 
 <!-- Inliner Build Version 4380b7741bb759d6cb997545f3add21ad48f010b -->

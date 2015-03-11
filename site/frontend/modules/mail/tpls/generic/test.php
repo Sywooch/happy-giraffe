@@ -1,0 +1,1 @@
+Хелоу, <?php echo $message->user->first_name; ?>

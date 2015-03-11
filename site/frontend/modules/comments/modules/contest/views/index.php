@@ -26,7 +26,7 @@ $cs->registerAMD('contestCommentsButton', array('joinOrAuth' => 'extensions/join
         Лучшим 10 комментаторам зачисляется <br>1000 рублей на мобильный телефон!
     </div>
     <?php if (Yii::app()->user->isGuest || ! $this->contest->isRegistered(Yii::app()->user->id)): ?>
-        <div class="contest-commentator-prize_btn-hold"><a href="#" class="btn btn-xxxl contest-commentator_btn-orange">Хочу приз!</a></div>
+        <div class="contest-commentator-prize_btn-hold"><a href="#" class="btn btn-xxxl contest-commentator_btn-orange" data-bind="joinOrAuthBind: {}">Хочу приз!</a></div>
     <?php endif; ?>
 </div>
 <!-- призы-->

@@ -30,12 +30,11 @@ if ($openLogin == 'login') {
     <title>Веселый Жираф - сайт для всей семьи</title>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
-<body class="body body__lite  body__bg2 body__homepage <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>  ">
+<body class="body body__lite body__homepage <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>  ">
 <?php Yii::app()->ads->showCounters(); ?>
 <div class="layout-container homepage">
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
-            <?php $this->renderPartial('application.modules.comments.modules.contest.views._banner'); ?>
             <!-- header-->
             <header class="header header__homepage">
                 <div class="header_hold">

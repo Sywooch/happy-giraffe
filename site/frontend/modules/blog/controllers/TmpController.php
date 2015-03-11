@@ -109,18 +109,9 @@ class TmpController extends HController
             'entity' => $entity,
             'entityId' => $entityId,
         );
-        if (Yii::app()->user->model->checkAuthItem('manageFavourites')) {
-            if ($entity == 'SimpleRecipe' || $entity == 'MultivarkaRecipe') {
-                $result[] = array('class' => 'social', 'title' => 'Посты в соцсети', 'num' => Favourites::BLOCK_SOCIAL_NETWORKS, 'active' => Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS));
-            } else {
-                $result[] = array('class' => 'interest', 'title' => 'На главную', 'num' => Favourites::BLOCK_INTERESTING, 'active' => Favourites::inFavourites($model, Favourites::BLOCK_INTERESTING));
-                $result[] = array('class' => 'social', 'title' => 'Посты в соцсети', 'num' => Favourites::BLOCK_SOCIAL_NETWORKS, 'active' => Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS));
-                $result[] = array('class' => 'mail', 'title' => 'Посты в рассылку', 'num' => Favourites::WEEKLY_MAIL, 'active' => Favourites::inFavourites($model, Favourites::WEEKLY_MAIL));
-            }
-        }
-
-        if ($entity == 'CommunityContent' && Yii::app()->user->model->checkAuthItem('clubFavourites')) {
-            $result[] = array('class' => 'interest', 'title' => 'Интересное в клубах', 'num' => Favourites::CLUB_MORE, 'active' => Favourites::inFavourites($model, Favourites::CLUB_MORE));
+        if (Yii::app()->user->model->checkAuthItem('manageFavourites') && in_array($entity, array('CommunityContent', 'BlogContent'))) {
+            $result[] = array('class' => 'interest', 'title' => 'В конкурс', 'num' => Favourites::BLOCK_COMMENTATORS_CONTEST, 'active' => Favourites::inFavourites($model, Favourites::BLOCK_COMMENTATORS_CONTEST));
+            $result[] = array('class' => 'mail', 'title' => 'Посты в рассылку', 'num' => Favourites::WEEKLY_MAIL, 'active' => Favourites::inFavourites($model, Favourites::WEEKLY_MAIL));
         }
         echo CJSON::encode($result);
     }

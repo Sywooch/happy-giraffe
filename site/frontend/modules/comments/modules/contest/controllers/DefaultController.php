@@ -9,6 +9,7 @@ namespace site\frontend\modules\comments\modules\contest\controllers;
 
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContest;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant;
+use site\frontend\modules\posts\models\Content;
 
 class DefaultController extends \LiteController
 {
@@ -64,6 +65,12 @@ class DefaultController extends \LiteController
     {
         $this->loadContest($contestId);
         $this->render('/my');
+    }
+
+    public function actionPosts($contestId)
+    {
+        $this->loadContest($contestId);
+        $this->render('/posts');
     }
 
     public function actionCounts($contestId)

@@ -14,7 +14,7 @@ class MailPostman extends CApplicationComponent
     const MODE_SIMPLE = 0;
     const MODE_QUEUE = 1;
 
-    public $mode = self::MODE_SIMPLE;
+    public $mode = self::MODE_QUEUE;
 
     /**
      * Центральный метод отправки сообщения

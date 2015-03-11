@@ -40,6 +40,9 @@ return array(
         'postFillQueue' => array(
             'class' => 'site\frontend\modules\posts\commands\FillQueue',
         ),
+        'sendMessage' => array(
+            'class' => 'site.frontend.modules.messaging.commands.sendCommand',
+        ),
         'testConvert' => array(
             'class' => 'site\frontend\modules\posts\commands\TestConvert',
         ),

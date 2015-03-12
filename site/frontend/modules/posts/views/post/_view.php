@@ -34,9 +34,9 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     <a href="<?= $this->user->profileUrl ?>" class="ava ava__female ava__small-xs ava__middle-sm"><span class="ico-status ico-status__online"></span><img alt="" src="<?= $this->user->avatarUrl ?>" class="ava_img"></a><a href="<?= $this->user->profileUrl ?>" class="b-article_author"><?= $this->user->fullName ?></a>
                     <?= HHtml::timeTag($this->post, array('class' => 'tx-date'), null); ?>
                 </div>
-                <?php /* <div class="icons-meta"><a href="<?= $this->post->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
-                  <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->incViewsByPath($this->post->parsedUrl) ?></span></div>
-                  </div> */ ?>
+                <div class="icons-meta"><a href="<?=$this->post->commentsUrl?>" class="icons-meta_comment"><span class="icons-meta_tx"><?=$comments->count?></span></a>
+                    <div class="icons-meta_view"><span class="icons-meta_tx"><?=$this->post->views?></span></div>
+                </div>
             </div>
             <?php
             if (!$this->post->templateObject->getAttr('hideTitle', false)) {
@@ -218,6 +218,5 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
       <div class="article-similar_row"><a href="" class="article-similar_t">Обязательства мешают любовным отношениям</a></div>
       <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
       </div> */ ?>
-    <?php $this->renderPartial('//banners/_sidebar'); ?>
 </aside>
 <!-- Сайд бар-->

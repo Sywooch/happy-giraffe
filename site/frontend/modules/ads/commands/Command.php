@@ -5,6 +5,7 @@ namespace site\frontend\modules\ads\commands;
  * @date 11/02/15
  */
 
+use site\frontend\modules\ads\models\Ad;
 use site\frontend\modules\posts\models\Content;
 
 \Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
@@ -43,5 +44,56 @@ class Command extends \CConsoleCommand
     {
         $post = Content::model()->byEntity('CommunityContent', $id)->find();
         \Yii::app()->getModule('ads')->manager->add('photoPost', $post->id, 'photoPost', compact('iconSrc'));
+    }
+
+    public function actionSyncPhotoPosts()
+    {
+        $file = \Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'dfp.csv';
+        $nAdded = 0;
+        if (($handle = fopen($file, "r")) !== false) {
+            $row = 0;
+            while (($data = fgetcsv($handle)) !== false) {
+                if ($row !== 0 && ! empty($data[5])) {
+                    $title = $data[5];
+                    $icon = $data[4];
+                    $url = $data[2];
+
+                    $post = Content::model()->findByAttributes(array('url' => $url));
+                    if ($post === null) {
+                        echo "problem: $url\n";
+                    }
+
+                    if ($post->title != $title) {
+                        $post->title = $title;
+                        $post->update(array('title'));
+                    }
+                    $ad = Ad::model()->entity($post)->find();
+
+                    preg_match('#\d+#', $icon, $matches);
+                    $iconSrc = 'http://www.happy-giraffe.ru/lite/images/banner/anonce/anonce-' . $matches[0] . '.png';
+                    if ($ad === null) {
+                        \Yii::app()->getModule('ads')->manager->add('photoPost', $post->id, 'photoPost', compact('iconSrc'));
+                        $nAdded++;
+                    } else {
+                        \Yii::app()->getModule('ads')->manager->update($ad);
+                    }
+                }
+                $row++;
+            }
+            fclose($handle);
+        }
+        echo $nAdded . "added\n";
+    }
+
+    public function actionUpdateLicas()
+    {
+        $options = array(
+            'endDateTime' => new \DateTime('+5 year', new \DateTimeZone('Europe/Moscow')),
+        );
+
+        $ads = Ad::model()->preset('photoPost')->findAll();
+        foreach ($ads as $ad) {
+            \Yii::app()->getModule('ads')->dfp->updateLica($ad->lineId, $ad->creativeId, $options);
+        }
     }
 }

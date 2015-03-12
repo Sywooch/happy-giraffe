@@ -17,10 +17,10 @@ class PiwikHttpApi extends \CApplicationComponent
     {
         $params = array(
             'period' => 'range',
-            'date' => '2015-01-01,today',
+            'date' => '2015-02-13,today',
             'segment' => 'pageUrl==' . $url,
         );
-        $response = $this->makeRequest('VisitsSummary.getVisits', $params);
+        $response = $this->makeRequest('VisitsSummary.getActions', $params);
         return $response['value'];
     }
 

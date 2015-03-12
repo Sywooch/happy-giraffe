@@ -13,8 +13,10 @@ class PageView extends \EMongoDocument
 {
     public $visits = 0;
     public $correction = 0;
+    public $result = null;
     public $created;
     public $updated;
+    public $synced;
 
     public function getCollectionName()
     {
@@ -63,6 +65,9 @@ class PageView extends \EMongoDocument
 
     public function getCounter()
     {
+        if ($this->result !== null) {
+            return $this->result;
+        }
         return $this->visits + $this->correction;
     }
 
@@ -77,7 +82,7 @@ class PageView extends \EMongoDocument
         return $model;
     }
 
-    protected function getEntity()
+    public function getEntity()
     {
         foreach ($this->getRoutes() as $pattern => $callback) {
             if (preg_match($pattern, $this->_id, $matches)) {
@@ -96,7 +101,8 @@ class PageView extends \EMongoDocument
             },
             '#^/community/\d+/forum/\w+/(\d+)/$#' => function($matches) {
                 $id = $matches[1];
-                return Content::model()->byEntity('CommunityContent', $id)->find();
+                $a = Content::model()->byEntity('CommunityContent', $id)->find();
+                return $a;
             },
         );
     }

@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Happy Giraffe</title>
-    <link rel="stylesheet" type="text/css" href="http://beta.happy-giraffe.ru/lite/css/min/article-anonce.css">
+    <link rel="stylesheet" type="text/css" href="http://www.happy-giraffe.ru/lite/css/min/article-anonce.css">
 </head>
 <!--/ layout out -->
 <body>
@@ -32,7 +32,11 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), ($this->size == $this::SIZE_BIG) ? 'postAnnouncementBig' : 'postAnnouncement')?>" alt="<?=$this->model->title?>" class="article-anonce_img">
+            <?php if ($this->size == $this::SIZE_BIG): ?>
+                <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncementBig')?>" alt="<?=$this->model->title?>" class="article-anonce_img" width="615" height="450">
+            <?php else: ?>
+                <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncement')?>" alt="<?=$this->model->title?>" class="article-anonce_img" width="300" height="200">
+            <?php endif; ?>
             <div class="article-anonce_img-overlay"></div>
         </div>
         <div class="article-anonce_bottom">
@@ -42,5 +46,5 @@
         </div>
     </a>
 </div>
-<script type="text/javascript" src="http://beta.happy-giraffe.ru/new/javascript/iframeResizer.contentWindow.js"></script>
+<script type="text/javascript" src="http://www.happy-giraffe.ru/new/javascript/iframeResizer.contentWindow.js"></script>
 </body></html>

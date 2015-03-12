@@ -121,6 +121,7 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
             'position' => (int) $this->position,
             'photo' => $this->photo,
             'url' => $this->getUrl(),
+            'index' => (int) $this->collection->observer->getIndexByAttachId($this->id),
         );
     }
 

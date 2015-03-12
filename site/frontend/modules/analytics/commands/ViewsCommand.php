@@ -3,6 +3,7 @@ namespace site\frontend\modules\analytics\commands;
 use site\frontend\modules\analytics\components\MigrateManager;
 use site\frontend\modules\analytics\components\VisitsManager;
 use site\frontend\modules\analytics\models\PageView;
+use site\frontend\modules\posts\models\Content;
 
 /**
  * @author Никита
@@ -13,6 +14,8 @@ class ViewsCommand extends \CConsoleCommand
 {
     public function init()
     {
+        ini_set('display_errors', true );
+        error_reporting( E_ALL & ~E_NOTICE );
         \Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         parent::init();
@@ -38,5 +41,37 @@ class ViewsCommand extends \CConsoleCommand
     {
         $manager = new MigrateManager();
         $manager->run();
+    }
+
+    public function actionTest()
+    {
+        $i = 0;
+        while (true) {
+            $i++;
+            $post = Content::model()->find(array(
+                'order' => 'RAND()',
+            ));
+            echo $i . "-" . $post->id . "\n";
+        }
+    }
+
+    public function actionProcess($url)
+    {
+        $vm = new VisitsManager();
+        $vm->processUrl($url);
+    }
+
+    public function actionCheat($url, $perDay)
+    {
+        $day = 60*24;
+        $val = $perDay / $day;
+        $int = floor($val);
+        $float = $val - $int;
+        $rnd = mt_rand() / mt_getrandmax();
+        $res = $int + (($rnd < $float) ? 1 : 0);
+        echo "$float\n$rnd\n$res\n";
+        $model = PageView::getModel($url);
+        $model->result += $res;
+        $model->save();
     }
 } 

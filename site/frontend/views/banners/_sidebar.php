@@ -16,7 +16,7 @@
                 links_underline: true,
                 site_bg_color: "FFFFFF",
                 header_bg_color: "FEEAC7",
-                border_color: "CCCCCC",
+                border_color: "FAFAFA",
                 title_color: "02B4F2",
                 url_color: "000000",
                 text_color: "000000",

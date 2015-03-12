@@ -30,9 +30,9 @@ info pages
             color: @color-white;
             font-size: 14px;
             font-weight: 400;
-            margin: 0 0 15px;
+            margin: 0 0 25px;
             &__mail {
-                text-decoration: underline;
+                text-decoration: none;
                 color: @color-white;
                 font-size: 45px;
                 font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
@@ -40,18 +40,20 @@ info pages
                 display: inline-block;
                   margin: 0 0 15px;
                 &:hover {
-                    color: @color-orange;
+                    color: #4FB4F7;
                 }
             }
             &__part {
                 display: inline-block;
                 vertical-align: top;
                 margin: 0 15px;
+                vertical-align: middle;
                 &__question {
                     color: #4fb4f7;
                     font-size: 20px;
                     font-weight: 700;
                     font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
+                    line-height: 1.2;
                 }
                 &__small {
                     color: @color-white;
@@ -67,9 +69,9 @@ info pages
                 }
                 &__mail {
                     color: @color-white;
-                    text-decoration: underline;
-                    &:href {
-                        color: @color-orange;
+                    text-decoration: none;
+                    &:hover {
+                        color: #4FB4F7;
                     }
                 }
             }
@@ -77,7 +79,7 @@ info pages
         &__media {
             padding: 50px 0 0;
             .info-form-title {
-                margin: 0 0 35px;
+                margin: 0 0 25px;
             }
         }
     }
@@ -87,6 +89,7 @@ info pages
         .bold {
             color: #000;
             font-weight: 700;
+            margin: 0 10px 0 0;
         }
         &-part {
             float: left;
@@ -105,7 +108,7 @@ info pages
         }
     }
     &-form {
-        padding: 70px 0;
+        padding: 70px 0 90px;
         background: #4aade6;
         &-title {
             text-align: center;
@@ -116,22 +119,26 @@ info pages
         }
         &-block {
             text-align: center;
-            margin: 0 0 45px;
+            margin: 0 0 35px;
             &__part {
                 text-align: left;
                 vertical-align: top;
                 width: 340px;
                 display: inline-block;
-                margin: 0 5px;
+                margin: 0 10px;
             }
         }
         &__input {
-            margin: 0 0 10px;
+            margin: 0 0 20px;
         }
         &__file {
             color: @color-white;
             background: url('@{path-img}/info/paperclip.png') left center no-repeat;
             padding: 0 0 0 25px;
+            &:hover {
+                background: url('@{path-img}/info/paperclip-active.png') left center no-repeat;
+                color: #FFFF00;
+            }
         }
         &__button {
             color: @color-white;
@@ -141,8 +148,22 @@ info pages
             padding: 15px 35px;
             border: 2px solid #FFF;
             border-radius: 8px;
+            opacity: 0.7;
             &:hover {
+                opacity: 1;
                 color: @color-white;
+            }
+        }
+    }
+    &-media {
+        &-block {
+            text-align: center;
+            &__part {
+                text-align: left;
+                vertical-align: top;
+                width: 290px;
+                display: inline-block;
+                margin: 0 5px;
             }
         }
     }
@@ -150,7 +171,7 @@ info pages
         margin-top: 0;
     }
     &-ad {
-        padding: 70px 0 100px;
+        padding: 70px 200px 100px;
         background: url('@{path-img}/info/ad-hero.png') center -15px no-repeat;
         text-align: center;
         &-master {
@@ -162,7 +183,7 @@ info pages
         }
         &-part {
             float: left;
-            width: 500px;
+            width: 300px;
             text-align: center;
             color: @color-white;
             &__img {

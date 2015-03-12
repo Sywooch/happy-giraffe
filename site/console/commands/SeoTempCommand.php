@@ -59,6 +59,76 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionParseMailRu()
+    {
+        $parser = new MailQuestionsParser();
+        $parser->run();
+
+        $this->writeCsv('questions', $parser->emails);
+    }
+
+    public function actionCheckRemoved()
+    {
+        \Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        $patterns = array(
+            '^/community/\d+/forum/\w+/\d+/$',
+            '^/user/\d+/blog/post\d+/$',
+        );
+
+        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model(), array(
+            'criteria' => array(
+                'condition' => 'isNoindex = 1 OR isRemoved = 1',
+                'order' => 'id DESC',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 100);
+        $this->ga->setDateRange('2011-01-01', date('Y-m-d'));
+
+        $urlToCount = array();
+        foreach ($patterns as $pattern) {
+            $page = 0;
+            do {
+                $page++;
+                $mr = 10000;
+                $si = ($page - 1) * $mr + 1;
+                $response = $this->getReport(array(
+                    'metrics' => 'ga:organicSearches',
+                    'dimensions' => 'ga:pagePath',
+                    'filters' => 'ga:pagePath=~' . urlencode($pattern),
+                    'max-results' => $mr,
+                    'start-index' => $si,
+                ));
+                echo "response " . count($response) . "\n";
+                foreach ($response as $path => $row) {
+                    $urlToCount[$path] = $row['ga:organicSearches'];
+                }
+            } while (count($response) > 0);
+        }
+
+
+        echo count($urlToCount) . "\n";
+
+        $result = array();
+        foreach ($iterator as $i => $post) {
+
+            $url = str_replace('http://www.happy-giraffe.ru', '', $post->url);
+            if (isset($urlToCount[$url])) {
+                $result[] = array(
+                    $post->url,
+                    $urlToCount[$url],
+                    $post->isRemoved,
+                    $post->isNoindex,
+                    $post->user->fullName,
+                    $post->uniqueIndex,
+                );
+            }
+        }
+
+        $this->writeCsv('checkRemoved', $result);
+    }
+
     public function actionDumbTest()
     {
         $this->ga->setDateRange('2014-06-01', '2014-07-31');

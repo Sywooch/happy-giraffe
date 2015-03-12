@@ -54,7 +54,7 @@ class Comment extends \Comment implements \IHToJSON
 
     public function getSpecialistLabel()
     {
-        return ($this->entity == 'CommunityContent' && $this->commentEntity->type_id == \CommunityContentType::TYPE_QUESTION && ($specialist = $this->author->getSpecialist($this->commentEntity->rubric->community_id)) !== null) ? mb_strtolower($specialist->title, 'UTF-8') : null;
+        return ($this->entity == 'CommunityContent' && $this->commentEntity !== null && $this->commentEntity->type_id == \CommunityContentType::TYPE_QUESTION && ($specialist = $this->author->getSpecialist($this->commentEntity->rubric->community_id)) !== null) ? mb_strtolower($specialist->title, 'UTF-8') : null;
     }
 
     public function getLikesCount()
@@ -131,8 +131,7 @@ class Comment extends \Comment implements \IHToJSON
                         $offset++;
                         array_splice($models, $map[$comment->root_id] + $offset, 0, array($comment));
                     }
-                }
-                elseif ($type == 'tree') {
+                } elseif ($type == 'tree') {
                     foreach ($models as $i => $model)
                         $models[$i]->_subComments = array();
                     foreach ($subComments as $comment)
@@ -151,8 +150,7 @@ class Comment extends \Comment implements \IHToJSON
                 'entity' => get_class($entity),
                 'entity_id' => $entity->id,
             );
-        }
-        elseif (!isset($entity['entity_id'])) {
+        } elseif (!isset($entity['entity_id'])) {
             $entity['entity_id'] = $entity['entityId'];
         }
         $dependency = new \CDbCacheDependency("SELECT COUNT(id) FROM " . Comment::model()->tableName() . " WHERE entity = :entity AND entity_id = :entity_id");
@@ -224,8 +222,7 @@ class Comment extends \Comment implements \IHToJSON
                 'entity' => $model->entity,
                 'entityId' => $model->entity_id,
             );
-        }
-        elseif (is_object($model)) {
+        } elseif (is_object($model)) {
             $model = array(
                 'entity' => get_class($model),
                 'entityId' => $model->id,
@@ -234,7 +231,6 @@ class Comment extends \Comment implements \IHToJSON
 
         return $model['entity'] . '_' . $model['entityId'];
     }
-
 }
 
 ?>

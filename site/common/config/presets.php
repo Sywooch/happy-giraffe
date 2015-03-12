@@ -134,6 +134,16 @@ return array(
     ),
     array(
         'filter' => array(
+            'name' =>'fixed',
+            'width' => 70,
+            'height' => 70,
+        ),
+        'usages' => array(
+            'smallPostPreview',
+        ),
+    ),
+    array(
+        'filter' => array(
             'name' => 'fixedV2',
             'width' => 600,
             'height' => 400, // 3*2

@@ -15,26 +15,39 @@ use site\frontend\modules\posts\models\Content;
 class VisitsManager
 {
     const INC_LAST_RUN = 'VisitsManager.incLastRun';
+    const TIMEOUT = 3600; // данные по ссылке обновляются не чаще, чем раз в TIMEOUT секунд
+    const INTERVAL = 600; // после релиза, данные о действиях за INTERVAL период времени
 
     public function inc()
     {
         $startTime = time();
         $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
+        $minTimestamp = max($lastRun, time() - self::INTERVAL);
         $response = \Yii::app()->getModule('analytics')->piwik->makeRequest('Live.getLastVisitsDetails', array(
-            'minTimestamp' => $lastRun,
+            'minTimestamp' => $minTimestamp,
+            'filter_limit' => -1,
         ));
         $urls = $this->parseLiveReport($response);
+        echo "urls: " . count($urls) . "\n";
         foreach ($urls as $url) {
-            \Yii::app()->gearman->client()->doBackground('processUrl', $url);
+            \Yii::app()->gearman->client()->doBackground('processUrl', $url, md5($url));
         }
+        echo "time left: " . (time() - $startTime) . "\n";
         \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);
     }
 
     public function processUrl($url)
     {
+        /** @var \site\frontend\modules\analytics\models\PageView $model */
         $model = PageView::getModel($url);
-        $model->visits = $this->fetchVisitsCount($url);
-        $model->save();
+        if ($model->getEntity() !== null) {
+            $timeLeft = time() - $model->synced;
+            if ($timeLeft > self::TIMEOUT) {
+                $model->visits = $this->fetchVisitsCount($url);
+                $model->synced = time();
+                $model->save();
+            }
+        }
     }
 
     public function sync($class)
@@ -57,10 +70,12 @@ class VisitsManager
         $urls = array();
         foreach ($response as $row) {
             foreach ($row['actionDetails'] as $action) {
-                $urls[] = $action['url'];
+                    $urls[] = $action['url'];
             }
         }
-        return array_unique($urls);
+        return array_filter($urls, function($v) {
+            return ($v !== null) && (strpos($v, \Yii::app()->homeUrl) !== false);
+        });
     }
 
     protected function fetchVisitsCount($url)

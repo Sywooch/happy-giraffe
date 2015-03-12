@@ -60,15 +60,13 @@ body.body.body__lite.body__bg2(class='body__homepage')
                     .info-maps-part.left
                         .info-maps-address
                             | <span class="bold">Главный офис </span>
-                            | г. Москва ул. Краснопресенская, д. 28
-                        .info-maps-map
-                            img(src="/lite/images/info/map1.png", alt="")
+                            | г. Москва, ул. Краснопресенская, д. 28
+                        .info-maps-map#maps-main
                     .info-maps-part.right
                         .info-maps-address
                             | <span class="bold">Офис разработки </span>
-                            | г. Ярославль пр-т. Толбухина, 8/75
-                        .info-maps-map
-                           img(src="/lite/images/info/map2.png", alt="")
+                            | г. Ярославль, пр-т. Толбухина, 8/75
+                        .info-maps-map#maps-develop
                     .clearfix
                 .info-form
                     .info-form-title Напишите нам
@@ -88,5 +86,34 @@ body.body.body__lite.body__bg2(class='body__homepage')
 
                 // b-main 
                 +layout-footer-lite('info-footer', layoutFooterLite.base)
+                script(type='text/javascript', src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCJ1S2cRAzz8_QA0yKA6WVqDT6eZ476Sow")
+                script(type='text/javascript').
+                    var initialize = function initialize(mapId, coordx, coordy) {
+                        var mapOptions,
+                            marker,
+                            map,
+                            markerImage = '/lite/images/info/marker.png',
+                            position = new google.maps.LatLng(coordx, coordy);
+                        mapOptions = {
+                            center: position,
+                            zoom: 13,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            panControl: false,
+                            zoomControl: false,
+                            mapTypeControl: false,
+                            scaleControl: false,
+                            streetViewControl: false,
+                            overviewMapControl: false
+                        };
+                        map = new google.maps.Map(document.getElementById(mapId), mapOptions);
+                        marker = new google.maps.Marker({
+                              position: position,
+                              map: map,
+                              icon: markerImage
+                         });
+                    }
+
+                    initialize("maps-main", 55.762577, 37.568775);
+                    initialize("maps-develop", 57.620702, 39.858704);
 | </html>
  

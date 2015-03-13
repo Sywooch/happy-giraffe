@@ -9,6 +9,11 @@
         <span class="userSection_ico"></span>
     </a>
     <!-- /ko -->
+    <!-- ko if: friend.hasOutgoingRequest() === true  -->
+    <span class="userSection_btn powertip userSection_btn__friend-append" title='Отправил вам приглашение' data-bind="click: friend.friendsAccept.bind(friend)">
+        <span class="userSection_ico"></span>
+    </span>
+    <!-- /ko -->
     <!-- ko if: friend.hasIncomingRequest() === true  -->
     <span class="userSection_btn powertip userSection_btn__friend" title='Приглашение отправлено'>
         <span class="userSection_ico"></span>

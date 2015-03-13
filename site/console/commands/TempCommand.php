@@ -321,7 +321,7 @@ class TempCommand extends CConsoleCommand
             ->from('friends')
             ->where(array('in', 'author_id'))
             ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
-            ->group('author_id, d')
+            ->group('user_id, d')
             ->queryAll();
 
         $sources = array($commentsCounts, $postsCounts, $messagesCounts, $photosCounts, $friendsCounts);

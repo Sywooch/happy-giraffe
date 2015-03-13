@@ -66,9 +66,14 @@
         color: @color-base;
     }
     &_t-sub {
-        font: 22px/27px Arial, Tahoma, Verdana, sans-serif;
+        font: 20px/27px Arial, Tahoma, Verdana, sans-serif;
         color: #333;
         margin: 0 0 @article-margin;
+        @media (min-width: @screen-phone) {
+            & {
+                font: 22px/27px Arial, Tahoma, Verdana, sans-serif;
+            }
+        }
     }
     h2&_t-sub {
         margin-top: 0;
@@ -109,10 +114,10 @@
 
 
 
-    
+
     // для old layout
     div,
-    a, 
+    a,
     span {.box-sizing(border-box);}
     a {
         text-decoration: none;
@@ -180,7 +185,7 @@
     }
 
     @media (min-width: @screen-tablet) {
-        
+
         /*& &_img-hold {
             margin-top: 40px;
         }*/
@@ -189,7 +194,7 @@
         }
     }
     @media (min-width: @screen-desktop) {
-        
+
         &_li-tx {
             padding: 0 18px;
             min-width: 65px;
@@ -200,7 +205,7 @@
 /* /b-markdown */
 
 
-/* 
+/*
 add in old css
 
 
@@ -259,7 +264,7 @@ add in old css
     &__3 {
         border-color: #bc9fd7;
     }
-    
+
     &_t {
         position: relative;
         margin: 0 0 15px;

@@ -15,6 +15,8 @@ class DefaultCommand extends CConsoleCommand
      */
     public function init()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         Yii::import('site.frontend.modules.mail.MailModule');
         MailModule::externalImport();
     }
@@ -28,9 +30,9 @@ class DefaultCommand extends CConsoleCommand
         $sender->sendAll();
     }
 
-    public function actionGeneric($subject, $tpl)
+    public function actionGeneric($tpl)
     {
-        $sender = new MailSenderGeneric($subject, $tpl);
+        $sender = new MailSenderGeneric($tpl);
         $sender->sendAll();
     }
 
@@ -80,9 +82,15 @@ class DefaultCommand extends CConsoleCommand
 
     public function actionWorker()
     {
+        Yii::import('site.frontend.extensions.status.EStatusBehavior');
+        Yii::import('zii.behaviors.CTimestampBehavior');
+        Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
+        Yii::import('site.common.extensions.wr.WithRelatedBehavior');
+        Yii::import('site.frontend.modules.mail.components.MailPostman');
+
         Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) {
             $message = unserialize($job->workload());
-            call_user_func_array(array('MailPostman', 'sendEmail'), $message);
+            call_user_func_array(array(Yii::app()->postman, 'sendEmail'), array($message));
         });
         while (Yii::app()->gearman->worker()->work()) {
             echo "OK\n";

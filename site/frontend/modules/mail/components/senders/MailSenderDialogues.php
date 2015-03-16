@@ -38,8 +38,21 @@ class MailSenderDialogues extends MailSender
         if ($messagesCount > 0) {
             $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $this->lastDeliveryTimestamp);
             $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $this->lastDeliveryTimestamp);
-            $message = new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
-            Yii::app()->postman->send($message);
+            $hasHG = false;
+            foreach ($contacts as $k => $c) {
+                if ($c->user->id = User::HAPPY_GIRAFFE) {
+                    $hasHG = $k;
+                    break;
+                }
+            }
+            if ($hasHG !== false) {
+                $contactsCount -= 1;
+                unset($contacts[$hasHG]);
+            }
+            if (! empty ($contacts)) {
+                $message = new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
+                Yii::app()->postman->send($message);
+            }
         }
     }
 

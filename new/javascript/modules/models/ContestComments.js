@@ -28,7 +28,7 @@ define(['knockout', 'models/Model', 'models/User', 'models/Contest'], function C
             writable: false
         },
         "ratingLimit": {
-            value: 5,
+            value: 3,
             writable: true
         },
         "commentsLimit": {

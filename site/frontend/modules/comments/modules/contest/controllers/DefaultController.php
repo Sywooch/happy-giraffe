@@ -29,7 +29,7 @@ class DefaultController extends \LiteController
     {
         return array(
             array('deny',
-                'actions' => array('my'),
+                'actions' => array('my', 'posts'),
                 'users' => array('?'),
             ),
             array('allow',

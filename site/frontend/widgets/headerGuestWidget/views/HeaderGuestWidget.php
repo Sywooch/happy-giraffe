@@ -49,7 +49,7 @@ if ($cs->useAMD) {
 
 <div class="header-menu">
     <ul class="header-menu_ul clearfix">
-        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a>
             <!-- Конверсионный попап-->
             <div class="header-popup header-popup__club">
                 <div class="header-popup_hold">
@@ -94,7 +94,7 @@ if ($cs->useAMD) {
             <!-- /Конверсионный попап-->
         </li>
         <li class="header-menu_li">
-            <a href="/commentatorsContest/1/" class="header-menu_a not-modified"><span class="header-menu_ico header-menu_ico__contest"></span><span class="header-menu_tx">Конкурс</span><span class="header-menu_count">1</span></a>
+            <a href="/commentatorsContest/1/" class="header-menu_a not-modified"><span class="header-menu_ico header-menu_ico__contest"></span><span class="header-menu_tx">Конкурс</span></a>
             </li>
     </ul>
 </div>

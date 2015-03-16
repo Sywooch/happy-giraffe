@@ -582,6 +582,7 @@ module.exports = function(grunt){
             /.mfp+/,
             /.select2+/,
             /@font-face+/,
+            /.header-menu_li.active+/,
             /.bnr+/,
             /.ico-club+/
 

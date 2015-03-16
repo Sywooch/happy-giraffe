@@ -28,10 +28,5 @@
   <!-- ko if: main === true -->
   <div class="contest-commentator-rating_btn-hold"><a href="rating/" class="btn btn-xl contest-commentator-rating_btn">Смотреть весь рейтинг</a></div>
   <!-- /ko -->
-  <!-- ko ifnot: main === true  -->
-      <!-- ko if: contestants().length > 0 && overload() === false -->
-          <div class="contest-commentator_more"><a href="#" class="a-pseudo tx-content" data-bind="click: loadMore">Показать еще <span data-bind="text: loadingCount"></span></a></div>
-      <!-- /ko -->
-  <!-- /ko -->
 </div>
 <!-- /рейтинг-->

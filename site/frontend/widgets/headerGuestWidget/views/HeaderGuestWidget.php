@@ -67,7 +67,7 @@ if ($cs->useAMD) {
                         </div>
                     </div>
                     <div class="header-popup_b clearfix">
-                        <a href="#registerWidget" class="header-popup_btn btn btn-success btn-xl popup-a">Присоединяйтесь!</a>
+                        <a href="#" data-bind="follow: {}" class="header-popup_btn btn btn-success btn-xl popup-a registration-button">Присоединяйтесь!</a>
                         <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
                             <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'site.frontend.widgets.headerGuestWidget.views.auth')); ?>
                         </div>
@@ -84,7 +84,7 @@ if ($cs->useAMD) {
                     <div class="header-popup_t">Общайтесь с миллионами мам и пап на любые темы на Веселом жирафе!</div>
                     <div class="header-popup_msg"></div>
                     <div class="header-popup_b clearfix">
-                        <a href="#registerWidget" class="header-popup_btn btn btn-success btn-xl popup-a">Присоединяйтесь!</a>
+                        <a href="#" data-bind="follow: {}" class="header-popup_btn btn btn-success btn-xl popup-a registration-button">Присоединяйтесь!</a>
                         <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
                             <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'site.frontend.widgets.headerGuestWidget.views.auth')); ?>
                         </div>

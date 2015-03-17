@@ -1,0 +1,1 @@
+<contest-comments params="contestId: <?=$this->contest->id?>"></contest-comments>

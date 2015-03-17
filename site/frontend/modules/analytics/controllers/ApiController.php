@@ -20,4 +20,9 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = true;
         $this->data = $url;
     }
+
+    public function actionFlush()
+    {
+        \Yii::app()->getModule('analytics')->visitsManager->flushBuffer();
+    }
 }

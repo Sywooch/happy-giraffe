@@ -14,7 +14,6 @@ class ViewsCommand extends \CConsoleCommand
 {
     public function actionFlushVisits()
     {
-        echo \Yii::app()->statePersister->stateFile;
-        //\Yii::app()->getModule('analytics')->visitsManager->flushBuffer();
+        \Yii::app()->getModule('analytics')->visitsManager->flushBuffer();
     }
 } 

@@ -14,6 +14,6 @@
     <a href="<?=$this->createUrl('/community/default/forum', array('forum_id'=>22)) ?>"
        class="b-section_li-a<?php if (isset($this->forum) && $this->forum !== null && $this->forum->id == 22) echo ' active' ?>">Форум</a>
 </li>
-<li class="b-section_li">
+<!--<li class="b-section_li">
     <a href="<?=$this->createUrl('/community/default/services', array('club'=>$this->club->slug)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'services' ) echo ' active' ?>">Сервисы</a>
-</li>
+</li>-->

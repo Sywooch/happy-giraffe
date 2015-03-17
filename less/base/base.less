@@ -36,6 +36,9 @@ hr,
             padding: 0 40px;
         }
     }
+	&-gold {
+		display: none;
+	}
 }
 
 @media (min-width: @screen-desktop) {
@@ -45,6 +48,40 @@ hr,
             background: url('/lite/images/contest/commentator/header-contest-part.png') no-repeat;
             height: 150px;
         }
+		&-gold {
+			height: 240px;
+			text-align: center;
+			color: #FFF;
+			font-family: Calibri, Tahoma, Arial, sans-serif;
+			margin-top: 20px;
+			display: block;
+			background: url('@{path-img}/contest/gold/prize.png') 790px top no-repeat;
+			&__top {
+				text-transform: uppercase;
+				font-size: 25px;
+			}
+			&__title {
+				text-transform: uppercase;
+				font-size: 60px;
+				font-weight: 900;
+			}
+			&__mean {
+				font-size: 18px;
+				margin: 0 0 15px;
+			}
+			.btn-xxl {
+				font-size: 20px;
+				text-transform: uppercase;
+				background: #35AD28;
+				color: #FFF;
+				font-family: Calibri, Tahoma, Arial, sans-serif;
+				font-weight: 600;
+				padding: 0 40px;
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
     }
 }
 

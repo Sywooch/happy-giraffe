@@ -17,9 +17,8 @@ body.body(class='#{bodyClass}')
     //-///////////////////////////////////////
     .layout-container
         .layout-loose
+            +layoutHeaderGold()
             .layout-header
-            
-                +layoutHeaderContest()
                 +headerGuest('', headerGuest.base)
             .layout-loose_hold.clearfix
                 block layout

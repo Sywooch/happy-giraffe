@@ -1,1 +1,1 @@
-<contest-comments params="contestId: <?=$this->contest->id?>"></contest-comments>
+<contest-comments params="contestId: <?=$this->contest->id?>, limit: 10"></contest-comments>

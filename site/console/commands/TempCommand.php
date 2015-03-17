@@ -316,7 +316,15 @@ class TempCommand extends CConsoleCommand
             ->group('author_id, d')
             ->queryAll();
 
-        $sources = array($commentsCounts, $postsCounts, $messagesCounts, $photosCounts);
+        $friendsCounts = Yii::app()->db->createCommand()
+            ->select('user_id AS author_id, DATE(created) AS d, COUNT(*) AS c')
+            ->from('friends')
+            ->where(array('in', 'author_id'))
+            ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
+            ->group('user_id, d')
+            ->queryAll();
+
+        $sources = array($commentsCounts, $postsCounts, $messagesCounts, $photosCounts, $friendsCounts);
 
         $from = new DateTime($dateFrom);
         $to = new DateTime($dateTo);

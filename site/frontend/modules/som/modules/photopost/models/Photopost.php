@@ -126,28 +126,83 @@ class Photopost extends \CActiveRecord implements \IHToJSON
             public function afterSave()
             {
                 $result = parent::afterSave();
-                
+
                 $post = new \site\frontend\modules\posts\models\api\Content();
                 $post->url = $this->getUrl(false);
-                $post->authorId = $this->authorId;
-                $post->dtimeCreate = $this->dtimeCreate;
-                $post->dtimePublication = $post->dtimeCreate;
+                $post->authorId = (int) $this->authorId;
+                $post->dtimeCreate = (int) $this->dtimeCreate;
+                $post->dtimePublication = (int) $post->dtimeCreate;
                 $post->dtimeUpdate = time();
-                $post->isRemoved = $this->isRemoved;
-                $post->isDraft = $this->isDraft;
-                $post->title = $this->title;
+                $post->isRemoved = (int) $this->isRemoved;
+                $post->isDraft = (int) $this->isDraft;
+                $post->title = htmlspecialchars(trim($this->title));
                 $post->text = '';
-                $post->html = '123';
-                $post->preview = '';
+                $post->html = '';
+                $post->preview = $this->getPhotopostTag();
                 $post->labels = $this->labels;
                 $post->originEntity = get_class($this);
-                $post->originEntityId = $this->id;
+                $post->originEntityId = (int) $this->id;
                 $post->originService = 'photopost';
-                
+
+                $post->template = array(
+                    'layout' => $this->forumId ? 'newCommunityPost' : 'newBlogPost'
+                );
+                $post->originManageInfo = array(
+                    'link' => array(
+                        'url' => '/' . ($this->forumId ? 'community' : 'blogs') . '/edit/photopost',
+                        'get' => array('id' => $this->id)
+                    ),
+                );
+                $post->isAutoMeta = true;
+                $post->meta = array(
+                    'description' => '',
+                    'title' => $post->title,
+                );
+
+                $newPost->social = array(
+                    'description' => $post->meta['description'],
+                );
+
+
                 var_dump($post->attributes);
                 //var_dump($post->save());
-                
+
                 return $result;
+            }
+
+            public function getPhotopostTag()
+            {
+                try {
+                    $collection = \site\frontend\modules\photo\models\api\Collection::model()->findByPk($this->collectionId);
+                    $cover = $collection->cover;
+                    var_dump($this->collectionId,$cover);
+                    die;
+
+                    $photoAlbumTag = '<div class="b-album-cap">'
+                            . '<div class="b-album-cap_hold">'
+                            . '<div class="b-album">'
+                            . '<a class="b-album_img-hold" href="' . $this->getUrl() . '" title="Начать просмотр">'
+                            . '<div class="b-album-img_a">'
+                            . '<div class="b-album_img-pad"></div>'
+                            . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
+                            . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
+                            . '</div>'
+                            . '<div class="b-album_img-hold-ovr">'
+                            . '<div class="ico-zoom ico-zoom__abs"></div>'
+                            . '</div>'
+                            . '</a>'
+                            . '</div>'
+                            . '</div>'
+                            . \CHtml::tag('photo-collection', array(
+                                'params' =>
+                                'id: ' . (int) $collection->id . ', ' .
+                                'attachCount: ' . (int) $count . ', ' .
+                                'userId: ' . (int) $newPost->authorId . ', ' .
+                                'coverId: ' . $collection->cover->id,
+                                    ), '') . '</div>';
+                } catch (\Exception $e) {
+                    throw $e;
+                }
             }
 
         }

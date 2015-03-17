@@ -5,6 +5,7 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
         this.contest.id = params.contestId;
         this.contest.userId = params.userId || null;
         this.title = params.title || this.defaultTitle;
+        this.contest.commentsLimit = params.limit || this.contest.commentsLimit;
         this.usersPile = [];
         this.users = [];
         this.avatarSize = 40;

@@ -17,6 +17,9 @@ return array(
                 'piwik' => array(
                     'class' => 'site\frontend\modules\analytics\components\PiwikHttpApi',
                 ),
+                'visitsManager' => array(
+                    'class' => 'site\frontend\modules\analytics\components\VisitsManager',
+                ),
             ),
         ),
         'ads' => require(dirname(__FILE__) . '/../../frontend/modules/ads/config/main.php'),

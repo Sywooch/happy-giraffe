@@ -12,5 +12,9 @@ use site\frontend\modules\posts\models\Content;
 
 class ViewsCommand extends \CConsoleCommand
 {
-
+    public function actionFlushVisits()
+    {
+        echo \Yii::app()->statePersister->stateFile;
+        //\Yii::app()->getModule('analytics')->visitsManager->flushBuffer();
+    }
 } 

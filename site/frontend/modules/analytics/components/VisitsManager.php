@@ -36,7 +36,12 @@ class VisitsManager extends \CApplicationComponent
     public function flushBuffer()
     {
         $lastFlush = \Yii::app()->getGlobalState(self::GLOBAL_STATE_LAST_FLUSH);
-        $paths = \Yii::app()->cache->get(self::VISITS_BUFFER_KEY);
+        $value = \Yii::app()->cache->get(self::VISITS_BUFFER_KEY);
+
+        var_dump($value);
+        die;
+
+        $paths = ($value === false) ? array() : $value;
         $flushAll = $lastFlush === null || (time() - self::FLUSH_INTERVAL) > $lastFlush;
         foreach ($paths as $path => $count) {
             if ($flushAll || $count > self::VISITS_COUNT_THRESHOLD) {
@@ -61,6 +66,7 @@ class VisitsManager extends \CApplicationComponent
         } else {
             $paths[$path] += 1;
         }
+
         \Yii::app()->cache->set(self::VISITS_BUFFER_KEY, $paths);
     }
 

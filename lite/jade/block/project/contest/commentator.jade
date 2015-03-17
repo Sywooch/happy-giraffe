@@ -3,20 +3,24 @@ mixin contestCommentatorHeader(mod, vars)
     .contest-commentator-header
         .contest-commentator-header_date Сроки проведения:  со 2 по 31 марта
         h1.contest-commentator-header_t Лучший комментатор
+        .contest-commentator-header__sub
+            a.contest-commentator-header__sub__link(href="#") Правила
+            a.contest-commentator-header__sub__link(href="#") О конкурсе
         ul.contest-commentator-header_ul
-            li.contest-commentator-header_li 
-                a.btn.btn-xm.btn-link(href='#') 
-                    | Правила
-            li.contest-commentator-header_li.active 
-                a.btn.btn-xxl.btn-link(href='#') 
-                    | О конкурсе
-            li.contest-commentator-header_li 
-                a.btn.btn-xxl.btn-link(href='#') 
-                    | Лидеры
             if(vars.user)
                 li.contest-commentator-header_li 
-                    a.btn.btn-xm.btn-link(href='#') 
+                    a.btn.btn-xxl.btn-link(href='#') 
                         | Моя лента
+            li.contest-commentator-header_li 
+                a.btn.btn-xxl.btn-link(href='#') 
+                    | Рейтинг
+            li.contest-commentator-header_li 
+                a.btn.btn-xxl.btn-link(href='#') 
+                    | Комментарии
+            li.contest-commentator-header_li 
+                a.btn.btn-xxl.btn-link(href='#') 
+                    | Что комментировать?
+                    span.pulse
     // Шапка
 
 - var contestCommentatorHeader = {}

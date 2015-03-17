@@ -39,11 +39,17 @@ class VisitsManager extends \CApplicationComponent
         $paths = \Yii::app()->cache->get(self::VISITS_BUFFER_KEY);
         $flushAll = $lastFlush === null || (time() - self::FLUSH_INTERVAL) > $lastFlush;
         foreach ($paths as $path => $count) {
-            $model = PageView::getModel($path);
             if ($flushAll || $count > self::VISITS_COUNT_THRESHOLD) {
+                $model = PageView::getModel($path);
                 $model->incVisits($count);
+                unset ($paths[$path]);
             }
         }
+    }
+
+    public function getTrackingCode()
+    {
+        return \Yii::app()->controller->renderPartial('application.modules.analytics.views._counter', null, true);
     }
 
     protected function countVisit($path)

@@ -47,7 +47,7 @@ $this->adaptive = false;
                                 'visible' => $this->isParticipant,
                             ),
                             array(
-                                'label' => 'Комментарии',
+                                'label' => 'Пульс',
                                 'url' => array('/comments/contest/default/comments', 'contestId' => $this->contest->id),
                                 'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
                                 'visible' => $this->isParticipant,

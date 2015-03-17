@@ -17,16 +17,17 @@ class PostsWidget extends \CWidget
 
     public function init()
     {
-        $favourites = \Favourites::model()->block(\Favourites::BLOCK_COMMENTATORS_CONTEST)->orderDesc()->findAll(array(
-            'limit' => self::LIMIT,
-        ));
+        $favourites = \Favourites::model()->block(\Favourites::BLOCK_COMMENTATORS_CONTEST)->orderDesc()->findAll();
         $ids = array_map(function($f) {
             return $f->entity_id;
         }, $favourites);
 
         $criteria = new \CDbCriteria();
         $criteria->addInCondition('t.originEntityId', $ids);
+        $criteria->addCondition('c.id IS NULL');
         $criteria->order = 'FIELD(t.originEntityId, ' . implode(', ', $ids) . ');';
+        $criteria->join .= ' LEFT OUTER JOIN comments c ON c.removed = 0 AND c.entity IN ("BlogContent", "CommunityContent") AND t.originEntityId = c.entity_id AND c.author_id = :author_id';
+        $criteria->params[':author_id'] = \Yii::app()->user->id;
         $this->models = Content::model()->findAll($criteria);
     }
 

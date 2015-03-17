@@ -33,7 +33,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         $isFriend = Friend::model()->areFriends($user1Id, $user2Id);
         $hasIncomingRequest = FriendRequest::model()->findPendingRequest($user1Id, $user2Id) !== null;
-        $hasOutgoingRequest = FriendRequest::model()->findPendingRequest($user2Id, $user2Id) !== null;
+        $hasOutgoingRequest = FriendRequest::model()->findPendingRequest($user2Id, $user1Id) !== null;
         $this->data = compact('isFriend', 'hasIncomingRequest', 'hasOutgoingRequest');
         $this->success = true;
     }

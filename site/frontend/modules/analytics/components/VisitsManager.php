@@ -21,6 +21,27 @@ class VisitsManager extends \CApplicationComponent
     const FLUSH_INTERVAL = 300;
     const VISITS_COUNT_THRESHOLD = 100;
 
+    public $hitsCacheComponent = 'cache';
+    public $bufferCacheComponent = 'cache';
+
+    /**
+     * @var \CCache
+     */
+    protected $hitsCache;
+
+    /**
+     * @var \CCache
+     */
+    protected $bufferCache;
+
+    public function init()
+    {
+        $this->hitsCache = \Yii::app()->{$this->hitsCacheComponent};
+        $this->bufferCache = \Yii::app()->{$this->bufferCacheComponent};
+
+        parent::init();
+    }
+
     public function processVisit($path)
     {
         if ($this->isNewVisit($path)) {
@@ -36,10 +57,7 @@ class VisitsManager extends \CApplicationComponent
     public function flushBuffer()
     {
         $lastFlush = \Yii::app()->getGlobalState(self::GLOBAL_STATE_LAST_FLUSH);
-        $value = \Yii::app()->cache->get(self::VISITS_BUFFER_KEY);
-
-        var_dump($value);
-        die;
+        $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
 
         $paths = ($value === false) ? array() : $value;
         $flushAll = $lastFlush === null || (time() - self::FLUSH_INTERVAL) > $lastFlush;
@@ -50,6 +68,7 @@ class VisitsManager extends \CApplicationComponent
                 unset ($paths[$path]);
             }
         }
+        $this->bufferCache->set(self::VISITS_BUFFER_KEY, $paths);
     }
 
     public function getTrackingCode()
@@ -59,7 +78,7 @@ class VisitsManager extends \CApplicationComponent
 
     protected function countVisit($path)
     {
-        $value = \Yii::app()->cache->get(self::VISITS_BUFFER_KEY);
+        $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
         $paths = ($value === false) ? array() : $value;
         if (! isset($paths[$path])) {
             $paths[$path] = 1;
@@ -67,15 +86,15 @@ class VisitsManager extends \CApplicationComponent
             $paths[$path] += 1;
         }
 
-        \Yii::app()->cache->set(self::VISITS_BUFFER_KEY, $paths);
+        $this->bufferCache->set(self::VISITS_BUFFER_KEY, $paths);
     }
 
     protected function isNewVisit($path)
     {
         $key = $this->getVisitKey($path);
-        $value = \Yii::app()->cache->get($key);
-        if ($value !== false) {
-            \Yii::app()->cache->set($key, null, self::VISITS_INTERVAL);
+        $value = $this->hitsCache->get($key);
+        if ($value === false) {
+            $this->hitsCache->set($key, null, self::VISITS_INTERVAL);
         }
         return ($value === false);
     }

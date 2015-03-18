@@ -46,7 +46,9 @@ class VisitsManager extends \CApplicationComponent
     {
         if ($this->isNewVisit($path)) {
             $this->countVisit($path);
+            return true;
         }
+        return false;
     }
 
     public function getVisits($path)

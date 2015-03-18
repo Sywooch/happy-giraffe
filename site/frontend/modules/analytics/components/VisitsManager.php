@@ -59,6 +59,8 @@ class VisitsManager extends \CApplicationComponent
         $lastFlush = \Yii::app()->getGlobalState(self::GLOBAL_STATE_LAST_FLUSH);
         $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
 
+        var_dump($value);
+
         $paths = ($value === false) ? array() : $value;
         $flushAll = $lastFlush === null || (time() - self::FLUSH_INTERVAL) > $lastFlush;
         foreach ($paths as $path => $count) {

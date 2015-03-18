@@ -17,6 +17,7 @@ class DefaultController extends \LiteController
     public $litePackage = 'contest_commentator';
     public $bodyClass = 'body__contest-commentator';
     public $contest;
+    public $isParticipant;
 
     public function filters()
     {
@@ -29,7 +30,7 @@ class DefaultController extends \LiteController
     {
         return array(
             array('deny',
-                'actions' => array('my'),
+                'actions' => array('my', 'posts'),
                 'users' => array('?'),
             ),
             array('allow',
@@ -67,6 +68,12 @@ class DefaultController extends \LiteController
         $this->render('/my');
     }
 
+    public function actionComments($contestId)
+    {
+        $this->loadContest($contestId);
+        $this->render('/comments');
+    }
+
     public function actionPosts($contestId)
     {
         $this->loadContest($contestId);
@@ -81,6 +88,7 @@ class DefaultController extends \LiteController
     protected function loadContest($contestId)
     {
         $this->contest = CommentatorsContest::model()->findByPk($contestId);
+        $this->isParticipant = ! \Yii::app()->user->isGuest && $this->contest->isRegistered(\Yii::app()->user->id);
         if ($this->contest === null) {
             throw new \CHttpException(404);
         }

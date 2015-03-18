@@ -17,7 +17,7 @@
     'show' => Yii::app()->ads->isProduction(),
     'lazyAdsOn' => false,
 )); ?>
-<?=Yii::app()->getModule('analytics')->piwik->getTrackingCode()?>
+<?=Yii::app()->getModule('analytics')->visitsManager->getTrackingCode()?>
 <?php $this->endWidget(); ?>
 <?php //Yii::app()->controller->renderPartial('//counters/_ga'); ?>
 <?php //Yii::app()->controller->renderPartial('//counters/_top100'); ?>

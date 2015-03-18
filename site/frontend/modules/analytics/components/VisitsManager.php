@@ -12,74 +12,108 @@ use site\frontend\modules\analytics\models\PageView;
 use site\frontend\modules\posts\models\Content;
 
 
-class VisitsManager
+class VisitsManager extends \CApplicationComponent
 {
-    const INC_LAST_RUN = 'VisitsManager.incLastRun';
-    const TIMEOUT = 3600; // данные по ссылке обновляются не чаще, чем раз в TIMEOUT секунд
-    const INTERVAL = 600; // после релиза, данные о действиях за INTERVAL период времени
+    const VISITOR_HASH_KEY_PREFIX = 'Analytics.VisitorsManager.visitorsHash';
+    const VISITS_BUFFER_KEY = 'Analytics.VisitorsManager.visits';
+    const GLOBAL_STATE_LAST_FLUSH = 'Analytics.VisitorsManager.lastFlush';
+    const VISITS_INTERVAL = 10800; // 3 часа
+    const FLUSH_INTERVAL = 300; //
+    const VISITS_COUNT_THRESHOLD = 100;
 
-    public function inc()
+    public $hitsCacheComponent = 'cache';
+    public $bufferCacheComponent = 'cache';
+
+    /**
+     * @var \CCache
+     */
+    protected $hitsCache;
+
+    /**
+     * @var \CCache
+     */
+    protected $bufferCache;
+
+    public function init()
     {
-        $startTime = time();
-        $lastRun = \Yii::app()->getGlobalState(self::INC_LAST_RUN, 0);
-        $minTimestamp = max($lastRun, time() - self::INTERVAL);
-        $response = \Yii::app()->getModule('analytics')->piwik->makeRequest('Live.getLastVisitsDetails', array(
-            'minTimestamp' => $minTimestamp,
-            'filter_limit' => -1,
-        ));
-        $urls = $this->parseLiveReport($response);
-        echo "urls: " . count($urls) . "\n";
-        foreach ($urls as $url) {
-            \Yii::app()->gearman->client()->doBackground('processUrl', $url, md5($url));
-        }
-        echo "time left: " . (time() - $startTime) . "\n";
-        \Yii::app()->setGlobalState(self::INC_LAST_RUN, $startTime);
+        $this->hitsCache = \Yii::app()->{$this->hitsCacheComponent};
+        $this->bufferCache = \Yii::app()->{$this->bufferCacheComponent};
+
+        parent::init();
     }
 
-    public function processUrl($url)
+    public function processVisit($path)
     {
-        /** @var \site\frontend\modules\analytics\models\PageView $model */
-        $model = PageView::getModel($url);
-        if ($model->getEntity() !== null) {
-            $timeLeft = time() - $model->synced;
-            if ($timeLeft > self::TIMEOUT) {
-                $model->visits = $this->fetchVisitsCount($url);
-                $model->synced = time();
-                $model->save();
+        if ($this->isNewVisit($path)) {
+            $this->countVisit($path);
+        }
+    }
+
+    public function getVisits($path)
+    {
+        return PageView::getModel($path)->getCounter();
+    }
+
+    public function flushBuffer()
+    {
+        $lastFlush = \Yii::app()->getGlobalState(self::GLOBAL_STATE_LAST_FLUSH);
+        $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
+
+        $paths = ($value === false) ? array() : $value;
+        $flushAll = $lastFlush === null || (time() - self::FLUSH_INTERVAL) > $lastFlush;
+        foreach ($paths as $path => $count) {
+            if ($flushAll || $count > self::VISITS_COUNT_THRESHOLD) {
+                $model = PageView::getModel($path);
+                $model->incVisits($count);
+                unset ($paths[$path]);
             }
         }
+        $this->bufferCache->set(self::VISITS_BUFFER_KEY, $paths);
     }
 
-    public function sync($class)
+    public function getTrackingCode()
     {
-        $dp = new \CActiveDataProvider($class, array(
-            'criteria' => array(
-                'order' => 'id ASC',
-            ),
-        ));
-        $iterator = new \CDataProviderIterator($dp, 100);
-        /** @var \CActiveRecord $model */
-        foreach ($iterator as $model) {
-            $model->views = PageView::getModel($model->url)->getCounter();
-            $model->update(array('views'));
+        return \Yii::app()->controller->renderPartial('application.modules.analytics.views._counter', null, true);
+    }
+
+    protected function countVisit($path)
+    {
+        $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
+        $paths = ($value === false) ? array() : $value;
+        if (! isset($paths[$path])) {
+            $paths[$path] = 1;
+        } else {
+            $paths[$path] += 1;
         }
+
+        $this->bufferCache->set(self::VISITS_BUFFER_KEY, $paths);
     }
 
-    protected function parseLiveReport($response)
+    protected function isNewVisit($path)
     {
-        $urls = array();
-        foreach ($response as $row) {
-            foreach ($row['actionDetails'] as $action) {
-                    $urls[] = $action['url'];
-            }
+        $key = $this->getVisitKey($path);
+        $value = $this->hitsCache->get($key);
+        if ($value === false) {
+            $this->hitsCache->set($key, null, self::VISITS_INTERVAL);
         }
-        return array_filter($urls, function($v) {
-            return ($v !== null) && (strpos($v, \Yii::app()->homeUrl) !== false);
-        });
+        return ($value === false);
     }
 
-    protected function fetchVisitsCount($url)
+    protected function getVisitKey($path)
     {
-        return \Yii::app()->getModule('analytics')->piwik->getVisits($url);
+        return $path . $this->getVisitorHash();
+    }
+
+    protected function getVisitorHash()
+    {
+        if (\Yii::app()->user->isGuest) {
+            $seedArray = array(
+                \Yii::app()->request->getUserHostAddress(),
+                \Yii::app()->request->getUserAgent(),
+            );
+        } else {
+            $seedArray = array(\Yii::app()->user->id);
+        }
+        return md5(json_encode($seedArray));
     }
 } 

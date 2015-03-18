@@ -39,6 +39,7 @@ class Ads extends CApplicationComponent
 
     public function isProduction()
     {
+        return true;
         return $_SERVER['HTTP_HOST'] == 'www.happy-giraffe.ru';
     }
 } 

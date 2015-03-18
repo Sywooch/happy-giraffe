@@ -56,9 +56,6 @@ class VisitsManager extends \CApplicationComponent
 
     public function flushBuffer()
     {
-        var_dump($this->bufferCache->get(self::VISITS_BUFFER_KEY));
-        die;
-
         $lastFlush = \Yii::app()->getGlobalState(self::GLOBAL_STATE_LAST_FLUSH);
         $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
 

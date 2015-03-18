@@ -8,7 +8,7 @@ namespace site\frontend\modules\analytics\controllers;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    public function actionProcessHit($inc = false, $url = null)
+    public function actionProcessHit($inc = true, $url = null)
     {
         if ($url === null) {
             $url = \Yii::app()->request->getUrlReferrer();

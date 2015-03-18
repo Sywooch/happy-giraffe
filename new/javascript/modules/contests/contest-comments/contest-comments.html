@@ -56,5 +56,10 @@
       Поздравляем Вас теперь вы равноправный участник конкурса! На этой странице будет отражаться ваша лента комментариев, засчитанных системой модерирования.
     </div>
     <!-- /ko -->
+    <!-- ko if: main === true -->
+        <!-- ko if: loading() === false && overload() === false -->
+        <div class="contest-commentator_more"><a href="#" class="a-pseudo tx-content" data-bind="click: loadMore">Показать еще 10</a></div>
+        <!-- /ko -->
+    <!-- /ko -->
 </div>
 <!-- /комментарии-->

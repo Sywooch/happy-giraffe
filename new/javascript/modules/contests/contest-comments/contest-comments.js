@@ -10,6 +10,10 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
         this.users = [];
         this.avatarSize = 40;
         this.loading = ko.observable(true);
+        this.overload = ko.observable(false);
+        this.loadingCount = 10;
+        this.commentsTemp = [];
+        this.main = params.main;
         /**
          * pilingUsers - сбор id юзеров
          *
@@ -21,6 +25,16 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
             if ($.inArray(userId, this.usersPile) === -1) {
                 this.usersPile.push(userId);
             }
+        };
+
+        /**
+         * checkingIfTheresMore - проверка на лимит
+         *
+         * @param  {type} array description
+         * @return {type}       description
+         */
+        this.checkingIfTheresMore = function checkingIfTheresMore(array) {
+            return (array.length === this.contest.commentsLimit) ? false : true;
         };
 
         /**
@@ -97,6 +111,24 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
         };
 
         /**
+         * putTempInComments - запускаем размещение пользователей в комментарии
+         *
+         * @return
+         */
+        this.putTempInComments = function putTempInComments() {
+            this.commentsTemp = ko.utils.arrayMap(this.commentsTemp, this.mappingPutUsersInComments.bind(this));
+            this.loading(false);
+        };
+
+        /**
+         * commentsToReal - Объединение временного массива с настоящим
+         *
+         * @return {type}  description
+         */
+        this.commentsToReal = function commentsToReal() {
+            this.contest.comments.push.apply(this.contest.comments, this.commentsTemp);
+        };
+        /**
          * resolveContestComments - парсим изначальную информацию о комментариях и сущностях
          *
          * @param  Object response объект ответа
@@ -105,6 +137,7 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
         this.resolveContestComments = function resolveContestComments(response) {
             if (response.success === true) {
                 this.usersPile = [];
+                this.overload(this.checkingIfTheresMore(response.data));
                 this.contest.comments(ko.utils.arrayMap(response.data, this.mappingCommentsArray.bind(this)));
                 if (this.contest.comments().length > 0) {
                     this
@@ -116,6 +149,37 @@ define(['jquery', 'knockout', 'models/Model', 'models/ContestComments', 'models/
                 }
 
             }
+        };
+
+
+        /**
+         * loadMoreContestComments - обработка загрузки больше комментариев
+         *
+         * @param  {type} response description
+         * @return {type}          description
+         */
+        this.loadMoreContestComments = function loadMoreContestComments(response) {
+            if (response.success === true) {
+                this.usersPile = [];
+                this.overload(this.checkingIfTheresMore(response.data));
+                this.commentsTemp = ko.utils.arrayMap(response.data, this.mappingCommentsArray.bind(this));
+                if (this.contest.comments().length > 0) {
+                    this.downingUsers(this.avatarSize).then(this.parseUsers.bind(this)).then(this.putTempInComments.bind(this)).done(this.commentsToReal.bind(this));
+                } else {
+                    this.loading(false);
+                }
+            }
+        };
+
+        /**
+         * loadMore - загрузка больше комментариев
+         *
+         * @return {type}  description
+         */
+        this.loadMore = function loadMore() {
+            this.contest.commentsLimit = this.loadingCount;
+            this.contest.commentsOffset = this.contest.comments().length;
+            this.contest.getContestComments(this.contest.userId).done(this.loadMoreContestComments.bind(this));
         };
 
         /**

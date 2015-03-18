@@ -6,18 +6,20 @@
 
 namespace site\frontend\modules\analytics\controllers;
 
-
-use site\frontend\modules\analytics\components\VisitsManager;
-
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    public function actionProcessHit($url = null)
+    public function actionProcessHit($inc, $url = null)
     {
         if ($url === null) {
             $url = \Yii::app()->request->getUrlReferrer();
         }
-        \Yii::app()->getModule('analytics')->visitsManager->processVisit($url);
+        if ($inc) {
+            \Yii::app()->getModule('analytics')->visitsManager->processVisit($url);
+        }
         $this->success = true;
-        $this->data = $url;
+        $this->data = array(
+            'url' => $url,
+            'visits' => \Yii::app()->getModule('analytics')->visitsManager->getVisits($url),
+        );
     }
 }

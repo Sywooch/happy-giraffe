@@ -18,7 +18,7 @@ class VisitsManager extends \CApplicationComponent
     const VISITS_BUFFER_KEY = 'Analytics.VisitorsManager.visits';
     const GLOBAL_STATE_LAST_FLUSH = 'Analytics.VisitorsManager.lastFlush';
     const VISITS_INTERVAL = 10800; // 3 часа
-    const FLUSH_INTERVAL = 300;
+    const FLUSH_INTERVAL = 300; //
     const VISITS_COUNT_THRESHOLD = 100;
 
     public $hitsCacheComponent = 'cache';
@@ -51,7 +51,7 @@ class VisitsManager extends \CApplicationComponent
 
     public function getVisits($path)
     {
-        return PageView::getModel($path)->visits;
+        return PageView::getModel($path)->getCounter();
     }
 
     public function flushBuffer()
@@ -101,7 +101,7 @@ class VisitsManager extends \CApplicationComponent
 
     protected function getVisitKey($path)
     {
-        return md5($path . $this->getVisitorHash());
+        return $path . $this->getVisitorHash();
     }
 
     protected function getVisitorHash()
@@ -114,7 +114,6 @@ class VisitsManager extends \CApplicationComponent
         } else {
             $seedArray = array(\Yii::app()->user->id);
         }
-        array_unshift($seedArray, self::VISITOR_HASH_KEY_PREFIX);
-        return md5(implode('.', $seedArray));
+        return md5(json_encode($seedArray));
     }
 } 

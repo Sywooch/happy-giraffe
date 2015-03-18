@@ -28,6 +28,7 @@ class PostsWidget extends \CWidget
         $criteria->order = 'FIELD(t.originEntityId, ' . implode(', ', $ids) . ');';
         $criteria->join .= ' LEFT OUTER JOIN comments c ON c.removed = 0 AND c.entity IN ("BlogContent", "CommunityContent") AND t.originEntityId = c.entity_id AND c.author_id = :author_id';
         $criteria->params[':author_id'] = \Yii::app()->user->id;
+        $criteria->limit = self::LIMIT;
         $this->models = Content::model()->findAll($criteria);
     }
 

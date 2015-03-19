@@ -71,6 +71,7 @@ class VisitsManager extends \CApplicationComponent
             }
         }
         $this->bufferCache->set(self::VISITS_BUFFER_KEY, $paths);
+        \Yii::app()->setGlobalState(self::GLOBAL_STATE_LAST_FLUSH, time());
     }
 
     public function showBuffer()

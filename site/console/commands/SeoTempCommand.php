@@ -82,6 +82,8 @@ class SeoTempCommand extends CConsoleCommand
                 $j++;
             }
         }
+
+        $this->writeCsv('users' . $j, $result);
     }
 
     public function actionParseMailRu()

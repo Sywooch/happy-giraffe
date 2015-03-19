@@ -71,12 +71,17 @@ class SeoTempCommand extends CConsoleCommand
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
 
+        $j = 0;
         foreach ($iterator as $i => $u) {
             $result[] = array($u->email, $u->first_name, $u->last_name);
             echo $i . "\n";
-        }
 
-        $this->writeCsv('users', $result);
+            if ($i % 50000 == 0) {
+                $this->writeCsv('users' . $j, $result);
+                $result = array();
+                $j++;
+            }
+        }
     }
 
     public function actionParseMailRu()

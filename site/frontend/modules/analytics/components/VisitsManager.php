@@ -16,7 +16,6 @@ class VisitsManager extends \CApplicationComponent
 {
     const VISITOR_HASH_KEY_PREFIX = 'Analytics.VisitorsManager.visitorsHash';
     const VISITS_BUFFER_KEY = 'Analytics.VisitorsManager.visits';
-    const GLOBAL_STATE_LAST_FLUSH = 'Analytics.VisitorsManager.lastFlush';
     const VISITS_INTERVAL = 10800; // 3 часа
     const FLUSH_INTERVAL = 300; //
     const VISITS_COUNT_THRESHOLD = 100;
@@ -58,21 +57,15 @@ class VisitsManager extends \CApplicationComponent
 
     public function flushBuffer()
     {
-        $lastFlush = \Yii::app()->getGlobalState(self::GLOBAL_STATE_LAST_FLUSH);
         $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
         $this->bufferCache->set(self::VISITS_BUFFER_KEY, array());
 
         $paths = ($value === false) ? array() : $value;
-        $flushAll = $lastFlush === null || (time() - self::FLUSH_INTERVAL) > $lastFlush;
         foreach ($paths as $path => $count) {
-            if ($flushAll || $count > self::VISITS_COUNT_THRESHOLD) {
-                $model = PageView::getModel($path);
-                $model->incVisits($count);
-                unset ($paths[$path]);
-            }
+            $model = PageView::getModel($path);
+            $model->incVisits($count);
+            unset ($paths[$path]);
         }
-        $this->bufferCache->set(self::VISITS_BUFFER_KEY, $paths);
-        \Yii::app()->setGlobalState(self::GLOBAL_STATE_LAST_FLUSH, time());
     }
 
     public function showBuffer()

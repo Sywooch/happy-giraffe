@@ -7,7 +7,7 @@ define(['ads-config', 'extensions/history'], function (adsConfig) {
 				},
         addViews: function addViews(currentUrl) {
             if (adsConfig.isProduction === true) {
-                $.post('/api/analytics/processHit/', JSON.stringify({ url: currentUrl }));
+                $.post('/api/analytics/processHit/', JSON.stringify({ inc: true, url: currentUrl }));
                 yaCounter11221648.hit(currentUrl);
                 dataLayer.push({'event': 'virtualView'});
             }

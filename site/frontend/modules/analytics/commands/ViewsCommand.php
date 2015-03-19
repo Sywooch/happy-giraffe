@@ -16,4 +16,9 @@ class ViewsCommand extends \CConsoleCommand
     {
         \Yii::app()->getModule('analytics')->visitsManager->flushBuffer();
     }
+
+    public function actionDebug()
+    {
+        \Yii::app()->getModule('analytics')->visitsManager->showBuffer();
+    }
 } 

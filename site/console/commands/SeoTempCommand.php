@@ -61,7 +61,8 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionUsers()
     {
-        $result = array('email', 'firstname', 'lastname');
+        $result = array();
+        $result[] = array('email', 'firstname', 'lastname');
 
         $dp = new CActiveDataProvider('User', array(
             'criteria' => array(
@@ -76,9 +77,10 @@ class SeoTempCommand extends CConsoleCommand
             $result[] = array($u->email, $u->first_name, $u->last_name);
             echo $i . "\n";
 
-            if ($i % 100000 == 0) {
+            if ($i % 50000 == 0) {
                 $this->writeCsv('users' . $j, $result);
-                $result = array('email', 'firstname', 'lastname');
+                $result = array();
+                $result[] = array('email', 'firstname', 'lastname');
                 $j++;
             }
         }

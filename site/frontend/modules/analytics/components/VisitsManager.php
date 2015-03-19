@@ -59,7 +59,8 @@ class VisitsManager extends \CApplicationComponent
     public function flushBuffer()
     {
         $lastFlush = \Yii::app()->getGlobalState(self::GLOBAL_STATE_LAST_FLUSH);
-        $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
+        $value = $this->bufferCache->get($this->getBufferKey());
+        \Yii::app()->setGlobalState(self::GLOBAL_STATE_LAST_FLUSH, time());
 
         $paths = ($value === false) ? array() : $value;
         $flushAll = $lastFlush === null || (time() - self::FLUSH_INTERVAL) > $lastFlush;
@@ -70,22 +71,28 @@ class VisitsManager extends \CApplicationComponent
                 unset ($paths[$path]);
             }
         }
-        $this->bufferCache->set(self::VISITS_BUFFER_KEY, $paths);
+        $this->bufferCache->set($this->getBufferKey(), $paths);
     }
 
     public function showBuffer()
     {
-        var_dump($this->bufferCache->get(self::VISITS_BUFFER_KEY));
+        var_dump($this->bufferCache->get($this->getBufferKey()));
     }
 
     public function getTrackingCode()
     {
         return \Yii::app()->controller->renderPartial('application.modules.analytics.views._counter', null, true);
     }
+    
+    protected function getBufferKey()
+    {
+        $lastFlush = \Yii::app()->getGlobalState(self::GLOBAL_STATE_LAST_FLUSH);
+        return self::VISITS_BUFFER_KEY . $lastFlush;
+    }
 
     protected function countVisit($path)
     {
-        $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
+        $value = $this->bufferCache->get($this->getBufferKey());
         $paths = ($value === false) ? array() : $value;
         if (! isset($paths[$path])) {
             $paths[$path] = 1;
@@ -93,7 +100,7 @@ class VisitsManager extends \CApplicationComponent
             $paths[$path] += 1;
         }
 
-        $this->bufferCache->set(self::VISITS_BUFFER_KEY, $paths);
+        $this->bufferCache->set($this->getBufferKey(), $paths);
     }
 
     protected function isNewVisit($path)

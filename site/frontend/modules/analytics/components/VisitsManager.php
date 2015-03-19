@@ -76,7 +76,7 @@ class VisitsManager extends \CApplicationComponent
 
     public function showBuffer()
     {
-        $this->bufferCache->get(self::VISITS_BUFFER_KEY);
+        return $this->bufferCache->get(self::VISITS_BUFFER_KEY);
     }
 
     public function getTrackingCode()

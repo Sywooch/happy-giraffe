@@ -41,8 +41,9 @@ info pages
                 font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
                 font-weight: 700;
                 display: inline-block;
-                margin: 0 0 30px;
+                margin: 15px 0 30px;
                 border-bottom: 3px solid #FF9452;
+                line-height: 1;
                 &:hover {
                     color: #4FB4F7;
                 }
@@ -198,7 +199,7 @@ info pages
                 margin: 0 0 10px;
             }
             &__name {
-                font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
+                font-family: 'arial black', 'PT sans', Helvetiva, Arial, sans-serif;
                 color: #000;
                 text-transform: uppercase;
                 font-weight: 600;
@@ -207,9 +208,21 @@ info pages
         }
     }
     &-want {
-        height: 215px;
+        height: 224px;
         background: #5ab4e8;
         padding: 65px 0 0;
+        text-align: center;
+        &-or {
+            background: #4AADE6;
+            display: inline-block;
+            font-size: 15px;
+            color: #FFF;
+            padding: 20px 25px 5px;
+            margin: -25px 0 0;
+            border-radius: 50px 50px 0 0;
+            font-family: Arial;
+            font-style: italic;
+        }
     }
     &-media {
         &-block {
@@ -262,6 +275,11 @@ info pages
                 margin: 0 0 -8px;
             }
         }
+    }
+    &-about {
+        padding: 70px 200px 100px;
+        background: url('@{path-img}/info/about-hero.png') center -15px no-repeat;
+        text-align: center;
     }
     &-sponsors {
         text-align: center;

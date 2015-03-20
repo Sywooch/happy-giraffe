@@ -7,7 +7,7 @@
         <aside class="b-main_col-sidebar visible-md">
             <?php if ($this->action->id == 'view'): ?>
                 <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
-                <div class="banner">
+                <div class="bnr-base">
                     <!--AdFox START-->
                     <!--giraffe-->
                     <!--Площадка: Весёлый Жираф / * / *-->

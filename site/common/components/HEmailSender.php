@@ -83,8 +83,8 @@ class HEmailSender extends CApplicationComponent
             $models = User::model()->findAll($criteria);
 
             foreach ($models as $model) {
-                Yii::app()->email->addContact($model->email, $model->first_name, $model->last_name, HEmailSender::LIST_OUR_USERS);
-                Yii::app()->email->addExistingContact($model->email, $model->gender == 1 ? self::LIST_MEN_LIST : self::LIST_WOMEN_LIST);
+                ElasticEmail::addContact($model->email, $model->first_name, $model->last_name, HEmailSender::LIST_OUR_USERS);
+                ElasticEmail::addExistingContact($model->email, $model->gender == 1 ? self::LIST_MEN_LIST : self::LIST_WOMEN_LIST);
                 SeoUserAttributes::setAttribute('import_email_last_user_id', $model->id, 1);
             }
 

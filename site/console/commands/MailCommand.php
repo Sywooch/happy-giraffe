@@ -100,6 +100,8 @@ class MailCommand extends CConsoleCommand
 
     public function actionUsers()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         Yii::app()->email->updateUserList();
     }
 

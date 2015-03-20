@@ -80,6 +80,7 @@ class Content extends \CActiveRecord implements \IHToJSON
             array('authorId, html, dtimeCreate, originService, originEntity, originEntityId, originManageInfo', 'required'),
             array('title', 'required', 'except' => 'oldStatusPost'),
             array('isDraft, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved', 'boolean'),
+            array('isDraft, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved', 'safe'),
             array('uniqueIndex', 'numerical', 'integerOnly' => true),
             array('url, title', 'length', 'max' => 255),
             array('authorId, dtimeCreate, dtimeUpdate, dtimePublication', 'length', 'max' => 10),

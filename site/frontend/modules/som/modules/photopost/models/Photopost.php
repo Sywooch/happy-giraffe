@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\som\modules\photopost\models;
 
+use \site\frontend\modules\som\modules\community\models\api\Label;
+
 /**
  * This is the model class for table "som__photopost".
  *
@@ -127,6 +129,8 @@ class Photopost extends \CActiveRecord implements \IHToJSON
             {
                 $result = parent::afterSave();
 
+                $labels = is_null($this->forumId) ? Label::model()->findForBlog() : Label::model()->findByForum($this->forumId);
+
                 $post = new \site\frontend\modules\posts\models\api\Content();
                 $post->url = $this->getUrl(false);
                 $post->authorId = (int) $this->authorId;
@@ -137,9 +141,11 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                 $post->isDraft = (int) $this->isDraft;
                 $post->title = htmlspecialchars(trim($this->title));
                 $post->text = '';
-                $post->html = '';
                 $post->preview = $this->getPhotopostTag();
-                $post->labels = $this->labels;
+                $post->html = $post->preview;
+                $post->labels = array_map(function($labelModel) {
+                    return $labelModel->text;
+                }, $labels);
                 $post->originEntity = get_class($this);
                 $post->originEntityId = (int) $this->id;
                 $post->originService = 'photopost';
@@ -159,13 +165,13 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                     'title' => $post->title,
                 );
 
-                $newPost->social = array(
+                $post->social = array(
                     'description' => $post->meta['description'],
                 );
 
 
-                var_dump($post->attributes);
-                //var_dump($post->save());
+                var_dump($post->save());
+                die;
 
                 return $result;
             }
@@ -174,18 +180,17 @@ class Photopost extends \CActiveRecord implements \IHToJSON
             {
                 try {
                     $collection = \site\frontend\modules\photo\models\api\Collection::model()->findByPk($this->collectionId);
-                    $cover = $collection->cover;
-                    var_dump($this->collectionId,$cover);
-                    die;
-
+                    $cover = new \site\frontend\modules\photo\models\Photo();
+                    $cover->fromJSON($collection->cover['photo']);
+                    $thumb = \Yii::app()->thumbs->getThumb($cover, 'postCollectionCover');
                     $photoAlbumTag = '<div class="b-album-cap">'
                             . '<div class="b-album-cap_hold">'
                             . '<div class="b-album">'
                             . '<a class="b-album_img-hold" href="' . $this->getUrl() . '" title="Начать просмотр">'
                             . '<div class="b-album-img_a">'
                             . '<div class="b-album_img-pad"></div>'
-                            . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
-                            . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
+                            . '<img width="' . $thumb->getWidth() . '" height="' . $thumb->getHeight() . '" class="b-album_img-big" alt="'
+                            . $cover->title . '" src="' . $thumb->getUrl() . '">'
                             . '</div>'
                             . '<div class="b-album_img-hold-ovr">'
                             . '<div class="ico-zoom ico-zoom__abs"></div>'
@@ -196,10 +201,11 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                             . \CHtml::tag('photo-collection', array(
                                 'params' =>
                                 'id: ' . (int) $collection->id . ', ' .
-                                'attachCount: ' . (int) $count . ', ' .
-                                'userId: ' . (int) $newPost->authorId . ', ' .
-                                'coverId: ' . $collection->cover->id,
+                                'attachCount: ' . (int) $collection->attachesCount . ', ' .
+                                'userId: ' . (int) $this->authorId . ', ' .
+                                'coverId: ' . $cover->id,
                                     ), '') . '</div>';
+                    return $photoAlbumTag;
                 } catch (\Exception $e) {
                     throw $e;
                 }

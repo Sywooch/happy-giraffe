@@ -19,7 +19,6 @@ return array(
                 ),
                 'visitsManager' => array(
                     'class' => 'site\frontend\modules\analytics\components\VisitsManager',
-                    'bufferCacheComponent' => 'dbCache',
                 ),
             ),
         ),

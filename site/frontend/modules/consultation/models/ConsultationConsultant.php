@@ -45,4 +45,16 @@ class ConsultationConsultant extends \HActiveRecord
 
         return $this->_user;
     }
+
+    public function user($userId)
+    {
+        $this->getDbCriteria()->compare($this->tableAlias . '.userId', $userId);
+        return $this;
+    }
+
+    public function consultation($consultationId)
+    {
+        $this->getDbCriteria()->compare($this->tableAlias . '.consultationId', $consultationId);
+        return $this;
+    }
 }

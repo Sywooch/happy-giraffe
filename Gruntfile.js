@@ -591,7 +591,9 @@ module.exports = function(grunt){
 
         },
         src: [
-          'lite/html/page/info/**/*.html'
+          'lite/html/page/info/**/*.html',
+          'lite/html/page/sign/**/*.html',
+          // 'lite/html/page/member/**/*.html',
 
         ],
         dest: 'lite/css/min/info.css'

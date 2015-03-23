@@ -32,7 +32,6 @@ class PostController extends \LiteController
         $this->post = Content::model()->bySlug($content_type_slug, $content_id)->find();
         // Выключим прочтение сигналов
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = false;
-        var_dump($this->post);die;
         if (!$this->post || $this->post->parsedUrl !== \Yii::app()->request->requestUri) {
             // Временная заглушка, если пост ещё не сконвертировался
             if (\Yii::app()->user->getState('newPost' . $content_id)) {

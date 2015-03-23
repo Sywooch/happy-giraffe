@@ -7,9 +7,9 @@ photo-collection {
 photo-albums {
     display: block;
     margin: 0 auto;
-    max-width: 880px; // Устаревающая ширина базового layout 
+    max-width: 880px; // Устаревающая ширина базового layout
 }
-/* 
+/*
     .b-album
         a.b-album_img-hold
             img.b-album_img-big
@@ -29,7 +29,7 @@ photo-albums {
 .b-album {
     position: relative;
     margin: 30px 0 30px;
-    
+
     /*&__photopost {margin: 15px 0;}
     &__photopost &_count-hold__in {
         display: none;
@@ -48,7 +48,20 @@ photo-albums {
     &__load &_img-hold {
         background-color: #F9F9F9;
     }
-    
+
+    &-desc {
+        margin: 20px 0 10px;
+        line-height: 1.6;
+        &__name {
+            font-weight: 600;
+            margin: 0 0 5px;
+            font-size: 15px;
+        }
+        &__text {
+            font-size: 12px;
+        }
+    }
+
     &_img-center {
         display: inline;
         text-align: center;
@@ -63,7 +76,7 @@ photo-albums {
         vertical-align: middle;
         text-align: center;
     }
-    &_img-allheight:before { /// вертикальное выравниевание 
+    &_img-allheight:before { /// вертикальное выравниевание
         content: "";
         display: inline-block;
         min-height: inherit;
@@ -94,23 +107,23 @@ photo-albums {
     }
     &_img-picture {
         position: absolute;
-        bottom: 0px; 
-        right: 0px; 
-        min-width: 100%; 
-        min-height: 100%; 
-        width: auto; 
-        height: auto;  
+        bottom: 0px;
+        right: 0px;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
         overflow: hidden;
         background-size: cover;
         background-position: 50% 50%;
     }
     &_img-big {
-        position: absolute; 
-        top: 0; 
-        left: 0; 
+        position: absolute;
+        top: 0;
+        left: 0;
         right: 0;
         bottom: 0;
-        margin: auto; 
+        margin: auto;
         height: 100%;
         /*min-width: 50%;
         min-height: 50%;*/
@@ -205,8 +218,8 @@ photo-albums {
         left: 0;
         border: 2px solid #ffe641; // #A591CD; // #4baa41;
     }
-    // сопряжено с _prev-li 
-    &_prev-img { 
+    // сопряжено с _prev-li
+    &_prev-img {
         max-width: none;
         max-height: 100%;
     }
@@ -247,7 +260,7 @@ photo-albums {
     }
 
 
-    
+
     @media (min-width: @screen-phone) {
         &_img-hold {
             /*min-height: 380px;*/
@@ -313,7 +326,7 @@ photo-albums {
             font-size: 28px;
             line-height: 28px;
         }
-        
+
         &__photopost &_count-hold {
             top: 0;
         }
@@ -344,7 +357,7 @@ photo-albums {
         &_desc,
         a&_desc:hover,
         &_top .tx-date {color: @color-white;}
-        
+
         .ie-9 &_top {
             /* IE9 SVG, needs conditional override of 'filter' to 'none' */
             background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM4JSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMCIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -489,7 +502,7 @@ photo-albums {
     margin: 20px 0 25px;
     border: 1px solid #f5f5f5;
     padding: 10px 20px;
-    
+
     .album-photo-add {
         vertical-align: middle;
     }

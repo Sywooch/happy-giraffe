@@ -1,0 +1,67 @@
+doctype html
+| <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+| <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+include ../../block/config
+//- vars from template file
+- var bodyClass = ''; 
+- var global = {}; 
+- global.cssFile = 'info.css';
+ 
+block vars
+    
+//- tag head
+if (debug)
+    - googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
+
+- global.headItem = googlefont
++headLite(path, global)
+
+/// layout out 
+body.body.body__lite.body__bg2(class='body__regular')
+ 
+    .layout-container.homepage
+        .layout-loose.layout-loose__white
+            .layout-header
+                // header 
+                header.header.header__homepage
+                    .header_hold
+                        .header_row-home
+                            +logo('logo__l')
+                    .info-menu
+                        ul.info-menu-list
+                            li.info-menu-item
+                                a.info-menu-link(href="#") О нас
+                            li.info-menu-item
+                                a.info-menu-link.active(href="#") Реклама
+                            li.info-menu-item
+                                a.info-menu-link(href="#") Контакты
+            .layout-loose_hold.clearfix
+                .info-rules
+                    .info-rules-tag Политика модерирования
+                        span.info-rules-tag__last Последнее изменение: 20.03.2015 г.
+                    .info-rules-text Любой добавляемый материал проходит ручную и автоматическую модерацию. Крайне не желательно:
+                        ol
+                            li Размещать материалы содержащие:
+                                ol
+                                    li Ссылки, за исключением ссылок, необходимых для раскрытия темы;
+                                    li Рекламу;
+                                    li Оскорбление оппонентов, в том числе, ненормативную лексику;
+                                    li Призывы к нарушению действующего законодательства, высказывания расистского; характера, разжигание межнациональной и религиозной розни и всего прочего, что попадает под действие УК РФ;
+                                    li Заведомо ложную информацию, клевету, а также использовать нечестные приемы ведения дискуссий;
+                                    li Размещать информацию эротического и порнографического содержания, ссылки и пароли к сайтам вышеуказанной тематики.
+                            li Создавать темы, содержащие любую рекламную, антирекламную или коммерческую информацию, а также ссылки на сайты с целью повышения их посещаемости (За исключением специально отведенных тем);
+                            li Создавать посты с темами, имеющими не содержательные названия, бессмысленные наборы букв, символьные украшения;
+                            li Написание постов, а так же сообщений БОЛЬШИМИ БУКВАМИ. Если хотите выделить что-то в тексте - используйте полужирный шрифт;
+                            li Многократная регистрация одного пользователя под разными никнеймами (именами пользователя).
+                    .info-rules-text Для Пользователей, замеченных в нарушении изложенных правил, возможные следующие санкции по усмотрению Модератора:
+                        ol
+                            li Удаление размещенного материала;
+                            li Блокировка пользователя, предоставление доступа только на чтение;
+                            li Удаление пользователя - без возможности восстановить аккаунт.
+                        | Пользователь может опротестовать решение модераторов, написав на адрес 
+                        a(href="mailto:info@happy-giraffe.ru") info@happy-giraffe.ru
+                        |  и изложив суть проблемы.
+                // b-main 
+                +layout-footer-lite('info-footer', layoutFooterLite.base)
+| </html>
+ 

@@ -11,5 +11,5 @@ class PhotopostModule extends \CWebModule
 {
 
     public $controllerNamespace = 'site\frontend\modules\som\modules\photopost\controllers';
-
+    
 }

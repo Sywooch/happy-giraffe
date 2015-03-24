@@ -32,7 +32,7 @@ $this->pageTitle = 'Реклама';
         </div>
         <div class="info-media-block__part info-hero__media text-center">
             <div class="info-form-title">Наш медиакит</div>
-            <div class="info-form-ms text-center"><a href="/adv/media/happy-giraffe-2014-12.pdf" class="info-form__button">Скачать</a></div>
+            <div class="info-form-ms text-center"><a href="/adv/media/happy-giraffe-2015-03.pdf" class="info-form__button">Скачать</a></div>
         </div>
         <div class="clearfix"></div>
     </div>

@@ -17,6 +17,7 @@ class PostController extends \LiteController
     public $layout = '/layouts/newBlogPost';
     public $post = null;
     public $hideUserAdd = true;
+    public $strictCheck = true;
     protected $_user = null;
     protected $_leftPost = null;
     protected $_rightPost = null;
@@ -32,7 +33,7 @@ class PostController extends \LiteController
         $this->post = Content::model()->bySlug($content_type_slug, $content_id)->find();
         // Выключим прочтение сигналов
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = false;
-        if (!$this->post || $this->post->parsedUrl !== \Yii::app()->request->requestUri) {
+        if (!$this->post || ($this->strictCheck && $this->post->parsedUrl !== \Yii::app()->request->requestUri)) {
             // Временная заглушка, если пост ещё не сконвертировался
             if (\Yii::app()->user->getState('newPost' . $content_id)) {
                 $this->layout = '//layouts/lite/main';

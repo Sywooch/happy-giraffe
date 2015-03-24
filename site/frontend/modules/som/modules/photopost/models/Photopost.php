@@ -146,7 +146,7 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                 $post->labels = array_map(function($labelModel) {
                     return $labelModel->text;
                 }, $labels);
-                $post->originEntity = get_class($this);
+                $post->originEntity = array_search(get_class($this), \site\frontend\modules\posts\models\Content::$entityAliases);
                 $post->originEntityId = (int) $this->id;
                 $post->originService = 'photopost';
 
@@ -168,10 +168,8 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                 $post->social = array(
                     'description' => $post->meta['description'],
                 );
-
-
-                var_dump($post->save());
-                die;
+                
+                $post->save();
 
                 return $result;
             }

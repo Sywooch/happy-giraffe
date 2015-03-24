@@ -11,6 +11,7 @@ class Attach extends \site\frontend\components\api\models\ApiModel
 {
 
     public $api = 'photo/collections';
+    protected $_photo = null;
 
     /**
      * @param string $className
@@ -54,6 +55,43 @@ class Attach extends \site\frontend\components\api\models\ApiModel
             $data = null;
         }
         return $model;
+    }
+
+    public function findAllByCollection($collectionId)
+    {
+        $models = array();
+        try {
+            $data = $this->request('getAttaches', array(
+                'collectionId' => $collectionId,
+                'offset' => 0,
+                'length' => null,
+                'circular' => false,
+            ));
+            if (isset($data['success']) && $data['success'] && isset($data['data']) && isset($data['data']['attaches'])) {
+                foreach ($data['data']['attaches'] as $attach) {
+                    $model = new self();
+                    foreach ($attach as $k => $v) {
+                        $model->$k = $v;
+                    }
+                    $models[] = $model;
+                }
+            } else {
+                $data = null;
+            }
+        } catch (\Exception $e) {
+            $data = null;
+        }
+        return $models;
+    }
+
+    public function getPhotoModel()
+    {
+        if (is_null($this->_photo)) {
+            $this->_photo = new \site\frontend\modules\photo\models\Photo();
+            $this->_photo->fromJSON($this->photo);
+        }
+
+        return $this->_photo;
     }
 
 }

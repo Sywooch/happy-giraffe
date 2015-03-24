@@ -5,20 +5,14 @@
 $visitorsLength = strlen($visitors);
 ?>
 
-<div class="homepage_row">
-    <div class="homepage-counter">
-        <div class="homepage_title"> Нас посетило уже! </div>
-        <div id="counter-users" class="counter-users">
-            <?php
-                for ($i = 0; $i < $visitorsLength; $i++):
-                    $showOpening = ($i == 0) || (($visitorsLength - $i) % CounterWidget::DIGITS_PER_SECTION == 0);
-                    $showClosing = ($visitorsLength - $i - 1) % CounterWidget::DIGITS_PER_SECTION == 0;
-            ?>
-                <?php if ($showOpening): ?><div class="counter-users_dash"><?php endif; ?>
-                        <div class="counter-users_digit"><?=substr($visitors, $i, 1)?></div>
-                <?php if ($showClosing): ?></div><?php endif; ?>
-            <?php endfor; ?>
-        </div>
-        <div class="homepage_desc-tx">будущих и настоящих мам и пап</div><a class="homepage_btn-sign btn btn-success btn-xxl registration-button" data-bind="follow: {}">Присоединяйся!</a>
-    </div>
+<div id="counter-users" class="counter-users">
+    <?php
+        for ($i = 0; $i < $visitorsLength; $i++):
+            $showOpening = ($i == 0) || (($visitorsLength - $i) % CounterWidget::DIGITS_PER_SECTION == 0);
+            $showClosing = ($visitorsLength - $i - 1) % CounterWidget::DIGITS_PER_SECTION == 0;
+    ?>
+        <?php if ($showOpening): ?><div class="counter-users_dash"><?php endif; ?>
+                <div class="counter-users_digit"><?=substr($visitors, $i, 1)?></div>
+        <?php if ($showClosing): ?></div><?php endif; ?>
+    <?php endfor; ?>
 </div>

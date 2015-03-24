@@ -262,7 +262,13 @@ if ($openLogin == 'login') {
             <!-- /Посты-->
 
             <!-- Посетители-->
-            <?php $this->widget('application.widgets.home.CounterWidget'); ?>
+            <div class="homepage_row">
+                <div class="homepage-counter">
+                    <div class="homepage_title"> Нас посетило уже! </div>
+                    <?php $this->widget('application.widgets.home.CounterWidget'); ?>
+                    <div class="homepage_desc-tx">будущих и настоящих мам и пап</div><a class="homepage_btn-sign btn btn-success btn-xxl registration-button" data-bind="follow: {}">Присоединяйся!</a>
+                </div>
+            </div>
             <!-- /Посетители-->
 
             <?php $this->renderPartial('//_footer'); ?>

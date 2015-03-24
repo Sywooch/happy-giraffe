@@ -3,7 +3,7 @@
  * @var \CActiveForm $form
  * @var site\frontend\modules\pages\widgets\contactFormWidget\models\ContactForm $model
  */
-Yii::app()->clientScript->registerAMD('contactForm', array('ContactForm' => 'contactForm', 'ko' => 'knockout'), "a = new ContactForm(); ko.applyBindings(a, document.getElementById('contactForm'));");
+Yii::app()->clientScript->registerAMD('contactForm', array('ContactForm' => 'contactForm', 'ko' => 'knockout'), "ko.applyBindings(new ContactForm(), document.getElementById('contactForm'));");
 ?>
 <div class="info-form info-last" id="contactForm">
     <div class="info-form-title">Напишите нам</div>

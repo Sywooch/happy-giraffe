@@ -59,6 +59,35 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionUsers()
+    {
+        $result = array();
+        $result[] = array('email', 'firstname', 'lastname');
+
+        $dp = new CActiveDataProvider('User', array(
+            'criteria' => array(
+                'condition' => 'deleted = 0',
+                'order' => 't.id ASC',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+
+        $j = 0;
+        foreach ($iterator as $i => $u) {
+            $result[] = array($u->email, $u->first_name, $u->last_name);
+            echo $i . "\n";
+
+            if ($i % 100000 == 0) {
+                $this->writeCsv('users' . $j, $result);
+                $result = array();
+                $result[] = array('email', 'firstname', 'lastname');
+                $j++;
+            }
+        }
+
+        $this->writeCsv('users' . $j, $result);
+    }
+
     public function actionParseMailRu()
     {
         $parser = new MailQuestionsParser();

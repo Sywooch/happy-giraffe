@@ -37,7 +37,7 @@ class ApiComponent extends \CComponent
 
         \Yii::trace('request(' . $url . ')', __CLASS__);
         $result = file_get_contents($url, $use_include_path = false, $context);
-        if (YII_DEBUG && !self::isJSON()) {
+        if (YII_DEBUG && !self::isJSON($result)) {
             throw new \site\frontend\components\api\ApiException($result);
         }
         return $result;
@@ -49,7 +49,7 @@ class ApiComponent extends \CComponent
         return \Yii::app()->$cacheComponent;
     }
 
-    public static function isJSON($str)
+    public static function isJSON($string)
     {
         if (is_string($string)) {
             $res = json_decode($string);

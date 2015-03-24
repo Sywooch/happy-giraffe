@@ -3,11 +3,11 @@
 <div class="layout-footer clearfix">
     <div class="layout-footer_hold">
         <ul class="footer-list">
-            <li class="footer-list_li visible-md-inline-block"><span class="footer-list_a">О нас</span></li>
-            <li class="footer-list_li"><span class="footer-list_a">Правила сайта</span></li>
-            <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'abuse'))?>" class="footer-list_a">Правообладателям</a></li>
-            <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'advertiser'))?>" class="footer-list_a footer-list__reklama">Реклама </a></li>
-            <li class="footer-list_li"><span class="footer-list_a">Контакты </span></li>
+            <li class="footer-list_li visible-md-inline-block"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'about'))?>" class="footer-list_a">О нас</a></li>
+            <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'useragreement'))?>" class="footer-list_a">Правила сайта</a></li>
+            <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'legal'))?>" class="footer-list_a">Правообладателям</a></li>
+            <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'ad'))?>" class="footer-list_a footer-list__reklama">Реклама </a></li>
+            <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'contacts'))?>" class="footer-list_a">Контакты </a></li>
         </ul>
         <?php if ($this->route != 'site/index'): ?>
             <ul class="footer-menu visible-md">
@@ -93,7 +93,7 @@
             <?php endif; ?>
         <?php endif; ?>
         <div class="layout-footer_tx">© 2012–2015 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
-        <div class="layout-footer_privacy-hold"><span class="layout-footer_privacy">Политика конфедициальности</span><?php if ($this->route != 'archive/default/map'): ?><a href="<?=$this->createUrl('/archive/default/map')?>" class="layout-footer_privacy">Карта сайта</a><?php endif; ?></div>
+        <div class="layout-footer_privacy-hold"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'confidential'))?>" class="layout-footer_privacy">Политика конфидициальности</a><?php if ($this->route != 'archive/default/map'): ?><a href="<?=$this->createUrl('/archive/default/map')?>" class="layout-footer_privacy">Карта сайта</a><?php endif; ?></div>
     </div>
 </div>
 <!-- /layout-footer-->

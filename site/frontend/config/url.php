@@ -144,6 +144,7 @@ return array(
         'users/default/addSocialService' => 'users/default/addSocialService',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
         // Парсим и составляем новые урлы
+        'user/<user_id:\d+>/blog/nppost<content_id:\d+>/photo<photoId:\d+>' => 'som/photopost/default/photoView',
         'user/<user_id:\d+>/blog/nppost<content_id:\d+>' => 'som/photopost/default/photoView',
         'user/<user_id:\d+>/blog/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/post/view',
         // Парсим старые урлы и добавляем параметр

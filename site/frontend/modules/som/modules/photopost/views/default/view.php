@@ -15,6 +15,7 @@ $this->breadcrumbs = array(
     'Блог' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $this->user->id)),
     $this->post->title,
 );
+$thumb = \Yii::app()->thumbs->getThumb($this->attach->photoModel, 'postCollectionCover');
 ?>
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">
@@ -63,7 +64,38 @@ $this->breadcrumbs = array(
                     }
                     ?>
                     <div class="b-article_in clearfix">
-                        /** content **/
+                        <div class="wysiwyg-content clearfix">
+                            <div class="b-album-cap">
+                                <div class="b-album-cap_hold">
+                                    <div class="b-album">
+                                        <div class="b-album_img-hold">
+                                            <?php if ($this->prevAttach) { ?><a href="<?= $this->post->url . $this->prevAttach->url ?>">&lAarr;</a><?php } ?>
+                                            <a href="#" class="b-album_img-a">
+                                                <div class="b-album_img-pad"></div>
+                                                <img src="<?= $thumb->url ?>" alt="<?= $this->attach->photo['title'] ?>" class="b-album_img-big">
+                                            </a>
+                                            <?php if ($this->nextAttach) { ?><a href="<?= $this->post->url . $this->nextAttach->url ?>">&rAarr;</a><?php } ?>
+                                            <!--<div class="b-album_img-hold-ovr">
+                                                <div class="ico-zoom ico-zoom__abs"></div>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                /* echo \CHtml::tag('photo-photopost', array(
+                                  'params' =>
+                                  'id: ' . (int) $this->collection->id . ', ' .
+                                  'attachCount: ' . (int) $this->collection->attachesCount . ', ' .
+                                  'userId: ' . (int) $this->post->authorId . ', ' .
+                                  'coverId: ' . $this->collection->cover['id'],
+                                  ), '') */
+                                ?>
+                            </div>
+                            <div class="b-album-desc">
+                                <div class="b-album-desc__name"><?= $this->attach->photo['title'] ?></div>
+                                <div class="b-album-desc__text"><?= $this->attach->photo['description'] ?></div>
+                            </div>
+                        </div>
                         <?php
                         if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
                             ?>

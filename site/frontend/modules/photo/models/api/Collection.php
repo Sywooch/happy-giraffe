@@ -30,5 +30,5 @@ class Collection extends \site\frontend\components\api\models\ApiModel
             'updated',
         );
     }
-
+    
 }

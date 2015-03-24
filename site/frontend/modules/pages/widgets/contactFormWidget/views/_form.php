@@ -6,7 +6,7 @@
 Yii::app()->clientScript->registerAMD('contactForm', array('ContactForm' => 'contactForm', 'ko' => 'knockout'), "ko.applyBindings(new ContactForm(), document.getElementById('contactForm'));");
 ?>
 
-<div id="contactForm">
+<div id="contactForm" data-bind="visible: true" style="display: none;">
     <!-- ko if: ! sent() -->
     <div class="info-form info-last">
         <div class="info-form-title">Напишите нам</div>
@@ -26,7 +26,7 @@ Yii::app()->clientScript->registerAMD('contactForm', array('ContactForm' => 'con
                 </div>
                 <!-- /ko -->
                 <!-- ko if: attach() !== false -->
-                <span class="info-form__file">Файл прикреплен</span>
+                <span class="info-form__file" data-bind="text: attach().fileName"></span>
                 <!-- /ko -->
             </div>
         </div>

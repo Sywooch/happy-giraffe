@@ -26,7 +26,7 @@ Yii::app()->clientScript->registerAMD('contactForm', array('ContactForm' => 'con
                 </div>
                 <!-- /ko -->
                 <!-- ko if: attach() !== false -->
-                <span>Файл прикреплен</span>
+                <span class="info-form__file">Файл прикреплен</span>
                 <!-- /ko -->
             </div>
         </div>

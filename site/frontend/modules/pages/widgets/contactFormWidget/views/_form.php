@@ -5,7 +5,7 @@
  */
 Yii::app()->clientScript->registerAMD('contactForm', array('ContactForm' => 'contactForm', 'ko' => 'knockout'), "a = new ContactForm(); ko.applyBindings(a, document.getElementById('contactForm'));");
 ?>
-<div class="info-form" id="contactForm">
+<div class="info-form info-last" id="contactForm">
     <div class="info-form-title">Напишите нам</div>
     <div class="info-hero-line">Чем мы можем Вам помочь?</div>
     <div class="info-form-block">
@@ -31,4 +31,3 @@ Yii::app()->clientScript->registerAMD('contactForm', array('ContactForm' => 'con
         <input type="submit" value="Отправить" class="info-form__button" data-bind="click: send">
     </div>
 </div>
-

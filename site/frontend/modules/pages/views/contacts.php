@@ -27,7 +27,7 @@ $this->pageTitle = 'Контакты';
     <div class="info-maps-part left">
         <div class="info-maps-address">
             <span class="bold">Главный офис </span>
-            г. Москва, ул. Краснопресенская, д. 28
+            г. Москва, Пресненская набережная, д.12
         </div>
         <div id="maps-main" class="info-maps-map"></div>
     </div>
@@ -69,6 +69,6 @@ $this->pageTitle = 'Контакты';
         });
     }
 
-    initialize("maps-main", 55.762577, 37.568775);
+    initialize("maps-main", 55.750086, 37.537263);
     initialize("maps-develop", 57.620702, 39.858704);
 </script>

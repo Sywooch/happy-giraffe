@@ -10,6 +10,7 @@ class DefaultController extends \LiteController
 {
     public $litePackage = 'info';
     public $layout = '/layout';
+    public $bodyClass = 'body__regular';
 
     public function actions()
     {

@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var LiteController $this
+ */
+$this->pageTitle = 'Государственным органам и правообладателям';
+?>
+
 <div class="info-rules">
     <div class="info-rules-tag">Государственным органам и правообладателям<span class="info-rules-tag__last">Последнее изменение: 20.03.2015 г.</span></div>
     <div class="info-rules-tagsub">Информация о рассмотрении претензий и обращений, связанных с размещением контента на сайте www.happy-giraffe.ru</div>

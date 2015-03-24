@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var LiteController $this
+ */
+$this->pageTitle = 'Политика модерирования';
+?>
+
 <div class="info-rules">
     <div class="info-rules-tag">Политика модерирования<span class="info-rules-tag__last">Последнее изменение: 20.03.2015 г.</span></div>
     <div class="info-rules-text">Любой добавляемый материал проходит ручную и автоматическую модерацию. Крайне не желательно:

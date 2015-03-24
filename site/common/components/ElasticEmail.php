@@ -8,35 +8,38 @@ class ElasticEmail extends CApplicationComponent
     const USERNAME = 'mira.smurkov@gmail.com';
     const KEY = 'd0fbfc41-7591-4da4-b587-ab54fe263665';
 
-    public static function send($to, $subject, $body_html, $from, $fromName)
+    public static function send($to, $subject, $body_html, $from, $fromName, $attachments = false)
     {
+
         $res = "";
 
-        $data = "username=" . urlencode(self::USERNAME);
-        $data .= "&api_key=" . urlencode(self::KEY);
-        $data .= "&from=" . urlencode($from);
-        $data .= "&from_name=" . urlencode($fromName);
-        $data .= "&to=" . urlencode($to);
-        $data .= "&subject=" . urlencode($subject);
-        if ($body_html)
-            $data .= "&body_html=" . urlencode($body_html);
-//        if($body_text)
-//            $data .= "&body_text=".urlencode($body_text);
+        $data = "username=".self::USERNAME;
+        $data .= "&api_key=".self::KEY;
+        $data .= "&from=".urlencode($from);
+        $data .= "&from_name=".urlencode($fromName);
+        $data .= "&to=".urlencode($to);
+        $data .= "&subject=".urlencode($subject);
+        if($body_html)
+            $data .= "&body_html=".urlencode($body_html);
+
+        if($attachments)
+            $data .= "&attachments=".urlencode($attachments);
 
         $header = "POST /mailer/send HTTP/1.0\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
         $header .= "Content-Length: " . strlen($data) . "\r\n\r\n";
         $fp = fsockopen('ssl://api.elasticemail.com', 443, $errno, $errstr, 30);
 
-        if (!$fp)
+        if(!$fp)
             return "ERROR. Could not open connection";
         else {
-            fputs($fp, $header . $data);
+            fputs ($fp, $header.$data);
             while (!feof($fp)) {
-                $res .= fread($fp, 1024);
+                $res .= fread ($fp, 1024);
             }
             fclose($fp);
         }
+
         return $res;
     }
 
@@ -269,28 +272,35 @@ class ElasticEmail extends CApplicationComponent
         }
     }
 
-    public static function uploadAttachment($content, $fileName)
-    {
-        $res = "";
-        $header = "PUT /attachments/upload?username=".urlencode(self::USERNAME)."&api_key=".urlencode(self::KEY)."&file=".urlencode($fileName)." HTTP/1.0\r\n";
-        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-        $header .= "Content-Length: " . strlen($content) . "\r\n\r\n";
-        $fp = @fsockopen("ssl://api.elasticemail.com", 443, $errno, $errstr, 30);
-        if(!$fp)
-        {
-            return "ERROR. Could not open connection";
-        }
-        else
-        {
-            fputs ($fp, $header.$content);
-            while (!feof($fp))
-            {
-                $res .= fread ($fp, 1024);
+    public static function uploadAttachment($filepath, $filename) {
+        $data = http_build_query(array('username' => self::USERNAME,'api_key' => self::KEY,'file' => $filename));
+        $file = file_get_contents($filepath);
+        $result = '';
+
+        $fp = fsockopen('ssl://api.elasticemail.com', 443, $errno, $errstr, 30);
+
+        if ($fp){
+            fputs($fp, "PUT /attachments/upload?".$data." HTTP/1.1\r\n");
+            fputs($fp, "Host: api.elasticemail.com\r\n");
+            fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
+            fputs($fp, "Content-length: ". strlen($file) ."\r\n");
+            fputs($fp, "Connection: close\r\n\r\n");
+            fputs($fp, $file);
+            while(!feof($fp)) {
+                $result .= fgets($fp, 128);
             }
-            fclose($fp);
+        } else {
+            return array(
+                'status'=>false,
+                'error'=>$errstr.'('.$errno.')',
+                'result'=>$result);
         }
-        $res=substr($res,-9);
-        return $res;
+        fclose($fp);
+        $result = explode("\r\n\r\n", $result, 2);
+        return array(
+            'status' => true,
+            'attachId' => isset($result[1]) ? $result[1] : ''
+        );
     }
 
     public static function mailMerge($csv, $from, $fromName, $subject, $bodyText = null, $bodyHTML = null)

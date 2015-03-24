@@ -62,7 +62,7 @@ return array(
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
-        '<view:(advertiser|abuse)>' => array('site/page'),
+        '<view:(abuse)>' => array('site/page'),
         'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
@@ -502,5 +502,7 @@ return array(
         'commentatorsContest/<contestId:\d+>/<_a>' => 'comments/contest/default/<_a>',
 
         'views' => 'analytics/default/index',
+
+        '<view:(about|ad|contacts|useragreement|legal|moderation_rule|confidential)>' => 'pages/default/page',
     ),
 );

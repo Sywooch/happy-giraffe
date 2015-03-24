@@ -1,0 +1,170 @@
+doctype html
+| <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+| <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+include ../../block/config
+//- vars from template file
+- var bodyClass = ''; 
+- var global = {}; 
+- global.cssFile = 'info.css';
+ 
+block vars
+    
+//- tag head
+if (debug)
+    - googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
+
+- global.headItem = googlefont
++headLite(path, global)
+
+/// layout out 
+body.body.body__lite.body__bg2(class='body__regular')
+ 
+    .layout-container.homepage
+        .layout-loose.layout-loose__white
+            .layout-header
+                // header 
+                header.header.header__homepage
+                    .header_hold
+                        .header_row-home
+                            +logo('logo__l')
+                    .info-menu
+                        ul.info-menu-list
+                            li.info-menu-item
+                                a.info-menu-link(href="#") О нас
+                            li.info-menu-item
+                                a.info-menu-link(href="#") Правила сайта
+                            li.info-menu-item.active
+                                a.info-menu-link(href="#") Реклама
+                            li.info-menu-item
+                                a.info-menu-link(href="#") Контакты
+            .layout-loose_hold.clearfix
+                .info-about
+                    .info-about-quote
+                        .info-about-quote__top
+                            img(src="/lite/images/info/quote.png", alt="")
+                        .info-about-quote__text Мы мечтаем создать следующее поколение онлайн-коммуникации. Это будет лучший интернет-проект, помогающий личной жизни каждой семьи
+                        .info-about-quote__who
+                            .info-about-quote__wh
+                                .info-about-quote__name Мира Смурков
+                                .info-about-quote__position Founder & CEO
+                            img.info-about-quote__who__img(src="/lite/images/info/ceo.png", alt="")
+                        
+                .info-do
+                    .info-do-now.green
+                        .info-do-now__img
+                            img(src="/lite/images/info/do-feather.png", alt="")
+                        .info-do-now__numsmall 130 000
+                        .info-do-now__txtsmall записей
+                        .info-do-now__img
+                            img(src="/lite/images/info/do-picture.png", alt="")
+                        .info-do-now__numsmall 850 000
+                        .info-do-now__txtsmall фотографий
+                        .info-do-now__img
+                            img(src="/lite/images/info/do-buble.png", alt="")
+                        .info-do-now__numsmall 1 500 000
+                        .info-do-now__txtsmall комментариев
+                    .info-do-now.orange
+                        .info-do-now__title.group Фан-группа
+                        .info-do-now__img
+                            img(src="/lite/images/info/do-ok.png", alt="")
+                        .info-do-now__numbig 200 000
+                        div
+                            a.info-do-now__numlink(href="http://ok.ru/happygiraffe") ok.ru/happygiraffe 
+                    .info-do-now.blue
+                        .info-do-now__title Золотой сайт
+                        .info-do-now__sub Семья и дом
+                        div
+                            img(src="/lite/images/info/do-gold.png", alt="", height="300px")
+                    .clearfix
+                .info-sponsors
+                    .info-sponsors-title Наша команда
+                    .info-team
+                        .info-team-member
+                            .info-team-member__img
+                                img(src="/lite/images/info/team-1.png", alt="")
+                            .info-team-member__name Никита
+                            .info-team-member__position CTO+BACK-END
+                        .info-team-member
+                            .info-team-member__img
+                                img(src="/lite/images/info/team-2.png", alt="")
+                            .info-team-member__name Татьяна
+                            .info-team-member__position FINANCIALS
+                        .info-team-member
+                            .info-team-member__img
+                                img(src="/lite/images/info/team-4.png", alt="")
+                            .info-team-member__name Никита
+                            .info-team-member__position FRONT-END
+                        .info-team-member
+                            .info-team-member__img
+                                img(src="/lite/images/info/team-3.png", alt="")
+                            .info-team-member__name Кирилл
+                            .info-team-member__position BACK-END
+                        .info-team-member
+                            .info-team-member__img
+                                img(src="/lite/images/info/team-5.png", alt="")
+                            .info-team-member__name Александр
+                            .info-team-member__position UX+DESIGNER
+                        .info-team-member
+                            .info-team-member__img
+                                img(src="/lite/images/info/team-6.png", alt="")
+                            .info-team-member__name Елена
+                            .info-team-member__position SALES
+                        .info-team-member
+                            .info-team-member__img
+                                img(src="/lite/images/info/team-7.png", alt="")
+                            .info-team-member__name Жан
+                            .info-team-member__position SYSADMIN
+                        .info-team-member
+                            .info-team-member__img
+                                img(src="/lite/images/info/team-8.png", alt="")
+                            .info-team-member__name Татьяна
+                            .info-team-member__position COMMUNITY
+                        .clearfix
+                        .info-team-plus
+                            span.info-team-plus__plus +
+                            span.info-team-plus__text модераторы, редакторы, тестировщики
+                .info-hero.info-join.info-last
+                    .info-join-title Нас посетило уже!
+                    .info-join-counter
+                        //- Счетчик 
+                        //-   script(type='text/javascript', src='/javascripts/jquery.lwtCountdown-1.0.js')
+                        //-script.
+                            jQuery(document).ready(function() { 
+                                $('#counter-users').countUp({
+                                    numberSet : 62789298,
+                                    randomNumberMax : 45
+                                });
+
+                            });
+                        //
+                            Countdown dashboard start 
+                        #counter-users.counter-users
+                            .counter-users_dash.counter-users_dash__millions
+                                .counter-users_digit 6
+                                .counter-users_digit 2
+                            .counter-users_dash.counter-users_dash__thousands
+                                .counter-users_digit 0
+                                .counter-users_digit 7
+                                .counter-users_digit 2
+                            .counter-users_dash.counter-users_dash__hundreds
+                                .counter-users_digit 1
+                                .counter-users_digit 9
+                                .counter-users_digit 0
+                        //
+                            Countdown dashboard end 
+                    .info-join-people
+                        .info-join-people__part
+                            img(src="/lite/images/info/father.png", alt="")
+                        .info-join-people__part.center
+                        .info-join-people__part
+                            img(src="/lite/images/info/mother.png", alt="")
+                    .info-join-people
+                        .info-join-people__part пап
+                        .info-join-people__part.center и 
+                        .info-join-people__part мам
+                    .info-join-button
+                        a.info-form__button.big(href="#") Присоединяйтесь!
+                // b-main 
+                +layout-footer-lite('info-footer', layoutFooterLite.base)
+| </html>
+ 

@@ -89,7 +89,7 @@ $this->pageTitle = 'О нас';
         <div class="info-team-plus"><span class="info-team-plus__plus">+</span><span class="info-team-plus__text">модераторы, редакторы, тестировщики</span></div>
     </div>
 </div>
-<div class="info-hero info-join">
+<div class="info-hero info-join info-last">
     <div class="info-join-title">Нас посетило уже!</div>
     <div class="info-join-counter">
         <!--Countdown dashboard start

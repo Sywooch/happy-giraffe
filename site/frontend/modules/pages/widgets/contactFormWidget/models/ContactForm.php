@@ -8,7 +8,6 @@ namespace site\frontend\modules\pages\widgets\contactFormWidget\models;
 
 class ContactForm extends \CFormModel
 {
-    const SEND_TO = 'nikita@happy-giraffe.ru';
     const SEND_FROM = 'noreply@happy-giraffe.ru';
 
     public $message;
@@ -17,6 +16,11 @@ class ContactForm extends \CFormModel
     public $email;
     public $phone;
     public $attachId = false;
+
+    private $sendTo = array(
+        'nikita@happy-giraffe.ru',
+        'info@happy-giraffe.ru',
+        );
 
     public function rules()
     {
@@ -39,7 +43,9 @@ class ContactForm extends \CFormModel
 
     public function save()
     {
-        return \ElasticEmail::send(self::SEND_TO, 'Обратная связь с ВЖ', $this->getHtml(), self::SEND_FROM, $this->name . ', ' . $this->companyName, $this->attachId);
+        foreach ($this->sendTo as $email) {
+            return \ElasticEmail::send($email, 'Обратная связь с ВЖ', $this->getHtml(), self::SEND_FROM, $this->name . ', ' . $this->companyName, $this->attachId);
+        }
     }
 
     protected function getHtml()

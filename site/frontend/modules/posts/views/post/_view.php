@@ -35,7 +35,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     <?= HHtml::timeTag($this->post, array('class' => 'tx-date'), null); ?>
                 </div>
                 <div class="icons-meta"><a href="<?=$this->post->commentsUrl?>" class="icons-meta_comment"><span class="icons-meta_tx"><?=$comments->count?></span></a>
-                    <div class="icons-meta_view"><span class="icons-meta_tx"><?=$this->post->views?></span></div>
+                    <?php if (false): ?><div class="icons-meta_view"><span class="icons-meta_tx"><?=$this->post->views?></span></div><?php endif; ?>
                 </div>
             </div>
             <?php
@@ -136,87 +136,3 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 </div>
 <!-- /Основная колонка-->
 <!--/////-->
-<!-- Сайд бар-->
-<!-- Содержимое загружaть отложено-->
-<aside class="b-main_col-sidebar visible-md">
-    <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
-    <div class="bnr-base">
-        <!--AdFox START-->
-        <!--giraffe-->
-        <!--Площадка: Весёлый Жираф / * / *-->
-        <!--Тип баннера: Безразмерный 240x400-->
-        <!--Расположение: &lt;сайдбар&gt;-->
-        <!-- ________________________AdFox Asynchronous code START__________________________ -->
-        <script type="text/javascript">
-            <!--
-            if (typeof (pr) == 'undefined') {
-                var pr = Math.floor(Math.random() * 1000000);
-            }
-            if (typeof (document.referrer) != 'undefined') {
-                if (typeof (afReferrer) == 'undefined') {
-                    afReferrer = escape(document.referrer);
-                }
-            } else {
-                afReferrer = '';
-            }
-            var addate = new Date();
-
-
-            var dl = escape(document.location);
-            var pr1 = Math.floor(Math.random() * 1000000);
-
-            document.write('<div id="AdFox_banner_' + pr1 + '"><\/div>');
-            document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_' + pr1 + '" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
-
-            AdFox_getCodeScript(1, pr1, 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl=' + dl + '&amp;pr1=' + pr1);
-            // -->
-        </script>
-        <!-- _________________________AdFox Asynchronous code END___________________________ -->
-    </div>
-    <?php $this->endWidget(); ?>
-    <?php /*
-      <div class="adv-banner adv-banner__bd"><a href=""><img src="/lite/images/example/w240-h400.jpg" alt=""></a></div>
-      <!-- Варианты цветов блока
-      article-similar__green
-      article-similar__blue
-      article-similar__lilac
-      article-similar__red
-      article-similar__yellow
-      -->
-      <div class="article-similar article-similar__lilac">
-      <div class="article-similar_row">
-      <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдин</a>
-      </div>
-      <div class="article-similar_row"><a href="" class="article-similar_t">Наши первые движения </a></div>
-      <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
-      </div>
-      <div class="article-similar article-similar__red">
-      <div class="article-similar_row">
-      <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдинwerwerweryrtyrtyrtyrtyrtyа</a>
-      </div>
-      <div class="article-similar_row"><a href="" class="article-similar_t">Наши первые движения</a></div>
-      <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h176.jpg" alt="" class="article-similar_img"></a></div>
-      </div>
-      <div class="article-similar article-similar__yellow">
-      <div class="article-similar_row">
-      <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина !!Красотуля!!</a>
-      </div>
-      <div class="article-similar_row"><a href="" class="article-similar_t">Наши первые движения по полу в окружении родителей</a></div>
-      <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
-      </div>
-      <div class="article-similar article-similar__blue">
-      <div class="article-similar_row">
-      <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдина</a>
-      </div>
-      <div class="article-similar_row"><a href="" class="article-similar_t">Коррекция фигуры: убираем висячий дряблый живот</a></div>
-      <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h183.jpg" alt="" class="article-similar_img"></a></div>
-      </div>
-      <div class="article-similar article-similar__green">
-      <div class="article-similar_row">
-      <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдина</a>
-      </div>
-      <div class="article-similar_row"><a href="" class="article-similar_t">Обязательства мешают любовным отношениям</a></div>
-      <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
-      </div> */ ?>
-</aside>
-<!-- Сайд бар-->

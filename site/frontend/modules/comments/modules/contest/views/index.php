@@ -12,7 +12,7 @@ $cs->registerAMD('contestCommentsButton', array('joinOrAuth' => 'extensions/join
         <h3 class="contest-commentator-desc_t">Как стать лидером?</h3>
         <div class="contest-commentator-desc_tx">Для того чтобы стать лидером нужно написать много интересных и полезных комментариев.</div><a href="<?=$this->createUrl('/comments/contest/default/rules', array('contestId' => $this->contest->id))?>" class="contest-commentator-desc_a">Полные правила и рекомендации</a>
     </div>
-    <?php if (Yii::app()->user->isGuest || ! $this->contest->isRegistered(Yii::app()->user->id)): ?>
+    <?php if (! $this->isParticipant): ?>
         <div class="contest-commentator-desc_btn-hold"> <a href="#" class="btn btn-xxxl contest-commentator_btn-orange" data-bind="joinOrAuthBind: {}">Принять участие!</a></div>
     <?php endif; ?>
 </div>
@@ -25,7 +25,7 @@ $cs->registerAMD('contestCommentsButton', array('joinOrAuth' => 'extensions/join
 
         Лучшим 10 комментаторам зачисляется <br>1000 рублей на мобильный телефон!
     </div>
-    <?php if (Yii::app()->user->isGuest || ! $this->contest->isRegistered(Yii::app()->user->id)): ?>
+    <?php if (! $this->isParticipant): ?>
         <div class="contest-commentator-prize_btn-hold"><a href="#" class="btn btn-xxxl contest-commentator_btn-orange" data-bind="joinOrAuthBind: {}">Хочу приз!</a></div>
     <?php endif; ?>
 </div>

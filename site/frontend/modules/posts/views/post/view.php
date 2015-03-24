@@ -10,10 +10,7 @@ $this->breadcrumbs = array(
     $this->post->title,
 );
 ?>
-<div class="b-main_cont">
-    <div class="b-main_col-hold clearfix">
-        <?php
-        $this->renderPartial('site.frontend.modules.posts.views.post._view');
-        ?>
-    </div>
-</div>
+
+<?php
+$this->renderPartial('site.frontend.modules.posts.views.post._view');
+?>

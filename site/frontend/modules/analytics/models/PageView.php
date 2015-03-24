@@ -82,6 +82,12 @@ class PageView extends \EMongoDocument
         return $model;
     }
 
+    public function incVisits($n)
+    {
+        $this->visits += $n;
+        $this->save();
+    }
+
     public function getEntity()
     {
         foreach ($this->getRoutes() as $pattern => $callback) {

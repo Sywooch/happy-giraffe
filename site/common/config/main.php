@@ -17,11 +17,22 @@ return array(
                 'piwik' => array(
                     'class' => 'site\frontend\modules\analytics\components\PiwikHttpApi',
                 ),
+                'visitsManager' => array(
+                    'class' => 'site\frontend\modules\analytics\components\VisitsManager',
+                ),
             ),
         ),
         'ads' => require(dirname(__FILE__) . '/../../frontend/modules/ads/config/main.php'),
     ),
     'components' => array(
+        /* компонент для кеширования по зависимости, без удаления записей */
+        'dbCache' => array(
+            'class' => 'site.frontend.components.InfinityCache',
+            'connectionID' => 'db',
+            // сборщик мусора не нужен, храним по зависимости, вечно
+            'gCProbability' => 0,
+            'cacheTableName' => 'infiniteCache',
+        ),
         'api' => array(
             'class' => 'site\frontend\components\api\ApiComponent',
         ),

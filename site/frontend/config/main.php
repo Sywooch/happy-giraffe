@@ -276,15 +276,6 @@ return array(
             'class'=>'CApcCache',
         ),
         
-        /* компонент для кеширования по зависимости, без удаления записей */
-        'dbCache' => array(
-            'class' => 'site.frontend.components.InfinityCache',
-            'connectionID' => 'db',
-            // сборщик мусора не нужен, храним по зависимости, вечно
-            'gCProbability' => 0,
-            'cacheTableName' => 'infiniteCache',
-        ),
-        
 		'user'=>array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',

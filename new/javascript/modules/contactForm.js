@@ -10,6 +10,7 @@ define('contactForm', ['jquery', 'knockout', 'models/Model', 'jquery_file_upload
        self.phone = ko.observable('');
        self.loading = ko.observable(false);
        self.attach = ko.observable(false);
+       self.sent = ko.observable(false);
 
        self.send = function() {
             self.loading(true);
@@ -34,6 +35,7 @@ define('contactForm', ['jquery', 'knockout', 'models/Model', 'jquery_file_upload
                self.phone('');
                self.attach(false);
                self.loading(false);
+               self.sent(true);
            });
        };
 

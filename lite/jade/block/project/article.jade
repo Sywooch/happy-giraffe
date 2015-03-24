@@ -81,6 +81,90 @@ mixin bArticle-single(mod, vars)
 - bArticleSingle.redactor.btnEdit = true
 - bArticleSingle.redactor.redactor = true
 
+//- Фотопост
+mixin bArticlePhotopost(mod, vars)
+    // Статья с текстом
+    // b-article
+    article.b-article.b-article__single.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                if (vars.empty != true)
+                    .icons-meta
+                        a.icons-meta_comment(href='#')
+                            span.icons-meta_tx 35
+                        .icons-meta_view
+                            span.icons-meta_tx 305
+            if(vars.userActivityPost)
+                +userActivityPost('', vars.userActivityPost)
+
+            .b-article_t-list
+                a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    if(vars.content == 'empty')
+                        +bAlbumCap('b-album__load', bAlbumCap.base)
+                    if(!vars.content)
+                        +bAlbumPhotopost('', bAlbumPhotopost.single)
+                        .b-album-desc
+                            .b-album-desc__name Чертова дорога
+                            .b-album-desc__text Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            //-.b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    // Описание определенное количество символов
+                    p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  
+                        span.ico-more
+
+            if (vars.type == 'text')
+                +commentsList('', commentsList.b)
+
+            if (vars.empty != true)
+                .b-article_like.clearfix
+
+                    if(vars.btnEdit)
+                        +articleSettings('', articleSettings.base)
+                    .article-also
+                        .article-also_row
+                            +likeControl('like-control__small', likeControl.articleList)
+                        .article-also_row
+                            .article-also_tx Смотреть все 
+                                a(href='#') комментарии
+                                .visible-md-inline-block
+                                    | ,
+                                    a(href='#')  нравится, 
+                                .visible-md-inline-block
+                                    a(href='#')  закладки 
+                                | .
+
+    // /b-article
+
+- var bArticlePhotopost = {}
+- bArticlePhotopost.base = {}
+- bArticlePhotopost.base.btnEdit = true
+
+- bArticlePhotopost.userProfilePhotopost = {}
+- bArticlePhotopost.userProfilePhotopost.type = 'photopost'
+- bArticlePhotopost.userProfilePhotopost.userActivityPost = userActivityPost.photopost
+
+- bArticlePhotopost.userProfilePhoto = {}
+- bArticlePhotopost.userProfilePhoto.type = 'photo'
+- bArticlePhotopost.userProfilePhoto.userActivityPost = userActivityPost.photo
+
+- bArticlePhotopost.baseEmpty = {}
+- bArticlePhotopost.baseEmpty.content = 'empty'
+
+//- Статус пользователя
+- bArticlePhotopost.carePhotoPost = {}
+- bArticlePhotopost.carePhotoPost.empty = true
+
+- bArticlePhotopost.carePhoto = {}
+- bArticlePhotopost.carePhoto.content = 'empty'
+- bArticlePhotopost.carePhoto.empty = true
+
 //- Статья и видео пост в списке блога/клуба и
 mixin bArticleListItem(mod, vars)
     // Статья с текстом

@@ -1,0 +1,117 @@
+doctype html
+| <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+| <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+include ../../block/config
+//- vars from template file
+- var bodyClass = ''; 
+- var global = {}; 
+- global.cssFile = 'info.css';
+ 
+block vars
+    
+//- tag head
+if (debug)
+    - googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
+
+- global.headItem = googlefont
++headLite(path, global)
+
+/// layout out 
+body.body.body__lite.body__bg2(class='body__regular')
+ 
+    .layout-container.homepage
+        .layout-loose.layout-loose__white
+            .layout-header
+                // header 
+                header.header.header__homepage
+                    .header_hold
+                        .header_row-home
+                            +logo('logo__l')
+                    .info-menu
+                        ul.info-menu-list
+                            li.info-menu-item
+                                a.info-menu-link(href="#") О нас
+                            li.info-menu-item
+                                a.info-menu-link(href="#") Правила сайта
+                            li.info-menu-item
+                                a.info-menu-link.active(href="#") Реклама
+                            li.info-menu-item
+                                a.info-menu-link(href="#") Контакты
+            .layout-loose_hold.clearfix 
+                .info-hero.info-start
+                    .info-hero-line.main По всем вопросам и предложениям по работе сайта обращайтесь
+                    .info-hero-line
+                        a.info-hero-line__mail.blue(href="mailto:info@happy-giraffe.ru") info@happy-giraffe.ru
+                    .info-hero-line.main
+                        .info-hero-line__part
+                            .info-hero-line__part__question
+                                | У вас важный <br />
+                                | вопрос?
+                        .info-hero-line__part
+                            img(src="/lite/images/info/ceo.png", alt="")
+                        .info-hero-line__part.text-left
+                            .info-hero-line__part__small.position Генеральный директор
+                            .info-hero-line__part__small.name Мира Смурков
+                            .info-hero-line__part__small
+                                a.info-hero-line__part__mail(href="mailto:mira@happy-giraffe.ru") mira@happy-giraffe.ru
+                .info-maps
+                    .info-maps-part.left
+                        .info-maps-address
+                            | <span class="bold">Главный офис </span>
+                            | г. Москва, Пресненская набережная, д.12
+                        .info-maps-map#maps-main
+                    .info-maps-part.right
+                        .info-maps-address
+                            | <span class="bold">Офис разработки </span>
+                            | г. Ярославль, пр-т. Толбухина, 8/75
+                        .info-maps-map#maps-develop
+                    .clearfix
+                .info-form.info-last
+                    .info-form-title Напишите нам
+                    .info-hero-line Чем мы можем Вам помочь?
+                    .info-form-block
+                        .info-form-block__part
+                            textarea.itx-gray.form-edit_itx(name="", cols="30", rows="10", placeholder="Введите сообщение")
+                        .info-form-block__part
+                            input.info-form__input.itx-gray.form-edit_itx(type="text", placeholder="Имя")
+                            input.info-form__input.itx-gray.form-edit_itx(type="text", placeholder="Компания")
+                            input.info-form__input.itx-gray.form-edit_itx(type="text", placeholder="Email")
+                            input.info-form__input.itx-gray.form-edit_itx(type="text", placeholder="Телефон")
+                            .info-form__file.file-fake Прикрепить файл
+                                input(type="file")
+                    .info-form-ms.text-center
+                        input.info-form__button(type="submit", value="Отправить")
+
+                // b-main 
+                +layout-footer-lite('info-footer', layoutFooterLite.base)
+                script(type='text/javascript', src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCJ1S2cRAzz8_QA0yKA6WVqDT6eZ476Sow")
+                script(type='text/javascript').
+                    var initialize = function initialize(mapId, coordx, coordy) {
+                        var mapOptions,
+                            marker,
+                            map,
+                            markerImage = '/lite/images/info/marker.png',
+                            position = new google.maps.LatLng(coordx, coordy);
+                        mapOptions = {
+                            center: position,
+                            zoom: 13,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            panControl: false,
+                            zoomControl: false,
+                            mapTypeControl: false,
+                            scaleControl: false,
+                            streetViewControl: false,
+                            overviewMapControl: false
+                        };
+                        map = new google.maps.Map(document.getElementById(mapId), mapOptions);
+                        marker = new google.maps.Marker({
+                              position: position,
+                              map: map,
+                              icon: markerImage
+                         });
+                    }
+
+                    initialize("maps-main", 55.750086, 37.537263);
+                    initialize("maps-develop", 57.620702, 39.858704);
+| </html>
+ 

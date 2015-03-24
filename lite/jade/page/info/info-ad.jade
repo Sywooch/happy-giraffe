@@ -1,0 +1,122 @@
+doctype html
+| <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+| <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+include ../../block/config
+//- vars from template file
+- var bodyClass = ''; 
+- var global = {}; 
+- global.cssFile = 'info.css';
+ 
+block vars
+    
+//- tag head
+if (debug)
+    - googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
+
+- global.headItem = googlefont
++headLite(path, global)
+
+/// layout out 
+body.body.body__lite.body__bg2(class='body__regular')
+ 
+    .layout-container.homepage
+        .layout-loose.layout-loose__white
+            .layout-header
+                // header 
+                header.header.header__homepage
+                    .header_hold
+                        .header_row-home
+                            +logo('logo__l')
+                    .info-menu
+                        ul.info-menu-list
+                            li.info-menu-item
+                                a.info-menu-link(href="#") О нас
+                            li.info-menu-item
+                                a.info-menu-link(href="#") Правила сайта
+                            li.info-menu-item
+                                a.info-menu-link.active(href="#") Реклама
+                            li.info-menu-item
+                                a.info-menu-link(href="#") Контакты
+            .layout-loose_hold.clearfix
+                .info-ad
+                    .info-ad-master за последний месяц
+                    .info-ad-part
+                        .info-ad-part__img
+                            img(src="/lite/images/info/family.png", alt="") 
+                        .info-ad-part__non Нас посетило
+                        .info-ad-part__number 3 647 127
+                        .info-ad-part__non будущих и настоящих мам и пап
+                    .info-ad-part
+                        .info-ad-part__img
+                            img.eye(src="/lite/images/info/eye.png", alt="") 
+                        .info-ad-part__non Они просмотрели
+                        .info-ad-part__number 8 922 458
+                        .info-ad-part__non страниц сайта
+                    .clearfix
+                .info-sponsors
+                    .info-sponsors-title Наши рекламодатели
+                    .info-sponsors-img
+                        img(src="/lite/images/info/sponsors.png", alt="")
+                .info-hero
+                    .info-media-block
+                        .info-media-block__part
+                            .text-center
+                                img(src="/lite/images/info/media-kit.png", alt="") 
+                        .info-media-block__part.info-hero__media.text-center
+                            .info-form-title Наш медиакит
+                            .info-form-ms.text-center
+                                a.info-form__button(href="#") Скачать
+                        .clearfix
+                .info-clients
+                    .info-clients-part
+                        .info-clients-part__for.yellow для рекламных агентств
+                        .info-clients-part__img
+                            img(src="/lite/images/info/people-1.png", alt="")
+                        .info-clients-part__name Мира Смурков
+                        .info-clients-part__link
+                            a(href="mailto:mira@happy-giraffe.ru") mira@happy-giraffe.ru
+                    .info-clients-part
+                        .info-clients-part__for.blue для прямых клиентов
+                        .info-clients-part__img 
+                            img(src="/lite/images/info/people-2.png", alt="")
+                        .info-clients-part__name Елена Горбунова
+                        .info-clients-part__link
+                            a(href="mailto:elena@happy-giraffe.ru") elena@happy-giraffe.ru
+                    .info-clients-part
+                        .info-clients-part__for.purple по финансовым вопросам 
+                        .info-clients-part__img
+                            img(src="/lite/images/info/people-3.png", alt="")
+                        .info-clients-part__name Татьяна Тешабаева
+                        .info-clients-part__link
+                            a(href="mailto:tatyana@happy-giraffe.ru") tatyana@happy-giraffe.ru
+                    .clearfix
+                .info-want
+                    .info-hero-line.main Вы хотите у нас рекламироваться?
+                    .info-hero-line
+                        a.info-hero-line__mail.orange(href="mailto:info@happy-giraffe.ru") info@happy-giraffe.ru
+                    .info-want-or или    
+                .info-form
+                    .info-form-title Напишите нам
+                    .info-hero-line Чем мы можем Вам помочь?
+                    .info-form-block
+                        .info-form-block__part
+                            textarea.itx-gray.form-edit_itx(name="", cols="30", rows="10", placeholder="Введите сообщение")
+                        .info-form-block__part
+                            input.info-form__input.itx-gray.form-edit_itx(type="text", placeholder="Имя")
+                            input.info-form__input.itx-gray.form-edit_itx(type="text", placeholder="Компания")
+                            input.info-form__input.itx-gray.form-edit_itx(type="text", placeholder="Email")
+                            input.info-form__input.itx-gray.form-edit_itx(type="text", placeholder="Телефон")
+                            .info-form__file.file-fake Прикрепить файл
+                                input(type="file")
+                    .info-form-ms.text-center
+                        input.info-form__button(type="submit", value="Отправить")
+                .info-form.info-last
+                    .info-form-great
+                        img(src="/lite/images/info/mark.png", alt="")
+                    .info-form-title Спасибо предложение принято!
+                    .info-hero-line Наш менеджер свяжется с вами в ближайшее время.
+
+                // b-main 
+                +layout-footer-lite('info-footer', layoutFooterLite.base)
+| </html>
+ 

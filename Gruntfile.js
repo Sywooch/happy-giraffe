@@ -563,6 +563,41 @@ module.exports = function(grunt){
         ],
         dest: 'lite/css/min/homepage.css'
       },
+      // Домашняя страница
+      'lite_info': {
+        options: {
+          ignoreSheets : [/fonts.googleapis/],
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            /#ctrlcopy+/,
+            /#powerTip+/,
+            /placeholder+/,
+            /.mfp+/,
+            /.select2+/,
+            /@font-face+/,
+            /input+/,
+            /.body+/,
+            /.bnr+/,
+            /.ava+/,
+            /.ico-club+/,
+            /.article-anonce+/,
+
+            /.ico-social-hold+/,
+          ],
+
+        },
+        src: [
+          'lite/html/page/info/**/*.html',
+          'lite/html/page/sign/**/*.html',
+          // 'lite/html/page/member/**/*.html',
+
+        ],
+        dest: 'lite/css/min/info.css'
+      },
       // конкурс комментаторов
       'contest_commentator': {
         options: {
@@ -1104,6 +1139,7 @@ module.exports = function(grunt){
     'uncss:member',
     'uncss:member_user',
     'uncss:lite_homepage',
+    'uncss:lite_info',
     'uncss:contest_commentator', //  конкурс комментаторов
     'cmq:redactor',
     'cmq:lite',
@@ -1120,6 +1156,7 @@ module.exports = function(grunt){
     'uncss:member',
     'uncss:member_user',
     'uncss:lite_homepage',
+    'uncss:lite_info',
     'uncss:contest_commentator', //  конкурс комментаторов
     'cmq:redactor',
     'cmq:lite',

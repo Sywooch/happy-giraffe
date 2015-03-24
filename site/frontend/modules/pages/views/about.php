@@ -8,7 +8,7 @@ $this->pageTitle = 'О нас';
 <div class="info-about">
     <div class="info-about-quote">
         <div class="info-about-quote__top"><img src="/lite/images/info/quote.png" alt=""></div>
-        <div class="info-about-quote__text">Мы мечтаем создать следующее поколение онлайн-коммуникации. Это будет лучший интернет-проект, помогающий личной жизни каждой семьи</div>
+        <div class="info-about-quote__text">Мы мечтаем создать следующее поколение онлайн-коммуникации. Это будет лучший интернет-проект, помогающий личной жизни каждой семьи.</div>
         <div class="info-about-quote__who">
             <div class="info-about-quote__wh">
                 <div class="info-about-quote__name">Мира Смурков</div>

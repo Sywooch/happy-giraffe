@@ -3,6 +3,9 @@ info pages
 */
 
 .info {
+    &-last {
+        margin-bottom: -80px;
+    }
     &-rules {
         padding: 20px 100px 120px 30px;
         &-title {
@@ -68,7 +71,7 @@ info pages
             display: inline-block;
             margin: 0 19px;
             padding: 0 0 20px;
-            &:active {
+            &.active {
                 .info-menu-link {
                     color: @color-orange;
                 }
@@ -112,7 +115,8 @@ info pages
                     border-color: #4FB4F7;
                 }
                 &.orange:hover {
-                    color: #FF9452;
+                    color: #FCFC52;
+                    border-color: #FCFC52;
                 }
             }
             &__part {

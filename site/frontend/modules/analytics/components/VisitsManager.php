@@ -15,13 +15,13 @@ use site\frontend\modules\posts\models\Content;
 class VisitsManager extends \CApplicationComponent
 {
     const VISITOR_HASH_KEY_PREFIX = 'Analytics.VisitorsManager.visitorsHash';
-    const VISITS_BUFFER_KEY = 'Analytics.VisitorsManager.visits';
+//    const VISITS_BUFFER_KEY = 'Analytics.VisitorsManager.visits';
     const VISITS_INTERVAL = 10800; // 3 часа
-    const FLUSH_INTERVAL = 300; //
-    const VISITS_COUNT_THRESHOLD = 100;
+//    const FLUSH_INTERVAL = 300; //
+//    const VISITS_COUNT_THRESHOLD = 100;
 
     public $hitsCacheComponent = 'cache';
-    public $bufferCacheComponent = 'cache';
+//    public $bufferCacheComponent = 'cache';
 
     /**
      * @var \CCache
@@ -36,7 +36,7 @@ class VisitsManager extends \CApplicationComponent
     public function init()
     {
         $this->hitsCache = \Yii::app()->{$this->hitsCacheComponent};
-        $this->bufferCache = \Yii::app()->{$this->bufferCacheComponent};
+//        $this->bufferCache = \Yii::app()->{$this->bufferCacheComponent};
 
         parent::init();
     }
@@ -50,28 +50,32 @@ class VisitsManager extends \CApplicationComponent
         return false;
     }
 
-    public function getVisits($path)
+    public function getVisits($path = null)
     {
+        if ($path === null) {
+            $path = \Yii::app()->request->requestUri;
+        }
+
         return PageView::getModel($path)->getCounter();
     }
 
-    public function flushBuffer()
-    {
-        $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
-        $this->bufferCache->set(self::VISITS_BUFFER_KEY, array());
+//    public function flushBuffer()
+//    {
+//        $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
+//        $this->bufferCache->set(self::VISITS_BUFFER_KEY, array());
+//
+//        $paths = ($value === false) ? array() : $value;
+//        foreach ($paths as $path => $count) {
+//            $model = PageView::getModel($path);
+//            $model->incVisits($count);
+//            unset ($paths[$path]);
+//        }
+//    }
 
-        $paths = ($value === false) ? array() : $value;
-        foreach ($paths as $path => $count) {
-            $model = PageView::getModel($path);
-            $model->incVisits($count);
-            unset ($paths[$path]);
-        }
-    }
-
-    public function showBuffer()
-    {
-        return $this->bufferCache->get(self::VISITS_BUFFER_KEY);
-    }
+//    public function showBuffer()
+//    {
+//        return $this->bufferCache->get(self::VISITS_BUFFER_KEY);
+//    }
 
     public function getTrackingCode()
     {
@@ -80,15 +84,8 @@ class VisitsManager extends \CApplicationComponent
 
     protected function countVisit($path)
     {
-        $value = $this->bufferCache->get(self::VISITS_BUFFER_KEY);
-        $paths = ($value === false) ? array() : $value;
-        if (! isset($paths[$path])) {
-            $paths[$path] = 1;
-        } else {
-            $paths[$path] += 1;
-        }
-
-        $this->bufferCache->set(self::VISITS_BUFFER_KEY, $paths);
+        $model = PageView::getModel($path);
+        $model->incVisits(1);
     }
 
     protected function isNewVisit($path)

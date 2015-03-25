@@ -35,7 +35,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     <?= HHtml::timeTag($this->post, array('class' => 'tx-date'), null); ?>
                 </div>
                 <div class="icons-meta"><a href="<?=$this->post->commentsUrl?>" class="icons-meta_comment"><span class="icons-meta_tx"><?=$comments->count?></span></a>
-                    <div class="icons-meta_view"><span class="icons-meta_tx"><?=$this->post->views?></span></div>
+                    <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>
                 </div>
             </div>
             <?php

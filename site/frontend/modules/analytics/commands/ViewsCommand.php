@@ -12,16 +12,16 @@ use site\frontend\modules\posts\models\Content;
 
 class ViewsCommand extends \CConsoleCommand
 {
-    public function actionFlushVisits()
-    {
-        \Yii::app()->getModule('analytics')->visitsManager->flushBuffer();
-    }
-
-    public function actionDebug()
-    {
-        $b = \Yii::app()->getModule('analytics')->visitsManager->showBuffer();
-        echo count($b);
-    }
+//    public function actionFlushVisits()
+//    {
+//        \Yii::app()->getModule('analytics')->visitsManager->flushBuffer();
+//    }
+//
+//    public function actionDebug()
+//    {
+//        $b = \Yii::app()->getModule('analytics')->visitsManager->showBuffer();
+//        echo count($b);
+//    }
 
     public function actionCheat($url, $perDay)
     {
@@ -42,5 +42,11 @@ class ViewsCommand extends \CConsoleCommand
     {
         $manager = new MigrateManager();
         $manager->run();
+    }
+
+    public function actionTest()
+    {
+        $model = PageView::getModel("/community/1/forum/photoPost/52304/");
+        $model->incVisits(5);
     }
 } 

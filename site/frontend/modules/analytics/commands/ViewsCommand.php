@@ -22,4 +22,18 @@ class ViewsCommand extends \CConsoleCommand
         $b = \Yii::app()->getModule('analytics')->visitsManager->showBuffer();
         echo count($b);
     }
+
+    public function actionCheat($url, $perDay)
+    {
+        $day = 60*24;
+        $val = $perDay / $day;
+        $int = floor($val);
+        $float = $val - $int;
+        $rnd = mt_rand() / mt_getrandmax();
+        $res = $int + (($rnd < $float) ? 1 : 0);
+        echo "$float\n$rnd\n$res\n";
+        $model = PageView::getModel($url);
+        $model->result += $res;
+        $model->save();
+    }
 } 

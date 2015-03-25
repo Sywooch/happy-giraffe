@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: mikita
@@ -7,6 +8,7 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
+
 use site\frontend\components\api\ApiController;
 use site\frontend\modules\photo\components\InlinePhotoModifier;
 use site\frontend\modules\photo\models\Photo;
@@ -16,18 +18,25 @@ use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
 
 class PhotosApiController extends ApiController
 {
-    public function actionUpdate($url, $photoId)
+
+    public function actionUpdate($url, $photoId, $title = false, $description = false)
     {
         /** @var \site\frontend\modules\photo\models\Photo $photo */
         $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId, 'editPhoto');
         $photo->image = file_get_contents($url);
+        if ($title !== false) {
+            $photo->title = htmlspecialchars($title);
+        }
+        if ($description !== false) {
+            $photo->description = htmlspecialchars($description);
+        }
         $this->success = $photo->save();
         $this->data = $photo;
     }
 
     public function actionUploadFromComputer($collectionId = null)
     {
-        if (! \Yii::app()->user->checkAccess('uploadPhoto')) {
+        if (!\Yii::app()->user->checkAccess('uploadPhoto')) {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
@@ -39,7 +48,7 @@ class PhotosApiController extends ApiController
 
     public function actionUploadByUrl($url, $collectionId = null)
     {
-        if (! \Yii::app()->user->checkAccess('uploadPhoto')) {
+        if (!\Yii::app()->user->checkAccess('uploadPhoto')) {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
@@ -85,10 +94,11 @@ class PhotosApiController extends ApiController
      */
     public function getActionParams()
     {
-        if (! empty($_POST)) {
+        if (!empty($_POST)) {
             return $_POST;
         } else {
             return parent::getActionParams();
         }
     }
-} 
+
+}

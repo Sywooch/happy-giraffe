@@ -44,9 +44,10 @@ mixin commentsOpen (mod, vars)
                                         p 
                                             |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
                                         // одно фото в блок (ссылку)
-                                        a.comments_cont-img-w(href='#')
-                                            // размеры превью максимум 400*400 пк
-                                            img.content-img(alt='', src='/images/example/w220-h309-1.jpg')
+                                        .b-article_in-img.b-article_in-img__l
+                                            a.comments_cont-img-w(href='#')
+                                                // размеры превью максимум 400*400 пк
+                                                img.content-img(alt='', src='/images/example/w220-h309-1.jpg')
                                         p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
 
                                 if (vars.user)
@@ -448,4 +449,3 @@ mixin commentsList (mod, vars)
 
 - commentsList.commentPage = {}
 - commentsList.commentPage.user = false
-

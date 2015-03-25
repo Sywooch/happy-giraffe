@@ -84,6 +84,9 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             if ($oldPost->rubric->community->club && $oldPost->rubric->community->club->section)
                 $tags[] = 'Секция: ' . $oldPost->rubric->community->club->section->title;
         }
+        if($oldPost->isFromBlog) {
+            $tags[] = 'Блог';
+        }
 
         $newPost = \site\frontend\modules\posts\models\Content::model()->resetScope()->findByAttributes(array(
             'originService' => $service,

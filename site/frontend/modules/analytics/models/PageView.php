@@ -53,15 +53,15 @@ class PageView extends \EMongoDocument
         );
     }
 
-    public function afterSave()
-    {
-        $entity = $this->getEntity();
-        if ($entity !== null) {
-            $entity->views = $this->getCounter();
-            $entity->update(array('views'));
-        }
-        parent::afterSave();
-    }
+//    public function afterSave()
+//    {
+//        $entity = $this->getEntity();
+//        if ($entity !== null) {
+//            $entity->views = $this->getCounter();
+//            $entity->update(array('views'));
+//        }
+//        parent::afterSave();
+//    }
 
     public function getCounter()
     {

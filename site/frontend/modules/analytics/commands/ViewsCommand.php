@@ -36,4 +36,11 @@ class ViewsCommand extends \CConsoleCommand
         $model->result += $res;
         $model->save();
     }
+
+
+    public function actionMigrate()
+    {
+        $manager = new MigrateManager();
+        $manager->run();
+    }
 } 

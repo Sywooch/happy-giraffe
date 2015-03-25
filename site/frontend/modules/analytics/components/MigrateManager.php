@@ -27,7 +27,7 @@ class MigrateManager
         \Yii::import('site.frontend.extensions.GoogleAnalytics');
         $this->ga = new \GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
         $this->ga->setProfile('ga:53688414');
-        $this->ga->setDateRange('2012-08-01', '2015-02-12');
+        $this->ga->setDateRange('2012-08-01', '2015-03-22');
     }
 
     public function run()

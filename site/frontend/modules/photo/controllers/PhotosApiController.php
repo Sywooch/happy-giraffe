@@ -19,11 +19,13 @@ use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
 class PhotosApiController extends ApiController
 {
 
-    public function actionUpdate($url, $photoId, $title = false, $description = false)
+    public function actionUpdate($photoId, $url = false, $title = false, $description = false)
     {
         /** @var \site\frontend\modules\photo\models\Photo $photo */
         $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId, 'editPhoto');
-        $photo->image = file_get_contents($url);
+        if ($url !== false) {
+            $photo->image = file_get_contents($url);
+        }
         if ($title !== false) {
             $photo->title = htmlspecialchars($title);
         }

@@ -21,9 +21,9 @@ $this->beginContent('//layouts/lite/common_menu');
                     <div class="userAddRecord_tx">Я хочу добавить
                     </div>
                     <a href="<?= $this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_POST, 'useAMD' => true)) ?>" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a>
-                    <a href="<?= $this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_PHOTO_POST, 'useAMD' => true)) ?>" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a>
+                    <a href="/user/blog/photopost/create/" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo powertip"></a>
                     <a href="<?= $this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_VIDEO, 'useAMD' => true)) ?>" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy powertip"></a>
-                    <a href="<?= $this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_STATUS, 'useAMD' => true)) ?>" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a>
+                    <a href="/user/blog/status/create/" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status powertip"></a>
                 </div>
             </div>
             <!-- /userAddRecord-->

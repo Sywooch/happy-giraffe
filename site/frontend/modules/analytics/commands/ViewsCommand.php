@@ -46,7 +46,7 @@ class ViewsCommand extends \CConsoleCommand
 
     public function actionTest()
     {
-        $model = PageView::getModel("/community/1/forum/photoPost/52304/");
-        $model->incVisits(5);
+        $model = PageView::getModel("http://www.happy-giraffe.ru/community/32/forum/post/249149/");
+        $model->incVisits(1);
     }
 } 

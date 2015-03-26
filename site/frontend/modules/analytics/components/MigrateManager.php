@@ -43,6 +43,7 @@ class MigrateManager
         foreach ($this->_patterns as $pattern) {
             $this->processByRegex($pattern);
         }
+        echo "finish";
     }
 
     protected function processByRegex($pattern)

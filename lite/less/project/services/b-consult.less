@@ -1,16 +1,16 @@
 .b-consult {
   .b-article {
-    padding: 0 20px 0 0;
+    padding: 0;
   }
   &-top {
-    padding: 32px 0;
+    padding: 67px 0;
     background: url('@{path-img}/services/consult/consult-top.png') no-repeat;
-    margin: 0 0 20px;
+    margin: 0;
     &__t {
       display: block;
       background: url('@{path-img}/services/consult/consult-top-fr.png') no-repeat;
-      padding: 27px 0 27px 32px;
-      margin: 40px 0 0 30px;
+      padding: 54px 0 50px 40px;
+      margin: 10px 0 0 30px;
     }
     &__title {
       margin: 0;
@@ -26,14 +26,15 @@
     }
   }
   &-bubble {
-    background: url('@{path-img}/services/consult/consult-bee.png') right top no-repeat;
+    background: #fffdce;
     height: auto;
-    padding: 72px 20px 0 20px;
+    padding: 20px;
     text-align: center;
     font-family: Arial;
     color: #71471b;
     line-height: 20px;
     margin: 0 0 40px;
+    .border-radius(20px);
     &-text {
       font-size: 14px;
       padding: 0 0 40px;
@@ -209,11 +210,16 @@
 
 @media (min-width: @screen-sm-mid) {
   .b-consult {
+    .b-article {
+      padding: 0 20px 0 0;
+    }
     &-top {
+      padding: 54px 0;
+      margin: 0 0 20px;
       &__t {
         display: inline-block;
-        padding: 27px 100px 27px 32px;
-        margin: 40px 0 0 30px;
+        padding: 14px 100px 27px 32px;
+        margin: 10px 0 0 30px;
       }
       &__title {
         font-size: 60px;
@@ -232,6 +238,7 @@
       background: url('@{path-img}/services/consult/consult-bubble.png') no-repeat;
       background-size: contain;
       height: 450px;
+      .border-radius(0);
       &-who {
         padding: 0 50px 0 10px;
       }

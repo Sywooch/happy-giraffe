@@ -49,11 +49,13 @@ class Content extends \CActiveRecord implements \IHToJSON
     public static $slugAliases = array(
         'nppost' => 'NewPhotoPost',
         'post' => 'CommunityContent',
+        'status' => 'NewStatus',
     );
     public static $entityAliases = array(
         'CommunityContent' => 'CommunityContent',
         'BlogContent' => 'BlogContent',
         'NewPhotoPost' => 'site\frontend\modules\som\modules\photopost\models\Photopost',
+        'NewStatus' => 'site\frontend\modules\som\modules\status\models\Status',
     );
 
     /**

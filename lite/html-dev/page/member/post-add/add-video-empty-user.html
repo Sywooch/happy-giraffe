@@ -32,7 +32,6 @@
   <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__user body__lite">
-  <!-- +header-fix()-->
   <div class="layout-container">
     <div class="layout-loose layout-loose__white">
       <div class="layout-header">
@@ -96,21 +95,23 @@
       <div class="layout-loose_hold clearfix">
         <div class="b-main">
           <div class="b-main_cont b-main_cont__wide">
-            <div class="postAdd b-main_col-hold clearfix">
+            <div class="postAdd b-main_col-hold clearfix"><a href="#" class="ico-close6">×</a>
+              <!-- основная колонка-->
               <div class="b-main_col-article">
                 <div class="postAdd_hold">
                   <div class="postAdd_row">
-                    <div class="heading-small">
-                      <div class="ico-post-type ico-post-type__video active"></div>Создать видеопост
+                    <div class="heading-xxl">
+                      <div class="ico-post-type ico-post-type__video active"></div>Создать видео
                     </div>
                   </div>
                   <div class="postAdd_row"> 
-                    <div class="inp-valid inp-valid__abs">
+                    <div class="inp-valid inp-valid__abs error">
                       <div class="inp-valid_count">30</div>
                       <input placeholder="Заголовок" class="itx-gray">
+                      <div class="inp-valid_error">Ошибка</div>
                     </div>
                   </div>
-                  <div class="postAdd_row"> 
+                  <div class="postAdd_row">
                     <!-- cap-add-->
                     <!-- Блок Добавления-->
                     <div class="cap-add cap-add__l cap-add__lilac">
@@ -122,147 +123,80 @@
                       </div>
                     </div>
                   </div>
-                  <div class="postAdd_row"> 
+                  <div class="postAdd_row">
                     <div class="inp-valid inp-valid__abs">
-                      <textarea rows="4" cols="40" placeholder="Ваш комментарий к видео" class="itx-gray"></textarea>
+                      <textarea rows="5" cols="40" placeholder="Ваш комментарий к видео" class="itx-gray"></textarea>
                       <div class="inp-valid_count">450</div>
                     </div>
                   </div>
-                  <!-- Строка-->
-                  <!-- postAdd_btns-->
-                  <div class="postAdd_row">
-                    <div class="postAdd_count"> </div>
-                    <div class="b-main_col-article clearfix">
-                      <!-- Блок управления приватностью записи-->
-                      <!--.privacy-select.float-l
-                      .privacy-select_hold.clearfix
-                          .privacy-select_tx Для кого:
-                          .privacy-select_drop-hold.dropdown.dropup
-                              a.privacy-select_a.dropdown-toggle(href='', data-toggle="dropdown", data-target="#", id="dLabel1")
-                                  span.ico-users.ico-users__friend.active
-                                  span.privacy-select_a-tx
-                                      | только
-                                      br
-                                      | друзьям
-                              .privacy-select_drop.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel1")
-                                  .privacy-select_i
-                                      a.privacy-select_a(href='')
-                                          span.ico-users.ico-users__all
-                                          span.privacy-select_a-tx
-                                              | для
-                                              | всех
-                                  .privacy-select_i
-                                      a.privacy-select_a(href='')
-                                          span.ico-users.ico-users__friend
-                                          span.privacy-select_a-tx
-                                              | только
-                                              | друзьям
-                      -->
-                      <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a>
-                        <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success"> Опубликовать</span>
-                          <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark"><i class="ico-arrow-d-white"></i></span>
-                            <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
-                              <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">
-                                  <div class="dropdown-menu_in">
-                                     
-                                    Опубликовать сейчас
-                                  </div></a></li>
-                              <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a"> 
-                                  <div class="dropdown-menu_in">
-                                     
-                                    Предпросмотр
-                                  </div></a></li>
-                              <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
-                                  <div class="dropdown-menu_in">
-                                     
-                                    Сохранить в черновик
-                                  </div></a></li>
-                            </ul>
-                          </div>
+                </div>
+                <!-- Строка кнопок-->
+                <!-- postAdd_btns-->
+                <div class="postAdd_row">
+                  <div class="postAdd_count"> </div>
+                  <div class="b-main_col-article clearfix">
+                    <!-- Блок управления приватностью записи-->
+                    <!--.privacy-select.float-l
+                    .privacy-select_hold.clearfix
+                        .privacy-select_tx Для кого:
+                        .privacy-select_drop-hold.dropdown.dropup
+                            a.privacy-select_a.dropdown-toggle(href='', data-toggle="dropdown", data-target="#", id="dLabel1")
+                                span.ico-users.ico-users__friend.active
+                                span.privacy-select_a-tx
+                                    | только
+                                    br
+                                    | друзьям
+                            .privacy-select_drop.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel1")
+                                .privacy-select_i
+                                    a.privacy-select_a(href='')
+                                        span.ico-users.ico-users__all
+                                        span.privacy-select_a-tx
+                                            | для
+                                            | всех
+                                .privacy-select_i
+                                    a.privacy-select_a(href='')
+                                        span.ico-users.ico-users__friend
+                                        span.privacy-select_a-tx
+                                            | только
+                                            | друзьям
+                    -->
+                    <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a>
+                      <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success"> Опубликовать</span>
+                        <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark"><i class="ico-arrow-d-white"></i></span>
+                          <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
+                            <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">
+                                <div class="dropdown-menu_in">
+                                   
+                                  Опубликовать сейчас
+                                </div></a></li>
+                            <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a"> 
+                                <div class="dropdown-menu_in">
+                                   
+                                  Предпросмотр
+                                </div></a></li>
+                            <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                                <div class="dropdown-menu_in">
+                                   
+                                  Сохранить в черновик
+                                </div></a></li>
+                          </ul>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <!-- /Строка кнопок-->
               </div>
+              <!-- /основная колонка -->
+              <!-- сайдбар-->
+              <div class="b-main_col-sidebar"></div>
+              <!-- /сайдбар-->
             </div>
           </div>
-          <!-- Футер-->
-          <!-- layout-footer-->
-          <div class="layout-footer clearfix">
-            <div class="layout-footer_hold">
-              <ul class="footer-list">
-                <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-                <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
-              </ul>
-              <ul class="footer-menu visible-md">
-                <li class="footer-menu_li">
-                  <div class="footer-menu_t footer-menu_t__husband-and-wife">Муж и жена </div>
-                  <ul class="footer-menu_in">
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Свадьба </a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Отношения в семье</a></li>
-                  </ul>
-                </li>
-                <li class="footer-menu_li">
-                  <div class="footer-menu_t footer-menu_t__pregnancy">Беременность и дети </div>
-                  <ul class="footer-menu_in">
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Планирование </a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Беременность и роды</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дети до года</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дети старше года</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дошкольники</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Школьники</a></li>
-                  </ul>
-                </li>
-                <li class="footer-menu_li">
-                  <div class="footer-menu_t footer-menu_t__home">Наш дом</div>
-                  <ul class="footer-menu_in">
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Готовим на кухне</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Ремонт в доме</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Домашние хлопоты</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Сад и огород</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наши питомцы </a></li>
-                  </ul>
-                </li>
-                <li class="footer-menu_li">
-                  <div class="footer-menu_t footer-menu_t__beauty">Красота и здоровье</div>
-                  <ul class="footer-menu_in">
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Красота и мода</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наше здоровье</a></li>
-                  </ul>
-                </li>
-                <li class="footer-menu_li">
-                  <div class="footer-menu_t footer-menu_t__hobby">Интересы и увлечения</div>
-                  <ul class="footer-menu_in">
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Рукоделие</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Цветы в доме</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наш автомобиль</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Рыбалка</a></li>
-                  </ul>
-                </li>
-                <li class="footer-menu_li">
-                  <div class="footer-menu_t footer-menu_t__family-holiday">Семейный отдых</div>
-                  <ul class="footer-menu_in">
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Мы путешествуем</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Выходные с семьей</a></li>
-                    <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Праздники</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
-              <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
-            </div>
-          </div>
-          <!-- /layout-footer-->
-          <!-- /Футер-->
-          
         </div>
       </div>
     </div>
   </div>
-  <div class="popup-container display-n"> 
+  <div class="popup-container display-n">
   </div>
 </body></html>

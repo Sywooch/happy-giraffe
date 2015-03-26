@@ -11,6 +11,9 @@
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
+    min-height: 100vh;
+    min-height: ~'calc(100vh - 45px)';
+    background-color: #fff;
 
 
     /*&__white {
@@ -20,7 +23,6 @@
     }*/
     &_hold {
         margin: 0 auto;
-        background-color: #fff;
     }
 
     .layout-header {
@@ -47,9 +49,6 @@
         }
         &_hold__personal {
             background: none;
-        }
-        &_hold {
-            margin: 0 auto 20px;
         }
     }
 }

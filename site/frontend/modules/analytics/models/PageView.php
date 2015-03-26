@@ -78,6 +78,7 @@ class PageView extends \EMongoDocument
         if ($model === null) {
             $model = new PageView();
             $model->_id = $url;
+            $model->save();
         }
         return $model;
     }

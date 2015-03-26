@@ -16,7 +16,7 @@ class VisitsManager extends \CApplicationComponent
 {
     const VISITOR_HASH_KEY_PREFIX = 'Analytics.VisitorsManager.visitorsHash';
 //    const VISITS_BUFFER_KEY = 'Analytics.VisitorsManager.visits';
-    const VISITS_INTERVAL = 10800; // 3 часа
+    const VISITS_INTERVAL = 1800; // 3 часа
 //    const FLUSH_INTERVAL = 300; //
 //    const VISITS_COUNT_THRESHOLD = 100;
 

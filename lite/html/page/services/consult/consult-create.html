@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/member-user.css' />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services.css' />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -29,7 +29,7 @@
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
 </head>
-<body class="body body__user body__lite">
+<body class="body body__user body__lite body__create">
   <div class="layout-container">
     <div class="layout-loose layout-loose__white">
       <div class="layout-loose_hold clearfix">
@@ -37,24 +37,48 @@
           <div class="b-main_cont b-main_cont__wide">
             <div class="postAdd b-main_col-hold clearfix"><a href="#" class="ico-close6">×</a>
               <!-- основная колонка-->
-              <div class="b-main_col-article">
+              <div class="b-main_col-article b-consult-create">
                 <div class="postAdd_hold">
                   <div class="postAdd_row">
                     <div class="heading-xxl">
-                      <div class="ico-post-type ico-post-type__photo active"></div>Создать фотоальбом
+                      <div class="ico-post-type ico-post-type__article active"></div>Задать вопрос
                     </div>
                   </div>
                   <div class="postAdd_row"> 
-                    <div class="inp-valid inp-valid__abs error">
+                    <div class="inp-valid inp-valid__abs">
                       <div class="inp-valid_count">30</div>
-                      <input placeholder="Заголовок альбома" class="itx-gray">
+                      <input placeholder="Заголовок" class="itx-gray">
                       <div class="inp-valid_error">Ошибка</div>
                     </div>
                   </div>
-                  <div class="postAdd_row">
-                    <div class="inp-valid inp-valid__abs">
-                      <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray"></textarea>
-                      <div class="inp-valid_count">450</div>
+                  <div class="postAdd_row"> 
+                    <!-- wisywig-->
+                    <script src="/lite/redactor/redactor.min.js"></script>
+                    <script src="/lite/redactor/lang/ru.js"></script>
+                    <!--script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")-->
+                    <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
+                    <script src="/lite/redactor/plugins/btnaddphoto/btnaddphoto.js"></script>
+                    <script src="/lite/redactor/plugins/btnaddvideo/btnaddvideo.js"></script>
+                    <script src="/lite/redactor/plugins/btnaddsmile/btnaddsmile.js"></script>
+                    <script src="/lite/redactor/plugins/btnaddlink/btnaddlink.js"></script>
+                    <script>
+                      $(document).ready(function () { 
+                        $('.wysiwyg-redactor').redactor({
+                            minHeight: 450,
+                            lang: 'ru',
+                            linkTooltip: false,
+                            
+                            plugins: ['formatbtn' ],
+                            buttons: [''],
+                        });
+                      });
+                    </script>
+                    <div class="wysiwyg-post redactor_box">
+                      <textarea name="" colrow="9" class="wysiwyg-redactor">
+                        <p>Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))</p>
+                        <p>Не знаю насколько это правда, <b>но я задумалась, </b>а что же на самом деле нужно <i>нашим мужчинам чтобы они чувствовали себя счастливыми.</i></p>
+                        <p>Ведь на самом деле, <small>запросы у женщин очень большие,</small>так ли это обстоит  у наших мужчин?</p>
+                      </textarea>
                     </div>
                   </div>
                 </div>

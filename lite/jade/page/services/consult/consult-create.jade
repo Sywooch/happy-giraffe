@@ -1,7 +1,7 @@
 include ../../../block/config
 extend ../../../extend/layout_header_empty
 block vars
-    - var bodyClass = 'body__lite';
+    - var bodyClass = 'body__lite body__create';
     - global.cssFile = 'services.css'; 
   
 block layout
@@ -13,7 +13,7 @@ block layout
             .postAdd.b-main_col-hold.clearfix
                 a.ico-close6(href='#') ×
                 // основная колонка
-                .b-main_col-article
+                .b-main_col-article.b-consult-create
                     .postAdd_hold
                         .postAdd_row
                             .heading-xxl

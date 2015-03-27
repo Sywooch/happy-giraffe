@@ -8,7 +8,7 @@ $cs->registerAMD('kow', array('kow'));
         <!--/////-->
         <!-- Основная колонка-->
         <div class="b-main_col-article">
-            <post-status-add></post-status-add>
+            <post-status-add params="id:<?= $id ? $id : 'false' ?>"></post-status-add>
         </div>
     </div>
 </div>

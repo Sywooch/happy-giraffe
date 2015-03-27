@@ -188,6 +188,9 @@ return array(
         /* Временные страницы для редактирования */
         'post/add/type<type:[1235]>' => 'blog/tmp/index',
         'post/edit/content<id:\d+>' => 'blog/tmp/index',
+        'blogs/edit/post' => 'blog/tmp/index',
+        'community/edit/post' => 'blog/tmp/index',
+        'post/edit/<_a:[a-zA-Z]+><id:[0-9]+>' => 'posts/form/<_a>',
         /* Временные страницы для управления постами */
         'blog/tmp/favourites' => 'blog/tmp/favourites',
 

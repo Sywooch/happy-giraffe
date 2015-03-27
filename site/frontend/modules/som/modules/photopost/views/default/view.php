@@ -98,8 +98,9 @@ $thumb = \Yii::app()->thumbs->getThumb($this->attach->photoModel, 'postCollectio
                         </div>
                         <?php
                         if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
+                            $articleSettingsParams = array('articleId' => $this->post->originEntityId, 'edit' => $this->post->originManageInfoObject->toJSON());
                             ?>
-                            <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
+                            <article-settings params='<?= \HJSON::encode($articleSettingsParams) ?>'></article-settings>
                             <?php
                         }
                         ?>

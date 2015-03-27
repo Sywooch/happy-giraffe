@@ -8,7 +8,7 @@ $cs->registerAMD('kow', array('kow'));
         <!--/////-->
         <!-- Основная колонка-->
         <div class="b-main_col-article">
-            <post-photo-add></post-photo-add>
+            <post-photo-add params="id:<?= $id ? $id : 'false' ?>"></post-photo-add>
         </div>
     </div>
 </div>

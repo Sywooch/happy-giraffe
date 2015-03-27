@@ -159,8 +159,7 @@ class Photopost extends \CActiveRecord implements \IHToJSON
         );
         $post->originManageInfo = array(
             'link' => array(
-                'url' => '/' . ($this->forumId ? 'community' : 'blogs') . '/edit/photopost',
-                'get' => array('id' => $this->id)
+                'url' => '/post/edit/photopost/' . $this->id,
             ),
         );
         $post->isAutoMeta = true;

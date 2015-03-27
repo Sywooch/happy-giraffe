@@ -58,22 +58,14 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?php } ?>
                 <?php
                 if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
+                    $articleSettingsParams = array('articleId' => $this->post->originEntityId, 'edit' => $this->post->originManageInfoObject->toJSON());
                     ?>
-                    <article-settings params="articleId: <?= $this->post->originEntityId ?>, editUrl: '<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>'"></article-settings>
-                <?php
+                    <article-settings params='<?= \HJSON::encode($articleSettingsParams) ?>'></article-settings>
+                    <?php
                 }
                 ?>
                 <div class="like-control-hold">
                     <div class="like-control like-control__line">
-                        <!--<div class="like-control_hold"><a href="#" onclick="openLoginPopup(event)" title="Нравится" class="like-control_i like-control_i__like powertip">
-                                <div class="like-control_t">Мне нравится!</div>
-                                <div class="ico-action-hg ico-action-hg__like"></div>
-                                <div class="like-control_tx">через js</div></a></div>
-                        <div class="like-control_hold"><a href="#" onclick="openLoginPopup(event)" title="В избранное" class="like-control_i like-control_i__idea powertip">
-                                <div class="like-control_t">В закладки</div>
-                                <div class="ico-action-hg ico-action-hg__favorite"></div>
-                                <div class="like-control_tx">через js</div></a>
-                        </div>-->
                     </div>
                 </div>
                 <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>
@@ -96,34 +88,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
         </div>
         <div class="tab-content">
             <?php $comments->run(); ?>
-            <!--<div id="likesList" class="comments_hold tab-pane">
-                <div class="list-subsribe-users">
-                    <ul class="list-subsribe-users_ul">
-                        <li class="list-subsribe-users_li">
-                            <a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
-                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-secondary btn-sl">Читаю</a>
-                        </li>
-                        <li class="list-subsribe-users_li">
-                            <a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
-                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-success btn-sl"><span class="ico-plus"></span>Подписаться</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div id="favoritesList" class="comments_hold tab-pane">
-                <div class="list-subsribe-users">
-                    <ul class="list-subsribe-users_ul">
-                        <li class="list-subsribe-users_li">
-                            <a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
-                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-success btn-sl"><span class="ico-plus"></span>Подписаться</a>
-                        </li>
-                        <li class="list-subsribe-users_li">
-                            <a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
-                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-secondary btn-sl">Читаю</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>-->
         </div>
     </section>
     <!-- /comments-->

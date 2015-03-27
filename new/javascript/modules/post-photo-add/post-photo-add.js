@@ -2,10 +2,20 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
     function PostPhotoAdd (params) {
         this.photopost = Object.create(Photopost);
         this.load = ko.observable(false);
-        this.photopost.init({});
         this.photoCollection = new PhotoCollection({});
         this.photoIds = ko.observableArray([]);
+        this.photopostCover = ko.observable();
         this.cache = {};
+        this.gotPhotopost = function gotPhopost(response) {
+            if (response.success === true) {
+                console.log(response.data);
+            }
+        };
+        if (params.id) {
+            this.photopost.get(params.id).done(this.gotPhotopost.bind(this));
+        } else {
+            this.photopost.init({});
+        }
         this.loadPhotoUploader = function loadPhotoUploader() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
         };
@@ -44,7 +54,7 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
             }
             return 0;
         }, this);
-        this.createPhotopostHandler = function createPhotopostHandler(photopost) {
+        this.doneCreatingPhotopost = function doneCreatingPhotopost(photopost) {
             if (photopost.success === true) {
                 window.location.href = photopost.data.url;
             }
@@ -53,7 +63,8 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
             if (collection.success === true) {
                 this.photoCollection = new PhotoCollection(collection.data);
                 this.photopost.collectionId(this.photoCollection.id());
-                this.photopost.create().done(this.createPhotopostHandler.bind(this));
+                console.log(this.photopostCover());
+                this.photopost.create().done(this.doneCreatingPhotopost.bind(this));
             }
         };
         this.createPhotoCollection = function () {

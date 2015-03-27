@@ -7,6 +7,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.getAttachUrl = '/api/photo/attaches/get/';
         this.addPhotosUrl = '/api/photo/collections/addPhotos/';
         this.listAttachesUrl = '/api/photo/collections/listAttaches/';
+        this.setCoverUrl = '/api/photo/collections/setCover/';
         this.pageCount = null;
         this.id = ko.observable(data.id);
         this.attaches = ko.observableArray();
@@ -21,6 +22,9 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.page = ko.observable(0);
         this.pckry = {};
         PresetManager.presets = data.presets;
+        this.setCover = function setCover(attachId) {
+            return Model.get(this.setCoverUrl, { collectionId: this.id(), attachId: attachId });
+        };
         /**
          * Handling particular set or presets
          * @param presets

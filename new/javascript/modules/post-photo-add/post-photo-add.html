@@ -55,8 +55,8 @@
                                                 <div class="i-photo_overlay">
                                                     <!--<a href="#" class="ico-photo-edit powertip"></a>-->
                                                     <div class="radio-icons radio-icons__checkbox">
-                                                        <label for="checkboxid" class="radio-icons_label">Обложка поста</label>
-                                                        <input id="checkboxid" type="checkbox" name="checkbox" class="radio-icons_radio">
+                                                        <input id="" type="radio" name="checkbox" class="radio-icons_radio" data-bind="attr: { id: 'checkbox-' + $index(), value: photo.id() }, checked: $parent.photopostCover">
+                                                        <label for="" class="radio-icons_label" data-bind="attr: { for: 'checkbox-' + $index() }">Обложка поста</label>
                                                     </div>
                                                 </div>
                                             <!-- /ko -->

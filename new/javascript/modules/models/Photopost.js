@@ -10,6 +10,9 @@ define(['jquery', 'knockout', 'models/Model', 'extensions/knockout.validation', 
         create: function createPhotopost() {
             return Model.get(this.createUrl, { title: this.title(), collectionId: this.collectionId(), isDraft: this.isDraft() });
         },
+        get: function getPhotopost(id) {
+            return Model.get(this.getUrl, { id: id });
+        },
         init: function initPhotopost(photopostData) {
             this.id = ko.observable(photopostData.id);
             this.title = ko.observable(photopostData.title);

@@ -49,7 +49,7 @@ class ContactForm extends \CFormModel
         }
 
         foreach ($this->sendTo as $email) {
-            \ElasticEmail::send($email, 'Обратная связь с ВЖ', $this->getHtml(), $from, $this->attachId);
+            \ElasticEmail::send($email, 'Обратная связь с ВЖ', $this->getHtml(), self::SEND_FROM, $from, $this->attachId);
         }
     }
 

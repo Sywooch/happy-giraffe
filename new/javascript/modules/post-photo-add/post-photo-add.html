@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="textalign-r">
                                     <a class="btn btn-secondary btn-sl margin-r10" data-bind="click: $parent.cancelEditPhoto.bind($parent)">Отмена</a>
-                                    <a class="btn btn-success btn-sl" data-bind="css: { disabled: photo.title.isValid() === false || photo.description.isValid() === false }, click: $parent.doneEditPhoto">Ok</a>
+                                    <a class="btn btn-success btn-sl" data-bind="css: { disabled: photo.title.isValid() === false || photo.description.isValid() === false }, click: $parent.doneEditPhoto.bind($parent)">Ok</a>
                                 </div>
                             <!-- /ko -->
                         </div>

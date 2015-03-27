@@ -49,9 +49,9 @@ mixin iPhoto(mod, vars)
                             if(vars.onIndex)
                                 //-a.color-white(href='#') На обложку
                                 .radio-icons.radio-icons__checkbox
+                                    input#checkboxid.radio-icons_radio(type='checkbox', name='checkbox')
                                     label.radio-icons_label(for='checkboxid')
                                         | Обложка
-                                    input#checkboxid.radio-icons_radio(type='checkbox', name='checkbox')
 
                     if(vars.rotate)
                         .i-photo_overlay
@@ -122,4 +122,3 @@ mixin iPhoto(mod, vars)
 - iPhoto.familySettingsIndex.edit = true
 - iPhoto.familySettingsIndex.onIndex = true
 - iPhoto.familySettingsIndex.src = "/lite/images/example/w155-h140.jpg"
-

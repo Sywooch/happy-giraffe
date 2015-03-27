@@ -19,8 +19,13 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
             data.description(this.cache.description);
             data.edit(false);
         };
+        this.doneUpdatingPhoto = function doneUpdatingPhoto(response) {
+            if (response.success === true) {
+                this.edit(false);
+            }
+        };
         this.doneEditPhoto = function doneEditPhoto(data, event) {
-            data.edit(false);
+            data.update().done(this.doneUpdatingPhoto.bind(data));
         };
         this.deletePhoto = function deletePhoto(data, event) {
             var foundObj = Model.findByIdObservableIndex(data.id(), this.photopost.photoArray());
@@ -40,10 +45,9 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
             return 0;
         }, this);
         this.createPhotopostHandler = function createPhotopostHandler(photopost) {
-            console.log(photopost);
             if (photopost.success === true) {
-                console.log(photopost);
-            };
+                window.location.href = photopost.data.url;
+            }
         };
         this.handlePhotoCollection = function handlePhotoCollection(collection) {
             if (collection.success === true) {
@@ -59,7 +63,7 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
             }
         };
         this.load(true);
-    };
+    }
 
     return {
         viewModel: PostPhotoAdd,

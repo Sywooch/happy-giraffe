@@ -608,9 +608,29 @@ a.heading-link-xxl:hover {
             height: 154px;
             background-position: 0 0;
         }
-        &:hover {background-position: 0 -170px;}
-        &__r {background-position: -53px 0;}
-        &__r:hover {background-position: -53px -170px;}
+        &.small {
+            width: 44px;
+            height: 114px;
+            background-position: -199px 0;
+        }
+        &:hover {
+            background-position: 0 -170px;
+            &.small {
+                background-position: -199px -170px;
+            }
+        }
+        &__r {
+            background-position: -53px 0;
+            &.small {
+                background-position: -243px 0px;
+            }
+        }
+        &__r:hover {
+            background-position: -53px -170px;
+            &.small {
+                background-position: -243px -170px;
+            }
+        }
 
         &__abs {
             left: 30px;

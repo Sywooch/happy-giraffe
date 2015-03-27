@@ -192,6 +192,10 @@ mixin bAlbumPhotopost(mod, vars)
                         // Стрелки показывать скрывать по тапу (касанию пальца)
                         a.i-photo-arrow.i-photo-arrow__l.i-photo-arrow__abs(href="#")
                         a.i-photo-arrow.i-photo-arrow__r.i-photo-arrow__abs(href="#")
+                    - if (vars.smallArrow)
+                        // Стрелки показывать скрывать по тапу (касанию пальца)
+                        a.i-photo-arrow.i-photo-arrow__l.i-photo-arrow__abs.small(href="#")
+                        a.i-photo-arrow.i-photo-arrow__r.i-photo-arrow__abs.small(href="#")
                 .b-album_overlay
                     a.b-album_r
                         - if (vars.tx)
@@ -258,6 +262,16 @@ mixin bAlbumPhotopost(mod, vars)
 - bAlbumPhotopost.single.prevCount = 3
 - bAlbumPhotopost.single.prevAdd = false
 - bAlbumPhotopost.single.action = true
+
+- bAlbumPhotopost.singlePost = {}
+- bAlbumPhotopost.singlePost.top = false
+- bAlbumPhotopost.singlePost.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
+- bAlbumPhotopost.singlePost.tx = 'Смотреть <br> все фото'
+- bAlbumPhotopost.singlePost.icoAlbumMod = ''
+- bAlbumPhotopost.singlePost.prevCount = 3
+- bAlbumPhotopost.singlePost.prevAdd = false
+- bAlbumPhotopost.singlePost.action = true
+- bAlbumPhotopost.singlePost.smallArrow = true
 
 //- bAlbum cap
     mod     

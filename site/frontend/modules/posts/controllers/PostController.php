@@ -18,6 +18,7 @@ class PostController extends \LiteController
     public $post = null;
     public $hideUserAdd = true;
     public $strictCheck = true;
+    public $setCanonical = false;
     protected $_user = null;
     protected $_leftPost = null;
     protected $_rightPost = null;
@@ -42,6 +43,9 @@ class PostController extends \LiteController
                 throw new \CHttpException(404);
             }
         } else {
+            if($this->setCanonical) {
+                $this->metaCanonical = $this->post->url;
+            }
             $this->render('view');
         }
     }
@@ -61,7 +65,7 @@ class PostController extends \LiteController
     public function getLeftPost()
     {
         if (is_null($this->_leftPost)) {
-            $this->_leftPost = Content::model()->cache(3600)->byService('oldBlog')->byAuthor($this->post->authorId)->leftFor($this->post)->find();
+            $this->_leftPost = Content::model()->cache(3600)->byLabels(array('Блог'))->byAuthor($this->post->authorId)->leftFor($this->post)->find();
         }
 
         return $this->_leftPost;
@@ -70,7 +74,7 @@ class PostController extends \LiteController
     public function getRightPost()
     {
         if (is_null($this->_rightPost)) {
-            $this->_rightPost = Content::model()->cache(3600)->byService('oldBlog')->byAuthor($this->post->authorId)->rightFor($this->post)->find();
+            $this->_rightPost = Content::model()->cache(3600)->byLabels(array('Блог'))->byAuthor($this->post->authorId)->rightFor($this->post)->find();
         }
 
         return $this->_rightPost;

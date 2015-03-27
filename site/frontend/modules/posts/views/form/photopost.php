@@ -1,6 +1,7 @@
 <?php
+$this->pageTitle = 'Добавление фотопоста';
 $cs = Yii::app()->clientScript;
-$cs->registerAMD('photo-single', array('kow'));
+$cs->registerAMD('kow', array('kow'));
 ?>
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">

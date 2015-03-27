@@ -97,6 +97,7 @@ class DefaultController extends \site\frontend\modules\posts\controllers\PostCon
     {
         if ($photoId) {
             $this->strictCheck = false;
+            $this->setCanonical = true;
         }
 
         $this->photoId = $photoId;

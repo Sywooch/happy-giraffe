@@ -29,6 +29,15 @@ class ConsultationQuestion extends \HActiveRecord
         return parent::model($className);
     }
 
+    public function rules()
+    {
+        return array(
+            array('title, text', 'required'),
+            array('title', 'length', 'max' => 255),
+            array('text', 'length', 'min' => 40, 'max' => 10000),
+        );
+    }
+
     public function relations()
     {
         return array(
@@ -47,5 +56,31 @@ class ConsultationQuestion extends \HActiveRecord
         }
 
         return $this->_user;
+    }
+
+    public function behaviors()
+    {
+        return array(
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+            'UrlBehavior' => array(
+                'class' => 'site\common\behaviors\UrlBehavior',
+                'route' => '/consultation/default/question',
+                'params' => function($model) {
+                    return array(
+                        'questionId' => $model->id,
+                        'slug' => $model->consultation->slug,
+                    );
+                },
+            ),
+            'AuthorBehavior' => array(
+                'class' => 'site\common\behaviors\AuthorBehavior',
+                'attr' => 'userId',
+            ),
+        );
     }
 }

@@ -13,6 +13,20 @@ class UrlBehavior extends \CActiveRecordBehavior
     public $preparedUrl;
     public $route;
     public $params = array('id');
+    public $urlAttribute = 'url';
+
+    private $urlSaved = false;
+
+    public function afterSave()
+    {
+        if ($this->urlSaved === false) {
+            $this->owner->url = $this->getUrl(true);
+            $this->owner->isNewRecord = false;
+            $this->urlSaved = true;
+            $this->owner->update(array('url'));
+            $this->owner->isNewRecord = true;
+        }
+    }
 
     public function getUrl($absolute = false)
     {
@@ -27,7 +41,7 @@ class UrlBehavior extends \CActiveRecordBehavior
         $finalRoute = $this->normalizeRoute($this->route);
         $finalParams = $this->normalizeParams($this->params);
 
-        return $absolute ? \Yii::app()->createUrl($finalRoute, $finalParams) : \Yii::app()->createAbsoluteUrl($finalRoute, $finalParams);
+        return $absolute ? \Yii::app()->createAbsoluteUrl($finalRoute, $finalParams) : \Yii::app()->createUrl($finalRoute, $finalParams);
     }
 
     protected function normalizePreparedUrl($preparedUrl)

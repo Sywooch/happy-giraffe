@@ -83,4 +83,16 @@ class ConsultationQuestion extends \HActiveRecord
             ),
         );
     }
+
+    public function consultation($consultationId)
+    {
+        $this->getDbCriteria()->compare($this->tableAlias . '.consultationId', $consultationId);
+        return $this;
+    }
+
+    public function orderDesc()
+    {
+        $this->getDbCriteria()->order = $this->tableAlias . '.created DESC';
+        return $this;
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace site\frontend\modules\consultation\controllers;
 use site\frontend\modules\consultation\models\Consultation;
+use site\frontend\modules\consultation\models\ConsultationAnswer;
 use site\frontend\modules\consultation\models\ConsultationQuestion;
 use site\frontend\modules\consultation\models\forms\AskForm;
 
@@ -24,15 +25,28 @@ class DefaultController extends \LiteController
         }
     }
 
-    public function actionIndex($consultationId)
+    public function actionIndex($slug)
     {
-
+        $consultation = $this->loadModel($slug);
+        $dp = new \CActiveDataProvider('\site\frontend\modules\consultation\models\ConsultationQuestion', array(
+            'criteria' => array(
+                'scopes' => array(
+                    'orderDesc',
+                    'consultation' => $consultation->id,
+                ),
+            ),
+            'pagination' => array(
+                'pageSize' => 1,
+                'pageVar' => 'page',
+            ),
+        ));
+        $this->render('index', compact('dp'));
     }
 
     public function actionQuestion($questionId)
     {
         $question = ConsultationQuestion::model()->findByPk($questionId);
-        $this->render('/question', compact('question'));
+        $this->render('question', compact('question'));
     }
 
     public function actionCreate($slug)
@@ -54,8 +68,31 @@ class DefaultController extends \LiteController
             }
         }
 
-        $this->layout = '//layouts/lite/common';
-        $this->render('/create', compact('model'));
+        $this->layout = 'form';
+        $this->render('create', compact('model'));
+    }
+
+    public function actionAnswer($questionId)
+    {
+        $model = new ConsultationAnswer();
+
+        if (isset($_POST[\CHtml::modelName($model)])) {
+            if (isset($_POST['ajax'])) {
+                echo \CActiveForm::validate($model);
+                \Yii::app()->end();
+            }
+
+            $model->attributes = $_POST[\CHtml::modelName($model)];
+            $model->questionId = $questionId;
+            $model->consultantId = 1;
+
+            if ($model->save()) {
+                $this->redirect($model->getUrl());
+            }
+        }
+
+        $this->layout = 'form';
+        $this->render('create', compact('model'));
     }
 
     protected function loadModel($slug)

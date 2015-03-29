@@ -159,6 +159,9 @@ return array(
         'userProfile' => array(
             'class' => 'site\frontend\modules\userProfile\UserProfileModule',
         ),
+        'consultation' => array(
+            'class' => 'site\frontend\modules\consultation\ConsultationModule',
+        ),
 	),
 	// application components
 	'components'=>array(

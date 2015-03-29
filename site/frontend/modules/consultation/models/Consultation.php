@@ -3,6 +3,7 @@ namespace site\frontend\modules\consultation\models;
 
 /**
  * @property int $id
+ * @property string $slug
  *
  * @property \site\frontend\modules\consultation\models\ConsultationConsultant[] $consultants
  * @property \site\frontend\modules\consultation\models\ConsultationQuestion[] $questions
@@ -29,5 +30,11 @@ class Consultation extends \HActiveRecord
             'consultants' => array(self::HAS_MANY, 'site\frontend\modules\consultation\models\ConsultationConsultant', 'consultationId'),
             'questions' => array(self::HAS_MANY, 'site\frontend\modules\consultation\models\ConsultationQuestion', 'consultationId'),
         );
+    }
+
+    public function slug($slug)
+    {
+        $this->getDbCriteria()->compare($this->tableAlias . '.slug', $slug);
+        return $this;
     }
 }

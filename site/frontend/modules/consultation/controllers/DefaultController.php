@@ -14,6 +14,8 @@ class DefaultController extends \LiteController
 {
     public $layout = 'main';
 
+    public $consultation;
+
     protected function beforeAction($action)
     {
         if (parent::beforeAction($action)) {
@@ -27,16 +29,15 @@ class DefaultController extends \LiteController
 
     public function actionIndex($slug)
     {
-        $consultation = $this->loadModel($slug);
+        $this->consultation = $this->loadModel($slug);
         $dp = new \CActiveDataProvider('\site\frontend\modules\consultation\models\ConsultationQuestion', array(
             'criteria' => array(
                 'scopes' => array(
                     'orderDesc',
-                    'consultation' => $consultation->id,
+                    'consultation' => $this->consultation->id,
                 ),
             ),
             'pagination' => array(
-                'pageSize' => 1,
                 'pageVar' => 'page',
             ),
         ));
@@ -45,13 +46,14 @@ class DefaultController extends \LiteController
 
     public function actionQuestion($questionId)
     {
-        $question = ConsultationQuestion::model()->findByPk($questionId);
+        $question = ConsultationQuestion::model()->with('consultation')->findByPk($questionId);
+        $this->consultation = $question->consultation;
         $this->render('question', compact('question'));
     }
 
     public function actionCreate($slug)
     {
-        $consultation = $this->loadModel($slug);
+        $this->consultation = $this->loadModel($slug);
         $model = new ConsultationQuestion();
 
         if (isset($_POST[\CHtml::modelName($model)])) {
@@ -61,7 +63,7 @@ class DefaultController extends \LiteController
             }
 
             $model->attributes = $_POST[\CHtml::modelName($model)];
-            $model->consultationId = $consultation->id;
+            $model->consultationId = $this->consultation->id;
 
             if ($model->save()) {
                 $this->redirect($model->getUrl());

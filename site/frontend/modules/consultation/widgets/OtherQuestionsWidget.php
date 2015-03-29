@@ -11,12 +11,14 @@ class OtherQuestionsWidget extends \CWidget
 {
     const LIMIT = 5;
 
-    public $excludeQuestion;
+    public $question;
 
     public function run()
     {
         $questions = $this->getQuestions();
         $count = ConsultationQuestion::model()->count();
+
+
         if ($questions) {
             $this->render('OtherQuestionsWidget', compact('questions', 'count'));
         }
@@ -25,7 +27,7 @@ class OtherQuestionsWidget extends \CWidget
     protected function getQuestions()
     {
         $criteria = new \CDbCriteria();
-        $criteria->compare('id', '!=' . $this->excludeQuestion);
+        $criteria->compare('id', '<>' . $this->question->id);
         $criteria->limit = self::LIMIT;
         return ConsultationQuestion::model()->findAll($criteria);
     }

@@ -503,7 +503,12 @@ return array(
 
         'views' => 'analytics/default/index',
 
+        '<slug:\w+>/consultations' => 'consultation/default/index',
         '<slug:\w+>/consultations/<questionId:\d+>' => 'consultation/default/question',
-        '<slug:\w+>/consultations/<a:\w+>' => 'consultation/default/<a>',
+
+        '<slug:\w+>/consultations/<a:(create|answer)>' => 'consultation/default/<a>',
+
+        '<slug:\w+>/consultations/page<page:\d+>' => 'consultation/default/index',
+
     ),
 );

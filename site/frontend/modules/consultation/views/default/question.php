@@ -1,7 +1,10 @@
 <?php
 /**
+ * @var \LiteController $this
  * @var \site\frontend\modules\consultation\models\ConsultationQuestion $question
  */
+
+$this->pageTitle = $question->title;
 ?>
 
 <div class="b-main_col-article">
@@ -15,7 +18,7 @@
                     <?=HHtml::timeTag($question, array('class' => 'tx-date'), null) ?>
                 </div>
                 <div class="icons-meta">
-                    <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
+                    <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>
                 </div>
             </div>
             <h1 class="b-article_t"><?=$question->title?></h1>
@@ -29,7 +32,7 @@
     <!-- Статья с текстом-->
     <!-- b-article-->
     <?php if ($question->answer): ?>
-    <article class="b-article b-article__single clearfix b-article__lite">
+    <article class="b-article b-article__single clearfix b-article__lite" id="answer">
         <div class="b-consult-open">
             <div class="b-consult-open__answer">Ответ:</div>
             <div class="b-article_cont clearfix">
@@ -50,19 +53,7 @@
     <?php endif; ?>
 </div>
 <div class="b-main_col-sidebar visible-md">
-    <div class="b-consult-specialist">
-        <div class="b-consult-specialist__img"><img src="/lite/images/services/consult/consult-man.png" alt=""></div>
-        <div class="b-consult-specialist__name">Морозов Сергей Леонидович</div>
-        <div class="b-consult-specialist__position">Врач педиатр</div>
-        <div class="b-consult-specialist__edu">
-
-            Кандидат медицинских наук, <br />
-            Научный сотрудник Научно-исследовательского <br />
-            клинического института педиатрии <br />
-            ГБОУ ВПО РНИМУ им. Н.И. Пирогова
-        </div>
-        <a href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug))?>" class="b-consult-button">Задать вопрос</a>
-    </div>
+    <?php $this->renderPartial('_specialist'); ?>
     <?php
         $this->widget('site\frontend\modules\consultation\widgets\OtherQuestionsWidget', array(
             'question' => $question,

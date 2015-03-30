@@ -2,6 +2,8 @@
 /**
  * @var \site\frontend\modules\consultation\models\ConsultationQuestion $data
  */
+
+
 ?>
 
 <div class="b-consult-qa-ms">
@@ -25,5 +27,8 @@
             </div>
         </div>
     </div>
+    <?php endif; ?>
+    <?php if ($data->answer === null && Yii::app()->user->checkAccess('answerQuestions', array('consultation' => $this->consultation))): ?>
+        <a href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Ответить</a>
     <?php endif; ?>
 </div>

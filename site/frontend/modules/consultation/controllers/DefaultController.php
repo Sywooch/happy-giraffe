@@ -25,6 +25,7 @@ class DefaultController extends \LiteController
             $cs->useAMD = true;
             return true;
         }
+        return parent::beforeAction($action);
     }
 
     public function actionIndex($slug)
@@ -48,13 +49,16 @@ class DefaultController extends \LiteController
     public function actionQuestion($questionId)
     {
         $question = ConsultationQuestion::model()->with('consultation')->findByPk($questionId);
+        if ($question === null) {
+            throw new \CHttpException(404);
+        }
         $this->consultation = $question->consultation;
         $this->render('question', compact('question'));
     }
 
     public function actionCreate($slug)
     {
-        $this->consultation = $this->loadModel($slug);
+        $consultation = $this->loadModel($slug);
         $model = new ConsultationQuestion();
 
         if (isset($_POST[\CHtml::modelName($model)])) {
@@ -64,7 +68,7 @@ class DefaultController extends \LiteController
             }
 
             $model->attributes = $_POST[\CHtml::modelName($model)];
-            $model->consultationId = $this->consultation->id;
+            $model->consultationId = $consultation->id;
 
             if ($model->save()) {
                 $this->redirect($model->getUrl());
@@ -77,6 +81,15 @@ class DefaultController extends \LiteController
 
     public function actionAnswer($questionId)
     {
+        $question = ConsultationQuestion::model()->findByPk($questionId);
+        if ($question === null) {
+            throw new \CHttpException(404);
+        }
+        $consultant = $question->consultation->getConsultantByUserId(\Yii::app()->user->id);
+        if ($consultant === null) {
+            throw new \CHttpException(403);
+        }
+
         $model = new ConsultationAnswer();
 
         if (isset($_POST[\CHtml::modelName($model)])) {
@@ -87,7 +100,7 @@ class DefaultController extends \LiteController
 
             $model->attributes = $_POST[\CHtml::modelName($model)];
             $model->questionId = $questionId;
-            $model->consultantId = 1;
+            $model->consultantId = $consultant->id;
 
             if ($model->save()) {
                 $this->redirect($model->getUrl());
@@ -95,7 +108,7 @@ class DefaultController extends \LiteController
         }
 
         $this->layout = 'form';
-        $this->render('create', compact('model'));
+        $this->render('answer', compact('model'));
     }
 
     protected function loadModel($slug)

@@ -59,7 +59,9 @@ $this->pageTitle = 'Задать вопрос';
     <div class="postAdd_row">
         <div class="postAdd_count"> </div>
         <div class="b-main_col-article clearfix">
-            <div class="postAdd_btns-hold"><a href="#" class="btn btn-secondary btn-xm margin-r15">Отменить</a><button class="btn btn-success btn-xm">Опубликовать</button>
+            <div class="postAdd_btns-hold">
+                <a href="<?=Yii::app()->request->urlReferrer?>" class="btn btn-secondary btn-xm margin-r15">Отменить</a>
+                <button class="btn btn-success btn-xm">Опубликовать</button>
             </div>
         </div>
     </div>

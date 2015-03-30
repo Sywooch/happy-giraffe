@@ -34,7 +34,15 @@ class ConsultationQuestion extends \HActiveRecord
         return array(
             array('title, text', 'required'),
             array('title', 'length', 'max' => 255),
-            array('text', 'length', 'min' => 40, 'max' => 10000),
+            array('text', 'length', 'max' => 10000),
+        );
+    }
+
+    public function attributeLabels()
+    {
+        return array(
+            'title' => 'Заголовок',
+            'text' => 'Текст',
         );
     }
 

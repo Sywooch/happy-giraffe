@@ -22,7 +22,7 @@ $this->pageTitle = 'Задать вопрос';
         </div>
         <div class="postAdd_row">
             <div class="inp-valid inp-valid__abs">
-                <?=$form->textField($model, 'title', array('placeholder' => 'Заголовок', 'class' => 'itx-gray'))?>
+                <?=$form->textField($model, 'title', array('placeholder' => 'Введите текст вопроса', 'class' => 'itx-gray'))?>
                 <?=$form->error($model, 'title', array('class' => 'inp-valid_error'))?>
             </div>
         </div>
@@ -49,7 +49,7 @@ $this->pageTitle = 'Задать вопрос';
                 });
             </script>
             <div class="wysiwyg-post redactor_box">
-                <?=$form->textArea($model, 'text', array('colrow' => 9, 'class' => 'wysiwyg-redactor'))?>
+                <?=$form->textArea($model, 'text', array('colrow' => 9, 'class' => 'wysiwyg-redactor', 'placeholder' => 'Введите текст пояснения'))?>
                 <?=$form->error($model, 'text', array('class' => 'inp-valid_error'))?>
             </div>
         </div>

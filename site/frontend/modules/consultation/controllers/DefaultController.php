@@ -127,7 +127,7 @@ class DefaultController extends \LiteController
             $model->consultantId = $consultant->id;
 
             if ($model->save()) {
-                $this->redirect($model->getUrl());
+                $this->redirect($question->consultation->getUrl());
             }
         }
 

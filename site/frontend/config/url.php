@@ -62,7 +62,7 @@ return array(
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
-        '<view:(advertiser|abuse)>' => array('site/page'),
+        '<view:(abuse)>' => array('site/page'),
         'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
@@ -505,10 +505,9 @@ return array(
 
         '<slug:\w+>/consultations' => 'consultation/default/index',
         '<slug:\w+>/consultations/<questionId:\d+>' => 'consultation/default/question',
-
         '<slug:\w+>/consultations/<a:(create|answer)>' => 'consultation/default/<a>',
-
         '<slug:\w+>/consultations/page<page:\d+>' => 'consultation/default/index',
 
+        '<view:(about|ad|contacts|useragreement|legal|moderation_rule|confidential)>' => 'pages/default/page',
     ),
 );

@@ -12,7 +12,7 @@
         <div class="b-consult-qa-mst"><a href="<?=$data->user->profileUrl?>" class="b-consult-qa-ms__name"><?=$data->user->fullName?></a>
             <?=HHtml::timeTag($data, array('class' => 'tx-date'), null) ?>
             <div class="b-consult-qa-ms__message comments_cont">
-                <div class="b-consult-qa-ms__message__title"><?=$data->title?></div>
+                <a href="<?=$data->getUrl()?>" class="b-consult-qa-ms__message__title"><?=$data->title?></a>
                 <div class="b-consult-qa-ms__message__text"><?=\site\common\helpers\HStr::truncate(strip_tags($data->text), 500)?></div>
             </div>
         </div>

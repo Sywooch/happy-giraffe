@@ -13,7 +13,7 @@
             <?=HHtml::timeTag($data, array('class' => 'tx-date'), null) ?>
             <div class="b-consult-qa-ms__message comments_cont">
                 <div class="b-consult-qa-ms__message__title"><?=$data->title?></div>
-                <div class="b-consult-qa-ms__message__text"><?=\site\common\helpers\HStr::truncate($data->text, 500)?></div>
+                <div class="b-consult-qa-ms__message__text"><?=\site\common\helpers\HStr::truncate(strip_tags($data->text), 500)?></div>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
         <div class="b-consult-qa-mst"><a href="<?=$data->answer->user->profileUrl?>" class="b-consult-qa-ms__name"><?=$data->answer->user->fullName?></a>
             <?=HHtml::timeTag($data->answer, array('class' => 'tx-date'), null) ?>
             <div class="b-consult-qa-ms__message comments_cont">
-                <div class="b-consult-qa-ms__message__text"><?=\site\common\helpers\HStr::truncate($data->answer->text, 500)?></div><a href="<?=$data->answer->getUrl()?>">Читать весь ответ</a>
+                <div class="b-consult-qa-ms__message__text"><?=\site\common\helpers\HStr::truncate(strip_tags($data->answer->text), 500)?></div><a href="<?=$data->answer->getUrl()?>">Читать весь ответ</a>
             </div>
         </div>
     </div>

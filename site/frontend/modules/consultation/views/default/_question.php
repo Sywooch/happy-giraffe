@@ -18,6 +18,9 @@
           <?php if ($data->answer === null && Yii::app()->user->checkAccess('manageOwnContent', array('entity' => $data))): ?>
               <a class="margin-t3 display-b" href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Редактировать</a>
           <?php endif; ?>
+            <?php if ($this->isConsultant() && $data->answer === null): ?>
+                <a class="margin-t3 display-b" href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>"><?=($data->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
+            <?php endif; ?>
         </div>
     </div>
     <?php if ($data->answer): ?>
@@ -31,12 +34,11 @@
                     <?php if (mb_strlen(strip_tags($data->answer->text)) > 500): ?>
                         <a href="<?=$data->answer->getUrl()?>">Читать весь ответ</a>
                     <?php endif; ?>
+                <?php elseif ($this->isConsultant()): ?>
+                    <a class="margin-t3 display-b" href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>"><?=($data->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
                 <?php endif; ?>
             </div>
         </div>
     </div>
-    <?php endif; ?>
-    <?php if ($this->isConsultant()): ?>
-        <a class="margin-t3 display-b" href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>"><?=($data->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
     <?php endif; ?>
 </div>

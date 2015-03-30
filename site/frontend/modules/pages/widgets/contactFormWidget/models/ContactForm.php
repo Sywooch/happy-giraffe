@@ -43,8 +43,13 @@ class ContactForm extends \CFormModel
 
     public function save()
     {
+        $from = $this->name;
+        if ($this->companyName) {
+            $from .= ', ' . $this->companyName;
+        }
+
         foreach ($this->sendTo as $email) {
-            return \ElasticEmail::send($email, 'Обратная связь с ВЖ', $this->getHtml(), self::SEND_FROM, $this->name . ', ' . $this->companyName, $this->attachId);
+            \ElasticEmail::send($email, 'Обратная связь с ВЖ', $this->getHtml(), self::SEND_FROM, $from, $this->attachId);
         }
     }
 

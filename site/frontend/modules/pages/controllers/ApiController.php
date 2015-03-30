@@ -16,7 +16,8 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         $model = new ContactForm();
         $model->attributes = $attributes;
-        $this->success = $model->save();
+        $model->save();
+        $this->success = true;
     }
 
     public function actionCreateAttachment()

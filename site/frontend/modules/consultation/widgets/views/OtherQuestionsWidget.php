@@ -14,7 +14,7 @@
         <?=HHtml::timeTag($question, array('class' => 'tx-date'), null) ?>
         <div class="b-consult-aside-item__message">
             <div class="b-consult-qa-ms__message__title"><?=$question->title?></div>
-            <?=$question->text?>
+            <?=\site\common\helpers\HStr::truncate(strip_tags($question->text), 300)?>
         </div>
     </div>
     <?php endforeach; ?>

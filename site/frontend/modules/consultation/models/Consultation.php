@@ -37,4 +37,19 @@ class Consultation extends \HActiveRecord
         $this->getDbCriteria()->compare($this->tableAlias . '.slug', $slug);
         return $this;
     }
+
+    public function isConsultant($userId)
+    {
+        return $this->getConsultantByUserId($userId) !== null;
+    }
+
+    public function getConsultantByUserId($userId)
+    {
+        foreach ($this->consultants as $c) {
+            if ($c->userId == $userId) {
+                return $c;
+            }
+        }
+        return null;
+    }
 }

@@ -28,6 +28,14 @@ class ConsultationAnswer extends \HActiveRecord
         return parent::model($className);
     }
 
+    public function rules()
+    {
+        return array(
+            array('text', 'required'),
+            array('text', 'length', 'max' => 10000),
+        );
+    }
+
     public function relations()
     {
         return array(

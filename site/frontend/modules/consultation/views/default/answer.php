@@ -16,7 +16,7 @@ $this->pageTitle = 'Ответ на вопрос';
         <div class="postAdd_hold">
             <div class="postAdd_row">
                 <div class="heading-xxl">
-                    <div class="ico-post-type ico-post-type__article active"></div>Задать вопрос
+                    <div class="ico-post-type ico-post-type__article active"></div>Ответ на вопрос
                 </div>
             </div>
             <div class="postAdd_row">

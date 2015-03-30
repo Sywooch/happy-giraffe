@@ -13,8 +13,7 @@
         <a href="<?=$question->user->profileUrl?>" class="b-article_author"><?=$question->user->fullName?></a>
         <?=HHtml::timeTag($question, array('class' => 'tx-date'), null) ?>
         <div class="b-consult-aside-item__message">
-            <a href="<?=$question->getUrl()?>" class="b-consult-qa-ms__message__title"><?=$question->title?></a>
-            <?=\site\common\helpers\HStr::truncate(strip_tags($question->text), 100)?>
+            <a href="<?=$question->getUrl()?>" class="b-consult-qa-ms__message__title"><?=$question->title?></a><?=\site\common\helpers\HStr::truncate(strip_tags($question->text), 150)?>
         </div>
     </div>
     <?php endforeach; ?>

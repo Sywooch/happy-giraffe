@@ -58,7 +58,7 @@ $this->pageTitle = $question->title;
     </article>
     <?php endif; ?>
     <?php if ($this->isConsultant()): ?>
-        <a href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>"><?=($data->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
+        <a href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $question->id))?>"><?=($question->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
     <?php endif; ?>
 </div>
 <div class="b-main_col-sidebar visible-md">

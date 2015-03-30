@@ -89,6 +89,9 @@ class ConsultationQuestion extends \HActiveRecord
                 'class' => 'site\common\behaviors\AuthorBehavior',
                 'attr' => 'userId',
             ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+            ),
         );
     }
 
@@ -114,5 +117,13 @@ class ConsultationQuestion extends \HActiveRecord
         );
         $this->getDbCriteria()->mergeWith($criteria);
         return $this;
+    }
+
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+        return array(
+            'condition' => $t . '.removed = 0',
+        );
     }
 }

@@ -53,15 +53,15 @@ class PageView extends \EMongoDocument
         );
     }
 
-    public function afterSave()
-    {
-        $entity = $this->getEntity();
-        if ($entity !== null) {
-            $entity->views = $this->getCounter();
-            $entity->update(array('views'));
-        }
-        parent::afterSave();
-    }
+//    public function afterSave()
+//    {
+//        $entity = $this->getEntity();
+//        if ($entity !== null) {
+//            $entity->views = $this->getCounter();
+//            $entity->update(array('views'));
+//        }
+//        parent::afterSave();
+//    }
 
     public function getCounter()
     {
@@ -78,38 +78,44 @@ class PageView extends \EMongoDocument
         if ($model === null) {
             $model = new PageView();
             $model->_id = $url;
+            $model->save();
         }
         return $model;
     }
 
     public function incVisits($n)
     {
-        $this->visits += $n;
-        $this->save();
+        $modifier = new \EMongoModifier();
+        $modifier->addModifier('visits', 'inc', $n);
+
+        $criteria = new \EMongoCriteria();
+        $criteria->addCond('_id', '==', $this->_id);
+
+        self::updateAll($modifier, $criteria);
     }
 
-    public function getEntity()
-    {
-        foreach ($this->getRoutes() as $pattern => $callback) {
-            if (preg_match($pattern, $this->_id, $matches)) {
-                return call_user_func($callback, $matches);
-            }
-        }
-        return null;
-    }
+//    public function getEntity()
+//    {
+//        foreach ($this->getRoutes() as $pattern => $callback) {
+//            if (preg_match($pattern, $this->_id, $matches)) {
+//                return call_user_func($callback, $matches);
+//            }
+//        }
+//        return null;
+//    }
 
-    private function getRoutes()
-    {
-        return array(
-            '#^/user/\d+/blog/post(\d+)/$#' => function($matches) {
-                $id = $matches[1];
-                return Content::model()->byEntity('CommunityContent', $id)->find();
-            },
-            '#^/community/\d+/forum/\w+/(\d+)/$#' => function($matches) {
-                $id = $matches[1];
-                $a = Content::model()->byEntity('CommunityContent', $id)->find();
-                return $a;
-            },
-        );
-    }
+//    private function getRoutes()
+//    {
+//        return array(
+//            '#^/user/\d+/blog/post(\d+)/$#' => function($matches) {
+//                $id = $matches[1];
+//                return Content::model()->byEntity('CommunityContent', $id)->find();
+//            },
+//            '#^/community/\d+/forum/\w+/(\d+)/$#' => function($matches) {
+//                $id = $matches[1];
+//                $a = Content::model()->byEntity('CommunityContent', $id)->find();
+//                return $a;
+//            },
+//        );
+//    }
 } 

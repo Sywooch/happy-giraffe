@@ -95,7 +95,7 @@ class DefaultController extends \LiteController
             $model->consultationId = $consultation->id;
 
             if ($model->save()) {
-                $this->redirect($model->getUrl());
+                $this->redirect($model->consultation->getUrl());
             }
         }
 

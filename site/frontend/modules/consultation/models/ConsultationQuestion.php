@@ -33,7 +33,7 @@ class ConsultationQuestion extends \HActiveRecord
     {
         return array(
             array('title, text', 'required'),
-            array('title', 'length', 'max' => 255),
+            array('title', 'length', 'max' => 100),
             array('text', 'length', 'max' => 10000),
         );
     }

@@ -17,6 +17,7 @@ $this->pageTitle = 'Консультация';
             Морозова Сергея Леонидовича.
         </div>
     </div>
+    <?php if ($dp->totalItemCount > 0): ?>
     <div class="b-consult-qa comments__buble">
         <div class="b-consult-qa-title">Вопросы и ответы</div>
 
@@ -26,6 +27,7 @@ $this->pageTitle = 'Консультация';
             'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
         )); ?>
     </div>
+    <?php endif; ?>
 </div>
 <div class="b-main_col-sidebar visible-md">
     <?php $this->renderPartial('_specialist'); ?>

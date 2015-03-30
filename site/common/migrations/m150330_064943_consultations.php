@@ -32,16 +32,6 @@ CREATE TABLE `consultation__questions` (
   CONSTRAINT `consultation__questions_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `consultation__answers` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `questionId` int(11) unsigned NOT NULL,
-  `consultantId` int(11) unsigned NOT NULL,
-  `text` text,
-  `created` int(8) unsigned NOT NULL,
-  `updated` int(8) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `consultation__consultants` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `consultationId` int(11) unsigned NOT NULL,
@@ -51,6 +41,21 @@ CREATE TABLE `consultation__consultants` (
   KEY `userId` (`userId`),
   CONSTRAINT `consultation__consultants_ibfk_1` FOREIGN KEY (`consultationId`) REFERENCES `consultation__consultations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `consultation__answers` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `questionId` int(11) unsigned NOT NULL,
+  `consultantId` int(11) unsigned NOT NULL,
+  `text` text,
+  `created` int(8) unsigned NOT NULL,
+  `updated` int(8) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `questionId` (`questionId`),
+  KEY `consultantId` (`consultantId`),
+  CONSTRAINT `consultation__answers_ibfk_2` FOREIGN KEY (`consultantId`) REFERENCES `consultation__consultants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `consultation__answers_ibfk_1` FOREIGN KEY (`id`) REFERENCES `consultation__questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
 
 SQL;
 		$this->execute($sql);

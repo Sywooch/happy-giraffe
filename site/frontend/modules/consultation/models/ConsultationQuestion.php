@@ -95,4 +95,16 @@ class ConsultationQuestion extends \HActiveRecord
         $this->getDbCriteria()->order = $this->tableAlias . '.created DESC';
         return $this;
     }
+
+    public function listView()
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->with = array(
+            'answer' => array(
+                'with' => 'consultant',
+            ),
+        );
+        $this->getDbCriteria()->mergeWith($criteria);
+        return $this;
+    }
 }

@@ -51,7 +51,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function packGet($id)
     {
-        $comment = $this->getModel(self::$model, $id, true);
+        $comment = $this->getModel(self::$model, $id, false);
         $this->success = true;
         $this->data = $comment->toJSON();
     }

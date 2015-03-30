@@ -33,6 +33,7 @@ class DefaultController extends \LiteController
         $dp = new \CActiveDataProvider('\site\frontend\modules\consultation\models\ConsultationQuestion', array(
             'criteria' => array(
                 'scopes' => array(
+                    'listView',
                     'orderDesc',
                     'consultation' => $this->consultation->id,
                 ),

@@ -28,6 +28,9 @@ $this->pageTitle = $question->title;
                 </div>
             </div>
         </div>
+        <?php if ($question->answer === null && Yii::app()->user->checkAccess('manageOwnContent', array('entity' => $question))): ?>
+            <a href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $question->id))?>">Редактировать</a>
+        <?php endif; ?>
     </article>
     <!-- Статья с текстом-->
     <!-- b-article-->

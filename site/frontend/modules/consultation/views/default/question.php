@@ -40,9 +40,6 @@ $this->pageTitle = $question->title;
             <div class="b-consult-open__answer">Ответ:</div>
             <div class="b-article_cont clearfix">
                 <div class="b-article_header clearfix">
-                    <?php if (! $this->isConsultant()): ?>
-                        <a href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug))?>" class="b-consult-button small right login-button" data-bind="follow:{}">Задать вопрос</a>
-                    <?php endif; ?>
                     <div class="float-l">
                         <a href="<?=$question->answer->user->profileUrl ?>" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?=$question->answer->user->fullName ?>" src="<?=$question->answer->user->avatarUrl ?>" class="ava_img"></a><a href="<?=$question->answer->user->profileUrl ?>" class="b-article_author"><?=$question->answer->user->fullName?></a>
                         <?=HHtml::timeTag($question->answer, array('class' => 'tx-date'), null) ?>

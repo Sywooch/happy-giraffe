@@ -162,6 +162,9 @@ return array(
         'consultation' => array(
             'class' => 'site\frontend\modules\consultation\ConsultationModule',
         ),
+        'pages' => array(
+            'class' => 'site\frontend\modules\pages\PagesModule',
+        ),
 	),
 	// application components
 	'components'=>array(

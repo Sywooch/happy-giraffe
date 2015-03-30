@@ -27,7 +27,7 @@ class MigrateManager
         \Yii::import('site.frontend.extensions.GoogleAnalytics');
         $this->ga = new \GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
         $this->ga->setProfile('ga:53688414');
-        $this->ga->setDateRange('2012-08-01', '2015-02-12');
+        $this->ga->setDateRange('2012-08-01', '2015-03-22');
     }
 
     public function run()
@@ -43,6 +43,7 @@ class MigrateManager
         foreach ($this->_patterns as $pattern) {
             $this->processByRegex($pattern);
         }
+        echo "finish";
     }
 
     protected function processByRegex($pattern)
@@ -72,11 +73,8 @@ class MigrateManager
     protected function processResponse($response)
     {
         foreach ($response as $path => $row) {
-            echo (time() - $this->t) . "\n";
-            echo ++$this->i . '-' . $path . "\n";
             $model = PageView::getModel($path);
             $model->correction = $row['ga:visits'];
-            echo "save\n";
             $model->save();
         }
     }

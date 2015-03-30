@@ -52,4 +52,15 @@ class Consultation extends \HActiveRecord
         }
         return null;
     }
+
+    public function behaviors()
+    {
+        return array(
+            'UrlBehavior' => array(
+                'class' => 'site\common\behaviors\UrlBehavior',
+                'route' => '/consultation/default/index',
+                'params' => array('slug'),
+            ),
+        );
+    }
 }

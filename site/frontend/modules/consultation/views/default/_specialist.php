@@ -1,7 +1,7 @@
 <div class="b-consult-specialist">
     <div class="b-consult-specialist__img"><img src="/lite/images/services/consult/consult-man.png" alt=""></div>
     <div class="b-consult-specialist__name">Морозов Сергей Леонидович</div>
-    <div class="b-consult-specialist__position">Врач педиатр</div>
+    <div class="b-consult-specialist__position">Врач-педиатр</div>
     <div class="b-consult-specialist__edu">
 
         Кандидат медицинских наук, <br />

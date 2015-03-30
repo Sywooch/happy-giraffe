@@ -15,10 +15,10 @@
                 <a href="<?=$data->getUrl()?>" class="b-consult-qa-ms__message__title"><?=$data->title?></a>
                 <div class="b-consult-qa-ms__message__text"><?=$data->text?></div>
             </div>
+          <?php if ($data->answer === null && Yii::app()->user->checkAccess('manageOwnContent', array('entity' => $data))): ?>
+              <a class="margin-t3 display-b" href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Редактировать</a>
+          <?php endif; ?>
         </div>
-        <?php if ($data->answer === null && Yii::app()->user->checkAccess('manageOwnContent', array('entity' => $data))): ?>
-            <a href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Редактировать</a>
-        <?php endif; ?>
     </div>
     <?php if ($data->answer): ?>
     <div class="b-consult-qa-ms__answer comments_li__red">
@@ -33,10 +33,12 @@
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
+            <?php if ($this->isConsultant()): ?>
+              <a class="margin-t3 display-b" href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>"><?=($data->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
+            <?php endif; ?>
         </div>
+
     </div>
     <?php endif; ?>
-    <?php if ($this->isConsultant()): ?>
-        <a href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>"><?=($data->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
-    <?php endif; ?>
+
 </div>

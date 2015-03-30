@@ -16,6 +16,23 @@ class DefaultController extends \LiteController
 
     public $consultation;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+                'actions' => array('create'),
+            ),
+        );
+    }
+
     protected function beforeAction($action)
     {
         if (parent::beforeAction($action)) {

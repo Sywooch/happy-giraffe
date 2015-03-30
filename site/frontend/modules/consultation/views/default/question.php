@@ -54,9 +54,7 @@ $this->pageTitle = $question->title;
         </div>
     </article>
     <?php endif; ?>
-    <?php if ($this->isConsultant()): ?>
-        <a href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $question->id))?>"><?=($question->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
-    <?php endif; ?>
+    <?php $this->renderPartial('_buttons', array('data' => $question)); ?>
 </div>
 <div class="b-main_col-sidebar visible-md">
     <?php $this->renderPartial('_specialist'); ?>

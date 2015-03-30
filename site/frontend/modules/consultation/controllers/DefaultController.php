@@ -135,6 +135,11 @@ class DefaultController extends \LiteController
         $this->render('answer', compact('model'));
     }
 
+    public function isConsultant()
+    {
+        return \Yii::app()->user->checkAccess('answerQuestions', array('consultation' => $this->consultation));
+    }
+
     protected function loadModel($slug)
     {
         $consultation = Consultation::model()->slug($slug)->find();

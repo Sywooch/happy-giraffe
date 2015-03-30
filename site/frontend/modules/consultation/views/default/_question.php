@@ -27,14 +27,15 @@
             <?=HHtml::timeTag($data->answer, array('class' => 'tx-date'), null) ?>
             <div class="b-consult-qa-ms__message comments_cont">
                 <div class="b-consult-qa-ms__message__text"><?=\site\common\helpers\HStr::truncate(strip_tags($data->answer->text), 500)?></div>
-                <?php if (mb_strlen(strip_tags($data->answer->text)) > 500): ?>
-                    <a href="<?=$data->answer->getUrl()?>">Читать весь ответ</a>
+                <?php if ($this->isConsultant()): ?>
+                    <a href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>"><?=($data->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
+                <?php else: ?>
+                    <?php if (mb_strlen(strip_tags($data->answer->text)) > 500): ?>
+                        <a href="<?=$data->answer->getUrl()?>">Читать весь ответ</a>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>
     </div>
-    <?php endif; ?>
-    <?php if ($data->answer === null && Yii::app()->user->checkAccess('answerQuestions', array('consultation' => $this->consultation))): ?>
-        <a href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>"><?=($data->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
     <?php endif; ?>
 </div>

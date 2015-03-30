@@ -6,7 +6,10 @@ define(['jquery', 'knockout', 'models/Model', 'extensions/knockout.validation', 
         removeUrl: '/api/photopost/remove/',
         restoreUrl: '/api/photopost/restore/',
         maxTitleLength: 150,
+        id: ko.observable(),
+        title: ko.observable,
         photoArray: ko.observableArray(),
+        photoAttaches: ko.observableArray(),
         create: function createPhotopost() {
             return Model.get(this.createUrl, { title: this.title(), collectionId: this.collectionId(), isDraft: this.isDraft() });
         },

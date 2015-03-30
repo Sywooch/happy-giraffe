@@ -14,7 +14,7 @@
             <!-- /ko -->
         </div>
     </div>
-    <!-- ko if: photopost.photoArray().length === 0 -->
+    <!-- ko if: photopost.photoArray().length === 0 && photoCollection.attaches().length === 0 -->
     <div class="postAdd_row">
         <!-- cap-add-->
         <!-- Блок Добавления-->
@@ -128,6 +128,126 @@
             </div>
         </div>
     <!-- /ko -->
+
+
+
+
+
+    <!-- ko if: photoCollection.attaches().length > 0 -->
+        <!-- ko foreach: { data: photoCollection.attaches, as: 'attach' } -->
+            <div class="postAdd_row">
+                <div class="postAdd_count postAdd_count__s" data-bind="text: $index() + 1"></div>
+                <div class="family-settings clearfix family-settings__photopost">
+                    <div class="family-edit">
+                        <!-- ko if: attach.photo().edit() === false && (attach.photo().title().length !== 0 || attach.photo().description().length !== 0) -->
+                            <a href="#" class="ico-edit ico-edit__s" data-bind="click: $parent.editPhoto.bind($parent)"></a>
+                        <!-- /ko -->
+                        <a href="#" class="ico-close4" data-bind="click: $parent.deletePhoto.bind($parent)"></a>
+                    </div>
+                    <div class="family-settings_hold clearfix">
+                        <div class="family-settings_l">
+                            <div class="family-settings_photo">
+                                <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                                -->
+                                <div class="i-photo">
+                                    <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                    <!-- Загруженное фото-->
+                                    <div class="i-photo_hold">
+                                        <div class="i-photo_img-hold">
+                                            <img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: attach.photo(), preset: 'uploadPreview' }">
+                                            <!-- ko if: attach.photo().edit() === true || ( attach.photo().title().length === 0 && attach.photo().description().length === 0) -->
+                                                <div class="i-photo_overlay">
+                                                    <!--<a href="#" class="ico-photo-edit powertip"></a>-->
+                                                    <div class="radio-icons radio-icons__checkbox">
+                                                        <input id="" type="radio" name="checkbox" class="radio-icons_radio" data-bind="attr: { id: 'checkbox-' + $index(), value: attach.photo().id() }, checked: $parent.photopostCover">
+                                                        <label for="" class="radio-icons_label" data-bind="attr: { for: 'checkbox-' + $index() }">Обложка поста</label>
+                                                    </div>
+                                                </div>
+                                            <!-- /ko -->
+                                        </div>
+                                        <!-- input.i-photo_itx.itx-gray(type="text", placeholder='')-->
+                                    </div>
+                                </div>
+                                <!-- /Блок фотографии-->
+                            </div>
+                        </div>
+                        <div class="family-settings_r">
+                            <!-- ko if: attach.photo().edit() === false && attach.photo().title().length === 0 && attach.photo().description().length === 0 -->
+                            <div class="family-settings_cap-edit-hold" data-bind="click: $parent.editPhoto.bind($parent)">
+                                <a href="#" class="family-settings_cap-edit">
+                                    <div class="ico-edit ico-edit__xl"></div><br>Название и<br>описание
+                                </a>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: attach.photo().edit() === false && (attach.photo().title().length !== 0 || attach.photo().description().length !== 0) -->
+                                <div class="family-settings_row">
+                                    <div class="family-settings_name" data-bind="text: attach.photo().title">
+                                    </div>
+                                </div>
+                                <div class="family-settings_row">
+                                    <div class="family-settings_desc" data-bind="text: attach.photo().description">
+                                    </div>
+                                </div>
+                            <!-- /ko -->
+                            <!-- ko if: attach.photo().edit() === true -->
+                                <div class="family-settings_row">
+                                    <div class="inp-valid inp-valid__abs" data-bind="css: { error: attach.photo().title.isValid() === false }">
+                                        <div class="inp-valid_count" data-bind="text: attach.photo().title().length"></div>
+                                        <input type="text" placeholder="Название фото" class="itx-gray" data-bind="textInput: attach.photo().title">
+                                        <!-- ko if: attach.photo().title.isValid() === false -->
+                                            <div class="inp-valid_error" data-bind="validationMessage: attach.photo().title">Ошибка</div>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                                <div class="family-settings_row">
+                                    <div class="inp-valid inp-valid__abs" data-bind="css: { error: attach.photo().description.isValid() === false }">
+                                        <div class="inp-valid_count" data-bind="text: attach.photo().description().length"></div>
+                                        <textarea rows="3" placeholder="Описание фото" class="itx-gray" data-bind="textInput: attach.photo().description"></textarea>
+                                        <!-- ko if: attach.photo().description.isValid() === false -->
+                                            <div class="inp-valid_error" data-bind="validationMessage: attach.photo().description">Ошибка</div>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                                <div class="textalign-r">
+                                    <a class="btn btn-secondary btn-sl margin-r10" data-bind="click: $parent.cancelEditPhoto.bind($parent)">Отмена</a>
+                                    <a class="btn btn-success btn-sl" data-bind="css: { disabled: attach.photo().title.isValid() === false || attach.photo().description.isValid() === false }, click: $parent.doneEditPhoto.bind($parent)">Ok</a>
+                                </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- /ko -->
+        <div class="postAdd_row">
+            <div class="postAdd_count postAdd_count__s"> </div>
+            <!-- cap-add-->
+            <!-- Блок Добавления-->
+            <div class="cap-add cap-add__l-s" data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photopost.collectionId() }, observable: photoCollection.attaches }, click: loadPhotoUploader">
+                <div class="cap-add_hold">
+                    <div class="cap-add_in">
+                        <div class="cap-add_tx"> Добавить еще <br> фотографии
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- /ko -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <!-- Строка-->

@@ -8,7 +8,9 @@
 
 <div class="b-consult-qa-ms">
     <div class="b-consult-qa-ms__question comments_li__lilac">
-        <div class="b-consult-qa-ms__img"><img src="<?=$data->user->avatarUrl?>" alt=""></div>
+        <div class="b-consult-qa-ms__img">
+          <a href="<?=$data->user->profileUrl?>" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?=$data->user->fullName?>" src="<?=$data->user->profileUrl?>" class="ava_img"></a>
+        </div>
         <div class="b-consult-qa-mst"><a href="<?=$data->user->profileUrl?>" class="b-consult-qa-ms__name"><?=$data->user->fullName?></a>
             <?=HHtml::timeTag($data, array('class' => 'tx-date'), null) ?>
             <div class="b-consult-qa-ms__message comments_cont">

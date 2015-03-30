@@ -100,7 +100,7 @@ class ConsultationQuestion extends \HActiveRecord
 
     public function orderDesc()
     {
-        $this->getDbCriteria()->order = $this->tableAlias . '.created DESC';
+        $this->getDbCriteria()->order = $this->tableAlias . '.id DESC';
         return $this;
     }
 

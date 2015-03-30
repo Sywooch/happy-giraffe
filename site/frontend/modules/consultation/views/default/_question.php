@@ -33,12 +33,10 @@
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
-            <?php if ($this->isConsultant()): ?>
-              <a class="margin-t3 display-b" href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>"><?=($data->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
-            <?php endif; ?>
         </div>
-
     </div>
     <?php endif; ?>
-
+    <?php if ($this->isConsultant()): ?>
+        <a class="margin-t3 display-b" href="<?=$this->createUrl('answer', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>"><?=($data->answer === null) ? 'Ответить' : 'Редактировать ответ' ?></a>
+    <?php endif; ?>
 </div>

@@ -97,7 +97,7 @@ class DefaultController extends \LiteController
             throw new \CHttpException(403);
         }
 
-        $model = new ConsultationAnswer();
+        $model = ($question->answer === null) ? new ConsultationAnswer() : $question->answer;
 
         if (isset($_POST[\CHtml::modelName($model)])) {
             if (isset($_POST['ajax'])) {

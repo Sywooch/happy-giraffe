@@ -351,6 +351,9 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
     public function getAuthor()
     {
-        return $this->RelatedModelBehavior->relatedModel->author;
+        if ($this->RelatedModelBehavior->relatedModel) {
+            return $this->RelatedModelBehavior->relatedModel->author;
+        }
+        return null;
     }
 }

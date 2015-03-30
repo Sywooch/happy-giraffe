@@ -9,5 +9,5 @@
         клинического института педиатрии <br />
         ГБОУ ВПО РНИМУ им. Н.И. Пирогова
     </div>
-    <a href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug))?>" class="b-consult-button">Задать вопрос</a>
+    <a href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug))?>" class="b-consult-button login-button" data-bind="follow:{}">Задать вопрос</a>
 </div>

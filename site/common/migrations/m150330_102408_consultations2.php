@@ -56,7 +56,7 @@ CREATE TABLE `consultation__answers` (
   CONSTRAINT `consultation__answers_ibfk_2` FOREIGN KEY (`consultantId`) REFERENCES `consultation__consultants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 SQL;
-
+		$this->execute($sql);
 	}
 
 	public function down()

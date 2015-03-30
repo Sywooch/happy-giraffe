@@ -56,10 +56,17 @@ class DefaultController extends \LiteController
         $this->render('question', compact('question'));
     }
 
-    public function actionCreate($slug)
+    public function actionCreate($slug, $questionId = null)
     {
         $consultation = $this->loadModel($slug);
-        $model = new ConsultationQuestion();
+        if ($questionId === null) {
+            $model = new ConsultationQuestion();
+        } else {
+            $model = ConsultationQuestion::model()->findByPk($questionId);
+            if ($model === null) {
+                throw new \CHttpException(404);
+            }
+        }
 
         if (isset($_POST[\CHtml::modelName($model)])) {
             if (isset($_POST['ajax'])) {

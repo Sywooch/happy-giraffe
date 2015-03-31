@@ -1,0 +1,115 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+      .b-consult
+        .b-consult-top
+          .b-consult-top__t
+            h1.b-consult-top__title Консультация
+            .b-consult-top__text
+              | Обсуждаем проблему <br />
+              | недостатка грудного молока
+        .b-main_cont
+          .b-main_col-hold.clearfix
+            .b-main_col-article
+              // Статья с текстом
+              // b-article
+              article.b-article.b-article__single.clearfix.b-article__lite
+                  .b-article_cont.clearfix
+                      .b-article_header.clearfix
+                          .float-l
+                              +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                              a.b-article_author(href='#') Ангелина Богоявленская
+                              time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                          .icons-meta
+                              .icons-meta_view
+                                  span.icons-meta_tx 305
+                      h1.b-article_t 
+                          | Молочная жирность
+                      .b-article_in.clearfix
+                          .wysiwyg-content.clearfix
+                            p Здравствуйте. Дочери 10 недель и 6 дней. Не знаю   с чего даже начать-дня 4 назад начались проблемы с молоком.Малышка кушает через каждый час, в перерывах кормлений кричит, плохо спит, сама не лежит-только на ручках сидит. Я и плачу и второй раз уже на ночь давала смесь((А я ни в какую не хочу ее кормить смесью ни в коем случае.
+                            p Вчера и позавчера перед сном все таки сделала ей смесь, хотела чередовать-то смесь, то грудь, а она меня отпихивает, бутылку даю, а она ее ест как родную-тут я как разрыдалась и думаю, а как же я? Может не жирное, может лактационный криз-не знаю что думать и делать... И кушаю вроде хорошо, и молочку потребляю и жидкости нормально пью-короче я в отчаянии...
+                            p Что делать подскажите…
+              // Статья с текстом
+              // b-article
+              article.b-article.b-article__single.clearfix.b-article__lite
+                  .b-consult-open
+                    .b-consult-open__answer Ответ:
+                    .b-article_cont.clearfix
+                        .b-article_header.clearfix
+                            a.b-consult-button.small.right(href="#") Задать вопрос
+                            .float-l
+                                +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                                a.b-article_author(href='#') Сергей Леонидович
+                                time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                        .b-article_in.clearfix
+                            .wysiwyg-content.clearfix
+                              p Главное - не надо паники. Постарайтесь успокоится, иначе молоко пропадет. В норме бывают колебания количества молока, но чаще мама неправильно интерпретирует поведение ребенка. Ребенок может плакать по большому числу проблем: есть хочет, пить хочет, животик болит, грязный, мокрый, замерз, перегрелся, ему неудобно или просто хочет общения с мамой… Но мама, почему то, думает, что если ребенок плачет, то есть хочет и все. Так что, скорее всего просто у вашего ребенка что-то не так, но он не обязательно голодный, может у него животик болит. Если вы уверены, что это точно недокорм, то чтобы быть уверенным, что молока хватает, сделайте контрольное взвешивание до и после кормления и определите, сколько ребенок съедает.
+            .b-main_col-sidebar.visible-md
+              .b-consult-specialist
+                .b-consult-specialist__img
+                  img(src="/lite/images/services/consult/consult-man.png", alt="")
+                .b-consult-specialist__name Морозов Сергей Леонидович
+                .b-consult-specialist__position Врач-педиатр
+                .b-consult-specialist__edu 
+                 | Кандидат медицинских наук, <br />
+                 | научный сотрудник Научно-исследовательского <br />
+                 | клинического института педиатрии <br />
+                 | ГБОУ ВПО РНИМУ им. Н.И. Пирогова 
+                a.b-consult-button(href="#") Задать вопрос
+              .b-consult-aside
+                .b-consult-aside__title Другие вопросы 
+                  a.b-consult-aside__title__all(href="#") Все вопросы 828 
+                .b-consult-aside-item
+                  a.b-consult-aside-item__ava(href="#")
+                    img(src="/lite/images/services/consult/consult-small.png", alt="")
+                  a.b-article_author(href='#') Ангелина Богоявленская
+                  time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                  .b-consult-aside-item__message
+                    .b-consult-qa-ms__message__title Молочная жидкость
+                    | Здравствуйте.Дочери 10 недель и 6 дней. Не знаю с чего даже начать-дня 4 назад начались проблемы с молоком. Малышка...
+                    
+                .b-consult-aside-item
+                  a.b-consult-aside-item__ava(href="#")
+                    img(src="/lite/images/services/consult/consult-small.png", alt="")
+                  a.b-article_author(href='#') Ангелина Богоявленская
+                  time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                  .b-consult-aside-item__message
+                    .b-consult-qa-ms__message__title Молочная жидкость
+                    | Здравствуйте.Дочери 10 недель и 6 дней. Не знаю с чего даже начать-дня 4 назад начались проблемы с молоком. Малышка...
+                          
+                .b-consult-aside-item
+                  a.b-consult-aside-item__ava(href="#")
+                    img(src="/lite/images/services/consult/consult-small.png", alt="")
+                  a.b-article_author(href='#') Ангелина Богоявленская
+                  time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                  .b-consult-aside-item__message
+                    .b-consult-qa-ms__message__title Молочная жидкость
+                    | Здравствуйте.Дочери 10 недель и 6 дней. Не знаю с чего даже начать-дня 4 назад начались проблемы с молоком. Малышка...
+                    
+                .b-consult-aside-item
+                  a.b-consult-aside-item__ava(href="#")
+                    img(src="/lite/images/services/consult/consult-small.png", alt="")
+                  a.b-article_author(href='#') Ангелина Богоявленская
+                  time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                  .b-consult-aside-item__message
+                    .b-consult-qa-ms__message__title Молочная жидкость
+                    | Здравствуйте.Дочери 10 недель и 6 дней. Не знаю с чего даже начать-дня 4 назад начались проблемы с молоком. Малышка...
+                    
+                .b-consult-aside-item
+                  a.b-consult-aside-item__ava(href="#")
+                    img(src="/lite/images/services/consult/consult-small.png", alt="")
+                  a.b-article_author(href='#') Ангелина Богоявленская
+                  time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                  .b-consult-aside-item__message
+                    .b-consult-qa-ms__message__title Молочная жидкость
+                    | Здравствуйте.Дочери 10 недель и 6 дней. Не знаю с чего даже начать-дня 4 назад начались проблемы с молоком. Малышка...
+    // b-main 
+    +layout-footer-lite()

@@ -42,9 +42,9 @@
   <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
   <script src="/new/javascript/jquery.Jcrop.js"></script>
   <!-- Базовый js (вызывается на всех страницах)-->
-  <script src="/new/javascript/common.js"></script>
+  <!--script(src="#{path}javascript/common.js")-->
   <!-- js для работы в верстке-->
-  <script src="/new/javascript/common-markup.js"></script>
+  <!--script(src="#{path}javascript/common-markup.js")-->
   <!-- jquery-ui подключается для верстки, в yii есть аналог
   компоненты 
       slider 
@@ -190,6 +190,11 @@
                     <!-- Блочек описание видео сервисов-->
                     <div class="postAdd_count">2</div>
                     <div class="b-main_col-article">
+                      <script src="/new/redactor/redactor.min.js"></script>
+                      <script src="/new/redactor/lang/ru.js"></script>
+                      <!--script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")-->
+                      <!--script(src="#{path}redactor/plugins/btnvideo/btnvideo.js")-->
+                      <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
                       <script>
                         $(document).ready(function () { 
                           $('.wysiwyg-redactor').redactor({

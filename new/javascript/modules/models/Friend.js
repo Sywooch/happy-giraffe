@@ -44,6 +44,8 @@ define(['jquery', 'knockout', 'models/Model', 'models/User'], function FriendHan
         },
         friendsAccept: function friendsAccept() {
             this.isFriend(true);
+            this.hasIncomingRequest(false);
+            this.hasOutgoingRequest(false);
             return $.post('/friends/requests/accept/', { fromId : this.id });
         },
         friendsDecline: function friendsDecline() {

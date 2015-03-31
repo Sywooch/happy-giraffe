@@ -53,8 +53,14 @@
     </div>
     <!-- ko if: loading() === false && contest.comments().length === 0 -->
     <div class="contest-commentator-list_desc">
-      Поздравляем Вас теперь вы равноправный участник конкурса! На этой странице будет отражаться ваша лента комментариев, засчитанных системой модерирования.
+      Поздравляем Вас теперь вы равноправный участник конкурса! На этой странице будет отражаться ваша лента комментариев, засчитанных системой модерирования.<br>
+        <a class="contest-commentator-desc_a" data-bind="href: '/commentatorsContest/' + contest.id + '/posts/'">Что комментировать?</a>
     </div>
+    <!-- /ko -->
+    <!-- ko if: main === true -->
+        <!-- ko if: loading() === false && overload() === false -->
+        <div class="contest-commentator_more"><a href="#" class="a-pseudo tx-content" data-bind="click: loadMore">Показать еще 10</a></div>
+        <!-- /ko -->
     <!-- /ko -->
 </div>
 <!-- /комментарии-->

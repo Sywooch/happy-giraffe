@@ -1,0 +1,279 @@
+.b-consult {
+  .b-article {
+    padding: 0;
+  }
+  &-top {
+    padding: 67px 0;
+    background: url('@{path-img}/services/consult/consult-top.png') no-repeat;
+    margin: 0;
+    &__t {
+      display: block;
+      background: url('@{path-img}/services/consult/consult-top-fr.png') no-repeat;
+      padding: 54px 0 50px 40px;
+      margin: 10px 0 0 30px;
+    }
+    &__title {
+      margin: 0;
+      color: #3b0503;
+      font-weight: 600;
+      font-size: 30px;
+    }
+    &__text {
+      margin: 0;
+      color: #3b0503;
+      font-size: 16px;
+      line-height: 1;
+    }
+  }
+  &-form {
+    &__create {
+      .ico-post-type {
+        background: url('@{path-img}/consult-create.jpg') no-repeat;
+        background-position: 0;
+        width: 42px;
+      }
+      .redactor-placeholder {
+        &:after {
+          top: 13px;
+          cursor: text;
+        }
+      }
+    }
+    &__answer {
+      .ico-post-type {
+        background: url('@{path-img}/consult-answer.jpg') no-repeat;
+        background-position: 0;
+        width: 42px;
+      }
+    }
+  }
+  &-bubble {
+    background: #fffdce;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial;
+    color: #71471b;
+    line-height: 20px;
+    margin: 0 0 40px;
+    .border-radius(20px);
+    &-text {
+      font-size: 14px;
+      padding: 0 0 40px;
+    }
+    &-who {
+      font-size: 14px;
+      padding: 0;
+    }
+  }
+  &-specialist {
+    text-align: center;
+    margin: 15px 0 50px;
+    &__img {
+      margin: 0 0 15px;
+    }
+    &__name {
+      color: #522800;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    &__position {
+      color: #fc731f;
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 5px;
+    }
+    &__edu {
+      color: #666;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      text-align: center;
+      margin: 0 0 15px;
+    }
+  }
+  &-button {
+    .gvertical(#f7a614, #f87b00);
+    display: inline-block;
+    padding: 18px 40px;
+    color: #fff;
+    opacity: 0.8;
+    font-size: 21px;
+    font-weight: 600;
+    .border-radius(8px);
+    &.small {
+      padding: 8px 14px;
+      font-size: 12px;
+      border-radius: 5px;
+    }
+    &.right {
+      float: right;
+      margin-top: 35px;
+    }
+    &:hover {
+      color: #fff;
+      opacity: 1;
+    }
+  }
+  &-qa {
+    margin: 0 0 80px;
+    &-title {
+      color:  #522800;
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: -0.625px;
+      margin: 0 0 30px;
+    }
+    &-ms {
+      margin-bottom: 35px;
+      &__question {
+        margin-bottom: 10px;
+      }
+      &__answer {
+        margin-left: 0;
+        .b-consult-qa-ms__message {
+          background: url('@{path-img}/services/consult/consult-answer.jpg');
+          padding: 12px 18px 16px 18px;
+          &__text {
+            margin-bottom: 10px;
+          }
+        }
+      }
+      &__img {
+        float: left;
+      }
+      &__name {
+        margin-right: 5px;
+      }
+      &__message {
+        &__title {
+          color: #196eb9;
+          font-weight: 600;
+          font-size: 12px;
+          line-height: 16px;
+          text-align: left;
+          margin-bottom: 4px;
+        }
+        &__text {
+          color: #666666;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 16px;
+          text-align: left;
+        }
+      }
+    }
+    &-mst {
+      margin-left: 87px;
+      .comments_cont {
+        &:after {
+          top: 32px;
+        }
+      }
+    }
+  }
+  &-open {
+    &__answer {
+      color: #522800;
+      font-size: 25px;
+      font-weight: 400;
+      margin: 0 0 10px;
+    }
+    .b-article_header {
+      margin-bottom: 20px;
+    }
+  }
+  &-aside {
+    &__title {
+      color: #333333;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0 0 20px;
+      &__all {
+        font-size: 12px;
+        font-weight: 400;
+        float: right;
+        margin: 10px 0 0;
+      }
+    }
+    &-item {
+      margin: 0 0 15px;
+      &__ava {
+        margin: 0 8px 0 0;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .b-article_author {
+        vertical-align: top;
+      }
+      .tx-date {
+        vertical-align: top;
+      }
+      &__message {
+        padding: 8px 10px 8px 12px;
+        border: 2px solid #e4dbf2;
+        border-radius: 12px;
+        margin: 10px 0 0 0;
+        position: relative;
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: -13px;
+          left: 20px;
+          width: 18px;
+          height: 17px;
+          background: url(/lite/images/services/consult/comment__bubble_top.png) no-repeat;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-sm-mid) {
+  .b-consult {
+    .b-article {
+      padding: 0 20px 0 0;
+    }
+    &-top {
+      padding: 54px 0;
+      margin: 0 0 20px;
+      &__t {
+        display: inline-block;
+        padding: 14px 100px 27px 32px;
+        margin: 10px 0 0 30px;
+      }
+      &__title {
+        font-size: 60px;
+      }
+      &__text {
+        font-size: 28px;
+      }
+    }
+    &-button {
+      &.small {
+        font-size: 14px;
+      }
+    }
+    &-bubble {
+      padding: 72px 80px 0 20px;
+      background: url('@{path-img}/services/consult/consult-bubble.png') no-repeat;
+      background-size: contain;
+      height: 450px;
+      .border-radius(0);
+      &-who {
+        padding: 0 50px 0 10px;
+      }
+    }
+    &-qa {
+      &-ms {
+        &__answer {
+        margin-left: 30px;
+          .b-consult-qa-ms__message {
+            padding: 12px 50px 16px 18px;
+          }
+        }
+      }
+    }
+  }
+}

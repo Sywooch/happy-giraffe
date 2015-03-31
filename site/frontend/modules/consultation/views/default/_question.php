@@ -18,6 +18,9 @@
           <?php if ($data->answer === null && Yii::app()->user->checkAccess('manageOwnContent', array('entity' => $data))): ?>
               <a class="margin-t3 display-b" href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Редактировать</a>
           <?php endif; ?>
+            <?php if ($data->answer === null && Yii::app()->user->checkAccess('removeQuestions')): ?>
+                <a class="margin-t3 display-b" href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Удалить</a>
+            <?php endif; ?>
             <?php if ($data->answer === null): ?>
                 <?php $this->renderPartial('_buttons', array('data' => $data)); ?>
             <?php endif; ?>
@@ -26,7 +29,7 @@
     <?php if ($data->answer): ?>
     <div class="b-consult-qa-ms__answer comments_li__red">
         <div class="b-consult-qa-ms__img">
-            <a href="<?=$data->answer->user->profileUrl?>" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?=$data->answer->user->fullName?>" src="<?=$data->answer->user->avatarUrl?>" class="ava_img"></a>
+            <span class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?=$data->answer->user->fullName?>" src="<?=$data->answer->user->avatarUrl?>" class="ava_img"></span>
         </div>
         <div class="b-consult-qa-mst"><a href="<?=$data->answer->user->profileUrl?>" class="b-consult-qa-ms__name"><?=$data->answer->user->fullName?></a>
             <?=HHtml::timeTag($data->answer, array('class' => 'tx-date'), null) ?>

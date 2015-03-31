@@ -860,6 +860,53 @@ mixin bArticleComment(mod, vars)
 - bArticleComment.base = {}
 - bArticleComment.base.userActivityPost = userActivityPost.comment
 
+//- Добавлен комментарий. В списке активности пользователя в анкете. 
+mixin bArticleQA(mod, vars)
+    // Добавлен комментарий
+    // b-article
+    article.b-article.b-article__list.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                .icons-meta
+                    a.icons-meta_comment(href='#')
+                        span.icons-meta_tx 35
+                    .icons-meta_view
+                        span.icons-meta_tx 305
+            if(vars.userActivityPost)
+                +userActivityPost('', vars.userActivityPost)
+            .b-article_in.clearfix
+                .comments.comments__buble.comments__anonce
+                    .comments_hold
+                        // 
+                            варианты цветов комментов. В такой последовательности
+                            .comments_li__lilac
+                            .comments_li__yellow
+                            .comments_li__red
+                            .comments_li__blue
+                            .comments_li__green
+                        .comments_li.comments_li__lilac
+                            .comments_i.clearfix
+                                .comments_frame
+                                    .comments_cont
+                                        .wysiwyg-content
+                                            p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+                +bPostAnonceS('', bPostAnonceS.no)
+
+    // /b-article
+
+
+- var bArticleQA = {}
+
+- bArticleQA.base = {}
+- bArticleQA.base.userActivityPost = userActivityPost.answer
+
+- bArticleQA.question = {}
+- bArticleQA.question.userActivityPost = userActivityPost.question
+
 
 
 //- Добавлен комментарий. В списке активности пользователя в анкете. 
@@ -927,6 +974,9 @@ mixin bPostAnonceS(mod, vars)
                 time.tx-date(pubdate='1957-10-04') Сегодня 13:25
             a.b-post-anonce-s_t(href='#')
                 != vars.title
+            .b-post-anonce-s-theme
+                | Консультация: 
+                a(href="#") Обсуждаем проблему недостатка грудного молока
     // /b-post-anonce-s
 
 - var bPostAnonceS = {}
@@ -938,3 +988,7 @@ mixin bPostAnonceS(mod, vars)
 - bPostAnonceS.b = {}
 - bPostAnonceS.b.img = 'http://placecreature.com/dog/70/70'
 - bPostAnonceS.b.title = 'Это захватывающий сюжет, из которого вы можете узнать все о растяжке'
+
+- bPostAnonceS.no = {}
+- bPostAnonceS.no.title = 'Это захватывающий сюжет, из которого вы можете узнать все о растяжке'
+- bPostAnonceS.no.theme = 'consult'

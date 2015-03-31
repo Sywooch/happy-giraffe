@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="27px" height="25px" viewBox="-189 209 27 25" enable-background="new 0 0 27 25" xml:space="preserve">
+<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="27px" height="25px" viewBox="0 0 27 25" enable-background="new 0 0 27 25" xml:space="preserve">
 <g id="Слой_x0020_1">
 	<g id="_225550480">
-		<path id="_225551944" fill="#5EBDFF" d="M-172.248,234.352l-0.054-5.213h-14.978c-1.37,0.001-2.482-1.11-2.482-2.48v-14.831
-			c0-1.37,1.112-2.482,2.482-2.482h22.433c1.369,0,2.479,1.112,2.479,2.482v14.831c0,1.369-1.112,2.48-2.479,2.48h-2.244
-			L-172.248,234.352z"/>
-		<path id="_225550600" fill="#FFFFFF" fill-opacity="0.2" d="M-186.963,209.352h10.591h11.587c0.709,0,1.346,0.298,1.8,0.772
-			l-13.387,9.199l-12.44,8.999l-0.19,0.131c-0.468-0.452-0.758-1.084-0.758-1.786v-14.833c0-1.371,1.111-2.482,2.48-2.482H-186.963
-			L-186.963,209.352z"/>
-		<circle id="_225550672" fill="#FFFFFF" cx="-180.179" cy="219.6" r="2.135"/>
-		<circle id="_225550936" fill="#FFFFFF" cx="-172.816" cy="219.6" r="2.135"/>
+		<path id="_225551944" fill="#5EBDFF" d="M17.515,25.003l-0.054-5.213H2.482C1.112,19.792,0,18.681,0,17.311V2.479
+			c0-1.37,1.112-2.482,2.482-2.482h22.433c1.369,0,2.479,1.112,2.479,2.482v14.831c0,1.368-1.112,2.479-2.479,2.479h-2.243
+			L17.515,25.003z"/>
+		<path id="_225550600" fill="#FFFFFF" fill-opacity="0.2" d="M2.8,0.003h10.591h11.587c0.709,0,1.346,0.299,1.8,0.772L13.391,9.975
+			L0.95,18.974l-0.189,0.131c-0.469-0.452-0.758-1.084-0.758-1.786V2.485c0-1.371,1.11-2.482,2.479-2.482H2.8L2.8,0.003z"/>
+		<circle id="_225550672" fill="#FFFFFF" cx="9.583" cy="10.251" r="2.135"/>
+		<circle id="_225550936" fill="#FFFFFF" cx="16.946" cy="10.251" r="2.135"/>
 	</g>
 </g>
 </svg>

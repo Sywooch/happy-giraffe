@@ -62,7 +62,7 @@ return array(
         ),
         'sitemapUsers1.xml' => array(
             'aliases' => array(
-                'application.modules.profile.controllers.DefaultController',
+                'application.modules.userProfile.controllers.DefaultController',
             ),
         ),
 //                    'sitemapRoutes2.xml' => array(

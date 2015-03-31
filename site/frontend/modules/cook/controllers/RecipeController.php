@@ -410,18 +410,18 @@ class RecipeController extends LiteController
         echo CJSON::encode($response);
     }
 
-    public function actionSearchByIngredients()
-    {
-        $this->pageTitle = 'Поиск рецептов по ингредиентам';
-
-        $this->breadcrumbs = array(
-            'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
-            'Поиск по ингредиентам'
-        );
-
-        $this->render('searchByIngredients');
-    }
+//    public function actionSearchByIngredients()
+//    {
+//        $this->pageTitle = 'Поиск рецептов по ингредиентам';
+//
+//        $this->breadcrumbs = array(
+//            'Кулинария' => array('/cook'),
+//            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+//            'Поиск по ингредиентам'
+//        );
+//
+//        $this->render('searchByIngredients');
+//    }
 
     public function actionSearchByIngredientsResult()
     {

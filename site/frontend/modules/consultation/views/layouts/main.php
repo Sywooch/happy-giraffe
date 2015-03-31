@@ -13,7 +13,7 @@ $this->beginContent('//layouts/lite/common_menu');
                         <h1 class="b-consult-top__title">Консультация</h1>
                         <div class="b-consult-top__text">
                             Обсуждаем проблему <br />
-                            недостаток грудного молока
+                            недостатка грудного молока
                         </div>
                     </div>
                 </div>

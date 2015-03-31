@@ -1,0 +1,381 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__bg1 body__lite">
+  <div class="layout-container">
+    <div class="layout-loose">
+      <div class="layout-header-gold">
+        <div class="layout-header-gold__top">Мы в финале конкурса</div>
+        <div class="layout-header-gold__title">Золотой сайт 2014</div>
+        <div class="layout-header-gold__mean">Важен каждый голос в народном голосовании!</div><a href="#" class="btn-link btn-xxl btn-green">Проголосуй за веселого жирафа!</a>
+      </div>
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                
+                        var $this = $(this),
+                            activeClass = 'active';
+                
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                      });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <!-- 18 клубов-->
+                        <div class="b-clubs">
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__contest"></span><span class="header-menu_tx">Конкурс</span><span class="header-menu_count">1</span></a></li>
+              </ul>
+            </div>
+            <!-- /header-menu-->
+            <div class="sidebar-search clearfix sidebar-search__big">
+              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            </div>
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <!-- b-main -->
+        <div class="b-main clearfix">
+          <div class="b-consult">
+            <div class="b-consult-top">
+              <div class="b-consult-top__t">
+                <h1 class="b-consult-top__title">Консультация</h1>
+                <div class="b-consult-top__text">
+                  Обсуждаем проблему <br />
+                  недостатка грудного молока
+                </div>
+              </div>
+            </div>
+            <div class="b-main_cont">
+              <div class="b-main_col-hold clearfix">
+                <div class="b-main_col-article">
+                  <!-- Статья с текстом-->
+                  <!-- b-article-->
+                  <article class="b-article b-article__single clearfix b-article__lite">
+                    <div class="b-article_cont clearfix">
+                      <div class="b-article_header clearfix">
+                        <div class="float-l">
+                          <!-- ava--><a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                          <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                        </div>
+                        <div class="icons-meta">
+                          <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
+                        </div>
+                      </div>
+                      <h1 class="b-article_t">
+                         
+                        Молочная жирность
+                      </h1>
+                      <div class="b-article_in clearfix">
+                        <div class="wysiwyg-content clearfix">
+                          <p>Здравствуйте. Дочери 10 недель и 6 дней. Не знаю   с чего даже начать-дня 4 назад начались проблемы с молоком.Малышка кушает через каждый час, в перерывах кормлений кричит, плохо спит, сама не лежит-только на ручках сидит. Я и плачу и второй раз уже на ночь давала смесь((А я ни в какую не хочу ее кормить смесью ни в коем случае.</p>
+                          <p>Вчера и позавчера перед сном все таки сделала ей смесь, хотела чередовать-то смесь, то грудь, а она меня отпихивает, бутылку даю, а она ее ест как родную-тут я как разрыдалась и думаю, а как же я? Может не жирное, может лактационный криз-не знаю что думать и делать... И кушаю вроде хорошо, и молочку потребляю и жидкости нормально пью-короче я в отчаянии...</p>
+                          <p>Что делать подскажите…</p>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                  <!-- Статья с текстом-->
+                  <!-- b-article-->
+                  <article class="b-article b-article__single clearfix b-article__lite">
+                    <div class="b-consult-open">
+                      <div class="b-consult-open__answer">Ответ:</div>
+                      <div class="b-article_cont clearfix">
+                        <div class="b-article_header clearfix"><a href="#" class="b-consult-button small right">Задать вопрос</a>
+                          <div class="float-l">
+                            <!-- ava--><a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="b-article_author">Сергей Леонидович</a>
+                            <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                          </div>
+                        </div>
+                        <div class="b-article_in clearfix">
+                          <div class="wysiwyg-content clearfix">
+                            <p>Главное - не надо паники. Постарайтесь успокоится, иначе молоко пропадет. В норме бывают колебания количества молока, но чаще мама неправильно интерпретирует поведение ребенка. Ребенок может плакать по большому числу проблем: есть хочет, пить хочет, животик болит, грязный, мокрый, замерз, перегрелся, ему неудобно или просто хочет общения с мамой… Но мама, почему то, думает, что если ребенок плачет, то есть хочет и все. Так что, скорее всего просто у вашего ребенка что-то не так, но он не обязательно голодный, может у него животик болит. Если вы уверены, что это точно недокорм, то чтобы быть уверенным, что молока хватает, сделайте контрольное взвешивание до и после кормления и определите, сколько ребенок съедает.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+                <div class="b-main_col-sidebar visible-md">
+                  <div class="b-consult-specialist">
+                    <div class="b-consult-specialist__img"><img src="/lite/images/services/consult/consult-man.png" alt=""></div>
+                    <div class="b-consult-specialist__name">Морозов Сергей Леонидович</div>
+                    <div class="b-consult-specialist__position">Врач-педиатр</div>
+                    <div class="b-consult-specialist__edu">
+                       
+                      Кандидат медицинских наук, <br />
+                      научный сотрудник Научно-исследовательского <br />
+                      клинического института педиатрии <br />
+                      ГБОУ ВПО РНИМУ им. Н.И. Пирогова 
+                    </div><a href="#" class="b-consult-button">Задать вопрос</a>
+                  </div>
+                  <div class="b-consult-aside">
+                    <div class="b-consult-aside__title">Другие вопросы <a href="#" class="b-consult-aside__title__all">Все вопросы 828 </a></div>
+                    <div class="b-consult-aside-item"><a href="#" class="b-consult-aside-item__ava"><img src="/lite/images/services/consult/consult-small.png" alt=""></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                      <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      <div class="b-consult-aside-item__message">
+                        <div class="b-consult-qa-ms__message__title">Молочная жидкость</div>Здравствуйте.Дочери 10 недель и 6 дней. Не знаю с чего даже начать-дня 4 назад начались проблемы с молоком. Малышка...
+                      </div>
+                    </div>
+                    <div class="b-consult-aside-item"><a href="#" class="b-consult-aside-item__ava"><img src="/lite/images/services/consult/consult-small.png" alt=""></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                      <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      <div class="b-consult-aside-item__message">
+                        <div class="b-consult-qa-ms__message__title">Молочная жидкость</div>Здравствуйте.Дочери 10 недель и 6 дней. Не знаю с чего даже начать-дня 4 назад начались проблемы с молоком. Малышка...
+                      </div>
+                    </div>
+                    <div class="b-consult-aside-item"><a href="#" class="b-consult-aside-item__ava"><img src="/lite/images/services/consult/consult-small.png" alt=""></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                      <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      <div class="b-consult-aside-item__message">
+                        <div class="b-consult-qa-ms__message__title">Молочная жидкость</div>Здравствуйте.Дочери 10 недель и 6 дней. Не знаю с чего даже начать-дня 4 назад начались проблемы с молоком. Малышка...
+                      </div>
+                    </div>
+                    <div class="b-consult-aside-item"><a href="#" class="b-consult-aside-item__ava"><img src="/lite/images/services/consult/consult-small.png" alt=""></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                      <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      <div class="b-consult-aside-item__message">
+                        <div class="b-consult-qa-ms__message__title">Молочная жидкость</div>Здравствуйте.Дочери 10 недель и 6 дней. Не знаю с чего даже начать-дня 4 назад начались проблемы с молоком. Малышка...
+                      </div>
+                    </div>
+                    <div class="b-consult-aside-item"><a href="#" class="b-consult-aside-item__ava"><img src="/lite/images/services/consult/consult-small.png" alt=""></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                      <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      <div class="b-consult-aside-item__message">
+                        <div class="b-consult-qa-ms__message__title">Молочная жидкость</div>Здравствуйте.Дочери 10 недель и 6 дней. Не знаю с чего даже начать-дня 4 назад начались проблемы с молоком. Малышка...
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- b-main -->
+        <!-- Футер-->
+        <!-- layout-footer-->
+        <div class="layout-footer clearfix">
+          <div class="layout-footer_hold">
+            <ul class="footer-list">
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+            </ul>
+            <ul class="footer-menu visible-md">
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__husband-and-wife">Муж и жена </div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Свадьба </a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Отношения в семье</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__pregnancy">Беременность и дети </div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Планирование </a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Беременность и роды</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дети до года</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дети старше года</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дошкольники</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Школьники</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__home">Наш дом</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Готовим на кухне</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Ремонт в доме</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Домашние хлопоты</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Сад и огород</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наши питомцы </a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__beauty">Красота и здоровье</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Красота и мода</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наше здоровье</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__hobby">Интересы и увлечения</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Рукоделие</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Цветы в доме</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наш автомобиль</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Рыбалка</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__family-holiday">Семейный отдых</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Мы путешествуем</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Выходные с семьей</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Праздники</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+            <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+          </div>
+        </div>
+        <!-- /layout-footer-->
+        <!-- /Футер-->
+        
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

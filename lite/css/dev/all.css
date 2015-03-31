@@ -6360,8 +6360,8 @@ a.ico-more:hover,
   background-image: url("../../images/sprite/ico-club.svg");
 }
 .ico-post-type-s__answer {
-  width: 27px;
-  height: 25px;
+  width: 28px;
+  height: 26px;
   background-position: 0 0;
 }
 .ico-post-type-s__article {
@@ -6390,7 +6390,7 @@ a.ico-more:hover,
   background-position: -500px 0;
 }
 .ico-post-type-s__question {
-  width: 24px;
+  width: 25px;
   height: 25px;
   background-position: -600px 0;
 }

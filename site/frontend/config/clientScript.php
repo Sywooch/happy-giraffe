@@ -573,6 +573,12 @@ return array(
         'lite_horoscope_user' => array(
             'depends' => array('lite_services_user'),
         ),
+        'lite_consultation' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_consultation_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
         'lite_photo' => array(
             'depends' => array('lite-default'),
         ),

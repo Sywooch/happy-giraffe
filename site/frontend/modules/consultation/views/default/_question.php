@@ -31,7 +31,7 @@
         <div class="b-consult-qa-ms__img">
             <span class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?=$data->answer->user->fullName?>" src="<?=$data->answer->user->avatarUrl?>" class="ava_img"></span>
         </div>
-        <div class="b-consult-qa-mst"><a href="<?=$data->answer->user->profileUrl?>" class="b-consult-qa-ms__name"><?=$data->answer->user->fullName?></a>
+        <div class="b-consult-qa-mst"><span class="b-consult-qa-ms__name"><?=$data->answer->user->fullName?></span>
             <?=HHtml::timeTag($data->answer, array('class' => 'tx-date'), null) ?>
             <div class="b-consult-qa-ms__message comments_cont">
                 <div class="b-consult-qa-ms__message__text"><?=\site\common\helpers\HStr::truncate(strip_tags($data->answer->text), 500)?></div>

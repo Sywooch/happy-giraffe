@@ -59,6 +59,11 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionHg()
+    {
+        $criteria =
+    }
+
     public function actionUsers()
     {
         $result = array();

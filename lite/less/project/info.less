@@ -102,9 +102,12 @@ info pages
                 margin: 0;
             }
             &__mail {
+                @media (min-width: @screen-phone) {
+                    font-size: 45px;
+                }
                 text-decoration: none;
                 color: @color-white;
-                font-size: 45px;
+                font-size: 30px;
                 font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
                 font-weight: 700;
                 display: inline-block;
@@ -156,7 +159,10 @@ info pages
             }
         }
         &__media {
-            padding: 50px 0 0;
+            @media (min-width: @screen-phone-landscape) {
+                padding: 50px 0 0;
+            }
+            padding: 20px 0 0;
             .info-form-title {
                 margin: 0 0 25px;
             }
@@ -193,12 +199,18 @@ info pages
         }
     }
     &-form {
-        padding: 70px 0 90px;
+        @media (min-width: @screen-tablet) {
+            padding: 70px 0 90px;
+        }
+        padding: 30px 0 50px;
         background: #4aade6;
         &-title {
+            @media (min-width: @screen-phone-landscape) {
+                font-size: 45px;
+            }
             text-align: center;
             color: @color-white;
-            font-size: 45px;
+            font-size: 35px;
             font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
             font-weight: 700;
         }
@@ -206,14 +218,25 @@ info pages
             text-align: center;
             margin: 0 0 35px;
             &__part {
+                @media (min-width: @screen-tablet) {
+                  width: 340px;
+                  display: inline-block;
+                  margin: 0 10px;
+                }
                 text-align: left;
                 vertical-align: top;
-                width: 340px;
-                display: inline-block;
-                margin: 0 10px;
+                width: auto;
+                display: block;
+                margin: 0 10px 20px;
             }
         }
         &-great {
+            img {
+              @media (min-width: @screen-tablet) {
+                max-width: 100%;
+              }
+              max-width: 200px;
+            }
             margin-bottom: 20px;
             text-align: center;
         }
@@ -248,12 +271,25 @@ info pages
         }
     }
     &-clients {
-        height: 315px;
-        padding: 80px 0 0;
+        @media (min-width: @screen-desktop) {
+          height: 315px;
+          padding: 80px 0 0;
+        }
+        height: auto;
+        padding: 40px 0 0;
         background: #fff;
         &-part {
-            float: left;
-            width: 333.33333px;
+            @media (min-width: @screen-desktop) {
+                width: 333.33333px;
+                padding: 0;
+                float: left;
+            }
+            @media (min-width: @screen-tablet) {
+                float: left;
+                width: 33.33333%;
+            }
+            float: none;
+            padding: 0 0 40px;
             text-align: center;
             &__for {
                 font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
@@ -291,12 +327,15 @@ info pages
         padding: 65px 0 0;
         text-align: center;
         &-or {
+            @media (min-width: @screen-phone) {
+                margin: -25px 0 0;
+            }
             background: #4AADE6;
             display: inline-block;
             font-size: 15px;
             color: #FFF;
             padding: 20px 25px 5px;
-            margin: -25px 0 0;
+            margin: -10px 0 0;
             border-radius: 50px 50px 0 0;
             font-family: Arial;
             font-style: italic;
@@ -306,10 +345,14 @@ info pages
         &-block {
             text-align: center;
             &__part {
+                @media (min-width: @screen-phone-landscape) {
+                    width: 325px;
+                    display: inline-block;
+                }
                 text-align: left;
                 vertical-align: top;
-                width: 325px;
-                display: inline-block;
+                width: auto;
+                display: block;
                 margin: 0 5px;
             }
         }
@@ -318,25 +361,47 @@ info pages
         margin-top: 0;
     }
     &-ad {
-        padding: 70px 200px 100px;
+        @media (min-width: @screen-phone-landscape) {
+            padding: 70px 10px 100px;
+        }
+        @media (min-width: @screen-tablet) {
+            padding: 70px 40px 100px;
+        }
+        @media (min-width: @screen-desktop) {
+            padding: 70px 200px 100px;
+        }
+        padding: 10px 10px;
         background: url('/lite/images/info/ad-hero.png') center no-repeat;
         text-align: center;
         height: 450px;
         &-master {
+            @media (min-width: @screen-phone-landscape) {
+                font-size: 30px;
+                margin: 0 0 35px;
+            }
             font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
             color: @color-white;
             font-weight: 700;
-            font-size: 30px;
-            margin: 0 0 35px;
+            font-size: 25px;
+            margin: 0 0 10px;
         }
         &-part {
-            float: left;
+            @media (min-width: @screen-desktop) {
+                float: left;
+                width: 300px;
+                display: block;
+            }
+            float: none;
+            display: inline-block;
             width: 300px;
             text-align: center;
             color: @color-white;
             &__img {
+                @media (min-width: @screen-phone-landscape) {
+                  margin-bottom: 15px;
+                }
                 height: 106px;
-                margin-bottom: 15px;
+                margin-bottom: 5px;
                 img {
                     &.eye {
                         margin-top: 15px;
@@ -349,9 +414,13 @@ info pages
                 margin: 0 0 -8px;
             }
             &__number {
+                @media (min-width: @screen-phone-landscape) {
+                    font-size: 45px;
+                    margin: 0 0 -8px;
+                }
                 font-weight: 700;
-                font-size: 45px;
-                margin: 0 0 -8px;
+                font-size: 25px;
+                margin: 5px 0 0;
                 font-family: 'arial black', Helvetiva, Arial, sans-serif;
             }
         }
@@ -501,9 +570,12 @@ info pages
         padding: 45px 0 25px;
         background: url('@{path-img}/info/info-top.png') top center no-repeat;
         &-title {
+            @media (min-width: @screen-phone-landscape) {
+                font-size: 45px;
+            }
             font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
             color:  @color-gray-dark;
-            font-size: 45px;
+            font-size: 35px;
             font-weight: 700;
         }
     }

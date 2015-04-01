@@ -2,6 +2,17 @@
 info pages
 */
 
+// logo
+@media (max-width: @screen-phone-landscape) {
+  .logo__l {
+    .logo_i {
+      width: 230px;
+      height: 65px;
+      background-image: url('/lite/images/base/logo.svg');
+    }
+  }
+}
+
 .info {
     &-last {
         margin-bottom: -80px;
@@ -81,9 +92,12 @@ info pages
             }
         }
         &-link {
+            @media (min-width: @screen-phone) {
+              font-size: 20px;
+            }
             color: @color-gray;
             font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
-            font-size: 20px;
+            font-size: 18px;
             &.active, &:hover {
                 color: @color-orange;
             }
@@ -210,7 +224,7 @@ info pages
             }
             text-align: center;
             color: @color-white;
-            font-size: 35px;
+            font-size: 30px;
             font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
             font-weight: 700;
         }
@@ -419,33 +433,49 @@ info pages
                     margin: 0 0 -8px;
                 }
                 font-weight: 700;
-                font-size: 25px;
+                font-size: 30px;
                 margin: 5px 0 0;
                 font-family: 'arial black', Helvetiva, Arial, sans-serif;
             }
         }
     }
     &-about {
-        padding: 70px 200px 48px;
+        @media (min-width: @screen-phone) {
+            height: 450px;
+        }
+        @media (min-width: @screen-desktop) {
+            padding: 70px 200px 48px;
+        }
+        padding: 70px 20px 48px;
         background: url('@{path-img}/info/about-hero.png') center -15px no-repeat;
         text-align: center;
-        height: 450px;
+        height: 420px;
         &-quote {
             &__top {
                 margin: 0 0 20px;
             }
             &__text {
+                @media (min-width: @screen-phone) {
+                    font-size: 26px;
+                }
+                @media (min-width: @screen-phone-landscape) {
+                    width: 510px;
+                    font-size: 32px;
+                }
                 font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
                 color: @color-white;
-                font-size: 32px;
+                font-size: 20px;
                 line-height: 1.2;
-                width: 510px;
+                width: auto;
                 text-align: left;
                 margin: 0 auto;
             }
             &__who {
+                @media (min-width: @screen-phone) {
+                    margin: 0 60px 0 0;
+                }
                 text-align: right;
-                margin: 0 60px 0 0;
+                margin: 20px 60px 0 0;
             }
             &__wh {
                 display: inline-block;
@@ -454,13 +484,19 @@ info pages
                 margin: 0 10px 0 0;
             }
             &__name {
+                @media (min-width: @screen-phone) {
+                    font-size: 16px;
+                }
                 font-family: 'arial black', Helvetiva, Arial, sans-serif;
                 color: #FFF;
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: 900;
                 text-transform: uppercase;
             }
             &__position {
+                @media (min-width: @screen-phone) {
+                    font-size: 14px;
+                }
                 font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
                 color: #6CB5F1;
                 font-size: 16px;
@@ -472,8 +508,15 @@ info pages
     &-do {
         background: #34B0F7;
         &-now {
-            float: left;
-            width: 333.3333px;
+            @media (min-width: @screen-tablet) {
+                width: 33.3333%;
+                float: left;
+            }
+            @media (min-width: @screen-desktop) {
+                width: 333.3333px;
+            }
+            float: none;
+            width: 100%;
             padding: 30px 0;
             text-align: center;
             color: @color-white;
@@ -529,12 +572,21 @@ info pages
         }
     }
     &-team {
-        width: 800px;
+        @media (min-width: @screen-desktop) {
+            width: 800px;
+        }
+        width: 100%;
         margin: 30px auto 40px;
         &-member {
-            float: left;
-            width: 25%;
+            @media (min-width: @screen-phone-landscape) {
+                width: 25%;
+                display: block;
+                float: left;
+            }
+            float: none;
+            width: 49%;
             margin: 0 0 25px;
+            display: inline-block;
             &__img {
                 margin: 0 0 5px;
             }
@@ -575,7 +627,7 @@ info pages
             }
             font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
             color:  @color-gray-dark;
-            font-size: 35px;
+            font-size: 30px;
             font-weight: 700;
         }
     }

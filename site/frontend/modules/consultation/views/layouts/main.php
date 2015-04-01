@@ -26,4 +26,26 @@ $this->beginContent('//layouts/lite/common_menu');
         </div>
     </div>
 
+<script language="javascript">
+
+    var odinkod = {
+
+        "type": "homepage"
+
+    };
+
+    var cbu = Math.round(Math.random() * 10000);
+
+    var odinkodscript = document.createElement('script');
+
+    odinkodscript.src = (document.location.protocol === 'https:' ? 'https://' : 'http://') +
+
+    'cdn.odinkod.ru/tags/19355706-13d570.js?cbu='+ cbu +'';
+
+    odinkodscript.async=true;
+
+    document.body.appendChild(odinkodscript);
+
+</script>
+
 <?php $this->endContent(); ?>

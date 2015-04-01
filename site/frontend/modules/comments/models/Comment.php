@@ -14,6 +14,11 @@ class Comment extends \Comment implements \IHToJSON
     protected static $_commentEntityList = array();
     protected $_rootType = false;
     protected $_subComments = null;
+    
+    protected $oldEntityList = array(
+        'CommunityContent',
+        'BlogContent',
+    );
 
     public static function model($className = __CLASS__)
     {
@@ -68,7 +73,7 @@ class Comment extends \Comment implements \IHToJSON
     public function getCommentEntity()
     {
         if (!isset(self::$_commentEntityList[$this->entity]) || !isset(self::$_commentEntityList[$this->entity][$this->entity_id]))
-            self::$_commentEntityList[$this->entity][$this->entity_id] = \CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+            self::$_commentEntityList[$this->entity][$this->entity_id] = $this->getCommentEntity();
 
         return self::$_commentEntityList[$this->entity][$this->entity_id];
     }
@@ -142,6 +147,11 @@ class Comment extends \Comment implements \IHToJSON
 
         return $models;
     }
+    
+/**    protected function instantiate($attributes)
+    {
+        return in_array($this->entity, $this->oldEntityList) ? new Comment(null) : new \site\frontend\modules\comments\models\ClearComment(null);
+    }*/
 
     public static function getCacheDependency($entity)
     {

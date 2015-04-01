@@ -40,7 +40,7 @@ class DefaultCommand extends \CConsoleCommand
             ),
         ));
         $iterator = new \CDataProviderIterator($dp, 100);
-        $contest = CommentatorsContest::model()->active()->find();
+        $contest = CommentatorsContest::model()->find();
         foreach ($iterator as $comment) {
             if ($contest->isRegistered($comment->author_id)) {
                 $participant = CommentatorsContestParticipant::model()->user($comment->author_id)->contest($contest->id)->find();

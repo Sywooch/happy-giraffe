@@ -27,6 +27,11 @@ block layout
                             // Блочек описание видео сервисов
                             .postAdd_count 2
                             .b-main_col-article
+                                script(src="#{path}redactor/redactor.min.js")
+                                script(src="#{path}redactor/lang/ru.js")
+                                //script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")
+                                //script(src="#{path}redactor/plugins/btnvideo/btnvideo.js")
+                                script(src="#{path}redactor/plugins/formatbtn/formatbtn.js")
                                 script.
                                     $(document).ready(function () { 
                                       $('.wysiwyg-redactor').redactor({

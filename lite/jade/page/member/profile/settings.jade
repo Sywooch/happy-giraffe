@@ -1,5 +1,5 @@
 include ../../../block/config
-extend ../../../extend/layout_base_user
+extend ../../../extend/layout_header_member
 block vars
     - var bodyClass = 'body__lite';
     - global.cssFile = 'member-user.css'; 
@@ -43,7 +43,7 @@ block layout
         });
 
     .b-main
-        .b-main_cont__broad
+        //-.b-main_cont__broad
             .b-crumbs.b-crumbs__s
                 .b-crumbs_tx Я здесь:
                 ul.b-crumbs_ul
@@ -343,7 +343,7 @@ block layout
                 // Сайд бар  
                 aside.b-main_col-sidebar.visible-md
 
-        +layout-footer-lite()
+        //-+layout-footer-lite()
 
 
 

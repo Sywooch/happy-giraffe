@@ -11,7 +11,7 @@ block vars
 //- tag head
 +headLite(path, global)
 
-body.body(class='#{bodyClass}')
+body.body.body__user(class='#{bodyClass}')
     //-///////////////////////////////////////
     //- Дата последних изменений 
     //-|  <!-- #{timestamp} -->
@@ -19,7 +19,6 @@ body.body(class='#{bodyClass}')
     .layout-container
         .layout-loose.layout-loose__white
             //-.layout-header
-            +layoutHeaderContest()
             .layout-loose_hold.clearfix
                 block layout
                 

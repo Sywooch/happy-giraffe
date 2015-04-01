@@ -1,0 +1,66 @@
+include ../../../block/config
+extend ../../../extend/layout_header_empty
+block vars
+    - var bodyClass = 'body__lite body__create';
+    - global.cssFile = 'services-user.css'; 
+  
+block layout
+
+    .b-main
+        .b-main_cont.b-main_cont__wide
+
+            //-+userAddRecord('', userAddRecord.blog)
+            .postAdd.b-main_col-hold.clearfix
+                a.ico-close6(href='#') ×
+                // основная колонка
+                .b-main_col-article.b-consult-form.b-consult-form__answer
+                    .postAdd_hold
+                        .postAdd_row
+                            .heading-xxl
+                                .ico-post-type.ico-post-type__article.active
+                                | Ответ на вопрос
+                                
+                        .postAdd_row 
+                            
+                            // wisywig
+                            script(src="#{path}redactor/redactor.min.js")
+                            script(src="#{path}redactor/lang/ru.js")
+                            //script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")
+                            script(src="#{path}redactor/plugins/formatbtn/formatbtn.js")
+                            script(src="#{path}redactor/plugins/btnaddphoto/btnaddphoto.js")
+                            script(src="#{path}redactor/plugins/btnaddvideo/btnaddvideo.js")
+                            script(src="#{path}redactor/plugins/btnaddsmile/btnaddsmile.js")
+                            script(src="#{path}redactor/plugins/btnaddlink/btnaddlink.js")
+                            script.
+                                $(document).ready(function () { 
+                                  $('.wysiwyg-redactor').redactor({
+                                      minHeight: 450,
+                                      lang: 'ru',
+                                      linkTooltip: false,
+                                      
+                                      plugins: ['formatbtn' ],
+                                      buttons: [''],
+                                  });
+                                });
+                            .wysiwyg-post.redactor_box
+
+                                textarea.wysiwyg-redactor(name='', colrow="9")
+                                    p Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))
+                                    p Не знаю насколько это правда, 
+                                        b но я задумалась, 
+                                        |а что же на самом деле нужно 
+                                        i нашим мужчинам чтобы они чувствовали себя счастливыми.
+                                    p Ведь на самом деле, 
+                                        small запросы у женщин очень большие,
+                                        | так ли это обстоит  у наших мужчин?
+
+                    // Строка кнопок
+                    +postAddRowBtns('', postAddRowBtns.a)
+                    // /Строка кнопок
+                // /основная колонка 
+                // сайдбар
+                .b-main_col-sidebar
+
+                // /сайдбар
+
+        //-+layout-footer-lite()

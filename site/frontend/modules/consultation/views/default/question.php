@@ -44,7 +44,7 @@ $this->pageTitle = $question->title;
             <div class="b-article_cont clearfix">
                 <div class="b-article_header clearfix">
                     <div class="float-l">
-                        <span class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?=$question->answer->user->fullName ?>" src="<?=$question->answer->user->avatarUrl ?>" class="ava_img"></span><a href="<?=$question->answer->user->profileUrl ?>" class="b-article_author"><?=$question->answer->user->fullName?></a>
+                        <span class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?=$question->answer->user->fullName ?>" src="<?=$question->answer->user->avatarUrl ?>" class="ava_img"></span><span class="b-article_author"><?=$question->answer->user->fullName?></span>
                         <?=HHtml::timeTag($question->answer, array('class' => 'tx-date'), null) ?>
                     </div>
                 </div>

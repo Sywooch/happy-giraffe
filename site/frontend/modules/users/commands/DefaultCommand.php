@@ -11,8 +11,16 @@ class DefaultCommand extends \CConsoleCommand
 {
     public function actionFix()
     {
-        $user = \User::model()->findByPk(232714);
+        $users = new \CActiveDataProvider('\User', array(
+            'criteria' => array(
+                'condition' => 'avatarId IS NOT NULL',
+                'order' => 'id ASC',
+            ),
+        ));
+        $i = new \CDataProviderIterator($users, 1000);
 
-        AvatarManager::refreshAvatar($user);
+        foreach ($i as $user) {
+            AvatarManager::refreshAvatar($user);
+        }
     }
 }

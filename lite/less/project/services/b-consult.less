@@ -164,7 +164,13 @@
       }
     }
     &-mst {
-      margin-left: 87px;
+      @media (min-width: @screen-phone) {
+        margin-left: 51px;
+      }
+      @media (min-width: @screen-tablet) {
+        margin-left: 87px;
+      }
+      margin-left: 34px;
       .comments_cont {
         &:after {
           top: 32px;

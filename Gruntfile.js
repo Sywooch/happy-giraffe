@@ -347,7 +347,7 @@ module.exports = function(grunt){
           'lite/html/page/comments/**/*.html',
           'lite/html/page/photo-window/**/*.html',
           'lite/html/page/cook-recipe/**/*.html',
-
+          'lite/html/page/services/consult/consult-widget-open.html', // Нужен только пока идет консультация
           '!lite/html/page/sign/**/*.html',
           //'lite/html/page/**/*-user.html', // стариницы зареганого
           '!lite/html/page/comments/comments-page.html'

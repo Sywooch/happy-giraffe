@@ -58,10 +58,10 @@ return array(
         'imageProcessor' => array(
             'class' => '\site\frontend\modules\photo\components\imageProcessor\ImageProcessor',
             'quality' => array(
-                72 => 75,
-                100 => 75,
-                200 => 75,
-                350 => 75,
+                72 => 100,
+                100 => 90,
+                200 => 85,
+                350 => 80,
                 75,
             ),
         ),

@@ -115,7 +115,7 @@ class PhotoCrop extends \CActiveRecord implements \IHToJSON
             'y' => (int) $this->y,
             'w' => (int) $this->w,
             'h' => (int) $this->h,
-            'photoId' => $this->photoId,
+            'photo' => $this->photo,
             'fsName' => $this->fsName,
         );
     }

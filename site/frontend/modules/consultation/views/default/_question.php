@@ -19,7 +19,7 @@
               <a class="margin-t3 display-b" href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Редактировать</a>
           <?php endif; ?>
             <?php if ($data->answer === null && Yii::app()->user->checkAccess('removeQuestions')): ?>
-                <a class="margin-t3 display-b" href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Удалить</a>
+                <a class="margin-t3 display-b" onclick="var self = this; $.post('/api/consultation/remove/', JSON.stringify({ questionId: '<?=$data->id?>' }), function() {$(self).text('Удалено')})">Удалить</a>
             <?php endif; ?>
             <?php if ($data->answer === null): ?>
                 <?php $this->renderPartial('_buttons', array('data' => $data)); ?>

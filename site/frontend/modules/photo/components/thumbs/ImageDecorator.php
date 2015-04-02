@@ -94,7 +94,7 @@ class ImageDecorator
     protected function getJpegQuality()
     {
 
-        return 10;
+        return 75;
 
         $width = $this->image->getSize()->getWidth();
         $config = \Yii::app()->getModule('photo')->quality;

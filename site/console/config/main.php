@@ -73,6 +73,9 @@ return array(
         'commentatorsContestQueue' => array(
             'class' => 'site\frontend\modules\comments\modules\contest\commands\QueueCommand',
         ),
+        'users' => array(
+            'class' => 'site\frontend\modules\users\commands\DefaultCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

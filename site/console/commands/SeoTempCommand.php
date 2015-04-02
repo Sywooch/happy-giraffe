@@ -61,7 +61,18 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionHg()
     {
-        $criteria =
+        $result = array();
+
+        $forum = Community::model()->findByPk(33);
+        foreach ($forum->rubrics as $rubric) {
+            $result[] = array($rubric->title, $rubric->contentsCount);
+
+            foreach ($rubric->contents as $c) {
+                $result[] = array($c->title, $c->getUrl(true), $c->by_happy_giraffe ? '+' : '-', ($c->author_id == User::HAPPY_GIRAFFE) ? '+' : '-');
+            }
+        }
+
+        $this->writeCsv('health', $result);
     }
 
     public function actionUsers()

@@ -101,7 +101,7 @@ class AvatarManager
         $photo = Photo::model()->findByPk($crop['data']['photo']['id']);
 
         foreach (self::$_sizeToPreset as $size => $presetName) {
-            \Yii::app()->crops->getCrop($photo, self::$_sizeToPreset[$size], $cropData, $crop['data']['fsName'], true);
+            echo \Yii::app()->crops->getCrop($photo, self::$_sizeToPreset[$size], $cropData, $crop['data']['fsName'], true) . "\n";
         }
 
         return true;

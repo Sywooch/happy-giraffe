@@ -24,7 +24,7 @@
       @media (min-width: @screen-desktop) {
         display: block;
       }
-      text-align: left;
+      text-align: center;
       display: inline-block;
       background: none;
       padding: 0;
@@ -148,6 +148,10 @@
   &-qa {
     margin: 0 0 80px;
     &-title {
+      @media  (min-width: @screen-phone-landscape) {
+          text-align: left;
+      }
+      text-align: center;
       color:  #522800;
       font-size: 25px;
       font-weight: 700;

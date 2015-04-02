@@ -36,6 +36,8 @@
         color: #fff;
     }
 
+
+
     /*&__list .wysiwyg-content p:hover .ico-more{
         &:extend(.ico-more-hover);
         cursor: pointer;
@@ -134,11 +136,24 @@
         text-decoration: none;
     }
 
+    .b-markdown_t-sub {
+        display: none;
+    }
+    
+    &__single {
+        .b-markdown_t-sub {
+            display: block !important;
+        }
+    }
+
     @media (min-width: @screen-phone) {
 
         &_header .tx-date {
             display: inline-block;
             margin-left: 4px;
+        }
+        .b-markdown_t-sub {
+            display: block;
         }
     }
 

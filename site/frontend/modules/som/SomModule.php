@@ -29,6 +29,9 @@ class SomModule extends \CWebModule
             'activity' => array(
                 'class' => 'site\frontend\modules\som\modules\activity\ActivityModule',
             ),
+            'community' => array(
+                'class' => 'site\frontend\modules\som\modules\community\CommunityModule',
+            ),
         ));
     }
 

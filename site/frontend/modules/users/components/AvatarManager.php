@@ -91,14 +91,18 @@ class AvatarManager
             'id' => $user->avatarId,
         )));
 
+        $photo = Photo::model()->findByPk($crop['data']['photo']['id']);
+
+        if ($photo === null) {
+            return false;
+        }
+
         $cropData = array(
             'x' => $crop['data']['x'],
             'y' => $crop['data']['y'],
             'w' => $crop['data']['w'],
             'h' => $crop['data']['h'],
         );
-
-        $photo = Photo::model()->findByPk($crop['data']['photo']['id']);
 
         foreach (self::$_sizeToPreset as $size => $presetName) {
             echo \Yii::app()->crops->getCrop($photo, self::$_sizeToPreset[$size], $cropData, $crop['data']['fsName'], true) . "\n";

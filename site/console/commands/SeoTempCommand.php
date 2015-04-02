@@ -65,8 +65,9 @@ class SeoTempCommand extends CConsoleCommand
 
         $forum = Community::model()->findByPk(33);
         foreach ($forum->rubrics as $rubric) {
-            $result[] = array($rubric->title, $rubric->contentsCount);
+            $result[] = array('Рубрика: ' . $rubric->title, 'Постов в рубрике: ' . $rubric->contentsCount);
 
+            $result[] = array('Заголовок', 'URL', 'Отметка 1', 'Отметка 2');
             foreach ($rubric->contents as $c) {
                 $result[] = array($c->title, $c->getUrl(true), $c->by_happy_giraffe ? '+' : '-', ($c->author_id == User::HAPPY_GIRAFFE) ? '+' : '-');
             }

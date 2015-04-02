@@ -16,6 +16,7 @@ abstract class ThumbsManager extends \CApplicationComponent
     {
         $thumb = new Thumb($photo, $filter, $path, $animated);
         if (! \Yii::app()->fs->has($path) || $replace) {
+            die('123');
             \Yii::app()->fs->write($path, $thumb->get(), true);
         }
         return $thumb;

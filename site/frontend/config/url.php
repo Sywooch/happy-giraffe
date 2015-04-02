@@ -218,6 +218,11 @@ return array(
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',
+            'route' => 'som/community/default/index',
+        ),
+        array(
+            'class' => 'site.frontend.components.ClubUrlRule',
+            'pattern' => '<club:[\w-]+>',
             'route' => 'community/default/club',
         ),
         array(

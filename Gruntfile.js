@@ -295,7 +295,7 @@ module.exports = function(grunt){
           'lite/html/page/photo-window/**/*.html',
           'lite/html/page/cook-recipe/**/*.html',
           'lite/html/page/sign/**/*.html',
-
+          'lite/html/page/services/consult/consult-widget-open.html', // Нужен только пока идет консультация
           '!lite/html/page/**/*-user.html', // стариницы зареганого
           '!lite/html/page/comments/comments-page.html'
         ],
@@ -476,6 +476,7 @@ module.exports = function(grunt){
           '!lite/html/page/**/*-user.html', // стариницы зареганого пользователя
           '!lite/html/page/comments/comments-page.html',
           'lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
+          'lite/html/page/services/consult/consult-widget-open.html', // Нужен только пока идет консультация
         ],
         dest: 'lite/css/min/member.css'
       },
@@ -523,7 +524,7 @@ module.exports = function(grunt){
           'lite/html/page/member/**/*.html',
           'lite/html/page/photo-window/**/*.html',
           'lite/html/page/contest/contest-commentator/widget-profile-user.html', // Нужен только пока идет конкурс комментаторов
-
+          'lite/html/page/services/consult/consult-widget-open.html', // Нужен только пока идет консультация
           '!lite/html/page/comments/comments-page.html',
         ],
         dest: 'lite/css/min/member-user.css'

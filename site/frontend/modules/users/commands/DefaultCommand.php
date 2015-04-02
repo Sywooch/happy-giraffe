@@ -19,9 +19,9 @@ class DefaultCommand extends \CConsoleCommand
         ));
         $i = new \CDataProviderIterator($users, 1000);
 
-        foreach ($i as $user) {
+        foreach ($i as $n => $user) {
             AvatarManager::refreshAvatar($user);
-            echo "$i\n";
+            echo "$n\n";
         }
     }
 }

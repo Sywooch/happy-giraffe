@@ -21,6 +21,7 @@ class DefaultCommand extends \CConsoleCommand
 
         foreach ($i as $user) {
             AvatarManager::refreshAvatar($user);
+            echo "$i\n";
         }
     }
 }

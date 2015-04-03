@@ -18,11 +18,17 @@ info pages
         margin-bottom: -80px;
     }
     &-rules {
-        padding: 20px 100px 120px 30px;
+        @media (min-width: @screen-phone-landscape) {
+          padding: 20px 100px 120px 30px;
+        }
+        padding: 20px 10px 120px 10px;
         &-title {
+            @media (min-width: @screen-phone) {
+              font-size: 25px;
+            }
             font-family: Arial;
             color: #196EB9;
-            font-size: 25px;
+            font-size: 22px;
             font-weight: 700;
             letter-spacing: -0.625px;
             text-align: left;
@@ -38,27 +44,35 @@ info pages
             margin: 0 0 40px;
         }
         &-tag {
+            @media (min-width: @screen-phone-landscape) {
+                font-size: 35px;
+            }
             font-family: Arial;
             color: #196EB9;
-            font-size: 35px;
+            font-size: 25px;
             font-weight: 700;
             letter-spacing: -1px;
             text-align: left;
             margin: 0 0 20px;
             line-height: 1;
             &__last {
-                font-family: Arial;
+               @media (min-width: @screen-phone-landscape) {
+                 display: inline-block;
+                 margin: 0 0 0 20px;
+                 text-align: left;
+               }
+               display: block;
+               margin: 20px 0;
+               text-align: center;
+               font-family: Arial;
                color: #333;
                font-size: 14px;
                font-weight: 400;
                line-height: 20px;
-               text-align: left;
                letter-spacing: 0;
                vertical-align: middle;
-               display: inline-block;
                padding: 2px 5px;
                background: #FFF4AB;
-               margin-left: 20px;
             }
         }
         &-text {
@@ -140,9 +154,14 @@ info pages
                 }
             }
             &__part {
-                display: inline-block;
+                @media (min-width: @screen-phone) {
+                  display: inline-block;
+                  margin: 0 15px;
+                }
+                display: block;
+                text-align: center;
                 vertical-align: top;
-                margin: 0 15px;
+                margin: 0 15px 15px;
                 vertical-align: middle;
                 &__question {
                     color: #4fb4f7;
@@ -183,7 +202,10 @@ info pages
         }
     }
     &-start {
-        padding: 120px 0 !important;
+        @media (min-width: @screen-phone) {
+            padding: 120px 0 !important;
+        }
+        padding: 40px 0 !important;
     }
     &-maps {
         padding: 45px 0;
@@ -194,13 +216,22 @@ info pages
             margin: 0 10px 0 0;
         }
         &-part {
-            float: left;
-            width: 450px;
+            @media (min-width: @screen-desktop) {
+              float: left;
+              width: 450px;
+            }
+            float: none;
             &.left {
-                margin: 0 15px 0 35px;
+                @media (min-width: @screen-desktop) {
+                    margin: 0 15px 0 35px;
+                }
+                margin: 0 35px 20px;
             }
             &.right {
-                margin: 0 35px 0 15px;
+                @media (min-width: @screen-desktop) {
+                    margin: 0 35px 0 15px;
+                }
+                margin: 0 35px;
             }
         }
         &-map {
@@ -655,6 +686,24 @@ info pages
                 &:after {
                     background: none;
                 }
+            }
+            .counter-users {
+                @media (min-width: @screen-phone) {
+                    display: block;
+                }
+                display: none;
+            }
+            &__small {
+              @media (min-width: @screen-phone) {
+                  display: none;
+              }
+              display: block;
+              font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
+              color: #ffffff;
+              font-size: 45px;
+              font-weight: 700;
+              line-height: 1;
+              margin: 10px 0 0;
             }
         }
         &-people {

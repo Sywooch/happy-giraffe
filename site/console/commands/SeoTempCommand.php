@@ -123,6 +123,19 @@ class SeoTempCommand extends CConsoleCommand
         $this->writeCsv('questions', $parser->emails);
     }
 
+    public function actionParseMailRu2()
+    {
+        $parser = new MailForumParser();
+        $command = $this;
+        $parser->run(function($emails) use ($command) {
+            $result = array();
+            foreach ($emails as $email) {
+                $result[] = array($email);
+            }
+            $command->writeCsv('mailTopics', $result);
+        });
+    }
+
     public function actionCheckRemoved()
     {
         \Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
@@ -823,7 +836,7 @@ class SeoTempCommand extends CConsoleCommand
         }
     }
 
-    protected function writeCsv($name, $data)
+    public function writeCsv($name, $data)
     {
         $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . $name . '.csv';
         if (is_file($path)) {

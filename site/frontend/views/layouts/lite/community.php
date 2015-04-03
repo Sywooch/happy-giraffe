@@ -1,6 +1,6 @@
 <?php $this->beginContent('//layouts/lite/main'); ?>
 <?php /* <div class="b-main_cont"> */ ?>
-<?php /* Тут происходит неведомая хрень. Я просто скопировал это из application.modules.community.views.default._links */ ?>
+<?php if($this->club) {/* Тут происходит неведомая хрень. Я просто скопировал это из application.modules.community.views.default._links */ ?>
 <section class="b-section b-section__collection-<?= $this->club->section->id ?>">
     <div class="b-section_hold b-main_cont">
         <div class="b-main_col-hold clearfix">
@@ -75,6 +75,6 @@
         </div>
     </div>
 </section>
-<?php /* <div class="b-main_cont"> </div> */ ?>
+<?php } /* <div class="b-main_cont"> </div> */ ?>
 <?= $content ?>
 <?php $this->endContent(); ?>

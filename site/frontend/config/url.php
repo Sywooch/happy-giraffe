@@ -215,6 +215,12 @@ return array(
 
 
         /************************************************* community  *************************************************/
+        // community/*
+        'community/36.*' => 404,
+        'news/rubric<rubric_id:\d+>' => array('som/community/news'),
+        'news' => array('som/community/news'),
+        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/community/view', 'defaultParams' => array('forum_id' => 36)),
+        
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',
@@ -230,12 +236,6 @@ return array(
             'pattern' => '<club:[\w-]+>/services',
             'route' => 'community/default/services',
         ),
-
-        // community/*
-        'community/36.*' => 404,
-        'news/rubric<rubric_id:\d+>' => array('community/default/forum', 'defaultParams' => array('forum_id' => 36)),
-        'news' => array('community/default/forum', 'defaultParams' => array('forum_id' => 36)),
-        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/default/view', 'defaultParams' => array('forum_id' => 36)),
 
         'pregnancy-and-children' => array('community/default/section', 'defaultParams' => array('section_id' => 1)),
         'home' => array('community/default/section', 'defaultParams' => array('section_id' => 2)),

@@ -132,7 +132,7 @@ class SeoTempCommand extends CConsoleCommand
             foreach ($emails as $email) {
                 $result[] = array($email);
             }
-            $command->writeCsv('mailTopics', $result);
+            $command->writeCsv('mailTopics2', $result);
         });
     }
 

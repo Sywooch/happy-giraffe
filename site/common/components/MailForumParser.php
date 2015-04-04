@@ -54,7 +54,7 @@ class MailForumParser
     protected function makeRequest($url)
     {
         do {
-            $response = file_get_contents($url);
+            $response = @file_get_contents($url);
             if ($response === false) {
                 sleep(10);
             } else {

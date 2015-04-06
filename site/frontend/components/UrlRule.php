@@ -15,7 +15,7 @@ class UrlRule extends CBaseUrlRule
 
     public $pattern;
     public $route;
-    public $defaultParams;
+    public $defaultParams = array();
 
     public function createUrl($manager, $route, $params, $ampersand)
     {

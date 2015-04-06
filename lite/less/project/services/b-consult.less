@@ -3,25 +3,52 @@
     padding: 0;
   }
   &-top {
-    padding: 67px 0;
-    background: url('@{path-img}/services/consult/consult-top.png') no-repeat;
+    @media (min-width: @screen-phone-landscape) {
+        padding: 67px 0;
+        background: url('@{path-img}/services/consult/consult-top-empty.png') no-repeat;
+    }
+    @media (min-width: @screen-desktop) {
+      background: url('@{path-img}/services/consult/consult-top.png') no-repeat;
+      text-align: left;
+    }
+    background: none;
+    padding: 20px;
+    text-align: center;
     margin: 0;
     &__t {
-      display: block;
-      background: url('@{path-img}/services/consult/consult-top-fr.png') no-repeat;
-      padding: 54px 0 50px 40px;
-      margin: 10px 0 0 30px;
+      @media (min-width: @screen-phone-landscape) {
+        padding: 54px 0 50px 40px;
+        background: url('@{path-img}/services/consult/consult-top-fr.png') no-repeat;
+        margin: 10px 0 0 30px;
+      }
+      text-align: center;
+      display: inline-block;
+      background: none;
+      padding: 0;
+      margin: 0;
     }
     &__title {
+      @media (min-width: @screen-phone) {
+        font-size: 50px;
+      }
+      @media (min-width: @screen-phone-landscape) {
+        font-size: 30px;
+      }
       margin: 0;
       color: #3b0503;
       font-weight: 600;
-      font-size: 30px;
+      font-size: 37px;
     }
     &__text {
+      @media (min-width: @screen-phone) {
+        font-size: 26px;
+      }
+      @media (min-width: @screen-phone-landscape) {
+        font-size: 16px;
+      }
       margin: 0;
       color: #3b0503;
-      font-size: 16px;
+      font-size: 17px;
       line-height: 1;
     }
   }
@@ -118,6 +145,10 @@
   &-qa {
     margin: 0 0 80px;
     &-title {
+      @media  (min-width: @screen-phone-landscape) {
+          text-align: left;
+      }
+      text-align: center;
       color:  #522800;
       font-size: 25px;
       font-weight: 700;
@@ -164,7 +195,13 @@
       }
     }
     &-mst {
-      margin-left: 87px;
+      @media (min-width: @screen-phone) {
+        margin-left: 51px;
+      }
+      @media (min-width: @screen-tablet) {
+        margin-left: 87px;
+      }
+      margin-left: 34px;
       .comments_cont {
         &:after {
           top: 32px;
@@ -240,7 +277,7 @@
       margin: 0 0 20px;
       &__t {
         display: inline-block;
-        padding: 14px 100px 27px 32px;
+        padding: 14px 100px 40px 32px;
         margin: 10px 0 0 30px;
       }
       &__title {

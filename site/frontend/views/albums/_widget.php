@@ -21,7 +21,10 @@ if($newPhoto) {
         if ($model->width >= 580) {
             if (!$edit)
                 echo '<div class="b-article_in-img b-article_in-img__l">';
-            echo '<img src="' . Yii::app()->thumbs->getThumb($newPhoto, 'postImage', true) . '" class="content-img"' . $add . '>';
+            //echo '<img src="' . Yii::app()->thumbs->getThumb($newPhoto, 'postImage', true) . '" class="content-img"' . $add . '>';
+            echo HHtml::picture(Yii::app()->thumbs->getThumb($newPhoto, 'postImage', true), '', array(
+                '320' => Yii::app()->thumbs->getThumb($newPhoto, 'postImageMobile', true),
+            ));
             if (!$edit)
                 echo '</div>';
         } else {

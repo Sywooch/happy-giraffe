@@ -74,4 +74,21 @@ class HHtml extends CHtml
         return '<!-- ko stopBinding: true -->' . self::tag('time', $htmlOptions, $content) . '<!-- /ko -->';
     }
 
+    public static function picture($defaultSrc, $alt = '', $adaptive = array())
+    {
+        $output = '';
+        $output .= self::openTag('picture');
+        foreach ($adaptive as $width => $src) {
+            $output .= CHtml::tag('source', array(
+                'srcset' => $src,
+                'media' => '(max-width: ' . $width . 'px)',
+            ));
+        }
+        $output .= CHtml::tag('img', array(
+            'srcset' => $defaultSrc,
+            'alt' => $alt,
+        ));
+        $output .= self::closeTag('picture');
+        return $output;
+    }
 }

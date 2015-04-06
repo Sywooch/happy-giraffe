@@ -222,6 +222,16 @@ return array(
             'defaultParams' => array('forum_id' => 36),
         ),
         array(
+            'class' => 'UrlRule',
+            'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
+            'route' => 'community/default/forum',
+        ),
+        array(
+            'class' => 'UrlRule',
+            'pattern' => 'community/<forum_id:\d+>/forum/',
+            'route' => 'community/default/forum',
+        ),
+        array(
             'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',
             'route' => 'som/community/default/index',

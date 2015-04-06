@@ -665,9 +665,12 @@ info pages
     &-join {
         text-align: center;
         &-title {
+            @media (min-width: @screen-phone-landscape) {
+                font-size: 45px;
+            }
             font-family: 'PT Sans', PT sans, Helvetiva, Arial, sans-serif;
             color:  @color-white;
-            font-size: 45px;
+            font-size: 30px;
             font-weight: 700;
             line-height: 1;
         }
@@ -689,7 +692,7 @@ info pages
             }
             .counter-users {
                 @media (min-width: @screen-phone) {
-                    display: block;
+                    display: inline-block;
                 }
                 display: none;
             }

@@ -264,7 +264,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     {
         if (is_null($this->_user)) {
             $this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
-                'id' => $this->authorId,
+                'id' => (int) $this->authorId,
                 'avatarSize' => \Avatar::SIZE_MEDIUM,
             ));
         }

@@ -185,23 +185,6 @@ return array(
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
-
-        // пагинация в клубах
-        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index',
-        'community/<forum_id:\d+>/forum/' => 'posts/communityList/index',
-        
-        /* т.к. некоторые ссылки используют эти роуты при построении запросов */
-        array(
-            'class' => 'UrlRule',
-            'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
-            'route' => 'community/default/forum',
-        ),
-        array(
-            'class' => 'UrlRule',
-            'pattern' => 'community/<forum_id:\d+>/forum/',
-            'route' => 'community/default/forum',
-        ),
-
         // posts
         'posts' => 'posts/default/index',
         'posts/<_a>' => 'posts/default/<_a>',
@@ -220,7 +203,24 @@ return array(
         'news/rubric<rubric_id:\d+>' => array('som/community/news'),
         'news' => array('som/community/news'),
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/community/view', 'defaultParams' => array('forum_id' => 36)),
+
+        // пагинация в клубах
+        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index',
+        'community/<forum_id:\d+>/forum/' => 'posts/communityList/index',
         
+        /* т.к. некоторые ссылки используют эти роуты при построении запросов */
+        array(
+            'class' => 'UrlRule',
+            'pattern' => 'news/rubric<rubric_id:\d+>',
+            'route' => 'community/default/forum',
+            'defaultParams' => array('forum_id' => 36),
+        ),
+        array(
+            'class' => 'UrlRule',
+            'pattern' => 'news',
+            'route' => 'community/default/forum',
+            'defaultParams' => array('forum_id' => 36),
+        ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',

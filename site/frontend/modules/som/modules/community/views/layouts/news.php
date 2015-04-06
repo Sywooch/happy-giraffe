@@ -47,7 +47,7 @@ $this->beginContent('//layouts/lite/main');
                 <ul class="menu-simple_ul">
                     <?php
                     foreach ($this->forum->rubrics as $rubric) {
-                        $content = HHtml::link($rubric->title, \Yii::app()->createUrl('som/community/news', array('rubric_id' => $rubric->id)), array('class' => 'menu-simple_a'));
+                        $content = HHtml::link($rubric->title, $rubric->url, array('class' => 'menu-simple_a'));
                         $class = 'menu-simple_li' . (($this->rubric && $this->rubric->id == $rubric->id) ? ' active' : '');
                         echo CHtml::tag('li', array('class' => $class), $content);
                     }

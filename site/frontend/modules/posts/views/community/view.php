@@ -9,6 +9,8 @@ $this->metaNoindex = $this->post->isNoindex;
 $this->breadcrumbs = array();
 if($this->club) {
     $this->breadcrumbs[$this->club->title] = $this->club->getUrl();
+} elseif($this->forum) {
+    $this->breadcrumbs[$this->forum->title] = $this->forum->getUrl();
 }
 if (isset($this->club->communities) && count($this->club->communities) > 1) {
     $this->breadcrumbs[$this->forum->title] = $this->forum->getUrl();

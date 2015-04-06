@@ -81,6 +81,36 @@ class AvatarManager
         }
     }
 
+    public static function refreshAvatar(\User $user)
+    {
+        if ($user->avatarId === null) {
+            return false;
+        }
+
+        $crop = \CJSON::decode(\Yii::app()->api->request('photo/crops', 'get', array(
+            'id' => $user->avatarId,
+        )));
+
+        $photo = Photo::model()->findByPk($crop['data']['photo']['id']);
+
+        if ($photo === null) {
+            return false;
+        }
+
+        $cropData = array(
+            'x' => $crop['data']['x'],
+            'y' => $crop['data']['y'],
+            'w' => $crop['data']['w'],
+            'h' => $crop['data']['h'],
+        );
+
+        foreach (self::$_sizeToPreset as $size => $presetName) {
+            echo \Yii::app()->crops->getCrop($photo, self::$_sizeToPreset[$size], $cropData, $crop['data']['fsName'], true) . "\n";
+        }
+
+        return true;
+    }
+
     protected static function getAvatarBySize(\User $user, $size)
     {
         return $user->avatarObject->$size;

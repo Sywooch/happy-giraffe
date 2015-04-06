@@ -19,7 +19,7 @@
               <a class="margin-t3 display-b" href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Редактировать</a>
           <?php endif; ?>
             <?php if ($data->answer === null && Yii::app()->user->checkAccess('removeQuestions')): ?>
-                <a class="margin-t3 display-b" href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Удалить</a>
+                <a class="margin-t3 display-b" onclick="var self = this; $.post('/api/consultation/remove/', JSON.stringify({ questionId: '<?=$data->id?>' }), function() {$(self).text('Удалено')})">Удалить</a>
             <?php endif; ?>
             <?php if ($data->answer === null): ?>
                 <?php $this->renderPartial('_buttons', array('data' => $data)); ?>
@@ -31,7 +31,7 @@
         <div class="b-consult-qa-ms__img">
             <span class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?=$data->answer->user->fullName?>" src="<?=$data->answer->user->avatarUrl?>" class="ava_img"></span>
         </div>
-        <div class="b-consult-qa-mst"><a href="<?=$data->answer->user->profileUrl?>" class="b-consult-qa-ms__name"><?=$data->answer->user->fullName?></a>
+        <div class="b-consult-qa-mst"><span class="b-consult-qa-ms__name"><?=$data->answer->user->fullName?></span>
             <?=HHtml::timeTag($data->answer, array('class' => 'tx-date'), null) ?>
             <div class="b-consult-qa-ms__message comments_cont">
                 <div class="b-consult-qa-ms__message__text"><?=\site\common\helpers\HStr::truncate(strip_tags($data->answer->text), 500)?></div>

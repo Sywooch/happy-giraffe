@@ -41,10 +41,104 @@ hr,
 	}
 }
 
+.layout-header-consult {
+    @media (min-width: @screen-desktop) {
+      display: block;
+    }
+		border: 1px solid #929e76;
+    display: none;
+    margin: 20px auto 0;
+    background: url('@{path-img}/services/consult/consult-banner-top.png') no-repeat;
+    width: 1000px;
+    padding: 80px 60px 113px 60px;
+    &__l {
+      float: left;
+      margin: 0 40px 0 0;
+    }
+    &__title {
+      font-family: Arial, Tahoma, Verdana, sans-serif;
+      color: #4e1c19;
+      font-size: 62px;
+      font-weight: 700;
+      text-align: left;
+      line-height: 1;
+    }
+    &__button {
+      display: inline-block;
+      font-family: PTSans;
+      color: #ffffff;
+      font-size: 31px;
+      font-weight: 700;
+      text-align: center;
+      font-family: Arial, Tahoma, Verdana, sans-serif;
+      .gvertical(#fa631e, #ee7e18);
+      padding: 21px 0;
+      line-height: 1;
+      border-radius: 6px;
+      margin: 20px 0 0;
+      opacity: 0.9;
+      &:hover {
+        opacity: 1;
+        color: #fff;
+      }
+      &__inner {
+        display: block;
+        padding: 0 70px 0 50px;
+        background: url('@{path-img}/services/consult/consult-banner-arrow.png') 90% center no-repeat;
+      }
+    }
+    &__img {
+      margin: 0 0 10px;
+    }
+    &__name {
+        font-family: Arial, Tahoma, Verdana, sans-serif;
+        color: #4e1c19;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+    }
+    &__pos {
+        font-family: Arial, Tahoma, Verdana, sans-serif;
+        color: #4e1c19;
+        font-size: 18px;
+        font-weight: 400;
+        text-align: center;
+    }
+    &__theme {
+      font-family: Arial, Tahoma, Verdana, sans-serif;
+      color:  #4e1c19;
+      font-size: 25px;
+      font-weight: 400;
+      text-align: center;
+    }
+    &.sotense {
+      padding: 0 0 0 60px;
+      .layout-header-consult__l {
+        padding: 20px 0 40px 0;
+        width: 60%;
+        margin: 0;
+        text-align: center;
+      }
+      .layout-header-consult__r {
+        float: left;
+        background: #fff;
+        width: 40%;
+        text-align: center;
+        padding: 22px 0;
+      }
+      .layout-header-consult__title {
+        font-size: 55px;
+        text-align: center;
+        margin: 0;
+      }
+    }
+}
+
 @media (min-width: @screen-desktop) {
     .layout-header {
         &-contest {
-			display: block;
+						display: block;
             background: url('/lite/images/contest/commentator/header-contest-part.png') no-repeat;
             height: 150px;
         }

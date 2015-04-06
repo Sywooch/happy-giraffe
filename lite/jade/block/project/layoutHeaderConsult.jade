@@ -1,0 +1,29 @@
+//- 
+
+mixin layoutHeaderConsult(mod, vars)
+  .layout-header-consult
+    .layout-header-consult__l
+      .layout-header-consult__title
+        | У Вас не хватает <br />
+        | грудного молока?
+    .layout-header-consult__r
+      a.layout-header-consult__button
+        span.layout-header-consult__button__inner 
+            | Смотреть <br />
+            | ответы
+  .layout-header-consult.sotense.clearfix
+    .layout-header-consult__l
+      .layout-header-consult__theme Онлайн-консультация
+      .layout-header-consult__title
+        | У Вас не хватает <br />
+        | грудного молока?
+      a.layout-header-consult__button
+        span.layout-header-consult__button__inner Задайте вопрос
+    .layout-header-consult__r
+      .layout-header-consult__img
+        img(src="/lite/images/services/consult/consult-man.png", alt="")
+      .layout-header-consult__name
+        | Морозов <br />
+        | Сергей Леонидович
+      .layout-header-consult__pos Врач-педиатр
+- var layoutHeaderGold = {}

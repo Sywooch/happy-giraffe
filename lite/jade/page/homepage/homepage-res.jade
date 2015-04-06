@@ -1,0 +1,276 @@
+doctype html
+| <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+| <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+include ../../block/config
+//- vars from template file
+- var bodyClass = ''; 
+- var global = {}; 
+- global.cssFile = 'homepage.css';
+ 
+block vars
+    
+//- tag head
+if (debug)
+    - googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
+
+- global.headItem = googlefont
++headLite(path, global)
+
+/// layout out 
+body.body.body__lite.body__bg2(class='body__homepage')
+ 
+    .layout-container
+        .layout-loose.layout-loose__white
+            .layout-header
+                // header 
+                header.header.header__homepage
+                    .header_hold
+                        .clearfix
+                            .header-login
+                                a(href="#loginWidget", class="header-login_a popup-a") Вход
+                                a(href="#registerWidget", class="header-login_a popup-a") Регистрация
+                            +sidebarSearch('sidebar-search__big', sidebarSearch.a)
+                        .header_row-home
+                            +logo('logo__l')
+            
+            .layout-loose_hold.clearfix 
+                .homepage-desc
+                    .homepage-desc_hold
+                        .homepage-desc_b.clearfix
+                            .homepage-desc_l
+                                | Веселый Жираф - это социальная сеть
+                                br
+                                span.homepage-desc_mark для всей семьи
+                                | , которая собрала
+                                br
+                                | миллионы мам и пап со всей  России
+                            .homepage-desc_r
+                                a.homepage_btn-sign.btn.btn-success.btn-xxl(href='#') Присоединяйся!
+                                .homepage-desc_soc
+                                    span.i-or-tx или войти с помощью 
+
+                                    ul.ico-social-ul
+                                        li.ico-social-ul_li
+                                            a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                        li.ico-social-ul_li
+                                            a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
+
+                // Клубы
+                .homepage_row
+                    .homepage-clubs
+                        .homepage_title  Мы здесь общаемся
+                            br 
+                            | на различные семейные темы 
+                        .homepage-clubs_hold
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__1
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Муж и жена
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__14
+                                            .homepage-clubs_tx Свадьба
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__15
+                                            .homepage-clubs_tx Отношение в семье 
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__2
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Беременность и дети
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__1
+                                            .homepage-clubs_tx Планирование
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__2
+                                            .homepage-clubs_tx Беременность и роды
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__3
+                                            .homepage-clubs_tx Дети до года
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__4
+                                            .homepage-clubs_tx Дети старше года
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__5
+                                            .homepage-clubs_tx Дошкольники
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__6
+                                            .homepage-clubs_tx Школьники
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__3
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Наш дом
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__7
+                                            .homepage-clubs_tx Готовим на кухне
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__9
+                                            .homepage-clubs_tx Домашние хлопоты
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__11
+                                            .homepage-clubs_tx Наши питомцы
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__10
+                                            .homepage-clubs_tx Сад и огород 
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__8
+                                            .homepage-clubs_tx Ремонт в доме
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__4
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Красота и здоровье
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__12
+                                            .homepage-clubs_tx Красота и мода
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__13
+                                            .homepage-clubs_tx Наше здоровье
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__5
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Интересы и увлечения
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__18
+                                            .homepage-clubs_tx Наш автомобиль
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__16
+                                            .homepage-clubs_tx Рукоделие
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__17
+                                            .homepage-clubs_tx Цветы в доме
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__19
+                                            .homepage-clubs_tx Рыбалка
+                            // collection
+                            .homepage-clubs_collection.homepage-clubs_collection__6
+                                .homepage-clubs_title-hold
+                                    .homepage-clubs_title Семейный отдых
+                                ul.homepage-clubs_ul
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__21
+                                            .homepage-clubs_tx Выходные с семьей
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__20
+                                            .homepage-clubs_tx Мы путешествуем
+                                    li.homepage-clubs_li
+                                        a.homepage-clubs_a(href='#') 
+                                            .homepage-clubs_ico-hold
+                                                .ico-club.ico-club__22
+                                            .homepage-clubs_tx Семейные праздники
+
+                        .homepage-clubs_b
+                            .homepage-clubs_btn-hold
+                                a(href='#').homepage_btn-sign.btn.btn-xxl Начни общаться!
+                            .homepage_desc-tx
+                                | узнавай новое, делись самым интересным 
+
+                // /Клубы 
+
+                // Посты 
+                .homepage_row
+                    .homepage-posts
+                        .homepage_title  Лучшие записи 
+                        .homepage-posts_col-hold
+                                +articleAnonce('article-anonce__red article-anonce__xl', articleAnonce.xl)
+                                +articleAnonce('article-anonce__lilac article-anonce__ico', articleAnonce.ico1)
+                                +articleAnonce('article-anonce__green', articleAnonce.d)
+                                +articleAnonce('article-anonce__yellow', articleAnonce.a)
+                                +articleAnonce('article-anonce__blue', articleAnonce.f) 
+
+                                //-+articleAnonce('article-anonce__green', articleAnonce.d)
+
+                                //-+articleAnonce('article-anonce__lilac', articleAnonce.f)
+                                //-+articleAnonce('article-anonce__blue', articleAnonce.b)
+                                //-.bnr-base 
+                                    a(href='#') 
+                                        img(src="#{path}images/example/w240-h400-2.jpg", alt="")
+                            
+                               //- +articleAnonce('article-anonce__green', articleAnonce.f)
+
+                // Посетители
+                .homepage_row
+                    .homepage-counter
+                        .homepage_title  Нас посетило уже! 
+                        
+                        //- Счетчик 
+                        //-   script(type='text/javascript', src='/javascripts/jquery.lwtCountdown-1.0.js')
+                        //-script.
+                            jQuery(document).ready(function() { 
+                                $('#counter-users').countUp({
+                                    numberSet : 62789298,
+                                    randomNumberMax : 45
+                                });
+
+                            });
+                        //
+                            Countdown dashboard start 
+                        #counter-users.counter-users
+                            .counter-users_dash.counter-users_dash__millions
+                                .counter-users_digit 6
+                                .counter-users_digit 2
+                            .counter-users_dash.counter-users_dash__thousands
+                                .counter-users_digit 0
+                                .counter-users_digit 7
+                                .counter-users_digit 2
+                            .counter-users_dash.counter-users_dash__hundreds
+                                .counter-users_digit 1
+                                .counter-users_digit 9
+                                .counter-users_digit 0
+                        //
+                            Countdown dashboard end 
+
+                        .homepage_desc-tx
+                            | будущих и настоящих мам и пап
+                        a.homepage_btn-sign.btn.btn-success.btn-xxl(href='#') Присоединяйся!
+
+                // /Посетители
+
+                // b-main 
+                +layout-footer-lite('', layoutFooterLite.homepage)
+| </html>
+ 

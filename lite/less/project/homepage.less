@@ -1,5 +1,5 @@
-/* 
-    homepage 
+/*
+    homepage
 */
 .homepage {
     min-width: 1000px;
@@ -32,7 +32,7 @@
 
 
     .i-or-tx {
-        color: #b0a0cc; 
+        color: #b0a0cc;
     }
     &_hold {
         margin: 10px 0 0;
@@ -41,9 +41,14 @@
     }
     &_b {}
     &_l {
-        float: left;
-        width: 485px;
-        margin-right: 45px;
+        @media (min-width: @screen-desktop) {
+          margin-right: 45px;
+          float: left;
+          width: 485px;
+        }
+        float: none;
+        width: 100%;
+        margin-right: 0;
         text-align: right;
         color: #c7bbdc;
         font-size: 26px;
@@ -54,6 +59,10 @@
         font-size: 32px;
     }
     &_r {
+        @media (min-width: @screen-desktop) {
+          display: block;
+        }
+        display: none;
         float: left;
         margin: 10px 0 0;
     }
@@ -67,7 +76,7 @@
 /* homepage-clubs */
 .homepage-clubs {
     padding: 20px 35px;
-    
+
     &_hold {
         margin: 0 -95px 23px 0;
     }
@@ -183,7 +192,7 @@
     .homepage_title {
       margin-bottom: 15px;
     }
-    
+
     .article-anonce {
         display: inline-block;
         vertical-align: top;
@@ -200,7 +209,7 @@
     }
     /*.article-similar_t {
         font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
-    }*/    
+    }*/
     &_col-hold {
         text-align: center;
     }

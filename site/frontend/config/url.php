@@ -185,11 +185,6 @@ return array(
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
-        // posts
-        'posts' => 'posts/default/index',
-        'posts/<_a>' => 'posts/default/<_a>',
-        'posts/<_c>/<_a>' => 'posts/<_c>/<_a>',
-
         //blog
         'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
         'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',
@@ -208,6 +203,11 @@ return array(
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index',
         'community/<forum_id:\d+>/forum/' => 'posts/communityList/index',
         
+        // posts
+        'posts' => 'posts/default/index',
+        'posts/<_a>' => 'posts/default/<_a>',
+        'posts/<_c>/<_a>' => 'posts/<_c>/<_a>',
+
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
         array(
             'class' => 'UrlRule',

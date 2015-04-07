@@ -6,7 +6,7 @@
 
 class MailSenderGeneric extends MailSender
 {
-    protected $debugMode = self::DEBUG_PRODUCTION;
+    protected $debugMode = self::DEBUG_TESTING;
 
     public $templateFile;
 
@@ -23,11 +23,11 @@ class MailSenderGeneric extends MailSender
         Yii::app()->postman->send($message);
     }
 
-    protected function getUsersCriteria()
-    {
-        $criteria = parent::getUsersCriteria();
-        $criteria->join .= ' LEFT OUTER JOIN commentators__contests_participants p ON t.id = p.userId LEFT OUTER JOIN mail__delivery d ON t.id = d.user_id AND d.type = ""';
-        $criteria->addCondition('p.userId IS NULL AND d.id IS NULL');
-        return $criteria;
-    }
+//    protected function getUsersCriteria()
+//    {
+//        $criteria = parent::getUsersCriteria();
+//        $criteria->join .= ' LEFT OUTER JOIN commentators__contests_participants p ON t.id = p.userId LEFT OUTER JOIN mail__delivery d ON t.id = d.user_id AND d.type = ""';
+//        $criteria->addCondition('p.userId IS NULL AND d.id IS NULL');
+//        return $criteria;
+//    }
 }

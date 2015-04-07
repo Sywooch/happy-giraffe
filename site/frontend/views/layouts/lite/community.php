@@ -1,6 +1,6 @@
 <?php $this->beginContent('//layouts/lite/main'); ?>
 <?php /* <div class="b-main_cont"> */ ?>
-<?php /* Тут происходит неведомая хрень. Я просто скопировал это из application.modules.community.views.default._links */ ?>
+<?php if($this->club) {/* Тут происходит неведомая хрень. Я просто скопировал это из application.modules.community.views.default._links */ ?>
 <section class="b-section b-section__collection-<?= $this->club->section->id ?>">
     <div class="b-section_hold b-main_cont">
         <div class="b-main_col-hold clearfix">
@@ -31,7 +31,7 @@
                                 <?php endforeach; ?>
                             <?php endif ?>
                             <?php if (count($this->club->communities) == 1 /*&& (count($this->club->services) > 0)*/): ?>
-                                <li class="b-section_li">
+                                <!--<li class="b-section_li">
                                     <a href="<?=
                                     $this->createUrl('/community/default/forum', array(
                                         'forum_id' => $this->club->communities[0]->id))
@@ -40,7 +40,7 @@
                                        if (isset($this->forum) && $this->forum !== null && $this->forum->id == $this->club->communities[0]->id)
                                            echo ' active'
                                            ?>">Форум</a>
-                                </li>
+                                </li>-->
                             <?php endif ?>
 
                             <?php /*if (count($this->club->services) < 2): ?>
@@ -63,9 +63,9 @@
                                     <a href="<?= $this->createUrl('/community/default/clubPhotoPosts', array('clubId' => $this->club->id)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'clubPhotoPosts') echo ' active' ?>">Фото-посты</a>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->club->contest !== null): ?>
+                            <?php /*if ($this->club->contest !== null): ?>
                                 <li class="b-section_li"><a href="<?= $this->club->contest->url ?>" class="b-section_li-a"><img src="/images/contest/club/<?= $this->club->contest->cssClass ?>/club-menu-btn.png" alt=""></a></li>
-                                    <?php endif; ?>
+                                    <?php endif;*/ ?>
                                 <?php else: ?>
                                     <?php $this->renderPartial('application.modules.community.views.default.club_specific._links_' . $this->club->id); ?>
                                 <?php endif ?>
@@ -75,6 +75,6 @@
         </div>
     </div>
 </section>
-<?php /* <div class="b-main_cont"> </div> */ ?>
+<?php } /* <div class="b-main_cont"> </div> */ ?>
 <?= $content ?>
 <?php $this->endContent(); ?>

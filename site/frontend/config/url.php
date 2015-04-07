@@ -185,12 +185,42 @@ return array(
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
+        //blog
+        'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
+        'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',
+        'blog/add/content_type_slug/<content_type_slug>/rubric_id/<rubric_id:\d+>' => 'blog/add',
+        'blog/<_a:(add|empty)>' => 'blog/<_a>',
+
+
+        /************************************************* community  *************************************************/
+        // community/*
+        'community/36.*' => 404,
+        'news/rubric<rubric_id:\d+>' => array('som/community/news/index'),
+        'news' => array('som/community/news/index'),
+        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/community/view', 'defaultParams' => array('forum_id' => 36)),
 
         // пагинация в клубах
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index',
         'community/<forum_id:\d+>/forum/' => 'posts/communityList/index',
         
+        // posts
+        'posts' => 'posts/default/index',
+        'posts/<_a>' => 'posts/default/<_a>',
+        'posts/<_c>/<_a>' => 'posts/<_c>/<_a>',
+
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
+        array(
+            'class' => 'UrlRule',
+            'pattern' => 'news/rubric<rubric_id:\d+>',
+            'route' => 'community/default/forum',
+            'defaultParams' => array('forum_id' => 36),
+        ),
+        array(
+            'class' => 'UrlRule',
+            'pattern' => 'news',
+            'route' => 'community/default/forum',
+            'defaultParams' => array('forum_id' => 36),
+        ),
         array(
             'class' => 'UrlRule',
             'pattern' => 'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>',
@@ -201,20 +231,11 @@ return array(
             'pattern' => 'community/<forum_id:\d+>/forum/',
             'route' => 'community/default/forum',
         ),
-
-        // posts
-        'posts' => 'posts/default/index',
-        'posts/<_a>' => 'posts/default/<_a>',
-        'posts/<_c>/<_a>' => 'posts/<_c>/<_a>',
-
-        //blog
-        'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
-        'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',
-        'blog/add/content_type_slug/<content_type_slug>/rubric_id/<rubric_id:\d+>' => 'blog/add',
-        'blog/<_a:(add|empty)>' => 'blog/<_a>',
-
-
-        /************************************************* community  *************************************************/
+        array(
+            'class' => 'site.frontend.components.ClubUrlRule',
+            'pattern' => '<club:[\w-]+>',
+            'route' => 'som/community/default/index',
+        ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',
@@ -225,12 +246,6 @@ return array(
             'pattern' => '<club:[\w-]+>/services',
             'route' => 'community/default/services',
         ),
-
-        // community/*
-        'community/36.*' => 404,
-        'news/rubric<rubric_id:\d+>' => array('community/default/forum', 'defaultParams' => array('forum_id' => 36)),
-        'news' => array('community/default/forum', 'defaultParams' => array('forum_id' => 36)),
-        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/default/view', 'defaultParams' => array('forum_id' => 36)),
 
         'pregnancy-and-children' => array('community/default/section', 'defaultParams' => array('section_id' => 1)),
         'home' => array('community/default/section', 'defaultParams' => array('section_id' => 2)),

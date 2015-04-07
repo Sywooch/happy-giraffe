@@ -12,7 +12,6 @@ class MailSenderGeneric extends MailSender
 
     public function __construct($templateFile)
     {
-        $this->type = $templateFile;
         $this->templateFile = $templateFile;
     }
 
@@ -27,7 +26,7 @@ class MailSenderGeneric extends MailSender
     protected function getUsersCriteria()
     {
         $criteria = parent::getUsersCriteria();
-        $criteria->join .= ' LEFT OUTER JOIN mail__delivery d ON t.id = d.user_id AND d.type = "' . $this->type . '"';
+        $criteria->join .= ' LEFT OUTER JOIN mail__delivery d ON t.id = d.user_id AND d.type = ""';
         $criteria->addCondition('d.id IS NULL');
         return $criteria;
     }

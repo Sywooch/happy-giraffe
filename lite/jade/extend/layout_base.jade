@@ -16,8 +16,8 @@ body.body(class='#{bodyClass}')
     //-|  <!-- #{timestamp} -->
     //-///////////////////////////////////////
     .layout-container
+        +layoutHeaderConsult()
         .layout-loose
-            +layoutHeaderGold()
             .layout-header
                 +headerGuest('', headerGuest.base)
             .layout-loose_hold.clearfix

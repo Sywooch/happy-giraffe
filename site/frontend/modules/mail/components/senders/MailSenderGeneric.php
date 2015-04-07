@@ -19,6 +19,7 @@ class MailSenderGeneric extends MailSender
     {
         $message = new MailMessageGeneric($user, array(
             'templateFile' => $this->templateFile,
+            'type' => $this->templateFile,
         ));
         Yii::app()->postman->send($message);
     }

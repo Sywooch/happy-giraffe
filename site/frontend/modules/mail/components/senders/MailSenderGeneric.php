@@ -12,6 +12,7 @@ class MailSenderGeneric extends MailSender
 
     public function __construct($templateFile)
     {
+        $this->type = $templateFile;
         $this->templateFile = $templateFile;
     }
 
@@ -23,11 +24,11 @@ class MailSenderGeneric extends MailSender
         Yii::app()->postman->send($message);
     }
 
-//    protected function getUsersCriteria()
-//    {
-//        $criteria = parent::getUsersCriteria();
-//        $criteria->join .= ' LEFT OUTER JOIN commentators__contests_participants p ON t.id = p.userId LEFT OUTER JOIN mail__delivery d ON t.id = d.user_id AND d.type = ""';
-//        $criteria->addCondition('p.userId IS NULL AND d.id IS NULL');
-//        return $criteria;
-//    }
+    protected function getUsersCriteria()
+    {
+        $criteria = parent::getUsersCriteria();
+        $criteria->join .= ' LEFT OUTER JOIN mail__delivery d ON t.id = d.user_id AND d.type = "' . $this->type . '"';
+        $criteria->addCondition('d.id IS NULL');
+        return $criteria;
+    }
 }

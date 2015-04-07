@@ -2,7 +2,7 @@
 /**
  * @var MailMessageGeneric $message
  */
-$message->subject = $message->user->first_name . ' задай вопрос по грудному вскармливанию!';
+$message->subject = $message->user->first_name . ', задай вопрос по грудному вскармливанию!';
 ?>
 
 <!-- Inliner Build Version 4380b7741bb759d6cb997545f3add21ad48f010b -->

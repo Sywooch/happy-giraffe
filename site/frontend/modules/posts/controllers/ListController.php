@@ -51,12 +51,13 @@ class ListController extends \LiteController
         ));
     }
 
-    public function actionIndex($user_id)
+    public function actionIndex()
     {
-        $this->rssFeed = new UserRssChannel($user_id);
-        $this->userId = $user_id;
-        $this->listDataProvider = $this->getListDataProvider($user_id);
-        $this->owner = \User::model()->findByPk($user_id);
+        $userId = \Yii::app()->request->getQuery('user_id');
+        $this->rssFeed = new UserRssChannel($userId);
+        $this->userId = $userId;
+        $this->listDataProvider = $this->getListDataProvider($userId);
+        $this->owner = \User::model()->findByPk($userId);
         $this->render('list');
     }
 

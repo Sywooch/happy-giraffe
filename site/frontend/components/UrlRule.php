@@ -15,16 +15,19 @@ class UrlRule extends CBaseUrlRule
 
     public $pattern;
     public $route;
+    public $defaultParams = array();
 
     public function createUrl($manager, $route, $params, $ampersand)
     {
         $rule = new CUrlRule($this->route, $this->pattern);
+        $rule->defaultParams = $this->defaultParams;
         return $rule->createUrl($manager, $route, $params, $ampersand);
     }
 
     public function parseUrl($manager, $request, $pathInfo, $rawPathInfo)
     {
         $rule = new CUrlRule($this->route, $this->pattern);
+        $rule->defaultParams = $this->defaultParams;
         return $rule->parseUrl($manager, $request, $pathInfo, $rawPathInfo);
     }
 

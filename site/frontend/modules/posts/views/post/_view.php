@@ -51,6 +51,9 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             }
             ?>
             <div class="b-article_in clearfix">
+                <?php if ($geo = $this->post->templateObject->getAttr('geo', false)) { ?>
+                    <geo-morning params='<?= CJSON::encode($geo) ?>'><span>Где:</span><img src="<?= $geo['locationImage'] ?>" alt="<?= $geo['location'] ?>"></geo-morning>
+                <?php } ?>
                 <?php if ($this->post->templateObject->getAttr('noWysiwyg', false)) { ?>
                     <?= $this->post->html ?>
                 <?php } else { ?>

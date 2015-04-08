@@ -210,6 +210,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->post->text)));
 
+        die('123');
         return $newPost->save();
     }
 

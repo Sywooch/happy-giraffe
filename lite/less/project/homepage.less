@@ -3,7 +3,6 @@
 */
 .homepage {
     min-width: 1000px;
-
     &_btn-sign {
         width: 285px;
         font-size: 25px;
@@ -16,7 +15,6 @@
         text-align: center;
         color: @color-gray;
     }
-
     &_desc-tx {
         margin: 20px;
         font-size: 16px;
@@ -27,6 +25,10 @@
 
 /* homepage-desc */
 .homepage-desc {
+    @media (min-width: @screen-tablet) {
+      display: block;
+    }
+    display: none;
     background-color: #664e92;
     font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
 
@@ -45,11 +47,12 @@
           margin-right: 45px;
           float: left;
           width: 485px;
+          text-align: right;
         }
         float: none;
         width: 100%;
         margin-right: 0;
-        text-align: right;
+        text-align: center;
         color: #c7bbdc;
         font-size: 26px;
         line-height: 40px;
@@ -194,12 +197,39 @@
     }
 
     .article-anonce {
-        display: inline-block;
+        @media (min-width: @screen-tablet) {
+          display: inline-block;
+          width: 300px;
+        }
+        display: block;
+        width: auto;
         vertical-align: top;
         margin: 20px 7px 15px;
-        width: 300px;
+        .article-anonce_img-hold {
+          @media (min-width: @screen-tablet) {
+            height: 410px;
+          }
+          height: auto;
+        }
+        .article-anonce_img-top {
+          @media (min-width: @screen-tablet) {
+            display: block;
+          }
+          display: none;
+        }
+        .article-anonce_img {
+          @media (min-width: @screen-tablet) {
+            position: absolute;
+          }
+          position: initial;
+        }
     }
-    .article-anonce__xl {width: 615px;}
+    .article-anonce__xl {
+      @media (min-width: @screen-tablet) {
+        width: 615px;
+      }
+      width: auto;
+    }
     .bnr-base,
     .article-similar {
         display: inline-block;

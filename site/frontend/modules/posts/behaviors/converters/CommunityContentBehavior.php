@@ -210,10 +210,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->post->text)));
 
-        $newPost->save();
-
-        print_r($newPost->errors);
-        return false;
+        return $newPost->save();
     }
 
     protected function convertPhotoPost()

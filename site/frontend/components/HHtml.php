@@ -87,6 +87,7 @@ class HHtml extends CHtml
         $output .= CHtml::tag('img', array(
             'srcset' => $defaultSrc,
             'alt' => $alt,
+            'style' => 'width: auto;',
         ));
         $output .= self::closeTag('picture');
         return $output;

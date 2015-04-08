@@ -127,7 +127,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'advPost');
         $newPost->preview = $advContent->htmlTextPreview;
-        $newPost->html = $advContent->htmlText;
+        $newPost->html = $this->replaceImg($advContent->htmlText);
         $newPost->templateObject->data['type'] = 'advPost';
         $newPost->isNoindex = false;
         
@@ -162,7 +162,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $newPost->templateObject->data['type'] = 'post';
         $oldPost->post->purified->clearCache();
-        $newPost->html = $oldPost->post->purified->text;
+        $newPost->html = $this->replaceImg($oldPost->post->purified->text);
         $newPost->text = $oldPost->post->text;
         $clearText = $newPost->fillText();
         $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
@@ -311,6 +311,18 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         }
     }
 
+    protected function replaceImg($html)
+    {
+        include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+        $doc = str_get_html($html);
+        foreach ($doc->find('img') as $image) {
+            $photo = \Yii::app()->thumbs->getPhotoByUrl($image->src);
+            $image->outertext = \HHtml::picture(\Yii::app()->thumbs->getThumb($photo, 'postImage', true), '', array(
+                '320' => \Yii::app()->thumbs->getThumb($photo, 'postImageMobile', true),
+            ));
+        }
+        return (string) $doc;
+    }
 }
 
 ?>

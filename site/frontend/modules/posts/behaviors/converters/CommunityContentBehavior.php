@@ -1,6 +1,8 @@
 <?php
 
 namespace site\frontend\modules\posts\behaviors\converters;
+use site\frontend\modules\photo\helpers\PhotoHelper;
+use site\frontend\modules\photo\models\Photo;
 
 /**
  * Description of CommunityContentBehavior
@@ -127,7 +129,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'advPost');
         $newPost->preview = $advContent->htmlTextPreview;
-        $newPost->html = $this->replaceImg($advContent->htmlText);
+        $newPost->html = PhotoHelper::adaptImages($advContent->htmlText);
         $newPost->templateObject->data['type'] = 'advPost';
         $newPost->isNoindex = false;
         
@@ -162,7 +164,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $newPost->templateObject->data['type'] = 'post';
         $oldPost->post->purified->clearCache();
-        $newPost->html = $this->replaceImg($oldPost->post->purified->text);
+        $newPost->html = PhotoHelper::adaptImages($oldPost->post->purified->text);
         $newPost->text = $oldPost->post->text;
         $clearText = $newPost->fillText();
         $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
@@ -309,22 +311,6 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         } else {
             return \Yii::app()->controller->renderInternal($file, $data, true);
         }
-    }
-
-    protected function replaceImg($html)
-    {
-        include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
-        $doc = str_get_html($html);
-        foreach ($doc->find('img') as $image) {
-            $attrs = $image->getAllAttributes();
-            unset($attrs['src']);
-
-            $photo = \Yii::app()->thumbs->getPhotoByUrl($image->src);
-            $image->outertext = \HHtml::picture(\Yii::app()->thumbs->getThumb($photo, 'postImage', true), array(
-                '320' => \Yii::app()->thumbs->getThumb($photo, 'postImageMobile', true),
-            ), $attrs);
-        }
-        return (string) $doc;
     }
 }
 

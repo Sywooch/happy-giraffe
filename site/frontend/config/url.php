@@ -110,6 +110,7 @@ return array(
         'news/rss' => 'rss/news',
 
         // morning controller
+        'morning' => 'som/community/morning/index',
         'morning/<id:\d+>' => 'morning/view',
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
 
@@ -278,8 +279,8 @@ return array(
         'community/clubPhotoPosts/<clubId:\d+>' => 'community/default/clubPhotoPosts',
 
         //global
-        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|profile|rss|morning|community|happyBirthdayMira)>' => '<_c>/index',
+        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|profile|rss|community|happyBirthdayMira)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/default/contacts',

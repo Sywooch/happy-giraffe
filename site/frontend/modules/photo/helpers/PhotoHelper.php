@@ -18,9 +18,11 @@ class PhotoHelper
             unset($attrs['src']);
 
             $photo = \Yii::app()->thumbs->getPhotoByUrl($image->src);
-            $image->outertext = \HHtml::picture(\Yii::app()->thumbs->getThumb($photo, 'postImage', true), array(
-                '320' => \Yii::app()->thumbs->getThumb($photo, 'postImageMobile', true),
-            ), $attrs);
+            if ($photo !== null) {
+                $image->outertext = \HHtml::picture(\Yii::app()->thumbs->getThumb($photo, 'postImage', true), array(
+                    '320' => \Yii::app()->thumbs->getThumb($photo, 'postImageMobile', true),
+                ), $attrs);
+            }
         }
         return (string) $doc;
     }

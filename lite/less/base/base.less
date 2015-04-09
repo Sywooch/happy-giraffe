@@ -546,6 +546,41 @@
         color: @color-orange;
     }
 }
+
+/**
+  blog open media
+**/
+.page-blog {
+  .b-crumbs {
+    @media (min-width: @screen-desktop) {
+      display: block;
+    }
+    display: none;
+  }
+}
+/**
+  community open media
+**/
+.page-community {
+  .b-crumbs {
+    &_li {
+      @media (min-width: @screen-desktop) {
+        display: inline-block;
+      }
+      display: none;
+      &:first-child {
+        &:after {
+          @media (min-width: @screen-desktop) {
+              content: '>';
+          }
+          content: '';
+        }
+        display: inline-block !important;
+      }
+    }
+  }
+}
+
 /* /b-crumbs */
 
 .custom-likes {

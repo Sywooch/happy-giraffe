@@ -63,6 +63,9 @@ class DefaultController extends \LiteController
         $this->render('index', compact('dp'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionQuestion($questionId)
     {
         $question = ConsultationQuestion::model()->with('consultation')->findByPk($questionId);
@@ -147,5 +150,20 @@ class DefaultController extends \LiteController
             throw new \CHttpException(404);
         }
         return $consultation;
+    }
+
+    public function sitemapView()
+    {
+        $criteria = new \CDbCriteria(array(
+            'order' => 'id ASC',
+        ));
+        $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(ConsultationQuestion::model()->tableName(), $criteria);
+        $models = $command->queryAll();
+        return array_map(function($model) {
+            return array(
+                'loc' => $model['url'],
+                'lastmod' => date(DATE_W3C, $model['updated']),
+            );
+        }, $models);
     }
 }

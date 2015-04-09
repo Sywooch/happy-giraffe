@@ -7,6 +7,12 @@
     @media (min-width: @screen-phone-landscape) {
       margin: 0 0 10px;
     }
+    @media (min-width: @screen-desktop) {
+      width: 51%;
+      float: left;
+    }
+    width: auto;
+    float: none;
     margin: 0 0 20px;
   }
 }
@@ -40,7 +46,7 @@
 
 /* homepage-desc */
 .homepage-desc {
-    @media (min-width: @screen-tablet) {
+    @media (min-width: @screen-desktop) {
       display: block;
     }
     display: none;
@@ -296,7 +302,7 @@
           border-radius: 0px;
         }
         margin: 0 0 10px;
-        .border-radius(54px);
+        .border-radius(10px);
         display: block;
         color: @color-base;
         line-height: 13px;
@@ -408,12 +414,12 @@
         }
         &_t {
           @media (min-width: @screen-phone) {
-            font-size: 30px;
+            font-size: 35px;
           }
           @media (min-width: @screen-desktop) {
             font-size: 22px;
           }
-          font-size: 23px;
+          font-size: 20px;
         }
 
     }
@@ -436,13 +442,16 @@
       }
       .article-anonce_t {
         @media (min-width: @screen-phone) {
-          font-size: 30px;
+          font-size: 35px;
           line-height: 30px;
         }
         @media (min-width: @screen-phone-landscape) {
           margin-right: 130px;
         }
-        font-size: 23px;
+        @media (min-width: @screen-desktop) {
+          font-size: 30px;
+        }
+        font-size: 20px;
         line-height: 22px;
         margin-right: 0;
       }

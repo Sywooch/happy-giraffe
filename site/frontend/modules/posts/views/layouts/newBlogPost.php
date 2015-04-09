@@ -1,4 +1,5 @@
 <?php
+$this->bodyClass .= ' page-blog';
 $this->beginContent('//layouts/lite/main');
 ?>
     <div class="b-main_cont">

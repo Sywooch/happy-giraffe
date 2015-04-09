@@ -1,6 +1,8 @@
 <?php
 
 namespace site\frontend\modules\posts\behaviors\converters;
+use site\frontend\modules\photo\helpers\PhotoHelper;
+use site\frontend\modules\photo\models\Photo;
 
 /**
  * Description of CommunityContentBehavior
@@ -131,7 +133,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'advPost');
         $newPost->preview = $advContent->htmlTextPreview;
-        $newPost->html = $advContent->htmlText;
+        $newPost->html = PhotoHelper::adaptImages($advContent->htmlText);
         $newPost->templateObject->data['type'] = 'advPost';
         $newPost->isNoindex = false;
         
@@ -195,7 +197,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $newPost->templateObject->data['type'] = 'post';
         $oldPost->post->purified->clearCache();
-        $newPost->html = $oldPost->post->purified->text;
+        $newPost->html = PhotoHelper::adaptImages($oldPost->post->purified->text);
         $newPost->text = $oldPost->post->text;
         $clearText = $newPost->fillText();
         $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
@@ -343,7 +345,6 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             return \Yii::app()->controller->renderInternal($file, $data, true);
         }
     }
-
 }
 
 ?>

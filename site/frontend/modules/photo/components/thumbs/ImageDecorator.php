@@ -85,6 +85,7 @@ class ImageDecorator
 
     protected function prepare()
     {
+        $this->image->strip();
         $this->options['animated'] = $this->animated;
         if ($this->format == 'jpg') {
             $this->options['jpeg_quality'] = $this->getJpegQuality();

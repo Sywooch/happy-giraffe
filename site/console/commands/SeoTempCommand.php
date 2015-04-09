@@ -59,6 +59,33 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionHg()
+    {
+        $result = array();
+
+        $forum = Community::model()->findByPk(33);
+
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('by_happy_giraffe = 1 OR author_id = 1');
+
+        foreach ($forum->rubrics as $rubric) {
+            $count = $rubric->getRelated('contentsCount', false, $criteria);
+
+            if ($count == 0) {
+                continue;
+            }
+
+            $result[] = array('Рубрика: ' . $rubric->title, 'Постов в рубрике: ' . $count);
+
+            $result[] = array('Заголовок', 'URL', 'Отметка 1', 'Отметка 2');
+            foreach ($rubric->getRelated('contents', false, $criteria) as $c) {
+                $result[] = array($c->title, $c->getUrl(false, true), $c->by_happy_giraffe ? '+' : '-', ($c->author_id == User::HAPPY_GIRAFFE) ? '+' : '-');
+            }
+        }
+
+        $this->writeCsv('health', $result);
+    }
+
     public function actionUsers()
     {
         $result = array();
@@ -94,6 +121,19 @@ class SeoTempCommand extends CConsoleCommand
         $parser->run();
 
         $this->writeCsv('questions', $parser->emails);
+    }
+
+    public function actionParseMailRu2()
+    {
+        $parser = new MailForumParser();
+        $command = $this;
+        $parser->run(function($emails) use ($command) {
+            $result = array();
+            foreach ($emails as $email) {
+                $result[] = array($email);
+            }
+            $command->writeCsv('mailTopics2', $result);
+        });
     }
 
     public function actionCheckRemoved()
@@ -796,7 +836,7 @@ class SeoTempCommand extends CConsoleCommand
         }
     }
 
-    protected function writeCsv($name, $data)
+    public function writeCsv($name, $data)
     {
         $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . $name . '.csv';
         if (is_file($path)) {

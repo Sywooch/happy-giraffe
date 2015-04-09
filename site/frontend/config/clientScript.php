@@ -530,6 +530,13 @@ return array(
                 'lite/css/min/contest-commentator.css',
             ),
         ),
+        'lite_info' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/info.css',
+            ),
+        ),
         'lite_routes' => array(
             'depends' => array('lite_services'),
         ),
@@ -564,6 +571,12 @@ return array(
             'depends' => array('lite_services'),
         ),
         'lite_horoscope_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+        'lite_consultation' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_consultation_user' => array(
             'depends' => array('lite_services_user'),
         ),
         'lite_photo' => array(

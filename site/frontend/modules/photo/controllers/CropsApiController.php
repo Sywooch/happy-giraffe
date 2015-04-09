@@ -14,7 +14,7 @@ class CropsApiController extends ApiController
     public function actionGet($id)
     {
         $crop = $this->getModel('site\frontend\modules\photo\models\PhotoCrop', $id);
-        $this->success = true;
+        $this->success = $crop !== null;
         $this->data = $crop;
     }
 

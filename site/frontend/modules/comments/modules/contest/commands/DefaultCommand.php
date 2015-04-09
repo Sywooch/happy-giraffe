@@ -36,16 +36,17 @@ class DefaultCommand extends \CConsoleCommand
             'criteria' => array(
                 'order' => 'id ASC',
                 'join' => 'LEFT OUTER JOIN commentators__contests_comments cc ON t.id = cc.commentId',
-                'condition' => 'created > "2015-03-03 14:45:58" AND cc.commentId IS NULL AND author_id NOT IN (15426, 175718, 15814, 15994)',
+                'condition' => 'DATE(created) > "2015-03-31" AND cc.commentId IS NULL AND author_id NOT IN (15426, 175718, 15814, 15994)',
             ),
         ));
         $iterator = new \CDataProviderIterator($dp, 100);
-        $contest = CommentatorsContest::model()->active()->find();
+        $contest = CommentatorsContest::model()->find();
         foreach ($iterator as $comment) {
-            $contest->register($comment->author_id);
-            $participant = CommentatorsContestParticipant::model()->user($comment->author_id)->contest($contest->id)->find();
-            CommentsHandler::added($comment, $participant);
-            $participant->update(array('score'));
+            if ($contest->isRegistered($comment->author_id)) {
+                $participant = CommentatorsContestParticipant::model()->user($comment->author_id)->contest($contest->id)->find();
+                CommentsHandler::added($comment, $participant);
+                $participant->update(array('score'));
+            }
         }
     }
 

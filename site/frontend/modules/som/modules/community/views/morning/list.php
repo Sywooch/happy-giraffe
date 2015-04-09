@@ -1,6 +1,7 @@
 <?php
 $this->metaNoindex = true;
 $this->breadcrumbs = array(
+    'Утро с Весёлым Жирафом'
 );
 $cs = Yii::app()->clientScript;
 ?>

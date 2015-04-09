@@ -51,6 +51,16 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             }
             ?>
             <div class="b-article_in clearfix">
+                <?php if ($geo = $this->post->templateObject->getAttr('geo', false)) { ?>
+                    <geo-morning params='<?= CJSON::encode($geo) ?>'>
+                        <div class="b-article_in-where">
+                            <span class="b-article_in-where__text">Где:</span>
+                            <a target="_blank" href="http://maps.google.com/maps?q=<?= $geo['location'] ?>&hl=ru">
+                                <img src="<?= $geo['locationImage'] ?>" alt="<?= $geo['location'] ?>">
+                            </a>
+                        </div>
+                    </geo-morning>
+                <?php } ?>
                 <?php if ($this->post->templateObject->getAttr('noWysiwyg', false)) { ?>
                     <?= $this->post->html ?>
                 <?php } else { ?>

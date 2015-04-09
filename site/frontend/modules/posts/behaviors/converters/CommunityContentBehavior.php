@@ -39,6 +39,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             return $this->convertStatus();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_QUESTION)
             return $this->convertQuestion();
+        elseif ($this->owner->type_id == \CommunityContent::TYPE_MORNING)
+            return $this->convertMorning();
     }
 
     public function afterSave($event)
@@ -63,11 +65,13 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $this->convertToNewPost();
     }
 
-    protected function convertCommon(&$oldPost, &$newPost, $scenario)
+    protected function convertCommon(&$oldPost, &$newPost, $scenario = 'default', $service = false)
     {
         $oldPost = $this->owner;
         $oldPost->purified->clearCache();
-        $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
+        if(!$service) {
+            $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
+        }
         $entity = get_class($oldPost);
         $id = $oldPost->id;
 
@@ -150,6 +154,35 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->question->text)));
+
+        return $newPost->save();
+    }
+
+    protected function convertMorning()
+    {
+        $newPost = null;
+        $oldPost = null;
+        $this->convertCommon($oldPost, $newPost, 'oldMorning', 'oldMorning');
+        
+        $newPost->templateObject->data['type'] = 'morning';
+
+        $newPost->templateObject->data['geo'] = array(
+            'location' => $oldPost->morning->location,
+            'locationImage' => $oldPost->morning->getImageUrl(),
+            'lat' => $oldPost->morning->lat,
+            'long' => $oldPost->morning->long,
+            'zoom' => $oldPost->morning->zoom,
+            'position' => $oldPost->morning->position,
+        );
+        
+        $oldPost->purified->clearCache();
+        $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.morning', array('article' => $oldPost));
+        $newPost->text = $oldPost->purified->preview;
+        $newPost->isNoindex = false;
+        $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.morningPreview', array('article' => $oldPost));
+
+        if (empty($newPost->metaObject->description))
+            $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($newPost->text)));
 
         return $newPost->save();
     }

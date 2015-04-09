@@ -2,18 +2,43 @@
     homepage
 */
 
-.header__homepage {
+.homepage-res {
+  .header_hold {
+    @media (min-width: @screen-phone-landscape) {
+      padding: 30px 45px 20px;
+    }
+    padding: 30px 0 20px;
+  }
   .sidebar-search {
     @media (min-width: @screen-phone-landscape) {
-      margin: 0 0 10px;
+      width: 615px !important;
     }
     @media (min-width: @screen-desktop) {
       width: 35.6% !important;
       float: left !important;
+      margin: 0 0 10px;
+    }
+    &__bottom {
+      @media (min-width: @screen-desktop) {
+        display: none;
+      }
+      display: block;
+    }
+    &__top {
+      @media (min-width: @screen-desktop) {
+        display: block;
+      }
+      display: none;
     }
     width: auto !important;
     float: none !important;
-    margin: 0 0 20px;
+    margin: 0 auto 20px;
+  }
+  .layout-footer {
+    @media (min-width: @screen-desktop) {
+      margin: 80px auto 0;
+    }
+    margin: 0;
   }
 }
 
@@ -296,11 +321,17 @@
         margin-left: 0 !important;
     }
     &_a {
+        @media (min-width: @screen-phone-landscape) {
+          margin: 0 auto 10px;
+          width: 615px;
+        }
         @media (min-width: @screen-desktop) {
           display: inline-block;
           margin: 0;
           border-radius: 0px;
+          width: auto;
         }
+        width: auto;
         margin: 0 0 10px;
         .border-radius(10px);
         display: block;
@@ -390,6 +421,12 @@
         }
         @media (min-width: @screen-desktop) {
           width: 300px;
+        }
+        &__lilac {
+          @media (min-width: @screen-desktop) {
+            display: inline-block;
+          }
+          display: none;
         }
         display: block;
         width: auto;

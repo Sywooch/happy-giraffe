@@ -19,7 +19,7 @@ if (debug)
 /// layout out 
 body.body.body__lite.body__bg2(class='body__homepage')
  
-    .layout-container
+    .layout-container.homepage-res
         .layout-loose.layout-loose__white
             .layout-header
                 // header 
@@ -29,10 +29,10 @@ body.body.body__lite.body__bg2(class='body__homepage')
                             .header-login
                                 a(href="#loginWidget", class="header-login_a popup-a") Вход
                                 a(href="#registerWidget", class="header-login_a popup-a") Регистрация
-                            +sidebarSearch('sidebar-search__big', sidebarSearch.a)
+                            +sidebarSearch('sidebar-search__big sidebar-search__top', sidebarSearch.a)
                         .header_row-home
                             +logo('logo__l')
-            
+                        +sidebarSearch('sidebar-search__big sidebar-search__bottom', sidebarSearch.a)
             .layout-loose_hold.clearfix 
                 .homepage-desc
                     .homepage-desc_hold

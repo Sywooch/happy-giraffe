@@ -20,6 +20,9 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
         <?php if (!$data->templateObject->getAttr('hideTitle', false)) { ?>
             <div class="b-article_t-list"><a href="<?= $data->parsedUrl ?>" class="b-article_t-a"><?= $data->title ?></a></div>
         <?php } ?>
+        <?php if ($geo = $data->templateObject->getAttr('geo', false)) { ?>
+            <geo-morning params='<?= CJSON::encode($geo) ?>'><span>Где:</span><img src="<?= $geo['locationImage'] ?>" alt="<?= $geo['location'] ?>"></geo-morning>
+        <?php } ?>
         <?php if ($data->templateObject->getAttr('noWysiwyg', false)) { ?>
             <?= $data->preview ?>
         <?php } else { ?>

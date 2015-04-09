@@ -125,8 +125,24 @@ return array(
         'news/rss' => 'rss/news',
 
         // morning controller
-        'morning/<id:\d+>' => 'morning/view',
-        'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
+        'morning' => array('som/community/morning/index', 'parseOnly' => true),
+        'morning/<content_id:\d+>' => array('som/community/morningView/view', 'parseOnly' => true),
+        'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 404,
+        array(
+            'class' => 'UrlRule',
+            'pattern' => 'morning',
+            'route' => 'morning/index',
+        ),
+        array(
+            'class' => 'UrlRule',
+            'pattern' => 'morning/<id:\d+>',
+            'route' => 'morning/view',
+        ),
+        array(
+            'class' => 'UrlRule',
+            'pattern' => 'morning/<date:[\d\d\d\d-\d\d-\d\d]*>',
+            'route' => 'morning/index',
+        ),
 
         // albums controller
         'albums/addPhoto/a/<a:\d+>/text/<text:\w+>/u/<u:\d+>' => 'albums/addPhoto',
@@ -302,8 +318,8 @@ return array(
         'community/clubPhotoPosts/<clubId:\d+>' => 'community/default/clubPhotoPosts',
 
         //global
-        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|profile|rss|morning|community|happyBirthdayMira)>' => '<_c>/index',
+        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|profile|rss|community|happyBirthdayMira)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/default/contacts',

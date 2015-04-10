@@ -32,7 +32,7 @@ if ($openLogin == 'login') {
 </head>
 <body class="body body__lite body__homepage <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>  ">
 <?php Yii::app()->ads->showCounters(); ?>
-<div class="layout-container homepage">
+<div class="layout-container <?= Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP ? 'homepage' : 'homepage-res' ?>">
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
             <!-- header-->
@@ -41,6 +41,7 @@ if ($openLogin == 'login') {
                     <div class="clearfix">
                         <div class="header-login"><a class="header-login_a login-button" data-bind="follow: {}">Вход</a><a class="header-login_a registration-button" data-bind="follow: {}">Регистрация</a></div>
 
+                    <?php if (Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP): ?>
                         <?php if ($this->module === null || $this->module->id != 'search'): ?>
                             <div class="sidebar-search clearfix sidebar-search__big">
                                 <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
@@ -49,6 +50,7 @@ if ($openLogin == 'login') {
                                 <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
                             </div>
                         <?php endif; ?>
+                    <?php endif; ?>
 
                     </div>
 
@@ -57,6 +59,16 @@ if ($openLogin == 'login') {
                         <h1 class="logo logo__l"><span class="logo_i">Веселый жираф - сайт для всей семьи</span></h1>
                         <!-- /logo-->
                     </div>
+                    <?php if (Yii::app()->vm->getVersion() != VersionManager::VERSION_DESKTOP): ?>
+                        <?php if ($this->module === null || $this->module->id != 'search'): ?>
+                            <div class="sidebar-search clearfix sidebar-search__big">
+                                <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
+                                <!-- При начале ввода добавить класс .active на кнопку-->
+                                <!-- <button class="sidebar-search_btn"></button> -->
+                                <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </div>
             </header>
             <!-- header-->

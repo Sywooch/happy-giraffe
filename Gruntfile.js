@@ -245,6 +245,7 @@ module.exports = function(grunt){
             /.ico-ovrPlay+/,
             /.ava+/,
             /.article-anonce+/,
+            /.article-anonce-resp+/
           ],
         },
         src: [

@@ -59,11 +59,11 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
-    public function actionHg()
+    public function actionHg($forumId)
     {
         $result = array();
 
-        $forum = Community::model()->findByPk(33);
+        $forum = Community::model()->findByPk($forumId);
 
         $criteria = new CDbCriteria();
         $criteria->addCondition('by_happy_giraffe = 1 OR author_id = 1');
@@ -83,7 +83,7 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
 
-        $this->writeCsv('health', $result);
+        $this->writeCsv('hg' . $forumId, $result);
     }
 
     public function actionUsers()

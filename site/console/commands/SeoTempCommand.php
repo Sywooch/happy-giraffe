@@ -59,27 +59,29 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
-    public function actionHg($forumId)
+    public function actionHg($clubId)
     {
         $result = array();
 
-        $forum = Community::model()->findByPk($forumId);
+        $club = CommunityClub::model()->findByPk($clubId);
 
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('by_happy_giraffe = 1 OR author_id = 1');
+        foreach ($club->communities as $forum) {
+            $criteria = new CDbCriteria();
+            $criteria->addCondition('by_happy_giraffe = 1 OR author_id = 1');
 
-        foreach ($forum->rubrics as $rubric) {
-            $count = $rubric->getRelated('contentsCount', false, $criteria);
+            foreach ($forum->rubrics as $rubric) {
+                $count = $rubric->getRelated('contentsCount', false, $criteria);
 
-            if ($count == 0) {
-                continue;
-            }
+                if ($count == 0) {
+                    continue;
+                }
 
-            $result[] = array('Рубрика: ' . $rubric->title, 'Постов в рубрике: ' . $count);
+                $result[] = array('Рубрика: ' . $rubric->title, 'Постов в рубрике: ' . $count);
 
-            $result[] = array('Заголовок', 'URL', 'Отметка 1', 'Отметка 2');
-            foreach ($rubric->getRelated('contents', false, $criteria) as $c) {
-                $result[] = array($c->title, $c->getUrl(false, true), $c->by_happy_giraffe ? '+' : '-', ($c->author_id == User::HAPPY_GIRAFFE) ? '+' : '-');
+                $result[] = array('Заголовок', 'URL', 'Отметка 1', 'Отметка 2');
+                foreach ($rubric->getRelated('contents', false, $criteria) as $c) {
+                    $result[] = array($c->title, $c->getUrl(false, true), $c->by_happy_giraffe ? '+' : '-', ($c->author_id == User::HAPPY_GIRAFFE) ? '+' : '-');
+                }
             }
         }
 

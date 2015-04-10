@@ -85,7 +85,7 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
 
-        $this->writeCsv('hg' . $forumId, $result);
+        $this->writeCsv('hg' . $clubId, $result);
     }
 
     public function actionUsers()

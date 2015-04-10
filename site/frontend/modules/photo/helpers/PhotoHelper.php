@@ -13,6 +13,11 @@ class PhotoHelper
     {
         include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
         $doc = str_get_html($html);
+
+        if ($doc == false) {
+            return $html;
+        }
+
         foreach ($doc->find('img') as $image) {
             $attrs = $image->getAllAttributes();
             unset($attrs['src']);

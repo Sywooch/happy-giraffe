@@ -204,7 +204,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $photo = $oldPost->post->photo;
 
         $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
-        if ($oldPost->gallery) {
+        if ($oldPost->gallery !== null && ! empty($oldPost->gallery->items)) {
             // Скопировано из convertPhotoPost
             $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
             $count = $collection->attachesCount;

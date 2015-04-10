@@ -17576,11 +17576,11 @@ html[dir="rtl"] .select2-search-choice-close {
     width: 300px;
   }
 }
-.article-anonce-resp__lilac {
+.article-anonce-resp__ico {
   display: none;
 }
 @media (min-width: 1025px) {
-  .article-anonce-resp__lilac {
+  .article-anonce-resp__ico {
     display: inline-block;
   }
 }

@@ -1,4 +1,5 @@
 <?php
+$this->bodyClass .= ' page-community';
 $this->beginContent('//layouts/lite/community');
 ?>
 <div class="b-main_cont">

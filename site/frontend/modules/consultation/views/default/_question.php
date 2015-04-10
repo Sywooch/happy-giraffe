@@ -15,7 +15,7 @@
                 <a href="<?=$data->getUrl()?>" class="b-consult-qa-ms__message__title"><?=$data->title?></a>
                 <div class="b-consult-qa-ms__message__text"><?=$data->text?></div>
             </div>
-          <?php if ($data->answer === null && Yii::app()->user->checkAccess('manageOwnContent', array('entity' => $data))): ?>
+          <?php if ($data->answer === null && Yii::app()->user->checkAccess('manageConsultationQuestions', array('entity' => $data))): ?>
               <a class="margin-t3 display-b" href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $data->id))?>">Редактировать</a>
           <?php endif; ?>
             <?php if ($data->answer === null && Yii::app()->user->checkAccess('removeQuestions')): ?>

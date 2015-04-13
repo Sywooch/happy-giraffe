@@ -59,6 +59,11 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionSpec()
+    {
+        \site\common\components\temp\HgMove::move(267, 433689);
+    }
+
     public function actionHg($clubId)
     {
         $result = array();

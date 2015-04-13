@@ -69,8 +69,14 @@
         height: auto !important;
     }
     &_in-img iframe {
+        @media (min-width: @screen-xphone) {
+          height: 250px;
+        }
+        @media (min-width: @screen-phone) {
+          height: 300px;
+        }
         width:100%;
-        min-height: 350px;
+        height: 200px;
     }
     &_in-img__l img {
         width: 100%;

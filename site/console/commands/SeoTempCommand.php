@@ -104,6 +104,7 @@ class SeoTempCommand extends CConsoleCommand
         );
 
         foreach ($a as $rubricId => $userId) {
+            echo $rubricId . ":" . $userId . "\n";
             \site\common\components\temp\HgMove::move($rubricId, $userId);
         }
     }

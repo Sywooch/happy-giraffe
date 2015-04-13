@@ -22,4 +22,16 @@ class HgMove
             $newPost->addActivity();
         }
     }
+
+    public static function restore($postId, $userId)
+    {
+        $oldPost = \CommunityContent::model()->findByPk($postId);
+        $newPost = Content::model()->byEntity('CommunityContent', $oldPost->id)->find();
+        $oldPost->author_id = $userId;
+        $oldPost->authorId = $userId;
+        $oldPost->save();
+        $newPost->save();
+        $newPost->delActivity();
+        $newPost->addActivity();
+    }
 }

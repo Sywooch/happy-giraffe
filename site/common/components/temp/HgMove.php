@@ -13,7 +13,7 @@ class HgMove
     {
         $rubric = \CommunityRubric::model()->findByPk($rubricId);
         foreach ($rubric->contents as $oldPost) {
-            $newPost = Content::model()->byEntity('CommunityContent', $oldPost->id);
+            $newPost = Content::model()->byEntity('CommunityContent', $oldPost->id)->find();
             $oldPost->author_id = $userId;
             $newPost->authorId = $userId;
             $oldPost->save();

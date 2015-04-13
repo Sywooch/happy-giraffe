@@ -13,13 +13,15 @@ class HgMove
     {
         $rubric = \CommunityRubric::model()->findByPk($rubricId);
         foreach ($rubric->contents as $oldPost) {
-            $newPost = Content::model()->byEntity('CommunityContent', $oldPost->id)->find();
-            $oldPost->author_id = $userId;
-            $newPost->authorId = $userId;
-            $oldPost->save();
-            $newPost->save();
-            $newPost->delActivity();
-            $newPost->addActivity();
+            if ($oldPost->by_happy_giraffe || $oldPost->author_id == 1) {
+                $newPost = Content::model()->byEntity('CommunityContent', $oldPost->id)->find();
+                $oldPost->author_id = $userId;
+                $newPost->authorId = $userId;
+                $oldPost->save();
+                $newPost->save();
+                $newPost->delActivity();
+                $newPost->addActivity();
+            }
         }
     }
 

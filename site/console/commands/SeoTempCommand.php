@@ -64,6 +64,11 @@ class SeoTempCommand extends CConsoleCommand
         \site\common\components\temp\HgMove::move(267, 433689);
     }
 
+    public function actionRestore($a, $b)
+    {
+        \site\common\components\temp\HgMove::restore($a, $b);
+    }
+
     public function actionHg($clubId)
     {
         $result = array();

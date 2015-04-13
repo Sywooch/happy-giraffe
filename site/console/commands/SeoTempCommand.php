@@ -63,7 +63,7 @@ class SeoTempCommand extends CConsoleCommand
     {
         $forum = Community::model()->findByPk(33);
         foreach ($forum->rubrics as $r) {
-            echo $r->id . " => 1,\n";
+            echo $r->id . " => 1, //{$r->title}\n";
         }
     }
 

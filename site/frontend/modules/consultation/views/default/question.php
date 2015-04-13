@@ -28,7 +28,7 @@ $this->pageTitle = $question->title;
                 </div>
             </div>
         </div>
-        <?php if ($question->answer === null && Yii::app()->user->checkAccess('manageOwnContent', array('entity' => $question))): ?>
+        <?php if ($question->answer === null && Yii::app()->user->checkAccess('manageConsultationQuestions', array('entity' => $question))): ?>
             <a href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $question->id))?>">Редактировать</a>
         <?php endif; ?>
         <?php if ($question->answer === null && Yii::app()->user->checkAccess('removeQuestions')): ?>

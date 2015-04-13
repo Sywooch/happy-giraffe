@@ -61,7 +61,10 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionSpec()
     {
-        \site\common\components\temp\HgMove::move(267, 433689);
+        $forum = Community::model()->findByPk(33);
+        foreach ($forum->rubrics as $r) {
+            echo $r->id . " => \n";
+        }
     }
 
     public function actionRestore($a, $b)

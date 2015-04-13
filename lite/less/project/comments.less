@@ -266,6 +266,16 @@
     }
 
     .b-article_in-img {
+        iframe {
+          @media (min-width: @screen-xphone) {
+            height: 250px;
+          }
+          @media (min-width: @screen-phone) {
+            height: 300px;
+          }
+          height: 200px;
+          min-height: initial !important;
+        }
         clear: both;
     }
     // /Добавление коммента

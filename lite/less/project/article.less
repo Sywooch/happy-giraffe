@@ -69,14 +69,8 @@
         height: auto !important;
     }
     &_in-img iframe {
-        @media (min-width: @screen-xphone) {
-          height: 250px;
-        }
-        @media (min-width: @screen-phone) {
-          height: 300px;
-        }
         width:100%;
-        height: 200px;
+        min-height: 350px;
     }
     &_in-img__l img {
         width: 100%;
@@ -120,7 +114,6 @@
     &_t-a {
         &:extend(.heading-link-xl);
         margin: 8px 0;
-        font-size: 25px;
     }
     &_like .article-settings {
         float: left;

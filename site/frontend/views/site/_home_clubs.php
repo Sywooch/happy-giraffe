@@ -1,7 +1,11 @@
 <!-- Клубы-->
 <div class="homepage_row">
     <div class="homepage-clubs">
-        <div class="homepage_title"> Мы здесь общаемся<br>на различные семейные темы </div>
+        <?php if (Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP): ?>
+          <div class="homepage_title"> Мы здесь общаемся<br>на различные семейные темы </div>
+        <?php else: ?>
+          <div class="homepage_title"> Наши клубы </div>
+        <?php endif; ?>
         <div class="homepage-clubs_hold">
             <!-- collection-->
             <div class="homepage-clubs_collection homepage-clubs_collection__1">

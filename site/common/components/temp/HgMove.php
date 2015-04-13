@@ -28,7 +28,7 @@ class HgMove
         $oldPost = \CommunityContent::model()->findByPk($postId);
         $newPost = Content::model()->byEntity('CommunityContent', $oldPost->id)->find();
         $oldPost->author_id = $userId;
-        $oldPost->authorId = $userId;
+        $newPost->authorId = $userId;
         $oldPost->save();
         $newPost->save();
         $newPost->delActivity();

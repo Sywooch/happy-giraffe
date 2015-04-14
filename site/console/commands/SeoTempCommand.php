@@ -222,6 +222,8 @@ class SeoTempCommand extends CConsoleCommand
             echo "step1 $page\n";
         } while (count($response) > 0);
 
+        echo count($data) . "\n";
+
         $this->ga->setDateRange('2011-04-01', '2015-04-14');
 
         $page = 0;
@@ -237,7 +239,7 @@ class SeoTempCommand extends CConsoleCommand
             ));
 
             foreach ($response as $path => $row) {
-                if (isset($data[$path]) && $row['ga:organicSearches'] < 50) {
+                if (isset($data[$path])) {
                     $result[] = array(
                         'http://www.happy-giraffe.ru' . $path,
                         $data[$path],

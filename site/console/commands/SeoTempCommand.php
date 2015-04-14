@@ -254,7 +254,7 @@ class SeoTempCommand extends CConsoleCommand
             echo "step2 $page\n";
         } while (count($response) > 0);
 
-        $this->writeCsv('traf', $result);
+        $this->writeCsv('traf', $data);
     }
 
     public function actionCheckRemoved()

@@ -142,6 +142,12 @@ class SeoTempCommand extends CConsoleCommand
         }
     }
 
+    public function actionSpecTest()
+    {
+        $user = \site\frontend\modules\users\models\User::model()->findByPk(56);
+        var_dump($user->specInfo);
+    }
+
     public function actionRestore($a, $b)
     {
         \site\common\components\temp\HgMove::restore($a, $b);

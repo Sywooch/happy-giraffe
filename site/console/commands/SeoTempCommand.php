@@ -254,6 +254,10 @@ class SeoTempCommand extends CConsoleCommand
             echo "step2 $page\n";
         } while (count($response) > 0);
 
+        usort($data, function($a, $b) {
+            return $a[1] - $b[1];
+        });
+
         $this->writeCsv('traf', $data);
     }
 

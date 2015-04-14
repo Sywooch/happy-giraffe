@@ -70,7 +70,7 @@ var_dump(strtotime('25 января 2012'));
             <?php endif; ?>
         </div>
     </div>
-    <?php if (($this->user->id !== Yii::app()->user->id || Yii::app()->controller->route != 'userProfile/default/index') && empty($user->specInfoObject)): ?>
+    <?php if (($this->user->id !== Yii::app()->user->id || Yii::app()->controller->route != 'userProfile/default/index') && empty($user->specInfo)): ?>
         <div class="userSection_panel">
             <?php
             $this->widget('zii.widgets.CMenu', array(

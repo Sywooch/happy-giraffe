@@ -59,6 +59,8 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+
+
     public function actionSpec()
     {
         $a = array(
@@ -191,6 +193,59 @@ class SeoTempCommand extends CConsoleCommand
             }
             $command->writeCsv('mailTopics2', $result);
         });
+    }
+
+    public function actionTraf()
+    {
+        $this->ga->setDateRange('2011-01-01', '2015-03-31');
+
+        $result = array();
+        $data = array();
+        $page = 0;
+        do {
+            $page ++;
+            $mr = 10000;
+            $si = ($page - 1) * $mr + 1;
+            $response = $this->getReport(array(
+                'metrics' => 'ga:organicSearches',
+                'dimensions' => 'ga:pagePath',
+                'max-results' => $mr,
+                'start-index' => $si,
+            ));
+
+            foreach ($response as $path => $row) {
+                if ($row['ga:organicSearches'] > 10000) {
+                    $data[$path] = $row['ga:organicSearches'];
+                }
+            }
+        } while (count($response) > 0);
+
+        $this->ga->setDateRange('2011-04-01', '2015-04-14');
+
+        $page = 0;
+        do {
+            $page ++;
+            $mr = 10000;
+            $si = ($page - 1) * $mr + 1;
+            $response = $this->getReport(array(
+                'metrics' => 'ga:organicSearches',
+                'dimensions' => 'ga:pagePath',
+                'max-results' => $mr,
+                'start-index' => $si,
+            ));
+
+            foreach ($response as $path => $row) {
+                if (isset($data[$path]) && $row['ga:organicSearches'] < 50) {
+                    $result[] = array(
+                        'http://www.happy-giraffe.ru' . $path,
+                        $data[$path],
+                        $row['ga:organicSearches'],
+                    );
+                }
+            }
+        } while (count($response) > 0);
+
+        $this->writeCsv('traf', $result);
     }
 
     public function actionCheckRemoved()

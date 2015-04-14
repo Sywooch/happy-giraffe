@@ -218,6 +218,8 @@ class SeoTempCommand extends CConsoleCommand
                     $data[$path] = $row['ga:organicSearches'];
                 }
             }
+
+            echo "step1 $page\n";
         } while (count($response) > 0);
 
         $this->ga->setDateRange('2011-04-01', '2015-04-14');
@@ -243,6 +245,7 @@ class SeoTempCommand extends CConsoleCommand
                     );
                 }
             }
+            echo "step2 $page\n";
         } while (count($response) > 0);
 
         $this->writeCsv('traf', $result);

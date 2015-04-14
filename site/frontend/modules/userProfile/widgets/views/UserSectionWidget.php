@@ -5,7 +5,6 @@
  */
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
-var_dump(strtotime('25 января 2012'));
 ?>
 
 <section class="userSection">

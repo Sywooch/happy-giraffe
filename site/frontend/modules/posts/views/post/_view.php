@@ -33,8 +33,8 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <div class="float-l">
                     <a href="<?= $this->user->profileUrl ?>" class="ava ava__female ava__small-xs ava__middle-sm"><span class="ico-status ico-status__online"></span><img alt="" src="<?= $this->user->avatarUrl ?>" class="ava_img"></a><a href="<?= $this->user->profileUrl ?>" class="b-article_author"><?= $this->user->fullName ?></a>
                     <?= HHtml::timeTag($this->post, array('class' => 'tx-date'), null); ?>
-                    <?php if ($data->user->specInfo !== null): ?>
-                        <div class="b-article_authorpos"><?=$data->user->specInfo['title']?></div>
+                    <?php if ($this->user->specInfo !== null): ?>
+                        <div class="b-article_authorpos"><?=$this->user->specInfo['title']?></div>
                     <?php endif; ?>
                 </div>
                 <div class="icons-meta"><a href="<?=$this->post->commentsUrl?>" class="icons-meta_comment"><span class="icons-meta_tx"><?=$comments->count?></span></a>

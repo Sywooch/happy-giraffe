@@ -111,6 +111,37 @@ class SeoTempCommand extends CConsoleCommand
         }
     }
 
+    public function actionSpecUsers()
+    {
+        $file = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'spec.csv';
+
+        $data = array();
+        if (($handle = fopen($file, "r")) !== false) {
+            while (($row = fgetcsv($handle)) !== false) {
+                $data[] = $row;
+            }
+            fclose($handle);
+        }
+
+        for ($i = 0; $i < count($data); $i++) {
+            for ($j = 0; $j < count($data[$i]); $j++) {
+                if (preg_match('#\/user\/(\d+)\/#', $data[$i][$j], $matches)) {
+                    $userId = $matches[1];
+                    $title = $data[$i - 1][$j + 1];
+                    $education = $data[$i - 1][$j + 2];
+                    preg_match('#(\d+)#', $data[$i - 1][$j + 3], $m2);
+                    $date = isset($m2[1]) ? $m2[1] : 15;
+
+                    $user = \site\frontend\modules\users\models\User::model()->findByPk($userId);
+                    $user->specInfoObject->title = $title;
+                    $user->specInfoObject->education = $education;
+                    $user->register_date = '2012-01-' . $date . ' 00:00:00';
+                    $user->save();
+                }
+            }
+        }
+    }
+
     public function actionRestore($a, $b)
     {
         \site\common\components\temp\HgMove::restore($a, $b);

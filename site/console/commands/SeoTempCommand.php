@@ -215,7 +215,11 @@ class SeoTempCommand extends CConsoleCommand
 
             foreach ($response as $path => $row) {
                 if ($row['ga:organicSearches'] > 1000) {
-                    $data[$path] = $row['ga:organicSearches'];
+                    $data[$path] = array(
+                        'http://www.happy-giraffe.ru' . $path,
+                        $row['ga:organicSearches'],
+                        0,
+                    );
                 }
             }
 
@@ -239,12 +243,12 @@ class SeoTempCommand extends CConsoleCommand
             ));
 
             foreach ($response as $path => $row) {
-                if (isset($data[$path]) && $row['ga:organicSearches'] < 50) {
-                    $result[] = array(
-                        'http://www.happy-giraffe.ru' . $path,
-                        $data[$path],
-                        $row['ga:organicSearches'],
-                    );
+                if (isset($data[$path])) {
+                    if ($row['ga:organicSearches'] < 50) {
+                        $data[2] = $row['ga:organicSearches'];
+                    }
+                } else {
+                    unset($data[$path]);
                 }
             }
             echo "step2 $page\n";

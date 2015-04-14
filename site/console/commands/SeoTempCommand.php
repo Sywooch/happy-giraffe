@@ -214,7 +214,7 @@ class SeoTempCommand extends CConsoleCommand
             ));
 
             foreach ($response as $path => $row) {
-                if ($row['ga:organicSearches'] > 10000) {
+                if ($row['ga:organicSearches'] > 1000) {
                     $data[$path] = $row['ga:organicSearches'];
                 }
             }
@@ -224,7 +224,7 @@ class SeoTempCommand extends CConsoleCommand
 
         echo count($data) . "\n";
 
-        $this->ga->setDateRange('2011-04-01', '2015-04-14');
+        $this->ga->setDateRange('2015-04-01', '2015-04-14');
 
         $page = 0;
         do {
@@ -239,7 +239,7 @@ class SeoTempCommand extends CConsoleCommand
             ));
 
             foreach ($response as $path => $row) {
-                if (isset($data[$path])) {
+                if (isset($data[$path]) && $row['ga:organicSearches'] < 50) {
                     $result[] = array(
                         'http://www.happy-giraffe.ru' . $path,
                         $data[$path],

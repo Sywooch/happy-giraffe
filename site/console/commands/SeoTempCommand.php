@@ -246,16 +246,16 @@ class SeoTempCommand extends CConsoleCommand
                 if (isset($data[$path])) {
                     if ($row['ga:organicSearches'] < 50) {
                         $data[$path][2] = $row['ga:organicSearches'];
+                    } else {
+                        unset($data[$path]);
                     }
-                } else {
-                    unset($data[$path]);
                 }
             }
             echo "step2 $page\n";
         } while (count($response) > 0);
 
         usort($data, function($a, $b) {
-            return $a[1] - $b[1];
+            return $b[1] - $a[1];
         });
 
         $this->writeCsv('traf', $data);

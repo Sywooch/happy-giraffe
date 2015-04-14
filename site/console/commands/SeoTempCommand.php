@@ -245,7 +245,7 @@ class SeoTempCommand extends CConsoleCommand
             foreach ($response as $path => $row) {
                 if (isset($data[$path])) {
                     if ($row['ga:organicSearches'] < 50) {
-                        $data[2] = $row['ga:organicSearches'];
+                        $data[$path][2] = $row['ga:organicSearches'];
                     }
                 } else {
                     unset($data[$path]);

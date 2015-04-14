@@ -15,6 +15,9 @@ $user = $this->getUserInfo($data->userId);
                 </a>
                 <a href="<?= $user->profileUrl ?>" class="b-article_author"><?= $user->fullName ?></a>
                 <?= HHtml::timeTag($data, array('class' => 'tx-date'), null); ?>
+                <?php if ($user->specInfo !== null): ?>
+                    <div class="b-article_authorpos"><?=$data->user->specInfo['title']?></div>
+                <?php endif; ?>
             </div>
         </div>
         <?php $this->render(ActivityWidget::$types[$data->typeId][1], array('data' => $data)); ?>

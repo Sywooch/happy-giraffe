@@ -91,7 +91,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             $this->data = $photopost->toJSON();
         } else {
             $this->errorCode = 1;
-            $this->errorMessage = $photopost->getErrorsText();
+            $this->errorMessage = $photopost->errors;
         }
     }
 

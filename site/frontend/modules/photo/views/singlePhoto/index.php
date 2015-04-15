@@ -11,6 +11,7 @@ $this->breadcrumbs += array(
     $collection->getTitle() => $collection->getUrl(),
     $attach->getTitle(),
 );
+$this->adaptiveBreadcrumbs = true;
 $this->pageTitle = $attach->getTitle() . ' - ' . $collection->getTitle();
 $this->metaNoindex = true;
 $this->metaDescription = $photo->description;

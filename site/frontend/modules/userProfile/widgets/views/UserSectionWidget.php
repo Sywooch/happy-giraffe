@@ -7,7 +7,7 @@ $cs = Yii::app()->clientScript;
 $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
 ?>
 
-<section class="userSection">
+<section class="userSection<?php if ($this->adaptive): ?> visible-md visible-lg<?php endif; ?>">
     <div class="userSection_hold">
         <div class="userSection_left">
             <h2 class="userSection_name"><?=$user->getFullName()?></h2>

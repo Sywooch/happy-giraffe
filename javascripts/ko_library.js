@@ -359,14 +359,15 @@
                     date = date * 1000;
                     var value = date + serverTimeDelta;
                     var serverDate = new Date(now - serverTimeDelta);
-                    var someHoursAgo = new Date(serverDate.getFullYear(), serverDate.getMonth() , serverDate.getDate(), serverDate.getHours() - 6, serverDate.getMinutes(), serverDate.getSeconds()).getTime();
+                    // var someHoursAgo = new Date(serverDate.getFullYear(), serverDate.getMonth() , serverDate.getDate(), serverDate.getHours() - 6, serverDate.getMinutes(), serverDate.getSeconds()).getTime();
+                    var todayMidnight = new Date(serverDate.getFullYear(), serverDate.getMonth() , serverDate.getDate()).getTime();
                     var yesterdayMidnight = new Date(serverDate.getFullYear(), serverDate.getMonth() , serverDate.getDate() - 1).getTime();
                     var someMonthAgo = new Date(serverDate.getFullYear(), serverDate.getMonth() - 8 , serverDate.getDate()).getTime();
                     var result = '';
                     // Что-бы не получилось событие из будущего
                     if(value > now)
                         value = now;
-                    if(value > someHoursAgo) {
+                    if(date > todayMidnight) {
                         result = moment(value).from(now);
                     } else if(date > yesterdayMidnight) {
                         result = 'Вчера';

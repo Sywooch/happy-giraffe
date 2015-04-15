@@ -8,6 +8,7 @@ $this->metaNoindex = true;
 $this->breadcrumbs = array(
     'Семья',
 );
+$this->adaptiveBreadcrumbs = true;
 if ($this->owner->id == Yii::app()->user->id) {
     $this->pageTitle = 'Моя семья';
 } else {

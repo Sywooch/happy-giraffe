@@ -132,8 +132,6 @@ class SeoTempCommand extends CConsoleCommand
                     preg_match('#(\d+)#', $data[$i - 1][$j + 3], $m2);
                     $date = isset($m2[1]) ? $m2[1] : 15;
 
-                    echo $title . "\n";
-
                     $user = \site\frontend\modules\users\models\User::model()->findByPk($userId);
                     $user->specInfoObject->title = $title;
                     $user->specInfoObject->education = $education;

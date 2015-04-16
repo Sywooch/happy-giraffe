@@ -65,6 +65,8 @@ $thumb = \Yii::app()->thumbs->getThumb($this->attach->photoModel, 'postCollectio
                     ?>
                     <div class="b-article_in clearfix">
                         <div class="wysiwyg-content clearfix">
+                            <post-photo-view params="id: <?= $this->post->originEntityId ?>, photo: <?= $this->attach->id ?>"></post-photo-view>
+                            123
                             <div class="b-album-cap">
                                 <div class="b-album-cap_hold">
                                     <div class="b-album">

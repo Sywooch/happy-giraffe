@@ -7,7 +7,8 @@ define(['jquery', 'knockout', 'models/Model', 'extensions/knockout.validation', 
         restoreUrl: '/api/photopost/restore/',
         maxTitleLength: 150,
         id: ko.observable(),
-        title: ko.observable,
+        title: ko.observable(),
+        url: ko.observable(),
         photoArray: ko.observableArray(),
         photoAttaches: ko.observableArray(),
         create: function createPhotopost() {
@@ -20,6 +21,7 @@ define(['jquery', 'knockout', 'models/Model', 'extensions/knockout.validation', 
             this.id = ko.observable(photopostData.id);
             this.title = ko.observable(photopostData.title);
             this.collectionId = ko.observable(photopostData.collectionId);
+            this.url = ko.observable(photopostData.url);
             this.isDraft = ko.observable(false);
             /**
              * Валидация

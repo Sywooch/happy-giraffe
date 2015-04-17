@@ -515,6 +515,7 @@ return array(
         'map' => 'archive/default/map',
         
         /* API */
+        'api/myGiraffe/<_a>' => 'posts/myGiraffe/api/<_a>',
         'api/comments/<_a>' => 'comments/api/<_a>',
         'api/commentatorsContest/<_a>' => 'comments/contest/api/<_a>',
         'api/status/<_a>' => 'som/status/api/<_a>',

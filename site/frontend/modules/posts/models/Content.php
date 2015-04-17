@@ -114,6 +114,7 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'entityClass' => array('\site\frontend\modules\posts\models\Content', 'getEntityClass'),
             ),
             'site\frontend\modules\som\modules\activity\behaviors\PostBehavior',
+            'site\frontend\modules\posts\modules\myGiraffe\components\behaviors\PostBehavior',
             'RssBehavior' => array(
                 'class' => 'site\frontend\modules\rss\behaviors\ContentRssBehavior',
             ),

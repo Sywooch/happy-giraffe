@@ -18,6 +18,11 @@ class PostsModule extends \CWebModule
         \Yii::app()->setComponent('authManager', array(
             'class' => '\site\frontend\components\AuthManager',
         ));
+        $this->setModules(array(
+            'myGiraffe' => array(
+                'class' => 'site\frontend\modules\posts\modules\myGiraffe\MyGiraffeModule',
+            ),
+        ));
     }
 
 }

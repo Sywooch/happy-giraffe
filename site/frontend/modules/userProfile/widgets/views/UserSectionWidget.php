@@ -56,13 +56,20 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
             </div>
         </div>
         <div class="userSection_right">
-        <family-section params="userId: <?= $user->id ?>"></family-section>
-        <?php if (false): ?>
-            <?php $this->widget('profile.widgets.FamilyWidget', array('user' => $user)); ?>
-        <?php endif; ?>
+            <?php if (empty($user->specInfo)): ?>
+                <family-section params="userId: <?= $user->id ?>"></family-section>
+                <?php if (false): ?>
+                    <?php $this->widget('profile.widgets.FamilyWidget', array('user' => $user)); ?>
+                <?php endif; ?>
+            <?php else: ?>
+                <div class="userSection__pos"><?=$user->specInfoObject->title?></div>
+                <div class="userSection__desc">
+                    <?=$user->specInfoObject->education?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
-    <?php if ($this->user->id !== Yii::app()->user->id || Yii::app()->controller->route != 'userProfile/default/index'): ?>
+    <?php if (($this->user->id !== Yii::app()->user->id || Yii::app()->controller->route != 'userProfile/default/index') && empty($user->specInfoObject)): ?>
         <div class="userSection_panel">
             <?php
             $this->widget('zii.widgets.CMenu', array(

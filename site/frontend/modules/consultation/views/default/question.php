@@ -28,11 +28,11 @@ $this->pageTitle = $question->title;
                 </div>
             </div>
         </div>
-        <?php if ($question->answer === null && Yii::app()->user->checkAccess('manageOwnContent', array('entity' => $question))): ?>
+        <?php if ($question->answer === null && Yii::app()->user->checkAccess('manageConsultationQuestions', array('entity' => $question))): ?>
             <a href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug, 'questionId' => $question->id))?>">Редактировать</a>
         <?php endif; ?>
         <?php if ($question->answer === null && Yii::app()->user->checkAccess('removeQuestions')): ?>
-            <a class="margin-t3 display-b" onclick="var self = this; $.post('/api/consultation/remove/', JSON.stringify({ questionId: '<?=$data->id?>' }), function() {$(self).text('Удалено')})">Удалить</a>
+            <a class="margin-t3 display-b" onclick="var self = this; $.post('/api/consultation/remove/', JSON.stringify({ questionId: '<?=$question->id?>' }), function() {$(self).text('Удалено')})">Удалить</a>
         <?php endif; ?>
     </article>
     <!-- Статья с текстом-->

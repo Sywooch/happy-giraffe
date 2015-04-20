@@ -11,9 +11,9 @@ use site\frontend\modules\posts\modules\myGiraffe\models\FeedItem;
 class FeedManager
 {
     private static $_filters = array(
-        1 => 'site\frontend\modules\posts\modules\myGiraffe\components\channels\BlogChannel',
-        2 => 'site\frontend\modules\posts\modules\myGiraffe\components\channels\ClubChannel',
-        3 => 'site\frontend\modules\posts\modules\myGiraffe\components\channels\FriendsChannel',
+        'blog' => 'site\frontend\modules\posts\modules\myGiraffe\components\channels\BlogChannel',
+        'club' => 'site\frontend\modules\posts\modules\myGiraffe\components\channels\ClubChannel',
+        'friends' => 'site\frontend\modules\posts\modules\myGiraffe\components\channels\FriendsChannel',
     );
 
     public static function handle(Content $post)
@@ -25,13 +25,12 @@ class FeedManager
             $channelIds = $channel->getUserIds($post);
             foreach ($channelIds as $userId) {
                 self::createItem($userId, $post->id, $filter);
+                $allIds[] = $userId;
             }
-            $allIds += $channelIds;
         }
-
         array_unique($allIds);
         foreach ($allIds as $userId) {
-            self::createItem($userId, $post->id, 0);
+            self::createItem($userId, $post->id, 'all');
         }
     }
 

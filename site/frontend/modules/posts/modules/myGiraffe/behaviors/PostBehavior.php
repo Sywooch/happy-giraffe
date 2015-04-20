@@ -1,5 +1,5 @@
 <?php
-namespace site\frontend\modules\posts\modules\myGiraffe\components\behaviors;
+namespace site\frontend\modules\posts\modules\myGiraffe\behaviors;
 use site\frontend\modules\posts\modules\myGiraffe\components\FeedManager;
 
 /**
@@ -12,8 +12,5 @@ class PostBehavior extends \CActiveRecordBehavior
     public function afterSave()
     {
         FeedManager::handle($this->owner);
-//        \Yii::app()->gearman->client()->doBackground('myGiraffeHandle', serialize(array(
-//            'postId' => $this->owner->id,
-//        )));
     }
 }

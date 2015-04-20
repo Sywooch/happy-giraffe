@@ -66,23 +66,6 @@ $thumb = \Yii::app()->thumbs->getThumb($this->attach->photoModel, 'postCollectio
                     <div class="b-article_in clearfix">
                         <div class="wysiwyg-content clearfix">
                             <post-photo-view params="id: <?= $this->post->originEntityId ?>, photo: <?= $this->attach->id ?>"></post-photo-view>
-                            123
-                            <div class="b-album-cap">
-                                <div class="b-album-cap_hold">
-                                    <div class="b-album">
-                                        <div class="b-album_img-hold">
-                                            <?php if ($this->prevAttach) { ?><a href="<?= $this->post->url . $this->prevAttach->url ?>">&lAarr;</a><?php } ?>
-                                            <a href="#" class="b-album_img-a">
-                                                <div class="b-album_img-pad"></div>
-                                                <img src="<?= $thumb->url ?>" alt="<?= $this->attach->photo['title'] ?>" class="b-album_img-big">
-                                            </a>
-                                            <?php if ($this->nextAttach) { ?><a href="<?= $this->post->url . $this->nextAttach->url ?>">&rAarr;</a><?php } ?>
-                                            <!--<div class="b-album_img-hold-ovr">
-                                                <div class="ico-zoom ico-zoom__abs"></div>
-                                            </div>-->
-                                        </div>
-                                    </div>
-                                </div>
                                 <?php
                                 /* echo \CHtml::tag('photo-photopost', array(
                                   'params' =>
@@ -92,10 +75,6 @@ $thumb = \Yii::app()->thumbs->getThumb($this->attach->photoModel, 'postCollectio
                                   'coverId: ' . $this->collection->cover['id'],
                                   ), '') */
                                 ?>
-                            </div>
-                            <div class="b-album-desc">
-                                <div class="b-album-desc__name"><?= $this->attach->photo['title'] ?></div>
-                                <div class="b-album-desc__text"><?= $this->attach->photo['description'] ?></div>
                             </div>
                         </div>
                         <?php

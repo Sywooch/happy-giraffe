@@ -104,6 +104,15 @@ return array(
     ),
     array(
         'filter' => array(
+            'name' =>'widen',
+            'width' => 320,
+        ),
+        'usages' => array(
+            'postImageMobile',
+        ),
+    ),
+    array(
+        'filter' => array(
             'name' =>'lepilla',
             'width' => 92,
             'height' => 70,

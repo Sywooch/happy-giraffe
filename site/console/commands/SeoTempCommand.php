@@ -59,31 +59,121 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
-    public function actionHg()
+
+
+    public function actionSpec()
+    {
+        $a = array(
+//            //260 => 1, //Новости медицины
+//            261 => 433659, //Народная медицина
+//            262 => 433649, //Симптомы и ощущения
+//            263 => 433654, //Лекарственные препараты и витамины
+//            264 => 433659, //Анализы и обследования
+//            //265 => 1, //Больницы, клиники, центры
+//            266 => 433684, //Аллерголог (аллергические заболевания)
+//            267 => 433689, //Андролог (заболевания мужской половой сферы)
+//            268 => 433829, //Венеролог (заболевания, передающиеся половым путем)
+//            269 => 433839, //Гастроэнтеролог (заболевания желудочно-кишечного тракта)
+//            270 => 433894, //Гематолог (заболевания крови)
+//            271 => 433904, //Генетик (генетические патологии)
+//            272 => 433649, //Гепатолог (заболевания печени)
+//            273 => 433909, //Гинеколог (заболевания женской половой сферы)
+//            274 => 433829, //Дерматолог (заболевания кожи)
+//            275 => 433684, //Иммунолог (проблемы иммунитета)
+//            276 => 433839, //Инфекционист (инфекционные заболевания)
+//            277 => 433974, //Кардиолог (заболевания сердца)
+//            278 => 433979, //Нарколог (проблемы зависимостей)
+//            279 => 433984, //Невропатолог (заболевания нервной системы)
+//            280 => 433989, //Нефролог (заболевания почек)
+//            281 => 433994, //Онколог (онкологические заболевания (опухоли))
+//            282 => 433999, //Ортопед (проблемы опорно-двигательного аппарата)
+//            283 => 434004, //Отоларинголог (проблемы уха, горла, носа)
+//            284 => 434009, //Офтальмолог (проблемы зрительного аппарата)
+//            285 => 434014, //Проктолог (заболевания прямой кишки)
+//            286 => 433979, //Психолог (психологическая помощь)
+//            287 => 433979, //Психотерапевт (проблемы психики)
+//            288 => 434019, //Пульмонолог (заболевания лёгких)
+//            289 => 434024, //Ревматолог (ревматические заболевания)
+//            290 => 434029, //Стоматолог (заболевания зубов и десен)
+//            291 => 433649, //Терапевт (общие проблемы здоровья)
+//            292 => 434034, //Токсиколог (лечение отравлений)
+//            293 => 433999, //Травматолог (лечение травм)
+//            294 => 433689, //Уролог (заболевания почек и мочевыводящих путей)
+//            //295 => 1, //Фтизиатр (лечение туберкулеза)
+//            296 => 433999, //Хирург (оперативное лечение)
+            297 => 434039, //Эндокринолог (заболевания эндокринной системы)
+//            2592 => 433649, //Диетолог
+        );
+
+        foreach ($a as $rubricId => $userId) {
+            echo $rubricId . ":" . $userId . "\n";
+            \site\common\components\temp\HgMove::move($rubricId, $userId);
+        }
+    }
+
+    public function actionSpecUsers()
+    {
+        $file = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'spec.csv';
+
+        $data = array();
+        if (($handle = fopen($file, "r")) !== false) {
+            while (($row = fgetcsv($handle)) !== false) {
+                $data[] = $row;
+            }
+            fclose($handle);
+        }
+
+        for ($i = 0; $i < count($data); $i++) {
+            for ($j = 0; $j < count($data[$i]); $j++) {
+                if (preg_match('#\/user\/(\d+)\/#', $data[$i][$j], $matches)) {
+                    $userId = $matches[1];
+                    $title = $data[$i - 1][$j + 1];
+                    $education = $data[$i - 1][$j + 2];
+                    preg_match('#(\d+)#', $data[$i - 1][$j + 3], $m2);
+                    $date = isset($m2[1]) ? $m2[1] : 15;
+
+                    $user = \site\frontend\modules\users\models\User::model()->findByPk($userId);
+                    $user->specInfoObject->title = $title;
+                    $user->specInfoObject->education = $education;
+                    $user->register_date = '2012-01-' . $date . ' 00:00:00';
+                    $user->save();
+                }
+            }
+        }
+    }
+
+    public function actionRestore($a, $b)
+    {
+        \site\common\components\temp\HgMove::restore($a, $b);
+    }
+
+    public function actionHg($clubId)
     {
         $result = array();
 
-        $forum = Community::model()->findByPk(33);
+        $club = CommunityClub::model()->findByPk($clubId);
 
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('by_happy_giraffe = 1 OR author_id = 1');
+        foreach ($club->communities as $forum) {
+            $criteria = new CDbCriteria();
+            $criteria->addCondition('by_happy_giraffe = 1 OR author_id = 1');
 
-        foreach ($forum->rubrics as $rubric) {
-            $count = $rubric->getRelated('contentsCount', false, $criteria);
+            foreach ($forum->rubrics as $rubric) {
+                $count = $rubric->getRelated('contentsCount', false, $criteria);
 
-            if ($count == 0) {
-                continue;
-            }
+                if ($count == 0) {
+                    continue;
+                }
 
-            $result[] = array('Рубрика: ' . $rubric->title, 'Постов в рубрике: ' . $count);
+                $result[] = array('Рубрика: ' . $rubric->title, 'Постов в рубрике: ' . $count);
 
-            $result[] = array('Заголовок', 'URL', 'Отметка 1', 'Отметка 2');
-            foreach ($rubric->getRelated('contents', false, $criteria) as $c) {
-                $result[] = array($c->title, $c->getUrl(false, true), $c->by_happy_giraffe ? '+' : '-', ($c->author_id == User::HAPPY_GIRAFFE) ? '+' : '-');
+                $result[] = array('Заголовок', 'URL', 'Отметка 1', 'Отметка 2');
+                foreach ($rubric->getRelated('contents', false, $criteria) as $c) {
+                    $result[] = array($c->title, $c->getUrl(false, true), $c->by_happy_giraffe ? '+' : '-', ($c->author_id == User::HAPPY_GIRAFFE) ? '+' : '-');
+                }
             }
         }
 
-        $this->writeCsv('health', $result);
+        $this->writeCsv('hg' . $clubId, $result);
     }
 
     public function actionUsers()
@@ -134,6 +224,72 @@ class SeoTempCommand extends CConsoleCommand
             }
             $command->writeCsv('mailTopics2', $result);
         });
+    }
+
+    public function actionTraf()
+    {
+        $this->ga->setDateRange('2011-01-01', '2015-03-31');
+
+        $result = array();
+        $data = array();
+        $page = 0;
+        do {
+            $page ++;
+            $mr = 10000;
+            $si = ($page - 1) * $mr + 1;
+            $response = $this->getReport(array(
+                'metrics' => 'ga:organicSearches',
+                'dimensions' => 'ga:pagePath',
+                'max-results' => $mr,
+                'start-index' => $si,
+            ));
+
+            foreach ($response as $path => $row) {
+                if ($row['ga:organicSearches'] > 1000) {
+                    $data[$path] = array(
+                        'http://www.happy-giraffe.ru' . $path,
+                        $row['ga:organicSearches'],
+                        0,
+                    );
+                }
+            }
+
+            echo "step1 $page\n";
+        } while (count($response) > 0);
+
+        echo count($data) . "\n";
+
+        $this->ga->setDateRange('2015-04-01', '2015-04-14');
+
+        $page = 0;
+        do {
+            $page ++;
+            $mr = 10000;
+            $si = ($page - 1) * $mr + 1;
+            $response = $this->getReport(array(
+                'metrics' => 'ga:organicSearches',
+                'dimensions' => 'ga:pagePath',
+                'max-results' => $mr,
+                'start-index' => $si,
+            ));
+
+            foreach ($response as $path => $row) {
+                if (isset($data[$path])) {
+                    if ($row['ga:organicSearches'] < 50) {
+                        $data[$path][2] = $row['ga:organicSearches'];
+                    } else {
+                        unset($data[$path]);
+                    }
+                }
+            }
+            echo "step2 $page\n";
+        } while (count($response) > 0);
+
+        usort($data, function($a, $b) {
+            return $b[1] - $a[1];
+        });
+
+        $this->writeCsv('traf', $data);
     }
 
     public function actionCheckRemoved()

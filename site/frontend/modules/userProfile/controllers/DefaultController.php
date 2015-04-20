@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\userProfile\controllers;
+use site\frontend\modules\users\models\User;
 
 /**
  * @author Никита
@@ -30,7 +31,7 @@ class DefaultController extends \LiteController
      */
     public function actionIndex($userId)
     {
-        $user = \User::model()->active()->findByPk($userId);
+        $user = User::model()->active()->findByPk($userId);
         if ($user === null) {
             throw new \CHttpException(404);
         }

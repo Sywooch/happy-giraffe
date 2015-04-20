@@ -5,7 +5,7 @@
         (function(w, d, n, s, t) {
             w[n] = w[n] || [];
             w[n].push(function() {
-                Ya.Direct.insertInto(127976, "yandex_ad", {
+                Ya.Direct.insertInto(127976, "yandex_ad_<?=$widget->id?>", {
                     stat_id: 8,
                     ad_format: "direct",
                     font_size: 1.1,
@@ -28,6 +28,16 @@
             s.async = true;
             t.parentNode.insertBefore(s, t);
         })(window, document, "yandex_context_callbacks");
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Объявления -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:468px;height:15px"
+         data-ad-client="ca-pub-3807022659655617"
+         data-ad-slot="8926657285"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
     <?php $this->endWidget(); ?>
 </div>

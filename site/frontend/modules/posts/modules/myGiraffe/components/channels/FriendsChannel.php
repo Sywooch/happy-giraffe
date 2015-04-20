@@ -7,6 +7,7 @@ use site\frontend\modules\posts\models\Content;
  * @date 17/04/15
  */
 
+\Yii::import('site.frontend.modules.friends.models.*');
 
 class FriendsChannel extends BaseChannel
 {

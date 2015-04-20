@@ -27,6 +27,8 @@ class OtherQuestionsWidget extends \CWidget
     protected function getQuestions()
     {
         $criteria = new \CDbCriteria();
+        $criteria->order = '(:current < t.id) ASC, t.id DESC';
+        $criteria->params = array(':current' => $this->question->id);
         $criteria->compare('id', '<>' . $this->question->id);
         $criteria->limit = self::LIMIT;
         return ConsultationQuestion::model()->findAll($criteria);

@@ -3,6 +3,7 @@ namespace site\frontend\modules\analytics\commands;
 use site\frontend\modules\analytics\components\MigrateManager;
 use site\frontend\modules\analytics\components\VisitsManager;
 use site\frontend\modules\analytics\models\PageView;
+use site\frontend\modules\consultation\models\ConsultationQuestion;
 use site\frontend\modules\posts\models\Content;
 
 /**
@@ -51,5 +52,14 @@ class ViewsCommand extends \CConsoleCommand
         var_dump($model);
 
         $model->incVisits(1);
+    }
+
+    public function actionConsultation()
+    {
+        $models = ConsultationQuestion::model()->findAll();
+        foreach ($models as $m) {
+            $model = PageView::getModel($m->url);
+            $model->incVisits(50);
+        }
     }
 } 

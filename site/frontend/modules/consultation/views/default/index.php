@@ -3,7 +3,7 @@
  * @var \LiteController $this
  * @var \CActiveDataProvider $dp
  */
-$this->pageTitle = 'Консультация';
+$this->pageTitle = 'Обсуждаем проблему недостатка грудного молока';
 ?>
 
 <div class="b-main_col-article">
@@ -32,3 +32,8 @@ $this->pageTitle = 'Консультация';
 <div class="b-main_col-sidebar visible-md">
     <?php $this->renderPartial('_specialist'); ?>
 </div>
+
+<?php
+if ($dp->pagination->currentPage != 0) {
+    $this->metaNoindex = true;
+}

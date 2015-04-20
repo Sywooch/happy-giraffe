@@ -34,6 +34,11 @@ class Label extends \site\frontend\components\api\models\ApiModel
         return self::model()->query('getLabels', array('forumId' => $forumId));
     }
     
+    public static function findByRubric($rubricId)
+    {
+        return self::model()->query('getLabels', array('rubricId' => $rubricId));
+    }
+    
     public function findForBlog()
     {
         return $this->query('getLabels', array('blog' => true));

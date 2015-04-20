@@ -2,7 +2,6 @@ define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCo
     function PostPhotoView(params) {
         this.photopost = Object.create(Photopost);
         this.collection = new PhotoCollection({});
-
         this.title = '';
         this.description = '';
         this.current = ko.observable(false);
@@ -20,7 +19,6 @@ define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCo
         this.returnNewColor = Model.returnNewColor;
         this.colorsArray = Model.colorsArray;
         this.elementCssClass = 'b-album_prev-li img-grid_loading__';
-
 
         /**
          * imgBinding

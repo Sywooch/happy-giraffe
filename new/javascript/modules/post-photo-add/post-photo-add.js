@@ -10,6 +10,7 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
         this.gotPhotopost = function gotPhopost(response) {
             if (response.success === true) {
                 this.photopost.init(response.data);
+                this.photoCollection.id(this.photopost.collectionId());
                 this.photoCollection.getPartsCollection(this.photopost.collectionId(), 0, null);
                 this.load(true);
             }
@@ -20,6 +21,9 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
             this.photopost.init({});
             this.load(true);
         }
+        this.photopostCover.subscribe(function photopostCoverChangingHandler(newCover) {
+            this.photoCollection.setCover(parseInt(newCover));
+        }.bind(this));
         this.loadPhotoUploader = function loadPhotoUploader() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
         };

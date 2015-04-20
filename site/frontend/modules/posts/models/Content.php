@@ -84,15 +84,12 @@ class Content extends \CActiveRecord implements \IHToJSON
             array('authorId, html, dtimeCreate, originService, originEntity, originEntityId, originManageInfo', 'required'),
             array('title', 'required', 'except' => 'oldStatusPost'),
             array('isDraft, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved', 'boolean'),
-            array('isDraft, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved', 'safe'),
+            array('isDraft, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved, dtimePublication', 'safe'),
             array('uniqueIndex', 'numerical', 'integerOnly' => true),
             array('url, title', 'length', 'max' => 255),
             array('authorId, dtimeCreate, dtimeUpdate, dtimePublication', 'length', 'max' => 10),
             array('originService, originEntity, originEntityId', 'length', 'max' => 100),
             array('text, preview, meta, social, template', 'safe'),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, url, authorId, title, text, html, preview, labels, dtimeCreate, dtimeUpdate, dtimePublication, originService, originEntity, originEntityId, originManageInfo, isDraft, uniqueIndex, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved, meta, social, template', 'safe', 'on' => 'search'),
         );
     }
 

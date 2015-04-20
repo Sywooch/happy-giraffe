@@ -2,13 +2,15 @@
     if (get_class($model) == 'Album')
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.count > a',
-        'entity' => get_class($model),
-        'entity_id' => $model->id,
-        'singlePhoto' => true,
-        'entity_url' => (get_class($model) == 'Contest') ? $model->url : null,
-    ));
+    if (false) {
+        $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+            'selector' => '.count > a',
+            'entity' => get_class($model),
+            'entity_id' => $model->id,
+            'singlePhoto' => true,
+            'entity_url' => (get_class($model) == 'Contest') ? $model->url : null,
+        ));
+    }
 ?>
 
 <div id="photo-inline" itemscope itemtype="http://schema.org/ImageObject">
@@ -86,42 +88,44 @@
 </div>
 
 <?php
+if (false) {
 //костыль для велентина
-if (isset($model->content) && method_exists($model->content, 'isValentinePost') && $model->content->isValentinePost()){
-    $post = $model->content;
-    $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-        'model' => $post,
-        'type' => 'simple',
-        'options' => array(
-            'title' => CHtml::encode($post->title),
-            'image' => $model->items[0]->photo->getOriginalUrl(),
-            'description' => $post->preview,
-        ),
-    ));
+    if (isset($model->content) && method_exists($model->content, 'isValentinePost') && $model->content->isValentinePost()) {
+        $post = $model->content;
+        $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+            'model' => $post,
+            'type' => 'simple',
+            'options' => array(
+                'title' => CHtml::encode($post->title),
+                'image' => $model->items[0]->photo->getOriginalUrl(),
+                'description' => $post->preview,
+            ),
+        ));
 
-    $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
-}
-else {
-    $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-        'model' => (get_class($model) == 'Contest') ? $photo->getAttachByEntity('ContestWork')->model : $photo,
-        'type' => 'simple',
-        'options' => array(
-            'title' => CHtml::encode($photo->w_title),
-            'image' => $photo->getPreviewUrl(180, 180),
-            'description' => $photo->w_description,
-        ),
-    ));
+        $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
+    } else {
+        $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+            'model' => (get_class($model) == 'Contest') ? $photo->getAttachByEntity('ContestWork')->model : $photo,
+            'type' => 'simple',
+            'options' => array(
+                'title' => CHtml::encode($photo->w_title),
+                'image' => $photo->getPreviewUrl(180, 180),
+                'description' => $photo->w_description,
+            ),
+        ));
 
-    if (isset($decor)){?>
-        <div class="entry-nav clearfix">
-            <div class="next">
-                <?=$decor->nextLink() ?>
+        if (isset($decor)) {
+            ?>
+            <div class="entry-nav clearfix">
+                <div class="next">
+                    <?= $decor->nextLink() ?>
+                </div>
+                <div class="prev">
+                    <?= $decor->prevLink() ?>
+                </div>
             </div>
-            <div class="prev">
-                <?=$decor->prevLink() ?>
-            </div>
-        </div>
-    <?php }
+        <?php }
 
-    $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
+        $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
+    }
 }

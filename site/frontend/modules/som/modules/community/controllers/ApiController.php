@@ -39,6 +39,30 @@ class ApiController extends \site\frontend\components\api\ApiController
                     'data' => array('id' => (int) Label::getIdByLabel($label, true), 'text' => $label)
                 );
             }, $labels);
+        } elseif ($rubricId) {
+            $rubric = \CommunityRubric::model()->with(array('parent', 'community', 'community.club', 'community.club.section'))->findByPk($rubricId);
+            $labels = array();
+            if ($rubric->community) {
+                $labels[] = $rubric->community->toLabel();
+                if ($rubric->community->club)
+                    $labels[] = $rubric->community->club->toLabel();
+                if ($rubric->community->club && $rubric->community->club->section)
+                    $labels[] = $rubric->community->club->section->toLabel();
+            }
+
+            while ($rubric) {
+                $labels[] = $rubric->toLabel();
+                $rubric = $rubric->parent;
+            }
+
+            $this->success = true;
+            $this->isPack = true;
+            $this->data = array_map(function($label) {
+                return array(
+                    'success' => true,
+                    'data' => array('id' => (int) Label::getIdByLabel($label, true), 'text' => $label)
+                );
+            }, $labels);
         }
     }
 

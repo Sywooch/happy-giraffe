@@ -13,119 +13,33 @@
     }
 ?>
 
-<div id="photo-inline" itemscope itemtype="http://schema.org/ImageObject">
-
-    <div class="photo-inline_top">
-
-        <div class="meta">
-
-            <div class="clearfix">
-
-                <div class="count">
-                            <span class="count-tx">
-                                <?php if (get_class($model) == 'CookDecorationCategory'): ?>
-                                <?=($model->getIndex($photo->id) + 1)?> фото из <?=$model->getPhotoCollectionCount()?>
-                                <?php elseif (get_class($model) != 'Contest'): ?>
-                                <?=$currentIndex?><?php if (get_class($model) != 'Album' || $model->id != Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id): ?> фото<?php endif; ?> из <?=count($collection['photos'])?>
-                                <?php endif; ?>
-                            </span>
-                    <a href="javascript:void(0)" class="btn-green" data-id="<?=$photo->id?>"><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></a>
+<div class="b-main">
+    <div class="b-main_cont">
+        <div class="b-main_col-hold clearfix">
+            <div class="b-main_col-article">
+                <div class="b-article clearfix">
+                    <div class="b-article_header clearfix"></div>
+                    <h1 class="b-article_t"><?=$photo->w_title?></h1>
                 </div>
-
-                <div class="album-title">
-                    <?=$collection['title']?>
-                </div>
-
+                <section class="b-album b-album__photolink">
+                    <div href="#" class="b-album_img-hold">
+                        <div class="b-album_img-a">
+                            <div class="b-album_img-pad"></div>
+                            <div class="b-album_img-allheight">
+                                <div class="b-album_img-center">
+                                    <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $photo->w_title, array('itemprop' => 'contentURL', 'class' => 'b-album_img-big', 'title'=>$photo->w_title))?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php if ($decor->prevLink()): ?>
+                        <a href="<?= $decor->prevLink() ?>" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a>
+                    <?php endif; ?>
+                    <?php if ($decor->nextLink()): ?>
+                        <a href="<?= $decor->nextLink() ?>" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
+                    <?php endif; ?>
+                </section>
             </div>
-
         </div>
-
-        <?php if ($photo->w_title): ?>
-        <div class="title"><h1 itemprop="name"><?=$photo->w_title?></h1></div>
-        <?php endif; ?>
-
     </div>
-
-    <div class="img">
-
-        <div class="user clearfix">
-
-            <?php $this->widget('Avatar', array('user' => $photo->author, 'size' => Avatar::SIZE_MICRO)); ?>
-
-            <?php $this->widget('FavouriteWidget', array('model' => $photo)); ?>
-
-            <?php if (get_class($model) == 'Contest' && Yii::app()->user->checkAccess('removeContestWork')): ?>
-                <?php
-                    $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
-                        'model' => $photo->getAttachByEntity('ContestWork')->model,
-                        'callback' => 'ContestWorkDelete',
-                    ));
-
-                     Yii::app()->clientScript->registerScript('removeContestWork', 'function ContestWorkDelete() {
-                        window.location.href = "' . $model->url . '"
-                     }',
-                     CClientScript::POS_HEAD);
-                ?>
-            <?php endif; ?>
-
-        </div>
-
-        <?php if ($photo->w_title): ?>
-            <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $photo->w_title, array('itemprop' => 'contentURL', 'title'=>$photo->w_title))?>
-        <?php else: ?>
-            <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '', array('itemprop' => 'contentURL'))?>
-        <?php endif; ?>
-
-        <meta itemprop="width" content="<?=$photo->width?> px">
-        <meta itemprop="height" content="<?=$photo->height?> px">
-
-    </div>
-
-    <?php if ($photo->w_description): ?>
-        <div class="photo-comment" itemprop="description"><?=$photo->w_description?></div>
-    <?php endif; ?>
-
 </div>
-
-<?php
-if (false) {
-//костыль для велентина
-    if (isset($model->content) && method_exists($model->content, 'isValentinePost') && $model->content->isValentinePost()) {
-        $post = $model->content;
-        $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-            'model' => $post,
-            'type' => 'simple',
-            'options' => array(
-                'title' => CHtml::encode($post->title),
-                'image' => $model->items[0]->photo->getOriginalUrl(),
-                'description' => $post->preview,
-            ),
-        ));
-
-        $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
-    } else {
-        $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-            'model' => (get_class($model) == 'Contest') ? $photo->getAttachByEntity('ContestWork')->model : $photo,
-            'type' => 'simple',
-            'options' => array(
-                'title' => CHtml::encode($photo->w_title),
-                'image' => $photo->getPreviewUrl(180, 180),
-                'description' => $photo->w_description,
-            ),
-        ));
-
-        if (isset($decor)) {
-            ?>
-            <div class="entry-nav clearfix">
-                <div class="next">
-                    <?= $decor->nextLink() ?>
-                </div>
-                <div class="prev">
-                    <?= $decor->prevLink() ?>
-                </div>
-            </div>
-        <?php }
-
-        $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
-    }
-}

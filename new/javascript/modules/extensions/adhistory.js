@@ -14,13 +14,13 @@ define(['ads-config', 'extensions/history'], function (adsConfig) {
         },
         reloadBanner: function reloadBanner() {
             if (adsConfig.showAds === true) {
-                $('#photo-window_banner iframe').attr('src', '/direct4.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
+                //$('#photo-window_banner iframe').attr('src', '/direct4.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
                 //adfox_reloadBanner('bn-1');
             }
         },
         bannerInit: function bannerInit(currentUrl) {
             if (adsConfig.showAds === true) {
-                $('#photo-window_banner iframe').attr('src', '/direct4.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
+                //$('#photo-window_banner iframe').attr('src', '/direct4.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
                 //(function (bannerPlaceId, requestSrc, defaultLoad) {
                 //    var
                 //        tgNS = window.ADFOX.RELOAD_CODE,

@@ -50,12 +50,14 @@ class Content extends \CActiveRecord implements \IHToJSON
         'nppost' => 'NewPhotoPost',
         'post' => 'CommunityContent',
         'status' => 'NewStatus',
+        'advpost' => 'AdvPost',
     );
     public static $entityAliases = array(
         'CommunityContent' => 'CommunityContent',
         'BlogContent' => 'BlogContent',
         'NewPhotoPost' => 'site\frontend\modules\som\modules\photopost\models\Photopost',
         'NewStatus' => 'site\frontend\modules\som\modules\status\models\Status',
+        'AdvPost' => 'site\frontend\modules\editorialDepartment\models\Content',
     );
 
     /**
@@ -125,7 +127,7 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'pkAttribute' => 'originEntityId',
                 'entityClass' => array('\site\frontend\modules\posts\models\Content', 'getEntityClassByContent'),
             ),
-            'site\frontend\modules\som\modules\activity\behaviors\PostBehavior',
+            'ActivityBehavior' => 'site\frontend\modules\som\modules\activity\behaviors\PostBehavior',
             'RssBehavior' => array(
                 'class' => 'site\frontend\modules\rss\behaviors\ContentRssBehavior',
             ),

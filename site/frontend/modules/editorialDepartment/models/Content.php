@@ -53,7 +53,7 @@ class Content extends \EMongoDocument
             'social' => '\site\frontend\modules\editorialDepartment\models\Social',
         );
     }
-
+    
     public function behaviors()
     {
         return array(

@@ -59,7 +59,7 @@ class ViewsCommand extends \CConsoleCommand
         $models = ConsultationQuestion::model()->findAll();
         foreach ($models as $m) {
             $model = PageView::getModel($m->url);
-            $model->incVisits(50);
+            $model->incVisits(-50);
         }
     }
 } 

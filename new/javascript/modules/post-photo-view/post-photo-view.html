@@ -27,14 +27,16 @@
               </div>
               <div class="b-album_ico-album"></div>
               <div class="b-album_arrow-all"></div></a>
-            <ul class="b-album_prev clearfix visible-md-block">
-              <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                  <div class="b-album_prev-hold"></div></a></li>
-              <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">
-                  <div class="b-album_prev-hold"></div></a></li>
-              <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                  <div class="b-album_prev-hold"></div></a></li>
-            </ul>
+              <ul class="b-album_prev clearfix visible-md-block" data-bind="foreach: collection.attaches()">
+                  <!-- ko if: $index() < 3 -->
+                    <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
+                          <a href="#" class="b-album_prev-a">
+                              <img alt="" class="b-album_prev-img" src="" data-bind="attr: { 'src': photo().getGeneratedPreset('myPhotosPreview') }">
+                              <div class="b-album_prev-hold"></div>
+                          </a>
+                    </li>
+                  <!-- /ko -->
+              </ul>
           </div>
         </section>
     </div>

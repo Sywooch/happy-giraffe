@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCollection', 'extensions/adhistory', 'text!post-photo-view/post-photo-view.html'], function postPhotoViewHandler($, ko, Photopost, Model, PhotoCollection, AdHistory, template) {
+define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCollection', 'extensions/adhistory', 'text!post-photo-view/post-photo-view.html', 'knockout.mapping'], function postPhotoViewHandler($, ko, Photopost, Model, PhotoCollection, AdHistory, template) {
     function PostPhotoView(params) {
         this.photopost = Object.create(Photopost);
         this.collection = new PhotoCollection({});
@@ -11,12 +11,15 @@ define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCo
         this.imgTag = ko.observable('');
         this.masterUrl = location.href;
         this.masterTitle = document.title;
-        this.collection.usablePreset = ko.observable('postCollectionCover');
+        this.collection.usablePreset = ko.observable('myPhotosPreview');
         this.setDelay = 1000;
         this.currentId = ko.observable();
         this.photoLength = 20;
         this.offsetMinimal = 5;
         this.photoAttach = (ko.isObservable(params.photo) === false) ? ko.observable(params.photo) : params.photo().id;
+        this.returnNewColor = Model.returnNewColor;
+        this.colorsArray = Model.colorsArray;
+        this.elementCssClass = 'b-album_prev-li img-grid_loading__';
 
 
         /**

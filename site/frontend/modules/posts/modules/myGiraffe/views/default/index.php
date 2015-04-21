@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var site\frontend\modules\posts\modules\myGiraffe\components\DataProvider $dp
+ */
+?>
+
 <div class="b-main_cont b-main_cont__wide">
 
 
@@ -9,28 +15,19 @@
             <!-- Статья с текстом-->
             <!-- b-article-->
             <?php
-                $this->widgets('LiteListView');
+                $this->widget('LiteListView', array(
+                    'dataProvider' => $dp,
+                    'itemView' => 'posts.views.list._view',
+                    'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
+                    'pager' => array(
+                        'class' => 'LitePager',
+                        'maxButtonCount' => 10,
+                        'prevPageLabel' => '&nbsp;',
+                        'nextPageLabel' => '&nbsp;',
+                        'showPrevNext' => true,
+                    ),
+                ));
             ?>
-
-            <!-- paginator-->
-            <div class="yiipagination yiipagination__center">
-                <div class="pager">
-                    <ul class="yiiPager">
-                        <li class="previous"><a href=""></a></li>
-                        <li class="page"><a href="">1</a></li>
-                        <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
-                        <li class="page-points">...</li>
-                        <li class="page"><a href="">6</a></li>
-                        <li class="page selected"><a href="">7</a></li>
-                        <li class="page"><a href="">8</a></li>
-                        <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
-                        <li class="page-points">...</li>
-                        <li class="page"><a href="">15</a></li>
-                        <li class="next"><a href=""></a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /paginator-->
         </div>
         <!-- /Основная колонкa-->
 

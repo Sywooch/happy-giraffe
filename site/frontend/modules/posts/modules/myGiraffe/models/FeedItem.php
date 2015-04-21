@@ -43,4 +43,16 @@ class FeedItem extends \HActiveRecord
             ),
         );
     }
+
+    public function getListDataProvider($userId, $filter)
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->compare('userId', $userId);
+        $criteria->compare('filter', $filter);
+        $criteria->order = 'created DESC';
+
+        return new \CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
 }

@@ -18,7 +18,12 @@
         <div class="b-main_col-hold clearfix">
             <div class="b-main_col-article">
                 <div class="b-article clearfix">
-                    <div class="b-article_header clearfix"></div>
+                    <div class="b-article_header clearfix">
+                        <div class="float-l">
+                            <?php $this->widget('Avatar', array('user' => $photo->author)); ?>
+                            <div class="b-article_author"><a href="<?=$photo->author->getUrl()?>" class="a-light"><?=$photo->author->getFullName()?></a></div>
+                        </div>
+                    </div>
                     <h1 class="b-article_t"><?=$photo->w_title?></h1>
                 </div>
                 <section class="b-album b-album__photolink">

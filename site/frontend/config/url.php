@@ -542,5 +542,7 @@ return array(
         '<slug:\w+>/consultations/page<page:\d+>' => 'consultation/default/index',
 
         '<view:(about|ad|contacts|useragreement|legal|moderation_rule|confidential)>' => 'pages/default/page',
+
+        'myGiraffe' => 'posts/myGiraffe/default/index',
     ),
 );

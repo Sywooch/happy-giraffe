@@ -1,5 +1,6 @@
 <?php
 namespace site\frontend\modules\posts\modules\myGiraffe\models;
+use site\frontend\modules\posts\modules\myGiraffe\components\DataProvider;
 
 /**
  * @property int $id
@@ -49,9 +50,9 @@ class FeedItem extends \HActiveRecord
         $criteria = new \CDbCriteria();
         $criteria->compare('userId', $userId);
         $criteria->compare('filter', $filter);
-        $criteria->order = 'created DESC';
+        $criteria->order = 'id DESC';
 
-        return new \CActiveDataProvider($this, array(
+        return new DataProvider($this, array(
             'criteria' => $criteria,
         ));
     }

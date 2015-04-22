@@ -14,6 +14,7 @@ class UserSectionWidget extends \CWidget
 {
     public $user;
     public $showToOwner = false;
+    public $adaptive = false;
 
     public function run()
     {

@@ -49,6 +49,7 @@ class User extends ApiModel
             'profileUrl',
             'avatarUrl',
             'publicChannel',
+            'specInfo',
         );
     }
 

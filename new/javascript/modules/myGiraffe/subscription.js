@@ -4,6 +4,7 @@ define(['jquery', 'knockout', 'text!myGiraffe/subscription.html', 'models/Model'
 
         self.readUrl = '/api/community/getUserSubscriptions/';
         self.saveUrl = '/api/community/setUserSubscriptions/';
+        self.redirectUrl = '/my/';
 
         self.clubIds = ko.observableArray([]);
 
@@ -26,6 +27,8 @@ define(['jquery', 'knockout', 'text!myGiraffe/subscription.html', 'models/Model'
             Model.get(self.saveUrl, {
                 userId: userConfig.userId,
                 subscriptions: self.clubIds()
+            }).done(function() {
+                document.location.href = self.redirectUrl;
             });
         };
 
@@ -36,8 +39,6 @@ define(['jquery', 'knockout', 'text!myGiraffe/subscription.html', 'models/Model'
                 for (var i in response.data) {
                     self.clubIds.push(response.data[i].id);
                 }
-
-                console.log(self.clubIds());
             });
         };
 

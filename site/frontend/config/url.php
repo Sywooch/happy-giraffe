@@ -544,5 +544,6 @@ return array(
         '<view:(about|ad|contacts|useragreement|legal|moderation_rule|confidential)>' => 'pages/default/page',
 
         'myGiraffe' => 'posts/myGiraffe/default/index',
+        'myGiraffe/subscriptions' => 'posts/myGiraffe/subscriptions/index',
     ),
 );

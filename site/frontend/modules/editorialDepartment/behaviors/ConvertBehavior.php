@@ -58,7 +58,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         $post->template = array(
             'layout' => $this->owner->forumId ? 'newCommunityPost' : 'newBlogPost',
             'data' => array(
-                'type' => 'photoPost',
+                'type' => 'post',
                 'noWysiwyg' => true,
             ),
         );
@@ -76,6 +76,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         $post->originEntityId = 0;
         $post->originEntity = 'AdvPost';
         $post->url = '#';
+        $post->isRemoved = 1;
         if ($post->save()) {
             $this->owner->entity = get_class($post);
             $this->owner->entityId = $post->id;
@@ -98,6 +99,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             $this->_post->isDraft = 0;
             $this->_post->isNoindex = 0;
             $this->_post->isNofollow = 0;
+            $this->_post->isRemoved = 0;
             $mInfo = $this->_post->originManageInfo;
             $mInfo['link']['url'] = 'editorialDepartment/redactor/edit';
             $mInfo['link']['get'] = array(
@@ -105,7 +107,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 'entityId' => $this->owner->entityId,
             );
             $this->_post->originManageInfo = $mInfo;
-            var_dump($this->_post->save());
+            $this->_post->save();
         } catch (\Exception $e) {
             
         }

@@ -43,7 +43,7 @@ class PostBehavior extends ActivityBehavior
 
     public function getIsRemoved()
     {
-        return $this->owner->isRemoved;
+        return $this->owner->isRemoved || !$this->owner->originEntityId;
     }
 
 }

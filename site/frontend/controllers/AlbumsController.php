@@ -1,9 +1,11 @@
 <?php
-class AlbumsController extends HController
+class AlbumsController extends LiteController
 {
     public $layout = '//layouts/user';
 
     public $user;
+
+    public $litePackage = 'photo';
 
     protected function beforeAction($action)
     {
@@ -795,7 +797,7 @@ class AlbumsController extends HController
         }
 
         $this->pageTitle = $photo->w_title . ' - ' . strip_tags($collection['title']);
-        $this->layout = '//layouts/main';
+        $this->layout = '//layouts/lite/main';
 
         switch ($entity) {
             case 'CommunityContentGallery':

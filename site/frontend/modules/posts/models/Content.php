@@ -108,6 +108,11 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'publicationAttribute' => 'dtimePublication',
                 'owerwriteAttributeIfSet' => false,
             ),
+            'RestrictBehavior' => array(
+                'class' => 'site\common\behaviors\RestrictBehavior',
+                'dtimeField' => 'dtimePublication',
+                'fixAttributes' => array('url'),
+            ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
                 'pkAttribute' => 'originEntityId',
@@ -348,15 +353,15 @@ class Content extends \CActiveRecord implements \IHToJSON
             'oldCommunity',
             'oldRecipe',
         );
-        
-        if(in_array($this->originService, $blogs)) {
+
+        if (in_array($this->originService, $blogs)) {
             return 'blog';
         }
-        
-        if(in_array($this->originService, $community)) {
+
+        if (in_array($this->originService, $community)) {
             return 'community';
         }
-        
+
         return 'other';
     }
 

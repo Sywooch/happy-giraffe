@@ -214,6 +214,14 @@ return array(
         'news/rubric<rubric_id:\d+>' => array('som/community/news/index'),
         'news' => array('som/community/news/index'),
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/community/view', 'defaultParams' => array('forum_id' => 36)),
+        
+        array(
+            'class' => 'UrlRule',
+            'pattern' => 'news/<content_type_slug:[a-z]+><content_id:\d+>',
+            'route' => 'community/default/view',
+            'defaultParams' => array('forum_id' => 36),
+        ),
+        
 
         // пагинация в клубах
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index',

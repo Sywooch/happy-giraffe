@@ -12,11 +12,9 @@ class DefaultCommand extends \CConsoleCommand
 {
     public function actionPopulate($lastDays)
     {
-        echo date("Y-m-d H:i:s", strtotime('-' . (int) $lastDays . ' day')); die;
-
         $criteria = new \CDbCriteria();
         $criteria->addCondition('dtimeCreate > :created');
-        $criteria->params[':created'] = date("Y-m-d H:i:s", strtotime('-' . (int) $lastDays . ' day'));
+        $criteria->params[':created'] = strtotime('-' . $lastDays . ' day');
 
         $dp = new \CActiveDataProvider(Content::model(), array(
             'criteria' => $criteria,

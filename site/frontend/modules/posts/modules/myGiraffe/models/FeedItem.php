@@ -50,7 +50,7 @@ class FeedItem extends \HActiveRecord
         $criteria = new \CDbCriteria();
         $criteria->compare('userId', $userId);
         $criteria->compare('filter', $filter);
-        $criteria->order = 'id DESC';
+        $criteria->order = 'dtimeCreate DESC';
 
         return new DataProvider($this, array(
             'criteria' => $criteria,

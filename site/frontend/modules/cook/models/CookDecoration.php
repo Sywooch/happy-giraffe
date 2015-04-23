@@ -229,7 +229,7 @@ class CookDecoration extends CActiveRecord
         if ($model === null)
             return '';
 
-        return '<span>Предыдущее фото</span>' . CHtml::link($model->title, Yii::app()->createUrl('albums/singlePhoto', array('photo_id' => $model->photo_id)));
+        return Yii::app()->createUrl('albums/singlePhoto', array('photo_id' => $model->photo_id));
     }
 
     public function nextLink()
@@ -243,6 +243,6 @@ class CookDecoration extends CActiveRecord
         if ($model === null)
             return '';
 
-        return '<span>Следующее фото</span>' . CHtml::link($model->title, Yii::app()->createUrl('albums/singlePhoto', array('photo_id' => $model->photo_id)));
+        return Yii::app()->createUrl('albums/singlePhoto', array('photo_id' => $model->photo_id));
     }
 }

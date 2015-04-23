@@ -7,7 +7,7 @@ $cs = Yii::app()->clientScript;
 $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
 ?>
 
-<section class="userSection">
+<section class="userSection<?php if ($this->adaptive): ?> visible-md visible-lg<?php endif; ?>">
     <div class="userSection_hold">
         <div class="userSection_left">
             <h2 class="userSection_name"><?=$user->getFullName()?></h2>
@@ -69,7 +69,7 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
             <?php endif; ?>
         </div>
     </div>
-    <?php if (($this->user->id !== Yii::app()->user->id || Yii::app()->controller->route != 'userProfile/default/index') && empty($user->specInfoObject)): ?>
+    <?php if (($this->user->id !== Yii::app()->user->id || Yii::app()->controller->route != 'userProfile/default/index') && empty($user->specInfo)): ?>
         <div class="userSection_panel">
             <?php
             $this->widget('zii.widgets.CMenu', array(

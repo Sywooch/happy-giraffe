@@ -9,6 +9,7 @@ $this->breadcrumbs[] = $this->widget('Avatar', array(
     'size' => \Avatar::SIZE_MICRO,
     'tag' => 'span',
         ), true);
+$this->adaptiveBreadcrumbs = true;
 ?>
 
 <?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $user, 'showToOwner' => true)); ?>

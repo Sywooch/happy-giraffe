@@ -1,4 +1,4 @@
-.b-consult {  
+.b-consult {
   .b-article {
     padding: 0;
   }
@@ -8,7 +8,8 @@
         background: url('@{path-img}/services/consult/consult-top-empty.png') no-repeat;
     }
     @media (min-width: @screen-desktop) {
-      background: url('@{path-img}/services/consult/consult-top.png') no-repeat;
+      padding: 30px 0 54px 0 !important;
+      background: url('@{path-img}/services/consult/consult-top-empty.png') no-repeat;
       text-align: left;
     }
     background: none;
@@ -17,7 +18,9 @@
     margin: 0;
     &__t {
       @media (min-width: @screen-phone-landscape) {
-        padding: 54px 0 50px 40px;
+        display: inline-block;
+        padding: 14px 60px 40px 32px !important;
+        vertical-align: middle;
         background: url('@{path-img}/services/consult/consult-top-fr.png') no-repeat;
         margin: 10px 0 0 30px;
       }
@@ -26,6 +29,33 @@
       background: none;
       padding: 0;
       margin: 0;
+    }
+    &__link {
+      display: block;
+    }
+    &__button {
+      font-family: Arial;
+      color: #fdfdfd;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: left;
+      .gvertical(#ffa22a, #f04f00);
+      width: 155px;
+      height: 20px;
+      padding: 3px 20px;
+      border-radius: 10px;
+      &:hover {
+        .gvertical(#8a5c43, #411d09);
+        color: #fdfdfd;
+      }
+    }
+    &__r {
+      @media (min-width: @screen-desktop) {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: right;
+      }
+      display: none;
     }
     &__title {
       @media (min-width: @screen-phone) {

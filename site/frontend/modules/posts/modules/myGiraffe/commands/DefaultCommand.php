@@ -14,7 +14,7 @@ class DefaultCommand extends \CConsoleCommand
     {
         $criteria = new \CDbCriteria();
         if ($lastDays) {
-            $criteria->addCondition('created > :created');
+            $criteria->addCondition('dtimeCreate > :created');
             $criteria->params[':created'] = date("Y-m-d H:i:s", strtotime('-' . (int) $lastDays . ' day'));
         }
 

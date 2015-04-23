@@ -31,7 +31,7 @@ class FeedManager
             }
         }
         array_unique($allIds);
-        self::addRows($rows, $allIds, $post->id, 'all');
+        //self::addRows($rows, $allIds, $post->id, 'all');
 
         \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(FeedItem::model()->tableName(), $rows)->execute();
     }

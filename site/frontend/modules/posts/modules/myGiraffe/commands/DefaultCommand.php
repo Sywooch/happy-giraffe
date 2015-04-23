@@ -27,6 +27,11 @@ class DefaultCommand extends \CConsoleCommand
         }
     }
 
+    public function actionUser($id)
+    {
+        FeedManager::updateForUser($id);
+    }
+
     public function actionHandle($id)
     {
         $post = Content::model()->byEntity('CommunityContent', $id)->find();

@@ -23,4 +23,17 @@ class BlogChannel extends BaseChannel
         $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(\UserBlogSubscription::model()->tableName(), $criteria);
         return $command->queryColumn();
     }
+
+    public function getPostsCriteria($userId)
+    {
+        $subscriptions = \UserBlogSubscription::model()->findAll('user_id = :userId', array(':userId' => $userId));
+        $authorIds = array_map(function($sub) {
+            return $sub->user2_id;
+        }, $subscriptions);
+
+        $criteria = new \CDbCriteria();
+        $criteria->addInCondition('authorId', $authorIds);
+        $criteria->scopes = array('byService' => 'oldBlog');
+        return $criteria;
+    }
 }

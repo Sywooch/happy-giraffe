@@ -30,8 +30,14 @@ class FeedManager
                 $allIds[] = $userId;
             }
         }
+
+        echo count($allIds) . "\n";
+
         array_unique($allIds);
-        //self::addRows($rows, $allIds, $post->id, 'all');
+
+        echo count($allIds) . "\n";
+
+        self::addRows($rows, $allIds, $post->id, 'all');
 
         \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(FeedItem::model()->tableName(), $rows)->execute();
     }
@@ -44,7 +50,7 @@ class FeedManager
                 'userId' => $userId,
                 'postId' => $postId,
                 'filter' => $filter,
-                'time' => $time,
+                'dtimeCreate' => $time,
             );
         }
     }

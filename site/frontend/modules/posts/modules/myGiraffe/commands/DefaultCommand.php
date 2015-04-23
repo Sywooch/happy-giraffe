@@ -19,7 +19,7 @@ class DefaultCommand extends \CConsoleCommand
         }
 
         $dp = new \CActiveDataProvider(Content::model(), array(
-            'criteria' => $lastDays,
+            'criteria' => $criteria,
         ));
 
         $iterator = new \CDataProviderIterator($dp, 100);

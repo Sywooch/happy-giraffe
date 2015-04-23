@@ -1,7 +1,9 @@
 <?php
 /**
+ * @var LiteController $this
  * @var site\frontend\modules\posts\modules\myGiraffe\components\DataProvider $dp
  */
+$this->pageTitle = 'Мой Жираф';
 ?>
 
 <div class="b-main_cont b-main_cont__wide">
@@ -35,7 +37,7 @@
         <!-- Сайд бар-->
         <!-- Содержимое загружaть отложено-->
         <aside class="b-main_col-sidebar visible-md">
-            <div class="bnr-sidebar"><a href="#"> <img src="/lite/images/banner/mygiraffe.png" alt=""></a></div>
+            <div class="bnr-sidebar"><a href="<?=$this->createUrl('subscriptions/index')?>"> <img src="/lite/images/banner/mygiraffe.png" alt=""></a></div>
         </aside>
     </div>
 </div>

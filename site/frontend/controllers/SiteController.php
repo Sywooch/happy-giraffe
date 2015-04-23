@@ -90,7 +90,7 @@ class SiteController extends HController
             Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl(''));
 
         if (! Yii::app()->user->isGuest)
-            $this->redirect(array('myGiraffe/default/index', 'type' => 1));
+            $this->redirect(array('posts/myGiraffe/default/index'));
 
         $this->layout = false;
         $this->render('home', compact('openLogin', 'openRegister'));

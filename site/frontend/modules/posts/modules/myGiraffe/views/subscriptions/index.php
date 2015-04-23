@@ -1,9 +1,10 @@
 <?php
 /**
- * @var $this LiteController
+ * @var LiteController $this
  */
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('subscription', array('kow'));
+$this->pageTitle = 'Мои подписки';
 ?>
 
 <div class="layout-loose_hold clearfix">

@@ -10,6 +10,25 @@ use site\frontend\modules\posts\modules\myGiraffe\components\FeedManager;
 
 class DefaultCommand extends \CConsoleCommand
 {
+    public function actionPopulateFrom($lastDays)
+    {
+        $criteria = new \CDbCriteria();
+        if ($lastDays) {
+            $criteria->addCondition('created > :created');
+            $criteria->params[':created'] = date("Y-m-d H:i:s", strtotime('-' . (int) $lastDays . ' day'));
+        }
+
+        $dp = new \CActiveDataProvider(Content::model(), array(
+            'criteria' => $lastDays,
+        ));
+
+        $iterator = new \CDataProviderIterator($dp, 100);
+
+        foreach ($iterator as $i) {
+            FeedManager::handle($i);
+        }
+    }
+
     public function actionTest()
     {
         $post = Content::model()->byEntity('CommunityContent', 52306)->find();

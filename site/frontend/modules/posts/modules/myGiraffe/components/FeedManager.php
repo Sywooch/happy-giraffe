@@ -30,15 +30,8 @@ class FeedManager
                 $allIds[] = $userId;
             }
         }
-
-        echo count($allIds) . "\n";
-
-        array_unique($allIds);
-
-        echo count($allIds) . "\n";
-
+        $allIds = array_unique($allIds);
         self::addRows($rows, $allIds, $post->id, 'all');
-
         \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(FeedItem::model()->tableName(), $rows)->execute();
     }
 

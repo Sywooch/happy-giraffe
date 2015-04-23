@@ -43,7 +43,7 @@ class FeedManager
             );
         }
 
-        \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(FeedItem::model()->tableName(), $rows);
+        \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(FeedItem::model()->tableName(), $rows)->execute();
     }
 
 //    protected static function createItem($userId, $postId, $filter)

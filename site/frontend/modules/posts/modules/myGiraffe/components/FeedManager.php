@@ -43,9 +43,7 @@ class FeedManager
             );
         }
 
-        echo count($rows);
-
-        //\Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(FeedItem::model()->tableName(), $rows);
+        \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(FeedItem::model()->tableName(), $rows);
     }
 
 //    protected static function createItem($userId, $postId, $filter)

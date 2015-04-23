@@ -29,9 +29,9 @@ class DefaultCommand extends \CConsoleCommand
         }
     }
 
-    public function actionTest()
+    public function actionHandle($id)
     {
-        $post = Content::model()->byEntity('CommunityContent', 52306)->find();
+        $post = Content::model()->byEntity('CommunityContent', $id)->find();
         FeedManager::handle($post);
     }
 }

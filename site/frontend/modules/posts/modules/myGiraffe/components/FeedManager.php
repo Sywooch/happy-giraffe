@@ -18,28 +18,44 @@ class FeedManager
 
     public static function handle(Content $post)
     {
+        $rows = array();
+
         $allIds = array();
         foreach (self::$_filters as $filter => $class) {
             /** @var \site\frontend\modules\posts\modules\myGiraffe\components\channels\BaseChannel $channel */
             $channel = new $class();
             $channelIds = $channel->getUserIds($post);
             foreach ($channelIds as $userId) {
-                self::createItem($userId, $post->id, $filter);
+                $rows[] = array(
+                    'userId' => $userId,
+                    'postId' => $post->id,
+                    'filter' => $filter,
+                );
                 $allIds[] = $userId;
             }
         }
         array_unique($allIds);
         foreach ($allIds as $userId) {
-            self::createItem($userId, $post->id, 'all');
+            $rows[] = array(
+                'userId' => $userId,
+                'postId' => $post->id,
+                'filter' => 'all',
+            );
         }
+
+        echo count($rows);
+
+        //\Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(FeedItem::model()->tableName(), $rows);
     }
 
-    protected static function createItem($userId, $postId, $filter)
-    {
-        $item = new FeedItem();
-        $item->userId = $userId;
-        $item->postId = $postId;
-        $item->filter = $filter;
-        $item->save();
-    }
+//    protected static function createItem($userId, $postId, $filter)
+//    {
+//        $item = new FeedItem();
+//        $item->userId = $userId;
+//        $item->postId = $postId;
+//        $item->filter = $filter;
+//        $item->save();
+//
+//        \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand();
+//    }
 }

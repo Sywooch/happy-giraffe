@@ -21,4 +21,10 @@ class Spec extends SerializedModel
             'education',
         );
     }
+
+    public function serialize()
+    {
+        $attributes = array_filter($this->attributes);
+        return (empty($attributes)) ? '' : parent::serialize();
+    }
 }

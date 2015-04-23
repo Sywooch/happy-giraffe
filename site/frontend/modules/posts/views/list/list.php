@@ -7,6 +7,7 @@ $this->metaNoindex = true;
 $this->breadcrumbs = array(
     'Блог',
 );
+$this->adaptiveBreadcrumbs = true;
 ?>
 
 <?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $this->owner)); ?>

@@ -24,6 +24,8 @@ class LiteController extends HController
     public $metaNoindex = false;
     public $owner;
 
+    public $adaptiveBreadcrumbs = false; // если true, то хлебные крошки не отображаются для мобил и планшетов
+
     public function init()
     {
         header('Vary: User-Agent');

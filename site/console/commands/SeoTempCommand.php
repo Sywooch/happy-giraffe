@@ -113,7 +113,7 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionSpecUsers()
     {
-        $file = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'spec.csv';
+        $file = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'spec2.csv';
 
         $data = array();
         if (($handle = fopen($file, "r")) !== false) {
@@ -140,6 +140,12 @@ class SeoTempCommand extends CConsoleCommand
                 }
             }
         }
+    }
+
+    public function actionSpecTest()
+    {
+        $user = \site\frontend\modules\users\models\User::model()->findByPk(56);
+        var_dump($user->specInfo);
     }
 
     public function actionRestore($a, $b)

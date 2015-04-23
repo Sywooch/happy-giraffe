@@ -68,7 +68,7 @@ return array(
         'cook/multivarka/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'MultivarkaRecipe')),
         'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
-        'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
+        'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('gallery/tmp/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
         'ValentinesDay/valentines/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album', 'valentines' => 1)),
         'ValentinesDay/howToSpend/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'valentinePost')),
 
@@ -238,6 +238,14 @@ return array(
         'news/rubric<rubric_id:\d+>' => array('som/community/news/index'),
         'news' => array('som/community/news/index'),
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/community/view', 'defaultParams' => array('forum_id' => 36)),
+        
+        array(
+            'class' => 'UrlRule',
+            'pattern' => 'news/<content_type_slug:[a-z]+><content_id:\d+>',
+            'route' => 'community/default/view',
+            'defaultParams' => array('forum_id' => 36),
+        ),
+        
 
         // пагинация в клубах
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index',

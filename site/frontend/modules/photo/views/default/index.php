@@ -11,6 +11,7 @@ $this->pageTitle = $user->getFullName() . ' - Фотоальбомы';
 $this->breadcrumbs += array(
     'Фото',
 );
+$this->adaptiveBreadcrumbs = true;
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('photo-albums', array('kow'));
 ?>

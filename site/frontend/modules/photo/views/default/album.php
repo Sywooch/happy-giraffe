@@ -17,7 +17,7 @@ $cs = Yii::app()->clientScript;
 $cs->registerAMD('photo-album', array('kow'));
 ?>
 
-<?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $this->owner)); ?>
+<?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $this->owner, 'adaptive' => true)); ?>
 
 <div class="b-main_cont">
     <photo-album params="userId: <?= $userId ?>, albumId: <?= $id ?>"></photo-album>

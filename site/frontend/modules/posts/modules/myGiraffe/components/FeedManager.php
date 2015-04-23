@@ -25,25 +25,25 @@ class FeedManager
             /** @var \site\frontend\modules\posts\modules\myGiraffe\components\channels\BaseChannel $channel */
             $channel = new $class();
             $channelIds = $channel->getUserIds($post);
-            self::addRows($rows, $channelIds, $post->id, $filter);
+            self::addRows($rows, $channelIds, $post, $filter);
             foreach ($channelIds as $userId) {
                 $allIds[] = $userId;
             }
         }
         $allIds = array_unique($allIds);
-        self::addRows($rows, $allIds, $post->id, 'all');
+        self::addRows($rows, $allIds, $post, 'all');
         if (count($rows) > 0) {
             \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(FeedItem::model()->tableName(), $rows)->execute();
         }
     }
 
-    protected static function addRows(&$array, $userIds, $postId, $filter)
+    protected static function addRows(&$array, $userIds, $post, $filter)
     {
         $time = time();
         foreach ($userIds as $userId) {
             $array[] = array(
                 'userId' => $userId,
-                'postId' => $postId,
+                'postId' => $post->id,
                 'filter' => $filter,
                 'dtimeCreate' => $time,
             );

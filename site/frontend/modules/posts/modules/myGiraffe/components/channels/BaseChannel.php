@@ -10,4 +10,5 @@ use site\frontend\modules\posts\models\Content;
 abstract class BaseChannel
 {
     abstract public function getUserIds(Content $post);
+    abstract public function getPostsCriteria($userId);
 }

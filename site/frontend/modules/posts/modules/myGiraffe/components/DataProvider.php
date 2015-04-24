@@ -24,5 +24,7 @@ class DataProvider extends \CActiveDataProvider
         usort($contents, function($a, $b) use ($ids) {
             return array_search($a->id, $ids) > array_search($b->id, $ids);
         });
+
+        return $contents;
     }
 }

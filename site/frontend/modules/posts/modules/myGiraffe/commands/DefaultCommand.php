@@ -12,6 +12,9 @@ class DefaultCommand extends \CConsoleCommand
 {
     public function actionPopulate($lastDays)
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
         $criteria = new \CDbCriteria();
         $criteria->addCondition('dtimeCreate > :created');
         $criteria->params[':created'] = strtotime('-' . $lastDays . ' day');

@@ -54,6 +54,10 @@ class FeedItem extends \HActiveRecord
 
         return new DataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 10,
+                'pageVar' => 'page',
+            ),
         ));
     }
 }

@@ -11,6 +11,6 @@ class PostBehavior extends \CActiveRecordBehavior
 {
     public function afterSave()
     {
-        //FeedManager::handle($this->owner);
+        FeedManager::handle($this->owner);
     }
 }

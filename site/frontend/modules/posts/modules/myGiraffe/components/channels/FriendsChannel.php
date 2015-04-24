@@ -28,7 +28,7 @@ class FriendsChannel extends BaseChannel
     protected function getFriends($userId)
     {
         $criteria = new \CDbCriteria();
-        $criteria->select = 'id';
+        $criteria->select = 'friend_id';
         $criteria->compare('user_id', $userId);
         $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(\Friend::model()->tableName(), $criteria);
         return $command->queryColumn();

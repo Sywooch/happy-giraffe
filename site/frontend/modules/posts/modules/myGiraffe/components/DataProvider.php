@@ -19,6 +19,10 @@ class DataProvider extends \CActiveDataProvider
         }, $feedItems);
         $criteria = new \CDbCriteria();
         $criteria->addInCondition('id', $ids);
-        return Content::model()->findAll($criteria);
+        $contents = Content::model()->findAll($criteria);
+
+        usort($contents, function($a, $b) use ($ids) {
+            return array_search($a->id, $ids) > array_search($b->id, $ids);
+        });
     }
 }

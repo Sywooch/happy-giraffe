@@ -1,3 +1,4 @@
+//- Открытая статья
 mixin bArticle-single(mod, vars)
     // Статья с текстом
     // b-article
@@ -11,6 +12,7 @@ mixin bArticle-single(mod, vars)
                     +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
                     a.b-article_author(href='#') Ангелина Богоявленская
                     time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                    .b-article_authorpos Врач-педиатр
                 .icons-meta
                     a.icons-meta_comment(href='#')
                         span.icons-meta_tx 35
@@ -31,6 +33,7 @@ mixin bArticle-single(mod, vars)
                     .b-article_in-img.b-article_in-img__l
                         a(href='#')
                             img(alt='', src='#{path}images/example/w600-h415.jpg')
+                            .b-article_in-img-overlay
                     p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
                     p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. 
                     p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
@@ -79,7 +82,91 @@ mixin bArticle-single(mod, vars)
 - bArticleSingle.redactor.btnEdit = true
 - bArticleSingle.redactor.redactor = true
 
+//- Фотопост
+mixin bArticlePhotopost(mod, vars)
+    // Статья с текстом
+    // b-article
+    article.b-article.b-article__single.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                if (vars.empty != true)
+                    .icons-meta
+                        a.icons-meta_comment(href='#')
+                            span.icons-meta_tx 35
+                        .icons-meta_view
+                            span.icons-meta_tx 305
+            if(vars.userActivityPost)
+                +userActivityPost('', vars.userActivityPost)
 
+            .b-article_t-list
+                a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    if(vars.content == 'empty')
+                        +bAlbumCap('b-album__load', bAlbumCap.base)
+                    if(!vars.content)
+                        +bAlbumPhotopost('', bAlbumPhotopost.single)
+                        .b-album-desc
+                            .b-album-desc__name Чертова дорога
+                            .b-album-desc__text Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            //-.b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    // Описание определенное количество символов
+                    p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  
+                        span.ico-more
+
+            if (vars.type == 'text')
+                +commentsList('', commentsList.b)
+
+            if (vars.empty != true)
+                .b-article_like.clearfix
+
+                    if(vars.btnEdit)
+                        +articleSettings('', articleSettings.base)
+                    .article-also
+                        .article-also_row
+                            +likeControl('like-control__small', likeControl.articleList)
+                        .article-also_row
+                            .article-also_tx Смотреть все 
+                                a(href='#') комментарии
+                                .visible-md-inline-block
+                                    | ,
+                                    a(href='#')  нравится, 
+                                .visible-md-inline-block
+                                    a(href='#')  закладки 
+                                | .
+
+    // /b-article
+
+- var bArticlePhotopost = {}
+- bArticlePhotopost.base = {}
+- bArticlePhotopost.base.btnEdit = true
+
+- bArticlePhotopost.userProfilePhotopost = {}
+- bArticlePhotopost.userProfilePhotopost.type = 'photopost'
+- bArticlePhotopost.userProfilePhotopost.userActivityPost = userActivityPost.photopost
+
+- bArticlePhotopost.userProfilePhoto = {}
+- bArticlePhotopost.userProfilePhoto.type = 'photo'
+- bArticlePhotopost.userProfilePhoto.userActivityPost = userActivityPost.photo
+
+- bArticlePhotopost.baseEmpty = {}
+- bArticlePhotopost.baseEmpty.content = 'empty'
+
+//- Статус пользователя
+- bArticlePhotopost.carePhotoPost = {}
+- bArticlePhotopost.carePhotoPost.empty = true
+
+- bArticlePhotopost.carePhoto = {}
+- bArticlePhotopost.carePhoto.content = 'empty'
+- bArticlePhotopost.carePhoto.empty = true
+
+//- Статья и видео пост в списке блога/клуба и
 mixin bArticleListItem(mod, vars)
     // Статья с текстом
     // b-article
@@ -90,11 +177,16 @@ mixin bArticleListItem(mod, vars)
                     +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
                     a.b-article_author(href='#') Ангелина Богоявленская
                     time.tx-date(pubdate='1957-10-04') Сегодня 13:25
-                .icons-meta
-                    a.icons-meta_comment(href='#')
-                        span.icons-meta_tx 35
-                    .icons-meta_view
-                        span.icons-meta_tx 305
+                    .b-article_authorpos Врач-педиатр
+                if (vars.empty != true)
+                    .icons-meta
+                        a.icons-meta_comment(href='#')
+                            span.icons-meta_tx 35
+                        .icons-meta_view
+                            span.icons-meta_tx 305
+            if(vars.userActivityPost)
+                +userActivityPost('', vars.userActivityPost)
+
             .b-article_t-list
                 a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
             .b-article_in.clearfix
@@ -107,6 +199,7 @@ mixin bArticleListItem(mod, vars)
                         .b-article_in-img
                             a(href='#')
                                 img(alt='', src='#{path}images/example/w600-h415.jpg')
+                                .b-article_in-img-overlay
                     if (vars.type == 'video')
                         // Статья видео
                         .b-article_in-img
@@ -116,28 +209,29 @@ mixin bArticleListItem(mod, vars)
                     // Описание определенное количество символов
                     p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  
                         a.ico-more(href='#')
+                        a.ico-more-hover.display-n(href='#')
 
             if (vars.type == 'text')
-                +commentsList('', commentsList.b)
-
-            .b-article_like.clearfix
-                if(vars.delete)
-                    +cap-empty('cap-empty__abs cap-empty__white', capEmpty.articleDel)
-                +articleSettings('', articleSettings.base)
-
-                .article-also
-                    .article-also_row
-                        +likeControl('like-control__small', likeControl.articleList)
-                    .article-also_row
-                        .article-also_tx Смотреть все 
-                            a(href='#') комментарии
-                            .visible-md-inline-block
-                                | ,
-                                a(href='#')  нравится, 
-                            .visible-md-inline-block
-                                a(href='#')  закладки 
-                            | .
-
+                if (vars.empty != true)
+                    +commentsList('', commentsList.b)
+            if (vars.empty != true)
+                .b-article_like.clearfix
+                    if(vars.delete)
+                        +cap-empty('cap-empty__abs cap-empty__white', capEmpty.articleDel)
+                    if(vars.btnEdit)
+                        +articleSettings('', articleSettings.base)
+                    .article-also
+                        .article-also_row
+                            +likeControl('like-control__small', likeControl.articleList)
+                        .article-also_row
+                            .article-also_tx Смотреть все 
+                                a(href='#') комментарии
+                                .visible-md-inline-block
+                                    | ,
+                                    a(href='#')  нравится, 
+                                .visible-md-inline-block
+                                    a(href='#')  закладки 
+                                | .
     // /b-article
 
 
@@ -145,19 +239,34 @@ mixin bArticleListItem(mod, vars)
 
 - bArticleListItem.a = {}
 - bArticleListItem.a.type = 'text'
+- bArticleListItem.a.btnEdit = true
+
+- bArticleListItem.userProfileArticle = {}
+- bArticleListItem.userProfileArticle.type = 'text'
+- bArticleListItem.userProfileArticle.userActivityPost = userActivityPost.article
 
 - bArticleListItem.b = {}
 - bArticleListItem.b.type = 'video'
+- bArticleListItem.b.btnEdit = true
 
-- bArticleListItem.b = {}
-- bArticleListItem.b.type = 'video'
+- bArticleListItem.userProfileVideo = {}
+- bArticleListItem.userProfileVideo.type = 'video'
+- bArticleListItem.userProfileVideo.userActivityPost = userActivityPost.video
 
 - bArticleListItem.del = {}
 - bArticleListItem.del.type = 'text'
 - bArticleListItem.del.delete = true
 
+- bArticleListItem.care = {}
+- bArticleListItem.care.type = 'text'
+- bArticleListItem.care.empty = true
+
+- bArticleListItem.careVideo = {}
+- bArticleListItem.careVideo.type = 'video'
+- bArticleListItem.careVideo.empty = true
 
 
+//- Фотопост
 mixin bArticleListPhotopost(mod, vars)
     // Статья с текстом
     // b-article
@@ -168,16 +277,23 @@ mixin bArticleListPhotopost(mod, vars)
                     +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
                     a.b-article_author(href='#') Ангелина Богоявленская
                     time.tx-date(pubdate='1957-10-04') Сегодня 13:25
-                .icons-meta
-                    a.icons-meta_comment(href='#')
-                        span.icons-meta_tx 35
-                    .icons-meta_view
-                        span.icons-meta_tx 305
+                if (vars.empty != true)
+                    .icons-meta
+                        a.icons-meta_comment(href='#')
+                            span.icons-meta_tx 35
+                        .icons-meta_view
+                            span.icons-meta_tx 305
+            if(vars.userActivityPost)
+                +userActivityPost('', vars.userActivityPost)
+
             .b-article_t-list
                 a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
             .b-article_in.clearfix
                 .wysiwyg-content.clearfix
-                    +bAlbumPhotopost('', bAlbumPhotopost.a)
+                    if(vars.content == 'empty')
+                        +bAlbumCap('b-album__load', bAlbumCap.base)
+                    if(!vars.content)
+                        +bAlbumPhotopost('', bAlbumPhotopost.a)
 
             //-.b-article_in.clearfix
                 .wysiwyg-content.clearfix
@@ -188,26 +304,48 @@ mixin bArticleListPhotopost(mod, vars)
             if (vars.type == 'text')
                 +commentsList('', commentsList.b)
 
+            if (vars.empty != true)
+                .b-article_like.clearfix
 
-            .b-article_like.clearfix
-                +articleSettings('', articleSettings.base)
-                .article-also
-                    .article-also_row
-                        +likeControl('like-control__small', likeControl.articleList)
-                    .article-also_row
-                        .article-also_tx Смотреть все 
-                            a(href='#') комментарии
-                            .visible-md-inline-block
-                                | ,
-                                a(href='#')  нравится, 
-                            .visible-md-inline-block
-                                a(href='#')  закладки 
-                            | .
+                    if(vars.btnEdit)
+                        +articleSettings('', articleSettings.base)
+                    .article-also
+                        .article-also_row
+                            +likeControl('like-control__small', likeControl.articleList)
+                        .article-also_row
+                            .article-also_tx Смотреть все 
+                                a(href='#') комментарии
+                                .visible-md-inline-block
+                                    | ,
+                                    a(href='#')  нравится, 
+                                .visible-md-inline-block
+                                    a(href='#')  закладки 
+                                | .
 
     // /b-article
 
 - var bArticleListPhotopost = {}
 - bArticleListPhotopost.base = {}
+- bArticleListPhotopost.base.btnEdit = true
+
+- bArticleListPhotopost.userProfilePhotopost = {}
+- bArticleListPhotopost.userProfilePhotopost.type = 'photopost'
+- bArticleListPhotopost.userProfilePhotopost.userActivityPost = userActivityPost.photopost
+
+- bArticleListPhotopost.userProfilePhoto = {}
+- bArticleListPhotopost.userProfilePhoto.type = 'photo'
+- bArticleListPhotopost.userProfilePhoto.userActivityPost = userActivityPost.photo
+
+- bArticleListPhotopost.baseEmpty = {}
+- bArticleListPhotopost.baseEmpty.content = 'empty'
+
+//- Статус пользователя
+- bArticleListPhotopost.carePhotoPost = {}
+- bArticleListPhotopost.carePhotoPost.empty = true
+
+- bArticleListPhotopost.carePhoto = {}
+- bArticleListPhotopost.carePhoto.content = 'empty'
+- bArticleListPhotopost.carePhoto.empty = true
 
 
 mixin bArticleStatus(mod, vars)
@@ -222,11 +360,14 @@ mixin bArticleStatus(mod, vars)
                     +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
                     a.b-article_author(href='#') Ангелина Богоявленская
                     time.tx-date(pubdate='2014-10-04') минуту назад
-                .icons-meta
-                    a.icons-meta_comment(href='#')
-                        span.icons-meta_tx 35
-                    .icons-meta_view
-                        span.icons-meta_tx 305
+                if (vars.empty != true)
+                    .icons-meta
+                        a.icons-meta_comment(href='#')
+                            span.icons-meta_tx 35
+                        .icons-meta_view
+                            span.icons-meta_tx 305
+            if(vars.userActivityPost)
+                +userActivityPost('', vars.userActivityPost)
 
             .b-article_in.clearfix
                 .user-status.user-status__base
@@ -247,18 +388,19 @@ mixin bArticleStatus(mod, vars)
 
 
             if (vars.status == 'list')
-                .article-also
-                    .article-also_row
-                        +likeControl('like-control__small', likeControl.articleList)
-                    .article-also_row
-                        .article-also_tx Смотреть все 
-                            a(href='#') комментарии
-                            .visible-md-inline-block
-                                | ,
-                                a(href='#')  нравится, 
-                            .visible-md-inline-block
-                                a(href='#')  закладки 
-                            | .
+                if (vars.empty != true)
+                    .article-also
+                        .article-also_row
+                            +likeControl('like-control__small', likeControl.articleList)
+                        .article-also_row
+                            .article-also_tx Смотреть все 
+                                a(href='#') комментарии
+                                .visible-md-inline-block
+                                    | ,
+                                    a(href='#')  нравится, 
+                                .visible-md-inline-block
+                                    a(href='#')  закладки 
+                                | .
                             
             if (vars.status == 'open')
                 +likeControl('like-control__line', likeControl.base)
@@ -275,7 +417,16 @@ mixin bArticleStatus(mod, vars)
 - bArticleStatus.list = {}
 - bArticleStatus.list.status = 'list'
 
+- bArticleStatus.userProfileStatus = {}
+- bArticleStatus.userProfileStatus.type = 'status'
+- bArticleStatus.userProfileStatus.userActivityPost = userActivityPost.status
 
+- bArticleStatus.careStatus = {}
+- bArticleStatus.careStatus.status = 'list'
+- bArticleStatus.careStatus.empty = true
+
+
+//- Рецепт
 mixin bArticleCook(mod, vars)
     // Статья с текстом
     // b-article
@@ -472,7 +623,7 @@ mixin bArticleCook(mod, vars)
 - bArticleCook.base = {}
 
 
-
+//- Статья редактора, создается из специального редактора с использованием markdown
 mixin article-markdown(mod, vars)
     // Статья с текстом
     // b-article
@@ -659,3 +810,182 @@ mixin article-markdown(mod, vars)
 - articleMarkdown.e = {}
 - articleMarkdown.e.type = 'collection'    
 
+
+
+//- Добавлен комментарий. В списке активности пользователя в анкете. 
+mixin bArticleComment(mod, vars)
+    // Добавлен комментарий
+    // b-article
+    article.b-article.b-article__list.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                .icons-meta
+                    a.icons-meta_comment(href='#')
+                        span.icons-meta_tx 35
+                    .icons-meta_view
+                        span.icons-meta_tx 305
+            if(vars.userActivityPost)
+                +userActivityPost('', vars.userActivityPost)
+            .b-article_in.clearfix
+                .comments.comments__buble.comments__anonce
+                    .comments_hold
+                        // 
+                            варианты цветов комментов. В такой последовательности
+                            .comments_li__lilac
+                            .comments_li__yellow
+                            .comments_li__red
+                            .comments_li__blue
+                            .comments_li__green
+                        .comments_li.comments_li__lilac
+                            .comments_i.clearfix
+                                .comments_frame
+                                    .comments_cont
+                                        .wysiwyg-content
+                                            p 
+                                                |  Большое спасибо автору рецепта Светлане Хмелевской (Великоиваненко), за рецепт, и у ней же прошу извинения за внесенные мной изменения в рецепт. вот что у нас получилось))) итак  нам нужно 150 г
+                                            // одно фото в блок (ссылку)
+                                            a.comments_cont-img-w(href='#')
+                                                // размеры превью максимум 400*400 пк
+                                                img.content-img(alt='', src='/images/example/w220-h309-1.jpg')
+                                            p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+                +bPostAnonceS('', bPostAnonceS.a)
+
+    // /b-article
+
+
+- var bArticleComment = {}
+
+- bArticleComment.base = {}
+- bArticleComment.base.userActivityPost = userActivityPost.comment
+
+//- Добавлен комментарий. В списке активности пользователя в анкете. 
+mixin bArticleQA(mod, vars)
+    // Добавлен комментарий
+    // b-article
+    article.b-article.b-article__list.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+            if(vars.userActivityPost)
+                +userActivityPost('', vars.userActivityPost)
+            .b-article_in.clearfix
+                .comments.comments__buble.comments__anonce
+                    .comments_hold
+                        // 
+                            варианты цветов комментов. В такой последовательности
+                            .comments_li__lilac
+                            .comments_li__yellow
+                            .comments_li__red
+                            .comments_li__blue
+                            .comments_li__green
+                        .comments_li.comments_li__lilac
+                            .comments_i.clearfix
+                                .comments_frame
+                                    .comments_cont
+                                        .wysiwyg-content
+                                            p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+                +bPostAnonceS('', bPostAnonceS.no)
+
+    // /b-article
+
+
+- var bArticleQA = {}
+
+- bArticleQA.base = {}
+- bArticleQA.base.userActivityPost = userActivityPost.answer
+
+- bArticleQA.question = {}
+- bArticleQA.question.userActivityPost = userActivityPost.question
+
+
+
+//- Добавлен комментарий. В списке активности пользователя в анкете. 
+mixin bArticleLike(mod, vars)
+    // Добавлен лайк
+    // b-article
+    article.b-article.b-article__list.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                .icons-meta
+                    a.icons-meta_comment(href='#')
+                        span.icons-meta_tx 35
+                    .icons-meta_view
+                        span.icons-meta_tx 305
+            if(vars.userActivityPost)
+                +userActivityPost('', vars.userActivityPost)
+            .b-article_in.clearfix
+                //-.comments.comments__buble.comments__anonce
+                    .comments_hold
+                        // 
+                            варианты цветов комментов. В такой последовательности
+                            .comments_li__lilac
+                            .comments_li__yellow
+                            .comments_li__red
+                            .comments_li__blue
+                            .comments_li__green
+                        .comments_li.comments_li__lilac
+                            .comments_i.clearfix
+                                .comments_frame
+                                    .comments_cont
+                                        .wysiwyg-content
+                                            p 
+                                                |  Большое спасибо автору рецепта Светлане Хмелевской (Великоиваненко), за рецепт, и у ней же прошу извинения за внесенные мной изменения в рецепт. вот что у нас получилось))) итак  нам нужно 150 г
+                                            // одно фото в блок (ссылку)
+                                            a.comments_cont-img-w(href='#')
+                                                // размеры превью максимум 400*400 пк
+                                                img.content-img(alt='', src='/images/example/w220-h309-1.jpg')
+                                            p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+                +bPostAnonceS('', bPostAnonceS.b)
+
+    // /b-article
+
+
+- var bArticleLike = {}
+
+- bArticleLike.base = {}
+- bArticleLike.base.userActivityPost = userActivityPost.like
+
+
+//- Анонс статьи в активности пользователя
+mixin bPostAnonceS(mod, vars)
+    // .b-post-anonce-s
+    .b-post-anonce-s
+        if(vars.img)
+            .b-post-anonce-s_img
+                img(src=vars.img, alt="Заголовок статьи")
+        .b-post-anonce-s_hold
+            .b-post-anonce-s_header.clearfix
+                +ava("ava__female ava__small", ava.a)
+                a.b-post-anonce-s_author(href='#') Ангелина Богоявленская
+                time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+            a.b-post-anonce-s_t(href='#')
+                != vars.title
+            .b-post-anonce-s-theme
+                | Консультация: 
+                a(href="#") Обсуждаем проблему недостатка грудного молока
+    // /b-post-anonce-s
+
+- var bPostAnonceS = {}
+
+- bPostAnonceS.a = {}
+- bPostAnonceS.a.img = 'http://placecreature.com/flying-squirrel/70/70'
+- bPostAnonceS.a.title = 'Большое спасибо автору рецепта'
+
+- bPostAnonceS.b = {}
+- bPostAnonceS.b.img = 'http://placecreature.com/dog/70/70'
+- bPostAnonceS.b.title = 'Это захватывающий сюжет, из которого вы можете узнать все о растяжке'
+
+- bPostAnonceS.no = {}
+- bPostAnonceS.no.title = 'Это захватывающий сюжет, из которого вы можете узнать все о растяжке'
+- bPostAnonceS.no.theme = 'consult'

@@ -161,10 +161,18 @@ define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Mode
     };
     PhotoUploadViewModel.prototype.removePhotoInternal = function(photo) {
         var self = this;
-        if (photo.status() == PhotoUpload.prototype.STATUS_LOADING) {
-            photo.jqXHR.abort();
+        if (ko.isObservable(photo.photo)) {
+            if (photo.photo().status() == PhotoUpload.prototype.STATUS_LOADING) {
+                photo.photo().jqXHR.abort();
+            }
+            PhotoAddViewModel.prototype.removePhotoInternal.call(self, photo.photo());
+        } else {
+            if (photo.status() == PhotoUpload.prototype.STATUS_LOADING) {
+                photo.jqXHR.abort();
+            }
+            PhotoAddViewModel.prototype.removePhotoInternal.call(self, photo);
         }
-        PhotoAddViewModel.prototype.removePhotoInternal.call(self, photo);
+
     };
 
 
@@ -355,13 +363,20 @@ define('ko_photoUpload', ['jquery', 'knockout', 'knockout.mapping', 'models/Mode
         self.rotateRight = function() {
             self.rotate(true);
         };
-
         self.rotate = function(clockwise) {
-            $.post('/api/photo/photos/rotate/', JSON.stringify({ clockwise : clockwise, photoId : self.id() }), function(response) {
-                if (response.success) {
-                    ko.mapping.fromJS(response.data, {}, self);
-                }
-            }, 'json');
+            if (self.hasOwnProperty('photo')) {
+                $.post('/api/photo/photos/rotate/', JSON.stringify({ clockwise : clockwise, photoId : self.photo.id() }), function(response) {
+                    if (response.success) {
+                        ko.mapping.fromJS(new Photo(response.data), {}, self.photo);
+                    }
+                }, 'json');
+            } else {
+                $.post('/api/photo/photos/rotate/', JSON.stringify({ clockwise : clockwise, photoId : self.id() }), function(response) {
+                    if (response.success) {
+                        ko.mapping.fromJS(response.data, {}, self);
+                    }
+                }, 'json');
+            }
         };
 
         self.cssClass = ko.computed(function() {

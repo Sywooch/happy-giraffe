@@ -211,7 +211,7 @@
                         self.contWrap.css({'padding-top' : h});
                     } else {
                         self.contWrap.css({'padding-top' : 0});
-                        
+            
                     }
                 }
                 self.renew = function() {
@@ -224,11 +224,11 @@
                     self.imCenter.find('.scroll_scroller').trigger('scroll');
                     self.imUserList.find('.scroll_scroller').trigger('scroll');
                 }
-                
+            
                 $(window).resize(function() {
                     self.renew();
                 });
-                
+            
                 $(document).on('koUpdate', 'section.im-center', function(event) {
                     if(event.target == this)
                     {
@@ -272,7 +272,7 @@
                             self.contWrap.css({'padding-top' : h});
                         } else {
                             self.contWrap.css({'padding-top' : 0});
-                            
+            
                         }
                     }
                     self.renew = function() {
@@ -282,11 +282,11 @@
                             containerHeight();
                             msgToBottom();
                     }
-                    
+                   
                     $(window).resize(function() {
                             self.renew();
                     });
-                    
+            
                     $(document).on('koUpdate', 'section.im-center', function(event) {
                             var imCenter = this;
                             self.imCenter = $(imCenter);
@@ -297,7 +297,7 @@
                             self.headerHeight = $('.layout-header').height();
                             self.renew();
                     });
-                    
+            
                     
                     $(document).ready(function () {
                         var imCenter = ".im-center";
@@ -310,8 +310,8 @@
                         self.contWrap = $('.im-center_middle-w', imCenter);
                         self.renew();
                     });
-                    
-                    
+            
+            
             }();
             
             
@@ -336,7 +336,7 @@
             //- im.msgToBottom = function(){
             //-     var contH = im.container.height();
             //-     var contWrap = $('.im-center_middle-w');
-            
+                
             //-     if (contH > contWrap.height()) {
             //-         var h = contH - contWrap.height() - 5;
             //-         contWrap.css({'padding-top' : h});
@@ -388,6 +388,7 @@
                   </div>
                 </div>
                 <!-- /side-menu-->
+                
                 <div class="im-sidebar_sound"><a href="" class="im-sidebar_sound-ico"></a></div>
               </div>
               <div class="im-sidebar_users">
@@ -420,6 +421,7 @@
                   </div>
                 </div>
                 <!-- /im-user-list-->
+                
               </div>
             </section>
             <!-- /im-sidebar-->
@@ -479,6 +481,7 @@
                   </div>
                 </div>
                 <!-- /im-panel-->
+                
               </div>
               <div class="im-center_middle">
                 <div class="scroll">
@@ -541,7 +544,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__friend">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
+                          <div class="im-message_tx"> 
                             <p>Уважаемая Зося, добрый день! </p>
                             <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
                           </div>
@@ -569,9 +572,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
-                            <p>Уважаемая Зося, добрый день! </p>
-                            <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
+                          <div class="im-message_tx"> <p>Здраствуйте Никита, испытайте себя в новом конкурсе</p><div class="im-message_contest"><a href="/commentatorsContest/1/" class="btn btn-xm btn-link yellow" style="">Принять участие!</a></div><p>Желаем успехов!</p>
                           </div>
                         </div>
                       </div>
@@ -600,7 +601,7 @@
                         </div>
                         <div class="im-message_hold">
                           <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
-                          <div class="im-message_tx"><p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p><img src='http://img.happy-giraffe.ru/thumbs/580x1000/241994/e1796839933d137f85bae1e7136351fa.jpg' class='content-img' title='ПРИТЧА ПРО ОСЛА фото 1' alt='ПРИТЧА ПРО ОСЛА фото 1'>
+                          <div class="im-message_tx"> <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p><img src='http://img.happy-giraffe.ru/thumbs/580x1000/241994/e1796839933d137f85bae1e7136351fa.jpg' class='content-img' title='ПРИТЧА ПРО ОСЛА фото 1' alt='ПРИТЧА ПРО ОСЛА фото 1'>
                           </div>
                         </div>
                       </div>
@@ -642,7 +643,7 @@
                             $('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
                             /* привязать baron к созданным элементам, в верстке не работает */
                             addBaron('.redactor-control_hold .scroll');
-                            
+                        
                             $('.redactor').redactor({
                                 minHeight: 20,
                                 autoresize: true,
@@ -666,7 +667,7 @@
                                 },
                                 changeCallback: function(html)
                                 {   
-                                
+                                    
                                     var redactorH = this.$box.height();
                                     // Выбираем непосредственного родителя
                                     var bParrent = this.$box.parents('.redactor-control_hold');
@@ -698,6 +699,6 @@
       </div>
     </div>
   </div>
-  <div class="popup-container display-n">
+  <div class="popup-container display-n"> 
   </div>
 </body></html>

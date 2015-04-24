@@ -6,7 +6,7 @@ define(['jquery', 'knockout', 'user-config', 'models/User'], function($, ko, use
 
       checkForMe: function checkForMe(array) {
          if ($.inArray( this.userConfig.userId, array ) === -1 ) {
-            array.push(this.userConfig.userId)
+            array.push(this.userConfig.userId);
          }
          return array;
       },
@@ -32,10 +32,10 @@ define(['jquery', 'knockout', 'user-config', 'models/User'], function($, ko, use
                return i;
             }
          }
-         return false
+         return false;
       }
 
-   }
+   };
 
    return UserController;
 });

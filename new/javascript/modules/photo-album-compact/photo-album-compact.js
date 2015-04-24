@@ -11,10 +11,11 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.returnNewColor = Model.returnNewColor;
         params.album.presets = params.presets;
         this.removed = ko.observable(false);
-        this.photoAlbum.init(params.album);
+        this.photoAlbum = this.photoAlbum.init(params.album);
         this.opened = ko.observable(false);
         this.userId = params.userId;
         this.limitDescSymbols = 200;
+        this.attaches = this.photoAlbum.photoCollection().attaches();
         /**
          * Removing album
          */

@@ -1,4 +1,4 @@
-define(['knockout', 'text!clubs-section/clubs-section.html', 'models/Club'], function ClubsSectionHandler(ko, template, Club) {
+define(['knockout', 'text!clubs-section/clubs-section.html', 'models/Club', 'ko_library'], function ClubsSectionHandler(ko, template, Club) {
     function ClubsSection(params) {
         this.userId = params.userId;
         this.clubs = ko.observableArray();

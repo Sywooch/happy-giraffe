@@ -1,0 +1,193 @@
+include ../../../block/config
+extend ../../../extend/layout_base_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css';
+ 
+block layout
+ 
+    .b-main
+
+        .b-main_cols.clearfix
+            .b-main_col-1 
+                +sidebarSearch('sidebar-search__big', sidebarSearch.a )
+            .b-main_col-23
+                +userAddRecord('userAddRecord__s', userAddRecord.a)
+            
+        .b-main_cont.b-main_cont__broad    
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="#") Мой жираф
+                    li.b-crumbs_li.b-crumbs_li__last
+                        +ava('ava__small', ava.a)
+
+
+        +userSection('', userSection.baseUser)
+    
+        .b-main_cont.b-main_cont__broad
+
+            .b-main_col-hold.clearfix
+                ///////     
+                // Основная колонка  
+                .b-main_col-article
+
+                    //-.profile-cap
+                        .heading-sm Моя активность
+                        .profile-cap_hold.profile-cap_hold__article
+                            .profile-cap_tx
+                                | У вас пока нет активности на сайте, поделитесь чем-нибудь интересным с пользователями Веселого Жирафа.
+                                br
+                                a(href='#') Добавить запись
+
+                    .heading-sm Моя активность
+                    +bArticleListItem('', bArticleListItem.a)
+                    
+                    .b-consult-banner
+                      .b-consult-banner-inner.clearfix
+                        .b-consult-banner-part
+                          img(src="/lite/images/services/consult/consult-blog-man.png", alt="")
+                          .b-consult-banner-spt
+                            .b-consult-banner-spt__name
+                              | Морозов <br />
+                              | Сергей Леонидович
+                            .b-consult-banner-spt__pos Врач-педиатр
+                        .b-consult-banner-part
+                          .b-consult-banner-mp
+                            .b-consult-banner-mp__main
+                              | Не хватает <br />
+                              | грудного молока
+                            .b-consult-banner-mp__button
+                              a.b-consult-button.login-button(href="#") Задать вопрос
+                    .w-contest-commentator
+                        a.w-contest-commentator_close(href='#') Скрыть
+                        .w-contest-commentator_date 20 февраля - 31 марта
+                        h2.w-contest-commentator_t Лучший комментатор
+                        .w-contest-commentator_t-sub Лидеры конкурса
+                        .w-contest-commentator_avas
+
+                            ul.ava-list
+                                li.ava-list_li
+                                    +ava('ava__male', ava.a)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.b)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.c)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.b)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.a)
+                        .w-contest-commentator_btn-hold
+
+                            a.btn.btn-xxl.btn-link(href='#') 
+                                | Принять участие!
+
+                    +bArticleListItem('', bArticleListItem.b) 
+
+
+                    .w-contest-commentator.w-contest-commentator__self
+                        a.w-contest-commentator_close(href='#') Скрыть
+                        .w-contest-commentator_date 20 февраля - 31 марта
+                        h2.w-contest-commentator_t Лучший комментатор
+                        .w-contest-commentator_in
+                            .w-contest-commentator_place 26
+                            .w-contest-commentator_user 
+                                +ava('', ava.a)
+                            .w-contest-commentator_count
+                                a.w-contest-commentator_buble(href='#')
+                                | 45 256
+
+                        //-.w-contest-commentator_avas
+                            ul.ava-list
+                                li.ava-list_li
+                                    +ava('ava__male', ava.a)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.b)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.c)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.b)
+                                li.ava-list_li
+                                    +ava('ava__male', ava.a)
+                        .w-contest-commentator_btn-hold
+
+                            a.btn.btn-xxl.btn-link(href='#') 
+                                | Моя лента
+                            a.btn.btn-xxl.btn-default(href='#') 
+                                | Весь рейтинг
+                ///////
+                // Сайд бар  
+                aside.b-main_col-sidebar.visible-md
+                    // +widgetUserPhoto('', subscribersWidget.a)
+                    .widget-user-photo
+                        .heading-sm
+                            a.heading-sm_a-r(href='#') Все фото 828
+                            | Мои фото
+                        ul.widget-user-photo_ul.clearfix
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/dog/300/200", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        //.ico-zoom.ico-zoom__abs
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/goldfish/110/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        //.ico-zoom.ico-zoom__abs.ico-zoom__s
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    img(src="http://placecreature.com/velociraptor/103/70", alt="Заголовок фото")
+                                    .widget-user-photo_overlay
+                                        //.ico-zoom.ico-zoom__abs.ico-zoom__s
+                            li.widget-user-photo_li
+                                a.widget-user-photo_i(href='#') 
+                                    .cap-add
+                                        .cap-add_hold
+                                            .cap-add_in 
+                                                 
+
+
+                    .widget-friend
+                        .heading-sm 
+                            a.heading-sm_a-r(href='#') Все друзья 3
+                            | Мои друзья
+
+                        ul.ava-list
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.c)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.b)
+                            li.ava-list_li
+                                +ava('ava__middle', ava.a)
+
+                    .widget-club
+                        .heading-sm Мои клубы
+                        ul.widget-club_ul.clearfix
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-3(href='#')
+                                    .ico-club.ico-club__7
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-6(href='#')
+                                    .ico-club.ico-club__20
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-2(href='#')
+                                    .ico-club.ico-club__5
+                            li.widget-club_li
+                                a.i-club.i-club__list-s.i-club__collection-1(href='#')
+                                    .ico-club.ico-club__15
+
+                    .contest-commentator-bnr
+                        a.contest-commentator-bnr_a(href='#') 
+                            .btn.btn-xxl.btn-link
+                                | Принять участие!
+
+        +layout-footer-lite()

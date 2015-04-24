@@ -1,4 +1,4 @@
-define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner'], function(ko, template, Form, FormField, Model, customReturner) {
+define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 'signup/formField', 'models/Model', 'modules-helpers/component-custom-returner', 'signup/login-form'], function(ko, template, Form, FormField, Model, customReturner, LoginForm) {
     function RecoverForm() {
         this.sent = ko.observable(false);
         this.submitUrl = '/api/signup/passwordRecovery/';
@@ -14,11 +14,14 @@ define(['knockout', 'text!signup/password-recovery-form.html', 'signup/form', 's
             }
             if (response.success) {
                 this.sent(true);
-                this.clear();
+                setTimeout(this.openLoginForm.bind(this), 1000);
             } else {
                 this.fillErrors(response.data.errors);
             }
             this.loading(false);
+        };
+        this.openLoginForm = function openLoginForm() {
+            LoginForm.viewModel.prototype.open(this.fields.email.value());
         };
         this.submit = function submit() {
             this.loading(true);

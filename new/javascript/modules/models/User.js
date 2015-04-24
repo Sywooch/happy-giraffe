@@ -1,4 +1,4 @@
-define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validation', 'extensions/validatorRules', 'knockout.mapping'], function PresetManagerHandler(ko, Model, userConfig) {
+define(['knockout', 'models/Model', 'user-config', 'extensions/helpers', 'extensions/knockout.validation', 'extensions/validatorRules', 'knockout.mapping'], function PresetManagerHandler(ko, Model, userConfig, Helpers) {
     var User = {
         getUserUrl: '/api/users/get/',
         getCurrentUserUrl: '/api/users/getCurrentUser/',
@@ -12,7 +12,7 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
         isGuest: userConfig.isGuest,
         isModer: userConfig.isModer,
         userId: userConfig.userId,
-        socialServices: ['vkontakte', 'odnoklassniki'],
+        socialServices: ['odnoklassniki', 'vkontakte'],
         /**
          * Полное имя
          * @returns {string}
@@ -31,6 +31,25 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
                 userInst.init(element.data);
                 return userInst;
             }
+        },
+        /**
+         * создания пака из массива с id пользователей
+         * @param  {Array} array Массив с id пользователей
+         * @return {Array}       Массив с объектами типа { id: number }
+         */
+        createPackList: function createPackList(array) {
+            if (array.length > 0) {
+                var i;
+                /**
+                 * Добавляем автора к пользователям
+                 */
+                for (i = 0; i < array.length; i++) {
+                    array[i] = { id: array[i] };
+                }
+
+                return array;
+            }
+            return false;
         },
         /**
          * Get User
@@ -151,6 +170,10 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
         mailSubscribe: function mailSubscribe() {
             return Model.get(this.mailSubscriptionUrl, { id: this.id, value: (this.subscriptionMail.value() === false) ? 0 : 1 });
         },
+        /**
+         * Change location of current User
+         * @returns {$.ajax}
+         */
         changeLocation: function changeLocation() {
             if (this.address.value().city().id() === null) {
                 return Model.get(this.changeLocationUrl, { id: this.id, countryId: this.address.value().country().id() });
@@ -172,21 +195,38 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
             return this.day() + ' ' + this.month() + ' ' + this.year();
         },
         /**
+         * get social services by their names in array
+         * @param value
+         * @param array
+         * @returns {*}
+         */
+        getSocialByServiceName: function getSocialByServiceName(value, array) {
+            return Helpers.findByProperty('service', value, array);
+        },
+        /**
          * parse social services
          * @param socialServices
          * @returns {{}}
          */
         parseSocialServices: function parseSocialServices(socialServices) {
-            var socialObject = {};
+            var socialObject = {},
+                socialIterator;
             for (var serviceItem in this.socialServices) {
-                if (socialServices[serviceItem] !== undefined) {
-                    socialObject[this.socialServices[serviceItem]] = ko.observable(socialServices[serviceItem]);
+                socialIterator = this.getSocialByServiceName(this.socialServices[serviceItem], socialServices);
+                if (socialIterator) {
+                    socialObject[this.socialServices[serviceItem]] = ko.observable(socialIterator);
                 } else {
                     socialObject[this.socialServices[serviceItem]] = ko.observable(null);
                 }
             }
             return socialObject;
         },
+        /**
+         * remove social service
+         * @param data
+         * @param event
+         * @returns {$.ajax}
+         */
         removeSocial: function removeSocial(data, event) {
             this.socialServices.value()[data.service](null);
             return Model.get(this.removeSocialServicesUrl, { id: data.id });
@@ -266,13 +306,18 @@ define(['knockout', 'models/Model', 'user-config', 'extensions/knockout.validati
                 this.email = Model.createStdProperty(object.email, 'email');
                 this.socialServices = Model.createStdProperty(this.parseSocialServices(object.socialServices), 'socialServices');
                 this.address = Model.createStdProperty(ko.mapping.fromJS(object.address, {}), 'address');
-                this.address.value().country = ko.observable(this.address.value().country);
                 if (!ko.isObservable(this.address.value().city)) {
                     this.address.value().city = ko.observable(this.address.value().city);
                 } else {
                     this.address.value().city({ id: ko.observable(null), name: ko.observable(null) });
                 }
-                this.countryId = ko.observable(this.address.value().country().id());
+                if (!ko.isObservable(this.address.value().country)) {
+                    this.address.value().country = ko.observable(this.address.value().country);
+                    this.countryId = ko.observable(this.address.value().country().id());
+                } else {
+                    this.countryId = ko.observable(null);
+                    this.address.value().country({ id: ko.observable(null), name: ko.observable(null), citiesFilled: ko.observable(0) });
+                }
                 this.fullGeography = ko.computed(this.returnAddress, this);
                 this.birthday.day = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getDate() : null);
                 this.birthday.month = ko.observable((object.birthday !== undefined) ? new Date(object.birthday).getMonth() + 1 : null);

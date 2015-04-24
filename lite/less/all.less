@@ -1,4 +1,4 @@
-///// Управдение объеденения файлов с помощью less 
+///// Управдение объеденения файлов с помощью less
 ///// Конечный файл не должен превышать 4096 селекторов. Браузеры IE не поддерживают большее количество в одном файле
 
 ///// Bootstrap
@@ -19,6 +19,7 @@
 @import "sprite/ico-base-sprite.less";
 @import "sprite/ico-child-disease-sprite.less";
 @import "sprite/ico-club-sprite.less";
+@import "sprite/ico-post-type-s-sprite.less";
 @import "sprite/ico-product-sprite.less";
 @import "sprite/ico-spices-sprite.less";
 @import "sprite/ico-social__l-sprite.less";
@@ -35,11 +36,13 @@
 @import "base/flag.less";
 
 ///// Plugin
-// old 
+// old
 @import "../../less/plugins/jquery.fancybox-1.3.4.less";
 @import "../../less/project/chzn.less";
-@import "../../redactor/redactor.less";
-@import "/plugins/redactor.hg.less";
+
+// редактор
+@import "plugins/redactor.less";
+@import "plugins/redactor.hg.less";
 //
 @import "plugins/magnific-popup.less";
 @import "plugins/magnific-popup.hg.less";
@@ -51,7 +54,7 @@
 @import "plugins/tooltipster.less";
 
 
-///// Проектные стили 
+///// Проектные стили
 @import "project/album-preview.less";
 @import "project/album-slider.less";
 @import "project/article.less";
@@ -87,6 +90,7 @@
 @import "project/horoscope.less";
 @import "project/i-photo.less";
 @import "project/img-grid.less";
+@import "project/info.less";
 @import "project/list-subsribe-users.less";
 @import "project/menu-link-simple.less";
 @import "project/mygiraffe.less";
@@ -127,8 +131,13 @@
 @import "project/services/services-fast.less";
 @import "project/services/services-calendars.less";
 @import "project/services/traditional-recipes.less";
+@import "project/services/b-consult.less";
+@import "project/services/b-consult-banner.less";
 
-
+// contest
+@import "project/contest/contest.less";
+@import "project/contest/commentator.less";
+@import "project/contest/commentator-banner.less";
 
 /////// Стили для документации
 @import "project/docs.less";
@@ -140,4 +149,3 @@
 //// Баннеры
 @import "project/banner.less";
 @import "../../less/banner/banner.less"; // на все layout
-

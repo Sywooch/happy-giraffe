@@ -7,8 +7,6 @@ define(['knockout',  'photo/baseUrlCreator', 'photo/Photo'], function (ko, baseC
                 preset = value.preset;
             photo.preset = preset;
 
-            console.log(photo);
-
             function update() {
                 var src = photo.getGeneratedPreset(photo.preset);
                 $(element).attr('src', src);

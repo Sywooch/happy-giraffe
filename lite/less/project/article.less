@@ -3,7 +3,7 @@
 .b-article {
     position: relative;
     margin: 20px 0 20px;
-    
+
     .heading-link-xl {margin-top: 0;}
     .custom-likes-b {margin: 0 0 30px;}
     .wysiwyg-content {
@@ -36,6 +36,8 @@
         color: #fff;
     }
 
+
+
     /*&__list .wysiwyg-content p:hover .ico-more{
         &:extend(.ico-more-hover);
         cursor: pointer;
@@ -50,24 +52,37 @@
 
     &_cont-tale {display: none;}
 
-    &_in {
-        word-wrap: break-word;
-    }
+    &_in {word-wrap: break-word;}
+
     &_in-img {
         position: relative;
         margin: 0 0 8px;
         text-align: center;
         background-color: #f9f9f9;
+        // Что бне залазило изображение на имя кому отвечаеш в комментарии (имя флотнуто)
+        min-width: 100%;
+        overflow: hidden;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
-        display: block;
+        display: inline-block;
         height: auto !important;
     }
-    &_in-img iframe {max-width:100%;}
-    &_in-img__l iframe,
+    &_in-img iframe {
+        width:100%;
+        min-height: 350px;
+    }
     &_in-img__l img {
         width: 100%;
+    }
+    &_in-img-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, .08);
     }
 
     &_cont {
@@ -75,9 +90,9 @@
         /*min-height: 321px;*/
         padding: 0;
     }
-    
+
     &_header {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
     &_header .tx-date {display: block;}
     &_header .ava {
@@ -89,19 +104,33 @@
         line-height: 12px;
         padding-right: 5px;
     }
+    &_authorpos {
+      @media (min-width: @screen-phone) {
+        margin: 0;
+      }
+      margin: 0 0 0 30px;
+      color: #9d8abe;
+    }
     &_t {
         &:extend(.heading-link-xxl);
+        margin: 8px 0;
     }
     &_t-list {
-        margin: 10px 0;
+        margin: 8px 0;
     }
     &_t-a {
         &:extend(.heading-link-xl);
+        margin: 8px 0;
     }
-    &_t-a:hover { }
     &_like .article-settings {
         float: left;
         margin: 20px 0 0;
+    }
+
+    &-qa {
+      .comments_cont {
+        border-width: 1px !important;
+      }
     }
 
     &_more {
@@ -114,40 +143,53 @@
         text-decoration: none;
     }
 
+    .b-markdown_t-sub {
+        display: none;
+    }
+
+    &__single {
+        .b-markdown_t-sub {
+            display: block !important;
+        }
+    }
+
     @media (min-width: @screen-phone) {
-        
+
         &_header .tx-date {
             display: inline-block;
             margin-left: 4px;
+        }
+        .b-markdown_t-sub {
+            display: block;
         }
     }
 
     @media (min-width: @screen-tablet) {
         .wysiwyg-content {
-            margin: 0; 
+            margin: 0;
         }
         .b-album_top {
             padding: 15px;
         }
-        &_in-img { 
+        &_in-img {
             margin: 5px 0 15px 0;
         }
         &_t-list {
-            margin: 20px 0 15px;
+            margin: 8px 0;
         }
     }
 
     @media (min-width: @screen-desktop) {
         & {
-            margin: 20px 0 30px;
-            padding: 15px 0 0;
+            margin: 20px 0 40px;
+            padding: 0;
         }
         & .adv-yandex {
-            margin: 30px 0 0;
+            margin: 30px 0 10px;
         }
         &__list {
             border: 1px solid #f0f0f0;
-            padding: 14px;
+            padding: 14px 14px 20px;
         }
         &__list:hover {border-color: #e4e4e4;}
         &__list &_in-img {
@@ -158,6 +200,7 @@
             padding-right: 20px;
         }
         &__list&__user-status .user-status {
+            margin-top: 10px;
             margin-left: -14px;
             margin-right: -14px;
             padding-left: 34px;
@@ -166,9 +209,15 @@
         &__list .user-status {
             margin-bottom: 10px;
         }
-        &__list .b-album {
-            margin: 0 -14px 10px;
+        .b-album-cap {
+            margin: 10px 0;
         }
+        &__list .b-album-cap {
+            margin: 10px -14px;
+        }
+        /*&__list .b-album {
+            margin: 0 -14px 10px;
+        }*/
 
     }
 }
@@ -177,21 +226,21 @@
 /* wysiwyg-content  */
 .wysiwyg-content {
     word-wrap: break-word;
-    
+
     &:extend(.tx-content);
 
     p {margin: 0 0 10px;}
-    img {
+    /*img {
         .inline-block();
         vertical-align: bottom;
         margin: 0 0 5px;
-    }
+    }*/
     .content-img  {
         float: none;
         margin: 0 0 10px;
     }
     .smile {vertical-align: middle;}
-    
+
     h2 {
         margin: 20px 0 15px;
         font-size: 16px;
@@ -264,8 +313,8 @@
     position: relative;
     padding-bottom: 56.25%;
     padding-top: 30px; height: 0; overflow: hidden;
-    
-     
+
+
     iframe,
     object,
     embed {
@@ -288,7 +337,7 @@
     padding: 10px 0;*/
     margin: 10px auto;
     text-align: center;
-    
+
     .ico-action-hg {
         margin: 6px 0;
     }
@@ -306,7 +355,7 @@
         border-left: 1px solid #e7d24f;
     }
     &__line &_hold:first-child {border-left: none;}
-    
+
     &__small {
         .inline-block();
         width: auto;
@@ -442,7 +491,7 @@
     &__lilac  {background-color: #9e87c7;}
     &__red    {background-color: #ff8232;}
     &__yellow {background-color: #facf32;}
-    
+
     &_row {
         margin: 10px 12px 10px;
     }
@@ -573,12 +622,12 @@
 .article-users {
     margin: 20px 5px;
     padding: 10px 0;
-    
+
     /*&_t {
         margin: 15px 0 10px;
         font-size: 15px;
         line-height: 22px;
-    }*/ 
+    }*/
     .ava-list {
         display: inline-block;
         vertical-align: middle;
@@ -629,7 +678,7 @@
     }
 
     @media (min-width: @screen-desktop) {
-        
+
         &_row {
             display: block;
         }
@@ -641,7 +690,7 @@
 /* ava-list */
 .ava-list {
     margin: 10px 0;
-    
+
     .ava {display: block;}
     &_ul {}
     &_li {
@@ -672,7 +721,7 @@
         height: 15px;
         background: url(/images/user-actions_ico__small.png) no-repeat;
     }
-    
+
     &_i {
         .inline-block();
         margin: 0 1px;
@@ -724,3 +773,83 @@
 }
 /* /ingredients */
 
+/* user-activity-post */
+.user-activity-post {
+    display: block;
+    margin: 15px 0 5px;
+
+    .ico-post-type-s {
+        margin: -10px 6px 0 0;
+        top: 2px;
+    }
+    .ico-post-type-s__comment {
+        top: 3px;
+    }
+
+    &_hold {
+        position: relative;
+        display: inline-block;
+        margin: 0 0 0 12px;
+        padding: 2px 8px;
+        background-color: #CDECFF;
+    }
+    &_hold:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -24px;
+        width: 0;
+        height: 0;
+        border: 12px solid #fff;
+        border-right-color: #CDECFF;
+    }
+    &_tx {
+        display: inline-block;
+        font-size: @font-m;
+    }
+
+}
+/* /user-activity-post */
+
+/* b-post-anonce-s */
+.b-post-anonce-s {
+    margin: 10px 0;
+
+    &_img {
+        float: left;
+        margin-right: 10px;
+    }
+    &_hold {
+        overflow: hidden;
+    }
+    &_header {
+        margin-bottom: 8px;
+    }
+    &_header .tx-date {display: block;}
+    &_header .ava {
+        margin: 0 7px 0 0;
+        float: left;
+    }
+    &_author {
+        .inline-block();
+        line-height: 12px;
+        padding-right: 5px;
+    }
+    &_t {
+        &:extend(.heading-link-l);
+        margin: 8px 0;
+    }
+    &-theme {
+        margin: 5px 0 0;
+        color: #666;
+    }
+
+    @media (min-width: @screen-phone) {
+
+        &_header .tx-date {
+            display: inline-block;
+            margin-left: 4px;
+        }
+    }
+}
+/* /b-post-anonce-s */

@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'photo/PhotoCollection', 'user-config', 'models/Model', 'extensions/imagesloaded', 'modules-helpers/component-custom-returner', 'models/User', 'extensions/PresetManager', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoCollection, userConfig, Model, imagesLoaded, customReturner, User, PresetManager) {
+define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'photo/PhotoCollection', 'user-config', 'models/Model', 'extensions/imagesloaded', 'modules-helpers/component-custom-returner', 'models/User', 'extensions/PresetManager', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'extensions/sliderBinding'], function ($, ko, template, PhotoCollection, userConfig, Model, imagesLoaded, customReturner, User, PresetManager) {
     function PhotoCollectionView(params) {
         params.attachesCount = 1;
         this.photoCollection = new PhotoCollection(params);

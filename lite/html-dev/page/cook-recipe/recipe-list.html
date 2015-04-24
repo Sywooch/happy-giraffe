@@ -34,6 +34,11 @@
 <body class="body body__lite">
   <div class="layout-container">
     <div class="layout-loose">
+      <div class="layout-header-gold">
+        <div class="layout-header-gold__top">Мы в финале конкурса</div>
+        <div class="layout-header-gold__title">Золотой сайт 2014</div>
+        <div class="layout-header-gold__mean">Важен каждый голос в народном голосовании!</div><a href="#" class="btn-link btn-xxl btn-green">Проголосуй за веселого жирафа!</a>
+      </div>
       <div class="layout-header">
         <!-- header-->
         <header class="header header__guest">
@@ -172,6 +177,7 @@
                   </div>
                   <!-- /Конверсионный попап-->
                 </li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__contest"></span><span class="header-menu_tx">Конкурс</span><span class="header-menu_count">1</span></a></li>
               </ul>
             </div>
             <!-- /header-menu-->
@@ -246,9 +252,10 @@
                     <div class="b-article_in clearfix">
                       <div class="wysiwyg-content clearfix">
                         <!-- Текстовая статья-->
-                        <div class="b-article_in-img"><a href="#"><img alt="" src="/lite/images/example/w600-h415.jpg"></a></div>
+                        <div class="b-article_in-img"><a href="#"><img alt="" src="/lite/images/example/w600-h415.jpg">
+                            <div class="b-article_in-img-overlay"></div></a></div>
                         <!-- Описание определенное количество символов-->
-                        <p>Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  <a href="#" class="ico-more"></a></p>
+                        <p>Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  <a href="#" class="ico-more"></a><a href="#" class="ico-more-hover display-n"></a></p>
                       </div>
                     </div>
                     <!-- comments-->
@@ -334,7 +341,7 @@
                     <div class="b-article_like clearfix">
                       <div class="article-settings">
                         <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
-                        <div class="article-settings_hold display-b">
+                        <div class="article-settings_hold">
                           <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>
                           <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__edit powertip"></a></div>
                           <div class="article-settings_i"><a href="javascript:void(0)" class="ico-users ico-users__friend active powertip"></a>
@@ -426,13 +433,13 @@
                           </div>
                         </div>
                         <!-- Описание определенное количество символов-->
-                        <p>Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  <a href="#" class="ico-more"></a></p>
+                        <p>Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  <a href="#" class="ico-more"></a><a href="#" class="ico-more-hover display-n"></a></p>
                       </div>
                     </div>
                     <div class="b-article_like clearfix">
                       <div class="article-settings">
                         <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
-                        <div class="article-settings_hold display-b">
+                        <div class="article-settings_hold">
                           <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>
                           <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__edit powertip"></a></div>
                           <div class="article-settings_i"><a href="javascript:void(0)" class="ico-users ico-users__friend active powertip"></a>
@@ -533,6 +540,7 @@
                       <li class="page"><a href="">6</a></li>
                       <li class="page selected"><a href="">7</a></li>
                       <li class="page"><a href="">8</a></li>
+                      <li class="page hidden"><a href="">8</a></li>
                       <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
                       <li class="page-points">...</li>
                       <li class="page"><a href="">15</a></li>
@@ -551,7 +559,10 @@
                 <!--/////-->
                 <!-- Сайд бар-->
                 <!-- Содержимое загружaть отложено-->
-                <aside class="b-main_col-sidebar visible-md"><a href="#" class="btn btn-primary btn-xl margin-t20">Добавить рецепт</a>
+                <aside class="b-main_col-sidebar visible-md">
+                  <community-add>
+                    <div class="clearfix margin-b20"><a href="#" class="btn btn-block btn-success btn-xl">Добавить рецепт</a></div>
+                  </community-add>
                   <div class="menu-simple">
                     <ul class="menu-simple_ul">
                       <li class="menu-simple_li"><a href="" class="menu-simple_a">Блюда из рыбы</a>

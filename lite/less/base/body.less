@@ -5,27 +5,60 @@
     -webkit-hyphens: none;
     hyphens:none;
     height: 100%;
-    
+
     &__white {background: #fff;}
 
     &__bg1,
     &__bg2,
     &__lite {
         min-width: 240px;
-        background-color: #66508c;
+        background-color: #544078;
     }
+
+    &__create {
+      .layout-loose {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+
     @media (min-width: @screen-tablet) {
         &__bg1,
+        &__bg2,
         &__lite {
-            background:#66508c url('@{path-img}/body__bg/body-circle-candy__dark.png') no-repeat 50% 0;
+            //spring bg
+            background:#B1D9F1 url('@{path-img}/body__bg/body-on-vesna.png') no-repeat 50% 0;
+            background-attachment: fixed;
+//          //contest bg
+//          background:#B1D9F1 url('@{path-img}/contest/commentator/bg-contest.png') no-repeat 50% 0;
+//          background-attachment: fixed;
+        }
+        &__spring {
+            background:#B1D9F1 url('@{path-img}/body__bg/body-on-vesna.png') no-repeat 50% 0;
             background-attachment: fixed;
         }
-        &__bg2 {
-            background:#66508c url('@{path-img}/body__bg/body__bg2.jpg') repeat 50% 100%;
+        &__homepage {
+            background:#B1D9F1 url('@{path-img}/body__bg/body-on-vesna.png') no-repeat 50% 0;
             background-attachment: fixed;
+        }
+        &__regular {
+            background:#544078 url('@{path-img}/body__bg/body-circle-candy__dark.png') no-repeat 50% 0;
+            background-attachment: fixed;
+        }
+        &__contest-commentator .layout-loose {
+            margin-top: 20px
         }
     }
-    
+
+    @media (min-width: 1920px) {
+        &__spring, &__bg2 {
+            background-size: cover;
+        }
+        &__regular {
+            background-size: initial;
+        }
+    }
+
     &__user {
         min-width: 1000px;
     }

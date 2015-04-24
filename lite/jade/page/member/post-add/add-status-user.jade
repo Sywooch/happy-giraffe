@@ -1,5 +1,5 @@
 include ../../../block/config
-extend ../../../extend/layout_base_user
+extend ../../../extend/layout_header_empty
 block vars
     - var bodyClass = 'body__lite';
     - global.cssFile = 'member-user.css';
@@ -8,14 +8,19 @@ block layout
 
     .b-main
         .b-main_cont.b-main_cont__wide
-            
-            +userAddRecord('', userAddRecord.blog)
-            .postAdd
-                .postAdd_hold
-                    .postAdd_row 
-                        .postAdd_count 
-                        .b-main_col-article.clearfix
 
+            //-+userAddRecord('', userAddRecord.blog)
+            .postAdd.b-main_col-hold.clearfix
+                a.ico-close6(href='#') ×
+                // основная колонка
+                .b-main_col-article
+                    .postAdd_hold
+                        .postAdd_row
+                            .heading-xxl
+                                .ico-post-type.ico-post-type__status.active
+                                | Добавить статус
+                    
+                        .postAdd_row
                             +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
                             .user-status.user-status__add
                                 .user-status_hold
@@ -24,262 +29,246 @@ block layout
                                     textarea.itx-gray(rows="3", cols="40", placeholder="Как у вас дела?")
                                         | Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!
                                 .user-status_bottom.textalign-l
-                                    .b-user-mood
-                                        .b-user-mood_img
-                                            img(src='/images/widget/mood/6.png')
-                                            .b-moods-list(data-bind='visible: choiceVisible',)
-                                                ul.b-moods-list_ul
-                                                    // ko foreach: moods
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/1.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Ем
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/2.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Испуг
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/3.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Грустный
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/4.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Молчу
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/5.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Подозрительно
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/6.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Интересно
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/7.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Все ОК
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/8.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Голова кругом
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/9.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Любовь
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/10.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Подарок
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/11.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Красотка
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/12.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Радость
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/13.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Задумался
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/14.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Смущаюсь
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/15.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Праздник
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/16.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Стреляюсь
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/17.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Драка
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/18.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Отстой
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/19.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Смешно
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/20.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Улыбаюсь
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/21.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Шопинг
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/22.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Напеваю
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/23.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Болею
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/24.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Сплю
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/25.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Плачу
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/26.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Звезда
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/27.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Падаю со смеху
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/28.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Слушаю музыку
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/29.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Тихо
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/30.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') В поиске
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/31.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Отлично
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/32.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Дразнюсь
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/33.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Боюсь
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/34.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') В ярости
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/35.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Есть повод
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/36.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Повар
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/37.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Мастер
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/38.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Я крут
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/39.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Хочу денег
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/40.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Ангел
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/41.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') И тебя вылечу
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/42.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Дразнюсь
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/43.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Ловелас
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/44.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Любовь
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/45.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') В поиске
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/46.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Учусь
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/47.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Фоткаю
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/48.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') На югах
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/49.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Не слышу
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/50.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Все по фен-шуй
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/51.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Смущаюсь
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/52.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Заложник
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/53.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Не вижу
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/54.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Умора
-                                                    li.b-moods-list_li
-                                                        a.b-moods-list_a(data-bind='click: select')
-                                                            img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/55.png')
-                                                            span.b-moods-list_tx(data-bind='text: title') Рисую
-                                                    // /ko
+                                        .b-user-mood
+                                            .b-user-mood_img
+                                                img(src='/images/widget/mood/6.png')
+                                                .b-moods-list(data-bind='visible: choiceVisible',)
+                                                    ul.b-moods-list_ul
+                                                        // ko foreach: moods
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/1.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Ем
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/2.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Испуг
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/3.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Грустный
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/4.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Молчу
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/5.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Подозрительно
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/6.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Интересно
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/7.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Все ОК
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/8.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Голова кругом
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/9.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Любовь
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/10.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Подарок
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/11.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Красотка
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/12.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Радость
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/13.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Задумался
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/14.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Смущаюсь
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/15.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Праздник
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/16.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Стреляюсь
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/17.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Драка
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/18.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Отстой
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/19.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Смешно
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/20.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Улыбаюсь
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/21.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Шопинг
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/22.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Напеваю
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/23.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Болею
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/24.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Сплю
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/25.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Плачу
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/26.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Звезда
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/27.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Падаю со смеху
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/28.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Слушаю музыку
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/29.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Тихо
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/30.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') В поиске
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/31.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Отлично
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/32.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Дразнюсь
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/33.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Боюсь
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/34.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') В ярости
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/35.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Есть повод
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/36.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Повар
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/37.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Мастер
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/38.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Я крут
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/39.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Хочу денег
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/40.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Ангел
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/41.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') И тебя вылечу
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/42.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Дразнюсь
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/43.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Ловелас
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/44.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Любовь
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/45.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') В поиске
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/46.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Учусь
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/47.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Фоткаю
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/48.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') На югах
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/49.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Не слышу
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/50.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Все по фен-шуй
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/51.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Смущаюсь
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/52.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Заложник
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/53.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Не вижу
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/54.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Умора
+                                                        li.b-moods-list_li
+                                                            a.b-moods-list_a(data-bind='click: select')
+                                                                img.b-moods-list_img(data-bind='attr: { src : imagePath }', src='/images/widget/mood/55.png')
+                                                                span.b-moods-list_tx(data-bind='text: title') Рисую
+                                                        
 
-                                        .b-user-mood_hold
-                                            .b-user-mood_tx - Мое настроение
-                                            a.font-small.margin-l10(href='#') Изменить
-                                            a.color-gray.font-small.margin-l5(href='#') Удалить
+                                            .b-user-mood_hold
+                                                .b-user-mood_tx - Мое настроение
+                                                a.font-small.margin-l10(href='#') Изменить
+                                                a.color-gray.font-small.margin-l5(href='#') Удалить
 
-
-                    //-.postAdd_row 
-                        .postAdd_count 
-                        .b-main_col-article.clearfix
-
-                            +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
-                            .user-status.user-status__add
-                                .user-status_hold
-                                .inp-valid.inp-valid__abs
-                                    .inp-valid_count 450
-                                    textarea.itx-gray(rows="3", cols="40", placeholder="Как у вас дела?")
-                                .user-status_bottom.textalign-l
-                                    .b-user-mood
-                                        .b-user-mood_img
-                                            img(src='/images/widget/mood/0.png')
-                                        .b-user-mood_hold
-                                            a(href='#') 
-                                                | Прикрепить 
-                                                br
-                                                | мое настроение
-
-
-                    // Строка
+                    // Строка кнопок
                     +postAddRowBtns('', postAddRowBtns.a)
+                    // /Строка кнопок
+                // /основная колонка 
+                // сайдбар
+                .b-main_col-sidebar
 
-        +layout-footer-lite()
+                // /сайдбар
+
+        //-+layout-footer-lite()

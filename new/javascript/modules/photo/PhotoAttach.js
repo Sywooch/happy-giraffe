@@ -7,24 +7,44 @@
         this.getAttachUrl = '/api/photo/attaches/get/';
         this.id = (ko.isObservable(data.id) === false) ? ko.observable(data.id) : data.id;
         this.position = (ko.isObservable(data.position) === false) ? ko.observable(data.position) : data.position;
+        this.index = (ko.isObservable(data.index) === false) ? ko.observable(data.index) : data.index;
         this.url = (ko.isObservable(data.url) === false) ? ko.observable(data.url) : data.url;
         this.photo = (ko.isObservable(data.photo) === false) ? ko.observable(new Photo(data.photo)) : new Photo(data.photo);
         this.loading = ko.observable(true);
         this.broke = ko.observable(false);
         this.removed = ko.observable(false);
         this.isCover = ko.observable(false);
+        this.uploaded = ko.observable(false);
         this.urlPart = 'photo' + this.photo().id() + '/';
+        /**
+         * doneRemoving
+         *
+         * @param  obj response
+         * @return
+         */
+        this.doneRemoving = function doneRemoving(response) {
+          if (response.success === true) {
+              this.removed(true);
+          }
+        };
+        /**
+         * doneRestoring
+         *
+         * @param  obj response
+         * @return
+         */
+        this.doneRestoring = function doneRestoring(reponse) {
+          if (response.success === true) {
+              this.removed(false);
+          }
+        };
         /**
          * Removing attach
          */
-        this.remove = function () {
+        this.remove = function removingAttach() {
             Model.get(this.removeUrl, {
                 id: this.id()
-            }).done(function (response) {
-                if (response.success === true) {
-                    this.removed(true);
-                }
-            }.bind(this));
+            }).done(this.doneRemoving.bind(this));
         };
         /**
          * Getting attach
@@ -42,11 +62,7 @@
         this.restore = function () {
             Model.get(this.restoreUrl, {
                 id: this.id()
-            }).done(function (response) {
-                if (response.success === true) {
-                    this.removed(false);
-                }
-            }.bind(this));
+            }).done(this.doneRestoring.bind(this));
         };
         /**
          * Setting attach as cover

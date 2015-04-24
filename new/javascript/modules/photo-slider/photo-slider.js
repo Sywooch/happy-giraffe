@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'ads-config', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory, adsConfig) {
+define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'extensions/keyboard', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory, Keyboard) {
 
     function PhotoSlider(params) {
         var collectionData = {};
@@ -20,6 +20,8 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.setDelay = 1000;
         this.tagName = 'photo-slider';
         this.currentId = ko.observable();
+        this.photoLength = 20;
+        this.offsetMinimal = 5;
         /**
          * getting User
          * @param user
@@ -39,10 +41,20 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 .done(this.userHandler.bind(this));
         };
         /**
+         * retrieve collection meta data
+         * @param collectionMeta
+         */
+        this.retrieveCollectionMeta = function retrieveCollectionMeta(collectionMeta) {
+            if (collectionMeta.success === true) {
+                this.collection.attachesCount(collectionMeta.data.attachesCount);
+                this.collection.cover(collectionMeta.data.cover);
+            }
+        };
+        /**
          * Getting collection
          */
         this.getCollection = function getCollection() {
-            this.collection.getCollectionCount(this.collection.id());
+            this.collection.get(this.collection.id()).done(this.retrieveCollectionMeta.bind(this));
         };
         /**
          * imgBinding
@@ -52,88 +64,159 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
         };
         /**
+         * Creating title for photo
+         * @param currentElement
+         * @returns {*}
+         */
+        this.creatingTitle = function creatingTitle(currentElement) {
+            return (currentElement.element().photo().title() !== "") ? currentElement.element().photo().title() : (currentElement.element().index() + 1);
+        };
+        /**
          * Начало
          * @param newAttaches
          */
-        this.lookForStart = function lookForStart(newAttaches) {
+        this.lookForStart = function lookForStart() {
             var title;
-            this.current(Model.findByIdObservableIndex(this.photoAttach(), this.collection.attaches()));
-            title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : (this.current().index() + 1);
+            if (this.current().element === undefined) {
+                var sliderDfd = $.Deferred();
+                sliderDfd
+                  .then(this.initStartingPoint.bind(this))
+                  .done(this.addImageBinding.bind(this));
+                sliderDfd.resolve(Model.findByIdObservableIndex(this.photoAttach(), this.collection.attaches()));
+            } else {
+                this.current(Model.findByIdObservableIndex(this.current().element().id(), this.collection.attaches()));
+            }
+        };
+        /**
+         * initStartingPoint
+         *
+         * @return {type}  description
+         */
+        this.initStartingPoint = function initStartingPoint(currentArgument) {
+            this.current(currentArgument);
+            title = this.creatingTitle(this.current());
             this.currentId(this.current().element().id());
             AdHistory.pushState(null, title, this.current().element().url());
-            this.bannerInit();
-            //FCUK quick fix
-            setTimeout(this.addImageBinding.bind(this), this.setDelay);
-            //---FCUK quick fix
+            AdHistory.bannerInit(this.current().element().url());
+            return this.current();
         };
-        this.addViews = function addViews() {
-            dataLayer.push({'event': 'virtualView'});
-            yaCounter11221648.hit(this.current().element().url());
+        /**
+         * Same actions on manipulating slider
+         */
+        this.sliderManipulations = function sliderManipulations(currentArgument) {
+            var title = this.creatingTitle(this.current());
+            this.current().element(this.collection.attaches()[this.current().index()]);
+            AdHistory.pushState(null, title, this.current().element().url());
+            AdHistory.reloadBanner();
+            this.addImageBinding();
+        };
+
+        /**
+         * sliderManipulationsMoving
+         *
+         * @return {type}  description
+         */
+        this.sliderManipulationsMoving = function sliderManipulationsMoving() {
+            this.sliderManipulations(this.collection.attaches()[this.current().index()]);
+        };
+        /**
+         * load more pictures
+         * @param positon
+         * @param index
+         */
+        this.needMorePictures = function needMorePictures(position, index) {
+            if ((position + this.offsetMinimal) !== this.collection.attachesCount() && (position - this.offsetMinimal) !== 0 && this.collection.attachesCount() !== this.collection.attaches().length) {
+                if ((index + this.offsetMinimal) === this.collection.attaches().length) {
+                    this.collection.getSliderCollection(this.collection.id(), this.calculatePostOffset(position, false), this.photoLength);
+                }
+                if ((index - this.offsetMinimal) === 0) {
+                    this.collection.getSliderCollection(this.collection.id(), this.calculatePostOffset(position, true), this.photoLength);
+                }
+            }
         };
         /**
          * Next slide
          */
         this.next = function next() {
-            if ((this.current().index() + 1) !== this.collection.attachesCount()) {
-                var oldIndex = this.current().index(),
-                    title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : (this.current().index() + 1);
-                this.current().index(oldIndex + 1);
-                this.current().element(this.collection.attaches()[this.current().index()]);
-                AdHistory.pushState(null, title, this.current().element().url());
-                this.addImageBinding();
-                this.photoChange();
+            var position = this.current().element().index() + 1,
+                index = this.current().index();
+            if (position !== this.collection.attachesCount()) {
+                this.current().index(index + 1);
+                this.sliderManipulationsMoving();
+                this.needMorePictures(this.current().element().index(), this.current().index());
             }
         };
         /**
          * Prev Slide
          */
         this.prev = function prev() {
-            if ((this.current().index() + 1) > 1) {
-                var oldIndex = this.current().index(),
-                    title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : (this.current().index() + 1);
-                this.current().index(oldIndex - 1);
-                this.current().element(this.collection.attaches()[this.current().index()]);
-                AdHistory.pushState(null, title, this.current().element().url());
-                this.addImageBinding();
-                this.photoChange();
+            var position = this.current().element().index() + 1,
+                index = this.current().index();
+            if (position > 1) {
+                this.current().index(index - 1);
+                this.sliderManipulationsMoving();
+                this.needMorePictures(this.current().element().index(), this.current().index());
             }
-
         };
         this.collection.attaches.subscribe(this.lookForStart.bind(this));
+
         /**
-         * Event on photo change
+         * keypressTest - влево, вправо, выход
+         *
+         * @param  obj data  description
+         * @param  object event description
+         * @return
          */
-        this.photoChange = function photoChange() {
-            if (adsConfig.isProduction === true) {
-                this.addViews();
+        this.keypressTest = function keypressTest(event) {
+            var prop = Keyboard.onHandler(event, Keyboard.sliderKeys);
+            if (prop === 'right' || prop === 'space') {
+                this.next();
             }
-            if (adsConfig.showAds === true) {
-                adfox_reloadBanner('bn-1');
+            if (prop === 'left') {
+                this.prev();
             }
         };
-        this.bannerInit = function bannerInit() {
-            if (adsConfig.showAds === true) {
-                (function (bannerPlaceId, requestSrc, defaultLoad) {
-                    var
-                        tgNS = window.ADFOX.RELOAD_CODE,
-                        initData = tgNS.initBanner(bannerPlaceId, requestSrc);
-
-                    $('#photo-window_banner .display-ib').html(initData.html);
-
-                    if (defaultLoad) {
-                        tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
-                    }
-                })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
-                if (adsConfig.isProduction === true) {
-                    this.addViews();
-                }
-            };
+        /**
+         * Calculating post offset
+         * @param position
+         * @returns {number}
+         */
+        this.calculatePostOffset = function calculatePostOffset(position, left) {
+            var calculates;
+            if (left) {
+                calculates = position - this.photoLength;
+                return calculates >= 0 ? calculates : 0;
+            }
+            calculates = position + this.offsetMinimal;
+            return calculates;
+        };
+        /**
+         * Calculating starting offset
+         * @param position
+         * @returns {number}
+         */
+        this.calculateOffset = function calculateOffset(position) {
+            var splitted = this.photoLength / 2,
+                calculated;
+            if (position <= splitted) {
+                return 0;
+            }
+            return position - splitted;
+        };
+        /**
+         * receiving attaches
+         * @param receivedData
+         */
+        this.observeAttach = function observeAttach(receivedData) {
+            if (receivedData.success === true) {
+                this.collection.getSliderCollection(this.collection.id(), this.calculateOffset(receivedData.data.index), this.photoLength);
+            }
         };
         /**
          * Init slider
          */
         this.initializeSlider = function initializeSlider() {
-            this.collection.getPartsCollection(this.collection.id(), 0, null);
+            Model.get(this.collection.getAttachUrl, { id: this.photoAttach() }).done(this.observeAttach.bind(this));
             if (this.userSliderId) {
                 this.getUser();
             }
@@ -172,6 +255,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 bar: '.scroll_bar'
             });
         });
+        $(document).on("keydown", this.keypressTest.bind(this));
         $(window).resize(function () {
             photoWindColH();
         });

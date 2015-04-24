@@ -143,8 +143,96 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
 .a-gray {
     color: #999;
 }
+.i-info-success {
+    position: relative;
+    margin: 10px 0 15px;
+    border-left: 5px solid transparent;
+    padding: 14px 20px 14px 45px;
+    font-size: @font-base;
+    line-height: 1.25em;
+    color: #9B952F;
+    background:#FFFBBB url('@{path-img}/i/i-info-success.svg') no-repeat 7px 8px;
 
+    .ico-close {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        margin-top: -4px;
+    }
+}
 
+.logo__xs {
+    width: 55px;
+    height: 80px;
+    background-image: url('@{path-img}/sprite/ico-base.svg');
+    background-position: 0 -360px;
+    background-size: 120px 460px;
+}
+
+/* i-photo-arrow */
+.i-photo-arrow {
+    display: inline-block;
+    width: 43px;
+    height: 74px;
+    background: url('@{path-img}/i/i-photo-arrow.png') no-repeat -350px 0;
+    z-index: 7;
+    .opacity(.8);
+    .transition(opacity 0.3s ease);
+
+    &:hover    {background-position: -350px -170px;}
+    &__r       {background-position: -393px 0;}
+    &__r:hover {background-position: -393px -170px;}
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        margin-top: -40px;
+    }
+    &__abs&__r {
+        left: auto;
+        right: 10px;
+    }
+
+    @media (min-width: @screen-phone) {
+        & {
+            height: 114px;
+            background-position: -200px 0;
+        }
+        &:hover {background-position: -200px -170px;}
+        &__r {background-position: -243px 0;}
+        &__r:hover {background-position: -243px -170px;}
+
+        &__abs {
+            left: 25px;
+            margin-top: -57px;
+        }
+        &__abs&__r {
+            left: auto;
+            right: 25px;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        & {
+            width: 53px;
+            height: 154px;
+            background-position: 0 0;
+        }
+        &:hover {background-position: 0 -170px;}
+        &__r {background-position: -53px 0;}
+        &__r:hover {background-position: -53px -170px;}
+
+        &__abs {
+            left: 30px;
+            margin-top: -77px;
+        }
+        &__abs&__r {
+            left: auto;
+            right: 30px;
+        }
+    }
+}
+/* /i-photo-arrow */
 
 // ---------------------------------------------------------
 // Блоки
@@ -265,30 +353,4 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
 @import "../lite/less/project/yandex-search-form.less";
 
 // Регистрация
-
-.i-info-success {
-    position: relative;
-    margin: 10px 0 15px;
-    border-left: 5px solid transparent;
-    padding: 14px 20px 14px 45px;
-    font-size: @font-base;
-    line-height: 1.25em;
-    color: #9B952F;
-    background:#FFFBBB url('@{path-img}/i/i-info-success.svg') no-repeat 7px 8px;
-
-    .ico-close {
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        margin-top: -4px;
-    }
-}
-
-.logo__xs {
-    width: 55px;
-    height: 80px;
-    background-image: url('@{path-img}/sprite/ico-base.svg');
-    background-position: 0 -360px;
-    background-size: 120px 460px;
-}
 @import "../lite/less/project/popup-sign.less";

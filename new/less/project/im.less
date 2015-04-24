@@ -13,7 +13,7 @@
         }
         .header {display: none !important;}
     }
-    
+
     @media screen and (max-height: 660px) {
         .im-sidebar_sound {bottom: 10px;}
         .im-sidebar_sound-ico {
@@ -25,7 +25,7 @@
     }
 }
 
-/* 
+/*
     Почта
 
     im
@@ -40,7 +40,7 @@
 
 
     &_hold {}
-    
+
     &_loader {
         min-height: 30px;
         text-align: center;
@@ -85,7 +85,7 @@
 }
 /* /im */
 
-/* 
+/*
     Сайдбар почты
 
     im-sidebar
@@ -107,7 +107,7 @@
     height: 100%;
     background: url('@{path-img}/im/im-sidebar.png') repeat-y;
     .border-left-radius(10px);
-    
+
     .side-menu_li:last-child{border-bottom-left-radius: 0;}
     &_panel {
         float: left;
@@ -260,7 +260,7 @@
     position: relative;
     float: right;
     width: 620px;
-    
+
     &__msg-blur .im-message_tx {
         color: transparent;
         text-shadow: 0 0 5px rgba(0,0,0,0.5);
@@ -301,7 +301,7 @@
 /* /im-center */
 
 /*
-    Сообщение 
+    Сообщение
 
     im-message  __new   __edited
         im-message_ava
@@ -322,14 +322,14 @@
     min-height: 36px;
     &__new {background: #e8fce6;}
     &__edited &_tx {background: #fdfcd9;}
-    // отказались пока от объединения сообщений одного пользователя 
+    // отказались пока от объединения сообщений одного пользователя
 /*    &__stick {
-        padding-top: 6px; 
+        padding-top: 6px;
         padding-bottom: 6px;
     }
     &__stick .im-message_name,
     &__stick .ava__small {display: none;}*/
-    
+
     &:hover .b-control {display: block;}
     .b-control {display: none;}
     &_ava {
@@ -384,6 +384,17 @@
     &_tx .b-article_in-img {
         text-align: left;
         margin: 0;
+    }
+    &_contest {
+        width: 431px;
+        height: 225px;
+        background: url('@{path-img}/contest-message-bg.png');
+        margin: 10px 0;
+        text-align: center;
+        .btn-link {
+            margin: 150px 0 0 !important;
+            font-size: 20px !important;
+        }
     }
 }
 /* /im-message */

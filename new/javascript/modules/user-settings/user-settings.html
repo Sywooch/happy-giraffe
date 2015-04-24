@@ -103,8 +103,13 @@
             </div>
             <!-- ko if: $data.editing() === false && $data.value() -->
             <div class="user-settings_col-inp">
-                <span data-bind="attr: { class: 'flag flag-' + $data.value().country().isoCode() }"></span>
-                <span class="form-edit_tx" data-bind="text: $parent.user.fullGeography"></span>
+                <!-- ko if: $data.value().country().id() -->
+                    <span data-bind="attr: { class: 'flag flag-' + $data.value().country().isoCode() }"></span>
+                    <span class="form-edit_tx" data-bind="text: $parent.user.fullGeography"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: $data.value().country().id() -->
+                    <span class="form-edit_tx">Заполните свое местоположение</span>
+                <!-- /ko -->
                 <a href="#" class="ico-edit ico-edit__s powertip" data-bind="click: $parent.beginLocationEditField.bind($parent)"></a>
             </div>
             <!-- /ko -->
@@ -113,7 +118,7 @@
                 <div class="user-settings_row">
                     <div class="inp-valid inp-valid__abs user-settings_w-inp">
                         <!-- ko if: $parent.countries().length > 0 -->
-                        <select placeholder="Выберите страну" class="select-cus select-cus__js-country select-cus__gray" data-bind="options: $parent.countries, optionsText: 'name', optionsValue: 'id', value: $parent.user.countryId"></select>
+                        <select placeholder="Выберите страну" class="select-cus select-cus__js-country select-cus__gray" data-bind="options: $parent.countries, optionsText: 'name', optionsValue: 'id', value: $parent.user.countryId, valueAllowUnset: true, optionsCaption: 'Выберите страну'"></select>
                         <!-- /ko -->
                     </div>
                 </div>
@@ -122,6 +127,11 @@
                     <div class="inp-valid inp-valid__abs user-settings_w-inp city-worshiper">
                         <input type="hidden" class="select-cus select-cus__search-on select-cus__gray" placeholder="Выберите город" data-bind="value: $data.value().city().id" />
                     </div>
+                    <button class="btn btn-success btn-xs" data-bind="click: $parent.changeGeographyField.bind($parent)">Ok</button>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: $data.value().country().citiesFilled() === 0  -->
+                <div class="user-settings_row">
                     <button class="btn btn-success btn-xs" data-bind="click: $parent.changeGeographyField.bind($parent)">Ok</button>
                 </div>
                 <!-- /ko -->

@@ -45,8 +45,9 @@ mixin sidebarRecipe(mod, vars)
     // Сайд бар
     // Содержимое загружaть отложено
     aside.b-main_col-sidebar.visible-md
-
-        a.btn.btn-primary.btn-xl.margin-t20(href='#') Добавить рецепт
+        community-add
+            .clearfix.margin-b20
+                a.btn.btn-block.btn-success.btn-xl(href='#') Добавить рецепт
 
         .menu-simple
             ul.menu-simple_ul

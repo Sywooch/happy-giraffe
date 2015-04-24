@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'models/CommentsController', 'models/UserController', 'text!comment-widget/comment-widget.html', 'moment', 'models/Model', 'models/Comment', 'models/User', 'care-wysiwyg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User) {
+define(['jquery', 'knockout', 'models/CommentsController', 'models/UserController', 'text!comment-widget/comment-widget.html', 'moment', 'models/Model', 'models/Comment', 'models/User', 'extensions/helpers', 'care-wysiwyg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User, Helpers) {
 
     var CommentWidgetViewModel = function (params) {
 
@@ -206,15 +206,77 @@ define(['jquery', 'knockout', 'models/CommentsController', 'models/UserControlle
             this.editor('');
             this.editing(false);
         };
+        /**
+         * Find comment hash
+         * @param commentsArray
+         * @returns {boolean}
+         */
+        this.findHashComment = function findHashComment(commentsArray) {
+            var i,
+                idName;
+            if (commentsArray.length > 0) {
+                for (i = 0; i < commentsArray.length; i++) {
+                    idName = 'comment_' + commentsArray[i].id;
+                    if (Helpers.checkUrlForHash(idName)) {
+                        return idName;
+                    }
+                }
 
+            }
+            return false;
+        };
+        /**
+         * mapping user data
+         * @param userData
+         * @returns {*}
+         */
+        this.mappingUserData = function mappingUserData(userData) {
+            ko.mapping.fromJS(UserData.getCurrentUserFromList(userData.data, userData.success), this.authUser)
+            return userData;
+        };
+        /**
+         * parsing user and comment data
+         * @param userData
+         * @returns {*}
+         */
+        this.parsingData = function parsingData(userData) {
+            this.parsedData = ko.mapping.fromJS(CommentsController.allDataReceived(userData.data, this.commentsDataQueue.commentsData), this.parsedData);
+            return this.parsedData;
+        };
+        /**
+         * trigger loaded term
+         * @param parsedData
+         * @returns {boolean}
+         */
+        this.triggerLoad = function triggerLoad(parsedData) {
+            this.loaded(true);
+            return true;
+        };
+        /**
+         * animated scroll by js
+         */
+        this.scrollIfHashExists = function scrollIfHashExists() {
+            var name = this.findHashComment(this.commentsDataQueue.commentsData),
+                block;
+            if (name) {
+                block = $('#' + name);
+                $('html, body').animate({
+                    scrollTop: block.offset().top
+                }, 500);
+            }
+        };
         /**
          * После получение всей информации
          * @param userData
          */
         this.allEventsSucceed = function usersSucceed(userData) {
-            ko.mapping.fromJS(UserData.getCurrentUserFromList(userData.data, userData.success), this.authUser);
-            this.parsedData = ko.mapping.fromJS(CommentsController.allDataReceived(userData.data, this.commentsDataQueue.commentsData), this.parsedData);
-            this.loaded(true);
+            var dfd = $.Deferred();
+            dfd
+                .then(this.mappingUserData.bind(this))
+                .then(this.parsingData.bind(this))
+                .then(this.triggerLoad.bind(this))
+                .then(this.scrollIfHashExists.bind(this));
+            dfd.resolve(userData);
         };
 
         /**

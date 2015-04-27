@@ -18,6 +18,7 @@ class LiteListView extends CListView
     public $pager = array(
         'class' => 'LitePager',
     );
+    public $emptyText = '';
 
     /**
      * Renders the data item list.

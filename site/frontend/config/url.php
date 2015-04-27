@@ -70,13 +70,16 @@ return array(
         //'my/blogs' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 3)),
         //'my/community' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 4)),
         //'my' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 1)),
-        'subscribes' => 'myGiraffe/default/subscribes',
-        'recommends' => 'myGiraffe/default/recommends',
-        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
-        'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
-        'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
-        'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
-        'my/<_a>' => 'myGiraffe/default/<_a>',
+        'my' => 'posts/myGiraffe/default/index',
+        'subscribes' => 'posts/myGiraffe/subscriptions/index',
+
+//        'subscribes' => 'myGiraffe/default/subscribes',
+//        'recommends' => 'myGiraffe/default/recommends',
+//        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
+//        'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
+//        'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
+//        'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
+//        'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller
         //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
@@ -523,6 +526,7 @@ return array(
         'map' => 'archive/default/map',
         
         /* API */
+        'api/myGiraffe/<_a>' => 'posts/myGiraffe/api/<_a>',
         'api/comments/<_a>' => 'comments/api/<_a>',
         'api/commentatorsContest/<_a>' => 'comments/contest/api/<_a>',
         'api/status/<_a>' => 'som/status/api/<_a>',

@@ -109,7 +109,7 @@ class ContestWork extends HActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('contest_id',$this->contest_id,true);
+		$criteria->compare('contest_id',$this->contest_id);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('title',$this->title);
 		$criteria->compare('created',$this->created,true);

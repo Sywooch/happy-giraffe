@@ -27,7 +27,6 @@ class FeedManager
             /** @var \site\frontend\modules\posts\modules\myGiraffe\components\channels\BaseChannel $channel */
             $channel = new $class();
             $channelIds = $channel->getUserIds($post);
-            self::addRows($rows, $channelIds, $post, $filter);
             foreach ($channelIds as $userId) {
                 $rows[] = self::getRow($userId, $post, $filter);
                 $allIds[] = $userId;

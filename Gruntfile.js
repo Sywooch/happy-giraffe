@@ -500,6 +500,7 @@ module.exports = function(grunt){
             /.redactor+/,
             /.fancybox+/,
             /.header-banner+/,
+            /.homepage-clubs+/,
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
             /.header_+/,

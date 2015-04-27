@@ -53,7 +53,7 @@ class Content extends \EMongoDocument
             'social' => '\site\frontend\modules\editorialDepartment\models\Social',
         );
     }
-    
+
     public function behaviors()
     {
         return array(
@@ -65,7 +65,13 @@ class Content extends \EMongoDocument
                 'createAttribute' => 'dtimeCreate',
                 'updateAttribute' => 'dtimeUpdate',
                 'setUpdateOnCreate' => true,
-            )
+            ),
+            'PhotoCollectionBehavior' => array(
+                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                'attributeCollections' => array('htmlTextPreview', 'htmlText'),
+                'entity' => 'entity',
+                'entityId' => 'entityId',
+            ),
         );
     }
 

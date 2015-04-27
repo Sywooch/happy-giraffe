@@ -11,7 +11,7 @@ class FormController extends \LiteController
 {
 
     public $litePackage = 'member';
-    public $layout = '/layouts/newBlogPost';
+    public $layout = '//layouts/lite/form';
 
     public function actionPhotopost($id = false)
     {

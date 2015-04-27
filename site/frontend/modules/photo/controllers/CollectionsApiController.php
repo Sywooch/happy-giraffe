@@ -61,7 +61,8 @@ class CollectionsApiController extends ApiController
     public function actionSetCover($collectionId, $attachId)
     {
         /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
-        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'setCover');
+        //$collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'setCover');
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, true);
         $attach = $this->getModel('site\frontend\modules\photo\models\PhotoAttach', $attachId);
         $this->success = $collection->setCover($attach) && $collection->save(true, array('cover_id'));
     }

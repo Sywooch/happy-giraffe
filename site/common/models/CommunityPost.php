@@ -38,7 +38,7 @@ class CommunityPost extends HActiveRecord
         if ($this->scenario == 'advEditor')
             return array(
                 'PhotoCollectionBehavior' => array(
-                    'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                    'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',
                     'attributeCollections' => array('text'),
                 ),
                 // Необходимо только для сброса кеша для purify
@@ -49,7 +49,7 @@ class CommunityPost extends HActiveRecord
             );
         return array(
             'PhotoCollectionBehavior' => array(
-                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',

@@ -21,4 +21,18 @@ class ApiController extends \site\frontend\components\api\ApiController
         }, $subscriptions);
         $this->success = true;
     }
+
+    public function actionSetUserSubscriptions($userId, array $subscriptions)
+    {
+        UserClubSubscription::model()->deleteAll('user_id = :userId', array(':userId' => $userId));
+
+        foreach ($subscriptions as $s) {
+            $sub = new UserClubSubscription();
+            $sub->club_id = $s;
+            $sub->user_id = $userId;
+            $sub->save();
+        }
+
+        $this->success = true;
+    }
 } 

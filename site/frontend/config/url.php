@@ -16,6 +16,7 @@ return array(
         '.*/index' => 404,
 
         /* API */
+        'api/myGiraffe/<_a>' => 'posts/myGiraffe/api/<_a>',
         'api/comments/<_a>' => 'comments/api/<_a>',
         'api/commentatorsContest/<_a>' => 'comments/contest/api/<_a>',
         'api/status/<_a>' => 'som/status/api/<_a>',
@@ -64,8 +65,8 @@ return array(
 //            'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
 //            'blog' => false,
 //        ),
-        'cook/recipe/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'SimpleRecipe')),
-        'cook/multivarka/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'MultivarkaRecipe')),
+        //'cook/recipe/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'SimpleRecipe')),
+        //'cook/multivarka/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'MultivarkaRecipe')),
         'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('gallery/tmp/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
@@ -85,13 +86,16 @@ return array(
         //'my/blogs' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 3)),
         //'my/community' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 4)),
         //'my' => array('myGiraffe/post/index', 'defaultParams' => array('type' => 1)),
-        'subscribes' => 'myGiraffe/default/subscribes',
-        'recommends' => 'myGiraffe/default/recommends',
-        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
-        'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
-        'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
-        'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
-        'my/<_a>' => 'myGiraffe/default/<_a>',
+        'my' => 'posts/myGiraffe/default/index',
+        'subscribes' => 'posts/myGiraffe/subscriptions/index',
+
+//        'subscribes' => 'myGiraffe/default/subscribes',
+//        'recommends' => 'myGiraffe/default/recommends',
+//        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
+//        'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
+//        'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
+//        'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
+//        'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller
         //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',

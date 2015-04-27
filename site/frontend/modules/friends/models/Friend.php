@@ -208,4 +208,11 @@ class Friend extends CActiveRecord
                 break;
             }
     }
+
+    public function behaviors()
+    {
+        return array(
+            'site\frontend\modules\posts\modules\myGiraffe\behaviors\SubscriptionBehavior',
+        );
+    }
 }

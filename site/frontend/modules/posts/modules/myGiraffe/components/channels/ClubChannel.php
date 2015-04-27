@@ -35,20 +35,12 @@ class ClubChannel extends BaseChannel
         }, $subscriptions);
 
         $criteria = new \CDbCriteria();
-        $criteria->with = array(
-            'rubric' => array(
-                'with' => 'community',
-            ),
-        );
-        $criteria->addInCondition('club_id', $clubIds);
-        $contents = \CommunityContent::model()->findAll($criteria);
+        $criteria->join = 'INNER JOIN community__contents c ON c.id = t.originEntityId
+            INNER JOIN community__rubrics r ON r.id = c.rubric_id
+            INNER JOIN community__forums f ON f.id = r.community_id';
+        $criteria->addInCondition('f.club_id', $clubIds);
+        $criteria->scopes = array('byService' => 'oldCommunity');
 
-        $criteria2 = new \CDbCriteria();
-        $criteria2->addInCondition('originEntityId', array_map(function($content) {
-            return $content->id;
-        }, $contents));
-        $criteria2->scopes = array('byService' => 'oldCommunity');
-
-        return $criteria2;
+        return $criteria;
     }
 }

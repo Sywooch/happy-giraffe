@@ -40,4 +40,13 @@ class DefaultCommand extends \CConsoleCommand
         $post = Content::model()->byEntity('CommunityContent', $id)->find();
         FeedManager::handle($post);
     }
+
+    public function actionWorker()
+    {
+        \Yii::app()->gearman->worker()->addFunction('myGiraffeUpdateUser', function (\GearmanJob $job) {
+            $workload = $job->workload();
+            FeedManager::updateForUser($workload);
+        });
+        while (\Yii::app()->gearman->worker()->work());
+    }
 }

@@ -185,4 +185,11 @@ class UserBlogSubscription extends HActiveRecord
 //            ->limit(10)
 //            ->queryColumn();
     }
+
+    public function behaviors()
+    {
+        return array(
+            'site\frontend\modules\posts\modules\myGiraffe\behaviors\SubscriptionBehavior',
+        );
+    }
 }

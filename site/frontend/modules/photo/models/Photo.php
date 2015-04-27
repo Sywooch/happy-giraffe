@@ -4,6 +4,7 @@ namespace site\frontend\modules\photo\models;
 use site\frontend\modules\photo\components\ImageFile;
 use site\frontend\modules\photo\helpers\FsNameHelper;
 use site\frontend\modules\photo\helpers\ImageSizeHelper;
+use site\frontend\modules\photo\helpers\PhotoHelper;
 
 /**
  * This is the model class for table "photo__photos".
@@ -131,6 +132,7 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
             'height' => (int) $this->height,
             'fsName' => $this->fs_name,
             'originalUrl' => \Yii::app()->fs->getUrl($this->getFile()->getKey()),
+            'picture' => PhotoHelper::picture($this),
         );
     }
     

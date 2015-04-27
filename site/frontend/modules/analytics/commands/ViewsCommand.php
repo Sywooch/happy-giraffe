@@ -56,10 +56,10 @@ class ViewsCommand extends \CConsoleCommand
 
     public function actionConsultation()
     {
-        $models = ConsultationQuestion::model()->findAll('id >= 479');
+        $models = ConsultationQuestion::model()->findAll();
         foreach ($models as $m) {
             $model = PageView::getModel($m->url);
-            $model->incVisits(mt_rand(50, 70));
+            $model->incVisits(mt_rand(10, 30));
         }
     }
 } 

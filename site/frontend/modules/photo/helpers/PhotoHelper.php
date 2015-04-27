@@ -24,11 +24,16 @@ class PhotoHelper
 
             $photo = \Yii::app()->thumbs->getPhotoByUrl($image->src);
             if ($photo !== null) {
-                $image->outertext = \HHtml::picture(\Yii::app()->thumbs->getThumb($photo, 'postImage', true), array(
-                    '320' => \Yii::app()->thumbs->getThumb($photo, 'postImageMobile', true),
-                ), $attrs);
+                $image->outertext = self::picture($photo, $attrs);
             }
         }
         return (string) $doc;
+    }
+
+    public static function picture($photo, $attrs = array())
+    {
+        return \HHtml::picture(\Yii::app()->thumbs->getThumb($photo, 'postImage', true), array(
+            '320' => \Yii::app()->thumbs->getThumb($photo, 'postImageMobile', true),
+        ), $attrs);
     }
 }

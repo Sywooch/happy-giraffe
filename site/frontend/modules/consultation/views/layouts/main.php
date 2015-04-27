@@ -8,15 +8,21 @@ $this->beginContent('//layouts/lite/common_menu');
     <div class="b-main clearfix">
         <div class="b-consult">
             <a href="<?=$this->consultation->getUrl()?>">
-                <div class="b-consult-top">
-                    <div class="b-consult-top__t">
-                        <h1 class="b-consult-top__title">Консультация</h1>
-                        <div class="b-consult-top__text">
-                            Обсуждаем проблему <br />
-                            недостатка грудного молока
-                        </div>
-                    </div>
+              <div class="b-consult-top">
+                <div class="b-consult-top__t">
+                  <h1 class="b-consult-top__title">Консультация</h1>
+                  <div class="b-consult-top__text">
+                    Обсуждаем проблему <br>
+                    недостатка грудного молока
+                  </div>
                 </div>
+                <div class="b-consult-top__r">
+                  <a href="http://apilak.ru/?utm_source=happy-giraffe&utm_medium=consultation&utm_campaign=2015" class="b-consult-top__link">
+                    <img src="/lite/images/services/consult/medicine.png" alt="">
+                  </a>
+                  <a href="http://apilak.ru/?utm_source=happy-giraffe&utm_medium=consultation&utm_campaign=2015" class="b-consult-top__button">Узнать подробнее &gt;&gt;</a>
+                </div>
+              </div>
             </a>
             <div class="b-main_cont">
                 <div class="b-main_col-hold clearfix">

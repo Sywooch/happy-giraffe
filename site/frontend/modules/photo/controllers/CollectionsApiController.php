@@ -62,7 +62,7 @@ class CollectionsApiController extends ApiController
     {
         /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
         //$collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'setCover');
-        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, true);
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, false);
         $attach = $this->getModel('site\frontend\modules\photo\models\PhotoAttach', $attachId);
         $this->success = $collection->setCover($attach) && $collection->save(true, array('cover_id'));
     }

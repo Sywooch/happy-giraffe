@@ -50,6 +50,7 @@ class FeedManager
             $criteria = $channel->getPostsCriteria($userId);
             $criteria->limit = self::LENGTH;
             $criteria->index = 'id';
+            $criteria->scopes[] = 'orderDesc';
             $posts = Content::model()->findAll($criteria);
             $postsAll += $posts;
             foreach ($posts as $post) {

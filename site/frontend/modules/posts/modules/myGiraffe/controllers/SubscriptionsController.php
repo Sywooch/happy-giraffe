@@ -12,6 +12,22 @@ class SubscriptionsController extends \LiteController
     public $litePackage = 'member';
     public $layout = '//layouts/lite/common';
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
+        );
+    }
+
     public function actionIndex()
     {
         $this->render('index');

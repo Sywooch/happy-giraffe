@@ -88,8 +88,8 @@
     &__yellow &_tag  {background-color: #f3cf0a;}*/
     /*
     1 Беременность и дети
-    2 Наш дом 
-    3 Красота и здоровье 
+    2 Наш дом
+    3 Красота и здоровье
     4 Муж и жена
     5 Интересы и увлечения
     6 Семейный отдых
@@ -106,7 +106,7 @@
     &__color-5 &_tag  {background-color: #5bbb50;}
     &__color-6 &_hold {border-color: #8970b4;}
     &__color-6 &_tag  {background-color: #8970b4;}
-    
+
     &_top {
         position: relative;
         margin: 0 12px 7px;
@@ -261,5 +261,85 @@
     }
     &_ico {margin: 20px 0 15px;}
     /* /__ico*/
+    &-resp {
+          @media (min-width: @screen-phone-landscape) {
+            display: inline-block;
+            width: 615px;
+          }
+          @media (min-width: @screen-desktop) {
+            width: 300px;
+          }
+          .article-anonce__ico {
+            @media (min-width: @screen-desktop) {
+              display: inline-block;
+            }
+            display: none;
+          }
+          display: block;
+          width: auto;
+          vertical-align: top;
+          margin: 20px 7px 15px 0px;
+          width: 1px;
+          min-width: 100%;
+          *width: 100%;
+          .article-anonce_bottom {
+            @media (min-width: @screen-desktop) {
+              border: 1px solid #f2f2f2;
+            }
+            border: none;
+          }
+          .article-anonce__xl {
+            .article-anonce_bottom {
+              border: none;
+            }
+          }
+          .article-anonce_img-top {
+            @media (min-width: @screen-tablet) {
+              display: block;
+            }
+            display: none;
+          }
+          .article-anonce_t {
+            @media (min-width: @screen-phone) {
+              font-size: 35px;
+            }
+            @media (min-width: @screen-desktop) {
+              font-size: 22px;
+            }
+            font-size: 20px;
+          }
+      &.article-anonce__xl {
+        @media (min-width: @screen-tablet) {
+          width: 615px !important;
+        }
+        .article-anonce_img-hold {
+          @media (min-width: @screen-tablet) {
+            height: 410px;
+          }
+          height: auto;
+        }
+        .article-anonce_img {
+          @media (min-width: @screen-tablet) {
+            position: absolute;
+          }
+          position: initial;
+        }
+        .article-anonce_t {
+          @media (min-width: @screen-phone) {
+            font-size: 35px;
+            line-height: 30px;
+          }
+          @media (min-width: @screen-phone-landscape) {
+            margin-right: 130px;
+          }
+          @media (min-width: @screen-desktop) {
+            font-size: 30px;
+          }
+          font-size: 20px;
+          line-height: 22px;
+          margin-right: 0;
+        }
+      }
+    }
 }
 /* /article-anonce */

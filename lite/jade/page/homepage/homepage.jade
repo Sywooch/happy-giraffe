@@ -20,9 +20,9 @@ if (debug)
 body.body.body__lite.body__bg2(class='body__homepage')
  
     .layout-container.homepage
+        +layoutHeaderConsult()
         .layout-loose.layout-loose__white
             .layout-header
-                +layoutHeaderContest()
                 // header 
                 header.header.header__homepage
                     .header_hold
@@ -30,7 +30,6 @@ body.body.body__lite.body__bg2(class='body__homepage')
                             .header-login
                                 a(href="#loginWidget", class="header-login_a popup-a") Вход
                                 a(href="#registerWidget", class="header-login_a popup-a") Регистрация
-
                             +sidebarSearch('sidebar-search__big', sidebarSearch.a)
                         .header_row-home
                             +logo('logo__l')

@@ -1,6 +1,6 @@
 
-/* 
-    userSection 
+/*
+    userSection
         &_left
             &_name
             &_btn-hold
@@ -20,7 +20,7 @@
     margin: 10px 0 30px;
     background: #af9bd2;
     color: #fff;
-    
+
     .location {display: none;}
     .location_tx {color: #fff;}
     .b-ava-large {margin: 0 auto;}
@@ -84,6 +84,20 @@
         background-color: #9d8ac0;
         .border-radius(100%);
     }
+    /**
+      Должность специалиста
+    **/
+    &__pos {
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 5px;
+      font-size: 20px;
+      line-height: 1;
+      text-align: center;
+    }
+    &__desc {
+      text-align: center;
+    }
     /*&_btn:hover {background-color: #8573a7;}*/
     &_btn__dialog:hover {background-color: #53B4F3;}
     /*&_btn__friend:hover {background-color: #53B4F3;}*/
@@ -122,23 +136,38 @@
     }
     &_panel-ul {}
     &_panel-li {
-        float: left;
-        width: 50%;
+        @media (min-width: @screen-phone) {
+          float: left;
+          width: 50%;
+          display: block;
+        }
+        float: none;
+        width: 24%;
+        display: inline-block;
     }
     &_panel-li.active &_panel-a {
-        background-color: #53b4f3;
+        @media (min-width: @screen-phone) {
+          background-color: #53b4f3;
+          border: none;
+        }
+        border-bottom: 3px solid #53b4f3;
     }
 
     &_panel-a {
+        @media (min-width: @screen-phone) {
+          border: 1px solid #fff;
+          border-width: 1px 0 0 1px;
+          font-size: 16px;
+          padding: 16px 22px;
+        }
         display: block;
         position: relative;
-        padding: 16px 22px;
-        font-size: 16px;
+        padding: 16px 0;
+        font-size: 15px;
+        height: 50px;
         line-height: 18px;
         color: #fff;
         text-decoration: none;
-        border: 1px solid #fff;
-        border-width: 1px 0 0 1px;
     }
     &_panel-a:hover {
         background-color: #927fb3;
@@ -146,7 +175,7 @@
         color: #fff;
     }
 
-    @media (min-width: @screen-phone) {  
+    @media (min-width: @screen-phone) {
         &_hold {
             padding: 20px 35px 10px;
         }
@@ -184,9 +213,8 @@
     @media (min-width: @screen-phone-landscape) {
         .location {display: block;}
         &_name {
-            font-size: 30px;
+            font-size: 28px;
             line-height: 32px;
-            margin-top: 17px;
         }
     }
 

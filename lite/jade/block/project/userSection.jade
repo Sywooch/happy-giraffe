@@ -55,7 +55,13 @@ mixin userSection(mod, vars)
                     +bFamily('', bFamily.userEdit)
                 if(vars.familyEmpty)
                     +bFamily('', bFamily.userEmpty)
-
+                if(vars.doctor)
+                    .userSection__pos Врач-педиатр
+                    .userSection__desc
+                      | Кандидат медицинских наук, <br />
+                      | научный сотрудник Научно-исследовательского <br />
+                      | клинического института педиатрии <br />
+                      | ГБОУ ВПО РНИМУ им. Н.И. Пирогова
                 
         .userSection_panel
             ul.userSection_panel-ul.clearfix
@@ -76,6 +82,11 @@ mixin userSection(mod, vars)
 - userSection.base.family = true
 - userSection.base.lacation = true
 - userSection.base.btnsUserActions = true
+
+- userSection.md = {}
+- userSection.md.lacation = true
+- userSection.md.doctor = true
+- userSection.md.btnsUserActions = true
 
 - userSection.empty = {}
 

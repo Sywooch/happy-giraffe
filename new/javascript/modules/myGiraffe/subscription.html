@@ -1,0 +1,100 @@
+<div class="mygiraffe-subs">
+    <div class="mygiraffe-subs_t">
+        <div class="heading-xxl">
+            <div class="ico-post-type ico-post-type__subscription active"></div>Мои подписки
+        </div>
+    </div>
+    <div class="i-info">Чтобы не пропустить ничего интересного в Моем Жирафе подпишитесь на все интересующие вас тематические клубы</div>
+    <!-- Клубы-->
+    <div class="homepage-clubs">
+        <div class="homepage-clubs_hold">
+            <!-- collection-->
+            <div class="homepage-clubs_collection homepage-clubs_collection__1">
+                <div class="homepage-clubs_title-hold">
+                    <div class="homepage-clubs_title">Муж и жена</div>
+                </div>
+                <ul class="homepage-clubs_ul" data-bind="template: { name: 'club-template', foreach: [
+                    {id: '14', title: 'Свадьба' },
+                    {id: '15', title: 'Отношения в семье' }
+                    ] }">
+                </ul>
+            </div>
+            <!-- collection-->
+            <div class="homepage-clubs_collection homepage-clubs_collection__2">
+                <div class="homepage-clubs_title-hold">
+                    <div class="homepage-clubs_title">Беременность и дети</div>
+                </div>
+                <ul class="homepage-clubs_ul" data-bind="template: { name: 'club-template', foreach: [
+                    {id: '1', title: 'Планирование' },
+                    {id: '2', title: 'Беременность и роды' },
+                    {id: '3', title: 'Дети до года' },
+                    {id: '4', title: 'Дети старше года' },
+                    {id: '5', title: 'Дошкольники' },
+                    {id: '6', title: 'Школьники' }
+                    ] }">
+                </ul>
+            </div>
+            <!-- collection-->
+            <div class="homepage-clubs_collection homepage-clubs_collection__3">
+                <div class="homepage-clubs_title-hold">
+                    <div class="homepage-clubs_title">Наш дом</div>
+                </div>
+                <ul class="homepage-clubs_ul" data-bind="template: { name: 'club-template', foreach: [
+                    {id: '7', title: 'Готовим на кухне' },
+                    {id: '9', title: 'Домашние хлопоты' },
+                    {id: '11', title: 'Наши питомцы' },
+                    {id: '10', title: 'Сад и огород' },
+                    {id: '8', title: 'Ремонт в доме' }
+                    ] }">
+                </ul>
+            </div>
+            <!-- collection-->
+            <div class="homepage-clubs_collection homepage-clubs_collection__4">
+                <div class="homepage-clubs_title-hold">
+                    <div class="homepage-clubs_title">Красота и здоровье</div>
+                </div>
+                <ul class="homepage-clubs_ul" data-bind="template: { name: 'club-template', foreach: [
+                    {id: '12', title: 'Красота и мода' },
+                    {id: '13', title: 'Наше здоровье' }
+                    ] }">
+                </ul>
+            </div>
+            <!-- collection-->
+            <div class="homepage-clubs_collection homepage-clubs_collection__5">
+                <div class="homepage-clubs_title-hold">
+                    <div class="homepage-clubs_title">Интересы и увлечения</div>
+                </div>
+                <ul class="homepage-clubs_ul" data-bind="template: { name: 'club-template', foreach: [
+                    {id: '18', title: 'Наш автомобиль' },
+                    {id: '16', title: 'Рукоделие' },
+                    {id: '17', title: 'Цветы в доме' },
+                    {id: '19', title: 'Рыбалка' }
+                    ] }">
+                </ul>
+            </div>
+            <!-- collection-->
+            <div class="homepage-clubs_collection homepage-clubs_collection__6">
+                <div class="homepage-clubs_title-hold">
+                    <div class="homepage-clubs_title">Семейный отдых</div>
+                </div>
+                <ul class="homepage-clubs_ul" data-bind="template: { name: 'club-template', foreach: [
+                    {id: '21', title: 'Выходные с семьей' },
+                    {id: '20', title: 'Мы путешествуем' },
+                    {id: '22', title: 'Семейные праздники' }
+                    ] }">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Клубы -->
+    <div class="mygiraffe-subs_bottom"><span class="mygiraffe-subs_bottom-tx">Выбрано: <span data-bind="text: clubIds().length"></span> клуба</span><a class="btn btn-success btn-xm" data-bind="click: save">Сохранить</a></div>
+</div>
+
+<script type="text/html" id="club-template">
+<li class="homepage-clubs_li"><a href="#" title="Подписаться" class="homepage-clubs_a powertip" data-bind="click: function() { $parent.toggle(id) }">
+    <div class="homepage-clubs_ico-hold">
+        <div class="ico-club" data-bind="css: 'ico-club__' + id"></div>
+        <div class="homepage-clubs_ico-overlay" data-bind="css: { active: $parent.isActive(id) }"></div>
+    </div>
+    <div class="homepage-clubs_tx" data-bind="text: title"></div></a></li>
+</script>

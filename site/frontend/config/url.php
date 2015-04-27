@@ -520,7 +520,7 @@ return array(
         'reg/test' => 'signup/test/reg',
         'signup/default/captcha' => 'signup/default/captcha',
 
-        'onair' => 'blog/air/index',
+        'onair' => 'posts/onAir/default/index',
 
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
         'map' => 'archive/default/map',

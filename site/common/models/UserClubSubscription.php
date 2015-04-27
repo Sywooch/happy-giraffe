@@ -172,4 +172,11 @@ class UserClubSubscription extends HActiveRecord
         $model->club_id = $club_id;
         return $model->save();
     }
+
+    public function behaviors()
+    {
+        return array(
+            'site\frontend\modules\posts\modules\myGiraffe\behaviors\SubscriptionBehavior',
+        );
+    }
 }

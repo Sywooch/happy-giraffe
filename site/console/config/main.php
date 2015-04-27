@@ -76,6 +76,9 @@ return array(
         'users' => array(
             'class' => 'site\frontend\modules\users\commands\DefaultCommand',
         ),
+        'myGiraffe' => array(
+            'class' => 'site\frontend\modules\posts\modules\myGiraffe\commands\DefaultCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

@@ -13,6 +13,22 @@ class DefaultController extends \LiteController
 {
     public $litePackage = 'posts';
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
+        );
+    }
+
     public function actionIndex($filter = 'all')
     {
         $dp = FeedItem::model()->getListDataProvider(\Yii::app()->user->id, $filter);

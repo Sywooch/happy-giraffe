@@ -100,7 +100,7 @@ class PhotoCollectionBehavior extends \CBehavior
 
     protected function getCollections()
     {
-        PhotoCollection::model()->findAll(array(
+        return PhotoCollection::model()->findAll(array(
             'condition' => 'entity_id = :id AND entity = :entity',
             'index' => 'key',
             'params' => array(

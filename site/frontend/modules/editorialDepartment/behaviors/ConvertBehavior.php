@@ -35,7 +35,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             try {
                 $post = Content::model()->query('getByAttributes', array(
                     'entity' => $entity,
-                    'entityId' => $this->id,
+                    'entityId' => $this->owner->entityId,
                 ));
             } catch (\Exception $e) {
                 $post = new Content();

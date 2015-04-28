@@ -12,6 +12,7 @@ class FormController extends \LiteController
 
     public $litePackage = 'member';
     public $layout = '//layouts/lite/form';
+    public $bodyClass = 'body__create';
 
     public function actionPhotopost($id = false)
     {

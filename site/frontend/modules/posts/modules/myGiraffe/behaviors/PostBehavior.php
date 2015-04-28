@@ -11,6 +11,8 @@ class PostBehavior extends \CActiveRecordBehavior
 {
     public function afterSave()
     {
-        FeedManager::handle($this->owner);
+        if ($this->owner->isNewRecord) {
+            \Yii::app()->gearman->client()->doBackground('myGiraffeHandlePost', $this->owner->id);
+        }
     }
 }

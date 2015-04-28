@@ -43,6 +43,9 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionWorker()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
         \Yii::app()->gearman->worker()->addFunction('myGiraffeUpdateUser', function (\GearmanJob $job) {
             $workload = $job->workload();
             FeedManager::updateForUser($workload);

@@ -58,7 +58,9 @@ define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCo
             this.current(currentArgument);
             title = this.creatingTitle(this.current());
             this.currentId(this.current().element().id());
-            AdHistory.pushState(null, title, this.photopost.url());
+            if (this.current().index() === 0) {
+                AdHistory.pushState(null, title, this.photopost.url());
+            }
             AdHistory.bannerInit(this.photopost.url());
             return this.current();
         };

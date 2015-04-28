@@ -47,6 +47,14 @@ class DefaultCommand extends \CConsoleCommand
             $workload = $job->workload();
             FeedManager::updateForUser($workload);
         });
+        \Yii::app()->gearman->worker()->addFunction('myGiraffeHandlePost', function (\GearmanJob $job) {
+            $workload = $job->workload();
+            $post = Content::model()->findByPk($workload);
+            if ($post !== null) {
+                FeedManager::handle($post);
+            }
+            echo round(memory_get_peak_usage()/(1024*1024),2)."MB\n";
+        });
         while (\Yii::app()->gearman->worker()->work());
     }
 }

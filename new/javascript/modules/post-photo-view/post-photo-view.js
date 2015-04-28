@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCollection', 'extensions/adhistory', 'text!post-photo-view/post-photo-view.html', 'knockout.mapping'], function postPhotoViewHandler($, ko, Photopost, Model, PhotoCollection, AdHistory, template) {
+define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCollection', 'extensions/adhistory', 'text!post-photo-view/post-photo-view.html', 'knockout.mapping', 'extensions/sliderBinding'], function postPhotoViewHandler($, ko, Photopost, Model, PhotoCollection, AdHistory, template) {
     function PostPhotoView(params) {
         this.photopost = Object.create(Photopost);
         this.collection = new PhotoCollection({});

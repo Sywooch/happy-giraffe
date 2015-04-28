@@ -56,8 +56,9 @@ class DefaultCommand extends \CConsoleCommand
             if ($post !== null) {
                 FeedManager::handle($post);
             }
-            echo round(memory_get_peak_usage()/(1024*1024),2)."MB\n";
         });
-        while (\Yii::app()->gearman->worker()->work());
+        while (\Yii::app()->gearman->worker()->work()) {
+            echo round(memory_get_peak_usage()/(1024*1024),2)."MB\n";
+        };
     }
 }

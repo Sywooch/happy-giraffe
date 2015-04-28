@@ -77,7 +77,7 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                 // will receive user inputs.
                 return array(
                     array('title, collectionId, authorId', 'required'),
-                    array('isDraft, isRemoved', 'numerical', 'integerOnly' => true),
+                    array('isDraft, isRemoved', 'safe'),
                     array('title', 'length', 'max' => 255),
                 );
             }

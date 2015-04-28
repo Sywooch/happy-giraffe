@@ -34,6 +34,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         }
 
         /** @todo костыль, убрать когда переделаем подписки */
+        sleep(1);
         \site\frontend\modules\posts\modules\myGiraffe\components\FeedManager::updateForUser($userId);
 
         $this->success = true;

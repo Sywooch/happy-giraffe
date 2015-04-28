@@ -64,6 +64,8 @@
     &_tx {
         font: italic 22px/28px 'Times New Roman', Georgia, Times, serif;
         color: @color-link-title;
+        word-break: break-all;
+
     }
     &_bottom {
         margin: 5px 0;
@@ -94,6 +96,8 @@
         &_tx {
             font-size: 36px;
             line-height: 45px;
+            min-height: 220px;
+
         }
     }
 }
@@ -125,16 +129,16 @@
 
 /* b-moods-list */
 .b-moods-list {
-    position:absolute;
-    left:100%;
-    top: -354px;
-    background:#fffeea;
-    z-index:4;
+    position: absolute;
+    left: 100%;
+    top: -385px;
+    background: #fffeea;
+    z-index: 4;
     margin: 0 5px;
-    padding:5px;
-    width:570px;
-    font-size:9px;
-    border:1px solid #e7e395;
+    padding: 5px;
+    width: 570px;
+    font-size: 9px;
+    border: 1px solid #e7e395;
     .border-radius(10px);
 
     &:after {

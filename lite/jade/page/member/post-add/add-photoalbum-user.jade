@@ -1,0 +1,42 @@
+include ../../../block/config
+extend ../../../extend/layout_header_empty
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css';
+  
+block layout
+
+    .b-main
+        .b-main_cont.b-main_cont__wide
+
+            //-+userAddRecord('', userAddRecord.blog)
+            .postAdd.b-main_col-hold.clearfix
+                a.ico-close6(href='#') ×
+                // основная колонка
+                .b-main_col-article
+                    .postAdd_hold
+                        .postAdd_row
+                            .heading-xxl
+                                .ico-post-type.ico-post-type__photo.active
+                                | Создать фотоальбом
+                        .postAdd_row 
+                            .inp-valid.inp-valid__abs.error
+                                .inp-valid_count 30
+                                input.itx-gray(placeholder="Заголовок альбома") 
+                                .inp-valid_error Ошибка
+                            
+                    
+                        .postAdd_row
+                            .inp-valid.inp-valid__abs
+                                textarea.itx-gray(rows='5', cols='40', placeholder="Описание альбома")
+                                .inp-valid_count 450
+                    // Строка кнопок
+                    +postAddRowBtns('', postAddRowBtns.a)
+                    // /Строка кнопок
+                // /основная колонка 
+                // сайдбар
+                .b-main_col-sidebar
+
+                // /сайдбар
+
+        //-+layout-footer-lite()

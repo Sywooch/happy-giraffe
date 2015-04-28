@@ -126,6 +126,20 @@
         position: relative;
         margin: 5px 0 0;
         padding-right: 5px;
+        .b-article_in-img {
+            iframe {
+              @media (min-width: @screen-xphone) {
+                height: 250px;
+              }
+              @media (min-width: @screen-phone) {
+                height: 300px;
+              }
+              height: 200px;
+              min-height: initial !important;
+            }
+            margin: 5px 0 15px !important;
+            clear: both;
+        }
     }
     &_cont-img {
         position: relative;
@@ -265,9 +279,6 @@
         }
     }
 
-    .b-article_in-img {
-        clear: both;
-    }
     // /Добавление коммента
 }
 /* /comments */

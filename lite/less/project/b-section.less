@@ -1,10 +1,11 @@
 /* b-section */
 .b-section {
-    margin: 0 0 20px; 
+    display: none;
+    margin: 0 0 20px;
     padding: 15px 0 15px;
     background: #fafafa;
     text-align: center;
-    
+
     &__collection {
         padding: 20px 0 15px;
         background: #5a4072;
@@ -58,7 +59,7 @@
     &_t > a:hover {color: @color-orange;}
     &_t__onair {
         margin: 0 20px 20px;
-    } 
+    }
     &_ul {margin: 5px 0 0;}
     &_ul__white {
         margin: 250px 0 0 30px;
@@ -188,11 +189,12 @@
     @media (min-width: @screen-desktop) {
 
         & {
-            margin: 0 0 20px; 
+            margin: 0 0 20px;
             padding: 15px 0 15px;
             text-align: left;
+            display: block;
         }
-        
+
         &_sidebar {
             display: inline-block;
             vertical-align: middle;

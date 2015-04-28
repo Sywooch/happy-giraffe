@@ -7,11 +7,18 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
         this.photoIds = ko.observableArray([]);
         this.photopostCover = ko.observable();
         this.cache = {};
+        this.gotCollection = function gotCollection(response) {
+            if (response.success === true) {
+                this.photoCollection.cover(response.data.cover);
+                this.photopostCover(response.data.cover.id.toString());
+                this.photoCollection.getPartsCollection(this.photopost.collectionId(), 0, null);
+            }
+        };
         this.gotPhotopost = function gotPhopost(response) {
             if (response.success === true) {
                 this.photopost.init(response.data);
                 this.photoCollection.id(this.photopost.collectionId());
-                this.photoCollection.getPartsCollection(this.photopost.collectionId(), 0, null);
+                this.photoCollection.get(this.photopost.collectionId()).done(this.gotCollection.bind(this));
                 this.load(true);
             }
         };
@@ -22,7 +29,9 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
             this.load(true);
         }
         this.photopostCover.subscribe(function photopostCoverChangingHandler(newCover) {
-            this.photoCollection.setCover(parseInt(newCover));
+            if (this.photoCollection.id()) {
+                this.photoCollection.setCover(parseInt(newCover));
+            }
         }.bind(this));
         this.loadPhotoUploader = function loadPhotoUploader() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
@@ -90,13 +99,29 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
                 window.location.href = photopost.data.url;
             }
         };
+        this.coverForNewCollection = function coverForNewCollection(response) {
+            if (response.success === true) {
+                for (var i = 0; i < response.data.attaches.length; i++) {
+                    if (response.data.attaches[i].photo.id === parseInt(this.photopostCover())) {
+                        this.photopostCover(response.data.attaches[i].id.toString());
+                        this.photoCollection.setCover(parseInt(this.photopostCover())).done(this.startCreating.bind(this));
+                    }
+                }
+            }
+        };
         this.handlePhotoCollection = function handlePhotoCollection(collection) {
             if (collection.success === true) {
                 this.photoCollection = new PhotoCollection(collection.data);
                 this.photopost.collectionId(this.photoCollection.id());
-                console.log(this.photopostCover());
-                this.photopost.create().done(this.doneCreatingPhotopost.bind(this));
+                if (this.photopostCover()) {
+                    this.photoCollection.getPartsCollectionModel(this.photopost.collectionId(), 0, null).done(this.coverForNewCollection.bind(this));
+                } else {
+                    this.photopost.create().done(this.doneCreatingPhotopost.bind(this));
+                }
             }
+        };
+        this.startCreating = function startCreating() {
+            this.photopost.create().done(this.doneCreatingPhotopost.bind(this));
         };
         this.updatePhotoPost = function updatePhotoPost() {
             this.photopost.update().done(this.doneCreatingPhotopost.bind(this));

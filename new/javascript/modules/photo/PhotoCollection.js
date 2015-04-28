@@ -397,6 +397,15 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 .done(this.getPartsCollectionHandler.bind(this));
         };
         /**
+         * get part of current collection return $.ajax
+         * @param id
+         * @param offset
+         * @param length
+         */
+        this.getPartsCollectionModel = function getPartsCollection(id, offset, length) {
+            return Model.get(this.getAttachesUrl, { collectionId: id || this.id(), offset: offset, length: length });
+        };
+        /**
          * get part of current collection handler
          * @param id
          * @param offset

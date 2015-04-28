@@ -241,7 +241,12 @@
             <div class="postAdd_btns-hold">
                 <a href="" class="btn btn-link-gray margin-r15">Отменить</a>
                 <div class="btn-group dropup">
-                    <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: photopost.title.isValid() === false || photopost.photoArray().length === 0 }, click: createPhotoCollection"> Опубликовать</span>
+                    <!-- ko ifnot: photoCollection.id() -->
+                        <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: photopost.title.isValid() === false || photopost.photoArray().length === 0 }, click: createPhotoCollection"> Опубликовать</span>
+                    <!-- /ko -->
+                    <!-- ko if: photoCollection.id() -->
+                        <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: photopost.title.isValid() === false || photoCollection.attaches().length === 0 }, click: updatePhotoPost"> Обновить</span>
+                    <!-- /ko -->
                 </div>
             </div>
         </div>

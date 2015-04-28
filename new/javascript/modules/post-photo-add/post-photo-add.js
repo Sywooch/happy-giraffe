@@ -37,7 +37,6 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
                 this.cache.description = data.description();
                 data.edit(true);
             }
-
         };
         this.cancelEditPhoto = function editPhoto(data, event) {
             if (data.hasOwnProperty('photo')) {
@@ -49,7 +48,6 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
                 data.description(this.cache.description);
                 data.edit(false);
             }
-
         };
         this.doneUpdatingPhoto = function doneUpdatingPhoto(response) {
             if (response.success === true) {
@@ -100,7 +98,10 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
                 this.photopost.create().done(this.doneCreatingPhotopost.bind(this));
             }
         };
-        this.createPhotoCollection = function () {
+        this.updatePhotoPost = function updatePhotoPost() {
+            this.photopost.update().done(this.doneCreatingPhotopost.bind(this));
+        };
+        this.createPhotoCollection = function createPhotoCollection() {
             ko.utils.arrayForEach(this.photopost.photoArray(), this.fetchPhotoIds.bind(this));
             if (this.photoIds().length > 0) {
              this.photoCollection.addPhotos(this.photoIds()).done(this.handlePhotoCollection.bind(this));

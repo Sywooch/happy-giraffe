@@ -14,6 +14,9 @@ define(['jquery', 'knockout', 'models/Model', 'extensions/knockout.validation', 
         create: function createPhotopost() {
             return Model.get(this.createUrl, { title: this.title(), collectionId: this.collectionId(), isDraft: this.isDraft() });
         },
+        update: function updatePhotopost() {
+            return Model.get(this.updateUrl, { id: this.id(), title: this.title(), collectionId: this.collectionId(), isDraft: this.isDraft() });
+        },
         get: function getPhotopost(id) {
             return Model.get(this.getUrl, { id: id });
         },

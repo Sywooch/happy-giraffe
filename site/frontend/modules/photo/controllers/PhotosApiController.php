@@ -73,7 +73,8 @@ class PhotosApiController extends ApiController
     protected function getCollection($collectionId)
     {
         if ($collectionId !== null) {
-            $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'addPhotos');
+            //$collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'addPhotos');
+            $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, false);
         } else {
             $collection = null;
         }

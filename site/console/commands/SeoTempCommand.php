@@ -140,8 +140,9 @@ class SeoTempCommand extends CConsoleCommand
                         $userId = $matches2[1];
                         $title = $data[$i2 - 1][$j2 + 1];
                         $education = $data[$i2 - 1][$j2 + 2];
-                        $dateValue = $data[$i2 - 1][$j2 + 3];
-                        $date = date("Y-m-d H:i:s", strtotime($dateValue));
+                        if (preg_match('#([\d\.]+)#', $data[$i2 - 1][$j2 + 3], $matches3)) {
+                            $date = date("Y-m-d H:i:s", strtotime($matches3[1]));
+                        }
 
                         echo $rubricName . "\n";
                         echo $rubric->id . "\n";

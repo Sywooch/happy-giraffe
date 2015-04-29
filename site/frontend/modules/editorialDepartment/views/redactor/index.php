@@ -78,7 +78,7 @@ $communityContent = CommunityContent::model()->findByPk($model->entityId); // н
     <div class="postAdd_count">5</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
-            <md-redactor class="md-redactor" params="id: 'md-redactor-1', textareaId: 'markDownPreview', htmlId: 'htmlTextPreview', full: false, collectionId: <?=CJavaScript::encode(($model->getIsNewRecord() ? null : $communityContent->getAttributePhotoCollection('preview')->id))?>"></md-redactor>
+            <md-redactor class="md-redactor" params="id: 'md-redactor-1', textareaId: 'markDownPreview', htmlId: 'htmlTextPreview', full: false, collectionId: <?=CJavaScript::encode(($model->getIsNewRecord() ? null : $model->getAttributePhotoCollection('htmlTextPreview')->id))?>"></md-redactor>
         </div>
     </div>
 </div>
@@ -87,7 +87,7 @@ $communityContent = CommunityContent::model()->findByPk($model->entityId); // н
     <div class="postAdd_count">6</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
-            <md-redactor class="md-redactor" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText', full: true, collectionId: <?=CJavaScript::encode(($model->getIsNewRecord() ? null : $communityContent->content->getAttributePhotoCollection('text')->id))?>"></md-redactor>
+            <md-redactor class="md-redactor" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText', full: true, collectionId: <?=CJavaScript::encode(($model->getIsNewRecord() ? null : $model->getAttributePhotoCollection('htmlText')->id))?>"></md-redactor>
         </div>
     </div>
 </div>

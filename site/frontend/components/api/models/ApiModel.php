@@ -18,7 +18,7 @@ abstract class ApiModel extends \CModel
     private $_new = false;
     public $api = false;
     public $expire = 3600;
-    
+
     public function getCachedActions()
     {
         return array(
@@ -41,10 +41,14 @@ abstract class ApiModel extends \CModel
         return array_search($action, $this->getCachedActions()) !== false;
     }
 
-    public function __construct()
+    public function __construct($scenario = 'insert')
     {
         if (!\Yii::app()->api)
             throw new Exception('Компонент api должен быть сконфигурирован');
+        if (is_null($scenario)) {
+            return;
+        }
+        $this->scenario = $scenario;
         $this->_new = true;
     }
 
@@ -62,8 +66,7 @@ abstract class ApiModel extends \CModel
     {
         if (isset($this->_attributes[$name]))
             return $this->_attributes[$name];
-        else
-        {
+        else {
             $attributes = $this->attributeNames();
             if (array_search($name, $attributes) !== false)
                 return null;
@@ -82,8 +85,7 @@ abstract class ApiModel extends \CModel
 
     protected function setInternal($attributes)
     {
-        foreach ($attributes as $name => $value)
-        {
+        foreach ($attributes as $name => $value) {
             if (property_exists($this, $name) || $this->canSetProperty($name))
                 $this->$name = $value;
             else
@@ -95,8 +97,7 @@ abstract class ApiModel extends \CModel
     {
         if (isset(self::$_models[$className]))
             return self::$_models[$className];
-        else
-        {
+        else {
             $model = self::$_models[$className] = new $className(null);
             $model->attachBehaviors($model->behaviors());
             return $model;
@@ -121,8 +122,7 @@ abstract class ApiModel extends \CModel
     {
         if (!$this->getIsNewRecord())
             throw new \site\frontend\components\api\ApiException('Нельзя добавить не новую запись.');
-        if ($this->beforeSave())
-        {
+        if ($this->beforeSave()) {
             $this->trace(get_class($this) . '.insert()');
             $attributes = $this->actionAttributes();
             if (!isset($attributes['insert']) || !$attributes['insert'])
@@ -133,8 +133,7 @@ abstract class ApiModel extends \CModel
 
             $result = $this->request('create', $request);
 
-            if ($result['success'])
-            {
+            if ($result['success']) {
                 if (isset($result['data']))
                     $this->setInternal($result['data']);
                 $this->afterSave();
@@ -142,8 +141,7 @@ abstract class ApiModel extends \CModel
                 $this->setScenario('update');
                 return true;
             }
-            else
-            {
+            else {
                 /** @todo Обработать ошибки */
                 return false;
             }
@@ -155,35 +153,30 @@ abstract class ApiModel extends \CModel
     {
         if ($this->getIsNewRecord())
             throw new \site\frontend\components\api\ApiException('Нельзя обновить новую запись.');
-        if ($this->beforeSave())
-        {
+        if ($this->beforeSave()) {
             $this->trace(get_class($this) . '.update()');
             $attributes = $this->actionAttributes();
             if (!isset($attributes['update']) || !$attributes['update'])
                 throw new \site\frontend\components\api\ApiException('Настройками запрещено добавлять данную запись. Проверьте ' . get_class($this) . '::actionAttributes()');
             $request = array(
-                'id'
+                'id' => $this->id,
             );
             foreach ($attributes['update'] as $attribute)
-                $request['attributes'][$attribute] = $this->$attribute;
-
+                $request[$attribute] = $this->$attribute;
             $result = $this->request('update', $request);
 
-            if ($result['success'])
-            {
+            if ($result['success']) {
                 if (isset($result['data']))
                     $this->setInternal($result['data']);
                 $this->afterSave();
                 return true;
             }
-            else
-            {
+            else {
                 /** @todo Обработать ошибки */
                 return false;
             }
             return true;
-        }
-        else
+        } else
             return false;
     }
 
@@ -203,21 +196,16 @@ abstract class ApiModel extends \CModel
         $result = $this->request($action, $params);
         if (!$result['success'])
             throw new \site\frontend\components\api\ApiException($result['errorMessage'], $result['errorCode'] ? : 0);
-        if (isset($result['isPack']))
-        {
+        if (isset($result['isPack'])) {
             $models = array();
-            foreach ($result['data'] as $response)
-            {
-                if (isset($response['data']) && $response['success'])
-                {
+            foreach ($result['data'] as $response) {
+                if (isset($response['data']) && $response['success']) {
                     /** @todo пробрасывать ошибки в модель */
                     $models[] = $this->populateRecord($response['data']);
                 }
             }
             return $models;
-        }
-        else
-        {
+        } else {
             $model = null;
             /** @todo пробрасывать ошибки в модель */
             if (isset($result['data']) && $result['success'])
@@ -228,26 +216,21 @@ abstract class ApiModel extends \CModel
 
     public function request($action, $params)
     {
-        if ($this->isCachedAction($action) && is_array($params))
-        {
+        if ($this->isCachedAction($action) && is_array($params)) {
             $result = null;
-            if (isset($params['pack']))
-            {
+            if (isset($params['pack'])) {
                 $newPack = array();
                 $result = $this->cacheGet($action, $params['pack'], true);
-                foreach ($result as $i => $data)
-                {
+                foreach ($result as $i => $data) {
                     if (!$data)
                         $newPack[] = $params['pack'][$i];
                 }
                 /** @todo Дописать кеширование!!! */
             }
-            else
-            {
+            else {
                 $this->trace('try cache ' . $action . ' (' . var_export($params, true) . ')');
                 $result = $this->cacheGet($action, $params);
-                if (!$result)
-                {
+                if (!$result) {
                     $this->trace('try api');
                     $result = $this->extract(\Yii::app()->api->request($this->api, $action, $params));
                     $this->cacheSet($action, $params, $result);
@@ -278,8 +261,7 @@ abstract class ApiModel extends \CModel
 
     protected function populateRecord($attributes, $callAfterFind = true)
     {
-        if ($attributes !== false)
-        {
+        if ($attributes !== false) {
             $record = $this->instantiate($attributes);
             $record->init();
             $record->setInternal($attributes);
@@ -287,8 +269,7 @@ abstract class ApiModel extends \CModel
             if ($callAfterFind)
                 $record->afterFind();
             return $record;
-        }
-        else
+        } else
             return null;
     }
 
@@ -331,13 +312,11 @@ abstract class ApiModel extends \CModel
      */
     protected function beforeSave()
     {
-        if ($this->hasEventHandler('onBeforeSave'))
-        {
+        if ($this->hasEventHandler('onBeforeSave')) {
             $event = new \CModelEvent($this);
             $this->onBeforeSave($event);
             return $event->isValid;
-        }
-        else
+        } else
             return true;
     }
 
@@ -384,8 +363,7 @@ abstract class ApiModel extends \CModel
      */
     protected function beforeFind()
     {
-        if ($this->hasEventHandler('onBeforeFind'))
-        {
+        if ($this->hasEventHandler('onBeforeFind')) {
             $event = new \CModelEvent($this);
             $this->onBeforeFind($event);
         }

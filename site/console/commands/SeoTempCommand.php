@@ -115,9 +115,9 @@ class SeoTempCommand extends CConsoleCommand
         }
     }
 
-    public function actionSpecUsers()
+    public function actionSpecUsers($club)
     {
-        $file = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'spec2.csv';
+        $file = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . $club . '.csv';
 
         $data = array();
         if (($handle = fopen($file, "r")) !== false) {
@@ -129,19 +129,53 @@ class SeoTempCommand extends CConsoleCommand
 
         for ($i = 0; $i < count($data); $i++) {
             for ($j = 0; $j < count($data[$i]); $j++) {
-                if (preg_match('#\/user\/(\d+)\/#', $data[$i][$j], $matches)) {
-                    $userId = $matches[1];
-                    $title = $data[$i - 1][$j + 1];
-                    $education = $data[$i - 1][$j + 2];
-                    preg_match('#(\d+)#', $data[$i - 1][$j + 3], $m2);
-                    $date = isset($m2[1]) ? $m2[1] : 15;
+                if (preg_match('#Рубрика: (.*)#', $data[$i][$j], $matches)) {
+                    $rubricName = $matches[1];
+                    $rubric = CommunityRubric::model()->findByAttributes(array('title' => $rubricName));
 
-                    $user = \site\frontend\modules\users\models\User::model()->findByPk($userId);
-                    $user->specInfoObject->title = $title;
-                    $user->specInfoObject->education = $education;
-                    $user->register_date = '2012-01-' . $date . ' 00:00:00';
-                    $user->save();
+                    $i2 = $i + 2;
+                    $j2 = $j + 4;
+
+                    if (preg_match('#\/user\/(\d+)\/#', $data[$i2][$j2], $matches2)) {
+                        $userId = $matches2[1];
+                        $title = $data[$i2 - 1][$j2 + 1];
+                        $education = $data[$i2 - 1][$j2 + 2];
+                        preg_match('#(\d+)#', $data[$i2 - 1][$j2 + 3], $m2);
+                        $date = isset($m2[1]) ? $m2[1] : 15;
+
+                        echo $rubricName . "\n";
+                        echo $userId . "\n";
+                        echo $title . "\n";
+                        echo $education . "\n";
+                        echo $data . "\n";
+                        echo "\n";
+
+//                        $user = \site\frontend\modules\users\models\User::model()->findByPk($userId);
+//                        $user->specInfoObject->title = $title;
+//                        $user->specInfoObject->education = $education;
+//                        $user->register_date = '2012-01-' . $date . ' 00:00:00';
+//                        $user->save();
+                    } else {
+                        "Не найден юзер - " . $matches2[0];
+                    }
+                } else {
+                    echo "Не найдена рубрика - " . $matches[0];
                 }
+
+
+//                if (preg_match('#\/user\/(\d+)\/#', $data[$i][$j], $matches)) {
+//                    $userId = $matches[1];
+//                    $title = $data[$i - 1][$j + 1];
+//                    $education = $data[$i - 1][$j + 2];
+//                    preg_match('#(\d+)#', $data[$i - 1][$j + 3], $m2);
+//                    $date = isset($m2[1]) ? $m2[1] : 15;
+//
+//                    $user = \site\frontend\modules\users\models\User::model()->findByPk($userId);
+//                    $user->specInfoObject->title = $title;
+//                    $user->specInfoObject->education = $education;
+//                    $user->register_date = '2012-01-' . $date . ' 00:00:00';
+//                    $user->save();
+//                }
             }
         }
     }

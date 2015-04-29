@@ -226,5 +226,13 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                 }
             }
 
+            public function onAfterSoftDelete()
+            {
+            }
+
+            public function onAfterSoftRestore()
+            {
+            }
+
         }
         

@@ -145,6 +145,7 @@ class SeoTempCommand extends CConsoleCommand
                         } else {
                             throw new Exception("Некорректная дата");
                         }
+                    }
 
                         echo $rubricName . "\n";
                         echo $rubric->id . "\n";
@@ -160,9 +161,7 @@ class SeoTempCommand extends CConsoleCommand
                         $user->specInfoObject->education = $education;
                         $user->register_date = $date;
                         $user->save();
-                    } else {
-                        throw new Exception("Не найден юзер");
-                    }
+
                 }
 
 

@@ -22,6 +22,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.currentId = ko.observable();
         this.photoLength = 20;
         this.offsetMinimal = 5;
+        this.currentUrl = ko.observable(window.location.href);
         /**
          * getting User
          * @param user
@@ -96,7 +97,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             this.current(currentArgument);
             title = this.creatingTitle(this.current());
             this.currentId(this.current().element().id());
-            AdHistory.pushState(null, title, this.current().element().url());
+            AdHistory.pushState(null, title, this.currentUrl() + this.current().element().url());
             AdHistory.bannerInit(this.current().element().url());
             return this.current();
         };
@@ -106,7 +107,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.sliderManipulations = function sliderManipulations(currentArgument) {
             var title = this.creatingTitle(this.current());
             this.current().element(this.collection.attaches()[this.current().index()]);
-            AdHistory.pushState(null, title, this.current().element().url());
+            AdHistory.pushState(null, title, this.currentUrl() + this.current().element().url());
             AdHistory.reloadBanner();
             this.addImageBinding();
         };

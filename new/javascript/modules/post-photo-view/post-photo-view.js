@@ -19,12 +19,11 @@ define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCo
         this.returnNewColor = Model.returnNewColor;
         this.colorsArray = Model.colorsArray;
         this.elementCssClass = 'b-album_prev-li img-grid_loading__';
-
         /**
          * imgBinding
          */
         this.addImageBinding = function addImageBinding() {
-            this.imgTag('<img src="' + this.current().element().photo().getGeneratedPreset('postCollectionCover') + '" data-id="' + this.current().element().id() + '" class="b-album_img-big">');
+            this.imgTag('<img src="' + this.current().element().photo().getGeneratedPreset('photopostView') + '" data-id="' + this.current().element().id() + '" class="b-album_img-big">');
             this.collection.loadImage('progress', '.b-album_img-picture', '.b-album_img-picture');
         };
         /**

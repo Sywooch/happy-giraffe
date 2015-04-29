@@ -131,7 +131,7 @@ class SeoTempCommand extends CConsoleCommand
             for ($j = 0; $j < count($data[$i]); $j++) {
                 if (preg_match('#Рубрика: (.*)#', $data[$i][$j], $matches)) {
                     $rubricName = $matches[1];
-                    $rubric = CommunityRubric::model()->findByAttributes(array('title' => $rubricName));
+                    $rubric = CommunityRubric::model()->with('community')->findByAttributes(array('title' => $rubricName, 'club_id' => $club));
 
                     $i2 = $i + 2;
                     $j2 = $j + 4;

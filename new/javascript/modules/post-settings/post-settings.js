@@ -1,5 +1,8 @@
-define(['jquery', 'knockout', 'text!article-settings/article-settings.html', 'models/Model', 'ko_library'], function ($, ko, template, Model) {
-    function ArticleSettings(params) {
+define(['jquery', 'knockout', 'text!post-settings/post-settings.html', 'models/Model', 'ko_library'], function ($, ko, template, Model) {
+    function PostSettings(params) {
+        this.editPostUrl = params.editUrl;
+        this.removePostUrl = params.removeUrl;
+        this.restorePostUrl = params.restoreUrl;
         this.removeBlogUrl = '/newblog/remove/';
         this.restoreBlogUrl = '/newblog/restore/';
         this.settingsClicker = 'a.article-settings_a__settings';
@@ -21,7 +24,7 @@ define(['jquery', 'knockout', 'text!article-settings/article-settings.html', 'mo
     }
 
     return {
-        viewModel: ArticleSettings,
+        viewModel: PostSettings,
         template: template
     };
 });

@@ -1,7 +1,8 @@
-define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions/PresetManager', 'extensions/knockout.validation', 'extensions/validatorRules'], function ($, ko, baseConfig, PresetManager) {
+define('photo/Photo', ['jquery', 'knockout', 'models/Model', 'photo/baseUrlCreator', 'extensions/PresetManager', 'extensions/knockout.validation', 'extensions/validatorRules'], function ($, ko, Model, baseConfig, PresetManager) {
     "use strict";
     // Основная модель фотографии
     function Photo(data) {
+        this.updateUrl = '/api/photo/photos/update/';
         this.id = (ko.isObservable(data.id) === false) ? ko.observable(data.id) : data.id;
         this.title = (ko.isObservable(data.title) === false) ? ko.observable(data.title) : data.title;
         this.description = (ko.isObservable(data.description) === false) ? ko.observable(data.description) : data.description;
@@ -31,10 +32,10 @@ define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions
         };
         if (data.status !== undefined) {
             this.status = ko.observable(data.status);
-        };
+        }
         if (data.cropLoaded !== undefined) {
             this.cropLoaded = ko.observable(data.cropLoaded);
-        };
+        }
         this.getGeneratedPreset = function generatePreseted(preset) {
             if (this.presetHash() === undefined) {
                 if (PresetManager.presets === undefined || $.isPlainObject(PresetManager.presets)) {
@@ -58,6 +59,9 @@ define('photo/Photo', ['jquery', 'knockout', 'photo/baseUrlCreator', 'extensions
                 }
             }
             return this.presetHeight();
+        };
+        this.update = function update() {
+            return Model.get(this.updateUrl, { photoId: this.id(), title: this.title(), description: this.description() });
         };
         /**
          * Валидация

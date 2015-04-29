@@ -15,6 +15,22 @@ return array(
         // global
         '.*/index' => 404,
 
+        /* API */
+        'api/myGiraffe/<_a>' => 'posts/myGiraffe/api/<_a>',
+        'api/comments/<_a>' => 'comments/api/<_a>',
+        'api/commentatorsContest/<_a>' => 'comments/contest/api/<_a>',
+        'api/status/<_a>' => 'som/status/api/<_a>',
+        'api/photopost/<_a>' => 'som/photopost/api/<_a>',
+        'api/activity/<_a>' => 'som/activity/api/<_a>',
+        'api/community/<_a>' => 'som/community/api/<_a>',
+        'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
+        'api/<_m>/<_a>' => '<_m>/api/<_a>',
+        
+        /* SOM */
+        'status' => 'som/status/default/index',
+        'status/<_c>' => 'som/status/<_c>/index',
+        'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
+
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
         'findFriends/byInterests' => array('friends/find', 'defaultParams' => array('type' => 2)),
@@ -147,7 +163,13 @@ return array(
         'user/settings' => 'users/default/settings',
         'users/default/addSocialService' => 'users/default/addSocialService',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
-        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',
+        // Парсим и составляем новые урлы
+        'user/<user_id:\d+>/blog/nppost<content_id:\d+>/photo<photoId:\d+>' => 'som/photopost/default/photoView',
+        'user/<user_id:\d+>/blog/nppost<content_id:\d+>' => 'som/photopost/default/photoView',
+        'user/<user_id:\d+>/blog/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/post/view',
+        // Парсим старые урлы и добавляем параметр
+        'user/<user_id:\d+>/blog/post<content_id:\d+>' => array('posts/post/view', 'defaultParams' => array('content_type_slug' => 'post')),
+        
         'user/blog/photopost/create' => 'posts/form/photopost',
         'user/blog/status/create' => 'posts/form/status',
         /*array(
@@ -186,6 +208,9 @@ return array(
         /* Временные страницы для редактирования */
         'post/add/type<type:[1235]>' => 'blog/tmp/index',
         'post/edit/content<id:\d+>' => 'blog/tmp/index',
+        'blogs/edit/post' => 'blog/tmp/index',
+        'community/edit/post' => 'blog/tmp/index',
+        'post/edit/<_a:[a-zA-Z]+><id:[0-9]+>' => 'posts/form/<_a>',
         /* Временные страницы для управления постами */
         'blog/tmp/favourites' => 'blog/tmp/favourites',
 
@@ -525,22 +550,6 @@ return array(
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
         'map' => 'archive/default/map',
         
-        /* API */
-        'api/myGiraffe/<_a>' => 'posts/myGiraffe/api/<_a>',
-        'api/comments/<_a>' => 'comments/api/<_a>',
-        'api/commentatorsContest/<_a>' => 'comments/contest/api/<_a>',
-        'api/status/<_a>' => 'som/status/api/<_a>',
-        'api/photopost/<_a>' => 'som/photopost/api/<_a>',
-        'api/activity/<_a>' => 'som/activity/api/<_a>',
-        'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
-        'api/<_m>/<_a>' => '<_m>/api/<_a>',
-        
-        /* SOM */
-        'status' => 'som/status/default/index',
-        'status/<_c>' => 'som/status/<_c>/index',
-        'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
-
-
         'commentatorsContest/<contestId:\d+>' => 'comments/contest/default/index',
         'commentatorsContest/<contestId:\d+>/<_a>' => 'comments/contest/default/<_a>',
 

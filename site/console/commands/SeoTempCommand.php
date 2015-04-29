@@ -156,10 +156,8 @@ class SeoTempCommand extends CConsoleCommand
 //                        $user->register_date = '2012-01-' . $date . ' 00:00:00';
 //                        $user->save();
                     } else {
-                        "Не найден юзер - " . $matches2[0];
+                        echo "Не найден юзер - " . $matches2[0] . "\n";
                     }
-                } else {
-                    echo "Не найдена рубрика - " . $matches[0];
                 }
 
 

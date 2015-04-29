@@ -218,7 +218,7 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                                 'id: ' . (int) $collection->id . ', ' .
                                 'attachCount: ' . (int) $collection->attachesCount . ', ' .
                                 'userId: ' . (int) $this->authorId . ', ' .
-                                'coverId: ' . $cover->id,
+                                'coverId: ' . (int) $collection->cover['id'],
                                     ), '') . '</div>';
                     return $photoAlbumTag;
                 } catch (\Exception $e) {

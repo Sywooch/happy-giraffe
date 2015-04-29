@@ -36,6 +36,9 @@ define('photo/Photo', ['jquery', 'knockout', 'models/Model', 'photo/baseUrlCreat
         if (data.cropLoaded !== undefined) {
             this.cropLoaded = ko.observable(data.cropLoaded);
         }
+        this.getMashedPreset = function getMashedPreset(preset) {
+            return baseConfig + PresetManager.getPresetHash(preset) + '/' + this.fsName();
+        };
         this.getGeneratedPreset = function generatePreseted(preset) {
             if (this.presetHash() === undefined) {
                 if (PresetManager.presets === undefined || $.isPlainObject(PresetManager.presets)) {

@@ -142,6 +142,8 @@ class SeoTempCommand extends CConsoleCommand
                         $education = $data[$i2 - 1][$j2 + 2];
                         if (preg_match('#([\d\.]+)#', $data[$i2 - 1][$j2 + 3], $matches3)) {
                             $date = date("Y-m-d H:i:s", strtotime($matches3[1]));
+                        } else {
+                            throw new Exception("Некорректная дата");
                         }
 
                         echo $rubricName . "\n";
@@ -152,13 +154,14 @@ class SeoTempCommand extends CConsoleCommand
                         echo $date . "\n";
                         echo "\n";
 
-//                        $user = \site\frontend\modules\users\models\User::model()->findByPk($userId);
-//                        $user->specInfoObject->title = $title;
-//                        $user->specInfoObject->education = $education;
-//                        $user->register_date = '2012-01-' . $date . ' 00:00:00';
-//                        $user->save();
+                        \site\common\components\temp\HgMove::move($rubric->id, $userId);
+                        $user = \site\frontend\modules\users\models\User::model()->findByPk($userId);
+                        $user->specInfoObject->title = $title;
+                        $user->specInfoObject->education = $education;
+                        $user->register_date = $date;
+                        $user->save();
                     } else {
-                        echo "Не найден юзер - " . $matches2[0] . "\n";
+                        throw new Exception("Не найден юзер");
                     }
                 }
 

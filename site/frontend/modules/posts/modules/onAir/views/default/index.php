@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var \site\frontend\modules\posts\modules\onAir\controllers\DefaultController $this
+ */
+$this->pageTitle = 'Прямой эфир';
+?>
+
 <div class="b-main_cont b-main_cont__wide">
 
 

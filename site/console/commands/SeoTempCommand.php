@@ -59,7 +59,11 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
-
+    public function actionComments($id)
+    {
+        $comment = \site\frontend\modules\comments\models\Comment::model()->findByPk($id);
+        $comment->save();
+    }
 
     public function actionSpec()
     {

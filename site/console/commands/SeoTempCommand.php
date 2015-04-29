@@ -148,7 +148,7 @@ class SeoTempCommand extends CConsoleCommand
                         echo $userId . "\n";
                         echo $title . "\n";
                         echo $education . "\n";
-                        echo $data . "\n";
+                        echo $date . "\n";
                         echo "\n";
 
 //                        $user = \site\frontend\modules\users\models\User::model()->findByPk($userId);

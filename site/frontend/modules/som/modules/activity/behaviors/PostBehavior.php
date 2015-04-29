@@ -14,6 +14,13 @@ use site\frontend\modules\som\modules\activity\models\api\Activity;
 class PostBehavior extends ActivityBehavior
 {
 
+    public function afterSave($event)
+    {
+        if ($this->owner->originEntityId) {
+            return parent::afterSave($event);
+        }
+    }
+
     public function getActivityId()
     {
         return md5($this->owner->originService . '|' . $this->owner->originEntity . '|' . $this->owner->originEntityId);
@@ -36,7 +43,7 @@ class PostBehavior extends ActivityBehavior
 
     public function getIsRemoved()
     {
-        return $this->owner->isRemoved;
+        return $this->owner->isRemoved || !$this->owner->originEntityId;
     }
 
 }

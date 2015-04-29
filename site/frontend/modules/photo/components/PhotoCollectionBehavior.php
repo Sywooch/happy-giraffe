@@ -1,37 +1,57 @@
 <?php
+
 /**
  * Поведение для моделей, имеющих коллекцию
  *
  * Создает relation для связи с коллекцией
+ * @property \CModel $owner Description
  */
 
 namespace site\frontend\modules\photo\components;
+
 use site\frontend\modules\photo\models\PhotoCollection;
 
-class PhotoCollectionBehavior extends \CActiveRecordBehavior
+class PhotoCollectionBehavior extends \CBehavior
 {
+
     public $attributeCollections = array();
+    protected static $_createdDuringRequest = array();
+    protected $_collections = array();
+    public $entity = false;
+    public $entityId = false;
 
-    private static $_createdDuringRequest = array();
-
-    /**
-     * Добавляет отношение "photoCollections".
-     *
-     * @param \HActiveRecord $owner
-     */
-    public function attach($owner)
+    public function events()
     {
-        $owner->getMetaData()->addRelation('photoCollections', array(
-            \CActiveRecord::HAS_MANY,
-            'site\frontend\modules\photo\models\PhotoCollection',
-            'entity_id',
-            'on' => 'entity = :entity',
-            'params' => array(':entity' => $owner->getEntityName()),
-            'index' => 'key',
+        return array_merge(parent::events(), array(
+            'onAfterSave' => 'afterSave',
         ));
-        parent::attach($owner);
     }
 
+    public function getEntityId()
+    {
+        if ($this->entityId) {
+            if (is_array($this->entityId)) {
+                return call_user_func($this->entityId, $this->owner);
+            } else {
+                return $this->owner->{$this->entityId};
+            }
+        } else {
+            return $this->owner->id;
+        }
+    }
+
+    public function getEntityName()
+    {
+        if ($this->entity) {
+            if (is_array($this->entity)) {
+                return call_user_func($this->entity, $this->owner);
+            } else {
+                return $this->owner->{$this->entity};
+            }
+        } else {
+            return get_class($this->owner);
+        }
+    }
 
     /**
      * При создании сущности, создает для нее все необходимые коллекции.
@@ -57,26 +77,37 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
     public function getPhotoCollection($key = 'default', $create = true)
     {
         // сначала ищем в только что созданных - это быстрее всего
-        if (isset(self::$_createdDuringRequest[$this->owner->getEntityName()][$this->owner->id][$key])) {
-            return self::$_createdDuringRequest[$this->owner->getEntityName()][$this->owner->id][$key];
+        if (isset(self::$_createdDuringRequest[$this->getEntityName()][$this->getEntityId()][$key])) {
+            return self::$_createdDuringRequest[$this->getEntityName()][$this->getEntityId()][$key];
         }
 
-        // потом в релейшнах
-        $refresh = $this->owner->hasRelated('photoCollections') && ! isset($this->owner->photoCollections[$key]); // рефрешим только если релейшн уже был загружен, но нужного ключа там нет
-        $collections = $this->owner->getRelated('photoCollections', $refresh);
+        $collections = $this->getCollections();
+
         if (isset($collections[$key])) {
             return $collections[$key];
         }
 
-        if (! $create) {
+        if (!$create) {
             return null;
         } else {
             $collection = $this->createCollection($key);
             if ($collection !== null) {
-                self::$_createdDuringRequest[$this->owner->getEntityName()][$this->owner->id][$key] = $collection;
+                self::$_createdDuringRequest[$this->getEntityName()][$this->getEntityId()][$key] = $collection;
             }
             return $collection;
         }
+    }
+
+    protected function getCollections()
+    {
+        return PhotoCollection::model()->findAll(array(
+            'condition' => 'entity_id = :id AND entity = :entity',
+            'index' => 'key',
+            'params' => array(
+                ':entity' => $this->getEntityName(),
+                ':id' => $this->getEntityId(),
+            )
+        ));
     }
 
     public function getAttributePhotoCollection($attribute)
@@ -118,10 +149,11 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
     {
         $class = PhotoCollection::getClassName($this->owner->getEntityName(), $key);
         $collection = new $class();
-        $collection->entity_id = $this->owner->id;
-        $collection->entity = $this->owner->getEntityName();
+        $collection->entity_id = $this->getEntityId();
+        $collection->entity = $this->getEntityName();
         $collection->key = $key;
         $success = $collection->save();
         return ($success) ? $collection : null;
     }
-} 
+
+}

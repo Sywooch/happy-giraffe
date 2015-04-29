@@ -156,7 +156,7 @@ class CommunityContent extends HActiveRecord implements IPreview
         if($this->scenario == 'advEditor')
             return array(
                 'PhotoCollectionBehavior' => array(
-                    'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                    'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',
                     'attributeCollections' => array('preview'),
                 ),
                 'convertToNewPost' => array(
@@ -170,7 +170,7 @@ class CommunityContent extends HActiveRecord implements IPreview
             );
         return array(
             'PhotoCollectionBehavior' => array(
-                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',
                 'attributeCollections' => array('preview'),
             ),
             'ContentBehavior' => array(

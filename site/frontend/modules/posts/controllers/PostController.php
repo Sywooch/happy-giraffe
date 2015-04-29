@@ -17,6 +17,8 @@ class PostController extends \LiteController
     public $layout = '/layouts/newBlogPost';
     public $post = null;
     public $hideUserAdd = true;
+    public $strictCheck = true;
+    public $setCanonical = false;
     protected $_user = null;
     protected $_leftPost = null;
     protected $_rightPost = null;
@@ -24,15 +26,15 @@ class PostController extends \LiteController
     /**
      * @sitemap dataSource=sitemapView
      */
-    public function actionView($content_id)
+    public function actionView($content_id, $content_type_slug)
     {
         // Включим прочтение сигналов
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
         /** @todo добавить условие byService для полноценного использования индекса */
-        $this->post = Content::model()->byEntity('CommunityContent', $content_id)->find();
+        $this->post = Content::model()->bySlug($content_type_slug, $content_id)->find();
         // Выключим прочтение сигналов
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = false;
-        if (!$this->post || $this->post->parsedUrl !== \Yii::app()->request->requestUri) {
+        if (!$this->post || ($this->strictCheck && $this->post->parsedUrl !== \Yii::app()->request->requestUri)) {
             // Временная заглушка, если пост ещё не сконвертировался
             if (\Yii::app()->user->getState('newPost' . $content_id)) {
                 $this->layout = '//layouts/lite/main';
@@ -41,6 +43,9 @@ class PostController extends \LiteController
                 throw new \CHttpException(404);
             }
         } else {
+            if($this->setCanonical) {
+                $this->metaCanonical = $this->post->url;
+            }
             $this->render('view');
         }
     }
@@ -60,7 +65,7 @@ class PostController extends \LiteController
     public function getLeftPost()
     {
         if (is_null($this->_leftPost)) {
-            $this->_leftPost = Content::model()->cache(3600)->byService('oldBlog')->byAuthor($this->post->authorId)->leftFor($this->post)->find();
+            $this->_leftPost = Content::model()->cache(3600)->byLabels(array('Блог'))->byAuthor($this->post->authorId)->leftFor($this->post)->find();
         }
 
         return $this->_leftPost;
@@ -69,7 +74,7 @@ class PostController extends \LiteController
     public function getRightPost()
     {
         if (is_null($this->_rightPost)) {
-            $this->_rightPost = Content::model()->cache(3600)->byService('oldBlog')->byAuthor($this->post->authorId)->rightFor($this->post)->find();
+            $this->_rightPost = Content::model()->cache(3600)->byLabels(array('Блог'))->byAuthor($this->post->authorId)->rightFor($this->post)->find();
         }
 
         return $this->_rightPost;

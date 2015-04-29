@@ -23,7 +23,7 @@ define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCo
          * imgBinding
          */
         this.addImageBinding = function addImageBinding() {
-            this.imgTag('<img src="' + this.current().element().photo().getMashedPreset('photopostView') + '" data-id="' + this.current().element().id() + '" class="b-album_img-big">');
+            this.imgTag('<img src="' + this.current().element().photo().getGeneratedPreset('photopostView') + '" data-id="' + this.current().element().id() + '" class="b-album_img-big">');
             this.collection.loadImage('progress', '.b-album_img-picture', '.b-album_img-picture');
         };
         /**

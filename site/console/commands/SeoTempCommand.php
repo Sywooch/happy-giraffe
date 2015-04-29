@@ -144,6 +144,7 @@ class SeoTempCommand extends CConsoleCommand
                         $date = isset($m2[1]) ? $m2[1] : 15;
 
                         echo $rubricName . "\n";
+                        echo $rubric->id . "\n";
                         echo $userId . "\n";
                         echo $title . "\n";
                         echo $education . "\n";

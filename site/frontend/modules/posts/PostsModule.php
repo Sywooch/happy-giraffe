@@ -22,6 +22,9 @@ class PostsModule extends \CWebModule
             'myGiraffe' => array(
                 'class' => 'site\frontend\modules\posts\modules\myGiraffe\MyGiraffeModule',
             ),
+            'onAir' => array(
+                'class' => 'site\frontend\modules\posts\modules\onAir\OnAirModule',
+            ),
         ));
     }
 

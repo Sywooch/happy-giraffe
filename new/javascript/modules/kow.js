@@ -45,9 +45,11 @@ define(["jquery", "knockout"], function ($, ko) {
     ko.components.register('post-photo-add', { require: 'post-photo-add/post-photo-add' });
     $('post-photo-add').each(componentIterator);
     ko.components.register('post-photo-view', { require: 'post-photo-view/post-photo-view' });
-    $('post-photo-view').each(componentIterator)
-    ;ko.components.register('article-settings', { require: 'article-settings/article-settings' });
+    $('post-photo-view').each(componentIterator);
+    ko.components.register('article-settings', { require: 'article-settings/article-settings' });
     $('article-settings').each(componentIterator);
+    ko.components.register('post-settings', { require: 'post-settings/post-settings' });
+    $('post-settings').each(componentIterator);
     ko.components.register('redactor-panel', { require: 'redactor-panel/redactor-panel' });
     $('redactor-panel').each(componentIterator);
     ko.components.register('user-settings', { require: 'user-settings/user-settings' });

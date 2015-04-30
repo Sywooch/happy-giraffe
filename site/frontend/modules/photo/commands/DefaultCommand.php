@@ -27,6 +27,7 @@ class DefaultCommand extends \CConsoleCommand
 
         for ($i = 0; $i < 100; $i++) {
             \Yii::app()->gearman->worker()->work();
+            echo "ok0\n";
         }
     }
 
@@ -40,6 +41,7 @@ class DefaultCommand extends \CConsoleCommand
         $key = $data['key'];
         $content = $data['content'];
         \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
+        echo "ok1\n";
     }
 
     /**

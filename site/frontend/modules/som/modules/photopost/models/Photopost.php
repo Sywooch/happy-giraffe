@@ -172,8 +172,28 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                     ),
                 );
                 $post->originManageInfo = array(
-                    'link' => array(
-                        'url' => '/post/edit/photopost/' . $this->id,
+                    'params' => array(
+                        'edit' => array(
+                            'link' => array(
+                                'url' => '/post/edit/photopost' . $this->id . '/',
+                            )
+                        ),
+                        'remove' => array(
+                            'api' => array(
+                                'url' => '/api/photopost/remove/',
+                                'params' => array(
+                                    'id' => (int) $this->id,
+                                ),
+                            ),
+                        ),
+                        'restore' => array(
+                            'api' => array(
+                                'url' => '/api/photopost/restore/',
+                                'params' => array(
+                                    'id' => (int) $this->id,
+                                ),
+                            ),
+                        ),
                     ),
                 );
                 $post->isAutoMeta = true;
@@ -228,10 +248,12 @@ class Photopost extends \CActiveRecord implements \IHToJSON
 
             public function onAfterSoftDelete()
             {
+                
             }
 
             public function onAfterSoftRestore()
             {
+                
             }
 
         }

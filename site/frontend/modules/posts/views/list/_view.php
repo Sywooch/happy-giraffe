@@ -35,10 +35,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 
             <?php
             if (\Yii::app()->user->checkAccess('managePost', array('entity' => $data))) {
-                $articleSettingsParams = array('articleId' => $data->originEntityId, 'edit' => $data->originManageInfoObject->toJSON());
-                ?>
-                <article-settings params='<?= \HJSON::encode($articleSettingsParams) ?>'></article-settings>
-                <?php
+                $this->widget('site\frontend\modules\posts\widgets\PostSettingsWidget', array('model' => $data, 'manageInfo' => $data->originManageInfoObject->toJSON()));
             }
             ?>
             <div class="article-also">

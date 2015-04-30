@@ -59,7 +59,7 @@ class ViewsCommand extends \CConsoleCommand
         $models = ConsultationQuestion::model()->findAll();
         foreach ($models as $m) {
             $model = PageView::getModel($m->url);
-            $model->incVisits(mt_rand(10, 30));
+            $model->incVisits(mt_rand(8, 20));
         }
     }
 } 

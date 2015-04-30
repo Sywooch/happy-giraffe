@@ -43,10 +43,22 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionWorker()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
         \Yii::app()->gearman->worker()->addFunction('myGiraffeUpdateUser', function (\GearmanJob $job) {
             $workload = $job->workload();
             FeedManager::updateForUser($workload);
         });
-        while (\Yii::app()->gearman->worker()->work());
+        \Yii::app()->gearman->worker()->addFunction('myGiraffeHandlePost', function (\GearmanJob $job) {
+            $workload = $job->workload();
+            $post = Content::model()->findByPk($workload);
+            if ($post !== null) {
+                FeedManager::handle($post);
+            }
+        });
+        while (\Yii::app()->gearman->worker()->work()) {
+            echo round(memory_get_peak_usage()/(1024*1024),2)."MB\n";
+        };
     }
 }

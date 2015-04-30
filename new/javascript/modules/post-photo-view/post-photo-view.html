@@ -25,7 +25,7 @@
             <!-- /ko -->
           </div>
           <div class="b-album_overlay">
-              <a class="b-album_r" data-bind="photoSlider: { photo: current().element().id(), collectionId: collection.id() }">
+              <a class="b-album_r" data-bind="photoSlider: { photo: current().element().id(), collectionId: collection.id(), originalUrl: photopost.url() }">
                   <div class="b-album_tx">Смотреть <br> все фото
                   </div>
                   <div class="b-album_ico-album"></div>
@@ -34,7 +34,7 @@
               <ul class="b-album_prev clearfix visible-md-block" data-bind="foreach: collection.attaches()">
                   <!-- ko if: $index() < 3 -->
                     <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
-                          <a href="#" class="b-album_prev-a" data-bind="photoSlider: { photo: $data.id(), collectionId: $parent.collection.id() }">
+                          <a href="#" class="b-album_prev-a" data-bind="photoSlider: { photo: $data.id(), collectionId: $parent.collection.id(), originalUrl: $parent.photopost.url() }">
                               <img alt="" class="b-album_prev-img" src="" data-bind="attr: { 'src': photo().getGeneratedPreset('myPhotosPreview') }">
                               <div class="b-album_prev-hold"></div>
                           </a>

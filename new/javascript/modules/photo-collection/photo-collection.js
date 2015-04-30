@@ -7,6 +7,7 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
         this.opened = ko.observable(false);
         this.currentPhoto = ko.observable();
         this.userId = params.userId;
+        this.originalUrl = params.originalUrl;
         /**
          * Count handler
          * @param count

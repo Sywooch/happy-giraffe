@@ -7,6 +7,7 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
         this.opened = ko.observable(false);
         this.currentPhoto = ko.observable();
         this.userId = params.userId;
+        this.originalUrl = params.originalUrl;
         /**
          * Count handler
          * @param count
@@ -14,7 +15,7 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
         this.collectionCount = function collectionCount(count) {
             if (count === undefined) {
                 this.photoCollection.getCollectionCount(params.id);
-            } else { 
+            } else {
                 this.photoCollection.attachesCount(count);
             }
         };
@@ -29,7 +30,6 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
                 this.collectionCount(params.attachCount);
                 params.presets = presets.data;
             }
-
         };
         /**
          * Openening current photo

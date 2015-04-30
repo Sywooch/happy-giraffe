@@ -6,10 +6,15 @@ define(['jquery', 'knockout', 'extensions/helpers', 'photo-slider/photo-slider']
                 galleryOpenHash = 'openGallery';
             var photo = (ko.isObservable(values.photo) === false) ? values.photo : values.photo().id(),
                 collectionId = (ko.isObservable(values.collectionId) === false) ? values.collectionId : values.collectionId(),
-                userId = (ko.isObservable(values.userId) === false) ? values.userId : values.userId();
+                userId = (ko.isObservable(values.userId) === false) ? values.userId : values.userId(),
+                originalUrl = (ko.isObservable(values.originalUrl) === false) ? values.originalUrl : values.originalUrl();
             var getSliderToOpen = function getSliderToOpen() {
                 if ($(tagName).length === 0) {
-                    $('body').after('<' + tagName + ' params="{ photo: ' + photo + ', collectionId: ' + collectionId + ', userId: ' + userId + ' }"></' + tagName + '>');
+                    if (originalUrl === undefined) {
+                        $('body').after('<' + tagName + ' params="{ photo: ' + photo + ', collectionId: ' + collectionId + ', userId: ' + userId + ' }"></' + tagName + '>');
+                    } else {
+                        $('body').after('<' + tagName + ' params="{ photo: ' + photo + ', collectionId: ' + collectionId + ', userId: ' + userId + ', originalUrl: \'' + originalUrl + '\' }"></' + tagName + '>');
+                    }
                     ko.cleanNode($(tagName)[0]);
                     ko.applyBindings({}, $(tagName)[0]);
                 }

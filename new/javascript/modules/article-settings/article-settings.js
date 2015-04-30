@@ -18,7 +18,7 @@ define(['jquery', 'knockout', 'text!article-settings/article-settings.html', 'mo
         this.settingsShowHandler = function settingsShowHandler(data, evt) {
             $(evt.target).parent().siblings('div.article-settings_hold').toggle();
         };
-    };
+    }
 
     return {
         viewModel: ArticleSettings,

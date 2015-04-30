@@ -1,68 +1,30 @@
-define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'extensions/keyboard', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory, Keyboard) {
-
-    function PhotoSlider(params) {
-        var collectionData = {};
-        collectionData.id = (ko.isObservable(params.collectionId) === false) ? params.collectionId : params.collectionId();
-        this.collectionId = params.collectionId;
-        this.userSliderId = params.userId || User.userId;
-        this.photoAttach = (ko.isObservable(params.photo) === false) ? ko.observable(params.photo) : params.photo().id;
-        this.title = params.title;
-        this.description = params.description;
-        this.user = Object.create(User);
+define(['jquery', 'knockout', 'models/Photopost', 'models/Model', 'photo/PhotoCollection', 'extensions/adhistory', 'text!post-photo-view/post-photo-view.html', 'knockout.mapping', 'extensions/sliderBinding'], function postPhotoViewHandler($, ko, Photopost, Model, PhotoCollection, AdHistory, template) {
+    function PostPhotoView(params) {
+        this.photopost = Object.create(Photopost);
+        this.collection = new PhotoCollection({});
+        this.title = '';
+        this.description = '';
         this.current = ko.observable(false);
         this.userInstance = ko.mapping.fromJS({});
         this.userInstance.loading = ko.observable(true);
         this.imgTag = ko.observable('');
-        this.collection = new PhotoCollection(collectionData);
         this.masterUrl = location.href;
         this.masterTitle = document.title;
-        this.collection.usablePreset = ko.observable('sliderPhoto');
+        this.collection.usablePreset = ko.observable('myPhotosPreview');
         this.setDelay = 1000;
-        this.tagName = 'photo-slider';
         this.currentId = ko.observable();
         this.photoLength = 20;
         this.offsetMinimal = 5;
-        this.originalUrl = ko.observable(params.originalUrl);
-        /**
-         * getting User
-         * @param user
-         */
-        this.userHandler = function userHandler(user) {
-            if (user.success === true) {
-                ko.mapping.fromJS(this.user.init(user.data), this.userInstance);
-                this.userInstance.loading(false);
-            }
-        };
-        /**
-         * Particular get method
-         */
-        this.getUser = function getUser() {
-            Model
-                .get(this.user.getUserUrl, {id: this.userSliderId, avatarSize: 40})
-                .done(this.userHandler.bind(this));
-        };
-        /**
-         * retrieve collection meta data
-         * @param collectionMeta
-         */
-        this.retrieveCollectionMeta = function retrieveCollectionMeta(collectionMeta) {
-            if (collectionMeta.success === true) {
-                this.collection.attachesCount(collectionMeta.data.attachesCount);
-                this.collection.cover(collectionMeta.data.cover);
-            }
-        };
-        /**
-         * Getting collection
-         */
-        this.getCollection = function getCollection() {
-            this.collection.get(this.collection.id()).done(this.retrieveCollectionMeta.bind(this));
-        };
+        this.photoAttach = (ko.isObservable(params.photo) === false) ? ko.observable(params.photo) : params.photo().id;
+        this.returnNewColor = Model.returnNewColor;
+        this.colorsArray = Model.colorsArray;
+        this.elementCssClass = 'b-album_prev-li img-grid_loading__';
         /**
          * imgBinding
          */
         this.addImageBinding = function addImageBinding() {
-            this.imgTag('<img src="' + this.current().element().photo().getGeneratedPreset('sliderPhoto') + '" data-id="' + this.current().element().id() + '" class="photo-window_img">');
-            this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
+            this.imgTag('<img src="' + this.current().element().photo().getMashedPreset('photopostView') + '" data-id="' + this.current().element().id() + '" class="b-album_img-big">');
+            this.collection.loadImage('progress', '.b-album_img-picture', '.b-album_img-picture');
         };
         /**
          * Creating title for photo
@@ -80,9 +42,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             var title;
             if (this.current().element === undefined) {
                 var sliderDfd = $.Deferred();
-                sliderDfd
-                  .then(this.initStartingPoint.bind(this))
-                  .done(this.addImageBinding.bind(this));
+                sliderDfd.then(this.initStartingPoint.bind(this)).done(this.addImageBinding.bind(this));
                 sliderDfd.resolve(Model.findByIdObservableIndex(this.photoAttach(), this.collection.attaches()));
             } else {
                 this.current(Model.findByIdObservableIndex(this.current().element().id(), this.collection.attaches()));
@@ -97,13 +57,10 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             this.current(currentArgument);
             title = this.creatingTitle(this.current());
             this.currentId(this.current().element().id());
-            if (this.originalUrl()) {
-                AdHistory.pushState(null, title, this.originalUrl() + this.current().element().url());
-                AdHistory.bannerInit(this.originalUrl() + this.current().element().url());
-            } else {
-                AdHistory.pushState(null, title, this.current().element().url());
-                AdHistory.bannerInit(this.current().element().url());
+            if (this.current().index() === 0) {
+                AdHistory.pushState(null, title, this.photopost.url());
             }
+            AdHistory.bannerInit(this.photopost.url());
             return this.current();
         };
         /**
@@ -112,11 +69,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.sliderManipulations = function sliderManipulations(currentArgument) {
             var title = this.creatingTitle(this.current());
             this.current().element(this.collection.attaches()[this.current().index()]);
-            if (this.originalUrl()) {
-                AdHistory.pushState(null, title, this.originalUrl() + this.current().element().url());
-            } else {
-                AdHistory.pushState(null, title, this.current().element().url());
-            }
+            AdHistory.pushState(null, title, this.photopost.url() + this.current().element().url());
             AdHistory.reloadBanner();
             this.addImageBinding();
         };
@@ -219,61 +172,43 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          */
         this.observeAttach = function observeAttach(receivedData) {
             if (receivedData.success === true) {
-                this.collection.getSliderCollection(this.collection.id(), this.calculateOffset(receivedData.data.index), this.photoLength);
+                this.collection.getSliderCollection(this.photopost.collectionId(), this.calculateOffset(receivedData.data.index), this.photoLength);
             }
         };
-        /**
-         * Init slider
-         */
-        this.initializeSlider = function initializeSlider() {
-            Model.get(this.collection.getAttachUrl, { id: this.photoAttach() }).done(this.observeAttach.bind(this));
-            if (this.userSliderId) {
-                this.getUser();
+
+        this.retrieveCollectionMeta = function retrieveCollectionMeta(collectionMeta) {
+            if (collectionMeta.success === true) {
+                this.collection.id(collectionMeta.data.id);
+                this.collection.attachesCount(collectionMeta.data.attachesCount);
+                this.collection.cover(collectionMeta.data.cover);
             }
-            this.getCollection();
         };
-        this.initializeSlider();
-        /**
-         * close handler
-         */
-        this.closePhotoHandler = function closePhotoHandler(Parent) {
-            if (!$.isPlainObject(Parent)) {
-                Parent.closePhotoHandler(Parent);
-            } else {
-                $(this.tagName).remove();
-            }
-            AdHistory.pushState(null, this.masterTitle, this.masterUrl);
+        this.getCollection = function getCollection(collectionId) {
+            this.collection.get(collectionId).done(this.retrieveCollectionMeta.bind(this));
         };
 
         /**
-         * Shitty jqcode
+         * Init photosl
          */
-        /* Height block comment scroll in photo-window */
-        function photoWindColH () {
-            var colCont = $(".photo-window_cont");
-            //var bannerH = document.getElementById('photo-window_banner').offsetHeight;
-            colCont.height($(window).height() - 24);
+        this.initializePhotoSlider = function initializePhotoSlider() {
+            Model.get(this.collection.getAttachUrl, { id: this.photoAttach() }).done(this.observeAttach.bind(this));
+            this.getCollection(this.photopost.collectionId());
         };
-        $(document).ready(function () {
-            photoWindColH();
-            /* custom scroll */
-            var scroll = $('.scroll').baron({
-                scroller: '.scroll_scroller',
-                barOnCls: 'scroll__on',
-                container: '.scroll_cont',
-                track: '.scroll_bar-hold',
-                bar: '.scroll_bar'
-            });
-        });
-        $(document).on("keydown", this.keypressTest.bind(this));
-        $(window).resize(function () {
-            photoWindColH();
-        });
-    };
+
+
+        this.handlePhotopost = function handlePhotopost(response) {
+            if (response.success === true) {
+                this.photopost.init(response.data);
+                this.initializePhotoSlider();
+            }
+        };
+        if (params.id) {
+            this.photopost.get(params.id).done(this.handlePhotopost.bind(this));
+        }
+    }
 
     return {
-        viewModel: PhotoSlider,
+        viewModel: PostPhotoView,
         template: template
     };
-
 });

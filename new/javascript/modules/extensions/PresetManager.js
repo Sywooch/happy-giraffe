@@ -59,6 +59,14 @@ define(['knockout', 'jquery', 'models/Model'], function PresetManagerHandler(ko,
                 getHeight: function getHeight(imageWidth, imageHeight, presetConfig) {
                     return presetConfig.height;
                 }
+            },
+            fixedV2: {
+                getWidth: function getWidth(imageWidth, imageHeight, presetConfig) {
+                    return presetConfig.width;
+                },
+                getHeight: function getHeight(imageWidth, imageHeight, presetConfig) {
+                    return presetConfig.height;
+                }
             }
         },
 

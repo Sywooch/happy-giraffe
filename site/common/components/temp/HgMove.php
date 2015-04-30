@@ -14,7 +14,11 @@ class HgMove
         $rubric = \CommunityRubric::model()->findByPk($rubricId);
         foreach ($rubric->contents as $oldPost) {
             if ($oldPost->by_happy_giraffe || $oldPost->author_id == 1) {
-                $newPost = Content::model()->byEntity('CommunityContent', $oldPost->id)->find();
+                $newPost = Content::model()->resetScope()->byEntity('CommunityContent', $oldPost->id)->find();
+                if ($newPost === null) {
+                    continue;
+                }
+
                 $oldPost->author_id = $userId;
                 $newPost->authorId = $userId;
                 $oldPost->save();

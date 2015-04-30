@@ -17,7 +17,12 @@ if($newPhoto) {
     if (isset($parentModel) && in_array(get_class($parentModel), array('Comment', 'MessagingMessage')))
     //echo '<a class="comments-gray_cont-img-w" onclick="PhotoCollectionViewWidget.open(\'AttachPhotoCollection\', { entityName : \'' . get_class($parentModel) . '\', entityId : \'' . $parentModel->id . '\' }, \'' . $model->id . '\')"><img src="' . $model->getPreviewUrl(485, 110, Image::HEIGHT) . '"></a>';
         echo '<a class="comments-gray_cont-img-w" onclick="PhotoCollectionViewWidget.open(\'AttachPhotoCollection\', { entityName : \'' . get_class($parentModel) . '\', entityId : \'' . $parentModel->id . '\' }, \'' . $model->id . '\')">' . $model->getPreviewHtml(395, 400, Image::AUTO) . '</a>';
-    else {
+    elseif (isset($parentModel) && get_class($parentModel) == 'site\frontend\modules\comments\models\Comment') {
+        echo \site\frontend\modules\photo\helpers\PhotoHelper::picture($newPhoto, array(
+            'title' => $model->title,
+            'alt' => $model->title,
+        ));
+    } else {
         if ($model->width >= 580) {
             if (!$edit)
                 echo '<div class="b-article_in-img b-article_in-img__l">';

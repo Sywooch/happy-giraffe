@@ -9,7 +9,7 @@
         клинического института педиатрии <br />
         ГБОУ ВПО РНИМУ им. Н.И. Пирогова
     </div>
-    <?php if (! $this->isConsultant()): ?>
+    <?php if (false && ! $this->isConsultant()): ?>
     <a href="<?=$this->createUrl('create', array('slug' => $this->consultation->slug))?>" class="b-consult-button login-button" data-bind="follow:{}">Задать вопрос</a>
     <?php endif; ?>
 </div>

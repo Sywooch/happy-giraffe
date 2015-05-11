@@ -97,25 +97,25 @@ $thumb = \Yii::app()->thumbs->getThumb($this->attach->photoModel, 'postCollectio
             <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
         </div>
     </article>
+    <!-- /b-article-->
+    <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
+    <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
+    <!-- comments-->
+    <section class="comments comments__buble">
+        <div class="comments-menu">
+            <ul data-tabs="tabs" class="comments-menu_ul">
+                <li class="comments-menu_li active"><a href="#commentsList" data-toggle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии <?= $comments->count ?> </a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <?php $comments->run(); ?>
+        </div>
+    </section>
+    <!-- /comments-->
+    <?php
+    if (false && $this->post->templateObject->getAttr('type', false) == 'question') {
+        // Виджет "задать вопрос"
+        $this->widget('site.frontend.modules.community.widgets.CommunityQuestionWidget', array('forumId' => $this->forum->id));
+    }
+    ?>
 </div>
-<!-- /b-article-->
-<?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
-<?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
-<!-- comments-->
-<section class="comments comments__buble">
-    <div class="comments-menu">
-        <ul data-tabs="tabs" class="comments-menu_ul">
-            <li class="comments-menu_li active"><a href="#commentsList" data-toggle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии <?= $comments->count ?> </a></li>
-        </ul>
-    </div>
-    <div class="tab-content">
-        <?php $comments->run(); ?>
-    </div>
-</section>
-<!-- /comments-->
-<?php
-if (false && $this->post->templateObject->getAttr('type', false) == 'question') {
-    // Виджет "задать вопрос"
-    $this->widget('site.frontend.modules.community.widgets.CommunityQuestionWidget', array('forumId' => $this->forum->id));
-}
-?>

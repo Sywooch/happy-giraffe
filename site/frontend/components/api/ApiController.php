@@ -176,7 +176,7 @@ class ApiController extends \CController
 
         if ($checkAccess && !$this->_models[$class][$id][(int) $resetScope])
             throw new \CHttpException(404, 'Модель не найдена');
-        if ($checkAccess && !\Yii::app()->user->checkAccess($checkAccess, array('entity' => $this->_models[$class][$id][(int) $resetScope])))
+        if ($checkAccess !== true && $checkAccess !==false && !\Yii::app()->user->checkAccess($checkAccess, array('entity' => $this->_models[$class][$id][(int) $resetScope])))
             throw new \CHttpException(403, 'Недостаточно прав');
 
 

@@ -95,6 +95,17 @@ return array(
     ),
     array(
         'filter' => array(
+            'name' =>'fixed',
+            'mode' => 'inset',
+            'width' => 600,
+            'height' => 400,
+        ),
+        'usages' => array(
+            'photopostView',
+        ),
+    ),
+    array(
+        'filter' => array(
             'name' =>'widen',
             'width' => 600,
         ),

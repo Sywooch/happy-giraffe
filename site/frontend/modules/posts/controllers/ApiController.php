@@ -60,7 +60,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionGetByAttributes($entityId, $entity)
     {
-        $post = posts\models\Content::model()->findByAttributes(array(
+        $post = posts\models\Content::model()->resetScope(true)->findByAttributes(array(
             'originEntityId' => $entityId,
             'originEntity' => $entity,
         ));
@@ -75,7 +75,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionUpdate($id)
     {
         $request = $this->getActionParams();
-        $post = $this->getModel(self::$model, $id, false);
+        $post = $this->getModel(self::$model, $id, false, true);
         if (isset($request['originManageInfo'])) {
             $post->originManageInfoObject->fromJSON($request['originManageInfo']);
             unset($request['originManageInfo']);

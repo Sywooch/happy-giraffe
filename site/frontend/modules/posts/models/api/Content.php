@@ -22,7 +22,6 @@ namespace site\frontend\modules\posts\models\api;
  * @property string $originEntity
  * @property string $originEntityId
  * @property string $originManageInfo
- * @property string $originManageInfoObject
  * @property integer $isDraft
  * @property integer $uniqueIndex
  * @property integer $isNoindex
@@ -31,11 +30,8 @@ namespace site\frontend\modules\posts\models\api;
  * @property integer $isAutoSocial
  * @property integer $isRemoved
  * @property string $meta
- * @property site\frontentd\modules\posts\models\MetaInfo $metaObject
  * @property string $social
- * @property site\frontentd\modules\posts\models\SocialInfo $socialObject
  * @property string $template
- * @property site\frontentd\modules\posts\models\TemplateInfo $templateObject
  */
 class Content extends \site\frontend\components\api\models\ApiModel
 {
@@ -94,6 +90,9 @@ class Content extends \site\frontend\components\api\models\ApiModel
                 'html',
                 'preview',
                 'labels',
+                'dtimeCreate',
+                'dtimeUpdate',
+                'dtimePublication',
                 'originService',
                 'originEntity',
                 'originEntityId',
@@ -101,6 +100,7 @@ class Content extends \site\frontend\components\api\models\ApiModel
                 'isDraft',
                 'isNoindex',
                 'isNofollow',
+                'isRemoved',
                 'meta',
                 'social',
                 'template',
@@ -115,6 +115,9 @@ class Content extends \site\frontend\components\api\models\ApiModel
                 'html',
                 'preview',
                 'labels',
+                'dtimeCreate',
+                'dtimeUpdate',
+                'dtimePublication',
                 'originService',
                 'originEntity',
                 'originEntityId',
@@ -122,6 +125,7 @@ class Content extends \site\frontend\components\api\models\ApiModel
                 'isDraft',
                 'isNoindex',
                 'isNofollow',
+                'isRemoved',
                 'meta',
                 'social',
                 'template',

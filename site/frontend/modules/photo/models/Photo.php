@@ -135,6 +135,17 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
             'picture' => PhotoHelper::picture($this),
         );
     }
+    
+    public function fromJSON($data)
+    {
+        $this->id = $data['id'] ?: null;
+        $this->title = $data['title'] ?: null;
+        $this->description = $data['description'] ?: null;
+        $this->original_name = $data['originalName'] ?: null;
+        $this->width = $data['width'] ?: null;
+        $this->height = $data['height'] ?: null;
+        $this->fs_name = $data['fsName'] ?: null;
+    }
 
     protected function writeImage(\CEvent $event)
     {

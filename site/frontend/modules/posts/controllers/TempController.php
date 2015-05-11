@@ -13,6 +13,7 @@ class TempController extends \LiteController
     public $litePackage = 'posts';
     public function actionTemp()
     {
+        echo '<pre>';
         var_dump(\site\frontend\modules\som\modules\photopost\models\Photopost::model()->find()->save());
     }
 

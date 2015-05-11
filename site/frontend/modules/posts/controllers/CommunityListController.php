@@ -68,7 +68,7 @@ class CommunityListController extends ListController
 
     public function getListDataProvider()
     {
-        return new \CActiveDataProvider(Content::model()->byService('oldCommunity')->byLabels($this->tags)->orderDesc(), array(
+        return new \CActiveDataProvider(Content::model()->byLabels($this->tags)->orderDesc(), array(
             'pagination' => array(
                 'pageSize' => 10,
                 'pageVar' => 'CommunityContent_page',

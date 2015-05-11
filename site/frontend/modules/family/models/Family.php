@@ -85,7 +85,7 @@ class Family extends \HActiveRecord implements \IHToJSON
                 'setUpdateOnCreate' => true,
             ),
             'PhotoCollectionBehavior' => array(
-                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',
             ),
             'UrlBehavior' => array(
                 'class' => 'site\common\behaviors\UrlBehavior',

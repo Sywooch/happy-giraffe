@@ -55,81 +55,84 @@ class Photopost extends \CActiveRecord implements \IHToJSON
                         );
                     } else {
                         return array(
+                            'content_type_slug' => 'nppost',
                             'user_id' => $model->authorId,
                             'content_id' => $model->id,
                         );
                     }
                 },
-                    ),
-                );
-            }
+            ),
+            'ConvertBehavior' => 'site\frontend\modules\som\modules\photopost\behaviors\ConvertBehavior',
+        );
+    }
 
-            /**
-             * @return array validation rules for model attributes.
-             */
-            public function rules()
-            {
-                // NOTE: you should only define rules for those attributes that
-                // will receive user inputs.
-                return array(
-                    array('title, collectionId, authorId', 'required'),
-                    array('isDraft, isRemoved', 'numerical', 'integerOnly' => true),
-                    array('title', 'length', 'max' => 255),
-                );
-            }
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('title, collectionId, authorId', 'required'),
+            array('isDraft, isRemoved', 'safe'),
+            array('title', 'length', 'max' => 255),
+        );
+    }
 
-            /**
-             * @return array customized attribute labels (name=>label)
-             */
-            public function attributeLabels()
-            {
-                return array(
-                    'id' => 'ID',
-                    'title' => 'Title',
-                    'collectionId' => 'Collection',
-                    'authorId' => 'Author',
-                    'isDraft' => 'Is Draft',
-                    'isRemoved' => 'Is Removed',
-                    'dtimeCreate' => 'Dtime Create',
-                    'labels' => 'Labels',
-                    'forumId' => 'Forum',
-                );
-            }
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'title' => 'Title',
+            'collectionId' => 'Collection',
+            'authorId' => 'Author',
+            'isDraft' => 'Is Draft',
+            'isRemoved' => 'Is Removed',
+            'dtimeCreate' => 'Dtime Create',
+            'labels' => 'Labels',
+            'forumId' => 'Forum',
+        );
+    }
 
-            /**
-             * Returns the static model of the specified AR class.
-             * Please note that you should have this exact method in all your CActiveRecord descendants!
-             * @param string $className active record class name.
-             * @return Photopost the static model class
-             */
-            public static function model($className = __CLASS__)
-            {
-                return parent::model($className);
-            }
+    /**
+     * Returns the static model of the specified AR class.
+     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * @param string $className active record class name.
+     * @return Photopost the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-            public function toJSON()
-            {
-                return array(
-                    'id' => (int) $this->id,
-                    'url' => $this->getUrl(),
-                    'collectionId' => (int) $this->collectionId,
-                    'title' => $this->title,
-                    'isDraft' => (int) $this->isDraft,
-                    'isRemoved' => (int) $this->isRemoved,
-                    'dtimeCreate' => (int) $this->dtimeCreate,
-                    'lables' => $this->labels,
-                    'forumId' => is_null($this->forumId) ? null : (int) $this->forumId,
-                );
-            }
+    public function toJSON()
+    {
+        return array(
+            'id' => (int) $this->id,
+            'url' => $this->getUrl(),
+            'collectionId' => (int) $this->collectionId,
+            'title' => $this->title,
+            'isDraft' => (int) $this->isDraft,
+            'isRemoved' => (int) $this->isRemoved,
+            'dtimeCreate' => (int) $this->dtimeCreate,
+            'lables' => $this->labels,
+            'forumId' => is_null($this->forumId) ? null : (int) $this->forumId,
+        );
+    }
 
-            public function afterSave()
-            {
-                $result = parent::afterSave();
-                
-                $post = new \site\frontend\modules\posts\models\api\Content();
-                
-                return $result;
-            }
+    public function onAfterSoftDelete()
+    {
 
-        }
+    }
+
+    public function onAfterSoftRestore()
+    {
+
+    }
+
+}
         

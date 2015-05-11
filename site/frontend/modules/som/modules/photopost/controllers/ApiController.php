@@ -23,7 +23,11 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         return array(
             array('allow',
-                'actions' => array('get', 'remove', 'restore', 'create', 'update'),
+                'actions' => array('get'),
+                'users' => array('*'),
+            ),
+            array('allow',
+                'actions' => array('remove', 'restore', 'create', 'update'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -91,7 +95,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             $this->data = $photopost->toJSON();
         } else {
             $this->errorCode = 1;
-            $this->errorMessage = $photopost->getErrorsText();
+            $this->errorMessage = $photopost->errors;
         }
     }
 

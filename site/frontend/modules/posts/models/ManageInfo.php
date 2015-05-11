@@ -10,12 +10,14 @@ namespace site\frontend\modules\posts\models;
 class ManageInfo extends SerializedModel
 {
 
-    public $link = array();
+    public $link = false;
+    public $params = false;
 
     public function attributeNames()
     {
         return array(
             'link',
+            'params',
         );
     }
 

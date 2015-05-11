@@ -27,7 +27,7 @@ abstract class SerializedModel extends \CModel implements \IHToJSON
     {
         return $this->_owner;
     }
-    
+
     public function getPrimaryKey()
     {
         return $this->_owner->primaryKey;
@@ -46,6 +46,11 @@ abstract class SerializedModel extends \CModel implements \IHToJSON
     public function toJSON()
     {
         return $this->attributes;
+    }
+
+    public function fromJSON($data)
+    {
+        $this->setAttributes($data, false);
     }
 
 }

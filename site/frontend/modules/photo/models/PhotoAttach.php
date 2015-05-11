@@ -160,4 +160,8 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
         }
         return parent::beforeDelete();
     }
+    
+    public function getAuthorId() {
+        return $this->photo->author_id;
+    }
 }

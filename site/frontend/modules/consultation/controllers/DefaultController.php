@@ -106,7 +106,7 @@ class DefaultController extends \LiteController
             }
         }
 
-        $this->layout = 'form';
+        $this->layout = '//layouts/lite/form';
         $this->render('create', compact('model'));
     }
 

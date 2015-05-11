@@ -118,12 +118,12 @@ class Comment extends HActiveRecord
     public function behaviors()
     {
         return array(
-            'ContentBehavior' => array(
+            /*'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
-            ),
-            'notificationBehavior' => array(
+            ),*/
+            /*'notificationBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\CommentBehavior',
-            ),
+            ),*/
             'CTimestampBehavior' => array(
                 'class' => 'site.common.behaviors.HTimestampBehavior',
                 'createAttribute' => 'created',
@@ -200,8 +200,6 @@ class Comment extends HActiveRecord
 
             Yii::import('site.frontend.modules.routes.models.*');
             Scoring::commentCreated($this);
-
-            FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel'))
@@ -488,8 +486,13 @@ class Comment extends HActiveRecord
      */
     public function getCommentEntity()
     {
-        if (is_null($this->_entity))
-            $this->_entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        if (is_null($this->_entity)) {
+            $entity = $this->entity;
+            if(isset(\site\frontend\modules\posts\models\Content::$entityAliases[$this->entity_id])) {
+                $entity = \site\frontend\modules\posts\models\Content::$entityAliases[$this->entity_id];
+            }
+            $this->_entity = CActiveRecord::model($entity)->findByPk($this->entity_id);
+        }
 
         return $this->_entity;
     }

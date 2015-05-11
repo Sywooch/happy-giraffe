@@ -73,7 +73,7 @@ class Comment extends \Comment implements \IHToJSON
     public function getCommentEntity()
     {
         if (!isset(self::$_commentEntityList[$this->entity]) || !isset(self::$_commentEntityList[$this->entity][$this->entity_id]))
-            self::$_commentEntityList[$this->entity][$this->entity_id] = $this->getCommentEntity();
+            self::$_commentEntityList[$this->entity][$this->entity_id] = parent::getCommentEntity();
 
         return self::$_commentEntityList[$this->entity][$this->entity_id];
     }

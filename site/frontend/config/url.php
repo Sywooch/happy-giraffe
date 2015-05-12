@@ -16,6 +16,8 @@ return array(
         '.*/index' => 404,
 
         /* API */
+        'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
+        'api/<_m>/<_a>' => '<_m>/api/<_a>',
         'api/myGiraffe/<_a>' => 'posts/myGiraffe/api/<_a>',
         'api/comments/<_a>' => 'comments/api/<_a>',
         'api/commentatorsContest/<_a>' => 'comments/contest/api/<_a>',
@@ -23,8 +25,6 @@ return array(
         'api/photopost/<_a>' => 'som/photopost/api/<_a>',
         'api/activity/<_a>' => 'som/activity/api/<_a>',
         'api/community/<_a>' => 'som/community/api/<_a>',
-        'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
-        'api/<_m>/<_a>' => '<_m>/api/<_a>',
         
         /* SOM */
         'status' => 'som/status/default/index',

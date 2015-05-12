@@ -8,6 +8,8 @@ namespace site\frontend\modules\posts\modules\onAir\widgets;
 
 class OnlineUsersWidget extends \CWidget
 {
+    const LIMIT = 36;
+
     public function run()
     {
         $this->render('OnlineUsersWidget', array('users' => $this->getUsers()));
@@ -17,7 +19,7 @@ class OnlineUsersWidget extends \CWidget
     {
         return \User::model()->cache(300)->findAll(array(
             'condition' => 'avatar_id IS NOT NULL',
-            'limit' => 60,
+            'limit' => self::LIMIT,
             'order' => 'online DESC, login_date DESC',
         ));
     }

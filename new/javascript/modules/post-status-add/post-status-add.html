@@ -4,7 +4,7 @@
             <div class="postAdd_count"></div>
             <div class="b-main_col-article clearfix"><!-- ava-->
                 <!-- ko if: userInstance.loading() === false -->
-                <a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ">
+                <a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid" data-bind="href: userInstance.profileUrl()">
                     <span class="ico-status ico-status__online"></span>
                     <img alt="" src="" data-bind="src: userInstance.avatarUrl()" class="ava_img">
                 </a>
@@ -55,36 +55,14 @@
             <div class="postAdd_count"> </div>
             <div class="b-main_col-article clearfix">
                 <div class="postAdd_btns-hold">
-                    <a href="" class="btn btn-link-gray margin-r15">Отменить</a>
+                    <a href="/my/" class="btn btn-link-gray margin-r15">Отменить</a>
                     <div class="btn-group dropup">
                         <!-- ko if: updateTo() === false -->
-                        <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: status.text.isValid() === false }, click: createStatus, text: 'Опубликовать'"></span>
+                        <span class="btn btn-xm postAdd_btn-out btn-success" style="display: inline-block" data-bind="css: { disabled: status.text.isValid() === false }, click: createStatus, text: 'Опубликовать'"></span>
                         <!-- /ko -->
                         <!-- ko if: updateTo() === true -->
-                        <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: status.text.isValid() === false }, click: updateStatus, text: 'Изменить'"></span>
+                        <span class="btn btn-xm postAdd_btn-out btn-success" style="display: inline-block" data-bind="css: { disabled: status.text.isValid() === false }, click: updateStatus, text: 'Изменить'"></span>
                         <!-- /ko -->
-                        <div class="btn-group dropdown">
-                            <span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark">
-                                <i class="ico-arrow-d-white"></i>
-                            </span>
-                            <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
-                                <li class="dropdown-menu_li active">
-                                    <a href="#" class="dropdown-menu_a">
-                                        <div class="dropdown-menu_in">Опубликовать сейчас</div>
-                                    </a>
-                                </li>
-                                <li class="dropdown-menu_li">
-                                    <a href="#" class="dropdown-menu_a">
-                                        <div class="dropdown-menu_in">Предпросмотр</div>
-                                    </a>
-                                </li>
-                                <li class="dropdown-menu_li">
-                                    <a href="#" class="dropdown-menu_a">
-                                        <div class="dropdown-menu_in">Сохранить в черновик</div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>

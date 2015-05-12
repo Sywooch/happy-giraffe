@@ -73,11 +73,16 @@ define(['jquery', 'knockout', 'models/User', 'models/Model', 'models/Status', 't
             this.status.choosedMood(mood);
             this.openMoodsWindow(false);
         };
+        this.successStatus = function successStatus(status) {
+          if (status.success === true) {
+            window.location.href = status.data.url;
+          }
+        }
         this.createStatus = function createStatus() {
-            this.status.create().done(function (data) { console.log(data); });
+            this.status.create().done(this.successStatus.bind(this));
         };
         this.updateStatus = function updateStatus() {
-            this.status.update().done(function (data) { console.log(data); });
+            this.status.update().done(this.successStatus.bind(this));
         };
         this.textLength = ko.computed(function computedTextLength() {
             if (this.load() === true) {

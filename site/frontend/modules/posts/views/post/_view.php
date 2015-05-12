@@ -9,7 +9,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 <!-- Основная колонка-->
 <div class="b-main_col-article">
     <?php if (Yii::app()->user->checkAccess('toggleAnounces')): ?>
-        <?php if ($this->post->originService == 'oldCommunity'): ?>
+        <?php if (in_array($this->post->originService, array('oldCommunity', 'advPost'))): ?>
             <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
                 'model' => $this->post,
                 'line' => 'bigPost',

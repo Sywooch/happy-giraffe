@@ -56,12 +56,12 @@
             <div class="b-main_col-article clearfix">
                 <div class="postAdd_btns-hold">
                     <a href="/my/" class="btn btn-link-gray margin-r15">Отменить</a>
-                    <div class="btn-group dropup">
+                    <div class="btn-group dropup" style="display: inline-block">
                         <!-- ko if: updateTo() === false -->
-                        <span class="btn btn-xm postAdd_btn-out btn-success" style="display: inline-block" data-bind="css: { disabled: status.text.isValid() === false }, click: createStatus, text: 'Опубликовать'"></span>
+                        <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: status.text.isValid() === false }, click: createStatus, text: 'Опубликовать'"></span>
                         <!-- /ko -->
                         <!-- ko if: updateTo() === true -->
-                        <span class="btn btn-xm postAdd_btn-out btn-success" style="display: inline-block" data-bind="css: { disabled: status.text.isValid() === false }, click: updateStatus, text: 'Изменить'"></span>
+                        <span class="btn btn-xm postAdd_btn-out btn-success" data-bind="css: { disabled: status.text.isValid() === false }, click: updateStatus, text: 'Изменить'"></span>
                         <!-- /ko -->
                     </div>
                 </div>

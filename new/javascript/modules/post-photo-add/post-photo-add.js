@@ -6,6 +6,7 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
         this.photoCollection.usablePreset('uploadPreview');
         this.photoIds = ko.observableArray([]);
         this.photopostCover = ko.observable();
+        this.photopostAdding = ko.observable(false);
         this.cache = {};
         this.gotCollection = function gotCollection(response) {
             if (response.success === true) {
@@ -124,9 +125,11 @@ define(['jquery', 'knockout', 'text!post-photo-add/post-photo-add.html', 'models
             this.photopost.create().done(this.doneCreatingPhotopost.bind(this));
         };
         this.updatePhotoPost = function updatePhotoPost() {
+            this.photopostAdding(true);
             this.photopost.update().done(this.doneCreatingPhotopost.bind(this));
         };
         this.createPhotoCollection = function createPhotoCollection() {
+            this.photopostAdding(true);
             ko.utils.arrayForEach(this.photopost.photoArray(), this.fetchPhotoIds.bind(this));
             if (this.photoIds().length > 0) {
              this.photoCollection.addPhotos(this.photoIds()).done(this.handlePhotoCollection.bind(this));

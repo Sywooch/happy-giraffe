@@ -1,5 +1,5 @@
 <?php
-if ($left)
+/*if ($left)
 {
     $this->metaNavigation->prev = $left->parsedUrl;
     ?>
@@ -34,7 +34,7 @@ if ($right)
         </div>
     </a>
     <?php
-}
+}*/
 ?>
 <table class="article-nearby clearfix">
     <tr>

@@ -4,9 +4,9 @@
     // title
     $this->pageTitle = 'Результат поиска';
 
-    $this->breadcrumbs = array(
-        'Поиск по сайту'
-    );
+//    $this->breadcrumbs = array(
+//        'Поиск по сайту'
+//    );
     // $this->breadcrumbs = array(
     //     'Интересы и увлечения' => array('/interests-and-hobby'),
     //     'Наш автомобиль' => array('/auto'),

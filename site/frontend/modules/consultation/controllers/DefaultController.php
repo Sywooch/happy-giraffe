@@ -78,6 +78,10 @@ class DefaultController extends \LiteController
 
     public function actionCreate($slug, $questionId = null)
     {
+        if ($questionId === null) {
+            throw new \CHttpException(404);
+        }
+
         $consultation = $this->loadModel($slug);
         if ($questionId === null) {
             $model = new ConsultationQuestion();

@@ -32,8 +32,8 @@ class PhotoHelper
 
     public static function picture($photo, $attrs = array())
     {
-        return \HHtml::picture(\Yii::app()->thumbs->getThumb($photo, 'postImage', true), array(
-            '320' => \Yii::app()->thumbs->getThumb($photo, 'postImageMobile', true),
+        return \HHtml::picture(\Yii::app()->thumbs->getThumb($photo, 'postImage'), array(
+            '320' => \Yii::app()->thumbs->getThumb($photo, 'postImageMobile'),
         ), $attrs);
     }
 }

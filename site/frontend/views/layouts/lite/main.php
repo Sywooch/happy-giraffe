@@ -7,9 +7,11 @@ $this->beginContent('//layouts/lite/common_menu');
 <?php if (!Yii::app()->user->isGuest && !($this instanceof LiteController && $this->hideUserAdd)): ?>
     <div class="b-main_cols clearfix">
         <div class="b-main_col-1">
-            <div class="sidebar-search clearfix sidebar-search__big">
-                <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
-            </div>
+            <?php if ($this->module === null || $this->module->id != 'search'): ?>
+                <div class="sidebar-search clearfix sidebar-search__big">
+                    <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="b-main_col-23">
             <!-- userAddRecord-->

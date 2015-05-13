@@ -10,15 +10,6 @@ $this->pageTitle = 'Прямой эфир';
 
     <!--+userSubscribers('visible-md-block')-->
     <div class="b-main_col-hold clearfix">
-        <!--/////-->
-        <!-- Сайд бар-->
-        <!-- Содержимое загружaть отложено-->
-        <aside class="b-main_col-sidebar visible-md readers-aside">
-            <?php
-            $this->widget('site\frontend\modules\posts\modules\onAir\widgets\OnlineUsersWidget');
-            ?>
-        </aside>
-        <!--/////-->
         <!-- Основная колонка-->
         <div class="b-main_col-article">
             <?php
@@ -37,6 +28,15 @@ $this->pageTitle = 'Прямой эфир';
             ?>
         </div>
         <!-- /Основная колонкa-->
+        <!--/////-->
+        <!-- Сайд бар-->
+        <!-- Содержимое загружaть отложено-->
+        <aside class="b-main_col-sidebar visible-md">
+            <?php
+            $this->widget('site\frontend\modules\posts\modules\onAir\widgets\OnlineUsersWidget');
+            ?>
+        </aside>
+        <!--/////-->
 
 
     </div>

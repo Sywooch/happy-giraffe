@@ -24,4 +24,9 @@ class FormController extends \LiteController
         $this->render('status', array('id' => $id));
     }
 
+    public function actionVideo($id = false)
+    {
+        $this->render('video', array('id' => $id));
+    }
+
 }

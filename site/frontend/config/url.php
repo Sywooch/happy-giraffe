@@ -173,6 +173,7 @@ return array(
         
         'user/blog/photopost/create' => 'posts/form/photopost',
         'user/blog/status/create' => 'posts/form/status',
+        'user/blog/video/create' => 'posts/form/video',
         /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',

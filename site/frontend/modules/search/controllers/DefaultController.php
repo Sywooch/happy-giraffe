@@ -3,14 +3,15 @@
 class DefaultController extends LiteController
 {
 
-    public $layout = '//layouts/lite/main';
     public $showAddBlock = false;
+
+    public $litePackage = 'services';
 
     public function actionIndex()
     {
         Yii::app()->clientScript->useAMD = true;
-        if(!Yii::app()->user->isGuest)
-            $this->layout = '//layouts/new/main';
+//        if(!Yii::app()->user->isGuest)
+//            $this->layout = '//layouts/new/main';
         $this->render('yandex');
     }
 

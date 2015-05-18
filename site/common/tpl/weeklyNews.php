@@ -113,10 +113,10 @@ require_once('simple_html_dom.php');
                                     style="margin-right:5px;vertical-align:top;">49</a></span>
                                 </td>
                                 <td>
-                                    <?php $used = array(); $comments = site\frontend\modules\comments\models\Comment::model()->findByAttributes(array(
+                                    <?php $used = array(); $comments = site\frontend\modules\comments\models\Comment::model()->findAllByAttributes(array(
                                         'entity' => 'AdvPost',
                                         'entity_id' => 675554,
-                                    ))->findAll(); ?>
+                                    )); ?>
                                     <?php $j = 0; foreach ($comments as $comment): ?>
                                         <?php if (!empty($comment->author->avatar_id) && !in_array($comment->author->avatar_id, $used)):?>
                                             <?php $j++;$used[] = $comment->author->avatar_id ?>

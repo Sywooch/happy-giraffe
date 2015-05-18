@@ -35,7 +35,10 @@ if ($right)
     </a>
     <?php
 }*/
+var_dump($left);
+var_dump($right);
 ?>
+
 <table class="article-nearby clearfix">
     <tr>
         <td><?= $left ? '<a href="' . $left->parsedUrl . '" class="article-nearby_a article-nearby_a__l" rel="prev"><span class="article-nearby_tx">' . $left->title . '</span></a>' : '&nbsp;' ?></td>

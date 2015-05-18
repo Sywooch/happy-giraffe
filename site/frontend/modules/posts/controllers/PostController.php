@@ -64,8 +64,8 @@ class PostController extends \LiteController
 
     public function getLeftPost()
     {
-        if (is_null($this->_leftPost)) {
-            $this->_leftPost = Content::model()->cache(3600)->find();
+        if (is_null($this->_leftPost) && $this->post->authorId != 34531) {
+            $this->_leftPost = Content::model()->cache(3600)->byLabels(array('Блог'))->byAuthor($this->post->authorId)->leftFor($this->post)->find();
         }
 
         return $this->_leftPost;
@@ -73,8 +73,8 @@ class PostController extends \LiteController
 
     public function getRightPost()
     {
-        if (is_null($this->_rightPost)) {
-            $this->_rightPost = Content::model()->cache(3600)->find();
+        if (is_null($this->_rightPost) && $this->post->authorId != 34531) {
+            $this->_rightPost = Content::model()->cache(3600)->byLabels(array('Блог'))->byAuthor($this->post->authorId)->rightFor($this->post)->find();
         }
 
         return $this->_rightPost;

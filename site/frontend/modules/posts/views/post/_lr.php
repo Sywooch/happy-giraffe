@@ -35,7 +35,6 @@ if ($right)
     </a>
     <?php
 }*/
-//var_dump($left);
-//var_dump($right);
+
 ?>
 

@@ -35,6 +35,10 @@ if ($right)
     </a>
     <?php
 }*/
-
 ?>
-
+<table class="article-nearby clearfix">
+    <tr>
+        <td><?= $left ? '<a href="' . $left->parsedUrl . '" class="article-nearby_a article-nearby_a__l" rel="prev"><span class="article-nearby_tx">' . $left->title . '</span></a>' : '&nbsp;' ?></td>
+        <td><?= $right ? '<a href="' . $right->parsedUrl . '" class="article-nearby_a article-nearby_a__r" rel="next"><span class="article-nearby_tx">' . $right->title . '</span></a>' : '&nbsp;' ?></td>
+    </tr>
+</table>

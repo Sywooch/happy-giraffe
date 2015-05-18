@@ -117,7 +117,7 @@ require_once('simple_html_dom.php');
                                         'entity' => 'AdvPost',
                                         'entity_id' => 675554,
                                     ))->findAll(); ?>
-                                    <?php $j = 0; foreach ($model->getUnknownClassComments() as $comment): ?>
+                                    <?php $j = 0; foreach ($comments as $comment): ?>
                                         <?php if (!empty($comment->author->avatar_id) && !in_array($comment->author->avatar_id, $used)):?>
                                             <?php $j++;$used[] = $comment->author->avatar_id ?>
                                             <img src="<?php echo $comment->author->getAvatarUrl(Avatar::SIZE_MICRO) ?>"

@@ -84,7 +84,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             </div>
         </div>
     </article>
-    <?php //$this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
+    <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
     <!-- /b-article-->
     <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
     <!-- comments-->

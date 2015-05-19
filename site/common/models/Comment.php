@@ -118,12 +118,12 @@ class Comment extends HActiveRecord
     public function behaviors()
     {
         return array(
-            /*'ContentBehavior' => array(
+            'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
-            ),*/
-            /*'notificationBehavior' => array(
+            ),
+            'notificationBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\CommentBehavior',
-            ),*/
+            ),
             'CTimestampBehavior' => array(
                 'class' => 'site.common.behaviors.HTimestampBehavior',
                 'createAttribute' => 'created',

@@ -32,12 +32,15 @@ class ViewsCommand extends \CConsoleCommand
         $float = $val - $int;
         $rnd = mt_rand() / mt_getrandmax();
         $res = $int + (($rnd < $float) ? 1 : 0);
-        echo "$float\n$rnd\n$res\n";
         $model = PageView::getModel($url);
-        $model->result += $res;
-        $model->save();
+        $model->incVisits($res);
     }
 
+    public function actionOneTime($url, $count)
+    {
+        $model = PageView::getModel($url);
+        $model->incVisits($count);
+    }
 
     public function actionMigrate()
     {

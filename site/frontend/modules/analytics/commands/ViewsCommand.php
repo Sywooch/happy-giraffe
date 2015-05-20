@@ -60,9 +60,12 @@ class ViewsCommand extends \CConsoleCommand
     public function actionConsultation()
     {
         $models = ConsultationQuestion::model()->findAll();
+        $s = 0;
         foreach ($models as $m) {
             $model = PageView::getModel($m->url);
-            $model->incVisits(mt_rand(8, 20));
+            $s += $model->getCounter();
         }
+        echo count($models) . "\n";
+        echo "$s\n";
     }
 } 

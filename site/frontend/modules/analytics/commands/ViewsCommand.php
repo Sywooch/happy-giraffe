@@ -39,7 +39,7 @@ class ViewsCommand extends \CConsoleCommand
     public function actionOneTime($url, $count)
     {
         $model = PageView::getModel($url);
-        $model->incVisits($count);
+        $model->incVisits((int) $count);
     }
 
     public function actionMigrate()

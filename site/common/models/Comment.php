@@ -488,8 +488,8 @@ class Comment extends HActiveRecord
     {
         if (is_null($this->_entity)) {
             $entity = $this->entity;
-            if(isset(\site\frontend\modules\posts\models\Content::$entityAliases[$this->entity_id])) {
-                $entity = \site\frontend\modules\posts\models\Content::$entityAliases[$this->entity_id];
+            if(isset(\site\frontend\modules\posts\models\Content::$entityAliases[$this->entity])) {
+                $entity = \site\frontend\modules\posts\models\Content::$entityAliases[$this->entity];
             }
             $this->_entity = CActiveRecord::model($entity)->findByPk($this->entity_id);
         }

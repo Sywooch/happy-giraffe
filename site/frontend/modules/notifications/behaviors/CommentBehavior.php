@@ -35,6 +35,10 @@ class CommentBehavior extends BaseBehavior
 
     public function afterSave($event)
     {
+        if (! $this->owner->commentEntity instanceof \CommunityContent) {
+            return parent::afterSave($event);
+        }
+
         if ($this->owner->isNewRecord)
         {
             $this->addNotifications($this->owner);

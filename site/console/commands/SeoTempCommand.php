@@ -23,6 +23,15 @@ class SeoTempCommand extends CConsoleCommand
         $this->ga->setProfile('ga:53688414');
     }
 
+    public function actionFixComments()
+    {
+        $db = Yii::app()->db;
+        while($db->createCommand('SELECT COUNT(id) FROM `comments` WHERE root_id IS NULL')->queryScalar())
+        {
+            $db->createCommand('UPDATE `comments`, (SELECT `id`, `root_id` FROM `comments`) as tmp SET `comments`.`root_id` = tmp.root_id WHERE `comments`.`response_id` = tmp.`id`')->execute();
+        }
+    }
+
     protected function getReport($params)
     {
         $report = null;

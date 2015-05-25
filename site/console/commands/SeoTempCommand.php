@@ -29,6 +29,7 @@ class SeoTempCommand extends CConsoleCommand
         while($db->createCommand('SELECT COUNT(id) FROM `comments` WHERE root_id IS NULL')->queryScalar())
         {
             $db->createCommand('UPDATE `comments`, (SELECT `id`, `root_id` FROM `comments`) as tmp SET `comments`.`root_id` = tmp.root_id WHERE `comments`.`response_id` = tmp.`id`')->execute();
+            echo "1\n";
         }
     }
 

@@ -26,6 +26,7 @@ class SeoTempCommand extends CConsoleCommand
     public function actionFixComments()
     {
         $db = Yii::app()->db;
+        $db->createCommand('UPDATE `comments` SET `root_id`=`id` WHERE `response_id` IS NULL')->execute();
         while($db->createCommand('SELECT COUNT(id) FROM `comments` WHERE root_id IS NULL')->queryScalar())
         {
             $db->createCommand('UPDATE `comments`, (SELECT `id`, `root_id` FROM `comments`) as tmp SET `comments`.`root_id` = tmp.root_id WHERE `comments`.`response_id` = tmp.`id`')->execute();

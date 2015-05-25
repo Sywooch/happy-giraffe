@@ -58,7 +58,7 @@ class Content extends \CActiveRecord implements \IHToJSON
         'BlogContent' => 'BlogContent',
         'NewPhotoPost' => 'site\frontend\modules\som\modules\photopost\models\Photopost',
         'NewStatus' => 'site\frontend\modules\som\modules\status\models\Status',
-        'AdvPost' => 'site\frontend\modules\editorialDepartment\models\Content',
+        'AdvPost' => 'site\frontend\modules\posts\models\Content',
     );
 
     /**

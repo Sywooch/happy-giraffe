@@ -101,10 +101,28 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             $this->_post->isNofollow = 0;
             $this->_post->isRemoved = 0;
             $mInfo = $this->_post->originManageInfo;
-            $mInfo['link']['url'] = 'editorialDepartment/redactor/edit';
-            $mInfo['link']['get'] = array(
-                'entity' => $this->owner->entity,
-                'entityId' => $this->owner->entityId,
+            $mInfo['params'] = array(
+                    'edit' => array(
+                        'link' => array(
+                            'url' => '/editorialDepartment/redactor/edit/?' . http_build_query(array('entity' => get_class($this->_post), 'entityId' => $this->_post->id)),
+                        )
+                    ),
+                    'remove' => array(
+                        'api' => array(
+                            'url' => '/api/posts/remove/',
+                            'params' => array(
+                                'id' => (int) $this->_post->id,
+                            ),
+                        ),
+                    ),
+                    'restore' => array(
+                        'api' => array(
+                            'url' => '/api/posts/restore/',
+                            'params' => array(
+                                'id' => (int) $this->_post->id,
+                            ),
+                        ),
+                    ),
             );
             $this->_post->originManageInfo = $mInfo;
             $this->_post->save();

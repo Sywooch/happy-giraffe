@@ -130,6 +130,10 @@ class Content extends \CActiveRecord implements \IHToJSON
             'RssBehavior' => array(
                 'class' => 'site\frontend\modules\rss\behaviors\ContentRssBehavior',
             ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+                'removeAttribute' => 'isRemoved',
+            ),
         );
     }
 

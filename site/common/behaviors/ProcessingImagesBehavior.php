@@ -77,11 +77,12 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
                             , 'warning');
                     }
                 } else {
+                    $content = $this->owner->getCommentEntity();
                     #TODO когда удаляешь фото нумерация картинок сбивается
                     //если ссылки на фотки с http://img.happy-giraffe.ru/
                     $photo = AlbumPhoto::getPhotoFromUrl($image->src);
-                    if ($photo && empty($photo->title) && isset($this->owner->content)) {
-                        $photo->title = $this->owner->content->title . ' фото ' . $num;
+                    if ($photo && empty($photo->title) && isset($content)) {
+                        $photo->title = $content->title . ' фото ' . $num;
                         $photo->save(false);
                     }
                     $element = $image;

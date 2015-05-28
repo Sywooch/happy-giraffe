@@ -77,7 +77,7 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
                             , 'warning');
                     }
                 } else {
-                    $content = $this->owner->getCommentEntity();
+                    $content = $this->owner instanceof Comment ? $this->owner->getCommentEntity() : $this->owner->content;
                     #TODO когда удаляешь фото нумерация картинок сбивается
                     //если ссылки на фотки с http://img.happy-giraffe.ru/
                     $photo = AlbumPhoto::getPhotoFromUrl($image->src);

@@ -1,4 +1,5 @@
-
+<script>
+require(['jquery', 'knockout', 'common'], function($, ko) {
     $.magnificPopup.open({
         items: {
             src: '<div class="popup popup-sign"><a href="<?=$url?>"><img src="<?=$image?>"></a></div>',
@@ -17,3 +18,6 @@
             }
         }
     });
+    $.get('/site/cookie/');
+});
+</script>

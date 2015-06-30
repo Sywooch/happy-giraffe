@@ -62,4 +62,5 @@
     // -->
 </script>
 <!--AdFox END-->
+<? $this->widget('site.frontend.widgets.photopostAdWidget.PhotopostAdWidget'); ?>
 </body></html>

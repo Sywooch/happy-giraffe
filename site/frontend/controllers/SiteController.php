@@ -485,6 +485,11 @@ class SiteController extends HController
         }
     }
 
+    public function actionCookie()
+    {
+        Yii::app()->request->cookies['photo-popup'] = new CHttpCookie('photo-popup', 1);
+    }
+
     protected function getPathes($ga, $start, $end, $searchEngine)
     {
         $cacheId = 'Yii.seo.paths.' . $start . '.' . $end . '.' . $searchEngine;

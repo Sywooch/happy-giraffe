@@ -39,7 +39,7 @@ class PhotopostAdWidget extends CWidget
     {
 
         $this->showMailRu();
-        $this->showPhotoPost();
+        Yii::app()->controller->renderDynamic(array($this, 'showPhotoPost'));
     }
 
     public function showPhotoPost()
@@ -47,8 +47,7 @@ class PhotopostAdWidget extends CWidget
         $detect = new Mobile_Detect();
         if (! $detect->isMobile() && ! isset(Yii::app()->request->cookies['photo-popup'])) {
             $el = self::$banners[array_rand(self::$banners)];
-            $cs = Yii::app()->clientScript;
-            $cs->registerAmd('photo-popup', array('$' => 'jquery', 'common' => 'common'), $this->render('photopost', $el, true));
+            return $this->render('photopost', $el, true);
         }
 
         Yii::app()->request->cookies['photo-popup'] = new CHttpCookie('photo-popup', 1);

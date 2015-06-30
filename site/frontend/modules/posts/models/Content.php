@@ -52,6 +52,8 @@ class Content extends \CActiveRecord implements \IHToJSON
         'photoPost' => 'CommunityContent',
         'status' => 'NewStatus',
         'advpost' => 'AdvPost',
+        'video' => 'CommunityContent',
+        'question' => 'CommunityContent',
     );
     public static $entityAliases = array(
         'CommunityContent' => 'CommunityContent',

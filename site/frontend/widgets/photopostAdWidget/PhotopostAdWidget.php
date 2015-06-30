@@ -45,12 +45,10 @@ class PhotopostAdWidget extends CWidget
     public function showPhotoPost()
     {
         $detect = new Mobile_Detect();
-        if (! $detect->isMobile() && ! isset(Yii::app()->request->cookies['photo-popup'])) {
+        if (! $detect->isMobile() && ! isset(Yii::app()->request->cookies['photo-popup-1'])) {
             $el = self::$banners[array_rand(self::$banners)];
             return $this->render('photopost', $el, true);
         }
-
-        Yii::app()->request->cookies['photo-popup'] = new CHttpCookie('photo-popup', 1);
     }
 
     public function showMailRu()

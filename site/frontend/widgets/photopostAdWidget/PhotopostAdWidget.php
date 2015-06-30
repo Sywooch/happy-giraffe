@@ -44,7 +44,8 @@ class PhotopostAdWidget extends CWidget
 
     public function showPhotoPost()
     {
-        if (! isset(Yii::app()->request->cookies['photo-popup'])) {
+        $detect = new Mobile_Detect();
+        if (! $detect->isMobile() && ! isset(Yii::app()->request->cookies['photo-popup'])) {
             $el = self::$banners[array_rand(self::$banners)];
             $cs = Yii::app()->clientScript;
             $cs->registerAmd('photo-popup', array('$' => 'jquery', 'common' => 'common'), $this->render('photopost', $el, true));

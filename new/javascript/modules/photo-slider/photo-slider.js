@@ -23,6 +23,12 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.photoLength = 20;
         this.offsetMinimal = 5;
         this.originalUrl = ko.observable(params.originalUrl);
+        this.addViews = function addViews() {
+            _paq.push(['setCustomUrl', this.current().element().url()]);
+            _paq.push(['trackPageView']);
+            dataLayer.push({'event': 'virtualView'});
+            yaCounter11221648.hit(this.current().element().url());
+        };
         /**
          * getting User
          * @param user
@@ -104,6 +110,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 AdHistory.pushState(null, title, this.current().element().url());
                 AdHistory.bannerInit(this.current().element().url());
             }
+            this.addViews();
             return this.current();
         };
         /**
@@ -119,6 +126,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             }
             AdHistory.reloadBanner();
             this.addImageBinding();
+            this.addViews();
         };
 
         /**

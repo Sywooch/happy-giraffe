@@ -179,8 +179,11 @@ mixin bAlbumPhotopost(mod, vars)
                         
                             //-source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
                             img.b-album_img-big(src='https://placekitten.com/g/600/400', alt="Фото")
+
                         .b-album_img-hold-ovr
                             .ico-zoom.ico-zoom__abs
+                        .b-album_img-hold-ovr-btn
+                            button.btn.btn-success.btn-xxl.b-album_watch-btn Смотреть
                         - if (!vars.action)
                             .b-album_top
                                 .b-album_count-hold

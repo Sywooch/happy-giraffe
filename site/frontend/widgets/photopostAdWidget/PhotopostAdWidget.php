@@ -49,6 +49,7 @@ class PhotopostAdWidget extends CWidget
             $el = self::$banners[array_rand(self::$banners)];
             return $this->render('photopost', $el, true);
         }
+        return '';
     }
 
     public function showMailRu()

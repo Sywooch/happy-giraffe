@@ -79,13 +79,25 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
 
     public function toJSON()
     {
-        return array(
-            'comment' => $this->comment->toJSON(),
-            'entity' => $this->comment->commentEntity === null ? null : array(
+        if ($this->comment->commentEntity === null) {
+            $entity = null;
+        } elseif ($this->comment->commentEntity instanceof \CommunityContent) {
+            $entity = array(
                 'userId' => $this->comment->commentEntity->author->id,
                 'title' => $this->comment->commentEntity->contentTitle,
                 'url' => $this->comment->commentEntity->url,
-            ),
+            );
+        } else {
+            $entity = array(
+                'userId' => $this->comment->commentEntity->authorId,
+                'title' => $this->comment->commentEntity->title,
+                'url' => $this->comment->commentEntity->url,
+            );
+        }
+
+        return array(
+            'comment' => $this->comment->toJSON(),
+            'entity' => $entity,
         );
     }
 }

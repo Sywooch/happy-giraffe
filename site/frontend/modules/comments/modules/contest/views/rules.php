@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Лучший комментатор - Правила';
+$this->pageTitle = $this->contest->title . ' - Правила';
 ?>
 
 <div class="contest-commentator-how">

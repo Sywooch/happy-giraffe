@@ -2,7 +2,7 @@
 /**
  * @var site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant $participant
  */
-$this->pageTitle = 'Лучший комментатор - Лидеры';
+$this->pageTitle = $this->contest->title . ' - Лидеры';
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('contestCommentsIndex', array('kow'));
 ?>

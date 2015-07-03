@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Лучший комментатор';
+$this->pageTitle = $this->contest->title;
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('contestCommentsIndex', array('kow'));
 $cs->registerAMD('contestCommentsButton', array('joinOrAuth' => 'extensions/joinOrAuth', 'ContestComments' => 'models/ContestComments'), 'joinOrAuth(".contest-commentator_btn-orange", ContestComments);');

@@ -5,6 +5,8 @@ namespace site\frontend\modules\comments\modules\contest\models;
  * @property int $id
  * @property string $startDate
  * @property string $endDate
+ * @property string $title
+ * @property string $cssClass
  *
  * @author Никита
  * @date 20/02/15

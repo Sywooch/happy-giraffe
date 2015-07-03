@@ -9,11 +9,11 @@ $this->adaptive = false;
 <?php $this->beginContent('//layouts/lite/common_menu'); ?>
 
 
-        <div class="contest-commentator">
+        <div class="contest-commentator<?=empty($this->contest->cssClass) ? '' : ' contest-commentator-' . $this->contest->cssClass?>">
             <!-- Шапка-->
             <div class="contest-commentator-header">
                 <div class="contest-commentator-header_date">Сроки проведения:  с <?=Yii::app()->dateFormatter->format('d MMMM', $this->contest->startDate)?> по <?=Yii::app()->dateFormatter->format('d MMMM', $this->contest->endDate)?></div>
-                <h1 class="contest-commentator-header_t">Лучший комментатор</h1>
+                <h1 class="contest-commentator-header_t"><?=$this->contest->title?></h1>
                 <?php if ($this->isParticipant): ?>
                     <div class="contest-commentator-header__sub">
                         <a href="<?=Yii::app()->createUrl('/comments/contest/default/rules', array('contestId' => $this->contest->id))?>" class="contest-commentator-header__sub__link">Правила</a>

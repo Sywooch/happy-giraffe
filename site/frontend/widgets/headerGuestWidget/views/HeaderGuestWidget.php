@@ -93,5 +93,8 @@ if ($cs->useAMD) {
             </div>
             <!-- /Конверсионный попап-->
         </li>
+        <li class="header-menu_li">
+            <a href="/commentatorsContest/2/" class="header-menu_a not-modified"><span class="header-menu_ico header-menu_ico__contest"></span><span class="header-menu_tx">Конкурс</span><span class="header-menu_count">1</span></a>
+        </li>
     </ul>
 </div>

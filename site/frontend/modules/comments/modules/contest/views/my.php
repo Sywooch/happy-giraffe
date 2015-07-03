@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Лучший комментатор - О конкурсе';
+$this->pageTitle = $this->contest->title . ' - О конкурсе';
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('contestCommentsIndex', array('kow'));
 ?>

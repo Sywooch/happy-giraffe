@@ -79,6 +79,9 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     </div>
                 </div>
                 <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>
+
+                <script id="HsvLjUaH_Qf99fX1">if (window.relap) window.relap.ar('HsvLjUaH_Qf99fX1');</script>
+
                 <!-- Реклама яндекса-->
                 <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
             </div>

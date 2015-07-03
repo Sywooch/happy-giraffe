@@ -7,7 +7,7 @@
 
 <div class="w-contest-commentator<?=empty($this->contest->cssClass) ? '' : ' w-contest-commentator-' . $this->contest->cssClass . '-profile'?>">
     <div class="w-contest-commentator_date"><?=Yii::app()->dateFormatter->format('d MMMM', $this->contest->startDate)?> - <?=Yii::app()->dateFormatter->format('d MMMM', $this->contest->endDate)?></div>
-    <h2 class="w-contest-commentator_t">Лучший комментатор</h2>
+    <h2 class="w-contest-commentator_t"><?=$this->contest->title?></h2>
     <div class="w-contest-commentator_in">
         <?php if ($this->participant->score > 0): ?>
             <div class="w-contest-commentator_place"><?=$this->participant->place?></div>

@@ -32,10 +32,7 @@ class PostCreative extends BaseCreative
 
     public function getClubTitle()
     {
-        /** @var \CommunityContent $originEntity */
-        $originEntity = $this->getOriginEntity();
-        $club = $originEntity->rubric->community->club;
-        return $club->title;
+        return $this->getClub()->title;
     }
 
     public function getPhotosCount()
@@ -72,5 +69,20 @@ class PostCreative extends BaseCreative
     public function getOriginEntity()
     {
         return \CommunityContent::model()->findByPk($this->model->originEntityId);
+    }
+
+    public function getClub()
+    {
+        /** @var \CommunityContent $originEntity */
+        $originEntity = $this->getOriginEntity();
+        if ($originEntity !== null) {
+            return $originEntity->rubric->community->club;
+        }
+        if (preg_match('#community\/(\d+)#', $this->post->url, $matches)) {
+            $forumId = $matches[1];
+            $forum = \Community::model()->findByPk($forumId);
+            return $forum->club;
+        }
+
     }
 }

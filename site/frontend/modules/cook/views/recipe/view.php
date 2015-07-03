@@ -1,4 +1,5 @@
 <?php
+Yii::app()->clientScript->registerScriptFile('https://relap.io/api/v6/head.js?token=TzdPbOhsNbNOmXJ3', ClientScript::POS_HEAD);
 if (empty($this->meta_description))
     $this->meta_description = Str::getDescription($recipe->text, 300);
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(

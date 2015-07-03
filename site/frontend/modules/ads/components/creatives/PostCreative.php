@@ -78,7 +78,7 @@ class PostCreative extends BaseCreative
         if ($originEntity !== null) {
             return $originEntity->rubric->community->club;
         }
-        if (preg_match('#community\/(\d+)#', $this->post->url, $matches)) {
+        if (preg_match('#community\/(\d+)#', $this->model->url, $matches)) {
             $forumId = $matches[1];
             $forum = \Community::model()->findByPk($forumId);
             return $forum->club;

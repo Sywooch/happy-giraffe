@@ -121,38 +121,3 @@ class PhotoAlbum extends \HActiveRecord implements IPhotoCollection
         return $this->description;
     }
 }
-
-
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 16208, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 113857, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 19982, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 113864, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 24976, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 181638, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 15574, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 220231, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 19372, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 181065, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 186076, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 183182, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 110167, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 183133, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 19358, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 44769, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 186651, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 20010, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 187161, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 19338, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 180361, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 187987, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 56300, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 187995, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 24949, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 183175, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 10275, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 187994, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 193953, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 55714, 'N;');
-INSERT INTO auth__assignments (itemname, userid, `data`) VALUES ('advEditor', 193744, 'N;');
-
-16208,113857,19982,113864,24976,181638,15574,220231,19372,181065,186076,183182,110167,183133,19358,44769,186651,20010,187161,19338,180361,187987,56300,187995,24949,183175,10275,187994,193953,55714,193744

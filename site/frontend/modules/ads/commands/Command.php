@@ -26,17 +26,17 @@ class Command extends \CConsoleCommand
         /** @var \site\frontend\modules\ads\models\Ad $ad */
         foreach ($iterator as $ad) {
             echo $ad->id . "\n";
-            $originEntity = $ad->getOriginEntity();
-            if ($originEntity->asa('HTimestampBehavior') === null) {
-                continue;
-            }
-            $creative = \Yii::app()->getModule('ads')->dfp->getCreative($ad->creativeId);
-            $creativeLastModified = \DateTimeUtils::FromDfpDateTime($creative->lastModifiedDateTime)->getTimestamp();
-            $updateAttribute = $originEntity->HTimestampBehavior->updateAttribute;
-            $originEntityLastModified = $originEntity->$updateAttribute;
-            if ($all || ($originEntityLastModified > $creativeLastModified)) {
+//            $originEntity = $ad->getOriginEntity();
+//            if ($originEntity->asa('HTimestampBehavior') === null) {
+//                continue;
+//            }
+//            $creative = \Yii::app()->getModule('ads')->dfp->getCreative($ad->creativeId);
+//            $creativeLastModified = \DateTimeUtils::FromDfpDateTime($creative->lastModifiedDateTime)->getTimestamp();
+//            $updateAttribute = $originEntity->HTimestampBehavior->updateAttribute;
+//            $originEntityLastModified = $originEntity->$updateAttribute;
+//            if ($all || ($originEntityLastModified > $creativeLastModified)) {
                 \Yii::app()->getModule('ads')->manager->update($ad);
-            }
+//            }
         }
     }
 

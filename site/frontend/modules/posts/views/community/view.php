@@ -1,5 +1,5 @@
 <?php
-
+Yii::app()->clientScript->registerScriptFile('https://relap.io/api/v6/head.js?token=TzdPbOhsNbNOmXJ3', ClientScript::POS_HEAD);
 /** @todo перенести обработку $this->post->metaObject в контроллер */
 $this->pageTitle = $this->post->title;
 $this->metaDescription = $this->post->metaObject->description;

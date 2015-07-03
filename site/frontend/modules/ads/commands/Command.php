@@ -19,7 +19,7 @@ class Command extends \CConsoleCommand
         $dp = new \CActiveDataProvider('\site\frontend\modules\ads\models\Ad', array(
             'criteria' => array(
                 'order' => 't.id DESC',
-                'condition' => 't.active = 1',
+                'condition' => 't.active = 1 AND NOW() < DATE_ADD(FROM_UNIXTIME(dtimeCreate), INTERVAL 2 DAY)',
             ),
         ));
         $iterator = new \CDataProviderIterator($dp, 100);

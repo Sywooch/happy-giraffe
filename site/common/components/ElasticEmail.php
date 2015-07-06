@@ -53,7 +53,8 @@ class ElasticEmail extends CApplicationComponent
         $data .= "&from_name=" . urlencode('Веселый Жираф');
         $data .= "&template=" . urlencode($template);
         $data .= "&merge_htmlbody=" . urlencode($body);
-        $data .= "&lists=" . $list;
+        //$data .= "&lists=" . $list;
+        $data .= "&segments=clicked";
 
         $header = "POST /mailer/send HTTP/1.0\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";

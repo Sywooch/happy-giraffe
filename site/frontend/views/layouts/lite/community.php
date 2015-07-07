@@ -10,6 +10,11 @@
                 </a>
             </div>
             <div class="b-section_article">
+                <div class="b-section_stats clearfix">
+                    <div class="b-section_stats_subscribers"><span class="b-section_stats_tx"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers($this->club->id)?></span></div>
+                    <div class="b-section_stats_posts"><span class="b-section_stats_tx"><?=\site\frontend\modules\community\helpers\StatsHelper::getPosts($this->club->id)?></span></div>
+                    <div class="b-section_stats_comments"><span class="b-section_stats_tx"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments($this->club->id)?></span></div>
+                </div>
                 <?php if (isset($this->post)) {
                     ?><div class="b-section_t"><a href="<?= $this->club->getUrl() ?>"><?= $this->club->title ?></a></div><?php
                 } else {

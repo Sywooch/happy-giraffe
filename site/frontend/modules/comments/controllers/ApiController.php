@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\comments\controllers;
+use site\frontend\modules\comments\models\Comment;
 
 /**
  * Description of ApiController
@@ -21,7 +22,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         return array(
             array('allow',
-                'actions' => array('get', 'list'),
+                'actions' => array('get', 'list', 'onAir'),
                 'users' => array('*'),
             ),
             array('allow',
@@ -120,6 +121,20 @@ class ApiController extends \site\frontend\components\api\ApiController
             }, $models);
         $this->data['isLast'] = false;
         $this->success = true;
+    }
+
+    public function actionOnAir($limit, $offset = 0)
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->limit = $limit;
+        $criteria->offset = $offset;
+        $criteria->order = 't.created DESC';
+        $models = Comment::model()->findAll($criteria);
+
+        $this->data['list'] = array_map(function($item)
+        {
+            return $item->toJSON();
+        }, $models);
     }
 
     public function afterAction($action)

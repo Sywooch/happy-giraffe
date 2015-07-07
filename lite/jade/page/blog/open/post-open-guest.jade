@@ -157,6 +157,45 @@ block layout
                             a(href="")
                                 img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
                 // Сайд бар
+
+    .homepage.test
+        // Посты
+        .homepage_row
+            .homepage-posts
+                .homepage_title  Лучшие записи
+                .homepage-posts_col-hold
+                        //- .homepage-posts_col
+
+                        .article-anonce.article-anonce__xl
+                            iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-5.html", width='615px', height="480px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+                        .article-anonce.article-anonce__ico
+                            iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-6.html", width='300px', height="480px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+
+
+                        .article-anonce
+                            iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-4.html", width='300px', height="500px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+                        .article-anonce
+                            iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-2.html", width='300px', height="500px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+
+                        .article-anonce
+                            iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-1.html", width='300px', height="500px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
+
+                        +articleAnonce('article-anonce__red article-anonce__xl', articleAnonce.xl)
+                        +articleAnonce('article-anonce__lilac article-anonce__ico', articleAnonce.ico1)
+                        +articleAnonce('article-anonce__green', articleAnonce.d)
+                        +articleAnonce('article-anonce__yellow', articleAnonce.a)
+                        +articleAnonce('article-anonce__blue', articleAnonce.f)
+
+                        //-+articleAnonce('article-anonce__green', articleAnonce.d)
+
+                        //-+articleAnonce('article-anonce__lilac', articleAnonce.f)
+                        //-+articleAnonce('article-anonce__blue', articleAnonce.b)
+                        //-.bnr-base
+                            a(href='#')
+                                img(src="#{path}images/example/w240-h400-2.jpg", alt="")
+
+                       //- +articleAnonce('article-anonce__green', articleAnonce.f)
+
     +layout-footer-lite()
  
         

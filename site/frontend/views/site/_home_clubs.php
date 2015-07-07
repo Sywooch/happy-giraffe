@@ -17,12 +17,12 @@
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__14"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Свадьба</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(14)?></div></a></li>
+                            <div class="homepage-clubs_tx">Свадьба</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(14)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/relations/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__15"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Отношение в семье </div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(15)?></div></a></li>
+                            <div class="homepage-clubs_tx">Отношение в семье </div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(15)?></div></a></li>
                 </ul>
             </div>
             <!-- collection-->
@@ -35,32 +35,32 @@
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__1"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Планирование</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(1)?></div></a></li>
+                            <div class="homepage-clubs_tx">Планирование</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(1)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/pregnancy-and-birth/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__2"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Беременность и роды</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(2)?></div></a></li>
+                            <div class="homepage-clubs_tx">Беременность и роды</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(2)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/babies/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__3"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Дети до года</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(3)?></div></a></li>
+                            <div class="homepage-clubs_tx">Дети до года</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(3)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/kids/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__4"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Дети старше года</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(4)?></div></a></li>
+                            <div class="homepage-clubs_tx">Дети старше года</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(4)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/preschoolers/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__5"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Дошкольники</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(5)?></div></a></li>
+                            <div class="homepage-clubs_tx">Дошкольники</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(5)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/schoolers/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__6"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Школьники</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(6)?></div></a></li>
+                            <div class="homepage-clubs_tx">Школьники</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(6)?></div></a></li>
                 </ul>
             </div>
             <!-- collection-->
@@ -73,27 +73,27 @@
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__7"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Готовим на кухне</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(7)?></div></a></li>
+                            <div class="homepage-clubs_tx">Готовим на кухне</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(7)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/homework/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__9"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Домашние хлопоты</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(9)?></div></a></li>
+                            <div class="homepage-clubs_tx">Домашние хлопоты</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(9)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/pets/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__11"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Наши питомцы</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(11)?></div></a></li>
+                            <div class="homepage-clubs_tx">Наши питомцы</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(11)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/garden/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__10"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Сад и огород </div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(10)?></div></a></li>
+                            <div class="homepage-clubs_tx">Сад и огород </div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(10)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/repair-house/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__8"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Ремонт в доме</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(8)?></div></a></li>
+                            <div class="homepage-clubs_tx">Ремонт в доме</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(8)?></div></a></li>
                 </ul>
             </div>
             <!-- collection-->
@@ -106,12 +106,12 @@
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__12"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Красота и мода</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(12)?></div></a></li>
+                            <div class="homepage-clubs_tx">Красота и мода</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(12)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/health/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__13"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Наше здоровье</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(13)?></div></a></li>
+                            <div class="homepage-clubs_tx">Наше здоровье</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(13)?></div></a></li>
                 </ul>
             </div>
             <!-- collection-->
@@ -124,22 +124,22 @@
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__18"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Наш автомобиль</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(18)?></div></a></li>
+                            <div class="homepage-clubs_tx">Наш автомобиль</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(18)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/needlework/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__16"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Рукоделие</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(16)?></div></a></li>
+                            <div class="homepage-clubs_tx">Рукоделие</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(16)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/homeflowers/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__17"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Цветы в доме</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(17)?></div></a></li>
+                            <div class="homepage-clubs_tx">Цветы в доме</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(17)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/fishing/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__19"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Рыбалка</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(19)?></div></a></li>
+                            <div class="homepage-clubs_tx">Рыбалка</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(19)?></div></a></li>
                 </ul>
             </div>
             <!-- collection-->
@@ -152,17 +152,17 @@
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__21"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Выходные с семьей</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(21)?></div></a></li>
+                            <div class="homepage-clubs_tx">Выходные с семьей</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(21)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/travel/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__20"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Мы путешествуем</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(20)?></div></a></li>
+                            <div class="homepage-clubs_tx">Мы путешествуем</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(20)?></div></a></li>
                     <li class="homepage-clubs_li"><a href="/holidays/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__22"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Семейные праздники</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(22)?></div></a></li>
+                            <div class="homepage-clubs_tx">Семейные праздники</div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers(22)?></div></a></li>
                 </ul>
             </div>
         </div>

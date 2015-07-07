@@ -50,7 +50,7 @@ $this->beginContent('//layouts/lite/main');
     <div class="homepage">
         <div class="homepage_row">
             <div class="homepage-posts">
-                <div class="homepage_title">рекомендуем</div>
+                <div class="homepage_title">еще рекомендуем</div>
                 <div class="homepage-posts_col-hold">
 
                 </div>

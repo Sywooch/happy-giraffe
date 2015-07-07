@@ -55,7 +55,7 @@ class PhotopostAdWidget extends CWidget
     public function showMailRu()
     {
         $detect = new Mobile_Detect();
-        if ($detect->isMobile() && ! $detect->isiOS()) {
+        if ($detect->isMobile()) {
             $this->render('mailru');
         }
     }

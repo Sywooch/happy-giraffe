@@ -230,7 +230,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             <!-- Реклама яндекса-->
             <?php $this->renderPartial('//banners/_post_footer'); ?>
 
-            <script id="HsvLjUaH_Qf99fX1">if (window.relap) window.relap.ar('HsvLjUaH_Qf99fX1');</script>
+            <script id="iAsL_zX0O8E7vb29">if (window.relap) window.relap.ar('iAsL_zX0O8E7vb29');</script>
         </div>
     </div>
 

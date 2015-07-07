@@ -6,14 +6,17 @@
             w[n] = w[n] || [];
             w[n].push(function() {
                 Ya.Direct.insertInto(127976, "yandex_ad_<?=$widget->id?>", {
-                    stat_id: 8,
+                    stat_id: 6,
                     ad_format: "direct",
                     font_size: 1.1,
-                    type: "horizontal",
+                    type: "vertical",
+                    border_type: "ad",
                     limit: 2,
                     title_font_size: 3,
                     links_underline: true,
                     site_bg_color: "FFFFFF",
+                    header_bg_color: "FFFFFF",
+                    border_color: "F1F1F1",
                     title_color: "02B4F2",
                     url_color: "000000",
                     text_color: "000000",

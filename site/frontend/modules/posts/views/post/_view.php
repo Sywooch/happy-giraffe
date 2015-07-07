@@ -82,10 +82,10 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 
                 <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
 
-                <script id="HsvLjUaH_Qf99fX1">if (window.relap) window.relap.ar('HsvLjUaH_Qf99fX1');</script>
-
                 <!-- Реклама яндекса-->
                 <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
+
+                <script id="HsvLjUaH_Qf99fX1">if (window.relap) window.relap.ar('HsvLjUaH_Qf99fX1');</script>
             </div>
         </div>
     </article>

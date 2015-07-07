@@ -64,4 +64,6 @@ define(["jquery", "knockout"], function ($, ko) {
     $('contest-comments').each(componentIterator);
     ko.components.register('contest-rating', { require: 'contests/contest-rating/contest-rating' });
     $('contest-rating').each(componentIterator);
+    ko.components.register('homepage-onair', { require: 'homepage-onair/homepage-onair' });
+    $('homepage-onair').each(componentIterator);
 });

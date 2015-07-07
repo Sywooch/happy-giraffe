@@ -43,7 +43,7 @@ class ElasticEmail extends CApplicationComponent
         return $res;
     }
 
-    public static function sendCampaign($body, $list, $template = 'weekly_news')
+    public static function sendCampaign($body, $list = null, $segment = null, $template = 'weekly_news')
     {
         $res = "";
 
@@ -53,8 +53,12 @@ class ElasticEmail extends CApplicationComponent
         $data .= "&from_name=" . urlencode('Веселый Жираф');
         $data .= "&template=" . urlencode($template);
         $data .= "&merge_htmlbody=" . urlencode($body);
-        //$data .= "&lists=" . $list;
-        $data .= "&segments=clicked";
+        if ($list !== null) {
+            $data .= "&lists=" . $list;
+        }
+        if ($segment !== null) {
+            $data .= "&segments=" . $segment;
+        }
 
         $header = "POST /mailer/send HTTP/1.0\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";

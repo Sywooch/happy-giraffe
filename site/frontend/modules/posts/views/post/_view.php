@@ -80,6 +80,8 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 </div>
                 <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>
 
+                <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
+
                 <script id="HsvLjUaH_Qf99fX1">if (window.relap) window.relap.ar('HsvLjUaH_Qf99fX1');</script>
 
                 <!-- Реклама яндекса-->
@@ -87,7 +89,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             </div>
         </div>
     </article>
-    <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
     <!-- /b-article-->
     <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
     <!-- comments-->

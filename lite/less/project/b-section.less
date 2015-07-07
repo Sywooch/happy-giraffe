@@ -186,6 +186,66 @@
     }*/
     /* /contest */
 
+    &_stats {
+
+        &_subscribers,
+        &_posts,
+        &_comments {
+            position: relative;
+            float: left;
+        }
+
+        &_subscribers:after,
+        &_posts:after,
+        &_comments:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            background: url('@{path-img}/ico/ico-club.png');
+        }
+
+        &_subscribers {
+            padding-left: 33px;
+        }
+
+        &_subscribers:after {
+            background-position: 0 0;
+            width: 28px;
+            height: 22px;
+        }
+
+        &_posts {
+            padding-left: 26px;
+        }
+
+        &_posts:after {
+            background-position: -28px 0;
+            width: 21px;
+            height: 22px;
+        }
+
+        &_comments {
+            padding-left: 27px;
+        }
+
+        &_comments:after {
+            background-position: -49px 0;
+            width: 22px;
+            height: 20px;
+        }
+
+        &_tx {
+            display: inline-block;
+            font-size: 13px;
+            color: #999;
+        }
+    }
+
+    &_stats:after {
+        clear: both;
+    }
+
     @media (min-width: @screen-desktop) {
 
         & {

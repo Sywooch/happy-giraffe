@@ -46,5 +46,16 @@ $this->beginContent('//layouts/lite/main');
             </aside>
         </div>
     </div>
+
+    <div class="homepage">
+        <div class="homepage_row">
+            <div class="homepage-posts">
+                <div class="homepage_title">рекомендуем</div>
+                <div class="homepage-posts_col-hold">
+
+                </div>
+            </div>
+        </div>
+    </div>
 <?php
 $this->endContent();

@@ -6,9 +6,7 @@
 class SiteCommand extends CConsoleCommand
 {
     private $recipients = array(
-        'choojoy.work@gmail.com',
-        'alexk984@gmail.com',
-        'lnghost@hotmail.com',
+        'nikita@happy-giraffe.ru',
     );
 
     /**

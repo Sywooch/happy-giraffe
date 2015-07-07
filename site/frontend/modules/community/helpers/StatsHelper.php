@@ -11,26 +11,60 @@ use site\frontend\modules\comments\models\Comment;
 
 class StatsHelper
 {
-    const CACHE_TIME = 10800;
-    
-    public static function getSubscribers($clubId)
+    public static function getSubscribers($clubId, $renew = false)
     {
-        return \UserClubSubscription::model()->cache(self::CACHE_TIME)->count('club_id = :clubId', array(':clubId' => $clubId));
+        $cacheId = 'StatsHelper.subscribers.' . $clubId;
+        $value = self::getCacheComponent()->get($cacheId);
+        if ($value === false || $renew) {
+            $value = \UserClubSubscription::model()->count('club_id = :clubId', array(':clubId' => $clubId));
+            self::getCacheComponent()->set($cacheId, $value);
+        }
+        return $value;
     }
 
-    public static function getPosts($clubId)
+    public static function getPosts($clubId, $renew = false)
     {
-        return \CommunityContent::model()->cache(self::CACHE_TIME)->with('rubric.community')->count('club_id = :clubId', array(':clubId' => $clubId));
+        $cacheId = 'StatsHelper.posts.' . $clubId;
+        $value = self::getCacheComponent()->get($cacheId);
+        if ($value === false || $renew) {
+            $value = \CommunityContent::model()->with('rubric.community')->count('club_id = :clubId', array(':clubId' => $clubId));
+            self::getCacheComponent()->set($cacheId, $value);
+        }
+        return $value;
     }
 
-    public static function getComments($clubId)
+    public static function getComments($clubId, $renew = false)
     {
-        $criteria = new \CDbCriteria();
-        $criteria->join = 'INNER JOIN community__contents cc ON t.entity IN("BlogContent", "CommunityContent") AND cc.id = t.entity_id
+        $cacheId = 'StatsHelper.comments.' . $clubId;
+        $value = self::getCacheComponent()->get($cacheId);
+        if ($value === false || $renew) {
+            $criteria = new \CDbCriteria();
+            $criteria->join = 'INNER JOIN community__contents cc ON t.entity IN("BlogContent", "CommunityContent") AND cc.id = t.entity_id
             INNER JOIN community__rubrics r ON cc.rubric_id = r.id
             INNER JOIN community__forums f ON f.id = r.community_id';
-        $criteria->compare('f.club_id', $clubId);
+            $criteria->compare('f.club_id', $clubId);
+            $value = Comment::model()->count($criteria);
+            self::getCacheComponent()->set($cacheId, $value);
+        }
+        return $value;
+    }
 
-        return Comment::model()->cache(self::CACHE_TIME)->count($criteria);
+    public static function warmCache()
+    {
+        $models = \CommunityClub::model()->findAll();
+        foreach ($models as $m) {
+            self::getSubscribers($m->id, true);
+            self::getPosts($m->id, true);
+            self::getComments($m->id, true);
+        }
+    }
+
+    /**
+     *
+     * @return \CCache
+     */
+    protected static function getCacheComponent()
+    {
+        return \Yii::app()->getComponent('dbCache');
     }
 }

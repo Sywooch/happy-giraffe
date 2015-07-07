@@ -37,6 +37,11 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
+    public function actionHourRoutine()
+    {
+        \site\frontend\modules\community\helpers\StatsHelper::warmCache();
+    }
+
     public function actionCheckSeo()
     {
         //robots

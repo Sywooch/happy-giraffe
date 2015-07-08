@@ -17,6 +17,7 @@ class StatsHelper
         $value = self::getCacheComponent()->get($cacheId);
         if ($value === false || $renew) {
             $value = \UserClubSubscription::model()->count('club_id = :clubId', array(':clubId' => $clubId));
+            self::getCacheComponent()->delete($cacheId);
             self::getCacheComponent()->set($cacheId, $value);
         }
         return $value;
@@ -28,6 +29,7 @@ class StatsHelper
         $value = self::getCacheComponent()->get($cacheId);
         if ($value === false || $renew) {
             $value = \CommunityContent::model()->with('rubric.community')->count('club_id = :clubId', array(':clubId' => $clubId));
+            self::getCacheComponent()->delete($cacheId);
             self::getCacheComponent()->set($cacheId, $value);
         }
         return $value;
@@ -44,6 +46,7 @@ class StatsHelper
             INNER JOIN community__forums f ON f.id = r.community_id';
             $criteria->compare('f.club_id', $clubId);
             $value = Comment::model()->count($criteria);
+            self::getCacheComponent()->delete($cacheId);
             self::getCacheComponent()->set($cacheId, $value);
         }
         return $value;

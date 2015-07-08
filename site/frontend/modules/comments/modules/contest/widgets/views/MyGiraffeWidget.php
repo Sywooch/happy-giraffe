@@ -6,9 +6,9 @@
 ?>
 
 <div class="b-article clearfix">
-    <div class="w-contest-commentator giraffe<?=empty($this->contest->cssClass) ? '' : ' w-contest-commentator-' . $this->contest->cssClass . '-mygiraffe'?>"><a href="javascript:void(0)" onclick="var link = this; $.post('/ajax/setUserAttribute/', {key: '<?=$this->getAttributeKey()?>', value: '1'}, function() {$(link).parent().hide();});" class="w-contest-commentator_close">Скрыть</a>
+    <div class="w-contest-commentator giraffe<?=empty($contest->cssClass) ? '' : ' w-contest-commentator-' . $contest->cssClass . '-mygiraffe'?>"><a href="javascript:void(0)" onclick="var link = this; $.post('/ajax/setUserAttribute/', {key: '<?=$this->getAttributeKey()?>', value: '1'}, function() {$(link).parent().hide();});" class="w-contest-commentator_close">Скрыть</a>
         <div class="w-contest-commentator_date"><?=Yii::app()->dateFormatter->format('d MMMM', $contest->startDate)?> - <?=Yii::app()->dateFormatter->format('d MMMM', $contest->endDate)?></div>
-        <h2 class="w-contest-commentator_t"><?=$this->contest->title?></h2>
+        <h2 class="w-contest-commentator_t"><?=$contest->title?></h2>
         <div class="w-contest-commentator_t-sub">Лидеры конкурса</div>
         <div class="w-contest-commentator_avas">
             <ul class="ava-list">

@@ -8,6 +8,7 @@ namespace site\frontend\modules\community\helpers;
 
 
 use site\frontend\modules\comments\models\Comment;
+use site\frontend\modules\posts\models\Content;
 
 class StatsHelper
 {
@@ -38,11 +39,15 @@ class StatsHelper
         $cacheId = 'StatsHelper.comments.' . $clubId;
         $value = self::getCacheComponent()->get($cacheId);
         if ($value === false || $renew) {
+            $club = \CommunityClub::model()->findByPk($clubId);
+            $label = 'Форум: ' . $club->title;
+            $posts = Content::model()->byLabels(array($label))->findAll();
+            $postsIds = array_map(function($post) {
+                return $post->originEntityId;
+            }, $posts);
+
             $criteria = new \CDbCriteria();
-            $criteria->join = 'INNER JOIN community__contents cc ON t.entity IN("BlogContent", "CommunityContent") AND cc.id = t.entity_id
-            INNER JOIN community__rubrics r ON cc.rubric_id = r.id
-            INNER JOIN community__forums f ON f.id = r.community_id';
-            $criteria->compare('f.club_id', $clubId);
+            $criteria->addInCondition('entity_id', $postsIds);
             $value = Comment::model()->count($criteria);
             self::getCacheComponent()->set($cacheId, $value);
         }
@@ -53,9 +58,10 @@ class StatsHelper
     {
         $models = \CommunityClub::model()->findAll();
         foreach ($models as $m) {
-            self::getSubscribers($m->id, true);
-            self::getPosts($m->id, true);
-            self::getComments($m->id, true);
+            echo $m->title . "\n";
+            echo self::getSubscribers($m->id, false) . "\n";
+            echo self::getPosts($m->id, false) . "\n";
+            echo self::getComments($m->id, false) . "\n";
         }
     }
 

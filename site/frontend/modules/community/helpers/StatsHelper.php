@@ -37,7 +37,7 @@ class StatsHelper
     {
         $cacheId = 'StatsHelper.comments.' . $clubId;
 
-        echo $cacheId . "\n";
+        echo md5(self::getCacheComponent()->keyPrefix . $cacheId) . "\n";
 
         $value = self::getCacheComponent()->get($cacheId);
         if ($value === false || $renew) {

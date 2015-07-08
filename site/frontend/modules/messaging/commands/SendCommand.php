@@ -18,7 +18,7 @@ class SendCommand extends CConsoleCommand
         $giraffe = User::model()->findByPk(1);
         $message = <<<MESSAGE
 <p>Здраствуйте {name}, испытайте себя в новом конкурсе</p>
-<div class="im-message_contest"><a href="http://happy-giraffe.ru/commentatorsContest/1/" class="btn btn-xm btn-link yellow">Принять участие!</a></div>
+<div class="im-message_contest im-message_contest-summer"><a href="http://happy-giraffe.ru/commentatorsContest/2/" class="btn btn-xm btn-link yellow">Принять участие!</a></div>
 <p>Желаем успехов!</p>
 MESSAGE;
 

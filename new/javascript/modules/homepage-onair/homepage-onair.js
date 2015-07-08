@@ -43,7 +43,7 @@ define(['jquery', 'knockout', 'models/Model', 'models/Comment', 'models/User', '
             return ko.utils.arrayFilter(this.comments(), function(item) {
                 idx = this.comments().indexOf(item);
                 console.log(idx);
-                return idx > l && idx < r;
+                return idx > l && idx <= r;
             }.bind(this));
         }, this);
 

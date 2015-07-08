@@ -1,6 +1,7 @@
-<div class="homepage_row" data-bind="if: ! loading()">
+<div class="homepage_row">
     <div class="homepage-onair">
-        <div class="homepage_title">Прямой эфир</div>
+        <div class="homepage_title">Прямой эфир<div class="homepage-onair_load" data-bind="visible: loading"></div></div>
+        <!-- ko if: ! loading() -->
         <div class="homepage-onair_arrows clearfix">
             <a class="homepage-onair_arrows_arrow homepage-onair_arrows_left" data-bind="click: prev, css: { 'inactive': prevActive() === false }"></a>
             <a class="homepage-onair_arrows_arrow homepage-onair_arrows_right" data-bind="click: next, css: { 'inactive': nextActive() === false }"></a>
@@ -39,5 +40,6 @@
                 </div>
             </section>
         </div>
+        <!-- /ko -->
     </div>
 </div>

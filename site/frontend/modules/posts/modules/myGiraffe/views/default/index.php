@@ -14,7 +14,7 @@ $this->pageTitle = 'Мой Жираф';
         <!--/////-->
         <!-- Основная колонка-->
         <div class="b-main_col-article">
-            <?php //$this->widget('site\frontend\modules\comments\modules\contest\widgets\MyGiraffeWidget'); ?>
+            <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\MyGiraffeWidget'); ?>
 
             <!-- Статья с текстом-->
             <!-- b-article-->

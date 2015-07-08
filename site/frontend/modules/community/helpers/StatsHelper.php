@@ -58,10 +58,9 @@ class StatsHelper
     {
         $models = \CommunityClub::model()->findAll();
         foreach ($models as $m) {
-            echo $m->title . "\n";
-            echo self::getSubscribers($m->id, false) . "\n";
-            echo self::getPosts($m->id, false) . "\n";
-            echo self::getComments($m->id, false) . "\n";
+            self::getSubscribers($m->id, true);
+            self::getPosts($m->id, true);
+            self::getComments($m->id, true);
         }
     }
 

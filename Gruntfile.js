@@ -348,6 +348,7 @@ module.exports = function(grunt){
           'lite/html/page/comments/**/*.html',
           'lite/html/page/photo-window/**/*.html',
           'lite/html/page/cook-recipe/**/*.html',
+          'lite/html/page/contest/contest-commentator/widget-profile-user.html',
           'lite/html/page/services/consult/consult-widget-open.html', // Нужен только пока идет консультация
           'lite/html/page/member/mygiraffe/openair-base-list-user.html',
           '!lite/html/page/sign/**/*.html',

@@ -38,7 +38,7 @@ class HEmailSender extends CApplicationComponent
         return ElasticEmail::send($user->email, $this->subjects[$action], $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
     }
 
-    public function sendCampaign($body, $list, $segment)
+    public function sendCampaign($body, $list = null, $segment = null)
     {
         ElasticEmail::sendCampaign($body, $list, $segment);
     }

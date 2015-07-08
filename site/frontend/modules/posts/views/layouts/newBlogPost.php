@@ -47,6 +47,7 @@ $this->beginContent('//layouts/lite/main');
         </div>
     </div>
 
+    <?php if (Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP): ?>
     <div class="homepage">
         <div class="homepage_row">
             <div class="homepage-posts">
@@ -57,5 +58,6 @@ $this->beginContent('//layouts/lite/main');
             </div>
         </div>
     </div>
+    <?php endif; ?>
 <?php
 $this->endContent();

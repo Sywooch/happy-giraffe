@@ -36,9 +36,6 @@ class StatsHelper
     public static function getComments($clubId, $renew = false)
     {
         $cacheId = 'StatsHelper.comments.' . $clubId;
-
-        echo md5(self::getCacheComponent()->keyPrefix . $cacheId) . "\n";
-
         $value = self::getCacheComponent()->get($cacheId);
         if ($value === false || $renew) {
             $criteria = new \CDbCriteria();

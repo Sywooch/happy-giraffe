@@ -35,7 +35,7 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionHourRoutine()
+    public function actionRoutine()
     {
         \site\frontend\modules\community\helpers\StatsHelper::warmCache();
     }

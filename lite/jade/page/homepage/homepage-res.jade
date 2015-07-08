@@ -91,6 +91,7 @@ body.body.body__lite.body__bg2(class='body__homepage')
                                             .homepage-clubs_ico-hold
                                                 .ico-club.ico-club__14
                                             .homepage-clubs_tx Свадьба
+                                            .homepage-clubs_comments 58 123
                                     li.homepage-clubs_li
                                         a.homepage-clubs_a(href='#') 
                                             .homepage-clubs_ico-hold
@@ -230,7 +231,14 @@ body.body.body__lite.body__bg2(class='body__homepage')
 
                 // /Клубы 
 
-
+                .homepage_row
+                    .homepage-onair
+                        .homepage_title Прямой эфир
+                            .homepage-onair_load
+                        .homepage-onair_arrows.clearfix
+                            a.homepage-onair_arrows_arrow.homepage-onair_arrows_left.inactive
+                            a.homepage-onair_arrows_arrow.homepage-onair_arrows_right.inactive
+                        +commentsListBubble('', {})
 
                 // Посетители
                 .homepage_row
@@ -273,4 +281,4 @@ body.body.body__lite.body__bg2(class='body__homepage')
                 // b-main 
                 +layout-footer-lite('', layoutFooterLite.homepage)
 | </html>
- 
+ 

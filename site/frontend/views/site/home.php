@@ -99,6 +99,8 @@ if ($openLogin == 'login') {
                 <?php $this->renderPartial('_home_clubs'); ?>
             <?php endif; ?>
 
+            <homepage-onair></homepage-onair>
+
             <!-- Посетители-->
             <div class="homepage_row">
                 <div class="homepage-counter">

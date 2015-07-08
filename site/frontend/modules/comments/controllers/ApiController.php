@@ -131,10 +131,10 @@ class ApiController extends \site\frontend\components\api\ApiController
         $criteria->order = 't.created DESC';
         $models = Comment::model()->findAll($criteria);
 
-        $this->data['list'] = array_map(function($item)
-        {
+        $this->data = array_map(function($item) {
             return $item->toJSON();
         }, $models);
+        $this->success = true;
     }
 
     public function afterAction($action)

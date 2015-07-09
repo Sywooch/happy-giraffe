@@ -53,6 +53,7 @@ class ElasticEmail extends CApplicationComponent
         $data .= "&from_name=" . urlencode('Веселый Жираф');
         $data .= "&template=" . urlencode($template);
         $data .= "&merge_htmlbody=" . urlencode($body);
+        $data .= '&time_offset_minutes=135';
         if ($list !== null) {
             $data .= "&lists=" . $list;
         }

@@ -44,7 +44,14 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
         try {
             $activity = $this->getActivityModel();
             $activity->hash = $this->getActivityId();
-            $activity->save();
+            $a = $activity->save();
+
+            print_r($activity->attributes);
+
+            var_dump($a);
+
+            die;
+
         } catch (Exception $ex) {
             
         }

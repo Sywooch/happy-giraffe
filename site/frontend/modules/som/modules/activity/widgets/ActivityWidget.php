@@ -31,7 +31,7 @@ class ActivityWidget extends \CWidget
 
     public function getDataProvider()
     {
-        return new \CActiveDataProvider(Activity::model()->byUser($this->ownerId), array(
+        return new \CActiveDataProvider(Activity::model(), array(
             'pagination' => array(
                 'pageSize' => 10,
                 'pageVar' => is_null($this->pageVar) ? $this->id : $this->pageVar,

@@ -102,7 +102,8 @@ if ($openLogin == 'login') {
             <?php
             $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
                 'pageVar' => 'page',
-                'ownerId' => 56,
+                'view' => 'onair',
+                'pageSize' => 5,
             ));
             ?>
 

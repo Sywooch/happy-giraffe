@@ -14,8 +14,6 @@
             'nextPageLabel' => '&nbsp;',
             'showPrevNext' => true,
         ),
-        'id' => 'activity',
-        'ajaxUpdate' => 'activity',
     ));
     ?>
 <?php else: ?>

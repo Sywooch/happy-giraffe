@@ -99,7 +99,11 @@ if ($openLogin == 'login') {
                 <?php $this->renderPartial('_home_clubs'); ?>
             <?php endif; ?>
 
-            <homepage-onair></homepage-onair>
+            <?php
+            $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
+                'pageVar' => 'page',
+            ));
+            ?>
 
             <!-- Посетители-->
             <div class="homepage_row">

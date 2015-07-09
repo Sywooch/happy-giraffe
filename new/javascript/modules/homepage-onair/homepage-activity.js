@@ -8,6 +8,9 @@ define(['jquery', 'knockout'], function($, ko) {
             this.loading(true);
             $.get(this.homeUrl, { page: page }, function(response) {
                 $('#homepage-onair').replaceWith($(response).find('#homepage-onair'));
+                $('#homepage-onair').find('time').each(function(index, element) {
+                    ko.applyBindings({}, element);
+                });
                 this.loading(false);
             }.bind(this));
         };

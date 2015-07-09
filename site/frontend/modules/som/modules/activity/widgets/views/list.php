@@ -8,7 +8,7 @@
         'itemsTagName' => false,
         'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
         'pager' => array(
-            'class' => 'LitePager',
+            'class' => 'CLinkPager',
             'maxButtonCount' => 10,
             'prevPageLabel' => '&nbsp;',
             'nextPageLabel' => '&nbsp;',

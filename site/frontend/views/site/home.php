@@ -99,6 +99,13 @@ if ($openLogin == 'login') {
                 <?php $this->renderPartial('_home_clubs'); ?>
             <?php endif; ?>
 
+            <?php
+            $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
+                'pageVar' => 'page',
+                'ownerId' => 56,
+            ));
+            ?>
+
             <!-- Посетители-->
             <div class="homepage_row">
                 <div class="homepage-counter">

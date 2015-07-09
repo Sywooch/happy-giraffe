@@ -1,6 +1,6 @@
 <?php
 
-class SiteController extends HController
+class SiteController extends LiteController
 {
     public $layout = '//layouts/main';
 	/**

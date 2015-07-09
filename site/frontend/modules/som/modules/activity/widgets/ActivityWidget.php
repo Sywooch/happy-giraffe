@@ -17,6 +17,7 @@ class ActivityWidget extends \CWidget
     public $setNoindexIfPage = false;
     public $pageVar = null;
     public $ownerId = false;
+    public $pageSize = 10;
     public static $types = array(
         'comment' => array('comment', 'comment', array('добавила комментарий', 'добавил комментарий')),
         'photo' => array('photo', 'article', array('добавила фотографии', 'добавил фотографии')),
@@ -31,9 +32,13 @@ class ActivityWidget extends \CWidget
 
     public function getDataProvider()
     {
-        return new \CActiveDataProvider(Activity::model()->byUser($this->ownerId), array(
+        $model = Activity::model();
+        if ($this->ownerId != false) {
+            $model->byUser($this->ownerId);
+        }
+        return new \CActiveDataProvider(Activity::model(), array(
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => $this->pageSize,
                 'pageVar' => is_null($this->pageVar) ? $this->id : $this->pageVar,
             )
         ));

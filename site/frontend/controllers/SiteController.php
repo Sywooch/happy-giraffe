@@ -487,7 +487,15 @@ class SiteController extends LiteController
 
     public function actionCookie()
     {
-        Yii::app()->request->cookies['photo-popup'] = new CHttpCookie('photo-popup-1', 1);
+        $widget = new PhotopostAdWidget();
+        if (! isset(Yii::app()->request->cookies['photo-popup-1'])) {
+            Yii::app()->request->cookies['photo-popup'] = new CHttpCookie('photo-popup-1', 1);
+            $banner = $widget->getBanner();
+        } else {
+            $banner = null;
+        }
+        echo CJSON::encode($banner);
+
     }
 
     protected function getPathes($ga, $start, $end, $searchEngine)

@@ -565,6 +565,7 @@ module.exports = function(grunt){
 
         },
         src: [
+          'lite/html/page/photo-window/**/*.html',
           'lite/html/page/homepage/**/*.html',
           'lite/html/page/sign/**/*.html',
           // 'lite/html/page/member/**/*.html',

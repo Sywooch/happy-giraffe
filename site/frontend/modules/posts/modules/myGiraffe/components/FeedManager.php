@@ -57,7 +57,7 @@ class FeedManager
                 $rows[] = self::getRow($userId, $post, $filter);
             }
         }
-        usort($posts, function($a, $b) {
+        usort($postsAll, function($a, $b) {
             return ($a->dtimePublication < $b->dtimePublication) ? 1 : -1;
         });
         $all = array_slice($postsAll, 0, 100);

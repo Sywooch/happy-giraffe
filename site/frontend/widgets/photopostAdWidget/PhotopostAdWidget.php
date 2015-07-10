@@ -39,17 +39,20 @@ class PhotopostAdWidget extends CWidget
     {
 
         $this->showMailRu();
-        Yii::app()->controller->renderDynamic(array($this, 'showPhotoPost'));
+        $this->showPhotoPost();
+    }
+
+    public function getBanner()
+    {
+        return self::$banners[array_rand(self::$banners)];
     }
 
     public function showPhotoPost()
     {
         $detect = new Mobile_Detect();
-        if (! $detect->isMobile() && ! isset(Yii::app()->request->cookies['photo-popup-1'])) {
-            $el = self::$banners[array_rand(self::$banners)];
-            return $this->render('photopost', $el, true);
+        if (! $detect->isMobile()) {
+            $this->render('photopost');
         }
-        return '';
     }
 
     public function showMailRu()

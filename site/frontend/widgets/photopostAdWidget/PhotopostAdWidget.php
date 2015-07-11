@@ -50,7 +50,7 @@ class PhotopostAdWidget extends CWidget
     public function showPhotoPost()
     {
         $detect = new Mobile_Detect();
-        if (! $detect->isMobile()) {
+        if (! $detect->isMobile() && $this->controller->route !== 'site/index') {
             $this->render('photopost');
         }
     }

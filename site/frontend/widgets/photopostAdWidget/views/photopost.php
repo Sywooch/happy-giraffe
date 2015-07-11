@@ -1,10 +1,10 @@
 <script>
 require(['jquery', 'knockout', 'common'], function($, ko) {
-    $.get('/site/cookie/', function(response) {
-        if (response !== null) {
+    $.post('/api/ads/cookie/', function(response) {
+        if (response.data !== undefined) {
             $.magnificPopup.open({
                 items: {
-                    src: '<div class="popup popup-sign"><a href="' + response.url + '"><img src="' + response.image + '"></a></div>',
+                    src: '<div class="popup popup-sign"><a href="' + response.data.url + '"><img src="' + response.data.image + '"></a></div>',
                     type: 'inline',
                     overflowY: 'auto',
                     tClose: 'Закрыть',

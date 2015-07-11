@@ -485,19 +485,6 @@ class SiteController extends LiteController
         }
     }
 
-    public function actionCookie()
-    {
-        $widget = new PhotopostAdWidget();
-        if (! isset(Yii::app()->request->cookies['photo-popup-1'])) {
-            Yii::app()->request->cookies['photo-popup'] = new CHttpCookie('photo-popup-1', 1);
-            $banner = $widget->getBanner();
-        } else {
-            $banner = null;
-        }
-        echo CJSON::encode($banner);
-
-    }
-
     protected function getPathes($ga, $start, $end, $searchEngine)
     {
         $cacheId = 'Yii.seo.paths.' . $start . '.' . $end . '.' . $searchEngine;

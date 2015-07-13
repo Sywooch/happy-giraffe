@@ -24,7 +24,7 @@ class ActivePhotoCollectionBehavior extends PhotoCollectionBehavior
             'site\frontend\modules\photo\models\PhotoCollection',
             'entity_id',
             'on' => 'entity = :entity',
-            'params' => array(':entity' => $owner->getEntityName()),
+            'params' => array(':entity' => $this->getEntityName()),
             'index' => 'key',
         ));
         parent::attach($owner);

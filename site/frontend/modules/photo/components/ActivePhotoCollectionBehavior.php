@@ -24,7 +24,7 @@ class ActivePhotoCollectionBehavior extends PhotoCollectionBehavior
             'site\frontend\modules\photo\models\PhotoCollection',
             'entity_id',
             'on' => 'entity = :entity',
-            'params' => array(':entity' => $this->getEntityName()),
+            'params' => array(':entity' => $owner->getEntityName()),
             'index' => 'key',
         ));
         parent::attach($owner);
@@ -40,8 +40,8 @@ class ActivePhotoCollectionBehavior extends PhotoCollectionBehavior
     public function getPhotoCollection($key = 'default', $create = true)
     {
         // сначала ищем в только что созданных - это быстрее всего
-        if (isset(self::$_createdDuringRequest[$this->getEntityName()][$this->owner->id][$key])) {
-            return self::$_createdDuringRequest[$this->getEntityName()][$this->owner->id][$key];
+        if (isset(self::$_createdDuringRequest[$this->owner->getEntityName()][$this->owner->id][$key])) {
+            return self::$_createdDuringRequest[$this->owner->getEntityName()][$this->owner->id][$key];
         }
 
         // потом в релейшнах
@@ -56,7 +56,7 @@ class ActivePhotoCollectionBehavior extends PhotoCollectionBehavior
         } else {
             $collection = $this->createCollection($key);
             if ($collection !== null) {
-                self::$_createdDuringRequest[$this->getEntityName()][$this->owner->id][$key] = $collection;
+                self::$_createdDuringRequest[$this->owner->getEntityName()][$this->owner->id][$key] = $collection;
             }
             return $collection;
         }

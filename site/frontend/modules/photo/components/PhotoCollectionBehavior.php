@@ -150,7 +150,7 @@ class PhotoCollectionBehavior extends \CBehavior
         $class = PhotoCollection::getClassName($this->owner->getEntityName(), $key);
         $collection = new $class();
         $collection->entity_id = $this->getEntityId();
-        $collection->entity = $this->getEntityName();
+        $collection->entity = $this->owner->getEntityName();
         $collection->key = $key;
         $success = $collection->save();
         return ($success) ? $collection : null;

@@ -6,8 +6,8 @@
             <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="<?=$this->createUrl('/site/index')?>" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
             <!-- /logo-->
             <div class="header-login"><a class="header-login_a login-button" data-bind="follow: {}" href="<?=$this->createUrl('/site/index', array('openLogin' => 'login'))?>">Вход</a><a class="header-login_a registration-button" data-bind="follow: {}" href="<?=$this->createUrl('/site/index', array('openLogin' => 'register'))?>">Регистрация</a></div>
-            <?php $this->widget('site.frontend.widgets.headerGuestWidget.HeaderGuestWidget'); ?>
-            <?php if ($this->module === null || $this->module->id != 'search'): ?>
+            <?php $this->widget('site.frontend.widgets.headerGuestWidget.HeaderGuestSectionsWidget'); ?>
+            <?php if (false && ($this->module === null || $this->module->id != 'search')): ?>
                 <div class="sidebar-search clearfix sidebar-search__big">
                     <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
                     <!-- При начале ввода добавить класс .active на кнопку-->

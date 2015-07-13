@@ -48,9 +48,9 @@ if ($cs->useAMD) {
                 </ul>
             </li>
         <?php endforeach; ?>
-        <li class="header-menu_li">
+        <li class="header-menu_li header-menu-guest_search">
             <a href="<?=Yii::app()->createUrl('/search/default/index')?>" class="header-menu_a">
-                <span class="header-menu_ico header-menu_ico__search"></span>
+                <span class="header-menu_ico"></span>
                 <span class="header-menu_tx">Поиск</span>
             </a>
         </li>

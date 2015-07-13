@@ -3,9 +3,10 @@
  * @var LiteController $this
  * @var site\frontend\modules\family\models\Family $family
  */
+var_dump($family->getEntityName()); die;
 $familyCollection = $family->getPhotoCollection('all');
 
-var_dump($family->getEntityName()); die;
+
 
 $attach = $familyCollection->observer->getByAttach($family->photoCollection->observer->getSingle(0));
 if ($attach !== null) {

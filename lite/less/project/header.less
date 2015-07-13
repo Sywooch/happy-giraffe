@@ -183,6 +183,13 @@
         }
     }
 
+    &__guest &_hold {
+        padding-top: 44px;
+    }
+
+    &__guest .logo {
+        margin-top: 19px;
+    }
 }
 /* /header */
 
@@ -292,6 +299,7 @@
         text-decoration: none;
         text-align: center;
         color: #acacac;
+        vertical-align: top;
     }
     &_a:focus,
     &_a:hover {text-decoration: none;}
@@ -351,6 +359,71 @@
     }
 }
 
+.header-menu-guest {
+    .header-menu_a {
+        width: 70px;
+    }
+
+    .header-menu_tx {
+        text-transform: none;
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+    .header-menu_ico {
+        width: 56px;
+        height: 55px;
+        background-image: url('@{path-img}/header-menu_ico-2.png');
+    }
+
+    &_section-1 {
+        .header-menu_ico    {background-position: -56px 0;}
+        .header-forums-list {background-color: #faf6ff;}
+    }
+
+    &_section-2 {
+        .header-menu_ico    {background-position: -112px 0;}
+        .header-forums-list {background-color: #f3fcff;}
+    }
+
+    &_section-3 {
+        .header-menu_ico    {background-position: -168px 0;}
+        .header-forums-list {background-color: #fffbf8;}
+    }
+
+    &_section-4 {
+        .header-menu_ico    {background-position: 0 -55px;}
+        .header-forums-list {background-color: #fffeeb;}
+    }
+
+    &_section-5 {
+        .header-menu_ico    {background-position: -56px -55px;}
+        .header-forums-list {background-color: #f3fef2;}
+    }
+
+    &_section-6 {
+        .header-menu_ico    {background-position: 0 0;}
+        .header-forums-list {background-color: #faf6ff;}
+    }
+
+    &_search {
+        .header-menu_ico    {background-position: -112px -55px;}
+    }
+}
+
+.header-forums-list {
+    display: none;
+    position: absolute;
+    width: 181px;
+    z-index: 1;
+    margin-top: 10px;
+    padding: 19px 17px 15px;
+
+    &_li {
+        text-align: left;
+        margin-bottom: 13px;
+    }
+}
 
 /* header-drop
     Выпадающий попап в верхнем меню
@@ -405,8 +478,6 @@
     }
 }
 /* /header-drop */
-
-
 
 /* header-fix
     Фиксировання шапка

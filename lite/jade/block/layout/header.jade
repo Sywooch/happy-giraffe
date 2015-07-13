@@ -11,7 +11,7 @@ mixin headerGuest(mod, vars)
                 a(href="#registerWidget", class="header-login_a popup-a") Регистрация
             +logo()
             // header-menu
-            .header-menu
+            .header-menu.header-menu-guest
                 // js улучшить. Закрывать попап при клике не на нем.
                 script.
                     $(document).ready(function () {
@@ -46,7 +46,51 @@ mixin headerGuest(mod, vars)
                           });
                       });
                 ul.header-menu_ul.clearfix
-                    li.header-menu_li
+                    li.header-menu_li.header-menu-guest_section-1
+                        a.header-menu_a(href='#')
+                            span.header-menu_ico
+                            span.header-menu_tx
+                                | Муж и жена
+                            ul.header-forums-list
+                                li.header-forums-list_li
+                                    a.header-forum-list_a(href="#") Рукоделие
+                                li.header-forums-list_li
+                                    a.header-forum-list_a(href="#") Цветы в доме
+                                li.header-forums-list_li
+                                    a.header-forum-list_a(href="#") Наш автомобиль
+                                li.header-forums-list_li
+                                    a.header-forum-list_a(href="#") Рыбалка
+                    li.header-menu_li.header-menu-guest_section-2
+                        a.header-menu_a(href='#')
+                            span.header-menu_ico
+                            span.header-menu_tx
+                                | Беременность и дети
+                    li.header-menu_li.header-menu-guest_section-3
+                        a.header-menu_a(href='#')
+                            span.header-menu_ico
+                            span.header-menu_tx
+                                | Наш дом
+                    li.header-menu_li.header-menu-guest_section-4
+                        a.header-menu_a(href='#')
+                            span.header-menu_ico
+                            span.header-menu_tx
+                                | Красота и здоровье
+                    li.header-menu_li.header-menu-guest_section-5
+                        a.header-menu_a(href='#')
+                            span.header-menu_ico
+                            span.header-menu_tx
+                                | Интересы и увлечения
+                    li.header-menu_li.header-menu-guest_section-6
+                        a.header-menu_a(href='#')
+                            span.header-menu_ico
+                            span.header-menu_tx
+                                | Семейный отдых
+                    li.header-menu_li.header-menu-guest_search
+                        a.header-menu_a(href='#')
+                            span.header-menu_ico.header-menu_ico__search
+                            span.header-menu_tx
+                                | Поиск
+                    //li.header-menu_li
                         a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__giraffe
                             span.header-menu_tx
@@ -147,7 +191,7 @@ mixin headerGuest(mod, vars)
                                             a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
                         // /Конверсионный попап
                     // Класс active отвечает за видимость попапапа
-                    li.header-menu_li
+                    //li.header-menu_li
                         a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__im
                             span.header-menu_tx
@@ -168,7 +212,7 @@ mixin headerGuest(mod, vars)
                                             a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
                                             a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
                         // /Конверсионный попап
-                    li.header-menu_li
+                    //li.header-menu_li
                         a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__contest
                             span.header-menu_tx
@@ -187,7 +231,7 @@ mixin headerGuest(mod, vars)
 
 
             // /header-menu
-            - if (vars.nosearch != true)
+            // - if (vars.nosearch != true)
                 +sidebarSearch('sidebar-search__big', sidebarSearch.a)
     // /header
 

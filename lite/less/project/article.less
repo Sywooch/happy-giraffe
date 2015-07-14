@@ -853,3 +853,35 @@
     }
 }
 /* /b-post-anonce-s */
+
+.rubrics {
+    &_a {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        color: @color-link-title;
+        margin-bottom: 2px;
+    }
+
+    &_count:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        background: url('@{path-img}/ico/ico-club.png');
+        background-position: -49px 0;
+        width: 22px;
+        height: 20px;
+        margin-top: -1px;
+
+    }
+
+    &_count {
+        color: #999;
+        position: relative;
+        padding-left: 32px;
+    }
+    
+    &_li {
+        margin-bottom: 10px;
+    }
+}

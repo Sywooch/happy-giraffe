@@ -12,6 +12,7 @@ require_once('simple_html_dom.php');
         <?php foreach ($models as $model): ?>
         <?php
             $url = 'http://www.happy-giraffe.ru' . ltrim($model->getUrl(), '.');
+            $url .= '?utm_source=happygiraffe&utm_medium=email&utm_campaign=dailyPosts';
             if ($model->type_id == CommunityContent::TYPE_PHOTO_POST) {
                 $url .= '#openGallery';
             }

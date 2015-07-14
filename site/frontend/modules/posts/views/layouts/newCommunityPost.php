@@ -48,28 +48,16 @@ $this->beginContent('//layouts/lite/community');
                 <community-add params="forumId: <?= $this->forum->id ?>, clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id)) ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
             <?php } ?>
 
-            <div class="menu-simple">
-                <ul class="menu-simple_ul">
-                    <?php
-                    foreach ($this->forum->rubrics as $rubric) {
-                        // Если рубрика корневая
-                        if (!$rubric->parent) {
-                            $sub = '';
-                            if(!empty($rubric->childs)) {
-                                $sub = '<ul class="menu-simple_ul">';
-                                foreach ($rubric->childs as $child) {
-                                    $content = HHtml::link($child->title, $child->url, array('class' => 'menu-simple_a'));
-                                    $class = 'menu-simple_li' . (($this->rubric && $this->rubric->id == $child->id) ? ' active' : '');
-                                    $sub .= CHtml::tag('li', array('class' => $class), $content);
-                                }
-                                $sub .= '</ul>';
-                            }
-                            $content = HHtml::link($rubric->title, $rubric->url, array('class' => 'menu-simple_a')) . $sub;
-                            $class = 'menu-simple_li' . (($this->rubric && $this->rubric->id == $rubric->id) ? ' active' : '');
-                            echo CHtml::tag('li', array('class' => $class), $content);
-                        }
-                    }
-                    ?>
+            <div class="side-block">
+                <div class="side-block_tx">Рубрики клуба</div>
+                <ul class="rubrics">
+                    <?php foreach ($this->forum->rubrics as $rubric): ?>
+                        <?php if ($rubric->parent_id === null): ?>
+                            <li class="rubrics_li"><a class="rubrics_a" href="<?=$rubric->getUrl()?>"><?=$rubric->title?></a>
+                                <div class="rubrics_count"><span class="rubrics_count_tx"><?=\site\frontend\modules\community\helpers\StatsHelper::getRubricCount($rubric->id)?></span></div>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </aside>

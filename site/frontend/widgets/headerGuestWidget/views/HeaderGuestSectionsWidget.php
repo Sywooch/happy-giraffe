@@ -1,6 +1,5 @@
 <?php
 /** @var CommunitySection[] $sections */
-$sections = CommunitySection::model()->with('clubs')->findAll();
 
 $cs = Yii::app()->clientScript;
 $js = '

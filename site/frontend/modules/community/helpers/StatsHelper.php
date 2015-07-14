@@ -54,6 +54,19 @@ class StatsHelper
         return $value;
     }
 
+    public static function getRubricCount($rubricId, $renew = false)
+    {
+        $cacheId = 'StatsHelper.rubricCount.' . $rubricId;
+        $value = self::getCacheComponent()->get($cacheId);
+        if ($value === false || $renew) {
+            $rubric = \CommunityRubric::model()->with('community')->findByPk($rubricId);
+            $forum = $rubric->community;
+            $value = Content::model()->byLabels(array('Рубрика: ' . $rubric->title, 'Форум: ' . $forum->title))->count();
+            self::getCacheComponent()->set($cacheId, $value);
+        }
+        return $value;
+    }
+
 //    public static function getComments($clubId, $renew = false)
 //    {
 //        $cacheId = 'StatsHelper.comments.' . $clubId;
@@ -73,10 +86,20 @@ class StatsHelper
     public static function warmCache()
     {
         $models = \CommunityClub::model()->findAll();
+
+        echo "Клубы:\n";
         foreach ($models as $m) {
+            echo $m->title . "\n";
             self::getSubscribers($m->id, true);
             self::getPosts($m->id, true);
             self::getComments($m->id, true);
+        }
+
+        $rubrics = \CommunityRubric::model()->findAll('community_id IS NOT NULL AND parent_id IS NULL');
+        echo "Рубрики:";
+        foreach ($rubrics as $rubric) {
+            echo $rubric->title . "\n";
+            self::getRubricCount($rubric->id, true);
         }
     }
 

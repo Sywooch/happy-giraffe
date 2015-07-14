@@ -61,7 +61,14 @@ class StatsHelper
         if ($value === false || $renew) {
             $rubric = \CommunityRubric::model()->with('community')->findByPk($rubricId);
             $forum = $rubric->community;
-            $value = Content::model()->byLabels(array('Рубрика: ' . $rubric->title, 'Форум: ' . $forum->title))->count();
+            $posts = Content::model()->byLabels(array('Рубрика: ' . $rubric->title, 'Форум: ' . $forum->title))->findAll();
+            $postsIds = array_map(function($post) {
+                return $post->originEntityId;
+            }, $posts);
+
+            $criteria = new \CDbCriteria();
+            $criteria->addInCondition('entity_id', $postsIds);
+            $value = Comment::model()->count($criteria);
             self::getCacheComponent()->set($cacheId, $value);
         }
         return $value;

@@ -998,3 +998,96 @@ mixin bPostAnonceS(mod, vars)
 - bPostAnonceS.no = {}
 - bPostAnonceS.no.title = 'Это захватывающий сюжет, из которого вы можете узнать все о растяжке'
 - bPostAnonceS.no.theme = 'consult'
+
+mixin onAirComment
+    // Добавлен комментарий
+    // b-article
+    article.b-article.b-article__list.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+            .b-article_in.clearfix
+                .comments.comments__buble.comments__anonce
+                    .comments_hold
+                        //
+                            варианты цветов комментов. В такой последовательности
+                            .comments_li__lilac
+                            .comments_li__yellow
+                            .comments_li__red
+                            .comments_li__blue
+                            .comments_li__green
+                        .comments_li.comments_li__lilac
+                            .comments_i.clearfix
+                                .comments_frame
+                                    .comments_cont
+                                        .wysiwyg-content
+                                            p
+                                                |  Большое спасибо автору рецепта Светлане Хмелевской (Великоиваненко), за рецепт, и у ней же прошу извинения за внесенные мной изменения в рецепт. вот что у нас получилось))) итак  нам нужно 150 г
+                                            // одно фото в блок (ссылку)
+                                            a.comments_cont-img-w(href='#')
+                                                // размеры превью максимум 400*400 пк
+                                                img.content-img(alt='', src='/images/example/w220-h309-1.jpg')
+                                            p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+                a.onair-min_post-header Четырехмесячный малыш и его трогательная история
+
+mixin onAirStatus
+    // Статья статус
+    // b-article
+    article.b-article.b-article__user-status.b-article__list.clearfix
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='2014-10-04') минуту назад
+
+            .b-article_in.clearfix
+                .user-status.user-status__base
+                    .user-status_hold
+                        // в списке статей user-status_tx ссылка
+                        a.user-status_tx(href='#') Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!
+                    .user-status_bottom
+                        .b-user-mood
+                            .b-user-mood_hold
+                                .b-user-mood_tx Мое настроение -
+                            .b-user-mood_img
+                                img(src='/images/widget/mood/6.png')
+
+mixin onAirArticle(mod, vars)
+    // Статья с текстом
+    // b-article
+    article.b-article.b-article__list.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                    .b-article_authorpos Врач-педиатр
+
+            .b-article_t-list
+                a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    //- Если не указали тип записи в миксине
+                    if (!vars.type)
+                        - vars.type = 'text'
+                    if (vars.type == 'text')
+                        // Текстовая статья
+                        .b-article_in-img
+                            a(href='#')
+                                img(alt='', src='#{path}images/example/w600-h415.jpg')
+                                .b-article_in-img-overlay
+                    if (vars.type == 'video')
+                        // Статья видео
+                        .b-article_in-img
+                            // Во всех статьях видео необходимо обвернуть в .video-container
+                            .video-container
+                                iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
+                    // Описание определенное количество символов
+                    p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь
+                        a.ico-more(href='#')
+                        a.ico-more-hover.display-n(href='#')

@@ -156,9 +156,9 @@ block layout
                         .article-similar_img-hold
                             a(href="")
                                 img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
-                    .side-block
+                    .side-block.rubrics
                         .side-block_tx Рубрики клуба
-                        ul.rubrics
+                        ul
                             li.rubrics_li
                                 a.rubrics_a Физическое развитие
                                 .rubrics_count
@@ -178,31 +178,19 @@ block layout
                             li.rubrics_li
                                 a.rubrics_a Аллергия, дерматит, сыпь ...
                                 .rubrics_count
-                                    span.rubrics_count_tx 685 321
+                                    span.rubrics_count_tx 685 322
 
-                    .side-block
+                    .side-block.onair-min
+                        .side-block_tx Прямой эфир
                         .onair
                             .onair_arrows.clearfix
                                 a.onair_arrows_arrow.onair_arrows_left.inactive
                                 a.onair_arrows_arrow.onair_arrows_right.inactive
                             .onair_comments
-                                +bArticleListItem('', bArticleListItem.userProfileArticle)
-
-                                +bArticleListPhotopost('', bArticleListPhotopost.userProfilePhotopost)
-
-                                +bArticleListPhotopost('', bArticleListPhotopost.userProfilePhoto)
-
-                                +bArticleStatus('', bArticleStatus.userProfileStatus)
-
-                                +bArticleListItem('', bArticleListItem.userProfileVideo)
-
-                                +bArticleComment('', bArticleComment.base)
-
-                                +bArticleQA('b-article-qa', bArticleQA.base)
-
-                                +bArticleQA('b-article-qa', bArticleQA.question)
-
-                                +bArticleLike('', bArticleLike.base)
+                                +onAirComment
+                                +onAirStatus
+                                +onAirArticle('', bArticleListItem.userProfileArticle)
+                                +onAirArticle('', bArticleListItem.userProfileVideo)
                 // Сайд бар
 
     .homepage.test

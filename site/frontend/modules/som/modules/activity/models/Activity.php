@@ -67,7 +67,7 @@ class Activity extends \CActiveRecord implements \IHToJSON
         // class name for the relations automatically generated below.
         return array(
             'type' => array(self::BELONGS_TO, 'ActivityType', 'typeId'),
-            'user' => array(self::BELONGS_TO, 'Users', 'userId'),
+            'user' => array(self::BELONGS_TO, 'User', 'userId'),
         );
     }
 

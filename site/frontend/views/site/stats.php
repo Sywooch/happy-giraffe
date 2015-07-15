@@ -26,3 +26,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
     ),
 ));
 ?>
+
+<p>Количество участников конкурсов комментаторов:</p>
+<?php foreach ($contests as $contest): ?>
+<p><?=$contest->title?> (<?=$contest->id?>) - <?=$contest->participantsCount?></p>
+<?php endforeach; ?>

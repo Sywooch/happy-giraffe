@@ -535,7 +535,10 @@ class SiteController extends LiteController
                 'defaultOrder' => array('id' => true),
             ),
         ));
-        $this->render('stats', compact('dp'));
+
+        $contests = \site\frontend\modules\comments\modules\contest\models\CommentatorsContest::model()->findAll();
+
+        $this->render('stats', compact('dp', 'contests'));
     }
 
 //    public function actionSeo()

@@ -2,6 +2,27 @@
 
 class SiteController extends LiteController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'actions'=>array('stats'),
+                'roles'=>array('moderator'),
+            ),
+            array('deny',
+                'actions'=>array('stats'),
+                'users'=>array('@'),
+            ),
+        );
+    }
+
     public $layout = '//layouts/main';
 	/**
 	 * Declares class-based actions.
@@ -90,7 +111,7 @@ class SiteController extends LiteController
             Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl(''));
 
         if (! Yii::app()->user->isGuest)
-            $this->redirect(array('posts/myGiraffe/default/index'));
+            $this->redirect(array('/som/activity/onAir/index'));
 
         $this->layout = false;
         $this->render('home', compact('openLogin', 'openRegister'));
@@ -501,6 +522,20 @@ class SiteController extends LiteController
             Yii::app()->cache->set($cacheId, $paths);
         }
         return $paths;
+    }
+
+    public function actionStats($nocache = false)
+    {
+        $ds = new DailyStats($nocache);
+        $data = $ds->getData();
+
+        $dp = new CArrayDataProvider($data, array(
+            'sort' => array(
+                'attributes' => array('id', 'comments', 'users', 'posts'),
+                'defaultOrder' => array('id' => true),
+            ),
+        ));
+        $this->render('stats', compact('dp'));
     }
 
 //    public function actionSeo()

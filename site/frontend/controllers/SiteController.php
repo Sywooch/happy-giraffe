@@ -18,7 +18,7 @@ class SiteController extends LiteController
             ),
             array('deny',
                 'actions'=>array('stats'),
-                'users'=>array('@'),
+                'users'=>array('*'),
             ),
         );
     }

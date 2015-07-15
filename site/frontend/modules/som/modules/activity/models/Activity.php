@@ -162,4 +162,15 @@ class Activity extends \CActiveRecord implements \IHToJSON
         return $this;
     }
 
+    public function onlyComments()
+    {
+        $this->getDbCriteria()->compare('typeId', 'comment');
+        return $this;
+    }
+
+    public function onlyPosts()
+    {
+        $this->getDbCriteria()->compare('typeId', '<>comment');
+        return $this;
+    }
 }

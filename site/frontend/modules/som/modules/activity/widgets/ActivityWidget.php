@@ -11,7 +11,7 @@ use site\frontend\modules\som\modules\activity\models\Activity;
  */
 class ActivityWidget extends \CWidget
 {
-
+    public $criteria;
     public $view = 'list';
     public $setNoindexIfEmpty = false;
     public $setNoindexIfPage = false;
@@ -37,6 +37,7 @@ class ActivityWidget extends \CWidget
             $model->byUser($this->ownerId);
         }
         return new \CActiveDataProvider(Activity::model(), array(
+            'criteria' => ($this->criteria) ? $this->criteria : null,
             'pagination' => array(
                 'pageSize' => $this->pageSize,
                 'pageVar' => is_null($this->pageVar) ? $this->id : $this->pageVar,

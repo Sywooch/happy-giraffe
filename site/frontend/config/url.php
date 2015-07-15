@@ -546,6 +546,7 @@ return array(
         'reg/test' => 'signup/test/reg',
         'signup/default/captcha' => 'signup/default/captcha',
 
+        'onair/<filter:\w+>' => 'som/activity/onAir/index',
         'onair' => 'som/activity/onAir/index',
 
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),

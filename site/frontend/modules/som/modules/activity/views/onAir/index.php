@@ -6,7 +6,17 @@ $this->pageTitle = 'Прямой эфир';
 ?>
 
 <div class="b-main_cont b-main_cont__wide">
-
+    <?php
+    $this->widget('zii.widgets.CMenu', array(
+        'htmlOptions' => array('class' => 'filter-group'),
+        'itemCssClass' => 'filter-group_i',
+        'items'=>array(
+            array('label' => 'Все', 'url' => array('/som/activity/onAir/index', 'filter' => 'all')),
+            array('label' => 'Комментарии', 'url' => array('/som/activity/onAir/index', 'filter' => 'comments')),
+            array('label' => 'Записи', 'url' => array('/som/activity/onAir/index', 'filter' => 'posts')),
+        ),
+    ));
+    ?>
 
     <!--+userSubscribers('visible-md-block')-->
     <div class="b-main_col-hold clearfix">
@@ -16,7 +26,8 @@ $this->pageTitle = 'Прямой эфир';
             $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
                 'pageVar' => 'page',
                 'view' => 'simple',
-                'pageSize' => 5,
+                'pageSize' => 25,
+                'criteria' => $criteria,
             ));
             ?>
         </div>

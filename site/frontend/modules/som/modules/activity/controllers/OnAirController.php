@@ -29,10 +29,10 @@ class OnAirController extends \LiteController
 
     public $litePackage = 'posts';
 
-    public function actionIndex($filter = 'all')
+    public function actionIndex($filter = null)
     {
         $criteria = $this->getCriteria($filter);
-        $this->render('index', compact('criteria'));
+        $this->render('index', compact('criteria', 'filter'));
     }
 
     protected function getCriteria($filter)

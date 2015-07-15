@@ -179,6 +179,30 @@ block layout
                                 a.rubrics_a Аллергия, дерматит, сыпь ...
                                 .rubrics_count
                                     span.rubrics_count_tx 685 321
+
+                    .side-block
+                        .onair
+                            .onair_arrows.clearfix
+                                a.onair_arrows_arrow.onair_arrows_left.inactive
+                                a.onair_arrows_arrow.onair_arrows_right.inactive
+                            .onair_comments
+                                +bArticleListItem('', bArticleListItem.userProfileArticle)
+
+                                +bArticleListPhotopost('', bArticleListPhotopost.userProfilePhotopost)
+
+                                +bArticleListPhotopost('', bArticleListPhotopost.userProfilePhoto)
+
+                                +bArticleStatus('', bArticleStatus.userProfileStatus)
+
+                                +bArticleListItem('', bArticleListItem.userProfileVideo)
+
+                                +bArticleComment('', bArticleComment.base)
+
+                                +bArticleQA('b-article-qa', bArticleQA.base)
+
+                                +bArticleQA('b-article-qa', bArticleQA.question)
+
+                                +bArticleLike('', bArticleLike.base)
                 // Сайд бар
 
     .homepage.test

@@ -41,17 +41,25 @@ block layout
                 // Основная колонка
                 .b-main_col-article
   
-                    +bArticleListItem('', bArticleListItem.a) 
+                    +bArticleListItem('', bArticleListItem.userProfileArticle)
 
-                    +bArticleListItem('', bArticleListItem.b) 
+                    +bArticleListPhotopost('', bArticleListPhotopost.userProfilePhotopost)
 
-                    +bArticleStatus('', bArticleStatus.list) 
+                    +bArticleListPhotopost('', bArticleListPhotopost.userProfilePhoto)
 
-                    +bArticleListPhotopost('', bArticleListPhotopost.base)
+                    +bArticleStatus('', bArticleStatus.userProfileStatus)
 
-                    +bArticleListItem('', bArticleListItem.del)
-    
-                    +paginationSmall('yiipagination__center', paginationSmall.base)
+                    +bArticleListItem('', bArticleListItem.userProfileVideo)
+
+                    +bArticleComment('', bArticleComment.base)
+
+                    +bArticleQA('b-article-qa', bArticleQA.base)
+
+                    +bArticleQA('b-article-qa', bArticleQA.question)
+
+                    +bArticleLike('', bArticleLike.base)
+
+                    +paginationSmall('', paginationSmall.base)
                 ///////
                 // Сайд бар
                 // Содержимое загружaть отложено

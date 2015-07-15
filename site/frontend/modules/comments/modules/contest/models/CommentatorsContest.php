@@ -37,6 +37,7 @@ class CommentatorsContest extends \HActiveRecord
     {
         return array(
             'participants' => array(self::HAS_MANY, 'site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant', 'contestId'),
+            'participantsCount' => array(self::STAT, 'site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant', 'contestId'),
         );
     }
 

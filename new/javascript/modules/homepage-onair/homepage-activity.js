@@ -1,14 +1,17 @@
 define(['jquery', 'knockout'], function($, ko) {
-    function Activity() {
-        this.homeUrl = '/';
+    function Activity(vars) {
+        this.vars = vars;
+        this.homeUrl = '/onair/default/widget/';
         this.page = ko.observable(1);
         this.loading = ko.observable(false);
 
         this.loadPage = function loadPage(page) {
             this.loading(true);
-            $.get(this.homeUrl, { page: page }, function(response) {
-                $('#homepage-onair').replaceWith($(response).find('#homepage-onair'));
-                $('#homepage-onair').find('time').each(function(index, element) {
+            var data = this.vars;
+            data.page = page;
+            $.get(this.homeUrl, data, function(response) {
+                $('#onair').replaceWith($(response).find('#onair'));
+                $('#onair').find('time').each(function(index, element) {
                     ko.applyBindings({}, element);
                 });
                 this.loading(false);

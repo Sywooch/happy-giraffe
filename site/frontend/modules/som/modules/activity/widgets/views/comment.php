@@ -5,12 +5,6 @@ use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
 $user = $this->getUserInfo($data->userId);
 $contentAuthor = $this->getUserInfo($data->dataArray['content']['authorId']);
 ?>
-<div class="user-activity-post">
-    <div class="user-activity-post_hold clearfix">
-        <span class="ico-post-type-s ico-post-type-s__<?= ActivityWidget::$types[$data->typeId][0] ?>"></span>
-        <span class="user-activity-post_tx"> <?= ActivityWidget::$types[$data->typeId][2][$user->gender] ?></span>
-    </div>
-</div>
 <div class="b-article_in clearfix">
     <div class="comments comments__buble comments__anonce">
         <div class="comments_hold">

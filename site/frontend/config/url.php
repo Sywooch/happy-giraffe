@@ -546,6 +546,7 @@ return array(
         'reg/test' => 'signup/test/reg',
         'signup/default/captcha' => 'signup/default/captcha',
 
+        'onair/default/widget' => 'som/activity/onAir/widget',
         'onair/<filter:\w+>' => 'som/activity/onAir/index',
         'onair' => 'som/activity/onAir/index',
 

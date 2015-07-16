@@ -37,7 +37,7 @@ class ActivityWidget extends \CWidget
             $model->byUser($this->ownerId);
         }
         return new \CActiveDataProvider(Activity::model(), array(
-            'criteria' => ($this->criteria) ? $this->criteria : new \CDbCriteria(),
+            //'criteria' => ($this->criteria) ? $this->criteria : new \CDbCriteria(),
             'pagination' => array(
                 'pageSize' => $this->pageSize,
                 'pageVar' => is_null($this->pageVar) ? $this->id : $this->pageVar,

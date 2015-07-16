@@ -22,6 +22,7 @@ class OnAirController extends \LiteController
     {
         return array(
             array('deny',
+                'actions' => array('index'),
                 'users' => array('?'),
             ),
         );
@@ -33,6 +34,15 @@ class OnAirController extends \LiteController
     {
         $criteria = $this->getCriteria($filter);
         $this->render('index', compact('criteria', 'filter'));
+    }
+
+    public function actionWidget()
+    {
+        $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
+            'pageVar' => $_GET['pageVar'],
+            'pageSize' => $_GET['pageSize'],
+            'view' => $_GET['view'],
+        ));
     }
 
     protected function getCriteria($filter)

@@ -48,7 +48,6 @@ $this->beginContent('//layouts/lite/community');
                     <community-add params="forumId: <?= $this->forum->id ?>, clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id)) ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
                 <?php } ?>
 
-                <?php if (false): ?>
                 <div class="side-block onair-min">
                     <div class="side-block_tx">Прямой эфир</div>
 
@@ -60,7 +59,6 @@ $this->beginContent('//layouts/lite/community');
                     ));
                     ?>
                 </div>
-                <?php endif; ?>
 
                 <div class="side-block rubrics">
                     <div class="side-block_tx">Рубрики клуба</div>

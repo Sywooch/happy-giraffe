@@ -43,6 +43,18 @@ $this->beginContent('//layouts/lite/main');
                     <!-- _________________________AdFox Asynchronous code END___________________________ -->
                 </div>
                 <?php $this->endWidget(); ?>
+
+                <div class="side-block onair-min">
+                    <div class="side-block_tx">Прямой эфир</div>
+
+                    <?php
+                    $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
+                        'pageVar' => 'page',
+                        'view' => 'onair-min',
+                        'pageSize' => 5,
+                    ));
+                    ?>
+                </div>
             </aside>
         </div>
     </div>

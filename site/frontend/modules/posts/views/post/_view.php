@@ -69,6 +69,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?php } else { ?>
                     <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
                 <?php } ?>
+                <?php if (Yii::app()->user->id == 12936) $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget'); ?>
                 <?php
                 if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
                     $this->widget('site\frontend\modules\posts\widgets\PostSettingsWidget', array('model' => $this->post, 'manageInfo' => $this->post->originManageInfoObject->toJSON()));

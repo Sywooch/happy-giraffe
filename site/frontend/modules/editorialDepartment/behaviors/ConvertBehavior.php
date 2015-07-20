@@ -71,6 +71,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         );
 
         $doc = str_get_html($this->owner->htmlTextPreview);
+        var_dump($doc->find('img', 0)); die;
         $photo = \Yii::app()->thumbs->getPhotoByUrl($doc->find('img', 0));
         $post->social = array(
             'title' => $this->owner->title,

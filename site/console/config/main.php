@@ -79,6 +79,9 @@ return array(
         'myGiraffe' => array(
             'class' => 'site\frontend\modules\posts\modules\myGiraffe\commands\DefaultCommand',
         ),
+        'advConvert' => array(
+            'class' => 'site\frontend\modules\editorialDepartment\commands\ConvertCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

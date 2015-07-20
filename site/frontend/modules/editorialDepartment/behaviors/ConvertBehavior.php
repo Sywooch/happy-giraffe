@@ -5,6 +5,8 @@ namespace site\frontend\modules\editorialDepartment\behaviors;
 use site\frontend\modules\posts\models\api\Content as Content;
 use site\frontend\modules\som\modules\community\models\api\Label as Label;
 
+include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+
 /**
  * Description of ConvertBehavior
  *
@@ -68,8 +70,12 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             'title' => $this->owner->meta->title,
         );
 
+        $doc = str_get_html($this->owner->htmlTextPreview);
+        $photo = \Yii::app()->thumbs->getPhotoByUrl($doc->find('img', 0));
         $post->social = array(
-            'description' => $post->meta['description'],
+            'title' => $this->owner->title,
+            'description' => trim(preg_replace('~\s+~', ' ', strip_tags($this->owner->htmlTextPreview))),
+            'imageUrl' => \Yii::app()->thumbs->getThumb($photo, 'socialImage')->getUrl(),
         );
 
         $post->originService = 'advPost';

@@ -17,4 +17,13 @@ class ConvertCommand extends \CConsoleCommand
         ));
         $content->save();
     }
+
+    public function actionIndex()
+    {
+        $dp = new \EMongoDocumentDataProvider('site\frontend\modules\editorialDepartment\models\Content');
+        $iterator = new \CDataProviderIterator($dp, 100);
+        foreach ($iterator as $model) {
+            $model->save();
+        }
+    }
 }

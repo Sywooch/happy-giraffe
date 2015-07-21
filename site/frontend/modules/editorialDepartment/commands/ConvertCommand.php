@@ -20,11 +20,7 @@ class ConvertCommand extends \CConsoleCommand
 
     public function actionTest2()
     {
-        $content = Content::model()->findByAttributes(array(
-            'entity' => "CommunityContent",
-        ));
-        echo $content->title;
-        $content->save();
+        echo Content::model()->count();
     }
 
     public function actionIndex()

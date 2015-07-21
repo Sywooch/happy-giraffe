@@ -74,8 +74,9 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         $img = $doc->find('img', 0);
         $imageUrl = null;
         if ($img) {
-            echo $img->src;
+            echo $img->src . "\n";
             $photo = \Yii::app()->thumbs->getPhotoByUrl($img->src);
+            var_dump($photo->id);
             if ($photo) {
                 $imageUrl = \Yii::app()->thumbs->getThumb($photo, 'socialImage')->getUrl();
             }

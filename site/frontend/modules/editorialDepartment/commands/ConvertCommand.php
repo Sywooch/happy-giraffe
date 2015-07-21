@@ -13,18 +13,25 @@ class ConvertCommand extends \CConsoleCommand
     {
         $content = Content::model()->findByAttributes(array(
             'entity' => "site\\frontend\\modules\\posts\\models\\api\\Content",
-            'entityId' => 687454,
+            'entityId' => 687528,
         ));
         $content->save();
     }
 
     public function actionTest2()
     {
-        echo Content::model()->count();
+        $content = Content::model()->findByAttributes(array(
+            'entity' => "CommunityContent",
+        ));
+        echo $content->title;
+        $content->save();
     }
 
     public function actionIndex()
     {
+        $c = new \EMongoCriteria();
+        $c->addCond('entity', '=', 'CommunityContent');
+
         $dp = new \EMongoDocumentDataProvider('site\frontend\modules\editorialDepartment\models\Content');
         $iterator = new \CDataProviderIterator($dp, 100);
         foreach ($iterator as $model) {

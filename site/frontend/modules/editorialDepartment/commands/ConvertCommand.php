@@ -23,6 +23,7 @@ class ConvertCommand extends \CConsoleCommand
         $content = Content::model()->findByAttributes(array(
             'entity' => "CommunityContent",
         ));
+        echo $content->title;
         $content->save();
     }
 

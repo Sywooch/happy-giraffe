@@ -71,11 +71,18 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         );
 
         $doc = str_get_html($this->owner->htmlTextPreview);
-        $photo = \Yii::app()->thumbs->getPhotoByUrl($doc->find('img', 0)->src);
+        $img = $doc->find('img', 0);
+        $imageUrl = null;
+        if ($img) {
+            $photo = \Yii::app()->thumbs->getPhotoByUrl($img->src);
+            if ($photo) {
+                $imageUrl = \Yii::app()->thumbs->getThumb($photo, 'socialImage')->getUrl();
+            }
+        }
         $post->social = array(
             'title' => $this->owner->title,
             'description' => trim(preg_replace('~\s+~', ' ', strip_tags($this->owner->htmlTextPreview))),
-            'imageUrl' => \Yii::app()->thumbs->getThumb($photo, 'socialImage')->getUrl(),
+            'imageUrl' => $imageUrl,
         );
 
         $post->originService = 'advPost';

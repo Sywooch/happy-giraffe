@@ -18,6 +18,14 @@ class ConvertCommand extends \CConsoleCommand
         $content->save();
     }
 
+    public function actionTest2()
+    {
+        $content = Content::model()->findByAttributes(array(
+            'entity' => "CommunityContent",
+        ));
+        $content->save();
+    }
+
     public function actionIndex()
     {
         $dp = new \EMongoDocumentDataProvider('site\frontend\modules\editorialDepartment\models\Content');

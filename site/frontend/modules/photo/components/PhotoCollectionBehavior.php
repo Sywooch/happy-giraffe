@@ -63,6 +63,8 @@ class PhotoCollectionBehavior extends \CBehavior
         foreach ($this->attributeCollections as $attribute) {
             $photoIds = $this->getPhotoIdsByString($this->owner->$attribute);
             $collection = $this->getPhotoCollection($this->getAttributeCollectionKey($attribute));
+
+
             $collection->attachPhotos($photoIds, true);
         }
     }

@@ -71,7 +71,11 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         );
 
         $doc = str_get_html($this->owner->htmlTextPreview);
+        $doc2 = str_get_html($this->owner->htmlTextPreview);
         $img = $doc->find('img', 0);
+        if (! $img) {
+            $img = $doc2->find('img', 0);
+        }
         $imageUrl = null;
         if ($img) {
             echo $img->src . "\n";

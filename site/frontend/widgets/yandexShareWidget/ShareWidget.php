@@ -6,6 +6,9 @@
 
 class ShareWidget extends CWidget
 {
+    /**
+     * @var HActiveRecord|IPreview
+     */
     public $model;
 
     public $title;

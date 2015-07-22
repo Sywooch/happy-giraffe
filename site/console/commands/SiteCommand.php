@@ -35,6 +35,12 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
+    public function actionRb()
+    {
+        $c = CommunityContentBackup::model()->findByPk(268739);
+        echo $c->title;
+    }
+
     public function actionRoutine()
     {
         \site\frontend\modules\community\helpers\StatsHelper::warmCache();

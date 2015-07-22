@@ -37,15 +37,16 @@ class SiteCommand extends CConsoleCommand
 
     public function actionRb()
     {
-        $c = CommunityContentBackup::model()->findByPk(268739);
+        $c = CommentBackup::model()->findByPk(2785914);
 
-        $nc = new CommunityContent();
+        $nc = new \site\frontend\modules\comments\models\Comment();
 
         foreach ($c->attributes as $a => $v) {
             if ($a != 'id') {
                 $nc->{$a} = $v;
             }
         }
+
         $nc->save();
     }
 

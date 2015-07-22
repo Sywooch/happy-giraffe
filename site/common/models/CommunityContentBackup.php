@@ -6,6 +6,11 @@
 
 class CommunityContentBackup extends CommunityContent
 {
+    public function init()
+    {
+        die('234');
+    }
+
     public function getDbConnection()
     {
         die('123');

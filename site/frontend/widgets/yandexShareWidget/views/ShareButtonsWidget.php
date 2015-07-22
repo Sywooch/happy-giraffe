@@ -1,3 +1,9 @@
+<style>
+    .custom-likes_vk * {
+        box-sizing: content-box;
+    }
+</style>
+
 <noindex>
     <div class="custom-likes">
         <div class="custom-likes_slogan">Поделитесь с друзьями!</div>

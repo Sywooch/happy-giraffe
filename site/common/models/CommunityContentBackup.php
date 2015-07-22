@@ -4,7 +4,7 @@
  * @date 22/07/15
  */
 
-class CommunityContentBackup extends CommunityContent
+class CommunityContentBackup
 {
     public function init()
     {

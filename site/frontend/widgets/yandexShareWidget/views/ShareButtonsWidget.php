@@ -1,7 +1,5 @@
 <style>
-    .custom-likes_vk * {
-        box-sizing: content-box;
-    }
+
 </style>
 
 <noindex>

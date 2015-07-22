@@ -140,11 +140,11 @@ class Comment extends HActiveRecord
                 'class' => 'site.common.behaviors.ProcessingImagesBehavior',
                 'attributes' => array('text'),
             ),
-            'duplicate' => array(
-                'class' => 'site.common.behaviors.DuplicateBehavior',
-                'attribute' => 'text',
-                'error_text' => 'Вы только что создали комментарий с таким названием'
-            ),
+//            'duplicate' => array(
+//                'class' => 'site.common.behaviors.DuplicateBehavior',
+//                'attribute' => 'text',
+//                'error_text' => 'Вы только что создали комментарий с таким названием'
+//            ),
             'forEdit' => array(
                 'class' => 'site.common.behaviors.PrepareForEdit',
                 'attributes' => array('text'),

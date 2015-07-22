@@ -118,49 +118,49 @@ class Comment extends HActiveRecord
     public function behaviors()
     {
         return array(
-//            'ContentBehavior' => array(
-//                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
-//            ),
-//            'notificationBehavior' => array(
-//                'class' => 'site\frontend\modules\notifications\behaviors\CommentBehavior',
-//            ),
-//            'CTimestampBehavior' => array(
-//                'class' => 'site.common.behaviors.HTimestampBehavior',
-//                'createAttribute' => 'created',
-//                'updateAttribute' => 'updated',
-//            ),
-//            'purified' => array(
-//                'class' => 'site.common.behaviors.PurifiedBehavior',
-//                'attributes' => array('text'),
-//                'options' => array(
-//                    'AutoFormat.Linkify' => true,
-//                ),
-//            ),
-//            'processingImages' => array(
-//                'class' => 'site.common.behaviors.ProcessingImagesBehavior',
-//                'attributes' => array('text'),
-//            ),
-////            'duplicate' => array(
-////                'class' => 'site.common.behaviors.DuplicateBehavior',
-////                'attribute' => 'text',
-////                'error_text' => 'Вы только что создали комментарий с таким названием'
-////            ),
-//            'forEdit' => array(
-//                'class' => 'site.common.behaviors.PrepareForEdit',
-//                'attributes' => array('text'),
-//            ),
-//            'antispam' => array(
-//                'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
-//                'interval' => 1.5 * 60,
-//                'maxCount' => 4,
-//            ),
-//            'softDelete' => array(
-//                'class' => 'site.common.behaviors.SoftDeleteBehavior',
-//            ),
-//            'RssBehavior' => array(
-//                'class' => 'site\frontend\modules\rss\behaviors\CommentRssBehavior',
-//            ),
-//            'site\frontend\modules\som\modules\activity\behaviors\CommentBehavior',
+            'ContentBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+            ),
+            'notificationBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\CommentBehavior',
+            ),
+            'CTimestampBehavior' => array(
+                'class' => 'site.common.behaviors.HTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            ),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('text'),
+                'options' => array(
+                    'AutoFormat.Linkify' => true,
+                ),
+            ),
+            'processingImages' => array(
+                'class' => 'site.common.behaviors.ProcessingImagesBehavior',
+                'attributes' => array('text'),
+            ),
+            'duplicate' => array(
+                'class' => 'site.common.behaviors.DuplicateBehavior',
+                'attribute' => 'text',
+                'error_text' => 'Вы только что создали комментарий с таким названием'
+            ),
+            'forEdit' => array(
+                'class' => 'site.common.behaviors.PrepareForEdit',
+                'attributes' => array('text'),
+            ),
+            'antispam' => array(
+                'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+                'interval' => 1.5 * 60,
+                'maxCount' => 4,
+            ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+            ),
+            'RssBehavior' => array(
+                'class' => 'site\frontend\modules\rss\behaviors\CommentRssBehavior',
+            ),
+            'site\frontend\modules\som\modules\activity\behaviors\CommentBehavior',
             'ContestBehavior' => array(
                 'class' => 'site\frontend\modules\comments\modules\contest\behaviors\ContestBehavior',
             ),
@@ -202,21 +202,21 @@ class Comment extends HActiveRecord
             Scoring::commentCreated($this);
 
             //send signals to commentator panel
-//            if (Yii::app()->user->checkAccess('commentator_panel'))
-//            {
-//                Yii::import('site.frontend.modules.signal.components.*');
-//                Yii::import('site.frontend.modules.signal.models.*');
-//                Yii::import('site.frontend.modules.signal.helpers.*');
-//                Yii::import('site.frontend.modules.cook.models.*');
-//                Yii::import('site.frontend.modules.cook.components.*');
-//                Yii::import('site.seo.modules.commentators.models.*');
-//                Yii::import('site.seo.models.*');
-//
-//                if (CommentatorHelper::getStringLength($this->text) >= CommentatorHelper::COMMENT_LIMIT)
-//                    CommentatorWork::getCurrentUser()->checkComment($this);
-//            }
+            if (Yii::app()->user->checkAccess('commentator_panel'))
+            {
+                Yii::import('site.frontend.modules.signal.components.*');
+                Yii::import('site.frontend.modules.signal.models.*');
+                Yii::import('site.frontend.modules.signal.helpers.*');
+                Yii::import('site.frontend.modules.cook.models.*');
+                Yii::import('site.frontend.modules.cook.components.*');
+                Yii::import('site.seo.modules.commentators.models.*');
+                Yii::import('site.seo.models.*');
+
+                if (CommentatorHelper::getStringLength($this->text) >= CommentatorHelper::COMMENT_LIMIT)
+                    CommentatorWork::getCurrentUser()->checkComment($this);
+            }
         }
-        parent::behaviors();
+        parent::afterSave();
     }
     
     public function insert($attributes = null)

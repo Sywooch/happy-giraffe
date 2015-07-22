@@ -23,7 +23,7 @@ class SeoTempCommand extends CConsoleCommand
         $this->ga->setProfile('ga:53688414');
     }
 
-    public function actionRestore()
+    public function actionRb()
     {
         $c = CommunityContentBackup::model()->findByPk(268739);
         echo $c->title;

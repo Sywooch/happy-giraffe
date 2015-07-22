@@ -78,7 +78,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     <div class="like-control like-control__line">
                     </div>
                 </div>
-                <?php if (Yii::app()->user->id == 12936): ?>
+                <?php if (Yii::app()->user->id == 12936 || Yii::app()->user->id == 22): ?>
                     <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget'); ?>
                     <?php $this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $this->post->socialObject)); ?>
                 <?php else: ?>

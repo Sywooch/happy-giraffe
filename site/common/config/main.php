@@ -26,6 +26,7 @@ return array(
     ),
     'components' => array(
         'dbBackup' => array(
+            'class'=>'CDbConnection',
             'connectionString' => 'mysql:host=88.198.46.134;dbname=happy_giraffe',
             'emulatePrepare' => true,
             'username' => 'happy_giraffe',

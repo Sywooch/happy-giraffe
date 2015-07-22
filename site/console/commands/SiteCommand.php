@@ -39,6 +39,7 @@ class SiteCommand extends CConsoleCommand
     {
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.modules.scores.components.*');
+        Yii::import('site.frontend.modules.scores.models.*');
         Yii::import('site.frontend.modules.scores.models.input.*');
 
         $c = CommentBackup::model()->findByPk(2785914);

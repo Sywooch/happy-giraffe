@@ -25,6 +25,15 @@ return array(
         'ads' => require(dirname(__FILE__) . '/../../frontend/modules/ads/config/main.php'),
     ),
     'components' => array(
+        'dbBackup' => array(
+            'connectionString' => 'mysql:host=88.198.46.134;dbname=happy_giraffe',
+            'emulatePrepare' => true,
+            'username' => 'happy_giraffe',
+            'password' => 'BbnfLTq1t2Xh',
+            'charset' => 'utf8',
+            'enableProfiling' => true,
+            'enableParamLogging' => true,
+        ),
         /* компонент для кеширования по зависимости, без удаления записей */
         'dbCache' => array(
             'class' => 'site.frontend.components.InfinityCache',

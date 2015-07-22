@@ -8,6 +8,8 @@ class CommunityContentBackup extends CommunityContent
 {
     public function getDbConnection()
     {
+        die('123');
+
         if(self::$db!==null)
             return self::$db;
         else

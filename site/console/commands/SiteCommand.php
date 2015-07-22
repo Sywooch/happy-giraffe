@@ -46,18 +46,22 @@ class SiteCommand extends CConsoleCommand
         $comments = CommentBackup::model()->findAll('id >= 2785914');
 
         foreach ($comments as $c) {
-            if ($c->commentEntity !== null) {
-                $nc = new \site\frontend\modules\comments\models\Comment();
+            try {
+                if ($c->commentEntity !== null) {
+                    $nc = new \site\frontend\modules\comments\models\Comment();
 
-                foreach ($c->attributes as $a => $v) {
-                    if ($a != 'id') {
-                        $nc->{$a} = $v;
+                    foreach ($c->attributes as $a => $v) {
+                        if ($a != 'id') {
+                            $nc->{$a} = $v;
+                        }
                     }
+
+                    $nc->save();
+
+                    echo $nc->id . "\n";
                 }
-
-                $nc->save();
-
-                echo $nc->id . "\n";
+            } catch (Exception $e) {
+                continue;
             }
         }
     }

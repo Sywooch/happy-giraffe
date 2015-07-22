@@ -45,15 +45,17 @@ class SiteCommand extends CConsoleCommand
 
         $c = CommentBackup::model()->findByPk(2785914);
 
-        $nc = new \site\frontend\modules\comments\models\Comment();
+        if ($c->commentEntity !== null) {
+            $nc = new \site\frontend\modules\comments\models\Comment();
 
-        foreach ($c->attributes as $a => $v) {
-            if ($a != 'id') {
-                $nc->{$a} = $v;
+            foreach ($c->attributes as $a => $v) {
+                if ($a != 'id') {
+                    $nc->{$a} = $v;
+                }
             }
-        }
 
-        $nc->save();
+            $nc->save();
+        }
     }
 
     public function actionRoutine()

@@ -202,19 +202,19 @@ class Comment extends HActiveRecord
             Scoring::commentCreated($this);
 
             //send signals to commentator panel
-            if (Yii::app()->user->checkAccess('commentator_panel'))
-            {
-                Yii::import('site.frontend.modules.signal.components.*');
-                Yii::import('site.frontend.modules.signal.models.*');
-                Yii::import('site.frontend.modules.signal.helpers.*');
-                Yii::import('site.frontend.modules.cook.models.*');
-                Yii::import('site.frontend.modules.cook.components.*');
-                Yii::import('site.seo.modules.commentators.models.*');
-                Yii::import('site.seo.models.*');
-
-                if (CommentatorHelper::getStringLength($this->text) >= CommentatorHelper::COMMENT_LIMIT)
-                    CommentatorWork::getCurrentUser()->checkComment($this);
-            }
+//            if (Yii::app()->user->checkAccess('commentator_panel'))
+//            {
+//                Yii::import('site.frontend.modules.signal.components.*');
+//                Yii::import('site.frontend.modules.signal.models.*');
+//                Yii::import('site.frontend.modules.signal.helpers.*');
+//                Yii::import('site.frontend.modules.cook.models.*');
+//                Yii::import('site.frontend.modules.cook.components.*');
+//                Yii::import('site.seo.modules.commentators.models.*');
+//                Yii::import('site.seo.models.*');
+//
+//                if (CommentatorHelper::getStringLength($this->text) >= CommentatorHelper::COMMENT_LIMIT)
+//                    CommentatorWork::getCurrentUser()->checkComment($this);
+//            }
         }
         parent::behaviors();
     }

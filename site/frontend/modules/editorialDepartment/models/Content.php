@@ -42,7 +42,7 @@ class Content extends \EMongoDocument
             array('clubId, forumId, rubricId, authorId, fromUserId', '\site\common\components\HIntegerFilter', 'except' => 'blog'),
             array('rubricId, authorId, fromUserId', '\site\common\components\HIntegerFilter', 'on' => 'blog'),
             // Проверим, что пользователь может писать от имени указанного им пользователя
-            //array('fromUserId', 'in', 'allowEmpty' => false, 'range' => \site\frontend\modules\editorialDepartment\components\UsersControl::getUsersList()),
+            array('fromUserId', 'in', 'allowEmpty' => false, 'range' => \site\frontend\modules\editorialDepartment\components\UsersControl::getUsersList()),
         );
     }
 

@@ -38,6 +38,7 @@ class SiteCommand extends CConsoleCommand
     public function actionRb()
     {
         $c = CommunityContentBackup::model()->findByPk(268739);
+        var_dump($c->getDbConnection());
         echo $c->title;
     }
 

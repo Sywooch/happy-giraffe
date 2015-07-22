@@ -37,6 +37,8 @@ class SiteCommand extends CConsoleCommand
 
     public function actionRb()
     {
+        Yii::import('site.common.models.mongo.*');
+
         $c = CommentBackup::model()->findByPk(2785914);
 
         $nc = new \site\frontend\modules\comments\models\Comment();

@@ -169,15 +169,6 @@ return array(
 	),
 	// application components
 	'components'=>array(
-        'dbBackup' => array(
-            'connectionString' => 'mysql:host=88.198.46.134;dbname=happy_giraffe',
-            'emulatePrepare' => true,
-            'username' => 'happy_giraffe',
-            'password' => 'BbnfLTq1t2Xh',
-            'charset' => 'utf8',
-            'enableProfiling' => true,
-            'enableParamLogging' => true,
-        ),
         'vm' => array(
             'class' => 'VersionManager',
         ),

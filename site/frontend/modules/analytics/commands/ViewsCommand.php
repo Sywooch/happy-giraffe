@@ -50,11 +50,11 @@ class ViewsCommand extends \CConsoleCommand
 
     public function actionTest()
     {
-        $model = PageView::getModel("http://www.happy-giraffe.ru/community/32/forum/post/249149/");
+        $model = PageView::getModel("http://www.happy-giraffe.ru/community/7/forum/post/268736/");
 
-        var_dump($model);
+        //var_dump($model);
 
-        $model->incVisits(1);
+        $model->incVisits(2198);
     }
 
     public function actionConsultation()

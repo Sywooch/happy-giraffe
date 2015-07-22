@@ -43,7 +43,7 @@ class SiteCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.favourites.models.*');
         Yii::import('site.frontend.modules.scores.models.input.*');
 
-        $comments = CommentBackup::model()->findAll('id >= 2785914');
+        $comments = CommentBackup::model()->findAll('id >= 2785989');
 
         foreach ($comments as $c) {
             try {
@@ -58,7 +58,7 @@ class SiteCommand extends CConsoleCommand
 
                     $nc->save();
 
-                    echo $nc->id . "\n";
+                    echo $c->id . " - " . $nc->id . "\n";
                 }
             } catch (Exception $e) {
                 continue;

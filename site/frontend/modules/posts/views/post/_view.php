@@ -69,7 +69,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?php } else { ?>
                     <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
                 <?php } ?>
-                <?php if (Yii::app()->user->id == 12936) $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget'); ?>
                 <?php
                 if (\Yii::app()->user->checkAccess('managePost', array('entity' => $this->post))) {
                     $this->widget('site\frontend\modules\posts\widgets\PostSettingsWidget', array('model' => $this->post, 'manageInfo' => $this->post->originManageInfoObject->toJSON()));
@@ -79,7 +78,12 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     <div class="like-control like-control__line">
                     </div>
                 </div>
-                <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>
+                <?php if (Yii::app()->user->id == 12936): ?>
+                    <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget'); ?>
+                    <?php $this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $this->post->socialObject)); ?>
+                <?php else: ?>
+                    <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>
+                <?php endif; ?>
 
                 <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
 

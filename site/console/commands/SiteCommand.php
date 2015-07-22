@@ -43,18 +43,22 @@ class SiteCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.favourites.models.*');
         Yii::import('site.frontend.modules.scores.models.input.*');
 
-        $c = CommentBackup::model()->findByPk(2785914);
+        $comments = CommentBackup::model()->findAll('id >= 2785914');
 
-        if ($c->commentEntity !== null) {
-            $nc = new \site\frontend\modules\comments\models\Comment();
+        foreach ($comments as $c) {
+            if ($c->commentEntity !== null) {
+                $nc = new \site\frontend\modules\comments\models\Comment();
 
-            foreach ($c->attributes as $a => $v) {
-                if ($a != 'id') {
-                    $nc->{$a} = $v;
+                foreach ($c->attributes as $a => $v) {
+                    if ($a != 'id') {
+                        $nc->{$a} = $v;
+                    }
                 }
-            }
 
-            $nc->save();
+                $nc->save();
+
+                echo $nc->id . "\n";
+            }
         }
     }
 

@@ -26,7 +26,7 @@ class ShareButtonsWidget extends CWidget
 
         $cs->amd['shim']['ok.share'] = array('exports' => 'OK');
         $cs->amd['paths']['ok.share'] = '//connect.ok.ru/connect';
-        $cs->registerAMD('OkShare#' . $this->id, array('OkShare' => 'ok.share', '$' => 'jquery') , 'OK.CONNECT.insertShareWidget("OkShare_' . $this->id . '","' . $this->url . '","{width:100,height:21,st:\'straight\',sz:20,ck:1}");');
+        $cs->registerAMD('OkShare#' . $this->id, array('OkShare' => 'ok.share', '$' => 'jquery') , 'OK.CONNECT.insertShareWidget("OkShare_' . $this->id . '","' . $this->url . '","{width:100,height:21,st:\'straight\',sz:20,ck:2}");');
 
         $cs->amd['shim']['vk.share'] = array('exports' => 'VK');
         $cs->amd['paths']['vk.share'] = '//vk.com/js/api/share';
@@ -39,5 +39,23 @@ class ShareButtonsWidget extends CWidget
   js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.4&appId=412497558776154";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, "script", "facebook-jssdk"));');
+
+        $cs->registerAMD('Events#' . $this->id, array('$' => 'jquery', 'jquery.iframetracker'), '
+        jQuery(document).ready(function($){
+            setTimeout(function(){
+                $("#FbShare_' . $this->id . ' iframe").iframeTracker({
+                    blurCallback: function(){
+                        dataLayer.push({"event": "fbShare"});
+                    }
+                });
+
+                $("#OkShare_' . $this->id . ' iframe").iframeTracker({
+                    blurCallback: function(){
+                        dataLayer.push({"event": "okShare"});
+                    }
+                });
+            }, 5000);
+        });
+        ');
     }
 }

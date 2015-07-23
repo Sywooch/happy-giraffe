@@ -24,8 +24,12 @@ class ShareButtonsWidget extends CWidget
     {
         $cs = Yii::app()->clientScript;
 
+        $cs->amd['shim']['ok.share'] = array('exports' => 'OK');
+        $cs->amd['paths']['ok.share'] = '//connect.ok.ru/connect';
+        $cs->registerAMD('OkShare#' . $this->id, array('OkShare' => 'ok.share', '$' => 'jquery') , 'OK.CONNECT.insertShareWidget("OkShare_' . $this->id . '","' . $this->url . '","{width:100,height:21,st:\'straight\',sz:20,ck:1}");');
+
         $cs->amd['shim']['vk.share'] = array('exports' => 'VK');
-        $cs->amd['paths']['vk.share'] = '//vk.com/js/api/share.js?91';
+        $cs->amd['paths']['vk.share'] = '//vk.com/js/api/share';
         $cs->registerAMD('VkShare#' . $this->id, array('VkShare' => 'vk.share', '$' => 'jquery') , '$("#VkShare_' . $this->id . '").html(VK.Share.button(false,{type: "round", text: "Поделиться"}));');
 
         $cs->registerAMD('FbShare', array(), '(function(d, s, id) {

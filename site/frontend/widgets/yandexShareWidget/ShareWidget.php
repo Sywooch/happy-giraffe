@@ -47,6 +47,7 @@ class ShareWidget extends CWidget
         $cs->registerMetaTag($this->url, null, null, array('property' => 'og:url'));
         $cs->registerMetaTag($this->imageUrl, null, null, array('property' => 'og:image'));
         $cs->registerMetaTag($this->description, null, null, array('property' => 'og:description'));
+        $cs->registerMetaTag('article', null, null, array('property' => 'og:type'));
     }
 
     protected function getDefaultImage()

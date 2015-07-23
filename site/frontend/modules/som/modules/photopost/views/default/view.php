@@ -92,7 +92,12 @@ $thumb = \Yii::app()->thumbs->getThumb($this->attach->photoModel, 'postCollectio
                     </div>-->
                 </div>
             </div>
-            <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>
+            <?php if (Yii::app()->user->checkAccess('moderator')): ?>
+                <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget'); ?>
+                <?php $this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $this->post->socialObject)); ?>
+            <?php else: ?>
+                <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>
+            <?php endif; ?>
             <!-- Реклама яндекса-->
             <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
         </div>

@@ -93,7 +93,7 @@ $thumb = \Yii::app()->thumbs->getThumb($this->attach->photoModel, 'postCollectio
                 </div>
             </div>
             <?php if (Yii::app()->user->checkAccess('moderator')): ?>
-                <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget'); ?>
+                <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $this->post->url)); ?>
                 <?php $this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $this->post->socialObject)); ?>
             <?php else: ?>
                 <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>

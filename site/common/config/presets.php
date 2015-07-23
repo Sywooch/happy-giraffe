@@ -142,16 +142,16 @@ return array(
             'postPreviewSmall',
         ),
     ),
-    array(
-        'filter' => array(
-            'name' =>'fixed',
-            'width' => 200,
-            'height' => 200,
-        ),
-        'usages' => array(
-            'socialImage',
-        ),
-    ),
+//    array(
+//        'filter' => array(
+//            'name' =>'fixed',
+//            'width' => 200,
+//            'height' => 200,
+//        ),
+//        'usages' => array(
+//            'socialImage',
+//        ),
+//    ),
     array(
         'filter' => array(
             'name' =>'fixed',
@@ -170,6 +170,7 @@ return array(
         ),
         'usages' => array(
             'postCollectionCover',
+            'socialImage',
         ),
     ),
     array(

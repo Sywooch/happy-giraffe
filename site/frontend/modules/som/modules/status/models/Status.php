@@ -100,10 +100,14 @@ class Status extends \CActiveRecord implements \IHToJSON
         if ($this->owner->isNewRecord) {
             $post = new Content();
         } else {
-            $post = Content::model()->query('getByAttributes', array(
-                'entity' => 'NewStatus',
-                'entityId' => $this->id,
-            ));
+            try {
+                $post = Content::model()->query('getByAttributes', array(
+                    'entity' => 'NewStatus',
+                    'entityId' => $this->id,
+                ));
+            } catch (\Exception $e) {
+                return;
+            }
         }
         $post->url = $this->getUrl(false);
         $post->authorId = (int) $this->authorId;

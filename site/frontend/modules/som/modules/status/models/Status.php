@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\som\modules\status\models;
 
+use site\frontend\modules\posts\models\api\Content;
 use \site\frontend\modules\som\modules\community\models\api\Label;
 
 /**
@@ -96,7 +97,14 @@ class Status extends \CActiveRecord implements \IHToJSON
 
         $labels = Label::model()->findForBlog();
 
-        $post = new \site\frontend\modules\posts\models\api\Content();
+        if ($this->owner->isNewRecord) {
+            $post = new Content();
+        } else {
+            $post = Content::model()->query('getByAttributes', array(
+                'entity' => 'NewStatus',
+                'entityId' => $this->id,
+            ));
+        }
         $post->url = $this->getUrl(false);
         $post->authorId = (int) $this->authorId;
         $post->dtimeCreate = (int) $this->dtimeCreate;

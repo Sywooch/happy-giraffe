@@ -151,7 +151,7 @@ class Activity extends \CActiveRecord implements \IHToJSON
     public function defaultScope()
     {
         return array(
-            'condition' => 'typeId != status',
+            'condition' => 'typeId != "status"',
             'order' => $this->getTableAlias(false, false) . '.`dtimeCreate` DESC',
         );
     }

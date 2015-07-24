@@ -151,6 +151,7 @@ class Activity extends \CActiveRecord implements \IHToJSON
     public function defaultScope()
     {
         return array(
+            'condition' => 'typeId != status',
             'order' => $this->getTableAlias(false, false) . '.`dtimeCreate` DESC',
         );
     }
@@ -170,7 +171,7 @@ class Activity extends \CActiveRecord implements \IHToJSON
 
     public function onlyPosts()
     {
-        $this->getDbCriteria()->addInCondition('typeId', array('advPost', 'photoPost', 'post', 'question', 'videoPost'));
+        $this->getDbCriteria()->compare('typeId', '<>comment');
         return $this;
     }
 }

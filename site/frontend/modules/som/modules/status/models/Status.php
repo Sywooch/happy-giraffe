@@ -142,6 +142,32 @@ class Status extends \CActiveRecord implements \IHToJSON
 
         $post->save();
 
+        $mInfo = $post->originManageInfo;
+        $mInfo['params'] = array(
+            'edit' => array(
+                'link' => array(
+                    'url' => '/blogs/edit/status/?' . http_build_query(array('id' => $this->id)),
+                )
+            ),
+            'remove' => array(
+                'api' => array(
+                    'url' => '/api/posts/remove/',
+                    'params' => array(
+                        'id' => (int) $post->id,
+                    ),
+                ),
+            ),
+            'restore' => array(
+                'api' => array(
+                    'url' => '/api/posts/restore/',
+                    'params' => array(
+                        'id' => (int) $post->id,
+                    ),
+                ),
+            ),
+        );
+        $post->originManageInfo = $mInfo;
+        $post->save(false);
     }
     public function onAfterSoftDelete()
     {

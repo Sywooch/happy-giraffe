@@ -82,6 +82,9 @@ return array(
         'advConvert' => array(
             'class' => 'site\frontend\modules\editorialDepartment\commands\ConvertCommand',
         ),
+        'statusMigrate' => array(
+            'class' => 'site\frontend\modules\som\modules\status\commands\MigrateCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

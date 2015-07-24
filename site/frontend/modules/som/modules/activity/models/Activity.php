@@ -170,7 +170,7 @@ class Activity extends \CActiveRecord implements \IHToJSON
 
     public function onlyPosts()
     {
-        $this->getDbCriteria()->compare('typeId', '<>comment');
+        $this->getDbCriteria()->addInCondition('typeId', array('advPost', 'photoPost', 'post', 'question', 'videoPost'));
         return $this;
     }
 }

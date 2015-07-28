@@ -13,8 +13,8 @@ $this->pageTitle = 'Прямой эфир';
             <div style="text-align: center;">
                 <?php
                 $this->widget('zii.widgets.CMenu', array(
-                    'htmlOptions' => array('class' => 'filter-group', 'style' => 'margin-top: 20px;'),
-                    'itemCssClass' => 'filter-group_i',
+                    'htmlOptions' => array('class' => 'onair-filter', 'style' => 'margin-top: 20px;'),
+                    'itemCssClass' => 'onair-filter_i',
                     'items'=>array(
                         array('label' => 'Все', 'url' => array('/som/activity/onAir/index', 'filter' => 'all'), 'active' => $filter === null),
                         array('label' => 'Записи', 'url' => array('/som/activity/onAir/index', 'filter' => 'posts')),

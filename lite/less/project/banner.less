@@ -214,3 +214,59 @@
 .bnr-sidebar {
     margin: 20px 0;
 }
+
+.bnr-photo {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    width: 600px;
+    height: 400px;
+    padding: 55px 35px 0;
+
+    &_author {
+        margin-bottom: 23px;
+
+        &_tx {
+            margin-top: -1px;
+        }
+    }
+
+    &_hold {
+        position: relative;
+    }
+
+    &_tx {
+        font-size: 35px;
+        font-weight: bold;
+        line-height: 35px;
+        letter-spacing: -1px;
+        word-spacing: 1px;
+        margin-bottom: 29px;
+    }
+
+    &_image {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    &_btn {
+        font-size: 20px;
+        border: 2px #fff solid;
+        padding: 10px 53px;
+    }
+
+    &_btn:hover {
+        color: inherit;
+    }
+
+    &_image:after {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(58, 142, 200, 0.8);
+    }
+}

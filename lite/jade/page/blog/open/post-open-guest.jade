@@ -71,6 +71,16 @@ block layout
                 ///////
                 // Основная колонка
                 .b-main_col-article
+                    .bnr-photo
+                        .bnr-photo_image
+                            img(src='http://lorempixel.com/600/400/')
+                        .bnr-photo_hold
+                            .bnr-photo_author
+                                +ava("ava__female", ava.a)
+                                .bnr-photo_author_tx Ангелина Богоявленская
+                            .bnr-photo_tx 30 способов сообщить близким о своей беременности
+                            button.btn.btn-xl.bnr-photo_btn Смотреть
+
                     +bArticle-single('b-article__lite')
 
                     table.article-nearby.clearfix

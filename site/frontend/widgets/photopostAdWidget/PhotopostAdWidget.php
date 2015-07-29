@@ -39,7 +39,7 @@ class PhotopostAdWidget extends CWidget
     {
 
         $this->showMailRu();
-        $this->showPhotoPost();
+        //$this->showPhotoPost();
     }
 
     public function getBanner()

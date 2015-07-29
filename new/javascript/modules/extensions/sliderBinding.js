@@ -9,15 +9,17 @@ define(['jquery', 'knockout', 'extensions/helpers', 'photo-slider/photo-slider']
                 userId = (ko.isObservable(values.userId) === false) ? values.userId : values.userId(),
                 originalUrl = (ko.isObservable(values.originalUrl) === false) ? values.originalUrl : values.originalUrl();
             var getSliderToOpen = function getSliderToOpen() {
-                if ($(tagName).length === 0) {
-                    if (originalUrl === undefined) {
-                        $('body').after('<' + tagName + ' params="{ photo: ' + photo + ', collectionId: ' + collectionId + ', userId: ' + userId + ' }"></' + tagName + '>');
-                    } else {
-                        $('body').after('<' + tagName + ' params="{ photo: ' + photo + ', collectionId: ' + collectionId + ', userId: ' + userId + ', originalUrl: \'' + originalUrl + '\' }"></' + tagName + '>');
-                    }
-                    ko.cleanNode($(tagName)[0]);
-                    ko.applyBindings({}, $(tagName)[0]);
+                if ($(tagName).length != 0) {
+                    var data = ko.contextFor($(tagName).children().get(0)).$data;
+                    ko.contextFor($(tagName).children().get(0)).$data.closePhotoHandler({});
                 }
+                if (originalUrl === undefined) {
+                    $('body').after('<' + tagName + ' params="{ photo: ' + photo + ', collectionId: ' + collectionId + ', userId: ' + userId + ' }"></' + tagName + '>');
+                } else {
+                    $('body').after('<' + tagName + ' params="{ photo: ' + photo + ', collectionId: ' + collectionId + ', userId: ' + userId + ', originalUrl: \'' + originalUrl + '\' }"></' + tagName + '>');
+                }
+                ko.cleanNode($(tagName)[0]);
+                ko.applyBindings({}, $(tagName)[0]);
             };
             if (Helpers.checkUrlForHash(galleryOpenHash)) {
                 getSliderToOpen();

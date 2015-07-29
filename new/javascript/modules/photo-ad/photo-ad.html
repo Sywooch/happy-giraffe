@@ -1,0 +1,13 @@
+<div class="bnr-photo">
+    <div class="bnr-photo_image"><img src="http://lorempixel.com/600/400/" data-bind="src: collection.cover().photo().getGeneratedPreset('postCollectionCover')"></div>
+    <div class="bnr-photo_hold">
+        <!-- ko if: userInstance.loading() === false -->
+        <div class="bnr-photo_author" data-bind="with: userInstance">
+            <!-- ava--><span href="#" class="ava" data-bind="css: { 'ava__female': gender() === 0, 'ava__male': gender() === 1 }"><span class="ico-status" data-bind="css: { 'ico-status__online': isOnline }"></span><img alt="" class="ava_img" data-bind="src: avatarUrl()"></span>
+            <div class="bnr-photo_author_tx" data-bind="text: fullName"></div>
+        </div>
+        <!-- /ko -->
+        <div class="bnr-photo_tx" data-bind="text: post.title"></div>
+        <a class="btn btn-xl bnr-photo_btn" data-bind="photoSlider: { photo: collection.cover().id(), collectionId: collection.id(), userId: post.authorId  }">Смотреть</a>
+    </div>
+</div>

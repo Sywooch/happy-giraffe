@@ -1,0 +1,68 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member.css';
+
+block block-dev-view
+
+        script.
+
+            /* Height block comment scroll in photo-window */
+            function photoWindColH () {
+                var colCont = $(".photo-window_cont");
+                var bannerH = document.getElementById('photo-window_banner').offsetHeight;
+                colCont.height($(window).height() - bannerH - 24);
+
+            }
+
+            /* Позиция блока с лайками */
+            function likePos () {
+                var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+                $('.photo-window .like-control').css({'bottom' : likeBottom});
+            }
+
+            $(document).ready(function () {
+                photoWindColH();
+                //- likePos();
+
+                addBaron('.scroll');
+
+
+            });
+            $(window).resize(function () {
+                photoWindColH();
+                likePos();
+            });
+
+        .photo-window.display-b
+            .photo-window_w
+                a.photo-window_close(href='#')
+
+
+                // Конец просмотра
+                .photo-window-ads
+                    .photo-window-ads_hold
+                        .photo-window-ads_tx Смотрите другие галереи
+                        .photo-window-ads_in
+                            .photo-window-ads_i
+                                .bnr-photo
+                                    .bnr-photo_image
+                                        img(src='http://lorempixel.com/600/400/')
+                                    .bnr-photo_hold
+                                        .bnr-photo_author
+                                            +ava("ava__female", ava.a)
+                                            .bnr-photo_author_tx Ангелина Богоявленская
+                                        .bnr-photo_tx 30 способов сообщить близким о своей беременности
+                                        button.btn.btn-xl.bnr-photo_btn Смотреть
+
+                            .photo-window-ads_i
+                                .bnr-photo
+                                    .bnr-photo_image
+                                        img(src='http://lorempixel.com/600/400/')
+                                    .bnr-photo_hold
+                                        .bnr-photo_author
+                                            +ava("ava__female", ava.a)
+                                            .bnr-photo_author_tx Ангелина Богоявленская
+                                        .bnr-photo_tx 30 способов сообщить близким о своей беременности
+                                        button.btn.btn-xl.bnr-photo_btn Смотреть

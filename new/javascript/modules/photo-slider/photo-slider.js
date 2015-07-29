@@ -23,9 +23,11 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.photoLength = 20;
         this.offsetMinimal = 5;
         this.originalUrl = ko.observable(params.originalUrl);
+        this.similarPosts = ko.observableArray([]);
+        this.showEnd = ko.observable(false);
         this.addViews = function addViews() {
-            dataLayer.push({'event': 'virtualView'});
-            yaCounter11221648.hit(this.current().element().url());
+            //dataLayer.push({'event': 'virtualView'});
+            //yaCounter11221648.hit(this.current().element().url());
         };
         /**
          * getting User
@@ -92,6 +94,11 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 this.current(Model.findByIdObservableIndex(this.current().element().id(), this.collection.attaches()));
             }
         };
+        this.loadPhotoAds = function loadPhotoAds() {
+            Model.get('/api/photoAds/getPosts/', { url: this.originalUrl(), limit: 2 }).done(function(response) {
+                this.similarPosts(response.data);
+            }.bind(this));
+        };
         /**
          * initStartingPoint
          *
@@ -109,6 +116,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 AdHistory.bannerInit(this.current().element().url());
             }
             this.addViews();
+            this.loadPhotoAds();
             return this.current();
         };
         /**
@@ -160,8 +168,18 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
                 this.current().index(index + 1);
                 this.sliderManipulationsMoving();
                 this.needMorePictures(this.current().element().index(), this.current().index());
+            } else {
+                if (this.similarPosts().length > 0) {
+                    this.showEnd(true);
+                }
             }
         };
+        this.showNext = ko.computed(function() {
+            if (this.current() !== false && this.collection.attachesCount() > 0) {
+                return ((this.current().element().index() + 1) !== this.collection.attachesCount()) || this.similarPosts().length > 0;
+            }
+            return false;
+        }, this);
         /**
          * Prev Slide
          */

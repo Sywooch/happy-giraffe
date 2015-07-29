@@ -41,5 +41,15 @@ mixin bnr-enfomil1(mod, vars)
         img(src="/images/banners/bnr-enfomil1.jpg", alt="")
         span.bnr-enfomil1_btn
 
+mixin photoAd
+    .bnr-photo
+        .bnr-photo_image
+            img(src='http://lorempixel.com/600/400/')
+        .bnr-photo_hold
+            .bnr-photo_author
+                +ava("ava__female", ava.a)
+                .bnr-photo_author_tx Ангелина Богоявленская
+            .bnr-photo_tx 30 способов сообщить близким о своей беременности
+            button.btn.btn-xl.bnr-photo_btn Смотреть
 
 

@@ -40,12 +40,10 @@ class PhotoAdsManager
         $club = $forum->club;
         $label = 'Клуб: ' . $club->title;
 
-        var_dump($postId); die;
-
         $criteria = new \CDbCriteria();
         $criteria->limit = $limit;
         $criteria->addSearchCondition('url', 'photoPost');
-        $criteria->compare('t.id', '<>' . $postId);
+        $criteria->compare('t.originEntityId', '<>' . $postId);
         return Content::model()->byLabels(array($label))->findAll($criteria);
     }
 }

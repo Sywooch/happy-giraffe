@@ -41,6 +41,7 @@ class PhotoAdsManager
         $label = 'Клуб: ' . $club->title;
 
         $criteria = new \CDbCriteria();
+        $criteria->order = 'RAND()';
         $criteria->limit = $limit;
         $criteria->addSearchCondition('url', 'photoPost');
         $criteria->compare('t.originEntityId', '<>' . $postId);

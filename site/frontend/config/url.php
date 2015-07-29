@@ -16,6 +16,7 @@ return array(
         '.*/index' => 404,
 
         /* API */
+        'api/photoAds/<_a>' => 'posts/photoAds/api/<_a>',
         'api/myGiraffe/<_a>' => 'posts/myGiraffe/api/<_a>',
         'api/comments/<_a>' => 'comments/api/<_a>',
         'api/commentatorsContest/<_a>' => 'comments/contest/api/<_a>',

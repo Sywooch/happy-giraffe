@@ -12,7 +12,6 @@ class PhotoAdsManager
 {
     public function getPosts($clubId, $limit = -1)
     {
-        die('123');
         $posts = $this->getPostsInternal($clubId, $limit);
         $data = array();
         foreach ($posts as $post) {

@@ -27,7 +27,7 @@ class PhotoAdsManager
         return $data;
     }
 
-    protected function getPostsInternal($url, $limit = -1)
+    protected function getPostsInternal($url, $limit)
     {
         if (! preg_match('#community\/(\d+)\/forum\/\w+\/(\d+)#', $url, $matches)) {
             return array();

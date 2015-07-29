@@ -12,7 +12,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionGetPosts($url, $limit = -1)
     {
         $manager = new PhotoAdsManager();
-        $posts = $manager->getPosts($url);
+        $posts = $manager->getPosts($url, $limit);
         $this->data = $posts;
         $this->success = true;
     }

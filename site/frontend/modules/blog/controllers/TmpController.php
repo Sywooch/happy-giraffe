@@ -113,6 +113,13 @@ class TmpController extends HController
             $result[] = array('class' => 'interest', 'title' => 'В конкурс', 'num' => Favourites::BLOCK_COMMENTATORS_CONTEST, 'active' => Favourites::inFavourites($model, Favourites::BLOCK_COMMENTATORS_CONTEST));
             $result[] = array('class' => 'mail', 'title' => 'Посты в рассылку', 'num' => Favourites::WEEKLY_MAIL, 'active' => Favourites::inFavourites($model, Favourites::WEEKLY_MAIL));
         }
+
+        $m = CActiveRecord::model($entity)->findByPk($entityId);
+
+        if ($m->type_id == CommunityContent::TYPE_PHOTO_POST) {
+            $result[] = array('class' => 'social', 'title' => 'Отмеченный фотопост', 'num' => Favourites::BLOCK_PHOTO_ADS, 'active' => Favourites::inFavourites($model, Favourites::BLOCK_PHOTO_ADS));
+        }
+
         echo CJSON::encode($result);
     }
 

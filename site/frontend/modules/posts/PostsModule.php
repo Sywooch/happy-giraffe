@@ -25,6 +25,9 @@ class PostsModule extends \CWebModule
             'onAir' => array(
                 'class' => 'site\frontend\modules\posts\modules\onAir\OnAirModule',
             ),
+            'photoAds' => array(
+                'class' => 'site\frontend\modules\posts\modules\photoAds\PhotoAdsModule',
+            ),
         ));
     }
 

@@ -17,6 +17,7 @@ class Favourites extends EMongoDocument
     const CLUB_MORE = 8;
     const BLOCK_MAIL = 9;
     const BLOCK_COMMENTATORS_CONTEST = 10;
+    const BLOCK_PHOTO_ADS = 11;
 
     public $block;
     public $entity;

@@ -95,7 +95,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             }
         };
         this.loadPhotoAds = function loadPhotoAds() {
-            Model.get('/api/photoAds/getPosts/', { url: this.masterUrl, limit: 2 }).done(function(response) {
+            Model.get('/api/photoAds/getPosts/', { url: location.href, limit: 2 }).done(function(response) {
                 this.similarPosts(response.data);
             }.bind(this));
         };

@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'extensions/helpers', 'photo-slider/photo-slider'], function sliderBindingHandler($, ko, Helpers, photoSliderObj) {
+define(['jquery', 'knockout', 'extensions/helpers', 'photo-slider/photo-slider', 'common'], function sliderBindingHandler($, ko, Helpers, photoSliderObj) {
     ko.bindingHandlers.photoSlider = {
         init: function photoSliderInit(element, valueAccessor, allBindings, bindingContext) {
             var values = valueAccessor(),
@@ -26,8 +26,8 @@ define(['jquery', 'knockout', 'extensions/helpers', 'photo-slider/photo-slider']
             }
             $(element).on('click', function sliderClickHandler(evt) {
                 evt.preventDefault();
-                $.magnificPopup.close();
                 getSliderToOpen();
+                $.magnificPopup.close();
             });
         }
     };

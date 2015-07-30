@@ -133,7 +133,7 @@ class SeoTempCommand extends CConsoleCommand
         if (($handle = fopen($file, "r")) !== false) {
             while (($row = fgetcsv($handle)) !== false) {
                 $value = $row[0];
-                if (preg_match('#community\/\d+\/forum\/photoPost\/(\d+)\/', $value, $matches)) {
+                if (preg_match('#community\/\d+\/forum\/photoPost\/(\d+)\/#', $value, $matches)) {
                     $model = CommunityContent::model()->findByPk($matches[1]);
                     Favourites::toggle($model, Favourites::BLOCK_PHOTO_ADS);
                 }

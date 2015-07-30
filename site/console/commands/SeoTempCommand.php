@@ -126,6 +126,22 @@ class SeoTempCommand extends CConsoleCommand
         }
     }
 
+    public function actionPhotoAds()
+    {
+        $file = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'photoAds.csv';
+
+        if (($handle = fopen($file, "r")) !== false) {
+            while (($row = fgetcsv($handle)) !== false) {
+                $value = $row[0];
+                if (preg_match('#community\/\d+\/forum\/photoPost\/(\d+)\/', $value, $matches)) {
+                    $model = CommunityContent::model()->findByPk($matches[1]);
+                    Favourites::toggle($model, Favourites::BLOCK_PHOTO_ADS);
+                }
+            }
+            fclose($handle);
+        }
+    }
+
     public function actionSpecUsers($club)
     {
         $file = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . $club . '.csv';

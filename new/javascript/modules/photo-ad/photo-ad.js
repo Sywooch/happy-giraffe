@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-ad/photo-ad.html', 'photo/PhotoCollection', 'models/Model', 'models/User'], function($, ko, template, PhotoCollection, Model, User) {
+define(['jquery', 'knockout', 'text!photo-ad/photo-ad.html', 'photo/PhotoCollection', 'models/Model', 'models/User', 'extensions/sliderBinding'], function($, ko, template, PhotoCollection, Model, User) {
     function PhotoAd(params) {
         this.post = params.post;
         this.collection = new PhotoCollection(params.collection);

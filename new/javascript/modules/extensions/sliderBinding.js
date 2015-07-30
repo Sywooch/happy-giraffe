@@ -26,8 +26,8 @@ define(['jquery', 'knockout', 'extensions/helpers', 'photo-slider/photo-slider',
             }
             $(element).on('click', function sliderClickHandler(evt) {
                 evt.preventDefault();
-                getSliderToOpen();
                 $.magnificPopup.close();
+                getSliderToOpen();
             });
         }
     };

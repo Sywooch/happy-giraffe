@@ -8,6 +8,6 @@
         </div>
         <!-- /ko -->
         <div class="bnr-photo_tx" data-bind="text: post.title"></div>
-        <a class="btn btn-xl bnr-photo_btn" data-bind="photoSlider: { photo: collection.cover().id(), collectionId: collection.id(), userId: post.authorId  }">Смотреть</a>
+        <a class="btn btn-xl bnr-photo_btn" data-bind="photoSlider: { photo: collection.cover().id(), collectionId: collection.id(), userId: post.authorId  }, click: function() {$.magnificPopup.close();}">Смотреть</a>
     </div>
 </div>

@@ -26,8 +26,8 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.similarPosts = ko.observableArray([]);
         this.showEnd = ko.observable(false);
         this.addViews = function addViews() {
-            //dataLayer.push({'event': 'virtualView'});
-            //yaCounter11221648.hit(this.current().element().url());
+            dataLayer.push({'event': 'virtualView'});
+            yaCounter11221648.hit(this.current().element().url());
         };
         /**
          * getting User

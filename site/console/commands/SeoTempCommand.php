@@ -128,6 +128,9 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionPhotoAds()
     {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+
         $file = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'photoAds.csv';
 
         if (($handle = fopen($file, "r")) !== false) {

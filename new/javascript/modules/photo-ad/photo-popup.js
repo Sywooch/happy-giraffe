@@ -15,15 +15,17 @@ define(['jquery', 'knockout', 'models/Model', 'modules-helpers/component-custom-
                         type: 'inline',
                         overflowY: 'auto',
                         tClose: 'Закрыть',
-                        fixedBgPos: true,
-                        callbacks: {
-                            open: function () {
-                                $('html').addClass('mfp-html');
-                                addBaron('.scroll');
-                            },
-                            close: function () {
-                                $('html').removeClass('mfp-html');
-                            }
+                        fixedBgPos: true
+                    },
+                    callbacks: {
+                        open: function() {
+                            setTimeout(function() {
+                                $('.bnr-photo_btn').on('click', function () {
+                                    console.log('test');
+                                    $.magnificPopup.close();
+                                    return true;
+                                });
+                            }, 200);
                         }
                     }
                 });

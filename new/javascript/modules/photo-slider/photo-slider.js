@@ -171,6 +171,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             } else {
                 if (this.similarPosts().length > 0) {
                     this.showEnd(true);
+                    AdHistory.pushState(null, this.masterTitle, this.masterUrl + '#end');
                 }
             }
         };

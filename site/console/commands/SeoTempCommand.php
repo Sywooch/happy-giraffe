@@ -19,8 +19,8 @@ class SeoTempCommand extends CConsoleCommand
 
     public function init()
     {
-        $this->ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
-        $this->ga->setProfile('ga:53688414');
+//        $this->ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+//        $this->ga->setProfile('ga:53688414');
     }
 
     public function actionFixComments()

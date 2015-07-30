@@ -46,9 +46,9 @@ class PhotoAdsManager
         $criteria->addSearchCondition('url', 'photoPost');
         $criteria->compare('t.originEntityId', '<>' . $postId);
         if ($onlyFavourite) {
-            //$this->onlyFavourite($criteria);
+            $this->onlyFavourite($criteria);
         }
-        return Content::model()->findAll($criteria);
+        return Content::model()->byLabels(array($label))->findAll($criteria);
     }
 
     protected function onlyFavourite(\CDbCriteria &$criteria)

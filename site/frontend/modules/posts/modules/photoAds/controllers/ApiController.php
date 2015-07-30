@@ -9,7 +9,7 @@ use site\frontend\modules\posts\modules\photoAds\components\PhotoAdsManager;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    const COOKIE_NAME = 'PhotoAds';
+    const COOKIE_NAME = 'PhotoAds1';
 
     public function actionGetPosts($url, $limit = -1)
     {

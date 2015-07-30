@@ -26,7 +26,7 @@ class ShareButtonsWidget extends CWidget
 
         $cs->amd['shim']['ok.share'] = array('exports' => 'OK');
         $cs->amd['paths']['ok.share'] = '//connect.ok.ru/connect';
-        $cs->registerAMD('OkShare#' . $this->id, array('OkShare' => 'ok.share', '$' => 'jquery') , 'OK.CONNECT.insertShareWidget("OkShare_' . $this->id . '","' . $this->url . '","{width:135,height:21,st:\'straight\',sz:20,ck:2}");');
+        $cs->registerAMD('OkShare#' . $this->id, array('OkShare' => 'ok.share', '$' => 'jquery') , 'OK.CONNECT.insertShareWidget("OkShare_' . $this->id . '","' . $this->url . '","{width:150,height:21,st:\'straight\',sz:20,ck:2}");');
 
         $cs->amd['shim']['vk.share'] = array('exports' => 'VK');
         $cs->amd['paths']['vk.share'] = '//vk.com/js/api/share';

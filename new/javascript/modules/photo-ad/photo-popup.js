@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'models/Model', 'modules-helpers/component-custom-returner'], function($, ko, Model, customReturner) {
+define(['jquery', 'knockout', 'models/Model', 'modules-helpers/component-custom-returner', 'common'], function($, ko, Model, customReturner) {
     if (window.location.href != '#openGallery') {
         Model.get('/api/photoAds/getAdPosts/', {url: location.href}).done(function (response) {
             var data = response.data[0];

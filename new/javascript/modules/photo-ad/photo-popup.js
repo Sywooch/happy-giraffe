@@ -19,18 +19,10 @@ define(['jquery', 'knockout', 'models/Model', 'modules-helpers/component-custom-
                     },
                     callbacks: {
                         open: function() {
-                            setTimeout(function() {
-                                $('.bnr-photo_btn').on('click', function () {
-                                    console.log('test');
-                                    $.magnificPopup.close();
-                                    return true;
-                                });
-                            }, 200);
+                            ko.applyBindings({}, $('photo-ad')[0]);
                         }
                     }
                 });
-
-                ko.applyBindings({}, $('photo-ad')[0]);
             }
         }.bind(this));
     }

@@ -1,7 +1,9 @@
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile('https://relap.io/api/v6/head.js?token=TzdPbOhsNbNOmXJ3', ClientScript::POS_HEAD);
-$cs->registerAMD('photoAd', array('popup' => 'photo-ad/photo-popup'));
+if (Yii::app()->vm->version == VersionManager::VERSION_DESKTOP) {
+    $cs->registerAMD('photoAd', array('popup' => 'photo-ad/photo-popup'));
+}
 /** @todo перенести обработку $this->post->metaObject в контроллер */
 $this->pageTitle = $this->post->title;
 $this->metaDescription = $this->post->metaObject->description;

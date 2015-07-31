@@ -413,13 +413,16 @@ body.gallery {overflow:hidden;}
 			.border-radius(4px);
 			.transition(all 0.4s ease);
 		}
-		.i-photo-arrow {
+		.i-photo-arrow__l {
 			opacity: 0;
+		}
+		.i-photo-arrow__r {
+			.opacity(.4);
 		}
         &_close {
             .scale(1);
         }
-		&_c:hover .i-photo-arrow {.opacity(.4);}
+		&_c:hover .i-photo-arrow__l {.opacity(.4);}
 
         &_c:hover .i-photo-arrow:hover {.opacity(1);}
 

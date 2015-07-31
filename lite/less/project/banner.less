@@ -235,7 +235,6 @@
     color: #fff;
     width: 600px;
     height: 400px;
-    padding: 55px 35px 0;
 
     &_author {
         margin-bottom: 23px;
@@ -247,6 +246,7 @@
 
     &_hold {
         position: relative;
+        padding: 55px 35px 0;
     }
 
     &_tx {
@@ -282,5 +282,33 @@
         top: 0;
         bottom: 0;
         background-color: rgba(58, 142, 200, 0.8);
+    }
+
+    &_count-hold {
+        position: absolute;
+        float: right;
+        top: 14px;
+        right: 23px;
+    }
+
+    &_count {
+        font-size: 50px;
+        line-height: 44px;
+    }
+
+    &_count-tx {
+        font-size: 24px;
+        line-height: 24px;
+    }
+}
+
+.bnr-photo:hover {
+    .bnr-photo_image:after {
+        display: none;
+    }
+
+    .bnr-photo_btn {
+        background-color: #4fb044;
+        border-color: #4fb044;
     }
 }

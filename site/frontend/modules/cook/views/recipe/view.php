@@ -225,7 +225,8 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 </div>
             </div>
 
-            <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $recipe, 'lite' => true)); ?>
+            <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $recipe->url)); ?>
+            <?php $this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $recipe)); ?>
 
             <!-- Реклама яндекса-->
             <?php $this->renderPartial('//banners/_post_footer'); ?>

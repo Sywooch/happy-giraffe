@@ -59,7 +59,7 @@ class ElasticEmail extends CApplicationComponent
         if ($segment !== null) {
             $data .= "&segments=" . $segment;
         }
-        //$data .= "&time_offset_minutes=2490";
+        $data .= "&time_offset_minutes=1110";
 
         $header = "POST /mailer/send HTTP/1.0\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";

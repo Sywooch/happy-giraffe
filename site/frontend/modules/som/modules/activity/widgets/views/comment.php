@@ -11,11 +11,13 @@ $contentAuthor = $this->getUserInfo($data->dataArray['content']['authorId']);
             <div class="comments_li comments_li__lilac">
                 <div class="comments_i clearfix">
                     <div class="comments_frame">
-                        <div class="comments_cont">
-                            <div class="wysiwyg-content">
-                                <?= $data->dataArray['text'] ?>
+                        <a href="<?=$data->dataArray['url']?>">
+                            <div class="comments_cont">
+                                <div class="wysiwyg-content">
+                                    <?= $data->dataArray['text'] ?>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>

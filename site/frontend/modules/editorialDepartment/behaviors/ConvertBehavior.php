@@ -62,6 +62,9 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             'data' => array(
                 'type' => 'post',
                 'noWysiwyg' => true,
+                'hideRubrics' => true,
+                'hideRelap' => true,
+                'extraLikes' => true,
             ),
         );
         $post->isAutoMeta = true;

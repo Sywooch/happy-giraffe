@@ -47,6 +47,13 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <h1 class="b-article_t"><?= $this->post->title ?></h1>
                 <?php
             }
+            ?>
+            <? if ($this->post->templateObject->getAttr('extraLikes', false)): ?>
+                <div class="b-article_header-likes">
+                <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $this->post->url)); ?>
+                </div>
+            <?php endif; ?>
+            <?php
             if (Yii::app()->user->checkAccess('moderator')) {
                 ?>
                 <redactor-panel params="entity: '<?= $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
@@ -78,7 +85,13 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     <div class="like-control like-control__line">
                     </div>
                 </div>
-                <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $this->post->url)); ?>
+                <div class="custom-likes">
+                    <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
+                    <div class="custom-likes_in">
+                        <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $this->post->url)); ?>
+                    </div>
+                </div>
+
                 <?php $this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $this->post->socialObject)); ?>
 
                 <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
@@ -86,7 +99,9 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <!-- Реклама яндекса-->
                 <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
 
+                <? if (! $this->post->templateObject->getAttr('hideRelap', false)): ?>
                 <script id="iAsL_zX0O8E7vb29">if (window.relap) window.relap.ar('iAsL_zX0O8E7vb29');</script>
+                <?php endif; ?>
             </div>
         </div>
     </article>

@@ -60,6 +60,7 @@ $this->beginContent('//layouts/lite/community');
                     ?>
                 </div>
 
+                <? if (! $this->post->templateObject->getAttr('hideRubrics', false)): ?>
                 <div class="side-block rubrics">
                     <div class="side-block_tx">Рубрики клуба</div>
                     <ul>
@@ -72,6 +73,7 @@ $this->beginContent('//layouts/lite/community');
                         <?php endforeach; ?>
                     </ul>
                 </div>
+                <?php endif; ?>
             </aside>
         </div>
     </div>

@@ -23,6 +23,21 @@ class SeoTempCommand extends CConsoleCommand
 //        $this->ga->setProfile('ga:53688414');
     }
 
+    public function actionFixAdv()
+    {
+        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model()->byService('advPost'));
+        $iterator = new CDataProviderIterator($dp);
+        foreach ($iterator as $i) {
+            echo $i->id . "\n";
+            $data = $i->templateObject->data;
+            $data['hideRubrics'] = true;
+            $data['hideRelap'] = true;
+            $data['extraLikes'] = true;
+            $i->templateObject->data = $data;
+            $i->save();
+        }
+    }
+
     public function actionFixComments()
     {
         $db = Yii::app()->db;

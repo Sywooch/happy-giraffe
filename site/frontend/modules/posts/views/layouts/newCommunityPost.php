@@ -8,6 +8,7 @@ $this->beginContent('//layouts/lite/community');
             echo $content;
             ?>
             <aside class="b-main_col-sidebar visible-md">
+                <community-add params="forumId: <?= $this->forum->id ?>, clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id)) ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
                 <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
                 <div class="bnr-base">
                     <!--AdFox START-->
@@ -43,10 +44,6 @@ $this->beginContent('//layouts/lite/community');
                     <!-- _________________________AdFox Asynchronous code END___________________________ -->
                 </div>
                 <?php $this->endWidget(); ?>
-
-                <?php if($this->forum) { ?>
-                    <community-add params="forumId: <?= $this->forum->id ?>, clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id)) ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
-                <?php } ?>
 
                 <div class="side-block onair-min">
                     <div class="side-block_tx">Прямой эфир</div>

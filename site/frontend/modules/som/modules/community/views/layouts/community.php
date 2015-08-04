@@ -43,8 +43,6 @@ $this->beginContent('//layouts/lite/community');
             </div>
             <?php $this->endWidget(); ?>
 
-			<community-add params="clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id)) ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
-
             <div class="menu-simple">
             </div>
         </aside>

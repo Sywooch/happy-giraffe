@@ -755,3 +755,48 @@
 .b-share_theme_counter .b-share_type_small .b-share-btn__wrap {
     margin-left: 5px !important;
 }
+
+.social-button {
+    width: 295px;
+    height: 40px;
+    display: inline-block;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 3px;
+
+    &_ico {
+        width: 48px;
+        height: 100%;
+        float: left;
+        border-radius: 3px 0 0 3px;
+        background: url(/lite/images/social-btn.png) no-repeat;
+        background-size: 90%;
+        background-position: 3px 0;
+    }
+
+    &_tx {
+        margin-left: 13px;
+        line-height: 40px;
+        float:left;
+    }
+
+    &_count {
+        line-height: 20px;
+        float: right;
+        margin: 10px 8px 10px 0;
+        padding: 0 5px 0 4px;
+        border-radius: 2px;
+    }
+}
+
+.social-button.odnoklassniki {
+    background-color: #fa8a0f;
+
+    .social-button_ico {
+        background-color: #f27200;
+    }
+
+    .social-button_count {
+        background-color: #f27200;
+    }
+}

@@ -1,3 +1,17 @@
-<div class="clearfix margin-b20" data-bind="visible: communitySubscription.active">
+<!-- ko if: communitySubscription.active -->
+<div class="clearfix margin-b20">
     <a class="btn btn-block btn-success btn-xl fancy-top" href="" data-bind="href: '/blog/form/type1/?club_id=' + forumId + '&useAMD=1'">Добавить в клуб</a>
 </div>
+<!-- /ko -->
+
+<!-- ko if: ! userConfig.isGuest && ! communitySubscription.active() -->
+<div class="clearfix margin-b20">
+    <a class="btn btn-block btn-success btn-xl" href="" data-bind="click: communitySubscription.subscribe">Подписаться на клуб</a>
+</div>
+<!-- /ko -->
+
+<!-- ko if: userConfig.isGuest -->
+<div class="clearfix margin-b20">
+    <a class="btn btn-block btn-success btn-xl fancy-top login-button" href="" data-bind="follow: {}">Добавить в клуб</a>
+</div>
+<!-- /ko -->

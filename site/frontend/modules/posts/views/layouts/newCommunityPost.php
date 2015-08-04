@@ -57,7 +57,7 @@ $this->beginContent('//layouts/lite/community');
                     ?>
                 </div>
 
-                <? if (! ($this instanceof PostController) || (! $this->post->templateObject->getAttr('hideRubrics', false))): ?>
+                <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || (! $this->post->templateObject->getAttr('hideRubrics', false))): ?>
                 <div class="side-block rubrics">
                     <div class="side-block_tx">Рубрики клуба</div>
                     <ul>

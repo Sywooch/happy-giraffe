@@ -31,7 +31,7 @@ class ContentRssBehavior extends RssBehavior
         return $this->owner->getUser();
     }
 
-    public function getRssUrl()
+    public function getRssUrlInternal()
     {
         return $this->owner->url;
     }

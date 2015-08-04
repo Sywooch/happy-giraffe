@@ -32,7 +32,7 @@ class CommentRssBehavior extends RssBehavior
         return $this->owner->author;
     }
 
-    public function getRssUrl()
+    public function getRssUrlInternal()
     {
         return $this->owner->getUrl(true);
     }

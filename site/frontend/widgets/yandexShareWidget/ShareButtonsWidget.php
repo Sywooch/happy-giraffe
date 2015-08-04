@@ -9,6 +9,7 @@ Yii::import('application.widgets.yandexShareWidget.ShareWidget');
 class ShareButtonsWidget extends CWidget
 {
     public $url;
+    public $view = 'default';
 
     public function init()
     {
@@ -17,7 +18,7 @@ class ShareButtonsWidget extends CWidget
 
     public function run()
     {
-        $this->render('ShareButtonsWidget');
+        $this->render('ShareButtonsWidget/' . $this->view);
     }
 
     protected function registerScripts()

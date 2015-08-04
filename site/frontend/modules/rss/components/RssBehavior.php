@@ -13,5 +13,14 @@ abstract class RssBehavior extends \CActiveRecordBehavior
     abstract public function getRssDescription();
     abstract public function getRssDate();
     abstract public function getRssAuthor();
-    abstract public function getRssUrl();
+    abstract public function getRssUrlInternal();
+
+    public function getRssUrl()
+    {
+        $url = $this->getRssUrlInternal();
+        if (strpos($url, '/') === 0) {
+            $url = \Yii::app()->homeUrl . $url;
+        }
+        return $url;
+    }
 } 

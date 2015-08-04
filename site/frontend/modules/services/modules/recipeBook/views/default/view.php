@@ -3,6 +3,7 @@
  * @var RecipeBookRecipe $recipe
  * @var LiteController $this
  */
+$this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $recipe));
 $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $recipe));
 ?>
 
@@ -56,7 +57,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                         </div>
                     </div>
                     <?php endif; ?>
-                    <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $recipe, 'lite' => true)); ?>
+                    <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $recipe->getUrl(false, true))); ?>
                 </div>
             </article>
             <!-- /b-article-->

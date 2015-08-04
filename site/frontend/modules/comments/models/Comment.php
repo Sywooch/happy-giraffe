@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\comments\models;
+use site\frontend\modules\posts\models\Content;
 
 /**
  * Description of Comment
@@ -81,22 +82,26 @@ class Comment extends \Comment implements \IHToJSON
     public function getUrl($absolute = false)
     {
         // Если не уверены, что есть метод getUrl
-        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto', 'Route', 'Service')))
+        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto', 'Route', 'Service', 'AdvPost')))
             return false;
         // Потерялась сущность
         if ($this->commentEntity === null)
             return '';
-        // Для getUrl($comments = false, $absolute = false)
-        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto')))
-            $url = $this->commentEntity->getUrl(false, $absolute);
-        // Для getUrl($absolute = false)
-        if (!in_array($this->entity, array('User', 'Route')))
-            $url = $this->commentEntity->getUrl($absolute);
-        // Для getUrl($comments = false)
-        if (!in_array($this->entity, array('Service'))) {
-            $url = $this->commentEntity->getUrl(false);
-            if ($absolute)
-                $url = \Yii::app()->createAbsoluteUrl($url);
+        if (Content::$entityAliases[$this->entity] == 'site\frontend\modules\posts\models\Content') {
+            $url = $this->commentEntity->url;
+        } else {
+            // Для getUrl($comments = false, $absolute = false)
+            if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto')))
+                $url = $this->commentEntity->getUrl(false, $absolute);
+            // Для getUrl($absolute = false)
+            if (!in_array($this->entity, array('User', 'Route')))
+                $url = $this->commentEntity->getUrl($absolute);
+            // Для getUrl($comments = false)
+            if (!in_array($this->entity, array('Service'))) {
+                $url = $this->commentEntity->getUrl(false);
+                if ($absolute)
+                    $url = \Yii::app()->createAbsoluteUrl($url);
+            }
         }
 
         // Добавляем хеш для комментария

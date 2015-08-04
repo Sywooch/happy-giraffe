@@ -6,6 +6,7 @@
  * @var string $nextPhotoUrl
  * @var string $prevPhotoUrl
  */
+$this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $relatedModel));
 Yii::app()->clientScript->registerPackage('gallery');
 ?>
 
@@ -112,7 +113,7 @@ Yii::app()->clientScript->registerPackage('gallery');
                     <?php endif; ?>
                 <?php endif; ?>
             <?php else: ?>
-                <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $relatedModel)); ?>
+                <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $photo->getUrl(false, true))); ?>
             <?php endif; ?>
 
         </div>

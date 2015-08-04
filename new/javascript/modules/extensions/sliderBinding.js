@@ -22,7 +22,9 @@ define(['jquery', 'knockout', 'extensions/helpers', 'photo-slider/photo-slider',
                 ko.applyBindings({}, $(tagName)[0]);
             };
             if (Helpers.checkUrlForHash(galleryOpenHash)) {
-                getSliderToOpen();
+                if ($(tagName).length == 0) {
+                    getSliderToOpen();
+                }
             }
             $(element).on('click', function sliderClickHandler(evt) {
                 evt.preventDefault();

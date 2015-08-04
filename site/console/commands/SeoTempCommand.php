@@ -317,6 +317,12 @@ class SeoTempCommand extends CConsoleCommand
         });
     }
 
+    public function actionTest()
+    {
+        $comment = \site\frontend\modules\comments\models\Comment::model()->findByPk(600925);
+        echo $comment->url;
+    }
+
     public function actionTraf()
     {
         $this->ga->setDateRange('2011-01-01', '2015-03-31');

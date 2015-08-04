@@ -8,6 +8,7 @@ include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DI
 
 class SocialHelper
 {
+    const CACHE_EXPIRATION_TIME = 300;
     const OK_PAGE = 'http://ok.ru/happygiraffe';
 
     public static function ok()
@@ -19,7 +20,7 @@ class SocialHelper
             $doc = str_get_html($page);
             $value = $doc->find('#groupMembersCntEl', 0)->plaintext;
             $value = preg_replace('/&#?[a-z0-9]+;/i', '', $value);
-            self::getCacheComponent()->set($cacheId, $value, 300);
+            self::getCacheComponent()->set($cacheId, $value, self::CACHE_EXPIRATION_TIME);
         }
         return $value;
     }

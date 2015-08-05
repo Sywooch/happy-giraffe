@@ -19,6 +19,9 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
         'validateOnType' => true,
         'validationDelay' => 400,
     ),
+    'htmlOptions' => array(
+        'target' => '_self',
+    ),
 )); ?>
 
 <?=$form->hiddenField($model, 'type_id')?>

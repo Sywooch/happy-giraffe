@@ -15,9 +15,6 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
         'validateOnType' => true,
         'validationDelay' => 400,
     ),
-    'htmlOptions' => array(
-        'target' => '_self',
-    ),
 )); ?>
 
 <?php if (isset($_GET['redirect'])) echo CHtml::hiddenField('redirect', $_GET['redirect']) ?>

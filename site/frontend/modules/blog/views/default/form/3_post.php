@@ -14,6 +14,9 @@
                 'validateOnType' => true,
                 'validationDelay' => 400,
             ),
+            'htmlOptions' => array(
+                'target' => '_self',
+            ),
         )); ?>
 
     <?=$form->hiddenField($model, 'type_id')?>

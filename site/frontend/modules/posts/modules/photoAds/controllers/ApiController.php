@@ -22,14 +22,11 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionGetAdPosts($url, $limit = 1)
     {
+        $this->data = array();
         if (isset(\Yii::app()->request->cookies[self::COOKIE_NAME])) {
-            $this->data = array();
-        } else {
             $cookieValue = isset(\Yii::app()->request->cookies[self::COOKIE_NAME]) ? unserialize(\Yii::app()->request->cookies[self::COOKIE_NAME]->value) : array();
 
-            if (count($cookieValue) >= 2) {
-                $this->data = array();
-            } else {
+            if (count($cookieValue) < 2) {
                 $manager = new PhotoAdsManager();
                 $posts = $manager->getPosts($url, false, $limit, $cookieValue);
                 foreach ($posts as $p) {

@@ -10,9 +10,9 @@ use site\frontend\modules\posts\models\Content;
 
 class PhotoAdsManager
 {
-    public function getPosts($url, $onlyFavourite = false, $limit = -1)
+    public function getPosts($url, $onlyFavourite = false, $limit = -1, $exclude = array())
     {
-        $posts = $this->getPostsInternal($url, $onlyFavourite, $limit);
+        $posts = $this->getPostsInternal($url, $onlyFavourite, $limit, $exclude);
         $data = array();
         foreach ($posts as $post) {
             $collection = PhotoCollection::model()->findByAttributes(array(
@@ -27,7 +27,7 @@ class PhotoAdsManager
         return $data;
     }
 
-    protected function getPostsInternal($url, $onlyFavourite, $limit)
+    protected function getPostsInternal($url, $onlyFavourite, $limit, $exclude)
     {
         if (! preg_match('#community\/(\d+)\/forum\/\w+\/(\d+)#', $url, $matches)) {
             return array();
@@ -44,7 +44,8 @@ class PhotoAdsManager
         $criteria->order = 'RAND()';
         $criteria->limit = $limit;
         $criteria->addSearchCondition('url', 'photoPost');
-        $criteria->compare('t.originEntityId', '<>' . $postId);
+        $exclude[] = $postId;
+        $criteria->addNotInCondition('t.id', $exclude);
         if ($onlyFavourite) {
             $this->onlyFavourite($criteria);
         }

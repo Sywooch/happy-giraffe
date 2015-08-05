@@ -15,9 +15,6 @@ $model = new AlbumPhoto();
                 return false;
         }'),
         ),
-        'htmlOptions' => array(
-            'target' => '_self',
-        ),
     )); ?>
 
     <div class="b-settings-blue_tale"></div>

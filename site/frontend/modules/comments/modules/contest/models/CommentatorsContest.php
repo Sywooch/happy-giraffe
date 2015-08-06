@@ -28,7 +28,7 @@ class CommentatorsContest extends \HActiveRecord
     {
         return array(
             'active' => array(
-                'condition' => 'NOW() > t.startDate AND NOW() < t.endDate',
+                'condition' => 'NOW() > t.startDate AND NOW() <= t.endDate',
             ),
         );
     }

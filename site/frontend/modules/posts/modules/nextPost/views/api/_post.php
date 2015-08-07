@@ -1,32 +1,13 @@
 <?php
-$this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $this->post->socialObject));
-Yii::app()->clientScript->registerAMD('kow', array('kow'));
+$id = 'nextPost_' . uniqid();
+Yii::app()->clientScript->registerAMD('kow', array('ko' => 'knockout'), "ko.applyBindings({}, $('#" . $id . " comment-widget')[0]); $('#" . $id . " share-buttons').each(function() {ko.applyBindings({}, $(this)[0]);});");
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
-        /** @todo Исправить класс при конвертации */
-        'entity' => $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity,
-        'entity_id' => $this->post->originEntityId,
-        )));
+    /** @todo Исправить класс при конвертации */
+    'entity' => $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity,
+    'entity_id' => $this->post->originEntityId,
+)));
 ?>
-<!-- Основная колонка-->
-<div class="b-main_col-article">
-    <?php if (Yii::app()->user->checkAccess('toggleAnounces')): ?>
-        <?php if (in_array($this->post->originService, array('oldCommunity', 'advPost'))): ?>
-            <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
-                'model' => $this->post,
-                'line' => 'bigPost',
-                'preset' => 'bigPost',
-                'title' => 'Большой пост',
-            )); ?>
-            <?php $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
-                'model' => $this->post,
-                'line' => 'smallPost',
-                'preset' => 'smallPost',
-                'title' => 'Маленький пост',
-            )); ?>
-        <?php endif; ?>
-    <?php endif; ?>
-    <!-- Статья с текстом-->
-    <!-- b-article-->
+<div id="<?=$id?>">
     <article class="b-article b-article__single clearfix b-article__lite">
         <div class="b-article_cont clearfix">
             <div class="b-article_cont-tale"></div>
@@ -46,19 +27,19 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             if (!$this->post->templateObject->getAttr('hideTitle', false)) {
                 ?>
                 <h1 class="b-article_t"><?= $this->post->title ?></h1>
-                <?php
+            <?php
             }
             ?>
             <? if ($this->post->templateObject->getAttr('extraLikes', false)): ?>
                 <div class="b-article_header-likes">
-                    <share-buttons params="url: '<?=$this->post->url?>'"></share-buttons>
+                    <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $this->post->url, 'view' => 'simple')); ?>
                 </div>
             <?php endif; ?>
             <?php
             if (Yii::app()->user->checkAccess('moderator')) {
                 ?>
                 <redactor-panel params="entity: '<?= $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
-                <?php
+            <?php
             }
             ?>
             <div class="b-article_in clearfix">
@@ -86,22 +67,16 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     <div class="like-control like-control__line">
                     </div>
                 </div>
-                <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $this->post->url)); ?>
-
-                <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
-
-                <!-- Реклама яндекса-->
-                <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
-
-                <? if (! $this->post->templateObject->getAttr('hideRelap', false)): ?>
-                <script id="iAsL_zX0O8E7vb29">if (window.relap) window.relap.ar('iAsL_zX0O8E7vb29');</script>
-                <?php endif; ?>
+                <div class="custom-likes">
+                    <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
+                    <div class="custom-likes_in">
+                        <share-buttons params="url: '<?=$this->post->url?>'"></share-buttons>
+                    </div>
+                </div>
             </div>
         </div>
     </article>
-    <!-- /b-article-->
-    <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
-    <!-- comments-->
+
     <section class="comments comments__buble">
         <div class="comments-menu">
             <ul data-tabs="tabs" class="comments-menu_ul">
@@ -114,15 +89,4 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             <?php $comments->run(); ?>
         </div>
     </section>
-    <!-- /comments-->
-    <?php
-    if (false && $this->post->templateObject->getAttr('type', false) == 'question') {
-        // Виджет "задать вопрос"
-        $this->widget('site.frontend.modules.community.widgets.CommunityQuestionWidget', array('forumId' => $this->forum->id));
-    }
-    ?>
-
-    <next-post params="postId: <?=$this->post->id?>"></next-post>
 </div>
-<!-- /Основная колонка-->
-<!--/////-->

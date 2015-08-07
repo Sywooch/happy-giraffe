@@ -28,6 +28,9 @@ class PostsModule extends \CWebModule
             'photoAds' => array(
                 'class' => 'site\frontend\modules\posts\modules\photoAds\PhotoAdsModule',
             ),
+            'nextPost' => array(
+                'class' => 'site\frontend\modules\posts\modules\nextPost\NextPostModule',
+            ),
         ));
     }
 

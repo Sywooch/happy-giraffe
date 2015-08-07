@@ -16,6 +16,7 @@ return array(
         '.*/index' => 404,
 
         /* API */
+        'api/nextPost/<_a>' => 'posts/nextPost/api/<_a>',
         'api/photoAds/<_a>' => 'posts/photoAds/api/<_a>',
         'api/myGiraffe/<_a>' => 'posts/myGiraffe/api/<_a>',
         'api/comments/<_a>' => 'comments/api/<_a>',

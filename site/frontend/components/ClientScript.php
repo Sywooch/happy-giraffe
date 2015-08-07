@@ -105,9 +105,11 @@ class ClientScript extends CClientScript
         $this->hasScripts = true;
         if (!isset($this->scriptFiles[self::POS_HEAD]))
             $this->scriptFiles[self::POS_HEAD] = array();
-        $this->scriptFiles[self::POS_HEAD] = array(
-            $this->amdFile => $this->amdFile,
-            ) + $this->scriptFiles[self::POS_HEAD];
+        if (! Yii::app()->request->isAjaxRequest) {
+            $this->scriptFiles[self::POS_HEAD] = array(
+                    $this->amdFile => $this->amdFile,
+                ) + $this->scriptFiles[self::POS_HEAD];
+        }
         if (!isset($this->scripts[self::POS_HEAD]))
             $this->scripts[self::POS_HEAD] = array();
         $this->scripts[self::POS_HEAD] = array(

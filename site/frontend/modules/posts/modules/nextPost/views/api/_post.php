@@ -1,6 +1,6 @@
 <?php
 $id = 'nextPost_' . uniqid();
-Yii::app()->clientScript->registerAMD('kow', array('ko' => 'knockout'), "ko.applyBindings({}, $('#" . $id . " comment-widget')[0]); $('#" . $id . " share-buttons').each(function() {ko.applyBindings({}, $(this)[0]);});");
+Yii::app()->clientScript->registerAMD('kow', array('ko' => 'knockout', 'userConfig' => 'user-config'), "if (! userConfig.isGuest) ko.applyBindings({}, $('#" . $id . " comment-widget')[0]); $('#" . $id . " share-buttons').each(function() {ko.applyBindings({}, $(this)[0]);});");
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
     /** @todo Исправить класс при конвертации */
     'entity' => $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity,

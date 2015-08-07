@@ -122,7 +122,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
     }
     ?>
 
-    <next-post params="postId: <?=$this->post->id?>"></next-post>
+    <next-post params='post: <?=CJSON::encode($this->post->toJSON())?>'></next-post>
 </div>
 <!-- /Основная колонка-->
 <!--/////-->

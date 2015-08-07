@@ -68,4 +68,8 @@ define(["jquery", "knockout"], function ($, ko) {
     $('homepage-onair').each(componentIterator);
     ko.components.register('photo-ad', { require: 'photo-ad/photo-ad' });
     $('photo-ad').each(componentIterator);
+    ko.components.register('share-buttons', { require: 'share-buttons/share-buttons' });
+    $('share-buttons').each(componentIterator);
+    ko.components.register('next-post', { require: 'next-post/next-post' });
+    $('next-post').each(componentIterator);
 });

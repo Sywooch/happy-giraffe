@@ -12,7 +12,15 @@ block vars
 block layout
 
     .contest
+        .contest-commentator.contest-commentator
+            +contestCommentatorHeader('', contestCommentatorHeader.base)
+
+    .contest
         .contest-commentator.contest-commentator-summer
+            +contestCommentatorHeader('', contestCommentatorHeader.base)
+
+    .contest
+        .contest-commentator.contest-commentator-august
             +contestCommentatorHeader('', contestCommentatorHeader.base)
                         
             // описание конкурса

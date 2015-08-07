@@ -27,6 +27,8 @@ class ApiController extends \site\frontend\modules\posts\controllers\ApiControll
                 if ($this->post !== null) {
                     $this->success = true;
                     $this->data = array(
+                        'title' => $this->post->title,
+                        'url' => $this->post->url,
                         'html' => $this->renderPartial('_post', null, true, true),
                     );
                 }

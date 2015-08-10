@@ -1,0 +1,8 @@
+<div data-bind="nextPost: {}">
+    <div data-bind="waypoint: { url: post.url, title: post.title }" style="height: 1px;"></div>
+    <!-- ko foreach: posts -->
+        <div data-bind="html: html, waypoint: { url: url, title: title }" class="next-post">
+
+        </div>
+    <!-- /ko -->
+</div>

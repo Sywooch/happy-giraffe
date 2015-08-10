@@ -12,7 +12,7 @@ class ApiController extends \site\frontend\modules\posts\controllers\ApiControll
     public $post;
     private $_user;
 
-    public function actionGet($postId)
+    public function actionGet($postId, array $exclude = array())
     {
         \Yii::app()->clientScript->useAMD = true;
 
@@ -22,8 +22,8 @@ class ApiController extends \site\frontend\modules\posts\controllers\ApiControll
             if (strpos($label->text, 'Клуб') !== false) {
                 $criteria = new \CDbCriteria();
                 $criteria->order = 'RAND()';
+                $criteria->addNotInCondition('t.id', $exclude);
                 $this->post = Content::model()->byLabels(array($label->text))->byService('advPost')->find($criteria);
-                $this->post = Content::model()->findByPk(21);
                 if ($this->post !== null) {
                     $this->success = true;
                     $this->data = array(

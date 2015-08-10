@@ -122,7 +122,9 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
     }
     ?>
 
+    <?php if (Yii::app()->user->checkAccess('moderator')): ?>
     <next-post params='post: <?=CJSON::encode($this->post->toJSON())?>'></next-post>
+    <?php endif; ?>
 </div>
 <!-- /Основная колонка-->
 <!--/////-->

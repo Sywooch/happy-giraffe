@@ -11,14 +11,25 @@ class ShareButtonsWidget extends CWidget
     public $url;
     public $view = 'default';
 
+    private static $_counter = 0;
+    private $_id;
+
     public function init()
     {
-        $this->registerScripts();
+        //$this->registerScripts();
     }
 
     public function run()
     {
-        $this->render('ShareButtonsWidget/' . $this->view);
+        //$this->render('ShareButtonsWidget/' . $this->view);
+    }
+
+    public function getId($autoGenerate=true)
+    {
+        if($this->_id!==null)
+            return $this->_id;
+        elseif($autoGenerate)
+            return $this->_id='yw'. uniqid() .self::$_counter++;
     }
 
     protected function registerScripts()

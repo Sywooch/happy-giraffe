@@ -10,8 +10,20 @@ return array(
         'wrapShim' => false,
         'shim' => array(
             'AdFox' => array(),
+            'facebook' => array(
+                'exports' => 'FB',
+            ),
+            'ok' => array(
+                'exports' => 'OK',
+            ),
+            'vk' => array(
+                'exports' => 'VK',
+            ),
         ),
         'paths' => array(
+            'facebook' => '//connect.facebook.net/ru_RU/all',
+            'ok' => '//connect.ok.ru/connect',
+            'vk' => '//vk.com/js/api/share',
             'knockout-amd-helpers' => 'knockout-amd-helpers.min',
             'wysiwyg' => '/new/javascript/wysiwyg',
             'ko_library' => '/javascripts/ko_library',

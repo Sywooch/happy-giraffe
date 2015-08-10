@@ -13,9 +13,12 @@ class CommentWidget extends \CWidget
 {
 
     public $model;
-    public $cacheId = 'dbCache';
+    public $cacheId = 'cache';
     protected $_count = null;
     private $_actions = array();
+
+    private static $_counter = 0;
+    private $_id;
 
     public function run()
     {
@@ -167,6 +170,13 @@ class CommentWidget extends \CWidget
         //echo '<comment-widget class="comment-widget" style="display: block;" params="entity: \'' . get_class($this->model) . '\', entityId: \'' . $this->model->id . '\', listType: \'list\', channelId: \'' . \site\frontend\modules\comments\models\Comment::getChannel($this->model) . '\'"></comment-widget>';
     }
 
+    public function getId($autoGenerate=true)
+    {
+        if($this->_id!==null)
+            return $this->_id;
+        elseif($autoGenerate)
+            return $this->_id='yw'.uniqid().self::$_counter++;
+    }
 }
 
 ?>

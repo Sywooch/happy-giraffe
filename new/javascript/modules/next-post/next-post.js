@@ -18,6 +18,7 @@ define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', '
 
                             var exclude = [self.post.id];
                             for (var i in self.posts()) {
+                                console.log(self.posts()[i]);
                                 exclude.push(self.posts()[i].id);
                             }
                             Model.get(self.getUrl, { postId: self.post.id, exclude: exclude }).done(function(response) {

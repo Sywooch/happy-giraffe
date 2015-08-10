@@ -25,6 +25,5 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
         'entity' => 'BlogContent', //$this->post->originEntity,
         'entity_id' => $this->post->originEntityId,
         )));
-$this->renderPartial('site.frontend.modules.posts.views.post._view');
-
 ?>
+<?php $this->renderPartial('site.frontend.modules.posts.views.post._view'); ?>

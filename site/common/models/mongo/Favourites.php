@@ -96,7 +96,8 @@ class Favourites extends EMongoDocument
             switch ($block)
             {
                 case self::WEEKLY_MAIL:
-                    $fav->date = date("Y-m-d", strtotime('next monday', time() - 3600 * 24));
+                    //$fav->date = date("Y-m-d", strtotime('next monday', time() - 3600 * 24));
+                    $fav->date = date("Y-m-d");
                     break;
                 case self::BLOCK_MAIL:
                     Yii::import('application.modules.mail.components.senders.*');

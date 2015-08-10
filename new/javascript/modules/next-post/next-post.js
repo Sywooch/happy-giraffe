@@ -6,18 +6,26 @@ define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', '
         self.limit = 2;
         self.posts = ko.observableArray([]);
         self.loading = false;
+        self.finish = false;
 
         ko.bindingHandlers.nextPost = {
             init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
                 var waypoint = new Waypoint({
                     element: element,
                     handler: function () {
-                        if (self.loading === false && self.posts().length < self.limit) {
+                        if (self.loading === false && self.finish === false && self.posts().length < self.limit) {
                             self.loading = true;
-                            Model.get(self.getUrl, { postId: self.post.id }).done(function(response) {
+
+                            var exclude = [self.post.id];
+                            for (var i in self.posts()) {
+                                exclude.push(self.posts()[i].id);
+                            }
+                            Model.get(self.getUrl, { postId: self.post.id, exclude: exclude }).done(function(response) {
                                 if (response.success) {
                                     self.posts.push(response.data);
                                     this.context.refresh();
+                                } else {
+                                    self.finish = true;
                                 }
                                 self.loading = false;
                             }.bind(this));

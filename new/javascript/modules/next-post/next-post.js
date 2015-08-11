@@ -1,7 +1,9 @@
 define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', 'extensions/adhistory', 'waypoints'], function($, ko, template, Model, AdHistory) {
     function NextPost(params) {
         var self = this;
-        self.post = params.post;
+        self.postId = params.postId;
+        self.masterTitle = document.title;
+        self.masterUrl = document.location.href;
         self.getUrl = '/api/nextPost/get/';
         self.limit = 2;
         self.posts = ko.observableArray([]);
@@ -16,12 +18,12 @@ define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', '
                         if (self.loading === false && self.finish === false && self.posts().length < self.limit) {
                             self.loading = true;
 
-                            var exclude = [self.post.id];
+                            var exclude = [self.postId];
                             for (var i in self.posts()) {
                                 console.log(self.posts()[i]);
                                 exclude.push(self.posts()[i].id);
                             }
-                            Model.get(self.getUrl, { postId: self.post.id, exclude: exclude }).done(function(response) {
+                            Model.get(self.getUrl, { postId: self.postId, exclude: exclude }).done(function(response) {
                                 if (response.success) {
                                     self.posts.push(response.data);
                                     this.context.refresh();
@@ -61,6 +63,3 @@ define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', '
         template: template
     };
 });
-
-// ИСКЛЮЧИТЬ ИЗ ВЫБОРКИ ПОСТОВ ТЕ, КОТОРЫЕ УЖЕ ОТОБРАЖАЮТСЯ НА СТРАНИЦЕ!!!
-// ПОФИКСИТЬ ЗАГРУЗКУ ФОТОПОСТОВ

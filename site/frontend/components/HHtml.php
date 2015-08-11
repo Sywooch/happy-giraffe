@@ -84,7 +84,7 @@ class HHtml extends CHtml
                 'media' => '(max-width: ' . $width . 'px)',
             ));
         }
-        $output .= CHtml::tag('img', array_merge(array('srcset' => $defaultSrc), $htmlOptions));
+        $output .= CHtml::tag('img', array_merge(array('src' => $defaultSrc), $htmlOptions));
         $output .= self::closeTag('picture');
         return $output;
     }

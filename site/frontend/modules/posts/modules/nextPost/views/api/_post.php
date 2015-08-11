@@ -32,7 +32,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             ?>
             <? if ($this->post->templateObject->getAttr('extraLikes', false)): ?>
                 <div class="b-article_header-likes">
-                    <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $this->post->url, 'view' => 'simple')); ?>
+                    <share-buttons params="url: '<?=$this->post->url?>'"></share-buttons>
                 </div>
             <?php endif; ?>
             <?php

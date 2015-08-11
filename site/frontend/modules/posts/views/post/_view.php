@@ -86,7 +86,12 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     <div class="like-control like-control__line">
                     </div>
                 </div>
-                <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $this->post->url)); ?>
+                <div class="custom-likes">
+                    <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
+                    <div class="custom-likes_in">
+                        <share-buttons params="url: '<?=$this->post->url?>'"></share-buttons>
+                    </div>
+                </div>
 
                 <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
 

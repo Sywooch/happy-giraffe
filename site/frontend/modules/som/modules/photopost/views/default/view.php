@@ -92,7 +92,12 @@ $thumb = \Yii::app()->thumbs->getThumb($this->attach->photoModel, 'postCollectio
                     </div>-->
                 </div>
             </div>
-            <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $this->post->url)); ?>
+            <div class="custom-likes">
+                <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
+                <div class="custom-likes_in">
+                    <share-buttons params="url: '<?=$this->post->url?>'"></share-buttons>
+                </div>
+            </div>
             <?php $this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $this->post->socialObject)); ?>
             <!-- Реклама яндекса-->
             <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>

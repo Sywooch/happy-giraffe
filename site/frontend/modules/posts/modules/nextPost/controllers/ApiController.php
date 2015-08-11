@@ -19,22 +19,24 @@ class ApiController extends \site\frontend\modules\posts\controllers\ApiControll
         $content = Content::model()->with('labelModels')->findByPk($postId);
 
         foreach ($content->labelModels as $label) {
+            $model = Content::model();
             if (strpos($label->text, 'Клуб') !== false) {
-                $criteria = new \CDbCriteria();
-                $criteria->order = 'RAND()';
-                $criteria->addNotInCondition('t.id', $exclude);
-                $this->post = Content::model()->byLabels(array($label->text))->byService('advPost')->find($criteria);
-                if ($this->post !== null) {
-                    $this->success = true;
-                    $this->data = array(
-                        'id' => $this->post->id,
-                        'title' => $this->post->title,
-                        'url' => $this->post->url,
-                        'html' => $this->renderPartial('_post', null, true, true),
-                    );
-                }
-                break;
+                $model->byLabels(array($label->text));
             }
+            $criteria = new \CDbCriteria();
+            $criteria->order = 'RAND()';
+            $criteria->addNotInCondition('t.id', $exclude);
+            $this->post = Content::model()->byService('advPost')->find($criteria);
+            if ($this->post !== null) {
+                $this->success = true;
+                $this->data = array(
+                    'id' => $this->post->id,
+                    'title' => $this->post->title,
+                    'url' => $this->post->url,
+                    'html' => $this->renderPartial('_post', null, true, true),
+                );
+            }
+            break;
         }
     }
 

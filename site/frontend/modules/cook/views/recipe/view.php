@@ -226,7 +226,12 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 </div>
             </div>
 
-            <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $recipe->getUrl(false, true))); ?>
+            <div class="custom-likes">
+                <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
+                <div class="custom-likes_in">
+                    <share-buttons params="url: '<?=$recipe->getUrl(false, true)?>'"></share-buttons>
+                </div>
+            </div>
 
             <!-- Реклама яндекса-->
             <?php $this->renderPartial('//banners/_post_footer'); ?>

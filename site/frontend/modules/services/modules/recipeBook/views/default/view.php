@@ -57,7 +57,12 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                         </div>
                     </div>
                     <?php endif; ?>
-                    <?php $this->widget('application.widgets.yandexShareWidget.ShareButtonsWidget', array('url' => $recipe->getUrl(false, true))); ?>
+                    <div class="custom-likes">
+                        <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
+                        <div class="custom-likes_in">
+                            <share-buttons params="url: '<?=$recipe->getUrl(false, true)?>'"></share-buttons>
+                        </div>
+                    </div>
                 </div>
             </article>
             <!-- /b-article-->

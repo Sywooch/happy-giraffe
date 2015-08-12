@@ -12,10 +12,10 @@ class ApiController extends \site\frontend\components\api\ApiController
     const COOKIE_NAME = 'PhotoAds6';
     const CAP = 2;
 
-    public function actionGetPosts($url, $limit = -1, array $exclude = array())
+    public function actionGetPosts($url, $limit = -1)
     {
         $manager = new PhotoAdsManager();
-        $posts = $manager->getPosts($url, false, $limit, $exclude );
+        $posts = $manager->getPosts($url, false, $limit);
         $this->data = $posts;
         $this->success = true;
     }

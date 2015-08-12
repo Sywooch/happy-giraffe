@@ -19,6 +19,11 @@ class PhotoAdsManager
                 'entity' => $post->originEntity,
                 'entity_id' => $post->originEntityId,
             ));
+            preg_match('#community\/(\d+)\/forum\/\w+\/(\d+)#', $post->url, $matches);
+            $forumId = $matches[1];
+            $forum = \Community::model()->findByPk($forumId);
+            $postData = $post->toJSON();
+            $postData['sectionId'] = $forum->club->section_id;
             $data[] = array(
                 'post' => $post,
                 'collection' => $collection,

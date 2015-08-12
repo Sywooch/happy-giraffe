@@ -25,7 +25,7 @@ class PhotoAdsManager
             $postData = $post->toJSON();
             $postData['sectionId'] = $forum->club->section_id;
             $data[] = array(
-                'post' => $post,
+                'post' => $postData,
                 'collection' => $collection,
             );
         }

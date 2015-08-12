@@ -127,7 +127,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
     }
     ?>
 
-    <?php if ($this->post->club->id == 13): ?>
+    <?php if ($this->club->id == 13): ?>
     <next-post params='postId: <?=$this->post->id?>'></next-post>
     <?php endif; ?>
 </div>

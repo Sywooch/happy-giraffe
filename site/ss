@@ -1,131 +1,14 @@
-<?php
-/**
- * This is the model class for table "photo__albums".
- *
- * The followings are the available columns in table 'photo__albums':
- * @property string $id
- * @property string $title
- * @property string $description
- * @property string $created
- * @property string $updated
- */
-
-namespace site\frontend\modules\photo\models;
-
-use site\frontend\modules\photo\components\IPhotoCollection;
-
-class PhotoAlbum extends \HActiveRecord implements IPhotoCollection
-{
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'photo__albums';
-	}
-
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('description', 'required'),
-			array('title', 'length', 'max'=>255),
-			array('created, updated', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, created, updated', 'safe', 'on'=>'search'),
-		);
-	}
-
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-		);
-	}
-
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'title' => 'Title',
-			'description' => 'Description',
-			'created' => 'Created',
-			'updated' => 'Updated',
-		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return \CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
-		$criteria=new \CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-
-		return new \CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return PhotoAlbum the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
-
-    public function getCollectionLabel()
-    {
-        return 'Фотоальбом';
-    }
-
-    public function getCollectionTitle()
-    {
-        return $this->title;
-    }
-
-    public function getCollectionDescription()
-    {
-        return $this->description;
-    }
-}
-
-INSERT INTO `community__contents` (`title`, `updated`, `created`, `last_updated`, `author_id`, `rubric_id`, `type_id`, `preview`, `meta_title`, `meta_keywords`, `meta_description`, `meta_description_auto`, `by_happy_giraffe`, `removed`, `edited`, `editor_id`, `rate`, `views`, `uniqueness`, `full`, `source_id`, `privacy`, `pinned`, `real_time`)
-VALUES
-	('Сказки для детей. ВОЛК И СЕМЕРО КОЗЛЯТ. Клоун Дима новые лады: сказка про волк и козлята', '2015-07-21 09:37:58', '2015-07-21 09:37:57', '2015-07-21 09:37:57', 437799, 318379, 2, '<p>Жила-была коза с козлятами в домике у леса. Ушла как-то коза в лес корм искать ... Так начинается известная русская сказка \"Волк и семеро козлят\". Но наш любимчик - Клоун Дима - исполняет её сегодня на...</p>', '', '', '', 'Жила-была коза с козлятами в домике у леса. Ушла как-то коза в лес корм искать ... Так начинается известная русская сказка \"Волк и семеро козлят\". Но наш любимчик -...', 0, 0, 0, NULL, 0, 0, NULL, NULL, NULL, 0, 0, NULL);
-
-INSERT INTO `post__contents` (`url`, `authorId`, `title`, `text`, `html`, `preview`, `labels`, `dtimeCreate`, `dtimeUpdate`, `dtimePublication`, `originService`, `originEntity`, `originEntityId`, `originManageInfo`, `isDraft`, `uniqueIndex`, `isNoindex`, `isNofollow`, `isAutoMeta`, `isAutoSocial`, `isRemoved`, `meta`, `social`, `template`, `views`, `FROM_UNIXTIME(dtimeCreate)`)
-VALUES
-	('http://www.happy-giraffe.ru/user/437799/blog/post268739/', 437799, 'Сказки для детей. ВОЛК И СЕМЕРО КОЗЛЯТ. Клоун Дима новые лады: сказка про волк и козлята', 'Жила-была коза с козлятами в домике у леса. Ушла как-то коза в лес корм искать ... Так начинается известная русская сказка \"Волк и семеро козлят\". Но наш любимчик - Клоун Дима - исполняет её сегодня на новые лады. Для Стефана и наших зрителей матушка Коза отправляется в супермаркет за йогуртом, чупа-чупсом и другими вкусняшками. \r\nТак с клоуном Димой сказки для детей становятся еще интереснее. Но несмотря на шуточное исполнение, в конце все равно мораль для деток - нельзя открывать дверь незнакомым! \r\n', '<div class=\"b-article_in-img\">\n    <div class=\"video-container\">\n        \n<meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\">\n<iframe width=\"580\" height=\"326\" src=\"https://www.youtube.com/embed/x7yuJz9oXfE?feature=oembed&amp;wmode=transparent\" frameborder=\"0\" allowfullscreen></iframe>\n    </div>\n</div>\nЖила-была коза с козлятами в домике у леса. Ушла как-то коза в лес корм искать ... Так начинается известная русская сказка \"Волк и семеро козлят\". Но наш любимчик - Клоун Дима - исполняет её сегодня на новые лады. Для Стефана и наших зрителей матушка Коза отправляется в супермаркет за йогуртом, чупа-чупсом и другими вкусняшками. \r\nТак с клоуном Димой сказки для детей становятся еще интереснее. Но несмотря на шуточное исполнение, в конце все равно мораль для деток - нельзя открывать дверь незнакомым! \r\n', '<div class=\"b-article_in-img\">\n    <div class=\"video-container\">\n        \n<meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\">\n<iframe width=\"580\" height=\"326\" src=\"https://www.youtube.com/embed/x7yuJz9oXfE?feature=oembed&amp;wmode=transparent\" frameborder=\"0\" allowfullscreen></iframe>\n    </div>\n</div>\n<p>Жила-была коза с козлятами в домике у леса. Ушла как-то коза в лес корм искать ... Так начинается известная русская сказка \"Волк и семеро козлят\". Но наш любимчик - Клоун Дима - исполняет её сегодня <span class=\"ico-more\"></span></p>', 'Блог|Рубрика: Мультфильмы', 1437457077, 1437466505, 1437457077, 'oldBlog', 'CommunityContent', '268739', '{\"link\":{\"url\":\"\\/blogs\\/edit\\/post\",\"get\":{\"id\":\"268739\"}},\"params\":false}', 0, NULL, 0, 0, 1, 1, 0, '{\"title\":\"\\u0421\\u043a\\u0430\\u0437\\u043a\\u0438 \\u0434\\u043b\\u044f \\u0434\\u0435\\u0442\\u0435\\u0439. \\u0412\\u041e\\u041b\\u041a \\u0418 \\u0421\\u0415\\u041c\\u0415\\u0420\\u041e \\u041a\\u041e\\u0417\\u041b\\u042f\\u0422. \\u041a\\u043b\\u043e\\u0443\\u043d \\u0414\\u0438\\u043c\\u0430 \\u043d\\u043e\\u0432\\u044b\\u0435 \\u043b\\u0430\\u0434\\u044b: \\u0441\\u043a\\u0430\\u0437\\u043a\\u0430 \\u043f\\u0440\\u043e \\u0432\\u043e\\u043b\\u043a \\u0438 \\u043a\\u043e\\u0437\\u043b\\u044f\\u0442\\u0430\",\"keywords\":null,\"description\":\"\\u0416\\u0438\\u043b\\u0430-\\u0431\\u044b\\u043b\\u0430 \\u043a\\u043e\\u0437\\u0430 \\u0441 \\u043a\\u043e\\u0437\\u043b\\u044f\\u0442\\u0430\\u043c\\u0438 \\u0432 \\u0434\\u043e\\u043c\\u0438\\u043a\\u0435 \\u0443 \\u043b\\u0435\\u0441\\u0430. \\u0423\\u0448\\u043b\\u0430 \\u043a\\u0430\\u043a-\\u0442\\u043e \\u043a\\u043e\\u0437\\u0430 \\u0432 \\u043b\\u0435\\u0441 \\u043a\\u043e\\u0440\\u043c \\u0438\\u0441\\u043a\\u0430\\u0442\\u044c ... \\u0422\\u0430\\u043a \\u043d\\u0430\\u0447\\u0438\\u043d\\u0430\\u0435\\u0442\\u0441\\u044f \\u0438\\u0437\\u0432\\u0435\\u0441\\u0442\\u043d\\u0430\\u044f \\u0440\\u0443\\u0441\\u0441\\u043a\\u0430\\u044f \\u0441\\u043a\\u0430\\u0437\\u043a\\u0430 \\\"\\u0412\\u043e\\u043b\\u043a \\u0438 \\u0441\\u0435\\u043c\\u0435\\u0440\\u043e \\u043a\\u043e\\u0437\\u043b\\u044f\\u0442\\\". \\u041d\\u043e \\u043d\\u0430\\u0448 \\u043b\\u044e\\u0431\\u0438\\u043c\\u0447\\u0438\\u043a -...\"}', '{\"title\":null,\"imageUrl\":null,\"description\":\"\\u0416\\u0438\\u043b\\u0430-\\u0431\\u044b\\u043b\\u0430 \\u043a\\u043e\\u0437\\u0430 \\u0441 \\u043a\\u043e\\u0437\\u043b\\u044f\\u0442\\u0430\\u043c\\u0438 \\u0432 \\u0434\\u043e\\u043c\\u0438\\u043a\\u0435 \\u0443 \\u043b\\u0435\\u0441\\u0430. \\u0423\\u0448\\u043b\\u0430 \\u043a\\u0430\\u043a-\\u0442\\u043e \\u043a\\u043e\\u0437\\u0430 \\u0432 \\u043b\\u0435\\u0441 \\u043a\\u043e\\u0440\\u043c \\u0438\\u0441\\u043a\\u0430\\u0442\\u044c ... \\u0422\\u0430\\u043a \\u043d\\u0430\\u0447\\u0438\\u043d\\u0430\\u0435\\u0442\\u0441\\u044f \\u0438\\u0437\\u0432\\u0435\\u0441\\u0442\\u043d\\u0430\\u044f \\u0440\\u0443\\u0441\\u0441\\u043a\\u0430\\u044f \\u0441\\u043a\\u0430\\u0437\\u043a\\u0430 \\\"\\u0412\\u043e\\u043b\\u043a \\u0438 \\u0441\\u0435\\u043c\\u0435\\u0440\\u043e \\u043a\\u043e\\u0437\\u043b\\u044f\\u0442\\\". \\u041d\\u043e \\u043d\\u0430\\u0448 \\u043b\\u044e\\u0431\\u0438\\u043c\\u0447\\u0438\\u043a -...\"}', '{\"layout\":\"newBlogPost\",\"data\":{\"type\":\"videoPost\"}}', 0, '2015-07-21 09:37:57');
+<script type='text/javascript'>
+//    var googletag = googletag || {};
+//    googletag.cmd = googletag.cmd || [];
+//    (function() {
+//        var gads = document.createElement('script');
+//        gads.async = true;
+//        gads.type = 'text/javascript';
+//        var useSSL = 'https:' == document.location.protocol;
+//        gads.src = (useSSL ? 'https:' : 'http:') +
+//        '//www.googletagservices.com/tag/js/gpt.js';
+//        var node = document.getElementsByTagName('script')[0];
+//        node.parentNode.insertBefore(gads, node);
+//    })();
+</script>

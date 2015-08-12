@@ -12,10 +12,10 @@ class ApiController extends \site\frontend\components\api\ApiController
     const COOKIE_NAME = 'PhotoAds6';
     const CAP = 2;
 
-    public function actionGetPosts($url, $limit = -1)
+    public function actionGetPosts($url, $limit = -1, array $exclude = array())
     {
         $manager = new PhotoAdsManager();
-        $posts = $manager->getPosts($url, false, $limit);
+        $posts = $manager->getPosts($url, false, $limit, $exclude );
         $this->data = $posts;
         $this->success = true;
     }
@@ -25,7 +25,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = array();
         $cookieValue = isset(\Yii::app()->request->cookies[self::COOKIE_NAME]) ? unserialize(\Yii::app()->request->cookies[self::COOKIE_NAME]->value) : array();
 
-        if (count($cookieValue) < 2) {
+        if (count($cookieValue) < self::CAP) {
             $manager = new PhotoAdsManager();
             $posts = $manager->getPosts($url, false, $limit, $cookieValue);
             foreach ($posts as $p) {

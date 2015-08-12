@@ -95,11 +95,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             }
         };
         this.loadPhotoAds = function loadPhotoAds() {
-            var exclude = [];
-            for (var i in this.similarPosts()) {
-                exclude.push(this.similarPosts()[i].post.id);
-            }
-            Model.get('/api/photoAds/getPosts/', { url: location.href, limit: 2, exclude: exclude }).done(function(response) {
+            Model.get('/api/photoAds/getPosts/', { url: location.href, limit: 2 }).done(function(response) {
                 this.similarPosts(response.data);
             }.bind(this));
         };

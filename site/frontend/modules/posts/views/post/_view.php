@@ -127,7 +127,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
     }
     ?>
 
-    <?php if (Yii::app()->user->checkAccess('moderator')): ?>
+    <?php if ($this->post->club->id == 13): ?>
     <next-post params='postId: <?=$this->post->id?>'></next-post>
     <?php endif; ?>
 </div>

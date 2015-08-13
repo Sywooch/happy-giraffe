@@ -25,6 +25,9 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionFixAdv()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
         $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model()->byService('advPost'));
         $iterator = new CDataProviderIterator($dp);
         foreach ($iterator as $i) {
@@ -40,6 +43,9 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionAdult()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
         $files = array(
             '1' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'image',
             '2' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'search',
@@ -49,7 +55,7 @@ class SeoTempCommand extends CConsoleCommand
             $strings = file($file);
             $i = 0;
             foreach ($strings as $url) {
-                $content = \site\frontend\modules\posts\models\Content::model()->findByAttributes(array('url' => $url));
+                $content = \site\frontend\modules\posts\models\Content::model()->findByAttributes(array('url' => trim($url)));
                 if ($content) {
                     $content->isAdult = $key;
                     $content->save(false);

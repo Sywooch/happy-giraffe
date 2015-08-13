@@ -77,10 +77,18 @@ class SeoTempCommand extends CConsoleCommand
         $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model());
         $iterator = new CDataProviderIterator($dp, 100);
         $j = 0;
+
+        $wordsRes = array();
+
         foreach ($iterator as $i) {
             foreach ($stopList as $word) {
-                if (strpos($i->text, trim($word)) !== false) {
-                    echo $word . "\n";
+                $word = trim($word);
+                if (strpos($i->text, $word) !== false) {
+                    if (! isset($wordsRes[$word])) {
+                        $wordsRes[$word] = 0;
+                    }
+                    $wordsRes[$word]++;
+
                     $i->isAdult = 3;
                     $i->save();
                     $list[] = $i->url;

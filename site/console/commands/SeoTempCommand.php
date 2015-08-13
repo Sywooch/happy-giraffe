@@ -68,7 +68,7 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionAdult2()
     {
-        $stopFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'stopList';
+        $stopFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'stoplist';
         $resFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'adult2';
         $stopList = file($stopFile);
 

@@ -100,9 +100,12 @@ class SeoTempCommand extends CConsoleCommand
 
         $csv = array();
         foreach ($wordsRes as $word => $urls) {
-            $csv[] = array($word, count($urls));
-            foreach ($urls as $url) {
-                $csv[] = array('', $url);
+            $c = count($urls);
+            $csv[] = array($word, $c);
+            if ($c <= 10) {
+                foreach ($urls as $url) {
+                    $csv[] = array('', $url);
+                }
             }
         }
 

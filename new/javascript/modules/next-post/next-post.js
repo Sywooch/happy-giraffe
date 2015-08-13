@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', 'extensions/adhistory', 'waypoints'], function($, ko, template, Model, AdHistory) {
+define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', 'extensions/adhistory', 'extensions/history', 'waypoints'], function($, ko, template, Model, AdHistory) {
     function NextPost(params) {
         var self = this;
         self.postId = params.postId;
@@ -20,7 +20,6 @@ define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', '
 
                             var exclude = [self.postId];
                             for (var i in self.posts()) {
-                                console.log(self.posts()[i]);
                                 exclude.push(self.posts()[i].id);
                             }
                             Model.get(self.getUrl, { postId: self.postId, exclude: exclude }).done(function(response) {
@@ -44,15 +43,20 @@ define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', '
                 var value = valueAccessor();
                 var url = value.url;
                 var title = value.title;
+                var countView = typeof value.countView === 'undefined' ? true : value.countView;
 
-
-
-                var waypoint = new Waypoint({
-                    element: element,
-                    handler: function() {
-                        document.title = title;
-                        AdHistory.pushState(null, title, url);
+                var handler = function() {
+                    history.pushState(null, title, url);
+                    document.title = title;
+                    if (countView) {
+                        AdHistory.addViews(url);
+                        countView = false;
                     }
+                };
+
+                new Waypoint({
+                    element: element,
+                    handler: handler
                 });
             }
         };

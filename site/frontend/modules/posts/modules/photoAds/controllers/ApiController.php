@@ -29,7 +29,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             $manager = new PhotoAdsManager();
             $posts = $manager->getPosts($url, false, $limit, $cookieValue);
             foreach ($posts as $p) {
-                $cookieValue[] = $p['post']->id;
+                $cookieValue[] = $p['post']['id'];
             }
             \Yii::app()->request->cookies[self::COOKIE_NAME] = new \CHttpCookie(self::COOKIE_NAME, serialize($cookieValue));
 

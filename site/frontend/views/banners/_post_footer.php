@@ -33,7 +33,7 @@
         })(window, document, "yandex_context_callbacks");
     </script>
 
-    <?php if ($this->post->isAdult == 0): ?>
+    <?php if (false): ?>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- Объявления -->
     <ins class="adsbygoogle"

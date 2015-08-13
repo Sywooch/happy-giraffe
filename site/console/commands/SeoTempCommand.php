@@ -38,6 +38,55 @@ class SeoTempCommand extends CConsoleCommand
         }
     }
 
+    public function actionAdult()
+    {
+        $files = array(
+            '1' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'image',
+            '2' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'search',
+        );
+
+        foreach ($files as $key => $file) {
+            $strings = file($file);
+            $i = 0;
+            foreach ($strings as $url) {
+                $content = \site\frontend\modules\posts\models\Content::model()->findByAttributes(array('url' => $url));
+                if ($content) {
+                    $content->isAdult = $key;
+                    $content->save(false);
+                    $i++;
+                }
+            }
+            echo $i . "\n";
+        }
+    }
+
+    public function actionAdult2()
+    {
+        $stopFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'stopList';
+        $resFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'adult2';
+        $stopList = file($stopFile);
+
+        $list = array();
+
+        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model());
+        $iterator = new CDataProviderIterator($dp, 100);
+        $j = 0;
+        foreach ($iterator as $i) {
+            foreach ($stopList as $word) {
+                if (strpos($i->text, trim($word)) !== false) {
+                    echo $word . "\n";
+                    $i->isAdult = 3;
+                    $i->save();
+                    $list[] = $i->url;
+                    break;
+                }
+            }
+            echo ++$j . "\n";
+        }
+
+        file_put_contents($resFile, implode(PHP_EOL, $list));
+    }
+
     public function actionFixComments()
     {
         $db = Yii::app()->db;

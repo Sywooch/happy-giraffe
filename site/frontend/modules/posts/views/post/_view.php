@@ -127,7 +127,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
     }
     ?>
 
-    <?php if ($this instanceof \site\frontend\modules\posts\controllers\CommunityController && $this->getForum()->id == 33): ?>
+    <?php if ($this instanceof \site\frontend\modules\posts\controllers\CommunityController): ?>
     <next-post params='postId: <?=$this->post->id?>'></next-post>
     <?php endif; ?>
 </div>

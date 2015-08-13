@@ -85,9 +85,9 @@ class SeoTempCommand extends CConsoleCommand
                 $word = trim($word);
                 if (strpos($i->text, $word) !== false) {
                     if (! isset($wordsRes[$word])) {
-                        $wordsRes[$word] = 0;
+                        $wordsRes[$word] = array();
                     }
-                    $wordsRes[$word]++;
+                    $wordsRes[$word][] = $i->url;
 
                     $i->isAdult = 3;
                     $i->save();
@@ -98,6 +98,15 @@ class SeoTempCommand extends CConsoleCommand
             echo ++$j . "\n";
         }
 
+        $csv = array();
+        foreach ($wordsRes as $word => $urls) {
+            $csv[] = array($word, count($urls));
+            foreach ($urls as $url) {
+                $csv[] = array('', $url);
+            }
+        }
+
+        $this->writeCsv('adult', $csv);
         file_put_contents($resFile, implode(PHP_EOL, $list));
     }
 

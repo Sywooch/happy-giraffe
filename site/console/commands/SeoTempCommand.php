@@ -69,6 +69,9 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionAdult2()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
         $stopFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'stoplist';
         $stopList = file($stopFile);
 

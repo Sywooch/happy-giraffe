@@ -41,6 +41,64 @@ class SeoTempCommand extends CConsoleCommand
         }
     }
 
+    public function actionAdult3()
+    {
+        $urlsFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'blocked';
+        $urls = file($urlsFile);
+
+        Yii::import('site.frontend.extensions.GoogleAnalyticsAPI');
+
+        $ga = new GoogleAnalyticsAPI('service');
+        $ga->auth->setClientId('152056798430.apps.googleusercontent.com'); // From the APIs console
+        $ga->auth->setEmail('152056798430@developer.gserviceaccount.com'); // From the APIs console
+        $ga->auth->setPrivateKey(Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'ga.p12');
+
+        $auth = $ga->auth->getAccessToken();
+
+        if ($auth['http_code'] == 200) {
+            $accessToken = $auth['access_token'];
+            $tokenExpires = $auth['expires_in'];
+            $tokenCreated = time();
+        } else {
+            die('error');
+        }
+
+        $ga->setAccessToken($accessToken);
+        $ga->setAccountId('ga:53688414');
+
+        $ga->setDefaultQueryParams(array(
+            'start-date' => '2015-08-06',
+            'end-date' => '2015-08-13',
+        ));
+
+        $result = array();
+        foreach ($urls as $url) {
+            $url = str_replace('http://www.happy-giraffe.ru', '', trim($url));
+            $paths = $ga->query(array(
+                'metrics' => 'ga:entrances',
+                'dimensions' => 'ga:pagePath',
+                'max-results' => 10000,
+                'sort' => '-ga:entrances',
+                'filters' => 'ga:pagePath=@' . $url,
+            ));
+            $entrances = isset($paths['rows'][0][1]) ? $paths['rows'][0][1] : 0;
+            $result[] = array($entrances);
+        }
+
+        $this->writeCsv('adult3', $result);
+    }
+
+    public function actionAdult4()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('isAdult', array(1, 2, 4));
+        $posts = \site\frontend\modules\posts\models\Content::model()->findAll($criteria);
+        foreach ($posts as $post) {
+            $post->isNoindex = 1;
+            $post->save(false);
+        }
+    }
+
     public function actionAdult()
     {
         \Yii::app()->db->enableSlave = false;

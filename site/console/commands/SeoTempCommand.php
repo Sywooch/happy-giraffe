@@ -69,10 +69,7 @@ class SeoTempCommand extends CConsoleCommand
     public function actionAdult2()
     {
         $stopFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'stoplist';
-        $resFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'adult2';
         $stopList = file($stopFile);
-
-        $list = array();
 
         $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model());
         $iterator = new CDataProviderIterator($dp, 100);
@@ -81,19 +78,20 @@ class SeoTempCommand extends CConsoleCommand
         $wordsRes = array();
 
         foreach ($iterator as $i) {
+            $adult = false;
             foreach ($stopList as $word) {
                 $word = trim($word);
-                if (strpos($i->text, $word) !== false) {
+                if (preg_match('#\b' . $word . '\b#u', $i->text)) {
                     if (! isset($wordsRes[$word])) {
                         $wordsRes[$word] = array();
                     }
                     $wordsRes[$word][] = $i->url;
-
-                    $i->isAdult = 3;
-                    $i->save();
-                    $list[] = $i->url;
-                    break;
+                    $adult = true;
                 }
+            }
+            if ($adult) {
+                $i->isAdult = 3;
+                $i->save();
             }
             echo ++$j . "\n";
         }
@@ -110,7 +108,6 @@ class SeoTempCommand extends CConsoleCommand
         }
 
         $this->writeCsv('adult', $csv);
-        file_put_contents($resFile, implode(PHP_EOL, $list));
     }
 
     public function actionFixComments()

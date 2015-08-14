@@ -511,14 +511,23 @@ class SiteController extends LiteController
         $cacheId = 'Yii.seo.paths.' . $start . '.' . $end . '.' . $searchEngine;
         $paths = Yii::app()->cache->get($cacheId);
         if ($paths === false) {
-            $ga->setDateRange($start, $end);
-            $paths = $ga->getReport(array(
+            $defaults = array(
+                'start-date' => $start,
+                'end-date' => $end,
+            );
+            $ga->setDefaultQueryParams($defaults);
+            $paths = $ga->query(array(
                 'metrics' => 'ga:sessions',
                 'dimensions' => 'ga:pagePath',
                 'max-results' => 10000,
                 'sort' => '-ga:sessions',
                 'filters' => 'ga:source=@' . $searchEngine,
             ));
+
+
+
+            $paths = $paths['rows'];
+
             Yii::app()->cache->set($cacheId, $paths);
         }
         return $paths;
@@ -541,89 +550,112 @@ class SiteController extends LiteController
         $this->render('stats', compact('dp', 'contests'));
     }
 
-//    public function actionSeo()
-//    {
-//        $fromHG = false;
-//        $searchEngine = 'google';
-//
-//        if ($fromHG) {
-//            $fromHGMap = Yii::app()->db->createCommand('SELECT id FROM community__contents WHERE by_happy_giraffe = 1')->queryColumn();
-//        }
-//
-//        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-//        if ($_POST) {
-//            foreach ($_POST as $k => $val)
-//                Yii::app()->user->setState($k, $val);
-//        }
-//
-//        if ($_POST || Yii::app()->request->isAjaxRequest) {
-//            $result = array();
-//            Yii::import('site.frontend.extensions.GoogleAnalytics');
-//
-//            $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
-//            $ga->setProfile('ga:53688414');
-//
-//            $pathes1 = $this->getPathes($ga, Yii::app()->user->getState('period1Start'), Yii::app()->user->getState('period1End'), $searchEngine);
-//            foreach ($pathes1 as $path => $value) {
-//                $result[$path] = array(
-//                    'period1' => $value['ga:sessions'],
-//                    'period2' => 0,
-//                );
-//            }
-//
-//            $pathes2 = $this->getPathes($ga, Yii::app()->user->getState('period2Start'), Yii::app()->user->getState('period2End'), $searchEngine);
-//            foreach ($pathes2 as $path => $value) {
-//                if (isset($result[$path])) {
-//                    $result[$path]['period2'] = $value['ga:sessions'];
-//                } else {
-//                    $result[$path] = array(
-//                        'period1' => 0,
-//                        'period2' => $value['ga:sessions'],
-//                    );
-//                }
-//            }
-//
-//            $_result = array();
-//            foreach ($result as $k => $r) {
-//                $r['id'] = $k;
-//                $r['diff'] = strtr($r['period1'] == 0 ? '-' : ($r['period2'] - $r['period1']) * 100 / $r['period1'], '.', ',');
-//                $r['diffC'] = $r['period2'] - $r['period1'];
-//
-//                if ($fromHG) {
-//                    $found = preg_match('#(\d+)\/$#', $k, $matches);
-//
-//                    if ($found == 0) {
-//                        continue;
-//                    }
-//
-//                    $id = $matches[1];
-//                    if (! array_search($id, $fromHGMap)) {
-//                        continue;
-//                    }
-//                }
-//
-//                if ($r['diffC'] > 0)
-//                    array_push($_result, $r);
-//            }
-//
-//            $s = 0;
-//            foreach ($_result as $v)
-//                $s += $v['diffC'];
-//
-//            $dp = new CArrayDataProvider($_result, array(
-//                'sort' => array(
-//                    'attributes' => array('id', 'period1', 'period2', 'diffC', 'diff'),
-//                    'defaultOrder' => array('diffC'=>false),
-//                ),
-//                'pagination' => array(
-//                    'pageSize' => 10000,
-//                ),
-//            ));
-//        }
-//        else
-//            $dp = null;
-//        $this->render('seo', compact('dp', 's'));
-//    }
+    public function actionSeo()
+    {
+        Yii::import('site.frontend.extensions.GoogleAnalyticsAPI');
+
+        $ga = new GoogleAnalyticsAPI('service');
+        $ga->auth->setClientId('152056798430.apps.googleusercontent.com'); // From the APIs console
+        $ga->auth->setEmail('152056798430@developer.gserviceaccount.com'); // From the APIs console
+        $ga->auth->setPrivateKey(Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'ga.p12');
+
+        $auth = $ga->auth->getAccessToken();
+
+        if ($auth['http_code'] == 200) {
+            $accessToken = $auth['access_token'];
+            $tokenExpires = $auth['expires_in'];
+            $tokenCreated = time();
+        } else {
+            die('error');
+        }
+
+        $ga->setAccessToken($accessToken);
+        $ga->setAccountId('ga:53688414');
+
+        $fromHG = false;
+        $searchEngine = 'yandex';
+
+        if ($fromHG) {
+            $fromHGMap = Yii::app()->db->createCommand('SELECT id FROM community__contents WHERE by_happy_giraffe = 1')->queryColumn();
+        }
+
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        if ($_POST) {
+            foreach ($_POST as $k => $val)
+                Yii::app()->user->setState($k, $val);
+        }
+
+        if ($_POST || Yii::app()->request->isAjaxRequest) {
+            $result = array();
+            Yii::import('site.frontend.extensions.GoogleAnalytics');
+
+            $pathes1 = $this->getPathes($ga, Yii::app()->user->getState('period1Start'), Yii::app()->user->getState('period1End'), $searchEngine);
+            foreach ($pathes1 as $value) {
+                $path = $value[0];
+                $sessions = $value[1];
+
+                $result[$path] = array(
+                    'period1' => $sessions,
+                    'period2' => 0,
+                );
+            }
+
+            $pathes2 = $this->getPathes($ga, Yii::app()->user->getState('period2Start'), Yii::app()->user->getState('period2End'), $searchEngine);
+            foreach ($pathes2 as $value) {
+                $path = $value[0];
+                $sessions = $value[1];
+
+                if (isset($result[$path])) {
+                    $result[$path]['period2'] = $sessions;
+                } else {
+                    $result[$path] = array(
+                        'period1' => 0,
+                        'period2' => $sessions,
+                    );
+                }
+            }
+
+            $_result = array();
+            foreach ($result as $k => $r) {
+                $r['id'] = $k;
+                $r['diff'] = strtr($r['period1'] == 0 ? '-' : ($r['period2'] - $r['period1']) * 100 / $r['period1'], '.', ',');
+                $r['diffC'] = $r['period2'] - $r['period1'];
+
+                if ($fromHG) {
+                    $found = preg_match('#(\d+)\/$#', $k, $matches);
+
+                    if ($found == 0) {
+                        continue;
+                    }
+
+                    $id = $matches[1];
+                    if (! array_search($id, $fromHGMap)) {
+                        continue;
+                    }
+                }
+
+                if ($r['diffC'] > 0)
+                    array_push($_result, $r);
+            }
+
+            $s = 0;
+            foreach ($_result as $v)
+                $s += $v['diffC'];
+
+            $dp = new CArrayDataProvider($_result, array(
+                'sort' => array(
+                    'attributes' => array('id', 'period1', 'period2', 'diffC', 'diff'),
+                    'defaultOrder' => array('diffC'=>false),
+                ),
+                'pagination' => array(
+                    'pageSize' => 10000,
+                ),
+            ));
+        }
+        else
+            $dp = null;
+        $this->render('seo', compact('dp', 's'));
+    }
 
 //    public function actionSeo2()
 //    {

@@ -53,7 +53,7 @@ class ElasticEmail extends CApplicationComponent
         $data .= "&from_name=" . urlencode('Веселый Жираф');
         $data .= "&template=" . urlencode($template);
         $data .= "&merge_htmlbody=" . urlencode($body);
-        $data .= "&subject=" . urlencode("30 фактов в пользу тренировки со скакалкой, 10 деталей для незабываемого детского праздника, 17 лучших детских книг лета, которые нужно прочитать с ребёнком и другие интересные посты на Веселом Жирафе");
+        $data .= "&subject=" . urlencode("17 главных детских книг лета, 30 идей самых красивых свадебных тортов и другие интересные посты на Веселом Жирафе");
         if ($list !== null) {
             $data .= "&lists=" . $list;
         }

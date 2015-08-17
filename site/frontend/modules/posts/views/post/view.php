@@ -1,5 +1,4 @@
 <?php
-Yii::app()->clientScript->registerScriptFile('https://relap.io/api/v6/head.js?token=TzdPbOhsNbNOmXJ3', ClientScript::POS_HEAD);
 Yii::app()->clientScript->registerAMD('BlogRecordSettings', array('kow'));
 /** @todo перенести обработку $this->post->metaObject в контроллер */
 $this->pageTitle = $this->post->title;

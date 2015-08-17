@@ -74,7 +74,7 @@ class AdsWidget extends CWidget
         $cs = Yii::app()->clientScript;
         if ($cs->useAMD) {
             $cs->registerAMDFile(array(), '/new/javascript/modules/lazyad-loader.js');
-            $cs->registerScriptFile('/javascripts/fox.js', ClientScript::POS_AMD);
+            //$cs->registerScriptFile('/javascripts/fox.js', ClientScript::POS_AMD);
         } else {
             $cs->registerScriptFile('/new/javascript/modules/lazyad-loader.js', ClientScript::POS_HEAD);
         }

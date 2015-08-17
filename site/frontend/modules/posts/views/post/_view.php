@@ -97,10 +97,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 
                 <!-- Реклама яндекса-->
                 <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
-
-                <? if (! $this->post->templateObject->getAttr('hideRelap', false)): ?>
-                <script id="iAsL_zX0O8E7vb29">if (window.relap) window.relap.ar('iAsL_zX0O8E7vb29');</script>
-                <?php endif; ?>
             </div>
         </div>
     </article>

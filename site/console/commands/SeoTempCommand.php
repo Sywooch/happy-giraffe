@@ -48,7 +48,7 @@ class SeoTempCommand extends CConsoleCommand
 
         $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model(), array(
             'criteria' => array(
-                'condition' => 'isAdult = 3',
+                'condition' => 'isAdult > 0',
             ),
         ));
         $iterator = new CDataProviderIterator($dp, 100);

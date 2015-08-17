@@ -43,8 +43,8 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionAdult3()
     {
-        $urlsFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'blocked';
-        $urls = file($urlsFile);
+        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model());
+        $iterator = new CDataProviderIterator($dp, 100);
 
         Yii::import('site.frontend.extensions.GoogleAnalyticsAPI');
 
@@ -72,8 +72,8 @@ class SeoTempCommand extends CConsoleCommand
         ));
 
         $result = array();
-        foreach ($urls as $url) {
-            $url = str_replace('http://www.happy-giraffe.ru', '', trim($url));
+        foreach ($iterator as $post) {
+            $url = str_replace('http://www.happy-giraffe.ru', '', $post->url);
             $paths = $ga->query(array(
                 'metrics' => 'ga:entrances',
                 'dimensions' => 'ga:pagePath',
@@ -82,7 +82,7 @@ class SeoTempCommand extends CConsoleCommand
                 'filters' => 'ga:pagePath=@' . $url,
             ));
             $entrances = isset($paths['rows'][0][1]) ? $paths['rows'][0][1] : 0;
-            $result[] = array($entrances);
+            $result[] = array($post->title, $post->url, $entrances);
         }
 
         $this->writeCsv('adult3', $result);

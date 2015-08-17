@@ -46,7 +46,11 @@ class SeoTempCommand extends CConsoleCommand
         \Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
 
-        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model());
+        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model(), array(
+            'criteria' => array(
+                'condition' => 'isAdult = 3',
+            ),
+        ));
         $iterator = new CDataProviderIterator($dp, 100);
 
         Yii::import('site.frontend.extensions.GoogleAnalyticsAPI');
@@ -75,7 +79,7 @@ class SeoTempCommand extends CConsoleCommand
         ));
 
         $result = array();
-        foreach ($iterator as $post) {
+        foreach ($iterator as $i => $post) {
             $url = str_replace('http://www.happy-giraffe.ru', '', $post->url);
             $paths = $ga->query(array(
                 'metrics' => 'ga:entrances',
@@ -86,6 +90,7 @@ class SeoTempCommand extends CConsoleCommand
             ));
             $entrances = isset($paths['rows'][0][1]) ? $paths['rows'][0][1] : 0;
             $result[] = array($post->title, $post->url, $entrances);
+            echo $i . "\n";
         }
 
         $this->writeCsv('adult3', $result);

@@ -566,6 +566,6 @@ return array(
         '<slug:\w+>/consultations/create' => 'consultation/default/create',
         '<slug:\w+>/consultations/page<page:\d+>' => 'consultation/default/index',
 
-        '<view:(about|ad|contacts|useragreement|legal|moderation_rule|confidential)>' => 'pages/default/page',
+        '<view:(about|ad|contacts|useragreement|legal|moderation_rule|confidential|klondike|dreamfields)>' => 'pages/default/page',
     ),
 );

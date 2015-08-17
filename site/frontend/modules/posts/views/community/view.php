@@ -1,6 +1,5 @@
 <?php
 $cs = Yii::app()->clientScript;
-$cs->registerScriptFile('https://relap.io/api/v6/head.js?token=TzdPbOhsNbNOmXJ3', ClientScript::POS_HEAD);
 if (Yii::app()->vm->version != VersionManager::VERSION_MOBILE) {
     $cs->registerAMD('photoAd', array('popup' => 'photo-ad/photo-popup'));
 }

@@ -1,6 +1,5 @@
 <?php
 $this->widget('application.widgets.yandexShareWidget.ShareWidget', array('model' => $recipe));
-Yii::app()->clientScript->registerScriptFile('https://relap.io/api/v6/head.js?token=TzdPbOhsNbNOmXJ3', ClientScript::POS_HEAD);
 if (empty($this->meta_description))
     $this->meta_description = Str::getDescription($recipe->text, 300);
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
@@ -235,8 +234,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 
             <!-- Реклама яндекса-->
             <?php $this->renderPartial('//banners/_post_footer'); ?>
-
-            <script id="iAsL_zX0O8E7vb29">if (window.relap) window.relap.ar('iAsL_zX0O8E7vb29');</script>
         </div>
     </div>
 

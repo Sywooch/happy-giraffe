@@ -9,7 +9,7 @@ namespace site\frontend\modules\pages\controllers;
 class DefaultController extends \LiteController
 {
     public $litePackage = 'info';
-    public $layout = '//layouts/lite/common';
+    public $layout = '/layout';
     public $bodyClass = 'body__regular';
 
     public function actions()

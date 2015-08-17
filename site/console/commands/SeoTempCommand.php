@@ -43,6 +43,9 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionAdult3()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
         $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model());
         $iterator = new CDataProviderIterator($dp, 100);
 

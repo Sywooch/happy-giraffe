@@ -318,10 +318,8 @@ info pages
     &-clients {
         @media (min-width: @screen-desktop) {
           height: 315px;
-          padding: 80px 0 0;
         }
         height: auto;
-        padding: 40px 0 0;
         background: #fff;
         &-part {
             @media (min-width: @screen-desktop) {
@@ -368,7 +366,6 @@ info pages
     }
     &-want {
         height: 224px;
-        background: #5ab4e8;
         padding: 65px 0 0;
         text-align: center;
         &-or {
@@ -384,6 +381,12 @@ info pages
             border-radius: 50px 50px 0 0;
             font-family: Arial;
             font-style: italic;
+        }
+        .info-hero-line {
+            color: @color-base;
+        }
+        .info-hero-line__mail {
+            color: #5ab4e8;
         }
     }
     &-media {
@@ -650,7 +653,7 @@ info pages
     }
     &-sponsors {
         text-align: center;
-        padding: 45px 0 25px;
+        padding: 45px 0 70px;
         background: url('@{path-img}/info/info-top.png') top center no-repeat;
         &-title {
             @media (min-width: @screen-phone-landscape) {
@@ -660,6 +663,7 @@ info pages
             color:  @color-gray-dark;
             font-size: 30px;
             font-weight: 700;
+            margin-bottom: 10px;
         }
     }
     &-join {

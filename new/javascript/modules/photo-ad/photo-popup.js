@@ -8,7 +8,7 @@ define(['jquery', 'knockout', 'models/Model', 'modules-helpers/component-custom-
             if (response.success && response.data.length > 0) {
                 $.magnificPopup.open({
                     items: {
-                        src: '<div class="popup popup-bnr-photo" style="height: 450px;">' + customReturner('photo-ad', {
+                        src: '<div class="popup popup-bnr-photo">' + customReturner('photo-ad', {
                             post: JSON.stringify(data.post),
                             collection: JSON.stringify(data.collection)
                         }) + "</div>",

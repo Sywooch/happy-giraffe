@@ -165,7 +165,7 @@ class SeoTempCommand extends CConsoleCommand
             ));
             $entrances = isset($paths['rows'][0][1]) ? $paths['rows'][0][1] : 0;
 
-            $result = array($i->title, $i->url, $entrances, implode(', ', $words));
+            $result[] = array($i->title, $i->url, $entrances, implode(', ', $words));
             echo $j . "\n";
         }
 

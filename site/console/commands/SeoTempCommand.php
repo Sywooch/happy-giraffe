@@ -107,6 +107,69 @@ class SeoTempCommand extends CConsoleCommand
         }
     }
 
+    public function actionAdult5()
+    {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
+        $stopFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'stoplist';
+        $stopList = file($stopFile);
+
+        $ga = new GoogleAnalyticsAPI('service');
+        $ga->auth->setClientId('152056798430.apps.googleusercontent.com'); // From the APIs console
+        $ga->auth->setEmail('152056798430@developer.gserviceaccount.com'); // From the APIs console
+        $ga->auth->setPrivateKey(Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'ga.p12');
+
+        $auth = $ga->auth->getAccessToken();
+
+        if ($auth['http_code'] == 200) {
+            $accessToken = $auth['access_token'];
+            $tokenExpires = $auth['expires_in'];
+            $tokenCreated = time();
+        } else {
+            die('error');
+        }
+
+        $ga->setAccessToken($accessToken);
+        $ga->setAccountId('ga:53688414');
+
+        $ga->setDefaultQueryParams(array(
+            'start-date' => '2015-08-06',
+            'end-date' => '2015-08-13',
+        ));
+
+        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model(), array(
+            'criteria' => array(
+                'condition' => 'isAdult = 3',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 100);
+
+        $result = array();
+        foreach ($iterator as $i) {
+            $words = array();
+            foreach ($stopList as $word) {
+                if (preg_match('#\b' . $word . '\b#u', $i->text)) {
+                    $words[] = $word;
+                }
+            }
+
+            $url = str_replace('http://www.happy-giraffe.ru', '', $i->url);
+            $paths = $ga->query(array(
+                'metrics' => 'ga:entrances',
+                'dimensions' => 'ga:pagePath',
+                'max-results' => 10000,
+                'sort' => '-ga:entrances',
+                'filters' => 'ga:pagePath=@' . $url,
+            ));
+            $entrances = isset($paths['rows'][0][1]) ? $paths['rows'][0][1] : 0;
+
+            $result = array($i->title, $i->url, $entrances, implode(', ', $words));
+        }
+
+        $this->writeCsv('adult5', $result);
+    }
+
     public function actionAdult()
     {
         \Yii::app()->db->enableSlave = false;

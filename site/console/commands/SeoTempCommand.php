@@ -147,7 +147,7 @@ class SeoTempCommand extends CConsoleCommand
         $iterator = new CDataProviderIterator($dp, 100);
 
         $result = array();
-        foreach ($iterator as $i) {
+        foreach ($iterator as $j => $i) {
             $words = array();
             foreach ($stopList as $word) {
                 if (preg_match('#\b' . $word . '\b#u', $i->text)) {
@@ -166,6 +166,7 @@ class SeoTempCommand extends CConsoleCommand
             $entrances = isset($paths['rows'][0][1]) ? $paths['rows'][0][1] : 0;
 
             $result = array($i->title, $i->url, $entrances, implode(', ', $words));
+            echo $j . "\n";
         }
 
         $this->writeCsv('adult5', $result);

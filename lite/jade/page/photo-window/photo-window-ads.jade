@@ -39,14 +39,15 @@ block block-dev-view
             .photo-window_w
                 a.photo-window_close(href='#')
 
+                .photo-window_top.photo-window_top-noindent
+                    .photo-window_count Смотрите другие галереи
 
                 // Конец просмотра
                 .photo-window-ads
                     .photo-window-ads_hold
-                        .photo-window-ads_tx Смотрите другие галереи
                         .photo-window-ads_in
-                            .photo-window-ads_i
+                            photo-ad.photo-window-ads_i
                                 +photoAd(1)
 
-                            .photo-window-ads_i
+                            photo-ad.photo-window-ads_i
                                 +photoAd(2)

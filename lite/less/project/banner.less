@@ -249,6 +249,8 @@
         &_tx {
             margin-top: -1px;
         }
+
+        display: none;
     }
 
     &_hold {
@@ -257,9 +259,9 @@
     }
 
     &_tx {
-        font-size: 35px;
+        font-size: 27px;
+        line-height: 25px;
         font-weight: bold;
-        line-height: 35px;
         letter-spacing: -1px;
         word-spacing: 1px;
         margin-bottom: 29px;
@@ -275,6 +277,7 @@
         font-size: 20px;
         border: 2px #fff solid;
         padding: 10px 53px;
+        display: none;
     }
 
     &_btn:hover {
@@ -300,30 +303,56 @@
     }
 
     &_count {
-        font-size: 50px;
-        line-height: 44px;
+        font-size: 25px;
+        line-height: 22px;
     }
 
     &_count-tx {
-        font-size: 24px;
-        line-height: 24px;
+        font-size: 16px;
+        line-height: 16px;
     }
 
-    @media (max-width: @screen-tablet) {
+    @media (min-width: @screen-phone) {
         &_tx {
-            font-size: 30px;
-            line-height: 30px;
+            font-size: 35px;
+            line-height: 35px;
         }
 
-        &_author, &_count-hold, &_btn {
-            display: none;
+        &_count {
+            font-size: 40px;
+            line-height: 28px;
+        }
+
+        &_count-tx {
+            font-size: 16px;
+            line-height: 16px;
         }
     }
 
-    @media (max-width: @screen-phone) {
+    @media (min-width: @screen-tablet) {
+        width: 600px;
+
         &_tx {
-            font-size: 25px;
-            line-height: 25px;
+            font-size: 35px;
+            line-height: 35px;
+        }
+
+        &_count {
+            font-size: 50px;
+            line-height: 44px;
+        }
+
+        &_count-tx {
+            font-size: 24px;
+            line-height: 24px;
+        }
+
+        &_author {
+            display: block;
+        }
+
+        &_btn {
+            display: inline-block;
         }
     }
 }

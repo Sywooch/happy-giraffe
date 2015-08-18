@@ -23,7 +23,7 @@ $this->pageTitle = 'Реклама';
 </div>
 <div class="info-sponsors">
     <div class="info-sponsors-title">Наши рекламодатели</div>
-    <div class="info-sponsors-img"><img src="/lite/images/info/sponsors.png" alt=""></div>
+    <div class="info-sponsors-img"><img src="/lite/images/info/sponsors2.png" alt=""></div>
 </div>
 <div class="info-hero">
     <div class="info-media-block">
@@ -37,6 +37,10 @@ $this->pageTitle = 'Реклама';
         <div class="clearfix"></div>
     </div>
 </div>
+    <div class="info-want">
+        <div class="info-hero-line main">Вы хотите у нас рекламироваться?</div>
+        <div class="info-hero-line"><a href="mailto:info@happy-giraffe.ru" class="info-hero-line__mail orange">info@happy-giraffe.ru</a></div>
+    </div>
 <div class="info-clients">
     <div class="info-clients-part">
         <div class="info-clients-part__for yellow">для рекламных агентств</div>
@@ -58,9 +62,3 @@ $this->pageTitle = 'Реклама';
     </div>
     <div class="clearfix"></div>
 </div>
-<div class="info-want">
-    <div class="info-hero-line main">Вы хотите у нас рекламироваться?</div>
-    <div class="info-hero-line"><a href="mailto:info@happy-giraffe.ru" class="info-hero-line__mail orange">info@happy-giraffe.ru</a></div>
-    <div class="info-want-or">или    </div>
-</div>
-<?php $this->widget('site\frontend\modules\pages\widgets\contactFormWidget\ContactFormWidget'); ?>

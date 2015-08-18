@@ -467,11 +467,21 @@ body.gallery {overflow:hidden;}
 
   &_i {
 	float: left;
-	margin-right: 50px;
+	margin-left: 50px;
+  }
+
+  &_i:first-child {
+	margin-left: 0;
   }
 
   &_i:last-child {
-	margin-right: 0;
+	display: none;
+  }
+
+  @media screen and (min-width: 1310px) {
+	&_i:last-child {
+	  display: block;
+	}
   }
 
 //  &_i:last-child {

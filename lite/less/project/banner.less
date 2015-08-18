@@ -233,8 +233,10 @@
     position: relative;
     text-align: center;
     color: #fff;
-    width: 600px;
-    height: 400px;
+    width: 100%;
+    max-width: 600px;
+    min-width: 320px;
+    display: block;
 
     &_author {
         margin-bottom: 23px;
@@ -260,7 +262,7 @@
 
     &_image {
         position: absolute;
-        bottom: 0;
+        top: 0;
         right: 0;
     }
 
@@ -270,7 +272,7 @@
         padding: 10px 53px;
     }
 
-    &_btn, &_btn:hover, &_btn:active {
+    &_btn:hover {
         color: inherit;
     }
 
@@ -298,6 +300,24 @@
     &_count-tx {
         font-size: 24px;
         line-height: 24px;
+    }
+
+    @media (max-width: @screen-tablet) {
+        &_tx {
+            font-size: 30px;
+            line-height: 30px;
+        }
+
+        &_author, &_count-hold, &_btn {
+            display: none;
+        }
+    }
+
+    @media (max-width: @screen-phone) {
+        &_tx {
+            font-size: 25px;
+            line-height: 25px;
+        }
     }
 }
 
@@ -338,6 +358,8 @@
 }
 
 .bnr-photo:hover {
+    color: #fff;
+
     .bnr-photo_image:after {
         background-color: rgba(0, 0, 0, .08);
     }

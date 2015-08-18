@@ -150,6 +150,7 @@ class SeoTempCommand extends CConsoleCommand
         foreach ($iterator as $j => $i) {
             $words = array();
             foreach ($stopList as $word) {
+                $word = trim($word);
                 if (preg_match('#\b' . $word . '\b#u', $i->text)) {
                     $words[] = $word;
                 }
@@ -165,9 +166,7 @@ class SeoTempCommand extends CConsoleCommand
             ));
             $entrances = isset($paths['rows'][0][1]) ? $paths['rows'][0][1] : 0;
 
-            var_dump($words);
-
-            $result[] = array($i->title, $i->url, $entrances, implode(' ', $words));
+            $result[] = array($i->title, $i->url, $entrances, implode(', ', $words));
             echo $j . "\n";
             break;
         }

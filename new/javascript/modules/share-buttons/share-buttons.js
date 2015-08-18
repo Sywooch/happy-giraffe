@@ -28,13 +28,14 @@ define(['jquery', 'knockout', 'text!share-buttons/share-buttons.html', 'facebook
         ko.bindingHandlers.vkShare = {
             init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
                 var url = valueAccessor();
-                $(element).html(VK.Share.button(false, {type: "round", text: "Поделиться"}));
+                $(element).html(VK.Share.button({ url: url }, {type: "round", text: "Поделиться"}));
             }
         };
 
         ko.bindingHandlers.fbShare = {
             init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
                 var url = valueAccessor();
+                $(element).attr('data-href', url);
                 FB.XFBML.parse($(element).parent()[0]);
 
                 jQuery(document).ready(function($){

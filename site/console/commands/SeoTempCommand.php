@@ -115,6 +115,7 @@ class SeoTempCommand extends CConsoleCommand
         $stopFile = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'stoplist';
         $stopList = file($stopFile);
 
+        Yii::import('site.frontend.extensions.GoogleAnalyticsAPI');
         $ga = new GoogleAnalyticsAPI('service');
         $ga->auth->setClientId('152056798430.apps.googleusercontent.com'); // From the APIs console
         $ga->auth->setEmail('152056798430@developer.gserviceaccount.com'); // From the APIs console

@@ -192,12 +192,10 @@ info pages
             }
         }
         &__media {
-            @media (min-width: @screen-phone-landscape) {
-                padding: 50px 0 0;
-            }
-            padding: 20px 0 0;
+            padding: 7px 0 0;
             .info-form-title {
-                margin: 0 0 25px;
+                font-size: 25px;
+                margin: 0 0 18px;
             }
         }
     }
@@ -317,7 +315,7 @@ info pages
     }
     &-clients {
         @media (min-width: @screen-desktop) {
-          height: 315px;
+          height: 188px;
         }
         height: auto;
         background: #fff;
@@ -402,6 +400,20 @@ info pages
                 width: auto;
                 display: block;
                 margin: 0 5px;
+            }
+            &__item {
+                margin-bottom: 37px;
+
+                .info-form__button {
+                    font-size: 14px;
+                    font-weight: normal;
+                    border-width: 1px;
+                    padding: 5px 41px;
+                    opacity: 1;
+                }
+            }
+            &__item:last-child {
+                margin-bottom: 0;
             }
         }
     }

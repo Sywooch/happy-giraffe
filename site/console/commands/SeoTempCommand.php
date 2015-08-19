@@ -301,7 +301,7 @@ class SeoTempCommand extends CConsoleCommand
         $iterator = new CDataProviderIterator($dp, 100);
         $c = 0;
         foreach ($iterator as $i) {
-            if (array_search($i->url, $a) !== false) {
+            if (array_search($i->url, $a) === false) {
                 $c++;
             }
         }

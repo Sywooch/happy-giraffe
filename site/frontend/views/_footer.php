@@ -6,7 +6,7 @@
             <li class="footer-list_li visible-md-inline-block"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'about'))?>" class="footer-list_a">О нас</a></li>
             <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'useragreement'))?>" class="footer-list_a">Правила сайта</a></li>
             <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'legal'))?>" class="footer-list_a">Правообладателям</a></li>
-            <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'ad'))?>" class="footer-list_a footer-list__reklama">Реклама </a></li>
+            <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'ads'))?>" class="footer-list_a footer-list__reklama">Реклама </a></li>
             <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'contacts'))?>" class="footer-list_a">Контакты </a></li>
             <li class="footer-list_li footer-list_li_social visible-md-inline-block"><a rel="nofollow" href="http://ok.ru/happygiraffe" target="_blank" class="social-button odnoklassniki">
                     <div class="social-button_ico"></div>

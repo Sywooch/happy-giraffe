@@ -9,7 +9,11 @@
             <div class="photo-window-ads_hold">
                 <div class="photo-window-ads_in">
                     <!-- ko foreach: similarPosts -->
-                    <photo-ad params="post: $data.post, collection: $data.collection" class="photo-window-ads_i"></photo-ad>
+                    <div class="photo-window-ads_i">
+                        <div class="photo-window-ads_wrapper">
+                            <photo-ad params="post: $data.post, collection: $data.collection"></photo-ad>
+                        </div>
+                    </div>
                     <!-- /ko -->
                 </div>
             </div>

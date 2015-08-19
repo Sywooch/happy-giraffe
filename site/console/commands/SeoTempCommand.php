@@ -302,7 +302,10 @@ class SeoTempCommand extends CConsoleCommand
         $c = 0;
         foreach ($iterator as $i) {
             if (array_search($i->url, $a) === false) {
-                $c++;
+                $data = $i->templateObject->data;
+                $data['hideAdsense'] = true;
+                $i->templateObject->data = $data;
+                $i->save();
             }
         }
 

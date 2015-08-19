@@ -28568,7 +28568,7 @@ body.gallery {
   border-collapse: separate;
   table-layout: fixed;
   border-spacing: 50px 0;
-  max-width: 1390px;
+  max-width: 1410px;
   width: 100%;
   margin: 0 auto;
   text-align: left;
@@ -28586,7 +28586,7 @@ body.gallery {
 .photo-window-ads_i:last-child {
   display: none;
 }
-@media screen and (min-width: 1390px) {
+@media screen and (min-width: 1410px) {
   .photo-window-ads_i:last-child {
     display: table-cell;
   }

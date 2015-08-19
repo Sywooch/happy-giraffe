@@ -63,6 +63,16 @@
                     <?php endforeach; ?>
                 </ul>
             </div>
+
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- 300 -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:300px;height:250px"
+                 data-ad-client="ca-pub-3807022659655617"
+                 data-ad-slot="8256939681"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </aside>
     </div>
 </div>

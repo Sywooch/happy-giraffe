@@ -105,7 +105,7 @@ $this->beginContent('//layouts/lite/community');
                 </div>
                 <?php endif; ?>
 
-                <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || (! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
+                <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- 300 -->
                     <ins class="adsbygoogle"

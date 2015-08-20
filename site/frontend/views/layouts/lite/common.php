@@ -64,11 +64,4 @@
 </script>
 <!--AdFox END-->
 <?php endif; ?>
-<?php if (Yii::app()->vm->version == VersionManager::VERSION_MOBILE): ?>
-<script type="text/javascript">
-    mailru_ad_client = "ad-12478";
-    mailru_ad_slot = 12478;
-</script>
-<script type="text/javascript" src="//rs.mail.ru/static/ads-min.js"></script>
-<?php endif; ?>
 </body></html>

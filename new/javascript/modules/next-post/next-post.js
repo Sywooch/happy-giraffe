@@ -51,6 +51,7 @@ define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', '
                     if (countView) {
                         AdHistory.addViews(url);
                         countView = false;
+                        dataLayer.push({"event": "nextPost"});
                     }
                 };
 

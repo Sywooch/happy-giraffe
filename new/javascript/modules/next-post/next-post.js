@@ -49,7 +49,7 @@ define(['jquery', 'knockout', 'text!next-post/next-post.html', 'models/Model', '
                     history.pushState(null, title, url);
                     document.title = title;
                     if (countView) {
-                        AdHistory.addViews(url);
+                        AdHistory.addViews(url + '?nextPost=1');
                         countView = false;
                     }
                 };

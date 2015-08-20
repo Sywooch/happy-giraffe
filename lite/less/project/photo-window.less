@@ -447,12 +447,27 @@ body.gallery {overflow:hidden;}
 }
 /* /photo-window */
 
+.block {
+  height: 100%;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.block:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -0.25em; /* Adjusts for spacing */
+
+  /* For visualization
+  background: #808080; width: 5px;
+  */
+}
+
 .photo-window-ads {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  margin: -300px 20px 0;
+  display: inline-block;
+  vertical-align: middle;
   color: #ffffff;
   text-align: center;
 

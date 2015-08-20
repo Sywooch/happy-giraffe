@@ -6,17 +6,17 @@ $this->pageTitle = 'Реклама';
 ?>
 
 <div class="info-ad">
-    <div class="info-ad-master">за последний месяц</div>
+    <div class="info-ad-master">за июль 2015 года</div>
     <div class="info-ad-part">
         <div class="info-ad-part__img"><img src="/lite/images/info/family.png" alt=""></div>
         <div class="info-ad-part__non">Нас посетило</div>
-        <div class="info-ad-part__number">3 647 127</div>
+        <div class="info-ad-part__number">2 490 000</div>
         <div class="info-ad-part__non">будущих и настоящих мам и пап</div>
     </div>
     <div class="info-ad-part">
         <div class="info-ad-part__img"><img src="/lite/images/info/eye.png" alt="" class="eye"></div>
         <div class="info-ad-part__non">Они просмотрели</div>
-        <div class="info-ad-part__number">8 922 458</div>
+        <div class="info-ad-part__number">8 380 000</div>
         <div class="info-ad-part__non">страниц сайта</div>
     </div>
     <div class="clearfix"></div>

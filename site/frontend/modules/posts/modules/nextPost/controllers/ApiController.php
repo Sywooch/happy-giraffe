@@ -27,6 +27,9 @@ class ApiController extends \site\frontend\modules\posts\controllers\ApiControll
             $criteria->order = 'RAND()';
             $criteria->addNotInCondition('t.id', $exclude);
             $this->post = Content::model()->byService('advPost')->find($criteria);
+            if (\Yii::app()->user->id == 12936) {
+                $this->post = 690809;
+            }
             if ($this->post !== null) {
                 $this->success = true;
                 $this->data = array(

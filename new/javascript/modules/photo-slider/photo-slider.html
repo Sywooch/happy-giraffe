@@ -5,16 +5,18 @@
         <div class="photo-window_top photo-window_top-noindent">
             <div class="photo-window_count">Смотрите другие галереи</div>
         </div>
-        <div class="photo-window-ads">
-            <div class="photo-window-ads_hold">
-                <div class="photo-window-ads_in">
-                    <!-- ko foreach: similarPosts -->
-                    <div class="photo-window-ads_i">
-                        <div class="photo-window-ads_wrapper">
-                            <photo-ad params="post: $data.post, collection: $data.collection"></photo-ad>
+        <div class="block">
+            <div class="photo-window-ads">
+                <div class="photo-window-ads_hold">
+                    <div class="photo-window-ads_in">
+                        <!-- ko foreach: similarPosts -->
+                        <div class="photo-window-ads_i">
+                            <div class="photo-window-ads_wrapper">
+                                <photo-ad params="post: $data.post, collection: $data.collection"></photo-ad>
+                            </div>
                         </div>
+                        <!-- /ko -->
                     </div>
-                    <!-- /ko -->
                 </div>
             </div>
         </div>

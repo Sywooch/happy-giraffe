@@ -10,7 +10,7 @@ require_once('simple_html_dom.php');
 <table style="width:100%;margin-bottom:50px;" cellpadding="0" cellspacing="0">
     <tbody><tr>
         <?php foreach ($models as $model): ?>
-        <?php if ($i == 1): ?>
+        <?php if($i == 1): ?>
             <td style="width:340px;padding-left:20px;" valign="top">
 
                 <div style="padding:10px;border:1px solid #e7e7e7;width:318px;">
@@ -188,6 +188,7 @@ require_once('simple_html_dom.php');
             </div>
 
     </td>
+    <?php endif; ?>
     <?php $i++; ?>
         <?php if ($i % 2 == 0 && $i != count($models)):?>
                         </tr>
@@ -196,7 +197,6 @@ require_once('simple_html_dom.php');
                     <table style="width:100%;margin-bottom:50px;" cellpadding="0" cellspacing="0">
                     <tbody><tr>
                 <?php endif ?>
-        <?php endif; ?>
     <?php endforeach; ?>
 
         </tr>

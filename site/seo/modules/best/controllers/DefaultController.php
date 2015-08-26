@@ -73,25 +73,24 @@ class DefaultController extends SController
 
     public function actionSend()
     {
-        $lastSend = Yii::app()->getGlobalState('lastSend', 0);
-        if ($lastSend < time() - 3600 * 20) {
-            echo CJSON::encode(array('success' => false));
-            Yii::app()->end();
-        }
-
-
         $subject = Yii::app()->request->getPost('subject', null);
         $real = Yii::app()->request->getPost('real', false);
 
+        $lastSend = Yii::app()->getGlobalState('lastSend', 0);
+        if (($lastSend < (time() - 3600 * 20)) && $real) {
+            echo CJSON::encode(array('success' => false, 'error' => 'Сегодня уже отправляли'));
+            Yii::app()->end();
+        }
+
         if (empty($subject)) {
-            echo CJSON::encode(array('success' => false));
+            echo CJSON::encode(array('success' => false, 'error' => 'Тема письма не может быть пустой'));
             Yii::app()->end();
         }
 
         $date = date('Y-m-d');
         $articles = Favourites::model()->getWeekPosts($date);
         if (count($articles) != 6) {
-            echo CJSON::encode(array('success' => false));
+            echo CJSON::encode(array('success' => false, 'error' => 'Отмечено менее 6 постов'));
             Yii::app()->end();
         }
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
@@ -101,7 +100,10 @@ class DefaultController extends SController
             ElasticEmail::sendCampaign($contents, HEmailSender::LIST_TEST_LIST, null, 'weekly_news', $subject);
         }
         echo CJSON::encode(array('success' => true));
-        Yii::app()->setGlobalState('lastSend', time());
+
+        if ($real) {
+            Yii::app()->setGlobalState('lastSend', time());
+        }
     }
 
     /**

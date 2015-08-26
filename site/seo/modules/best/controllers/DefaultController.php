@@ -71,6 +71,39 @@ class DefaultController extends SController
         echo CJSON::encode(array('status' => true));
     }
 
+    public function actionSend()
+    {
+        $lastSend = Yii::app()->getGlobalState('lastSend', 0);
+        if ($lastSend < time() - 3600 * 20) {
+            echo CJSON::encode(array('success' => false));
+            Yii::app()->end();
+        }
+
+
+        $subject = Yii::app()->request->getPost('subject', null);
+        $real = Yii::app()->request->getPost('real', false);
+
+        if (empty($subject)) {
+            echo CJSON::encode(array('success' => false));
+            Yii::app()->end();
+        }
+
+        $date = date('Y-m-d');
+        $articles = Favourites::model()->getWeekPosts($date);
+        if (count($articles) != 6) {
+            echo CJSON::encode(array('success' => false));
+            Yii::app()->end();
+        }
+        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
+        if ($real) {
+            ElasticEmail::sendCampaign($contents, null, 'clicked', 'weekly_news', $subject);
+        } else {
+            ElasticEmail::sendCampaign($contents, HEmailSender::LIST_TEST_LIST, null, 'weekly_news', $subject);
+        }
+        echo CJSON::encode(array('success' => true));
+        Yii::app()->setGlobalState('lastSend', time());
+    }
+
     /**
      * @param int $id model id
      * @return Favourites

@@ -33,6 +33,9 @@ return array(
         'application.modules.externalLinks.models.*',
         'application.modules.traffic.models.*',
         'site.frontend.extensions.phpQuery.phpQuery',
+
+        'site.frontend.modules.antispam.models.*',
+        'site.frontend.modules.antispam.components.*',
     ),
 
     /* Техническое обслуживание */

@@ -2,15 +2,22 @@
 /* @var $this DefaultController */
 
 //выбираем 3 понедельника - 2 предыдущих и один следующий
-$days = array();
-$next_monday = strtotime('next monday');
-$days [] = date("Y-m-d", $next_monday);
-for ($i = 1; $i <= 2; $i++) {
-    $days [] = date("Y-m-d", strtotime('-'.(7*$i).' days', $next_monday));
-}
+$days = array(date('Y-m-d'));
 $i = 1;
 ?>
+
 <div class="block clearfix">
+    <div class="clearfix" style="margin-bottom: 25px;">
+        <form action="<?=$this->createUrl('send')?>">
+            <textarea type="text" rows="2" cols="100" name="subject">
+
+            </textarea>
+            <p><input type="button" value="Отправить тестовую" onclick="sendCampaign(this, false)" class="adidas"></p>
+            <p><br><br></p>
+            <p><input type="button" value="Отправить реальную" onclick="sendCampaign(this, true)"></p>
+        </form>
+    </div>
+
     <?php foreach ($days as $day): ?>
         <div class="clearfix">
             <div class="b-best<?php if ($day == date("Y-m-d")) echo ' b-best__today' ?>">
@@ -89,6 +96,22 @@ $i = 1;
 
 </div>
 <script type="text/javascript">
+    function sendCampaign(el, real) {
+        var form = $(el).parents('form');
+        var data = form.serialize();
+        if (real) {
+            data.real = 1;
+        }
+        $(el).attr('disabled', 'disabled');
+        console.log(data);
+        $.post(form.attr('action'), data, function() {
+            $(this).replaceWith('Отправлено');
+            setTimeout(function() {
+                $(el).removeAttr('disabled');
+            }, 1000);
+        });
+    }
+
     $(function () {
         $("#sortable1, #sortable2, #sortable3").sortable({
             connectWith: ".best-list_ul",

@@ -43,7 +43,7 @@ class ElasticEmail extends CApplicationComponent
         return $res;
     }
 
-    public static function sendCampaign($body, $list = null, $segment = null, $template = 'weekly_news')
+    public static function sendCampaign($body, $list = null, $segment = null, $template = 'weekly_news', $subject = null)
     {
         $res = "";
 
@@ -53,7 +53,9 @@ class ElasticEmail extends CApplicationComponent
         $data .= "&from_name=" . urlencode('Веселый Жираф');
         $data .= "&template=" . urlencode($template);
         $data .= "&merge_htmlbody=" . urlencode($body);
-        //$data .= "&subject=" . urlencode("17 главных детских книг лета, 30 идей самых красивых свадебных тортов и другие интересные посты на Веселом Жирафе");
+        if ($subject !== null) {
+            $data .= "&subject=" . urlencode($subject);
+        }
         if ($list !== null) {
             $data .= "&lists=" . $list;
         }

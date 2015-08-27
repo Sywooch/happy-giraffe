@@ -33,6 +33,20 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?= $recipe->title ?>
             </h1>
 
+            <?php if (Yii::app()->vm->version == VersionManager::VERSION_DESKTOP): ?>
+            <div style="text-align: center;">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Topic -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:468px;height:60px"
+                     data-ad-client="ca-pub-3807022659655617"
+                     data-ad-slot="6246019282"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            <?php endif; ?>
+
             <?php $this->renderPartial('//banners/_post_header', array('data' => $recipe)); ?>
 
             <div class="b-article_in clearfix">

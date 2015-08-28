@@ -25,6 +25,8 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionOsinka()
     {
+        Yii::import('site.common.models.mongo.SiteEmail');
+
         $emails = SiteEmail::model()->findAll();
         $result = array('first', 'email');
         foreach ($emails as $model) {

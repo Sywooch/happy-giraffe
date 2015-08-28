@@ -23,6 +23,16 @@ class SeoTempCommand extends CConsoleCommand
 //        $this->ga->setProfile('ga:53688414');
     }
 
+    public function actionOsinka()
+    {
+        $emails = SiteEmail::model()->findAll();
+        $result = array('first', 'email');
+        foreach ($emails as $model) {
+            $result[] = array($model->name, $model->email);
+        }
+        $this->writeCsv('osinka', $result);
+    }
+
     public function actionFixAdv()
     {
         \Yii::app()->db->enableSlave = false;

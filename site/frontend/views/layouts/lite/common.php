@@ -14,6 +14,7 @@
 </head>
 <body class="body body__lite theme body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?> <?php if (Yii::app()->user->isGuest): ?> body__guest <?php else: ?>  body__user<?php endif; ?>">
 
+<?php if (Yii::app()->vm->version == VersionManager::VERSION_DESKTOP): ?>
 <div style="text-align: center">
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- ƒÓÒÍ‡ -->
@@ -25,6 +26,7 @@
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 </div>
+<?php endif; ?>
 
 <?php Yii::app()->ads->showCounters(); ?>
 <?php if (Yii::app()->user->checkAccess('editMeta')):?>

@@ -13,6 +13,19 @@
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
 <body class="body body__lite theme body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?> <?php if (Yii::app()->user->isGuest): ?> body__guest <?php else: ?>  body__user<?php endif; ?>">
+
+<div style="text-align: center">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- ƒÓÒÍ‡ -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:970px;height:250px"
+         data-ad-client="ca-pub-3807022659655617"
+         data-ad-slot="6861468089"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
 <?php Yii::app()->ads->showCounters(); ?>
 <?php if (Yii::app()->user->checkAccess('editMeta')):?>
     <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>

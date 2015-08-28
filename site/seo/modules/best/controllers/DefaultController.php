@@ -73,6 +73,16 @@ class DefaultController extends SController
 
     public function actionSend()
     {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.modules.messaging.models.*');
+        Yii::import('site.frontend.modules.messaging.components.*');
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
+        Yii::import('site.common.models.mongo.*');
+
         $subject = Yii::app()->request->getPost('subject', null);
         $real = Yii::app()->request->getPost('real', false);
 
@@ -99,8 +109,8 @@ class DefaultController extends SController
         } else {
             ElasticEmail::sendCampaign($contents, HEmailSender::LIST_TEST_LIST, null, 'weekly_news', $subject);
         }
-        echo CJSON::encode(array('success' => true));
 
+        echo CJSON::encode(array('success' => true));
         if ($real) {
             Yii::app()->setGlobalState('lastSend', time());
         }

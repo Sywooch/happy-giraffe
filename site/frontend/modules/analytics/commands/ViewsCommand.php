@@ -24,8 +24,12 @@ class ViewsCommand extends \CConsoleCommand
 //        echo count($b);
 //    }
 
-    public function actionCheat($url, $perDay)
+    public function actionCheat($url, $perDay, $till = null)
     {
+        if (date('Y-m-d') > $till) {
+            return;
+        }
+
         $day = 60*24;
         $val = $perDay / $day;
         $int = floor($val);

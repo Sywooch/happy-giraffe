@@ -8,7 +8,7 @@ $i = 1;
 
 <div class="block clearfix">
     <div class="clearfix" style="margin-bottom: 25px;">
-        <form action="<?=$this->createUrl('send')?>">
+        <form action="http://www.happy-giraffe.ru/site/send/">
             <textarea type="text" rows="2" cols="100" name="subject"></textarea>
             <p><input type="button" value="Отправить тестовую" onclick="sendCampaign(this, false)" class="adidas"></p>
             <p><br><br></p>
@@ -121,7 +121,7 @@ $i = 1;
                     if (!response.status) {
                         alert('Ошибка, обратитесь к разработчику');
                     }
-                }, 'json');
+                }, 'jsonp');
             }
         });
     });

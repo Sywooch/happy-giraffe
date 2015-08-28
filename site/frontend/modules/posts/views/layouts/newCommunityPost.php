@@ -50,6 +50,7 @@ $this->beginContent('//layouts/lite/community');
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
+                    <?php $this->endWidget(); ?>
                 <?php endif; ?>
 
                 <div class="side-block onair-min">

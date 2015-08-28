@@ -49,19 +49,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <?php
             }
             ?>
-            <?php if (Yii::app()->vm->version == VersionManager::VERSION_DESKTOP && ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
-            <div style="text-align: center;">
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- Topic -->
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:468px;height:60px"
-                     data-ad-client="ca-pub-3807022659655617"
-                     data-ad-slot="6246019282"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-            <?php endif; ?>
             <? if ($this->post->templateObject->getAttr('extraLikes', false)): ?>
                 <div class="b-article_header-likes">
                     <share-buttons params="url: '<?=$this->post->url?>'"></share-buttons>

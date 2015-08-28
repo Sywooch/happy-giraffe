@@ -10,6 +10,7 @@ $this->beginContent('//layouts/lite/main');
             <aside class="b-main_col-sidebar visible-md">
                 <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
                     <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
+                    <div class="bnr-base">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- ÕÂ·ÓÒÍÂ· new -->
                     <ins class="adsbygoogle"
@@ -19,6 +20,7 @@ $this->beginContent('//layouts/lite/main');
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
+                    </div>
                     <?php $this->endWidget(); ?>
                 <?php endif; ?>
 

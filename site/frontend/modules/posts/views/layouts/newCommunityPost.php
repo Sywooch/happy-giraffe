@@ -12,6 +12,7 @@ $this->beginContent('//layouts/lite/community');
 
                 <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
                     <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
+                    <div class="bnr-base">
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- ÕÂ·ÓÒÍÂ· new -->
                         <ins class="adsbygoogle"
@@ -22,6 +23,7 @@ $this->beginContent('//layouts/lite/community');
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
                     <?php $this->endWidget(); ?>
+                    </div>
                 <?php endif; ?>
 
                 <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || (! $this->post->templateObject->getAttr('hideRubrics', false))): ?>
@@ -39,8 +41,9 @@ $this->beginContent('//layouts/lite/community');
                     </div>
                 <?php endif; ?>
 
-                <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
+                <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false) && ! $this->post->templateObject->getAttr('hideRubrics', false))): ?>
                     <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
+                    <div class="bnr-base">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- 300 -->
                     <ins class="adsbygoogle"
@@ -50,6 +53,7 @@ $this->beginContent('//layouts/lite/community');
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
+                    </div>
                     <?php $this->endWidget(); ?>
                 <?php endif; ?>
 

@@ -71,51 +71,6 @@ class DefaultController extends SController
         echo CJSON::encode(array('status' => true));
     }
 
-    public function actionSend()
-    {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.modules.messaging.models.*');
-        Yii::import('site.frontend.modules.messaging.components.*');
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
-        Yii::import('site.common.models.mongo.*');
-
-        $subject = Yii::app()->request->getPost('subject', null);
-        $real = Yii::app()->request->getPost('real', false);
-
-        $lastSend = Yii::app()->getGlobalState('lastSend', 0);
-        if (($lastSend < (time() - 3600 * 20)) && $real) {
-            echo CJSON::encode(array('success' => false, 'error' => 'Сегодня уже отправляли'));
-            Yii::app()->end();
-        }
-
-        if (empty($subject)) {
-            echo CJSON::encode(array('success' => false, 'error' => 'Тема письма не может быть пустой'));
-            Yii::app()->end();
-        }
-
-        $date = date('Y-m-d');
-        $articles = Favourites::model()->getWeekPosts($date);
-        if (count($articles) != 6) {
-            echo CJSON::encode(array('success' => false, 'error' => 'Отмечено менее 6 постов'));
-            Yii::app()->end();
-        }
-        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-        if ($real) {
-            ElasticEmail::sendCampaign($contents, null, 'clicked', 'weekly_news', $subject);
-        } else {
-            ElasticEmail::sendCampaign($contents, HEmailSender::LIST_TEST_LIST, null, 'weekly_news', $subject);
-        }
-
-        echo CJSON::encode(array('success' => true));
-        if ($real) {
-            Yii::app()->setGlobalState('lastSend', time());
-        }
-    }
-
     /**
      * @param int $id model id
      * @return Favourites

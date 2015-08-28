@@ -38,6 +38,8 @@ class ViewsCommand extends \CConsoleCommand
         $res = $int + (($rnd < $float) ? 1 : 0);
         $model = PageView::getModel($url);
         $model->incVisits($res);
+
+        echo $res . "\n";
     }
 
     public function actionOneTime($url, $count)

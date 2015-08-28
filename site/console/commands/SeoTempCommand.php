@@ -28,7 +28,7 @@ class SeoTempCommand extends CConsoleCommand
         Yii::import('site.common.models.mongo.SiteEmail');
 
         $emails = SiteEmail::model()->findAll();
-        $result = array('first', 'email');
+        $result = array(array('first', 'email'));
         foreach ($emails as $model) {
             $result[] = array($model->name, $model->email);
         }

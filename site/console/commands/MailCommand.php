@@ -31,7 +31,7 @@ class MailCommand extends CConsoleCommand
             Yii::app()->end();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
 
-        Yii::app()->email->sendCampaign($contents, 'osinka');
+        Yii::app()->email->sendCampaign($contents, 'clicked');
     }
 
     public function actionTestWeekly($date = null)

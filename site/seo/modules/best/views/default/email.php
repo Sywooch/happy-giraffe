@@ -35,7 +35,7 @@ $i = 1;
                         <?php $models = Favourites::getListByDate(Favourites::WEEKLY_MAIL, $day) ?>
                         <?php foreach ($models as $model): ?>
                             <?php $article = $model->getArticle() ?>
-                            <?php if ($article == null){var_dump($model->attributes);Yii::app()->end();} ?>
+                            <?php if ($article instanceof CommunityContent): ?>
                             <li class="best-list_li b-best_i" id="<?= $model->_id ?>">
 
                                 <div class="user-info clearfix">
@@ -84,6 +84,10 @@ $i = 1;
                                    onclick="EditFavourites.remove('<?= $model->_id ?>', this);"></a>
                                 <a href="" class="b-best_drag"></a>
                             </li>
+                            <?php endif; ?>
+                            <?php if ($article instanceof \site\frontend\modules\posts\models\Content): ?>
+                                <?php $this->renderPartial('_content', compact('article', 'model')); ?>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>
                 </div>

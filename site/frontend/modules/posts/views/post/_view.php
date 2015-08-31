@@ -6,6 +6,14 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
         'entity' => $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity,
         'entity_id' => $this->post->originEntityId,
         )));
+
+if ($this->post->originService == 'oldBlog') {
+    $entity = 'BlogContent';
+} elseif (array_key_exists($this->post->originEntity, \site\frontend\modules\posts\models\Content::$entityAliases)) {
+    $entity = addslashes(\site\frontend\modules\posts\models\Content::$entityAliases[$this->post->originEntity]);
+} else {
+    $entity = $this->post->originEntity;
+}
 ?>
 <!-- Основная колонка-->
 <div class="b-main_col-article">
@@ -57,7 +65,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             <?php
             if (Yii::app()->user->checkAccess('moderator')) {
                 ?>
-                <redactor-panel params="entity: '<?= $this->post->originService == 'oldBlog' ? 'BlogContent' : $this->post->originEntity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
+                <redactor-panel params="entity: '<?= $entity ?>', entityId: <?= $this->post->originEntityId ?>"></redactor-panel>
                 <?php
             }
             ?>

@@ -195,6 +195,8 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * Prev Slide
          */
         this.prev = function prev() {
+            this.showAd(false);
+
             var position = this.current().element().index() + 1,
                 index = this.current().index();
             if (position > 1) {

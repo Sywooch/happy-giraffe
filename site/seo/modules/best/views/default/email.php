@@ -98,7 +98,7 @@ $i = 1;
         var form = $(el).parents('form');
         var data = form.serialize();
         if (real) {
-            data.real = 1;
+            data += '&real = 1';
         }
         form.find('input[type=button]').each(function(el) {
             $(el).attr('disabled', 'disabled');

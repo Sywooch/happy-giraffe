@@ -177,37 +177,16 @@ class Favourites extends EMongoDocument
      */
     public static function getArticlesByDate($index, $date, $limit = null)
     {
-        $ids = self::getIdListByDate($index, $date);
-        if (empty($ids))
+        $models = self::getListByDate($index, $date);
+        if (empty($models))
             return array();
-        $criteria = new CDbCriteria;
-        $criteria->limit = $limit;
-        $criteria->with = array(
-            'rubric' => array(
-                'select' => array('community_id', 'user_id'),
-            ),
-            'type' => array(
-                'select' => array('slug')
-            ),
-            'post',
-            'video'
-        );
-        $criteria->select = array('t.*');
-        $criteria->compare('t.id', $ids);
-        $criteria->order = 't.id ASC';
-        $models = CommunityContent::model()->findAll($criteria);
 
-        $sorted_models = array();
-        foreach ($ids as $id)
-        {
-            foreach ($models as $model)
-            {
-                if ($model->id == $id)
-                    $sorted_models[] = $model;
-            }
+        $result = array();
+        foreach ($models as $m) {
+            $result[] = $m->getArticle();
         }
 
-        return $sorted_models;
+        return $result;
     }
 
     public function getWeekPosts($date = null)

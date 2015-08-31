@@ -543,8 +543,10 @@ class AjaxController extends HController
             $success = false;
             if ($model) {
                 $success = Favourites::toggle($model, $index, $param);
-                $model->full = null;
-                $model->update(array('full'));
+                if ($model instanceof CommunityContent) {
+                    $model->full = null;
+                    $model->update(array('full'));
+                }
             }
             echo CJSON::encode(array('status' => $success));
         }

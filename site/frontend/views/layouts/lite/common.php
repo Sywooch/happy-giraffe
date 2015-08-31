@@ -14,10 +14,6 @@
 </head>
 <body class="body body__lite theme body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?> <?php if (Yii::app()->user->isGuest): ?> body__guest <?php else: ?>  body__user<?php endif; ?>">
 
-<?php if (Yii::app()->vm->version != VersionManager::VERSION_DESKTOP): ?>
-<script type='text/javascript' src='http://api9.net/s/98YLi90a.js'></script>
-<?php endif; ?>
-
 <?php if (Yii::app()->vm->version == VersionManager::VERSION_DESKTOP): ?>
 <div style="text-align: center">
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

@@ -101,7 +101,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
         </div>
     </article>
     <!-- /b-article-->
-    <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
+    <?php //$this->renderPartial('//banners/_article_banner', compact('data')); ?>
 
     <!-- Put this script tag to the <head> of your page -->
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?117"></script>

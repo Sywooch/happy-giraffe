@@ -32,7 +32,8 @@ class MailAdapter
 
     public function getComments()
     {
-        return \Yii::app()->controller->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
+        $controller = new \CController('dump');
+        return $controller->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
             'entity' => $this->content->originService == 'oldBlog' ? 'BlogContent' : $this->content->originEntity,
             'entity_id' => $this->content->originEntityId,
         )));

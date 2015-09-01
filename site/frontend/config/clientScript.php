@@ -19,15 +19,11 @@ return array(
             'vk' => array(
                 'exports' => 'VK',
             ),
-            'vk2' => array(
-                'exports' => 'VK',
-            ),
         ),
         'paths' => array(
             'facebook' => '//connect.facebook.net/ru_RU/all',
             'ok' => '//connect.ok.ru/connect',
             'vk' => '//vk.com/js/api/share',
-            'vk2' => '//vk.com/js/api/openapi',
             'knockout-amd-helpers' => 'knockout-amd-helpers.min',
             'wysiwyg' => '/new/javascript/wysiwyg',
             'ko_library' => '/javascripts/ko_library',

@@ -14,8 +14,6 @@ if ($this->post->originService == 'oldBlog') {
 } else {
     $entity = $this->post->originEntity;
 }
-
-$cs->registerScriptFile('https://vk.com/js/api/openapi.js?117', ClientScript::POS_HEAD);
 ?>
 <!-- Основная колонка-->
 <div class="b-main_col-article">
@@ -113,6 +111,9 @@ $cs->registerScriptFile('https://vk.com/js/api/openapi.js?117', ClientScript::PO
     <!-- /b-article-->
     <?php //$this->renderPartial('//banners/_article_banner', compact('data')); ?>
 
+    <!-- Put this script tag to the <head> of your page -->
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?117"></script>
+
     <script type="text/javascript">
         VK.init({apiId: 2855330, onlyWidgets: true});
     </script>
@@ -120,7 +121,7 @@ $cs->registerScriptFile('https://vk.com/js/api/openapi.js?117', ClientScript::PO
     <!-- Put this div tag to the place, where the Comments block will be -->
     <div id="vk_comments"></div>
     <script type="text/javascript">
-        VK.Widgets.Comments("vk_comments", {limit: 10, width: "600", attach: "*", pageUrl: "<?=$this->post->url?>"});
+        VK.Widgets.Comments("vk_comments", {limit: 10, width: "600", attach: "*"});
     </script>
 
     <!-- comments-->

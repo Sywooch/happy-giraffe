@@ -14,6 +14,8 @@ if ($this->post->originService == 'oldBlog') {
 } else {
     $entity = $this->post->originEntity;
 }
+
+Yii::app()->clientScript->registerAMD('vk_comments', array('vk2'), 'VK.init({apiId: 2855330, onlyWidgets: true}); VK.Widgets.Comments("vk_comments", {limit: 10, width: "600", attach: "*"});');
 ?>
 <!-- Основная колонка-->
 <div class="b-main_col-article">

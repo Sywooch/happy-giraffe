@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'extensions/keyboard', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library', 'text!http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory, Keyboard) {
+define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'extensions/keyboard', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory, Keyboard) {
 
     function PhotoSlider(params) {
         var collectionData = {};
@@ -25,7 +25,6 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.originalUrl = ko.observable(params.originalUrl);
         this.similarPosts = ko.observableArray([]);
         this.showEnd = ko.observable(false);
-        this.showAd = ko.observable(false);
         this.addViews = function addViews() {
             dataLayer.push({'event': 'virtualView'});
             yaCounter11221648.hit(this.current().element().url());
@@ -131,7 +130,6 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             } else {
                 AdHistory.pushState(null, title, this.current().element().url());
             }
-            AdHistory.reloadBanner();
             this.addImageBinding();
             this.addViews();
         };
@@ -166,14 +164,6 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             var position = this.current().element().index() + 1,
                 index = this.current().index();
 
-            if (index == 2) {
-                this.showAd(! this.showAd());
-                if (this.showAd()) {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    return;
-                }
-            }
-
             if (position !== this.collection.attachesCount()) {
                 this.current().index(index + 1);
                 this.sliderManipulationsMoving();
@@ -195,11 +185,6 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * Prev Slide
          */
         this.prev = function prev() {
-            if (this.showAd()) {
-                this.showAd(false);
-                return;
-            }
-
             var position = this.current().element().index() + 1,
                 index = this.current().index();
             if (position > 1) {

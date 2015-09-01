@@ -14,6 +14,8 @@ if ($this->post->originService == 'oldBlog') {
 } else {
     $entity = $this->post->originEntity;
 }
+
+$cs->registerScriptFile('https://vk.com/js/api/openapi.js?117', ClientScript::POS_HEAD);
 ?>
 <!-- Основная колонка-->
 <div class="b-main_col-article">
@@ -110,9 +112,6 @@ if ($this->post->originService == 'oldBlog') {
     </article>
     <!-- /b-article-->
     <?php //$this->renderPartial('//banners/_article_banner', compact('data')); ?>
-
-    <!-- Put this script tag to the <head> of your page -->
-    <script type="text/javascript" src="//vk.com/js/api/openapi.js?117"></script>
 
     <script type="text/javascript">
         VK.init({apiId: 2855330, onlyWidgets: true});

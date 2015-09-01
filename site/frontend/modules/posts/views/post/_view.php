@@ -115,22 +115,14 @@ if ($this->post->originService == 'oldBlog') {
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?117"></script>
 
     <script type="text/javascript">
-        function VKInit()  {
-            VK.init({apiId: 2855330, onlyWidgets: true});
-            VK.Widgets.Comments("vk_comments", {limit: 10, width: "600", attach: "*"});
-        }
-        if (window.addEventListener) {
-            window.addEventListener("load",VKInit,false);
-        } else if (window.attachEvent) {
-            window.attachEvent("onload",VKInit);
-        } else { window.onload = function() {
-            VKInit();
-        }
-        }
+        VK.init({apiId: 2855330, onlyWidgets: true});
     </script>
 
     <!-- Put this div tag to the place, where the Comments block will be -->
     <div id="vk_comments"></div>
+    <script type="text/javascript">
+        VK.Widgets.Comments("vk_comments", {limit: 10, width: "600", attach: "*", pageUrl: "<?=$this->post->url?>"});
+    </script>
 
     <!-- comments-->
     <section class="comments comments__buble">

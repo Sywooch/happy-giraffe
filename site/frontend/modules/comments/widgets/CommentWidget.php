@@ -13,7 +13,7 @@ class CommentWidget extends \CWidget
 {
 
     public $model;
-    public $cacheId = 'cache1';
+    public $cacheId = 'cache';
     protected $_count = null;
     private $_actions = array();
 
@@ -134,6 +134,7 @@ class CommentWidget extends \CWidget
         else {
             $key = $this->model['entity'] . $this->model['entity_id'];
         }
+        $key .= '1';
         return $key;
     }
 

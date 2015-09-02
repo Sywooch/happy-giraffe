@@ -1,12 +1,4 @@
-<?php
-$collapsed = Yii::app()->vm->version == VersionManager::VERSION_MOBILE;
-?>
-
-<?php if ($collapsed): ?>
-<a href="javascript:void(0)" onclick="$(this).next().show();$(this).hide();">Показать комментарии</a>
-<?php endif; ?>
-
-<div id="commentsList" class="comments_hold tab-pane active"<?=($collapsed) ? ' style="display: none;"' : ''?>>
+<div id="commentsList" class="comments_hold tab-pane active">
     <div class="comments_add">
         <div class="comments_add-hold"> Комментировать от
             <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'simple')); ?> или <a href="#" class="comments_add-a login-button" data-bind="follow: {}">Войти</a>

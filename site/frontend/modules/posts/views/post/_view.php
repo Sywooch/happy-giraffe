@@ -117,7 +117,7 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
     <div id="vk_comments"></div>
     <script type="text/javascript">
             VK.init({apiId: 2855330, onlyWidgets: true});
-            VK.Widgets.Comments("vk_comments", {limit: 10, width: "600", attach: "*"});
+            VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
     </script>
 
     <!-- comments-->

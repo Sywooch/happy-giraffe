@@ -134,7 +134,7 @@ class CommentWidget extends \CWidget
         else {
             $key = $this->model['entity'] . $this->model['entity_id'];
         }
-        $key .= '1';
+        $key .= '.1';
         return $key;
     }
 

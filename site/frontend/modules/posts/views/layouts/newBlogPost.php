@@ -44,6 +44,18 @@ $this->beginContent('//layouts/lite/main');
                 </div>
                 <?php $this->endWidget(); ?>
 
+                <div class="side-block onair-min">
+                    <div class="side-block_tx">Прямой эфир</div>
+
+                    <?php
+                    $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
+                        'pageVar' => 'page',
+                        'view' => 'onair-min',
+                        'pageSize' => 5,
+                    ));
+                    ?>
+                </div>
+
                 <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
                     <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
                     <div class="bnr-base">
@@ -59,18 +71,6 @@ $this->beginContent('//layouts/lite/main');
                     </div>
                     <?php $this->endWidget(); ?>
                 <?php endif; ?>
-
-                <div class="side-block onair-min">
-                    <div class="side-block_tx">Прямой эфир</div>
-
-                    <?php
-                    $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
-                        'pageVar' => 'page',
-                        'view' => 'onair-min',
-                        'pageSize' => 5,
-                    ));
-                    ?>
-                </div>
             </aside>
         </div>
     </div>

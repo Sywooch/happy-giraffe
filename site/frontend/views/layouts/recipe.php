@@ -5,31 +5,6 @@
             <?= $content ?>
         </div>
         <aside class="b-main_col-sidebar visible-md">
-            <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
-            <div class="bnr-base">
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- ÕÂ·ÓÒÍÂ· new -->
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:300px;height:600px"
-                     data-ad-client="ca-pub-3807022659655617"
-                     data-ad-slot="5201434880"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-            <?php $this->endWidget(); ?>
-
-            <div class="menu-simple">
-                <ul class="menu-simple_ul">
-                    <?php foreach (CActiveRecord::model($this->modelName)->types as $id => $label): ?>
-                        <li class="menu-simple_li<?php if ($this->currentType == $id): ?> active<?php endif; ?>">
-                            <?= HHtml::link($label, $this->getTypeUrl($id), array('class' => 'menu-simple_a'), true) ?>
-                            <div class="menu-simple_count"><?= isset($this->counts[$id]) ? $this->counts[$id] : 0 ?></div>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-
             <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
             <div class="bnr-base">
                 <!--AdFox START-->
@@ -63,6 +38,32 @@
                     // -->
                 </script>
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
+            </div>
+            <?php $this->endWidget(); ?>
+
+            <div class="side-block rubrics">
+                <div class="side-block_tx">Рубрики</div>
+                <ul>
+                    <?php foreach (CActiveRecord::model($this->modelName)->types as $id => $label): ?>
+                        <li class="rubrics_li">
+                            <?=HHtml::link($label, $this->getTypeUrl($id), array('class' => 'rubrics_a'), true) ?>
+                            <div class="rubrics_count"><span class="rubrics_count_tx"><?=isset($this->counts[$id]) ? $this->counts[$id] : 0 ?></span></div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+            <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
+            <div class="bnr-base">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- ÕÂ·ÓÒÍÂ· new -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:600px"
+                     data-ad-client="ca-pub-3807022659655617"
+                     data-ad-slot="5201434880"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
             <?php $this->endWidget(); ?>
 

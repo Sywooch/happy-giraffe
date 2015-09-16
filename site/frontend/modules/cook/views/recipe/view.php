@@ -275,8 +275,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
   </noindex>
   <?php endif; */ ?>
 
-<?php $this->renderPartial('//banners/_article_banner', array('data' => $recipe)); ?>
-
 <section class="comments comments__buble">
     <div class="comments-menu">
         <ul data-tabs="tabs" class="comments-menu_ul">

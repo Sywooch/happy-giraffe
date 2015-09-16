@@ -8,6 +8,8 @@ $this->beginContent('//layouts/lite/community');
             echo $content;
             ?>
             <aside class="b-main_col-sidebar visible-md">
+                <community-add params="forumId: <?= $this->forum->id ?>, clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id)) ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
+
                 <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
                 <div class="bnr-base">
                     <!--AdFox START-->
@@ -44,24 +46,6 @@ $this->beginContent('//layouts/lite/community');
                 </div>
                 <?php $this->endWidget(); ?>
 
-                <community-add params="forumId: <?= $this->forum->id ?>, clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id)) ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
-
-                <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
-                    <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
-                    <div class="bnr-base">
-                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- ÕÂ·ÓÒÍÂ· new -->
-                        <ins class="adsbygoogle"
-                             style="display:inline-block;width:300px;height:600px"
-                             data-ad-client="ca-pub-3807022659655617"
-                             data-ad-slot="5201434880"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    <?php $this->endWidget(); ?>
-                    </div>
-                <?php endif; ?>
-
                 <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || (! $this->post->templateObject->getAttr('hideRubrics', false))): ?>
                     <div class="side-block rubrics">
                         <div class="side-block_tx">Рубрики клуба</div>
@@ -75,35 +59,80 @@ $this->beginContent('//layouts/lite/community');
                             <?php endforeach; ?>
                         </ul>
                     </div>
-                <?php endif; ?>
 
-                <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false) && ! $this->post->templateObject->getAttr('hideRubrics', false))): ?>
-                    <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
-                    <div class="bnr-base">
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- 300 -->
-                    <ins class="adsbygoogle"
-                         style="display:inline-block;width:300px;height:250px"
-                         data-ad-client="ca-pub-3807022659655617"
-                         data-ad-slot="8256939681"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+                    <? if (! ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
+                        <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
+                        <div class="bnr-base">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- ÕÂ·ÓÒÍÂ· new -->
+                            <ins class="adsbygoogle"
+                                 style="display:inline-block;width:300px;height:600px"
+                                 data-ad-client="ca-pub-3807022659655617"
+                                 data-ad-slot="5201434880"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                            <?php $this->endWidget(); ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="side-block onair-min">
+                        <div class="side-block_tx">Прямой эфир</div>
+
+                        <?php
+                        $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
+                            'pageVar' => 'page',
+                            'view' => 'onair-min',
+                            'pageSize' => 5,
+                        ));
+                        ?>
                     </div>
-                    <?php $this->endWidget(); ?>
+
+                    <? if (! ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
+                        <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
+                        <div class="bnr-base">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- 300 -->
+                            <ins class="adsbygoogle"
+                                 style="display:inline-block;width:300px;height:250px"
+                                 data-ad-client="ca-pub-3807022659655617"
+                                 data-ad-slot="8256939681"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+                        <?php $this->endWidget(); ?>
+                    <?php endif; ?>
+
+                <?php else: ?>
+                    <div class="side-block onair-min">
+                        <div class="side-block_tx">Прямой эфир</div>
+
+                        <?php
+                        $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
+                            'pageVar' => 'page',
+                            'view' => 'onair-min',
+                            'pageSize' => 5,
+                        ));
+                        ?>
+                    </div>
+
+                    <? if (! ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
+                        <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
+                        <div class="bnr-base">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- ÕÂ·ÓÒÍÂ· new -->
+                            <ins class="adsbygoogle"
+                                 style="display:inline-block;width:300px;height:600px"
+                                 data-ad-client="ca-pub-3807022659655617"
+                                 data-ad-slot="5201434880"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                            <?php $this->endWidget(); ?>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
-
-                <div class="side-block onair-min">
-                    <div class="side-block_tx">Прямой эфир</div>
-
-                    <?php
-                    $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
-                        'pageVar' => 'page',
-                        'view' => 'onair-min',
-                        'pageSize' => 5,
-                    ));
-                    ?>
-                </div>
             </aside>
         </div>
     </div>

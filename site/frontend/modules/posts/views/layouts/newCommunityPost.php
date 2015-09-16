@@ -46,21 +46,51 @@ $this->beginContent('//layouts/lite/community');
                 </div>
                 <?php $this->endWidget(); ?>
 
-                <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || (! $this->post->templateObject->getAttr('hideRubrics', false))): ?>
-                    <div class="side-block rubrics">
-                        <div class="side-block_tx">Рубрики клуба</div>
-                        <ul>
-                            <?php foreach ($this->forum->rubrics as $rubric): ?>
-                                <?php if ($rubric->parent_id === null): ?>
-                                    <li class="rubrics_li"><a class="rubrics_a" href="<?=$rubric->getUrl()?>"><?=$rubric->title?></a>
-                                        <div class="rubrics_count"><span class="rubrics_count_tx"><?=\site\frontend\modules\community\helpers\StatsHelper::getRubricCount($rubric->id)?></span></div>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </ul>
+                <? if ($this instanceof site\frontend\modules\posts\controllers\PostController && $this->post->templateObject->getAttr('hideRubrics', false)): ?>
+                    <div class="side-block onair-min">
+                        <div class="side-block_tx">Прямой эфир</div>
+
+                        <?php
+                        $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
+                            'pageVar' => 'page',
+                            'view' => 'onair-min',
+                            'pageSize' => 5,
+                        ));
+                        ?>
                     </div>
 
-                    <? if (! ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
+                    <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
+                        <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
+                        <div class="bnr-base">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- ÕÂ·ÓÒÍÂ· new -->
+                            <ins class="adsbygoogle"
+                                 style="display:inline-block;width:300px;height:600px"
+                                 data-ad-client="ca-pub-3807022659655617"
+                                 data-ad-slot="5201434880"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                            <?php $this->endWidget(); ?>
+                        </div>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || (! $this->post->templateObject->getAttr('hideRubrics', false))): ?>
+                        <div class="side-block rubrics">
+                            <div class="side-block_tx">Рубрики клуба</div>
+                            <ul>
+                                <?php foreach ($this->forum->rubrics as $rubric): ?>
+                                    <?php if ($rubric->parent_id === null): ?>
+                                        <li class="rubrics_li"><a class="rubrics_a" href="<?=$rubric->getUrl()?>"><?=$rubric->title?></a>
+                                            <div class="rubrics_count"><span class="rubrics_count_tx"><?=\site\frontend\modules\community\helpers\StatsHelper::getRubricCount($rubric->id)?></span></div>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+
+                    <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
                         <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
                         <div class="bnr-base">
                             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -88,7 +118,7 @@ $this->beginContent('//layouts/lite/community');
                         ?>
                     </div>
 
-                    <? if (! ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
+                    <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
                         <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
                         <div class="bnr-base">
                             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -102,35 +132,6 @@ $this->beginContent('//layouts/lite/community');
                             </script>
                         </div>
                         <?php $this->endWidget(); ?>
-                    <?php endif; ?>
-
-                <?php else: ?>
-                    <div class="side-block onair-min">
-                        <div class="side-block_tx">Прямой эфир</div>
-
-                        <?php
-                        $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
-                            'pageVar' => 'page',
-                            'view' => 'onair-min',
-                            'pageSize' => 5,
-                        ));
-                        ?>
-                    </div>
-
-                    <? if (! ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
-                        <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
-                        <div class="bnr-base">
-                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                            <!-- ÕÂ·ÓÒÍÂ· new -->
-                            <ins class="adsbygoogle"
-                                 style="display:inline-block;width:300px;height:600px"
-                                 data-ad-client="ca-pub-3807022659655617"
-                                 data-ad-slot="5201434880"></ins>
-                            <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-                            <?php $this->endWidget(); ?>
-                        </div>
                     <?php endif; ?>
                 <?php endif; ?>
             </aside>

@@ -8,7 +8,7 @@ $this->beginContent('//layouts/lite/main');
             echo $content;
             ?>
             <aside class="b-main_col-sidebar visible-md">
-                <? if ($this->post->id == 173767): ?>
+                <? if ($this->post->originEntityId == 173767): ?>
                 <div id="adriver_banner_240x400"></div>
 
                 <script type="text/javascript">

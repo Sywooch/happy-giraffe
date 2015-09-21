@@ -148,7 +148,8 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             $this->_post->originManageInfo = $mInfo;
             $this->_post->save();
         } catch (\Exception $e) {
-            
+            var_dump($e);
+            die;
         }
         parent::afterSave($event);
     }

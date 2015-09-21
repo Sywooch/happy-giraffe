@@ -37,7 +37,7 @@ class PostController extends \LiteController
             \CommunityContent::model()->findByPk($this->post->originEntityId);
         }
         // Выключим прочтение сигналов
-        //\site\frontend\modules\notifications\behaviors\ContentBehavior::$active = false;
+        \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = false;
 
         if ($this->post && $this->post->id == 689739) {
             $this->strictCheck = false;

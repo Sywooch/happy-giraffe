@@ -106,6 +106,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionList($entity, $entityId, $listType = 'list', $rootCount = false, $dtimeFrom = 0)
     {
+        \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
+
         $model = \site\frontend\modules\comments\models\Comment::model()->specialSort();
         $model->byEntity(array('entity' => $entity, 'entity_id' => $entityId));
         if ($dtimeFrom)

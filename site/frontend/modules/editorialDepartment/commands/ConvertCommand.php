@@ -13,9 +13,12 @@ class ConvertCommand extends \CConsoleCommand
     {
         $content = Content::model()->findByAttributes(array(
             'entity' => "site\\frontend\\modules\\posts\\models\\api\\Content",
-            'entityId' => 687528,
+            'entityId' => 695289,
         ));
-        $content->save();
+
+        var_dump($content);
+
+        //$content->save();
     }
 
     public function actionTest2()

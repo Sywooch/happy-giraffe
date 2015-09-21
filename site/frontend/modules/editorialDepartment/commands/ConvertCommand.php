@@ -18,7 +18,7 @@ class ConvertCommand extends \CConsoleCommand
 
         var_dump($content);
 
-        //$content->save();
+        $content->save();
     }
 
     public function actionTest2()

@@ -32,10 +32,6 @@ class PostController extends \LiteController
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
         /** @todo добавить условие byService для полноценного использования индекса */
         $this->post = Content::model()->bySlug($content_type_slug, $content_id)->find();
-        // Костыль для удаления старых уведомлений. Можно будет удалить, предварительно удалив все старые уведомления разом
-        if ($this->post->originEntity == 'CommunityContent') {
-            \CommunityContent::model()->findByPk($this->post->originEntityId);
-        }
         // Выключим прочтение сигналов
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = false;
 

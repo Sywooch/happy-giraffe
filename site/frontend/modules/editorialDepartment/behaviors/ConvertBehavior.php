@@ -148,6 +148,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             $this->_post->originManageInfo = $mInfo;
             $saved = $this->_post->save();
             if (! $saved) {
+                var_dump($this->_post->isNewRecord);
                 var_dump($this->_post->errors);
                 die;
             }

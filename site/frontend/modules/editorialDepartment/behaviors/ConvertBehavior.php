@@ -96,7 +96,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         $post->originService = 'advPost';
         $post->originEntityId = 0;
         $post->originEntity = 'AdvPost';
-        $post->url = '#';
+        $post->url = '###';
         $post->isRemoved = 1;
         if ($post->save()) {
             $this->owner->entity = get_class($post);

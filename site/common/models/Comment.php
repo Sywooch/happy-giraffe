@@ -120,6 +120,7 @@ class Comment extends HActiveRecord
         return array(
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+                'entityClass' => 'Comment',
             ),
             'notificationBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\CommentBehavior',

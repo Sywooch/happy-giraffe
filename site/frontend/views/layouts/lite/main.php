@@ -3,6 +3,8 @@
  * @var LiteController $this
  */
 $this->beginContent('//layouts/lite/common_menu');
+
+Yii::app()->clientScript->registerAMD('userAdd', array('fancybox' => 'jquery.fancybox', '$' => 'jquery'), "$('#userAdd').show();");
 ?>
 <?php if (!Yii::app()->user->isGuest && !($this instanceof LiteController && $this->hideUserAdd)): ?>
     <div class="b-main_cols clearfix">
@@ -15,7 +17,7 @@ $this->beginContent('//layouts/lite/common_menu');
         </div>
         <div class="b-main_col-23">
             <!-- userAddRecord-->
-            <div class="userAddRecord clearfix userAddRecord__s userAddRecord__s">
+            <div class="userAddRecord clearfix userAddRecord__s userAddRecord__s" style="display: none" id="userAdd">
                 <div class="userAddRecord_ava-hold">
                     <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => Avatar::SIZE_SMALL)); ?>
                 </div>

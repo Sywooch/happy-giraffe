@@ -50,6 +50,9 @@ define(['jquery', 'knockout', 'models/CommentsController', 'models/UserControlle
         this.answerAdded = function answerAdded(userData) {
             var answerObject = CommentsController.newAnswer(this.cacheData, userData, this.parsedData());
             this.parsedData()[answerObject.parentId].answers.push(answerObject.comment);
+
+            console.log(answerObject);
+            console.log(this.parsedData()[answerObject.parentId]);
         };
 
         /**

@@ -4,7 +4,7 @@
  */
 $this->beginContent('//layouts/lite/common_menu');
 
-Yii::app()->clientScript->registerAMD('userAdd', array('fancybox' => 'jquery.fancybox', '$' => 'jquery'), "$('#userAdd').show();");
+Yii::app()->clientScript->registerAMD('userAdd', array('common' => 'common', '$' => 'jquery'), "$('#userAdd').show();");
 ?>
 <?php if (!Yii::app()->user->isGuest && !($this instanceof LiteController && $this->hideUserAdd)): ?>
     <div class="b-main_cols clearfix">

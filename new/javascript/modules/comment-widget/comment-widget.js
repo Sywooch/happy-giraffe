@@ -30,14 +30,10 @@ define(['jquery', 'knockout', 'models/CommentsController', 'models/UserControlle
          */
 
         this.newCommentAddedEvent = function newCommentAddedEvent(result) {
-            console.log('added');
-
             this.cacheData = result;
             if (this.cacheData.responseId !== 0) {
-                console.log('response');
                 Model.get(User.getUserUrl, { id: result.authorId, avatarSize: CommentsController.commentAvatarSize }).done(this.answerAdded.bind(this));
             } else {
-                console.log('noresponse');
                 Model.get(User.getUserUrl, { id: result.authorId, avatarSize: CommentsController.commentAvatarSize }).done(this.getNewUser.bind(this));
             }
         };
@@ -52,15 +48,8 @@ define(['jquery', 'knockout', 'models/CommentsController', 'models/UserControlle
 
 
         this.answerAdded = function answerAdded(userData) {
-            console.log('inner 1');
             var answerObject = CommentsController.newAnswer(this.cacheData, userData, this.parsedData());
-            console.log('inner 2');
             this.parsedData()[answerObject.parentId].answers.push(answerObject.comment);
-            console.log('inner 3');
-
-            console.log(answerObject);
-            console.log(this.parsedData()[answerObject.parentId]);
-            console.log(this.parsedData()[answerObject.parentId].answers);
         };
 
         /**

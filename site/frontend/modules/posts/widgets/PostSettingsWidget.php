@@ -40,7 +40,7 @@ class PostSettingsWidget extends \CWidget
     {
         if ($this->tagName == 'article-settings') {
             $this->htmlOptions['params'] = \CJSON::encode(array(
-                        'articleId' => (int) $this->model->originEntityId,
+                        'articleId' => (int) $this->model->id,
                         'editUrl' => \Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->model->originEntityId)),
             ));
         } else {

@@ -16,7 +16,7 @@ class TestController extends \CController
 
     public function actionTest()
     {
-        var_dump(\Yii::app()->request->getPost());
+        var_dump(\Yii::app()->request);
         $channel = \Yii::app()->request->getPost('channel');
         $data = \Yii::app()->request->getPost('text');
         \Yii::app()->nginxStream->send($channel, $data);

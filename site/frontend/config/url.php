@@ -446,6 +446,7 @@ return array(
         'horoscope/compatibility/<zodiac1:[\w]+>/<zodiac2:[\w]+>' => 'services/horoscope/compatibility/index',
         'horoscope/compatibility/<zodiac1:[\w]+>' => 'services/horoscope/compatibility/index',
         'horoscope/compatibility' => 'services/horoscope/compatibility/index',
+        'stream/test/test' => 'stream/test/test',
 
         //horoscope
         array( 'class' => 'site.frontend.modules.services.modules.horoscope.components.HoroscopeUrlRule'),

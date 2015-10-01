@@ -168,6 +168,7 @@ return array(
         ),
         'stream' => array(
             'class' => 'site\frontend\modules\stream\StreamModule',
+            'controllerNamespace' => 'site\frontend\modules\stream\controllers'
         ),
 	),
 	// application components

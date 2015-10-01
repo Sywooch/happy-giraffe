@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\comments\controllers;
+use Aws\CloudFront\Exception\Exception;
 use site\frontend\modules\comments\models\Comment;
 
 /**
@@ -62,8 +63,11 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionCreate($entity, $entityId, $text, $responseId = false)
     {
-        if (!\Yii::app()->user->checkAccess('createComment'))
+        \Yii::log('entity: '.$entity.' entityId: '.$entityId.' text: '.$text.' responseId: '.$responseId, 'info', 'comments.controllers.ApiController');
+        if (!\Yii::app()->user->checkAccess('createComment')) {
+            \Yii::log('Access Denied!', 'error', 'comments.controllers.ApiController');
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
+        }
         $comment = new \site\frontend\modules\comments\models\Comment('default');
         $comment->attributes = array(
             'author_id' => \Yii::app()->user->id,
@@ -71,19 +75,30 @@ class ApiController extends \site\frontend\components\api\ApiController
             'entity_id' => $entityId,
             'text' => $text,
         );
-        if ($responseId)
+        if ($responseId) {
             $comment->response_id = $responseId;
+        }
 
         if ($comment->save())
         {
+            \Yii::log('Comment added!', 'info', 'comments.controllers.ApiController');
             $comment->refresh();
             $this->success = true;
             $this->data = $comment->toJSON();
         }
         else
         {
+            \Yii::log('Comment not added!: '.$comment->getErrorsText(), 'error', 'comments.controllers.ApiController');
             $this->errorCode = 1;
             $this->errorMessage = $comment->getErrorsText();
+        }
+
+        try {
+            $data = 'SomeTestData';
+            \Yii::app()->nginxStream->send('talk?id=wed', $data);
+        }
+        catch (\Exception $ex) {
+            \Yii::log('Stream return error!: '.$ex->getMessage(), 'error', 'comments.controllers.ApiController');
         }
     }
 

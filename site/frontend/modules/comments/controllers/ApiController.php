@@ -93,13 +93,13 @@ class ApiController extends \site\frontend\components\api\ApiController
             $this->errorMessage = $comment->getErrorsText();
         }
 
-        try {
+        /*try {
             $data = 'SomeTestData';
             \Yii::app()->nginxStream->send('talk?id=wed', $data);
         }
         catch (\Exception $ex) {
             \Yii::log('Stream return error!: '.$ex->getMessage(), 'error', 'comments.controllers.ApiController');
-        }
+        }*/
     }
 
     public function actionUpdate($id, $text)

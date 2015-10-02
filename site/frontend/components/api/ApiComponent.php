@@ -31,13 +31,14 @@ class ApiComponent extends \CComponent
                 'method' => 'POST',
                 'header' => 'Content-Type: application/json',
                 'content' => $params,
-                'ignore_errors' => true,
+                'ignore_errors' => false,
             ),
         ));
 
         \Yii::trace('request(' . $url . ')', __CLASS__);
         $result = file_get_contents($url, $use_include_path = false, $context);
         if (YII_DEBUG && !self::isJSON($result)) {
+            var_dump($http_response_header);
             var_dump($result);
             die;
             throw new \site\frontend\components\api\ApiException($result);

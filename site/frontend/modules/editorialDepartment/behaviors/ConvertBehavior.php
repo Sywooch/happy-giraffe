@@ -31,12 +31,6 @@ class ConvertBehavior extends \EMongoDocumentBehavior
     public function beforeSave($event)
     {
         $entity = array_search(get_class($this), \site\frontend\modules\posts\models\Content::$entityAliases);
-
-        var_dump(get_class($this));
-        var_dump($entity);
-        var_dump($this->owner->isNewRecord);
-        var_dump($this->owner->entityId);
-
         if ($this->owner->isNewRecord) {
             $post = new Content();
         } else {
@@ -46,11 +40,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                     'entityId' => $this->owner->entityId,
                 ));
             } catch (\Exception $e) {
-                var_dump($e);
-                die;
-
                 $post = new Content();
-                echo 'new';
             }
         }
 
@@ -163,8 +153,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 die;
             }
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
-            die;
+
         }
         parent::afterSave($event);
     }

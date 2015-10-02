@@ -153,7 +153,8 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 die;
             }
         } catch (\Exception $e) {
-
+            var_dumpe($e);
+            die;
         }
         parent::afterSave($event);
     }

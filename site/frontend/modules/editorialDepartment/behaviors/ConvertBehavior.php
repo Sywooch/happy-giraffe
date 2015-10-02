@@ -41,6 +41,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 ));
             } catch (\Exception $e) {
                 $post = new Content();
+                echo 'new';
             }
         }
 
@@ -153,7 +154,8 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 die;
             }
         } catch (\Exception $e) {
-
+            var_dump($e->getMessage());
+            die;
         }
         parent::afterSave($event);
     }

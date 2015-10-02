@@ -40,9 +40,10 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                     'entityId' => $this->owner->entityId,
                 ));
             } catch (\Exception $e) {
+                var_dump(get_class($this));
                 var_dump($entity);
                 var_dump($this->owner->entityId);
-                var_dump($e->getMessage());
+                var_dump($e);
                 die;
 
                 $post = new Content();

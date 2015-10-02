@@ -38,6 +38,9 @@ class ApiComponent extends \CComponent
         \Yii::trace('request(' . $url . ')', __CLASS__);
         $result = file_get_contents($url, $use_include_path = false, $context);
         if (YII_DEBUG && !self::isJSON($result)) {
+            var_dump($api);
+            var_dump($action);
+            var_dump($params);
             var_dump($http_response_header);
             var_dump($result);
             die;

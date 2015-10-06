@@ -35,7 +35,7 @@ $this->beginContent('//layouts/lite/common');
                         ),
                         array(
                             'label' => 'Реклама',
-                            'url' => array('/pages/default/page', 'view' => 'ad'),
+                            'url' => array('/pages/default/page', 'view' => 'ads'),
                             'linkOptions' => array('class' => 'info-menu-link'),
                         ),
                         array(

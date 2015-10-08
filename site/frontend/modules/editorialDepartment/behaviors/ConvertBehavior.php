@@ -54,9 +54,13 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         $post->dtimeUpdate = $this->owner->dtimeUpdate;
         $labels = is_null($this->owner->forumId) ? Label::model()->findForBlog() : Label::model()->findByRubric($this->owner->rubricId);
 
-        $post->labels = array_map(function($labelModel) {
+        $labelsArray = array_map(function($labelModel) {
             return $labelModel->text;
         }, $labels);
+        if ($this->owner->forumId !== \Community::COMMUNITY_NEWS) {
+            $labelsArray[] = 'Buzz';
+        }
+        $post->labels = $labelsArray;
         $post->preview = $this->owner->htmlTextPreview;
 
         $post->template = array(

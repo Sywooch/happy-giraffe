@@ -34,6 +34,9 @@ return array(
         'status/<_c>' => 'som/status/<_c>/index',
         'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
 
+        'buzz' => 'posts/buzz/default/index',
+        'buzz/<slug>' => 'posts/buzz/default/index',
+
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
         'findFriends/byInterests' => array('friends/find', 'defaultParams' => array('type' => 2)),

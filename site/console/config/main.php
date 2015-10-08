@@ -85,6 +85,9 @@ return array(
         'statusMigrate' => array(
             'class' => 'site\frontend\modules\som\modules\status\commands\MigrateCommand',
         ),
+        'buzz' => array(
+            'class' => 'site\frontend\modules\posts\modules\buzz\commands\DefaultCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

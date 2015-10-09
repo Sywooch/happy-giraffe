@@ -116,6 +116,16 @@ return array(
     array(
         'filter' => array(
             'name' =>'widen',
+            'width' => 600,
+        ),
+        'animated' => false,
+        'usages' => array(
+            'staticPostImage',
+        ),
+    ),
+    array(
+        'filter' => array(
+            'name' =>'widen',
             'width' => 320,
         ),
         'usages' => array(

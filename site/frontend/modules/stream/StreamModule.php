@@ -7,7 +7,7 @@ class StreamModule extends \CWebModule
 
     public function init()
     {
-        var_dump($this);
+        //
         //die();
     }
 

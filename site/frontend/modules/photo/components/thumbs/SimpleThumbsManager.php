@@ -30,10 +30,11 @@ class SimpleThumbsManager extends ThumbsManager
      */
     public function getThumb(Photo $photo, $usageName, $replace = false)
     {
-        $config = $this->getFilterConfigByUsage($usageName);
-        $filter = $this->createFilter($config);
+        $config = $this->getConfigByUsage($usageName);
+        $filter = $this->createFilter($config['filter']);
+        $animated = isset($config['animated']) ? $config['animated'] : true;
         $path = $this->getFsPath($photo, $usageName);
-        return $this->getThumbInternal($photo, $filter, $path, true, $replace);
+        return $this->getThumbInternal($photo, $filter, $path, $animated, $replace);
     }
 
     public function getThumbByUrl($url)
@@ -42,9 +43,10 @@ class SimpleThumbsManager extends ThumbsManager
         $array = explode('/', $url);
         $hash = $array[count($array) - 4];
         $config = $this->getConfigByHash($hash);
-        $filter = $this->createFilter($config);
+        $filter = $this->createFilter($config['filter']);
+        $animated = isset($config['animated']) ? $config['animated'] : true;
         $path = 'thumbs/' . $hash . '/' . $photo->fs_name;
-        return $this->getThumbInternal($photo, $filter, $path, true, false);
+        return $this->getThumbInternal($photo, $filter, $path, $animated, false);
     }
 
     public function getPhotoByUrl($url)
@@ -69,7 +71,14 @@ class SimpleThumbsManager extends ThumbsManager
 
     public function hash($config)
     {
-        return md5(serialize($config));
+        $seed = serialize($config['filter']);
+        unset($config['filter']);
+        unset($config['usages']);
+        if (count($config) > 0) {
+            $seed .= serialize($config);
+        }
+
+        return md5($seed);
     }
 
     /**
@@ -98,11 +107,11 @@ class SimpleThumbsManager extends ThumbsManager
         return 'thumbs/' . $this->getHashByUsage($usageName) . '/' . $photo->fs_name;
     }
 
-    protected function getFilterConfigByUsage($usageName)
+    protected function getConfigByUsage($usageName)
     {
         foreach ($this->presets as $preset) {
             if (array_search($usageName, $preset['usages']) !== false) {
-                return $preset['filter'];
+                return $preset;
             }
         }
         throw new \CException('Wrong usage name');
@@ -113,7 +122,7 @@ class SimpleThumbsManager extends ThumbsManager
         $cache = \Yii::app()->{$this->cacheId};
         $value = $cache->get(self::HASH_KEY . $usageName);
         if ($value === false) {
-            $config = $this->getFilterConfigByUsage($usageName);
+            $config = $this->getConfigByUsage($usageName);
             $value = $this->hash($config);
             $cache->set(self::HASH_KEY . $usageName, $value);
         }
@@ -123,8 +132,8 @@ class SimpleThumbsManager extends ThumbsManager
     protected function getConfigByHash($hash)
     {
         foreach ($this->presets as $preset) {
-            if ($this->hash($preset['filter']) == $hash) {
-                return $preset['filter'];
+            if ($this->hash($preset) == $hash) {
+                return $preset;
             }
         }
         throw new \CException('Wrong hash');

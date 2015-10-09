@@ -42,8 +42,9 @@ class ImageDecorator
     {
         $this->image = \Yii::app()->imagine->load($imageString);
         $imageSize = ImageSizeHelper::getImageSize($imageString);
-        $this->format = \Yii::app()->getModule('photo')->types[$imageSize[2]];
-        $this->animated = $animated && $this->format == 'gif';
+        $inputFormat = \Yii::app()->getModule('photo')->types[$imageSize[2]];
+        $this->animated = $animated && $inputFormat == 'gif';
+        $this->format = $this->animated ? 'gif' : 'jpg';
         $this->prepare();
     }
 

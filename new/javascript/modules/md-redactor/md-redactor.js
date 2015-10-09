@@ -39,6 +39,9 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             if (this.typeOfImage() === 'compare') {
                 this.appendToText(this.generateCompareImageSample(img.getGeneratedPreset('postImage'), img.id()));
             }
+            if (this.typeOfImage() === 'gif') {
+                this.appendToText(this.generateGifImageSample(img.getGeneratedPreset('staticPostImage'), img.getGeneratedPreset('postImage')));
+            }
         }, this);
         this.generateDayImageSample = function generateDayImageSample(link, collectionId) {
             return '\n[w:day (morning|noon|evening) "First Text" (' + link + ') "Second Text"]\n\n';
@@ -51,6 +54,9 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         };
         this.generateNumberImageSample = function generateNumberImageSample(link, collectionId) {
             return '[w:image (' + link + ') (source-link) "link-title"]\n[w:number "sample text"]';
+        };
+        this.generateGifImageSample = function generateGifImageSample(link, animated) {
+            return '[w:gif (' + link + ') (' + animated + ')]';
         };
         /**
          * Начинаем h-тэги с h2
@@ -151,6 +157,10 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.insertCompareImage = function insertSignedImage() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('compare');
+        };
+        this.insertGifImage = function insertGifImage() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('gif');
         };
         /**
          * Установка опций для парсера

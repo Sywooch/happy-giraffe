@@ -459,6 +459,7 @@
         textage: /"([^"]*)"/gm,
         imgtitle: /"([^"]*)"/,
         day: /^\[w:day \((morning|noon|evening)\)( "([^"]*)")? \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( "([^"]*)")?\]/,
+        gif: /^\[w:gif \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\) \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)]/,
         compare: /^\[w:compare \((left|right)\)( "([^"]*)")?( "([^"]*)")?( \(((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg)))?\))( "([^"]*)")?\]/,
         description: /^\[w:description( "([^"]*)")?\]/,
         lead: /^\[w:lead( "([^"]*)")?\]/,
@@ -669,6 +670,14 @@
                 src = src.substring(cap[0].length);
                 var dayImg = cap[0].match(this.rules.imglinkage);
                 out += this.renderer.day(cap[1], cap[3], dayImg[0], cap[11]);
+                continue;
+            }
+
+            //gif
+            if (cap = this.rules.gif.exec(src)) {
+                src = src.substring(cap[0].length);
+                var gifImg = cap[0].match(this.rules.imglinkage);
+                out += this.renderer.gif(gifImg[0], gifImg[1]);
                 continue;
             }
 
@@ -1089,6 +1098,10 @@
         return out;
     };
 
+    Renderer.prototype.gif = function(link, animated) {
+        var out = '<gif-image params="link: \'' + link + '\', animated: \'' + animated + '\'"><img src="' + link + '"></gif-image>';
+        return out;
+    };
 
     Renderer.prototype.imgLink = function(imageLink, sourceLink, title) {
         var link,

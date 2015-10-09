@@ -72,4 +72,6 @@ define(["jquery", "knockout"], function ($, ko) {
     $('share-buttons').each(componentIterator);
     ko.components.register('next-post', { require: 'next-post/next-post' });
     $('next-post').each(componentIterator);
+    ko.components.register('gif-image', { require: 'md-redactor/components/gif-image/gif-image' });
+    $('gif-image').each(componentIterator);
 });

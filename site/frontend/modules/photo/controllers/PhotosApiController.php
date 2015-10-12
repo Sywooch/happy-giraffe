@@ -64,7 +64,7 @@ class PhotosApiController extends ApiController
     {
         $data = \Yii::app()->thumbs->presets;
         foreach ($data as &$preset) {
-            $preset['hash'] = \Yii::app()->thumbs->hash($preset);
+            $preset['hash'] = \Yii::app()->thumbs->hash($preset['filter']);
         }
         $this->success = true;
         $this->data = $data;

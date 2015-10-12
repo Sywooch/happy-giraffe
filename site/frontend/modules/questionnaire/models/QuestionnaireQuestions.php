@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\questionnaire\models;
 
+use site\frontend\modules\questionnaire\models\QuestionnaireAnswers;
+
 /**
  * @property int $id (primary, ai)
  * @property int $questionnaire_id
@@ -17,6 +19,13 @@ namespace site\frontend\modules\questionnaire\models;
 
 class QuestionnaireQuestions extends \CActiveRecord
 {
+   // public $answers;
+
+    public function init()
+    {
+        //$this->answers = $this->getAnswers();
+    }
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -34,7 +43,9 @@ class QuestionnaireQuestions extends \CActiveRecord
 
     public function relations()
     {
-        return array();
+        return array(
+            //'answers' => array(self::HAS_MANY, 'QuestionnaireAnswers', 'question_id'),
+        );
     }
 
     public function rules()
@@ -45,5 +56,10 @@ class QuestionnaireQuestions extends \CActiveRecord
     public function attributeLabels()
     {
         return array();
+    }
+
+    public function getAnswers()
+    {
+        return QuestionnaireAnswers::model()->findAll("question_id = :id", array(':id' => $this->id));
     }
 }

@@ -39,7 +39,15 @@ define('photo/Photo', ['jquery', 'knockout', 'models/Model', 'photo/baseUrlCreat
         this.getMashedPreset = function getMashedPreset(preset) {
             return baseConfig + PresetManager.getPresetHash(preset) + '/' + this.fsName();
         };
-        this.getGeneratedPreset = function generatePreseted(preset) {
+        this.getGeneratedPreset = function generatePreseted(preset, animated) {
+            if (typeof(animated) === 'undefined') animated = true;
+            var flags = '';
+            if (! animated) {
+                flags += 's';
+            }
+            if (flags.length > 0) {
+                flags = '-' + flags;
+            }
             if (this.presetHash() === undefined) {
                 if (PresetManager.presets === undefined || $.isPlainObject(PresetManager.presets)) {
                     this.preset = preset;
@@ -50,7 +58,7 @@ define('photo/Photo', ['jquery', 'knockout', 'models/Model', 'photo/baseUrlCreat
             } else {
                 this.presetHash(PresetManager.getPresetHash(preset));
             }
-            return baseConfig + this.presetHash() + '/' + this.fsName();
+            return baseConfig + this.presetHash() + flags + '/' + this.fsName();
         };
         this.getGeneratedHeight = function getGeneratedHeight(preset) {
             if (this.presetHeight() === undefined) {

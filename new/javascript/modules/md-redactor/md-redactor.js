@@ -11,6 +11,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.typeOfImage = ko.observable(null);
         this.signedImageSample = '[w:image (image-link) (source-link) "link-title"]';
         this.compareSample = '\n[w:compare (left|right) "Title" "First Text" () "Second Text"]\n\n';
+        this.leadSample = '[w:lead "Mama this is was so good"]';
         /**
          * Загружаем popup загрузчика фотографий
          * @param data
@@ -40,7 +41,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
                 this.appendToText(this.generateCompareImageSample(img.getGeneratedPreset('postImage'), img.id()));
             }
             if (this.typeOfImage() === 'gif') {
-                this.appendToText(this.generateGifImageSample(img.getGeneratedPreset('staticPostImage'), img.getGeneratedPreset('postImage')));
+                this.appendToText(this.generateGifImageSample(img.getGeneratedPreset('postImage', false), img.getGeneratedPreset('postImage'), img.id()));
             }
         }, this);
         this.generateDayImageSample = function generateDayImageSample(link, collectionId) {
@@ -123,7 +124,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          */
         this.insertVideo = function instertVideo() {
             this.appendToText(this.videoSample);
-        }
+        };
         /**
          * Вставка сравнения без фото
          */
@@ -158,11 +159,20 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('compare');
         };
+        /**
+         * Вставка gif-изображения с запуском по клику
+         */
         this.insertGifImage = function insertGifImage() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('gif');
         };
         /**
+         * Вставка лида
+         */
+        this.insertLead = function insertLead() {
+            this.appendToText(this.leadSample);
+        };
+         /**
          * Установка опций для парсера
          */
         marked.setOptions({

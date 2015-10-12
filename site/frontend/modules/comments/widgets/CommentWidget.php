@@ -13,7 +13,7 @@ class CommentWidget extends \CWidget
 {
 
     public $model;
-    public $cacheId = 'cache';
+    public $cacheId = 'dbCache';
     protected $_count = null;
     private $_actions = array();
 

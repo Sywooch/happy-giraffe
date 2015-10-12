@@ -25,15 +25,15 @@ class SimpleThumbsManager extends ThumbsManager
      * @param Photo $photo
      * @param $usageName
      * @param bool $replace
+     * @param bool $animated
      * @return Thumb
      * @throws \CException
      */
-    public function getThumb(Photo $photo, $usageName, $replace = false)
+    public function getThumb(Photo $photo, $usageName, $replace = false, $animated = true)
     {
-        $config = $this->getConfigByUsage($usageName);
-        $filter = $this->createFilter($config['filter']);
-        $animated = isset($config['animated']) ? $config['animated'] : true;
-        $path = $this->getFsPath($photo, $usageName);
+        $config = $this->getFilterConfigByUsage($usageName);
+        $filter = $this->createFilter($config);
+        $path = $this->getFsPath($photo, $usageName, $animated);
         return $this->getThumbInternal($photo, $filter, $path, $animated, $replace);
     }
 
@@ -41,10 +41,20 @@ class SimpleThumbsManager extends ThumbsManager
     {
         $photo = $this->getPhotoByUrl($url);
         $array = explode('/', $url);
-        $hash = $array[count($array) - 4];
+        $folder = $array[count($array) - 4];
+        if (strpos($folder, '-') !== false) {
+            $parts = explode('-', $folder);
+            $hash = $parts[0];
+            $flags = $parts[1];
+            if (strpos($flags, 's') !== false) {
+                $animated = false;
+            }
+        } else {
+            $hash = $folder;
+            $animated = true;
+        }
         $config = $this->getConfigByHash($hash);
-        $filter = $this->createFilter($config['filter']);
-        $animated = isset($config['animated']) ? $config['animated'] : true;
+        $filter = $this->createFilter($config);
         $path = 'thumbs/' . $hash . '/' . $photo->fs_name;
         return $this->getThumbInternal($photo, $filter, $path, $animated, false);
     }
@@ -71,14 +81,7 @@ class SimpleThumbsManager extends ThumbsManager
 
     public function hash($config)
     {
-        $seed = serialize($config['filter']);
-        unset($config['filter']);
-        unset($config['usages']);
-        if (count($config) > 0) {
-            $seed .= serialize($config);
-        }
-
-        return md5($seed);
+        return md5(serialize($config));
     }
 
     /**
@@ -102,16 +105,23 @@ class SimpleThumbsManager extends ThumbsManager
         return $filter;
     }
 
-    protected function getFsPath(Photo $photo, $usageName)
+    protected function getFsPath(Photo $photo, $usageName, $animated)
     {
-        return 'thumbs/' . $this->getHashByUsage($usageName) . '/' . $photo->fs_name;
+        $flags = '';
+        if (! $animated) {
+            $flags .= 's';
+        }
+        if (! empty($flags)) {
+            $flags = '-' . $flags;
+        }
+        return 'thumbs/' . $this->getHashByUsage($usageName) . $flags . '/' . $photo->fs_name;
     }
 
-    protected function getConfigByUsage($usageName)
+    protected function getFilterConfigByUsage($usageName)
     {
         foreach ($this->presets as $preset) {
             if (array_search($usageName, $preset['usages']) !== false) {
-                return $preset;
+                return $preset['filter'];
             }
         }
         throw new \CException('Wrong usage name');
@@ -122,7 +132,7 @@ class SimpleThumbsManager extends ThumbsManager
         $cache = \Yii::app()->{$this->cacheId};
         $value = $cache->get(self::HASH_KEY . $usageName);
         if ($value === false) {
-            $config = $this->getConfigByUsage($usageName);
+            $config = $this->getFilterConfigByUsage($usageName);
             $value = $this->hash($config);
             $cache->set(self::HASH_KEY . $usageName, $value);
         }
@@ -132,8 +142,8 @@ class SimpleThumbsManager extends ThumbsManager
     protected function getConfigByHash($hash)
     {
         foreach ($this->presets as $preset) {
-            if ($this->hash($preset) == $hash) {
-                return $preset;
+            if ($this->hash($preset['filter']) == $hash) {
+                return $preset['filter'];
             }
         }
         throw new \CException('Wrong hash');

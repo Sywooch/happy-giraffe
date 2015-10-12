@@ -125,10 +125,53 @@ class DefaultController extends \HController
         $this->redirect('?r=questionnaire/default/index');
     }
 
-    public function actionEdit()
+    public function actionEdit($questionnaire_id)
     {
-        //first: render all data.
-        return $this->render('edit');
+        $questionnaire = Questionnaire::model()->findByPk($questionnaire_id);
+        $results = QuestionnaireResults::model()->findAll("questionnaire_id = :id", array(':id' => $questionnaire_id));
+
+        return $this->render('edit', array(
+            'questionnaire' => $questionnaire,
+            'results' => $results
+        ));
+    }
+
+    public function actionSaveQuestionnaire($questionnaire_id)
+    {
+        if (isset($_POST['name'])) {
+            $questionnaire = Questionnaire::model()->findByPk($questionnaire_id);
+
+            $questionnaire->name = $_POST['name'];
+
+            $questionnaire->save();
+        }
+    }
+
+    public function actionSaveResult($result_id)
+    {
+        if(isset($_POST['text'])){
+            $result = QuestionnaireResults::model()->findByPk($result_id);
+
+            $result->value = $_POST['text'];
+
+            $result->save();
+        }
+    }
+
+    public function actionEdit2($questionnaire_id)
+    {
+        $questions = QuestionnaireQuestions::model()->findAll("questionnaire_id = :id", array(':id' => $questionnaire_id));
+        /*$answers = QuestionnaireAnswers::model()->findAll("questionnaire_id = :id", array(':id' => $questionnaire_id));
+
+        foreach ($questions as $question){
+            foreach ($answers as $answer){
+                if ($question ->id == $answer->question_id){
+                    $answer->question_id = $question;
+                }
+            }
+        }*/
+
+        return $this->render('edit2', array('questions' => $questions));
     }
 
     private function transaction($model, $action)

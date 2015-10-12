@@ -68,7 +68,7 @@ foreach ($results as $result){
                     arr[id].push({
                         'question': question,
                         'answer': $(this).val(),
-                        'result': $(this).next().val()
+                        'result': $(this).next().next().val()
                     });
                 });
             });

@@ -58,7 +58,8 @@ class ReverseParser
         $result = array();
         foreach ($this->doc->find('iframe') as $iframe) {
             if (preg_match('#embed\/([^\?]*)#', $iframe->src, $matches)) {
-                $result = array(
+                $result[] = array(
+                    'id' => $matches[1],
                     'url' => $iframe->src,
                 );
             }

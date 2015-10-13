@@ -3,6 +3,7 @@
 namespace site\frontend\modules\editorialDepartment\behaviors;
 
 use site\frontend\modules\posts\models\api\Content as Content;
+use site\frontend\modules\som\modules\community\models\api\CommunityClub;
 use site\frontend\modules\som\modules\community\models\api\Label as Label;
 
 include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
@@ -63,6 +64,14 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         $post->labels = $labelsArray;
         $post->preview = $this->owner->htmlTextPreview;
 
+        if ($this->owner->forumId == \Community::COMMUNITY_NEWS) {
+            $authorView = 'empty';
+        } elseif (array_search('Buzz', $labelsArray)) {
+            $authorView = 'club';
+        } else {
+            $authorView = 'default';
+        }
+
         $post->template = array(
             'layout' => $this->owner->forumId ? 'newCommunityPost' : 'newBlogPost',
             'data' => array(
@@ -71,6 +80,8 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 'hideRubrics' => true,
                 'hideRelap' => true,
                 'extraLikes' => true,
+                'authorView' => $authorView,
+                'clubData' => CommunityClub::getClub($labelsArray),
             ),
         );
         $post->isAutoMeta = true;

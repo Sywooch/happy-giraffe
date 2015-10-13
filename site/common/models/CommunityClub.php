@@ -17,7 +17,7 @@
  * @property Community[] $communities
  * @property Service[] $services
  */
-class CommunityClub extends HActiveRecord
+class CommunityClub extends HActiveRecord implements IHToJSON
 {
     /**
      * Returns the static model of the specified AR class.
@@ -160,6 +160,15 @@ class CommunityClub extends HActiveRecord
     public function toLabel()
     {
         return 'Клуб: ' . $this->title;
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'id' => $this->id,
+            'title' => $this->title,
+            'url' => $this->getUrl(),
+        );
     }
 
 }

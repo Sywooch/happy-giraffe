@@ -13,7 +13,7 @@ use site\frontend\modules\posts\models\Content;
 class SidebarWidget extends \CWidget
 {
     const LIMIT = 5;
-    const CACHE_PREFIX = 'HappyGiraffe.Buzz.';
+    const CACHE_PREFIX = 'HappyGiraffe.Buzz.v6.';
 
     /**
      * @var \CommunityClub
@@ -24,7 +24,10 @@ class SidebarWidget extends \CWidget
 
     public function run()
     {
-        $labels = array($this->club->toLabel(), 'Buzz');
+        $labels = array('Buzz');
+        if ($this->club) {
+            $labels[] = $this->club->toLabel();
+        }
         $posts = Content::model()->byLabels($labels)->findAll(array(
             'limit' => self::LIMIT,
         ));
@@ -50,15 +53,17 @@ class SidebarWidget extends \CWidget
     {
         $parser = new ReverseParser($post->html);
         if (count($parser->gifs) > 0) {
-            return $this->render('_gif', $parser->gifs[0]);
+            return $this->render('_gif', $parser->gifs[0], true);
         }
         if (count($parser->videos) > 0) {
             $videoData = $parser->videos[0];
-            $video = new \Video($videoData['url']);
-            return $this->render('_video', compact('video'));
+            $id = $videoData['id'];
+            $url = 'http://www.youtube.com/watch?v=' . $id;
+            $video = \Video::factory($url);
+            return $this->render('_video', compact('video'), true);
         }
         if (count($parser->images) > 0) {
-            return $this->render('_img', $parser->images[0]);
+            return $this->render('_img', $parser->images[0], true);
         }
         return \CHtml::tag('p', array(), HStr::truncate($post->text));
     }

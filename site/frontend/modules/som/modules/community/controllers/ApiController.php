@@ -11,6 +11,20 @@ use \site\frontend\modules\posts\models\Label;
  */
 class ApiController extends \site\frontend\components\api\ApiController
 {
+    public function actionGetClub(array $labels)
+    {
+        foreach ($labels as $label) {
+            if (strpos($label, 'Клуб') !== false) {
+                $parts = explode(': ', $label);
+                $clubTitle = $parts[1];
+                $this->data = \CommunityClub::model()->findByAttributes(array(
+                    'title' => $clubTitle,
+                ));
+                $this->success = true;
+                break;
+            }
+        }
+    }
 
     public function actionGetLabels($rubricId = false, $forumId = false, $communityId = false, $blog = false)
     {

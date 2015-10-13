@@ -62,7 +62,8 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             $labelsArray[] = 'Buzz';
         }
         $post->labels = $labelsArray;
-        $post->preview = $this->owner->htmlTextPreview;
+        $post->preview = empty($this->owner->htmlTextPreview) ? $this->owner->htmlText : $this->owner->htmlTextPreview;
+        $post->preview = $this->postProcessPreview($post);
 
         if ($this->owner->forumId == \Community::COMMUNITY_NEWS) {
             $authorView = 'empty';
@@ -175,6 +176,16 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         parent::afterSave($event);
     }
 
+    protected function postProcessPreview($post)
+    {
+        include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+        $doc = str_get_html($post->preview);
+        $count = count($doc->find('img'));
+        $img = $doc->find('img', $count - 1);
+        $oldHtml = $img->outertext;
+        $img->outertext = '<a href="' . $post->url . '">' . $oldHtml . 'Читать далее</a>';
+        return (string) $doc;
+    }
 }
 
 ?>

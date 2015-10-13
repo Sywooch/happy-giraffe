@@ -12,6 +12,8 @@ class DefaultController extends ListController
 {
     const DEFAULT_TAG = 'Buzz';
 
+    public $layout = '/layout';
+
     protected $_club;
 
     public function getClub()

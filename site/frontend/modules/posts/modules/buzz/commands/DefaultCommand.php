@@ -26,4 +26,17 @@ class DefaultCommand extends \CConsoleCommand
             $model->save();
         }
     }
+
+    public function actionMigrateNews()
+    {
+        $club = \Community::model()->findByPk(\Community::COMMUNITY_NEWS);
+
+        $dp = new \CActiveDataProvider(Content::model()->byLabels(array($club->toLabel())));
+        $iterator = new \CDataProviderIterator($dp, 100);
+
+        foreach ($iterator as $model) {
+            $model->templateObject->data['authorView'] = 'empty';
+            $model->save();
+        }
+    }
 }

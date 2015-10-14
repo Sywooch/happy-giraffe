@@ -10,11 +10,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
     <div class="b-article_cont clearfix">
         <div class="b-article_header clearfix">
             <div class="float-l">
-                <!-- ava--><a href="<?= $data->user->profileUrl ?>" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?= $data->user->fullName ?>" src="<?= $data->user->avatarUrl ?>" class="ava_img"></a><a href="<?= $data->user->profileUrl ?>" class="b-article_author"><?= $data->user->fullName ?></a>
-                <?= HHtml::timeTag($data, array('class' => 'tx-date'), null) ?>
-                <?php if ($data->user->specInfo !== null): ?>
-                    <div class="b-article_authorpos"><?=$data->user->specInfo['title']?></div>
-                <?php endif; ?>
+                <?php $this->renderPartial('site.frontend.modules.posts.views._author', array('post' => $data)); ?>
             </div>
             <div class="icons-meta"><a href="<?=$data->commentsUrl?>" class="icons-meta_comment"><span class="icons-meta_tx"><?=$comments->count?></span></a>
                 <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></span></div>

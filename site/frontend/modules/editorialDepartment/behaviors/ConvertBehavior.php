@@ -53,24 +53,36 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         $post->title = $this->owner->title;
         $post->dtimeCreate = time();
         $post->dtimeUpdate = $this->owner->dtimeUpdate;
-        $labels = is_null($this->owner->forumId) ? Label::model()->findForBlog() : Label::model()->findByRubric($this->owner->rubricId);
 
-        $labelsArray = array_map(function($labelModel) {
+        if ($this->owner->rubricId !== null) {
+            $labels = Label::model()->findByRubric($this->owner->rubricId);
+        } elseif ($this->owner->forumId !== null) {
+            $labels = Label::model()->findByForum($this->owner->forumId);
+        } elseif ($this->owner->clubId !== null) {
+            $labels = Label::model()->findByClub($this->owner->clubId);
+        } else {
+            $labels = Label::model()->findForBlog();
+        }
+
+        $labels = array_map(function($labelModel) {
             return $labelModel->text;
         }, $labels);
-        if ($this->owner->forumId !== \Community::COMMUNITY_NEWS) {
-            $labelsArray[] = 'Buzz';
+        if ($this->owner->label !== null) {
+            $labels[] = $this->owner->label;
         }
-        $post->labels = $labelsArray;
+        $post->labels = $labels;
         $post->preview = empty($this->owner->htmlTextPreview) ? $this->owner->htmlText : $this->owner->htmlTextPreview;
         $post->preview = $this->postProcessPreview($post);
 
-        if ($this->owner->forumId == \Community::COMMUNITY_NEWS) {
-            $authorView = 'empty';
-        } elseif (array_search('Buzz', $labelsArray)) {
-            $authorView = 'club';
-        } else {
-            $authorView = 'default';
+        switch ($this->owner->scenario) {
+            case 'news':
+                $authorView = 'empty';
+                break;
+            case 'buzz':
+                $authorView = 'club';
+                break;
+            default:
+                $authorView = 'default';
         }
 
         $post->template = array(
@@ -82,7 +94,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 'hideRelap' => true,
                 'extraLikes' => true,
                 'authorView' => $authorView,
-                'clubData' => CommunityClub::getClub($labelsArray),
+                'clubData' => CommunityClub::getClub($labels),
             ),
         );
         $post->isAutoMeta = true;
@@ -140,10 +152,22 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             $this->_post->isNofollow = 0;
             $this->_post->isRemoved = 0;
             $mInfo = $this->_post->originManageInfo;
+
+            switch ($this->owner->scenario) {
+                case 'buzz':
+                    $editAction = 'editBuzz';
+                    break;
+                case 'news':
+                    $editAction = 'editNews';
+                    break;
+                default:
+                    $editAction = 'edit';
+            }
+
             $mInfo['params'] = array(
                     'edit' => array(
                         'link' => array(
-                            'url' => '/editorialDepartment/redactor/edit/?' . http_build_query(array('entity' => get_class($this->_post), 'entityId' => $this->_post->id)),
+                            'url' => '/editorialDepartment/redactor/' . $editAction . '/?' . http_build_query(array('entity' => get_class($this->_post), 'entityId' => $this->_post->id)),
                         )
                     ),
                     'remove' => array(
@@ -181,6 +205,9 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
         $doc = str_get_html($post->preview);
         $count = count($doc->find('img'));
+        if ($count == 0) {
+            return $post->preview;
+        }
         $img = $doc->find('img', $count - 1);
         $oldHtml = $img->outertext;
         $img->outertext = '<a href="' . $post->url . '">' . $oldHtml . 'Читать далее</a>';

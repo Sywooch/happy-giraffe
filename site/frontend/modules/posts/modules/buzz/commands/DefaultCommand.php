@@ -15,7 +15,7 @@ class DefaultCommand extends \CConsoleCommand
     {
         $dp = new \CActiveDataProvider(Content::model(), array(
             'criteria' => array(
-                'condition' => 'id IN (63, 64)',
+                'condition' => 'id IN (68)',
             ),
         ));
 
@@ -35,7 +35,7 @@ class DefaultCommand extends \CConsoleCommand
         );
 
         $advExceptions = array(
-            64,
+            70,
         );
 
         $fakeModel = new \site\frontend\modules\posts\models\api\Content();
@@ -48,6 +48,7 @@ class DefaultCommand extends \CConsoleCommand
                 if (array_search($model->id, $advExceptions) === false) { // обычный эмоциональный пост
                     $labels[] = Label::LABEL_BUZZ;
                     $model->templateObject->data['authorView'] = 'club';
+                    $model->templateObject->data['clubData'] = CommunityClub::getClub($labels);
                     $model->originManageInfoObject->params['edit'] = array(
                         'link' => array(
                             'url' => '/editorialDepartment/redactor/editBuzz/?' . http_build_query(array('entity' => $fakeClass, 'entityId' => $model->id)),
@@ -56,14 +57,14 @@ class DefaultCommand extends \CConsoleCommand
                 } else { // рекламный эмоциональный пост
                     $labels[] = Label::LABEL_FORUMS;
                 }
-            } elseif (array_search($newsCommunity->toLabel(), $labels)) {
+            } elseif (array_search($newsCommunity->toLabel(), $labels) !== false) {
                 $clubLabel = null;
 
                 foreach ($labels as $label) {
                     if (strpos($label, 'Рубрика') !== false) {
                         $parts = explode(': ', $label);
                         $title = $parts[1];
-                        $rubric = \CommunityRubric::model()->findByAttributes(array('title' => $title));
+                        $rubric = \CommunityRubric::model()->findByAttributes(array('title' => $title, 'community_id' => \Community::COMMUNITY_NEWS));
 
                         $clubId = $rubricToClub[$rubric->id];
                         $club = \CommunityClub::model()->findByPk($clubId);

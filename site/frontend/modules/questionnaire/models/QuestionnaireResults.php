@@ -14,6 +14,8 @@ namespace site\frontend\modules\questionnaire\models;
 
 class QuestionnaireResults extends \CActiveRecord
 {
+    public $photo = null;
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);

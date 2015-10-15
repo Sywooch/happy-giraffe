@@ -7,6 +7,7 @@ use site\frontend\modules\questionnaire\models\QuestionnaireForm;
 use site\frontend\modules\questionnaire\models\QuestionnaireQuestions;
 use site\frontend\modules\questionnaire\models\QuestionnaireAnswers;
 use site\frontend\modules\questionnaire\models\QuestionnaireResults;
+use site\frontend\modules\photo\models\Photo;
 
 /*
  * Controller for testing.
@@ -50,6 +51,28 @@ class DefaultController extends \HController
                         $result->questionnaire_id = $questionnaire_id;
                         $result->type = strpos($key, 'text') !== false ? 0 : 1;
                         $result->value = $value;
+
+                        return $context->saveModel($result);
+                    });
+                }
+            }
+
+            if (isset($_FILES['image-0'])){
+                foreach ($_FILES as $file){
+                    $photo_id = $this->transaction(Photo::model(), function($context) use ($file) {
+                        $photo = new Photo();
+                        $photo->setImage(file_get_contents($file['tmp_name']));
+                        $photo->original_name = $file['name'];
+
+                        return $context->saveModel($photo);
+                    });
+
+                    $this->transaction(QuestionnaireResults::model(), function($context) use ($photo_id, $questionnaire_id){
+                        $result = new QuestionnaireResults();
+
+                        $result->questionnaire_id = $questionnaire_id;
+                        $result->type = 1;
+                        $result->value = $photo_id;
 
                         return $context->saveModel($result);
                     });
@@ -105,13 +128,11 @@ class DefaultController extends \HController
             }
         }
 
-        $results = QuestionnaireResults::model()->findAll("questionnaire_id = :id", array(':id' => $questionnaire_id));
         $questionnaire = Questionnaire::model()->findByPk($questionnaire_id);
 
         return $this->render('add2', array(
             'id' => $questionnaire_id,
             'questionnaire' => $questionnaire,
-            'results' => $results
         ));
     }
 
@@ -128,50 +149,102 @@ class DefaultController extends \HController
     public function actionEdit($questionnaire_id)
     {
         $questionnaire = Questionnaire::model()->findByPk($questionnaire_id);
-        $results = QuestionnaireResults::model()->findAll("questionnaire_id = :id", array(':id' => $questionnaire_id));
 
         return $this->render('edit', array(
             'questionnaire' => $questionnaire,
-            'results' => $results
         ));
     }
 
     public function actionSaveQuestionnaire($questionnaire_id)
     {
         if (isset($_POST['name'])) {
-            $questionnaire = Questionnaire::model()->findByPk($questionnaire_id);
+            $this->transaction(Questionnaire::model(), function($context) use ($questionnaire_id){
+                $questionnaire = Questionnaire::model()->findByPk($questionnaire_id);
 
-            $questionnaire->name = $_POST['name'];
+                $questionnaire->name = $_POST['name'];
 
-            $questionnaire->save();
+                return $context->saveModel($questionnaire);
+            });
         }
     }
 
     public function actionSaveResult($result_id)
     {
         if(isset($_POST['text'])){
-            $result = QuestionnaireResults::model()->findByPk($result_id);
+            $this->transaction(QuestionnaireResults::model(), function($context) use ($result_id){
+                $result = QuestionnaireResults::model()->findByPk($result_id);
 
-            $result->value = $_POST['text'];
+                $result->value = $_POST['text'];
 
-            $result->save();
+                return $context->saveModel($result);
+            });
+        }
+    }
+
+    public function actionDeleteResult($result_id)
+    {
+        QuestionnaireResults::model()->deleteByPk($result_id);
+
+        foreach (QuestionnaireAnswers::model()->findAll('result_id = :id', array(':id' => $result_id)) as $answer){
+            $this->transaction(QuestionnaireAnswers::model(), function($context) use ($answer){
+                $answer->result_id = 0;
+
+                return $context->saveModel($answer);
+            });
         }
     }
 
     public function actionEdit2($questionnaire_id)
     {
-        $questions = QuestionnaireQuestions::model()->findAll("questionnaire_id = :id", array(':id' => $questionnaire_id));
-        /*$answers = QuestionnaireAnswers::model()->findAll("questionnaire_id = :id", array(':id' => $questionnaire_id));
+        //$questions = QuestionnaireQuestions::model()->findAll("questionnaire_id = :id", array(':id' => $questionnaire_id));
+        $questionnaire = Questionnaire::model()->findByPk($questionnaire_id);
 
-        foreach ($questions as $question){
-            foreach ($answers as $answer){
-                if ($question ->id == $answer->question_id){
-                    $answer->question_id = $question;
-                }
-            }
-        }*/
+        return $this->render('edit2', array(
+            //'questions' => $questions,
+            'questionnaire' => $questionnaire
+        ));
+    }
 
-        return $this->render('edit2', array('questions' => $questions));
+    public function actionSaveQuestion($question_id)
+    {
+        if (isset($_POST['text'])){
+            $this->transaction(QuestionnaireQuestions::model(), function($context) use ($question_id){
+                $question = QuestionnaireQuestions::model()->findByPk($question_id);
+
+                $question->text = $_POST['text'];
+
+                return $context->saveModel($question);
+            });
+        }
+    }
+
+    public function actionDeleteQuestion($question_id)
+    {
+        $question = QuestionnaireQuestions::model()->findByPk($question_id);
+
+        foreach ($question->answers as $answer){
+            $answer->delete();
+        }
+
+        $question->delete();
+    }
+
+    public function actionSaveAnswer($answer_id)
+    {
+        if (isset($_POST['text'])){
+            $this->transaction(QuestionnaireAnswers::model(), function($context) use ($answer_id){
+                $answer = QuestionnaireAnswers::model()->findByPk($answer_id);
+
+                $answer->text = $_POST['text'];
+
+                return $context->saveModel($answer);
+            });
+        }
+    }
+
+    public function actionDeleteAnswer($answer_id)
+    {
+        QuestionnaireAnswers::model()->deleteByPk($answer_id);
     }
 
     private function transaction($model, $action)

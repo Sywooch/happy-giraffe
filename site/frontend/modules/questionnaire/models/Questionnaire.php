@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\questionnaire\models;
 
+use site\frontend\modules\photo\models\Photo;
+
 /**
  * @property int $id (primary, ai)
  * @property string $name (varchar 255)
@@ -39,5 +41,23 @@ class Questionnaire extends \CActiveRecord
     public function attributeLabels()
     {
         return array();
+    }
+
+    public function getResults()
+    {
+        $results = QuestionnaireResults::model()->findAll("questionnaire_id = :id", array(':id' => $this->id));
+
+        foreach ($results as $result){
+            if ($result->type == 1){
+                $result->photo = Photo::model()->findByPk((int)$result->value);
+            }
+        }
+
+        return $results;
+    }
+
+    public function getQuestions()
+    {
+        return QuestionnaireQuestions::model()->findAll("questionnaire_id = :id", array(':id' => $this->id));
     }
 }

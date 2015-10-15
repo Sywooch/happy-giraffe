@@ -1,9 +1,15 @@
 <h1>Вопросы, ответы и результаты ответов</h1>
-<?php
-foreach ($results as $result){
-    echo '<input type="hidden" value="'.$result->id.'"" name="'.$result->value.'" class="result-input" />';
-}
-?>
+<?php foreach ($questionnaire->results as $result): ?>
+    <?php if ($result->type == 0): ?>
+        <input type="hidden" value="<?= $result->id; ?>" name="<?= $result->value; ?>" class="result-input" />
+    <?php else: ?>
+        <input type="hidden" value="<?= $result->id; ?>" name="<?= $result->photo->original_name; ?>" class="result-input" />
+        <div style="display:inline-block; width: 100px; height: 100px;">
+            <?= $result->photo->original_name; ?><br/>
+            <img src="<?= \Yii::app()->thumbs->getThumb($result->photo, 'smallPostPreview'); ?>" />
+        </div>
+    <?php endif; ?>
+<?php endforeach; ?>
 <style>
     .questionInput{
         border: 1px solid black;

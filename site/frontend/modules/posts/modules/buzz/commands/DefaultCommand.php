@@ -81,11 +81,6 @@ class DefaultCommand extends \CConsoleCommand
                 $labels[] = $clubLabel;
 
                 $model->templateObject->data['authorView'] = 'empty';
-                $model->originManageInfoObject->params['edit'] = array(
-                    'link' => array(
-                        'url' => '/editorialDepartment/redactor/editNews/?' . http_build_query(array('entity' => $fakeClass, 'entityId' => $model->id)),
-                    )
-                );
             } else {
                 $labels[] = Label::LABEL_FORUMS;
             }

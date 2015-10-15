@@ -2,6 +2,7 @@
 namespace site\frontend\modules\posts\modules\buzz\controllers;
 use site\frontend\modules\posts\controllers\ListController;
 use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\models\Label;
 
 /**
  * @author Никита
@@ -10,8 +11,6 @@ use site\frontend\modules\posts\models\Content;
 
 class DefaultController extends ListController
 {
-    const DEFAULT_TAG = 'Buzz';
-
     public $layout = '/layout';
 
     protected $_club;
@@ -32,7 +31,7 @@ class DefaultController extends ListController
     public function getTags()
     {
         $tags = array();
-        $tags[] = self::DEFAULT_TAG;
+        $tags[] = Label::LABEL_BUZZ;
         if ($this->getClub()) {
             $tags[] = $this->getClub()->toLabel();
         }

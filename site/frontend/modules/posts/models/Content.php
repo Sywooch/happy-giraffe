@@ -340,6 +340,7 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function setLabelsArray($array)
     {
+        $array = array_unique($array);
         $this->labels = implode($this->labelDelimiter, $array);
     }
 

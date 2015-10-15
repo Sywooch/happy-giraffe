@@ -76,6 +76,12 @@ class RedactorController extends \LiteController
 
     public function actionEditBuzz($entity, $entityId)
     {
+        var_dump($entity);
+
+        var_dump($entityId);
+
+        die;
+
         $model = $this->getModel($entity, $entityId);
         if (isset($_POST['Content'])) {
             $model->setAttributes($_POST['Content'], false);

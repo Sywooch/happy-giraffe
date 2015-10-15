@@ -42,6 +42,17 @@ $this->beginContent('//layouts/lite/main');
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
             </div>
             <?php $this->endWidget(); ?>
+
+            <div class="side-block rubrics">
+                <div class="side-block_tx">Темы новостей</div>
+                <ul>
+                    <?php foreach (CommunityClub::model()->findAll() as $club): ?>
+                        <li class="rubrics_li"><a class="rubrics_a" href="<?=$this->createUrl('index', array('slug' => $club->slug))?>"><?=$club->title?></a>
+                            <div class="rubrics_count"><span class="rubrics_count_tx"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments($club->id)?></span></div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         </aside>
     </div>
 </div>

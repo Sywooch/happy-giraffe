@@ -34,8 +34,8 @@ return array(
         'status/<_c>' => 'som/status/<_c>/index',
         'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
 
-        'buzz' => 'posts/buzz/default/index',
         'buzz/<slug>' => 'posts/buzz/default/index',
+        'buzz' => 'posts/buzz/default/index',
 
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
@@ -246,6 +246,7 @@ return array(
         // community/*
         'community/36.*' => 404,
         'news/rubric<rubric_id:\d+>' => array('som/community/news/index'),
+        'news/<slug>' => 'som/community/news/index',
         'news' => array('som/community/news/index'),
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('som/community/newsView/view', 'defaultParams' => array('forum_id' => 36)),
         

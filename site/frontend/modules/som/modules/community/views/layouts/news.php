@@ -42,18 +42,6 @@ $this->beginContent('//layouts/lite/main');
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
             </div>
             <?php $this->endWidget(); ?>
-
-            <div class="menu-simple">
-                <ul class="menu-simple_ul">
-                    <?php
-                    foreach ($this->forum->rubrics as $rubric) {
-                        $content = HHtml::link($rubric->title, $rubric->url, array('class' => 'menu-simple_a'));
-                        $class = 'menu-simple_li' . (($this->rubric && $this->rubric->id == $rubric->id) ? ' active' : '');
-                        echo CHtml::tag('li', array('class' => $class), $content);
-                    }
-                    ?>
-                </ul>
-            </div>
         </aside>
     </div>
 </div>

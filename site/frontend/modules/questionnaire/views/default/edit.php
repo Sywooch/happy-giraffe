@@ -8,29 +8,37 @@
 
 <script>
     $(document).ready(function(){
-        /*$('#addText').click(function(){
-            var counter = $('.textInput').length;
-            $('#editForm').append('<input type="text" placeholder="Возможный результат" style="border: 1px solid black;" name="text-'+counter+'" id="text-'+counter+'" class="textInput" /><a id="btn-'+counter+'"onclick="deleteResult('+counter+');">Удалить</a> <br />');
-        });*/
-
         $('#nameSave').click(function(){
             var id = $(this).prev().attr('id');
             var name = $(this).prev().val();
             $.post('?r=questionnaire/default/saveQuestionnaire&questionnaire_id='+id, { name: name}, function(response){}, "json");
         });
-
-        $('.resultSave').click(function(){
-            var id = $(this).prev().attr('id');
-            var text = $(this).prev().val();
-            $.post('?r=questionnaire/default/saveResult&result_id='+id, { text: text}, function(response){}, "json");
-        });
     });
+
+    function saveResult(id)
+    {
+        var text = $('#result_'+id).val();
+        $.post('?r=questionnaire/default/saveResult&result_id='+id, { text: text}, function(response){}, "json");
+    }
+
+    function deleteResult(id)
+    {
+        $.post('?r=questionnaire/default/deleteResult&result_id='+id, {}, function(response){}, "json");
+    }
 </script>
 
-Название:<input type="text" class="text-field" placeholder="Название" name="name" id="<?= $questionnaire->id; ?>" value="<?= $questionnaire->name; ?>"/> <a id="nameSave">Сохранить</a><br/>
+Название:<input type="text" class="text-field" placeholder="Название" name="name" id="<?= $questionnaire->id; ?>" value="<?= $questionnaire->name; ?>"/>
+<a id="nameSave">Сохранить</a><br/>
 Результаты:<br/>
-<?php foreach ($results as $key => $result): ?>
-    <input type="text" class="text-field" placeholder="Текстовый результат" id="<?= $result->id ?>" name="text-<?= $key; ?>" value="<?= $result->value ?>" /> <a class="resultSave">Сохранить</a><br/>
+<?php foreach ($questionnaire->results as $key => $result): ?>
+    <?php if ($result->type == 0): ?>
+        <input type="text" class="text-field" placeholder="Текстовый результат" id="result_<?= $result->id ?>" name="text-<?= $key; ?>" value="<?= $result->value ?>" />
+        <a onclick="saveResult(<?= $result->id; ?>)">Сохранить</a>
+        <a onclick="deleteResult(<?= $result->id; ?>)">Удалить</a><br/>
+    <?php else: ?>
+        <img src="<?= \Yii::app()->thumbs->getThumb($result->photo, 'smallPostPreview'); ?>" />
+        <a onclick="deleteResult(<?= $result->id; ?>)">Удалить</a><br/>
+    <?php endif; ?>
 <?php endforeach ?>
 
 <a href="?r=questionnaire/default/edit2&questionnaire_id=<?= $questionnaire->id; ?>">Далее</a>

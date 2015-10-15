@@ -40,4 +40,9 @@ class QuestionnaireAnswers extends \CActiveRecord
     {
         return array();
     }
+
+    public function getResult()
+    {
+        return QuestionnaireResults::model()->findByPk($this->result_id);
+    }
 }

@@ -111,7 +111,7 @@ class SeoTempCommand extends CConsoleCommand
     public function actionAdult4()
     {
         $criteria = new CDbCriteria();
-        $criteria->addInCondition('isAdult', array(1, 2, 4));
+        $criteria->addInCondition('isAdult', array(5));
         $posts = \site\frontend\modules\posts\models\Content::model()->findAll($criteria);
         foreach ($posts as $post) {
             $post->isNoindex = 1;

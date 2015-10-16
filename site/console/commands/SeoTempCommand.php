@@ -86,8 +86,8 @@ class SeoTempCommand extends CConsoleCommand
         $ga->setAccountId('ga:53688414');
 
         $ga->setDefaultQueryParams(array(
-            'start-date' => '2015-08-06',
-            'end-date' => '2015-08-13',
+            'start-date' => '2015-10-08',
+            'end-date' => '2015-10-15',
         ));
 
         $result = array();

@@ -60,7 +60,7 @@ class SeoTempCommand extends CConsoleCommand
 
         $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model(), array(
             'criteria' => array(
-                'condition' => 'isAdult > 0',
+                'condition' => 'isAdult = 5',
             ),
         ));
         $iterator = new CDataProviderIterator($dp, 100);
@@ -105,7 +105,7 @@ class SeoTempCommand extends CConsoleCommand
             echo $i . "\n";
         }
 
-        $this->writeCsv('adult3', $result);
+        $this->writeCsv('adult5', $result);
     }
 
     public function actionAdult4()

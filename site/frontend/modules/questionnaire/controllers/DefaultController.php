@@ -236,6 +236,7 @@ class DefaultController extends \HController
                 $answer = QuestionnaireAnswers::model()->findByPk($answer_id);
 
                 $answer->text = $_POST['text'];
+                $answer->result_id = $_POST['result'];
 
                 return $context->saveModel($answer);
             });

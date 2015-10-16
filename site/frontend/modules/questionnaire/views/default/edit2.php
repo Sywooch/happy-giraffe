@@ -33,10 +33,11 @@
         $.post('?r=questionnaire/default/saveQuestion&question_id='+id, { text: text }, function(){}, "json");
     }
 
-    function saveAnswer(id)
+    function saveAnswer(id, question_id)
     {
         var text = $('#answer_'+id).val();
-        $.post('?r=questionnaire/default/saveAnswer&answer_id='+id, { text: text }, function(){}, "json");
+        var result_id = $('#select_'+question_id+'_'+id).val();
+        $.post('?r=questionnaire/default/saveAnswer&answer_id='+id, { text: text, result: result_id }, function(){}, "json");
     }
 
     function deleteQuestion(id)
@@ -80,7 +81,7 @@
                 <?php endif; ?>
             <?php endforeach; ?>
             </select>
-            <a onclick="saveAnswer(<?= $answer->id; ?>)">Сохранить</a>
+            <a onclick="saveAnswer(<?= $answer->id; ?>, <?= $question->id; ?>)">Сохранить</a>
             <a onclick="deleteAnswer(<?= $answer->id; ?>)">Удалить</a><br/>
         </div>
     <?php endforeach; ?>

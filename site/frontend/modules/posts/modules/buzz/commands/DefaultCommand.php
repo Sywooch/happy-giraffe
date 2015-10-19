@@ -15,7 +15,7 @@ class DefaultCommand extends \CConsoleCommand
     {
         $dp = new \CActiveDataProvider(Content::model(), array(
             'criteria' => array(
-                'condition' => 'id IN (68)',
+                'condition' => 'originEntityId IN (52326, 76, 77)',
             ),
         ));
 
@@ -51,8 +51,6 @@ class DefaultCommand extends \CConsoleCommand
             256624,
             252664,
             250794,
-
-
         );
 
         $fakeModel = new \site\frontend\modules\posts\models\api\Content();

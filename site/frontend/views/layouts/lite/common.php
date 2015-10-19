@@ -15,7 +15,7 @@
 <body class="body body__lite theme body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?> <?php if (Yii::app()->user->isGuest): ?> body__guest <?php else: ?>  body__user<?php endif; ?>">
 
 <?php if (Yii::app()->vm->version == VersionManager::VERSION_DESKTOP): ?>
-    <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) || ($this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
+    <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) ||($this->post && $this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
     <div style="text-align: center; margin-top: 20px;">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- ƒÓÒÍ‡ -->

@@ -35,7 +35,24 @@ class DefaultCommand extends \CConsoleCommand
         );
 
         $advExceptions = array(
-            70,
+            247154,
+
+            240984,
+            691779,
+            675554,
+
+            697054,
+            691084,
+            268736,
+            691864,
+
+            270589,
+            676679,
+            256624,
+            252664,
+            250794,
+
+
         );
 
         $fakeModel = new \site\frontend\modules\posts\models\api\Content();
@@ -45,7 +62,7 @@ class DefaultCommand extends \CConsoleCommand
         foreach ($iterator as $model) {
             $labels = $model->labelsArray;
             if ($model->originService == 'advPost') {
-                if (array_search($model->id, $advExceptions) === false) { // обычный эмоциональный пост
+                if (array_search($model->originEntityId, $advExceptions) === false) { // обычный эмоциональный пост
                     $labels[] = Label::LABEL_BUZZ;
                     $model->templateObject->data['authorView'] = 'club';
                     $model->templateObject->data['clubData'] = CommunityClub::getClub($labels);

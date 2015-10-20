@@ -17,6 +17,7 @@ class DefaultCommand extends \CConsoleCommand
             throw new \CException("Invalid parameters");
         }
 
+        \Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
 
         $criteria = new \CDbCriteria();

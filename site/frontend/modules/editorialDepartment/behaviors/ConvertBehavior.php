@@ -210,8 +210,14 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         }
         $img = $doc->find('img', $count - 1);
         $oldHtml = $img->outertext;
-        $img->outertext = '<a href="' . $post->url . '">' . $oldHtml . 'Читать далее</a>';
-        return (string) $doc;
+        $class = ($this->owner->scenario == 'buzz') ? 'middle' : '';
+        $img->outertext = '';
+
+        return (string) $doc . '<div class="b-album-cap feed-cap">
+                      <div class="b-album-cap_hold">
+                        <div class="btn btn-default btn-l btn-feed ' . $class . '">Читать далее</div><img src="' . $img->src . '">
+                      </div>
+                    </div>';
     }
 }
 

@@ -9,6 +9,7 @@ namespace site\frontend\modules\posts\modules\buzz\widgets;
 use site\common\helpers\HStr;
 use site\frontend\modules\posts\components\ReverseParser;
 use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\models\Label;
 
 class SidebarWidget extends \CWidget
 {
@@ -20,15 +21,16 @@ class SidebarWidget extends \CWidget
      */
     public $club;
 
-    public $cacheId = 'dbCache';
+    public $cacheId = 'cache';
 
     public function run()
     {
-        $labels = array('Buzz');
+        $labels = array(Label::LABEL_BUZZ);
         if ($this->club) {
             $labels[] = $this->club->toLabel();
         }
         $posts = Content::model()->byLabels($labels)->findAll(array(
+            'condition' => 'id IN (48, 50, 78)',
             'limit' => self::LIMIT,
         ));
         $this->render('main', compact('posts'));
@@ -52,6 +54,7 @@ class SidebarWidget extends \CWidget
     protected function getContentHtml($post)
     {
         $parser = new ReverseParser($post->html);
+        $previewParser = new ReverseParser($post->preview);
         if (count($parser->gifs) > 0) {
             return $this->render('_gif', $parser->gifs[0], true);
         }
@@ -62,8 +65,9 @@ class SidebarWidget extends \CWidget
             $video = \Video::factory($url);
             return $this->render('_video', compact('video'), true);
         }
-        if (count($parser->images) > 0) {
-            return $this->render('_img', $parser->images[0], true);
+        $images = array_merge($parser->images, $previewParser->images);
+        if (count($images) > 0) {
+            return $this->render('_img', $images[0], true);
         }
         return \CHtml::tag('p', array(), HStr::truncate($post->text));
     }

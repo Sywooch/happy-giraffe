@@ -6,6 +6,12 @@
 ?>
 
 <?php foreach ($posts as $post): ?>
-<p><?=$post->title?></p>
-<?=$this->getHtml($post)?>
+    <div class="article-anonce article-anonce__s">
+        <a href="<?=$post->url?>" class="article-anonce_hold">
+            <?=$this->getHtml($post)?>
+            <div class="article-anonce_bottom">
+                <div class="article-anonce_t"><?=$post->title?></div>
+            </div>
+        </a>
+    </div>
 <?php endforeach; ?>

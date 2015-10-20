@@ -8,9 +8,6 @@ $this->pageTitle = $this->post->title;
 $this->metaDescription = $this->post->metaObject->description;
 $this->metaNoindex = $this->post->isNoindex;
 
-var_dump($this->club);
-die;
-
 // Скопировано из site\frontend\modules\community\controllers\DefaultController::actionView
 $this->breadcrumbs = array();
 if($this->club) {

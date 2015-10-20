@@ -1,0 +1,542 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+
+
+<!-- список рубрик-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
+</head>
+<body class="body body__lite">
+  <div class="layout-container">
+    <div class="layout-header-consult">
+      <div class="layout-header-consult__l">
+        <div class="layout-header-consult__title">
+          У Вас не хватает <br />
+          грудного молока?
+        </div>
+      </div>
+      <div class="layout-header-consult__r"><a class="layout-header-consult__button"><span class="layout-header-consult__button__inner">
+             
+            Смотреть <br />
+            ответы</span></a></div>
+    </div>
+    <div class="layout-header-consult sotense clearfix">
+      <div class="layout-header-consult__l">
+        <div class="layout-header-consult__theme">Онлайн-консультация</div>
+        <div class="layout-header-consult__title">
+          У Вас не хватает <br />
+          грудного молока?
+        </div><a class="layout-header-consult__button"><span class="layout-header-consult__button__inner">Задайте вопрос</span></a>
+      </div>
+      <div class="layout-header-consult__r">
+        <div class="layout-header-consult__img"><img src="/lite/images/services/consult/consult-man-empty.png" alt=""></div>
+        <div class="layout-header-consult__name">
+          Морозов <br />
+          Сергей Леонидович
+        </div>
+        <div class="layout-header-consult__pos">Врач-педиатр</div>
+      </div>
+    </div>
+    <div class="layout-loose">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu header-menu-guest">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                
+                        var $this = $(this),
+                            activeClass = 'active';
+                
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                      });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li header-menu-guest_section-1"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Муж и жена</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-2"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Беременность и дети</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-3"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Наш дом</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-4"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Красота и здоровье</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-5"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Интересы и увлечения</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-6"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Семейный отдых</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_search"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__search"></span><span class="header-menu_tx">Поиск</span></a></li>
+                <!--li.header-menu_li
+                a.header-menu_a(href='#')
+                    span.header-menu_ico.header-menu_ico__giraffe
+                    span.header-menu_tx
+                        | Мой Жираф
+                    span.header-menu_count 1
+                // Конверсионный попап
+                .header-popup.header-popup__club
+                    .header-popup_hold
+                        .header-popup_t Вступайте в разные клубы на Веселом жирафе!
+                        .header-popup_club
+                            // 18 клубов
+                            .b-clubs
+                                ul.b-clubs_ul
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__1
+                                            .b-clubs_tx Планирование
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__2
+                                            .b-clubs_tx Беременность и роды
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__3
+                                            .b-clubs_tx Дети до года
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__4
+                                            .b-clubs_tx Дети старше года
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__5
+                                            .b-clubs_tx Дошкольники
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__6
+                                            .b-clubs_tx Школьники
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__7
+                                            .b-clubs_tx Готовим на кухне
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__8
+                                            .b-clubs_tx Ремонт в доме
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__9
+                                            .b-clubs_tx Домашние хлопоты
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__10
+                                            .b-clubs_tx Сад и огород
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__11
+                                            .b-clubs_tx Наши питомцы
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__12
+                                            .b-clubs_tx Красота и мода
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__13
+                                            .b-clubs_tx Наше здоровье
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__14
+                                            .b-clubs_tx Свадьба
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__15
+                                            .b-clubs_tx Отношения в семье
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__16
+                                            .b-clubs_tx Рукоделие
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__17
+                                            .b-clubs_tx Цветы в доме
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__18
+                                            .b-clubs_tx Наш автомобиль
+                                //- li.b-clubs_li
+                                    a.b-clubs_a(href="#")
+                                        .ico-club.ico-club__19
+                                        .b-clubs_tx Мы путешествуем
+                
+                        .header-popup_b.clearfix
+                            .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
+                            .header-popup_b-l
+                                span.header-popup_b-tx Начните прямо сейчас с помощью
+                
+                                .ico-social-hold
+                                    a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                    a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
+                // /Конверсионный попап
+                -->
+                <!-- Класс active отвечает за видимость попапапа-->
+                <!--li.header-menu_li
+                a.header-menu_a(href='#')
+                    span.header-menu_ico.header-menu_ico__im
+                    span.header-menu_tx
+                        | вам письмо
+                    span.header-menu_count 1
+                // Конверсионный попап
+                .header-popup.header-popup__msg
+                    .header-popup_hold
+                        .header-popup_t Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!
+                        .header-popup_msg
+                
+                        .header-popup_b.clearfix
+                            .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
+                            .header-popup_b-l
+                                span.header-popup_b-tx Начните прямо сейчас с помощью
+                
+                                .ico-social-hold
+                                    a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                    a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
+                // /Конверсионный попап
+                -->
+                <!--li.header-menu_li
+                a.header-menu_a(href='#')
+                    span.header-menu_ico.header-menu_ico__contest
+                    span.header-menu_tx
+                        | Конкурс
+                    span.header-menu_count 1
+                -->
+              </ul>
+            </div>
+            <!-- /header-menu-->
+            <!-- - if (vars.nosearch != true)+sidebarSearch('sidebar-search__big', sidebarSearch.a)
+            -->
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <div class="b-main clearfix">
+          <div class="b-main_cont">
+            <div class="b-main_col-hold clearfix">
+              <!--/////-->
+              <!-- Основная колонка-->
+              <div class="b-main_col-article">
+                <article class="b-article clearfix b-article__list">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_cont-tale"></div>
+                    <div class="b-article_header clearfix">
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                      </div>
+                      <div class="float-l">
+                        <time pubdate="1957-10-04" class="tx-date">минуту назад</time>
+                      </div>
+                    </div>
+                    <div class="b-article_t-list article_t-feed"><a class="b-article_t-a article_t-feed">Мама из Австралии восхитила мир своей фигурой</a></div>
+                    <div class="b-markdown">
+                      <p></p>
+                      <div class="b-markdown_t-sub">
+                        <p>Австралийская «фитнес-гуру», 26-летняя Софи Гвидолин, стала звездой Инстаграма благодаря своей удивительно стройной фигуре. Женщина сохранила идеальные формы после рождения близнецов.</p>
+                      </div>
+                    </div>
+                    <div class="b-album-cap feed-cap">
+                      <div class="b-album-cap_hold">
+                        <div class="feed-image-shadow"></div><img src="../../../images/feed-1.jpg">
+                        <div class="btn btn-default btn-l btn-feed">Читать далее</div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <article class="b-article clearfix b-article__list">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_cont-tale"></div>
+                    <div class="b-article_header clearfix">
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                      </div>
+                      <div class="float-l">
+                        <time pubdate="1957-10-04" class="tx-date">минуту назад</time>
+                      </div>
+                    </div>
+                    <div class="b-article_t-list article_t-feed"><a class="b-article_t-a article_t-feed">Виктория Дайнеко впервые рассказала о своих первых родах</a></div>
+                    <div class="b-markdown">
+                      <p></p>
+                      <div class="b-markdown_t-sub">
+                        <p>Певица Виктория Дайнеко последние месяцы старательно скрывала от окружающих как беременность, так и факт рождения ребёнка. Но наконец-то популярная исполнительница пробила стену молчания и рассказала о своих первых родах.</p>
+                      </div>
+                    </div>
+                    <div class="b-album-cap feed-cap">
+                      <div class="b-album-cap_hold">
+                        <div class="feed-image-shadow"></div><img src="../../../images/feed-2.jpg">
+                        <div class="btn btn-default btn-l btn-feed">Читать далее</div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <article class="b-article clearfix b-article__list">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_cont-tale"></div>
+                    <div class="b-article_header clearfix">
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                      </div>
+                      <div class="float-l">
+                        <time pubdate="1957-10-04" class="tx-date">минуту назад</time>
+                      </div>
+                    </div>
+                    <div class="b-article_t-list article_t-feed"><a class="b-article_t-a article_t-feed">Регионы могут получить почти 8 млрд рублей для многодетных семей</a></div>
+                    <div class="b-article_in clearfix">
+                      <p class="no_image">Правительство РФ может выделить около 8 миллиардов рублей на предоставление субсидий регионам для софинансирования ежемесячной выплаты нуждающимся в поддержке семьям в связи с рождением третьего ребенка или последующих детей до достижения ребенком возраста трех лет, говорится в проекте бюджета на 2016 год, который размещен на правовом портале. "Бюджетных ассигнований в объеме 7 923 504,5 тысячи рублей, предусмотренных по подразделу «Охрана семьи и детства» раздела «Социальная политика» классификации расходов бюджетов, на предоставление субсидий в целях софинансирования расходных обязательств субъектов</p>
+                    </div>
+                    <div class="b-album-cap feed-cap">
+                      <div class="b-album-cap_hold">
+                        <div class="btn btn-default btn-l btn-feed_noimage">Читать далее</div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <!-- /Основная колонкa-->
+              <aside class="b-main_col-sidebar visible-md">
+                <div class="bnr-base"><a href="#"><img src="/lite/images/example/w300-h600-2.jpg" alt=""></a></div>
+                <div class="side-block rubrics">
+                  <div class="side-block_tx">Темы новостей</div>
+                  <ul>
+                    <li class="rubrics_li"><a class="rubrics_a">Все</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">2 685 321</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Свадьба</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">16 874</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Отношения в семье</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">74 284</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Планирование</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">9 704</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Беременность и роды</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">41 927</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Дети до года</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">31 866</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Дети старше года</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">44 962</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Дошкольники</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">19 900</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Школьники</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">22 983</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Готовим на кухне</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">31 906</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Домашние хлопоты</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">21 610</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Наши питомцы</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">10 731</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Сад и огород</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">8 786</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Ремонт в доме</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">20 120</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Красота и мода</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">55 501</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Наше здоровье</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">25 517</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Наш автомобиль</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">7 647</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Рукоделие</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">57 814</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Цветы в доме</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">5 606</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Рыбалка</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">589</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Выходные с семьей</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">8 090</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Мы путешествуем</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">12 235</span></div>
+                    </li>
+                    <li class="rubrics_li"><a class="rubrics_a">Семейные праздники</a>
+                      <div class="rubrics_count"><span class="rubrics_count_tx">17 448</span></div>
+                    </li>
+                  </ul>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+        <!-- Футер-->
+        <!-- layout-footer-->
+        <div class="layout-footer clearfix">
+          <div class="layout-footer_hold">
+            <ul class="footer-list">
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты</a></li>
+              <li class="footer-list_li footer-list_li_social visible-md-inline-block"><a rel="nofollow" href="http://ok.ru/happygiraffe" target="_blank" class="social-button odnoklassniki">
+                  <div class="social-button_ico"></div>
+                  <div class="social-button_tx">Одноклассники</div>
+                  <div class="social-button_count">198486</div></a></li>
+            </ul>
+            <ul class="footer-menu visible-md">
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__husband-and-wife">Муж и жена </div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Свадьба </a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Отношения в семье</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__pregnancy">Беременность и дети </div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Планирование </a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Беременность и роды</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дети до года</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дети старше года</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дошкольники</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Школьники</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__home">Наш дом</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Готовим на кухне</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Ремонт в доме</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Домашние хлопоты</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Сад и огород</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наши питомцы </a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__beauty">Красота и здоровье</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Красота и мода</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наше здоровье</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__hobby">Интересы и увлечения</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Рукоделие</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Цветы в доме</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наш автомобиль</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Рыбалка</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__family-holiday">Семейный отдых</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Мы путешествуем</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Выходные с семьей</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Праздники</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+            <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+          </div>
+        </div>
+        <!-- /layout-footer-->
+        <!-- /Футер-->
+        
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+    <div class="popup popup-bnr-photo">
+      <photoAd></photoAd>
+    </div>
+  </div>
+</body></html>

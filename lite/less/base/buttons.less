@@ -242,3 +242,53 @@
         }
     }
 }
+
+.btn-label {
+
+    display: inline-block;
+    width: auto;
+    font-weight: bolder;
+    height: 40px !important;
+    padding: 4px 10px;
+    position: absolute;
+    color: #fff;
+    font-weight: bolder; 
+    right: 15px;
+    top: 15px;
+    .border-radius(10px);
+    font-size: 2em;
+    
+    &.gif{
+        background: #04acf2;
+        &:after{ 
+            content: 'GIF';
+        }
+    }
+    
+    &.video{
+        background: #ff6232;
+        &:after{
+            content: 'VIDEO';
+        }
+    }
+}
+
+.btn-play{
+    width: 98px;
+    height: 98px;
+    background: url(../../images/sprite/ico-base.svg);
+    cursor: pointer;
+    position: absolute;
+    top: 158px;
+    left: 50%;
+    margin-left: -44px;
+
+    &.gif{
+        background-position: 0 -730px;
+    }
+
+    &.video{
+        background-position: 0 -839px;
+    }
+}
+

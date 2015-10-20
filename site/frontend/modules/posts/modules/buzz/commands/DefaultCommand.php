@@ -32,9 +32,6 @@ class DefaultCommand extends \CConsoleCommand
         ));
         $total = $dp->totalItemCount;
 
-        echo $total;
-        die;
-
         $iterator = new \CDataProviderIterator($dp, 100);
 
         $newsCommunity = \Community::model()->findByPk(\Community::COMMUNITY_NEWS);

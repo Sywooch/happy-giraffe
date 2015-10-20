@@ -96,6 +96,8 @@ class StatsHelper
 
     public static function warmCache()
     {
+        self::getByLabels(array(Label::LABEL_NEWS), true);
+
         $models = \CommunityClub::model()->findAll();
 
         echo "Клубы:\n";
@@ -113,8 +115,6 @@ class StatsHelper
             echo $rubric->title . "\n";
             self::getRubricCount($rubric->id, true);
         }
-
-        self::getByLabels(array(Label::LABEL_NEWS), true);
     }
 
     /**

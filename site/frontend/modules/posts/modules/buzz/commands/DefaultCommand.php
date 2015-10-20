@@ -22,6 +22,7 @@ class DefaultCommand extends \CConsoleCommand
 
         $criteria = new \CDbCriteria();
         $criteria->addCondition('buzzMigrate = 0');
+        $criteria->addInCondition('originService', array('advPost', 'oldCommunity'));
         if ($id !== null) {
             $criteria->compare('originEntityId', $id);
         }
@@ -30,6 +31,9 @@ class DefaultCommand extends \CConsoleCommand
             'criteria' => $criteria,
         ));
         $total = $dp->totalItemCount;
+
+        echo $total;
+        die;
 
         $iterator = new \CDataProviderIterator($dp, 100);
 

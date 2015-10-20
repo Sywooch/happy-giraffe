@@ -91,6 +91,7 @@ class StatsHelper
             $value = Comment::model()->count($criteria);
             self::getCacheComponent()->set($cacheId, $value);
         }
+        return $value;
     }
 
     public static function warmCache()
@@ -112,6 +113,8 @@ class StatsHelper
             echo $rubric->title . "\n";
             self::getRubricCount($rubric->id, true);
         }
+
+        self::getByLabels(array(Label::LABEL_NEWS), true);
     }
 
     /**

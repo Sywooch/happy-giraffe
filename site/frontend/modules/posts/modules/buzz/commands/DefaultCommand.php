@@ -11,13 +11,24 @@ use site\frontend\modules\som\modules\community\models\api\CommunityClub;
 
 class DefaultCommand extends \CConsoleCommand
 {
-    public function actionMigrate()
+    public function actionMigrate($all = false, $id = null)
     {
+        if ($all === false && $id === null) {
+            throw new \CException("Invalid parameters");
+        }
+
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
+        $criteria = new \CDbCriteria();
+        $criteria->addCondition('buzzMigrate = 0');
+        if ($id !== null) {
+            $criteria->compare('originEntityId', $id);
+        }
+
         $dp = new \CActiveDataProvider(Content::model(), array(
-            'criteria' => array(
-                'condition' => 'originEntityId IN (52326, 76, 77)',
-            ),
+            'criteria' => $criteria,
         ));
+        $total = $dp->totalItemCount;
 
         $iterator = new \CDataProviderIterator($dp, 100);
 
@@ -57,18 +68,18 @@ class DefaultCommand extends \CConsoleCommand
         $fakeClass = get_class($fakeModel);
 
         /** @var \site\frontend\modules\posts\models\Content $model */
-        foreach ($iterator as $model) {
+        foreach ($iterator as $i => $model) {
             $labels = $model->labelsArray;
             if ($model->originService == 'advPost') {
                 if (array_search($model->originEntityId, $advExceptions) === false) { // обычный эмоциональный пост
                     $labels[] = Label::LABEL_BUZZ;
                     $model->templateObject->data['authorView'] = 'club';
                     $model->templateObject->data['clubData'] = CommunityClub::getClub($labels);
-                    $model->originManageInfoObject->params['edit'] = array(
-                        'link' => array(
-                            'url' => '/editorialDepartment/redactor/editBuzz/?' . http_build_query(array('entity' => $fakeClass, 'entityId' => $model->id)),
-                        )
-                    );
+//                    $model->originManageInfoObject->params['edit'] = array(
+//                        'link' => array(
+//                            'url' => '/editorialDepartment/redactor/editBuzz/?' . http_build_query(array('entity' => $fakeClass, 'entityId' => $model->id)),
+//                        )
+//                    );
                 } else { // рекламный эмоциональный пост
                     $labels[] = Label::LABEL_FORUMS;
                 }
@@ -100,21 +111,10 @@ class DefaultCommand extends \CConsoleCommand
                 $labels[] = Label::LABEL_FORUMS;
             }
 
+            $model->buzzMigrate = 1;
             $model->labelsArray = $labels;
             $model->save();
-        }
-    }
-
-    public function actionMigrateNews()
-    {
-        $club = \Community::model()->findByPk(\Community::COMMUNITY_NEWS);
-
-        $dp = new \CActiveDataProvider(Content::model()->byLabels(array($club->toLabel())));
-        $iterator = new \CDataProviderIterator($dp, 100);
-
-        foreach ($iterator as $model) {
-            $model->templateObject->data['authorView'] = 'empty';
-            $model->save();
+            echo '[' . $i . '/' . $total . ']' . "\n";
         }
     }
 }

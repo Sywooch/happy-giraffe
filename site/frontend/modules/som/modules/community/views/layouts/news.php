@@ -46,6 +46,9 @@ $this->beginContent('//layouts/lite/main');
             <div class="side-block rubrics">
                 <div class="side-block_tx">Темы новостей</div>
                 <ul>
+                    <li class="rubrics_li"><a class="rubrics_a" href="<?=$this->createUrl('index', array('slug' => null))?>">Все</a>
+                        <div class="rubrics_count"><span class="rubrics_count_tx"><?=\site\frontend\modules\community\helpers\StatsHelper::getByLabels(array(\site\frontend\modules\posts\models\Label::LABEL_NEWS))?></span></div>
+                    </li>
                     <?php foreach (CommunityClub::model()->findAll() as $club): ?>
                         <?php $count = \site\frontend\modules\community\helpers\StatsHelper::getByLabels(array($club->toLabel(), \site\frontend\modules\posts\models\Label::LABEL_NEWS)); ?>
                         <?php if ($count > 0): ?>

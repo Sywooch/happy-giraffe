@@ -246,9 +246,9 @@ return array(
         // community/*
         'community/36.*' => 404,
         'news/rubric<rubric_id:\d+>' => array('som/community/news/index'),
+        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('som/community/newsView/view', 'defaultParams' => array('forum_id' => 36)),
         'news/<slug>' => 'som/community/news/index',
         'news' => array('som/community/news/index'),
-        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('som/community/newsView/view', 'defaultParams' => array('forum_id' => 36)),
         
         array(
             'class' => 'UrlRule',

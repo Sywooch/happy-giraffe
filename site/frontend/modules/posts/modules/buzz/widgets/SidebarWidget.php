@@ -30,8 +30,8 @@ class SidebarWidget extends \CWidget
             $labels[] = $this->club->toLabel();
         }
         $posts = Content::model()->byLabels($labels)->findAll(array(
-            'condition' => 'id IN (48, 50, 78)',
             'limit' => self::LIMIT,
+            'order' => 'RAND()',
         ));
         $this->render('main', compact('posts'));
     }

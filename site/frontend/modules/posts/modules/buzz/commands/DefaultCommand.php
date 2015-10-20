@@ -115,7 +115,7 @@ class DefaultCommand extends \CConsoleCommand
             $model->buzzMigrate = 1;
             $model->labelsArray = $labels;
             $model->save();
-            echo '[' . $i . '/' . $total . ']' . "\n";
+            echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
         }
     }
 }

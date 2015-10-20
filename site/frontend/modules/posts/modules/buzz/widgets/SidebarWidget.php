@@ -14,7 +14,7 @@ use site\frontend\modules\posts\models\Label;
 class SidebarWidget extends \CWidget
 {
     const LIMIT = 5;
-    const CACHE_PREFIX = 'HappyGiraffe.Buzz.v6.';
+    const CACHE_PREFIX = 'HappyGiraffe.Buzz.v7.';
 
     /**
      * @var \CommunityClub
@@ -65,7 +65,7 @@ class SidebarWidget extends \CWidget
             $video = \Video::factory($url);
             return $this->render('_video', compact('video'), true);
         }
-        $images = array_merge($parser->images, $previewParser->images);
+        $images = array_merge($previewParser->images, $parser->images);
         if (count($images) > 0) {
             return $this->render('_img', $images[0], true);
         }

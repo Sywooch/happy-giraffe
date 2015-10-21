@@ -53,6 +53,7 @@ class SimpleThumbsManager extends ThumbsManager
             $hash = $folder;
             $animated = true;
         }
+
         $config = $this->getConfigByHash($hash);
         $filter = $this->createFilter($config);
         $path = 'thumbs/' . $hash . '/' . $photo->fs_name;

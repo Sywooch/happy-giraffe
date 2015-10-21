@@ -39,6 +39,7 @@ class RedactorController extends \LiteController
     public function actionEdit($entity, $entityId)
     {
         $model = $this->getModel($entity, $entityId);
+        $model->scenario = 'forums';
         if (isset($_POST['Content'])) {
             $model->setAttributes($_POST['Content'], false);
             /**
@@ -77,6 +78,7 @@ class RedactorController extends \LiteController
     public function actionEditBuzz($entity, $entityId)
     {
         $model = $this->getModel($entity, $entityId);
+        $model->scenario = 'buzz';
         if (isset($_POST['Content'])) {
             $model->setAttributes($_POST['Content'], false);
             /**
@@ -115,6 +117,7 @@ class RedactorController extends \LiteController
     public function actionEditNews($entity, $entityId)
     {
         $model = $this->getModel($entity, $entityId);
+        $model->scenario = 'news';
         if (isset($_POST['Content'])) {
             $model->setAttributes($_POST['Content'], false);
             /**

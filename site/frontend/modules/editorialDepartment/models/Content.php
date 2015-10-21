@@ -37,7 +37,7 @@ class Content extends \EMongoDocument
     {
         return array(
             // Обязательность
-            array('title, markDownPreview, htmlTextPreview, markDown, htmlText, authorId, fromUserId', 'required'),
+            array('title, markDown, htmlText, authorId, fromUserId', 'required'),
             array('clubId, forumId, rubricId', 'required', 'on' => 'forums'),
             array('clubId', 'required', 'on' => 'buzz, news'),
 

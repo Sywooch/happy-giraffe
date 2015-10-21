@@ -34,8 +34,10 @@ return array(
         'status/<_c>' => 'som/status/<_c>/index',
         'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
 
-        'buzz/<slug>' => 'posts/buzz/default/index',
-        'buzz' => 'posts/buzz/default/index',
+        array('class' => 'site\frontend\modules\posts\modules\buzz\components\AdvUrlRule'),
+        'buzz/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/buzz/post/view',
+        //'buzz/<slug>' => 'posts/buzz/list/index',
+        'buzz' => 'posts/buzz/list/index',
 
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),

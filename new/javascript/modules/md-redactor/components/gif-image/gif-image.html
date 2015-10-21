@@ -1,2 +1,11 @@
 <img data-bind="src: link, click: run, visible: ! running()">
 <img data-bind="src: animated(), click: stop, visible: running()">
+
+<div class="b-album-cap feed-cap">
+    <div class="b-album-cap_hold" data-bind="click: toggle">
+        <div class="btn-label gif" data-bind="visible: ! running()"></div>
+        <div class="btn-play gif" data-bind="visible: ! running()"></div>
+        <img data-bind="src: link, visible: ! running()">
+        <img data-bind="src: animated(), visible: running()">
+    </div>
+</div>

@@ -12,6 +12,14 @@ define(['jquery', 'knockout', 'text!md-redactor/components/gif-image/gif-image.h
         this.stop = function() {
             this.running(false);
         };
+
+        this.toggle = function() {
+            if (this.running()) {
+                this.stop();
+            } else {
+                this.run();
+            }
+        };
     }
 
     return {

@@ -41,7 +41,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
                 this.appendToText(this.generateCompareImageSample(img.getGeneratedPreset('postImage'), img.id()));
             }
             if (this.typeOfImage() === 'gif') {
-                this.appendToText(this.generateGifImageSample(img.getGeneratedPreset('postImage', false), img.getGeneratedPreset('postImage'), img.id()));
+                this.appendToText(this.generateGifImageSample(img.getGeneratedPreset('postGifImage', false), img.getGeneratedPreset('postGifImage'), img.id()));
             }
         }, this);
         this.generateDayImageSample = function generateDayImageSample(link, collectionId) {

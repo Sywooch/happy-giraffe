@@ -1099,7 +1099,7 @@
     };
 
     Renderer.prototype.gif = function(link, animated) {
-        var out = '<gif-image params="link: \'' + link + '\', animated: \'' + animated + '\'"><img src="' + link + '"></gif-image>';
+        var out = '<gif-image params="link: \'' + link + '\', animated: \'' + animated + '\'"></gif-image>';
         return out;
     };
 

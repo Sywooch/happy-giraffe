@@ -23,7 +23,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
     public function getUrl()
     {
         return \Yii::app()->createAbsoluteUrl('community/default/view', array(
-                    'forum_id' => $this->owner->forumId,
+                    'forum_id' => 1,
                     'content_type_slug' => 'advpost',
                     'content_id' => $this->owner->entityId,
         ));
@@ -71,7 +71,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             $labels[] = $this->owner->label;
         }
         $post->labels = $labels;
-        $post->preview = empty($this->owner->htmlTextPreview) ? $this->owner->htmlText : $this->owner->htmlTextPreview;
+        $post->preview = empty($this->owner->markDownPreview) ? $this->owner->htmlText : $this->owner->htmlTextPreview;
         $post->preview = $this->postProcessPreview($post);
 
         switch ($this->owner->scenario) {
@@ -205,11 +205,13 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
         $doc = str_get_html($post->preview);
         $count = count($doc->find('img'));
-        if ($count == 0) {
+        if ($count < 2) {
             return $post->preview;
         }
         $img = $doc->find('img', $count - 1);
         $oldHtml = $img->outertext;
+
+
         $class = ($this->owner->scenario == 'buzz') ? 'middle' : '';
         $img->outertext = '';
 

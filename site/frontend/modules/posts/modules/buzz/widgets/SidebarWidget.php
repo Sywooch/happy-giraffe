@@ -21,7 +21,7 @@ class SidebarWidget extends \CWidget
      */
     public $club;
 
-    public $cacheId = 'cache';
+    public $cacheId = 'dbCache';
 
     public function run()
     {
@@ -31,7 +31,7 @@ class SidebarWidget extends \CWidget
         }
         $posts = Content::model()->byLabels($labels)->findAll(array(
             'limit' => self::LIMIT,
-            'order' => 'RAND()',
+            'order' => 'id DESC',
         ));
         $this->render('main', compact('posts'));
     }

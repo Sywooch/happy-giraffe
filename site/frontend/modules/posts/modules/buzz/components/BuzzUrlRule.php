@@ -33,6 +33,8 @@ class BuzzUrlRule extends \CBaseUrlRule
 
     public function parseUrl($manager, $request, $pathInfo, $rawPathInfo)
     {
+        var_dump(preg_match('#^community/(\d+)/forum/advpost/(\d+)#', $pathInfo, $matches));
+
         if (preg_match('#^community/(\d+)/forum/advpost/(\d+)#', $pathInfo, $matches)) {
             $postId = $matches[2];
 
@@ -42,6 +44,9 @@ class BuzzUrlRule extends \CBaseUrlRule
                 return 'posts/buzz/post/view';
             }
         }
+
+        die;
+
         return false;
     }
 }

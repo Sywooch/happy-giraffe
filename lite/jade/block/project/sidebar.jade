@@ -1,3 +1,119 @@
+// список рубрик
+mixin sideBarRubricks(mod, vars)
+    aside.b-main_col-sidebar.visible-md
+
+        .bnr-base
+            a(href='#')
+                img(src="#{path}images/example/w300-h600-2.jpg", alt="")
+
+        .side-block.rubrics
+            .side-block_tx Темы новостей
+            ul
+                li.rubrics_li
+                    a.rubrics_a Все
+                    .rubrics_count
+                        span.rubrics_count_tx 2 685 321
+                li.rubrics_li
+                    a.rubrics_a Свадьба
+                    .rubrics_count
+                        span.rubrics_count_tx 16 874
+                li.rubrics_li
+                    a.rubrics_a Отношения в семье
+                    .rubrics_count
+                        span.rubrics_count_tx 74 284
+                li.rubrics_li
+                    a.rubrics_a Планирование
+                    .rubrics_count
+                        span.rubrics_count_tx 9 704
+                li.rubrics_li
+                    a.rubrics_a Беременность и роды
+                    .rubrics_count
+                        span.rubrics_count_tx 41 927
+                li.rubrics_li
+                    a.rubrics_a Дети до года
+                    .rubrics_count
+                        span.rubrics_count_tx 31 866
+                li.rubrics_li
+                    a.rubrics_a Дети старше года
+                    .rubrics_count
+                        span.rubrics_count_tx 44 962
+                li.rubrics_li
+                    a.rubrics_a Дошкольники
+                    .rubrics_count
+                        span.rubrics_count_tx 19 900
+                li.rubrics_li
+                    a.rubrics_a Школьники
+                    .rubrics_count
+                        span.rubrics_count_tx 22 983
+                li.rubrics_li
+                    a.rubrics_a Готовим на кухне
+                    .rubrics_count
+                        span.rubrics_count_tx 31 906
+                li.rubrics_li
+                    a.rubrics_a Домашние хлопоты
+                    .rubrics_count
+                        span.rubrics_count_tx 21 610
+                li.rubrics_li
+                    a.rubrics_a Наши питомцы
+                    .rubrics_count
+                        span.rubrics_count_tx 10 731
+                li.rubrics_li
+                    a.rubrics_a Сад и огород
+                    .rubrics_count
+                        span.rubrics_count_tx 8 786
+                li.rubrics_li
+                    a.rubrics_a Ремонт в доме
+                    .rubrics_count
+                        span.rubrics_count_tx 20 120
+                li.rubrics_li
+                    a.rubrics_a Красота и мода
+                    .rubrics_count
+                        span.rubrics_count_tx 55 501
+                li.rubrics_li
+                    a.rubrics_a Наше здоровье
+                    .rubrics_count
+                        span.rubrics_count_tx 25 517
+                li.rubrics_li
+                    a.rubrics_a Наш автомобиль
+                    .rubrics_count
+                        span.rubrics_count_tx 7 647
+                li.rubrics_li
+                    a.rubrics_a Рукоделие
+                    .rubrics_count
+                        span.rubrics_count_tx 57 814
+                li.rubrics_li
+                    a.rubrics_a Цветы в доме
+                    .rubrics_count
+                        span.rubrics_count_tx 5 606
+                li.rubrics_li
+                    a.rubrics_a Рыбалка
+                    .rubrics_count
+                        span.rubrics_count_tx 589
+                li.rubrics_li
+                    a.rubrics_a Выходные с семьей
+                    .rubrics_count
+                        span.rubrics_count_tx 8 090
+                li.rubrics_li
+                    a.rubrics_a Мы путешествуем
+                    .rubrics_count
+                        span.rubrics_count_tx 12 235
+                li.rubrics_li
+                    a.rubrics_a Семейные праздники
+                    .rubrics_count
+                        span.rubrics_count_tx 17 448
+
+mixin sidebarFeed(mod, vars)
+
+    aside.b-main_col-sidebar.visible-md
+        .bnr-base
+            a(href='#')
+                img(src="#{path}images/example/w300-h600-3.jpg", alt="")
+
+        +articleAnonce('article-anonce__s', articleAnonce.s)
+        +articleAnonce('article-anonce__s', articleAnonce.j)
+        +articleAnonce('article-anonce__s', articleAnonce.h)
+        +articleAnonce('article-anonce__s', articleAnonce.i)
+
 mixin sidebarArticle(mod, vars)
     ///////
     // Сайд бар
@@ -19,11 +135,9 @@ mixin sidebarArticle(mod, vars)
         //-+articleAnonce('article-anonce__lilac article-anonce__ico', articleAnonce.ico1)
         //-+articleAnonce('article-anonce__s', articleAnonce.e)
         //-+articleAnonce('article-anonce__s', articleAnonce.c)
-
         //-+articleAnonce('article-anonce__s', articleAnonce.f)
-
         //-+articleAnonce('article-anonce__s', articleAnonce.e)
-        +articleAnonce('article-anonce__s', articleAnonce.g)
+        //+articleAnonce('article-anonce__s', articleAnonce.g)
         //-+articleAnonce('article-anonce__s', articleAnonce.d)
 
         .article-anonce
@@ -31,7 +145,7 @@ mixin sidebarArticle(mod, vars)
         .article-anonce
             iframe(src="/lite/html-dev/page/iframe/banner/article-anonce-8.html", width='300px', height="360px", frameborder=0, marginheight=0, marginwidth=0, scrolling='no', style='border: 0px; vertical-align: bottom;' )
         .bnr-base
-            a(href='#') 
+            a(href='#')
                 img(src="#{path}images/example/w300-h250-1.jpg", alt="")
     // Сайд бар
 
@@ -49,29 +163,50 @@ mixin sidebarRecipe(mod, vars)
             .clearfix.margin-b20
                 a.btn.btn-block.btn-success.btn-xl(href='#') Добавить рецепт
 
-        .side-block.rubrics
-            .side-block_tx Рубрики
-            ul
-                li.rubrics_li
-                    a.rubrics_a Физическое развитие
-                    .rubrics_count
-                        span.rubrics_count_tx 2 685 321
-                li.rubrics_li
-                    a.rubrics_a Массаж и гимнастика
-                    .rubrics_count
-                        span.rubrics_count_tx 685 321
-                li.rubrics_li
-                    a.rubrics_a Прививки
-                    .rubrics_count
-                        span.rubrics_count_tx 685 321
-                li.rubrics_li
-                    a.rubrics_a Проблемы со здоровьем малыша до года
-                    .rubrics_count
-                        span.rubrics_count_tx 685 321
-                li.rubrics_li
-                    a.rubrics_a Аллергия, дерматит, сыпь ...
-                    .rubrics_count
-                        span.rubrics_count_tx 685 322
+        .menu-simple
+            ul.menu-simple_ul
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Блюда из рыбы
+                    .menu-simple_count 158
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Все рецепты
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Первые блюда
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Вторые блюда 
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Салаты  
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Закуски и бутерброды 
+                    .menu-simple_count 789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Сладкая выпечка 
+                    .menu-simple_count 7
+                li.menu-simple_li.active
+                    a.menu-simple_a(href='') Торты и пирожные 
+                    .menu-simple_count 79
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Несладкая выпечка 
+                    .menu-simple_count 123789
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Торты и пирожные 
+                    .menu-simple_count 79
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Десерты 
+                    .menu-simple_count 9
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Напитки 
+                    .menu-simple_count 71189
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Соусы и кремы 
+                    .menu-simple_count 23434
+                li.menu-simple_li
+                    a.menu-simple_a(href='') Консервация 
+                    .menu-simple_count 782239
 
         .bnr-base
             a(href='#') 

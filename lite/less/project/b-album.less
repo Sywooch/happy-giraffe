@@ -595,8 +595,14 @@ photo-albums {
 
 /* b-album-cap_hold */
 .b-album-cap_hold{
-    max-height: 398px;
-    
+
+    //max-height: 398px;
+
+    .btn-feed{
+      top: inherit !important;
+      bottom: 20px !important;
+    }
+
     &img{
         height: 100%;
     }
@@ -611,6 +617,7 @@ photo-albums {
     background: transparent;
     color: #fff;
     border: 2px solid #fff;
+    z-index: 1;
     &:hover{
         color: #000;
         background: #fff;
@@ -625,6 +632,7 @@ photo-albums {
     margin: 12px 0 22px 14px;
     border-color: #119cdd;
     color: #119cdd;
+    z-index: 1;
     &:hover{
         background: #119cdd;
         border-color: #119cdd;

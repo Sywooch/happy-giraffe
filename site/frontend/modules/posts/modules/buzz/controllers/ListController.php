@@ -1,6 +1,5 @@
 <?php
 namespace site\frontend\modules\posts\modules\buzz\controllers;
-use site\frontend\modules\posts\controllers\ListController;
 use site\frontend\modules\posts\models\Content;
 use site\frontend\modules\posts\models\Label;
 
@@ -9,7 +8,7 @@ use site\frontend\modules\posts\models\Label;
  * @date 08/10/15
  */
 
-class DefaultController extends ListController
+class ListController extends \site\frontend\modules\posts\controllers\ListController
 {
     public $layout = '/layout';
 

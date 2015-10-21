@@ -22,11 +22,25 @@ class ConvertBehavior extends \EMongoDocumentBehavior
 
     public function getUrl()
     {
-        return \Yii::app()->createAbsoluteUrl('community/default/view', array(
+        switch ($this->owner->scenario) {
+            case 'forums':
+                return \Yii::app()->createAbsoluteUrl('community/default/view', array(
                     'forum_id' => 1,
                     'content_type_slug' => 'advpost',
                     'content_id' => $this->owner->entityId,
-        ));
+                ));
+            case 'news':
+                return \Yii::app()->createAbsoluteUrl('som/community/newsView/view', array(
+                    'forum_id' => 36,
+                    'content_type_slug' => 'advpost',
+                    'content_id' => $this->owner->entityId,
+                ));
+            case 'buzz':
+                return \Yii::app()->createAbsoluteUrl('posts/buzz/view/view', array(
+                    'content_type_slug' => 'advpost',
+                    'content_id' => $this->owner->entityId,
+                ));
+        }
     }
 
     public function beforeSave($event)

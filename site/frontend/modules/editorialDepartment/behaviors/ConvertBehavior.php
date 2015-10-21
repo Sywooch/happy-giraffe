@@ -158,7 +158,9 @@ class ConvertBehavior extends \EMongoDocumentBehavior
     public function afterSave($event)
     {
         try {
-            $this->_post->url = $this->url;
+            if ($this->owner->getIsNewRecord()) {
+                $this->_post->url = $this->url;
+            }
             $this->_post->originEntityId = $this->_post->id;
             $this->_post->dtimePublication = $this->owner->dtimeCreate;
             $this->_post->isDraft = 0;

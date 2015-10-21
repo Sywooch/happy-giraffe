@@ -10,11 +10,12 @@ mixin articleAnonce(mod, vars)
         article-anonce__red
         article-anonce__yellow
     .article-anonce(class=mod)
-        .article-anonce_top
-            a.article-anonce_header-a(href="#") 
-                +ava('', ava.e)
-                span.article-anonce_author
-                    = vars.author
+        if (vars.ico)
+            .article-anonce_top
+                a.article-anonce_header-a(href="#")
+                    +ava('', ava.e)
+                    span.article-anonce_author
+                        = vars.author
         a.article-anonce_hold(href="#")
                 if (vars.ico)
                     .article-anonce_ico-hold
@@ -45,7 +46,10 @@ mixin articleAnonce(mod, vars)
                                 if (vars.video)
                                     // Может не быть иконки play
                                     .article-anonce_img-top
-                                        .ico-ovrPlay.ico-ovrPlay__s
+                                        .ico-ovrPlay_video.ico-ovrPlay__s
+                                if (vars.gif)
+                                    .article-anonce_img-top
+                                        .ico-ovrPlay_gif.ico-ovrPlay__s
                                 if (vars.images)
                                     img.article-anonce_img(src=vars.images, alt=vars.title)
                                     .article-anonce_img-overlay
@@ -127,7 +131,30 @@ mixin articleAnonce(mod, vars)
 - articleAnonce.h.title = 'Одиночное путешествие: куда поехать и как организовать '
 - articleAnonce.h.images = 'http://lorempixel.com/300/200/people/1'
 
+- articleAnonce.s = {}
+- articleAnonce.s.ico = false
+- articleAnonce.s.video = true
+- articleAnonce.s.title = "На кого делают ставки: самые яркие участники шоу 'Голос.Дети'"
+- articleAnonce.s.images = 'http://lorempixel.com/300/200/people/2'
 
+- articleAnonce.j = {}
+- articleAnonce.j.ico = false
+- articleAnonce.j.video = false
+- articleAnonce.j.title = "Одиночное путешествие"
+- articleAnonce.j.images = "http://lorempixel.com/300/200/nature/1"
+
+- articleAnonce.h = {}
+- articleAnonce.h.ico = false
+- articleAnonce.h.video = false
+- articleAnonce.h.title = "Близняшки: мама и дочка в одинаковых нарядах"
+- articleAnonce.h.images = "http://lorempixel.com/300/200/people/3"
+
+- articleAnonce.i = {}
+- articleAnonce.i.ico = false
+- articleAnonce.i.video = false
+- articleAnonce.i.gif = true
+- articleAnonce.i.title = "Видео: как дети видят своих родителей, когда те пьяны"
+- articleAnonce.i.images = "http://lorempixel.com/300/200/people/5"
 
 //- mixin articleAnonceIframe(mod.vars)
 //-     +articleAnonce(mod, vars.input)

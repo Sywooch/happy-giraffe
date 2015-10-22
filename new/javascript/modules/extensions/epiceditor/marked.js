@@ -1028,7 +1028,7 @@
     };
 
     Renderer.prototype.video = function(id) {
-        var out = '<div class="b-article_in-img"><iframe width="560" height="333" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe></div>\n';
+        var out = '<div class="b-article_in-img"><iframe width="600" height="337" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe></div>\n';
         return out;
     };
 

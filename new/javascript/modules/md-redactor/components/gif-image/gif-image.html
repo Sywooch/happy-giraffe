@@ -1,8 +1,8 @@
 <div class="b-album-cap feed-cap">
-    <div class="b-album-cap_hold" data-bind="click: toggle">
+    <div class="b-album-cap_hold">
         <div class="btn-label gif" data-bind="visible: ! running()"></div>
-        <div class="btn-play gif" data-bind="visible: ! running()"></div>
+        <div class="btn-play gif" data-bind="visible: ! running(), click: run"></div>
         <img data-bind="src: link, visible: ! running()">
-        <img data-bind="src: animated(), visible: running()">
+        <img data-bind="src: animated(), visible: running(), click: stop">
     </div>
 </div>

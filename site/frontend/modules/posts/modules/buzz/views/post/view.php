@@ -10,7 +10,7 @@ $this->metaNoindex = $this->post->isNoindex;
 
 // Скопировано из site\frontend\modules\community\controllers\DefaultController::actionView
 $this->breadcrumbs = array(
-    'Интересное' => array('posts/buzz/list/index'),
+    'Интересное' => array('/posts/buzz/list/index'),
     $this->post->title,
 );
 

@@ -508,6 +508,13 @@ class Content extends \CActiveRecord implements \IHToJSON
         return $this;
     }
 
+    public function publishedAtLast($offset)
+    {
+        $this->getDbCriteria()->compare('dtimePublication', '>', time() - $offset);
+
+        return $this;
+    }
+
     /**
      * 
      * @param site\frontend\modules\posts\models\Content $post

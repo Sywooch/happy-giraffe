@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\editorialDepartment\behaviors;
 
+use site\frontend\modules\posts\components\ReverseParser;
 use site\frontend\modules\posts\models\api\Content as Content;
 use site\frontend\modules\som\modules\community\models\api\CommunityClub;
 use site\frontend\modules\som\modules\community\models\api\Label as Label;
@@ -36,7 +37,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                     'content_id' => $this->owner->entityId,
                 ));
             case 'buzz':
-                return \Yii::app()->createAbsoluteUrl('posts/buzz/view/view', array(
+                return \Yii::app()->createAbsoluteUrl('posts/buzz/post/view', array(
                     'content_type_slug' => 'advpost',
                     'content_id' => $this->owner->entityId,
                 ));
@@ -85,8 +86,6 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             $labels[] = $this->owner->label;
         }
         $post->labels = $labels;
-        $post->preview = empty($this->owner->markDownPreview) ? $this->owner->htmlText : $this->owner->htmlTextPreview;
-        $post->preview = $this->postProcessPreview($post);
 
         switch ($this->owner->scenario) {
             case 'news':
@@ -158,9 +157,10 @@ class ConvertBehavior extends \EMongoDocumentBehavior
     public function afterSave($event)
     {
         try {
-            if ($this->owner->getIsNewRecord()) {
+            if ($this->_post->url == '###') {
                 $this->_post->url = $this->url;
             }
+            $this->_post->preview = $this->getPreview($this->_post);
             $this->_post->originEntityId = $this->_post->id;
             $this->_post->dtimePublication = $this->owner->dtimeCreate;
             $this->_post->isDraft = 0;
@@ -205,37 +205,103 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             );
             $this->_post->originManageInfo = $mInfo;
             $saved = $this->_post->save();
+            if ($saved) {
+                $this->warmCache($this->_post);
+            }
             if (! $saved) {
                 var_dump($this->_post->isNewRecord);
                 var_dump($this->_post->errors);
                 die;
             }
         } catch (\Exception $e) {
-
+            throw $e;
         }
         parent::afterSave($event);
     }
 
-    protected function postProcessPreview($post)
+    protected function warmCache($post)
+    {
+        $parser = new ReverseParser($post->html);
+        foreach ($parser->gifs as $gif) {
+            \Yii::app()->gearman->client()->doBackground('createThumb', serialize(array(
+                'photoId' => $gif['photo']->id,
+                'usageName' => 'postGifImage',
+            )));
+        }
+        $widget = \Yii::app()->controller->beginWidget('site\frontend\modules\posts\modules\buzz\widgets\SidebarWidget');
+        $widget->getHtml($post);
+    }
+
+    protected function getPreview($post)
     {
         include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
-        $doc = str_get_html($post->preview);
-        $count = count($doc->find('img'));
-        if ($count < 2) {
-            return $post->preview;
+        $html = str_get_html($this->owner->htmlText);
+        $mediaTags = array('gif-image', 'iframe', 'img');
+
+        // выясняем большой ли пост
+        $isBigPost = false;
+        $media = array_merge($html->find('gif-image'), $html->find('iframe'), $html->find('img'));
+        if (count($media) > 1) {
+            $isBigPost = true;
+        } else {
+            $endElements = $this->findEndElements($html->find('.b-markdown', 0));
+            foreach ($endElements as $element) {
+                $isLead = strpos($element->class, 'b-markdown_t-sub') !== false;
+                $isEmpty = empty($element->innertext);
+
+                if (! $isEmpty && ! $isLead) {
+                    $isBigPost = true;
+                    break;
+                }
+            }
         }
-        $img = $doc->find('img', $count - 1);
-        $oldHtml = $img->outertext;
 
+        // готовим "сырой" html
+        $markDownPreview = trim($this->owner->markDownPreview);
+        if (! empty($markDownPreview)) {
+            $rawPreview = $this->owner->htmlTextPreview;
+        } else {
+            $rawPreview = '';
 
-        $class = ($this->owner->scenario == 'buzz') ? 'middle' : '';
-        $img->outertext = '';
+            if (count($html->find('.b-markdown_t-sub'))) {
+                $rawPreview .= $html->find('.b-markdown_t-sub', 0)->outertext;
+            }
 
-        return (string) $doc . '<div class="b-album-cap feed-cap">
-                      <div class="b-album-cap_hold">
-                        <div class="btn btn-default btn-l btn-feed ' . $class . '">Читать далее</div><img src="' . $img->src . '">
-                      </div>
-                    </div>';
+            if (count($media) > 0) {
+                $rawPreview .= $media[0]->outertext;
+            }
+        }
+
+        // подгоняем под верстку
+        $previewHtml = str_get_html($rawPreview);
+        foreach ($mediaTags as $tag) {
+            if (count($previewHtml->find($tag)) > 0) {
+                $element = $previewHtml->find($tag, 0);
+                $text = $element->outertext;
+                if ($tag == 'img' && $isBigPost) {
+                    $class = ($this->owner->scenario == 'buzz') ? 'middle' : '';
+                    $text = '<a href="' . $post->url . '" class="btn btn-default btn-l btn-feed ' . $class . '">Читать далее</a>' . $text;
+                }
+                if ($tag != 'gif-image') {
+                    $element->outertext = '<div class="b-album-cap feed-cap"><div class="b-album-cap_hold">' . $text . '</div></div>';
+                }
+            }
+        }
+
+        return (string) $previewHtml;
+    }
+
+    protected function findEndElements($element, $array = array())
+    {
+        $children = $element->children;
+        if (count($element->children) == 0) {
+            $array[] = $element;
+        } else {
+            foreach ($children as $child) {
+                $array = $this->findEndElements($child, $array);
+            }
+        }
+        return $array;
     }
 }
 

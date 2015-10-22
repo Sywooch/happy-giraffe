@@ -13,6 +13,7 @@ use site\frontend\modules\posts\models\Label;
 
 class SidebarWidget extends \CWidget
 {
+    const LAST_DAYS = 2;
     const LIMIT = 5;
     const CACHE_PREFIX = 'HappyGiraffe.Buzz.v7.';
 
@@ -29,9 +30,9 @@ class SidebarWidget extends \CWidget
         if ($this->club) {
             $labels[] = $this->club->toLabel();
         }
-        $posts = Content::model()->byLabels($labels)->findAll(array(
+        $posts = Content::model()->byLabels($labels)->publishedAtLast(3600 * 24 * self::LAST_DAYS)->findAll(array(
             'limit' => self::LIMIT,
-            'order' => 'id DESC',
+            'order' => 'RAND()', // @todo убрать медленный RAND()
         ));
         $this->render('main', compact('posts'));
     }

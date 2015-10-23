@@ -138,7 +138,7 @@ return array(
                     'levels'=>'error',
                     'categories' => 'api',
                     'logFile' => 'console.log',
-                    'logPath' => '/var/www/happy-giraffe.ru/deploy/test/site/common/uploads/photos'
+                    'logPath' => '/var/www/happy-giraffe.ru/deploy/test/site/common/uploads/photos/temp'
                 ),
                 array(
 					'class'=>'CEmailLogRoute',

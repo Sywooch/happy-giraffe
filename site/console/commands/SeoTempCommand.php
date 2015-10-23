@@ -32,7 +32,7 @@ class SeoTempCommand extends CConsoleCommand
             'entityId' => $content->id,
         ));
 
-        $content->title .= 'Дочка Мадонны сделала татуировку в честь родителей';
+        $content->title = 'Дочка Мадонны сделала татуировку в честь родителей';
         for ($i = 0; $i < 100; $i++) {
             $content->save();
             sleep(3);

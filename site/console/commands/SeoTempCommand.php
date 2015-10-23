@@ -25,7 +25,7 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionFindBug()
     {
-        Yii::trace('test', 'api');
+        Yii::log('test', CLogger::LEVEL_ERROR, 'api');
 
         $content = \site\frontend\modules\posts\models\api\Content::model()->findByPk(700194);
 

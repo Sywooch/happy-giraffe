@@ -21,6 +21,12 @@ class ApiController extends \site\frontend\components\api\ApiController
         ));
     }
 
+    public function actionFail()
+    {
+        $user = User::model()->findByPk(0);
+        $user->name;
+    }
+
     public function packGet($id, $avatarSize = false)
     {
         $user = User::model()->findByPk($id);

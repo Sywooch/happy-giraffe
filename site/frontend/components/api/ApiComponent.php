@@ -26,7 +26,10 @@ class ApiComponent extends \CComponent
 //            'title' => $p['title'],
 //        );
 
-        var_dump($params); die;
+        if ($action == 'update') {
+            var_dump($params);
+            die;
+        }
 
         $api = trim($api, '/');
         $action = trim($action, '/');

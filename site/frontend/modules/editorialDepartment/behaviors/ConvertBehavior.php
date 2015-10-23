@@ -214,7 +214,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 die;
             }
         } catch (\Exception $e) {
-            throw $e;
+
         }
         parent::afterSave($event);
     }

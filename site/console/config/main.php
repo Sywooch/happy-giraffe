@@ -137,7 +137,8 @@ return array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'error',
                     'categories' => 'api',
-                    'logFile' => 'api.log',
+                    'logFile' => 'console.log',
+                    'logPath' => '/var/www/happy-giraffe.ru/deploy/test/site/common/uploads/photos'
                 ),
                 array(
 					'class'=>'CEmailLogRoute',

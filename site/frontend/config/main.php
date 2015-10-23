@@ -362,6 +362,12 @@ return array(
 //					'levels'=>'error, warning',
 //					'emails'=>'pavel@happy-giraffe.ru',
 //				),
+                array(
+                    'class'=>'CEmailLogRoute',
+                    'levels'=>'trace',
+                    'categories'=>'api',
+                    'emails'=>'nikita@happy-giraffe.ru',
+                ),
 			),
 		),
 		'shoppingCart' => array(

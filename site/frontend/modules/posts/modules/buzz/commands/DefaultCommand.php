@@ -11,6 +11,48 @@ use site\frontend\modules\som\modules\community\models\api\CommunityClub;
 
 class DefaultCommand extends \CConsoleCommand
 {
+    public $advExceptions = array(
+        247154,
+
+        240984,
+        691779,
+        675554,
+
+        697054,
+        691084,
+        268736,
+        691864,
+
+        270589,
+        676679,
+        256624,
+        252664,
+        250794,
+    );
+
+    public function actionMigrate2($all = false, $id = null)
+    {
+        if ($all === false && $id === null) {
+            throw new \CException("Invalid parameters");
+        }
+
+        $criteria = new \EMongoCriteria();
+        if ($id !== null) {
+            $criteria->addCond('entityId', '==', $id);
+        }
+
+        $dp = new \EMongoDocumentDataProvider(\site\frontend\modules\editorialDepartment\models\Content::model());
+        $total = $dp->totalItemCount;
+
+        $iterator = new \CDataProviderIterator($dp);
+        foreach ($iterator as $i => $model) {
+            if (array_search($model->entityId, $this->advExceptions) !== false) {
+                $model->save();
+            }
+            echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
+        }
+    }
+
     public function actionMigrate($all = false, $id = null)
     {
         if ($all === false && $id === null) {
@@ -47,25 +89,6 @@ class DefaultCommand extends \CConsoleCommand
             6309 => 21,
         );
 
-        $advExceptions = array(
-            247154,
-
-            240984,
-            691779,
-            675554,
-
-            697054,
-            691084,
-            268736,
-            691864,
-
-            270589,
-            676679,
-            256624,
-            252664,
-            250794,
-        );
-
         $fakeModel = new \site\frontend\modules\posts\models\api\Content();
         $fakeClass = get_class($fakeModel);
 
@@ -73,7 +96,7 @@ class DefaultCommand extends \CConsoleCommand
         foreach ($iterator as $i => $model) {
             $labels = $model->labelsArray;
             if ($model->originService == 'advPost') {
-                if (array_search($model->originEntityId, $advExceptions) === false) { // обычный эмоциональный пост
+                if (array_search($model->originEntityId, $this->advExceptions) === false) { // обычный эмоциональный пост
                     $labels[] = Label::LABEL_BUZZ;
                     $model->templateObject->data['authorView'] = 'club';
                     $model->templateObject->data['clubData'] = CommunityClub::getClub($labels);

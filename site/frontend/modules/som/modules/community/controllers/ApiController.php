@@ -29,7 +29,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionGetLabels($rubricId = false, $forumId = false, $clubId = false, $blog = false)
     {
         if ($forumId) {
-            $forum = Community::model()->with('club')->findByPk($forumId);
+            $forum = \Community::model()->with('club')->findByPk($forumId);
 
             $labels = array(
                 'Форум: ' . $forum->title,

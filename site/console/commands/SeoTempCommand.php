@@ -33,10 +33,10 @@ class SeoTempCommand extends CConsoleCommand
         ));
 
         $content->title = 'Дочка Мадонны сделала татуировку в честь родителей';
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 999; $i++) {
             echo $i . "\n";
             $content->save();
-            sleep(3);
+            sleep(2);
         }
     }
 

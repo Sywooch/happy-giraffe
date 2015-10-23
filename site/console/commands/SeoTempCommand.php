@@ -32,7 +32,8 @@ class SeoTempCommand extends CConsoleCommand
             'entityId' => $content->id,
         ));
 
-        echo $post->title;
+        $content->title .= '1';
+        $content->save();
     }
 
     public function actionOsinka()

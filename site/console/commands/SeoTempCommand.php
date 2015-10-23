@@ -23,6 +23,18 @@ class SeoTempCommand extends CConsoleCommand
 //        $this->ga->setProfile('ga:53688414');
     }
 
+    public function actionFindBug()
+    {
+        $content = \site\frontend\modules\posts\models\api\Content::model()->findByPk(700194);
+
+        $post = \site\frontend\modules\editorialDepartment\models\Content::model()->findByAttributes(array(
+            'entity' => get_class($content),
+            'entityId' => $content->id,
+        ));
+
+        echo $post->title;
+    }
+
     public function actionOsinka()
     {
         Yii::import('site.common.models.mongo.SiteEmail');

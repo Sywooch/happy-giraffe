@@ -30,6 +30,7 @@ class ApiComponent extends \CComponent
                 'text' => $p['text'],
                 'html' => $p['html'],
                 'preview' => $p['preview'],
+                'originEntityId' => $p['originEntityId'],
             );
         }
 

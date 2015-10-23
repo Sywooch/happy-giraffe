@@ -364,7 +364,7 @@ return array(
 //				),
                 array(
                     'class'=>'CEmailLogRoute',
-                    'levels'=>'trace',
+                    'levels'=>'error',
                     'categories'=>'api',
                     'emails'=>'nikita@happy-giraffe.ru',
                 ),

@@ -172,6 +172,8 @@ abstract class ApiModel extends \CModel
                 return true;
             }
             else {
+                var_dump($result);
+
                 /** @todo Обработать ошибки */
                 return false;
             }

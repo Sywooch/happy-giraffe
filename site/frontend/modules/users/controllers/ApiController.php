@@ -23,6 +23,9 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function packGet($id, $avatarSize = false)
     {
+        echo '[eq';
+        die;
+
         $user = User::model()->findByPk($id);
         if (!$user)
             throw new \CHttpException(404, 'Пользователь ' . $id . ' не найден');

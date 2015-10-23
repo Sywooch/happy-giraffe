@@ -133,6 +133,18 @@ return array(
                     'levels' => 'error',
                     'categories' => 'mail',
                 ),
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'error',
+                    'categories' => 'api',
+                    'logFile' => 'api.log',
+                ),
+                array(
+					'class'=>'CEmailLogRoute',
+                    'levels'=>'error',
+                    'categories' => 'api',
+					'emails'=>'nikita@happy-giraffe.ru',
+				),
             ),
         ),
         'indexden' => array(

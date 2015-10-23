@@ -38,11 +38,15 @@ class DefaultCommand extends \CConsoleCommand
 
         $criteria = new \EMongoCriteria();
         if ($id !== null) {
-            $criteria->addCond('entityId', '==', $id);
+            $criteria->addCond('entityId', '==', (int) $id);
         }
 
-        $dp = new \EMongoDocumentDataProvider(\site\frontend\modules\editorialDepartment\models\Content::model());
+        $dp = new \EMongoDocumentDataProvider(\site\frontend\modules\editorialDepartment\models\Content::model(), array(
+            'criteria' => $criteria,
+        ));
         $total = $dp->totalItemCount;
+
+        echo $total;
 
         $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $i => $model) {
@@ -58,9 +62,6 @@ class DefaultCommand extends \CConsoleCommand
         if ($all === false && $id === null) {
             throw new \CException("Invalid parameters");
         }
-
-        \Yii::app()->db->enableSlave = false;
-        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
 
         $criteria = new \CDbCriteria();
         $criteria->addCondition('buzzMigrate = 0');

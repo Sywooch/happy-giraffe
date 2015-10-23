@@ -21,7 +21,7 @@ class ApiComponent extends \CComponent
     public function request($api, $action, $params = array())
     {
         $p = $params;
-        if ($action == 'update') {
+        if ($action == 'update' && $params['originEntityId'] != 0) {
             $params = array(
                 'id' => $p['id'],
                 'title' => $p['title'],

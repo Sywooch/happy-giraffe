@@ -21,17 +21,22 @@ class ApiComponent extends \CComponent
     public function request($api, $action, $params = array())
     {
         $p = $params;
-//        if ($action == 'update') {
-//            $params = array(
-//                'id' => $p['id'],
-//                'title' => $p['title'],
-//            );
-//        }
-
         if ($action == 'update') {
-            var_dump($params);
-            die;
+            $params = array(
+                'id' => $p['id'],
+                'title' => $p['title'],
+                'url' => $p['url'],
+                'authorId' => $p['authorId'],
+                'text' => $p['text'],
+                'html' => $p['html'],
+                'preview' => $p['preview'],
+            );
         }
+
+//        if ($action == 'update') {
+//            var_dump($params);
+//            die;
+//        }
 
         $api = trim($api, '/');
         $action = trim($action, '/');

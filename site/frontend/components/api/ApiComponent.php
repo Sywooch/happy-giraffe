@@ -20,6 +20,12 @@ class ApiComponent extends \CComponent
 
     public function request($api, $action, $params = array())
     {
+        $p = $params
+        $params = array(
+            'id' => $p['id'],
+            'title' => $p['title'],
+        );
+
         $api = trim($api, '/');
         $action = trim($action, '/');
         $url = $this->baseUrl . '/' . $api . '/' . $action . '/';

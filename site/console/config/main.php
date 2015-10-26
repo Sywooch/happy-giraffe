@@ -133,19 +133,6 @@ return array(
                     'levels' => 'error',
                     'categories' => 'mail',
                 ),
-                array(
-                    'class'=>'CFileLogRoute',
-                    'levels'=>'error',
-                    'categories' => 'api',
-                    'logFile' => 'console.log',
-                    'logPath' => '/var/www/happy-giraffe.ru/deploy/test/site/common/uploads/photos/temp'
-                ),
-                array(
-					'class'=>'CEmailLogRoute',
-                    'levels'=>'error',
-                    'categories' => 'api',
-					'emails'=>'nikita@happy-giraffe.ru',
-				),
             ),
         ),
         'indexden' => array(

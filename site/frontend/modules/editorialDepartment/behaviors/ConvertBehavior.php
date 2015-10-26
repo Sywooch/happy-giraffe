@@ -4,6 +4,7 @@ namespace site\frontend\modules\editorialDepartment\behaviors;
 
 use site\frontend\modules\posts\components\ReverseParser;
 use site\frontend\modules\posts\models\api\Content as Content;
+use site\frontend\modules\posts\modules\buzz\widgets\SidebarWidget;
 use site\frontend\modules\som\modules\community\models\api\CommunityClub;
 use site\frontend\modules\som\modules\community\models\api\Label as Label;
 
@@ -124,7 +125,6 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         }
         $imageUrl = null;
         if ($img) {
-            echo $img->src . "\n";
             $photo = \Yii::app()->thumbs->getPhotoByUrl($img->src);
             if ($photo) {
                 $imageUrl = \Yii::app()->thumbs->getThumb($photo, 'socialImage')->getUrl();
@@ -228,8 +228,8 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 'usageName' => 'postGifImage',
             )));
         }
-        $widget = \Yii::app()->controller->beginWidget('site\frontend\modules\posts\modules\buzz\widgets\SidebarWidget');
-        $widget->getHtml($post);
+        $widget = new SidebarWidget();
+        $widget->getHtml($post, true);
     }
 
     protected function getPreview($post)

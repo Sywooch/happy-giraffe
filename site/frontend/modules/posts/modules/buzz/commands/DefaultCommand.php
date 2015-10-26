@@ -32,6 +32,13 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionMigrate2($all = false, $id = null)
     {
+        $r = \Yii::app()->api->request('users', 'fail');
+
+        var_dump($r);
+
+        die;
+
+
         if ($all === false && $id === null) {
             throw new \CException("Invalid parameters");
         }
@@ -41,18 +48,17 @@ class DefaultCommand extends \CConsoleCommand
             $criteria->addCond('entityId', '==', (int) $id);
         }
 
-        $dp = new \EMongoDocumentDataProvider(\site\frontend\modules\editorialDepartment\models\Content::model(), array(
+        $dp = new \EMongoDocumentDataProvider(MigrateContent::model(), array(
             'criteria' => $criteria,
         ));
         $total = $dp->totalItemCount;
-
-        echo $total;
-
         $iterator = new \CDataProviderIterator($dp);
+
         foreach ($iterator as $i => $model) {
             $model->scenario = 'buzz';
+            $model->label = Label::LABEL_BUZZ;
             if (array_search($model->entityId, $this->advExceptions) === false) {
-                $model->save(false);
+                $model->save();
             }
             echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
         }
@@ -143,5 +149,28 @@ class DefaultCommand extends \CConsoleCommand
             $model->save();
             echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
         }
+    }
+}
+
+class MigrateContent extends \site\frontend\modules\editorialDepartment\models\Content
+{
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
+    public function rules()
+    {
+        return array(
+            // Обязательность
+            array('title, markDown, htmlText, authorId, fromUserId', 'required'),
+            array('clubId, forumId, rubricId', 'required', 'on' => 'forums'),
+            array('clubId', 'required', 'on' => 'buzz, news'),
+
+            // Сделаем числа числами
+            array('authorId, fromUserId', '\site\common\components\HIntegerFilter'),
+            array('clubId, forumId, rubricId', '\site\common\components\HIntegerFilter', 'on' => 'forums'),
+            array('clubId', '\site\common\components\HIntegerFilter', 'on' => 'buzz, news'),
+        );
     }
 }

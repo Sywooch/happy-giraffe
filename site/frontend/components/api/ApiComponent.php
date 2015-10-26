@@ -9,6 +9,7 @@ namespace site\frontend\components\api;
  */
 class ApiComponent extends \CComponent
 {
+    const RETRIES = 3;
 
     public $baseUrl = false;
     public $cacheComponent = 'cache';
@@ -36,9 +37,18 @@ class ApiComponent extends \CComponent
         ));
 
         \Yii::trace('request(' . $url . ')', __CLASS__);
-        $result = file_get_contents($url, $use_include_path = false, $context);
-        if (YII_DEBUG && !self::isJSON($result)) {
-            throw new \site\frontend\components\api\ApiException($result);
+
+        for ($i = 1; $i <= self::RETRIES; $i++) {
+            $result = file_get_contents($url, $use_include_path = false, $context);
+
+            if (YII_DEBUG && !self::isJSON($result)) {
+                throw new \site\frontend\components\api\ApiException($result);
+            }
+
+            if (! empty($result)) {
+                break;
+            }
+            sleep(pow(2, $i));
         }
         return $result;
     }

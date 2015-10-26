@@ -37,17 +37,17 @@ class SidebarWidget extends \CWidget
         $this->render('main', compact('posts'));
     }
 
-    public function getHtml($post)
+    public function getHtml($post, $renew = false)
     {
         $cacheId = $this->getCacheKey($post->id);
         $value = $this->getCache()->get($cacheId);
-        if ($value === false) {
+        if ($value === false || $renew) {
             $value = $this->getContentHtml($post);
-            $dependency = new \CDbCacheDependency("SELECT dtimeUpdate FROM " . Content::model()->tableName() . " WHERE id = :id");
-            $dependency->params = array(
-                ':id' => $post->id,
-            );
-            $this->getCache()->set($cacheId, $value, 0, $dependency);
+//            $dependency = new \CDbCacheDependency("SELECT dtimeUpdate FROM " . Content::model()->tableName() . " WHERE id = :id");
+//            $dependency->params = array(
+//                ':id' => $post->id,
+//            );
+            $this->getCache()->set($cacheId, $value, 0/*, $dependency*/);
         }
         return $value;
     }

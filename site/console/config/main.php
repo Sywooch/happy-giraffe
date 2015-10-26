@@ -120,7 +120,7 @@ return array(
             'stateFile' => dirname(__FILE__) . '/../../frontend/runtime/state.bin',
         ),
         'postman' => array(
-            'class' => 'site.frontend.modules.mail.components.MailPostman1',
+            'class' => 'site.frontend.modules.mail.components.MailPostman',
         ),
         'log' => array(
             'class' => 'CLogRouter',

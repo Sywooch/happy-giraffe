@@ -362,19 +362,6 @@ return array(
 //					'levels'=>'error, warning',
 //					'emails'=>'pavel@happy-giraffe.ru',
 //				),
-                array(
-                    'class'=>'CFileLogRoute',
-                    'levels'=>'error',
-                    'categories' => 'api',
-                    'logFile' => 'frontend.log',
-                    'logPath' => '/var/www/happy-giraffe.ru/deploy/test/site/common/uploads/photos/temp'
-                ),
-                array(
-                    'class'=>'CEmailLogRoute',
-                    'levels'=>'error',
-                    'categories' => 'api',
-                    'emails'=>'nikita@happy-giraffe.ru',
-                ),
 			),
 		),
 		'shoppingCart' => array(

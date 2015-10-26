@@ -50,8 +50,9 @@ class DefaultCommand extends \CConsoleCommand
 
         $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $i => $model) {
+            $model->scenario = 'buzz';
             if (array_search($model->entityId, $this->advExceptions) === false) {
-                $model->save();
+                $model->save(false);
             }
             echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
         }

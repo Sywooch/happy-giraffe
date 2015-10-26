@@ -25,10 +25,6 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionFindBug()
     {
-        Yii::app()->api->request('users', 'fail');
-
-        return;
-
         $content = \site\frontend\modules\posts\models\api\Content::model()->findByPk(700194);
 
         $post = \site\frontend\modules\editorialDepartment\models\Content::model()->findByAttributes(array(
@@ -40,6 +36,10 @@ class SeoTempCommand extends CConsoleCommand
         for ($i = 0; $i < 999; $i++) {
             echo $i . "\n";
             $content->save();
+            $content = \site\frontend\modules\posts\models\api\Content::model()->findByPk(700194);
+            if ($content->isRemoved == 1) {
+                die('123');
+            }
             sleep(2);
         }
     }

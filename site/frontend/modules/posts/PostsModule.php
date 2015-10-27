@@ -34,6 +34,9 @@ class PostsModule extends \CWebModule
             'buzz' => array(
                 'class' => 'site\frontend\modules\posts\modules\buzz\BuzzModule',
             ),
+            'forums' => array(
+                'class' => 'site\frontend\modules\posts\modules\forums\ForumsModule',
+            ),
         ));
     }
 

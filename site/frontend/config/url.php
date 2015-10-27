@@ -39,6 +39,8 @@ return array(
         //'buzz/<slug>' => 'posts/buzz/list/index',
         'buzz' => 'posts/buzz/list/index',
 
+        'forums' => 'posts/forums/default/index',
+
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
         'findFriends/byInterests' => array('friends/find', 'defaultParams' => array('type' => 2)),

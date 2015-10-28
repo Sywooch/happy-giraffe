@@ -15,7 +15,7 @@ class DefaultController extends \site\frontend\modules\posts\controllers\ListCon
     public $layout = 'community';
     public $club = null;
 
-    public function getListDataProvider()
+    public function getListDataProvider($authorId = null)
     {
         $criteria = Content::model()->byLabels(array($this->club->toLabel()))->orderDesc()->getDbCriteria();
         return new \CActiveDataProvider('\site\frontend\modules\posts\models\Content', array(

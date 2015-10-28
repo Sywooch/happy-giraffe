@@ -66,7 +66,7 @@ class CommunityListController extends ListController
         return $tags;
     }
 
-    public function getListDataProvider()
+    public function getListDataProvider($authorId = null)
     {
         return new \CActiveDataProvider(Content::model()->byLabels($this->tags)->orderDesc(), array(
             'pagination' => array(

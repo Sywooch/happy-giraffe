@@ -39,7 +39,7 @@ class ListController extends \LiteController
         return $this->_user;
     }
 
-    public function getListDataProvider($authorId)
+    public function getListDataProvider($authorId = null)
     {
         $criteria = Content::model()->byLabels(array('Блог'))->byAuthor($authorId)->orderDesc()->getDbCriteria();
         return new \CActiveDataProvider('\site\frontend\modules\posts\models\Content', array(

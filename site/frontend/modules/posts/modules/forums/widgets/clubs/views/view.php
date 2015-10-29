@@ -1,3 +1,11 @@
+<?php
+/**
+ * @var \CommunitySection[] $sections
+ * @var \site\frontend\modules\posts\models\Content[] $posts
+ * @var \site\frontend\components\api\models\User[] $users
+ */
+?>
+
 <?php foreach ($sections as $section): ?>
     <h1><?=$section->title?></h1>
     <ul>

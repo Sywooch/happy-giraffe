@@ -10,3 +10,7 @@ Yii::endProfile('usersTop');
 Yii::beginProfile('clubs');
 $this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget');
 Yii::endProfile('clubs');
+
+Yii::beginProfile('onlineUsers');
+$this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget');
+Yii::endProfile('onlineUsers');

@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var \site\frontend\modules\posts\models\Content[] $posts
+ * @var \site\frontend\components\api\models\User[] $users
+ */
+?>
+
 <ul>
 <?php foreach ($posts as $post): ?>
     <li>

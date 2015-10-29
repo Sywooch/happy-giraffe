@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var array[] $scores
+ * @var \site\frontend\components\api\models\User[] $users
+ */
+?>
+
 <ul>
 <?php foreach ($scores as $id => $score): ?>
     <li>

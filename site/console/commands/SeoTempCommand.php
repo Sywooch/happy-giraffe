@@ -23,6 +23,12 @@ class SeoTempCommand extends CConsoleCommand
 //        $this->ga->setProfile('ga:53688414');
     }
 
+    public function actionActivity()
+    {
+        $content = \site\frontend\modules\posts\models\Content::model()->findByPk(701734);
+        $content->addActivity();
+    }
+
     public function actionFindBug()
     {
         $content = \site\frontend\modules\posts\models\api\Content::model()->findByPk(700194);

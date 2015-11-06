@@ -1,0 +1,508 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+
+
+<!-- список рубрик-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/blog.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__lite">
+  <div class="layout-container">
+    <div class="layout-header-consult">
+      <div class="layout-header-consult__l">
+        <div class="layout-header-consult__title">
+          У Вас не хватает <br />
+          грудного молока?
+        </div>
+      </div>
+      <div class="layout-header-consult__r"><a class="layout-header-consult__button"><span class="layout-header-consult__button__inner">
+             
+            Смотреть <br />
+            ответы</span></a></div>
+    </div>
+    <div class="layout-header-consult sotense clearfix">
+      <div class="layout-header-consult__l">
+        <div class="layout-header-consult__theme">Онлайн-консультация</div>
+        <div class="layout-header-consult__title">
+          У Вас не хватает <br />
+          грудного молока?
+        </div><a class="layout-header-consult__button"><span class="layout-header-consult__button__inner">Задайте вопрос</span></a>
+      </div>
+      <div class="layout-header-consult__r">
+        <div class="layout-header-consult__img"><img src="/lite/images/services/consult/consult-man-empty.png" alt=""></div>
+        <div class="layout-header-consult__name">
+          Морозов <br />
+          Сергей Леонидович
+        </div>
+        <div class="layout-header-consult__pos">Врач-педиатр</div>
+      </div>
+    </div>
+    <div class="layout-loose">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu header-menu-guest">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                
+                        var $this = $(this),
+                            activeClass = 'active';
+                
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                      });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li header-menu-guest_section-1"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Муж и жена</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-2"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Беременность и дети</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-3"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Наш дом</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-4"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Красота и здоровье</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-5"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Интересы и увлечения</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-6"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Семейный отдых</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_search"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__search"></span><span class="header-menu_tx">Поиск</span></a></li>
+                <!--li.header-menu_li
+                a.header-menu_a(href='#')
+                    span.header-menu_ico.header-menu_ico__giraffe
+                    span.header-menu_tx
+                        | Мой Жираф
+                    span.header-menu_count 1
+                // Конверсионный попап
+                .header-popup.header-popup__club
+                    .header-popup_hold
+                        .header-popup_t Вступайте в разные клубы на Веселом жирафе!
+                        .header-popup_club
+                            // 18 клубов
+                            .b-clubs
+                                ul.b-clubs_ul
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__1
+                                            .b-clubs_tx Планирование
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__2
+                                            .b-clubs_tx Беременность и роды
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__3
+                                            .b-clubs_tx Дети до года
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__4
+                                            .b-clubs_tx Дети старше года
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__5
+                                            .b-clubs_tx Дошкольники
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__6
+                                            .b-clubs_tx Школьники
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__7
+                                            .b-clubs_tx Готовим на кухне
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__8
+                                            .b-clubs_tx Ремонт в доме
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__9
+                                            .b-clubs_tx Домашние хлопоты
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__10
+                                            .b-clubs_tx Сад и огород
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__11
+                                            .b-clubs_tx Наши питомцы
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__12
+                                            .b-clubs_tx Красота и мода
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__13
+                                            .b-clubs_tx Наше здоровье
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__14
+                                            .b-clubs_tx Свадьба
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__15
+                                            .b-clubs_tx Отношения в семье
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__16
+                                            .b-clubs_tx Рукоделие
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__17
+                                            .b-clubs_tx Цветы в доме
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__18
+                                            .b-clubs_tx Наш автомобиль
+                                //- li.b-clubs_li
+                                    a.b-clubs_a(href="#")
+                                        .ico-club.ico-club__19
+                                        .b-clubs_tx Мы путешествуем
+                
+                        .header-popup_b.clearfix
+                            .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
+                            .header-popup_b-l
+                                span.header-popup_b-tx Начните прямо сейчас с помощью
+                
+                                .ico-social-hold
+                                    a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                    a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
+                // /Конверсионный попап
+                -->
+                <!-- Класс active отвечает за видимость попапапа-->
+                <!--li.header-menu_li
+                a.header-menu_a(href='#')
+                    span.header-menu_ico.header-menu_ico__im
+                    span.header-menu_tx
+                        | вам письмо
+                    span.header-menu_count 1
+                // Конверсионный попап
+                .header-popup.header-popup__msg
+                    .header-popup_hold
+                        .header-popup_t Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!
+                        .header-popup_msg
+                
+                        .header-popup_b.clearfix
+                            .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
+                            .header-popup_b-l
+                                span.header-popup_b-tx Начните прямо сейчас с помощью
+                
+                                .ico-social-hold
+                                    a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                    a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
+                // /Конверсионный попап
+                -->
+                <!--li.header-menu_li
+                a.header-menu_a(href='#')
+                    span.header-menu_ico.header-menu_ico__contest
+                    span.header-menu_tx
+                        | Конкурс
+                    span.header-menu_count 1
+                -->
+              </ul>
+            </div>
+            <!-- /header-menu-->
+            <!-- - if (vars.nosearch != true)+sidebarSearch('sidebar-search__big', sidebarSearch.a)
+            -->
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <div class="b-main clearfix">
+          <div class="b-main_cont">
+            <div class="b-main_col-hold clearfix">
+              <!--/////-->
+              <!-- Основная колонка-->
+              <div class="b-main_col-article">
+                <article class="b-article clearfix b-article__list">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_cont-tale"></div>
+                    <div class="b-article_header clearfix">
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                      </div>
+                      <div class="float-l">
+                        <div class="ico-hold-small">
+                          <div class="ico-club ico-club__7 small"></div>
+                        </div><a href="#" class="b-article_author">Цветы в доме</a>
+                        <time pubdate="1957-10-04" class="tx-date">минуту назад</time>
+                      </div>
+                    </div>
+                    <div class="b-article_t-list article_t-feed"><a class="b-article_t-a article_t-feed">Прикольная тема</a></div>
+                    <div class="b-album-cap feed-cap">
+                      <div class="b-album-cap_hold"><img src="../../../images/sovhoz.jpg"></div>
+                    </div>
+                    <div class="b-article_share">
+                      <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                      <div data-yasharel10n="ru" data-yasharequickservices="odnoklassniki,vkontakte,facebook" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
+                    </div>
+                  </div>
+                </article>
+                <article class="b-article clearfix b-article__list">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_cont-tale"></div>
+                    <div class="b-article_header clearfix">
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                      </div>
+                      <div class="float-l">
+                        <div class="ico-hold-small">
+                          <div class="ico-club ico-club__2 small"></div>
+                        </div><a href="#" class="b-article_author">Беременность и роды</a>
+                        <time pubdate="1957-10-04" class="tx-date">минуту назад</time>
+                      </div>
+                    </div>
+                    <div class="b-article_t-list article_t-feed"><a class="b-article_t-a article_t-feed">Екатерина Климова в четвертый раз стала мамой</a></div>
+                    <div class="b-markdown">
+                      <p></p>
+                      <div class="b-markdown_t-sub">
+                        <p>И назвала дочку необычным именем.</p>
+                      </div>
+                    </div>
+                    <div class="b-album-cap feed-cap">
+                      <div class="b-album-cap_hold">
+                        <!--a.btn.btn-default.btn-l.btn-feed.middle Читать далее--><a href="#" class="btn btn-default btn-l btn-feed middle">Читать далее</a><img src="../../../images/example/klimova.jpg">
+                      </div>
+                    </div>
+                    <div class="b-article_share">
+                      <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                      <div data-yasharel10n="ru" data-yasharequickservices="odnoklassniki,vkontakte,facebook" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
+                    </div>
+                  </div>
+                </article>
+                <article class="b-article clearfix b-article__list">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_cont-tale"></div>
+                    <div class="b-article_header clearfix">
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                      </div>
+                      <div class="float-l">
+                        <div class="ico-hold-small">
+                          <div class="ico-club ico-club__14 small"></div>
+                        </div><a href="#" class="b-article_author">Беременность и роды</a>
+                        <time pubdate="1957-10-04" class="tx-date">минуту назад</time>
+                      </div>
+                    </div>
+                    <div class="b-article_t-list article_t-feed"><a class="b-article_t-a article_t-feed">А свадьба была в самом разгаре</a></div>
+                    <div class="b-markdown">
+                      <p></p>
+                      <div class="b-markdown_t-sub">
+                        <p>Местный тамада придумал умапомрачительный конкурс "Ручеек по-взрослому!!!"</p>
+                      </div>
+                    </div>
+                    <div class="b-album-cap feed-cap">
+                      <div class="b-album-cap_hold">
+                        <div class="btn-label gif"></div>
+                        <div class="btn-play gif"></div><img src="../../../images/example/wedding.jpg">
+                      </div>
+                    </div>
+                    <div class="b-article_share">
+                      <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                      <div data-yasharel10n="ru" data-yasharequickservices="odnoklassniki,vkontakte,facebook" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
+                    </div>
+                  </div>
+                </article>
+                <article class="b-article clearfix b-article__list">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_cont-tale"></div>
+                    <div class="b-article_header clearfix">
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                      </div>
+                      <div class="float-l">
+                        <div class="ico-hold-small">
+                          <div class="ico-club ico-club__14 small"></div>
+                        </div><a href="#" class="b-article_author">Свадьба</a>
+                        <time pubdate="1957-10-04" class="tx-date">минуту назад</time>
+                      </div>
+                    </div>
+                    <div class="b-article_t-list article_t-feed"><a class="b-article_t-a article_t-feed">5 звездных пар проект "Дом-2" рассказали, во сколько обошлись им свадьбы</a></div>
+                    <div class="b-markdown">
+                      <p></p>
+                      <div class="b-markdown_t-sub">
+                        <p>Как правило на период лета-начала осени наблюдается свадебный бум. Участники телепроекта «Дом-2» не отстают, и так же активно планируют свои торжества.</p>
+                      </div>
+                    </div>
+                    <div class="b-album-cap feed-cap">
+                      <div class="b-album-cap_hold">
+                        <div class="btn-label video"></div>
+                        <div class="btn-play video"></div><img src="../../../images/example/wedding.jpg">
+                      </div>
+                    </div>
+                    <div class="b-article_share">
+                      <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                      <div data-yasharel10n="ru" data-yasharequickservices="odnoklassniki,vkontakte,facebook" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <aside class="b-main_col-sidebar visible-md">
+                <div class="bnr-base"><a href="#"><img src="/lite/images/example/w300-h600-3.jpg" alt=""></a></div>
+                <!-- Варианты цветов блока
+                article-anonce__green
+                article-anonce__blue
+                article-anonce__lilac
+                article-anonce__red
+                article-anonce__yellow
+                -->
+                <div class="article-anonce article-anonce__s"><a href="#" class="article-anonce_hold">
+                    <div class="article-anonce_img-hold">
+                      <!-- Может не быть иконки play-->
+                      <div class="article-anonce_img-top">
+                        <div class="ico-ovrPlay_video ico-ovrPlay__s"></div>
+                      </div><img src="http://lorempixel.com/300/200/people/2" alt="На кого делают ставки: самые яркие участники шоу 'Голос.Дети'" class="article-anonce_img">
+                      <div class="article-anonce_img-overlay"></div>
+                    </div>
+                    <div class="article-anonce_bottom">
+                      <div class="article-anonce_t">На кого делают ставки: самые яркие участники шоу 'Голос.Дети'
+                      </div>
+                    </div></a>
+                </div>
+                <!-- Варианты цветов блока
+                article-anonce__green
+                article-anonce__blue
+                article-anonce__lilac
+                article-anonce__red
+                article-anonce__yellow
+                -->
+                <div class="article-anonce article-anonce__s"><a href="#" class="article-anonce_hold">
+                    <div class="article-anonce_img-hold"><img src="http://lorempixel.com/300/200/nature/1" alt="Одиночное путешествие" class="article-anonce_img">
+                      <div class="article-anonce_img-overlay"></div>
+                    </div>
+                    <div class="article-anonce_bottom">
+                      <div class="article-anonce_t">Одиночное путешествие
+                      </div>
+                    </div></a>
+                </div>
+                <!-- Варианты цветов блока
+                article-anonce__green
+                article-anonce__blue
+                article-anonce__lilac
+                article-anonce__red
+                article-anonce__yellow
+                -->
+                <div class="article-anonce article-anonce__s"><a href="#" class="article-anonce_hold">
+                    <div class="article-anonce_img-hold"><img src="http://lorempixel.com/300/200/people/3" alt="Близняшки: мама и дочка в одинаковых нарядах" class="article-anonce_img">
+                      <div class="article-anonce_img-overlay"></div>
+                    </div>
+                    <div class="article-anonce_bottom">
+                      <div class="article-anonce_t">Близняшки: мама и дочка в одинаковых нарядах
+                      </div>
+                    </div></a>
+                </div>
+                <!-- Варианты цветов блока
+                article-anonce__green
+                article-anonce__blue
+                article-anonce__lilac
+                article-anonce__red
+                article-anonce__yellow
+                -->
+                <div class="article-anonce article-anonce__s"><a href="#" class="article-anonce_hold">
+                    <div class="article-anonce_img-hold">
+                      <div class="article-anonce_img-top">
+                        <div class="ico-ovrPlay_gif ico-ovrPlay__s"></div>
+                      </div><img src="http://lorempixel.com/300/200/people/5" alt="Видео: как дети видят своих родителей, когда те пьяны" class="article-anonce_img">
+                      <div class="article-anonce_img-overlay"></div>
+                    </div>
+                    <div class="article-anonce_bottom">
+                      <div class="article-anonce_t">Видео: как дети видят своих родителей, когда те пьяны
+                      </div>
+                    </div></a>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+    <div class="popup popup-bnr-photo">
+      <photoAd></photoAd>
+    </div>
+  </div>
+</body></html>

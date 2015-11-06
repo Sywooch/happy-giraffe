@@ -1,0 +1,85 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'blog.css';
+
+block layout
+
+    .b-main.clearfix
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+
+                    article.b-article.clearfix.b-article__list
+                        .b-article_cont.clearfix
+                            .b-article_cont-tale
+                            .b-article_header.clearfix
+                                .icons-meta
+                                    a.icons-meta_comment(href='#')
+                                        span.icons-meta_tx 3685
+                                    .icons-meta_view
+                                        span.icons-meta_tx 228
+                                .float-l
+                                    time.tx-date(pubdate='1957-10-04') минуту назад
+                            .b-article_t-list.article_t-feed
+                                a.b-article_t-a.article_t-feed Мама из Австралии восхитила мир своей фигурой
+                            .b-markdown
+                                p
+                                .b-markdown_t-sub
+                                    p Австралийская «фитнес-гуру», 26-летняя Софи Гвидолин, стала звездой Инстаграма благодаря своей удивительно стройной фигуре. Женщина сохранила идеальные формы после рождения близнецов.
+                            .b-album-cap.feed-cap
+                                .b-album-cap_hold
+                                    img(src="../../../images/feed-1.jpg")
+                                    a(class='btn btn-default btn-l btn-feed', href='#') Читать далее
+                                    .article-anonce_img-bottom
+
+                    article.b-article.clearfix.b-article__list
+                        .b-article_cont.clearfix
+                            .b-article_cont-tale
+                            .b-article_header.clearfix
+                                .icons-meta
+                                    a.icons-meta_comment(href='#')
+                                        span.icons-meta_tx 3685
+                                    .icons-meta_view
+                                        span.icons-meta_tx 228
+                                .float-l
+                                    time.tx-date(pubdate='1957-10-04') минуту назад
+                            .b-article_t-list.article_t-feed
+                                a.b-article_t-a.article_t-feed Виктория Дайнеко впервые рассказала о своих первых родах
+                            .b-markdown
+                                p
+                                .b-markdown_t-sub
+                                    p Певица Виктория Дайнеко последние месяцы старательно скрывала от окружающих как беременность, так и факт рождения ребёнка. Но наконец-то популярная исполнительница пробила стену молчания и рассказала о своих первых родах.
+                            .b-album-cap.feed-cap
+                                .b-album-cap_hold
+                                    img(src="../../../images/feed-2.jpg")
+                                    a(class='btn btn-default btn-l btn-feed', href='#') Читать далее
+                                    .article-anonce_img-bottom
+
+
+                    article.b-article.clearfix.b-article__list
+                        .b-article_cont.clearfix
+                            .b-article_cont-tale
+                            .b-article_header.clearfix
+                                .icons-meta
+                                    a.icons-meta_comment(href='#')
+                                        span.icons-meta_tx 3685
+                                    .icons-meta_view
+                                        span.icons-meta_tx 228
+                                .float-l
+                                    time.tx-date(pubdate='1957-10-04') минуту назад
+                            .b-article_t-list.article_t-feed
+                                a.b-article_t-a.article_t-feed Регионы могут получить почти 8 млрд рублей для многодетных семей
+                            .b-article_in.clearfix
+                                    p.no_image Правительство РФ может выделить около 8 миллиардов рублей на предоставление субсидий регионам для софинансирования ежемесячной выплаты нуждающимся в поддержке семьям в связи с рождением третьего ребенка или последующих детей до достижения ребенком возраста трех лет, говорится в проекте бюджета на 2016 год, который размещен на правовом портале. "Бюджетных ассигнований в объеме 7 923 504,5 тысячи рублей, предусмотренных по подразделу «Охрана семьи и детства» раздела «Социальная политика» классификации расходов бюджетов, на предоставление субсидий в целях софинансирования расходных обязательств субъектов
+                            .b-album-cap.feed-cap
+                                .b-album-cap_hold
+                                    a(class='btn btn-default btn-l btn-feed_noimage', href='#') Читать далее
+
+                // /Основная колонкa
+                +sideBarRubricks('')
+
+    +layout-footer-lite()

@@ -26,6 +26,7 @@ return array(
         'api/activity/<_a>' => 'som/activity/api/<_a>',
         'api/community/<_a:(getUserSubscriptions|setUserSubscriptions)>' => 'community/api/<_a>',
         'api/community/<_a>' => 'som/community/api/<_a>',
+        'api/qa/<_a>' => 'som/qa/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
         

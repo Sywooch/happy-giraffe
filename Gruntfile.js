@@ -174,9 +174,9 @@ module.exports = function(grunt){
           dest: 'lite/css/dev/',
           ext: '.css'
         }],
-        // files: {
-        //   'lite/css/dev/all.css': ['lite/less/all.less']
-        // },
+        files: {
+           'lite/css/dev/all.css': ['lite/less/all.less']
+         },
         options: {
           sourceMap: true,
         }
@@ -640,6 +640,39 @@ module.exports = function(grunt){
           'lite/html/page/sign/**/*.html'
         ],
         dest: 'lite/css/min/contest-commentator.css'
+      },
+      // Главная страница форума
+      'forum_homepage': {
+        options: {
+          ignoreSheets : [/fonts.googleapis/],
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            /#ctrlcopy+/,
+            /#powerTip+/,
+            /placeholder+/,
+            /.mfp+/,
+            /.select2+/,
+            /@font-face+/,
+            /input+/,
+            /.body+/,
+            /.bnr+/,
+            /.ava+/,
+            /.ico-club+/,
+            /.article-anonce+/,
+
+            /.ico-social-hold+/,
+          ],
+
+        },
+        src: [
+          'lite/html/page/forum/**/*.html',
+          'lite/html/page/sign/**/*.html'
+        ],
+        dest: 'lite/css/min/forum-homepage.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -1181,6 +1214,10 @@ module.exports = function(grunt){
   grunt.registerTask('article-anonce-css', ['less:litedev','uncss:article-anonce-1', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // конкурс комментаторов
   grunt.registerTask('contest_commentator-css', ['less:litedev','uncss:contest_commentator', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  // Форум
+  grunt.registerTask('forum_homepage', ['jade:lite_prod', 'less:litedev', 'cmq:lite', 'uncss:forum_homepage', 'cssmin:lite', 'csso:lite']);
+
+  grunt.registerTask('forum_homepage-css', ['less:litedev', 'cmq:lite', 'uncss:forum_homepage', 'cssmin:lite', 'csso:lite']);
 
   // Базовый для разработки верстки
   grunt.registerTask('default', [

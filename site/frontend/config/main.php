@@ -166,10 +166,6 @@ return array(
         'pages' => array(
             'class' => 'site\frontend\modules\pages\PagesModule',
         ),
-        'stream' => array(
-            'class' => 'site\frontend\modules\stream\StreamModule',
-            'controllerNamespace' => 'site\frontend\modules\stream\controllers',
-        ),
         /*'gii' => array(
             'class' => 'system.gii.GiiModule',
             //'password' => 'test',
@@ -349,7 +345,6 @@ return array(
 				array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
-                    'logFile' => 'error.log',
 				),
 //                array(
 //                    'class'=>'CEmailLogRoute',

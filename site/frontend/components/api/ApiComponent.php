@@ -37,6 +37,9 @@ class ApiComponent extends \CComponent
 
         \Yii::trace('request(' . $url . ')', __CLASS__);
         $result = file_get_contents($url, $use_include_path = false, $context);
+        if (!self::isJSON($result)) {
+            \Yii::log($url . "\n\n\n" . $result, \CLogger::LEVEL_ERROR, 'api');
+        }
         if (YII_DEBUG && !self::isJSON($result)) {
             throw new \site\frontend\components\api\ApiException($result);
         }

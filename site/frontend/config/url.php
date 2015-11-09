@@ -568,6 +568,6 @@ return array(
         '<slug:\w+>/consultations/create' => 'consultation/default/create',
         '<slug:\w+>/consultations/page<page:\d+>' => 'consultation/default/index',
 
-        '<view:(about|ads|contacts|useragreement|legal|moderation_rule|confidential|klondike|dreamfields|carpets)>' => 'pages/default/page',
+        '<view:(about|adv|contacts|useragreement|legal|moderation_rule|confidential|klondike|dreamfields|carpets)>' => 'pages/default/page',
     ),
 );

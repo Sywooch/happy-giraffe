@@ -2,7 +2,7 @@ include ../../block/config
 extend ../../extend/layout_base
 block vars
     - var bodyClass = 'body__lite';
-    - global.cssFile = 'blog.css';
+    - global.cssFile = 'all.css';
 
 
 block layout
@@ -11,113 +11,103 @@ block layout
         .b-main_cont
             .heading-link-xxl  Мы здесь общаемся!
             //Добавить в layout_base
-            .widgets_block
-                .top_block
-                    .widget_top
-                        .heading-wd Топ форумчан
-                        span.tx-hint за неделю
-                    br
-                    .widget_item
+            .top-forum
+                .widget_top
+                    .heading-wd Топ форумчан
+                    span.tx-hint за неделю
+                ul
+                    li.widget_item
                         .widget_top_block_user
                             +ava("ava__middle ava__male", avaVars)
                             a.username Вероника Петровна
                         .widget_top_block_rating.counter-block
                             .rating_count.counter-text 70
-                            br
                             .rating_text.counter-hint баллы
-                    .widget_item
+                    li.widget_item
                         .widget_top_block_user
                             +ava("ava__middle ava__male", avaVars)
                             a.username Люда Кошкина
                         .widget_top_block_rating.counter-block
                             .rating_count.counter-text 66
-                            br
                             .rating_text.counter-hint баллы
-                    .widget_item
+                    li.widget_item
                         .widget_top_block_user
                             +ava("ava__middle ava__male", avaVars)
                             a.username Лена Лерина
                         .widget_top_block_rating.counter-block
                             .rating_count.counter-text 54
-                            br
                             .rating_text.counter-hint баллы
-                    .widget_item
+                    li.widget_item
                         .widget_top_block_user
                             +ava("ava__middle ava__male", avaVars)
                             a.username Денис Загорский
                         .widget_top_block_rating.counter-block
                             .rating_count.counter-text 50
-                            br
                             .rating_text.counter-hint баллы
-                    .widget_item
+                    li.widget_item
                         .widget_top_block_user
                             +ava("ava__middle ava__male", avaVars)
                             a.username Валентина Фигулина
                         .widget_top_block_rating.counter-block
                             .rating_count.counter-text 40
-                            br
                             .rating_text.counter-hint баллы
-                .latest_posts
-                    .widget_top
-                        .heading-wd Последние посты
-                    br
-                    .widget_item
-                        .widget_latestposts_heading
+            .latest-posts
+                .widget_top
+                    .heading-wd Последние посты
+                ul
+                    li.widget_item
+                        .widget_latest-posts_heading
                             a(href="") Эффективен ли урсосан для новорожденных при желтухе?
-                            br
                             .icons-meta
                                 a.icons-meta_comment(href='#')
                                     span.icons-meta_tx 3685
                                 .icons-meta_view
                                     span.icons-meta_tx 228
-                        .widget_latestposts_user.live-user
+                        .widget_latest-posts_user.live-user
                             +ava("ava__small ava__female", avaVars)
                             .username
                                 a Валерия Остапенко
                                 .tx-date минуту назад
-                    .widget_item
-                        .widget_latestposts_heading
+                    li.widget_item
+                        .widget_latest-posts_heading
                             a(href="") Эффективен ли урсосан для новорожденных при желтухе?
-                            br
                             .icons-meta
                                 a.icons-meta_comment(href='#')
                                     span.icons-meta_tx 3685
                                 .icons-meta_view
                                     span.icons-meta_tx 228
-                        .widget_latestposts_user.live-user
+                        .widget_latest-posts_user.live-user
                             +ava("ava__small ava__female", avaVars)
                             .username
                                 a Валерия Остапенко
                                 .tx-date 2 минуты назад
-                    .widget_item
-                        .widget_latestposts_heading
+                    li.widget_item
+                        .widget_latest-posts_heading
                             a(href="") Эффективен ли урсосан для новорожденных при желтухе?
-                            br
                             .icons-meta
                                 a.icons-meta_comment(href='#')
                                     span.icons-meta_tx 3685
                                 .icons-meta_view
                                     span.icons-meta_tx 228
-                        .widget_latestposts_user.live-user
+                        .widget_latest-posts_user.live-user
                             +ava("ava__small ava__female", avaVars)
                             .username
                                 a Валерия Остапенко
                                 .tx-date вчера
-                    .widget_item
-                        .widget_latestposts_heading
+                    li.widget_item
+                        .widget_latest-posts_heading
                             a(href="") Эффективен ли урсосан для новорожденных при желтухе?
-                            br
                             .icons-meta
                                 a.icons-meta_comment(href='#')
                                     span.icons-meta_tx 3685
                                 .icons-meta_view
                                     span.icons-meta_tx 228
-                        .widget_latestposts_user.live-user
+                        .widget_latest-posts_user.live-user
                             +ava("ava__small ava__female", avaVars)
                             .username
                                 a Валерия Остапенко
                                 .tx-date 3 ноября
-                .clearfix
+            .clearfix
             .forum_heading_block
                 .forum_heading.color_wife Муж и жена
                 ul.homepage-clubs_ul
@@ -131,11 +121,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -144,7 +132,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
                     li.homepage-clubs_li
                         .clubs_cont
                             a.homepage-clubs_a(href='#')
@@ -155,11 +143,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 3795
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 74284
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -182,11 +168,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -195,7 +179,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
                     li.homepage-clubs_li
                         .clubs_cont
                             a.homepage-clubs_a(href='#')
@@ -206,11 +190,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -219,7 +201,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
                     li.homepage-clubs_li
                         .clubs_cont
                             a.homepage-clubs_a(href='#')
@@ -230,11 +212,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -243,7 +223,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
                     li.homepage-clubs_li
                         .clubs_cont
                             a.homepage-clubs_a(href='#')
@@ -254,11 +234,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -267,7 +245,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
                     li.homepage-clubs_li
                         .clubs_cont
                             a.homepage-clubs_a(href='#')
@@ -278,11 +256,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -291,7 +267,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
                     li.homepage-clubs_li
                         .clubs_cont
                             a.homepage-clubs_a(href='#')
@@ -302,11 +278,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -315,7 +289,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
             .clearfix
             .forum_heading_block
                 .forum_heading.color_home Наш дом
@@ -330,11 +304,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -343,7 +315,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
                     li.homepage-clubs_li
                         .clubs_cont
                             a.homepage-clubs_a(href='#')
@@ -354,11 +326,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -367,7 +337,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
                     li.homepage-clubs_li
                         .clubs_cont
                             a.homepage-clubs_a(href='#')
@@ -378,11 +348,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -391,7 +359,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
                     li.homepage-clubs_li
                         .clubs_cont
                             a.homepage-clubs_a(href='#')
@@ -402,11 +370,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -415,7 +381,7 @@ block layout
                                     a Валерия Остапенко
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
-                    .clearfix.clubs_separator
+                    .clubs_separator
                     li.homepage-clubs_li
                         .clubs_cont
                             a.homepage-clubs_a(href='#')
@@ -426,11 +392,9 @@ block layout
                         .clubs_info
                             .counter-block
                                 .rating_count.counter-text 2304
-                                br
                                 .rating_text.counter-hint темы
                             .counter-block
                                 .rating_count.counter-text 16886
-                                br
                                 .rating_text.counter-hint комментарии
                             .clubs_info_activity.live-user
                                 .live-user_hint последняя активность
@@ -440,69 +404,16 @@ block layout
                                     .tx-date 3 ноября
                                 a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
                     .clearfix
-            .widget_who-online
+            .who-online
                 .widget_top
                     .heading-wd Сейчас в сети
-                    .widget_who-online_hint 538 пользователей
-                    .widget_who-online_hint 4235 пользователей
+                    .who-online_hint 538 пользователей
+                    .who-online_hint 4235 пользователей
                 .clearfix
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-                +ava("ava__small ava__male", avaVars)
-
+                ul.who-online_ul
+                    li.who-online_li.clearfix
+                        +ava("ava__small ava__male", avaVars)
+                    li.who-online_li.clearfix
+                        +ava("ava__small ava__male", avaVars)
+                .clearfix
     +layout-footer-lite()

@@ -1,10 +1,11 @@
+/* Widgets styles*/
 .widget()
 {
   border: 1px solid #f9f9f9;
   padding: 21px;
   .widget_top
   {
-    margin-bottom: 0px;
+    margin-bottom: 17px;
     height: 18px;
   }
 
@@ -40,7 +41,6 @@
   font-size: 11px;
   color: #999;
   text-align: center;
-  display: inline-block;
 }
 //Текст счетчика
 .counter-text
@@ -50,7 +50,6 @@
   font-weight: bold;
   color: #333;
   text-align: center;
-  display: inline-block;
 }
 
 //Заголовок виджета
@@ -99,7 +98,7 @@
 
 /* Конец Повторяющиеся стили */
 
-.top_block
+.top-forum
 {
   width: 302px;
   height: 366px;
@@ -113,7 +112,7 @@
 }
 
 
-.latest_posts
+.latest-posts
 {
   .widget;
   width: 616px;
@@ -143,7 +142,7 @@
   float: right;
 }
 
-.widget_latestposts_heading
+.widget_latest-posts_heading
 {
   text-align: left;
   float:left;
@@ -162,13 +161,13 @@
   }
 }
 
-.widget_latestposts_user
+.widget_latest-posts_user
 {
   float:right;
   margin-top: 3px;
 }
 
-.widget_who-online
+.who-online
 {
   .widget;
   margin-top: 35px;
@@ -187,9 +186,10 @@
     margin-bottom: 21px;
   }
 
-  .ava
+  &_li
   {
-    margin: 0px 3px 6px 0px;
+    margin: 0px 6px 10px 0px;
+    float:left;
   }
 
 }
@@ -560,5 +560,6 @@
   border-bottom: 1px solid #fafafa;
   width: 801px;
   margin-left: 128px;
+  display: table;
 }
 

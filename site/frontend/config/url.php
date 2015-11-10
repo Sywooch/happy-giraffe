@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
+    //'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -29,6 +29,9 @@ return array(
         'api/qa/<_a>' => 'som/qa/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
+
+        'questions/add' => 'som/qa/default/questionAddForm',
+        'questions/<id:\d+>' => 'som/qa/default/view',
         
         /* SOM */
         'status' => 'som/status/default/index',

@@ -7,11 +7,19 @@
 namespace site\frontend\modules\som\modules\qa\controllers;
 
 
+use site\frontend\modules\som\modules\qa\models\QaConsultation;
+use site\frontend\modules\som\modules\qa\models\QaQuestion;
+
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    public function actionTest()
+    public static $answerModel = '\site\frontend\modules\som\modules\qa\models\QaAnswer';
+
+    public function actionCreateAnswer($questionId, $text)
     {
-        $this->success = true;
-        $this->data = '123';
+        $answer = new self::$answerModel;
+        $answer->attributes = array(
+            'questionId' => $questionId,
+            'text' => $text,
+        );
     }
 }

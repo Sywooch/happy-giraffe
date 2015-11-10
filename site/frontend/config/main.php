@@ -170,13 +170,13 @@ return array(
             'class' => 'site\frontend\modules\stream\StreamModule',
             'controllerNamespace' => 'site\frontend\modules\stream\controllers',
         ),
-        /*'gii' => array(
+        'gii' => array(
             'class' => 'system.gii.GiiModule',
             //'password' => 'test',
             'ipFilters' => array('192.168.0.137', '192.168.56.1'),
             'newFileMode' => 0666,
             'newDirMode' => 0777,
-        ),*/
+        ),
         'questionnaire' => array(
             'class' => 'site\frontend\modules\questionnaire\QuestionnaireModule',
             'controllerNamespace' => 'site\frontend\modules\questionnaire\controllers',

@@ -19,7 +19,6 @@ class m151109_145536_qa extends CDbMigration
   PRIMARY KEY (`id`),
   KEY `consultationId` (`consultationId`),
   KEY `userId` (`userId`),
-  CONSTRAINT `qa__consultations_consultants_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `qa__consultations_consultants_ibfk_1` FOREIGN KEY (`consultationId`) REFERENCES `qa__consultations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 		$this->execute("CREATE TABLE `qa__categories` (
@@ -53,8 +52,13 @@ class m151109_145536_qa extends CDbMigration
   `authorId` int(11) unsigned NOT NULL,
   `dtimeCreate` int(10) unsigned DEFAULT NULL,
   `dtimeUpdate` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `questionId` (`questionId`),
+  KEY `authorId` (`authorId`),
+  CONSTRAINT `qa__answers_ibfk_1` FOREIGN KEY (`questionId`) REFERENCES `qa__questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        $this->execute("ALTER TABLE `qa__questions` ADD `isRemoved` TINYINT(1)  UNSIGNED  NOT NULL");
+        $this->execute("ALTER TABLE `qa__answers` ADD `isRemoved` INT(1)  UNSIGNED  NOT NULL;");
 	}
 
 	public function down()

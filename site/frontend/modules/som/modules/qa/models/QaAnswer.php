@@ -2,27 +2,27 @@
 namespace site\frontend\modules\som\modules\qa\models;
 
 /**
- * This is the model class for table "qa__consultations_consultants".
+ * This is the model class for table "qa__answers".
  *
- * The followings are the available columns in table 'qa__consultations_consultants':
+ * The followings are the available columns in table 'qa__answers':
  * @property string $id
- * @property string $consultationId
- * @property string $name
- * @property string $title
- * @property string $userId
  * @property string $text
+ * @property string $questionId
+ * @property string $authorId
+ * @property string $dtimeCreate
+ * @property string $dtimeUpdate
  *
  * The followings are the available model relations:
- * @property \site\frontend\modules\som\modules\qa\models\QaConsultation $consultation
+ * @property \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
-class QaConsultant extends \CActiveRecord
+class QaAnswer extends \CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'qa__consultations_consultants';
+		return 'qa__answers';
 	}
 
 	/**
@@ -45,7 +45,7 @@ class QaConsultant extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'consultation' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'consultationId'),
+			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestions', 'questionId'),
 		);
 	}
 
@@ -56,11 +56,26 @@ class QaConsultant extends \CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'consultationId' => 'Consultation',
-			'name' => 'Name',
-			'title' => 'Title',
-			'userId' => 'User',
 			'text' => 'Text',
+			'questionId' => 'Question',
+			'authorId' => 'Author',
+			'dtimeCreate' => 'Dtime Create',
+			'dtimeUpdate' => 'Dtime Update',
+		);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'softDelete' => array(
+				'class' => 'site.common.behaviors.SoftDeleteBehavior',
+				'removeAttribute' => 'isRemoved',
+			),
+			'HTimestampBehavior' => array(
+				'class' => 'HTimestampBehavior',
+				'createAttribute' => 'dtimeCreate',
+				'updateAttribute' => 'dtimeUpdate',
+			),
 		);
 	}
 
@@ -68,7 +83,7 @@ class QaConsultant extends \CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return QaConsultant the static model class
+	 * @return QaAnswer the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

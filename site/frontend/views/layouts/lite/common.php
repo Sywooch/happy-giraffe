@@ -17,16 +17,14 @@
 <?php if (Yii::app()->vm->version == VersionManager::VERSION_DESKTOP): ?>
     <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) ||($this->post && $this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
     <div style="text-align: center; margin-top: 20px;">
-        <script type="text/javascript"><!--
-            google_ad_client = "ca-pub-1154951643410219";
-            /* Conusmedia\happy-giraffe.ru\728x90 */
-            google_ad_slot = "5579324678";
-            google_ad_width = 728;
-            google_ad_height = 90;
-            //-->
-        </script>
-        <script type="text/javascript"
-                src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ƒÓÒÍ‡ -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:970px;height:250px"
+             data-ad-client="ca-pub-3807022659655617"
+             data-ad-slot="6861468089"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
     </div>
     <?php endif; ?>

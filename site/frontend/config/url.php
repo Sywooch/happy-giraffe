@@ -30,6 +30,15 @@ return array(
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
 
+
+        /* QA */
+        'questions/consultation<consultationId:\d+>' => 'som/qa/consultation/index',
+        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>/page<page:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>' => 'som/qa/default/index',
+        'questions/<categoryId:\d+>/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/<categoryId:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions/add' => 'som/qa/default/questionAddForm',
         'questions/<id:\d+>' => 'som/qa/default/view',
         

@@ -85,6 +85,9 @@ return array(
         'statusMigrate' => array(
             'class' => 'site\frontend\modules\som\modules\status\commands\MigrateCommand',
         ),
+        'qa' => array(
+            'class' => 'site\frontend\modules\som\modules\qa\commands\DefaultCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

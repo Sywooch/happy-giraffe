@@ -651,5 +651,11 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
+        'lite_faq' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/faq-homepage.css'
+            ),
+        ),
     )
 );

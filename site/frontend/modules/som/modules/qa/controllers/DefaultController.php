@@ -7,12 +7,46 @@
 namespace site\frontend\modules\som\modules\qa\controllers;
 
 
+use site\frontend\modules\som\modules\qa\components\QuestionsDataProvider;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class DefaultController extends \LiteController
 {
-    public $litePackage = 'posts';
+    const TAB_NEW = 'new';
+    const TAB_POPULAR = 'popular';
+    const TAB_UNANSWERED = 'unanswered';
+
+    public $litePackage = 'faq';
+    public $layout = '/layouts/main';
+
+    public function actionIndex($tab, $categoryId = null)
+    {
+        $model = QaQuestion::model();
+        if ($categoryId !== null) {
+            $model->category($categoryId);
+        } else {
+            $model->notConsultation();
+        }
+        switch ($tab) {
+            case self::TAB_NEW:
+                $model->orderDesc();
+                break;
+            case self::TAB_POPULAR;
+                $model->orderRating();
+                break;
+            case self::TAB_UNANSWERED:
+                $model->unanswered();
+                break;
+        }
+
+        $dp = new QuestionsDataProvider($model, array(
+            'pagination' => array(
+                'pageVar' => 'page',
+            ),
+        ));
+        $this->render('index', compact('dp'));
+    }
 
     public function actionView($id)
     {

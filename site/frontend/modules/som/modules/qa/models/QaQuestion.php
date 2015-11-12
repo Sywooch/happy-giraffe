@@ -14,12 +14,17 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property string $dtimeCreate
  * @property string $dtimeUpdate
  * @property string $url
+ * @property string $rating
+ * @property int $answersCount
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
+ * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $answers
  */
 class QaQuestion extends \CActiveRecord
 {
+	private $_user;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -56,6 +61,7 @@ class QaQuestion extends \CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'category' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'),
+			'answers' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'),
 		);
 	}
 
@@ -114,5 +120,58 @@ class QaQuestion extends \CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function unanswered()
+	{
+		$this->getDbCriteria()->addCondition($this->tableAlias . '.answersCount = 0');
+		return $this;
+	}
+
+	public function orderRating()
+	{
+		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC';
+		return $this;
+	}
+
+	public function orderDesc()
+	{
+		$this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
+		return $this;
+	}
+
+	public function category($categoryId)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.categoryId', $categoryId);
+		return $this;
+	}
+
+	public function consultation($consultationId)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.consultationId', $consultationId);
+		return $this;
+	}
+
+	public function notConsultation()
+	{
+		$this->getDbCriteria()->addCondition($this->tableAlias . '.consultationId IS NULL');
+		return $this;
+	}
+
+	/**
+	 * @return array|mixed|null
+	 * @throws \site\frontend\components\api\ApiException
+	 * @todo сделать пакетную выборку
+	 */
+	public function getUser()
+	{
+		if (is_null($this->_user)) {
+			$this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
+				'id' => (int) $this->authorId,
+				'avatarSize' => \Avatar::SIZE_MEDIUM,
+			));
+		}
+
+		return $this->_user;
 	}
 }

@@ -11,6 +11,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $qaCategory
  * @property \site\frontend\modules\som\modules\qa\models\QaConsultant[] $qaConsultationsConsultants
+ * @property int $questionsCount
  */
 class QaConsultation extends \CActiveRecord
 {
@@ -44,6 +45,7 @@ class QaConsultation extends \CActiveRecord
 		return array(
 			'category' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'consultationId'),
 			'consultants' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaConsultant', 'consultationId'),
+			'questionsCount' => array(self::STAT, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'consultationId'),
 		);
 	}
 

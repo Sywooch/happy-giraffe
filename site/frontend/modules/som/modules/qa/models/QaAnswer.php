@@ -76,6 +76,10 @@ class QaAnswer extends \CActiveRecord
 				'createAttribute' => 'dtimeCreate',
 				'updateAttribute' => 'dtimeUpdate',
 			),
+			'AuthorBehavior' => array(
+				'class' => 'site\common\behaviors\AuthorBehavior',
+				'attr' => 'authorId',
+			),
 		);
 	}
 

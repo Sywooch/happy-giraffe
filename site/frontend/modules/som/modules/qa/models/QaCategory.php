@@ -10,8 +10,8 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property string $consultationId
  *
  * The followings are the available model relations:
- * @property \site\frontend\modules\som\modules\qa\models\QaConsultation $consultation
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion[] $questions
+ * @property int $questionsCount
  */
 class QaCategory extends \CActiveRecord
 {
@@ -43,8 +43,8 @@ class QaCategory extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'consultation' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'consultationId'),
 			'questions' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'categoryId'),
+			'questionsCount' => array(self::STAT, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'categoryId'),
 		);
 	}
 
@@ -69,11 +69,5 @@ class QaCategory extends \CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
-	}
-
-	public function simple()
-	{
-		$this->getDbCriteria()->addCondition('consultationId IS NULL');
-		return $this;
 	}
 }

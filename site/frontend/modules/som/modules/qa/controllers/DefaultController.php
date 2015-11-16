@@ -22,6 +22,12 @@ class DefaultController extends \LiteController
 
     public function actionIndex($tab, $categoryId = null)
     {
+        $dp = $this->getDataProvider($tab, $categoryId);
+        $this->render('index', compact('dp'));
+    }
+
+    protected function getDataProvider($tab, $categoryId)
+    {
         $model = QaQuestion::model();
         if ($categoryId !== null) {
             $model->category($categoryId);
@@ -40,12 +46,11 @@ class DefaultController extends \LiteController
                 break;
         }
 
-        $dp = new QuestionsDataProvider($model, array(
+        return new QuestionsDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',
             ),
         ));
-        $this->render('index', compact('dp'));
     }
 
     public function actionView($id)

@@ -16,6 +16,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property string $url
  * @property string $rating
  * @property int $answersCount
+ * @property string $isRemoved
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
@@ -156,6 +157,14 @@ class QaQuestion extends \CActiveRecord
 	{
 		$this->getDbCriteria()->addCondition($this->tableAlias . '.consultationId IS NULL');
 		return $this;
+	}
+
+	public function defaultScope()
+	{
+		$t = $this->getTableAlias(false, false);
+		return array(
+			'condition' => $t . '.isRemoved = 0',
+		);
 	}
 
 	/**

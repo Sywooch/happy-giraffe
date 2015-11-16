@@ -11,6 +11,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property string $authorId
  * @property string $dtimeCreate
  * @property string $dtimeUpdate
+ * @property string $isRemoved
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion $question
@@ -45,7 +46,7 @@ class QaAnswer extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestions', 'questionId'),
+			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId'),
 		);
 	}
 
@@ -80,6 +81,39 @@ class QaAnswer extends \CActiveRecord
 				'class' => 'site\common\behaviors\AuthorBehavior',
 				'attr' => 'authorId',
 			),
+		);
+	}
+
+	public function afterSave()
+	{
+		if ($this->isNewRecord) {
+			$this->updateAnswersCount(1);
+		}
+		parent::afterSave();
+	}
+
+	public function afterSoftDelete()
+	{
+		$this->updateAnswersCount(-1);
+		$this->softDelete->afterSoftDelete();
+	}
+
+	public function afterDelete()
+	{
+		$this->updateAnswersCount(-1);
+		parent::afterDelete();
+	}
+
+	protected function updateAnswersCount($n)
+	{
+		$this->question->saveCounters(array('answersCount' => $n));
+	}
+
+	public function defaultScope()
+	{
+		$t = $this->getTableAlias(false, false);
+		return array(
+			'condition' => $t . '.isRemoved = 0',
 		);
 	}
 

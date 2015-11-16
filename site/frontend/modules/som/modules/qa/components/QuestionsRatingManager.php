@@ -25,7 +25,9 @@ class QuestionsRatingManager extends \CComponent
     public static function updateSingle(QaQuestion $question)
     {
         $rating = self::byModel($question);
-        $question->update(array('rating' => $rating));
+        if ($question->rating != $rating) {
+            $question->saveAttributes(array('rating' => $rating));
+        }
     }
 
     public static function byModel(QaQuestion $question)

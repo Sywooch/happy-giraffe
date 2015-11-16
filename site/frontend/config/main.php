@@ -9,7 +9,7 @@ return array(
     'id' => 'happy-giraffe',
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Клуб',
-	'homeUrl' => 'http://www.happy-giraffe.ru',
+	'homeUrl' => 'http://giraffe.code-geek.ru',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -169,6 +169,10 @@ return array(
         'stream' => array(
             'class' => 'site\frontend\modules\stream\StreamModule',
             'controllerNamespace' => 'site\frontend\modules\stream\controllers'
+        ),
+        'v1' => array(
+            'class' => 'site\frontend\modules\v1\V1Module',
+            'controllerNamespace' => 'site\frontend\modules\v1\controllers',
         ),
 	),
 	// application components
@@ -394,7 +398,7 @@ return array(
         ),
         'comet'=>array(
             'class' => 'ext.Dklab_Realplexor',
-            'host' => 'plexor.www.happy-giraffe.ru',
+            'host' => 'plexor.www.giraffe.code-geek.ru',
             'port' => 10010,
             'namespace' => 'crm_',
         ),
@@ -444,7 +448,7 @@ return array(
 				'secret_key' => '9a33bbf4e3c6c78e1dd6427362b0d040',
 			),
 		),
-        'frontend_url'=>'http://www.happy-giraffe.ru/',
+        'frontend_url'=>'http://www.giraffe.code-geek.ru/',
         'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
         'google_map_key'=>'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc',
         'combineMap' => array(

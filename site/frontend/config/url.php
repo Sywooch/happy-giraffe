@@ -11,7 +11,7 @@ return array(
          *************************/
 
         'testupload' => 'blog/default/upload',
-
+        'blog/default/createAlbum' => 'blog/default/createAlbum',
         // global
         '.*/index' => 404,
 
@@ -447,6 +447,24 @@ return array(
         'horoscope/compatibility/<zodiac1:[\w]+>' => 'services/horoscope/compatibility/index',
         'horoscope/compatibility' => 'services/horoscope/compatibility/index',
         'stream/test/test' => 'stream/test/test',
+
+
+
+        //-----------------------------------------------------------------
+        //NEW TEMP API
+        //-----------------------------------------------------------------
+        'v1/api/clubs' => 'v1/api/clubs',
+        'v1/api/users' => 'v1/api/users',
+        'v1/api/comments' => 'v1/api/comments',
+        'v1/api/posts' => 'v1/api/posts',
+        'v1/api/post-content' => 'v1/api/postContent',
+        'v1/api/post-label' => 'v1/api/postLabel',
+        'v1/api/post-tag' => 'v1/api/postTag',
+        'v1/api/onair' => 'v1/api/onair',
+        'v1/api/sections' => 'v1/api/sections',
+        'v1/api/forums' => 'v1/api/forums',
+        'v1/api/rubrics' => 'v1/api/rubrics',
+
 
         //horoscope
         array( 'class' => 'site.frontend.modules.services.modules.horoscope.components.HoroscopeUrlRule'),

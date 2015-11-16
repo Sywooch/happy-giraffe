@@ -17,8 +17,12 @@ class PostBehavior extends ActivityBehavior
     public function afterSave($event)
     {
         if ($this->owner->originEntityId) {
+            \Yii::log($this->isRemoved . " = " . $this->getIsRemoved(), 'info', 'som.modules.activity.behaviors.PostBehavior');
             return parent::afterSave($event);
         }
+        \Yii::log($this->isRemoved . " = " . $this->getIsRemoved(), 'info', 'som.modules.activity.behaviors.PostBehavior');
+        //\Yii::log($this->isRemoved . " = " . $this->getIsRemoved(), "info", "comments.controllers.ApiController");
+        //return parent::afterSave($event);
     }
 
     public function getActivityId()

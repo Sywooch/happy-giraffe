@@ -2,23 +2,24 @@
 namespace site\frontend\modules\som\modules\qa\models;
 
 /**
- * This is the model class for table "qa__users_rating".
+ * This is the model class for table "qa__answers_votes".
  *
- * The followings are the available columns in table 'qa__users_rating':
+ * The followings are the available columns in table 'qa__answers_votes':
+ * @property string $answerId
  * @property string $userId
- * @property string $type
- * @property integer $questionsCount
- * @property integer $answersCount
- * @property double $rating
+ * @property string $dtimeCreate
+ *
+ * The followings are the available model relations:
+ * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $answer
  */
-class QaUserRating extends \CActiveRecord
+class QaAnswerVote extends \CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'qa__users_rating';
+		return 'qa__answers_votes';
 	}
 
 	/**
@@ -49,11 +50,19 @@ class QaUserRating extends \CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'answerId' => 'Answer',
 			'userId' => 'User',
-			'type' => 'Type',
-			'questionsCount' => 'Questions Count',
-			'answersCount' => 'Answers Count',
-			'rating' => 'Rating',
+			'dtimeCreate' => 'Dtime Create',
+		);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'HTimestampBehavior' => array(
+				'class' => 'HTimestampBehavior',
+				'createAttribute' => 'dtimeCreate',
+			),
 		);
 	}
 
@@ -61,22 +70,10 @@ class QaUserRating extends \CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return QaUserRating the static model class
+	 * @return QaAnswerVote the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
-	}
-
-	public function type($type)
-	{
-		$this->getDbCriteria()->compare($this->tableAlias . '.type', $type);
-		return $this;
-	}
-
-	public function orderRating()
-	{
-		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC';
-		return $this;
 	}
 }

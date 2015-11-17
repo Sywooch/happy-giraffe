@@ -206,7 +206,7 @@ class ApiController extends \V1ApiController
 
     #region Posts
     public function actionPosts() {
-        $this->route('getPosts', 'getPosts', 'getPosts', 'getPosts');
+        $this->route('getPosts', 'postPost', 'getPosts', 'getPosts');
     }
 
     private function getPosts() {
@@ -214,7 +214,89 @@ class ApiController extends \V1ApiController
     }
 
     private function postPost() {
+        //Пока без контеста.
+        $contest_id = \Yii::app()->request->getPost('contest_id');
 
+        if (isset($_POST['type'])) {
+            if ($_POST['type'] == "forum") {
+                $model = new \CommunityContent();
+            } else {
+                $model = new \BlogContent();
+            }
+        } else {
+            $this->data = print_r($_POST, true);
+            return;
+        }
+        $new = $model->isNewRecord;
+
+        if (!$new && !$model->canEdit()) {
+            $this->data = 'Missing post.';
+        } else {
+            $model->scenario = 'default_club';
+
+            $required = array(
+                'author_id' => true,
+                'type_id' => true,
+                'title' => true,
+                'rubric_id' => true,
+                'text' => true,
+                'type' => true,
+                'photos' => false,
+                'link' => false
+            );
+
+            if ($this->checkParams($required)) {
+                $params = $this->getParams($required);
+                $model->attributes = array(
+                    'author_id' => $params['author_id'],
+                    'type_id' => $params['type_id'],
+                    'title' => $params['title'],
+                    'rubric_id' => $params['rubric_id']
+                );
+
+                $names = array(
+                    1 => array(
+                        'name' => 'CommunityPost',
+                        'filter' => array('text' => 'text')
+                    ),
+                    2 => array(
+                        'name' => 'CommunityVideo',
+                        'filter' => array('text' => 'text', 'link' => 'link'),
+                    ),
+                    3 => array(
+                        'name' => 'CommunityPhotoPost',
+                        'filter' => array('text' => 'text', 'photos' => 'photos'),
+                    ),
+                );
+
+                $slaveModelName = $names[$params['type_id']]['name'];
+
+                $slaveParams = $this->getFilteredParams($params, $names[$params['type_id']]['filter'], false);
+
+                $slaveModel = new $slaveModelName();
+                if ($contest_id !== null) {
+                    $slaveModel->isContestWork = true;
+                }
+                $slaveModel->attributes = $slaveParams;
+
+                $slug = $model->type->slug;
+
+                $model->$slug = $slaveModel;
+
+                try {
+                    if ($model->withRelated->save(true, array($slug))) {
+                        $this->data = $model->id;/*array($model, $slaveModel);*/
+                    } else {
+                        $this->data = 'Saving failed.';
+                    }
+                } catch (Exception $e) {
+                    $this->data = $e->getMessage();
+                }
+            } else {
+                $this->data = 'Parameters missing.';
+            }
+
+        }
     }
 
     public function actionPostContent() {

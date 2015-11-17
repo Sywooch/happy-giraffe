@@ -266,5 +266,34 @@ class V1ApiController extends \CController
 
         return $params;
     }
+
+    /**
+     * Construct params array by filter.
+     *
+     * @param array $params -> array of all params.
+     * @param array $filter -> array of filter params.
+     * @param bool $isExcept -> if true result is params without filter, if false result is filter params.
+     *
+     * @return array $result -> filtered params.
+     */
+    protected function getFilteredParams($params, $filter, $isExcept) {
+        $result = array();
+
+        foreach ($params as $key => $value) {
+            if (isset($filter[$key])) {
+                if (!$isExcept) {
+                    $result['test'] = 'test';
+                    $result[$key] = $value;
+                }
+            } else {
+                if ($isExcept) {
+                    $result['test'] = 'test';
+                    $result[$key] = $value;
+                }
+            }
+        }
+
+        return $result;
+    }
     #endregion
 }

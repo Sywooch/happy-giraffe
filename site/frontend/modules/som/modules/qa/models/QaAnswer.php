@@ -46,7 +46,7 @@ class QaAnswer extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId'),
+			'answer' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'questionId'),
 		);
 	}
 

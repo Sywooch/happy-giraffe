@@ -7,18 +7,17 @@
 namespace site\frontend\modules\som\modules\qa\controllers;
 
 
+use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\components\QuestionsDataProvider;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaUserRating;
 
-class DefaultController extends \LiteController
+class DefaultController extends QaController
 {
     const TAB_NEW = 'new';
     const TAB_POPULAR = 'popular';
     const TAB_UNANSWERED = 'unanswered';
-
-    public $litePackage = 'faq';
-    public $layout = '/layouts/main';
 
     public function actionIndex($tab, $categoryId = null)
     {

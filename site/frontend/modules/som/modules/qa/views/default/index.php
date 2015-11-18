@@ -4,6 +4,7 @@
  * @var \CActiveDataProvider $dp
  */
 ?>
+<div class="heading-link-xxl"> Вопрос-ответ</div>
 <div class="info-search">
     <input type="text" placeholder="Найти ответ" class="info-search_itx info-search_normal info-search_tablet info-search_mobile">
     <button class="info-search_btn"></button>

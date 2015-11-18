@@ -206,53 +206,78 @@ class ApiController extends \V1ApiController
 
     #region Posts
     public function actionPosts() {
-        $this->route('getPosts', 'postPost', 'getPosts', 'getPosts');
+        $this->route('getPosts', 'postPost', 'updatePost', 'getPosts');
     }
 
     private function getPosts() {
-
+        /*What i suppose to get?*/
     }
 
-    private function postPost() {
-        //Пока без контеста.
+    /**
+     * Create or update post.
+     *
+     * @param int $id -> (default null) id of updated post
+     */
+    private function handlePost($id = null) {
         $contest_id = \Yii::app()->request->getPost('contest_id');
 
         if (isset($_POST['type'])) {
             if ($_POST['type'] == "forum") {
-                $model = new \CommunityContent();
+                $model = $id == null ? new \CommunityContent() : \CommunityContent::model()->findByPk($id);
+                $model->scenario = 'default_club';
             } else {
                 $model = new \BlogContent();
+                $model->scenario = 'default';
             }
         } else {
-            $this->data = print_r($_POST, true);
+            $this->data = "Missing type.";
             return;
         }
+
         $new = $model->isNewRecord;
 
         if (!$new && !$model->canEdit()) {
             $this->data = 'Missing post.';
         } else {
-            $model->scenario = 'default_club';
+            if ($model->type_id == \CommunityContent::TYPE_STATUS) {
+                $model->scenario = 'status';
+            }
 
-            $required = array(
-                'author_id' => true,
-                'type_id' => true,
-                'title' => true,
-                'rubric_id' => true,
-                'text' => true,
-                'type' => true,
-                'photos' => false,
-                'link' => false
-            );
+            if ($id == null) {
+                $required = array(
+                    'author_id' => true,
+                    'type_id' => true,
+                    'title' => true,
+                    'rubric_id' => true,
+                    'text' => true,
+                    'type' => true,
+                    'photos' => false,
+                    'link' => false
+                );
+            } else {
+                $required = array(
+                    'title' => true,
+                    'text' => true,
+                    'photos' => false,
+                    'link' => false
+                );
+            }
 
             if ($this->checkParams($required)) {
                 $params = $this->getParams($required);
-                $model->attributes = array(
-                    'author_id' => $params['author_id'],
-                    'type_id' => $params['type_id'],
-                    'title' => $params['title'],
-                    'rubric_id' => $params['rubric_id']
-                );
+                if ($id == null) {
+                    $model->attributes = array(
+                        'author_id' => $params['author_id'],
+                        'type_id' => $params['type_id'],
+                        'title' => $params['title'],
+                        'rubric_id' => $params['rubric_id']
+                    );
+                } else {
+                    $model->attributes = array(
+                        'title' => $params['title'],
+                        'text' => $params['text']
+                    );
+                }
 
                 $names = array(
                     1 => array(
@@ -273,7 +298,7 @@ class ApiController extends \V1ApiController
 
                 $slaveParams = $this->getFilteredParams($params, $names[$params['type_id']]['filter'], false);
 
-                $slaveModel = new $slaveModelName();
+                $slaveModel = $id == null ? new $slaveModelName() : $model->content;
                 if ($contest_id !== null) {
                     $slaveModel->isContestWork = true;
                 }
@@ -284,7 +309,19 @@ class ApiController extends \V1ApiController
                 $model->$slug = $slaveModel;
 
                 try {
-                    if ($model->withRelated->save(true, array($slug))) {
+                    if ($contest_id !== null) {
+                        $contestWork = new \CommunityContestWork();
+                        $contestWork->contest_id = $contest_id;
+                        $model->contestWork = $contestWork;
+                        $success = $model->withRelated->save(true, array(
+                            $slug,
+                            'contestWork',
+                        ));
+                    } else {
+                        $success = $model->withRelated->save(true, array($slug));
+                    }
+
+                    if ($success) {
                         $this->data = $model->id;/*array($model, $slaveModel);*/
                     } else {
                         $this->data = 'Saving failed.';
@@ -296,6 +333,25 @@ class ApiController extends \V1ApiController
                 $this->data = 'Parameters missing.';
             }
 
+        }
+    }
+
+    private function postPost() {
+        $this->handlePost();
+    }
+
+    private function updatePost() {
+        $required = array(
+            'id' => true
+        );
+
+        if ($this->checkParams($required)) {
+            $id = $this->getParams($required)['id'];
+
+            $this->handlePost($id);
+        } else {
+            $this->data = "Id missing.";
+            return;
         }
     }
 

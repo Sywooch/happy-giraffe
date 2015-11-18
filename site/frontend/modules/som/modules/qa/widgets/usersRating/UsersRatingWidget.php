@@ -13,12 +13,13 @@ use site\frontend\modules\som\modules\qa\models\QaUserRating;
 class UsersRatingWidget extends \CWidget
 {
     const LIMIT = 5;
+    const CACHE_DURATION = 300;
 
     public function run()
     {
         $models = array();
         foreach (QaUsersRatingManager::$periods as $type => $period) {
-            $models[$type] = QaUserRating::model()->orderRating()->type($type)->findAll(array(
+            $models[$type] = QaUserRating::model()->cache(self::CACHE_DURATION)->orderRating()->type($type)->findAll(array(
                 'limit' => self::LIMIT,
             ));
         }

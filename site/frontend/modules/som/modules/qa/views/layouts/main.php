@@ -10,7 +10,6 @@ $consultationsMenu = $this->createWidget('site\frontend\modules\som\modules\qa\w
 
 <div class="b-main clearfix">
     <div class="b-main_cont">
-        <div class="heading-link-xxl"> Вопрос-ответ</div>
         <div class="b-main_col-article">
             <?=$content?>
         </div>

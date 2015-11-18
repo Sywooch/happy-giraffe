@@ -32,6 +32,8 @@ return array(
 
 
         /* QA */
+        'questions/rating/<period:(week|all)>' => 'som/qa/rating/index',
+        'questions/rating' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'day')),
         'questions/consultation<consultationId:\d+>' => 'som/qa/consultation/index',
         'questions/<tab:(popular|unanswered)>/<categoryId:\d+>/page<page:\d+>' => 'som/qa/default/index',
         'questions/<tab:(popular|unanswered)>/<categoryId:\d+>' => 'som/qa/default/index',

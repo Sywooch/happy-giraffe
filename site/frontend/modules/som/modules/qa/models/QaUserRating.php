@@ -10,8 +10,10 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property integer $questionsCount
  * @property integer $answersCount
  * @property double $rating
+ *
+ * @property \site\frontend\components\api\models\User $user
  */
-class QaUserRating extends \CActiveRecord
+class QaUserRating extends \HActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -40,6 +42,13 @@ class QaUserRating extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+		);
+	}
+
+	public function apiRelations()
+	{
+		return array(
+			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'userId'),
 		);
 	}
 

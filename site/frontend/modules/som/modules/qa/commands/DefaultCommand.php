@@ -18,6 +18,7 @@ class DefaultCommand extends \CConsoleCommand
     public function actionRoutine()
     {
         QuestionsRatingManager::updateAll();
+        QaUsersRatingManager::run();
     }
 
     public function actionFillDb()

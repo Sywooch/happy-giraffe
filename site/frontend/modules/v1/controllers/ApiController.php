@@ -206,37 +206,49 @@ class ApiController extends \V1ApiController
 
     #region Posts
     public function actionPosts() {
-        $this->route('getPosts', 'postPost', 'updatePost', 'getPosts');
+        $this->route('getPosts', 'postPost', 'updatePost', 'deletePost');
     }
 
     private function getPosts() {
-        /*What i suppose to get?*/
+        $type = \Yii::app()->request->getParam('type', null);
+
+        switch ($type) {
+            case "blog":
+                $this->get(\BlogContent::model());
+                break;
+            case "forum":default:
+                $this->get(\CommunityContent::model());
+        }
     }
 
     /**
      * Create or update post.
      *
-     * @param int $id -> (default null) id of updated post
+     * @param int $id -> (default null) updated post id
      */
     private function handlePost($id = null) {
         $contest_id = \Yii::app()->request->getPost('contest_id');
 
-        if (isset($_POST['type'])) {
-            if ($_POST['type'] == "forum") {
-                $model = $id == null ? new \CommunityContent() : \CommunityContent::model()->findByPk($id);
-                $model->scenario = 'default_club';
-            } else {
-                $model = new \BlogContent();
-                $model->scenario = 'default';
-            }
+        if (\Yii::app()->request->getPost('type', null) != null) {
+            $type = \Yii::app()->request->getPost('type');
+        } else if (\Yii::app()->request->getPut('type', null) != null) {
+            $type = \Yii::app()->request->getPut('type');
         } else {
             $this->data = "Missing type.";
             return;
         }
 
+        if ($type == "forum") {
+            $model = $id == null ? new \CommunityContent() : \CommunityContent::model()->findByPk($id);
+            $model->scenario = 'default_club';
+        } else {
+            $model = $id == null ? new \BlogContent() : \BlogContent::model()->findByPk($id);
+            $model->scenario = 'default';
+        }
+
         $new = $model->isNewRecord;
 
-        if (!$new && !$model->canEdit()) {
+        if ($model == null) {
             $this->data = 'Missing post.';
         } else {
             if ($model->type_id == \CommunityContent::TYPE_STATUS) {
@@ -258,6 +270,7 @@ class ApiController extends \V1ApiController
                 $required = array(
                     'title' => true,
                     'text' => true,
+                    'rubric_id' => true,
                     'photos' => false,
                     'link' => false
                 );
@@ -275,7 +288,8 @@ class ApiController extends \V1ApiController
                 } else {
                     $model->attributes = array(
                         'title' => $params['title'],
-                        'text' => $params['text']
+                        'text' => $params['text'],
+                        'rubric_id' => $params['rubric_id']
                     );
                 }
 
@@ -294,9 +308,8 @@ class ApiController extends \V1ApiController
                     ),
                 );
 
-                $slaveModelName = $names[$params['type_id']]['name'];
-
-                $slaveParams = $this->getFilteredParams($params, $names[$params['type_id']]['filter'], false);
+                $slaveModelName = $names[$model->type_id]['name'];
+                $slaveParams = $this->getFilteredParams($params, $names[$model->type_id]['filter'], false);
 
                 $slaveModel = $id == null ? new $slaveModelName() : $model->content;
                 if ($contest_id !== null) {
@@ -352,6 +365,59 @@ class ApiController extends \V1ApiController
         } else {
             $this->data = "Id missing.";
             return;
+        }
+    }
+
+    /*public function actionRemove()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $post = BlogContent::model()->findByPk($id);
+        if (! $post->canEdit())
+            throw new CHttpException(403);
+
+        $post->delete();
+        $success = true;
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    public function actionRestore()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $success = BlogContent::model()->resetScope()->findByPk($id)->restore();
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }*/
+
+    private function deletePost() {
+        $required = array(
+            'id' => true,
+            'type' => true
+        );
+
+        if ($this->checkParams($required)) {
+            $params = $this->getParams($required);
+
+            switch ($params['type']) {
+                case "blog":
+                    $post = \BlogContent::model()->findByPk($params['id']);
+                    break;
+                case "forum":default:
+                    $post = \CommunityContent::model()->findByPk($params['id']);
+            }
+
+            try {
+                if ($post->removed == 0) {
+                    $post->delete();
+                } else {
+                    $post->restore();
+                }
+                $this->data = $post->id;
+            } catch (Eception $ex) {
+                $this->data = "Deleting failed.";
+            }
+        } else {
+            $this->data = "Id missing.";
         }
     }
 

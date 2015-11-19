@@ -68,19 +68,20 @@ class V1ApiController extends \CController
     #region Action
     /**
      * Simple get action with models. Include pagination and relations.
+     *
+     * @param $model
      */
     protected function get($model) {
-        if (isset($_GET['id'])){
+        if (isset($_GET['id'])) {
             $this->data = $model->with($this->getWithParameters())->findByPk(\Yii::app()->request->getParam('id'));
-        }
-        else {
+        } else {
             $params = $this->getPaginationParams();
 
             if (!empty($model->findAll(array('limit' => 1, 'offset' => $params['offset'] + $params['limit'] + 1)))) {
                 $this->hasNext = true;
             }
 
-            if (isset($_GET['order'])){
+            if (isset($_GET['order'])) {
                 $params['order'] = \Yii::app()->request->getParam('order');
             }
 
@@ -114,6 +115,9 @@ class V1ApiController extends \CController
 
     /**
      * Here will be simple post action.
+     *
+     * @param $required
+     * @param $action
      */
     protected function post($required, $action) {
         if ($this->checkParams($required)) {
@@ -147,7 +151,7 @@ class V1ApiController extends \CController
      *
      * @param string $channel channel id.
      * @param array $data message
-     * @param type $type message type (constants from comet model)
+     * @param int $type message type (constants from comet model)
      */
     protected function send($channel, $data, $type) {
         $this->getComet()->send($channel, $data, $type);

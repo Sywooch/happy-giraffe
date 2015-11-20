@@ -8,6 +8,7 @@ class HActiveRecord extends CActiveRecord
     private $_attributes;
     private $_related;
 
+    private $_apiWith = array();
     private $_apiRelated;
     private static $_apiMd = array();
 
@@ -158,6 +159,41 @@ class HActiveRecord extends CActiveRecord
         return array();
     }
 
+    public function apiWith($name)
+    {
+        $this->_apiWith[] = $name;
+        return $this;
+    }
+
+    protected function query($criteria, $all = false)
+    {
+        $result = parent::query($criteria, $all);
+
+        $this->_apiWith = array_unique($this->_apiWith);
+
+        $md = $this->getApiMd();
+        foreach ($this->_apiWith as $relationName) {
+            $relation = $md[$relationName];
+            $className = $relation->className;
+            $pks = array_map(function($model) use ($relation) {
+                return $model->{$relation->foreignKey};
+            }, $result);
+            Yii::beginProfile('getUserPack');
+            $models = $className::model()->findAllByPk($pks);
+            Yii::endProfile('getUserPack');
+            foreach ($result as $model) {
+                $model->addApiRelated($relationName, $models[$model->{$relation->foreignKey}]);
+            }
+        }
+
+        return $result;
+    }
+
+    public function addApiRelated($name, $record)
+    {
+        $this->_apiRelated[$name] = $record;
+    }
+
     public function getApiRelated($name, $refresh = false)
     {
         if (! isset($this->_apiRelated[$name]) || $refresh) {
@@ -167,7 +203,9 @@ class HActiveRecord extends CActiveRecord
             $className = $relation->className;
             $params = $relation->params;
             $params['id'] = $this->{$relation->foreignKey};
-            $this->_apiRelated[$name] = $className::model()->query('get', $params);
+            Yii::beginProfile('getUser');
+            $this->addApiRelated($name, $className::model()->query('get', $params));
+            Yii::endProfile('getUser');
         }
         return $this->_apiRelated[$name];
     }

@@ -15,6 +15,8 @@ namespace site\frontend\modules\som\modules\qa\models;
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion $question
+ *
+ * @property \site\frontend\components\api\models\User $user
  */
 class QaAnswer extends \CActiveRecord
 {
@@ -46,7 +48,14 @@ class QaAnswer extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'answer' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'questionId'),
+			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId'),
+		);
+	}
+
+	public function apiRelations()
+	{
+		return array(
+			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'userId'),
 		);
 	}
 
@@ -84,6 +93,32 @@ class QaAnswer extends \CActiveRecord
 		);
 	}
 
+	public function save($runValidation = true, $attributes = null)
+	{
+		$transaction = $this->dbConnection->beginTransaction();
+		try {
+			$success = parent::save($runValidation, $attributes);
+			$transaction->commit();
+		} catch (\Exception $e) {
+			$transaction->rollback();
+			return false;
+		}
+		return $success;
+	}
+
+	public function softDelete()
+	{
+		$transaction = $this->dbConnection->beginTransaction();
+		try {
+			$success = $this->softDelete->softDelete();
+			$transaction->commit();
+		} catch (\Exception $e) {
+			$transaction->rollback();
+			return false;
+		}
+		return $success;
+	}
+
 	public function afterSave()
 	{
 		if ($this->isNewRecord) {
@@ -98,15 +133,31 @@ class QaAnswer extends \CActiveRecord
 		$this->softDelete->afterSoftDelete();
 	}
 
-	public function afterDelete()
-	{
-		$this->updateAnswersCount(-1);
-		parent::afterDelete();
-	}
-
 	protected function updateAnswersCount($n)
 	{
 		$this->question->saveCounters(array('answersCount' => $n));
+	}
+
+	public function user($userId)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.authorId', $userId);
+		return $this;
+	}
+
+	public function orderDesc()
+	{
+		$this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
+		return $this;
+	}
+
+	public function notConsultation()
+	{
+		$qTable = QaQuestion::model()->tableName();
+		$t = $this->tableAlias;
+		$criteria = $this->getDbCriteria();
+		$criteria->join = " JOIN $qTable q ON q.id = $t.questionId";
+		$criteria->addCondition('q.consultationId IS NULL');
+		return $this;
 	}
 
 	public function defaultScope()

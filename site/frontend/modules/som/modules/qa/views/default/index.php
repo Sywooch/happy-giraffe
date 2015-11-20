@@ -18,7 +18,7 @@ $this->widget('zii.widgets.CMenu', array(
     'items' => array(
         array(
             'label' => 'Новые',
-            'url' => array('/som/qa/default/index', 'tab' => $this::TAB_NEW),
+            'url' => array('/som/qa/default/index'),
             'linkOptions' => array('class' => 'filter-menu_item_link'),
         ),
         array(

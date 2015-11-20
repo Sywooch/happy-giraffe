@@ -18,11 +18,14 @@ class UsersRatingWidget extends \CWidget
     public function run()
     {
         $models = array();
-        foreach (QaUsersRatingManager::$periods as $type => $period) {
-            $models[$type] = QaUserRating::model()->cache(self::CACHE_DURATION)->orderRating()->type($type)->findAll(array(
+
+        \Yii::beginProfile('rateingSelect');
+        foreach (\Yii::app()->controller->module->periods as $periodId => $periodData) {
+            $models[$periodId] = QaUserRating::model()->cache(self::CACHE_DURATION)->orderRating()->type($periodId)->apiWith('user')->findAll(array(
                 'limit' => self::LIMIT,
             ));
         }
+        \Yii::endProfile('rateingSelect');
 
         $this->render('view', compact('models'));
     }

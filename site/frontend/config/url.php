@@ -32,6 +32,12 @@ return array(
 
 
         /* QA */
+        'questions/search/page<page:\d+>' => 'som/qa/default/search',
+        'questions/search' => 'som/qa/default/search',
+        'questions/my/answers/<categoryId:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers' => 'som/qa/my/answers',
+        'questions/my/<categoryId:\d+>' => 'som/qa/my/questions',
+        'questions/my' => 'som/qa/my/questions',
         'questions/rating/<period:(week|all)>' => 'som/qa/rating/index',
         'questions/rating' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'day')),
         'questions/consultation<consultationId:\d+>' => 'som/qa/consultation/index',

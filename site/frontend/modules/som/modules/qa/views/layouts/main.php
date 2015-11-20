@@ -5,7 +5,9 @@
  * @var site\frontend\modules\som\modules\qa\widgets\ConsultationsMenu $consultationsMenu
  */
 $this->beginContent('//layouts/lite/main');
+Yii::beginProfile('consultations');
 $consultationsMenu = $this->createWidget('site\frontend\modules\som\modules\qa\widgets\ConsultationsMenu');
+Yii::endProfile('consultations');
 ?>
 
 <div class="b-main clearfix">
@@ -23,16 +25,22 @@ $consultationsMenu = $this->createWidget('site\frontend\modules\som\modules\qa\w
                         <li class="sidebar-personal_li"><a class="personal-links_link">Мои ответы<span class="personal-links_count">625</span></a></li>
                     </ul>
                 </div>
+                <?php Yii::beginProfile('categories'); ?>
                 <div class="questions-categories">
-                    <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\CategoriesMenu'); ?>
+                    <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\categories\MainCategoriesMenu'); ?>
                 </div>
+                <?php Yii::endProfile('categories'); ?>
+                <?php Yii::beginProfile('consultations'); ?>
                 <?php if (count($consultationsMenu->items) > 0): ?>
                 <div class="consult-widget">
                     <div class="consult-widget_heading">Онлайн-консультации</div>
                     <?php $consultationsMenu->run(); ?>
                 </div>
+                <?php Yii::endProfile('consultations'); ?>
 
+                <?php Yii::beginProfile('rating'); ?>
                 <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\usersRating\UsersRatingWidget'); ?>
+                <?php Yii::endProfile('rating'); ?>
                 <?php endif; ?>
             </div>
         </aside>

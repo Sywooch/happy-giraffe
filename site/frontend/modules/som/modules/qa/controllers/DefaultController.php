@@ -7,8 +7,10 @@
 namespace site\frontend\modules\som\modules\qa\controllers;
 
 
+use site\common\components\SphinxDataProvider;
 use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\components\QuestionsDataProvider;
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaUserRating;
@@ -25,9 +27,28 @@ class DefaultController extends QaController
         $this->render('index', compact('dp'));
     }
 
+    public function actionSearch($query = '')
+    {
+        $dp = new QuestionsDataProvider(QaQuestion::model()->apiWith('user'), array(
+            'sphinxCriteria' => array(
+                'select' => '*',
+                'query' => $query,
+                'from' => 'qa',
+            ),
+            'pagination' => array(
+                'pageVar' => 'page',
+            ),
+        ));
+
+        $dp->test();
+        var_dump($dp->data); die;
+
+        $this->render('search', compact('dp'));
+    }
+
     protected function getDataProvider($tab, $categoryId)
     {
-        $model = QaQuestion::model();
+        $model = QaQuestion::model()->apiWith('user');
         if ($categoryId !== null) {
             $model->category($categoryId);
         } else {

@@ -21,8 +21,10 @@ namespace site\frontend\modules\som\modules\qa\models;
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $answers
+ *
+ * @property \site\frontend\components\api\models\User $user
  */
-class QaQuestion extends \CActiveRecord
+class QaQuestion extends \HActiveRecord
 {
 	private $_user;
 
@@ -63,6 +65,13 @@ class QaQuestion extends \CActiveRecord
 		return array(
 			'category' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'),
 			'answers' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'),
+		);
+	}
+
+	public function apiRelations()
+	{
+		return array(
+			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId'),
 		);
 	}
 
@@ -156,6 +165,12 @@ class QaQuestion extends \CActiveRecord
 	public function notConsultation()
 	{
 		$this->getDbCriteria()->addCondition($this->tableAlias . '.consultationId IS NULL');
+		return $this;
+	}
+
+	public function user($userId)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.authorId', $userId);
 		return $this;
 	}
 

@@ -6,6 +6,8 @@ class WebUser extends CWebUser
      */
     private $_model = null;
 
+    private $_apiModel = null;
+
     /**
      * @return User
      */
@@ -16,6 +18,11 @@ class WebUser extends CWebUser
             $this->_model = User::model()->findByPk($this->id);
         }
         return $this->_model;
+    }
+
+    public function getApiModel()
+    {
+        return \site\frontend\components\api\models\User::model()->findByPk($this->id);
     }
 
     protected function afterLogin($fromCookie)

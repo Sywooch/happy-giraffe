@@ -19,14 +19,18 @@ class UsersRatingWidget extends \CWidget
     {
         $models = array();
 
-        \Yii::beginProfile('rateingSelect');
+        $activePeriodId = null;
         foreach (\Yii::app()->controller->module->periods as $periodId => $periodData) {
             $models[$periodId] = QaUserRating::model()->cache(self::CACHE_DURATION)->orderRating()->type($periodId)->apiWith('user')->findAll(array(
                 'limit' => self::LIMIT,
             ));
+            if ($activePeriodId === null && count($models[$periodId]) > 0) {
+                $activePeriodId = $periodId;
+            }
         }
-        \Yii::endProfile('rateingSelect');
 
-        $this->render('view', compact('models'));
+        if ($activePeriodId !== null) {
+            $this->render('view', compact('models', 'activePeriodId'));
+        }
     }
 }

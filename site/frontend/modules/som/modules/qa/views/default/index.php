@@ -2,6 +2,7 @@
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \CActiveDataProvider $dp
+ * @var string $tab
  */
 ?>
 <div class="heading-link-xxl"> Вопрос-ответ</div>
@@ -20,6 +21,7 @@ $this->widget('zii.widgets.CMenu', array(
             'label' => 'Новые',
             'url' => array('/som/qa/default/index'),
             'linkOptions' => array('class' => 'filter-menu_item_link'),
+            'active' => $tab == $this::TAB_NEW,
         ),
         array(
             'label' => 'Популярные',

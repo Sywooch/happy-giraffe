@@ -24,12 +24,12 @@ class DefaultController extends QaController
     public function actionIndex($tab, $categoryId = null)
     {
         $dp = $this->getDataProvider($tab, $categoryId);
-        $this->render('index', compact('dp'));
+        $this->render('index', compact('dp', 'tab'));
     }
 
     public function actionSearch($query = '')
     {
-        $dp = new QuestionsDataProvider(QaQuestion::model()->apiWith('user'), array(
+        $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category'), array(
             'sphinxCriteria' => array(
                 'select' => '*',
                 'query' => $query,
@@ -40,10 +40,7 @@ class DefaultController extends QaController
             ),
         ));
 
-        $dp->test();
-        var_dump($dp->data); die;
-
-        $this->render('search', compact('dp'));
+        $this->render('search', compact('dp', 'query'));
     }
 
     protected function getDataProvider($tab, $categoryId)
@@ -66,7 +63,7 @@ class DefaultController extends QaController
                 break;
         }
 
-        return new QuestionsDataProvider($model, array(
+        return new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',
             ),

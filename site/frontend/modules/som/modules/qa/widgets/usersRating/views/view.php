@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var string $activePeriodId
+ */
 Yii::app()->clientScript->registerAMD('bootstrap', array('bootstrap'));
 ?>
 
@@ -7,13 +10,15 @@ Yii::app()->clientScript->registerAMD('bootstrap', array('bootstrap'));
     <div class="clearfix"></div>
     <ul class="rating-widget_filter filter-menu nav nav-tabs">
         <?php foreach (Yii::app()->controller->module->periods as $periodId => $periodData): ?>
-        <li class="filter-menu_item"><a data-toggle="tab" class="filter-menu_item_link" href="#rating-tab-<?=$periodId?>"><?=$periodData['label']?></a></li>
+            <?php if (count($models[$periodId]) > 0):?>
+                <li class="filter-menu_item <?=($activePeriodId == $periodId) ? 'active' : ''?>"><a data-toggle="tab" class="filter-menu_item_link" href="#rating-tab-<?=$periodId?>"><?=$periodData['label']?></a></li>
+            <?php endif; ?>
         <?php endforeach; ?>
         <div class="clearfix"></div>
     </ul>
     <div class="tab-content">
         <?php foreach (Yii::app()->controller->module->periods as $periodId => $periodData): ?>
-            <div class="tab-pane<?=($periodId == 'day') ? ' active' : ''?>" id="rating-tab-<?=$periodId?>">
+            <div class="tab-pane<?=($activePeriodId == $periodId) ? ' active' : ''?>" id="rating-tab-<?=$periodId?>">
                 <ul class="rating-widget_users-list">
                     <?php foreach ($models[$periodId] as $index => $model): ?>
                         <?php $this->render('_row', compact('model', 'index')); ?>

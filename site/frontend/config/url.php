@@ -32,6 +32,7 @@ return array(
 
 
         /* QA */
+        'questions/question<id:\d+>' => 'som/qa/default/view',
         'questions/search/page<page:\d+>' => 'som/qa/default/search',
         'questions/search' => 'som/qa/default/search',
         'questions/my/answers/<categoryId:\d+>' => 'som/qa/my/answers',

@@ -30,6 +30,7 @@ class QaAnswerVote extends \CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('answerId, userId', 'safe'),
 		);
 	}
 
@@ -41,6 +42,7 @@ class QaAnswerVote extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'answer' => array(self::BELONGS_TO, '\site\frontend\modules\som\modules\qa\models\QaAnswer', 'answerId'),
 		);
 	}
 
@@ -64,6 +66,20 @@ class QaAnswerVote extends \CActiveRecord
 				'createAttribute' => 'dtimeCreate',
 			),
 		);
+	}
+
+	public function answers($answers)
+	{
+		$this->getDbCriteria()->addInCondition($this->tableAlias . '.answerId', array_map(function(QaAnswer $answer) {
+			return $answer->id;
+		}, $answers));
+		return $this;
+	}
+
+	public function user($userId)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.userId', $userId);
+		return $this;
 	}
 
 	/**

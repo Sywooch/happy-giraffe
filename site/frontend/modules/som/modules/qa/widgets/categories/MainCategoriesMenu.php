@@ -38,8 +38,8 @@ class MainCategoriesMenu extends CategoriesMenu
 
     protected function augmentUrl($url)
     {
-        if (isset(\Yii::app()->controller->actionParams['tab']) && \Yii::app()->controller->actionParams['tab'] != 'new') {
-            $url['tab'] = \Yii::app()->controller->actionParams['tab'];
+        if (\Yii::app()->request->getQuery('tab') != 'new') {
+            $url['tab'] = \Yii::app()->request->getQuery('tab');
         }
         return $url;
     }

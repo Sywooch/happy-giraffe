@@ -25,19 +25,35 @@ class ApiController extends \site\frontend\components\api\ApiController
             'editAnswer' => array(
                 'class' => 'site\frontend\components\api\EditAction',
                 'modelName' => self::$answerModel,
-                //'checkAccess' => 'editPhotoAlbum',
+                'checkAccess' => 'editQaAnswer',
             ),
             'removeAnswer' => array(
                 'class' => 'site\frontend\components\api\SoftDeleteAction',
                 'modelName' => self::$answerModel,
-                //'checkAccess' => 'removePhotoAlbum',
+                'checkAccess' => 'removeQaAnswer',
             ),
             'restoreAnswer' => array(
                 'class' => 'site\frontend\components\api\SoftRestoreAction',
                 'modelName' => self::$answerModel,
-                //'checkAccess' => 'restorePhotoAlbum',
+                'checkAccess' => 'restoreQaAnswer',
             ),
         ));
+    }
+
+    public function actionCreateAnswer($questionId, $text)
+    {
+        if (! \Yii::app()->user->checkAccess('createQaAnswer')) {
+            throw new \CHttpException(403);
+        }
+
+        /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
+        $answer = new self::$answerModel();
+        $answer->attributes = array(
+            'questionId' => $questionId,
+            'text' => $text,
+        );
+        $this->success = $answer->save();
+        $this->data = $answer->toJSON();
     }
 
     public function actionGetAnswers($questionId)
@@ -59,33 +75,23 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = $this->data !== false;
     }
 
-    public function actionCreateAnswer($questionId, $text)
-    {
-        /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
-        $answer = new self::$answerModel();
-        $answer->attributes = array(
-            'questionId' => $questionId,
-            'text' => $text,
-        );
-        $this->success = $answer->save();
-        $this->data = $answer->toJSON();
-    }
-
     /**
      * @param \CAction $action
      * @todo переделать в поведение
      */
     public function afterAction($action)
     {
-        if ($this->success == true && in_array($action->id, array('vote', 'createAnswer', 'removeAnswer', 'restoreAnswer')))
+        $types = array(
+            'vote' => \CometModel::QA_VOTE,
+            'createAnswer' => \CometModel::QA_NEW_ANSWER,
+            'removeAnswer' => \CometModel::QA_REMOVE_ANSWER,
+            'restoreAnswer' => \CometModel::QA_RESTORE_ANSWER,
+            'editAnswer' => \CometModel::QA_EDIT_ANSWER,
+        );
+        if ($this->success == true && in_array($action->id, array_keys($types)))
         {
-            $types = array(
-                'vote' => \CometModel::QA_VOTE,
-                'createAnswer' => \CometModel::QA_NEW_ANSWER,
-                'removeAnswer' => \CometModel::QA_REMOVE_ANSWER,
-                'restoreAnswer' => \CometModel::QA_RESTORE_ANSWER,
-            );
-            $this->send(AnswersWidget::getChannelIdByAnswer($this->data), $this->data, $types[$action->id]);
+            $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
+            $this->send(AnswersWidget::getChannelIdByAnswer($this->data), $data, $types[$action->id]);
         }
         parent::afterAction($action);
     }

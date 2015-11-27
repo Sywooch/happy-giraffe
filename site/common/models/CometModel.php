@@ -75,6 +75,7 @@ class CometModel extends CComponent
     const QA_NEW_ANSWER = 6002;
     const QA_REMOVE_ANSWER = 6003;
     const QA_RESTORE_ANSWER = 6004;
+    const QA_EDIT_ANSWER = 6005;
 
     public $attributes = array();
     public $type;

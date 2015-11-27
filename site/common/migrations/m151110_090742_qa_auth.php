@@ -8,9 +8,11 @@ class m151110_090742_qa_auth extends CDbMigration
 		$this->execute("INSERT INTO `newauth__items` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('manageQaQuestion', '1', 'Управление вопросом', NULL, NULL);");
 		$this->execute("INSERT INTO `newauth__items` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('updateQaQuestion', '0', 'Редактирование вопроса', NULL, NULL);");
 		$this->execute("INSERT INTO `newauth__items` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('removeQaQuestion', '0', 'Удаление вопроса', NULL, NULL);");
+		$this->execute("INSERT INTO `newauth__items` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('restoreQaQuestion', '0', 'Восстановление вопроса', NULL, NULL);");
 		$this->execute("INSERT INTO `newauth__items_childs` (`parent`, `child`) VALUES ('user', 'createQaQuestion');");
 		$this->execute("INSERT INTO `newauth__items_childs` (`parent`, `child`) VALUES ('manageQaQuestion', 'updateQaQuestion');");
 		$this->execute("INSERT INTO `newauth__items_childs` (`parent`, `child`) VALUES ('manageQaQuestion', 'removeQaQuestion');");
+		$this->execute("INSERT INTO `newauth__items_childs` (`parent`, `child`) VALUES ('manageQaQuestion', 'restoreQaQuestion');");
 		$this->execute("INSERT INTO `newauth__items_childs` (`parent`, `child`) VALUES ('moderator', 'manageQaQuestion');");
 		$this->execute("INSERT INTO `newauth__items_childs` (`parent`, `child`) VALUES ('manageOwnContent', 'manageQaQuestion');");
 	}

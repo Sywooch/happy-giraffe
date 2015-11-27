@@ -25,7 +25,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             'editAnswer' => array(
                 'class' => 'site\frontend\components\api\EditAction',
                 'modelName' => self::$answerModel,
-                'checkAccess' => 'editQaAnswer',
+                'checkAccess' => 'updateQaAnswer',
             ),
             'removeAnswer' => array(
                 'class' => 'site\frontend\components\api\SoftDeleteAction',
@@ -59,12 +59,17 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionGetAnswers($questionId)
     {
         $answers = QaAnswer::model()->question($questionId)->apiWith('user')->findAll();
-        $votes = array_map(function(QaAnswerVote $vote) {
-            return (int) $vote->answerId;
-        }, QaAnswerVote::model()->answers($answers)->user(\Yii::app()->user->id)->findAll());
+        $votes = QaAnswerVote::model()->answers($answers)->user(\Yii::app()->user->id)->findAll(array('index' => 'answerId'));
+        $_answers = array();
+        foreach ($answers as $answer) {
+            $_answer = $answer->toJSON();
+            $_answer['canEdit'] = \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $answer));
+            $_answer['canRemove'] = \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $answer));
+            $_answer['isVoted'] = isset($votes[$answer->id]);
+            $_answers[] = $_answer;
+        }
         $this->data = array(
-            'answers' => QaAnswer::model()->question($questionId)->apiWith('user')->findAll(),
-            'votes' => $votes,
+            'answers' => $_answers,
         );
         $this->success = true;
     }

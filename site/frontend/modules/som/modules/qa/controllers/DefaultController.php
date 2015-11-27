@@ -27,6 +27,12 @@ class DefaultController extends QaController
         $this->render('index', compact('dp', 'tab'));
     }
 
+    public function actionView($id)
+    {
+        $question = $this->getModel($id);
+        $this->render('view', compact('question'));
+    }
+
     public function actionSearch($query = '')
     {
         $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category'), array(
@@ -68,12 +74,6 @@ class DefaultController extends QaController
                 'pageVar' => 'page',
             ),
         ));
-    }
-
-    public function actionView($id)
-    {
-        $question = $this->getModel($id);
-        $this->render('view', compact('question'));
     }
 
     public function actionQuestionAddForm($consultationId = null)

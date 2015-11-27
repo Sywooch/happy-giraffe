@@ -6,10 +6,7 @@
  */
 ?>
 <div class="heading-link-xxl"> Вопрос-ответ</div>
-<div class="info-search">
-    <input type="text" placeholder="Найти ответ" class="info-search_itx info-search_normal info-search_tablet info-search_mobile">
-    <button class="info-search_btn"></button>
-</div>
+<?php $this->renderPartial('/_search', array('query' => '')); ?>
 <?php
 $this->widget('zii.widgets.CMenu', array(
     'htmlOptions' => array(
@@ -21,7 +18,7 @@ $this->widget('zii.widgets.CMenu', array(
             'label' => 'Новые',
             'url' => array('/som/qa/default/index'),
             'linkOptions' => array('class' => 'filter-menu_item_link'),
-            'active' => $tab == $this::TAB_NEW,
+            'active' => Yii::app()->request->getQuery('tab') == $this::TAB_NEW,
         ),
         array(
             'label' => 'Популярные',

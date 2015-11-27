@@ -21,6 +21,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $answers
+ * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $bestAnswer
  *
  * @property \site\frontend\components\api\models\User $user
  */
@@ -65,6 +66,7 @@ class QaQuestion extends \HActiveRecord
 		return array(
 			'category' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'),
 			'answers' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'),
+			'bestAnswer' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'order' => 'votesCount DESC'),
 		);
 	}
 

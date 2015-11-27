@@ -12,13 +12,14 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property string $dtimeCreate
  * @property string $dtimeUpdate
  * @property string $isRemoved
+ * @property string $votesCount
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  *
  * @property \site\frontend\components\api\models\User $user
  */
-class QaAnswer extends \CActiveRecord
+class QaAnswer extends \HActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name
@@ -36,7 +37,8 @@ class QaAnswer extends \CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-
+			array('questionId', 'safe'),
+			array('text', 'required'),
 		);
 	}
 
@@ -55,7 +57,7 @@ class QaAnswer extends \CActiveRecord
 	public function apiRelations()
 	{
 		return array(
-			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'userId'),
+			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId'),
 		);
 	}
 
@@ -144,6 +146,16 @@ class QaAnswer extends \CActiveRecord
 		return $this;
 	}
 
+	public function question($questionId, $withBest = true)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.questionId', $questionId);
+		if (! $withBest) {
+			$best = QaQuestion::model()->populateRecord(array('id' => $this->questionId))->bestAnswer;
+			$this->getDbCriteria()->compare($this->tableAlias . '.id', '<>' . $best->id);
+		}
+		return $this;
+	}
+
 	public function orderDesc()
 	{
 		$this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
@@ -165,6 +177,19 @@ class QaAnswer extends \CActiveRecord
 		$t = $this->getTableAlias(false, false);
 		return array(
 			'condition' => $t . '.isRemoved = 0',
+		);
+	}
+
+	public function toJSON()
+	{
+		return array(
+			'id' => (int) $this->id,
+			'authorId' => (int) $this->authorId,
+			'dtimeCreate' => (int) $this->dtimeCreate,
+			'text' => $this->text,
+			'votesCount' => (int) $this->votesCount,
+			'user' => $this->user,
+			'isRemoved' => (bool) $this->isRemoved,
 		);
 	}
 

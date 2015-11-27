@@ -15,7 +15,9 @@ abstract class CategoriesMenu extends SidebarMenu
 {
     public function init()
     {
-        $this->items[] = $this->getFirstItem();
+        $firstItem = $this->getFirstItem();
+        $firstItem['active'] = \Yii::app()->request->getQuery('categoryId') === null;
+        $this->items[] = $firstItem;
 
         $categories = $this->getCategories();
         foreach ($categories as $category) {

@@ -32,24 +32,40 @@ return array(
 
 
         /* QA */
+
+        //страница вопроса
         'questions/question<id:\d+>' => 'som/qa/default/view',
+
+        // поиск
         'questions/search/page<page:\d+>' => 'som/qa/default/search',
         'questions/search' => 'som/qa/default/search',
+
+        // мои вопросы-ответы
         'questions/my/answers/<categoryId:\d+>' => 'som/qa/my/answers',
         'questions/my/answers' => 'som/qa/my/answers',
         'questions/my/<categoryId:\d+>' => 'som/qa/my/questions',
         'questions/my' => 'som/qa/my/questions',
+
+        // рейтинг
         'questions/rating/<period:(week|all)>' => 'som/qa/rating/index',
         'questions/rating' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'day')),
+
+        // консультация
         'questions/consultation<consultationId:\d+>' => 'som/qa/consultation/index',
-        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>/page<page:\d+>' => 'som/qa/default/index',
-        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>' => 'som/qa/default/index',
-        'questions/<tab:(popular|unanswered)>' => 'som/qa/default/index',
+
+        // задать вопрос
+        'questions/add' => 'som/qa/default/questionAddForm',
+
+        // главная
         'questions/<categoryId:\d+>/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions/<categoryId:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
-        'questions/add' => 'som/qa/default/questionAddForm',
-        'questions/<id:\d+>' => 'som/qa/default/view',
+        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>/page<page:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>/page<page:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>' => 'som/qa/default/index',
+
         
         /* SOM */
         'status' => 'som/status/default/index',

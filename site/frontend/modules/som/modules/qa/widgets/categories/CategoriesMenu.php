@@ -34,15 +34,6 @@ abstract class CategoriesMenu extends SidebarMenu
         return $this->getItem($category->title, $this->getCountByCategory($category), $this->getUrlByCategory($category));
     }
 
-    protected function getItem($title, $count, $url)
-    {
-        return array(
-            'label' => $title . \CHtml::tag('span', array('class' => 'questions-categories_count'), $count),
-            'url' => $url,
-            'linkOptions' => array('class' => 'questions-categories_link'),
-        );
-    }
-
     abstract protected function getFirstItem();
     abstract protected function getCountByCategory(QaCategory $category);
     abstract protected function getUrlByCategory(QaCategory $category);

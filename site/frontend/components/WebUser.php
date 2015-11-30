@@ -22,7 +22,10 @@ class WebUser extends CWebUser
 
     public function getApiModel()
     {
-        return \site\frontend\components\api\models\User::model()->findByPk($this->id);
+        if (! $this->_apiModel) {
+            $this->_apiModel = \site\frontend\components\api\models\User::model()->findByPk($this->id);
+        }
+        return $this->_apiModel;
     }
 
     protected function afterLogin($fromCookie)

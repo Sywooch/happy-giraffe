@@ -1,0 +1,29 @@
+<?php
+/**
+ * @author Никита
+ * @date 27/11/15
+ */
+
+namespace site\frontend\modules\som\modules\qa\widgets\my;
+
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaQuestion;
+
+\Yii::import('zii.widgets.CMenu');
+
+abstract class PersonalWidget extends \CMenu
+{
+    public $userId;
+    protected $questionsUrl = '/som/qa/my/questions/';
+    protected $answersUrl = '/som/qa/my/answers/';
+
+    public function getQuestionsCount()
+    {
+        return QaQuestion::model()->user($this->userId)->count();
+    }
+
+    public function getAnswersCount()
+    {
+        return QaAnswer::model()->user($this->userId)->count();
+    }
+}

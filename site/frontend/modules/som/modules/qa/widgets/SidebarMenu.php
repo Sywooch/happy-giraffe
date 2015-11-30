@@ -15,4 +15,13 @@ abstract class SidebarMenu extends \CMenu
     );
     public $itemCssClass = 'questions-categories_li';
     public $encodeLabel = false;
+
+    protected function getItem($title, $count, $url)
+    {
+        return array(
+            'label' => $title . \CHtml::tag('span', array('class' => 'questions-categories_count'), $count),
+            'url' => $url,
+            'linkOptions' => array('class' => 'questions-categories_link'),
+        );
+    }
 }

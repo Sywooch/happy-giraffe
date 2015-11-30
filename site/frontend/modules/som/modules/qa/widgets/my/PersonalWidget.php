@@ -17,6 +17,12 @@ abstract class PersonalWidget extends \CMenu
     protected $questionsUrl = '/som/qa/my/questions/';
     protected $answersUrl = '/som/qa/my/answers/';
 
+    public function init()
+    {
+        $this->items = $this->generateItems();
+        parent::init();
+    }
+
     public function getQuestionsCount()
     {
         return QaQuestion::model()->user($this->userId)->count();
@@ -26,4 +32,6 @@ abstract class PersonalWidget extends \CMenu
     {
         return QaAnswer::model()->user($this->userId)->count();
     }
+
+    abstract protected function generateItems();
 }

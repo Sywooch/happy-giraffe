@@ -19,20 +19,6 @@
             <?= HHtml::timeTag($question, array('class' => 'tx-date')); ?>
         </div>
     </div>
-    <div class="live-user-mobile">
-        <a href="<?=$question->user->profileUrl?>" class="ava ava__middle ava__<?=($question->user->gender) ? 'male' : 'female'?>">
-            <?php if ($question->user->isOnline): ?>
-                <span class="ico-status ico-status__online"></span>
-            <?php endif; ?>
-            <?php if ($question->user->avatarUrl): ?>
-                <img alt="" src="<?=$question->user->avatarUrl?>" class="ava_img">
-            <?php endif; ?>
-        </a>
-        <div class="username">
-            <a href="<?=$question->user->profileUrl?>"><?=$question->user->fullName?></a>
-            <?= HHtml::timeTag($question, array('class' => 'tx-date')); ?>
-        </div>
-    </div>
     <div class="icons-meta">
         <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>
     </div>

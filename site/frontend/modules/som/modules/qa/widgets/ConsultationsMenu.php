@@ -14,9 +14,9 @@ class ConsultationsMenu extends SidebarMenu
     public function init()
     {
         $consultations = $this->getConsultations();
-        $this->items[] = array_map(function($consultation) {
-            $this->getItem($consultation->title, $consultation->questionsCount, array('/som/qa/consultation/index/', 'consultationId' => $consultation->id));
-        }, $consultations);
+        foreach ($consultations as $consultation) {
+            $this->items[] = $this->getItem($consultation->title, $consultation->questionsCount, array('/som/qa/consultation/index/', 'consultationId' => $consultation->id));
+        }
         parent::init();
     }
 

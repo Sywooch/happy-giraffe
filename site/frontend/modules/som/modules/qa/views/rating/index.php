@@ -3,6 +3,7 @@
  * @var site\frontend\modules\som\modules\qa\controllers\RatingController $this
  * @var \CActiveDataProvider $dp
  */
+$this->sidebar = array('personal', 'menu');
 ?>
 <div class="heading-link-xxl"> Рейтинг</div>
 <?php

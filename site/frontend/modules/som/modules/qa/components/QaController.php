@@ -11,4 +11,6 @@ class QaController extends \LiteController
 {
     public $litePackage = 'faq';
     public $layout = '/layouts/main';
+
+    public $sidebar = array();
 }

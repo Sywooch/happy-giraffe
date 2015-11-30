@@ -65,6 +65,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             $_answer = $answer->toJSON();
             $_answer['canEdit'] = \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $answer));
             $_answer['canRemove'] = \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $answer));
+            $_answer['canVote'] = \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answer));
             $_answer['isVoted'] = isset($votes[$answer->id]);
             $_answers[] = $_answer;
         }
@@ -76,6 +77,9 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionVote($answerId)
     {
+        if (! \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answerId))) {
+            throw new \CHttpException(403);
+        }
         $this->data = VotesManager::changeVote(\Yii::app()->user->id, $answerId)->toJSON();
         $this->success = $this->data !== false;
     }

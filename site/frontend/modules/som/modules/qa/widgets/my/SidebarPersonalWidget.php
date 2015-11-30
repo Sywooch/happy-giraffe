@@ -20,12 +20,12 @@ class SidebarPersonalWidget extends PersonalWidget
     {
         return array(
             array(
-                'title' => 'Мои вопросы <span class="personal-links_count">' . $this->getQuestionsCount() . '</span>',
+                'label' => 'Мои вопросы <span class="personal-links_count">' . $this->getQuestionsCount() . '</span>',
                 'url' => $this->questionsUrl,
                 'linkOptions' => array('class' => 'personal-links_link'),
             ),
             array(
-                'title' => 'Мои ответы <span class="personal-links_count">' . $this->getAnswersCount() . '</span>',
+                'label' => 'Мои ответы <span class="personal-links_count">' . $this->getAnswersCount() . '</span>',
                 'url' => $this->answersUrl,
                 'linkOptions' => array('class' => 'personal-links_link'),
             ),

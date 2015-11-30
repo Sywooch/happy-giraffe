@@ -23,7 +23,10 @@ class WebUser extends CWebUser
     public function getApiModel()
     {
         if (! $this->_apiModel) {
-            $this->_apiModel = \site\frontend\components\api\models\User::model()->findByPk($this->id);
+            $this->_apiModel = \site\frontend\components\api\models\User::model()->query('get', array(
+                'id' => (int) $this->id,
+                'avatarSize' => \Avatar::SIZE_MEDIUM,
+            ));
         }
         return $this->_apiModel;
     }

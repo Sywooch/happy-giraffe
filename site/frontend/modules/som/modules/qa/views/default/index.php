@@ -4,6 +4,7 @@
  * @var \CActiveDataProvider $dp
  * @var string $tab
  */
+$this->sidebar = array('ask', 'personal', 'menu', 'rating');
 ?>
 <div class="heading-link-xxl"> Вопрос-ответ</div>
 <?php $this->renderPartial('/_search', array('query' => '')); ?>

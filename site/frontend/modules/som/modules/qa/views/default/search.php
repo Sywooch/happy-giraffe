@@ -3,6 +3,7 @@
  * @var site\common\components\SphinxDataProvider $dp
  * @var string $query
  */
+$this->sidebar = array('ask', 'personal', 'menu');
 ?>
 
 <?php $this->renderPartial('/_search', compact('query')); ?>

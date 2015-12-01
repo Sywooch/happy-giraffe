@@ -22,26 +22,23 @@ class AnswersWidget extends \CWidget
         }
     }
 
-    public function getBestAnswer()
-    {
-        return $this->question->bestAnswer;
-    }
-
     public function getAnswers()
     {
-        return QaAnswer::model()->question($this->question->id)->apiWith('user')->findAll('t.id <> :best', array(':best' => $this->getBestAnswer()->id));
+        return QaAnswer::model()->question($this->question->id)->apiWith('user')->orderDesc()->findAll();
     }
 
     protected function runForGuest()
     {
-        $bestAnswer = $this->getBestAnswer();
-        $answers = $this->getAnswers();
-        $this->render('view', compact('bestAnswer', 'answers'));
-    }
-
-    protected function getDataProvider()
-    {
-        return new \CActiveDataProvider(QaAnswer::model());
+        $bestAnswers = array();
+        $otherAnswers = array();
+        foreach ($this->getAnswers() as $answer) {
+            if ($answer->isBest) {
+                $bestAnswers[] = $answer;
+            } else {
+                $otherAnswers[] = $answer;
+            }
+        }
+        $this->render('view', compact('bestAnswers', 'otherAnswers'));
     }
 
     protected function runForUser()

@@ -18,10 +18,16 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 class ApiController extends \site\frontend\components\api\ApiController
 {
     public static $answerModel = '\site\frontend\modules\som\modules\qa\models\QaAnswer';
+    public static $questionModel = '\site\frontend\modules\some\modules\qa\models\QaQuestion';
 
     public function actions()
     {
         return \CMap::mergeArray(parent::actions(), array(
+            'createAnswer' => array(
+                'class' => 'site\frontend\components\api\CreateAction',
+                'modelName' => self::$answerModel,
+                'checkAccess' => 'createQaAnswer',
+            ),
             'editAnswer' => array(
                 'class' => 'site\frontend\components\api\EditAction',
                 'modelName' => self::$answerModel,
@@ -40,21 +46,21 @@ class ApiController extends \site\frontend\components\api\ApiController
         ));
     }
 
-    public function actionCreateAnswer($questionId, $text)
-    {
-        if (! \Yii::app()->user->checkAccess('createQaAnswer')) {
-            throw new \CHttpException(403);
-        }
-
-        /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
-        $answer = new self::$answerModel();
-        $answer->attributes = array(
-            'questionId' => $questionId,
-            'text' => $text,
-        );
-        $this->success = $answer->save();
-        $this->data = $answer->toJSON();
-    }
+//    public function actionCreateAnswer($questionId, $text)
+//    {
+//        if (! \Yii::app()->user->checkAccess('createQaAnswer')) {
+//            throw new \CHttpException(403);
+//        }
+//
+//        /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
+//        $answer = new self::$answerModel();
+//        $answer->attributes = array(
+//            'questionId' => $questionId,
+//            'text' => $text,
+//        );
+//        $this->success = $answer->save();
+//        $this->data = $answer->toJSON();
+//    }
 
     public function actionGetAnswers($questionId)
     {

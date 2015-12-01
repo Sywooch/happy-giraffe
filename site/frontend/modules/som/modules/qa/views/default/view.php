@@ -2,6 +2,7 @@
 /**
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
+$this->sidebar = array('ask', 'personal', 'menu', 'rating');
 ?>
 
 <div class="question">

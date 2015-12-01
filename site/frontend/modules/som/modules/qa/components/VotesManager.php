@@ -45,7 +45,7 @@ class VotesManager
         $criteria->select = 'MAX(votesCount)';
         $max = \Yii::app()->db->getCommandBuilder()->createFindCommand(QaAnswer::model()->tableName(), $criteria)->execute();
         if ($answer->votesCount >= $max) {
-            QaAnswer::model()->updateAll(array('isBest' => new \CDbExpression('(votesCount = :max)')), 'questionId = :questionId AND votesCount > 0', array(':questionId' => $answer->questionId, ':max' => $max));
+            QaAnswer::model()->updateAll(array('isBest' => new \CDbExpression('(votesCount = :max) AND (votesCount > 0)')), 'questionId = :questionId', array(':questionId' => $answer->questionId, ':max' => $max));
         }
     }
 }

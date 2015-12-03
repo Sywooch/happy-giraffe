@@ -14,7 +14,8 @@ class RatingController extends QaController
 {
     public function actionIndex($period)
     {
-        $model = QaUserRating::model()->type($period)->orderPosition();
+        $model = clone QaUserRating::model();
+        $model->type($period)->orderPosition();
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',

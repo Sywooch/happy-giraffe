@@ -15,7 +15,7 @@ $this->renderSidebarClip();
                         <div class="popup-widget_heading">
                             <div class="popup-widget_heading_icon"></div>
                             <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\my\MyPersonalWidget', array('userId' => Yii::app()->user->id)); ?>
-                            <div class="popup-widget_heading_close-btn"></div>
+                            <a class="popup-widget_heading_close-btn" href="<?=$this->createUrl('/som/qa/default/index')?>"></a>
                         </div>
                         <div class="popup-widget_wrap">
                             <div class="popup-widget_cont">

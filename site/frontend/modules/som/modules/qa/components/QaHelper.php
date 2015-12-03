@@ -9,14 +9,14 @@ namespace site\frontend\modules\som\modules\qa\components;
 
 class QaHelper
 {
-    public static function getRatingClass($index)
+    public static function getRatingClass($position)
     {
-        switch ($index) {
-            case 0:
-                return 'yellow-crown';
+        switch ($position) {
             case 1:
-                return 'blue-crown';
+                return 'yellow-crown';
             case 2:
+                return 'blue-crown';
+            case 3:
                 return 'orange-crown';
         }
         return 'nocrown';

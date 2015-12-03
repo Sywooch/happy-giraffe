@@ -19,13 +19,13 @@
     <div class="answers_heading">Лучший ответ</div>
     <ul class="answers-list best-answer">
         <?php foreach ($bestAnswers as $data): ?>
-            <?php $this->render('_answer', array('data' => $data)); ?>
+            <?php $this->controller->renderPartial('/_answer', array('data' => $data)); ?>
         <?php endforeach; ?>
     </ul>
     <div class="answers_heading">Ответы:<span><?=count($otherAnswers)?></span></div>
     <ul class="answers-list all-answers">
         <?php foreach ($otherAnswers as $data): ?>
-            <?php $this->render('_answer', compact('data')); ?>
+            <?php $this->controller->renderPartial('/_answer', compact('data')); ?>
         <?php endforeach; ?>
     </ul>
 </div>

@@ -162,6 +162,17 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		return $this;
 	}
 
+	public function category($categoryId)
+	{
+		$this->getDbCriteria()->mergeWith(array('with'=>array(
+			'question' => array(
+				'joinType' => 'INNER JOIN',
+				'scopes' => array('category' => array($categoryId)),
+			),
+		)));
+		return $this;
+	}
+
 	public function notConsultation()
 	{
 		$qTable = QaQuestion::model()->tableName();

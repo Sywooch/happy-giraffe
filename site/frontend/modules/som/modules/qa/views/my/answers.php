@@ -1,5 +1,22 @@
 <?php
 /**
- * @author Никита
- * @date 18/11/15
+ * @var site\frontend\modules\som\modules\qa\controllers\MyController $this
+ * @var \CActiveDataProvider $dp
  */
+$this->sidebar = array('my_answers', 'my_rating');
+?>
+
+<?php
+$this->widget('LiteListView', array(
+    'dataProvider' => $dp,
+    'itemView' => '_answer',
+    'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
+    'pager' => array(
+        'class' => 'LitePager',
+        'maxButtonCount' => 10,
+        'prevPageLabel' => '&nbsp;',
+        'nextPageLabel' => '&nbsp;',
+        'showPrevNext' => true,
+    ),
+));
+?>

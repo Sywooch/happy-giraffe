@@ -17,6 +17,7 @@ $this->widget('zii.widgets.CMenu', array(
             'label' => $periodData['label'],
             'url' => ($periodId == 'day') ? array('/som/qa/rating/index') : array('/som/qa/rating/index', 'period' => $periodId),
             'linkOptions' => array('class' => 'filter-menu_item_link'),
+            'active' => Yii::app()->request->getQuery('period') == $periodId,
         );
     }, Yii::app()->controller->module->periods, array_keys(Yii::app()->controller->module->periods)),
 ));

@@ -33,7 +33,9 @@ class MyAnswersMenu extends CategoriesMenu
 
     protected function getFirstItem()
     {
-        $count = QaAnswer::model()->user($this->userId)->notConsultation()->count();
+        $criteria = clone QaAnswer::model()->user($this->userId)->notConsultation()->getDbCriteria();
+        $criteria->addCondition('1=1');
+        $count = QaAnswer::model()->count($criteria);
         return $this->getItem('Все', $count, array('/som/qa/my/answers/'));
     }
 

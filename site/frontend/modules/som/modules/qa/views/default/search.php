@@ -19,7 +19,7 @@ $this->sidebar = array('ask', 'personal', 'menu');
 <?php
 $this->widget('LiteListView', array(
     'dataProvider' => $dp,
-    'itemView' => '/default/_question',
+    'itemView' => '/_question',
     'htmlOptions' => array(
         'class' => 'questions'
     ),

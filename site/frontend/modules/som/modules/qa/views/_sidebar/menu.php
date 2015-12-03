@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var array $urlParams
+ */
 $consultationsMenu = $this->createWidget('site\frontend\modules\som\modules\qa\widgets\ConsultationsMenu');
 ?>
 

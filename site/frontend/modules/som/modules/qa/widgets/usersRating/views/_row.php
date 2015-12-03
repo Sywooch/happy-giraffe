@@ -1,7 +1,6 @@
 <?php
 /**
  * @var site\frontend\modules\som\modules\qa\models\QaUserRating $model
- * @var int $index
  */
 ?>
 
@@ -15,7 +14,7 @@
         <a href="<?=$model->user->profileUrl?>"><?=$model->user->fullName?></a>
         <div class="questions-counters"><span>Вопросов <?=$model->questionsCount?></span><span>Ответов <?=$model->answersCount?></span></div>
     </div>
-    <div class="users-rating <?=\site\frontend\modules\som\modules\qa\components\QaHelper::getRatingClass($index)?>">
+    <div class="users-rating <?=\site\frontend\modules\som\modules\qa\components\QaHelper::getRatingClass($model->position)?>">
         <div class="users-rating_crown"></div>
         <div class="users-rating_counter"><?=round($model->rating)?></div>
     </div>

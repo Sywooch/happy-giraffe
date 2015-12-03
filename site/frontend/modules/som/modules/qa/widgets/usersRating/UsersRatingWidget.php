@@ -21,7 +21,7 @@ class UsersRatingWidget extends \CWidget
 
         $activePeriodId = null;
         foreach (\Yii::app()->controller->module->periods as $periodId => $periodData) {
-            $models[$periodId] = QaUserRating::model()->cache(self::CACHE_DURATION)->orderRating()->type($periodId)->apiWith('user')->findAll(array(
+            $models[$periodId] = QaUserRating::model()->cache(self::CACHE_DURATION)->orderPosition()->type($periodId)->apiWith('user')->findAll(array(
                 'limit' => self::LIMIT,
             ));
             if ($activePeriodId === null && count($models[$periodId]) > 0) {

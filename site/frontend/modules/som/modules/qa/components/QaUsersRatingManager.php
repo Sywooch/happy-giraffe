@@ -18,16 +18,16 @@ class QaUsersRatingManager
     const BEST_ANSWERS_COUNT_COEFFICIENT = 1;
     const INSERTS_PER_QUERY = 10000;
 
-    public static $periods = array(
-        'day' => 86400, // сутки
-        'week' => 604800, // неделя
-        'all' => 0, // все время
-    );
-
     public static function run()
     {
-        foreach (self::$periods as $type => $period) {
-            self::runForPeriod($type, $period);
+        $transaction = \Yii::app()->db->beginTransaction();
+        try {
+            foreach (\Yii::app()->getModule('som')->getModule('qa')->periods as $type => $typeData) {
+                self::runForPeriod($type, $typeData['duration']);
+            }
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollback();
         }
     }
 
@@ -55,12 +55,36 @@ class QaUsersRatingManager
             self::createRow($rating, $userId, $type);
             $rating[$userId]['rating'] += $value['c'] * self::BEST_ANSWERS_COUNT_COEFFICIENT;
         }
+        $rating = self::setPositions($rating);
 
+        QaUserRating::model()->deleteAll();
         $nInserts = ceil(count($rating) / self::INSERTS_PER_QUERY);
         for ($i = 0; $i < $nInserts; $i++) {
             $toInsert = array_slice($rating, $i * self::INSERTS_PER_QUERY, self::INSERTS_PER_QUERY);
             \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(QaUserRating::model()->tableName(), $toInsert)->execute();
         }
+    }
+
+    protected function setPositions($rating)
+    {
+        uasort($rating, function($a, $b) {
+            if ($a['rating'] == $b['rating']) {
+                return 0;
+            }
+            return ($a['rating'] > $b['rating']) ? -1 : 1;
+        });
+
+        $counter = 0;
+        $last = null;
+        foreach ($rating as $k => &$row) {
+            if ($last !== $row['rating']) {
+                $counter++;
+            }
+            $row['position'] = $counter;
+            $last = $row['rating'];
+        }
+
+        return $rating;
     }
 
     protected function createRow(&$array, $userId, $type)

@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -41,13 +41,21 @@ return array(
         'questions/search' => 'som/qa/default/search',
 
         // мои вопросы-ответы
+        'questions/my/answers/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/answers',
         'questions/my/answers/<categoryId:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers/page<page:\d+>' => 'som/qa/my/answers',
         'questions/my/answers' => 'som/qa/my/answers',
+        'questions/my/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/questions',
         'questions/my/<categoryId:\d+>' => 'som/qa/my/questions',
+        'questions/my/page<page:\d+>' => 'som/qa/my/questions',
         'questions/my' => 'som/qa/my/questions',
 
+
+
         // рейтинг
+        'questions/rating/<period:(week|all)>/page<page:\d+>' => 'som/qa/rating/index',
         'questions/rating/<period:(week|all)>' => 'som/qa/rating/index',
+        'questions/rating/page<page:\d+>' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'day')),
         'questions/rating' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'day')),
 
         // консультация

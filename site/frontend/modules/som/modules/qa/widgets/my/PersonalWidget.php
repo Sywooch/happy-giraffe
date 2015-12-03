@@ -14,8 +14,8 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 abstract class PersonalWidget extends \CMenu
 {
     public $userId;
-    protected $questionsUrl = '/som/qa/my/questions/';
-    protected $answersUrl = '/som/qa/my/answers/';
+    protected $questionsUrl = array('/som/qa/my/questions');
+    protected $answersUrl = array('/som/qa/my/answers');
 
     public function init()
     {

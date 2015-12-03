@@ -2,7 +2,6 @@
 /**
  * @var site\frontend\modules\som\modules\qa\models\QaUserRating $data
  * @var LiteListView $widget
- * @var int $index
  */
 ?>
 
@@ -17,7 +16,7 @@
     </a>
     <a class="faq-rating_item_link"><?=$data->user->fullName?></a>
     <div class="faq-rating_item_counters"><span>Вопросов <?=$data->questionsCount?></span><span>Ответов <?=$data->answersCount?></span></div>
-    <div class="users-rating <?=($widget->dataProvider->getPagination()->currentPage != 0) ? 'nocrown' : \site\frontend\modules\som\modules\qa\components\QaHelper::getRatingClass($index)?>">
+    <div class="users-rating <?=\site\frontend\modules\som\modules\qa\components\QaHelper::getRatingClass($data->position)?>">
         <div class="users-rating_crown-big"></div>
         <div class="users-rating_counter"><?=round($data->rating)?></div>
     </div>

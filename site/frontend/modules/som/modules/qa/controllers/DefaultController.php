@@ -51,7 +51,8 @@ class DefaultController extends QaController
 
     protected function getDataProvider($tab, $categoryId)
     {
-        $model = QaQuestion::model()->apiWith('user');
+        $model = clone QaQuestion::model();
+        $model->apiWith('user')->with('category');
         if ($categoryId !== null) {
             $model->category($categoryId);
         } else {

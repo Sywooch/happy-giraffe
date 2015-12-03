@@ -9,6 +9,7 @@ namespace site\frontend\modules\som\modules\qa\controllers;
 
 use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class MyController extends QaController
@@ -33,7 +34,8 @@ class MyController extends QaController
 
     public function actionQuestions($categoryId = null)
     {
-        $model = QaQuestion::model()->user(\Yii::app()->user->id)->apiWith('user')->orderDesc();
+        $model = clone QaQuestion::model();
+        $model->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
         if ($categoryId !== null) {
             $model->category($categoryId);
         }
@@ -47,7 +49,8 @@ class MyController extends QaController
 
     public function actionAnswers($categoryId = null)
     {
-        $model = QaAnswer::model()->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
+        $model = clone QaAnswer::model();
+        $model->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
         if ($categoryId !== null) {
             $model->category($categoryId);
         } else {
@@ -58,7 +61,6 @@ class MyController extends QaController
                 'pageVar' => 'page',
             ),
         ));
-
         $this->render('answers', compact('dp'));
     }
 }

@@ -7,21 +7,26 @@
 namespace site\frontend\modules\som\modules\qa\controllers;
 
 
+use site\frontend\modules\som\modules\qa\components\QaController;
+use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
-class ConsultationController extends \LiteController
+class ConsultationController extends QaController
 {
     public $litePackage = 'faq';
     public $layout = '/layouts/consultation';
 
     public function actionIndex($consultationId)
     {
-        $model = QaQuestion::model()->consultation($consultationId);
+        $consultation = QaConsultation::model()->findByPk($consultationId);
+
+        $model = clone QaQuestion::model();
+        $model->consultation($consultationId);
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',
             ),
         ));
-        $this->render('index', compact('dp'));
+        $this->render('index', compact('consultation', 'dp'));
     }
 }

@@ -5,12 +5,7 @@
  * @var site\frontend\modules\som\modules\qa\widgets\ConsultationsMenu $consultationsMenu
  */
 $this->beginContent('//layouts/lite/main');
-
-$this->beginClip('sidebar');
-foreach ($this->sidebar as $view) {
-    $this->renderPartial('/_sidebar/' . $view);
-}
-$this->endClip();
+$this->renderSidebarClip();
 ?>
 
 <div class="b-main clearfix">
@@ -20,7 +15,7 @@ $this->endClip();
         </div>
         <aside class="b-main_col-sidebar visible-md">
             <div class="sidebar-widget">
-                <?php echo $this->clips['sidebar']; ?>
+                <?=$this->clips['sidebar']?>
             </div>
         </aside>
     </div>

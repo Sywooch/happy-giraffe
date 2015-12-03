@@ -31,9 +31,12 @@ class MyController extends QaController
 
     public $layout = '/layouts/my';
 
-    public function actionQuestions()
+    public function actionQuestions($categoryId = null)
     {
-        $model = QaQuestion::model()->user(\Yii::app()->user->id)->orderDesc();
+        $model = QaQuestion::model()->user(\Yii::app()->user->id)->apiWith('user')->orderDesc();
+        if ($categoryId !== null) {
+            $model->category($categoryId);
+        }
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',
@@ -42,14 +45,20 @@ class MyController extends QaController
         $this->render('questions', compact('dp'));
     }
 
-    public function actionAnswers()
+    public function actionAnswers($categoryId = null)
     {
-        $model = QaAnswer::model()->user(\Yii::app()->user->id)->orderDesc();
+        $model = QaAnswer::model()->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
+        if ($categoryId !== null) {
+            $model->category($categoryId);
+        } else {
+            $model->with('question');
+        }
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',
             ),
         ));
+
         $this->render('answers', compact('dp'));
     }
 }

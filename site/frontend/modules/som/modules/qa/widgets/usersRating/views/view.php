@@ -20,8 +20,8 @@ Yii::app()->clientScript->registerAMD('bootstrap', array('bootstrap'));
         <?php foreach (Yii::app()->controller->module->periods as $periodId => $periodData): ?>
             <div class="tab-pane<?=($activePeriodId == $periodId) ? ' active' : ''?>" id="rating-tab-<?=$periodId?>">
                 <ul class="rating-widget_users-list">
-                    <?php foreach ($models[$periodId] as $index => $model): ?>
-                        <?php $this->render('_row', compact('model', 'index')); ?>
+                    <?php foreach ($models[$periodId] as $model): ?>
+                        <?php $this->render('_row', compact('model')); ?>
                     <?php endforeach; ?>
                 </ul>
             </div>

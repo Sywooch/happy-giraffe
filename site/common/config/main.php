@@ -23,6 +23,9 @@ return array(
             ),
         ),
         'ads' => require(dirname(__FILE__) . '/../../frontend/modules/ads/config/main.php'),
+        'som' => array(
+            'class' => 'site\frontend\modules\som\SomModule',
+        ),
     ),
     'components' => array(
         'dbBackup' => array(

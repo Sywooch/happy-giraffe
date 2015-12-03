@@ -18,7 +18,9 @@
         <?= HHtml::timeTag($data, array('class' => 'tx-date')); ?>
     </div>
     <div class="answers-list_item_text-block">
-        <div class="dialog-arrow dialog-arrow-bestred"></div>
+        <?php if ($data->isBest): ?>
+            <div class="dialog-arrow dialog-arrow-bestred"></div>
+        <?php endif; ?>
         <div class="answers-list_item_text-block_text">
             <?=$data->text?>
         </div>

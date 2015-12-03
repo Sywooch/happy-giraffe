@@ -4,7 +4,7 @@
  * @var \CActiveDataProvider $dp
  * @var string $tab
  */
-$this->sidebar = array('ask', 'personal', 'menu', 'rating');
+$this->sidebar = array('ask', 'personal', 'menu' => array('urlParams' => array('tab' => Yii::app()->request->getQuery('tab'))), 'rating');
 ?>
 <div class="heading-link-xxl"> Вопрос-ответ</div>
 <?php $this->renderPartial('/_search', array('query' => '')); ?>
@@ -39,7 +39,7 @@ $this->widget('zii.widgets.CMenu', array(
 <?php
 $this->widget('LiteListView', array(
     'dataProvider' => $dp,
-    'itemView' => '_question',
+    'itemView' => '/_question',
     'htmlOptions' => array(
         'class' => 'questions'
     ),

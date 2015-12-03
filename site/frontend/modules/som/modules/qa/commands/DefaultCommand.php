@@ -26,9 +26,4 @@ class DefaultCommand extends \CConsoleCommand
     {
         BulkDataGenerator::run();
     }
-
-    public function actionTest()
-    {
-        VotesManager::setIsBest(10064);
-    }
 }

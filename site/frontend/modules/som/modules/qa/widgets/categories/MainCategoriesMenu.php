@@ -7,6 +7,7 @@
 namespace site\frontend\modules\som\modules\qa\widgets\categories;
 
 
+use site\frontend\modules\som\modules\qa\controllers\DefaultController;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
@@ -38,7 +39,7 @@ class MainCategoriesMenu extends CategoriesMenu
 
     protected function augmentUrl($url)
     {
-        if (\Yii::app()->request->getQuery('tab') != 'new') {
+        if (\Yii::app()->controller instanceof DefaultController && \Yii::app()->controller->action->id == 'index') {
             $url['tab'] = \Yii::app()->request->getQuery('tab');
         }
         return $url;

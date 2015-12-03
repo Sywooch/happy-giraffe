@@ -10,6 +10,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property integer $questionsCount
  * @property integer $answersCount
  * @property double $rating
+ * @property integer $position
  *
  * @property \site\frontend\components\api\models\User $user
  */
@@ -83,9 +84,15 @@ class QaUserRating extends \HActiveRecord
 		return $this;
 	}
 
-	public function orderRating()
+	public function orderPosition()
 	{
 		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC';
+		return $this;
+	}
+
+	public function user($userId)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.userId', $userId);
 		return $this;
 	}
 }

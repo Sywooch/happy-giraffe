@@ -651,5 +651,11 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
+        'lite_contractubex' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/contractubex.css',
+            ),
+        ),
     )
 );

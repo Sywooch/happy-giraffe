@@ -28,6 +28,9 @@ return array(
         'api/community/<_a>' => 'som/community/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
+
+        'contractubex' => 'posts/contractubex/default/index',
+        'contractubex/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/contractubex/view/view'),
         
         /* SOM */
         'status' => 'som/status/default/index',

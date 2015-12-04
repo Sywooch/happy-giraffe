@@ -31,6 +31,9 @@ class PostsModule extends \CWebModule
             'nextPost' => array(
                 'class' => 'site\frontend\modules\posts\modules\nextPost\NextPostModule',
             ),
+            'contractubex' => array(
+                'class' => 'site\frontend\modules\posts\modules\contractubex\ContractubexModule',
+            ),
         ));
     }
 

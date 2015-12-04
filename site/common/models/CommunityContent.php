@@ -434,6 +434,12 @@ class CommunityContent extends HActiveRecord implements IPreview
                 if ($this->isValentinePost()) {
                     $route = '/valentinesDay/default/howToSpend';
                     $params = array();
+                } elseif($this->rubric->community_id == \site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper::getForum()->id) {
+                    $route = '/posts/contractubex/view/view';
+                    $params = array(
+                        'content_type_slug' => $this->type->slug,
+                        'content_id' => $this->id,
+                    );
                 } elseif ($this->isFromBlog) {
                     $route = '/blog/default/view';
                     $params = array(

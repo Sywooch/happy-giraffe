@@ -52,7 +52,7 @@ class ContractubexHelper
 
     public static function getAuthorsIds()
     {
-        return array(12936);
+        return array(450668);
     }
 
     public static function getTitle()

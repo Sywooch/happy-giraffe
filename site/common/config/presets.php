@@ -244,4 +244,14 @@ return array(
             'postAnnouncement',
         ),
     ),
+    array(
+        'filter' => array(
+            'name' => 'fixedV2',
+            'width' => 328,
+            'height' => 220,
+        ),
+        'usages' => array(
+            'contra1',
+        ),
+    ),
 );

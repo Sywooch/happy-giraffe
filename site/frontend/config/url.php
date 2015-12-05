@@ -28,6 +28,9 @@ return array(
         'api/community/<_a>' => 'som/community/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
+
+        'contractubex' => 'posts/contractubex/default/index',
+        'contractubex/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/contractubex/view/view'),
         
         /* SOM */
         'status' => 'som/status/default/index',
@@ -446,6 +449,7 @@ return array(
         'horoscope/compatibility/<zodiac1:[\w]+>/<zodiac2:[\w]+>' => 'services/horoscope/compatibility/index',
         'horoscope/compatibility/<zodiac1:[\w]+>' => 'services/horoscope/compatibility/index',
         'horoscope/compatibility' => 'services/horoscope/compatibility/index',
+        'questionnaire/default/index' => 'questionnaire/default/index',
 
         //horoscope
         array( 'class' => 'site.frontend.modules.services.modules.horoscope.components.HoroscopeUrlRule'),

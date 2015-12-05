@@ -25,6 +25,7 @@ class MessagingMessage extends HActiveRecord
 
     // ??? не используется
     public $processed_photos = array();
+    public $content;
 
     /**
      * Returns the static model of the specified AR class.

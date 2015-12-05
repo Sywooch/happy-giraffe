@@ -6,6 +6,7 @@ $this->beginContent('//layouts/lite/common_menu');
 
 Yii::app()->clientScript->registerAMD('userAdd', array('common' => 'common', '$' => 'jquery'), "$('#userAdd').show();");
 ?>
+<?=$this->clips['header-banner']?>
 <?php if (!Yii::app()->user->isGuest && !($this instanceof LiteController && $this->hideUserAdd)): ?>
     <div class="b-main_cols clearfix">
         <div class="b-main_col-1">

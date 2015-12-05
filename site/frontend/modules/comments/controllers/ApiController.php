@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\comments\controllers;
+use Aws\CloudFront\Exception\Exception;
 use site\frontend\modules\comments\models\Comment;
 
 /**
@@ -62,8 +63,9 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionCreate($entity, $entityId, $text, $responseId = false)
     {
-        if (!\Yii::app()->user->checkAccess('createComment'))
+        if (!\Yii::app()->user->checkAccess('createComment')) {
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
+        }
         $comment = new \site\frontend\modules\comments\models\Comment('default');
         $comment->attributes = array(
             'author_id' => \Yii::app()->user->id,
@@ -71,8 +73,9 @@ class ApiController extends \site\frontend\components\api\ApiController
             'entity_id' => $entityId,
             'text' => $text,
         );
-        if ($responseId)
+        if ($responseId) {
             $comment->response_id = $responseId;
+        }
 
         if ($comment->save())
         {

@@ -132,11 +132,33 @@
             </div>
             <!-- /ko -->
             <!-- ko if: embed() != null -->
-                <div class="redactor-popup_video clearfix"><a title="Удалить" class="redactor-popup_video-del ico-close powertip" data-bind="click: remove"></a>
-                    <div data-bind="html: embed"></div>
-                </div>
-                <div class="textalign-c margin-t15"><a class="a-pseudo" data-bind="click: remove">Нет, загрузить другой ролик</a><a class="btn-green btn-medium margin-l20" data-bind="click: add">Добавить видео</a></div>
+            <div class="redactor-popup_video clearfix"><a title="Удалить" class="redactor-popup_video-del ico-close powertip" data-bind="click: remove"></a>
+                <div data-bind="html: embed"></div>
+            </div>
+            <div class="textalign-c margin-t15"><a class="a-pseudo" data-bind="click: remove">Нет, загрузить другой ролик</a><a class="btn-green btn-medium margin-l20" data-bind="click: add">Добавить видео</a></div>
             <!-- /ko -->
+        </div>
+    </div>
+
+    <div id="redactor-popup_b-photo" class="display-n">
+        <div class="redactor-popup">
+            <div class="redactor-popup_tale"></div>
+            <div class="redactor-popup_t">Загрузите фото</div>
+            <div class="redactor_popup_b-photo_content">
+                <form id="wysiwygImage2" method="POST" enctype="multipart/form-data">
+                    <div class="file-fake powertip" title="Фото">
+                        <div class="file-fake_btn redactor_btn_image"></div>
+                        <input type="file" class="file-fake_inp" accept="image/*" data-bind="click: photoClick">
+                    </div>
+                </form>
+
+                <form id="wysiwygImage3" method="POST" enctype="multipart/form-data">
+                    <div class="file-fake powertip" title="Камера">
+                        <div class="file-fake_btn redactor_btn_image"></div>
+                        <input type="file" class="file-fake_inp" accept="image/*" capture="camera" data-bind="click: photoClick">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

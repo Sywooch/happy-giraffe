@@ -22,7 +22,7 @@ class ActivityWidget extends \CWidget
     {
         $model = clone Content::model();
         $model->orderDesc();
-        $criteria = ContractubexHelper::getChosenPostsCriteria();
+        $criteria = ContractubexHelper::getOtherPostsCriteria();
         $criteria->mergeWith($model->getDbCriteria());
 
         return new \CActiveDataProvider('site\frontend\modules\posts\models\Content', array(

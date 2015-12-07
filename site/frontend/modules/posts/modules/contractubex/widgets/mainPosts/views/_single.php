@@ -4,8 +4,15 @@
     <?php endif; ?>
     <div class="club-advices_list_item_cont">
         <div class="live-user">
-            <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
-            <div class="username"><a>Контратубекс</a><span class="tx-date">минуту назад</span></div>
+            <a href="<?=$this->model->user->profileUrl?>" class="ava ava ava__<?=($this->model->user->gender) ? 'male' : 'female'?>">
+                <?php if ($this->model->user->avatarUrl): ?>
+                    <img alt="" src="<?=$this->model->user->avatarUrl?>" class="ava_img">
+                <?php endif; ?>
+            </a>
+            <div class="username">
+                <a href="<?=$this->model->user->profileUrl?>"><?=$this->model->user->fullName?></a>
+                <?=HHtml::timeTag($this->model, array('class' => 'tx-date'))?>
+            </div>
         </div>
         <a class="club-advices_list_item_heading" href="<?=$this->model->url?>"><?=$this->model->title?></a>
         <div class="club-advices_list_item_dynamic clearfix">

@@ -432,6 +432,7 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
         'valentinesAlbum' => '41340',
+        'is_api_request' => false,
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
         'gaPass'=>'',

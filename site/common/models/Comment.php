@@ -19,6 +19,7 @@
  * @property User author
  * @property Comment $response
  */
+
 class Comment extends HActiveRecord
 {
 
@@ -118,6 +119,9 @@ class Comment extends HActiveRecord
     public function behaviors()
     {
         return array(
+            'Rabbit' => array(
+                'class' => 'site.common.behaviors.RabbitMQBehavior',
+            ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
                 'entityClass' => 'Comment',

@@ -25,6 +25,7 @@ class ApiController extends \V1ApiController
      * @param string $delete - delete method name
      */
     public function route($get, $post, $update, $delete) {
+
         switch(\Yii::app()->request->requestType){
             case 'GET':
                 $this->requestType = 'Param';
@@ -46,6 +47,22 @@ class ApiController extends \V1ApiController
             default:
                 $this->requestType = 'Param';
                 $this->$get();
+        }
+    }
+
+    private function isBehaviorExists($name, $behaviors) {
+        foreach ($behaviors as $key => $value) {
+            if ($key == $name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function detach($name, $model) {
+        if ($this->isBehaviorExists($name, $model->behaviors())) {
+            $model->detachBehavior($name);
         }
     }
     #endregion
@@ -229,6 +246,8 @@ class ApiController extends \V1ApiController
     private function handlePost($id = null) {
         $contest_id = \Yii::app()->request->getPost('contest_id');
 
+        //\Yii::app()->cache->flush();
+
         if (\Yii::app()->request->getPost('type', null) != null) {
             $type = \Yii::app()->request->getPost('type');
         } else if (\Yii::app()->request->getPut('type', null) != null) {
@@ -245,6 +264,9 @@ class ApiController extends \V1ApiController
             $model = $id == null ? new \BlogContent() : \BlogContent::model()->findByPk($id);
             $model->scenario = 'default';
         }
+
+        //$this->detach('Rabbit', $model);
+        \Yii::app()->params['is_api_request'] = true;
 
         $new = $model->isNewRecord;
 
@@ -345,7 +367,6 @@ class ApiController extends \V1ApiController
             } else {
                 $this->data = 'Parameters missing.';
             }
-
         }
     }
 

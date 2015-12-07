@@ -46,6 +46,12 @@ return array(
         'testConvert' => array(
             'class' => 'site\frontend\modules\posts\commands\TestConvert',
         ),
+        'testRabbit' => array(
+            'class' => 'site\frontend\modules\v1\commands\TestRabbit',
+        ),
+        'modelRebase' => array(
+            'class' => 'site\frontend\modules\v1\commands\ModelRebase',
+        ),
         'activityRenew' => array(
             'class' => 'site\frontend\modules\som\modules\activity\commands\RenewActivity',
         ),

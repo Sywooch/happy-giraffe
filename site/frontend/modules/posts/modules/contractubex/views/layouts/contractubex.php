@@ -5,7 +5,7 @@
         echo $content;
         ?>
         <aside class="b-main_col-sidebar visible-md">
-            <?php $this->widget('site\frontend\modules\posts\modules\contractubex\widgets\sidebarWidget\SidebarWidget'); ?>
+            <?php $this->widget('site\frontend\modules\posts\modules\contractubex\widgets\sidebarWidget\SidebarWidget', array('exclude' => array($this->post->id))); ?>
         </aside>
     </div>
 

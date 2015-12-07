@@ -66,11 +66,6 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
             <?php
             }
             ?>
-            <? if ($this->post->templateObject->getAttr('extraLikes', false)): ?>
-                <div class="b-article_header-likes">
-                    <share-buttons params="url: '<?=$this->post->url?>'"></share-buttons>
-                </div>
-            <?php endif; ?>
             <?php
             if (Yii::app()->user->checkAccess('moderator')) {
                 ?>
@@ -99,21 +94,8 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
                     $this->widget('site\frontend\modules\posts\widgets\PostSettingsWidget', array('model' => $this->post, 'manageInfo' => $this->post->originManageInfoObject->toJSON()));
                 }
                 ?>
-                <div class="like-control-hold">
-                    <div class="like-control like-control__line">
-                    </div>
-                </div>
-                <div class="custom-likes">
-                    <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
-                    <div class="custom-likes_in">
-                        <share-buttons params="url: '<?=$this->post->url?>'"></share-buttons>
-                    </div>
-                </div>
 
                 <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
-
-                <!-- Реклама яндекса-->
-                <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
             </div>
         </div>
     </article>

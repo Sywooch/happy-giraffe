@@ -51,7 +51,7 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
                 <div class="icons-meta"><a href="<?=$this->post->commentsUrl?>" class="icons-meta_comment"><span class="icons-meta_tx"><?=$comments->count?></span></a>
                     <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>
                 </div>
-                <?php if (! in_array($this->authorId, \site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper::getAuthorsIds())): ?>
+                <?php if (! in_array($this->post->authorId, \site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper::getAuthorsIds())): ?>
                 <div class="promo-banner-small clearfix">
                     <div class="promo-banner-small_logo"></div>
                     <h2 class="promo-banner-small_text">А как Вы боретесь со шрамами?</h2>

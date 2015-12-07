@@ -28,7 +28,6 @@ class ActivityWidget extends \CWidget
         return new \CActiveDataProvider('site\frontend\modules\posts\models\Content', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 1,
                 'pageVar' => 'page',
             ),
         ));

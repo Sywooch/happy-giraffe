@@ -37,7 +37,7 @@ class ContractubexHelper
     public static function getChosenPostsCriteria()
     {
         $criteria = new \CDbCriteria();
-        $criteria->addInCondition('t.authorId', self::getAuthorsIds());
+        $criteria->addInCondition('t.id', self::getPostIds());
         $criteria->mergeWith(self::getForumCriteria());
         return $criteria;
     }
@@ -45,7 +45,7 @@ class ContractubexHelper
     public static function getOtherPostsCriteria()
     {
         $criteria = new \CDbCriteria();
-        $criteria->addNotInCondition('t.authorId', self::getAuthorsIds());
+        $criteria->addNotInCondition('t.id', self::getPostIds());
         $criteria->mergeWith(self::getForumCriteria());
         return $criteria;
     }
@@ -53,6 +53,11 @@ class ContractubexHelper
     public static function getAuthorsIds()
     {
         return array(450668);
+    }
+
+    public static function getPostIds()
+    {
+        return array(705068, 705063, 705058, 705073, 705083);
     }
 
     public static function getTitle()

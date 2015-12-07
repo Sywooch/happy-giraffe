@@ -1,3 +1,7 @@
+<?php
+$this->pageTitle = 'Контрактубекс';
+?>
+
 <div class="header-banner clearfix">
     <div class="header-banner_static">
         <h1 class="header-banner_static_heading">Как лечить шрамы?</h1>

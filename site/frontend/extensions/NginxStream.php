@@ -7,6 +7,8 @@ class NginxStream
 
     public function init()
     {
+        \Yii::log('nginx stream init', ' info', 'nginx');
+
         $this->host = $this->host.":".$this->port."/pub/";
     }
 

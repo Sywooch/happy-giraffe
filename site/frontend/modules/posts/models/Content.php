@@ -115,6 +115,9 @@ class Content extends \CActiveRecord implements \IHToJSON
     public function behaviors()
     {
         return array(
+            /*'Rabbit' => array(
+                'class' => 'site.common.behaviors.RabbitMQBehavior',
+            ),*/
             'HTimestampBehavior' => array(
                 'class' => 'HTimestampBehavior',
                 'createAttribute' => 'dtimeCreate',

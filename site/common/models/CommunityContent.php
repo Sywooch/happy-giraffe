@@ -155,6 +155,9 @@ class CommunityContent extends HActiveRecord implements IPreview
     {
         if($this->scenario == 'advEditor')
             return array(
+                'Rabbit' => array(
+                    'class' => 'site.common.behaviors.RabbitMQBehavior',
+                ),
                 'PhotoCollectionBehavior' => array(
                     'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',
                     'attributeCollections' => array('preview'),
@@ -169,6 +172,9 @@ class CommunityContent extends HActiveRecord implements IPreview
                 ),
             );
         return array(
+            'Rabbit' => array(
+                'class' => 'site.common.behaviors.RabbitMQBehavior',
+            ),
             'PhotoCollectionBehavior' => array(
                 'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',
                 'attributeCollections' => array('preview'),

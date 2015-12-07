@@ -46,6 +46,14 @@ class Label extends \CActiveRecord
         return 'post__labels';
     }
 
+    public function behaviors() {
+        return array(
+            /*'Rabbit' => array(
+                'class' => 'site.common.behaviors.RabbitMQBehavior',
+            ),*/
+        );
+    }
+
     /**
      * @return array validation rules for model attributes.
      */

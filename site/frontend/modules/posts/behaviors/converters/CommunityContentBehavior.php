@@ -3,6 +3,7 @@
 namespace site\frontend\modules\posts\behaviors\converters;
 use site\frontend\modules\photo\helpers\PhotoHelper;
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper;
 
 /**
  * Description of CommunityContentBehavior
@@ -128,6 +129,10 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $newPost->socialObject->description = $newPost->metaObject->description;
         $newPost->isAutoSocial = true;
+
+        if ($oldPost->rubric->community_id == ContractubexHelper::getForum()->id) {
+            $newPost->templateObject->data['hideAdsense'] = true;
+        }
     }
 
     protected function convertAdvPost(\site\frontend\modules\editorialDepartment\models\Content $advContent)

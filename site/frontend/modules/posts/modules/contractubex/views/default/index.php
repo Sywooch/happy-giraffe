@@ -1,5 +1,6 @@
 <?php
 $this->pageTitle = 'Контрактубекс';
+$this->hideAdsense = true;
 ?>
 
 <div class="header-banner clearfix">

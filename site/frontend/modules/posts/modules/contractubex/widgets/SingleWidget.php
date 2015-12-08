@@ -25,7 +25,7 @@ abstract class SingleWidget extends \CWidget
     public function getPhoto()
     {
         if ($this->_photo === false) {
-            $docs = array(str_get_html($this->model->preview), str_get_html($this->model->html));
+            $docs = array(str_get_html($this->model->html), str_get_html($this->model->preview));
             foreach ($docs as $doc) {
                 $img = $doc->find('img', 0);
                 if ($img !== null) {

@@ -19,5 +19,5 @@
         <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncement')?>">
     </div>
     <?php endif; ?>
-    <a class="sidebar-promo-latest_item_heading"><?=$this->model->title?></a>
+    <a class="sidebar-promo-latest_item_heading" href="<?=$this->model->url?>"><?=$this->model->title?></a>
 </li>

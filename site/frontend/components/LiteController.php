@@ -20,6 +20,7 @@ class LiteController extends HController
     public $adaptive = true; // если true, то выводится meta-тег viewport
     public $layout = '//layouts/lite/main';
     public $hideUserAdd = false;
+    public $hideAdsense = false;
     public $litePackage = false;
     public $metaNoindex = false;
     public $owner;

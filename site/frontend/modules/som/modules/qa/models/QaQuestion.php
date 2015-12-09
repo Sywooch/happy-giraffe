@@ -86,7 +86,7 @@ class QaQuestion extends \HActiveRecord
 			'id' => 'ID',
 			'title' => 'Title',
 			'text' => 'Text',
-			'sendNotifications' => 'Send Notifications',
+			'sendNotifications' => 'Получать уведомления об ответах',
 			'categoryId' => 'Category',
 			'authorId' => 'Author',
 			'dtimeCreate' => 'Dtime Create',

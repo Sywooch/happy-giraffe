@@ -9,7 +9,7 @@
     <div class="popup-widget_heading">
         <div class="popup-widget_heading_icon"></div>
         <div class="popup-widget_heading_text">Задать вопрос</div>
-        <div class="popup-widget_heading_close-btn"></div>
+        <a href="<?=$this->createUrl('/som/qa/default/index')?>" class="popup-widget_heading_close-btn"></a>
     </div>
     <div class="popup-widget_wrap">
         <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
@@ -44,7 +44,7 @@
             ))?>
             <?=$form->label($model, 'sendNotifications')?>
             <div class="popup-widget_cont_buttons">
-                <div class="btn btn-secondary btn-xm">Отмена</div>
+                <a href="<?=$this->createUrl('/som/qa/default/index')?>" class="btn btn-secondary btn-xm">Отмена</a>
                 <button class="btn btn-success btn-xm">Опубликовать</button>
             </div>
             <?php $this->endWidget(); ?>

@@ -4,13 +4,13 @@
     <?php endif; ?>
     <div class="club-advices_list_item_cont">
         <div class="live-user">
-            <a href="<?=$this->model->user->profileUrl?>" class="ava ava__middle ava__<?=($this->model->user->gender) ? 'male' : 'female'?>">
+            <span class="ava ava__middle ava__<?=($this->model->user->gender) ? 'male' : 'female'?>">
                 <?php if ($this->model->user->avatarUrl): ?>
                     <img alt="" src="<?=$this->model->user->avatarUrl?>" class="ava_img">
                 <?php endif; ?>
-            </a>
+            </span>
             <div class="username">
-                <a href="<?=$this->model->user->profileUrl?>"><?=$this->model->user->fullName?></a>
+                <span><?=$this->model->user->fullName?></span>
                 <?=HHtml::timeTag($this->model, array('class' => 'tx-date'))?>
             </div>
         </div>

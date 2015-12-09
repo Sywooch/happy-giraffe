@@ -31,7 +31,7 @@
             <?php if ($model->scenario != 'consultation'): ?>
             <div class="popup-widget_cont_list">
                 <?=$form->dropDownList($model, 'categoryId', CHtml::listData(\site\frontend\modules\som\modules\qa\models\QaCategory::model()->findAll(), 'id', 'title'), array(
-                    'style' => 'selectpicker',
+                    'class' => 'select-cus select-cus__search-off select-cus__gray',
                 ))?>
             </div>
             <?php endif; ?>

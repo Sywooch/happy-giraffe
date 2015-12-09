@@ -4,7 +4,7 @@
     <?php endif; ?>
     <div class="club-advices_list_item_cont">
         <div class="live-user">
-            <a href="<?=$this->model->user->profileUrl?>" class="ava ava ava__<?=($this->model->user->gender) ? 'male' : 'female'?>">
+            <a href="<?=$this->model->user->profileUrl?>" class="ava ava__middle ava__<?=($this->model->user->gender) ? 'male' : 'female'?>">
                 <?php if ($this->model->user->avatarUrl): ?>
                     <img alt="" src="<?=$this->model->user->avatarUrl?>" class="ava_img">
                 <?php endif; ?>

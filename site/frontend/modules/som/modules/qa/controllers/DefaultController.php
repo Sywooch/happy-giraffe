@@ -79,6 +79,8 @@ class DefaultController extends QaController
 
     public function actionQuestionAddForm($consultationId = null)
     {
+        $this->layout = '//layouts/lite/common';
+
         $question = new QaQuestion();
         $this->performAjaxValidation($question);
         if ($consultationId !== null) {
@@ -97,7 +99,7 @@ class DefaultController extends QaController
             }
         }
 
-        $this->render('addForm', array('model' => $question));
+        $this->render('form', array('model' => $question));
     }
 
     public function actionQuestionEditForm($questionId)
@@ -109,7 +111,10 @@ class DefaultController extends QaController
         }
 
         if (isset($_POST[\CHtml::modelName($question)])) {
-
+            $question->attributes = $_POST[\CHtml::modelName($question)];
+            if ($question->save()) {
+                $this->redirect($question->url);
+            }
         }
     }
 

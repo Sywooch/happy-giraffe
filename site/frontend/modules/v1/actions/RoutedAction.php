@@ -1,6 +1,9 @@
 <?php
 
-public class RoutedAction extends \CAction {
+namespace site\frontend\modules\v1\actions;
+
+class RoutedAction extends \CAction {
+
     #region route
     /**
      * Routing a request to a method by request type.
@@ -11,30 +14,34 @@ public class RoutedAction extends \CAction {
      * @param string $delete - delete method name
      */
     protected function route($get, $post, $update, $delete) {
-        switch(\Yii::app()->request->requestType){
-            case 'GET':
-                $this->requestType = 'Param';
-                $this->$get();
-                break;
-            case 'POST':
-                $this->requestType = 'Post';
+        $methods = array(
+            'POST' => 'Post',
+            'PUT' => 'Put',
+            'DELETE' => 'Delete',
+            'GET' => 'Param',
+        );
+
+        $this->controller->requestType = $methods[\Yii::app()->request->requestType];
+
+        if (\Yii::app()->request->requestType != 'GET') {
+            if (!$this->controller->auth()) {
+                return;
+            }
+        }
+
+        switch($this->controller->requestType){
+            case 'Post':
                 $this->$post();
                 break;
-            case 'PUT':
-                $this->requestType = 'Put';
+            case 'Put':
                 $this->$update();
                 break;
-            case 'DELETE':
-                $this->data = 'delete';
-                $this->requestType = 'Delete';
+            case 'Delete':
                 $this->$delete();
                 break;
             default:
-                $this->requestType = 'Param';
                 $this->$get();
         }
     }
-
-    /*@todo: V1ApiController methods here*/
     #endregion
 }

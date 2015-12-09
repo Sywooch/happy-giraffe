@@ -464,6 +464,7 @@ return array(
         'v1/api/sections' => 'v1/api/sections',
         'v1/api/forums' => 'v1/api/forums',
         'v1/api/rubrics' => 'v1/api/rubrics',
+        'v1/api/login' => 'v1/api/login',
 
 
         //horoscope

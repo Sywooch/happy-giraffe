@@ -132,7 +132,7 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
             'height' => (int) $this->height,
             'fsName' => $this->fs_name,
             'originalUrl' => \Yii::app()->fs->getUrl($this->getFile()->getKey()),
-            'picture' => PhotoHelper::picture($this),
+            //'picture' => PhotoHelper::picture($this),
         );
     }
     

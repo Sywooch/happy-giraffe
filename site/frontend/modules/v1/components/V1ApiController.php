@@ -7,21 +7,22 @@ use site\frontend\modules\signup\components\UserIdentity;
 /**
  * @property string $data
  * @property bool $success
- * @property array $errors
+ * @property array $error
  * @property string $requestType
  * @property CometModel $comet
  * @property int $currentPage
  * @property bool $hasNext
  * @property UserIdentity $identity
+ * @property int $errorCode
  */
 class V1ApiController extends \CController
 {
     #region Fields
     public $data = null;
-    protected $success = false;
     public $identity;
 
-    protected $errors = null;
+    protected $error = null;
+    protected $errorCode = null;
     public $requestType;
 
     private $comet;
@@ -36,14 +37,17 @@ class V1ApiController extends \CController
      * Create response.
      */
     private function complete() {
-        if ($this->success && $this->data) {
+        if ($this->error == null && $this->data) {
             header('Content-Type: application/json', true);
             header('X-Has-Next: ' . var_export($this->hasNext, true));
             header('X-Current-Page: ' . $this->currentPage);
             header('X-Request-Type: ' . \Yii::app()->request->requestType);
             echo \CJSON::encode($this->data);
         } else {
-
+            http_response_code($this->errorCode);
+            header('Content-Type: application/json', true);
+            header('X-Request-Type: ' . \Yii::app()->request->requestType);
+            echo \CJSON::encode($this->error);
         }
     }
 
@@ -51,8 +55,7 @@ class V1ApiController extends \CController
      * Checks request type and call response.
      */
     protected function afterAction($action) {
-        if ($this->errors == null) {
-            $this->success = true;
+        if ($this->error == null) {
             if (\Yii::app()->request->requestType == 'GET') {
                 $this->toArray();
                 $this->complete();
@@ -60,7 +63,7 @@ class V1ApiController extends \CController
                 $this->complete();
             }
         } else {
-
+            $this->complete();
         }
 
         parent::afterAction($action);
@@ -79,6 +82,9 @@ class V1ApiController extends \CController
     public function get($model) {
         if (isset($_GET['id'])) {
             $this->data = $model->with($this->getWithParameters())->findByPk(\Yii::app()->request->getParam('id'));
+            if ($this->data == null) {
+                $this->setError("Nothing found by this id.", 404);
+            }
         } else {
             $params = $this->getPaginationParams();
 
@@ -132,7 +138,7 @@ class V1ApiController extends \CController
                 $this->data = $e->getMessage();
             }
         } else {
-            $this->data = "Parameters missing";
+            $this->setError("Parameters missing", 400);
         }
     }
     #endregion
@@ -175,13 +181,13 @@ class V1ApiController extends \CController
             $this->identity = new UserIdentity($params['auth_email'], $params['auth_password']);
 
             if (!($this->identity->authenticate())) {
-                $this->data = $this->identity->errorMessage;
+                $this->setError($this->identity->errorMessage, 401);
                 return false;
             } else {
                 return true;
             }
         } else {
-            $this->data = "Missing authentication params.";
+            $this->setError("Missing authentication params", 401);
             return false;
         }
     }
@@ -327,6 +333,11 @@ class V1ApiController extends \CController
         }
 
         return $result;
+    }
+
+    public function setError($message, $code) {
+        $this->error = array('error' => $message);
+        $this->errorCode = $code;
     }
     #endregion
 }

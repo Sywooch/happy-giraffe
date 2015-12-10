@@ -36,7 +36,7 @@ class PostsAction extends RoutedAction
         } else if (\Yii::app()->request->getPut('type', null) != null) {
             $type = \Yii::app()->request->getPut('type');
         } else {
-            $this->controller->data = "Missing type.";
+            $this->controller->setError("Missing type.", 400);
             return;
         }
 
@@ -54,7 +54,7 @@ class PostsAction extends RoutedAction
         $new = $model->isNewRecord;
 
         if ($model == null) {
-            $this->controller->data = 'Missing post.';
+            $this->controller->setError('Missing post.', 400);
         } else {
             if ($model->type_id == \CommunityContent::TYPE_STATUS) {
                 $model->scenario = 'status';
@@ -142,13 +142,13 @@ class PostsAction extends RoutedAction
                     if ($success) {
                         $this->controller->data = $model->id;/*array($model, $slaveModel);*/
                     } else {
-                        $this->controller->data = 'Saving failed.';
+                        $this->controller->setError('Saving failed.', 500);
                     }
                 } catch (Exception $e) {
-                    $this->controller->data = $e->getMessage();
+                    $this->controller->setError($e->getMessage(), 500);
                 }
             } else {
-                $this->controller->data = 'Parameters missing.';
+                $this->controller->setError('Parameters missing.', 400);
             }
         }
     }
@@ -167,7 +167,7 @@ class PostsAction extends RoutedAction
 
             $this->handlePost($id);
         } else {
-            $this->controller->data = "Id missing.";
+            $this->controller->setError("Id missing.", 400);
             return;
         }
     }
@@ -218,10 +218,10 @@ class PostsAction extends RoutedAction
                 }
                 $this->controller->data = $post->id;
             } catch (Eception $ex) {
-                $this->controller->data = "Deleting failed.";
+                $this->controller->setError("Deleting failed.", 500);
             }
         } else {
-            $this->controller->data = "Id missing.";
+            $this->controller->setError("Id missing.", 400);
         }
     }
 }

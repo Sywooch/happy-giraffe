@@ -29,7 +29,7 @@ class CommentsAction extends RoutedAction
             try {
                 $comment->attributes = $this->controller->getParams($required);
             } catch (Exception $e) {
-                $this->controller->data = $e->getMessage();
+                $this->controller->setError($e->getMessage(), 400);
             }
 
             if ($comment->save()) {
@@ -38,10 +38,10 @@ class CommentsAction extends RoutedAction
 
                 $this->controller->push(get_class($comment), \CometModel::COMMENTS_NEW);
             } else {
-                $this->controller->data = $comment->getErrorsText();
+                $this->controller->setError($comment->getErrorsText(), 400);
             }
         } else {
-            $this->controller->data = 'Parameters missing';
+            $this->controller->setError('Parameters missing', 400);
         }
 
         /*$action = function($context, $required) {
@@ -69,7 +69,7 @@ class CommentsAction extends RoutedAction
                 $comment = Comment::model()->findByPk($params['id']);
                 $comment->text = $params['text'];
             } catch (Exception $e) {
-                $this->controller->data = $e->getMessage();
+                $this->controller->setError($e->getMessage(), 400);
             }
             if ($comment->save()) {
                 $comment->refresh();
@@ -77,10 +77,10 @@ class CommentsAction extends RoutedAction
 
                 $this->controller->push(get_class($comment), \CometModel::COMMENTS_UPDATE);
             } else {
-                $this->controller->data = $comment->getErrorsText();
+                $this->controller->setError($comment->getErrorsText(), 400);
             }
         } else {
-            $this->controller->data = 'Parameters missing';
+            $this->controller->setError('Parameters missing', 400);
         }
     }
 
@@ -92,17 +92,17 @@ class CommentsAction extends RoutedAction
             try {
                 $comment = Comment::model()->findByPk($params['id']);
             } catch (Exception $e) {
-                $this->controller->data = $e->getMessage();
+                $this->controller->setError($e->getMessage(), 400);
             }
 
             if ($comment->softDelete()) {
                 $this->controller->data = $comment->toJSON();
 
             } else {
-                $this->controller->data = $comment->getErrorsText();
+                $this->controller->setError($comment->getErrorsText(), 400);
             }
         } else {
-            $this->controller->data = 'Parameters missing';
+            $this->controller->setError('Parameters missing', 400);
         }
     }
 }

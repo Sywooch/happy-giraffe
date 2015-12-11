@@ -274,6 +274,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
 
         // подгоняем под верстку
         $previewHtml = str_get_html($rawPreview);
+        $nextLinkAdded = false;
         foreach ($mediaTags as $tag) {
             if (count($previewHtml->find($tag)) > 0) {
                 $element = $previewHtml->find($tag, 0);
@@ -281,11 +282,20 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 if ($tag == 'img' && $isBigPost) {
                     $class = ($this->owner->scenario == 'buzz') ? 'middle' : '';
                     $text = '<a href="' . $post->url . '" class="btn btn-default btn-l btn-feed ' . $class . '">Читать далее</a>' . $text;
+                    $nextLinkAdded = false;
                 }
                 if ($tag != 'gif-image') {
                     $element->outertext = '<div class="b-album-cap feed-cap"><div class="b-album-cap_hold">' . $text . '</div></div>';
                 }
             }
+        }
+
+        if (! $nextLinkAdded) {
+            $previewHtml .= '<div class="b-album-cap feed-cap">
+                      <div class="b-album-cap_hold">
+                        <a href="' . $post->url . '" class="btn btn-default btn-l btn-feed_noimage">Читать далее</a>
+                      </div>
+                    </div>';
         }
 
         return (string) $previewHtml;

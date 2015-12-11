@@ -8,7 +8,7 @@ class PostContentAction extends RoutedAction
 {
     public function run()
     {
-        $this->route('getPostsContent', 'getPostsContent', 'getPostsContent', 'getPostsContent');
+        $this->route('getPostsContent', null, null, null);
     }
 
     public function getPostsContent() {

@@ -5,7 +5,7 @@ namespace site\frontend\modules\v1\actions;
 class SectionsAction extends RoutedAction
 {
     public function run() {
-        $this->route('getSections', 'getSections', 'getSections', 'getSections');
+        $this->route('getSections', null, null, null);
     }
 
     public function getSections() {

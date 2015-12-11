@@ -8,7 +8,7 @@ class OnairAction extends RoutedAction
 {
     public function run()
     {
-        $this->route('getOnair', 'getOnair', 'getOnair', 'getOnair');
+        $this->route('getOnair', null, null, null);
     }
 
     public function getOnair() {

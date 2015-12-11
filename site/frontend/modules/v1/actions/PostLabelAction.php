@@ -8,7 +8,7 @@ class PostLabelAction extends RoutedAction
 {
     public function run()
     {
-        $this->route('getPostLabel', 'getPostLabel', 'getPostLabel', 'getPostLabel');
+        $this->route('getPostLabel', null, null, null);
     }
 
     public function getPostLabel() {

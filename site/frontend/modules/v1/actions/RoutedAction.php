@@ -23,7 +23,7 @@ class RoutedAction extends \CAction {
 
         $this->controller->requestType = $methods[\Yii::app()->request->requestType];
 
-        if (\Yii::app()->request->requestType != 'GET') {
+        if (\Yii::app()->request->requestType != 'GET' && $post != 'login') {
             if (!$this->controller->auth()) {
                 return;
             }
@@ -31,16 +31,24 @@ class RoutedAction extends \CAction {
 
         switch($this->controller->requestType){
             case 'Post':
-                $this->$post();
+                $this->execute($post);
                 break;
             case 'Put':
-                $this->$update();
+                $this->execute($update);
                 break;
             case 'Delete':
-                $this->$delete();
+                $this->execute($delete);
                 break;
             default:
-                $this->$get();
+                $this->execute($get);
+        }
+    }
+
+    private function execute($action) {
+        if ($action != null) {
+            $this->$action();
+        } else {
+            $this->controller->setError("NotSupportedRoute", 405);
         }
     }
     #endregion

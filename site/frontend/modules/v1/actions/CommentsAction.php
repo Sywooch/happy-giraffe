@@ -41,7 +41,7 @@ class CommentsAction extends RoutedAction
                 $this->controller->setError($comment->getErrorsText(), 400);
             }
         } else {
-            $this->controller->setError('Parameters missing', 400);
+            $this->controller->setError('ParamsMissing', 400);
         }
 
         /*$action = function($context, $required) {
@@ -80,7 +80,7 @@ class CommentsAction extends RoutedAction
                 $this->controller->setError($comment->getErrorsText(), 400);
             }
         } else {
-            $this->controller->setError('Parameters missing', 400);
+            $this->controller->setError('ParamsMissing', 400);
         }
     }
 
@@ -102,7 +102,7 @@ class CommentsAction extends RoutedAction
                 $this->controller->setError($comment->getErrorsText(), 400);
             }
         } else {
-            $this->controller->setError('Parameters missing', 400);
+            $this->controller->setError('ParamsMissing', 400);
         }
     }
 }

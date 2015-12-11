@@ -8,7 +8,7 @@ class PostTagAction extends RoutedAction
 {
     public function run()
     {
-        $this->route('getPostTag', 'getPostTag', 'getPostTag', 'getPostTag');
+        $this->route('getPostTag', null, null, null);
     }
 
     public function getPostTag() {

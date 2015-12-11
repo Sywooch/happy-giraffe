@@ -5,7 +5,7 @@ namespace site\frontend\modules\v1\actions;
 class ClubsAction extends RoutedAction
 {
     public function run() {
-        $this->route('getClubs', 'getClubs', 'getClubs', 'getClubs');
+        $this->route('getClubs', null, null, null);
     }
 
     public function getClubs() {

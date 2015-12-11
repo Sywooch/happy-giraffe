@@ -3,6 +3,7 @@
 namespace site\frontend\modules\v1\components;
 
 use site\frontend\modules\signup\components\UserIdentity;
+use site\frontend\modules\v1\config\Filter;
 
 /**
  * @property string $data
@@ -83,7 +84,7 @@ class V1ApiController extends \CController
         if (isset($_GET['id'])) {
             $this->data = $model->with($this->getWithParameters())->findByPk(\Yii::app()->request->getParam('id'));
             if ($this->data == null) {
-                $this->setError("Nothing found by this id.", 404);
+                $this->setError("NotFound", 404);
             }
         } else {
             $params = $this->getPaginationParams();
@@ -138,7 +139,7 @@ class V1ApiController extends \CController
                 $this->data = $e->getMessage();
             }
         } else {
-            $this->setError("Parameters missing", 400);
+            $this->setError("ParamsMissing", 400);
         }
     }
     #endregion
@@ -187,7 +188,7 @@ class V1ApiController extends \CController
                 return true;
             }
         } else {
-            $this->setError("Missing authentication params", 401);
+            $this->setError("AuthParamsMissing", 401);
             return false;
         }
     }
@@ -227,24 +228,27 @@ class V1ApiController extends \CController
     /**
      * Convert models to array. This is necessary to json encode with relations.
      */
-    private function toArray(){
+    private function toArray() {
         $data = array();
-        if (is_array($this->data)){
+        if (is_array($this->data)) {
             foreach ($this->data as $item) {
-                $temp = $item->getAttributes();
+                $temp = $item->getAttributes(Filter::getFilter($item->getAttributes(), get_class($item)));
+                $temp['filter_array'] = Filter::getFilter($item->getAttributes(), get_class($item));
                 if ($this->getWithParameters() != null) {
                     foreach ($this->getWithParameters() as $with) {
                         $temp[$with] = $item->getRelated($with);
+                        $this->postProcessingWith($temp[$with]);
                     }
                 }
 
                 $data[] = $temp;
             }
         } else {
-            $temp = $this->data->getAttributes();
+            $temp = $this->data->getAttributes(Filter::getFilter($this->data->getAttributes(), get_class($this->data)));
             if ($this->getWithParameters() != null) {
                 foreach ($this->getWithParameters() as $with) {
                     $temp[$with] = $this->data->getRelated($with);
+                    $this->postProcessingWith($temp[$with]);
                 }
             }
 
@@ -252,6 +256,16 @@ class V1ApiController extends \CController
         }
 
         $this->data = $data;
+    }
+
+    private function postProcessingWith(&$with) {
+        if (is_array($with)) {
+            foreach ($with as $key => $item) {
+                $with[$key] = $item->getAttributes(Filter::getFilter($item->getAttributes(), get_class($item)));
+            }
+        } else {
+            $with = $with->getAttributes(Filter::getFilter($with->getAttributes(), get_class($with)));
+        }
     }
 
     private function setRelated($item, $out){

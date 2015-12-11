@@ -82,7 +82,7 @@ class V1ApiController extends \CController
      */
     public function get($model) {
         if (isset($_GET['id'])) {
-            $this->data = $model->with($this->getWithParameters())->findByPk(\Yii::app()->request->getParam('id'));
+            $this->data = $model->with($this->getWithParameters($model))->findByPk(\Yii::app()->request->getParam('id'));
             if ($this->data == null) {
                 $this->setError("NotFound", 404);
             }
@@ -97,7 +97,7 @@ class V1ApiController extends \CController
                 $params['order'] = \Yii::app()->request->getParam('order');
             }
 
-            $this->data = $model->with($this->getWithParameters())->findAll($params);
+            $this->data = $model->with($this->getWithParameters($model))->findAll($params);
         }
     }
 
@@ -215,11 +215,21 @@ class V1ApiController extends \CController
     /**
      * Construct with parameter.
      *
+     * @param $model
      * @return array of relations parameters.
      */
-    private function getWithParameters(){
+    private function getWithParameters($model){
         if (isset($_GET['with'])){
-            return explode(",", \Yii::app()->request->getParam('with'));
+            $temp = explode(",", \Yii::app()->request->getParam('with'));
+
+            foreach ($temp as $key => $value) {
+                if (!isset($model->relations()[$value])) {
+                    unset($temp[$key]);
+                }
+            }
+
+            $temp = Filter::filterWithParameters($temp, get_class($model));
+            return $temp;
         } else {
             return null;
         }
@@ -233,9 +243,9 @@ class V1ApiController extends \CController
         if (is_array($this->data)) {
             foreach ($this->data as $item) {
                 $temp = $item->getAttributes(Filter::getFilter($item->getAttributes(), get_class($item)));
-                $temp['filter_array'] = Filter::getFilter($item->getAttributes(), get_class($item));
-                if ($this->getWithParameters() != null) {
-                    foreach ($this->getWithParameters() as $with) {
+                //$temp['filter_array'] = Filter::getFilter($item->getAttributes(), get_class($item));
+                if ($this->getWithParameters($item) != null) {
+                    foreach ($this->getWithParameters($item) as $with) {
                         $temp[$with] = $item->getRelated($with);
                         $this->postProcessingWith($temp[$with]);
                     }
@@ -245,8 +255,8 @@ class V1ApiController extends \CController
             }
         } else {
             $temp = $this->data->getAttributes(Filter::getFilter($this->data->getAttributes(), get_class($this->data)));
-            if ($this->getWithParameters() != null) {
-                foreach ($this->getWithParameters() as $with) {
+            if ($this->getWithParameters($this->data) != null) {
+                foreach ($this->getWithParameters($this->data) as $with) {
                     $temp[$with] = $this->data->getRelated($with);
                     $this->postProcessingWith($temp[$with]);
                 }
@@ -269,7 +279,7 @@ class V1ApiController extends \CController
     }
 
     private function setRelated($item, $out){
-        foreach ($this->getWithParameters() as $with) {
+        foreach ($this->getWithParameters($item) as $with) {
             $out[$with] = $item->getRelated($with);
         }
     }

@@ -521,13 +521,13 @@ class ApiController extends V1ApiController
              * @apiUse GetInstruction
              * @apiParam (Relations:) {1x1} rubric Рубрика, в которой находится пост.
              * @apiParam (Relations:) {1x1} type Тип поста.
-             * @apiParam (Relations:) {1x1} source Пока неизвестно.
+             * @apiParam (Relations:) {1x1} source Пока неизвестно, выдает sql эксепшн, возможно не нужна.
              * @apiParam (Relations:) {Stat} sourceCount Пока неизвестно.
              * @apiParam (Relations:) {Stat} commentsCount Количество комментариев к посту.
              * @apiParam (Relations:) {1xN} comments Комментарии к посту.
              * @apiParam (Relations:) {1x1} status Пока неизвестно.
              * @apiParam (Relations:) {1x1} video Пока неизвестно.
-             * @apiParam (Relations:) {1x1} post Пока неизвестно.
+             * @apiParam (Relations:) {1x1} post Текст поста, по крайней мере для type 1.
              * @apiParam (Relations:) {1x1} question Пока неизвестно.
              * @apiParam (Relations:) {1x1} photoPost Пока неизвестно.
              * @apiParam (Relations:) {1x1} author Автор поста.

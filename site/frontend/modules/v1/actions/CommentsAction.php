@@ -28,13 +28,19 @@ class CommentsAction extends RoutedAction
             $comment = new Comment('default');
             try {
                 $comment->attributes = $this->controller->getParams($required);
+
+                if (!$this->checkAccess($comment->attributes['author_id'], $this->controller->identity->getId())) {
+                    $this->controller->setError("NotAllowed", 403);
+                    return;
+                }
             } catch (Exception $e) {
                 $this->controller->setError($e->getMessage(), 400);
             }
 
             if ($comment->save()) {
                 $comment->refresh();
-                $this->controller->data = $comment->toJSON();
+                $this->controller->data = $comment;
+                $this->controller->pushData = $comment->toJSON();
 
                 $this->controller->push(get_class($comment), \CometModel::COMMENTS_NEW);
             } else {
@@ -67,13 +73,25 @@ class CommentsAction extends RoutedAction
             $params = $this->controller->getParams($required);
             try {
                 $comment = Comment::model()->findByPk($params['id']);
+
+                if ($comment == null) {
+                    $this->controller->setError("NotFound", 404);
+                    return;
+                }
+
+                if (!$this->checkAccess($comment->author_id, $this->controller->identity->getId())) {
+                    $this->controller->setError("NotAllowed", 403);
+                    return;
+                }
+
                 $comment->text = $params['text'];
             } catch (Exception $e) {
                 $this->controller->setError($e->getMessage(), 400);
             }
             if ($comment->save()) {
                 $comment->refresh();
-                $this->controller->data = $comment->toJSON();
+                $this->controller->data = $comment;
+                $this->controller->pushData = $comment->toJSON();
 
                 $this->controller->push(get_class($comment), \CometModel::COMMENTS_UPDATE);
             } else {
@@ -91,12 +109,22 @@ class CommentsAction extends RoutedAction
             $params = $this->controller->getParams($required);
             try {
                 $comment = Comment::model()->findByPk($params['id']);
+
+                if ($comment == null) {
+                    $this->controller->setError("NotFound", 404);
+                    return;
+                }
+
+                if (!$this->checkAccess($comment->author_id, $this->controller->identity->getId())) {
+                    $this->controller->setError("NotAllowed", 403);
+                    return;
+                }
             } catch (Exception $e) {
                 $this->controller->setError($e->getMessage(), 400);
             }
 
             if ($comment->softDelete()) {
-                $this->controller->data = $comment->toJSON();
+                $this->controller->data = $comment;
 
             } else {
                 $this->controller->setError($comment->getErrorsText(), 400);
@@ -104,5 +132,9 @@ class CommentsAction extends RoutedAction
         } else {
             $this->controller->setError('ParamsMissing', 400);
         }
+    }
+
+    public function checkAccess($author_id, $user_id) {
+        return $author_id == $user_id;
     }
 }

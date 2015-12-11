@@ -72,6 +72,11 @@ class PostsAction extends RoutedAction
                     'link' => false
                 );
             } else {
+                if (!$this->checkAccess($model->author_id, $this->controller->identity->getId())) {
+                    $this->controller->setError("NotAllowed", 403);
+                    return;
+                }
+
                 $required = array(
                     'title' => true,
                     'text' => true,
@@ -90,6 +95,11 @@ class PostsAction extends RoutedAction
                         'title' => $params['title'],
                         'rubric_id' => $params['rubric_id']
                     );
+
+                    if (!$this->checkAccess($params['author_id'], $this->controller->identity->getId())) {
+                        $this->controller->setError("NotAllowed", 403);
+                        return;
+                    }
                 } else {
                     $model->attributes = array(
                         'title' => $params['title'],
@@ -140,7 +150,7 @@ class PostsAction extends RoutedAction
                     }
 
                     if ($success) {
-                        $this->controller->data = $model->id;/*array($model, $slaveModel);*/
+                        $this->controller->data = $model;
                     } else {
                         $this->controller->setError('SavingFailed', 500);
                     }
@@ -207,7 +217,12 @@ class PostsAction extends RoutedAction
                     $post = \BlogContent::model()->findByPk($params['id']);
                     break;
                 case "forum":default:
-                $post = \CommunityContent::model()->findByPk($params['id']);
+                    $post = \CommunityContent::model()->findByPk($params['id']);
+            }
+
+            if (!$this->checkAccess($post->author_id, $this->controller->identity->getId())) {
+                $this->controller->setError("NotAllowed", 403);
+                return;
             }
 
             try {
@@ -216,12 +231,16 @@ class PostsAction extends RoutedAction
                 } else {
                     $post->restore();
                 }
-                $this->controller->data = $post->id;
+                $this->controller->data = $post;
             } catch (Eception $ex) {
                 $this->controller->setError("DeleteFailed", 500);
             }
         } else {
             $this->controller->setError("ParamsMissing", 400);
         }
+    }
+
+    public function checkAccess($author_id, $user_id) {
+        return $author_id == $user_id;
     }
 }

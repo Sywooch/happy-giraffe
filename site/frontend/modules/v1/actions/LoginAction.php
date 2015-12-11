@@ -11,6 +11,8 @@ class LoginAction extends RoutedAction
     public function login() {
         if ($this->controller->auth()) {
             $this->controller->data = \User::model()->findByPk($this->controller->identity->getId());
+            /*$_GET['id'] = $this->controller->identity->getId();
+            $this->controller->get(\User::model());*/
         }
     }
 }

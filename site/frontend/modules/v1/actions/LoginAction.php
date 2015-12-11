@@ -5,7 +5,7 @@ namespace site\frontend\modules\v1\actions;
 class LoginAction extends RoutedAction
 {
     public function run() {
-        $this->route('login', 'login', 'login', 'login');
+        $this->route(null, 'login', null, null);
     }
 
     public function login() {

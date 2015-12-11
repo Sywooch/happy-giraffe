@@ -5,7 +5,7 @@ namespace site\frontend\modules\v1\actions;
 class ForumsAction extends RoutedAction
 {
     public function run() {
-        $this->route('getForums', 'getForums', 'getForums', 'getForums');
+        $this->route('getForums', null, null, null);
     }
 
     public function getForums() {

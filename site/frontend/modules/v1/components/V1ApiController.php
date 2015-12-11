@@ -15,11 +15,13 @@ use site\frontend\modules\v1\config\Filter;
  * @property bool $hasNext
  * @property UserIdentity $identity
  * @property int $errorCode
+ * @property $pushData
  */
 class V1ApiController extends \CController
 {
     #region Fields
     public $data = null;
+    public $pushData = null;
     public $identity;
 
     protected $error = null;
@@ -57,12 +59,8 @@ class V1ApiController extends \CController
      */
     protected function afterAction($action) {
         if ($this->error == null) {
-            if (\Yii::app()->request->requestType == 'GET') {
-                $this->toArray();
-                $this->complete();
-            } else {
-                $this->complete();
-            }
+            $this->toArray();
+            $this->complete();
         } else {
             $this->complete();
         }
@@ -247,7 +245,9 @@ class V1ApiController extends \CController
                 if ($this->getWithParameters($item) != null) {
                     foreach ($this->getWithParameters($item) as $with) {
                         $temp[$with] = $item->getRelated($with);
-                        $this->postProcessingWith($temp[$with]);
+                        if (is_object($temp[$with])) {
+                            $this->postProcessingWith($temp[$with]);
+                        }
                     }
                 }
 
@@ -258,7 +258,9 @@ class V1ApiController extends \CController
             if ($this->getWithParameters($this->data) != null) {
                 foreach ($this->getWithParameters($this->data) as $with) {
                     $temp[$with] = $this->data->getRelated($with);
-                    $this->postProcessingWith($temp[$with]);
+                    if (is_object($temp[$with])) {
+                        $this->postProcessingWith($temp[$with]);
+                    }
                 }
             }
 
@@ -292,7 +294,7 @@ class V1ApiController extends \CController
      * @param int $type -> plexor type.
      */
     public function push($className, $type) {
-        $this->send($className::getChannel($this->data), $this->data, $type);
+        $this->send($className::getChannel($this->data), $this->pushData, $type);
     }
 
     /**

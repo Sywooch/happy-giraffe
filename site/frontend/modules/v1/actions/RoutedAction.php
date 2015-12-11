@@ -27,6 +27,8 @@ class RoutedAction extends \CAction {
             if (!$this->controller->auth()) {
                 return;
             }
+
+            \Yii::app()->params['is_api_request'] = true;
         }
 
         switch($this->controller->requestType){

@@ -7,10 +7,10 @@ namespace site\frontend\modules\som\modules\qa\models;
  * The followings are the available columns in table 'qa__users_rating':
  * @property string $userId
  * @property string $type
- * @property integer $questionsCount
- * @property integer $answersCount
+ * @property int $questionsCount
+ * @property int $answersCount
  * @property double $rating
- * @property integer $position
+ * @property int $position
  *
  * @property \site\frontend\components\api\models\User $user
  */

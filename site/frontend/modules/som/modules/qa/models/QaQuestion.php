@@ -5,18 +5,19 @@ namespace site\frontend\modules\som\modules\qa\models;
  * This is the model class for table "qa__questions".
  *
  * The followings are the available columns in table 'qa__questions':
- * @property string $id
+ * @property int $id
  * @property string $title
  * @property string $text
- * @property integer $sendNotifications
- * @property string $categoryId
- * @property string $authorId
- * @property string $dtimeCreate
- * @property string $dtimeUpdate
+ * @property bool $sendNotifications
+ * @property int $categoryId
+ * @property int $consultationId
+ * @property int $authorId
+ * @property int $dtimeCreate
+ * @property int $dtimeUpdate
  * @property string $url
- * @property string $rating
+ * @property bool $isRemoved
+ * @property double $rating
  * @property int $answersCount
- * @property string $isRemoved
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
@@ -50,9 +51,13 @@ class QaQuestion extends \HActiveRecord
 			array('text', 'length', 'max' => 1000),
 			array('sendNotifications', 'boolean'),
 
-			// консультация
+			// категория
 			array('categoryId', 'required', 'except' => 'consultation'),
 			array('categoryId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaCategory', 'except' => 'consultation'),
+
+			// консультация
+			array('consultationId', 'required', 'on' => 'consultation'),
+			array('consultationId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'on' => 'consultation'),
 		);
 	}
 
@@ -123,15 +128,10 @@ class QaQuestion extends \HActiveRecord
 		);
 	}
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return QaQuestion the static model class
-	 */
-	public static function model($className=__CLASS__)
+	protected function beforeSave()
 	{
-		return parent::model($className);
+		$this->text = nl2br($this->text);
+		return parent::beforeSave();
 	}
 
 	public function unanswered()
@@ -199,5 +199,16 @@ class QaQuestion extends \HActiveRecord
 		}
 
 		return $this->_user;
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return QaQuestion the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
 	}
 }

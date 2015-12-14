@@ -5,9 +5,9 @@ namespace site\frontend\modules\som\modules\qa\models;
  * This is the model class for table "qa__answers_votes".
  *
  * The followings are the available columns in table 'qa__answers_votes':
- * @property string $answerId
- * @property string $userId
- * @property string $dtimeCreate
+ * @property int $answerId
+ * @property int $userId
+ * @property int $dtimeCreate
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $answer

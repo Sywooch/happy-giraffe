@@ -5,11 +5,11 @@ namespace site\frontend\modules\som\modules\qa\models;
  * This is the model class for table "qa__consultations_consultants".
  *
  * The followings are the available columns in table 'qa__consultations_consultants':
- * @property string $id
- * @property string $consultationId
+ * @property int $id
+ * @property int $consultationId
  * @property string $name
  * @property string $title
- * @property string $userId
+ * @property int $userId
  * @property string $text
  *
  * The followings are the available model relations:

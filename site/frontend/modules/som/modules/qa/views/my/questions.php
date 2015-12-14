@@ -4,6 +4,7 @@
  * @var \CActiveDataProvider $dp
  */
 $this->sidebar = array('ask', 'my_questions', 'my_rating');
+$this->pageTitle = 'Мои ответы';
 ?>
 <?php
 $this->widget('LiteListView', array(

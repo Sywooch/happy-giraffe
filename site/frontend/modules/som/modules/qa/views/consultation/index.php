@@ -5,7 +5,7 @@
  * @var \CActiveDataProvider $dp
  */
 ?>
-<h1 class="heading-link-xxl"><?=$consultation->title?></h1>
+<h1 class="heading-link-xxl"><?=$this->consultation->title?></h1>
 
 <?php
 $this->widget('LiteListView', array(
@@ -16,7 +16,6 @@ $this->widget('LiteListView', array(
     ),
     'itemsTagName' => 'ul',
     'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
-    'viewData' => compact('consultation'),
     'pager' => array(
         'class' => 'LitePager',
         'maxButtonCount' => 10,

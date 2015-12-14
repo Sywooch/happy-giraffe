@@ -5,6 +5,7 @@
  * @var string $tab
  */
 $this->sidebar = array('ask', 'personal', 'menu' => array('urlParams' => array('tab' => Yii::app()->request->getQuery('tab'))), 'rating');
+$this->pageTitle = 'Вопрос-ответ';
 ?>
 <div class="heading-link-xxl"> Вопрос-ответ</div>
 <?php $this->renderPartial('/_search', array('query' => '')); ?>

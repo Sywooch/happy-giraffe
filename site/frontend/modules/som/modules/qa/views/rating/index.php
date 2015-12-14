@@ -4,6 +4,7 @@
  * @var \CActiveDataProvider $dp
  */
 $this->sidebar = array('personal', 'menu');
+$this->pageTitle = 'Рейтинг';
 ?>
 <div class="heading-link-xxl"> Рейтинг</div>
 <?php

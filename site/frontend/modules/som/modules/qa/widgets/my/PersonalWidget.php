@@ -5,7 +5,6 @@
  */
 
 namespace site\frontend\modules\som\modules\qa\widgets\my;
-
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 

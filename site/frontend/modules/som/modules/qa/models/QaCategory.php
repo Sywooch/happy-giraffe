@@ -5,9 +5,8 @@ namespace site\frontend\modules\som\modules\qa\models;
  * This is the model class for table "qa__categories".
  *
  * The followings are the available columns in table 'qa__categories':
- * @property string $id
+ * @property int $id
  * @property string $title
- * @property string $consultationId
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion[] $questions

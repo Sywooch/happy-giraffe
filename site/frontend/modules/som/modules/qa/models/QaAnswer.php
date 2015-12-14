@@ -5,14 +5,15 @@ namespace site\frontend\modules\som\modules\qa\models;
  * This is the model class for table "qa__answers".
  *
  * The followings are the available columns in table 'qa__answers':
- * @property string $id
+ * @property int $id
  * @property string $text
- * @property string $questionId
- * @property string $authorId
- * @property string $dtimeCreate
- * @property string $dtimeUpdate
- * @property string $isRemoved
- * @property string $votesCount
+ * @property int $questionId
+ * @property int $authorId
+ * @property int $dtimeCreate
+ * @property int $dtimeUpdate
+ * @property bool $isRemoved
+ * @property int $votesCount
+ * @property bool $isBest
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion $question

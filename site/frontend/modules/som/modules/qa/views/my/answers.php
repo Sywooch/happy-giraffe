@@ -4,6 +4,7 @@
  * @var \CActiveDataProvider $dp
  */
 $this->sidebar = array('my_answers', 'my_rating');
+$this->pageTitle = 'Мои ответы';
 ?>
 
 <?php

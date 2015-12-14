@@ -1,7 +1,6 @@
 <?php
 /**
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $data
- * @var \site\frontend\modules\som\modules\qa\models\QaConsultation $consultation
  */
 ?>
 
@@ -23,7 +22,7 @@
     <div class="clearfix"></div><a class="questions_item_heading" href="<?=$data->url?>"><?=$data->title?></a>
     <div class="questions_item_category">
         <div class="questions_item_category_ico sharp-test"></div>
-        <a href="<?=$this->createUrl('/som/qa/consultation/index', array('consultationId' => $consultation->id))?>" class="questions_item_category_link"><?=$consultation->title?></a>
+        <a href="<?=$this->createUrl('/som/qa/consultation/index', array('consultationId' => $this->consultation->id))?>" class="questions_item_category_link"><?=$this->consultation->title?></a>
     </div>
     <?php if ($data->answersCount == 0): ?>
         <a class="questions_item_answers"><span class="questions_item_answers_ans">ответить</span></a>

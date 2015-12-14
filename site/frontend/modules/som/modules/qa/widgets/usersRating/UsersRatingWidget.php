@@ -5,15 +5,11 @@
  */
 
 namespace site\frontend\modules\som\modules\qa\widgets\usersRating;
-
-
-use site\frontend\modules\som\modules\qa\components\QaUsersRatingManager;
 use site\frontend\modules\som\modules\qa\models\QaUserRating;
 
 class UsersRatingWidget extends \CWidget
 {
     const LIMIT = 5;
-    const CACHE_DURATION = 300;
 
     public function run()
     {
@@ -21,7 +17,7 @@ class UsersRatingWidget extends \CWidget
 
         $activePeriodId = null;
         foreach (\Yii::app()->controller->module->periods as $periodId => $periodData) {
-            $models[$periodId] = QaUserRating::model()->cache(self::CACHE_DURATION)->orderPosition()->type($periodId)->apiWith('user')->findAll(array(
+            $models[$periodId] = QaUserRating::model()->orderPosition()->type($periodId)->apiWith('user')->findAll(array(
                 'limit' => self::LIMIT,
             ));
             if ($activePeriodId === null && count($models[$periodId]) > 0) {

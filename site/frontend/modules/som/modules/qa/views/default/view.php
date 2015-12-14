@@ -1,8 +1,10 @@
 <?php
 /**
+ * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
 $this->sidebar = array('ask', 'personal', 'menu', 'rating');
+$this->pageTitle = $question->title;
 ?>
 
 <div class="question">

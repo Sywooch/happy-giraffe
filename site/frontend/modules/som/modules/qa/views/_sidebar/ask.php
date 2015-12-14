@@ -1,1 +1,1 @@
-<div class="btn btn-success btn-xl btn-question">Задать вопрос</div>
+<a class="btn btn-success btn-xl btn-question" href="<?=$this->createUrl('/som/qa/default/questionAddForm/')?>">Задать вопрос</a>

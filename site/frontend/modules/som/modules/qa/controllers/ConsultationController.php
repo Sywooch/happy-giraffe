@@ -15,10 +15,11 @@ class ConsultationController extends QaController
 {
     public $litePackage = 'faq';
     public $layout = '/layouts/consultation';
+    public $consultation;
 
     public function actionIndex($consultationId)
     {
-        $consultation = QaConsultation::model()->findByPk($consultationId);
+        $this->consultation = QaConsultation::model()->findByPk($consultationId);
 
         $model = clone QaQuestion::model();
         $model->consultation($consultationId);
@@ -27,6 +28,6 @@ class ConsultationController extends QaController
                 'pageVar' => 'page',
             ),
         ));
-        $this->render('index', compact('consultation', 'dp'));
+        $this->render('index', compact('dp'));
     }
 }

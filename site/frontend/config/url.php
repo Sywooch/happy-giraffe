@@ -36,7 +36,7 @@ return array(
 
         array('class' => 'site\frontend\modules\posts\modules\buzz\components\BuzzUrlRule'),
         'buzz/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/buzz/post/view',
-        //'buzz/<slug>' => 'posts/buzz/list/index',
+        'buzz/<slug>' => 'posts/buzz/list/index',
         'buzz' => 'posts/buzz/list/index',
 
         'forums' => 'posts/forums/default/index',

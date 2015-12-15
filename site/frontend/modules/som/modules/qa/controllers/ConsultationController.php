@@ -22,7 +22,7 @@ class ConsultationController extends QaController
         $this->consultation = QaConsultation::model()->findByPk($consultationId);
 
         $model = clone QaQuestion::model();
-        $model->consultation($consultationId);
+        $model->apiWith('user')->consultation($consultationId);
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',

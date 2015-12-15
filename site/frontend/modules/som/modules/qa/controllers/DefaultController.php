@@ -8,6 +8,8 @@ namespace site\frontend\modules\som\modules\qa\controllers;
 
 
 use site\common\components\SphinxDataProvider;
+use site\frontend\components\api\models\User;
+use site\frontend\modules\consultation\models\Consultation;
 use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\components\QuestionsDataProvider;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
@@ -84,11 +86,11 @@ class DefaultController extends QaController
         $question = new QaQuestion();
         $this->performAjaxValidation($question);
         if ($consultationId !== null) {
-            $consultation = QaConsultation::model()->with('category')->findByPk($consultationId);
+            $consultation = QaConsultation::model()->findByPk($consultationId);
             if ($consultation === null) {
                 throw new \CHttpException(404);
             }
-            $question->categoryId = $consultation->category->id;
+            $question->consultationId = $consultationId;
             $question->scenario = 'consultation';
         }
 

@@ -5,7 +5,8 @@ namespace site\frontend\modules\v1;
 class V1Module extends \CWebModule
 {
 
-    public function init(){
+    public function init()
+    {
 
     }
 

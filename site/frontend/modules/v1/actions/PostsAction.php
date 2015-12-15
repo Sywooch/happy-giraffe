@@ -9,15 +9,16 @@ class PostsAction extends RoutedAction
         $this->route('getPosts', 'postPost', 'updatePost', 'deletePost');
     }
 
-    public function getPosts() {
+    public function getPosts()
+    {
         $type = \Yii::app()->request->getParam('type', null);
 
         switch ($type) {
             case "blog":
-                $this->controller->get(\BlogContent::model());
+                $this->controller->get(\BlogContent::model(), $this);
                 break;
             case "forum":default:
-                $this->controller->get(\CommunityContent::model());
+                $this->controller->get(\CommunityContent::model(), $this);
         }
     }
 
@@ -26,7 +27,8 @@ class PostsAction extends RoutedAction
      *
      * @param int $id -> (default null) updated post id
      */
-    public function handlePost($id = null) {
+    public function handlePost($id = null)
+    {
         $contest_id = \Yii::app()->request->getPost('contest_id');
 
         //\Yii::app()->cache->flush();
@@ -163,11 +165,13 @@ class PostsAction extends RoutedAction
         }
     }
 
-    public function postPost() {
+    public function postPost()
+    {
         $this->handlePost();
     }
 
-    public function updatePost() {
+    public function updatePost()
+    {
         $required = array(
             'id' => true
         );
@@ -203,7 +207,8 @@ class PostsAction extends RoutedAction
         echo CJSON::encode($response);
     }*/
 
-    public function deletePost() {
+    public function deletePost()
+    {
         $required = array(
             'id' => true,
             'type' => true
@@ -240,7 +245,8 @@ class PostsAction extends RoutedAction
         }
     }
 
-    public function checkAccess($author_id, $user_id) {
+    public function checkAccess($author_id, $user_id)
+    {
         return $author_id == $user_id;
     }
 }

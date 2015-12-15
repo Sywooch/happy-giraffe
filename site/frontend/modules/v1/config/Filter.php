@@ -2,7 +2,8 @@
 
 namespace site\frontend\modules\v1\config;
 
-class Filter {
+class Filter
+{
     private static $ignoredFields = array(
         'User' => array(
             'password',
@@ -30,6 +31,17 @@ class Filter {
             'blog_photo_position',
             'blog_show_rubrics',
         ),
+        'CommunityContent' => array(
+            'meta_title',
+            'meta_keywords',
+            'meta_description',
+            'meta_description_auto',
+        ),
+        'site\frontend\modules\posts\models\Content' => array(
+            'originEntity',
+            'preview',
+            'text',
+        ),
     );
 
     private static $ignoredRelations = array(
@@ -38,7 +50,8 @@ class Filter {
         ),
     );
 
-    public static function getFilter($attributes, $class) {
+    public static function getFilter($attributes, $class)
+    {
         if (!isset(self::$ignoredFields[$class])) {
             return true;
         }
@@ -54,7 +67,8 @@ class Filter {
         return $filter;
     }
 
-    public static function filterWithParameters($with, $class) {
+    public static function filterWithParameters($with, $class)
+    {
         if (!isset(self::$ignoredRelations[$class])) {
             return $with;
         }

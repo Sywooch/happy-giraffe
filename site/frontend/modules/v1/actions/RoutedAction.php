@@ -2,8 +2,8 @@
 
 namespace site\frontend\modules\v1\actions;
 
-class RoutedAction extends \CAction {
-
+class RoutedAction extends \CAction
+{
     #region route
     /**
      * Routing a request to a method by request type.
@@ -13,7 +13,8 @@ class RoutedAction extends \CAction {
      * @param string $update - update method name
      * @param string $delete - delete method name
      */
-    protected function route($get, $post, $update, $delete) {
+    protected function route($get, $post, $update, $delete)
+    {
         $methods = array(
             'POST' => 'Post',
             'PUT' => 'Put',
@@ -46,7 +47,8 @@ class RoutedAction extends \CAction {
         }
     }
 
-    private function execute($action) {
+    private function execute($action)
+    {
         if ($action != null) {
             $this->$action();
         } else {

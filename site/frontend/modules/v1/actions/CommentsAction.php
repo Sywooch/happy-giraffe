@@ -6,15 +6,18 @@ use site\frontend\modules\comments\models\Comment;
 
 class CommentsAction extends RoutedAction
 {
-    public function run() {
+    public function run()
+    {
         $this->route('getComments', 'postComment', 'updateComment', 'deleteComment');
     }
 
-    public function getComments() {
-        $this->controller->get(Comment::model());
+    public function getComments()
+    {
+        $this->controller->get(Comment::model(), $this);
     }
 
-    public function postComment() {
+    public function postComment()
+    {
         $required = array(
             'author_id' => true,
             'entity' => true,
@@ -62,7 +65,8 @@ class CommentsAction extends RoutedAction
         };*/
     }
 
-    public function updateComment() {
+    public function updateComment()
+    {
         $required = array(
             'id' => true,
             'text' => true
@@ -102,7 +106,8 @@ class CommentsAction extends RoutedAction
         }
     }
 
-    public function deleteComment() {
+    public function deleteComment()
+    {
         $required = array ('id' => true);
 
         if ($this->controller->checkParams($required)) {
@@ -134,7 +139,8 @@ class CommentsAction extends RoutedAction
         }
     }
 
-    public function checkAccess($author_id, $user_id) {
+    public function checkAccess($author_id, $user_id)
+    {
         return $author_id == $user_id;
     }
 }

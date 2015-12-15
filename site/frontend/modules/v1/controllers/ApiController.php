@@ -38,50 +38,28 @@ class ApiController extends V1ApiController
              * @apiUse SimpleAuthInstruction
              * @apiSuccessExample {json} Success-Response:
              HTTP/1.1 200 OK
-             {
-                "id": "241803",
-                "email": "sfsomerandom@sfsomerandom.sfsomerandom",
-                "phone": "",
-                "password": "098f6bcd4621d373cade4e832627b4f6",
-                "first_name": "Stas",
-                "last_name": "Fomin",
-                "avatar_id": null,
-                "gender": "1",
-                "birthday": "1996-04-02",
-                "about": null,
-                "last_active": "2015-11-12 15:30:13",
-                "online": "1",
-                "deleted": "0",
-                "blocked": "0",
-                "register_date": "2015-11-12 15:30:08",
-                "login_date": "2015-11-12 15:30:13",
-                "last_ip": "192.168.0.1",
-                "relationship_status": null,
-                "mood_id": null,
-                "profile_access": "all",
-                "guestbook_access": "all",
-                "im_access": "all",
-                "profile_check": null,
-                "recovery_disable": "0",
-                "group": "1",
-                "remember_code": "0",
-                "blog_title": null,
-                "blog_description": "",
-                "blog_photo_id": null,
-                "blog_photo_position": null,
-                "blog_show_rubrics": "1",
-                "email_confirmed": "0",
-                "updated": "2015-11-12 15:30:08",
-                "last_updated": null,
-                "main_photo_id": null,
-                "registration_source": "0",
-                "registration_finished": "1",
-                "activation_code": "",
-                "status": "1",
-                "avatarId": null,
-                "avatarInfo": "",
-                "specInfo": ""
-            }
+            [
+                {
+                    "id": "241803",
+                    "first_name": "Stas",
+                    "last_name": "Fomin",
+                    "gender": "1",
+                    "birthday": "1996-04-02",
+                    "last_active": "2015-11-12 15:30:13",
+                    "online": "1",
+                    "deleted": "0",
+                    "blocked": "0",
+                    "register_date": "2015-11-12 15:30:08",
+                    "login_date": "2015-11-12 15:30:13",
+                    "relationship_status": null,
+                    "mood_id": null,
+                    "group": "1",
+                    "updated": "2015-11-12 15:30:08",
+                    "last_updated": null,
+                    "status": "1",
+                    "avatarInfo": ""
+                }
+            ]
              * @apiVersion 0.0.1
              */
             'login' => array(
@@ -318,91 +296,43 @@ class ApiController extends V1ApiController
             [
                 {
                     "id": "1",
-                    "email": "giraffe@mail.com",
-                    "phone": "",
-                    "password": "96e79218965eb72c92a549dd5a330112",
                     "first_name": "Веселый жираф",
                     "last_name": "",
-                    "avatar_id": "554320",
                     "gender": "1",
                     "birthday": null,
-                    "about": null,
                     "last_active": "2012-11-20 16:15:29",
                     "online": "0",
                     "deleted": "0",
                     "blocked": "0",
                     "register_date": "2012-01-01 00:00:00",
                     "login_date": "2013-09-10 17:27:07",
-                    "last_ip": "188.233.12.16",
                     "relationship_status": null,
                     "mood_id": null,
-                    "profile_access": "all",
-                    "guestbook_access": "all",
-                    "im_access": "all",
-                    "profile_check": null,
-                    "recovery_disable": "0",
                     "group": "3",
-                    "remember_code": "0",
-                    "blog_title": null,
-                    "blog_description": "",
-                    "blog_photo_id": null,
-                    "blog_photo_position": null,
-                    "blog_show_rubrics": "1",
-                    "email_confirmed": "0",
                     "updated": "2013-09-10 17:27:07",
                     "last_updated": null,
-                    "main_photo_id": null,
-                    "registration_source": "0",
-                    "registration_finished": "1",
-                    "activation_code": "",
                     "status": "1",
-                    "avatarId": null,
-                    "avatarInfo": "",
-                    "specInfo": ""
+                    "avatarInfo": ""
                 },
                 {
                     "id": "5",
-                    "email": "Desipton@yahoo.com",
-                    "phone": "",
-                    "password": "236aaa05adea8df30d2c30798ffe2f1b",
                     "first_name": "Смит",
                     "last_name": "Рус",
-                    "avatar_id": "1813",
                     "gender": "1",
                     "birthday": "1989-09-26",
-                    "about": null,
                     "last_active": "2013-03-12 01:22:29",
                     "online": "0",
                     "deleted": "0",
                     "blocked": "0",
                     "register_date": "2011-12-27 18:11:33",
                     "login_date": "2013-03-12 01:21:34",
-                    "last_ip": null,
                     "relationship_status": "2",
                     "mood_id": "18",
-                    "profile_access": "all",
-                    "guestbook_access": "all",
-                    "im_access": "all",
-                    "profile_check": "1",
-                    "recovery_disable": "1",
                     "group": null,
-                    "remember_code": "0",
-                    "blog_title": null,
-                    "blog_description": "",
-                    "blog_photo_id": null,
-                    "blog_photo_position": null,
-                    "blog_show_rubrics": "1",
-                    "email_confirmed": "0",
                     "updated": "2013-08-20 14:39:06",
                     "last_updated": null,
-                    "main_photo_id": null,
-                    "registration_source": "0",
-                    "registration_finished": "1",
-                    "activation_code": "",
                     "status": "1",
-                    "avatarId": null,
-                    "avatarInfo": "",
-                    "specInfo": ""
+                    "avatarInfo": ""
                 }
             ]
              * @apiVersion 0.0.1
@@ -672,6 +602,7 @@ class ApiController extends V1ApiController
              * @apiUse GetInstruction
              * @apiParam (Relations:) {NxN} labelModels Пока неизвестно.
              * @apiParam (Relations:) {1xN} tagModels Пока неизвестно.
+             * @apiParam (Relations:) {1x1} author Автор поста.
              * @apiSuccessExample {json} Success-Response:
             HTTP/1.1 200 OK
             [
@@ -782,12 +713,58 @@ class ApiController extends V1ApiController
             'postTag' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostTagAction',
             ),
+            /**
+             * @apiGroup PostComments
+             * @api {get} post-comments/ Получение комментов в посте.
+             * @apiUse GetInstruction
+             * @apiParam (Get Params:) {String} service Сервис.
+             * @apiParam (Get Params:) {Number} entity_id Id модели.
+             * @apiSuccessExample {json} Success-Response:
+            HTTP/1.1 200 OK
+            [
+                {
+                    "id": "1187738",
+                    "text": "<p>test</p>",
+                    "updated": "2015-12-07 17:55:35",
+                    "created": "2015-12-07 17:55:35",
+                    "author_id": "241803",
+                    "entity": "CommunityContent",
+                    "entity_id": "120782",
+                    "response_id": null,
+                    "quote_id": null,
+                    "quote_text": "",
+                    "position": "0",
+                    "removed": "0",
+                    "root_id": "1187738"
+                },
+                {
+                    "id": "1187739",
+                    "text": "<p>test2</p>",
+                    "updated": "2015-12-08 17:16:42",
+                    "created": "2015-12-08 17:16:42",
+                    "author_id": "241803",
+                    "entity": "CommunityContent",
+                    "entity_id": "120782",
+                    "response_id": "1187738",
+                    "quote_id": null,
+                    "quote_text": "",
+                    "position": "0",
+                    "removed": "0",
+                    "root_id": "1187738"
+                }
+            ]
+             * @apiVersion 0.0.1
+             */
+            'postComments' => array(
+                'class' => 'site\frontend\modules\v1\actions\PostCommentsAction',
+            ),
         );
     }
     #endregion
 
     #region Else
-    private function isBehaviorExists($name, $behaviors) {
+    private function isBehaviorExists($name, $behaviors)
+    {
         foreach ($behaviors as $key => $value) {
             if ($key == $name) {
                 return true;
@@ -797,7 +774,8 @@ class ApiController extends V1ApiController
         return false;
     }
 
-    private function detach($name, $model) {
+    private function detach($name, $model)
+    {
         if ($this->isBehaviorExists($name, $model->behaviors())) {
             $model->detachBehavior($name);
         }

@@ -11,7 +11,8 @@ class PostTagAction extends RoutedAction
         $this->route('getPostTag', null, null, null);
     }
 
-    public function getPostTag() {
-        $this->controller->get(Tag::model());
+    public function getPostTag()
+    {
+        $this->controller->get(Tag::model(), $this);
     }
 }

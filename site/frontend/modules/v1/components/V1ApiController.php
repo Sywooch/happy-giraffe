@@ -4,6 +4,7 @@ namespace site\frontend\modules\v1\components;
 
 use site\frontend\modules\signup\components\UserIdentity;
 use site\frontend\modules\v1\config\Filter;
+use site\frontend\modules\v1\actions\IPostProcessable;
 
 /**
  * @property string $data
@@ -16,6 +17,7 @@ use site\frontend\modules\v1\config\Filter;
  * @property UserIdentity $identity
  * @property int $errorCode
  * @property $pushData
+ * @property $action
  */
 class V1ApiController extends \CController
 {
@@ -30,16 +32,23 @@ class V1ApiController extends \CController
 
     private $comet;
 
+    private $action = null;
+
     #region Pagination Fields
     private $currentPage;
     private $hasNext = false;
+    #endregion
+
+    #region Events
+    public $afterToArray;
     #endregion
     #endregion
 
     /**
      * Create response.
      */
-    private function complete() {
+    private function complete()
+    {
         if ($this->error == null && $this->data) {
             header('Content-Type: application/json', true);
             header('X-Has-Next: ' . var_export($this->hasNext, true));
@@ -57,9 +66,15 @@ class V1ApiController extends \CController
     /**
      * Checks request type and call response.
      */
-    protected function afterAction($action) {
+    protected function afterAction($action)
+    {
         if ($this->error == null) {
             $this->toArray();
+
+            if ($this->action != null && $this->action instanceof IPostProcessable) {
+                $this->action->postProcessing($this->data);
+            }
+
             $this->complete();
         } else {
             $this->complete();
@@ -68,7 +83,8 @@ class V1ApiController extends \CController
         parent::afterAction($action);
     }
 
-    protected function beforeAction() {
+    protected function beforeAction()
+    {
         return true;
     }
 
@@ -77,15 +93,21 @@ class V1ApiController extends \CController
      * Simple get action with models. Include pagination and relations.
      *
      * @param $model
+     * @param $action
+     * @param string $where
      */
-    public function get($model) {
+    public function get($model, $action, $where = null)
+    {
+        $this->action = $action;
+
         if (isset($_GET['id'])) {
             $this->data = $model->with($this->getWithParameters($model))->findByPk(\Yii::app()->request->getParam('id'));
-            if ($this->data == null) {
-                $this->setError("NotFound", 404);
-            }
         } else {
             $params = $this->getPaginationParams();
+
+            if ($where) {
+                $params['condition'] = $where;
+            }
 
             if (!empty($model->findAll(array('limit' => 1, 'offset' => $params['offset'] + $params['limit'] + 1)))) {
                 $this->hasNext = true;
@@ -96,6 +118,10 @@ class V1ApiController extends \CController
             }
 
             $this->data = $model->with($this->getWithParameters($model))->findAll($params);
+        }
+
+        if ($this->data == null) {
+            $this->setError("NotFound", 404);
         }
     }
 
@@ -109,7 +135,8 @@ class V1ApiController extends \CController
      * @param int $max - right border
      * @return int page number
      */
-    private function countTotalPages($model, $params, $page, $min = 0, $max = 0) {
+    private function countTotalPages($model, $params, $page, $min = 0, $max = 0)
+    {
         if (!empty($model->findAll(array('limit' => 1, 'offset' => $params['limit'] * ($page - 1))))) {
             if (empty($model->findAll(array('limit' => 1, 'offset' => $params['limit'] * ($page))))) {
                 return $page;
@@ -129,7 +156,8 @@ class V1ApiController extends \CController
      * @param $required
      * @param $action
      */
-    protected function post($required, $action) {
+    protected function post($required, $action)
+    {
         if ($this->checkParams($required)) {
             try {
                 $action($this, $required);
@@ -148,7 +176,8 @@ class V1ApiController extends \CController
      *
      * @return object $comet
      */
-    private function getComet() {
+    private function getComet()
+    {
         if (is_null($this->comet)) {
             $this->comet = new \CometModel();
         }
@@ -163,13 +192,15 @@ class V1ApiController extends \CController
      * @param array $data message
      * @param int $type message type (constants from comet model)
      */
-    protected function send($channel, $data, $type) {
+    protected function send($channel, $data, $type)
+    {
         $this->getComet()->send($channel, $data, $type);
     }
     #endregion
 
     #region Auth
-    public function auth() {
+    public function auth()
+    {
         $required = array(
             'auth_email' => true,
             'auth_password' => true,
@@ -200,7 +231,8 @@ class V1ApiController extends \CController
      * @limit -> query limit
      * @offset -> query offset
      */
-    private function getPaginationParams() {
+    private function getPaginationParams()
+    {
         $size = isset($_GET['size']) ? \Yii::app()->request->getParam('size'): 20;
         $this->currentPage = $page = isset($_GET['page']) ? \Yii::app()->request->getParam('page'): 1;
 
@@ -216,7 +248,8 @@ class V1ApiController extends \CController
      * @param $model
      * @return array of relations parameters.
      */
-    private function getWithParameters($model){
+    private function getWithParameters($model)
+    {
         if (isset($_GET['with'])){
             $temp = explode(",", \Yii::app()->request->getParam('with'));
 
@@ -236,10 +269,16 @@ class V1ApiController extends \CController
     /**
      * Convert models to array. This is necessary to json encode with relations.
      */
-    private function toArray() {
+    private function toArray()
+    {
         $data = array();
+        /**@todo: запихнуть обработку одного элемента в отдельный метод*/
         if (is_array($this->data)) {
             foreach ($this->data as $item) {
+                if (!($item instanceof \CActiveRecord)) {
+                    return;
+                }
+
                 $temp = $item->getAttributes(Filter::getFilter($item->getAttributes(), get_class($item)));
                 //$temp['filter_array'] = Filter::getFilter($item->getAttributes(), get_class($item));
                 if ($this->getWithParameters($item) != null) {
@@ -254,6 +293,10 @@ class V1ApiController extends \CController
                 $data[] = $temp;
             }
         } else {
+            if (!($this->data instanceof \CActiveRecord)) {
+                return;
+            }
+
             $temp = $this->data->getAttributes(Filter::getFilter($this->data->getAttributes(), get_class($this->data)));
             if ($this->getWithParameters($this->data) != null) {
                 foreach ($this->getWithParameters($this->data) as $with) {
@@ -270,7 +313,8 @@ class V1ApiController extends \CController
         $this->data = $data;
     }
 
-    private function postProcessingWith(&$with) {
+    private function postProcessingWith(&$with)
+    {
         if (is_array($with)) {
             foreach ($with as $key => $item) {
                 $with[$key] = $item->getAttributes(Filter::getFilter($item->getAttributes(), get_class($item)));
@@ -280,7 +324,8 @@ class V1ApiController extends \CController
         }
     }
 
-    private function setRelated($item, $out){
+    private function setRelated($item, $out)
+    {
         foreach ($this->getWithParameters($item) as $with) {
             $out[$with] = $item->getRelated($with);
         }
@@ -293,7 +338,8 @@ class V1ApiController extends \CController
      * @param string $className -> name of model
      * @param int $type -> plexor type.
      */
-    public function push($className, $type) {
+    public function push($className, $type)
+    {
         $this->send($className::getChannel($this->data), $this->pushData, $type);
     }
 
@@ -303,7 +349,8 @@ class V1ApiController extends \CController
      * @param array $required -> array of required fields (key -> name, value -> strong or possible require)
      * @return bool -> true if all required fields sending, false if not.
      */
-    public function checkParams($required) {
+    public function checkParams($required)
+    {
         $method = 'get' . $this->requestType;
         foreach ($required as $param => $status) {
             if (\Yii::app()->request->$method($param, null) == null) {
@@ -322,7 +369,8 @@ class V1ApiController extends \CController
      * @param array $required -> array of required fields (key -> name, value -> strong or possible require (not used))
      * @return array -> array with all sending fields.
      */
-    public function getParams($required) {
+    public function getParams($required)
+    {
         $method = 'get' . $this->requestType;
         $params = array();
         foreach ($required as $param => $status) {
@@ -341,7 +389,8 @@ class V1ApiController extends \CController
      *
      * @return array $result -> filtered params.
      */
-    public function getFilteredParams($params, $filter, $isExcept) {
+    public function getFilteredParams($params, $filter, $isExcept)
+    {
         $result = array();
 
         foreach ($params as $key => $value) {
@@ -361,7 +410,8 @@ class V1ApiController extends \CController
         return $result;
     }
 
-    public function setError($message, $code) {
+    public function setError($message, $code)
+    {
         $this->error = array('error' => $message);
         $this->errorCode = $code;
     }

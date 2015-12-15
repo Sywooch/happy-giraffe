@@ -11,7 +11,8 @@ class PostLabelAction extends RoutedAction
         $this->route('getPostLabel', null, null, null);
     }
 
-    public function getPostLabel() {
-        $this->controller->get(Label::model());
+    public function getPostLabel()
+    {
+        $this->controller->get(Label::model(), $this);
     }
 }

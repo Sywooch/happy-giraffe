@@ -11,7 +11,8 @@ class OnairAction extends RoutedAction
         $this->route('getOnair', null, null, null);
     }
 
-    public function getOnair() {
-        $this->controller->get(Activity::model());
+    public function getOnair()
+    {
+        $this->controller->get(Activity::model(), $this);
     }
 }

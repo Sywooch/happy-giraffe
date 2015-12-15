@@ -15,7 +15,8 @@ class ModelRebase extends \CConsoleCommand
     /**
      * @param string $modelName
      */
-    public function actionIndex($modelName) {
+    public function actionIndex($modelName)
+    {
         if (isset(self::$models[$modelName])) {
             $models = call_user_func(array(self::$models[$modelName], 'model'))->findAll();
 

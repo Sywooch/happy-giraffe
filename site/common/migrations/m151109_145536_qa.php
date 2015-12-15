@@ -9,7 +9,7 @@ class m151109_145536_qa extends CDbMigration
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;");
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
       $this->execute("CREATE TABLE `qa__consultations_consultants` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `consultationId` int(11) unsigned NOT NULL,
@@ -26,7 +26,7 @@ class m151109_145536_qa extends CDbMigration
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;");
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
       $this->execute("CREATE TABLE `qa__questions` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL DEFAULT '',
@@ -48,7 +48,7 @@ class m151109_145536_qa extends CDbMigration
   KEY `consultationId` (`consultationId`),
   CONSTRAINT `qa__questions_ibfk_1` FOREIGN KEY (`categoryId`) REFERENCES `qa__categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `qa__questions_ibfk_2` FOREIGN KEY (`consultationId`) REFERENCES `qa__consultations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20059 DEFAULT CHARSET=utf8;");
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
       $this->execute("CREATE TABLE `qa__answers` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
@@ -56,7 +56,7 @@ class m151109_145536_qa extends CDbMigration
   `authorId` int(11) unsigned NOT NULL,
   `dtimeCreate` int(10) unsigned DEFAULT NULL,
   `dtimeUpdate` int(10) unsigned DEFAULT NULL,
-  `isRemoved` int(1) unsigned NOT NULL,
+  `isRemoved` tinyint(1) unsigned NOT NULL,
   `votesCount` smallint(5) unsigned NOT NULL,
   `isBest` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`),
@@ -64,7 +64,7 @@ class m151109_145536_qa extends CDbMigration
   KEY `authorId` (`authorId`),
   KEY `votesCount` (`votesCount`),
   CONSTRAINT `qa__answers_ibfk_1` FOREIGN KEY (`questionId`) REFERENCES `qa__questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=49128 DEFAULT CHARSET=utf8;");
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
       $this->execute("CREATE TABLE `qa__answers_votes` (
   `answerId` int(11) unsigned NOT NULL,
   `userId` int(11) unsigned NOT NULL,
@@ -78,8 +78,9 @@ class m151109_145536_qa extends CDbMigration
   `questionsCount` smallint(5) unsigned NOT NULL,
   `answersCount` smallint(5) unsigned NOT NULL,
   `rating` float(10,5) unsigned NOT NULL,
+  `position` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`userId`,`type`),
-  KEY `rating` (`rating`)
+  KEY `position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
       $this->execute("SET foreign_key_checks = 1;");
 	}

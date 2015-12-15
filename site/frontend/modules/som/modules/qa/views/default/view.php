@@ -29,7 +29,11 @@ $this->pageTitle = $question->title;
     <h1 class="questions_item_heading"><?=$question->title?></h1>
     <div class="questions_item_category">
         <div class="questions_item_category_ico sharp-test"></div>
-        <a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $question->category->id))?>" class="questions_item_category_link"><?=$question->category->title?></a>
+        <?php if ($question->consultationId === null): ?>
+            <a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $question->category->id))?>" class="questions_item_category_link"><?=$question->category->title?></a>
+        <?php else: ?>
+            <a href="<?=$this->createUrl('/som/qa/consultation/index/', array('consultationId' => $question->consultation->id))?>" class="questions_item_category_link"><?=$question->consultation->title?></a>
+        <?php endif; ?>
     </div>
     <div class="clearfix"></div>
     <div class="question_text">

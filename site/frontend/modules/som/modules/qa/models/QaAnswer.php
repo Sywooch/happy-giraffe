@@ -58,7 +58,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	public function apiRelations()
 	{
 		return array(
-			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId'),
+			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
 		);
 	}
 

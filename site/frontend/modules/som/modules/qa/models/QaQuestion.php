@@ -20,9 +20,10 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property int $answersCount
  *
  * The followings are the available model relations:
+ * @property \site\frontend\modules\som\modules\qa\models\QaConsultation $consultation
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $answers
- * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $bestAnswer
+ * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $lastAnswer
  *
  * @property \site\frontend\components\api\models\User $user
  */
@@ -69,16 +70,17 @@ class QaQuestion extends \HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'consultation' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'consultationId'),
 			'category' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'),
 			'answers' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'),
-			'bestAnswer' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'order' => 'votesCount DESC'),
+			'lastAnswer' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'),
 		);
 	}
 
 	public function apiRelations()
 	{
 		return array(
-			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId'),
+			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
 		);
 	}
 
@@ -210,5 +212,18 @@ class QaQuestion extends \HActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function canBeAnsweredBy($userId)
+	{
+		return (! $this->isFromConsultation()) || QaConsultant::model()->exists('userId = :userId AND consultationId = :consultationId', array(
+			':userId' => $userId,
+			':consultationId' => $this->consultationId,
+		));
+	}
+
+	public function isFromConsultation()
+	{
+		return $this->consultationId !== null;
 	}
 }

@@ -27,7 +27,10 @@
     <?php if ($data->answersCount == 0): ?>
         <a class="questions_item_answers"><span class="questions_item_answers_ans">ответить</span></a>
     <?php else: ?>
-        <a class="questions_item_answers"><span class="questions_item_answers_text"><?=$data->answersCount?> <?=Str::GenerateNoun(array('ответ', 'ответа', 'ответов'), $data->answersCount)?></span></a>
+        <a class="questions_item_answers">
+            <div class="questions_item_answers_img"><img src="/lite/images/services/consult/consult-man.png" alt=""></div>
+            <span class="questions_item_answers_text">ответ</span>
+        </a>
     <?php endif; ?>
     <div class="clearfix"></div>
 </li>

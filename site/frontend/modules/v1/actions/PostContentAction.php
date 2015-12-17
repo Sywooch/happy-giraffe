@@ -63,6 +63,8 @@ class PostContentAction extends RoutedAction implements IPostProcessable
             }
             $html->load($html->save());
 
+            $this->clearTags($html, 'div[class=b-article_in-img]');
+
             /*$tags = array('div', 'strong', 'del', 'em', 'b', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',);
 
             foreach ($tags as $key => $tag) {

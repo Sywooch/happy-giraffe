@@ -39,9 +39,6 @@ class V1ApiController extends \CController
     private $hasNext = false;
     #endregion
 
-    #region Events
-    public $afterToArray;
-    #endregion
     #endregion
 
     /**
@@ -55,6 +52,7 @@ class V1ApiController extends \CController
             header('X-Current-Page: ' . $this->currentPage);
             header('X-Request-Type: ' . \Yii::app()->request->requestType);
             echo \CJSON::encode($this->data);
+            //echo json_encode($this->data);
         } else {
             http_response_code($this->errorCode);
             header('Content-Type: application/json', true);

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the model class for table "comment".
+ * This is the model class for table "comments".
  *
  * The followings are the available columns in table 'comment':
  * @property string $id
@@ -13,6 +13,7 @@
  * @property string $response_id
  * @property string $root_id
  * @property string $removed
+ * @property int $new_entity_id
  * @property CommunityContent $commentEntity Комментируемая сущность
  *
  * The followings are the available model relations:
@@ -67,6 +68,7 @@ class Comment extends HActiveRecord
             array('author_id, entity_id, response_id', 'numerical', 'allowEmpty' => true, 'integerOnly' => true),
             array('entity', 'length', 'max' => 255),
             array('removed', 'boolean'),
+            array('new_entity_id', 'numerical'),
         );
     }
 
@@ -99,6 +101,7 @@ class Comment extends HActiveRecord
             'quote_id' => 'Quote id',
             'quote_text' => 'Quote text',
             'removed' => 'Удален',
+            'new_entity_id' => 'New Entity PK',
         );
     }
 

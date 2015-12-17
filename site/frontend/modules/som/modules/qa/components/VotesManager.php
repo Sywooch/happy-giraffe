@@ -39,7 +39,7 @@ class VotesManager
         return false;
     }
 
-    public static function setIsBest(QaAnswer $answer)
+    protected static function setIsBest(QaAnswer $answer)
     {
         $criteria = clone QaAnswer::model()->question($answer->questionId)->getDbCriteria();
         $criteria->select = 'MAX(votesCount)';

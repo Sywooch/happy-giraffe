@@ -187,23 +187,6 @@ class QaQuestion extends \HActiveRecord
 	}
 
 	/**
-	 * @return array|mixed|null
-	 * @throws \site\frontend\components\api\ApiException
-	 * @todo сделать пакетную выборку
-	 */
-	public function getUser()
-	{
-		if (is_null($this->_user)) {
-			$this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
-				'id' => (int) $this->authorId,
-				'avatarSize' => \Avatar::SIZE_MEDIUM,
-			));
-		}
-
-		return $this->_user;
-	}
-
-	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.

@@ -147,13 +147,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		return $this;
 	}
 
-	public function question($questionId, $withBest = true)
+	public function question($questionId)
 	{
 		$this->getDbCriteria()->compare($this->tableAlias . '.questionId', $questionId);
-		if (! $withBest) {
-			$best = QaQuestion::model()->populateRecord(array('id' => $this->questionId))->bestAnswer;
-			$this->getDbCriteria()->compare($this->tableAlias . '.id', '<>' . $best->id);
-		}
 		return $this;
 	}
 

@@ -75,6 +75,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         }
         $entity = get_class($oldPost);
+        //$entity = $service == 'oldBlog' ? 'BlogContent' : get_class($oldPost);
+
         $id = $oldPost->id;
 
         $tags = array();

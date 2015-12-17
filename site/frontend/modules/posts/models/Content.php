@@ -110,8 +110,9 @@ class Content extends \CActiveRecord implements \IHToJSON
             'labelModels' => array(self::MANY_MANY, '\site\frontend\modules\posts\models\Label', 'post__tags(contentId, labelId)'),
             'tagModels' => array(self::HAS_MANY, '\site\frontend\modules\posts\models\Tag', 'contentId'),
             'author' => array(self::BELONGS_TO, 'User', 'authorId'),
-            //'commentsCount' => array(self::STAT, 'Comment', 'entity_id'),
-            'communityContent' => array(self::BELONGS_TO, 'CommunityContent', 'originEntityId', 'with' => array('commentsCount')),
+            //'communityContent' => array(self::BELONGS_TO, 'CommunityContent', 'originEntityId', 'with' => array('commentsCount')),
+            'comments' => array(self::HAS_MANY, 'Comment', 'new_entity_id'),
+            'commentsCount' => array(self::STAT, 'Comment', 'new_entity_id'),
         );
     }
 

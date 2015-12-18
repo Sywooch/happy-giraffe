@@ -1,7 +1,8 @@
 <?php
 defined('YII_DEBUG') or define('YII_DEBUG', true);
-require_once('/opt/yii/framework/yii.php');
+//require_once('/opt/yii/framework/yii.php');
 $yiit='/opt/yii/framework/yiit.php';
+require_once($yiit);
 if (is_file('/home/giraffe/happy-giraffe.ru/site/common/config/main.php')) {
     $common = require('/home/giraffe/happy-giraffe.ru/site/common/config/main.php');
     $commonLocal = require('/home/giraffe/happy-giraffe.ru/site/common/config/main-local.php');
@@ -15,13 +16,19 @@ $config = CMap::mergeArray($common, $commonLocal, $base, $baseLocal, array(
     'components' => array(
         'fixture' => array(
             'class' => 'system.test.CDbFixtureManager',
-            'basePath' => Yii::getPathOfAlias('site.frontend.modules.som.modules.qa.tests.fixtures'),
+            'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'fixtures',
         ),
         'db' => array(
             'connectionString' => 'mysql:host=192.168.56.3;dbname=happy_giraffe3',
         ),
+        'request' => array(
+            'hostInfo' => 'http://www.virtual-giraffe.ru',
+        ),
+        'urlManager' => array(
+            'baseUrl' => 'http://www.virtual-giraffe.ru',
+        ),
     ),
 ));
 
-require_once($yiit);
+
 Yii::createWebApplication($config);

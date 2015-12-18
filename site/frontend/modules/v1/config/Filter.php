@@ -39,7 +39,6 @@ class Filter
         ),
         'site\frontend\modules\posts\models\Content' => array(
             'originEntity',
-            'preview',
             'text',
         ),
     );

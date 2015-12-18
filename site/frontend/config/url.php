@@ -454,18 +454,25 @@ return array(
         //NEW TEMP API
         //-----------------------------------------------------------------
         'v1/api/clubs' => 'v1/api/clubs',
+        'v1/api/clubs/<id:\d+>' => 'v1/api/clubs',
         'v1/api/users' => 'v1/api/users',
+        'v1/api/users/<id:\d+>' => 'v1/api/users',
         'v1/api/comments' => 'v1/api/comments',
+        'v1/api/comments/<id:\d+>' => 'v1/api/comments',
         'v1/api/posts' => 'v1/api/posts',
-        'v1/api/post-content' => 'v1/api/postContent',
-        'v1/api/post-label' => 'v1/api/postLabel',
-        'v1/api/post-tag' => 'v1/api/postTag',
+        'v1/api/posts/<id:\d+>' => 'v1/api/posts',
+        //'v1/api/post-content' => 'v1/api/postContent',
+        //'v1/api/post-label' => 'v1/api/postLabel',
+        //'v1/api/post-tag' => 'v1/api/postTag',
         'v1/api/onair' => 'v1/api/onair',
         'v1/api/sections' => 'v1/api/sections',
+        'v1/api/sections/<id:\d+>' => 'v1/api/sections',
         'v1/api/forums' => 'v1/api/forums',
+        'v1/api/forums/<id:\d+>' => 'v1/api/forums',
         'v1/api/rubrics' => 'v1/api/rubrics',
+        'v1/api/rubrics/<id:\d+>' => 'v1/api/rubrics',
         'v1/api/login' => 'v1/api/login',
-        'v1/api/post-comments' => 'v1/api/postComments',
+        //'v1/api/post-comments' => 'v1/api/postComments',
 
 
         //horoscope

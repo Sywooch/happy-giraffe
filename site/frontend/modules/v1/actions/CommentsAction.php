@@ -13,16 +13,19 @@ class CommentsAction extends RoutedAction
 
     public function getComments()
     {
-        $this->controller->get(Comment::model(), $this);
+        if (isset($_GET['entity_id'])) {
+            $where = "new_entity_id = " . \Yii::app()->request->getParam('entity_id');
+            $this->controller->get(Comment::model(), $this, $where);
+        } else {
+            $this->controller->get(Comment::model(), $this);
+        }
     }
 
     public function postComment()
     {
         $required = array(
-            'author_id' => true,
-            'entity' => true,
-            'entity_id' => true,
             'text' => true,
+            'entity_id' => true,
             'response_id' => false
         );
 
@@ -30,12 +33,22 @@ class CommentsAction extends RoutedAction
         if ($this->controller->checkParams($required)) {
             $comment = new Comment('default');
             try {
-                $comment->attributes = $this->controller->getParams($required);
+                /*hate this*/
+                $attributes = $this->controller->getParams($required);
 
-                if (!$this->checkAccess($comment->attributes['author_id'], $this->controller->identity->getId())) {
-                    $this->controller->setError("NotAllowed", 403);
-                    return;
+                if (isset($attributes['response_id'])) {
+                    $comment->response_id = $attributes['response_id'];
                 }
+
+                $content = \site\frontend\modules\posts\models\Content::model()->findByPk($attributes['entity_id']);
+
+                $comment->attributes = array(
+                    'text' => $attributes['text'],
+                    'new_entity_id' => $attributes['entity_id'],
+                    'entity_id' => $content->originEntityId,
+                    'entity' => $content->originService == 'oldBlog' ? 'BlogContent' : $content->originEntity,
+                    'author_id' => $this->controller->identity->getId(),
+                );
             } catch (Exception $e) {
                 $this->controller->setError($e->getMessage(), 400);
             }

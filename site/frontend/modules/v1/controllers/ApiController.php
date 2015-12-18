@@ -68,15 +68,15 @@ class ApiController extends V1ApiController
             /**
              * @apiDefine GetInstruction
              * @apiParam (Get Params:) {Number} [page=1] Номер страницы.
-             * @apiParam (Get Params:) {Number} [size=20] Количество записей на странице.
+             * @apiParam (Get Params:) {Number} [per-page=20] Количество записей на странице.
              * @apiParam (Get Params:) {Number} [id] Получение записи по id. При этом параметры page и size игнорируются.
-             * @apiParam (Get Params:) {String[]} [with] Получение связанных записей. Пример: with=author,comments.
+             * @apiParam (Get Params:) {String[]} [expand] Получение связанных записей. Пример: with=author,comments.
              * @apiParam (Get Params:) {String} [order] Строка с выражением сортировки. Например: order=id desc
              */
             /**
              * @apiGroup Sections
              * @apiDescription Получение списка секций.
-             * @api {get} sections/ Получение секций.
+             * @api {get} sections/:id Получение секций.
              * @apiUse GetInstruction
              * @apiParam (Relations:) {1xN} clubs Список клубов в этой секции.
              * @apiSuccessExample {json} Success-Response:
@@ -121,7 +121,7 @@ class ApiController extends V1ApiController
             /**
              * @apiGroup Clubs
              * @apiDescription Получение списка клубов.
-             * @api {get} clubs/ Получение клубов.
+             * @api {get} clubs/:id Получение клубов.
              * @apiUse GetInstruction
              * @apiParam (Relations:) {1x1} section Секция, к которой относится этот клуб.
              * @apiParam (Relations:) {1xN} communities Список форумов в этом клубе.
@@ -157,7 +157,7 @@ class ApiController extends V1ApiController
             /**
              * @apiGroup Forums
              * @apiDescription Получение списка форумов.
-             * @api {get} forums/ Получение форумов.
+             * @api {get} forums/:id Получение форумов.
              * @apiUse GetInstruction
              * @apiParam (Relations:) {1xN} rubrics Рубрики в этом форуме.
              * @apiParam (Relations:) {1xN} rootRubrics Пока неизвестно.
@@ -200,7 +200,7 @@ class ApiController extends V1ApiController
             /**
              * @apiGroup Rubrics
              * @apiDescription Получение списка рубрик.
-             * @api {get} rubrics/ Получение рубрик.
+             * @api {get} rubrics/:id Получение рубрик.
              * @apiUse GetInstruction
              * @apiParam (Relations:) {1x1} community Родительский форум для этой рубрики.
              * @apiParam (Relations:) {1x1} user Пока неизвестно.
@@ -238,7 +238,7 @@ class ApiController extends V1ApiController
             /**
              * @apiGroup Users
              * @apiDescription Получение списка пользователей.
-             * @api {get} users/ Получение пользователей.
+             * @api {get} users/:id Получение пользователей.
              * @apiUse GetInstruction
              * @apiParam (Relations:) {1x1} avatar Пока неизвестно.
              * @apiParam (Relations:) {1xN} babies Дети пользователя.
@@ -342,8 +342,9 @@ class ApiController extends V1ApiController
             ),
             /**
              * @apiGroup Comments
-             * @api {get} comments/ Получение комментариев.
+             * @api {get} comments/:id Получение комментариев.
              * @apiUse GetInstruction
+             * @apiParam (Get Params:) {Number} [entity_id] Id поста.
              * @apiSuccessExample {json} Success-Response:
             HTTP/1.1 200 OK
             [
@@ -385,28 +386,29 @@ class ApiController extends V1ApiController
              * @api {post} comments/ Создание комментария.
              * @apiUse SimpleAuthInstruction
              * @apiUse FormDataRequest
-             * @apiParam (Post Params:) {Number} author_id Id автора комментария.
-             * @apiParam (Post Params:) {String} entity Комментируемая сущность.
              * @apiParam (Post Params:) {Number} entity_id Id комментируемой сущности.
              * @apiParam (Post Params:) {String} text Текст коментария.
              * @apiParam (Post Params:) {Number} [response_id] Id комментария, для которого новый комментарий станет ответом.
              * @apiSuccessExample {json} Success-Response:
             HTTP/1.1 200 OK
-            {
-                "id": 1187753,
-                "entity": "NewPhotoPost",
-                "entityId": 14,
-                "authorId": 241796,
-                "purifiedHtml": "test text as",
-                "originHtml": "test text as",
-                "specialistLabel": null,
-                "likesCount": 0,
-                "photoId": 0,
-                "entityUrl": false,
-                "responseId": 0,
-                "rootId": 1187753,
-                "dtimeCreate": 1449749574
-            }
+            [
+                {
+                    "id": "1187771",
+                    "text": "test text asd3",
+                    "updated": "2015-12-17 12:05:25",
+                    "created": "2015-12-17 12:05:24",
+                    "author_id": "241803",
+                    "entity": "CommunityContent",
+                    "entity_id": "120431",
+                    "response_id": null,
+                    "quote_id": null,
+                    "quote_text": "",
+                    "position": "0",
+                    "removed": "0",
+                    "root_id": "1187771",
+                    "new_entity_id": "28"
+                }
+            ]
              * @apiVersion 0.0.1
              */
             /**
@@ -447,80 +449,64 @@ class ApiController extends V1ApiController
             ),
             /**
              * @apiGroup Posts
-             * @api {get} posts/ Получение поста.
+             * @api {get} posts/:id Получение поста.
              * @apiUse GetInstruction
-             * @apiParam (Relations:) {1x1} rubric Рубрика, в которой находится пост.
-             * @apiParam (Relations:) {1x1} type Тип поста.
-             * @apiParam (Relations:) {1x1} source Пока неизвестно, выдает sql эксепшн, возможно не нужна.
-             * @apiParam (Relations:) {Stat} sourceCount Пока неизвестно.
-             * @apiParam (Relations:) {Stat} commentsCount Количество комментариев к посту.
-             * @apiParam (Relations:) {1xN} comments Комментарии к посту.
-             * @apiParam (Relations:) {1x1} status Пока неизвестно.
-             * @apiParam (Relations:) {1x1} video Пока неизвестно.
-             * @apiParam (Relations:) {1x1} post Текст поста, по крайней мере для type 1.
-             * @apiParam (Relations:) {1x1} question Пока неизвестно.
-             * @apiParam (Relations:) {1x1} photoPost Пока неизвестно.
              * @apiParam (Relations:) {1x1} author Автор поста.
-             * @apiParam (Relations:) {1x1} remove Удален ли пост.
-             * @apiParam (Relations:) {1x1} morning Пока неизвестно.
-             * @apiParam (Relations:) {1x1} editor Пока неизвестно.
-             * @apiParam (Relations:) {1x1} gallery Пока неизвестно.
-             * @apiParam (Relations:) {Stat} favouritesCount Пока неизвестно.
-             * @apiParam (Relations:) {1x1} contestWork Пока неизвестно.
+             * @apiParam (Relations:) {1x1} comments Комментарии к посту.
+             * @apiParam (Relations:) {1x1} comments_count Количество комментариев к посту.
              * @apiSuccessExample {json} Success-Response:
-            HTTP/1.1 200 OK
             [
                 {
-                    "id": "23",
-                    "title": "Современные каши для детей",
-                    "updated": "2013-12-08 01:01:05",
-                    "created": "2011-11-04 12:31:23",
-                    "last_updated": null,
-                    "author_id": "43",
-                    "rubric_id": "74",
-                    "type_id": "1",
-                    "preview": "<p>Каши — это незаменимое блюдо детского меню. Это уникальный источник энергии, растительных белков, витаминов группы В и различных минералов. Вводятся каши в рацион малыша в период от 4-х до 6-ти месяцев. К этому возрасту малыш начинает больше двигаться и затрачивает больше энергии, поэтому ему необходима более калорийная пища для восполнения энергетических потерь. </p><p>Обычно каша вводится в рацион ребенка после фруктовых и овощных пюре. Однако, по индивидуальным показаниям она может быть введена...</p>",
-                    "meta_title": "",
-                    "meta_keywords": "",
-                    "meta_description": "",
-                    "meta_description_auto": "Каши — это незаменимое блюдо детского меню. Это уникальный источник энергии, растительных белков, витаминов группы В и различных минералов. Вводятся каши...",
-                    "by_happy_giraffe": "0",
-                    "removed": "0",
-                    "edited": "2",
-                    "editor_id": "10127",
-                    "rate": "4",
-                    "views": "514",
-                    "uniqueness": null,
-                    "full": null,
-                    "source_id": null,
-                    "privacy": "0",
-                    "pinned": "0"
+                    "id": "1",
+                    "url": "http://www.happy-giraffe.ru/user/241791/blog/post120396/",
+                    "authorId": "241791",
+                    "title": "test",
+                    "html": "<p>test</p>",
+                    "labels": "Блог|Рубрика: Обо всём",
+                    "dtimeCreate": "1444035590",
+                    "dtimeUpdate": "1444041705",
+                    "dtimePublication": "1444035590",
+                    "originService": "oldBlog",
+                    "originEntityId": "120396",
+                    "originManageInfo": "{\"link\":{\"url\":\"\/blogs\/edit\/post\",\"get\":{\"id\":\"120396\"}},\"params\":false}",
+                    "isDraft": "0",
+                    "uniqueIndex": "100",
+                    "isNoindex": "0",
+                    "isNofollow": "0",
+                    "isAutoMeta": "1",
+                    "isAutoSocial": "1",
+                    "isRemoved": "0",
+                    "isAdult": "0",
+                    "meta": "{\"title\":\"test\",\"keywords\":null,\"description\":\"test\"}",
+                    "social": "{\"title\":null,\"imageUrl\":null,\"description\":\"test\"}",
+                    "template": "{\"layout\":\"newBlogPost\",\"data\":{\"type\":\"post\"}}",
+                    "views": "0"
                 },
                 {
-                    "id": "29",
-                    "title": "Грудное молоко",
-                    "updated": "2013-12-08 01:01:05",
-                    "created": "2011-11-04 13:12:39",
-                    "last_updated": null,
-                    "author_id": "48",
-                    "rubric_id": "66",
-                    "type_id": "1",
-                    "preview": "<p>Мы обещали Вам поговорить о грудном молоке, его составе. Грудное молоко - это самый замечательный продукт питания, который создала сама Природа.</p><p>Многие исследователи занимались изучением состава грудного молока, состав изменяется в зависимости от возраста матерей, от сроков лактации, от региона проживания, от традиции питания.</p><p>Были выведены средние цифры, которыми мы теперь пользуемся.</p>",
-                    "meta_title": "",
-                    "meta_keywords": "",
-                    "meta_description": "",
-                    "meta_description_auto": "Мы обещали Вам поговорить о грудном молоке, его составе. Грудное молоко - это самый замечательный продукт питания, который создала сама Природа. Многие...",
-                    "by_happy_giraffe": "0",
-                    "removed": "0",
-                    "edited": "2",
-                    "editor_id": "10127",
-                    "rate": "3",
-                    "views": "311",
-                    "uniqueness": null,
-                    "full": null,
-                    "source_id": null,
-                    "privacy": "0",
-                    "pinned": "0"
+                    "id": "2",
+                    "url": "http://www.happy-giraffe.ru/user/241791/blog/post120397/",
+                    "authorId": "241791",
+                    "title": "asdasd",
+                    "html": "<p>asdasdasdasd</p>",
+                    "labels": "Блог|Рубрика: Обо всём",
+                    "dtimeCreate": "1444041758",
+                    "dtimeUpdate": "1444041921",
+                    "dtimePublication": "1444041758",
+                    "originService": "oldBlog",
+                    "originEntityId": "120397",
+                    "originManageInfo": "{\"link\":{\"url\":\"\/blogs\/edit\/post\",\"get\":{\"id\":\"120397\"}},\"params\":false}",
+                    "isDraft": "0",
+                    "uniqueIndex": "100",
+                    "isNoindex": "0",
+                    "isNofollow": "0",
+                    "isAutoMeta": "1",
+                    "isAutoSocial": "1",
+                    "isRemoved": "0",
+                    "isAdult": "0",
+                    "meta": "{\"title\":\"asdasd\",\"keywords\":null,\"description\":\"asdasdasdasd\"}",
+                    "social": "{\"title\":null,\"imageUrl\":null,\"description\":\"asdasdasdasd\"}",
+                    "template": "{\"layout\":\"newBlogPost\",\"data\":{\"type\":\"post\"}}",
+                    "views": "0"
                 }
             ]
              * @apiversion 0.0.1
@@ -530,7 +516,6 @@ class ApiController extends V1ApiController
              * @api {post} posts/ Создание поста.
              * @apiUse SimpleAuthInstruction
              * @apiUse FormDataRequest
-             * @apiParam (Post Params:) {Number} author_id Id автора поста.
              * @apiParam (Post Params:) {Number=1,2,3,4} type_id Id типа поста в зависимости от контента (пост, фотопост, видеопост, статус).
              * @apiParam (Post Params:) {Number} rubric_id Id рубрики, в которой будет находиться пост.
              * @apiParam (Post Params:) {String} text Текст поста.
@@ -598,6 +583,7 @@ class ApiController extends V1ApiController
             ),
             /**
              * @apiGroup PostContent
+             * @apiIgnore
              * @api {get} post-content/ Получение контента поста.
              * @apiUse GetInstruction
              * @apiParam (Relations:) {NxN} labelModels Пока неизвестно.
@@ -667,11 +653,12 @@ class ApiController extends V1ApiController
             ]
              * @apiVersion 0.0.1
              */
-            'postContent' => array(
+            /*'postContent' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostContentAction',
-            ),
+            ),*/
             /**
              * @apiGroup PostLabel
+             * @apiIgnore
              * @api {get} post-label/ Получение меток постов.
              * @apiUse GetInstruction
              * @apiParam (Relations:) {NxN} postContents Пока неизвестно.
@@ -689,11 +676,12 @@ class ApiController extends V1ApiController
             ]
              * @apiVersion 0.0.1
              */
-            'postLabel' => array(
+            /*'postLabel' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostLabelAction',
-            ),
+            ),*/
             /**
              * @apiGroup PostTag
+             * @apiIgnore
              * @api {get} post-tag/ Получение тегов постов.
              * @apiUse GetInstruction
              * @apiSuccessExample {json} Success-Response:
@@ -710,11 +698,12 @@ class ApiController extends V1ApiController
             ]
              * @apiVersion 0.0.1
              */
-            'postTag' => array(
+            /*'postTag' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostTagAction',
-            ),
+            ),*/
             /**
              * @apiGroup PostComments
+             * @apiIgnore
              * @api {get} post-comments/ Получение комментов в посте.
              * @apiUse GetInstruction
              * @apiParam (Get Params:) {String} service Сервис.
@@ -755,9 +744,9 @@ class ApiController extends V1ApiController
             ]
              * @apiVersion 0.0.1
              */
-            'postComments' => array(
+            /*'postComments' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostCommentsAction',
-            ),
+            ),*/
         );
     }
     #endregion

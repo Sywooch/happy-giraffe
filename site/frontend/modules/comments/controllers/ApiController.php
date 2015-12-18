@@ -63,9 +63,9 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionCreate($entity, $entityId, $text, $responseId = false)
     {
-        \Yii::log('entity: '.$entity.' entityId: '.$entityId.' text: '.$text.' responseId: '.$responseId, 'info', 'comments.controllers.ApiController');
+        //\Yii::log('entity: '.$entity.' entityId: '.$entityId.' text: '.$text.' responseId: '.$responseId, 'info', 'comments.controllers.ApiController');
         if (!\Yii::app()->user->checkAccess('createComment')) {
-            \Yii::log('Access Denied!', 'error', 'comments.controllers.ApiController');
+            //\Yii::log('Access Denied!', 'error', 'comments.controllers.ApiController');
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
         }
         $comment = new \site\frontend\modules\comments\models\Comment('default');
@@ -78,6 +78,16 @@ class ApiController extends \site\frontend\components\api\ApiController
         if ($responseId) {
             $comment->response_id = $responseId;
         }
+
+        if ($entity != 'BlogContent') {
+            $content = \site\frontend\modules\posts\models\Content::model()->find(array(
+                'condition' => "originEntity = '" . $entity . "' and originEntityId = " . $entityId));
+        } else {
+            $content = \site\frontend\modules\posts\models\Content::model()->find(array(
+                'condition' => "originService = 'oldBlog' and originEntityId = " . $entityId));
+        }
+
+        $comment->new_entity_id = $content->id;
 
         if ($comment->save())
         {

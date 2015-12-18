@@ -112,7 +112,7 @@ class Content extends \CActiveRecord implements \IHToJSON
             'author' => array(self::BELONGS_TO, 'User', 'authorId'),
             //'communityContent' => array(self::BELONGS_TO, 'CommunityContent', 'originEntityId', 'with' => array('commentsCount')),
             'comments' => array(self::HAS_MANY, 'Comment', 'new_entity_id'),
-            'commentsCount' => array(self::STAT, 'Comment', 'new_entity_id'),
+            'comments_count' => array(self::STAT, 'Comment', 'new_entity_id'),
         );
     }
 

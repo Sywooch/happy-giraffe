@@ -231,7 +231,7 @@ class V1ApiController extends \CController
      */
     private function getPaginationParams()
     {
-        $size = isset($_GET['size']) ? \Yii::app()->request->getParam('size'): 20;
+        $size = isset($_GET['per-page']) ? \Yii::app()->request->getParam('per-page'): 20;
         $this->currentPage = $page = isset($_GET['page']) ? \Yii::app()->request->getParam('page'): 1;
 
         return array(
@@ -248,8 +248,8 @@ class V1ApiController extends \CController
      */
     private function getWithParameters($model)
     {
-        if (isset($_GET['with'])){
-            $temp = explode(",", \Yii::app()->request->getParam('with'));
+        if (isset($_GET['expand'])){
+            $temp = explode(",", \Yii::app()->request->getParam('expand'));
 
             foreach ($temp as $key => $value) {
                 if (!isset($model->relations()[$value])) {

@@ -5,7 +5,7 @@ $this->hideAdsense = true;
 
 <div class="header-banner clearfix">
     <div class="header-banner_static">
-        <h1 class="header-banner_static_heading">Как лечить шрамы?</h1>
+        <h1 class="header-banner_static_heading" style="font-size: 40px;">Как правильно лечить шрамы?</h1>
         <div class="header-banner_static_img"></div>
     </div>
     <div class="header-banner_dynamic">

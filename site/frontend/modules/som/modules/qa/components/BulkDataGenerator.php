@@ -7,6 +7,7 @@
 namespace site\frontend\modules\som\modules\qa\components;
 
 
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class BulkDataGenerator
@@ -16,6 +17,8 @@ class BulkDataGenerator
 
     public static function run()
     {
+        self::createCategories();
+
         \Yii::app()->db->getCommandBuilder()->createDeleteCommand('qa__questions', new \CDbCriteria())->execute();
 
         $rows = array();
@@ -59,6 +62,27 @@ class BulkDataGenerator
             GROUP BY questionId
             ) a ON a.questionId = q.id
             SET q.answersCount = a.c;")->execute();
+    }
+
+    protected static function createCategories()
+    {
+        QaCategory::model()->deleteAll();
+        $titles = array(
+            'Свадьба',
+            'Отношения в семье',
+            'Планирование',
+            'Дети до года',
+            'Беременность и роды',
+            'Дети старше года',
+            'Дошкольники',
+            'Школьники',
+        );
+
+        foreach ($titles as $title) {
+            $category = new QaCategory();
+            $category->title = $title;
+            $category->save();
+        }
     }
 
     protected static function getRandomQuestionsId()

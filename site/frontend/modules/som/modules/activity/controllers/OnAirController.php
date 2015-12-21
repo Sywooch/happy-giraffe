@@ -32,13 +32,6 @@ class OnAirController extends \LiteController
 
     public function actionIndex($filter = null)
     {
-        \Yii::app()->getComponent('fixture')->load(array(
-            'categories' => array(
-                'categories' => 'site\frontend\modules\som\modules\qa\models\QaCategory',
-            ),
-        ));
-         die;
-
         $criteria = $this->getCriteria($filter);
         $this->render('index', compact('criteria', 'filter'));
     }

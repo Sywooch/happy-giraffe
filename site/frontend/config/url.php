@@ -473,6 +473,7 @@ return array(
         'v1/api/rubrics/<id:\d+>' => 'v1/api/rubrics',
         'v1/api/login' => 'v1/api/login',
         //'v1/api/post-comments' => 'v1/api/postComments',
+        'v1/api/photo' => 'v1/api/photo',
 
 
         //horoscope

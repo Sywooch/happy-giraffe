@@ -747,6 +747,9 @@ class ApiController extends V1ApiController
             /*'postComments' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostCommentsAction',
             ),*/
+            'photo' => array(
+                'class' => 'site\frontend\modules\v1\actions\PhotoAction',
+            ),
         );
     }
     #endregion

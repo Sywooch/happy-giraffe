@@ -3,6 +3,7 @@
 namespace site\frontend\modules\v1\actions;
 
 use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\v1\helpers\HtmlParser;
 
 class PostsAction extends RoutedAction implements IPostProcessable
 {
@@ -25,93 +26,10 @@ class PostsAction extends RoutedAction implements IPostProcessable
     {
         \Yii::import('ext.SimpleHTMLDOM.SimpleHTMLDOM');
 
-        //\Yii::log(print_r($data, true), 'info', 'api');
-
-        /**@todo: clear*/
         for ($i = 0; $i < count($data); $i++) {
-            $data[$i]['html'] = $this->handleHtml($data[$i]['html'], $data[$i])->outertext;
-            $data[$i]['preview'] = $this->handleHtml($data[$i]['preview'])->outertext;
+            $data[$i]['html'] = HtmlParser::handleHtml($data[$i]['html'], $data[$i])->outertext;
+            $data[$i]['preview'] = HtmlParser::handleHtml($data[$i]['preview'])->outertext;
         }
-    }
-
-    private function handleHtml($html, &$data = null) {
-        $simpleDom = new \SimpleHTMLDOM();
-        $html = $simpleDom->str_get_html($html);
-
-        foreach ($html->find('img') as $smile) {
-            $smile->outertext = '<smile>' . $smile->src . '</smile>';
-        }
-        $html->load($html->save());
-
-        foreach ($html->find('iframe') as $video) {
-            $video->outertext = '<video>' . $video->src . '</video>';
-        }
-        $html->load($html->save());
-
-        foreach ($html->find('picture') as $picture) {
-            $picture->outertext = '<image>' . $picture->first_child()->srcset . '</image>';
-        }
-        $html->load($html->save());
-
-        /*foreach ($html->find('a') as $link) {
-            $link->outertext = '<link><src>' . $link->href . '</src><title>' . $link->innertext . '</title></link>';
-        }
-        $html->load($html->save());*/
-
-        foreach ($html->find('comment') as $comment) {
-            $comment->outertext = '';
-        }
-        $html->load($html->save());
-
-        if ($data != null) {
-            foreach ($html->find('photo-collection') as $collection) {
-                $data['photo-collection'] = "{" . $collection->params . "}";
-                $collection->outertext = '';
-            }
-            $html->load($html->save());
-        }
-
-        $this->clearTags($html, 'div[class=b-article_in-img]');
-
-        /*$tags = array('div', 'strong', 'del', 'em', 'b', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',);
-
-        foreach ($tags as $key => $tag) {
-            $this->clearTags($html, $tag);
-            //\Yii::log((string)$html, 'info', 'api');
-        }*/
-
-        //\Yii::log(print_r($html->nodes, true), 'info', 'api');
-
-        $html->load($html->save());
-
-        return $html;
-    }
-
-    /**
-     * Delete all tag from html without deleting inner text.
-     *
-     * @param $html
-     * @param $tag
-     */
-    private function clearTags(&$html, $tag)
-    {
-        $tags = $html->find($tag);
-
-        if ($tags == null) {
-            //\Yii::log($tag . ' is null', 'info', 'api');
-            return;
-        }
-
-        for ($i = count($tags) - 1; $i >= 0; $i--) {
-            //\Yii::log($tag . ' outer text ' . $tags[$i]->outertext, 'info', 'api');
-            //\Yii::log($tag . ' inner text ' . $tags[$i]->innertext, 'info', 'api');
-            $tags[$i]->outertext = $tags[$i]->innertext;
-            //\Yii::log($tag . ' outer text after changes ' . $tags[$i]->outertext, 'info', 'api');
-        }
-
-        $html->load($html->save());
-
-        return $html;
     }
 
     /**

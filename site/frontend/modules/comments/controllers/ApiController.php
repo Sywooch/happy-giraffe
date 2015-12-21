@@ -63,6 +63,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionCreate($entity, $entityId, $text, $responseId = false)
     {
+        //var_dump(\Yii::app()->user);
         //\Yii::log('entity: '.$entity.' entityId: '.$entityId.' text: '.$text.' responseId: '.$responseId, 'info', 'comments.controllers.ApiController');
         if (!\Yii::app()->user->checkAccess('createComment')) {
             //\Yii::log('Access Denied!', 'error', 'comments.controllers.ApiController');

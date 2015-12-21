@@ -14,6 +14,7 @@ class SignupSocialAction extends \SocialAction
     {
         $action = $this;
         $this->successCallback = function($eauth) use ($action) {
+            \Yii::log(print_r($eauth, true), 'info', 'eauth');
             $identity = new SocialUserIdentity($eauth);
             if ($identity->authenticate()) {
                 \Yii::app()->user->login($identity);

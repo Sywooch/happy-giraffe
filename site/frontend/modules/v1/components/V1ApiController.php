@@ -212,6 +212,7 @@ class V1ApiController extends \CController
                 $this->setError($this->identity->errorMessage, 401);
                 return false;
             } else {
+                \Yii::app()->user->login($this->identity);
                 return true;
             }
         } else {

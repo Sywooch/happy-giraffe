@@ -3,8 +3,9 @@
 namespace site\frontend\modules\v1\actions;
 
 use site\frontend\modules\comments\models\Comment;
+use site\frontend\modules\v1\helpers\HtmlParser;
 
-class CommentsAction extends RoutedAction
+class CommentsAction extends RoutedAction implements IPostProcessable
 {
     public function run()
     {
@@ -21,8 +22,26 @@ class CommentsAction extends RoutedAction
         }
     }
 
+    public function postProcessing(&$data)
+    {
+        \Yii::import('ext.SimpleHTMLDOM.SimpleHTMLDOM');
+
+        for ($i = 0; $i < count($data); $i++) {
+            $data[$i]['text'] = HtmlParser::handleHtml($data[$i]['text'], $data[$i])->outertext;
+            $data[$i]['created'] = strtotime($data[$i]['created']);
+            $data[$i]['updated'] = strtotime($data[$i]['updated']);
+        }
+    }
+
     public function postComment()
     {
+        /*var_dump(\Yii::app()->authManager->checkAccess('createComment', \Yii::app()->user->id));
+        //\Yii::log(print_r(\Yii::app()->user, true), 'info', 'api');
+        if (!\Yii::app()->authManager->checkAccess('createComment', \Yii::app()->user->id)) {
+            $this->controller->setError("NotAllowed", 403);
+            return;
+        }*/
+
         $required = array(
             'text' => true,
             'entity_id' => true,

@@ -204,20 +204,30 @@ class V1ApiController extends \CController
             'auth_password' => true,
         );
 
+        $socialRequired = array(
+            'access_token' => true,
+            'service' => false
+        );
+
         if ($this->checkParams($required)) {
             $params = $this->getParams($required);
             $this->identity = new UserIdentity($params['auth_email'], $params['auth_password']);
+        } else if ($this->checkParams($socialRequired)) {
+            $params = $this->getParams($socialRequired);
 
-            if (!($this->identity->authenticate())) {
-                $this->setError($this->identity->errorMessage, 401);
-                return false;
-            } else {
-                \Yii::app()->user->login($this->identity);
-                return true;
-            }
+            $this->identity = new ApiSocialUserIdentity($params['access_token'],
+                isset($params['service']) ? $params['service'] : null);
         } else {
             $this->setError("AuthParamsMissing", 401);
             return false;
+        }
+
+        if (!($this->identity->authenticate())) {
+            $this->setError($this->identity->errorMessage, 401);
+            return false;
+        } else {
+            \Yii::app()->user->login($this->identity);
+            return true;
         }
     }
     #endregion

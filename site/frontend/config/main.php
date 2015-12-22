@@ -245,16 +245,28 @@ return array(
                     'client_public' => 'CBAFBHJGABABABABA',
                     'title' => 'Одноклассники',
                 ),
-                'vkontakte' => array(
+                /*'vkontakte' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
+                    'title' => 'ВКонтакте',
+                ),*/
+                'vkontakte' => array(
+                    'class' => 'application.components.eauth.VkontakteAuth',
+                    'client_id' => '5197824',
+                    'client_secret' => 'QWTJzplwU7QJHIaS5s7K',
                     'title' => 'ВКонтакте',
                 ),
                 'google' => array(
                     'class' => 'application.components.eauth.GoogleAuth',
                     'client_id' => '152056798430-h2dd83jfs4q4mka119s1tftorp0171ol.apps.googleusercontent.com',
                     'client_secret' => '-DJ8DaGP9nK7rpvo11eT38ys',
+                ),
+                //test temp
+                'vk_test' => array(
+                    'class' => 'application.components.eauth.VkontakteAuth',
+                    'client_id' => '5197824',
+                    'client_secret' => 'QWTJzplwU7QJHIaS5s7K',
                 ),
 //                'facebook' => array(
 //                    'class' => 'CustomFacebookService',

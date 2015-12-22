@@ -15,17 +15,12 @@ class PhotoAction extends RoutedAction implements IPostProcessable
 
     public function postPhoto()
     {
-        $require = array(
-            'photo' => true,
-        );
-
-        if ($this->controller->checkParams($require)) {
-            $photo = $this->controller->getParams($require)['photo'];
-
-            \Yii::log(print_r($photo, true), 'info', 'api');
-
-            $this->model = \AlbumPhoto::model()->createUserTempPhoto($photo);
-            MigrateManager::movePhoto($model);
+        if (isset($_FILES)) {
+            \Yii::log(print_r($_FILES, true), 'info', 'api');
+            foreach ($_FILES as $file) {
+                $this->model = \AlbumPhoto::model()->createUserTempPhoto($file);
+                MigrateManager::movePhoto($this->model);
+            }
 
             $this->controller->data = $this->model;
         } else {

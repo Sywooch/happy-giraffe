@@ -34,6 +34,10 @@ class V1ApiController extends \CController
 
     private $action = null;
 
+    public function setAction($action)
+    {
+        $this->action = $action;
+    }
     #region Pagination Fields
     private $currentPage;
     private $hasNext = false;

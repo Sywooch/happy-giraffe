@@ -41,6 +41,10 @@ class Filter
             'originEntity',
             'text',
         ),
+        'AlbumPhoto' => array(
+            'created',
+            'updated',
+        ),
     );
 
     private static $ignoredRelations = array(

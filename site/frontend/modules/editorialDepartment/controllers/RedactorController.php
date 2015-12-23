@@ -56,6 +56,8 @@ class RedactorController extends \LiteController
 
     public function actionBuzz()
     {
+        var_dump(\Yii::app()->user->id); die;
+
         $model = new departmentModels\Content();
         $model->scenario = 'buzz';
         $model->authorId = \Yii::app()->user->id;

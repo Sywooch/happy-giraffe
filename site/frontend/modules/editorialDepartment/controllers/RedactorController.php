@@ -56,8 +56,6 @@ class RedactorController extends \LiteController
 
     public function actionBuzz()
     {
-        var_dump(\Yii::app()->user->id); die;
-
         $model = new departmentModels\Content();
         $model->scenario = 'buzz';
         $model->authorId = \Yii::app()->user->id;
@@ -190,11 +188,6 @@ class RedactorController extends \LiteController
         $model = departmentModels\Content::model()->findByAttributes(compact('entity', 'entityId'));
         if (is_null($model))
             throw new \CHttpException(404);
-
-        var_dump(\Yii::app()->user->id);
-        var_dump($model->authorId);
-        die;
-
         if ($model->authorId != \Yii::app()->user->id)
             throw new \CHttpException(403);
         

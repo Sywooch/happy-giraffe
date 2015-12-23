@@ -104,7 +104,7 @@ class UserSocialToken extends \EMongoDocument
 
     private function makeVkRequest($token, $model)
     {
-        $params = \Yii::app()->eauth->services['vk_test'];
+        $params = \Yii::app()->eauth->services['vk_api'];
 
         $url = 'https://oauth.vk.com/access_token?client_id='
             . $params['client_id'] .
@@ -129,10 +129,12 @@ class UserSocialToken extends \EMongoDocument
 
         $result = $this->makeRequest($url);
 
-        if (isset($result->success)) {
-            $model->date = $result->date;
-            $model->expire = $result->expire;
-            $model->service_user_id = $result->user_id;
+        //\Yii::log(var_dump($result), 'info', 'api');
+
+        if (isset($result->response->success)) {
+            $model->date = $result->response->date;
+            $model->expire = $result->response->expire;
+            $model->service_user_id = $result->response->user_id;
 
             return true;
         } else {
@@ -143,7 +145,35 @@ class UserSocialToken extends \EMongoDocument
 
     private function makeOkRequest($token, $model)
     {
-        return false;
+        $params = \Yii::app()->eauth->services['odnoklassniki'];
+
+        $method = 'method=users.getInfo';
+
+        $temp = 'application_key=' . $params['client_public'] . $method;
+
+        $sig = strtolower(md5($temp . md5($token . $params['client_secret'])));
+
+        $url = 'https://api.ok.ru/fb.do?'
+            . 'application_key=' . $params['client_public']
+            . '&' . $method
+            . '&access_token=' . $token
+            . '&format=json'
+            . '&sig=' . $sig;
+
+        $result = $this->makeRequest($url);
+
+        //\Yii::log('asd' . print_r($result), 'info', 'api');
+
+        if ($result == true) {
+            $model->expires = time() + (24 * 60 * 60);
+            $model->date = time();
+
+            $model->error = 'Something';
+            return false;
+        } else {
+            $model->error = 'TokenInvalid';
+            return false;
+        }
     }
 
     private function makeRequest($url)

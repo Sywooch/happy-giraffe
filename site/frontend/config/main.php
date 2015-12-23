@@ -245,28 +245,42 @@ return array(
                     'client_public' => 'CBAFBHJGABABABABA',
                     'title' => 'Одноклассники',
                 ),
+                'ok_api' => array(
+                    'class' => 'application.components.eauth.OdnoklassnikiAuth',
+                    'client_id' => '1235791616',
+                    'client_secret' => '8DEB1F6E6F1EC8B7FF46B187',
+                    'client_public' => 'CBAQKJKKEBABABABA',
+                ),
+                //true app
                 /*'vkontakte' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
                     'title' => 'ВКонтакте',
                 ),*/
+                //test app
                 'vkontakte' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '5197824',
                     'client_secret' => 'QWTJzplwU7QJHIaS5s7K',
                     'title' => 'ВКонтакте',
                 ),
+                /*'vkontakte' => array(
+                    'class' => 'application.components.eauth.VkontakteAuth',
+                    'client_id' => '5198960',
+                    'client_secret' => '6ENyzHlfcTaOZE1k3UYk',
+                    'title' => 'ВКонтакте',
+                ),*/
                 'google' => array(
                     'class' => 'application.components.eauth.GoogleAuth',
                     'client_id' => '152056798430-h2dd83jfs4q4mka119s1tftorp0171ol.apps.googleusercontent.com',
                     'client_secret' => '-DJ8DaGP9nK7rpvo11eT38ys',
                 ),
                 //test temp
-                'vk_test' => array(
+                'vk_api' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
-                    'client_id' => '5197824',
-                    'client_secret' => 'QWTJzplwU7QJHIaS5s7K',
+                    'client_id' => '5198960',
+                    'client_secret' => '6ENyzHlfcTaOZE1k3UYk',
                 ),
 //                'facebook' => array(
 //                    'class' => 'CustomFacebookService',

@@ -29,7 +29,9 @@ class ApiSocialUserIdentity extends \CUserIdentity
         if ($tokenModel) {
             if ($tokenModel->isAlive()) {
                 if ($this->token == $tokenModel->access_token) {
+                    $this->user_id = $tokenModel->user_id;
                     $this->handleUser();
+
                     return true;
                 } else {
                     $this->errorMessage = 'InvalidToken';
@@ -42,6 +44,17 @@ class ApiSocialUserIdentity extends \CUserIdentity
                 $tokenModel = UserSocialToken::model()->create($this->token, $this->service);
                 if ($tokenModel->error == '') {
                     $this->user_id = $tokenModel->user_id;
+
+                    $tokens = UserSocialToken::model()->findAll(array('user_id' => $this->user_id));
+
+                    if (count($tokens) > 1) {
+                        foreach ($tokens as $token) {
+                            if ($token->access_token != $this->token) {
+                                $token->delete();
+                            }
+                        }
+                    }
+
                     $this->handleUser();
                     return true;
                 } else {

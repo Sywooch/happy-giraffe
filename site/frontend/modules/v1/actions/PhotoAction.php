@@ -15,22 +15,27 @@ class PhotoAction extends RoutedAction implements IPostProcessable
 
     public function postPhoto()
     {
-        if (isset($_FILES)) {
-            \Yii::log(print_r($_FILES, true), 'info', 'api');
-            foreach ($_FILES as $file) {
-                $this->model = \AlbumPhoto::model()->createUserTempPhoto($file);
-                MigrateManager::movePhoto($this->model);
-            }
+        if (isset($_FILES['photo'])) {
+            $this->model = \AlbumPhoto::model()->createUserTempPhoto($_FILES['photo']);
+            MigrateManager::movePhoto($this->model);
 
             $this->controller->data = $this->model;
+
+            $this->controller->setAction($this);
         } else {
             $this->controller->setError("ParamsMissing", 400);
         }
     }
 
-    public function postProcessing(&$data) {
-        $data['html'] = $this->model->getWidget(true);
-        $data['comment_html'] = $this->model->getWidget(true, new \Comment());
-        $data['url'] = $this->model->getPreviewUrl(480, 250, \Image::WIDTH);
+    public function postProcessing(&$data)
+    {
+        for ($i = 0; $i < count($data); $i++) {
+            $data[$i]['html'] = $this->model->getWidget(true);
+            $data[$i]['comment_html'] = $this->model->getWidget(true, new \Comment());
+            $data[$i]['url'] = $this->model->getPreviewUrl(480, 250, \Image::WIDTH);
+
+            $data[$i]['new_photo_id'] = $data[$i]['newPhotoId'];
+            unset($data[$i]['newPhotoId']);
+        }
     }
 }

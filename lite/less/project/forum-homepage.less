@@ -1,0 +1,569 @@
+/* Widgets styles*/
+.widget()
+{
+  border: 1px solid #f9f9f9;
+  padding: 21px;
+  .widget-top
+  {
+    margin-bottom: 17px;
+    height: 18px;
+  }
+
+  .widget-top .heading-wd
+  {
+    display: block;
+    float:left;
+
+  }
+
+  .widget-top .tx-hint
+  {
+    float: right;
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  .widget_item
+  {
+    margin-bottom: 17px;
+  }
+}
+/* Повторяющиеся стили */
+// Блок счетчика
+.counter-block
+{
+  text-align: center;
+}
+// Подписи для счетчиков
+.counter-hint
+{
+  font-family: Arial, Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+  color: #999;
+  text-align: center;
+}
+//Текст счетчика
+.counter-text
+{
+  font-family: Arial, Tahoma, Verdana, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  display: block;
+}
+
+//Заголовок виджета
+.heading-wd
+{
+  font-weight: normal;
+  font-size: 20px;
+  color: #333;
+  margin: -6px 0;
+}
+/* Пользовательская активность  */
+.live-user
+{
+  .username
+  {
+    margin: -2px 0 0 8px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .tx-date
+  {
+    margin-top: -1px;
+    display:block;
+  }
+
+  &_hint
+  {
+    font-family: Arial, Tahoma, Verdana, sans-serif;
+    font-size: 11px;
+    color: #999;
+    text-align: left;
+    display:block;
+    margin-bottom: 4px;
+  }
+
+  &_text
+  {
+    font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    color: #196be9;
+    display:block;
+    max-width: 169px;
+  }
+}
+
+/* Конец Повторяющиеся стили */
+
+.top-forum
+{
+  width: 302px;
+  height: 366px;
+  .widget;
+  float:left;
+  margin-right: 10px;
+  .widget_item
+  {
+    height: 40px;
+  }
+}
+
+
+.latest-posts
+{
+  .widget;
+  width: 616px;
+  height: 366px;
+  float:left;
+  .widget_item
+  {
+    margin-bottom: 20px;
+    height: 60px;
+  }
+}
+
+.widget-top_block_user
+{
+  float:left;
+  .username
+  {
+    margin: 12px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+}
+
+.widget-top_block_rating
+{
+  float: right;
+}
+
+.widget_latest-posts_heading
+{
+  text-align: left;
+  float:left;
+  font-weight: bold;
+  font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+  max-width: 350px;
+  font-size: 14px;
+  a
+  {
+    color: #196eb9;
+    display: block;
+  }
+  .icons-meta
+  {
+    float: left;
+    margin: 3px 0 0 -15px;
+  }
+}
+
+.widget_latest-posts_user
+{
+  float:right;
+  margin-top: 3px;
+}
+
+.who-online
+{
+  .widget;
+  margin-top: 35px;
+  &_hint
+  {
+    font-family: Arial, Tahoma, Verdana, sans-serif;
+    font-size: 12px;
+    color: #999;
+    text-align: left;
+    display: inline-block;
+    margin: 3px 0 0 15px;
+  }
+
+  .widget-top
+  {
+    margin-bottom: 21px;
+  }
+
+  &_li
+  {
+    margin: 0px 6px 10px 0px;
+    float:left;
+  }
+
+}
+
+/* Цвета заголовков форума */
+.color_wife
+{
+  background: #ccbaee;
+}
+
+.color_children
+{
+  background: #95d6fc;
+}
+
+.color_home
+{
+  background: #ffa064;
+}
+
+.forum_heading_block
+{
+  clear: both;
+  margin-top: 38px;
+  .forum_heading
+  {
+    padding: 9px 16px 6px 16px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 24px;
+  }
+}
+
+/* homepage-clubs */
+
+.homepage-clubs {
+  padding: 20px 25px;
+
+  &_hold {
+    @media (min-width: @screen-desktop) {
+      margin: 0 -95px 23px 0;
+    }
+    @media (min-width: @screen-desktop) {
+      text-align: left;
+    }
+    text-align: center;
+    margin: 0 0 23px 0;
+  }
+  &_collection {
+    @media (min-width: @screen-desktop) {
+      .inline-block();
+      margin: 0 72px 30px 0;
+      text-align: center;
+    }
+    display: block;
+    margin: 0 0 30px 0;
+    text-align: left;
+  }
+  &_collection:hover &_title {color: #009ee0;}
+  &_collection:hover &_ul {
+    @media (min-width: @screen-desktop) {
+      border-top-color: #e2f4ff;
+    }
+    border-top-color: transparent;
+  }
+  /* collection__1 */
+  &_collection__1 {
+    @media (min-width: @screen-desktop) {
+      margin-right: 33px;
+    }
+    margin-right: 0;
+  }
+  &_collection__1 &_li {
+    @media (min-width: @screen-desktop) {
+      margin-left: 7px;
+    }
+    margin-left: 0 !important;
+  }
+  &_collection__1 &_ico-hold {
+    @media (min-width: @screen-desktop) {
+      border-color: #faf6ff;
+      background-color: #faf6ff;
+    }
+    border: none;
+    background: none;
+  }
+  &_collection__1 {
+    .homepage-clubs_a {
+      @media (min-width: @screen-desktop) {
+        border: none;
+        background: none;
+      }
+      border-color: #faf6ff;
+      background-color: #faf6ff;
+    }
+  }
+  /* collection__2 */
+  &_collection__2 &_li {
+    @media (min-width: @screen-desktop) {
+      margin-left: 5px;
+    }
+    margin-left: 0;
+  }
+  &_collection__2 &_ico-hold {
+    @media (min-width: @screen-desktop) {
+      border-color: #f3fcff;
+      background-color: #f3fcff;
+    }
+    border: none;
+    background: none;
+  }
+  &_collection__2 {
+    .homepage-clubs_a {
+      @media (min-width: @screen-desktop) {
+        border: none;
+        background: none;
+      }
+      border-color: #f3fcff;
+      background-color: #f3fcff;
+    }
+  }
+  /* collection__3 */
+  &_collection__3 &_ico-hold {
+    @media (min-width: @screen-desktop) {
+      border-color: #fffbf8;
+      background-color: #fffbf8;
+    }
+    border: none;
+    background: none;
+  }
+  &_collection__3 {
+    .homepage-clubs_a {
+      @media (min-width: @screen-desktop) {
+        border: none;
+        background: none;
+      }
+      border-color: #fffbf8;
+      background-color: #fffbf8;
+    }
+  }
+  /* collection__4 */
+  &_collection__4 &_ico-hold {
+    @media (min-width: @screen-desktop) {
+      border-color: #fffeea;
+      background-color: #fffeea;
+    }
+    border: none;
+    background: none;
+  }
+  &_collection__4 {
+    .homepage-clubs_a {
+      @media (min-width: @screen-desktop) {
+        border: none;
+        background: none;
+      }
+      border-color: #fffeea;
+      background-color: #fffeea;
+    }
+  }
+  /* collection__5 */
+  &_collection__5 &_ico-hold {
+    @media (min-width: @screen-desktop) {
+      border-color: #f3fef2;
+      background-color: #f3fef2;
+    }
+    border: none;
+    background: none;
+  }
+  &_collection__5 {
+    .homepage-clubs_a {
+      @media (min-width: @screen-desktop) {
+        border: none;
+        background: none;
+      }
+      border-color: #f3fef2;
+      background-color: #f3fef2;
+    }
+  }
+  /* collection__6 */
+  &_collection__6 &_ico-hold {
+    @media (min-width: @screen-desktop) {
+      border-color: #faf6ff;
+      background-color: #faf6ff;
+    }
+    border: none;
+    background: none;
+  }
+  &_collection__6 {
+    .homepage-clubs_a {
+      @media (min-width: @screen-desktop) {
+        border: none;
+        background: none;
+      }
+      border-color: #faf6ff;
+      background-color: #faf6ff;
+    }
+  }
+
+
+  &_title-hold {
+    @media (min-width: @screen-desktop) {
+      display: block;
+    }
+    display: none;
+    text-align: center;
+  }
+  &_title {
+    display: inline-block;
+    background-color: #fff;
+    padding: 2px 4px;
+    color: @color-gray-light;
+  }
+  &_ul {
+    margin-top: -11px;
+    border-top: 1px solid transparent;
+    //padding: 20px 0 0;
+    .border-radius(10px);
+  }
+  &_li {
+    @media (min-width: @screen-desktop) {
+      //display: inline-block;
+      //width: 108px;
+      margin-top: 20px;
+    }
+    //display: block;
+    vertical-align: top;
+    width: auto;
+    margin-left: 0;
+  }
+  &_li:first-child {
+    margin-left: 0 !important;
+  }
+  &_a {
+    @media (min-width: @screen-phone-landscape) {
+      margin: 0 auto 10px;
+      width: 615px;
+    }
+    @media (min-width: @screen-desktop) {
+      //display: inline-block;
+      margin: 0;
+      border-radius: 0px;
+      width: auto;
+    }
+    width: auto;
+    margin: 0 0 10px;
+    .border-radius(10px);
+    display: block;
+    //color: @color-base;
+    line-height: 13px;
+    font-size: 16px;
+
+  }
+  &_a:hover .forum_subheading {
+    color: @color-orange;
+  }
+  &_a:hover .ico-club {
+    @media (min-width: @screen-desktop) {
+      .scale(1.2);
+    }
+  }
+  &_a:hover &_ico-hold {
+    @media (min-width: @screen-desktop) {
+      //background-color: #fff;
+    }
+    //background: none;
+  }
+  &_ico-hold {
+    @media (min-width: @screen-desktop) {
+      height: 108px;
+      width: 108px;
+      padding: 17px 15px 0;
+      background: #faf6ff;
+      border: 2px solid #faf6ff;
+      display: block;
+      float:left;
+      margin-right: 19px;
+      margin-top: -24px;
+    }
+    display: inline-block;
+    vertical-align: middle;
+    height: auto;
+    width: auto;
+    margin-bottom: 5px;
+    padding: 0;
+    border: none;
+    background: none;
+    .border-radius(54px);
+    position: relative;
+    .ico-club {
+      @media (min-width: @screen-desktop) {
+        .scale(1);
+      }
+      .scale(0.6);
+    }
+  }
+  &_tx {
+    @media (min-width: @screen-desktop) {
+      font-size: 12px;
+      display: block;
+    }
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+
+  &_b {
+    @media (min-width: @screen-desktop) {
+      display: block;
+    }
+    display: none;
+    text-align: center;
+
+    .homepage_btn-sign {
+      background-color: #9981c3;
+      color: #fff;
+    }
+    .homepage_btn-sign:hover {
+      background-color: #9279bb;
+    }
+  }
+
+  &_comments {
+    display: none;
+  }
+}
+/* /homepage-clubs */
+
+.forum_subheading
+{
+  margin-bottom: 7px;
+}
+
+.forum_subheading_desc
+{
+  max-width: 490px;
+  font-family: Arial, Tahoma, Verdana, sans-serif;
+  color: #333;
+  font-size: 12px;
+}
+
+.clubs_cont
+{
+  float:left;
+  margin-top: 24px;
+}
+
+.clubs_info
+{
+  float: right;
+  margin-top: 24px;
+  .counter-block
+  {
+    float: left;
+    margin-right: 62px;
+  }
+
+  &_activity
+  {
+    float:left;
+    margin-left: 12px;
+    margin-top: -24px;
+  }
+}
+
+.clubs_separator
+{
+  border-bottom: 1px solid #fafafa;
+  width: 801px;
+  margin-left: 128px;
+  display: table;
+}
+
+

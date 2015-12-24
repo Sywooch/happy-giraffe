@@ -1,0 +1,816 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
+</head>
+<body class="body body__lite">
+  <div class="layout-container">
+    <div class="layout-header-consult">
+      <div class="layout-header-consult__l">
+        <div class="layout-header-consult__title">
+          У Вас не хватает <br />
+          грудного молока?
+        </div>
+      </div>
+      <div class="layout-header-consult__r"><a class="layout-header-consult__button"><span class="layout-header-consult__button__inner">
+             
+            Смотреть <br />
+            ответы</span></a></div>
+    </div>
+    <div class="layout-header-consult sotense clearfix">
+      <div class="layout-header-consult__l">
+        <div class="layout-header-consult__theme">Онлайн-консультация</div>
+        <div class="layout-header-consult__title">
+          У Вас не хватает <br />
+          грудного молока?
+        </div><a class="layout-header-consult__button"><span class="layout-header-consult__button__inner">Задайте вопрос</span></a>
+      </div>
+      <div class="layout-header-consult__r">
+        <div class="layout-header-consult__img"><img src="/lite/images/services/consult/consult-man-empty.png" alt=""></div>
+        <div class="layout-header-consult__name">
+          Морозов <br />
+          Сергей Леонидович
+        </div>
+        <div class="layout-header-consult__pos">Врач-педиатр</div>
+      </div>
+    </div>
+    <div class="layout-loose">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu header-menu-guest">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                
+                        var $this = $(this),
+                            activeClass = 'active';
+                
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                      });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li header-menu-guest_section-1"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Муж и жена</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-2"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Беременность и дети</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-3"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Наш дом</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-4"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Красота и здоровье</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-5"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Интересы и увлечения</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_section-6"><a href="#" class="header-menu_a"><span class="header-menu_ico"></span><span class="header-menu_tx">Семейный отдых</span>
+                    <ul class="header-forums-list">
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рукоделие</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Цветы в доме</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Наш автомобиль</a></li>
+                      <li class="header-forums-list_li"><a href="#" class="header-forum-list_a">Рыбалка</a></li>
+                    </ul></a></li>
+                <li class="header-menu_li header-menu-guest_search"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__search"></span><span class="header-menu_tx">Поиск</span></a></li>
+                <!--li.header-menu_li
+                a.header-menu_a(href='#')
+                    span.header-menu_ico.header-menu_ico__giraffe
+                    span.header-menu_tx
+                        | Мой Жираф
+                    span.header-menu_count 1
+                // Конверсионный попап
+                .header-popup.header-popup__club
+                    .header-popup_hold
+                        .header-popup_t Вступайте в разные клубы на Веселом жирафе!
+                        .header-popup_club
+                            // 18 клубов
+                            .b-clubs
+                                ul.b-clubs_ul
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__1
+                                            .b-clubs_tx Планирование
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__2
+                                            .b-clubs_tx Беременность и роды
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__3
+                                            .b-clubs_tx Дети до года
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__4
+                                            .b-clubs_tx Дети старше года
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__5
+                                            .b-clubs_tx Дошкольники
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__6
+                                            .b-clubs_tx Школьники
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__7
+                                            .b-clubs_tx Готовим на кухне
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__8
+                                            .b-clubs_tx Ремонт в доме
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__9
+                                            .b-clubs_tx Домашние хлопоты
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__10
+                                            .b-clubs_tx Сад и огород
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__11
+                                            .b-clubs_tx Наши питомцы
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__12
+                                            .b-clubs_tx Красота и мода
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__13
+                                            .b-clubs_tx Наше здоровье
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__14
+                                            .b-clubs_tx Свадьба
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__15
+                                            .b-clubs_tx Отношения в семье
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__16
+                                            .b-clubs_tx Рукоделие
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__17
+                                            .b-clubs_tx Цветы в доме
+                                    li.b-clubs_li
+                                        a.b-clubs_a(href="#")
+                                            .ico-club.ico-club__18
+                                            .b-clubs_tx Наш автомобиль
+                                //- li.b-clubs_li
+                                    a.b-clubs_a(href="#")
+                                        .ico-club.ico-club__19
+                                        .b-clubs_tx Мы путешествуем
+                
+                        .header-popup_b.clearfix
+                            .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
+                            .header-popup_b-l
+                                span.header-popup_b-tx Начните прямо сейчас с помощью
+                
+                                .ico-social-hold
+                                    a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                    a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
+                // /Конверсионный попап
+                -->
+                <!-- Класс active отвечает за видимость попапапа-->
+                <!--li.header-menu_li
+                a.header-menu_a(href='#')
+                    span.header-menu_ico.header-menu_ico__im
+                    span.header-menu_tx
+                        | вам письмо
+                    span.header-menu_count 1
+                // Конверсионный попап
+                .header-popup.header-popup__msg
+                    .header-popup_hold
+                        .header-popup_t Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!
+                        .header-popup_msg
+                
+                        .header-popup_b.clearfix
+                            .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
+                            .header-popup_b-l
+                                span.header-popup_b-tx Начните прямо сейчас с помощью
+                
+                                .ico-social-hold
+                                    a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                    a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
+                // /Конверсионный попап
+                -->
+                <!--li.header-menu_li
+                a.header-menu_a(href='#')
+                    span.header-menu_ico.header-menu_ico__contest
+                    span.header-menu_tx
+                        | Конкурс
+                    span.header-menu_count 1
+                -->
+              </ul>
+            </div>
+            <!-- /header-menu-->
+            <!-- - if (vars.nosearch != true)+sidebarSearch('sidebar-search__big', sidebarSearch.a)
+            -->
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <div class="b-main clearfix">
+          <div class="b-main_cont">
+            <div class="heading-link-xxl"> Мы здесь общаемся!</div>
+            <!--Добавить в layout_base-->
+            <div class="top-forum">
+              <div class="widget-top">
+                <div class="heading-wd">Топ форумчан</div><span class="tx-hint">за неделю</span>
+              </div>
+              <ul>
+                <li class="widget_item">
+                  <div class="widget-top_block_user">
+                    <!-- ava--><span href="#" class="ava ava__middle ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><a class="username">Вероника Петровна</a>
+                  </div>
+                  <div class="widget-top_block_rating counter-block"><span class="rating_count counter-text">70</span>
+                    <div class="rating_text counter-hint">баллы</div>
+                  </div>
+                </li>
+                <li class="widget_item">
+                  <div class="widget-top_block_user">
+                    <!-- ava--><span href="#" class="ava ava__middle ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><a class="username">Люда Кошкина</a>
+                  </div>
+                  <div class="widget-top_block_rating counter-block"><span class="rating_count counter-text">66</span>
+                    <div class="rating_text counter-hint">баллы</div>
+                  </div>
+                </li>
+                <li class="widget_item">
+                  <div class="widget-top_block_user">
+                    <!-- ava--><span href="#" class="ava ava__middle ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><a class="username">Лена Лерина</a>
+                  </div>
+                  <div class="widget-top_block_rating counter-block"><span class="rating_count counter-text">54</span>
+                    <div class="rating_text counter-hint">баллы</div>
+                  </div>
+                </li>
+                <li class="widget_item">
+                  <div class="widget-top_block_user">
+                    <!-- ava--><span href="#" class="ava ava__middle ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><a class="username">Денис Загорский</a>
+                  </div>
+                  <div class="widget-top_block_rating counter-block"><span class="rating_count counter-text">50</span>
+                    <div class="rating_text counter-hint">баллы</div>
+                  </div>
+                </li>
+                <li class="widget_item">
+                  <div class="widget-top_block_user">
+                    <!-- ava--><span href="#" class="ava ava__middle ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><a class="username">Валентина Фигулина</a>
+                  </div>
+                  <div class="widget-top_block_rating counter-block"><span class="rating_count counter-text">40</span>
+                    <div class="rating_text counter-hint">баллы</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="latest-posts">
+              <div class="widget-top">
+                <div class="heading-wd">Последние посты</div>
+              </div>
+              <ul>
+                <li class="widget_item">
+                  <div class="widget_latest-posts_heading"><a href="">Эффективен ли урсосан для новорожденных при желтухе?</a>
+                    <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                      <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                    </div>
+                  </div>
+                  <div class="widget_latest-posts_user live-user">
+                    <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                    <div class="username"><a>Валерия Остапенко</a><span class="tx-date">минуту назад</span></div>
+                  </div>
+                </li>
+                <li class="widget_item">
+                  <div class="widget_latest-posts_heading"><a href="">Эффективен ли урсосан для новорожденных при желтухе?</a>
+                    <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                      <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                    </div>
+                  </div>
+                  <div class="widget_latest-posts_user live-user">
+                    <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                    <div class="username"><a>Валерия Остапенко</a><span class="tx-date">2 минуты назад</span></div>
+                  </div>
+                </li>
+                <li class="widget_item">
+                  <div class="widget_latest-posts_heading"><a href="">Эффективен ли урсосан для новорожденных при желтухе?</a>
+                    <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                      <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                    </div>
+                  </div>
+                  <div class="widget_latest-posts_user live-user">
+                    <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                    <div class="username"><a>Валерия Остапенко</a><span class="tx-date">вчера</span></div>
+                  </div>
+                </li>
+                <li class="widget_item">
+                  <div class="widget_latest-posts_heading"><a href="">Эффективен ли урсосан для новорожденных при желтухе?</a>
+                    <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">3685</span></a>
+                      <div class="icons-meta_view"><span class="icons-meta_tx">228</span></div>
+                    </div>
+                  </div>
+                  <div class="widget_latest-posts_user live-user">
+                    <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                    <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="forum_heading_block">
+              <div class="forum_heading color_wife">Муж и жена</div>
+              <ul class="homepage-clubs_ul">
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__14"></div>
+                      </div>
+                      <div class="forum_subheading">Свадьба</div></a>
+                    <div class="forum_subheading_desc">Планируем свадьбу, обсуждаем варианты ее проведения, наряды и традиции, правила застолья и делимся своим</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__15"></div>
+                      </div>
+                      <div class="forum_subheading">Отношения в семье</div></a>
+                    <div class="forum_subheading_desc">Как добиться и сохранить гармонию в отношениях на долгие годы, решить возникающие проблемы.</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">3795</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">74284</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="forum_heading_block">
+              <div class="forum_heading color_children">Беременность и дети</div>
+              <ul class="homepage-clubs_ul">
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__1"></div>
+                      </div>
+                      <div class="forum_subheading">Планирование</div></a>
+                    <div class="forum_subheading_desc">Место общения будущих родителей, которые знают, что беременность начинается с планирования.</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__2"></div>
+                      </div>
+                      <div class="forum_subheading">Беременность и роды</div></a>
+                    <div class="forum_subheading_desc">Счастливая беременность и легкие роды: делимся опытом, обсуждаем советы профессионалов, настраиваемся на</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__3"></div>
+                      </div>
+                      <div class="forum_subheading">Дети до года</div></a>
+                    <div class="forum_subheading_desc">Все, что нужно знать молодым мамам и папам: советы и мнения профессионалов, истории из жизни и забавные</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__4"></div>
+                      </div>
+                      <div class="forum_subheading">Дети старше года</div></a>
+                    <div class="forum_subheading_desc">Советы по выбору досуга и все, о чем нужно знать родителям “годовасиков” и деток постарше.</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__5"></div>
+                      </div>
+                      <div class="forum_subheading">Дошкольники</div></a>
+                    <div class="forum_subheading_desc">Все, что касается детей дошкольного возраста, делимся опытом и узнаем много интересного об этом этапе в жизни</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__6"></div>
+                      </div>
+                      <div class="forum_subheading">Школьники</div></a>
+                    <div class="forum_subheading_desc">Как помочь ребенку адаптироваться к школе, как решать проблемы и реагировать на успехи - все это вы найдете в</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="forum_heading_block">
+              <div class="forum_heading color_home">Наш дом</div>
+              <ul class="homepage-clubs_ul">
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__7"></div>
+                      </div>
+                      <div class="forum_subheading">Готовим на кухне</div></a>
+                    <div class="forum_subheading_desc">Как вкусно и здорово накормить всю семью? Делимся рецептами и секретами приготовления в разделе для</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__9"></div>
+                      </div>
+                      <div class="forum_subheading">Домашние хлопоты</div></a>
+                    <div class="forum_subheading_desc">Учимся все успевать и затрачивать минимум сил для максимального результата. Маленькие секреты больших</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__11"></div>
+                      </div>
+                      <div class="forum_subheading">Наши питомцы</div></a>
+                    <div class="forum_subheading_desc">Домашние питомцы - источник непередаваемой радости и удовольствия. Как за ними ухаживать и на</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__10"></div>
+                      </div>
+                      <div class="forum_subheading">Сад и огород</div></a>
+                    <div class="forum_subheading_desc">Как сделать сад отрадой для глаз, а огород - источником вкусных и полезных продуктов? Советы для начинающих</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clubs_separator"></div>
+                <li class="homepage-clubs_li">
+                  <div class="clubs_cont"><a href="#" class="homepage-clubs_a">
+                      <div class="homepage-clubs_ico-hold">
+                        <div class="ico-club ico-club__8"></div>
+                      </div>
+                      <div class="forum_subheading">Ремонт в доме</div></a>
+                    <div class="forum_subheading_desc">Быстро и профессионально сделать ремонт в доме своими руками. Поделитесь собственным опытом и</div>
+                  </div>
+                  <div class="clubs_info">
+                    <div class="counter-block"><span class="rating_count counter-text">2304</span>
+                      <div class="rating_text counter-hint">темы</div>
+                    </div>
+                    <div class="counter-block"><span class="rating_count counter-text">16886</span>
+                      <div class="rating_text counter-hint">комментарии</div>
+                    </div>
+                    <div class="clubs_info_activity live-user">
+                      <div class="live-user_hint">последняя активность</div>
+                      <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                      <div class="username"><a>Валерия Остапенко</a><span class="tx-date">3 ноября</span></div><a class="live-user_text">Милый главный герой и ваш ребенок словно сошел с обло ...</a>
+                    </div>
+                  </div>
+                </li>
+                <div class="clearfix"></div>
+              </ul>
+            </div>
+            <div class="who-online">
+              <div class="widget-top">
+                <div class="heading-wd">Сейчас в сети</div>
+                <div class="who-online_hint"><span>538 </span> пользователей</div>
+                <div class="who-online_hint"><span>4235 </span> пользователей</div>
+              </div>
+              <div class="clearfix"></div>
+              <ul class="who-online_ul">
+                <li class="who-online_li clearfix">
+                  <!-- ava--><span href="#" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                </li>
+                <li class="who-online_li clearfix">
+                  <!-- ava--><span href="#" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Футер-->
+        <!-- layout-footer-->
+        <div class="layout-footer clearfix">
+          <div class="layout-footer_hold">
+            <ul class="footer-list">
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты</a></li>
+              <li class="footer-list_li footer-list_li_social visible-md-inline-block"><a rel="nofollow" href="http://ok.ru/happygiraffe" target="_blank" class="social-button odnoklassniki">
+                  <div class="social-button_ico"></div>
+                  <div class="social-button_tx">Одноклассники</div>
+                  <div class="social-button_count">198486</div></a></li>
+            </ul>
+            <ul class="footer-menu visible-md">
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__husband-and-wife">Муж и жена </div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Свадьба </a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Отношения в семье</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__pregnancy">Беременность и дети </div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Планирование </a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Беременность и роды</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дети до года</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дети старше года</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Дошкольники</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Школьники</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__home">Наш дом</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Готовим на кухне</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Ремонт в доме</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Домашние хлопоты</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Сад и огород</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наши питомцы </a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__beauty">Красота и здоровье</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Красота и мода</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наше здоровье</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__hobby">Интересы и увлечения</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Рукоделие</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Цветы в доме</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Наш автомобиль</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Рыбалка</a></li>
+                </ul>
+              </li>
+              <li class="footer-menu_li">
+                <div class="footer-menu_t footer-menu_t__family-holiday">Семейный отдых</div>
+                <ul class="footer-menu_in">
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Мы путешествуем</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Выходные с семьей</a></li>
+                  <li class="footer-menu_in-li"><a href="#" class="footer-menu_in-a">Праздники</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+            <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+          </div>
+        </div>
+        <!-- /layout-footer-->
+        <!-- /Футер-->
+        
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+    <div class="popup popup-bnr-photo">
+      <photoAd></photoAd>
+    </div>
+  </div>
+</body></html>

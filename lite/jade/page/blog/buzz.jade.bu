@@ -1,0 +1,129 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'blog.css';
+block layout
+    .b-main.clearfix
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+
+                    article.b-article.clearfix.b-article__list
+                        .b-article_cont.clearfix
+                            .b-article_cont-tale
+                            .b-article_header.clearfix
+                                .icons-meta
+                                    a.icons-meta_comment(href='#')
+                                        span.icons-meta_tx 3685
+                                    .icons-meta_view
+                                        span.icons-meta_tx 228
+                                .float-l
+                                    .ico-hold-small
+                                        .ico-club.ico-club__7.small
+                                    a.b-article_author(href='#') Цветы в доме
+                                    time.tx-date(pubdate='1957-10-04') минуту назад
+                            .b-article_t-list.article_t-feed
+                                a.b-article_t-a.article_t-feed Прикольная тема
+                            .b-album-cap.feed-cap
+                                .b-album-cap_hold
+                                    img(src="../../../images/sovhoz.jpg")
+                            .b-article_share
+                                script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
+                                .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='odnoklassniki,vkontakte,facebook', data-yasharetheme='counter', data-yasharetype='small')
+
+
+                    article.b-article.clearfix.b-article__list
+                        .b-article_cont.clearfix
+                            .b-article_cont-tale
+                            .b-article_header.clearfix
+                                .icons-meta
+                                    a.icons-meta_comment(href='#')
+                                        span.icons-meta_tx 3685
+                                    .icons-meta_view
+                                        span.icons-meta_tx 228
+                                .float-l
+                                    .ico-hold-small
+                                        .ico-club.ico-club__2.small
+                                    a.b-article_author(href='#') Беременность и роды
+                                    time.tx-date(pubdate='1957-10-04') минуту назад
+                            .b-article_t-list.article_t-feed
+                                a.b-article_t-a.article_t-feed Екатерина Климова в четвертый раз стала мамой
+                            .b-markdown
+                                p
+                                .b-markdown_t-sub
+                                    p И назвала дочку необычным именем.
+                            .b-album-cap.feed-cap
+                                .b-album-cap_hold
+                                    //a.btn.btn-default.btn-l.btn-feed.middle Читать далее
+                                    a(class='btn btn-default btn-l btn-feed middle', href='#') Читать далее
+                                    img(src="../../../images/example/klimova.jpg")
+                            .b-article_share
+                                script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
+                                .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='odnoklassniki,vkontakte,facebook', data-yasharetheme='counter', data-yasharetype='small')
+
+
+
+                    article.b-article.clearfix.b-article__list
+                        .b-article_cont.clearfix
+                            .b-article_cont-tale
+                            .b-article_header.clearfix
+                                .icons-meta
+                                    a.icons-meta_comment(href='#')
+                                        span.icons-meta_tx 3685
+                                    .icons-meta_view
+                                        span.icons-meta_tx 228
+                                .float-l
+                                    .ico-hold-small
+                                        .ico-club.ico-club__14.small
+                                    a.b-article_author(href='#') Беременность и роды
+                                    time.tx-date(pubdate='1957-10-04') минуту назад
+                            .b-article_t-list.article_t-feed
+                                a.b-article_t-a.article_t-feed А свадьба была в самом разгаре
+                            .b-markdown
+                                p
+                                .b-markdown_t-sub
+                                    p Местный тамада придумал умапомрачительный конкурс "Ручеек по-взрослому!!!"
+                            .b-album-cap.feed-cap
+                                .b-album-cap_hold
+                                    .btn-label.gif
+                                    .btn-play.gif
+                                    img(src="../../../images/example/wedding.jpg")
+                            .b-article_share
+                                script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
+                                .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='odnoklassniki,vkontakte,facebook', data-yasharetheme='counter', data-yasharetype='small')
+
+
+                    article.b-article.clearfix.b-article__list
+                        .b-article_cont.clearfix
+                            .b-article_cont-tale
+                            .b-article_header.clearfix
+                                .icons-meta
+                                    a.icons-meta_comment(href='#')
+                                        span.icons-meta_tx 3685
+                                    .icons-meta_view
+                                        span.icons-meta_tx 228
+                                .float-l
+                                    .ico-hold-small
+                                        .ico-club.ico-club__14.small
+                                    a.b-article_author(href='#') Свадьба
+                                    time.tx-date(pubdate='1957-10-04') минуту назад
+                            .b-article_t-list.article_t-feed
+                                a.b-article_t-a.article_t-feed 5 звездных пар проект "Дом-2" рассказали, во сколько обошлись им свадьбы
+                            .b-markdown
+                                p
+                                .b-markdown_t-sub
+                                    p Как правило на период лета-начала осени наблюдается свадебный бум. Участники телепроекта «Дом-2» не отстают, и так же активно планируют свои торжества.
+                            .b-album-cap.feed-cap
+                                .b-album-cap_hold
+                                    .btn-label.video
+                                    .btn-play.video
+                                    img(src="../../../images/example/wedding.jpg")
+                            .b-article_share
+                                script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
+                                .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='odnoklassniki,vkontakte,facebook', data-yasharetheme='counter', data-yasharetype='small')
+
+
+                +sidebarFeed('')

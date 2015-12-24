@@ -16,6 +16,7 @@ class UsersTopWidget extends \CWidget
     const POSTS_MULTIPLIER = 5;
     const COMMENTS_MULTIPLIER = 1;
     const CACHE_DURATION = 300;
+    const LIMIT = 5;
 
     public function run()
     {
@@ -52,9 +53,10 @@ class UsersTopWidget extends \CWidget
             $this->process($posts, $scores, self::POSTS_MULTIPLIER);
             $this->process($comments, $scores, self::COMMENTS_MULTIPLIER);
             arsort($scores);
+            $scores = array_slice($scores, 0, self::LIMIT, true);
             $value = $scores;
 
-            \Yii::app()->cache->set($cacheId, $value, 300);
+            \Yii::app()->cache->set($cacheId, $value, self::CACHE_DURATION);
         }
         return $value;
     }

@@ -24,7 +24,7 @@ class OnlineUsersWidget extends \CWidget
     protected function getGuestsCount()
     {
         $guests = \Yii::app()->comet->cmdOnlineWithCounters('guest');
-        return $guests['guest'];
+        return isset($guests['guest']) ? $guests['guest'] : 0;
     }
 
     protected function getUsers()
@@ -42,8 +42,12 @@ class OnlineUsersWidget extends \CWidget
                 }
                 $c++;
             }
+            $models = User::model()->findAllByPk($ids);
+            $models = array_filter($models, function($model) {
+                return $model->avatarUrl !== null;
+            });
             $value = array(
-                'models' => User::model()->findAllByPk($ids),
+                'models' => $models,
                 'count' => $c,
             );
             \Yii::app()->cache->set($cacheId, $value, self::CACHE_DURATION);

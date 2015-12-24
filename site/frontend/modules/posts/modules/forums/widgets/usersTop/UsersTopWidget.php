@@ -30,7 +30,7 @@ class UsersTopWidget extends \CWidget
         $cacheId = $this->getCacheId();
         $value = \Yii::app()->cache->get($cacheId);
         if ($value === false) {
-            $criteria = clone Content::model()->byLabels(array('Buzz'))->getDbCriteria();
+            $criteria = clone Content::model()->byLabels(Label::LABEL_FORUMS)->getDbCriteria();
             $criteria->join = 'JOIN ' . Tag::model()->tableName() . ' tagModels ON tagModels.contentId = t.id';
             $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
             $ids = $command->queryColumn();

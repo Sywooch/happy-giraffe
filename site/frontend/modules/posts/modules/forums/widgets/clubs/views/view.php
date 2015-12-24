@@ -8,7 +8,7 @@
 
 <?php foreach ($sections as $i => $section): ?>
     <div class="forum_heading_block">
-        <div class="forum_heading color_wife"><?=$section->title?></div>
+        <div class="forum_heading"><?=$section->title?></div>
         <ul class="homepage-clubs_ul">
             <?php foreach ($section->clubs as $j => $club): ?>
             <li class="homepage-clubs_li">

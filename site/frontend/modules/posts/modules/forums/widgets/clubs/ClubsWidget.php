@@ -3,6 +3,7 @@ namespace site\frontend\modules\posts\modules\forums\widgets\clubs;
 
 use site\frontend\components\api\models\User;
 use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\models\Label;
 
 class ClubsWidget extends \CWidget
 {
@@ -14,7 +15,7 @@ class ClubsWidget extends \CWidget
         foreach ($sections as $section) {
             foreach ($section->clubs as $club) {
                 $label = $club->toLabel();
-                $post = Content::model()->byLabels(array($label))->orderDesc()->find();
+                $post = Content::model()->byLabels(array($label, Label::LABEL_FORUMS))->orderDesc()->find();
                 if ($post) {
                     $posts[$club->id] = $post;
                 }

@@ -12,6 +12,8 @@ use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 
 class VotesManager
 {
+    const MIN_BEST = 5;
+
     public static function changeVote($userId, $answerId)
     {
         $vote = QaAnswerVote::model()->findByPk(compact('userId', 'answerId'));
@@ -45,7 +47,7 @@ class VotesManager
         $criteria->select = 'MAX(votesCount)';
         $max = \Yii::app()->db->getCommandBuilder()->createFindCommand(QaAnswer::model()->tableName(), $criteria)->execute();
         if ($answer->votesCount >= $max) {
-            QaAnswer::model()->updateAll(array('isBest' => new \CDbExpression('(votesCount = :max) AND (votesCount > 0)')), 'questionId = :questionId', array(':questionId' => $answer->questionId, ':max' => $max));
+            QaAnswer::model()->updateAll(array('isBest' => new \CDbExpression('(votesCount = :max) AND (votesCount > :minBest)')), 'questionId = :questionId', array(':questionId' => $answer->questionId, ':max' => $max, ':minBest' => self::MIN_BEST));
         }
     }
 }

@@ -5,6 +5,9 @@ namespace site\frontend\modules\v1\components;
 use site\frontend\modules\signup\components\UserIdentity;
 use site\frontend\modules\v1\config\Filter;
 use site\frontend\modules\v1\actions\IPostProcessable;
+use site\frontend\modules\v1\actions\ReLoginAction;
+use site\frontend\modules\v1\actions\LoginAction;
+use site\frontend\modules\v1\actions\LogoutAction;
 
 /**
  * @property string $data
@@ -18,9 +21,23 @@ use site\frontend\modules\v1\actions\IPostProcessable;
  * @property int $errorCode
  * @property $pushData
  * @property $action
+ * @property $key
+ * @property $isFromCache
  */
 class V1ApiController extends \CController
 {
+    #region Constants
+    const ID = 'id';
+    const WITH = 'expand';
+    const ORDER = 'order';
+    const LIMIT = 'per-page';
+    const OFFSET = 'page';
+
+    const CACHE_EXPIRE = 300;
+    const CACHE_COLLECTION_EXPIRE = 600;
+    const KEYS_COLLECTION = 'KeysCollection';
+    #endregion
+
     #region Fields
     public $data = null;
     public $pushData = null;
@@ -33,6 +50,9 @@ class V1ApiController extends \CController
     private $comet;
 
     private $action = null;
+
+    private $key;
+    private $isFromCache = false;
 
     public function setAction($action)
     {
@@ -55,8 +75,8 @@ class V1ApiController extends \CController
             header('X-Has-Next: ' . var_export($this->hasNext, true));
             header('X-Current-Page: ' . $this->currentPage);
             header('X-Request-Type: ' . \Yii::app()->request->requestType);
+            header('X-From-Cache: ' . var_export($this->isFromCache, true));
             echo \CJSON::encode($this->data);
-            //echo json_encode($this->data);
         } else {
             http_response_code($this->errorCode);
             header('Content-Type: application/json', true);
@@ -67,20 +87,24 @@ class V1ApiController extends \CController
 
     /**
      * Checks request type and call response.
+     *
+     * @param $action
      */
     protected function afterAction($action)
     {
-        if ($this->error == null) {
+        if ($this->error == null && !$this->isFromCache) {
             $this->toArray();
 
             if ($this->action != null && $this->action instanceof IPostProcessable) {
                 $this->action->postProcessing($this->data);
             }
 
-            $this->complete();
-        } else {
-            $this->complete();
+            if ($this->requestType == 'Param') {
+                \Yii::app()->cache->set($this->key, $this->data, self::CACHE_EXPIRE);
+            }
         }
+
+        $this->complete();
 
         parent::afterAction($action);
     }
@@ -100,10 +124,22 @@ class V1ApiController extends \CController
      */
     public function get($model, $action, $where = null)
     {
+        $this->setCacheKey($model, $where);
+
+        $cache = \Yii::app()->cache->get($this->key);
+
+        if ($cache) {
+            $this->data = $cache;
+            $this->isFromCache = true;
+            return;
+        }
+
+        $this->setModelCollectionCache();
+
         $this->action = $action;
 
-        if (isset($_GET['id'])) {
-            $this->data = $model->with($this->getWithParameters($model))->findByPk(\Yii::app()->request->getParam('id'));
+        if (\Yii::app()->request->getParam(self::ID, null)) {
+            $this->data = $model->with($this->getWithParameters($model))->findByPk(\Yii::app()->request->getParam(self::ID));
         } else {
             $params = $this->getPaginationParams();
 
@@ -115,8 +151,8 @@ class V1ApiController extends \CController
                 $this->hasNext = true;
             }
 
-            if (isset($_GET['order'])) {
-                $params['order'] = \Yii::app()->request->getParam('order');
+            if (\Yii::app()->request->getParam(self::ORDER, null)) {
+                $params['order'] = \Yii::app()->request->getParam(self::ORDER);
             }
 
             $this->data = $model->with($this->getWithParameters($model))->findAll($params);
@@ -125,6 +161,48 @@ class V1ApiController extends \CController
         if ($this->data == null) {
             $this->setError("NotFound", 404);
         }
+    }
+
+    /**
+     * Sets $key field.
+     *
+     * @param $model - for classname
+     * @param $where - for query condition.
+     */
+    private function setCacheKey($model, $where = null)
+    {
+        //\Yii::app()->cache->flush();
+
+        $key = array();
+
+        $key['model'] = get_class($model);
+        $key['id'] = \Yii::app()->request->getParam('id');
+        $key['expand'] = $this->getWithParameters($model);
+        if (!\Yii::app()->request->getParam('id', null)) {
+            $key['condition'] = $where;
+            $key['pagination'] = $this->getPaginationParams();
+            $key['order'] = \Yii::app()->request->getParam('order', null);
+        }
+
+        $this->key = json_encode($key);
+    }
+
+    /**
+     * Modify model cache keys collection.
+     * Collection uses in CacheDeleteBehavior cause yii can't get list of keys in cache.
+     */
+    private function setModelCollectionCache()
+    {
+        $collection = \Yii::app()->cache->get(self::KEYS_COLLECTION);
+
+        if ($collection) {
+            array_push($collection, $this->key);
+        } else {
+            $collection = array($this->key);
+        }
+        \Yii::app()->cache->set(self::KEYS_COLLECTION, $collection, self::CACHE_COLLECTION_EXPIRE);
+
+        \Yii::log(print_r($collection, true), 'info', 'api');
     }
 
     /**
@@ -203,6 +281,10 @@ class V1ApiController extends \CController
     #region Auth
     public function auth()
     {
+        if ($this->action instanceof ReLoginAction || $this->action instanceof LogoutAction) {
+            return true;
+        }
+
         $required = array(
             'auth_email' => true,
             'auth_password' => true,
@@ -210,10 +292,14 @@ class V1ApiController extends \CController
 
         $socialRequired = array(
             'access_token' => true,
-            'service' => false
+            'service' => true
         );
 
-        if ($this->checkParams($required)) {
+        $apiRequired = array(
+            'access_token' => true,
+        );
+
+        if ($this->checkParams($required) /*&& $this->action instanceof LoginAction*/) {
             $params = $this->getParams($required);
             $this->identity = new UserIdentity($params['auth_email'], $params['auth_password']);
         } else if ($this->checkParams($socialRequired)) {
@@ -221,12 +307,24 @@ class V1ApiController extends \CController
 
             $this->identity = new ApiSocialUserIdentity($params['access_token'],
                 isset($params['service']) ? $params['service'] : null);
+        } else if ($this->checkParams($apiRequired)) {
+            $params = $this->getParams($apiRequired);
+
+            $this->identity = new ApiUserIdentity($params['access_token']);
         } else {
             $this->setError("AuthParamsMissing", 401);
             return false;
         }
 
         if (!($this->identity->authenticate())) {
+            /*if (isset($params['refresh_token']) && $this->identity instanceof ApiUserIdentity) {
+                $this->identity->refresh($params['refresh_token']);
+
+                $this->data = $this->identity->token;
+                $this->complete();
+                return;
+            }*/
+
             $this->setError($this->identity->errorMessage, 401);
             return false;
         } else {
@@ -246,8 +344,15 @@ class V1ApiController extends \CController
      */
     private function getPaginationParams()
     {
-        $size = isset($_GET['per-page']) ? \Yii::app()->request->getParam('per-page'): 20;
-        $this->currentPage = $page = isset($_GET['page']) ? \Yii::app()->request->getParam('page'): 1;
+        $size = isset($_GET[self::LIMIT]) ? \Yii::app()->request->getParam(self::LIMIT): 20;
+
+        if ($size > 100) {
+            $size = 100;
+        } else if ($size <= 0) {
+            $size = 20;
+        }
+
+        $this->currentPage = $page = isset($_GET[self::OFFSET]) ? \Yii::app()->request->getParam(self::OFFSET): 1;
 
         return array(
             'limit' => $size,
@@ -263,8 +368,8 @@ class V1ApiController extends \CController
      */
     private function getWithParameters($model)
     {
-        if (isset($_GET['expand'])){
-            $temp = explode(",", \Yii::app()->request->getParam('expand'));
+        if (isset($_GET[self::WITH])){
+            $temp = explode(",", \Yii::app()->request->getParam(self::WITH));
 
             foreach ($temp as $key => $value) {
                 if (!isset($model->relations()[$value])) {
@@ -409,12 +514,12 @@ class V1ApiController extends \CController
         foreach ($params as $key => $value) {
             if (isset($filter[$key])) {
                 if (!$isExcept) {
-                    $result['test'] = 'test';
+                    //$result['test'] = 'test';
                     $result[$key] = $value;
                 }
             } else {
                 if ($isExcept) {
-                    $result['test'] = 'test';
+                    //$result['test'] = 'test';
                     $result[$key] = $value;
                 }
             }

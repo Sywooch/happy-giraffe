@@ -474,6 +474,8 @@ return array(
         'v1/api/login' => 'v1/api/login',
         //'v1/api/post-comments' => 'v1/api/postComments',
         'v1/api/photo' => 'v1/api/photo',
+        'v1/api/relogin' => 'v1/api/relogin',
+        'v1/api/logout' => 'v1/api/logout',
 
 
         //horoscope

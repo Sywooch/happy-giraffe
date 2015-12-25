@@ -122,6 +122,9 @@ class Content extends \CActiveRecord implements \IHToJSON
             /*'Rabbit' => array(
                 'class' => 'site.common.behaviors.RabbitMQBehavior',
             ),*/
+            'CacheDelete' => array(
+                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+            ),
             'HTimestampBehavior' => array(
                 'class' => 'HTimestampBehavior',
                 'createAttribute' => 'dtimeCreate',

@@ -511,6 +511,9 @@ class User extends HActiveRecord
             /*'Rabbit' => array(
                 'class' => 'site.common.behaviors.RabbitMQBehavior',
             ),*/
+            'CacheDelete' => array(
+                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+            ),
             'getUrl' => array(
                 'class' => 'site.frontend.extensions.geturl.EGetUrlBehavior',
                 'route' => 'product/view',

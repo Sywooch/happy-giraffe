@@ -16,6 +16,15 @@ class ApiController extends V1ApiController
              * @apiParam (Simple Login/Password Params:) {String} auth_password Пароль пользователя.
              */
             /**
+             * @apiDefine SocialAuthInstruction
+             * @apiParam (Social Auth Params:) {String} access_token Токен пользователя из сервиса.
+             * @apiParam (Social Auth Params:) {String=vkontakte,odnoklassniki} service Название сервиса.
+             */
+            /**
+             * @apiDefine ApiAuthInstruction
+             * @apiParam (Api Auth Params:) {String} access_token Токен доступа. Время жизни 30 минут с получения.
+             */
+            /**
              * @apiDefine FormDataRequest
              * @apiHeader (Content Type:) {application/form-data} format Формат тела запроса.
              */
@@ -25,10 +34,13 @@ class ApiController extends V1ApiController
              */
             /**
              * @apiGroup Auth
-             * @api {post} login/ Простая авторизация через happy-giraffe
+             * @api {post} / Авторизация через токен.
+             * @apiUse ApiAuthInstruction
+             */
+            /**
+             * @apiGroup Auth
+             * @api {post} login/ Простая аутентификация через жираф.
              * @apiName Login
-             * @apiDescription Авторизует пользователя в приложении посредством логина и пароля.
-             * Возвращает информацию об авторизованном пользователе или ошибку.
              * @apiError (Error 401) {String} 401 Ошибка авторизации.
              * @apiErrorExample {json} Error-Response:
              * HTTP/1.1 401 Unauthorized
@@ -36,31 +48,143 @@ class ApiController extends V1ApiController
              *     "error": "Неверный пароль"
              * }
              * @apiUse SimpleAuthInstruction
+             * @apiUse SocialAuthInstruction
              * @apiSuccessExample {json} Success-Response:
              HTTP/1.1 200 OK
-            [
-                {
+            {
+                "user": {
                     "id": "241803",
+                    "email": "2@mail.ru",
+                    "phone": "",
+                    "password": "098f6bcd4621d373cade4e832627b4f6",
                     "first_name": "Stas",
                     "last_name": "Fomin",
+                    "avatar_id": null,
                     "gender": "1",
                     "birthday": "1996-04-02",
-                    "last_active": "2015-11-12 15:30:13",
+                    "about": null,
+                    "last_active": "2015-12-21 09:25:25",
                     "online": "1",
                     "deleted": "0",
                     "blocked": "0",
                     "register_date": "2015-11-12 15:30:08",
-                    "login_date": "2015-11-12 15:30:13",
+                    "login_date": "2015-12-21 09:25:25",
+                    "last_ip": "192.168.0.1",
                     "relationship_status": null,
                     "mood_id": null,
+                    "profile_access": "all",
+                    "guestbook_access": "all",
+                    "im_access": "all",
+                    "profile_check": null,
+                    "recovery_disable": "0",
                     "group": "1",
+                    "remember_code": "0",
+                    "blog_title": null,
+                    "blog_description": "",
+                    "blog_photo_id": null,
+                    "blog_photo_position": null,
+                    "blog_show_rubrics": "1",
+                    "email_confirmed": "0",
                     "updated": "2015-11-12 15:30:08",
                     "last_updated": null,
+                    "main_photo_id": null,
+                    "registration_source": "0",
+                    "registration_finished": "1",
+                    "activation_code": "",
                     "status": "1",
-                    "avatarInfo": ""
+                    "avatarId": null,
+                    "avatarInfo": "",
+                    "specInfo": ""
+                },
+                "token": {
+                    "access_token": "bf11def387fe07a1ea72649ff091f10e",
+                    "refresh_token": "dff88de3ce8f0a00d76f620af527ccad",
+                    "user_id": "241803",
+                    "date": 1451048950,
+                    "expire": 1451050750,
+                    "error": "",
+                    "_id": null
                 }
-            ]
+            }
              * @apiVersion 0.0.1
+             */
+            /**
+             * @apiGroup Auth
+             * @api {post} relogin/ Обновление токена.
+             * @apiParam {String} refresh_token Токен для обновления.
+             * @apiSuccessExample {json} Success-Response:
+            HTTP/1.1 200 OK
+            {
+                "token": {
+                    "access_token": "915295d976f71503998b0177176d7226",
+                    "refresh_token": "1717c1dd379490f8e2ba8cd69eb444aa",
+                    "user_id": "241803",
+                    "date": 1451049894,
+                    "expire": 1451051694,
+                    "error": "",
+                    "_id": null
+                },
+                "user": {
+                    "id": "241803",
+                    "email": "2@mail.ru",
+                    "phone": "",
+                    "password": "098f6bcd4621d373cade4e832627b4f6",
+                    "first_name": "Stas",
+                    "last_name": "Fomin",
+                    "avatar_id": null,
+                    "gender": "1",
+                    "birthday": "1996-04-02",
+                    "about": null,
+                    "last_active": "2015-12-21 09:25:25",
+                    "online": "1",
+                    "deleted": "0",
+                    "blocked": "0",
+                    "register_date": "2015-11-12 15:30:08",
+                    "login_date": "2015-12-21 09:25:25",
+                    "last_ip": "192.168.0.1",
+                    "relationship_status": null,
+                    "mood_id": null,
+                    "profile_access": "all",
+                    "guestbook_access": "all",
+                    "im_access": "all",
+                    "profile_check": null,
+                    "recovery_disable": "0",
+                    "group": "1",
+                    "remember_code": "0",
+                    "blog_title": null,
+                    "blog_description": "",
+                    "blog_photo_id": null,
+                    "blog_photo_position": null,
+                    "blog_show_rubrics": "1",
+                    "email_confirmed": "0",
+                    "updated": "2015-11-12 15:30:08",
+                    "last_updated": null,
+                    "main_photo_id": null,
+                    "registration_source": "0",
+                    "registration_finished": "1",
+                    "activation_code": "",
+                    "status": "1",
+                    "avatarId": null,
+                    "avatarInfo": "",
+                    "specInfo": ""
+                }
+            }
+             */
+            /**
+             * @apiGroup Auth
+             * @api {post} logout/ Выход.
+             * @apiUse ApiAuthInstruction
+             * @apiSuccessExample {json} Success-Response:
+            HTTP/1.1 200 OK
+            {
+                "access_token": "237e1116c9e5ed1214508158aca6c2bd",
+                "refresh_token": "39446c6361fe41882c7ce6350775496c",
+                "user_id": "241803",
+                "date": 1451050116,
+                "expire": 1451050124,
+                "error": "",
+                "_id": null
+            }
              */
             'login' => array(
                 'class' => 'site\frontend\modules\v1\actions\LoginAction',
@@ -384,7 +508,8 @@ class ApiController extends V1ApiController
             /**
              * @apiGroup Comments
              * @api {post} comments/ Создание комментария.
-             * @apiUse SimpleAuthInstruction
+             * @apiUse ApiAuthInstruction
+             * @apiUse SocialAuthInstruction
              * @apiUse FormDataRequest
              * @apiParam (Post Params:) {Number} entity_id Id комментируемой сущности.
              * @apiParam (Post Params:) {String} text Текст коментария.
@@ -414,7 +539,8 @@ class ApiController extends V1ApiController
             /**
              * @apiGroup Comments
              * @api {put} comments/ Изменение комментария.
-             * @apiUse SimpleAuthInstruction
+             * @apiUse ApiAuthInstruction
+             * @apiUse SocialAuthInstruction
              * @apiUse UrlEncodedRequest
              * @apiParam (Put Params:) {Number} id Id комментария.
              * @apiParam (Put Params:) {String} text Текст комментария.
@@ -440,7 +566,8 @@ class ApiController extends V1ApiController
             /**
              * @apiGroup Comments
              * @api {delete} comments/ Удаление комментария.
-             * @apiUse SimpleAuthInstruction
+             * @apiUse ApiAuthInstruction
+             * @apiUse SocialAuthInstruction
              * @apiParam (Delete Params:) {Number} id Id комментария.
              * @apiVersion 0.0.1
              */
@@ -514,7 +641,8 @@ class ApiController extends V1ApiController
             /**
              * @apiGroup Posts
              * @api {post} posts/ Создание поста.
-             * @apiUse SimpleAuthInstruction
+             * @apiUse ApiAuthInstruction
+             * @apiUse SocialAuthInstruction
              * @apiUse FormDataRequest
              * @apiParam (Post Params:) {Number=1,2,3,4} type_id Id типа поста в зависимости от контента (пост, фотопост, видеопост, статус).
              * @apiParam (Post Params:) {Number} rubric_id Id рубрики, в которой будет находиться пост.
@@ -528,7 +656,8 @@ class ApiController extends V1ApiController
             /**
              * @apiGroup Posts
              * @api {put} posts/ Изменение поста.
-             * @apiUse SimpleAuthInstruction
+             * @apiUse ApiAuthInstruction
+             * @apiUse SocialAuthInstruction
              * @apiUse UrlEncodedRequest
              * @apiParam (Put Params:) {Number} id Id изменяемого поста.
              * @apiParam (Put Params:) {String} title Заголовок поста.
@@ -542,7 +671,8 @@ class ApiController extends V1ApiController
             /**
              * @apiGroup Posts
              * @api {delete} posts/ Удаление поста.
-             * @apiUse SimpleAuthInstruction
+             * @apiUse ApiAuthInstruction
+             * @apiUse SocialAuthInstruction
              * @apiParam (Delete Params:) {Number} id Id удаляемого поста.
              * @apiParam (Delete Params:) {String="forum","blog"} type Тип поста в зависимости от расположения.
              * @apiVersion 0.0.1
@@ -747,8 +877,44 @@ class ApiController extends V1ApiController
             /*'postComments' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostCommentsAction',
             ),*/
+            /**
+             * @apiGroup Photo
+             * @api {post} photo/ Загрузка фотографии.
+             * @apiUse ApiAuthInstruction
+             * @apiUse SocialAuthInstruction
+             * @apiParam (Post Params:) {File} photo Загружаемое изображение.
+             * @apiSuccessExample {json} Success-Response:
+            HTTP/1.1 200 OK
+            [
+                {
+                    "removed": 0,
+                    "hidden": 1,
+                    "rate": "0",
+                    "views": "0",
+                    "author_id": "241803",
+                    "fs_name": "16cf3dd937c5186da3c4e14f7f3cfa51.png",
+                    "file_name": "screenshot_15-09-29_16-42-48.png",
+                    "album_id": "144482",
+                    "width": 572,
+                    "height": 114,
+                    "id": "689688",
+                    "title": null,
+                    "html": "<img src=\"http://img.giraffe.code-geek.ru/v2/thumbs/e26e4ffdce15f4bc6711c767ffa68dac/0d/71/c921f3eff616c298aa60e6d5aea1.png\" class=\"content-img\">",
+                    "comment_html": "<a class=\"comments-gray_cont-img-w\" onclick=\"PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : 'Comment', entityId : '' }, '689688')\"><img width=\"395\" height=\"78\" src=\"http://img.giraffe.code-geek.ru/thumbs/395x400/241803/16cf3dd937c5186da3c4e14f7f3cfa51.png\" alt=\"\" /></a>",
+                    "url": "http://img.giraffe.code-geek.ru/thumbs/480x250/241803/16cf3dd937c5186da3c4e14f7f3cfa51.png",
+                    "new_photo_id": "186"
+                }
+            ]
+             */
             'photo' => array(
                 'class' => 'site\frontend\modules\v1\actions\PhotoAction',
+            ),
+            /***/
+            'relogin' => array(
+                'class' => 'site\frontend\modules\v1\actions\ReLoginAction',
+            ),
+            'logout' => array(
+                'class' => 'site\frontend\modules\v1\actions\LogoutAction',
             ),
         );
     }

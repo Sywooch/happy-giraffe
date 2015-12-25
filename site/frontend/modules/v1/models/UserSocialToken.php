@@ -3,6 +3,9 @@
 namespace site\frontend\modules\v1\models;
 
 /**
+ * Represents social access tokens.
+ * Has weak relation to real social api, using only for simple auth with one time validation before expires.
+ *
  * @property $access_token;
  * @property $expire;
  * @property $user_id;
@@ -34,6 +37,14 @@ class UserSocialToken extends \EMongoDocument
         return 'user_social_tokens';
     }
 
+    /**
+     * Refresh access token.
+     * But not used now. May be later.
+     *
+     * @param $access_token
+     *
+     * @return bool
+     */
     public function refresh($access_token)
     {
         if ($this->makeValidationRequest($access_token, $this->service, $this)) {
@@ -46,6 +57,16 @@ class UserSocialToken extends \EMongoDocument
         }
     }
 
+    /**
+     * Creates record based on social access token.
+     * Make one time token validation for it.
+     * Using now for refresh to.
+     *
+     * @param $token
+     * @param $service
+     *
+     * @return UserSocialToken
+     */
     public function create($token, $service)
     {
         $model = new self;
@@ -73,16 +94,36 @@ class UserSocialToken extends \EMongoDocument
         return $model;
     }
 
+    /**
+     * Check token expire time.
+     */
     public function isAlive()
     {
         return time() < $this->expire;
     }
 
+    /**
+     * Entry point for validation.
+     *
+     * @param $token
+     * @param $model
+     *
+     * @return bool
+     */
     private function makeValidationRequest($token, $model = null)
     {
         return $this->switchservice($model->service, $token, $model == null ? $this : $model);
     }
 
+    /**
+     * Call methods by service.
+     *
+     * @param $service
+     * @param $token
+     * @param $model
+     *
+     * @return bool
+     */
     private function switchService($service, $token, $model) {
         if ($service) {
             switch ($service) {
@@ -102,6 +143,15 @@ class UserSocialToken extends \EMongoDocument
         }
     }
 
+    /**
+     * Make validation request to Vk.
+     * Use secure.checkToken method.
+     *
+     * @param $token
+     * @param $model
+     *
+     * @return bool
+     */
     private function makeVkRequest($token, $model)
     {
         $params = \Yii::app()->eauth->services['vk_api'];
@@ -143,6 +193,15 @@ class UserSocialToken extends \EMongoDocument
         }
     }
 
+    /**
+     * Make validation request fo Ok.
+     * Use users.getInfo method, cause token validation methods not available.
+     *
+     * @param $token
+     * @param $model
+     *
+     * @return bool
+     */
     private function makeOkRequest($token, $model)
     {
         $params = \Yii::app()->eauth->services['odnoklassniki'];
@@ -176,6 +235,13 @@ class UserSocialToken extends \EMongoDocument
         }
     }
 
+    /**
+     * Create request, return response.
+     *
+     * @param $url
+     *
+     * @return json string
+     */
     private function makeRequest($url)
     {
         $ch = curl_init();

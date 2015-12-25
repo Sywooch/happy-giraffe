@@ -5,9 +5,11 @@ namespace site\frontend\modules\v1\components;
 use site\frontend\modules\v1\models\UserSocialToken;
 
 /**
- * @property $token;
- * @property $service;
- * @property $user_id;
+ * Identity for auth from social tokens.
+ *
+ * @property $token
+ * @property $service
+ * @property $user_id
  */
 class ApiSocialUserIdentity extends \CUserIdentity
 {

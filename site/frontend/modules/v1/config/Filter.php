@@ -2,6 +2,9 @@
 
 namespace site\frontend\modules\v1\config;
 
+/**
+ * Represents filter methods for AR and relations.
+ */
 class Filter
 {
     private static $ignoredFields = array(
@@ -40,10 +43,15 @@ class Filter
         'site\frontend\modules\posts\models\Content' => array(
             'originEntity',
             'text',
+            'comments',
         ),
         'AlbumPhoto' => array(
             'created',
             'updated',
+        ),
+        'site\frontend\modules\v1\models\UserApiToken' => array(
+            'error',
+            '_id',
         ),
     );
 

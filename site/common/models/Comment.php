@@ -122,9 +122,9 @@ class Comment extends HActiveRecord
     public function behaviors()
     {
         return array(
-            /*'Rabbit' => array(
-                'class' => 'site.common.behaviors.RabbitMQBehavior',
-            ),*/
+            'CacheDelete' => array(
+                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+            ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
                 'entityClass' => 'Comment',

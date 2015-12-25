@@ -55,6 +55,9 @@ class Activity extends \CActiveRecord implements \IHToJSON
                 'publicationAttribute' => null,
                 'owerwriteAttributeIfSet' => false,
             ),
+            'CacheDelete' => array(
+                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+            ),
         );
     }
 

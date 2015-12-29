@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\v1\actions;
 
+use site\frontend\modules\v1\helpers\ApiLog;
+
 class RoutedAction extends \CAction
 {
     #region route
@@ -18,32 +20,43 @@ class RoutedAction extends \CAction
         $methods = array(
             'POST' => 'Post',
             'PUT' => 'Put',
-            'DELETE' => 'Delete',
+            'DELETE' => 'Param',
             'GET' => 'Param',
         );
 
-        $this->controller->requestType = $methods[\Yii::app()->request->requestType];
+        /*ApiLog::i(print_r(\Yii::app()->request->restParams, true));
+        ApiLog::i('GET' . print_r($_GET, true));
+        ApiLog::i('POST' . print_r($_POST, true));*/
+        try {
+            $this->controller->requestType = $methods[\Yii::app()->request->requestType];
 
-        if (\Yii::app()->request->requestType != 'GET' && $post != 'login') {
-            if (!$this->controller->auth()) {
-                return;
+            /*if (\Yii::app()->request->requestType == 'DELETE') {
+                $this->controller->requestType = 'Get';
+            }*/
+
+            if (/*\Yii::app()->request->requestType != 'GET' && */$post != 'login') {
+                if (!$this->controller->auth()) {
+                    return;
+                }
+
+                \Yii::app()->params['is_api_request'] = true;
             }
 
-            \Yii::app()->params['is_api_request'] = true;
-        }
-
-        switch($this->controller->requestType){
-            case 'Post':
-                $this->execute($post);
-                break;
-            case 'Put':
-                $this->execute($update);
-                break;
-            case 'Delete':
-                $this->execute($delete);
-                break;
-            default:
-                $this->execute($get);
+            switch (\Yii::app()->request->requestType) {
+                case 'POST':
+                    $this->execute($post);
+                    break;
+                case 'PUT':
+                    $this->execute($update);
+                    break;
+                case 'DELETE':
+                    $this->execute($delete);
+                    break;
+                default:
+                    $this->execute($get);
+            }
+        } catch (Exception $e) {
+            $this->controller->setError($e->getMessage(), 400);
         }
     }
 

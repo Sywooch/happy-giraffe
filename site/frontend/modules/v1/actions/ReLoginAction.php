@@ -24,9 +24,9 @@ class ReLoginAction extends RoutedAction
             $this->controller->identity->refresh($refresh_token);
 
             if ($this->controller->identity->errorMessage == '') {
-                $this->controller->data['token'] = $this->controller->identity->token;
-
                 $this->controller->data['user'] = \User::model()->findByPk($this->controller->identity->getId());
+
+                $this->controller->data['token'] = $this->controller->identity->token;
             } else {
                 $this->controller->setError($this->controller->identity->errorMessage, 401);
             }

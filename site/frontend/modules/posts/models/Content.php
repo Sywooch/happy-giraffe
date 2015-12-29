@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\posts\models;
 
+use site\frontend\modules\comments\models\Comment;
 /**
  * This is the model class for table "post__contents".
  *
@@ -109,10 +110,10 @@ class Content extends \CActiveRecord implements \IHToJSON
         return array(
             'labelModels' => array(self::MANY_MANY, '\site\frontend\modules\posts\models\Label', 'post__tags(contentId, labelId)'),
             'tagModels' => array(self::HAS_MANY, '\site\frontend\modules\posts\models\Tag', 'contentId'),
-            'author' => array(self::BELONGS_TO, 'User', 'authorId'),
-            //'communityContent' => array(self::BELONGS_TO, 'CommunityContent', 'originEntityId', 'with' => array('commentsCount')),
-            'comments' => array(self::HAS_MANY, 'Comment', 'new_entity_id'),
-            'comments_count' => array(self::STAT, 'Comment', 'new_entity_id'),
+            'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
+            'communityContent' => array(self::BELONGS_TO, 'CommunityContent', 'originEntityId'),
+            'comments' => array(self::HAS_MANY, get_class(Comment::model()), 'new_entity_id'),
+            'comments_count' => array(self::STAT, get_class(Comment::model()), 'new_entity_id'),
         );
     }
 

@@ -36,6 +36,7 @@ class ApiController extends V1ApiController
              * @apiGroup Auth
              * @api {post} / Авторизация через токен.
              * @apiUse ApiAuthInstruction
+             * @apiVersion 0.0.1
              */
             /**
              * @apiGroup Auth
@@ -169,6 +170,7 @@ class ApiController extends V1ApiController
                     "specInfo": ""
                 }
             }
+             * @apiVersion 0.0.1
              */
             /**
              * @apiGroup Auth
@@ -185,6 +187,7 @@ class ApiController extends V1ApiController
                 "error": "",
                 "_id": null
             }
+             * @apiVersion 0.0.1
              */
             'login' => array(
                 'class' => 'site\frontend\modules\v1\actions\LoginAction',
@@ -645,7 +648,7 @@ class ApiController extends V1ApiController
              * @apiUse SocialAuthInstruction
              * @apiUse FormDataRequest
              * @apiParam (Post Params:) {Number=1,2,3,4} type_id Id типа поста в зависимости от контента (пост, фотопост, видеопост, статус).
-             * @apiParam (Post Params:) {Number} rubric_id Id рубрики, в которой будет находиться пост.
+             * @apiParam (Post Params:) {Number} rubric_id Id рубрики, в которой будет находиться пост. (Не задавать это тпараметр дял постов в блоге).
              * @apiParam (Post Params:) {String} text Текст поста.
              * @apiParam (Post Params:) {String} title Заголовок поста.
              * @apiParam (Post Params:) {String="forum","blog"} type Тип поста в зависимости от расположения (форум или блог).
@@ -905,6 +908,7 @@ class ApiController extends V1ApiController
                     "new_photo_id": "186"
                 }
             ]
+             * @apiVersion 0.0.1
              */
             'photo' => array(
                 'class' => 'site\frontend\modules\v1\actions\PhotoAction',

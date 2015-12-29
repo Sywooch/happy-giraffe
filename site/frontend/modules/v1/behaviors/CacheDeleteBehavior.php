@@ -3,6 +3,7 @@
 namespace site\frontend\modules\v1\behaviors;
 
 use site\frontend\modules\v1\components\V1ApiController;
+use site\frontend\modules\v1\helpers\ApiLog;
 
 /**
  * Checks key collection in cache and delete keys which contains owner model.
@@ -27,17 +28,19 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
     {
         $collection = \Yii::app()->cache->get(V1ApiController::KEYS_COLLECTION);
 
+        $collection = array_filter($collection);
+        $collection = array_values($collection);
+
+        ApiLog::i(print_r($collection, true));
         if (!$collection) {
             return;
         }
-        \Yii::log(get_class($this->owner), 'info', 'CacheDeleteBehavior');
+        //Yii::log(get_class($this->owner), 'info', 'CacheDeleteBehavior');
 
         $owner = get_class($this->owner);
         $total = count($collection);
 
-        \Yii::log($total, 'info', 'CacheDeleteBehavior');
-
-        $collection = array_values($collection);
+        //\Yii::log($total, 'info', 'CacheDeleteBehavior');
 
         //$deleteKeys = array();
         for ($i = 0; $i < $total; $i++) {
@@ -48,7 +51,7 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
             }
         }
 
-        \Yii::log(print_r($collection, true), 'info', 'CacheDeleteBehavior');
+        //\Yii::log(print_r($collection, true), 'info', 'CacheDeleteBehavior');
 
         \Yii::app()->cache->set(V1ApiController::KEYS_COLLECTION, $collection, V1ApiController::CACHE_COLLECTION_EXPIRE);
     }

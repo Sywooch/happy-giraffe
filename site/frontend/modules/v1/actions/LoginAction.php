@@ -4,7 +4,7 @@ namespace site\frontend\modules\v1\actions;
 
 use site\frontend\modules\v1\models\UserApiToken;
 
-class LoginAction extends RoutedAction
+class LoginAction extends RoutedAction implements IPostProcessable
 {
     public function run()
     {
@@ -38,5 +38,13 @@ class LoginAction extends RoutedAction
 
             $this->controller->data['token'] = UserApiToken::model()->create($this->controller->data['user']);
         }
+    }
+
+    public function postProcessing(&$data)
+    {
+        $data['user'] = $data[0];
+        $data['token'] = $data[1];
+        unset($data[0]);
+        unset($data[1]);
     }
 }

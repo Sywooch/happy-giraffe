@@ -80,7 +80,7 @@ class Comment extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'author' => array(self::BELONGS_TO, get_class(\User::model()), 'author_id'),
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
         );
     }

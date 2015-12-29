@@ -5,9 +5,11 @@ namespace site\frontend\modules\v1\components;
 use site\frontend\modules\signup\components\UserIdentity;
 use site\frontend\modules\v1\config\Filter;
 use site\frontend\modules\v1\actions\IPostProcessable;
+use site\frontend\modules\v1\actions\IViewIncrementable;
 use site\frontend\modules\v1\actions\ReLoginAction;
 use site\frontend\modules\v1\actions\LoginAction;
 use site\frontend\modules\v1\actions\LogoutAction;
+use site\frontend\modules\v1\helpers\ApiLog;
 
 /**
  * @property string $data
@@ -95,18 +97,36 @@ class V1ApiController extends \CController
         if ($this->error == null && !$this->isFromCache) {
             $this->toArray();
 
-            if ($this->action != null && $this->action instanceof IPostProcessable) {
+            if (/*$this->action != null && */$this->action instanceof IPostProcessable) {
                 $this->action->postProcessing($this->data);
             }
 
             if ($this->requestType == 'Param') {
                 \Yii::app()->cache->set($this->key, $this->data, self::CACHE_EXPIRE);
+                $this->setModelCollectionCache();
+            }
+        }
+
+        if ($this->checkRequestType('GET') && $this->action instanceof IViewIncrementable) {
+            if ($this->action->viewsIncrement() && $this->isFromCache) {
+                \Yii::app()->cache->delete($this->key);
             }
         }
 
         $this->complete();
 
         parent::afterAction($action);
+    }
+
+    protected function checkRequestType($type)
+    {
+        return \Yii::app()->request->requestType == $type;
+    }
+
+    protected function isImplements($interface)
+    {
+        //ApiLog::i(print_r(class_implements($this->action), true));
+        return ($this->action != null && in_array($interface, class_implements(get_class($this->action))));
     }
 
     protected function beforeAction()
@@ -124,19 +144,19 @@ class V1ApiController extends \CController
      */
     public function get($model, $action, $where = null)
     {
+        //\Yii::app()->cache->flush();
+
         $this->setCacheKey($model, $where);
 
         $cache = \Yii::app()->cache->get($this->key);
+
+        $this->action = $action;
 
         if ($cache) {
             $this->data = $cache;
             $this->isFromCache = true;
             return;
         }
-
-        $this->setModelCollectionCache();
-
-        $this->action = $action;
 
         if (\Yii::app()->request->getParam(self::ID, null)) {
             $this->data = $model->with($this->getWithParameters($model))->findByPk(\Yii::app()->request->getParam(self::ID));
@@ -152,7 +172,8 @@ class V1ApiController extends \CController
             }
 
             if (\Yii::app()->request->getParam(self::ORDER, null)) {
-                $params['order'] = \Yii::app()->request->getParam(self::ORDER);
+                //t for order with expand, when yii construct query with uncertain fields
+                $params['order'] = 't.' . \Yii::app()->request->getParam(self::ORDER);
             }
 
             $this->data = $model->with($this->getWithParameters($model))->findAll($params);
@@ -196,13 +217,15 @@ class V1ApiController extends \CController
         $collection = \Yii::app()->cache->get(self::KEYS_COLLECTION);
 
         if ($collection) {
-            array_push($collection, $this->key);
+            if (!in_array($this->key, $collection)) {
+                array_push($collection, $this->key);
+            }
         } else {
             $collection = array($this->key);
         }
         \Yii::app()->cache->set(self::KEYS_COLLECTION, $collection, self::CACHE_COLLECTION_EXPIRE);
 
-        \Yii::log(print_r($collection, true), 'info', 'api');
+        //\Yii::log(print_r($collection, true), 'info', 'api');
     }
 
     /**
@@ -392,8 +415,11 @@ class V1ApiController extends \CController
         $data = array();
         /**@todo: запихнуть обработку одного элемента в отдельный метод*/
         if (is_array($this->data)) {
+            //ApiLog::i('data is array');
             foreach ($this->data as $item) {
-                if (!($item instanceof \CActiveRecord)) {
+               // ApiLog::i('entering data foreach cycle');
+                if (!($item instanceof \CActiveRecord || $item instanceof \EMongoDocument)) {
+                    //ApiLog::i('item in data is not CActiveRecord');
                     return;
                 }
 
@@ -411,7 +437,7 @@ class V1ApiController extends \CController
                 $data[] = $temp;
             }
         } else {
-            if (!($this->data instanceof \CActiveRecord)) {
+            if (!($this->data instanceof \CActiveRecord || $this->data instanceof \EMongoDocument)) {
                 return;
             }
 

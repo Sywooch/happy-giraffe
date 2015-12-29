@@ -4,6 +4,7 @@ namespace site\frontend\modules\v1\actions;
 
 use site\frontend\modules\comments\models\Comment;
 use site\frontend\modules\v1\helpers\HtmlParser;
+use site\frontend\modules\v1\helpers\ApiLog;
 
 class CommentsAction extends RoutedAction implements IPostProcessable
 {
@@ -15,7 +16,7 @@ class CommentsAction extends RoutedAction implements IPostProcessable
     public function getComments()
     {
         if (isset($_GET['entity_id'])) {
-            $where = "new_entity_id = " . \Yii::app()->request->getParam('entity_id');
+            $where = "new_entity_id=" . \Yii::app()->request->getParam('entity_id');
             $this->controller->get(Comment::model(), $this, $where);
         } else {
             $this->controller->get(Comment::model(), $this);
@@ -60,6 +61,11 @@ class CommentsAction extends RoutedAction implements IPostProcessable
                 }
 
                 $content = \site\frontend\modules\posts\models\Content::model()->findByPk($attributes['entity_id']);
+
+                if (!$content) {
+                    $this->controller->setError("EntityNotFound", 404);
+                    return;
+                }
 
                 $comment->attributes = array(
                     'text' => $attributes['text'],

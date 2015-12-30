@@ -25,16 +25,22 @@ class LoginAction extends RoutedAction implements IPostProcessable
 
             //$c->addCondition(array('user_id' => $this->controller->identity->getId()));
 
-            $tokens = UserApiToken::model()->findAll(array('user_id' => $this->controller->identity->getId()));
+            //$tokens = UserApiToken::model()->findAll(array('user_id' => $this->controller->identity->getId()));
 
-            if ($tokens) {
+            $token = UserApiToken::model()->findByPk($this->controller->identity->getId());
+
+            if ($token) {
+                $token->delete();
+            }
+
+            /*if ($tokens) {
                 //\Yii::log(print_r($tokens, true), 'info', 'login');
                 foreach ($tokens as $token) {
                     if ($token->user_id == $this->controller->identity->getId()) {
                         $token->delete();
                     }
                 }
-            }
+            }*/
 
             $this->controller->data['token'] = UserApiToken::model()->create($this->controller->data['user']);
         }
@@ -42,9 +48,13 @@ class LoginAction extends RoutedAction implements IPostProcessable
 
     public function postProcessing(&$data)
     {
-        $data['user'] = $data[0];
+        /*$data['user'] = $data[0];
         $data['token'] = $data[1];
         unset($data[0]);
-        unset($data[1]);
+        unset($data[1]);*/
+
+        /*$token = $data[1];
+        $data = $data[0];
+        $data['token'] = $token;*/
     }
 }

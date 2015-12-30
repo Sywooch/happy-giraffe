@@ -33,6 +33,8 @@ class Filter
             'blog_photo_id',
             'blog_photo_position',
             'blog_show_rubrics',
+            'deleted',
+            'blocked',
         ),
         'CommunityContent' => array(
             'meta_title',

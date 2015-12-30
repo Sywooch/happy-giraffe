@@ -47,7 +47,7 @@ class m151216_141558_fill_new_entity_id extends CDbMigration
 				'select' => 'id, originService, originEntity, originEntityId',
 			),
 			'pagination' => array(
-				'pageSize' => 100,
+				'pageSize' => 1000,
 			),
 		)));
 
@@ -55,9 +55,14 @@ class m151216_141558_fill_new_entity_id extends CDbMigration
 		foreach ($iterator as $model) {
 			echo $counter;
 
-			$comments = \Comment::model()->findAll(array(
-				//'select' => 'id',
-				'condition' => "entity = '" . ($model->originService == "oldBlog" ? "BlogContent" : $model->originEntity) . "' and entity_id = " . $model->originEntityId));
+			try {
+				$comments = \Comment::model()->findAll(array(
+					//'select' => 'id',
+					'condition' => "entity = '" . ($model->originService == "oldBlog" ? "BlogContent" : $model->originEntity) . "' and entity_id = " . $model->originEntityId));
+			} catch (Exception $ex) {
+				echo 'EXCEPTION';
+				continue;
+			}
 
 			if (count($comments) > 0) {
 				$ids = array();

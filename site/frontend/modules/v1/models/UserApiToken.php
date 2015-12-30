@@ -14,15 +14,13 @@ namespace site\frontend\modules\v1\models;
  */
 class UserApiToken extends \EMongoDocument
 {
-    const EXPIRE_TIME = 100000;
+    const EXPIRE_TIME = 60;
 
     public $access_token;
     public $refresh_token;
     public $user_id;
     public $date;
     public $expire;
-
-    public $error = '';
 
     public static function model($className=__CLASS__)
     {
@@ -52,6 +50,8 @@ class UserApiToken extends \EMongoDocument
         $model->expire = time() + self::EXPIRE_TIME;
 
         $model->user_id = $user->id;
+
+        $model->_id = $user->id;
 
         $model->save();
 

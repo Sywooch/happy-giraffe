@@ -199,6 +199,14 @@ class V1ApiController extends \CController
         $key['model'] = get_class($model);
         $key['id'] = \Yii::app()->request->getParam('id');
         $key['expand'] = $this->getWithParameters($model);
+        if (count($key['expand']) > 0) {
+            $key['expand_models'] = array();
+
+            foreach($key['expand'] as $expand) {
+                array_push($key['expand_models'], $model->relations()[$expand][1]);
+            }
+        }
+
         if (!\Yii::app()->request->getParam('id', null)) {
             $key['condition'] = $where;
             $key['pagination'] = $this->getPaginationParams();
@@ -377,6 +385,10 @@ class V1ApiController extends \CController
 
         $this->currentPage = $page = isset($_GET[self::OFFSET]) ? \Yii::app()->request->getParam(self::OFFSET): 1;
 
+        if ($this->currentPage <= 0) {
+            $this->currentPage = 1;
+        }
+
         return array(
             'limit' => $size,
             'offset' => ($page - 1) * $size
@@ -391,7 +403,7 @@ class V1ApiController extends \CController
      */
     private function getWithParameters($model)
     {
-        if (isset($_GET[self::WITH])){
+        if (isset($_GET[self::WITH])) {
             $temp = explode(",", \Yii::app()->request->getParam(self::WITH));
 
             foreach ($temp as $key => $value) {

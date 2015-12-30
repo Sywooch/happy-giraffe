@@ -30,6 +30,8 @@ class RoutedAction extends \CAction
         try {
             $this->controller->requestType = $methods[\Yii::app()->request->requestType];
 
+            ApiLog::i("Request with type " . \Yii::app()->request->requestType);
+
             /*if (\Yii::app()->request->requestType == 'DELETE') {
                 $this->controller->requestType = 'Get';
             }*/
@@ -56,7 +58,7 @@ class RoutedAction extends \CAction
                     $this->execute($get);
             }
         } catch (Exception $e) {
-            $this->controller->setError($e->getMessage(), 400);
+            $this->controller->setError(/*$e->getMessage()*/'SomethingWrong', 400);
         }
     }
 

@@ -17,42 +17,53 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
         $this->handleCollection();
     }
 
-    public function afterDelete($event)
+    public function beforeDelete($event)
     {
-        parent::afterDelete($event);
+        parent::beforeDelete($event);
 
         $this->handleCollection();
     }
 
     private function handleCollection()
     {
-        $collection = \Yii::app()->cache->get(V1ApiController::KEYS_COLLECTION);
+        try {
+            $collection = \Yii::app()->cache->get(V1ApiController::KEYS_COLLECTION);
 
-        $collection = array_filter($collection);
-        $collection = array_values($collection);
-
-        ApiLog::i(print_r($collection, true));
-        if (!$collection) {
-            return;
-        }
-        //Yii::log(get_class($this->owner), 'info', 'CacheDeleteBehavior');
-
-        $owner = get_class($this->owner);
-        $total = count($collection);
-
-        //\Yii::log($total, 'info', 'CacheDeleteBehavior');
-
-        //$deleteKeys = array();
-        for ($i = 0; $i < $total; $i++) {
-            if (strstr(json_decode($collection[$i])->model, $owner)) {
-                \Yii::app()->cache->delete($collection[$i]);
-                //array_push($deleteKeys, $collection[$i]);
-                unset($collection[$i]);
+            if (!$collection) {
+                return;
             }
+
+            $collection = array_filter($collection);
+            $collection = array_values($collection);
+
+            ApiLog::i("Before Cache Clear: " . print_r($collection, true));
+
+            $owner = get_class($this->owner);
+            $total = count($collection);
+
+            for ($i = 0; $i < $total; $i++) {
+                $key = json_decode($collection[$i]);
+
+                if (strstr($key->model, $owner)) {
+                    \Yii::app()->cache->delete($collection[$i]);
+                    unset($collection[$i]);
+                } else if (isset($key->expand_models)) {
+                    foreach ($key->expand_models as $expand_model) {
+                        if (strstr($expand_model, $owner)) {
+                            \Yii::app()->cache->delete($collection[$i]);
+                            unset($collection[$i]);
+                        }
+                    }
+                }
+            }
+
+            ApiLog::i("After Cache Clear: " . print_r($collection, true));
+
+            \Yii::app()->cache->set(V1ApiController::KEYS_COLLECTION, $collection, V1ApiController::CACHE_COLLECTION_EXPIRE);
+        } catch (Exception $ex) {
+            //Emergency fix.
+            ApiLog::i("WE ALL DIE!");
+            \Yii::app()->cache->flush();
         }
-
-        //\Yii::log(print_r($collection, true), 'info', 'CacheDeleteBehavior');
-
-        \Yii::app()->cache->set(V1ApiController::KEYS_COLLECTION, $collection, V1ApiController::CACHE_COLLECTION_EXPIRE);
     }
 }

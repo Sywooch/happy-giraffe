@@ -166,6 +166,8 @@ class CommentsAction extends RoutedAction implements IPostProcessable
                 $this->controller->setError($e->getMessage(), 400);
             }
 
+            $comment->save();
+
             if ($comment->softDelete()) {
                 $this->controller->data = $comment;
 

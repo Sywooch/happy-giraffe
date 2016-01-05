@@ -37,6 +37,21 @@ class UserSocialToken extends \EMongoDocument
         return 'user_social_tokens';
     }
 
+    private function toObject($array)
+    {
+        if (!empty($array)) {
+            $result = new self;
+
+            foreach ($array as $key => $value) {
+                $result->$key = $value;
+            }
+
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Refresh access token.
      * But not used now. May be later.
@@ -204,11 +219,11 @@ class UserSocialToken extends \EMongoDocument
      */
     private function makeOkRequest($token, $model)
     {
-        $params = \Yii::app()->eauth->services['odnoklassniki'];
+        $params = \Yii::app()->eauth->services['ok_api'];
 
-        $method = 'method=users.getInfo';
+        $method = 'method=users.getLoggedInUser';
 
-        $temp = 'application_key=' . $params['client_public'] . $method;
+        $temp = 'application_key=' . $params['client_public'] . 'format=json' . $method;
 
         $sig = strtolower(md5($temp . md5($token . $params['client_secret'])));
 
@@ -224,11 +239,11 @@ class UserSocialToken extends \EMongoDocument
         //\Yii::log('asd' . print_r($result), 'info', 'api');
 
         if ($result == true) {
-            $model->expires = time() + (24 * 60 * 60);
+            $model->expire = time() + (24 * 60 * 60);
             $model->date = time();
 
-            $model->error = 'Something';
-            return false;
+            $model->service_user_id = $result;
+            return true;
         } else {
             $model->error = 'TokenInvalid';
             return false;

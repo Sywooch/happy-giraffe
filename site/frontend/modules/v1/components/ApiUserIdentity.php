@@ -3,6 +3,7 @@
 namespace site\frontend\modules\v1\components;
 
 use site\frontend\modules\v1\models\UserApiToken;
+use site\frontend\modules\v1\helpers\ApiLog;
 
 /**
  * Identity for auth from tokens.
@@ -26,7 +27,7 @@ class ApiUserIdentity extends \CUserIdentity
 
     public function refresh($refresh_token)
     {
-        $token = UserApiToken::model()->find(array('refresh_token', $refresh_token));
+        $token = UserApiToken::model()->findByRefreshToken($refresh_token);
 
         if ($token) {
             if ($token->refresh_token == $refresh_token) {
@@ -35,6 +36,8 @@ class ApiUserIdentity extends \CUserIdentity
                 $model = \User::model()->active()->findByPk($this->user_id);
 
                 if ($model) {
+                    //find old token model cause findByRefreshToken create new model and can't be delete
+                    $token = UserApiToken::model()->findByPk($token->_id);
                     $token->delete();
 
                     $this->token = UserApiToken::model()->create($model);
@@ -52,7 +55,7 @@ class ApiUserIdentity extends \CUserIdentity
 
     public function authenticate()
     {
-        $token = UserApiToken::model()->find(array('access_token', $this->access_token));
+        $token = UserApiToken::model()->findByToken($this->access_token);
 
         if ($token) {
             if ($token->isAlive()) {

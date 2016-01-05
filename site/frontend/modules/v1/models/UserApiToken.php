@@ -37,6 +37,32 @@ class UserApiToken extends \EMongoDocument
         return time() < $this->expire;
     }
 
+    public function findByToken($token)
+    {
+        return $this->toObject($this->getCollection()->findOne(array('access_token' => $token)));
+    }
+
+    public function findByRefreshToken($token)
+    {
+        return $this->toObject($this->getcollection()->findOne(array('refresh_token' => $token)));
+    }
+
+    //i don't know how to get AR instance by findOne, so create this crutch -_-
+    private function toObject($array)
+    {
+        if (!empty($array)) {
+            $result = new self;
+
+            foreach ($array as $key => $value) {
+                $result->$key = $value;
+            }
+
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
     public function create($user)
     {
         $string = $user->email . $user->password . $user->id . microtime();

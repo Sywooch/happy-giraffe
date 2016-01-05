@@ -141,7 +141,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->html = PhotoHelper::adaptImages($advContent->htmlText);
         $newPost->templateObject->data['type'] = 'advPost';
         $newPost->isNoindex = false;
-        
+
+        //\Yii::log('New Post Save', 'info', 'convert');
         return $newPost->save();
     }
 

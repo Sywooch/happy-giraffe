@@ -10,6 +10,10 @@ use site\frontend\modules\v1\helpers\ApiLog;
  */
 class CacheDeleteBehavior extends \CActiveRecordBehavior
 {
+    //for CommunityContent
+    /**@todo: fix*/
+    public $realOwner = null;
+
     public function afterSave($event)
     {
         parent::afterSave($event);
@@ -38,8 +42,14 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
 
             ApiLog::i("Before Cache Clear: " . print_r($collection, true));
 
-            $owner = get_class($this->owner);
+            if ($this->realOwner) {
+                $owner = $this->realOwner;
+            } else {
+                $owner = get_class($this->owner);
+            }
             $total = count($collection);
+
+            ApiLog::i($owner);
 
             for ($i = 0; $i < $total; $i++) {
                 $key = json_decode($collection[$i]);

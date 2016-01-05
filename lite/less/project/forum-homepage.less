@@ -120,9 +120,10 @@
   width: 616px;
   height: 366px;
   float:left;
+  margin-bottom: 30px;
   .widget_item
   {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     height: 60px;
   }
 }
@@ -156,6 +157,7 @@
   {
     color: #196eb9;
     display: block;
+    line-height: 16px;
   }
   .icons-meta
   {
@@ -197,21 +199,51 @@
 
 }
 
-/* Цвета заголовков форума */
-.color_wife
+/* ### Цвета заголовков форума ### */
+
+/* Беременность и дети */
+
+.color_1
 {
-  background: #ccbaee;
+  background: rgba(255, 139, 62, 0.71);
 }
 
-.color_children
+/* Наш дом */
+
+.color_2
 {
-  background: #95d6fc;
+  background: rgba(232, 207, 87, 0.92);
 }
 
-.color_home
+/* Красота и здоровье */
+
+.color_3
 {
-  background: #ffa064;
+  background: rgba(105, 188, 244, 0.71);
 }
+
+/* Муж и жена */
+
+.color_4
+{
+  background: rgba(167, 147, 207, 0.71);
+}
+
+/* Интересы и увлечения */
+
+.color_5
+{
+  background: rgba(104, 208, 93, 0.71);
+}
+
+/* Семейный отдых */
+
+.color_6
+{
+  background: rgba(167, 147, 207, 0.71);
+}
+
+/* ### ### */
 
 .forum_heading_block
 {
@@ -228,6 +260,57 @@
 }
 
 /* homepage-clubs */
+
+.ico-clubs_a
+{
+  @media (min-width: @screen-phone-landscape) {
+    margin: 0 auto 10px;
+    width: 615px;
+  }
+  @media (min-width: @screen-desktop) {
+    display: block;
+    margin: 0;
+    border-radius: 0px;
+    width: auto;
+  }
+  width: auto;
+  margin: 0 0 10px;
+  .border-radius(10px);
+  display: block;
+  color: @color-base;
+  line-height: 13px;
+}
+
+.ico-clubs_ico-hold {
+  @media (min-width: @screen-desktop) {
+    height: 108px;
+    width: 108px;
+    padding: 17px 5px 0;
+    background: #faf6ff;
+    border: 2px solid #faf6ff;
+    display: block;
+    float: left;
+    margin-right: 19px;
+    margin-top: -24px;
+  }
+  display: inline-block;
+  vertical-align: middle;
+  height: auto;
+  width: auto;
+  margin-bottom: 5px;
+  padding: 0;
+  border: none;
+  background: none;
+  .border-radius(54px);
+  position: relative;
+  .ico-club {
+    @media (min-width: @screen-desktop) {
+      .scale(1);
+    }
+    margin: 0 0 0 10px;
+    .scale(0.6);
+  }
+}
 
 .homepage-clubs {
   padding: 20px 25px;
@@ -411,6 +494,13 @@
     border-top: 1px solid transparent;
     //padding: 20px 0 0;
     .border-radius(10px);
+
+    &:after
+    {
+      content:" ";
+      clear: both;
+      display: block;
+    }
   }
   &_li {
     @media (min-width: @screen-desktop) {
@@ -422,6 +512,13 @@
     vertical-align: top;
     width: auto;
     margin-left: 0;
+
+    &:after
+    {
+      content:" ";
+      clear: both;
+      display: block;
+    }
   }
   &_li:first-child {
     margin-left: 0 !important;
@@ -489,6 +586,8 @@
       .scale(0.6);
     }
   }
+
+
   &_tx {
     @media (min-width: @screen-desktop) {
       font-size: 12px;
@@ -521,14 +620,31 @@
 }
 /* /homepage-clubs */
 
-.forum_subheading
+.ico-clubs-medium_ico-hold
 {
+  @media (min-width: @screen-desktop)
+  {
+    float: left;
+    margin-right: 19px;
+    margin-top: -11px;
+    padding: 0px;
+
+    .ico-club
+    {
+     margin: -3px 0 0 -3px;
+    }
+  }
+}
+
+.forum_subheading {
   margin-bottom: 7px;
+  font-size: 18px;
+  color: #279FD7;
 }
 
 .forum_subheading_desc
 {
-  max-width: 490px;
+  max-width: 464px;
   font-family: Arial, Tahoma, Verdana, sans-serif;
   color: #333;
   font-size: 12px;
@@ -555,6 +671,11 @@
     float:left;
     margin-left: 12px;
     margin-top: -24px;
+
+    .live-user_text
+    {
+      color: #196eb9 !important;
+    }
   }
 }
 
@@ -564,6 +685,32 @@
   width: 801px;
   margin-left: 128px;
   display: table;
+}
+
+.icons-meta_view
+{
+  span
+  {
+    color: #b3b3b3;
+  }
+}
+
+.icons-meta_comment
+{
+  cursor: pointer;
+  &:hover span
+  {
+    color: #333;
+  }
+
+  span
+  {
+    color: #b3b3b3;
+    &:hover
+    {
+      color: #333;
+    }
+  }
 }
 
 

@@ -9,7 +9,7 @@ return array(
     'id' => 'happy-giraffe',
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Клуб',
-	'homeUrl' => 'http://giraffe.code-geek.ru',
+	'homeUrl' => 'https://giraffe.code-geek.ru',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -247,9 +247,9 @@ return array(
                 ),
                 'ok_api' => array(
                     'class' => 'application.components.eauth.OdnoklassnikiAuth',
-                    'client_id' => '1235791616',
-                    'client_secret' => '8DEB1F6E6F1EC8B7FF46B187',
-                    'client_public' => 'CBAQKJKKEBABABABA',
+                    'client_id' => '1240432384',
+                    'client_secret' => 'B9C8F53C3949A06DD263AB6F',
+                    'client_public' => 'CBAQHQOKEBABABABA',
                 ),
                 //true app
                 /*'vkontakte' => array(

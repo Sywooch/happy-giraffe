@@ -33,10 +33,14 @@ class ApiController extends V1ApiController
              * @apiHeader (Content Type:) {application/x-www-form-urlencoded} format Формат тела запроса.
              */
             /**
+             * @apiDefine Version
+             * @apiVersion 0.1.2
+             */
+            /**
              * @apiGroup Auth
              * @api {post} / Авторизация через токен.
              * @apiUse ApiAuthInstruction
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             /**
              * @apiGroup Auth
@@ -51,63 +55,33 @@ class ApiController extends V1ApiController
              * @apiUse SimpleAuthInstruction
              * @apiUse SocialAuthInstruction
              * @apiSuccessExample {json} Success-Response:
-             HTTP/1.1 200 OK
-            {
-                "user": {
-                    "id": "241803",
-                    "email": "2@mail.ru",
-                    "phone": "",
-                    "password": "098f6bcd4621d373cade4e832627b4f6",
+            [
+                {
+                    "id": "451719",
                     "first_name": "Stas",
                     "last_name": "Fomin",
-                    "avatar_id": null,
                     "gender": "1",
-                    "birthday": "1996-04-02",
-                    "about": null,
-                    "last_active": "2015-12-21 09:25:25",
+                    "birthday": "1996-02-02",
+                    "last_active": "2015-12-30 11:36:07",
                     "online": "1",
-                    "deleted": "0",
-                    "blocked": "0",
-                    "register_date": "2015-11-12 15:30:08",
-                    "login_date": "2015-12-21 09:25:25",
-                    "last_ip": "192.168.0.1",
+                    "register_date": "2015-12-30 11:36:05",
+                    "login_date": "2015-12-30 11:36:07",
                     "relationship_status": null,
                     "mood_id": null,
-                    "profile_access": "all",
-                    "guestbook_access": "all",
-                    "im_access": "all",
-                    "profile_check": null,
-                    "recovery_disable": "0",
-                    "group": "1",
-                    "remember_code": "0",
-                    "blog_title": null,
-                    "blog_description": "",
-                    "blog_photo_id": null,
-                    "blog_photo_position": null,
-                    "blog_show_rubrics": "1",
-                    "email_confirmed": "0",
-                    "updated": "2015-11-12 15:30:08",
+                    "group": "0",
+                    "updated": "2015-12-30 11:36:05",
                     "last_updated": null,
-                    "main_photo_id": null,
-                    "registration_source": "0",
-                    "registration_finished": "1",
-                    "activation_code": "",
                     "status": "1",
-                    "avatarId": null,
-                    "avatarInfo": "",
-                    "specInfo": ""
+                    "avatarInfo": ""
                 },
-                "token": {
-                    "access_token": "bf11def387fe07a1ea72649ff091f10e",
-                    "refresh_token": "dff88de3ce8f0a00d76f620af527ccad",
-                    "user_id": "241803",
-                    "date": 1451048950,
-                    "expire": 1451050750,
-                    "error": "",
-                    "_id": null
+                {
+                    "access_token": "611411cb1e55105646b799672adfe87c",
+                    "refresh_token": "a39fcdea6cf69aa42a3dc56c37f9c092",
+                    "user_id": "451719",
+                    "date": 1451981328,
+                    "expire": 1451981388
                 }
-            }
-             * @apiVersion 0.0.1
+            ]
              */
             /**
              * @apiGroup Auth
@@ -115,62 +89,34 @@ class ApiController extends V1ApiController
              * @apiParam {String} refresh_token Токен для обновления.
              * @apiSuccessExample {json} Success-Response:
             HTTP/1.1 200 OK
-            {
-                "token": {
-                    "access_token": "915295d976f71503998b0177176d7226",
-                    "refresh_token": "1717c1dd379490f8e2ba8cd69eb444aa",
-                    "user_id": "241803",
-                    "date": 1451049894,
-                    "expire": 1451051694,
-                    "error": "",
-                    "_id": null
-                },
-                "user": {
-                    "id": "241803",
-                    "email": "2@mail.ru",
-                    "phone": "",
-                    "password": "098f6bcd4621d373cade4e832627b4f6",
-                    "first_name": "Stas",
-                    "last_name": "Fomin",
-                    "avatar_id": null,
+            [
+                {
+                    "id": "451083",
+                    "first_name": "Denis",
+                    "last_name": "Ivanov",
                     "gender": "1",
-                    "birthday": "1996-04-02",
-                    "about": null,
-                    "last_active": "2015-12-21 09:25:25",
+                    "birthday": "1980-01-20",
+                    "last_active": "2015-12-30 14:10:43",
                     "online": "1",
-                    "deleted": "0",
-                    "blocked": "0",
-                    "register_date": "2015-11-12 15:30:08",
-                    "login_date": "2015-12-21 09:25:25",
-                    "last_ip": "192.168.0.1",
+                    "register_date": "2015-12-11 09:46:26",
+                    "login_date": "2015-12-30 14:10:43",
                     "relationship_status": null,
                     "mood_id": null,
-                    "profile_access": "all",
-                    "guestbook_access": "all",
-                    "im_access": "all",
-                    "profile_check": null,
-                    "recovery_disable": "0",
-                    "group": "1",
-                    "remember_code": "0",
-                    "blog_title": null,
-                    "blog_description": "",
-                    "blog_photo_id": null,
-                    "blog_photo_position": null,
-                    "blog_show_rubrics": "1",
-                    "email_confirmed": "0",
-                    "updated": "2015-11-12 15:30:08",
+                    "group": "0",
+                    "updated": "2015-12-11 09:46:23",
                     "last_updated": null,
-                    "main_photo_id": null,
-                    "registration_source": "0",
-                    "registration_finished": "1",
-                    "activation_code": "",
                     "status": "1",
-                    "avatarId": null,
-                    "avatarInfo": "",
-                    "specInfo": ""
+                    "avatarInfo": ""
+                },
+                {
+                    "access_token": "bba1a206b7e5b920d6acf4d34002e93c",
+                    "refresh_token": "bdf6b094c8142503ba985ca952be6417",
+                    "user_id": "451083",
+                    "date": 1451981745,
+                    "expire": 1451981805
                 }
-            }
-             * @apiVersion 0.0.1
+            ]
+             * @apiVersion 0.1.2
              */
             /**
              * @apiGroup Auth
@@ -178,16 +124,16 @@ class ApiController extends V1ApiController
              * @apiUse ApiAuthInstruction
              * @apiSuccessExample {json} Success-Response:
             HTTP/1.1 200 OK
-            {
-                "access_token": "237e1116c9e5ed1214508158aca6c2bd",
-                "refresh_token": "39446c6361fe41882c7ce6350775496c",
-                "user_id": "241803",
-                "date": 1451050116,
-                "expire": 1451050124,
-                "error": "",
-                "_id": null
-            }
-             * @apiVersion 0.0.1
+            [
+                {
+                    "access_token": "0c2cd29bfab966dbd7587421a5a1f43f",
+                    "refresh_token": "08414dfb75d46142533507c31942c034",
+                    "user_id": "451083",
+                    "date": 1451485946,
+                    "expire": 1451981699
+                }
+            ]
+             * @apiVersion 0.1.2
              */
             'login' => array(
                 'class' => 'site\frontend\modules\v1\actions\LoginAction',
@@ -240,7 +186,7 @@ class ApiController extends V1ApiController
                     "color": "ffd72c"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             'sections' => array(
                 'class' => 'site\frontend\modules\v1\actions\SectionsAction',
@@ -276,7 +222,7 @@ class ApiController extends V1ApiController
                     "slug": "pregnancy-and-birth"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             'clubs' => array(
                 'class' => 'site\frontend\modules\v1\actions\ClubsAction',
@@ -319,7 +265,7 @@ class ApiController extends V1ApiController
                     "club_id": "2"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             'forums' => array(
                 'class' => 'site\frontend\modules\v1\actions\ForumsAction',
@@ -357,7 +303,7 @@ class ApiController extends V1ApiController
                     "label_id": null
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             'rubrics' => array(
                 'class' => 'site\frontend\modules\v1\actions\RubricsAction',
@@ -422,47 +368,25 @@ class ApiController extends V1ApiController
              HTTP/1.1 200 OK
             [
                 {
-                    "id": "1",
-                    "first_name": "Веселый жираф",
-                    "last_name": "",
-                    "gender": "1",
+                    "id": "123456",
+                    "first_name": "Anna",
+                    "last_name": "Ivanova",
+                    "gender": "0",
                     "birthday": null,
-                    "last_active": "2012-11-20 16:15:29",
+                    "last_active": "2013-04-06 23:28:38",
                     "online": "0",
-                    "deleted": "0",
-                    "blocked": "0",
-                    "register_date": "2012-01-01 00:00:00",
-                    "login_date": "2013-09-10 17:27:07",
+                    "register_date": "2013-04-06 23:28:21",
+                    "login_date": "2013-04-06 23:28:21",
                     "relationship_status": null,
                     "mood_id": null,
-                    "group": "3",
-                    "updated": "2013-09-10 17:27:07",
-                    "last_updated": null,
-                    "status": "1",
-                    "avatarInfo": ""
-                },
-                {
-                    "id": "5",
-                    "first_name": "Смит",
-                    "last_name": "Рус",
-                    "gender": "1",
-                    "birthday": "1989-09-26",
-                    "last_active": "2013-03-12 01:22:29",
-                    "online": "0",
-                    "deleted": "0",
-                    "blocked": "0",
-                    "register_date": "2011-12-27 18:11:33",
-                    "login_date": "2013-03-12 01:21:34",
-                    "relationship_status": "2",
-                    "mood_id": "18",
-                    "group": null,
-                    "updated": "2013-08-20 14:39:06",
+                    "group": "0",
+                    "updated": "2013-04-06 23:28:21",
                     "last_updated": null,
                     "status": "1",
                     "avatarInfo": ""
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             'users' => array(
                 'class' => 'site\frontend\modules\v1\actions\UsersAction',
@@ -471,42 +395,29 @@ class ApiController extends V1ApiController
              * @apiGroup Comments
              * @api {get} comments/:id Получение комментариев.
              * @apiUse GetInstruction
-             * @apiParam (Get Params:) {Number} [entity_id] Id поста.
+             * @apiParam (Get Params:) {Number} [entity_id] Id поста (В таком случае вернутся только корневые комментарии).
+             * @apiparam (Get Params:) {Number} [root_id] Id родительского коммента (только корневого), для которого нужно получить комментарии.
              * @apiSuccessExample {json} Success-Response:
             HTTP/1.1 200 OK
             [
                 {
-                    "id": "1",
-                    "text": "changed text",
-                    "updated": "2015-10-23 11:42:37",
-                    "created": "2011-11-04 12:57:49",
-                    "author_id": "19",
+                    "id": "123456",
+                    "text": "<p>  \tВот это да. Но я бы на такое не решилась! Таким способом хорошо привлекать к себе внимание</p>  ",
+                    "updated": 1451466552,
+                    "created": 1347705551,
+                    "author_id": "15566",
                     "entity": "CommunityContent",
-                    "entity_id": "26",
+                    "entity_id": "30085",
                     "response_id": null,
                     "quote_id": null,
                     "quote_text": "",
-                    "position": "1",
+                    "position": "6",
                     "removed": "0",
-                    "root_id": "1"
-                },
-                {
-                    "id": "2",
-                    "text": "\r\n<p>Вот честно – мне тяжело понять тех, кто с рождения пытается устанавливать режим для ребенка, чтобы быть «свободнее». А надо ли быть свободнее? Я стала мамой! Это огромное счастье! Кормление – это повод быть рядом с малышом, наслаждаться единением с ним. И я наслаждалась. Если ребенку спокойно рядом с мамой – зачем засекать эти 10 минут и потом перекладывать ребенка в кровать и заниматься своими делами. Самое главное дело для молодой мамы – ребенок.</p>",
-                    "updated": "2014-08-11 13:59:06",
-                    "created": "2011-11-04 13:17:55",
-                    "author_id": "32",
-                    "entity": "CommunityContent",
-                    "entity_id": "26",
-                    "response_id": null,
-                    "quote_id": null,
-                    "quote_text": "",
-                    "position": "2",
-                    "removed": "0",
-                    "root_id": "2"
+                    "root_id": "123456",
+                    "new_entity_id": "430087"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             /**
              * @apiGroup Comments
@@ -537,7 +448,7 @@ class ApiController extends V1ApiController
                     "new_entity_id": "28"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             /**
              * @apiGroup Comments
@@ -564,7 +475,7 @@ class ApiController extends V1ApiController
                 "rootId": 1187752,
                 "dtimeCreate": 1449669117
             }
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             /**
              * @apiGroup Comments
@@ -572,7 +483,7 @@ class ApiController extends V1ApiController
              * @apiUse ApiAuthInstruction
              * @apiUse SocialAuthInstruction
              * @apiParam (Delete Params:) {Number} id Id комментария.
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             'comments' => array(
                 'class' => 'site\frontend\modules\v1\actions\CommentsAction',
@@ -639,7 +550,7 @@ class ApiController extends V1ApiController
                     "views": "0"
                 }
             ]
-             * @apiversion 0.0.1
+             * @apiVersion 0.1.2
              */
             /**
              * @apiGroup Posts
@@ -654,7 +565,7 @@ class ApiController extends V1ApiController
              * @apiParam (Post Params:) {String="forum","blog"} type Тип поста в зависимости от расположения (форум или блог).
              * @apiParam (Post Params:) {Object[]} [photos] Коллекция фотографий для фотопостов.
              * @apiParam (Post Params:) {String} [link] Ссылка на видео для видеопостов.
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             /**
              * @apiGroup Posts
@@ -669,7 +580,7 @@ class ApiController extends V1ApiController
              * @apiParam (Put Params:) {Number} rubric_id Id рубрики.
              * @apiParam (Put Params:) {Object[]} [photos] Коллекция фотографий в фотопосте.
              * @apiParam (Put Params:) {String} [link] Ссылка на видео для видеопостов.
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             /**
              * @apiGroup Posts
@@ -678,7 +589,7 @@ class ApiController extends V1ApiController
              * @apiUse SocialAuthInstruction
              * @apiParam (Delete Params:) {Number} id Id удаляемого поста.
              * @apiParam (Delete Params:) {String="forum","blog"} type Тип поста в зависимости от расположения.
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             'posts' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostsAction',
@@ -709,7 +620,7 @@ class ApiController extends V1ApiController
                     "hash": "73e09b287615622472ae278607a3dfe6"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             'onair' => array(
                 'class' => 'site\frontend\modules\v1\actions\OnairAction',
@@ -784,7 +695,7 @@ class ApiController extends V1ApiController
                     "views": "0"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             /*'postContent' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostContentAction',
@@ -807,7 +718,7 @@ class ApiController extends V1ApiController
                     "text": "Рубрика: Обо всём"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             /*'postLabel' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostLabelAction',
@@ -829,7 +740,7 @@ class ApiController extends V1ApiController
                     "labelId": "2"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             /*'postTag' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostTagAction',
@@ -875,7 +786,7 @@ class ApiController extends V1ApiController
                     "root_id": "1187738"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             /*'postComments' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostCommentsAction',
@@ -908,7 +819,7 @@ class ApiController extends V1ApiController
                     "new_photo_id": "186"
                 }
             ]
-             * @apiVersion 0.0.1
+             * @apiVersion 0.1.2
              */
             'photo' => array(
                 'class' => 'site\frontend\modules\v1\actions\PhotoAction',

@@ -16,7 +16,10 @@ class CommentsAction extends RoutedAction implements IPostProcessable
     public function getComments()
     {
         if (isset($_GET['entity_id'])) {
-            $where = "new_entity_id=" . \Yii::app()->request->getParam('entity_id');
+            $where = "new_entity_id = " . \Yii::app()->request->getParam('entity_id') . " and response_id is null";
+            $this->controller->get(Comment::model(), $this, $where);
+        } else if (isset($_GET['root_id'])) {
+            $where = "root_id = " . \Yii::app()->request->getParam('root_id');
             $this->controller->get(Comment::model(), $this, $where);
         } else {
             $this->controller->get(Comment::model(), $this);
@@ -166,9 +169,11 @@ class CommentsAction extends RoutedAction implements IPostProcessable
                 $this->controller->setError($e->getMessage(), 400);
             }
 
-            $comment->save();
+            //$comment->save();
 
-            if ($comment->softDelete()) {
+            $comment->removed = $comment->removed == 1 ? 0 : 1;
+
+            if (/*$comment->softDelete()*/$comment->save()) {
                 $this->controller->data = $comment;
 
             } else {

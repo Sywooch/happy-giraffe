@@ -155,6 +155,10 @@ class CommunityContent extends HActiveRecord implements IPreview
     {
         if($this->scenario == 'advEditor')
             return array(
+                'CacheDelete' => array(
+                    'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+                    'realOwner' => 'site\frontend\modules\posts\models\Content',
+                ),
                 'Rabbit' => array(
                     'class' => 'site.common.behaviors.RabbitMQBehavior',
                 ),
@@ -172,6 +176,10 @@ class CommunityContent extends HActiveRecord implements IPreview
                 ),
             );
         return array(
+            'CacheDelete' => array(
+                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+                'realOwner' => 'site\frontend\modules\posts\models\Content',
+            ),
             'Rabbit' => array(
                 'class' => 'site.common.behaviors.RabbitMQBehavior',
             ),

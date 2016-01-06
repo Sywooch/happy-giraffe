@@ -75,6 +75,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         }
         $entity = get_class($oldPost);
+        //$entity = $service == 'oldBlog' ? 'BlogContent' : get_class($oldPost);
+
         $id = $oldPost->id;
 
         $tags = array();
@@ -139,7 +141,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->html = PhotoHelper::adaptImages($advContent->htmlText);
         $newPost->templateObject->data['type'] = 'advPost';
         $newPost->isNoindex = false;
-        
+
+        //\Yii::log('New Post Save', 'info', 'convert');
         return $newPost->save();
     }
 

@@ -155,6 +155,13 @@ class CommunityContent extends HActiveRecord implements IPreview
     {
         if($this->scenario == 'advEditor')
             return array(
+                'CacheDelete' => array(
+                    'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+                    'realOwner' => 'site\frontend\modules\posts\models\Content',
+                ),
+                'Rabbit' => array(
+                    'class' => 'site.common.behaviors.RabbitMQBehavior',
+                ),
                 'PhotoCollectionBehavior' => array(
                     'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',
                     'attributeCollections' => array('preview'),
@@ -169,6 +176,13 @@ class CommunityContent extends HActiveRecord implements IPreview
                 ),
             );
         return array(
+            'CacheDelete' => array(
+                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+                'realOwner' => 'site\frontend\modules\posts\models\Content',
+            ),
+            'Rabbit' => array(
+                'class' => 'site.common.behaviors.RabbitMQBehavior',
+            ),
             'PhotoCollectionBehavior' => array(
                 'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',
                 'attributeCollections' => array('preview'),
@@ -754,15 +768,23 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function canEdit()
     {
-        if (in_array($this->author_id, array(167771, 189230, 220231)) && time() < strtotime('2014-09-04'))
+        if (in_array($this->author_id, array(167771, 189230, 220231)) && time() < strtotime('2014-09-04')) {
             return false;
+        }
 
-        if ($this->rubric->community_id == Community::COMMUNITY_NEWS)
+        if ($this->rubric->community_id == Community::COMMUNITY_NEWS) {
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
+        }
 
-        if (Yii::app()->user->model->group == UserGroup::USER)
-            return ($this->author_id == Yii::app()->user->id) && (strtotime($this->created) > strtotime('-1 month') || Yii::app()->user->model->communityContentsCount < 10);
-        return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
+        if (Yii::app()->user->model->group == UserGroup::USER) {
+            return ($this->author_id == Yii::app()->user->id)
+                && (strtotime($this->created) > strtotime('-1 month')
+                || Yii::app()->user->model->communityContentsCount < 10);
+        }
+
+        return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog
+            ? null
+            : $this->rubric->community->id, 'user_id' => $this->author->id)));
     }
 
     /**

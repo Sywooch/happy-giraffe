@@ -77,6 +77,16 @@ class ApiController extends \site\frontend\components\api\ApiController
             $comment->response_id = $responseId;
         }
 
+        if ($entity != 'BlogContent') {
+            $content = \site\frontend\modules\posts\models\Content::model()->find(array(
+                'condition' => "originEntity = '" . $entity . "' and originEntityId = " . $entityId));
+        } else {
+            $content = \site\frontend\modules\posts\models\Content::model()->find(array(
+                'condition' => "originService = 'oldBlog' and originEntityId = " . $entityId));
+        }
+
+        $comment->new_entity_id = $content->id;
+
         if ($comment->save())
         {
             $comment->refresh();

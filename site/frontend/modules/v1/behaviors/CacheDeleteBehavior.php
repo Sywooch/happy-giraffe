@@ -40,7 +40,7 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
             $collection = array_filter($collection);
             $collection = array_values($collection);
 
-            ApiLog::i("Before Cache Clear: " . print_r($collection, true));
+            //ApiLog::i("Before Cache Clear: " . print_r($collection, true));
 
             if ($this->realOwner) {
                 $owner = $this->realOwner;
@@ -49,7 +49,7 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
             }
             $total = count($collection);
 
-            ApiLog::i($owner);
+            //ApiLog::i($owner);
 
             for ($i = 0; $i < $total; $i++) {
                 $key = json_decode($collection[$i]);
@@ -67,12 +67,12 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
                 }
             }
 
-            ApiLog::i("After Cache Clear: " . print_r($collection, true));
+            //ApiLog::i("After Cache Clear: " . print_r($collection, true));
 
             \Yii::app()->cache->set(V1ApiController::KEYS_COLLECTION, $collection, V1ApiController::CACHE_COLLECTION_EXPIRE);
         } catch (Exception $ex) {
             //Emergency fix.
-            ApiLog::i("WE ALL DIE!");
+            //ApiLog::i("WE ALL DIE!");
             \Yii::app()->cache->flush();
         }
     }

@@ -9,6 +9,7 @@ use site\frontend\modules\v1\actions\IViewIncrementable;
 use site\frontend\modules\v1\actions\ReLoginAction;
 use site\frontend\modules\v1\actions\LoginAction;
 use site\frontend\modules\v1\actions\LogoutAction;
+use site\frontend\modules\v1\actions\CheckTokenAction;
 use site\frontend\modules\v1\helpers\ApiLog;
 
 /**
@@ -312,7 +313,9 @@ class V1ApiController extends \CController
     #region Auth
     public function auth()
     {
-        if ($this->action instanceof ReLoginAction || $this->action instanceof LogoutAction) {
+        if ($this->action instanceof ReLoginAction
+            || $this->action instanceof LogoutAction
+            || $this->action instanceof CheckTokenAction) {
             return true;
         }
 

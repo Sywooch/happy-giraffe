@@ -451,7 +451,7 @@ return array(
 
 
         //-----------------------------------------------------------------
-        //NEW TEMP API
+        //NEW API
         //-----------------------------------------------------------------
         'v1/api/clubs' => 'v1/api/clubs',
         'v1/api/clubs/<id:\d+>' => 'v1/api/clubs',
@@ -476,6 +476,7 @@ return array(
         'v1/api/photo' => 'v1/api/photo',
         'v1/api/relogin' => 'v1/api/relogin',
         'v1/api/logout' => 'v1/api/logout',
+        'v1/api/check-token' => 'v1/api/checkToken',
 
 
         //horoscope

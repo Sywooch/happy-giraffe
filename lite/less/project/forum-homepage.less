@@ -102,11 +102,11 @@
 
 .top-forum
 {
-  width: 302px;
+  width: 301px;
   height: 366px;
   .widget;
   float:left;
-  margin-right: 10px;
+  margin-right: 15px;
   .widget_item
   {
     height: 40px;
@@ -117,7 +117,7 @@
 .latest-posts
 {
   .widget;
-  width: 616px;
+  width: 614px;
   height: 366px;
   float:left;
   margin-bottom: 30px;
@@ -168,8 +168,8 @@
 
 .widget_latest-posts_user
 {
-  float:right;
   margin-top: 3px;
+  float:left;
 }
 
 .who-online
@@ -197,6 +197,13 @@
     float:left;
   }
 
+  &:after
+  {
+    content:"";
+    display: block;
+    clear: both;
+  }
+
 }
 
 /* ### Цвета заголовков форума ### */
@@ -205,45 +212,47 @@
 
 .color_1
 {
-  background: rgba(255, 139, 62, 0.71);
+  background: rgb(255, 130, 50);
 }
 
 /* Наш дом */
 
 .color_2
 {
-  background: rgba(232, 207, 87, 0.92);
+  background: rgb(255, 230, 65);
 }
 
 /* Красота и здоровье */
 
 .color_3
 {
-  background: rgba(105, 188, 244, 0.71);
+  background: rgb(100, 185, 235);
 }
 
 /* Муж и жена */
 
 .color_4
 {
-  background: rgba(167, 147, 207, 0.71);
+  background: rgb(170, 150, 210);
 }
 
 /* Интересы и увлечения */
 
 .color_5
 {
-  background: rgba(104, 208, 93, 0.71);
+  background: rgb(115, 200, 105);
 }
 
 /* Семейный отдых */
 
 .color_6
 {
-  background: rgba(167, 147, 207, 0.71);
+  background: rgb(170, 150, 210);
 }
 
 /* ### ### */
+
+
 
 .forum_heading_block
 {
@@ -251,11 +260,11 @@
   margin-top: 38px;
   .forum_heading
   {
-    padding: 9px 16px 6px 16px;
+    padding: 4px 16px 4px 16px;
     color: #fff;
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 24px;
+    margin-bottom: 23px;
   }
 }
 
@@ -490,7 +499,6 @@
     color: @color-gray-light;
   }
   &_ul {
-    margin-top: -11px;
     border-top: 1px solid transparent;
     //padding: 20px 0 0;
     .border-radius(10px);
@@ -506,12 +514,12 @@
     @media (min-width: @screen-desktop) {
       //display: inline-block;
       //width: 108px;
-      margin-top: 20px;
+      margin: 11px 0;
     }
     //display: block;
     vertical-align: top;
     width: auto;
-    margin-left: 0;
+
 
     &:after
     {
@@ -638,7 +646,7 @@
 
 .forum_subheading {
   margin-bottom: 7px;
-  font-size: 18px;
+  font-size: 16px;
   color: #279FD7;
 }
 
@@ -646,7 +654,7 @@
 {
   max-width: 464px;
   font-family: Arial, Tahoma, Verdana, sans-serif;
-  color: #333;
+  color: #666;
   font-size: 12px;
 }
 
@@ -664,17 +672,19 @@
   {
     float: left;
     margin-right: 62px;
+    margin-top: 4px;
   }
 
   &_activity
   {
     float:left;
     margin-left: 12px;
-    margin-top: -24px;
+    margin-top: -19px;
 
     .live-user_text
     {
       color: #196eb9 !important;
+      line-height: 14px;
     }
   }
 }
@@ -682,8 +692,8 @@
 .clubs_separator
 {
   border-bottom: 1px solid #fafafa;
-  width: 801px;
-  margin-left: 128px;
+  width: 838px;
+  margin-left: 90px;
   display: table;
 }
 

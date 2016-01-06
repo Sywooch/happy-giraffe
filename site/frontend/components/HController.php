@@ -290,6 +290,7 @@ class HController extends CController
 
     public function addView($action)
     {
+        //\Yii::log("checkView", 'info', 'hcontroller');
         if (Yii::app()->user->isGuest && ! Yii::app()->request->isAjaxRequest && Yii::app()->errorHandler->error === null && $action instanceof CInlineAction) {
             $viewsCount = Yii::app()->user->getState('viewsCount', 0);
             Yii::app()->user->setState('viewsCount', $viewsCount + 1);

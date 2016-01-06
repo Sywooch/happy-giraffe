@@ -9,7 +9,7 @@ return array(
     'id' => 'happy-giraffe',
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Клуб',
-	'homeUrl' => 'http://www.happy-giraffe.ru',
+	'homeUrl' => 'https://giraffe.code-geek.ru',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -177,6 +177,10 @@ return array(
             'class' => 'site\frontend\modules\questionnaire\QuestionnaireModule',
             'controllerNamespace' => 'site\frontend\modules\questionnaire\controllers',
         ),
+        'v1' => array(
+            'class' => 'site\frontend\modules\v1\V1Module',
+            'controllerNamespace' => 'site\frontend\modules\v1\controllers',
+        ),
 	),
 	// application components
 	'components'=>array(
@@ -248,16 +252,42 @@ return array(
                     'client_public' => 'CBAFBHJGABABABABA',
                     'title' => 'Одноклассники',
                 ),
-                'vkontakte' => array(
+                'ok_api' => array(
+                    'class' => 'application.components.eauth.OdnoklassnikiAuth',
+                    'client_id' => '1240432384',
+                    'client_secret' => 'B9C8F53C3949A06DD263AB6F',
+                    'client_public' => 'CBAQHQOKEBABABABA',
+                ),
+                //true app
+                /*'vkontakte' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
                     'title' => 'ВКонтакте',
+                ),*/
+                //test app
+                'vkontakte' => array(
+                    'class' => 'application.components.eauth.VkontakteAuth',
+                    'client_id' => '5197824',
+                    'client_secret' => 'QWTJzplwU7QJHIaS5s7K',
+                    'title' => 'ВКонтакте',
                 ),
+                /*'vkontakte' => array(
+                    'class' => 'application.components.eauth.VkontakteAuth',
+                    'client_id' => '5198960',
+                    'client_secret' => '6ENyzHlfcTaOZE1k3UYk',
+                    'title' => 'ВКонтакте',
+                ),*/
                 'google' => array(
                     'class' => 'application.components.eauth.GoogleAuth',
                     'client_id' => '152056798430-h2dd83jfs4q4mka119s1tftorp0171ol.apps.googleusercontent.com',
                     'client_secret' => '-DJ8DaGP9nK7rpvo11eT38ys',
+                ),
+                //test temp
+                'vk_api' => array(
+                    'class' => 'application.components.eauth.VkontakteAuth',
+                    'client_id' => '5198960',
+                    'client_secret' => '6ENyzHlfcTaOZE1k3UYk',
                 ),
 //                'facebook' => array(
 //                    'class' => 'CustomFacebookService',
@@ -316,19 +346,19 @@ return array(
         ),
         'db_seo' => array(
             'class'=>'CDbConnection',
-            'connectionString' => 'mysql:host=localhost;dbname=happy_giraffe_seo',
+            'connectionString' => 'mysql:host=192.168.0.137;dbname=happy_giraffe_seo',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => '',
+            'password' => '11223344',
             'charset' => 'utf8',
             'schemaCachingDuration' => 60,
         ),
         'db_keywords' => array(
             'class' => 'CDbConnection',
-            'connectionString' => 'mysql:host=localhost;dbname=keywords',
+            'connectionString' => 'mysql:host=192.168.0.137;dbname=keywords',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => '',
+            'password' => '11223344',
             'charset' => 'utf8',
             'schemaCachingDuration' => 60,
         ),
@@ -400,7 +430,7 @@ return array(
         ),
         'comet'=>array(
             'class' => 'ext.Dklab_Realplexor',
-            'host' => 'plexor.www.happy-giraffe.ru',
+            'host' => 'plexor.www.giraffe.code-geek.ru',
             'port' => 10010,
             'namespace' => 'crm_',
         ),
@@ -434,6 +464,7 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
         'valentinesAlbum' => '41340',
+        'is_api_request' => false,
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
         'gaPass'=>'',
@@ -450,7 +481,7 @@ return array(
 				'secret_key' => '9a33bbf4e3c6c78e1dd6427362b0d040',
 			),
 		),
-        'frontend_url'=>'http://www.happy-giraffe.ru/',
+        'frontend_url'=>'http://www.giraffe.code-geek.ru/',
         'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
         'google_map_key'=>'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc',
         'combineMap' => array(

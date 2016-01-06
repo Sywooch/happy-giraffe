@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\posts\models;
 
+use site\frontend\modules\comments\models\Comment;
 /**
  * This is the model class for table "post__contents".
  *
@@ -109,12 +110,22 @@ class Content extends \CActiveRecord implements \IHToJSON
         return array(
             'labelModels' => array(self::MANY_MANY, '\site\frontend\modules\posts\models\Label', 'post__tags(contentId, labelId)'),
             'tagModels' => array(self::HAS_MANY, '\site\frontend\modules\posts\models\Tag', 'contentId'),
+            'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
+            'communityContent' => array(self::BELONGS_TO, 'CommunityContent', 'originEntityId'),
+            'comments' => array(self::HAS_MANY, get_class(Comment::model()), 'new_entity_id'),
+            'comments_count' => array(self::STAT, get_class(Comment::model()), 'new_entity_id'),
         );
     }
 
     public function behaviors()
     {
         return array(
+            /*'Rabbit' => array(
+                'class' => 'site.common.behaviors.RabbitMQBehavior',
+            ),*/
+            'CacheDelete' => array(
+                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+            ),
             'HTimestampBehavior' => array(
                 'class' => 'HTimestampBehavior',
                 'createAttribute' => 'dtimeCreate',

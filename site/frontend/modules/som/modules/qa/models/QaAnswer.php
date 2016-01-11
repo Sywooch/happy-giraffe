@@ -136,6 +136,12 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		$this->softDelete->afterSoftDelete();
 	}
 
+	public function afterSoftRestore()
+	{
+		$this->updateAnswersCount(1);
+		$this->softDelete->afterSoftRestore();
+	}
+
 	protected function updateAnswersCount($n)
 	{
 		$this->question->saveCounters(array('answersCount' => $n));

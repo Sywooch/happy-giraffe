@@ -56,7 +56,7 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
             $this->owner->{$this->removeAttribute} = 0;
             $result = $this->owner->updateByPk($this->owner->id, array($this->removeAttribute => $this->owner->{$this->removeAttribute}));
             if ($result) {
-                $this->afterSoftRestore();
+                $this->owner->afterSoftRestore();
             }
         }
 

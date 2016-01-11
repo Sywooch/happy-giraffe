@@ -181,6 +181,10 @@ return array(
             'class' => 'site\frontend\modules\v1\V1Module',
             'controllerNamespace' => 'site\frontend\modules\v1\controllers',
         ),
+        'ideas' => array(
+            'class' => 'site\frontend\modules\ideas\IdeasModule',
+            'controllerNamespace' => 'site\frontend\modules\ideas\controllers',
+        ),
 	),
 	// application components
 	'components'=>array(

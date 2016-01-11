@@ -23,6 +23,7 @@ return array(
         'api/commentatorsContest/<_a>' => 'comments/contest/api/<_a>',
         'api/status/<_a>' => 'som/status/api/<_a>',
         'api/photopost/<_a>' => 'som/photopost/api/<_a>',
+        'api/idea/<_a>' => 'som/idea/api/<_a>',
         'api/activity/<_a>' => 'som/activity/api/<_a>',
         'api/community/<_a:(getUserSubscriptions|setUserSubscriptions)>' => 'community/api/<_a>',
         'api/community/<_a>' => 'som/community/api/<_a>',
@@ -453,9 +454,7 @@ return array(
 
 
 
-        //-----------------------------------------------------------------
-        //NEW API
-        //-----------------------------------------------------------------
+        /****************************************************** API V1 ***************************************************/
         'v1/api/clubs' => 'v1/api/clubs',
         'v1/api/clubs/<id:\d+>' => 'v1/api/clubs',
         'v1/api/users' => 'v1/api/users',
@@ -480,6 +479,15 @@ return array(
         'v1/api/relogin' => 'v1/api/relogin',
         'v1/api/logout' => 'v1/api/logout',
         'v1/api/check-token' => 'v1/api/checkToken',
+
+        /****************************************************** API V1 END ************************************************/
+
+
+
+
+        /****************************************************** IDEAS ****************************************************/
+
+        /****************************************************** IDEAS END *************************************************/
 
 
         //horoscope

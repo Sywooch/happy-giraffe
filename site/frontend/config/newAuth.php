@@ -65,6 +65,7 @@ return array(
         'children' => array(
             'createPhotopost',
             'createStatus',
+            'createIdea',
         ),
         'bizRule' => null,
         'data' => null
@@ -75,6 +76,7 @@ return array(
         'children' => array(
             'managePhotopost',
             'manageStatus',
+            'manageIdea',
         ),
         'bizRule' => null,
         'data' => null
@@ -132,6 +134,34 @@ return array(
     'removePhotopost' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Удаление фотопоста',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'manageIdea' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление идеей',
+        'children' => array(
+            'updateIdea',
+            'removeIdea',
+        ),
+        'bizRule' => null,
+        'data' => null
+    ),
+    'createIdea' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Добавление идеи',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'updateIdea' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Редактирование идеи',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'removeIdea' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Удаление идеи',
         'bizRule' => null,
         'data' => null
     ),

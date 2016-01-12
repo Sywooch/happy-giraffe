@@ -23,7 +23,7 @@ $this->beginContent('//layouts/lite/main');
                         клинического института педиатрии <br />
                         ГБОУ ВПО РНИМУ им. Н.И. Пирогова
                     </div>
-                    <a href="<?=$this->createUrl('/som/qa/default/questionAddForm/', array('consultationId' => $this->consultation->id))?>" class="consult-specialist_btn btn btn-success btn-xl">Задать вопрос</a>
+                    <a href="<?=$this->createUrl('/som/qa/default/questionAddForm/', array('consultationId' => $this->consultation->id))?>" class="consult-specialist_btn btn btn-success btn-xl login-button" data-bind="follow: {}">Задать вопрос</a>
                 </div>
             </aside>
         </div>

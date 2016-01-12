@@ -32,6 +32,9 @@ class SomModule extends \CWebModule
             'community' => array(
                 'class' => 'site\frontend\modules\som\modules\community\CommunityModule',
             ),
+            'idea' => array(
+                'class' => 'site\frontend\modules\som\modules\idea\IdeaModule',
+            ),
         ));
     }
 

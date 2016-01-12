@@ -54,9 +54,9 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = $idea->toJSON();
     }
 
-    public function actionCreate($title, $collectionId, $isDraft = 0)
+    public function actionCreate(/*$title, $collectionId, $isDraft = 0*/)
     {
-        if (!\Yii::app()->user->checkAccess('createIdea')) {
+        /*if (!\Yii::app()->user->checkAccess('createIdea')) {
             throw new \CHttpException('Ќедостаточно прав дл€ выполнени€ операции', 403);
         }
 
@@ -74,7 +74,8 @@ class ApiController extends \site\frontend\components\api\ApiController
         } else {
             $this->errorCode = 1;
             $this->errorMessage = $idea->getErrorsText();
-        }
+        }*/
+        $this->success = true;
     }
 
     public function actionUpdate($id, $title, $collectionId, $isDraft = 0)

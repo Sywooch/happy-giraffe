@@ -181,10 +181,6 @@ return array(
             'class' => 'site\frontend\modules\v1\V1Module',
             'controllerNamespace' => 'site\frontend\modules\v1\controllers',
         ),
-        'ideas' => array(
-            'class' => 'site\frontend\modules\ideas\IdeasModule',
-            'controllerNamespace' => 'site\frontend\modules\ideas\controllers',
-        ),
 	),
 	// application components
 	'components'=>array(
@@ -287,11 +283,16 @@ return array(
                     'client_id' => '152056798430-h2dd83jfs4q4mka119s1tftorp0171ol.apps.googleusercontent.com',
                     'client_secret' => '-DJ8DaGP9nK7rpvo11eT38ys',
                 ),
-                //test temp
+               /* //test temp
                 'vk_api' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '5198960',
                     'client_secret' => '6ENyzHlfcTaOZE1k3UYk',
+                ),*/
+                'vk_api' => array(
+                    'class' => 'application.components.eauth.VkontakteAuth',
+                    'client_id' => '5166385',
+                    'client_secret' => 'oBlT8aBlmvf0RrcHzqT2',
                 ),
 //                'facebook' => array(
 //                    'class' => 'CustomFacebookService',

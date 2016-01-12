@@ -27,6 +27,7 @@ class RoutedAction extends \CAction
         /*ApiLog::i(print_r(\Yii::app()->request->restParams, true));
         ApiLog::i('GET' . print_r($_GET, true));
         ApiLog::i('POST' . print_r($_POST, true));*/
+        ApiLog::i(print_r($_REQUEST, true));
         try {
             $this->controller->requestType = $methods[\Yii::app()->request->requestType];
 

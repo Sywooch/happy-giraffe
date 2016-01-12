@@ -23,6 +23,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actions()
     {
         return \CMap::mergeArray(parent::actions(), array(
+            // QaAnswer
             'editAnswer' => array(
                 'class' => 'site\frontend\components\api\EditAction',
                 'modelName' => self::$answerModel,
@@ -37,6 +38,18 @@ class ApiController extends \site\frontend\components\api\ApiController
                 'class' => 'site\frontend\components\api\SoftRestoreAction',
                 'modelName' => self::$answerModel,
                 'checkAccess' => 'restoreQaAnswer',
+            ),
+
+            // QaQuestion
+            'removeQuestion' => array(
+                'class' => 'site\frontend\components\api\SoftDeleteAction',
+                'modelName' => self::$questionModel,
+                'checkAccess' => 'removeQaQuestion',
+            ),
+            'restoreQuestion' => array(
+                'class' => 'site\frontend\components\api\SoftRestoreAction',
+                'modelName' => self::$questionModel,
+                'checkAccess' => 'restoreQaQuestion',
             ),
         ));
     }

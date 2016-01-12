@@ -45,7 +45,7 @@
             <?=$form->label($model, 'sendNotifications')?>
             <div class="popup-widget_cont_buttons">
                 <a href="<?=$this->createUrl('/som/qa/default/index')?>" class="btn btn-secondary btn-xm">Отмена</a>
-                <button class="btn btn-success btn-xm">Опубликовать</button>
+                <button class="btn btn-success btn-xm"><?=($model->isNewRecord) ? 'Опубликовать' : 'Редактировать'?></button>
             </div>
             <?php $this->endWidget(); ?>
         <div class="popup-widget_sidebar">

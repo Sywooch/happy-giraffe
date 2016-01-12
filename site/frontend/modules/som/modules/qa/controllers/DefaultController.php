@@ -123,9 +123,11 @@ class DefaultController extends QaController
 
     public function actionQuestionEditForm($questionId)
     {
+        $this->layout = '//layouts/lite/common';
+
         $question = $this->getModel($questionId);
         $this->performAjaxValidation($question);
-        if ($question->category->consultationId !== null) {
+        if ($question->consultationId !== null) {
             $question->scenario = 'consultation';
         }
 
@@ -135,6 +137,8 @@ class DefaultController extends QaController
                 $this->redirect($question->url);
             }
         }
+
+        $this->render('form', array('model' => $question));
     }
 
     protected function getModel($pk)

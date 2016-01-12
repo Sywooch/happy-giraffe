@@ -130,12 +130,6 @@ class QaQuestion extends \HActiveRecord
 		);
 	}
 
-	protected function beforeSave()
-	{
-		$this->text = nl2br($this->text);
-		return parent::beforeSave();
-	}
-
 	public function unanswered()
 	{
 		$this->getDbCriteria()->addCondition($this->tableAlias . '.answersCount = 0');

@@ -200,7 +200,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'id' => (int) $this->id,
 			'authorId' => (int) $this->authorId,
 			'dtimeCreate' => (int) $this->dtimeCreate,
-			'text' => $this->text,
+			'text' => \CHtml::encode($this->text),
 			'votesCount' => (int) $this->votesCount,
 			'user' => $this->user,
 			'isRemoved' => (bool) $this->isRemoved,

@@ -1,3 +1,14 @@
+.b-main
+{
+  &_cont
+  {
+    @media (max-width: @screen-desktop)
+    {
+      width: auto;
+      margin: 0;
+    }
+  }
+}
 /* Widgets styles*/
 .widget()
 {
@@ -12,9 +23,30 @@
   .widget-top .heading-wd
   {
     display: block;
-    float:left;
+    @media (min-width: @screen-desktop)
+    {
+      float:left;
+    }
 
+    @media (max-width: @screen-desktop)
+    {
+      float:none;
+    }
   }
+
+  @media (max-width: @screen-desktop)
+  {
+    .who-online_hint
+    {
+        margin: 10px 0 0 0;
+    }
+
+    .who-online_ul
+    {
+      margin: 39px 0 0 0;
+    }
+  }
+
 
   .widget-top .tx-hint
   {
@@ -111,6 +143,11 @@
   {
     height: 40px;
   }
+
+  @media (max-width: @screen-desktop)
+  {
+    display: none;
+  }
 }
 
 
@@ -125,6 +162,11 @@
   {
     margin-bottom: 10px;
     height: 60px;
+  }
+
+  @media (max-width: @screen-desktop)
+  {
+    display: none;
   }
 }
 
@@ -264,7 +306,10 @@
     color: #fff;
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 23px;
+    @media (min-width: @screen-desktop)
+    {
+      margin-bottom: 23px;
+    }
   }
 }
 
@@ -272,9 +317,19 @@
 
 .ico-clubs_a
 {
-  @media (min-width: @screen-phone-landscape) {
-    margin: 0 auto 10px;
-    width: 615px;
+  @media (min-width: @screen-phone)
+  {
+    margin: 0 20px 0 0;
+    width: 72px;
+    float:left;
+  }
+
+  @media(max-width: @screen-phone)
+  {
+    margin: 0 20px 0 0;
+    width: 72px;
+    float:left;
+    height: 100px;
   }
   @media (min-width: @screen-desktop) {
     display: block;
@@ -502,7 +557,9 @@
     border-top: 1px solid transparent;
     //padding: 20px 0 0;
     .border-radius(10px);
-
+    @media (max-width: @screen-desktop) {
+      margin: 0 20px;
+    }
     &:after
     {
       content:" ";
@@ -516,6 +573,7 @@
       //width: 108px;
       margin: 11px 0;
     }
+
     //display: block;
     vertical-align: top;
     width: auto;
@@ -648,6 +706,7 @@
   margin-bottom: 7px;
   font-size: 16px;
   color: #279FD7;
+  max-width: 360px;
 }
 
 .forum_subheading_desc
@@ -656,6 +715,7 @@
   font-family: Arial, Tahoma, Verdana, sans-serif;
   color: #666;
   font-size: 12px;
+  max-width: 360px;
 }
 
 .clubs_cont
@@ -666,13 +726,44 @@
 
 .clubs_info
 {
-  float: right;
-  margin-top: 24px;
+  @media (max-width: @screen-phone-landscape)
+  {
+    float: none;
+    clear: left;
+    padding: 10px 0 0 93px;
+  }
+
+  @media (min-width: @screen-phone-landscape)
+  {
+    float: right;
+
+  }
+
+  @media (max-width: @screen-desktop)
+  {
+    margin-top: 48px;
+  }
+
+  @media (min-width: @screen-desktop)
+  {
+    margin-top: 24px;
+  }
   .counter-block
   {
     float: left;
-    margin-right: 62px;
     margin-top: 4px;
+
+    @media (max-width: @screen-phone-landscape)
+    {
+      margin-right: 62px;
+
+    }
+
+    @media (max-width: @screen-phone-landscape)
+    {
+      margin-right: 36px;
+
+    }
   }
 
   &_activity
@@ -680,6 +771,11 @@
     float:left;
     margin-left: 12px;
     margin-top: -19px;
+
+    @media (max-width: @screen-desktop)
+    {
+      display: none;
+    }
 
     .live-user_text
     {
@@ -695,6 +791,10 @@
   width: 838px;
   margin-left: 90px;
   display: table;
+  @media (max-width: @screen-desktop)
+  {
+    margin: 22px 0 0 0;
+  }
 }
 
 .icons-meta_view
@@ -722,5 +822,20 @@
     }
   }
 }
+
+.heading-link-xxl
+{
+  @media (max-width: @screen-desktop)
+  {
+    text-align: center;
+
+  }
+}
+
+.who-online_hint
+{
+
+}
+
 
 

@@ -4,7 +4,7 @@
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
 $this->sidebar = array('ask', 'personal', 'menu', 'rating');
-$this->pageTitle = $question->title;
+$this->pageTitle = CHTml::encode($question->title);
 ?>
 
 <div class="question">
@@ -26,7 +26,7 @@ $this->pageTitle = $question->title;
         <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>
     </div>
     <div class="clearfix"></div>
-    <h1 class="questions_item_heading"><?=$question->title?></h1>
+    <h1 class="questions_item_heading"><?=CHtml::encode($question->title)?></h1>
     <div class="questions_item_category">
         <div class="questions_item_category_ico sharp-test"></div>
         <?php if ($question->consultationId === null): ?>
@@ -37,7 +37,7 @@ $this->pageTitle = $question->title;
     </div>
     <div class="clearfix"></div>
     <div class="question_text">
-        <?=$question->text?>
+        <?=CHtml::encode($question->text)?>
     </div>
 </div>
 <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget', array('question' => $question)); ?>

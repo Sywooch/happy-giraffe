@@ -22,7 +22,7 @@
             <div class="dialog-arrow dialog-arrow-bestred"></div>
         <?php endif; ?>
         <div class="answers-list_item_text-block_text">
-            <?=$data->text?>
+            <?=CHtml::encode($data->text)?>
         </div>
     </div>
     <div class="clearfix"></div>

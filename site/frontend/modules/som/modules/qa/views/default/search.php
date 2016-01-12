@@ -7,7 +7,7 @@ $this->sidebar = array('ask', 'personal', 'menu');
 ?>
 
 <?php $this->renderPartial('/_search', compact('query')); ?>
-<div class="only-mobile"><a href="#AskWidget" class="consult-specialist_btn btn btn-success btn-xl popup-a">Задать вопрос</a></div>
+<div class="only-mobile"><a class="consult-specialist_btn btn btn-success btn-xl popup-a login-button" href="<?=$this->createUrl('/som/qa/default/questionAddForm/')?>" data-bind="follow: {}">Задать вопрос</a></div>
 <?php if (empty($query) || $dp->totalItemCount == 0): ?>
     <p>Ничего не найдено</p>
 <?php else: ?>

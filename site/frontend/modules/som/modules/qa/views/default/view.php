@@ -4,7 +4,7 @@
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
 $this->sidebar = array('ask', 'personal', 'menu', 'rating');
-$this->pageTitle = CHTml::encode($question->title);
+$this->pageTitle = CHtml::encode($question->title);
 ?>
 
 <div class="question">
@@ -37,7 +37,11 @@ $this->pageTitle = CHTml::encode($question->title);
     </div>
     <div class="clearfix"></div>
     <div class="question_text">
-        <?=CHtml::encode($question->text)?>
+        <?=nl2br(CHtml::encode($question->text))?>
     </div>
+
+    <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
+        <question-settings params="questionId: <?=$question->id?>"></question-settings>
+    <?php endif; ?>
 </div>
 <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget', array('question' => $question)); ?>

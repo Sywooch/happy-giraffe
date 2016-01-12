@@ -63,6 +63,7 @@ return array(
 
         // задать вопрос
         'questions/add' => 'som/qa/default/questionAddForm',
+        'questions/edit<questionId:\d+>' => 'som/qa/default/questionEditForm',
 
         // главная
         'questions/<categoryId:\d+>/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),

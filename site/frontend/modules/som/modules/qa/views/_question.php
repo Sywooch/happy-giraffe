@@ -19,7 +19,7 @@
     <div class="icons-meta">
         <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>
     </div>
-    <div class="clearfix"></div><a class="questions_item_heading" href="<?=$data->url?>"><?=$data->title?></a>
+    <div class="clearfix"></div><a class="questions_item_heading" href="<?=$data->url?>"><?=CHTml::encode($data->title)?></a>
     <div class="questions_item_category">
         <div class="questions_item_category_ico sharp-test"></div>
         <?php if ($data->consultationId === null): ?>

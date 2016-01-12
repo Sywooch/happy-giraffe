@@ -23,6 +23,23 @@ class DefaultController extends QaController
     const TAB_POPULAR = 'popular';
     const TAB_UNANSWERED = 'unanswered';
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+                'actions' => array('questionAddForm', 'questionEditForm'),
+            ),
+        );
+    }
+
     public function actionIndex($tab, $categoryId = null)
     {
         $dp = $this->getDataProvider($tab, $categoryId);

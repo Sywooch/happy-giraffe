@@ -145,7 +145,7 @@ class V1ApiController extends \CController
      */
     public function get($model, $action, $where = null)
     {
-        //\Yii::app()->cache->flush();
+        \Yii::app()->cache->flush();
 
         $this->setCacheKey($model, $where);
 
@@ -404,7 +404,7 @@ class V1ApiController extends \CController
      * @param $model
      * @return array of relations parameters.
      */
-    private function getWithParameters($model)
+    public function getWithParameters($model)
     {
         if (isset($_GET[self::WITH])) {
             $temp = explode(",", \Yii::app()->request->getParam(self::WITH));

@@ -841,6 +841,9 @@ class ApiController extends V1ApiController
             'checkToken' => array(
                 'class' => 'site\frontend\modules\v1\actions\CheckTokenAction',
             ),
+            'ideas' => array(
+                'class' => 'site\frontend\modules\som\modules\idea\actions\IdeasAction',
+            ),
         );
     }
     #endregion

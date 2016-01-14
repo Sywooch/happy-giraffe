@@ -245,14 +245,15 @@ return array(
 //                    'client_secret' => '3a0e2674098641394a8e5e0b4328e594',
 //                    'title' => 'Mail.ru',
 //                ),
-                'odnoklassniki' => array(
+                /*ok original*/
+                /*'odnoklassniki' => array(
                     'class' => 'application.components.eauth.OdnoklassnikiAuth',
                     'client_id' => '93721600',
                     'client_secret' => '4E774EFE678A1ECF3D4625F3',
                     'client_public' => 'CBAFBHJGABABABABA',
                     'title' => 'Одноклассники',
-                ),
-                'ok_api' => array(
+                ),*/
+                'odnoklassniki' => array(
                     'class' => 'application.components.eauth.OdnoklassnikiAuth',
                     'client_id' => '1240432384',
                     'client_secret' => 'B9C8F53C3949A06DD263AB6F',

@@ -23,6 +23,7 @@ return array(
         'api/commentatorsContest/<_a>' => 'comments/contest/api/<_a>',
         'api/status/<_a>' => 'som/status/api/<_a>',
         'api/photopost/<_a>' => 'som/photopost/api/<_a>',
+        'api/idea/<_a>' => 'som/idea/api/<_a>',
         'api/activity/<_a>' => 'som/activity/api/<_a>',
         'api/community/<_a:(getUserSubscriptions|setUserSubscriptions)>' => 'community/api/<_a>',
         'api/community/<_a>' => 'som/community/api/<_a>',
@@ -478,6 +479,8 @@ return array(
         'v1/api/relogin' => 'v1/api/relogin',
         'v1/api/logout' => 'v1/api/logout',
         'v1/api/check-token' => 'v1/api/checkToken',
+        'v1/api/ideas' => 'v1/api/ideas',
+        'v1/api/ideas/<id:\d+>' => 'v1/api/ideas',
 
         /****************************************************** API V1 END ************************************************/
 
@@ -486,8 +489,9 @@ return array(
 
         /****************************************************** IDEAS ****************************************************/
 
-        'api/idea/<_a>' => 'som/idea/api/<_a>',
+        //'api/idea/<_a>' => 'som/idea/api/<_a>',
         'idea/create' => 'som/idea/form/create',
+        'idea/all' => 'som/idea/default/index',
 
         /****************************************************** IDEAS END *************************************************/
 

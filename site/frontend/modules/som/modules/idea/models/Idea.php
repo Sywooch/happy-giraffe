@@ -3,6 +3,7 @@
 namespace site\frontend\modules\som\modules\idea\models;
 
 use site\frontend\modules\som\modules\photopost\models\Photopost;
+use site\frontend\modules\photo\models\PhotoCollection;
 
 class Idea extends Photopost
 {
@@ -25,6 +26,7 @@ class Idea extends Photopost
             ),
             //Это наверняка поправить надо.
             'UrlBehavior' => array(
+
                 'class' => 'site\common\behaviors\UrlBehavior',
                 'route' => function($model) {
                     return $model->forumId ? 'posts/community/view' : 'posts/post/view';
@@ -52,5 +54,13 @@ class Idea extends Photopost
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    public function relations()
+    {
+        return array(
+            'collection' => array(self::BELONGS_TO, get_class(PhotoCollection::model()), 'collectionId'),
+            'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
+        );
     }
 }

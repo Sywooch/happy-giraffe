@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\som\modules\idea\controllers;
 
+use site\frontend\modules\som\modules\idea\models\Idea;
+
 class ApiController extends \site\frontend\components\api\ApiController
 {
     public static $model = '\site\frontend\modules\som\modules\idea\models\Idea';
@@ -54,11 +56,13 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = $idea->toJSON();
     }
 
-    public function actionCreate(/*$title, $collectionId, $isDraft = 0*/)
+    public function actionCreate($title, $collectionId, $isDraft = 0)
     {
+        /**@todo: fix access denied*/
         /*if (!\Yii::app()->user->checkAccess('createIdea')) {
+            //throwing exception grants 502 error
             throw new \CHttpException('Ќедостаточно прав дл€ выполнени€ операции', 403);
-        }
+        }*/
 
         $model = self::$model;
         $idea = new $model('default');
@@ -74,8 +78,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         } else {
             $this->errorCode = 1;
             $this->errorMessage = $idea->getErrorsText();
-        }*/
-        $this->success = true;
+        }
     }
 
     public function actionUpdate($id, $title, $collectionId, $isDraft = 0)
@@ -91,6 +94,23 @@ class ApiController extends \site\frontend\components\api\ApiController
         } else {
             $this->errorCode = 1;
             $this->errorMessage = $idea->errors;
+        }
+    }
+
+    public function actionGet($page = 1)
+    {
+        $ideas = Idea::model()->findAll(array(
+            'order' => 't.id desc',
+            'limit' => 20,
+            'offset' => ($page - 1) * 20,
+            'with' => array('author', 'collection'),
+        ));
+
+        if ($ideas) {
+            $this->data = $ideas;
+            $this->success = true;
+        } else {
+            $this->success = false;
         }
     }
 }

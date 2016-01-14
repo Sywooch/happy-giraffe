@@ -237,6 +237,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
         $html = str_get_html($this->owner->htmlText);
         $mediaTags = array('gif-image', 'iframe', 'img');
+        $endElements = $this->findEndElements($html->find('.b-markdown', 0));
 
         // выясняем большой ли пост
         $isBigPost = false;
@@ -244,7 +245,6 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         if (count($media) > 1) {
             $isBigPost = true;
         } else {
-            $endElements = $this->findEndElements($html->find('.b-markdown', 0));
             foreach ($endElements as $element) {
                 $isLead = strpos($element->class, 'b-markdown_t-sub') !== false;
                 $isEmpty = empty($element->innertext);
@@ -270,6 +270,15 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             if (count($media) > 0) {
                 $rawPreview .= $media[0]->outertext;
             }
+
+            if (empty($rawPreview)) {
+                foreach ($endElements as $element) {
+                    if ($element->tag == 'p') {
+                        $rawPreview .= $element->outertext;
+                        break;
+                    }
+                }
+            }
         }
 
         // подгоняем под верстку
@@ -282,7 +291,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 if ($tag == 'img' && $isBigPost) {
                     $class = ($this->owner->scenario == 'buzz') ? 'middle' : '';
                     $text = '<a href="' . $post->url . '" class="btn btn-default btn-l btn-feed ' . $class . '">Читать далее</a>' . $text;
-                    $nextLinkAdded = false;
+                    $nextLinkAdded = true;
                 }
                 if ($tag != 'gif-image') {
                     $element->outertext = '<div class="b-album-cap feed-cap"><div class="b-album-cap_hold">' . $text . '</div></div>';
@@ -290,7 +299,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             }
         }
 
-        if (! $nextLinkAdded) {
+        if ($isBigPost && ! $nextLinkAdded) {
             $previewHtml .= '<div class="b-album-cap feed-cap">
                       <div class="b-album-cap_hold">
                         <a href="' . $post->url . '" class="btn btn-default btn-l btn-feed_noimage">Читать далее</a>

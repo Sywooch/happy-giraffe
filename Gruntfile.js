@@ -1201,6 +1201,7 @@ module.exports = function(grunt){
     'uncss:lite_homepage',
     'uncss:lite_info',
     'uncss:contest_commentator', //  конкурс комментаторов
+    'uncss:forum_homepage',
     'cmq:redactor',
     'cmq:lite',
     'cssmin:lite',

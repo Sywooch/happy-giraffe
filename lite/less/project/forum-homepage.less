@@ -5,8 +5,16 @@
     @media (max-width: @screen-desktop)
     {
       width: auto;
+      margin: 0 20px;
+    }
+
+    @media (max-width: @screen-phone-landscape)
+    {
+      width: auto;
       margin: 0;
     }
+
+
   }
 }
 /* Widgets styles*/
@@ -271,7 +279,7 @@
 
 .color_2
 {
-  background: rgb(255, 230, 65);
+  background: rgb(250, 215, 5);
 }
 
 /* Красота и здоровье */
@@ -318,7 +326,7 @@
     font-weight: bold;
     @media (min-width: @screen-desktop)
     {
-      margin-bottom: 23px;
+      
     }
   }
 }
@@ -567,9 +575,21 @@
     border-top: 1px solid transparent;
     //padding: 20px 0 0;
     .border-radius(10px);
-    @media (max-width: @screen-desktop) {
+    @media (min-width: @screen-desktop)
+    {
       margin: 0 20px;
     }
+
+    @media (max-width: @screen-desktop)
+    {
+      margin: 0 0 0 20px;
+    }
+
+    @media (max-width: @screen-phone)
+    {
+      margin: 0 10px 0 20px;
+    }
+
     &:after
     {
       content:" ";
@@ -587,8 +607,10 @@
     //display: block;
     vertical-align: top;
     width: auto;
-
-
+    @media (max-width: @screen-desktop)
+    {
+      margin: 20px 0 0 0;
+    }
     &:after
     {
       content:" ";
@@ -740,7 +762,7 @@
 .clubs_cont
 {
   float:left;
-  margin-top: 24px;
+  margin-top: 11px;
 }
 
 .clubs_info
@@ -749,7 +771,7 @@
   {
     float: none;
     clear: left;
-    padding: 10px 0 0 93px;
+    padding: 0 0 0 93px;
   }
 
   @media (min-width: @screen-phone-landscape)
@@ -760,7 +782,7 @@
 
   @media (max-width: @screen-desktop)
   {
-    margin-top: 48px;
+    margin-top: 26px;
   }
 
   @media (min-width: @screen-desktop)
@@ -772,7 +794,7 @@
     float: left;
     margin-top: 4px;
 
-    @media (min-width: @screen-tablet)
+    @media (min-width: @screen-phone-landscape)
     {
       margin-right: 60px;
 
@@ -807,12 +829,17 @@
 .clubs_separator
 {
   border-bottom: 1px solid #fafafa;
-  width: 838px;
+  @media (min-width: @screen-desktop)
+  {
+    width: 819px;
+  }
+
   margin-left: 90px;
   display: table;
   @media (max-width: @screen-desktop)
   {
     margin: 22px 0 0 0;
+    width: 100%;
   }
 }
 

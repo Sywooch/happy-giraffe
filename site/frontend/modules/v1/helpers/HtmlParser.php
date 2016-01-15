@@ -47,6 +47,33 @@ class HtmlParser
             $html->load($html->save());
         }
 
+        foreach ($html->find('ol') as $ol) {
+            $lis = $ol->find('li');
+
+            for ($i = 0; $i < count($lis); $i++) {
+                $lis[$i]->outertext = ($i + 1) . '. ' . $lis[$i]->innertext . '<br/>';
+            }
+
+            $ol->outertext = $ol->innertext;
+
+            $html->load($html->save());
+        }
+
+        foreach ($html->find('ul') as $ul) {
+            //$ul->outertext = $ul->innertext;
+            foreach ($ul->find('li') as $li) {
+                $li->outertext = '&#8226; ' . $li->innertext . '<br/>';
+            }
+        }
+
+        $html->load($html->save());
+
+        foreach ($html->find('ul') as $ul) {
+            $ul->outertext = $ul->innertext;
+        }
+
+        $html->load($html->save());
+
         self::clearTags($html, 'div[class=b-article_in-img]');
 
         /*$tags = array('div', 'strong', 'del', 'em', 'b', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',);

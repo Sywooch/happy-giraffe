@@ -15,6 +15,9 @@ class Idea extends Photopost
     public function behaviors()
     {
         return array(
+            'CacheDelete' => array(
+                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+            ),
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
                 'removeAttribute' => 'isRemoved',

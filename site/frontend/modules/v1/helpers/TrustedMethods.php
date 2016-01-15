@@ -6,6 +6,9 @@ class TrustedMethods
 {
     private static $methods = array(
         'getIdeas',
+        'getForums',
+        'getClubs',
+
     );
 
     public static function isTrusted($method)

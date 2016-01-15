@@ -14,7 +14,7 @@ class IdeasAction extends RoutedAction implements IPostProcessable
     public function run()
     {
         $this->controller->setAction($this);
-        $this->route('getIdeas', null, null, null);
+        $this->route('getIdeas', 'postIdea', 'updateIdea', 'deleteIdea');
     }
 
     public function getIdeas()
@@ -22,9 +22,80 @@ class IdeasAction extends RoutedAction implements IPostProcessable
         $this->controller->get(Idea::model(), $this);
     }
 
+    public function postIdea()
+    {
+        /**@todo: fix access denied*/
+        /*if (!\Yii::app()->user->checkAccess('createIdea')) {
+            //throwing exception grants 502 error
+            throw new \CHttpException('Ќедостаточно прав дл€ выполнени€ операции', 403);
+        }*/
+        
+        $required = array(
+            'title' => true,
+            'collectionId' => true,
+            //club, forums, rubrics
+        );
+
+        if ($this->controller->checkparams($required)) {
+            $idea = new Idea('default');
+
+            $params = $this->controller->getParams($required);
+
+            $idea->attributes = array(
+                'authorId' => \Yii::app()->user->id,
+                'title' => $params['title'],
+                'collectionId' => $params['collectionId'],
+            );
+            if ($idea->save()) {
+                $idea->refresh();
+                $this->controller->data = $idea;
+            } else {
+                $this->controller->setError('SavingFailed', 500);
+            }
+        } else {
+            $this->controller->setError('MissingParams', 400);
+        }
+    }
+
+    public function updateIdea()
+    {
+        $required = array(
+            'id' => true,
+            'title' => true,
+            'collectionId' => true,
+        );
+
+        if ($this->controller->checkParams($required)) {
+            $params = $this->controller->getParams($required);
+
+            $idea = Idea::model()->findByPk($params['id']);
+
+            /**@todo: access check here*/
+            $idea->title = $params['title'];
+            $idea->collectionId = $params['collectionId'];
+
+            if ($idea->save()) {
+                $idea->refresh();
+                $this->controller->data = $idea;
+            } else {
+                $this->controller->setError('SavingFailed', 500);
+            }
+        } else {
+            $this->controller->setError('MissingParams', 400);
+        }
+
+
+    }
+
+    public function deleteIdea()
+    {
+
+    }
+
     public function postProcessing(&$data)
     {
-        if (in_array('collection', $this->controller->getWithParameters(Idea::model()))) {
+        $with = $this->controller->getWithParameters(Idea::model());
+        if ($with && in_array('collection', $with)) {
             for ($i = 0; $i < count($data); $i++) {
                 $data[$i]['collection']['attaches'] = array();
 

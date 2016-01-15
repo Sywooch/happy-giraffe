@@ -34,9 +34,14 @@ class RoutedAction extends \CAction
 
             //ApiLog::i("Request with type " . \Yii::app()->request->requestType);
             //ApiLog::i(print_r(\Yii::app()->request->getCookies()->toArray(), true));
-            if ((\Yii::app()->request->requestType == 'GET' && !TrustedMethods::isTrusted($get))
-                || \Yii::app()->request->requestType != 'GET') {
+            //ApiLog::i(\Yii::app()->request->requestType . ", " . var_export(TrustedMethods::isTrusted($get), true));
+            if (/*\Yii::app()->request->requestType == 'GET' && */!TrustedMethods::isTrusted($get)
+ /*               || \Yii::app()->request->requestType != 'GET'*/) {
                 if ($post != 'login') {
+                    if (!\Yii::app()->user->isGuest) {
+                        $this->controller->identity = \Yii::app()->user;
+                    }
+
                     if (\Yii::app()->user->isGuest && !$this->controller->auth()) {
                         return;
                     }

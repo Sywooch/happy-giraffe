@@ -246,14 +246,14 @@ return array(
 //                    'title' => 'Mail.ru',
 //                ),
                 /*ok original*/
-                /*'odnoklassniki' => array(
+                'odnoklassniki' => array(
                     'class' => 'application.components.eauth.OdnoklassnikiAuth',
                     'client_id' => '93721600',
                     'client_secret' => '4E774EFE678A1ECF3D4625F3',
                     'client_public' => 'CBAFBHJGABABABABA',
                     'title' => 'Одноклассники',
-                ),*/
-                'odnoklassniki' => array(
+                ),
+                'ok_api' => array(
                     'class' => 'application.components.eauth.OdnoklassnikiAuth',
                     'client_id' => '1240432384',
                     'client_secret' => 'B9C8F53C3949A06DD263AB6F',

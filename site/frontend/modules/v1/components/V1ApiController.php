@@ -29,6 +29,7 @@ use site\frontend\modules\v1\helpers\ApiLog;
  */
 class V1ApiController extends \CController
 {
+    /**@todo: add required params check and get functional in there for every action*/
     #region Constants
     const ID = 'id';
     const WITH = 'expand';
@@ -145,7 +146,7 @@ class V1ApiController extends \CController
      */
     public function get($model, $action, $where = null)
     {
-        \Yii::app()->cache->flush();
+        //\Yii::app()->cache->flush();
 
         $this->setCacheKey($model, $where);
 
@@ -362,6 +363,7 @@ class V1ApiController extends \CController
             $this->setError($this->identity->errorMessage, 401);
             return false;
         } else {
+            ApiLog::i($this->identity->getId());
             \Yii::app()->user->login($this->identity);
             return true;
         }

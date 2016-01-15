@@ -20,6 +20,8 @@ class LastPostWidget extends \CWidget
             'limit' => self::LIMIT
         ));
 
+        var_dump(count($posts)); die;
+
         $users = User::model()->findAllByPk(array_map(function($post) {
             return $post->authorId;
         }, $posts));

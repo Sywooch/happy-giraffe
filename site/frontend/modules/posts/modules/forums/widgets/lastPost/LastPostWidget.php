@@ -16,7 +16,7 @@ class LastPostWidget extends \CWidget
 
     public function run()
     {
-        $posts = Content::model()/*->byLabels(array(Label::LABEL_FORUMS))*/->orderDesc()->findAll(array(
+        $posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
             'limit' => self::LIMIT
         ));
 

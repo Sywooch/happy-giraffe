@@ -7,6 +7,12 @@ use site\frontend\modules\photo\models\PhotoCollection;
 
 class Idea extends Photopost
 {
+    public $club;
+    public $forums = array();
+    public $rubrics = array();
+
+    public $labelsArray;
+
     public function tableName()
     {
         return 'som__idea';
@@ -17,6 +23,12 @@ class Idea extends Photopost
         return array(
             'CacheDelete' => array(
                 'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+            ),
+            'LabelsConstruct' => array(
+                'class' => 'site\frontend\modules\som\modules\idea\behaviors\LabelsConstructBehavior',
+                'club' => $this->club,
+                'forums' => $this->forums,
+                'rubrics' => $this->rubrics,
             ),
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',

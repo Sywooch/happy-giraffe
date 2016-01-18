@@ -3,6 +3,7 @@
 namespace site\frontend\modules\posts\models;
 
 use site\frontend\modules\comments\models\Comment;
+use site\frontend\modules\som\modules\idea\models\Idea;
 /**
  * This is the model class for table "post__contents".
  *
@@ -55,6 +56,7 @@ class Content extends \CActiveRecord implements \IHToJSON
         'advpost' => 'AdvPost',
         'video' => 'CommunityContent',
         'question' => 'CommunityContent',
+        'idea' => 'Idea',
     );
     public static $entityAliases = array(
         'CommunityContent' => 'CommunityContent',
@@ -62,6 +64,7 @@ class Content extends \CActiveRecord implements \IHToJSON
         'NewPhotoPost' => 'site\frontend\modules\som\modules\photopost\models\Photopost',
         'NewStatus' => 'site\frontend\modules\som\modules\status\models\Status',
         'AdvPost' => 'site\frontend\modules\posts\models\Content',
+        'Idea'=> 'site\frontend\modules\som\modules\idea\models\Idea',
     );
 
     /**

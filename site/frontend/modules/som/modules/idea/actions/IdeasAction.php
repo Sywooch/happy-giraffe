@@ -29,7 +29,7 @@ class IdeasAction extends RoutedAction implements IPostProcessable
             //throwing exception grants 502 error
             throw new \CHttpException('Ќедостаточно прав дл€ выполнени€ операции', 403);
         }*/
-        
+
         $required = array(
             'title' => true,
             'collectionId' => true,

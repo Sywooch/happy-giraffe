@@ -48,15 +48,18 @@ class HtmlParser
         }
 
         foreach ($html->find('ol') as $ol) {
+            //ApiLog::i((string)$ol);
             $lis = $ol->find('li');
 
             for ($i = 0; $i < count($lis); $i++) {
                 $lis[$i]->outertext = ($i + 1) . '. ' . $lis[$i]->innertext . '<br/>';
             }
+        }
 
+        $html->load($html->save());
+
+        foreach ($html->find('ol') as $ol) {
             $ol->outertext = $ol->innertext;
-
-            $html->load($html->save());
         }
 
         foreach ($html->find('ul') as $ul) {

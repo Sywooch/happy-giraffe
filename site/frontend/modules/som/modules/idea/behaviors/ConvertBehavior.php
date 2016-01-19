@@ -2,11 +2,11 @@
 
 namespace site\frontend\modules\som\modules\idea\behaviors;
 
-use \site\frontend\modules\som\modules\community\models\api\Label;
-use \site\frontend\modules\posts\models\api\Content;
+use \site\frontend\modules\posts\models\Content;
 
 class ConvertBehavior extends \CActiveRecordBehavior
 {
+    const SERVICE = 'idea';
 
     public function events()
     {
@@ -18,24 +18,18 @@ class ConvertBehavior extends \CActiveRecordBehavior
 
     public function getPost($entity)
     {
-        try {
-            $post = Content::model()->query('getByAttributes', array(
-                'entity' => $entity,
-                'entityId' => $this->owner->id,
-            ));
-        } catch (\Exception $e) {
-            $post = false;
-        }
+        $post = Content::model()->findByAttributes(array(
+            'originEntity' => $entity,
+            'originEntityId' => $this->owner->id,
+            'originService' => self::SERVICE
+        ));
 
-        if (!$post) {
-            $post = new Content();
-        }
-        return $post;
+        return $post ? $post : new Content();
     }
 
     public function afterSoftDelete($event)
     {
-        $entity = array_search(get_class($this->owner), \site\frontend\modules\posts\models\Content::$entityAliases);
+        $entity = array_search(get_class($this->owner), Content::$entityAliases);
         $post = $this->getPost($entity);
         $post->isRemoved = true;
         $post->save();
@@ -43,7 +37,7 @@ class ConvertBehavior extends \CActiveRecordBehavior
 
     public function afterSoftRestore($event)
     {
-        $entity = array_search(get_class($this->owner), \site\frontend\modules\posts\models\Content::$entityAliases);
+        $entity = array_search(get_class($this->owner), Content::$entityAliases);
         $post = $this->getPost($entity);
         $post->isRemoved = false;
         $post->save();
@@ -51,62 +45,23 @@ class ConvertBehavior extends \CActiveRecordBehavior
 
     public function afterSave()
     {
-        $entity = array_search(get_class($this->owner), \site\frontend\modules\posts\models\Content::$entityAliases);
-
-        $labels = $this->owner->labels;
-            //is_null($this->owner->forumId) ? Label::model()->findForBlog() : Label::model()->findByForum($this->owner->forumId);
-
+        $entity = array_search(get_class($this->owner), Content::$entityAliases);
         $post = $this->getPost($entity);
-        $post->url = $this->owner->getUrl(false);
-        $post->authorId = (int) $this->owner->authorId;
-        $post->dtimeCreate = (int) $this->owner->dtimeCreate;
-        $post->dtimePublication = (int) $post->dtimeCreate;
-        $post->dtimeUpdate = time();
-        $post->isRemoved = (int) $this->owner->isRemoved;
-        $post->isDraft = (int) $this->owner->isDraft;
-        $post->title = htmlspecialchars(trim($this->owner->title));
-        $post->text = '';
-        $post->preview = $this->getPhotopostTag();
-        $post->html = $post->preview;
-        $post->labels = array_map(function($labelModel) {
-            return $labelModel->text;
-        }, $labels);
-        $post->originEntity = $entity;
-        $post->originEntityId = (int) $this->owner->id;
-        $post->originService = 'idea';
 
-        $post->template = array(
-            'layout' => $this->owner->forumId ? 'newCommunityPost' : 'newBlogPost',
-            'data' => array(
-                'type' => 'photoPost',
-                'noWysiwyg' => true,
-            ),
-        );
-        $post->originManageInfo = array(
-            'params' => array(
-                'edit' => array(
-                    'link' => array(
-                        'url' => '/post/edit/photopost' . $this->owner->id . '/',
-                    )
-                ),
-                'remove' => array(
-                    'api' => array(
-                        'url' => '/api/photopost/remove/',
-                        'params' => array(
-                            'id' => (int) $this->owner->id,
-                        ),
-                    ),
-                ),
-                'restore' => array(
-                    'api' => array(
-                        'url' => '/api/photopost/restore/',
-                        'params' => array(
-                            'id' => (int) $this->owner->id,
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $post->labels = $this->owner->labels;
+        $post->url = $this->owner->getUrl();
+        $post->authorId = $this->owner->authorId;
+        $post->dtimeCreate = $post->dtimePublication = $this->owner->dtimeCreate;
+        $post->dtimeUpdate = time();
+        $post->isRemoved = 1;//чтобы скрыть в дефолт скопе //$this->owner->isRemoved;
+        $post->title = htmlspecialchars(trim($this->owner->title));;
+        $post->text = '';
+        $post->preview = $post->html = $this->getIdeaTag();
+
+        $post->originEntity = $entity;
+        $post->originEntityId = $this->owner->id;
+        $post->originService = self::SERVICE;
+
         $post->isAutoMeta = true;
         $post->meta = array(
             'description' => '',
@@ -117,43 +72,41 @@ class ConvertBehavior extends \CActiveRecordBehavior
             'description' => $post->meta['description'],
         );
 
+        $post->originManageInfo = array(
+            'params' => array(
+                'edit' => array(
+                    'link' => array(
+                        'url' => /*'/post/edit/photopost'*/
+                            '' . $this->owner->id . '/', //хз какуй урл сюда, да и не надо.
+                    )
+                ),
+                'remove' => array(
+                    'api' => array(
+                        'url' => '/api/idea/remove/',
+                        'params' => array(
+                            'id' => $this->owner->id,
+                        ),
+                    ),
+                ),
+                'restore' => array(
+                    'api' => array(
+                        'url' => '/api/idea/restore/',
+                        'params' => array(
+                            'id' => $this->owner->id,
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $post->meta = \CJSON::encode($post->meta);
+        $post->social = \CJSON::encode($post->social);
+        $post->originManageInfo = \CJson::encode($post->originManageInfo);
+
         $post->save();
     }
-
-    public function getIdeaTag()
-    {
-        try {
-            $collection = \site\frontend\modules\photo\models\api\Collection::model()->findByPk($this->owner->collectionId);
-            $cover = new \site\frontend\modules\photo\models\Photo();
-            $cover->fromJSON($collection->cover['photo']);
-            $thumb = \Yii::app()->thumbs->getThumb($cover, 'postCollectionCover');
-            $photoAlbumTag = '<div class="b-album-cap">'
-                . '<div class="b-album-cap_hold">'
-                . '<div class="b-album">'
-                . '<a class="b-album_img-hold" href="' . $this->owner->getUrl() . '" title="������ ��������">'
-                . '<div class="b-album-img_a">'
-                . '<div class="b-album_img-pad"></div>'
-                . '<img width="' . $thumb->getWidth() . '" height="' . $thumb->getHeight() . '" class="b-album_img-big" alt="'
-                . $cover->title . '" src="' . $thumb->getUrl() . '">'
-                . '</div>'
-                . '<div class="b-album_img-hold-ovr">'
-                . '<div class="ico-zoom ico-zoom__abs"></div>'
-                . '</div>'
-                . '</a>'
-                . '</div>'
-                . '</div>'
-                . \CHtml::tag('photo-collection', array(
-                    'params' =>
-                        'originalUrl: "' . $this->owner->getUrl() . '", ' .
-                        'id: ' . (int) $collection->id . ', ' .
-                        'attachCount: ' . (int) $collection->attachesCount . ', ' .
-                        'userId: ' . (int) $this->owner->authorId . ', ' .
-                        'coverId: ' . (int) $collection->cover['id'],
-                ), '') . '</div>';
-            return $photoAlbumTag;
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
+     private function getIdeaTag()
+     {
+         return 'ideaTag';
+     }
 }

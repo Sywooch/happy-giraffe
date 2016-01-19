@@ -4,8 +4,14 @@ namespace site\frontend\modules\som\modules\idea\models;
 
 use site\frontend\modules\som\modules\photopost\models\Photopost;
 use site\frontend\modules\photo\models\PhotoCollection;
+use site\frontend\modules\som\modules\idea\behaviors\LabelsConstructBehavior;
 
-class Idea extends Photopost
+/**
+ * @property $club;
+ * @property $forums;
+ * @property $rubrics;
+ */
+class Idea extends \CActiveRecord
 {
     public $club;
     public $forums = array();
@@ -25,10 +31,7 @@ class Idea extends Photopost
                 'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
             ),
             'LabelsConstruct' => array(
-                'class' => 'site\frontend\modules\som\modules\idea\behaviors\LabelsConstructBehavior',
-                'club' => $this->club,
-                'forums' => $this->forums,
-                'rubrics' => $this->rubrics,
+                'class' => 'site\frontend\modules\som\modules\idea\behaviors\LabelsConstructBehavior'
             ),
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
@@ -39,30 +42,22 @@ class Idea extends Photopost
                 'createAttribute' => 'dtimeCreate',
                 'updateAttribute' => null,
             ),
-            //Это наверняка поправить надо.
-            'UrlBehavior' => array(
+            //Р­С‚Рѕ РЅР°РІРµСЂРЅСЏРєР° РїРѕРїСЂР°РІРёС‚СЊ РЅР°РґРѕ.
+            /*'UrlBehavior' => array(
 
                 'class' => 'site\common\behaviors\UrlBehavior',
                 'route' => function($model) {
                     return $model->forumId ? 'posts/community/view' : 'posts/post/view';
                 },
                 'params' => function($model) {
-                    if ($model->forumId) {
-                        return array(
-                            'forum_id' => $model->forumId,
-                            'content_type_slug' => 'idea',
-                            'content_id' => $model->id,
-                        );
-                    } else {
-                        return array(
-                            'content_type_slug' => 'idea',
-                            'user_id' => $model->authorId,
-                            'content_id' => $model->id,
-                        );
-                    }
+                    return array(
+                        'content_type_slug' => 'idea',
+                        'user_id' => $model->authorId,
+                        'content_id' => $model->id,
+                    );
                 },
-            ),
-            //'ConvertBehavior' => 'site\frontend\modules\som\modules\photopost\behaviors\ConvertBehavior',
+            ),*/
+            'ConvertBehavior' => 'site\frontend\modules\som\modules\idea\behaviors\ConvertBehavior',
         );
     }
 
@@ -77,5 +72,47 @@ class Idea extends Photopost
             'collection' => array(self::BELONGS_TO, get_class(PhotoCollection::model()), 'collectionId'),
             'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
         );
+    }
+
+    public function getUrl()
+    {
+        return 'idea/' . $this->id;
+    }
+
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('title, collectionId, authorId', 'required'),
+            array('isRemoved, labels', 'safe'),
+            array('title', 'length', 'max' => 255),
+        );
+    }
+
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'title' => 'Title',
+            'collectionId' => 'Collection',
+            'authorId' => 'Author',
+            'isRemoved' => 'Is Removed',
+            'dtimeCreate' => 'Dtime Create',
+            'labels' => 'Labels',
+        );
+    }
+
+    public function onAfterSoftDelete()
+    {
+
+    }
+
+    public function onAfterSoftRestore()
+    {
+
     }
 }

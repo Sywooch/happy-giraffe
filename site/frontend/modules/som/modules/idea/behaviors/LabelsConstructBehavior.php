@@ -2,9 +2,6 @@
 
 namespace site\frontend\modules\som\modules\idea\behaviors;
 
-use site\common\models\CommunityClub;
-use site\common\models\Community;
-use site\common\models\CommunityRubric;
 use site\frontend\modules\posts\models\Tag;
 use site\frontend\modules\posts\models\Label;
 
@@ -22,10 +19,11 @@ use site\frontend\modules\posts\models\Label;
  * @const CLUB_PREFIX;
  * @const FORUM_PREFIX;
  * @const RUBRIC_PREFIX;
- * @const DELIMETER;
+ * @const DELIMITER;
  */
 class LabelsConstructBehavior extends \CActiveRecordBehavior
 {
+    /**@todo: add labelsModels array to class and owner and proceed it to convert in future*/
     public $club;
     public $forums = array();
     public $rubrics = array();
@@ -33,34 +31,40 @@ class LabelsConstructBehavior extends \CActiveRecordBehavior
     private $labels;
     private $labelsArray = array();
 
-    const CLUB_PREFIX = "Êëóá: ";
-    const FORUM_PREFIX = "Ôîðóì: ";
-    const RUBRIC_PREFIX = "Ðóáðèêà: ";
+    const CLUB_PREFIX = "ÐšÐ»ÑƒÐ±: ";
+    const FORUM_PREFIX = "Ð¤Ð¾Ñ€ÑƒÐ¼: ";
+    const RUBRIC_PREFIX = "Ð ÑƒÐ±Ñ€Ð¸ÐºÐ°: ";
     const DELIMITER = "|";
 
     public function beforeSave($event)
     {
+        $this->club = $this->owner->club;
+        $this->forums = $this->owner->forums;
+        $this->rubrics = $this->owner->rubrics;
+
         $this->handleClub();
         $this->handleForums();
         $this->handleRubrics();
 
-        $this->owner->labels = implode(self::DELIMITER, $this->labelsArray);
-        $this->owner->labelsArray = $this->labelsArray;
+        if ($this->labelsArray) {
+            $this->owner->labelsArray = $this->labelsArray;
+            $this->owner->labels = 'Ð˜Ð´ÐµÐ¸|' . implode(self::DELIMITER, $this->labelsArray);
+        }
 
-        parent::beforeSave($event);
+        return parent::beforeSave($event);
     }
 
     private function handleClub()
     {
-        if (isset($club)) {
-            $this->handleLabel(self::CLUB_PREFIX . CommunityClub::model()->findByPk($club)->title);
+        if (isset($this->club)) {
+            $this->handleLabel(self::CLUB_PREFIX . \CommunityClub::model()->findByPk($this->club)->title);
         }
     }
 
     private function handleForums()
     {
-        if (isset($forums)) {
-            $models = $this->getByCriteria($forums, Community::model());
+        if (isset($this->forums)) {
+            $models = $this->getByCriteria($this->forums, \Community::model());
 
             foreach ($models as $model) {
                 $this->handleLabel(self::FORUM_PREFIX . $model->title);
@@ -70,8 +74,8 @@ class LabelsConstructBehavior extends \CActiveRecordBehavior
 
     private function handleRubrics()
     {
-        if (isset($rubrics)) {
-            $models = $this->getByCriteria($rubrics, CommunityRubric::model());
+        if (isset($this->rubrics)) {
+            $models = $this->getByCriteria($this->rubrics, \CommunityRubric::model());
 
             foreach ($models as $model) {
                 $this->handleLabel(self::RUBRIC_PREFIX . $model->title);
@@ -107,12 +111,12 @@ class LabelsConstructBehavior extends \CActiveRecordBehavior
      */
     private function getByCriteria($inArray, $model)
     {
-        $criteria = new \CDbCriteria()
-            .addInCondition(
-                'id',
-                $inArray,
-                'OR'
-            );
+        $criteria = new \CDbCriteria();
+        $criteria->addInCondition(
+            'id',
+            $inArray,
+            'OR'
+        );
         return $model->findAll($criteria);
     }
 }

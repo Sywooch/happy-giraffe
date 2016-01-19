@@ -24,16 +24,16 @@ class IdeasAction extends RoutedAction implements IPostProcessable
 
     public function postIdea()
     {
-        /**@todo: fix access denied*/
-        /*if (!\Yii::app()->user->checkAccess('createIdea')) {
-            //throwing exception grants 502 error
-            throw new \CHttpException('Ќедостаточно прав дл€ выполнени€ операции', 403);
-        }*/
+        if (!\Yii::app()->user->checkAccess('createIdea')) {
+            $this->controller->setError('AccessDenied', 403);
+        }
 
         $required = array(
             'title' => true,
             'collectionId' => true,
-            //club, forums, rubrics
+            'club' => true,
+            'forums' => true,
+            'rubrics' => true,
         );
 
         if ($this->controller->checkparams($required)) {
@@ -46,6 +46,12 @@ class IdeasAction extends RoutedAction implements IPostProcessable
                 'title' => $params['title'],
                 'collectionId' => $params['collectionId'],
             );
+
+
+            $idea->club = $params['club'];
+            $idea->forums = explode(',', $params['forums']);
+            $idea->rubrics = explode(',', $params['rubrics']);
+
             if ($idea->save()) {
                 $idea->refresh();
                 $this->controller->data = $idea;
@@ -70,26 +76,69 @@ class IdeasAction extends RoutedAction implements IPostProcessable
 
             $idea = Idea::model()->findByPk($params['id']);
 
-            /**@todo: access check here*/
-            $idea->title = $params['title'];
-            $idea->collectionId = $params['collectionId'];
+            if ($idea) {
+                if (!\Yii::app()->user->checkAccess('updateIdea') || $idea->authorId != \Yii::app()->user->getId()) {
+                    $this->controller->setError('AccessDenied', 403);
+                }
 
-            if ($idea->save()) {
-                $idea->refresh();
-                $this->controller->data = $idea;
+                $idea->title = $params['title'];
+                $idea->collectionId = $params['collectionId'];
+
+                if ($idea->save()) {
+                    $idea->refresh();
+                    $this->controller->data = $idea;
+                } else {
+                    $this->controller->setError('SavingFailed', 500);
+                }
             } else {
-                $this->controller->setError('SavingFailed', 500);
+                $this->controller->setError('IdeaNotFound', 404);
             }
         } else {
             $this->controller->setError('MissingParams', 400);
         }
-
-
     }
 
     public function deleteIdea()
     {
+        $required = array(
+            'id' => true,
+            'action' => true,
+        );
 
+        if ($this->controller->checkParams($required)) {
+            $params = $this->controller->getParams($required);
+            $idea = Idea::model()->findByPk($params['id']);
+
+            if ($idea) {
+                if (!\Yii::app()->user->checkAccess('removeIdea') || $idea->authorId != \Yii::app()->user->getId()) {
+                    $this->controller->setError('AccessDenied', 403);
+                }
+
+                switch ($params['action']) {
+                    case 'delete':
+                        $idea->isRemoved = 1;
+                        break;
+                    case 'restore':
+                        $idea->isRemoved = 0;
+                        break;
+                    default:
+                        $this->controller->setError('InvalidActionParam', 400);
+                        return;
+                }
+
+                if ($idea->save()) {
+                    $idea->refresh();
+
+                    $this->controller->data = $idea;
+                } else {
+                    $this->controller->setError('SavingFailed', 500);
+                }
+            } else {
+                $this->controller->setError('IdeaNotFound', 404);
+            }
+        } else {
+            $this->controller->setError("MissingParams", 400);
+        }
     }
 
     public function postProcessing(&$data)

@@ -102,7 +102,7 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function fillText()
     {
-        return trim(preg_replace('~\s+~', ' ', strip_tags($this->html)));
+        return trim(preg_replace('~\s+~', ' ', strip_tags(preg_replace('#<\/li>\s*<li>#', ' ', $this->html))));
     }
 
     /**

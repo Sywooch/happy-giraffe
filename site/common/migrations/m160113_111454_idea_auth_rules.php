@@ -5,10 +5,10 @@ class m160113_111454_idea_auth_rules extends CDbMigration
 	public function up()
 	{
 		$sql = <<<'SQL'
-INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('manageIdea',1,'Óïðàâëåíèå èäååé',NULL,NULL);
-INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('createIdea',1,'Äîáàâëåíèå èäåè',NULL,NULL);
-INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('updateIdea',0,'Ðåäàêòèðîâàíèå èäåè',NULL,NULL);
-INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('removeIdea',0,'Óäàëåíèå èäåè',NULL,NULL);
+INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('manageIdea',1,'Ð£Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¸Ð´ÐµÐµÐ¹',NULL,NULL);
+INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('createIdea',1,'Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¸Ð´ÐµÐ¸',NULL,NULL);
+INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('updateIdea',0,'Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¸Ð´ÐµÐ¸',NULL,NULL);
+INSERT INTO `newauth__items` (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('removeIdea',0,'Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð¸Ð´ÐµÐ¸',NULL,NULL);
 SQL;
 
 		$this->execute($sql);

@@ -108,7 +108,7 @@ class ConvertCommand extends \CConsoleCommand
             var_dump($data);
 
             \Yii::app()->db->setActive(true);
-            usleep(1000000); // на всякий случай поспим 0.1 сек, что бы быть уверенным, что реплика прошла
+            sleep(3); // на всякий случай поспим 0.1 сек, что бы быть уверенным, что реплика прошла
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
             if (!$model) {
                 throw new \Exception('no model');

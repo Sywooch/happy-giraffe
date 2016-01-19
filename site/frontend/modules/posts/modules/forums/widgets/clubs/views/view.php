@@ -38,7 +38,7 @@
                             <a href="<?=$users[$posts[$club->id]->authorId]->profileUrl?>"><?=$users[$posts[$club->id]->authorId]->fullName?></a>
                             <?=HHtml::timeTag($posts[$club->id], array('class' => 'tx-date'))?>
                         </div>
-                        <a class="live-user_text" href="<?=$posts[$club->id]->url?>"><?=\site\common\helpers\HStr::truncate($posts[$club->id]->title)?></a>
+                        <a class="live-user_text" href="<?=$posts[$club->id]->url?>"><?=\site\common\helpers\HStr::truncate($posts[$club->id]->title, 50)?></a>
                     </div>
                     <?php endif; ?>
                 </div>

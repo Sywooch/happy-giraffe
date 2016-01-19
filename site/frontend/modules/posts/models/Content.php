@@ -498,7 +498,13 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function byLabels($labels)
     {
-        return $this->byTags(\site\frontend\modules\posts\models\Label::getIdsByLabels($labels));
+        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labels);
+        if (count($labels) != count($tags)) {
+            $this->getDbCriteria()->addCondition('1=0');
+            return $this;
+        }
+
+        return $this->byTags($tags);
     }
 
     public function byEntityClass($entity)

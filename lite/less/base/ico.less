@@ -209,6 +209,149 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
     }
 }
 
+.ico-clubs_a
+{
+    @media (min-width: @screen-phone-landscape) {
+        margin: 0 auto 10px;
+        width: 615px;
+    }
+    @media (min-width: @screen-desktop) {
+        display: inline-block;
+        margin: 0;
+        border-radius: 0px;
+        width: auto;
+    }
+    width: auto;
+    margin: 0 0 10px;
+    .border-radius(10px);
+    display: block;
+    color: @color-base;
+    line-height: 13px;
+}
+
+
+.ico-clubs_a:hover {
+    color: @color-orange;
+}
+
+.ico-clubs_a:hover &_ico-hold {
+    @media (min-width: @screen-desktop) {
+        background-color: #fff;
+    }
+    background: none;
+}
+
+/* Ico clubs big */
+
+.ico-clubs_ico-hold {
+    @media (min-width: @screen-desktop) {
+        height: 108px;
+        width: 108px;
+        padding: 17px 5px 0;
+        background: #faf6ff;
+        border: 2px solid #faf6ff;
+        display: block;
+    }
+    display: inline-block;
+    vertical-align: middle;
+    height: auto;
+    width: auto;
+    margin-bottom: 5px;
+    padding: 0;
+    border: none;
+    background: none;
+    .border-radius(54px);
+    position: relative;
+    .ico-club {
+        @media (min-width: @screen-desktop) {
+            .scale(1);
+        }
+        .scale(0.6);
+    }
+}
+
+.ico-clubs_a:hover .ico-club {
+    @media (min-width: @screen-desktop) {
+        .scale(1.2);
+    }
+}
+
+/* Ico clubs medium */
+
+.ico-clubs-medium_ico-hold
+{
+    height: 72px;
+    width: 72px;
+    padding: 0;
+    background: #faf6ff;
+    border: 2px solid #faf6ff;
+    display: block;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 5px;
+    border: none;
+    .border-radius(54px);
+    position: relative;
+    .ico-club {
+        @media (min-width: @screen-desktop) {
+            .scale(0.8);
+        }
+        .scale(0.8);
+    }
+}
+
+/*
+.ico-clubs-medium:hover .ico-club {
+    @media (min-width: @screen-desktop) {
+        .scale(0.8);
+    }
+}
+*/
+
+.ico-clubs-medium:hover .ico-club {
+    @media (min-width: @screen-desktop) {
+        .scale(0.8);
+    }
+}
+/* Ico clubs small */
+
+.ico-clubs-small_ico-hold
+{
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    background: #faf6ff;
+    border: 2px solid #faf6ff;
+    display: block;
+    display: inline-block;
+    vertical-align: middle;
+    border: none;
+    margin-bottom: 5px;
+    .border-radius(54px);
+    position: relative;
+    .ico-club {
+        @media (min-width: @screen-desktop) {
+            .scale(0.3);
+        }
+        .scale(0.3);
+    }
+}
+
+/*
+.ico-clubs-small:hover .ico-club {
+    @media (min-width: @screen-desktop) {
+        .scale(0.5);
+    }
+}
+*/
+
+.ico-clubs-small:hover .ico-club {
+    @media (min-width: @screen-desktop) {
+        .scale(0.3);
+    }
+}
+
+
 .ico-product {
     .inline-block();
     width: 100px;

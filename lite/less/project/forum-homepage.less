@@ -1,0 +1,940 @@
+.b-main
+{
+  &_cont
+  {
+    @media (max-width: @screen-desktop)
+    {
+      width: 700px;
+
+    }
+
+    @media (max-width: @screen-phone-landscape)
+    {
+      width: auto;
+      margin: 0;
+    }
+
+
+  }
+}
+/* Widgets styles*/
+.widget()
+{
+  border: 1px solid #f9f9f9;
+  padding: 21px;
+  .widget-top
+  {
+    margin-bottom: 17px;
+    height: 18px;
+  }
+
+  .widget-top .heading-wd
+  {
+    display: block;
+    @media (min-width: @screen-tablet)
+    {
+      float:left;
+      margin: -6px 15px 0 0;
+    }
+
+    @media (max-width: @screen-phone-landscape)
+    {
+      float:none;
+    }
+  }
+
+  @media (max-width: @screen-phone-landscape)
+  {
+    .who-online_hint
+    {
+        margin: 10px 0 0 0;
+    }
+
+    .who-online_ul
+    {
+      margin: 39px 0 0 0;
+    }
+  }
+
+
+  .widget-top .tx-hint
+  {
+    float: right;
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  .widget_item
+  {
+    margin-bottom: 17px;
+  }
+}
+/* Повторяющиеся стили */
+// Блок счетчика
+.counter-block
+{
+  text-align: center;
+}
+// Подписи для счетчиков
+.counter-hint
+{
+  font-family: Arial, Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+  color: #999;
+  text-align: center;
+}
+//Текст счетчика
+.counter-text
+{
+  font-family: Arial, Tahoma, Verdana, sans-serif;
+  @media (max-width: @screen-phone)
+  {
+    font-size: 12px;
+  }
+
+  @media (min-width: @screen-phone)
+  {
+    font-size: 18px;
+  }
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  display: block;
+}
+
+//Заголовок виджета
+.heading-wd
+{
+  font-weight: normal;
+  font-size: 20px;
+  color: #333;
+  margin: -6px 0;
+}
+/* Пользовательская активность  */
+.live-user
+{
+  .username
+  {
+    margin: -2px 0 0 8px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .tx-date
+  {
+    margin-top: -1px;
+    display:block;
+  }
+
+  &_hint
+  {
+    font-family: Arial, Tahoma, Verdana, sans-serif;
+    font-size: 11px;
+    color: #999;
+    text-align: left;
+    display:block;
+    margin-bottom: 4px;
+  }
+
+  &_text
+  {
+    font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    color: #196be9;
+    display:block;
+    max-width: 169px;
+  }
+}
+
+/* Конец Повторяющиеся стили */
+
+.top-forum
+{
+  width: 301px;
+  height: 366px;
+  .widget;
+  float:left;
+  margin-right: 15px;
+  margin-top: 15px;
+  .widget_item
+  {
+    height: 40px;
+  }
+
+  @media (max-width: @screen-desktop)
+  {
+    display: none;
+  }
+}
+
+
+.latest-posts
+{
+  .widget;
+  width: 614px;
+  height: 366px;
+  float:left;
+  margin-bottom: 30px;
+  margin-top: 15px;
+  .widget_item
+  {
+    margin-bottom: 10px;
+    height: 60px;
+  }
+
+  @media (max-width: @screen-desktop)
+  {
+    display: none;
+  }
+}
+
+.widget-top_block_user
+{
+  float:left;
+  .username
+  {
+    margin: 12px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  cursor: pointer;
+  &:hover a
+  {
+    color: #ff6900;
+  }
+
+}
+
+.widget-top_block_rating
+{
+  float: right;
+}
+
+.widget_latest-posts_heading
+{
+  text-align: left;
+  float:left;
+  font-weight: bold;
+  font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+  max-width: 350px;
+  font-size: 14px;
+  a
+  {
+    color: #196eb9;
+    display: block;
+    line-height: 16px;
+
+    &:hover
+    {
+      color: #ff6900;
+    }
+  }
+  .icons-meta
+  {
+    float: left;
+    margin: 3px 0 0 -15px;
+    &_view
+    {
+      &:hover
+      {
+        color: #333;
+        cursor: pointer;
+        &:after
+        {
+          background-position: 0px -15px;
+        }
+
+        & span
+        {
+          color: #333;
+        }
+      }
+    }
+  }
+}
+
+.widget_latest-posts_user
+{
+  margin-top: 3px;
+  float:left;
+
+
+}
+
+.who-online
+{
+  @media (max-width: @screen-desktop)
+  {
+    border: 0px;
+  }
+  .widget;
+  margin-top: 35px;
+  &_hint
+  {
+    font-family: Arial, Tahoma, Verdana, sans-serif;
+    font-size: 12px;
+    color: #999;
+    text-align: left;
+    display: inline-block;
+    margin: 3px 0 0 15px;
+  }
+
+  .widget-top
+  {
+    margin-bottom: 21px;
+  }
+
+  &_li
+  {
+    margin: 0px 6px 10px 0px;
+    float:left;
+  }
+
+  &:after
+  {
+    content:"";
+    display: block;
+    clear: both;
+  }
+
+}
+
+/* ### Цвета заголовков форума ### */
+
+/* Беременность и дети */
+
+.color_1
+{
+  background: rgb(255, 130, 50);
+}
+
+/* Наш дом */
+
+.color_2
+{
+  background: rgb(250, 215, 5);
+}
+
+/* Красота и здоровье */
+
+.color_3
+{
+  background: rgb(100, 185, 235);
+}
+
+/* Муж и жена */
+
+.color_4
+{
+  background: rgb(170, 150, 210);
+}
+
+/* Интересы и увлечения */
+
+.color_5
+{
+  background: rgb(115, 200, 105);
+}
+
+/* Семейный отдых */
+
+.color_6
+{
+  background: rgb(170, 150, 210);
+}
+
+/* ### ### */
+
+
+
+.forum_heading_block
+{
+
+  clear: both;
+  &:after
+  {
+    clear: both;
+    content:"";
+    display: block;
+  }
+
+  .forum_heading
+  {
+    padding: 4px 16px 4px 16px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    @media (min-width: @screen-desktop)
+    {
+      
+    }
+  }
+
+  /* homepage-clubs */
+
+  .ico-clubs_a
+  {
+    @media (min-width: @screen-phone)
+    {
+      margin: 0 20px 0 0;
+      width: 72px;
+      float:left;
+    }
+
+    @media(max-width: @screen-phone)
+    {
+      margin: 0 20px 0 0;
+      width: 72px;
+      float:left;
+      height: 100px;
+    }
+    @media (min-width: @screen-desktop) {
+      display: block;
+      margin: 0;
+      border-radius: 0px;
+      width: auto;
+    }
+    width: auto;
+    margin: 0 0 10px;
+    .border-radius(10px);
+    display: block;
+    color: @color-base;
+    line-height: 13px;
+  }
+
+  .ico-clubs_ico-hold {
+    @media (min-width: @screen-desktop) {
+      height: 108px;
+      width: 108px;
+      padding: 17px 5px 0;
+      background: #faf6ff;
+      border: 2px solid #faf6ff;
+      display: block;
+      float: left;
+      margin-right: 19px;
+      margin-top: -24px;
+    }
+    display: inline-block;
+    vertical-align: middle;
+    height: auto;
+    width: auto;
+    margin-bottom: 5px;
+    padding: 0;
+    border: none;
+    background: none;
+    .border-radius(54px);
+    position: relative;
+    .ico-club {
+      @media (min-width: @screen-desktop) {
+        .scale(1);
+      }
+      margin: 0 0 0 10px;
+      .scale(0.6);
+    }
+  }
+
+  .homepage-clubs {
+    padding: 20px 25px;
+
+    &_hold {
+      @media (min-width: @screen-desktop) {
+        margin: 0 -95px 23px 0;
+      }
+      @media (min-width: @screen-desktop) {
+        text-align: left;
+      }
+      text-align: center;
+      margin: 0 0 23px 0;
+    }
+    &_collection {
+      @media (min-width: @screen-desktop) {
+        .inline-block();
+        margin: 0 72px 30px 0;
+        text-align: center;
+      }
+      display: block;
+      margin: 0 0 30px 0;
+      text-align: left;
+    }
+    &_collection:hover &_title {color: #009ee0;}
+    &_collection:hover &_ul {
+      @media (min-width: @screen-desktop) {
+        border-top-color: #e2f4ff;
+      }
+      border-top-color: transparent;
+    }
+    /* collection__1 */
+    &_collection__1 {
+      @media (min-width: @screen-desktop) {
+        margin-right: 33px;
+      }
+      margin-right: 0;
+    }
+    &_collection__1 &_li {
+      @media (min-width: @screen-desktop) {
+        margin-left: 7px;
+      }
+      margin-left: 0 !important;
+    }
+    &_collection__1 &_ico-hold {
+      @media (min-width: @screen-desktop) {
+        border-color: #faf6ff;
+        background-color: #faf6ff;
+      }
+      border: none;
+      background: none;
+    }
+    &_collection__1 {
+      .homepage-clubs_a {
+        @media (min-width: @screen-desktop) {
+          border: none;
+          background: none;
+        }
+        border-color: #faf6ff;
+        background-color: #faf6ff;
+      }
+    }
+    /* collection__2 */
+    &_collection__2 &_li {
+      @media (min-width: @screen-desktop) {
+        margin-left: 5px;
+      }
+      margin-left: 0;
+    }
+    &_collection__2 &_ico-hold {
+      @media (min-width: @screen-desktop) {
+        border-color: #f3fcff;
+        background-color: #f3fcff;
+      }
+      border: none;
+      background: none;
+    }
+    &_collection__2 {
+      .homepage-clubs_a {
+        @media (min-width: @screen-desktop) {
+          border: none;
+          background: none;
+        }
+        border-color: #f3fcff;
+        background-color: #f3fcff;
+      }
+    }
+    /* collection__3 */
+    &_collection__3 &_ico-hold {
+      @media (min-width: @screen-desktop) {
+        border-color: #fffbf8;
+        background-color: #fffbf8;
+      }
+      border: none;
+      background: none;
+    }
+    &_collection__3 {
+      .homepage-clubs_a {
+        @media (min-width: @screen-desktop) {
+          border: none;
+          background: none;
+        }
+        border-color: #fffbf8;
+        background-color: #fffbf8;
+      }
+    }
+    /* collection__4 */
+    &_collection__4 &_ico-hold {
+      @media (min-width: @screen-desktop) {
+        border-color: #fffeea;
+        background-color: #fffeea;
+      }
+      border: none;
+      background: none;
+    }
+    &_collection__4 {
+      .homepage-clubs_a {
+        @media (min-width: @screen-desktop) {
+          border: none;
+          background: none;
+        }
+        border-color: #fffeea;
+        background-color: #fffeea;
+      }
+    }
+    /* collection__5 */
+    &_collection__5 &_ico-hold {
+      @media (min-width: @screen-desktop) {
+        border-color: #f3fef2;
+        background-color: #f3fef2;
+      }
+      border: none;
+      background: none;
+    }
+    &_collection__5 {
+      .homepage-clubs_a {
+        @media (min-width: @screen-desktop) {
+          border: none;
+          background: none;
+        }
+        border-color: #f3fef2;
+        background-color: #f3fef2;
+      }
+    }
+    /* collection__6 */
+    &_collection__6 &_ico-hold {
+      @media (min-width: @screen-desktop) {
+        border-color: #faf6ff;
+        background-color: #faf6ff;
+      }
+      border: none;
+      background: none;
+    }
+    &_collection__6 {
+      .homepage-clubs_a {
+        @media (min-width: @screen-desktop) {
+          border: none;
+          background: none;
+        }
+        border-color: #faf6ff;
+        background-color: #faf6ff;
+      }
+    }
+
+
+    &_title-hold {
+      @media (min-width: @screen-desktop) {
+        display: block;
+      }
+      display: none;
+      text-align: center;
+    }
+    &_title {
+      display: inline-block;
+      background-color: #fff;
+      padding: 2px 4px;
+      color: @color-gray-light;
+    }
+    &_ul {
+      border-top: 1px solid transparent;
+      //padding: 20px 0 0;
+      .border-radius(10px);
+      @media (min-width: @screen-desktop)
+      {
+        margin: 20px 20px 35px;
+      }
+
+      @media (max-width: @screen-desktop)
+      {
+        margin: 0 20px 30px;
+      }
+
+      /*@media (max-width: @screen-phone)
+      {
+        margin: 0 10px 0 20px;
+      }*/
+
+      &:after
+      {
+        content:" ";
+        clear: both;
+        display: block;
+      }
+    }
+    &_li {
+      @media (min-width: @screen-desktop) {
+        //display: inline-block;
+        //width: 108px;
+        margin: 11px 0;
+      }
+
+      //display: block;
+      vertical-align: top;
+      width: auto;
+      @media (max-width: @screen-desktop)
+      {
+        margin: 20px 0 0 0;
+      }
+      &:after
+      {
+        content:" ";
+        clear: both;
+        display: block;
+      }
+    }
+    &_li:first-child {
+      margin-left: 0 !important;
+    }
+    &_a {
+      @media (min-width: @screen-phone-landscape) {
+        margin: 0 auto 10px;
+        width: 615px;
+      }
+      @media (min-width: @screen-desktop) {
+        //display: inline-block;
+        margin: 0;
+        border-radius: 0px;
+        width: auto;
+      }
+      width: auto;
+      margin: 0 0 10px;
+      .border-radius(10px);
+      display: block;
+      //color: @color-base;
+      line-height: 13px;
+      font-size: 16px;
+
+    }
+    &_a:hover .forum_subheading {
+      color: @color-orange;
+    }
+    &_a:hover .ico-club {
+      @media (min-width: @screen-desktop) {
+        .scale(1.2);
+      }
+    }
+    &_a:hover &_ico-hold {
+      @media (min-width: @screen-desktop) {
+        //background-color: #fff;
+      }
+      //background: none;
+    }
+    &_ico-hold {
+      @media (min-width: @screen-desktop) {
+        height: 108px;
+        width: 108px;
+        padding: 17px 15px 0;
+        background: #faf6ff;
+        border: 2px solid #faf6ff;
+        display: block;
+        float:left;
+        margin-right: 19px;
+        margin-top: -2px;
+      }
+      display: inline-block;
+      vertical-align: middle;
+      height: auto;
+      width: auto;
+      margin-bottom: 5px;
+      padding: 0;
+      border: none;
+      background: none;
+      .border-radius(54px);
+      position: relative;
+      .ico-club {
+        @media (min-width: @screen-desktop) {
+          .scale(1);
+        }
+        .scale(0.6);
+      }
+    }
+
+
+    &_tx {
+      @media (min-width: @screen-desktop) {
+        font-size: 12px;
+        display: block;
+      }
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    &_b {
+      @media (min-width: @screen-desktop) {
+        display: block;
+      }
+      display: none;
+      text-align: center;
+
+      .homepage_btn-sign {
+        background-color: #9981c3;
+        color: #fff;
+      }
+      .homepage_btn-sign:hover {
+        background-color: #9279bb;
+      }
+    }
+
+    &_comments {
+      display: none;
+    }
+  }
+  /* /homepage-clubs */
+
+  .ico-clubs-medium_ico-hold
+  {
+    @media (min-width: @screen-desktop)
+    {
+      float: left;
+      margin-right: 19px;
+      margin-top: -2px;
+      padding: 0px;
+
+      .ico-club
+      {
+        margin: -2px 0 0 -1px;
+      }
+    }
+  }
+
+  .forum_subheading {
+    margin-bottom: 7px;
+    font-size: 16px;
+    color: #279FD7;
+    max-width: 360px;
+  }
+
+  .forum_subheading_desc
+  {
+    @media (min-width: @screen-desktop)
+    {
+      max-width: 461px;
+    }
+
+    @media (max-width: @screen-desktop)
+    {
+      max-width: 360px;
+    }
+
+    font-family: Arial, Tahoma, Verdana, sans-serif;
+    color: #666;
+    font-size: 12px;
+
+  }
+
+  .clubs_cont
+  {
+    float:left;
+    margin-top: 11px;
+
+    &:hover .forum_subheading
+    {
+      color: #ff6900;
+    }
+  }
+
+  .clubs_info
+  {
+    @media (max-width: @screen-phone-landscape)
+    {
+      float: none;
+      clear: left;
+      padding: 0 0 0 93px;
+    }
+
+    @media (min-width: @screen-phone-landscape)
+    {
+      float: right;
+
+    }
+
+    @media (max-width: @screen-desktop)
+    {
+      margin-top: 26px;
+    }
+
+    @media (min-width: @screen-desktop)
+    {
+      margin-top: 24px;
+    }
+    .counter-block
+    {
+      float: left;
+      margin-top: 4px;
+
+      @media (min-width: @screen-phone-landscape)
+      {
+        margin-right: 60px;
+
+      }
+
+      @media (max-width: @screen-phone-landscape)
+      {
+        margin-right: 36px;
+
+      }
+    }
+
+    &_activity
+    {
+      float:left;
+      margin-left: 12px;
+      margin-top: -19px;
+
+      @media (max-width: @screen-desktop)
+      {
+        display: none;
+      }
+
+      .live-user_text
+      {
+        color: #196eb9 !important;
+        line-height: 14px;
+        &:hover
+        {
+          color: #ff6900 !important;
+        }
+      }
+    }
+  }
+
+  .clubs_separator
+  {
+    border-bottom: 1px solid #fafafa;
+    @media (min-width: @screen-desktop)
+    {
+      width: 819px;
+    }
+
+    margin-left: 90px;
+    display: table;
+    @media (max-width: @screen-desktop)
+    {
+      margin: 22px 0 0 0;
+      width: 100%;
+    }
+  }
+}
+
+
+
+.icons-meta_view
+{
+  span
+  {
+    color: #b3b3b3;
+  }
+}
+
+.icons-meta_comment
+{
+  cursor: pointer;
+  &:hover span
+  {
+    color: #333;
+  }
+
+  span
+  {
+    color: #b3b3b3;
+    &:hover
+    {
+      color: #333;
+    }
+  }
+}
+
+.heading-link-xxl
+{
+  @media (max-width: @screen-desktop)
+  {
+    text-align: center;
+    margin: 0px 0 25px 0;
+  }
+}
+
+.who-online_hint
+{
+
+}
+
+
+

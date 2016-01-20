@@ -40,6 +40,8 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             </div>
         </div>
 
-        <share-buttons params="url: '<?=$data->url?>'"></share-buttons>
+        <div class="b-article_share">
+            <share-buttons params="url: '<?=$data->url?>'"></share-buttons>
+        </div>
     </div>
 </article>

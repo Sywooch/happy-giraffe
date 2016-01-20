@@ -43,11 +43,11 @@ class SidebarWidget extends \CWidget
         $value = $this->getCache()->get($cacheId);
         if ($value === false || $renew) {
             $value = $this->getContentHtml($post);
-//            $dependency = new \CDbCacheDependency("SELECT dtimeUpdate FROM " . Content::model()->tableName() . " WHERE id = :id");
-//            $dependency->params = array(
-//                ':id' => $post->id,
-//            );
-            $this->getCache()->set($cacheId, $value, 0/*, $dependency*/);
+            $dependency = new \CDbCacheDependency("SELECT dtimeUpdate FROM " . Content::model()->tableName() . " WHERE id = :id");
+            $dependency->params = array(
+                ':id' => $post->id,
+            );
+            $this->getCache()->set($cacheId, $value, 0, $dependency);
         }
         return $value;
     }

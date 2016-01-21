@@ -87,6 +87,8 @@ class Idea extends \CActiveRecord
             array('title, collectionId, authorId', 'required'),
             array('isRemoved, labels', 'safe'),
             array('title', 'length', 'max' => 255),
+            array('id', 'unique'),
+            array('id, collectionId, authorId', 'numerical', 'min' => 1, 'integerOnly' => true),
         );
     }
 

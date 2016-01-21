@@ -1,7 +1,9 @@
 <?php
-require_once('/opt/yii/framework/yii.php');
+/*require_once('/opt/yii/framework/yiit.php');
+$config = dirname(__FILE__) . '/../config/test.php';
 new TestApplication();
-YiiBase::setPathOfAlias('site', '/home/giraffe/happy-giraffe.ru/site');
+
+YiiBase::setPathOfAlias('site', '/var/www/giraffe.codetek.ru/site');
 Yii::app()->setAliases(array(
     'Guzzle' => 'site.common.vendor.Guzzle',
     'Symfony' => 'site.common.vendor.Symfony',
@@ -18,4 +20,12 @@ Yii::app()->setComponent('db', array(
     'enableProfiling' => true,
     'enableParamLogging' => true,
 ));
-date_default_timezone_set('Europe/Moscow');
+date_default_timezone_set('Europe/Moscow');*/
+
+$yiit='/opt/yii/framework/yiit.php';
+$config=dirname(__FILE__).'/../config/test.php';
+require_once($yiit);
+//require_once(dirname(__FILE__).'/WebTestCase.php');
+YiiBase::setPathOfAlias('site', '/var/www/giraffe.codetek.ru/site');
+YiiBase::setPathOfAlias('gallery', '/var/www/giraffe.codetek.ru/site/frontend/modules/gallery');
+Yii::createWebApplication($config);

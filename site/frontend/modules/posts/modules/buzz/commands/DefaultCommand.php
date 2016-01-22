@@ -49,13 +49,13 @@ class DefaultCommand extends \CConsoleCommand
         $total = $dp->totalItemCount;
         $iterator = new \CDataProviderIterator($dp);
 
+        $ids = \Yii::app()->db->createCommand("SELECT id
+FROM post__contents
+WHERE originEntity = 'AdvPost' AND isRemoved = 0;")->queryColumn();
+
         foreach ($iterator as $i => $model) {
             echo $model->entityId . "\n";
-            $post = Content::model()->findByAttributes(array(
-                'originEntity' => 'AdvPost',
-                'originEntityId' => $model->entityId,
-            ));
-            if (! $post) {
+            if (array_search($model->entityId, $ids) === false) {
                 continue;
             }
 

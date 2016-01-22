@@ -48,15 +48,15 @@ class DefaultCommand extends \CConsoleCommand
         $iterator = new \CDataProviderIterator($dp);
 
         foreach ($iterator as $i => $model) {
-            try {
-                $post = Content::model()->query('getByAttributes', array(
-                    'entity' => array_search(get_class($model), \site\frontend\modules\posts\models\Content::$entityAliases),
-                    'entityId' => $model->entityId,
-                ));
-            } catch (\Exception $e) {
-                echo 'c';
-                continue;
-            }
+//            try {
+//                $post = Content::model()->query('getByAttributes', array(
+//                    'entity' => array_search(get_class($model), \site\frontend\modules\posts\models\Content::$entityAliases),
+//                    'entityId' => $model->entityId,
+//                ));
+//            } catch (\Exception $e) {
+//                echo 'c';
+//                continue;
+//            }
 
             $model->scenario = 'buzz';
             $model->label = Label::LABEL_BUZZ;

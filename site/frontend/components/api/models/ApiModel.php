@@ -172,7 +172,6 @@ abstract class ApiModel extends \CModel
 
     public function update()
     {
-        die('123');
         if ($this->getIsNewRecord())
             throw new \site\frontend\components\api\ApiException('Нельзя обновить новую запись.');
         if ($this->beforeSave()) {
@@ -194,11 +193,13 @@ abstract class ApiModel extends \CModel
                 return true;
             }
             else {
+                die('11');
                 /** @todo Обработать ошибки */
                 return false;
             }
             return true;
         } else
+            die('10');
             return false;
     }
 

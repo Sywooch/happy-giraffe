@@ -32,13 +32,6 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionMigrate2($all = false, $id = null)
     {
-        $r = \Yii::app()->api->request('users', 'fail');
-
-        var_dump($r);
-
-        die;
-
-
         if ($all === false && $id === null) {
             throw new \CException("Invalid parameters");
         }

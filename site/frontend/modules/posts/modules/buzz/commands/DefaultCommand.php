@@ -50,7 +50,7 @@ class DefaultCommand extends \CConsoleCommand
         foreach ($iterator as $i => $model) {
             try {
                 $post = Content::model()->query('getByAttributes', array(
-                    'entity' => $model->entity,
+                    'entity' => array_search(get_class($model), \site\frontend\modules\posts\models\Content::$entityAliases),
                     'entityId' => $model->entityId,
                 ));
             } catch (\Exception $e) {

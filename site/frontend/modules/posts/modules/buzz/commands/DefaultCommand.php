@@ -41,6 +41,8 @@ class DefaultCommand extends \CConsoleCommand
             $criteria->addCond('entityId', '==', (int) $id);
         }
 
+        $criteria->addCond('dtimeUpdate', '<', 1453334400);
+
         $dp = new \EMongoDocumentDataProvider(MigrateContent::model(), array(
             'criteria' => $criteria,
         ));

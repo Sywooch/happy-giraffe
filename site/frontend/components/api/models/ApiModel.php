@@ -186,7 +186,7 @@ abstract class ApiModel extends \CModel
                 $request[$attribute] = $this->$attribute;
             $result = $this->request('update', $request);
 
-            var_dump($result);
+            var_dump($result['success']);
 
             if ($result['success']) {
                 if (isset($result['data']))
@@ -195,7 +195,7 @@ abstract class ApiModel extends \CModel
                 return true;
             }
             else {
-                 die;
+                var_dump($result); die;
                 /** @todo Обработать ошибки */
                 return false;
             }

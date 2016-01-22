@@ -11,6 +11,8 @@ use site\frontend\modules\posts\components\ReverseParser;
 use site\frontend\modules\posts\models\Content;
 use site\frontend\modules\posts\models\Label;
 
+\Yii::import('application.components.video.*');
+
 class SidebarWidget extends \CWidget
 {
     const LAST_DAYS = 2;

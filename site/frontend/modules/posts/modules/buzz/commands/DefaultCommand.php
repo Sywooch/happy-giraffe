@@ -47,6 +47,8 @@ class DefaultCommand extends \CConsoleCommand
         $total = $dp->totalItemCount;
         $iterator = new \CDataProviderIterator($dp);
 
+        echo $iterator->totalItemCount; die;
+
         foreach ($iterator as $i => $model) {
             try {
                 $post = Content::model()->query('getByAttributes', array(

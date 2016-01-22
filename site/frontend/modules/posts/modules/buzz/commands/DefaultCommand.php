@@ -54,8 +54,7 @@ class DefaultCommand extends \CConsoleCommand
                     'entityId' => $model->entityId,
                 ));
             } catch (\Exception $e) {
-                echo 'break';
-                break;
+                continue;
             }
 
             $model->scenario = 'buzz';

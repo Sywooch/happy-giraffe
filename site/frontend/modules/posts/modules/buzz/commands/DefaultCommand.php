@@ -50,6 +50,7 @@ class DefaultCommand extends \CConsoleCommand
         $iterator = new \CDataProviderIterator($dp);
 
         foreach ($iterator as $i => $model) {
+            echo $model->entityId . "\n";
             try {
                 $post = \site\frontend\modules\posts\models\api\Content::model()->query('getByAttributes', array(
                     'entity' => false,

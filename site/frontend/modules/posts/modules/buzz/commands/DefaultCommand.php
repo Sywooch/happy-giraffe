@@ -48,14 +48,14 @@ class DefaultCommand extends \CConsoleCommand
         $iterator = new \CDataProviderIterator($dp);
 
         foreach ($iterator as $i => $model) {
-//            try {
-//                $post = \site\frontend\modules\posts\models\api\Content::model()->query('getByAttributes', array(
-//                    'entity' => false,
-//                    'entityId' => $model->entityId,
-//                ));
-//            } catch (\Exception $e) {
-//                continue;
-//            }
+            try {
+                $post = \site\frontend\modules\posts\models\api\Content::model()->query('getByAttributes', array(
+                    'entity' => false,
+                    'entityId' => $model->entityId,
+                ));
+            } catch (\Exception $e) {
+                continue;
+            }
 
             $model->scenario = 'buzz';
             $model->label = Label::LABEL_BUZZ;

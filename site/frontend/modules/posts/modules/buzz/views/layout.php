@@ -11,7 +11,7 @@ $this->beginContent('//layouts/lite/main');
             echo $content;
             ?>
             <aside class="b-main_col-sidebar visible-md">
-                <?php //$this->widget('site\frontend\modules\posts\modules\buzz\widgets\SidebarWidget'); ?>
+                <?php $this->widget('site\frontend\modules\posts\modules\buzz\widgets\SidebarWidget'); ?>
             </aside>
         </div>
     </div>

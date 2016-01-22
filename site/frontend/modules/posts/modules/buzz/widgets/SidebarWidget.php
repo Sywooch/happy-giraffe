@@ -11,7 +11,7 @@ use site\frontend\modules\posts\components\ReverseParser;
 use site\frontend\modules\posts\models\Content;
 use site\frontend\modules\posts\models\Label;
 
-\Yii::import('application.components.video.*');
+\Yii::import('site.frontend.components.video.*');
 
 class SidebarWidget extends \CWidget
 {

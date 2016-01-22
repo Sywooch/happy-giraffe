@@ -69,6 +69,9 @@ class SidebarWidget extends \CWidget
             return $this->render('_video', compact('video'), true);
         }
         $images = array_merge($previewParser->images, $parser->images);
+
+        var_dump($images[0]); die;
+
         if (count($images) > 0) {
             return $this->render('_img', $images[0], true);
         }

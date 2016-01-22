@@ -58,7 +58,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
                 ));
             } catch (\Exception $e) {
                 var_dump($e);
-                die('1');
+                die;
                 $post = new Content();
             }
         }
@@ -148,7 +148,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             return parent::beforeSave($event);
         } else {
             var_dump($post->errors);
-            die('2');
+            die;
             $event->isValid = false;
             return false;
         }
@@ -211,7 +211,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             if (! $saved) {
                 var_dump($this->_post->isNewRecord);
                 var_dump($this->_post->errors);
-                die('3');
+                die;
             }
         } catch (\Exception $e) {
 

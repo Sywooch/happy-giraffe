@@ -30,6 +30,7 @@ class ReverseParser
             if ($img->parent->tag != 'gif-image') {
                 $photo = \Yii::app()->thumbs->getPhotoByUrl($img->src);
                 $result[] = array(
+                    'src' => $img->src,
                     'photo' => $photo,
                 );
             }

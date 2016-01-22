@@ -51,12 +51,11 @@ class DefaultCommand extends \CConsoleCommand
 
         foreach ($iterator as $i => $model) {
             echo $model->entityId . "\n";
-            try {
-                $post = \site\frontend\modules\posts\models\api\Content::model()->query('getByAttributes', array(
-                    'entity' => false,
-                    'entityId' => $model->entityId,
-                ));
-            } catch (\Exception $e) {
+            $post = Content::model()->findByAttributes(array(
+                'originEntity' => 'AdvPost',
+                'originEntityId' => $model->entityId,
+            ));
+            if (! $post) {
                 continue;
             }
 

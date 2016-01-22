@@ -193,7 +193,7 @@ abstract class ApiModel extends \CModel
                 return true;
             }
             else {
-                die('11');
+                var_dump($result); die;
                 /** @todo Обработать ошибки */
                 return false;
             }

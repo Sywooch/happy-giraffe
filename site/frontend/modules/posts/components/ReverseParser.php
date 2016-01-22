@@ -29,10 +29,11 @@ class ReverseParser
         foreach ($this->doc->find('img') as $img) {
             if ($img->parent->tag != 'gif-image') {
                 $photo = \Yii::app()->thumbs->getPhotoByUrl($img->src);
-                $result[] = array(
-                    'src' => $img->src,
-                    'photo' => $photo,
-                );
+                if ($photo) {
+                    $result[] = array(
+                        'photo' => $photo,
+                    );
+                }
             }
         }
         return $result;

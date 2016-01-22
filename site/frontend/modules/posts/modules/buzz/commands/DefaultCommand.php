@@ -54,6 +54,7 @@ class DefaultCommand extends \CConsoleCommand
                     'entityId' => $model->entityId,
                 ));
             } catch (\Exception $e) {
+                echo 'c';
                 continue;
             }
 

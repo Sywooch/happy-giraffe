@@ -43,7 +43,7 @@ class DefaultCommand extends \CConsoleCommand
 
         $criteria->sort('dtimeCreated', \EMongoCriteria::SORT_ASC);
 
-        //$criteria->addCond('dtimeUpdate', '<', 1453334400);
+        $criteria->addCond('entityId', '>=', 690624);
 
         $dp = new \EMongoDocumentDataProvider(MigrateContent::model(), array(
             'criteria' => $criteria,

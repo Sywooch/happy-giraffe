@@ -65,7 +65,11 @@ class SidebarWidget extends \CWidget
             $videoData = $parser->videos[0];
             $id = $videoData['id'];
             $url = 'http://www.youtube.com/watch?v=' . $id;
-            $video = \Video::factory($url);
+            try {
+                $video = \Video::factory($url);
+            } catch (\CException $e) {
+                return '';
+            }
             return $this->render('_video', compact('video'), true);
         }
         $images = array_merge($previewParser->images, $parser->images);

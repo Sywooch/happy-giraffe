@@ -68,7 +68,7 @@ class SidebarWidget extends \CWidget
             try {
                 $video = \Video::factory($url);
             } catch (\CException $e) {
-                return 'Видео недоступно.';
+                return \CHtml::tag('p', array(), 'Видео недоступно.');
             }
             return $this->render('_video', compact('video', 'post'), true);
         }

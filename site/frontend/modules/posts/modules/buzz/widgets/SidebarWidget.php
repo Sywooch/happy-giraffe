@@ -17,7 +17,7 @@ class SidebarWidget extends \CWidget
 {
     const LAST_DAYS = 2;
     const LIMIT = 5;
-    const CACHE_PREFIX = 'HappyGiraffe.Buzz.v7.';
+    const CACHE_PREFIX = 'HappyGiraffe.Buzz.v8.';
 
     /**
      * @var \CommunityClub
@@ -68,7 +68,7 @@ class SidebarWidget extends \CWidget
             try {
                 $video = \Video::factory($url);
             } catch (\CException $e) {
-                return '';
+                return '123';
             }
             return $this->render('_video', compact('video'), true);
         }

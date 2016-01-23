@@ -17,7 +17,7 @@ class SidebarWidget extends \CWidget
 {
     const LAST_DAYS = 2;
     const LIMIT = 5;
-    const CACHE_PREFIX = 'HappyGiraffe.Buzz.v8.';
+    const CACHE_PREFIX = 'HappyGiraffe.Buzz.v.';
 
     /**
      * @var \CommunityClub
@@ -68,9 +68,9 @@ class SidebarWidget extends \CWidget
             try {
                 $video = \Video::factory($url);
             } catch (\CException $e) {
-                return '123';
+                return 'Видео недоступно.';
             }
-            return $this->render('_video', compact('video'), true);
+            return $this->render('_video', compact('video', 'post'), true);
         }
         $images = array_merge($previewParser->images, $parser->images);
         if (count($images) > 0) {

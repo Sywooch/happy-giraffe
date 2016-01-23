@@ -70,7 +70,7 @@ class SidebarWidget extends \CWidget
             } catch (\CException $e) {
                 return \CHtml::tag('p', array(), 'Видео недоступно.');
             }
-            return $this->render('_video', compact('video', 'post'), true);
+            return $this->render('_video', compact('video'), true);
         }
         $images = array_merge($previewParser->images, $parser->images);
         if (count($images) > 0) {

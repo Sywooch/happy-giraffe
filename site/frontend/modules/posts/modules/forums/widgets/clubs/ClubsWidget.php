@@ -28,7 +28,7 @@ SQL;
         $a = \Yii::app()->db->createCommand($sql);
 
 
-        var_dump($a->execute(array(
+        var_dump($a->queryAll(true, array(
             ':a' => Label::LABEL_FORUMS,
             ':b' => implode(',', Label::getIdsByLabels(array_map(function($club) {
                 return $club->toLabel();

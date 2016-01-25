@@ -5,7 +5,7 @@
     <?php Yii::beginProfile('lastPost'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget');Yii::endProfile('lastPost'); ?>
     <?php Yii::beginProfile('usersTop'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget');Yii::endProfile('usersTop'); ?>
     <div class="clearfix"></div>
-    <?php Yii::beginProfile('clubs'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget'); Yii::endProfile('clubs'); ?>
+    <?php //Yii::beginProfile('clubs'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget'); Yii::endProfile('clubs'); ?>
     <?php Yii::beginProfile('onlineUsers'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); Yii::endProfile('onlineUsers'); ?>
 </div>
 

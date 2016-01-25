@@ -49,6 +49,9 @@ GROUP BY t.labelId;";
         foreach ($result as $row) {
             $post = Content::model()->populateRecord($row);
             $labelId = $row['labelId'];
+
+            var_dump($labels[$labelId]);
+
             foreach ($clubs as $club) {
                 if ($club->toLabel() == $labels[$labelId]->text) {
                     $post[$club->id] = $post;

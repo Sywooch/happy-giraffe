@@ -10,7 +10,7 @@ class ClubsWidget extends \CWidget
     public function run()
     {
         $sections = \CommunitySection::model()->with('clubs')->findAll();
-        $clubs = \Community::model()->findAll();
+        $clubs = \CommunityClub::model()->findAll();
 
         $sql = <<<SQL
 SELECT * FROM (

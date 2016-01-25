@@ -16,6 +16,7 @@ class ClubsWidget extends \CWidget
             'group' => 'labels',
         ));
 
+        var_dump(1);
         var_dump($posts); die;
 
         $posts = array();

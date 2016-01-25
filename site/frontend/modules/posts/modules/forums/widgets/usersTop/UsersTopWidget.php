@@ -20,11 +20,14 @@ class UsersTopWidget extends \CWidget
 
     public function run()
     {
-        $scores = $this->getScores();
         \Yii::beginProfile('usersTop4');
+        $scores = $this->getScores();
+
         $users = User::model()->findAllByPk(array_keys($scores));
         \Yii::endProfile('usersTop4');
+        \Yii::beginProfile('usersTop5');
         $this->render('view', compact('scores', 'users'));
+        \Yii::endProfile('usersTop5');
     }
 
     protected function getScores()

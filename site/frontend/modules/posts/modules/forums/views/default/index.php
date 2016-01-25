@@ -6,7 +6,7 @@
     <?php if($this->beginCache('Forums.LastPostWidget', array('duration' => 3600))) {$this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); $this->endCache();} ?>
     <div class="clearfix"></div>
     <?php if($this->beginCache('Forums.ClubsWidget', array('duration' => 3600))) {$this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget'); $this->endCache();} ?>
-    <?php if($this->beginCache('Forums.OnlineUsersWidget', array('duration' => 3600))) {$this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); $this->endCache();} ?>
+    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); ?>
 </div>
 
 

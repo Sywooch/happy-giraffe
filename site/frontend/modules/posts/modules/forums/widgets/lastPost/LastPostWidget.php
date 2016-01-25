@@ -18,15 +18,15 @@ class LastPostWidget extends \CWidget
     public function run()
     {
         \Yii::beginProfile('last1');
-        $posts = \Yii::app()->cache->get(__CLASS__);
-        if ($posts === false) {
+//        $posts = \Yii::app()->cache->get(__CLASS__);
+//        if ($posts === false) {
             $labelId = Label::getIdsByLabels(array(Label::LABEL_FORUMS))[0];
-            $dependency = new \CDbCacheDependency('SELECT COUNT(*) FROM ' . Tag::model()->tableName() . ' WHERE labelId = ' . $labelId);
+            $dependency = new \CExpressionDependency();
             $posts = Content::model()->cache(0, $dependency)->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
                 'limit' => self::LIMIT,
             ));
-            \Yii::app()->cache->set(__CLASS__, $posts, 0, $dependency);
-        }
+//            \Yii::app()->cache->set(__CLASS__, $posts, 0, $dependency);
+//        }
         \Yii::endProfile('last1');
 
         \Yii::beginProfile('last2');

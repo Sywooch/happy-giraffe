@@ -10,9 +10,6 @@ class ClubsWidget extends \CWidget
     public function run()
     {
         $sections = \CommunitySection::model()->with('clubs')->findAll();
-        $posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
-            'group' => 'labels',
-        ));
 
         $posts = array();
         foreach ($sections as $section) {

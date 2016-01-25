@@ -20,7 +20,7 @@ SELECT pc.*, pt2.labelId
 FROM post__contents pc
 JOIN post__tags pt ON pt.contentId = pc.id
 JOIN post__tags pt2 ON pt2.contentId = pc.id
-WHERE pt.labelId IN (:a) AND pt2.labelId IN (" . $in . ") AND isRemoved = 0
+WHERE pt.labelId IN (18319) AND pt2.labelId IN (" . $in . ") AND isRemoved = 0
 GROUP BY pc.id
 HAVING COUNT(pt.labelId) = 1
 ORDER BY dtimePublication DESC) t
@@ -32,9 +32,7 @@ GROUP BY t.labelId;";
 
 
 
-        var_dump($a->queryAll(true, array(
-            ':a' => Label::LABEL_FORUMS,
-        )));
+        var_dump($a->queryAll());
 
         var_dump($a->text);
 

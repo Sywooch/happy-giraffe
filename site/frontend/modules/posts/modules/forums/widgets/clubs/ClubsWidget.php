@@ -19,13 +19,13 @@ class ClubsWidget extends \CWidget
         }, $clubs));
         $labels = Label::model()->findAll($criteria);
 
-        $labelsIds = Label::getIdsByLabels(array_map(function($label) {
+        $labelsIds = array_map(function($label) {
             return $label->id;
-        }, $labels));
+        }, $labels);
         $in = implode(',', $labelsIds);
 
 
-        var_dump($in) ; die;
+
 
         $sql = "SELECT * FROM (
 SELECT pc.*

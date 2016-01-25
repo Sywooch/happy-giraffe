@@ -32,7 +32,7 @@ SELECT pc.*, pt2.labelId
 FROM post__contents pc
 JOIN post__tags pt ON pt.contentId = pc.id
 JOIN post__tags pt2 ON pt2.contentId = pc.id
-WHERE pt.labelId IN (18319) AND pt2.labelId IN (" . $in . ") AND isRemoved = 0
+WHERE pt.labelId IN (:labelForum) AND pt2.labelId IN (" . $in . ") AND isRemoved = 0
 GROUP BY pc.id
 HAVING COUNT(pt.labelId) = 1
 ORDER BY dtimePublication DESC) t
@@ -41,7 +41,9 @@ GROUP BY t.labelId;";
 
         $posts = array();
 
-        $result = \Yii::app()->db->createCommand($sql)->queryAll();
+        $result = \Yii::app()->db->createCommand($sql)->queryAll(true, array(
+            ':labelForum' => Label::LABEL_FORUMS,
+        ));
 
 
 

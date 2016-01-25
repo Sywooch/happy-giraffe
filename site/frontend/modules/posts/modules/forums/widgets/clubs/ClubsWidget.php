@@ -28,7 +28,7 @@ class ClubsWidget extends \CWidget
 
 
         $sql = "SELECT * FROM (
-SELECT pc.*
+SELECT pc.*, pt2.labelId
 FROM post__contents pc
 JOIN post__tags pt ON pt.contentId = pc.id
 JOIN post__tags pt2 ON pt2.contentId = pc.id

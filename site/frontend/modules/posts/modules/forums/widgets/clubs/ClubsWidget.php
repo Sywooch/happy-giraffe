@@ -11,18 +11,23 @@ class ClubsWidget extends \CWidget
     {
         $sections = \CommunitySection::model()->with('clubs')->findAll();
 
-        $posts = array();
-        foreach ($sections as $section) {
-            foreach ($section->clubs as $club) {
-                $label = $club->toLabel();
-                $post = Content::model()->byLabels(array($label, Label::LABEL_FORUMS))->orderDesc()->find(array(
-                    'limit' => 1,
-                ));
-                if ($post) {
-                    $posts[$club->id] = $post;
-                }
-            }
-        }
+        $sql = <<<SQL
+SELECT * FROM (
+SELECT pc.*, pt2.labelId
+FROM post__contents pc
+JOIN post__tags pt ON pt.contentId = pc.id
+JOIN post__tags pt2 ON pt2.contentId = pc.id
+WHERE pt.labelId IN (18319) AND pt2.labelId IN (102, 107)
+GROUP BY pc.id
+HAVING COUNT(pt.labelId) = 1
+ORDER BY dtimePublication DESC) t
+GROUP BY t.labelId;
+SQL;
+
+        $criteria = clone Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->getDbCriteria();
+        $criteria->join .= "JOIN post__tags pt ON pt.contentId = t.id JOIN post__tags pt2 ON pt2.contentId = t.id";
+        $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
+        echo $command->text; die;
 
         $users = User::model()->findAllByPk(array_map(function($post) {
             return $post->authorId;

@@ -29,7 +29,7 @@ SQL;
         $criteria->join .= "JOIN post__tags pt ON pt.contentId = t.id JOIN post__tags pt2 ON pt2.contentId = t.id";
         $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
 
-        $command->text = "SELECT * FROM (" . $command->text . ") t GROUP BY t.labelId";
+        //$command->text = "SELECT * FROM (" . $command->text . ") t GROUP BY t.labelId";
 
         var_dump($command->queryAll()); die;
 

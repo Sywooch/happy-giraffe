@@ -12,29 +12,28 @@ class ClubsWidget extends \CWidget
         $sections = \CommunitySection::model()->with('clubs')->findAll();
         $clubs = \CommunityClub::model()->findAll();
 
-        $sql = <<<SQL
-SELECT * FROM (
+        $in = implode(',', Label::getIdsByLabels(array_map(function($club) {
+            return $club->toLabel();
+        }, $clubs)));
+        $sql = "SELECT * FROM (
 SELECT pc.*, pt2.labelId
 FROM post__contents pc
 JOIN post__tags pt ON pt.contentId = pc.id
 JOIN post__tags pt2 ON pt2.contentId = pc.id
-WHERE pt.labelId IN (:a) AND pt2.labelId IN (:b) AND isRemoved = 0
+WHERE pt.labelId IN (:a) AND pt2.labelId IN (" . $in . ") AND isRemoved = 0
 GROUP BY pc.id
 HAVING COUNT(pt.labelId) = 1
 ORDER BY dtimePublication DESC) t
-GROUP BY t.labelId;
-SQL;
+GROUP BY t.labelId;";
 
         $a = \Yii::app()->db->createCommand($sql);
 
 
 
 
+
         var_dump($a->queryAll(true, array(
             ':a' => Label::LABEL_FORUMS,
-            ':b' => implode(',', Label::getIdsByLabels(array_map(function($club) {
-                return $club->toLabel();
-            }, $clubs))),
         )));
 
         var_dump($a->text);

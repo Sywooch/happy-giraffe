@@ -16,13 +16,17 @@ class LastPostWidget extends \CWidget
 
     public function run()
     {
+        \Yii::beginProfile('last1');
         $posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
             'limit' => self::LIMIT
         ));
+        \Yii::endProfile('last1');
 
+        \Yii::beginProfile('last2');
         $users = User::model()->findAllByPk(array_map(function($post) {
             return $post->authorId;
         }, $posts));
+        \Yii::endProfile('last2');
 
         $this->render('view', compact('posts', 'users'));
     }

@@ -4,8 +4,8 @@
     <?php //$this->widget('site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget'); ?>
     <?php //$this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); ?>
     <div class="clearfix"></div>
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget'); ?>
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); ?>
+    <?php //$this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget'); ?>
+    <?php //$this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); ?>
 </div>
 
 

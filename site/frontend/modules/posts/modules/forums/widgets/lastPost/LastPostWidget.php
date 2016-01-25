@@ -22,7 +22,7 @@ class LastPostWidget extends \CWidget
 //        if ($posts === false) {
             $labelId = Label::getIdsByLabels(array(Label::LABEL_FORUMS))[0];
             $dependency = new \CExpressionDependency();
-            $posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->cache(0, $dependency)->findAll(array(
+            $posts = Content::model()->cache(0, $dependency, 5)->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
                 'limit' => self::LIMIT,
             ));
 //            \Yii::app()->cache->set(__CLASS__, $posts, 0, $dependency);

@@ -1,0 +1,427 @@
+include ../../block/config
+extend ../../extend/layout_base_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'forum-homepage.css';
+
+
+block layout
+
+    .b-main
+        .b-main_cont
+            .heading-link-xxl  Мы здесь общаемся!
+            //Добавить в layout_base
+            .top-forum
+                .widget-top
+                    .heading-wd Топ форумчан
+                    span.tx-hint за неделю
+                ul
+                    li.widget_item
+                        .widget-top_block_user
+                            +ava("ava__middle ava__male", avaVars)
+                            a.username Вероника Петровна
+                        .widget-top_block_rating.counter-block
+                            span.rating_count.counter-text 70
+                            .rating_text.counter-hint баллы
+                    li.widget_item
+                        .widget-top_block_user
+                            +ava("ava__middle ava__male", avaVars)
+                            a.username Люда Кошкина
+                        .widget-top_block_rating.counter-block
+                            span.rating_count.counter-text 66
+                            .rating_text.counter-hint баллы
+                    li.widget_item
+                        .widget-top_block_user
+                            +ava("ava__middle ava__male", avaVars)
+                            a.username Лена Лерина
+                        .widget-top_block_rating.counter-block
+                            span.rating_count.counter-text 54
+                            .rating_text.counter-hint баллы
+                    li.widget_item
+                        .widget-top_block_user
+                            +ava("ava__middle ava__male", avaVars)
+                            a.username Денис Загорский
+                        .widget-top_block_rating.counter-block
+                            span.rating_count.counter-text 50
+                            .rating_text.counter-hint баллы
+                    li.widget_item
+                        .widget-top_block_user
+                            +ava("ava__middle ava__male", avaVars)
+                            a.username Валентина Фигулина
+                        .widget-top_block_rating.counter-block
+                            span.rating_count.counter-text 40
+                            .rating_text.counter-hint баллы
+            .latest-posts
+                .widget-top
+                    .heading-wd Последние посты
+                ul
+                    li.widget_item
+                        .widget_latest-posts_heading
+                            a(href="") Эффективен ли урсосан для новорожденных при желтухе?
+                            .icons-meta
+                                a.icons-meta_comment(href='#')
+                                    span.icons-meta_tx 3685
+                                .icons-meta_view
+                                    span.icons-meta_tx 228
+                        a.widget_latest-posts_user.live-user
+                            +ava("ava__small ava__female", avaVars)
+                            .username
+                                span Валерия Остапенко
+                                span.tx-date минуту назад
+                    li.widget_item
+                        .widget_latest-posts_heading
+                            a(href="") Эффективен ли урсосан для новорожденных при желтухе?
+                            .icons-meta
+                                a.icons-meta_comment(href='#')
+                                    span.icons-meta_tx 3685
+                                .icons-meta_view
+                                    span.icons-meta_tx 228
+                        a.widget_latest-posts_user.live-user
+                            +ava("ava__small ava__female", avaVars)
+                            .username
+                                span Валерия Остапенко
+                                span.tx-date 2 минуты назад
+                    li.widget_item
+                        .widget_latest-posts_heading
+                            a(href="") Эффективен ли урсосан для новорожденных при желтухе?
+                            .icons-meta
+                                a.icons-meta_comment(href='#')
+                                    span.icons-meta_tx 3685
+                                .icons-meta_view
+                                    span.icons-meta_tx 228
+                        a.widget_latest-posts_user.live-user
+                            +ava("ava__small ava__female", avaVars)
+                            .username
+                                span Валерия Остапенко
+                                span.tx-date вчера
+                    li.widget_item
+                        .widget_latest-posts_heading
+                            a(href="") Эффективен ли урсосан для новорожденных при желтухе?
+                            .icons-meta
+                                a.icons-meta_comment(href='#')
+                                    span.icons-meta_tx 3685
+                                .icons-meta_view
+                                    span.icons-meta_tx 228
+                        a.widget_latest-posts_user.live-user
+                            +ava("ava__small ava__female", avaVars)
+                            .username
+                                span Валерия Остапенко
+                                span.tx-date 3 ноября
+            
+            .forum_heading_block
+                .forum_heading.color_4 Муж и жена
+                ul.homepage-clubs_ul
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                           .ico-clubs_a.ico-clubs-medium(href='#')
+                                .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__14
+                           .forum_subheading Свадьба
+                           .forum_subheading_desc Планируем свадьбу, обсуждаем варианты ее проведения, наряды и традиции, правила застолья и делимся своим
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                           .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__15
+                           .forum_subheading Отношения в семье
+                           .forum_subheading_desc Как добиться и сохранить гармонию в отношениях на долгие годы, решить возникающие проблемы.
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 3795
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 74284
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+
+            .forum_heading_block
+                .forum_heading.color_1 Беременность и дети
+                ul.homepage-clubs_ul
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__1
+                            .forum_subheading Планирование
+                            .forum_subheading_desc Место общения будущих родителей, которые знают, что беременность начинается с планирования.
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__2
+                            .forum_subheading Беременность и роды
+                            .forum_subheading_desc Счастливая беременность и легкие роды: делимся опытом, обсуждаем советы профессионалов, настраиваемся на
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__3
+                            .forum_subheading Дети до года
+                            .forum_subheading_desc Все, что нужно знать молодым мамам и папам: советы и мнения профессионалов, истории из жизни и забавные
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__4
+                            .forum_subheading Дети старше года
+                            .forum_subheading_desc Советы по выбору досуга и все, о чем нужно знать родителям “годовасиков” и деток постарше.
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__5
+                            .forum_subheading Дошкольники
+                            .forum_subheading_desc Все, что касается детей дошкольного возраста, делимся опытом и узнаем много интересного об этом этапе в жизни
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__6
+                            .forum_subheading Школьники
+                            .forum_subheading_desc Как помочь ребенку адаптироваться к школе, как решать проблемы и реагировать на успехи - все это вы найдете в
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+
+            .forum_heading_block
+                .forum_heading.color_2 Наш дом
+                ul.homepage-clubs_ul
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__7
+                            .forum_subheading Готовим на кухне
+                            .forum_subheading_desc Как вкусно и здорово накормить всю семью? Делимся рецептами и секретами приготовления в разделе для
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__9
+                            .forum_subheading Домашние хлопоты
+                            .forum_subheading_desc Учимся все успевать и затрачивать минимум сил для максимального результата. Маленькие секреты больших
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__11
+                            .forum_subheading Наши питомцы
+                            .forum_subheading_desc Домашние питомцы - источник непередаваемой радости и удовольствия. Как за ними ухаживать и на
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__10
+                            .forum_subheading Сад и огород
+                            .forum_subheading_desc Как сделать сад отрадой для глаз, а огород - источником вкусных и полезных продуктов? Советы для начинающих
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    .clubs_separator
+                    li.homepage-clubs_li
+                        a.clubs_cont
+                            .ico-clubs_a.ico-clubs-medium(href='#')
+                               .ico-clubs-medium_ico-hold
+                                    .ico-club.ico-club__8
+                            .forum_subheading Ремонт в доме
+                            .forum_subheading_desc Быстро и профессионально сделать ремонт в доме своими руками. Поделитесь собственным опытом и
+                        .clubs_info
+                            .counter-block
+                                span.rating_count.counter-text 2304
+                                .rating_text.counter-hint темы
+                            .counter-block
+                                span.rating_count.counter-text 16886
+                                .rating_text.counter-hint комментарии
+                            .clubs_info_activity.live-user
+                                .live-user_hint последняя активность
+                                +ava("ava__small ava__female", avaVars)
+                                .username
+                                    a Валерия Остапенко
+                                    span.tx-date 3 ноября
+                                a.live-user_text Милый главный герой и ваш ребенок словно сошел с обло ...
+                    
+            
+
+            .forum_heading_block
+                .forum_heading.color_3 Красота и здоровье
+            .forum_heading_block
+                .forum_heading.color_5 Интересы и увлечения
+            .forum_heading_block
+                .forum_heading.color_6 Семейный отдых
+            .who-online
+                .widget-top
+                    .heading-wd Сейчас в сети
+                    .who-online_hint <span>538 </span> пользователей
+                    .who-online_hint <span>4235 </span> гостей
+                
+                ul.who-online_ul
+                    li.who-online_li
+                        +ava("ava__small ava__male", avaVars)
+                    li.who-online_li
+                        +ava("ava__small ava__male", avaVars)
+                
+    +layout-footer-lite()

@@ -4,6 +4,7 @@ namespace site\frontend\modules\posts\modules\forums\widgets\lastPost;
 use site\frontend\components\api\models\User;
 use site\frontend\modules\posts\models\Content;
 use site\frontend\modules\posts\models\Label;
+use site\frontend\modules\posts\models\Tag;
 
 /**
  * @author Никита
@@ -18,7 +19,7 @@ class LastPostWidget extends \CWidget
     {
         \Yii::beginProfile('last1');
         $labelId = Label::getIdsByLabels(array(Label::LABEL_FORUMS))[0];
-        $dependency = new \CDbCacheDependency('SELECT COUNT(*) FROM ' . Label::model()->tableName() . ' WHERE labelId = ' . $labelId);
+        $dependency = new \CDbCacheDependency('SELECT COUNT(*) FROM ' . Tag::model()->tableName() . ' WHERE labelId = ' . $labelId);
         $posts = Content::model()->cache(300, $dependency)->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
             'limit' => self::LIMIT
         ));

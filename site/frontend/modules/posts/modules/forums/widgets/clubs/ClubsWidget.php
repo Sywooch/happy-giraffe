@@ -44,6 +44,7 @@ GROUP BY t.labelId;";
         $result = \Yii::app()->db->createCommand($sql)->queryAll();
 
 
+        var_dump($result); die;
 
 
         foreach ($result as $row) {

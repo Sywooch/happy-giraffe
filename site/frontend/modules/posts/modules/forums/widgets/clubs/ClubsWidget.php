@@ -11,11 +11,11 @@ class ClubsWidget extends \CWidget
     {
         $sections = \CommunitySection::model()->findAll();
         $clubs = \Community::model()->findAll();
-        $_posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
+        $_posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->count(array(
             'group' => 'labels',
         ));
 
-        var_dump(count($_posts)); die;
+        var_dump($_posts); die;
 
         $posts = array();
         foreach ($_posts as $post) {

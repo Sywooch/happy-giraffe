@@ -11,9 +11,11 @@ class ClubsWidget extends \CWidget
     {
         $sections = \CommunitySection::model()->findAll();
         $clubs = \Community::model()->findAll();
-        $_posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->count(array(
-            'group' => 'labels',
-        ));
+
+        $criteria = new \CDbCriteria();
+        $criteria->group = 'labels';
+
+        $_posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->count($criteria);
 
         var_dump($_posts); die;
 

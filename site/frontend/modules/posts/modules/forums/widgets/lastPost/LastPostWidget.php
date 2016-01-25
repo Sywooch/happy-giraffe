@@ -4,7 +4,6 @@ namespace site\frontend\modules\posts\modules\forums\widgets\lastPost;
 use site\frontend\components\api\models\User;
 use site\frontend\modules\posts\models\Content;
 use site\frontend\modules\posts\models\Label;
-use site\frontend\modules\posts\models\Tag;
 
 /**
  * @author Никита
@@ -17,23 +16,13 @@ class LastPostWidget extends \CWidget
 
     public function run()
     {
-        \Yii::beginProfile('last1');
-//        $posts = \Yii::app()->cache->get(__CLASS__);
-//        if ($posts === false) {
-            $labelId = Label::getIdsByLabels(array(Label::LABEL_FORUMS))[0];
-            $dependency = new \CExpressionDependency();
-            $posts = Content::model()->cache(300, $dependency, 5)->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
-                'limit' => self::LIMIT,
-            ));
-//            \Yii::app()->cache->set(__CLASS__, $posts, 0, $dependency);
-//        }
-        \Yii::endProfile('last1');
+        $posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
+            'limit' => self::LIMIT
+        ));
 
-        \Yii::beginProfile('last2');
         $users = User::model()->findAllByPk(array_map(function($post) {
             return $post->authorId;
         }, $posts));
-        \Yii::endProfile('last2');
 
         $this->render('view', compact('posts', 'users'));
     }

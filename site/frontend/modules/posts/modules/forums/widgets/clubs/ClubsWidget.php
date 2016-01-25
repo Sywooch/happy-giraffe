@@ -19,6 +19,8 @@ class ClubsWidget extends \CWidget
         }, $clubs));
         $labels = Label::model()->findAll($criteria);
 
+        var_dump($labels); die;
+
         $labelsIds = Label::getIdsByLabels(array_map(function($label) {
             return $label->id;
         }, $labels));

@@ -30,25 +30,31 @@ class UsersTopWidget extends \CWidget
         $cacheId = $this->getCacheId();
         $value = \Yii::app()->cache->get($cacheId);
         if ($value === false) {
+            \Yii::beginProfile('usersTop1');
             $criteria = clone Content::model()->byLabels(array(Label::LABEL_FORUMS))->getDbCriteria();
             $criteria->compare('authorId', '!=' . \User::HAPPY_GIRAFFE);
             $criteria->join = 'JOIN ' . Tag::model()->tableName() . ' tagModels ON tagModels.contentId = t.id';
             $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
             $ids = $command->queryColumn();
+            \Yii::endProfile('usersTop1');
 
+            \Yii::beginProfile('usersTop2');
             $criteria2 = new \CDbCriteria();
             $criteria2->addInCondition('t.id', $ids);
             $criteria2->group = 'authorId';
             $criteria2->select = 'authorId AS uId, COUNT(*) AS n';
             $command2 = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria2);
             $posts = $command2->queryAll();
+            \Yii::endProfile('usersTop2');
 
+            \Yii::beginProfile('usersTop3');
             $criteria2 = new \CDbCriteria();
             $criteria2->addInCondition('t.id', $ids);
             $criteria2->group = 'author_id';
             $criteria2->select = 'author_id AS uId, COUNT(*) AS n';
             $command2 = \Yii::app()->db->getCommandBuilder()->createFindCommand(Comment::model()->tableName(), $criteria2);
             $comments = $command2->queryAll();
+            \Yii::endProfile('usersTop3');
 
             $scores = array();
             $this->process($posts, $scores, self::POSTS_MULTIPLIER);

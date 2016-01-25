@@ -12,11 +12,22 @@ class ClubsWidget extends \CWidget
         $sections = \CommunitySection::model()->with('clubs')->findAll();
         $clubs = \CommunityClub::model()->findAll();
 
-        $in = implode(',', Label::getIdsByLabels(array_map(function($club) {
+        $criteria = new \CDbCriteria();
+        $criteria->index = 'id';
+        $criteria->addInCondition('text', array_map(function($club) {
             return $club->toLabel();
-        }, $clubs)));
+        }, $clubs));
+        $labels = Label::model()->findAll($criteria);
+
+        $labelsIds = Label::getIdsByLabels(array_map(function($label) {
+            return $label->id;
+        }, $labels));
+        $in = implode(',', $labelsIds);
+
+
+
         $sql = "SELECT * FROM (
-SELECT pc.*, pt2.labelId
+SELECT pc.*
 FROM post__contents pc
 JOIN post__tags pt ON pt.contentId = pc.id
 JOIN post__tags pt2 ON pt2.contentId = pc.id
@@ -24,19 +35,26 @@ WHERE pt.labelId IN (18319) AND pt2.labelId IN (" . $in . ") AND isRemoved = 0
 GROUP BY pc.id
 HAVING COUNT(pt.labelId) = 1
 ORDER BY dtimePublication DESC) t
+JOIN post__labels pl ON t.labelId = pl.id
 GROUP BY t.labelId;";
 
-        $a = \Yii::app()->db->createCommand($sql);
+        $posts = array();
+
+        $result = $sql->queryAll();
 
 
 
 
-
-        var_dump($a->queryAll());
-
-        var_dump($a->text);
-
-        die;
+        foreach ($result as $row) {
+            $post = Content::model()->populateRecord($row);
+            $labelId = $row['labelId'];
+            foreach ($clubs as $club) {
+                if ($club->toLabel() == $labels[$labelId]) {
+                    $post[$club->id] = $post;
+                    break;
+                }
+            }
+        }
 
 
 

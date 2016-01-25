@@ -44,14 +44,13 @@ GROUP BY t.labelId;";
         $result = \Yii::app()->db->createCommand($sql)->queryAll();
 
 
-        var_dump($result); die;
 
 
         foreach ($result as $row) {
             $post = Content::model()->populateRecord($row);
             $labelId = $row['labelId'];
             foreach ($clubs as $club) {
-                if ($club->toLabel() == $labels[$labelId]) {
+                if ($club->toLabel() == $labels[$labelId]->text) {
                     $post[$club->id] = $post;
                     break;
                 }

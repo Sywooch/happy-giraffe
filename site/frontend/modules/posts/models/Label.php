@@ -133,11 +133,6 @@ class Label extends \CActiveRecord
 
         // поищем теги в кеше
         $cacheTags = self::_getTags();
-
-        if (! is_array($labels)) {
-            var_dump($labels); die;
-        }
-
         foreach ($labels as $k => $label) {
             if (isset($cacheTags[$label])) {
                 $tagIds[] = $cacheTags[$label];

@@ -50,11 +50,10 @@ GROUP BY t.labelId;";
             $post = Content::model()->populateRecord($row);
             $labelId = $row['labelId'];
 
-            var_dump($labels[$labelId]); die;
 
             foreach ($clubs as $club) {
                 if ($club->toLabel() == $labels[$labelId]->text) {
-                    $post[$club->id] = $post;
+                    $posts[$club->id] = $post;
                     break;
                 }
             }

@@ -2,11 +2,11 @@
     <div class="heading-link-xxl"> Мы здесь общаемся!</div>
     <!--Добавить в layout_base-->
 
-    <?php Yii::beginProfile('sersTop'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget');Yii::endProfile('sersTop'); ?>
-    <?php Yii::beginProfile('lastPost'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget');Yii::endProfile('lastPost'); ?>
+    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget'); ?>
+    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); ?>
     <div class="clearfix"></div>
-    <?php Yii::beginProfile('clubs'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget'); Yii::endProfile('clubs'); ?>
-    <?php Yii::beginProfile('onlineUsers'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); Yii::endProfile('onlineUsers'); ?>
+    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget'); ?>
+    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); ?>
 </div>
 
 

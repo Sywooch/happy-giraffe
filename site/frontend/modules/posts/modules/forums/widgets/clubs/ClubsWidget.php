@@ -11,6 +11,13 @@ class ClubsWidget extends \CWidget
     {
         $sections = \CommunitySection::model()->with('clubs')->findAll();
 
+
+        $posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
+            'group' => 'labels',
+        ));
+
+        var_dump($posts); die;
+
         $posts = array();
         foreach ($sections as $section) {
             foreach ($section->clubs as $club) {

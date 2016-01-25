@@ -40,7 +40,7 @@ GROUP BY t.labelId;";
 
         $posts = array();
 
-        $result = $sql->queryAll();
+        $result = \Yii::app()->db->createCommand($sql)->queryAll();
 
 
 

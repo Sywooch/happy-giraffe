@@ -89,6 +89,8 @@ class Idea extends \CActiveRecord
             array('title', 'length', 'max' => 255),
             array('id', 'unique'),
             array('id, collectionId, authorId', 'numerical', 'min' => 1, 'integerOnly' => true),
+            array('authorId', 'exist', 'attributeName' => 'id', 'className' => get_class(\User::model())),
+            array('collectionId', 'exist', 'attributeName' => 'id', 'className' => get_class(PhotoCollection::model())),
         );
     }
 

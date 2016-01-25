@@ -21,7 +21,14 @@ class WebUser extends CWebUser
     protected function afterLogin($fromCookie)
     {
         $model = $this->getModel();
-        
+
+        /*\Yii::log($model->id . 'asdasd', 'info', 'webuser');
+        if ($model == null) {
+            Yii::app()->request->cookies['not_guest'] = new CHttpCookie('not guest', '0');
+            $this->isGuest = true;
+            return;
+        }*/
+
         OnlineManager::online($model, true);
 
         if (! $fromCookie) {
@@ -66,6 +73,7 @@ class WebUser extends CWebUser
 
     public function login($identity, $duration = null)
     {
+        //\Yii::log('login', 'info', 'webuser');
         if ($duration === null) {
             $duration = $this->getRememberDuration();
         }

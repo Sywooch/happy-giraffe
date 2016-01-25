@@ -4,7 +4,7 @@ return CMap::mergeArray(
 	/*require(dirname(__FILE__) . '/../../common/config/main.php'),
 	require(dirname(__FILE__) . '/../../common/config/main-local.php'),*/
 	require(dirname(__FILE__).'/main.php'),
-	/*require(dirname(__FILE__).'/main-local.php'),*/
+	require(dirname(__FILE__).'/main-local.php'),
 	array(
 		'components'=>array(
 			'fixture'=>array(

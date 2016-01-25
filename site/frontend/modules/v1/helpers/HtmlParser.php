@@ -52,7 +52,7 @@ class HtmlParser
             $lis = $ol->find('li');
 
             for ($i = 0; $i < count($lis); $i++) {
-                $lis[$i]->outertext = ($i + 1) . '. ' . $lis[$i]->innertext . '<br/>';
+                $lis[$i]->outertext = ($i + 1) . '. ' . $lis[$i]->innertext . '<br>';
             }
         }
 
@@ -65,7 +65,7 @@ class HtmlParser
         foreach ($html->find('ul') as $ul) {
             //$ul->outertext = $ul->innertext;
             foreach ($ul->find('li') as $li) {
-                $li->outertext = '&#8226; ' . $li->innertext . '<br/>';
+                $li->outertext = '&#8226; ' . $li->innertext . '<br>';
             }
         }
 

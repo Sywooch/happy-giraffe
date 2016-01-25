@@ -77,8 +77,9 @@ class IdeasAction extends RoutedAction implements IPostProcessable
             $idea = Idea::model()->findByPk($params['id']);
 
             if ($idea) {
-                if (!\Yii::app()->user->checkAccess('updateIdea') || $idea->authorId != \Yii::app()->user->getId()) {
+                if (!\Yii::app()->user->checkAccess('updateIdea', array('entity' => $idea))) {
                     $this->controller->setError('AccessDenied', 403);
+                    return;
                 }
 
                 $idea->title = $params['title'];
@@ -110,8 +111,9 @@ class IdeasAction extends RoutedAction implements IPostProcessable
             $idea = Idea::model()->findByPk($params['id']);
 
             if ($idea) {
-                if (!\Yii::app()->user->checkAccess('removeIdea') || $idea->authorId != \Yii::app()->user->getId()) {
+                if (!\Yii::app()->user->checkAccess('removeIdea', array('entity' => $idea))) {
                     $this->controller->setError('AccessDenied', 403);
+                    return;
                 }
 
                 switch ($params['action']) {

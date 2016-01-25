@@ -9,10 +9,6 @@ use site\frontend\modules\posts\models\Tag;
 
 class IdeaTest extends \PHPUnit_Framework_TestCase
 {
-    /*public $fixtures=array(
-        'ideas' => 'Idea',
-    );*/
-
     protected $idea;
 
     protected function setUp()
@@ -65,6 +61,18 @@ class IdeaTest extends \PHPUnit_Framework_TestCase
 
         $this->idea->title = $this->createTitle(255);
         $this->assertTrue($this->idea->validate(array('title')));
+    }
+
+    public function testAuthorExists()
+    {
+        $this->idea->authorId = 400000;
+        $this->assertFalse($this->idea->validate(array('authorId')));
+    }
+
+    public function testCollectionExists()
+    {
+        $this->idea->collectionId = 400000;
+        $this->assertFalse($this->idea->validate(array('collectionId')));
     }
 
     private function createTitle($length)

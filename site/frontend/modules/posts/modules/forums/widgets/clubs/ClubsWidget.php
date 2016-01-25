@@ -9,23 +9,18 @@ class ClubsWidget extends \CWidget
 {
     public function run()
     {
-        $sections = \CommunitySection::model()->with('clubs')->findAll();
-
-
-        $posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
+        $sections = \CommunitySection::model()->findAll();
+        $clubs = \Community::model()->findAll();
+        $_posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
             'group' => 'labels',
         ));
-
-        var_dump(1);
-        var_dump($posts); die;
-
         $posts = array();
-        foreach ($sections as $section) {
-            foreach ($section->clubs as $club) {
-                $label = $club->toLabel();
-                $post = Content::model()->byLabels(array($label, Label::LABEL_FORUMS))->orderDesc()->find();
-                if ($post) {
-                    $posts[$club->id] = $post;
+        foreach ($_posts as $post) {
+            foreach ($post->labelsArray as $label) {
+                foreach ($clubs as $club) {
+                    if ($label == $club->toLabel()) {
+                        $posts[$club->id] = $post;
+                    }
                 }
             }
         }

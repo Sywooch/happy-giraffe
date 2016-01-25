@@ -25,9 +25,13 @@ GROUP BY t.labelId;
 SQL;
 
         $criteria = clone Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->getDbCriteria();
+        $criteria->select = 't.*, pt2.labelId';
         $criteria->join .= "JOIN post__tags pt ON pt.contentId = t.id JOIN post__tags pt2 ON pt2.contentId = t.id";
         $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
-        echo $command->text; die;
+
+        $command->text = "SELECT * FROM (" . $command->text . ") t GROUP BY t.labelId"
+
+        var_dump($command->queryAll()); die;
 
         $users = User::model()->findAllByPk(array_map(function($post) {
             return $post->authorId;

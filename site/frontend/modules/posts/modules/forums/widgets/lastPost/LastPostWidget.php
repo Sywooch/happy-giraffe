@@ -20,8 +20,8 @@ class LastPostWidget extends \CWidget
         \Yii::beginProfile('last1');
         $labelId = Label::getIdsByLabels(array(Label::LABEL_FORUMS))[0];
         $dependency = new \CDbCacheDependency('SELECT COUNT(*) FROM ' . Tag::model()->tableName() . ' WHERE labelId = ' . $labelId);
-        $posts = Content::model()->cache(300, $dependency)->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
-            'limit' => self::LIMIT
+        $posts = Content::model()->cache(0, $dependency)->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
+            'limit' => self::LIMIT,
         ));
         \Yii::endProfile('last1');
 

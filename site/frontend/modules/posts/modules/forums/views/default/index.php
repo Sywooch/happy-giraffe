@@ -1,11 +1,12 @@
 <div class="b-main_cont">
     <div class="heading-link-xxl"> Мы здесь общаемся!</div>
     <!--Добавить в layout_base-->
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget'); ?>
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); ?>
+
+    <?php if($this->beginCache('Forums.UsersTopWidget', array('duration'=>3600))) {$this->widget('site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget'); $this->endCache();} ?>
+    <?php if($this->beginCache('Forums.LastPostWidget', array('duration'=>3600))) {$this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); $this->endCache();} ?>
     <div class="clearfix"></div>
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget'); ?>
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); ?>
+    <?php if($this->beginCache('Forums.ClubsWidget', array('duration'=>3600))) {$this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget'); $this->endCache();} ?>
+    <?php if($this->beginCache('Forums.OnlineUsersWidget', array('duration'=>3600))) {$this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); $this->endCache();} ?>
 </div>
 
 

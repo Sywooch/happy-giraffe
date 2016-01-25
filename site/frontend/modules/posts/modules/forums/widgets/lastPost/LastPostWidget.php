@@ -17,7 +17,8 @@ class LastPostWidget extends \CWidget
     public function run()
     {
         \Yii::beginProfile('last1');
-        $posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
+        $dependency = Content::model()->byLabels(array(Label::LABEL_FORUMS))->count();
+        $posts = Content::model()->cache(300, $dependency)->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
             'limit' => self::LIMIT
         ));
         \Yii::endProfile('last1');

@@ -25,8 +25,8 @@ GROUP BY t.labelId;
 SQL;
 
         $criteria = clone Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->getDbCriteria();
-        $criteria->select = 't.*, pt2.labelId';
-        $criteria->join .= "JOIN post__tags pt2 ON pt2.contentId = t.id";
+//        $criteria->select = 't.*, pt2.labelId';
+//        $criteria->join .= "JOIN post__tags pt2 ON pt2.contentId = t.id";
         $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
 
         //$command->text = "SELECT * FROM (" . $command->text . ") t GROUP BY t.labelId";

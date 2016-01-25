@@ -28,16 +28,20 @@ SQL;
         $a = \Yii::app()->db->createCommand($sql);
 
 
-        var_dump(implode(',', Label::getIdsByLabels(array_map(function($club) {
-            return $club->toLabel();
-        }, $clubs))));
+
 
         var_dump($a->queryAll(true, array(
             ':a' => Label::LABEL_FORUMS,
             ':b' => implode(',', Label::getIdsByLabels(array_map(function($club) {
                 return $club->toLabel();
             }, $clubs))),
-        ))); die;
+        )));
+
+        var_dump($a->text);
+
+        die;
+
+
 
         $users = User::model()->findAllByPk(array_map(function($post) {
             return $post->authorId;

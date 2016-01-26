@@ -1,5 +1,6 @@
 <?php
 namespace site\frontend\modules\posts\modules\buzz\commands;
+use site\frontend\modules\editorialDepartment\behaviors\ConvertBehavior;
 use site\frontend\modules\posts\models\Content;
 use site\frontend\modules\posts\models\Label;
 use site\frontend\modules\som\modules\community\models\api\CommunityClub;
@@ -32,6 +33,8 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionMigrate2($all = false, $id = null)
     {
+        ConvertBehavior::$migration = true;
+
         if ($all === false && $id === null) {
             throw new \CException("Invalid parameters");
         }

@@ -125,7 +125,7 @@ class SiteController extends LiteController
 	    if ($error = Yii::app()->errorHandler->error)
 	    {
 	    	if (Yii::app()->request->isAjaxRequest)
-                var_dump($error);
+                echo $error->message;
 	    	else
             {
                 $viewFile = Yii::app()->getSystemViewPath() . DIRECTORY_SEPARATOR . 'error' . $error['code'] . '.php';

@@ -19,11 +19,20 @@ include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DI
  */
 class ConvertBehavior extends \EMongoDocumentBehavior
 {
+    public static $migration = false;
 
     protected $_post;
 
     public function getUrl()
     {
+        if (self::$migration) {
+            return \Yii::app()->createAbsoluteUrl('community/default/view', array(
+                'forum_id' => $this->owner->forumId,
+                'content_type_slug' => 'advpost',
+                'content_id' => $this->owner->entityId,
+            ));
+        }
+
         switch ($this->owner->scenario) {
             case 'forums':
                 return \Yii::app()->createAbsoluteUrl('community/default/view', array(

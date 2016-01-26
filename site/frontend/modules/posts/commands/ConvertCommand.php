@@ -60,6 +60,7 @@ class ConvertCommand extends \CConsoleCommand
             'entityId' => $id,
         );
         // обеспечим уникальность задач
+        die('123');
         $client->doBackground($fName, self::serialize($data), implode('-', $data));
         return true;
     }

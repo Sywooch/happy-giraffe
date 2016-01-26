@@ -12,11 +12,14 @@
         <ul class="homepage-clubs_ul">
             <?php foreach ($section->clubs as $j => $club): ?>
             <li class="homepage-clubs_li">
-                <div class="clubs_cont"><a href="<?=$club->url?>" class="homepage-clubs_a">
-                        <div class="homepage-clubs_ico-hold">
+                <a class="clubs_cont">
+                    /* "Fix clubs icons" by Ivan Sinyavin  */
+                    <div href="<?=$club->url?>" class="ico-clubs_a ico-clubs-medium">
+                        <div class="ico-clubs-medium_ico-hold">
                             <div class="ico-club ico-club__<?=$club->id?>"></div>
                         </div>
-                        <div class="forum_subheading"><?=$club->title?></div></a>
+                        <div class="forum_subheading"><?=$club->title?></div>
+                    </div>
                     <div class="forum_subheading_desc"><?=$club->description?></div>
                 </div>
                 <div class="clubs_info">

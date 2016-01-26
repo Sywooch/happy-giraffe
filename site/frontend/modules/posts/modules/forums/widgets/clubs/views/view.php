@@ -7,7 +7,7 @@
 ?>
 
 <?php foreach ($sections as $i => $section): ?>
-    <div class="forum_heading_block">
+    <a class="forum_heading_block">
         <div class="forum_heading"><?=$section->title?></div>
         <ul class="homepage-clubs_ul">
             <?php foreach ($section->clubs as $j => $club): ?>
@@ -21,7 +21,7 @@
                         <div class="forum_subheading"><?=$club->title?></div>
                     </div>
                     <div class="forum_subheading_desc"><?=$club->description?></div>
-                </div>
+                </a>
                 <div class="clubs_info">
                     <div class="counter-block"><span class="rating_count counter-text"><?=\site\frontend\modules\community\helpers\StatsHelper::getPosts($club->id)?></span>
                         <div class="rating_text counter-hint">темы</div>

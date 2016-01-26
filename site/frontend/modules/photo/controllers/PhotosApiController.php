@@ -50,6 +50,8 @@ class PhotosApiController extends ApiController
 
     public function actionUploadByUrl($url, $collectionId = null)
     {
+        var_dump($this->getActionParams()); die;
+
         if (!\Yii::app()->user->checkAccess('uploadPhoto')) {
             throw new \CHttpException(403, 'Недостаточно прав');
         }

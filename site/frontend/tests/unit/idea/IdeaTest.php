@@ -36,6 +36,12 @@ class IdeaTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->idea->validate(array('authorId')));
     }
 
+    public function testClubIsRequired()
+    {
+        $this->idea->club = null;
+        $this->assertFalse($this->idea->validate(array('club')));
+    }
+
     public function testCollectionIsGreaterThenZero()
     {
         $this->idea->collectionId = 0;
@@ -54,7 +60,6 @@ class IdeaTest extends \PHPUnit_Framework_TestCase
 
     public function testTitleLength()
     {
-
         $this->idea->title = $this->createTitle(256);
         $this->assertFalse($this->idea->validate(array('title')));
 
@@ -73,6 +78,66 @@ class IdeaTest extends \PHPUnit_Framework_TestCase
     {
         $this->idea->collectionId = 400000;
         $this->assertFalse($this->idea->validate(array('collectionId')));
+    }
+
+    public function testClubExists()
+    {
+        $this->idea->club = 99999;
+        $this->assertFalse($this->idea->validate(array('club')));
+    }
+
+    public function testForumsIsMatchPattern()
+    {
+        $this->idea->forums = null;
+        $this->assertTrue($this->idea->validate(array('forums')));
+
+        $this->idea->forums = '';
+        $this->assertTrue($this->idea->validate(array('forums')));
+
+        $this->idea->forums = '20';
+        $this->assertTrue($this->idea->validate(array('forums')));
+
+        $this->idea->forums = '20,';
+        $this->assertTrue($this->idea->validate(array('forums')));
+
+        $this->idea->forums = '20,30';
+        $this->assertTrue($this->idea->validate(array('forums')));
+
+        $this->idea->forums = '20,30,';
+        $this->assertTrue($this->idea->validate(array('forums')));
+
+        $this->idea->forums = 'a';
+        $this->assertFalse($this->idea->validate(array('forums')));
+
+        $this->idea->forums = '20,a,30';
+        $this->assertFalse($this->idea->validate(array('forums')));
+    }
+
+    public function testRubricsIsMatchPattern()
+    {
+        $this->idea->rubrics = null;
+        $this->assertTrue($this->idea->validate(array('rubrics')));
+
+        $this->idea->rubrics = '';
+        $this->assertTrue($this->idea->validate(array('rubrics')));
+
+        $this->idea->rubrics = '20';
+        $this->assertTrue($this->idea->validate(array('rubrics')));
+
+        $this->idea->rubrics = '20,';
+        $this->assertTrue($this->idea->validate(array('rubrics')));
+
+        $this->idea->rubrics = '20,30';
+        $this->assertTrue($this->idea->validate(array('rubrics')));
+
+        $this->idea->rubrics = '20,30,';
+        $this->assertTrue($this->idea->validate(array('rubrics')));
+
+        $this->idea->rubrics = 'a';
+        $this->assertFalse($this->idea->validate(array('rubrics')));
+
+        $this->idea->rubrics = '20,a,30';
+        $this->assertFalse($this->idea->validate(array('rubrics')));
     }
 
     private function createTitle($length)

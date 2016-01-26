@@ -49,8 +49,8 @@ class IdeasAction extends RoutedAction implements IPostProcessable
 
 
             $idea->club = $params['club'];
-            $idea->forums = explode(',', $params['forums']);
-            $idea->rubrics = explode(',', $params['rubrics']);
+            $idea->forums = $params['forums'];
+            $idea->rubrics = $params['rubrics'];
 
             if ($idea->save()) {
                 $idea->refresh();

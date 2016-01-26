@@ -39,8 +39,8 @@ class LabelsConstructBehavior extends \CActiveRecordBehavior
     public function beforeSave($event)
     {
         $this->club = $this->owner->club;
-        $this->forums = $this->owner->forums;
-        $this->rubrics = $this->owner->rubrics;
+        $this->forums = explode(',', $this->owner->forums);
+        $this->rubrics = explode(',', $this->owner->rubrics);
 
         $this->handleClub();
         $this->handleForums();

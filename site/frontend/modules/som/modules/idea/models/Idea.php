@@ -13,10 +13,6 @@ use site\frontend\modules\som\modules\idea\behaviors\LabelsConstructBehavior;
  */
 class Idea extends \CActiveRecord
 {
-    public $club;
-    public $forums = array();
-    public $rubrics = array();
-
     public $labelsArray;
 
     public function tableName()
@@ -42,21 +38,6 @@ class Idea extends \CActiveRecord
                 'createAttribute' => 'dtimeCreate',
                 'updateAttribute' => null,
             ),
-            //Это наверняка поправить надо.
-            /*'UrlBehavior' => array(
-
-                'class' => 'site\common\behaviors\UrlBehavior',
-                'route' => function($model) {
-                    return $model->forumId ? 'posts/community/view' : 'posts/post/view';
-                },
-                'params' => function($model) {
-                    return array(
-                        'content_type_slug' => 'idea',
-                        'user_id' => $model->authorId,
-                        'content_id' => $model->id,
-                    );
-                },
-            ),*/
             'ConvertBehavior' => 'site\frontend\modules\som\modules\idea\behaviors\ConvertBehavior',
         );
     }
@@ -71,6 +52,7 @@ class Idea extends \CActiveRecord
         return array(
             'collection' => array(self::BELONGS_TO, get_class(PhotoCollection::model()), 'collectionId'),
             'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
+            'club' => array(self::BELONGS_TO, get_class(\CommunityClub::model()), 'club'),
         );
     }
 
@@ -81,16 +63,16 @@ class Idea extends \CActiveRecord
 
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
-            array('title, collectionId, authorId', 'required'),
+            array('title, collectionId, authorId, club', 'required'),
             array('isRemoved, labels', 'safe'),
             array('title', 'length', 'max' => 255),
             array('id', 'unique'),
-            array('id, collectionId, authorId', 'numerical', 'min' => 1, 'integerOnly' => true),
+            array('id, collectionId, authorId, club', 'numerical', 'min' => 1, 'integerOnly' => true),
             array('authorId', 'exist', 'attributeName' => 'id', 'className' => get_class(\User::model())),
             array('collectionId', 'exist', 'attributeName' => 'id', 'className' => get_class(PhotoCollection::model())),
+            array('club', 'exist', 'attributeName' => 'id', 'className' => get_class(\CommunityClub::model())),
+            array('forums, rubrics', 'match', 'allowEmpty' => true, 'pattern' => '/^([0-9]*[,]?)*$/'),
         );
     }
 
@@ -107,6 +89,9 @@ class Idea extends \CActiveRecord
             'isRemoved' => 'Is Removed',
             'dtimeCreate' => 'Dtime Create',
             'labels' => 'Labels',
+            'club' => 'Club',
+            'forums' => 'Forums',
+            'rubrics' => 'Rubrics',
         );
     }
 

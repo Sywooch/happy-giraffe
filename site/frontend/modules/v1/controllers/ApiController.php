@@ -34,13 +34,13 @@ class ApiController extends V1ApiController
              */
             /**
              * @apiDefine Version
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Auth
              * @api {post} / Авторизация через токен.
              * @apiUse ApiAuthInstruction
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Auth
@@ -82,7 +82,7 @@ class ApiController extends V1ApiController
                     "expire": 1451981388
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Auth
@@ -117,7 +117,7 @@ class ApiController extends V1ApiController
                     "expire": 1451981805
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Auth
@@ -134,7 +134,7 @@ class ApiController extends V1ApiController
                     "expire": 1451981699
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'login' => array(
                 'class' => 'site\frontend\modules\v1\actions\LoginAction',
@@ -187,7 +187,7 @@ class ApiController extends V1ApiController
                     "color": "ffd72c"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'sections' => array(
                 'class' => 'site\frontend\modules\v1\actions\SectionsAction',
@@ -223,7 +223,7 @@ class ApiController extends V1ApiController
                     "slug": "pregnancy-and-birth"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'clubs' => array(
                 'class' => 'site\frontend\modules\v1\actions\ClubsAction',
@@ -266,7 +266,7 @@ class ApiController extends V1ApiController
                     "club_id": "2"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'forums' => array(
                 'class' => 'site\frontend\modules\v1\actions\ForumsAction',
@@ -304,7 +304,7 @@ class ApiController extends V1ApiController
                     "label_id": null
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'rubrics' => array(
                 'class' => 'site\frontend\modules\v1\actions\RubricsAction',
@@ -387,7 +387,7 @@ class ApiController extends V1ApiController
                     "avatarInfo": ""
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'users' => array(
                 'class' => 'site\frontend\modules\v1\actions\UsersAction',
@@ -418,7 +418,7 @@ class ApiController extends V1ApiController
                     "new_entity_id": "430087"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Comments
@@ -449,7 +449,7 @@ class ApiController extends V1ApiController
                     "new_entity_id": "28"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Comments
@@ -476,7 +476,7 @@ class ApiController extends V1ApiController
                 "rootId": 1187752,
                 "dtimeCreate": 1449669117
             }
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Comments
@@ -484,7 +484,7 @@ class ApiController extends V1ApiController
              * @apiUse ApiAuthInstruction
              * @apiUse SocialAuthInstruction
              * @apiParam (Delete Params:) {Number} id Id комментария.
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'comments' => array(
                 'class' => 'site\frontend\modules\v1\actions\CommentsAction',
@@ -551,7 +551,7 @@ class ApiController extends V1ApiController
                     "views": "0"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Posts
@@ -566,7 +566,7 @@ class ApiController extends V1ApiController
              * @apiParam (Post Params:) {String="forum","blog"} type Тип поста в зависимости от расположения (форум или блог).
              * @apiParam (Post Params:) {Object[]} [photos] Коллекция фотографий для фотопостов.
              * @apiParam (Post Params:) {String} [link] Ссылка на видео для видеопостов.
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Posts
@@ -581,7 +581,7 @@ class ApiController extends V1ApiController
              * @apiParam (Put Params:) {Number} rubric_id Id рубрики.
              * @apiParam (Put Params:) {Object[]} [photos] Коллекция фотографий в фотопосте.
              * @apiParam (Put Params:) {String} [link] Ссылка на видео для видеопостов.
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Posts
@@ -590,7 +590,7 @@ class ApiController extends V1ApiController
              * @apiUse SocialAuthInstruction
              * @apiParam (Delete Params:) {Number} id Id удаляемого поста.
              * @apiParam (Delete Params:) {String="forum","blog"} type Тип поста в зависимости от расположения.
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'posts' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostsAction',
@@ -621,7 +621,7 @@ class ApiController extends V1ApiController
                     "hash": "73e09b287615622472ae278607a3dfe6"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'onair' => array(
                 'class' => 'site\frontend\modules\v1\actions\OnairAction',
@@ -696,7 +696,7 @@ class ApiController extends V1ApiController
                     "views": "0"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /*'postContent' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostContentAction',
@@ -719,7 +719,7 @@ class ApiController extends V1ApiController
                     "text": "Рубрика: Обо всём"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /*'postLabel' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostLabelAction',
@@ -741,7 +741,7 @@ class ApiController extends V1ApiController
                     "labelId": "2"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /*'postTag' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostTagAction',
@@ -787,7 +787,7 @@ class ApiController extends V1ApiController
                     "root_id": "1187738"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /*'postComments' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostCommentsAction',
@@ -820,7 +820,7 @@ class ApiController extends V1ApiController
                     "new_photo_id": "186"
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'photo' => array(
                 'class' => 'site\frontend\modules\v1\actions\PhotoAction',
@@ -836,7 +836,7 @@ class ApiController extends V1ApiController
              * @apiGroup Auth
              * @api {post} check-token/ Проверка токена.
              * @apiParam (Post Params:) access_token Токен доступа.
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'checkToken' => array(
                 'class' => 'site\frontend\modules\v1\actions\CheckTokenAction',
@@ -852,89 +852,105 @@ class ApiController extends V1ApiController
              * @apiSuccessExample {json} Success-Response:
             [
                 {
-                    "id": "41",
-                    "title": "Idea From API 35",
-                    "collectionId": "5760877",
-                    "authorId": "451719",
-                    "isDraft": "0",
+                    "id": "43",
+                    "title": "Idea From API 2",
+                    "collectionId": "606",
+                    "authorId": "241803",
                     "isRemoved": "0",
-                    "dtimeCreate": "1453192238",
-                    "labels": "",
-                    "forumId": null,
+                    "dtimeCreate": "1453722349",
+                    "labels": "Идеи|Клуб: Беременность и роды|Форум: Беременность|Форум: Роды|Рубрика: Общение будущих мам|Рубрика: Информация для беременных|Рубрика: Документы, пособия, выплаты|Рубрика: Срок беременности, ПДР",
+                    "author": {
+                        "id": "241803",
+                        "first_name": "Stas",
+                        "last_name": "Fomin",
+                        "gender": "1",
+                        "birthday": "1996-04-02",
+                        "last_active": "2015-12-21 09:25:25",
+                        "online": "1",
+                        "register_date": "2015-11-12 15:30:08",
+                        "login_date": "2015-12-21 09:25:25",
+                        "relationship_status": null,
+                        "mood_id": null,
+                        "group": "1",
+                        "updated": "2015-11-12 15:30:08",
+                        "last_updated": null,
+                        "status": "1",
+                        "avatarInfo": ""
+                        },
                     "collection": {
-                    "id": "5760877",
-                    "entity": null,
-                    "entity_id": null,
-                    "key": "",
-                    "cover_id": "5133264",
-                    "created": "2016-01-12 17:54:56",
-                    "updated": "2016-01-12 17:54:57",
-                    "attaches": [
+                        "id": "606",
+                        "entity": null,
+                        "entity_id": null,
+                        "key": "",
+                        "cover_id": "33",
+                        "created": "2016-01-20 15:34:36",
+                        "updated": "2016-01-20 15:34:37",
+                        "attaches": [
                         {
-                            "id": "5133262",
-                            "photo_id": "3325090",
+                            "id": "33",
+                            "photo_id": "255",
                             "position": "0",
-                            "created": 1452610497,
-                            "updated": 1452610497,
+                            "created": 1453293277,
+                            "updated": 1453293277,
                             "removed": "0",
                             "photo": {
-                                "id": "3325090",
-                                "title": "1111",
-                                "description": "1111",
-                                "width": "18",
-                                "height": "18",
-                                "original_name": "18x18.png",
-                                "fs_name": "6b/0f/f6a8f3c54b6b71eef3ad5ab169af.png",
-                                "created": 1452610433,
-                                "updated": 1452610443,
-                                "author_id": "451719"
-                            }
+                            "id": "255",
+                            "title": "",
+                            "description": "",
+                            "width": "18",
+                            "height": "18",
+                            "original_name": "18x18.png",
+                            "fs_name": "2c/b3/31ce59a0099796ab9e86da618c55.png",
+                            "created": 1453293264,
+                            "updated": 1453293264,
+                            "author_id": "241803"
+                        }
                         },
-                        {
-                            "id": "5133263",
-                            "photo_id": "3325091",
+                            {
+                            "id": "34",
+                            "photo_id": "256",
                             "position": "1",
-                            "created": 1452610497,
-                            "updated": 1452610497,
+                            "created": 1453293277,
+                            "updated": 1453293277,
                             "removed": "0",
                             "photo": {
-                                "id": "3325091",
-                                "title": "222",
-                                "description": "222",
-                                "width": "50",
-                                "height": "50",
-                                "original_name": "50x50.png",
-                                "fs_name": "30/67/dbd6e8dbc26f0e3f498325140bea.png",
-                                "created": 1452610434,
-                                "updated": 1452610449,
-                                "author_id": "451719"
+                            "id": "256",
+                            "title": "",
+                            "description": "",
+                            "width": "50",
+                            "height": "50",
+                            "original_name": "50x50.png",
+                            "fs_name": "e3/2a/78a277c3ff49630bce1fd34c855f.png",
+                            "created": 1453293265,
+                            "updated": 1453293265,
+                            "author_id": "241803"
                             }
                         },
-                    {
-                        "id": "5133264",
-                        "photo_id": "3325092",
-                        "position": "2",
-                        "created": 1452610497,
-                        "updated": 1452610497,
-                        "removed": "0",
-                        "photo": {
-                            "id": "3325092",
-                            "title": "333",
-                            "description": "333",
+                            {
+                            "id": "35",
+                            "photo_id": "257",
+                            "position": "2",
+                            "created": 1453293277,
+                            "updated": 1453293277,
+                            "removed": "0",
+                            "photo": {
+                            "id": "257",
+                            "title": "",
+                            "description": "",
                             "width": "128",
                             "height": "128",
                             "original_name": "128x128.png",
-                            "fs_name": "6d/17/4bbcf01440e68bb48aa54748cc00.png",
-                            "created": 1452610436,
-                            "updated": 1452610453,
-                            "author_id": "451719"
+                            "fs_name": "2c/39/f23db9b9e111365f7ad07b37c6e3.png",
+                            "created": 1453293266,
+                            "updated": 1453293266,
+                            "author_id": "241803"
+                            }
                         }
+                        ]
                         }
-                    ]
-                    }
                 }
             ]
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Ideas
@@ -947,7 +963,7 @@ class ApiController extends V1ApiController
              * @apiParam (Post Params:) {Number} club Id клуба.
              * @apiParam (Post Params:) {Array} forums Айдишники форумов через запятую (без пробелов).
              * @apiParam (Post Params:) {Array} rubrics Айдишники рубрик чяерез запятую (без пробелов).
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Ideas
@@ -955,14 +971,14 @@ class ApiController extends V1ApiController
              * @apiParam (Put Params:) {Number} id Id идеи.
              * @apiParam (Put Params:) {Number} collectionId Id коллекции фотографий.
              * @apiParam (Put Params:) {String} title Заголовок идеи.
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             /**
              * @apiGroup Ideas
              * @api {delete} ideas/ Удаление идеи.
              * @apiParam (Delete Params:) {Number} id Id идеи.
              * @apiParam (Delete Params:) {String=delete,restore} action Действие.
-             * @apiVersion 0.1.7
+             * @apiVersion 0.2.1
              */
             'ideas' => array(
                 'class' => 'site\frontend\modules\som\modules\idea\actions\IdeasAction',

@@ -58,7 +58,7 @@ class RoutedAction extends \CAction
                     $this->execute($get);
             }
         } catch (Exception $e) {
-            $this->controller->setError(/*$e->getMessage()*/'SomethingWrong', 400);
+            $this->controller->setError('SomethingWrong', 400);
         }
     }
 

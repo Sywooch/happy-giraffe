@@ -13,6 +13,7 @@ use site\frontend\modules\posts\models\Tag;
 
 class UsersTopWidget extends \CWidget
 {
+    const DAYS = 7;
     const POSTS_MULTIPLIER = 5;
     const COMMENTS_MULTIPLIER = 1;
     const CACHE_DURATION = 300;
@@ -33,6 +34,7 @@ class UsersTopWidget extends \CWidget
         if ($value === false) {
             $criteria = clone Content::model()->byLabels(array(Label::LABEL_FORUMS))->getDbCriteria();
             //$criteria->compare('authorId', '!=' . \User::HAPPY_GIRAFFE);
+            $criteria->compare('dtimeCreate', '>' . time() - (3600 * 24 * self::DAYS));
             $criteria->join = 'JOIN ' . Tag::model()->tableName() . ' tagModels ON tagModels.contentId = t.id';
             $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
             $ids = $command->queryColumn();

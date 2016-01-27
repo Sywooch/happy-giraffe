@@ -8,7 +8,6 @@ class TrustedMethods
         'getIdeas',
         'getForums',
         'getClubs',
-
     );
 
     public static function isTrusted($method)

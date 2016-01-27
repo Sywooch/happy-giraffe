@@ -12,7 +12,7 @@ use site\frontend\modules\posts\models\Label;
 
 class LastPostWidget extends \CWidget
 {
-    const LIMIT = 5;
+    const LIMIT = 4;
 
     public function run()
     {

@@ -7,13 +7,12 @@
 ?>
 
 <?php foreach ($sections as $i => $section): ?>
-    <a class="forum_heading_block">
-        <div class="forum_heading"><?=$section->title?></div>
+    <div class="forum_heading_block">
+        <div class="forum_heading color_<?=$section->id?>"><?=$section->title?></div>
         <ul class="homepage-clubs_ul">
             <?php foreach ($section->clubs as $j => $club): ?>
             <li class="homepage-clubs_li">
                 <a class="clubs_cont" href="<?=$club->url?>">
-                    /* "Fix clubs icons" by Ivan Sinyavin  */
                     <div class="ico-clubs_a ico-clubs-medium">
                         <div class="ico-clubs-medium_ico-hold">
                             <div class="ico-club ico-club__<?=$club->id?>"></div>

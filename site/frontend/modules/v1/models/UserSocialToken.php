@@ -27,6 +27,8 @@ class UserSocialToken extends \EMongoDocument
 
     public $error = '';
 
+    const EXPIRES_TIME = 43200;
+
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
@@ -198,7 +200,7 @@ class UserSocialToken extends \EMongoDocument
 
         if (isset($result->response->success)) {
             $model->date = $result->response->date;
-            $model->expire = $result->response->expire;
+            $model->expire = time() + self::EXPIRES_TIME; //$result->response->expire;
             $model->service_user_id = $result->response->user_id;
 
             return true;

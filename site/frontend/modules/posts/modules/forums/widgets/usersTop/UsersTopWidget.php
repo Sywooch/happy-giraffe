@@ -38,9 +38,11 @@ class UsersTopWidget extends \CWidget
             $criteria->join = 'JOIN ' . Tag::model()->tableName() . ' tagModels ON tagModels.contentId = t.id';
             $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
 
-            //var_dump($command->text); die;
+
 
             $ids = $command->queryColumn();
+
+            var_dump($ids); die;
 
             $criteria2 = new \CDbCriteria();
             $criteria2->addInCondition('t.id', $ids);

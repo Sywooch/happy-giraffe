@@ -42,7 +42,7 @@ class UsersTopWidget extends \CWidget
 
             $ids = $command->queryColumn();
 
-            var_dump($ids); die;
+            //var_dump($ids); die;
 
             $criteria2 = new \CDbCriteria();
             $criteria2->addInCondition('t.id', $ids);
@@ -57,6 +57,7 @@ class UsersTopWidget extends \CWidget
             $criteria2->select = 'author_id AS uId, COUNT(*) AS n';
             $command2 = \Yii::app()->db->getCommandBuilder()->createFindCommand(Comment::model()->tableName(), $criteria2);
             $comments = $command2->queryAll();
+            $comments = array();
 
             $scores = array();
             $this->process($posts, $scores, self::POSTS_MULTIPLIER);

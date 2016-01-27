@@ -99,8 +99,6 @@ class PhotosApiController extends ApiController
      */
     public function getActionParams()
     {
-        var_dump($_POST); die;
-
         if (!empty($_POST)) {
             return $_POST;
         } else {

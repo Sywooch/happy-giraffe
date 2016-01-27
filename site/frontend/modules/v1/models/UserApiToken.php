@@ -14,7 +14,7 @@ namespace site\frontend\modules\v1\models;
  */
 class UserApiToken extends \EMongoDocument
 {
-    const EXPIRE_TIME = 60;
+    const EXPIRE_TIME = 5;
 
     public $access_token;
     public $refresh_token;

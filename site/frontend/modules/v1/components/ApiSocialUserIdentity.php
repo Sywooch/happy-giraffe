@@ -3,6 +3,7 @@
 namespace site\frontend\modules\v1\components;
 
 use site\frontend\modules\v1\models\UserSocialToken;
+use site\frontend\modules\v1\helpers\ApiLog;
 
 /**
  * Identity for auth from social tokens.
@@ -33,8 +34,6 @@ class ApiSocialUserIdentity extends \CUserIdentity
                 if ($this->token == $tokenModel->access_token) {
                     $this->user_id = $tokenModel->user_id;
                     $this->handleUser();
-
-                    return true;
                 } else {
                     $this->errorMessage = 'InvalidToken';
                 }
@@ -58,7 +57,6 @@ class ApiSocialUserIdentity extends \CUserIdentity
                     }
 
                     $this->handleUser();
-                    return true;
                 } else {
                     $this->errorMessage = $tokenModel->error;
                 }
@@ -67,19 +65,20 @@ class ApiSocialUserIdentity extends \CUserIdentity
             }
         }
 
-        return false;
+        return $this->errorMessage == '';
     }
 
     private function handleUser()
     {
+        ApiLog::i('handleUser');
         if ($this->user_id) {
             $model = \User::model()->active()->findByPk($this->user_id);
             if ($model === null || $model->status == \User::STATUS_INACTIVE) {
                 $this->errorMessage = 'Unregistered';
             } elseif ($model->isBanned) {
                 $this->errorMessage = 'Banned';
-            }
-            else {
+            } else {
+                ApiLog::i('user attributes');
                 foreach ($model->attributes as $k => $v) {
                     $this->setState($k, $v);
                 }

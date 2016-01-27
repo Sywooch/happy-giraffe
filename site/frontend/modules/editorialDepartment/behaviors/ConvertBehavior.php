@@ -3,6 +3,7 @@
 namespace site\frontend\modules\editorialDepartment\behaviors;
 
 use site\frontend\modules\posts\models\api\Content as Content;
+use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper;
 use site\frontend\modules\som\modules\community\models\api\Label as Label;
 
 include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
@@ -21,6 +22,13 @@ class ConvertBehavior extends \EMongoDocumentBehavior
 
     public function getUrl()
     {
+        if ($this->owner->forumId == ContractubexHelper::getForum()->id) {
+            return \Yii::app()->createAbsoluteUrl('/posts/contractubex/view/view', array(
+                'content_type_slug' => 'advpost',
+                'content_id' => $this->owner->entityId,
+            ));
+        }
+
         return \Yii::app()->createAbsoluteUrl('community/default/view', array(
                     'forum_id' => $this->owner->forumId,
                     'content_type_slug' => 'advpost',

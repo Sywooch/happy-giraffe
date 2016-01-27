@@ -29,6 +29,7 @@ class UsersTopWidget extends \CWidget
     {
         $cacheId = $this->getCacheId();
         $value = \Yii::app()->cache->get($cacheId);
+        $value = false;
         if ($value === false) {
             $criteria = clone Content::model()->byLabels(array(Label::LABEL_FORUMS))->getDbCriteria();
             //$criteria->compare('authorId', '!=' . \User::HAPPY_GIRAFFE);

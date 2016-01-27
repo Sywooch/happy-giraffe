@@ -52,9 +52,7 @@ class Label extends \CActiveRecord
 
     public function behaviors() {
         return array(
-            /*'Rabbit' => array(
-                'class' => 'site.common.behaviors.RabbitMQBehavior',
-            ),*/
+            
         );
     }
 

@@ -33,7 +33,7 @@ class UsersTopWidget extends \CWidget
         $value = false;
         if ($value === false) {
             $criteria = clone Content::model()->byLabels(array(Label::LABEL_FORUMS))->getDbCriteria();
-            $criteria->select = 'id, originEntityId, originEntityService';
+            $criteria->select = 'id, originEntityId, originEntity';
             $criteria->compare('authorId', '<>' . \User::HAPPY_GIRAFFE);
             $criteria->compare('dtimeCreate', '>' . (time() - (3600 * 24 * self::DAYS)));
             $criteria->join = 'JOIN ' . Tag::model()->tableName() . ' tagModels ON tagModels.contentId = t.id';
@@ -45,7 +45,7 @@ class UsersTopWidget extends \CWidget
             $advPostIds = array();
             $communityContentIds = array();
             foreach ($data as $row) {
-                if ($row['originEntityService'] == 'AdvPost') {
+                if ($row['originEntity'] == 'AdvPost') {
                     $advPostIds[] = $row['originEntityId'];
                 } else {
                     $communityContentIds[] = $row['originEntityId'];

@@ -37,6 +37,9 @@ class UsersTopWidget extends \CWidget
             $criteria->compare('dtimeCreate', '>' . time() - (3600 * 24 * self::DAYS));
             $criteria->join = 'JOIN ' . Tag::model()->tableName() . ' tagModels ON tagModels.contentId = t.id';
             $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
+
+            var_dump($command->text); die;
+
             $ids = $command->queryColumn();
 
             $criteria2 = new \CDbCriteria();

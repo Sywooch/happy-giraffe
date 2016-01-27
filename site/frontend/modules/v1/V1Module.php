@@ -7,7 +7,9 @@ class V1Module extends \CWebModule
 
     public function init()
     {
-
+        \Yii::app()->setComponent('authManager', array(
+            'class' => '\site\frontend\components\AuthManager',
+        ));
     }
 
     public function beforeControllerAction($controller, $action)

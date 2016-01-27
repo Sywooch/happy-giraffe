@@ -656,6 +656,7 @@ return array(
             'css' => array(
                 'lite/css/min/contractubex.css',
             ),
+            'depends' => array('lite_posts_user'),
         ),
     )
 );

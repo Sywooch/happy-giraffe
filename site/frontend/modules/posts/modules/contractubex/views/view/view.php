@@ -9,7 +9,9 @@ $this->breadcrumbs = array(
 ?>
 
 <?php $this->beginClip('header-banner'); ?>
-<div class="header-banner-medium"></div>
+<div class="header-banner-medium">
+    <a class="sidebar-promo-banner_button" href="<?=$this->createUrl('/posts/contractubex/default/index')?>">Узнать больше!</a>
+</div>
 <?php $this->endClip(); ?>
 
 <?php $this->renderPartial('_view'); ?>

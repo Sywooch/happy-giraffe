@@ -46,6 +46,12 @@ return array(
         'testConvert' => array(
             'class' => 'site\frontend\modules\posts\commands\TestConvert',
         ),
+        'testRabbit' => array(
+            'class' => 'site\frontend\modules\v1\commands\TestRabbit',
+        ),
+        'modelRebase' => array(
+            'class' => 'site\frontend\modules\v1\commands\ModelRebase',
+        ),
         'activityRenew' => array(
             'class' => 'site\frontend\modules\som\modules\activity\commands\RenewActivity',
         ),
@@ -240,7 +246,7 @@ return array(
         ),
     ),
     'params' => array(
-        'photos_url' => 'http://img.happy-giraffe.ru',
+        'photos_url' => 'http://img.giraffe.code-geek.ru',
         'use_proxy_auth' => true,
     ),
 );

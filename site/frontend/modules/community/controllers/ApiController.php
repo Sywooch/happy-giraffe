@@ -17,6 +17,7 @@ class ApiController extends \site\frontend\components\api\ApiController
                 'id' => $model->club_id,
                 'sectionId' => $model->club->section_id,
                 'url' => $model->club->getUrl(),
+                'title' => $model->club->title,
             );
         }, $subscriptions);
         $this->success = true;

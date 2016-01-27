@@ -25,6 +25,7 @@ class MessagingMessage extends HActiveRecord
 
     // ??? не используется
     public $processed_photos = array();
+    public $content;
 
     /**
      * Returns the static model of the specified AR class.
@@ -53,6 +54,7 @@ class MessagingMessage extends HActiveRecord
         // will receive user inputs.
         return array(
             array('author_id', 'required'),
+            array('text', 'length', 'max' => 1000),
             array('text', 'requiredIfNoImages'),
             array('updated, created', 'safe'),
             // The following rule is used by search().

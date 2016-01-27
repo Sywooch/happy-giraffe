@@ -37,6 +37,9 @@ class PostsModule extends \CWebModule
             'forums' => array(
                 'class' => 'site\frontend\modules\posts\modules\forums\ForumsModule',
             ),
+            'contractubex' => array(
+                'class' => 'site\frontend\modules\posts\modules\contractubex\ContractubexModule',
+            ),
         ));
     }
 

@@ -4,6 +4,7 @@ namespace site\frontend\modules\posts\behaviors\converters;
 use site\frontend\modules\photo\helpers\PhotoHelper;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\posts\models\Label;
+use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper;
 
 /**
  * Description of CommunityContentBehavior
@@ -76,6 +77,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         }
         $entity = get_class($oldPost);
+        //$entity = $service == 'oldBlog' ? 'BlogContent' : get_class($oldPost);
+
         $id = $oldPost->id;
 
         $tags = array();
@@ -131,6 +134,10 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $newPost->socialObject->description = $newPost->metaObject->description;
         $newPost->isAutoSocial = true;
+
+        if ($oldPost->rubric->community_id == ContractubexHelper::getForum()->id) {
+            $newPost->templateObject->data['hideAdsense'] = true;
+        }
     }
 
     protected function convertAdvPost(\site\frontend\modules\editorialDepartment\models\Content $advContent)
@@ -142,7 +149,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->html = PhotoHelper::adaptImages($advContent->htmlText);
         $newPost->templateObject->data['type'] = 'advPost';
         $newPost->isNoindex = false;
-        
+
+        //\Yii::log('New Post Save', 'info', 'convert');
         return $newPost->save();
     }
 

@@ -33,12 +33,12 @@ class UsersTopWidget extends \CWidget
         $value = false;
         if ($value === false) {
             $criteria = clone Content::model()->byLabels(array(Label::LABEL_FORUMS))->getDbCriteria();
-            $criteria->compare('authorId', '<>' . \User::HAPPY_GIRAFFE);
+            $criteria->addCondition('authorId != 1');
             $criteria->compare('dtimeCreate', '>' . (time() - (3600 * 24 * self::DAYS)));
             $criteria->join = 'JOIN ' . Tag::model()->tableName() . ' tagModels ON tagModels.contentId = t.id';
             $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
 
-            var_dump($command->text); die;
+            //var_dump($command->text); die;
 
             $ids = $command->queryColumn();
 

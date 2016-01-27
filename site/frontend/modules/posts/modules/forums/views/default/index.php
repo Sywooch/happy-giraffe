@@ -2,7 +2,7 @@
     <div class="heading-link-xxl"> Мы здесь общаемся!</div>
     <!--Добавить в layout_base-->
 
-    <?php if($this->beginCache('Forums.UsersTopWidget', array('duration' => 3600))) {$this->widget('site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget'); $this->endCache();} ?>
+    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget'); $this->endCache(); ?>
     <?php if($this->beginCache('Forums.LastPostWidget', array('duration' => 3600))) {$this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); $this->endCache();} ?>
     <div class="clearfix"></div>
     <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\clubs\ClubsWidget'); ?>

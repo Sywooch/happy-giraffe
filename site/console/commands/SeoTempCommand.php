@@ -23,6 +23,39 @@ class SeoTempCommand extends CConsoleCommand
 //        $this->ga->setProfile('ga:53688414');
     }
 
+    public function actionT()
+    {
+        $a = Yii::app()->thumbs->getPhotoByUrl('http://img.happy-giraffe.ru/v2/thumbs/e26e4ffdce15f4bc6711c767ffa68dac/94/42/6df992826e177d31784f2f1b2c26.jpg');
+        var_dump($a);
+    }
+
+    public function actionActivity()
+    {
+        $content = \site\frontend\modules\posts\models\Content::model()->findByPk(701734);
+        $content->addActivity();
+    }
+
+    public function actionFindBug()
+    {
+        $content = \site\frontend\modules\posts\models\api\Content::model()->findByPk(700194);
+
+        $post = \site\frontend\modules\editorialDepartment\models\Content::model()->findByAttributes(array(
+            'entity' => get_class($content),
+            'entityId' => $content->id,
+        ));
+
+        $content->title = 'Дочка Мадонны сделала татуировку в честь родителей';
+        for ($i = 0; $i < 999; $i++) {
+            echo $i . "\n";
+            $content->save();
+            $content = \site\frontend\modules\posts\models\api\Content::model()->findByPk(700194);
+            if ($content->isRemoved == 1) {
+                die('123');
+            }
+            sleep(2);
+        }
+    }
+
     public function actionOsinka()
     {
         Yii::import('site.common.models.mongo.SiteEmail');
@@ -60,7 +93,7 @@ class SeoTempCommand extends CConsoleCommand
 
         $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model(), array(
             'criteria' => array(
-                'condition' => 'isAdult > 0',
+                'condition' => 'isAdult = 5',
             ),
         ));
         $iterator = new CDataProviderIterator($dp, 100);
@@ -86,8 +119,8 @@ class SeoTempCommand extends CConsoleCommand
         $ga->setAccountId('ga:53688414');
 
         $ga->setDefaultQueryParams(array(
-            'start-date' => '2015-08-06',
-            'end-date' => '2015-08-13',
+            'start-date' => '2015-10-08',
+            'end-date' => '2015-10-15',
         ));
 
         $result = array();
@@ -105,13 +138,13 @@ class SeoTempCommand extends CConsoleCommand
             echo $i . "\n";
         }
 
-        $this->writeCsv('adult3', $result);
+        $this->writeCsv('adult5', $result);
     }
 
     public function actionAdult4()
     {
         $criteria = new CDbCriteria();
-        $criteria->addInCondition('isAdult', array(1, 2, 4));
+        $criteria->addInCondition('isAdult', array(5));
         $posts = \site\frontend\modules\posts\models\Content::model()->findAll($criteria);
         foreach ($posts as $post) {
             $post->isNoindex = 1;
@@ -330,9 +363,10 @@ class SeoTempCommand extends CConsoleCommand
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
 
         $files = array(
-            '1' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'image',
-            '2' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'search',
-            '4' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'image2',
+//            '1' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'image',
+//            '2' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'search',
+//            '4' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'image2',
+            '5' => Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'adsense' . DIRECTORY_SEPARATOR . 'adult161015',
         );
 
         foreach ($files as $key => $file) {

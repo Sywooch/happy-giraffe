@@ -657,5 +657,12 @@ return array(
                 'lite/css/min/forum-homepage.css'
             ),
         ),
+        'lite_contractubex' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/contractubex.css',
+            ),
+            'depends' => array('lite_posts_user'),
+        ),
     )
 );

@@ -17,11 +17,25 @@ class SocialHelper
         $cacheId = 'SocialHelper.ok';
         $value = self::getCacheComponent()->get($cacheId);
         if ($value === false) {
-            $page = file_get_contents(self::OK_PAGE);
-            $doc = str_get_html($page);
-            $value = $doc->find('#groupMembersCntEl', 0)->plaintext;
-            $value = preg_replace('/&#?[a-z0-9]+;/i', '', $value);
-            self::getCacheComponent()->set($cacheId, $value, self::CACHE_EXPIRATION_TIME);
+            $ctx = stream_context_create(array('http'=>
+                array(
+                    'timeout' => 3,
+                )
+            ));
+            $page = @file_get_contents(self::OK_PAGE, null, $ctx);
+            if ($page === false) {
+                $value = 0;
+            } else {
+                $doc = str_get_html($page);
+                $el = $doc->find('#groupMembersCntEl', 0);
+                if ($el) {
+                    $value = 0;
+                } else {
+                    $value = $doc->find('#groupMembersCntEl', 0)->plaintext;
+                    $value = preg_replace('/&#?[a-z0-9]+;/i', '', $value);
+                }
+                self::getCacheComponent()->set($cacheId, $value, self::CACHE_EXPIRATION_TIME);
+            }
         }
         return $value;
     }

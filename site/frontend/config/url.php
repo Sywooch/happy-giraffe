@@ -11,7 +11,7 @@ return array(
          *************************/
 
         'testupload' => 'blog/default/upload',
-
+        'blog/default/createAlbum' => 'blog/default/createAlbum',
         // global
         '.*/index' => 404,
 
@@ -28,6 +28,9 @@ return array(
         'api/community/<_a>' => 'som/community/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
+
+        'contractubex' => 'posts/contractubex/default/index',
+        'contractubex/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/contractubex/view/view'),
         
         /* SOM */
         'status' => 'som/status/default/index',
@@ -454,6 +457,38 @@ return array(
         'horoscope/compatibility/<zodiac1:[\w]+>/<zodiac2:[\w]+>' => 'services/horoscope/compatibility/index',
         'horoscope/compatibility/<zodiac1:[\w]+>' => 'services/horoscope/compatibility/index',
         'horoscope/compatibility' => 'services/horoscope/compatibility/index',
+        'questionnaire/default/index' => 'questionnaire/default/index',
+
+
+
+        //-----------------------------------------------------------------
+        //NEW API
+        //-----------------------------------------------------------------
+        'v1/api/clubs' => 'v1/api/clubs',
+        'v1/api/clubs/<id:\d+>' => 'v1/api/clubs',
+        'v1/api/users' => 'v1/api/users',
+        'v1/api/users/<id:\d+>' => 'v1/api/users',
+        'v1/api/comments' => 'v1/api/comments',
+        'v1/api/comments/<id:\d+>' => 'v1/api/comments',
+        'v1/api/posts' => 'v1/api/posts',
+        'v1/api/posts/<id:\d+>' => 'v1/api/posts',
+        //'v1/api/post-content' => 'v1/api/postContent',
+        //'v1/api/post-label' => 'v1/api/postLabel',
+        //'v1/api/post-tag' => 'v1/api/postTag',
+        'v1/api/onair' => 'v1/api/onair',
+        'v1/api/sections' => 'v1/api/sections',
+        'v1/api/sections/<id:\d+>' => 'v1/api/sections',
+        'v1/api/forums' => 'v1/api/forums',
+        'v1/api/forums/<id:\d+>' => 'v1/api/forums',
+        'v1/api/rubrics' => 'v1/api/rubrics',
+        'v1/api/rubrics/<id:\d+>' => 'v1/api/rubrics',
+        'v1/api/login' => 'v1/api/login',
+        //'v1/api/post-comments' => 'v1/api/postComments',
+        'v1/api/photo' => 'v1/api/photo',
+        'v1/api/relogin' => 'v1/api/relogin',
+        'v1/api/logout' => 'v1/api/logout',
+        'v1/api/check-token' => 'v1/api/checkToken',
+
 
         //horoscope
         array( 'class' => 'site.frontend.modules.services.modules.horoscope.components.HoroscopeUrlRule'),
@@ -574,6 +609,6 @@ return array(
         '<slug:\w+>/consultations/create' => 'consultation/default/create',
         '<slug:\w+>/consultations/page<page:\d+>' => 'consultation/default/index',
 
-        '<view:(about|ads|contacts|useragreement|legal|moderation_rule|confidential|klondike|dreamfields|carpets)>' => 'pages/default/page',
+        '<view:(about|advertising|contacts|useragreement|legal|moderation_rule|confidential|klondike|dreamfields|carpets)>' => 'pages/default/page',
     ),
 );

@@ -6,12 +6,14 @@
             <li class="footer-list_li visible-md-inline-block"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'about'))?>" class="footer-list_a">О нас</a></li>
             <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'useragreement'))?>" class="footer-list_a">Правила сайта</a></li>
             <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'legal'))?>" class="footer-list_a">Правообладателям</a></li>
-            <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'ads'))?>" class="footer-list_a footer-list__reklama">Реклама </a></li>
+            <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'advertising'))?>" class="footer-list_a footer-list__reklama">Реклама </a></li>
             <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'contacts'))?>" class="footer-list_a">Контакты </a></li>
+            <?php if (($ok = SocialHelper::ok()) > 0): ?>
             <li class="footer-list_li footer-list_li_social visible-md-inline-block"><a rel="nofollow" href="http://ok.ru/happygiraffe" target="_blank" class="social-button odnoklassniki">
                     <div class="social-button_ico"></div>
                     <div class="social-button_tx">Одноклассники</div>
-                    <div class="social-button_count"><?=SocialHelper::ok()?></div></a></li>
+                    <div class="social-button_count"><?=$ok?></div></a></li>
+            <?php endif; ?>
         </ul>
         <?php if ($this->route != 'site/index'): ?>
             <ul class="footer-menu visible-md">

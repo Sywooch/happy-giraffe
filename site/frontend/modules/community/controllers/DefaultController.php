@@ -126,6 +126,7 @@ class DefaultController extends HController
             );
         }
 
+
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $dp = CommunityContent::model()->getContents($this->forum->id, $rubric_id);
 
@@ -174,7 +175,7 @@ class DefaultController extends HController
         
         // Поставим флаг, что бы для найденных сущностей прочитались сигналы
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
-        
+        \Yii::log("checkView", 'info', 'postview');
         if (Yii::app()->user->isGuest)
             $this->render('view_requirejs', compact('content'));
         else

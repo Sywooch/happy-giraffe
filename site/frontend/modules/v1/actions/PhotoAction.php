@@ -3,6 +3,7 @@
 namespace site\frontend\modules\v1\actions;
 
 use site\frontend\modules\photo\components\MigrateManager;
+use site\frontend\modules\v1\helpers\ApiLog;
 
 class PhotoAction extends RoutedAction implements IPostProcessable
 {
@@ -16,6 +17,8 @@ class PhotoAction extends RoutedAction implements IPostProcessable
     public function postPhoto()
     {
         if (isset($_FILES['photo'])) {
+            ApiLog::i(print_r($_FILES, true));
+
             $this->model = \AlbumPhoto::model()->createUserTempPhoto($_FILES['photo']);
             MigrateManager::movePhoto($this->model);
 

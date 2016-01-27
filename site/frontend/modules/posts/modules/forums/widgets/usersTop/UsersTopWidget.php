@@ -53,8 +53,6 @@ class UsersTopWidget extends \CWidget
             $command2 = \Yii::app()->db->getCommandBuilder()->createFindCommand(Comment::model()->tableName(), $criteria2);
             $comments = $command2->queryAll();
 
-            var_dump($comments); die;
-
             $scores = array();
             $this->process($posts, $scores, self::POSTS_MULTIPLIER);
             $this->process($comments, $scores, self::COMMENTS_MULTIPLIER);

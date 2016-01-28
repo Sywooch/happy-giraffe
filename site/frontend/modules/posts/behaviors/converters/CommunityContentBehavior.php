@@ -3,6 +3,7 @@
 namespace site\frontend\modules\posts\behaviors\converters;
 use site\frontend\modules\photo\helpers\PhotoHelper;
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\posts\models\Label;
 use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper;
 
 /**
@@ -76,6 +77,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         }
         $entity = get_class($oldPost);
+        //$entity = $service == 'oldBlog' ? 'BlogContent' : get_class($oldPost);
+
         $id = $oldPost->id;
 
         $tags = array();
@@ -92,7 +95,9 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
                 $tags[] = 'Секция: ' . $oldPost->rubric->community->club->section->title;
         }
         if($oldPost->isFromBlog) {
-            $tags[] = 'Блог';
+            $tags[] = Label::LABEL_BLOG;
+        } else {
+            $tags[] = Label::LABEL_FORUMS;
         }
 
         $newPost = \site\frontend\modules\posts\models\Content::model()->resetScope()->findByAttributes(array(
@@ -144,7 +149,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->html = PhotoHelper::adaptImages($advContent->htmlText);
         $newPost->templateObject->data['type'] = 'advPost';
         $newPost->isNoindex = false;
-        
+
+        //\Yii::log('New Post Save', 'info', 'convert');
         return $newPost->save();
     }
 

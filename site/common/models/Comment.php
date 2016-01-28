@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the model class for table "comment".
+ * This is the model class for table "comments".
  *
  * The followings are the available columns in table 'comment':
  * @property string $id
@@ -13,12 +13,14 @@
  * @property string $response_id
  * @property string $root_id
  * @property string $removed
+ * @property int $new_entity_id
  * @property CommunityContent $commentEntity Комментируемая сущность
  *
  * The followings are the available model relations:
  * @property User author
  * @property Comment $response
  */
+
 class Comment extends HActiveRecord
 {
 
@@ -66,6 +68,7 @@ class Comment extends HActiveRecord
             array('author_id, entity_id, response_id', 'numerical', 'allowEmpty' => true, 'integerOnly' => true),
             array('entity', 'length', 'max' => 255),
             array('removed', 'boolean'),
+            array('new_entity_id', 'numerical'),
         );
     }
 
@@ -77,7 +80,7 @@ class Comment extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'author' => array(self::BELONGS_TO, get_class(\User::model()), 'author_id'),
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
         );
     }
@@ -98,6 +101,7 @@ class Comment extends HActiveRecord
             'quote_id' => 'Quote id',
             'quote_text' => 'Quote text',
             'removed' => 'Удален',
+            'new_entity_id' => 'New Entity PK',
         );
     }
 
@@ -118,6 +122,9 @@ class Comment extends HActiveRecord
     public function behaviors()
     {
         return array(
+            'CacheDelete' => array(
+                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+            ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
                 'entityClass' => 'Comment',

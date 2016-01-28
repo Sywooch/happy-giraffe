@@ -3,6 +3,7 @@
 namespace site\frontend\modules\posts\controllers;
 
 use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\models\Label;
 
 /**
  * Description of CommunityController
@@ -53,7 +54,7 @@ class CommunityListController extends ListController
 
     public function getTags()
     {
-        $tags = array();
+        $tags = array(Label::LABEL_FORUMS);
         $rubric = $this->getRubric();
         while ($rubric) {
             $tags[] = 'Рубрика: ' . $rubric->title;

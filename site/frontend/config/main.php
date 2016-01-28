@@ -266,12 +266,12 @@ return array(
                     'title' => 'ВКонтакте',
                 ),
                 //test app
-                'vk_api' => array(
+                /*'vk_api' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '5197824',
                     'client_secret' => 'QWTJzplwU7QJHIaS5s7K',
                     'title' => 'ВКонтакте',
-                ),
+                ),*/
                 /*'vkontakte' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '5198960',

@@ -146,7 +146,7 @@ class V1ApiController extends \CController
      */
     public function get($model, $action, $where = null)
     {
-        //\Yii::app()->cache->flush();
+        
 
         $this->setCacheKey($model, $where);
 

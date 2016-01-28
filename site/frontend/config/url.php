@@ -11,7 +11,7 @@ return array(
          *************************/
 
         'testupload' => 'blog/default/upload',
-
+        'blog/default/createAlbum' => 'blog/default/createAlbum',
         // global
         '.*/index' => 404,
 
@@ -36,6 +36,13 @@ return array(
         'status' => 'som/status/default/index',
         'status/<_c>' => 'som/status/<_c>/index',
         'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
+
+        array('class' => 'site\frontend\modules\posts\modules\buzz\components\BuzzUrlRule'),
+        'buzz/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/buzz/post/view',
+        'buzz/<slug>' => 'posts/buzz/list/index',
+        'buzz' => 'posts/buzz/list/index',
+
+        'forums' => 'posts/forums/default/index',
 
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
@@ -246,8 +253,9 @@ return array(
         // community/*
         'community/36.*' => 404,
         'news/rubric<rubric_id:\d+>' => array('som/community/news/index'),
+        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('som/community/newsView/view', 'defaultParams' => array('forum_id' => 36)),
+        'news/<slug>' => 'som/community/news/index',
         'news' => array('som/community/news/index'),
-        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/community/view', 'defaultParams' => array('forum_id' => 36)),
         
         array(
             'class' => 'UrlRule',
@@ -450,6 +458,37 @@ return array(
         'horoscope/compatibility/<zodiac1:[\w]+>' => 'services/horoscope/compatibility/index',
         'horoscope/compatibility' => 'services/horoscope/compatibility/index',
         'questionnaire/default/index' => 'questionnaire/default/index',
+
+
+
+        //-----------------------------------------------------------------
+        //NEW API
+        //-----------------------------------------------------------------
+        'v1/api/clubs' => 'v1/api/clubs',
+        'v1/api/clubs/<id:\d+>' => 'v1/api/clubs',
+        'v1/api/users' => 'v1/api/users',
+        'v1/api/users/<id:\d+>' => 'v1/api/users',
+        'v1/api/comments' => 'v1/api/comments',
+        'v1/api/comments/<id:\d+>' => 'v1/api/comments',
+        'v1/api/posts' => 'v1/api/posts',
+        'v1/api/posts/<id:\d+>' => 'v1/api/posts',
+        //'v1/api/post-content' => 'v1/api/postContent',
+        //'v1/api/post-label' => 'v1/api/postLabel',
+        //'v1/api/post-tag' => 'v1/api/postTag',
+        'v1/api/onair' => 'v1/api/onair',
+        'v1/api/sections' => 'v1/api/sections',
+        'v1/api/sections/<id:\d+>' => 'v1/api/sections',
+        'v1/api/forums' => 'v1/api/forums',
+        'v1/api/forums/<id:\d+>' => 'v1/api/forums',
+        'v1/api/rubrics' => 'v1/api/rubrics',
+        'v1/api/rubrics/<id:\d+>' => 'v1/api/rubrics',
+        'v1/api/login' => 'v1/api/login',
+        //'v1/api/post-comments' => 'v1/api/postComments',
+        'v1/api/photo' => 'v1/api/photo',
+        'v1/api/relogin' => 'v1/api/relogin',
+        'v1/api/logout' => 'v1/api/logout',
+        'v1/api/check-token' => 'v1/api/checkToken',
+
 
         //horoscope
         array( 'class' => 'site.frontend.modules.services.modules.horoscope.components.HoroscopeUrlRule'),

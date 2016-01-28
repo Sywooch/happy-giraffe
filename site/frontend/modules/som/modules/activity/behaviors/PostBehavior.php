@@ -13,17 +13,24 @@ use site\frontend\modules\som\modules\activity\models\api\Activity;
  */
 class PostBehavior extends ActivityBehavior
 {
+    protected $oldEntityId;
 
-    public function afterSave($event)
+    public function afterFind()
     {
-        if ($this->owner->originEntityId) {
-            return parent::afterSave($event);
-        }
+        $this->oldEntityId = $this->owner->originEntityId;
     }
+
+//    public function afterSave($event)
+//    {
+//        if ($this->owner->originEntityId) {
+//            return parent::afterSave($event);
+//        }
+//    }
 
     public function getActivityId()
     {
-        return md5($this->owner->originService . '|' . $this->owner->originEntity . '|' . $this->owner->originEntityId);
+        $originEntityId = (! $this->oldEntityId) ? $this->owner->originEntityId : $this->oldEntityId;
+        return md5($this->owner->originService . '|' . $this->owner->originEntity . '|' . $originEntityId);
     }
 
     public function getActivityModel()

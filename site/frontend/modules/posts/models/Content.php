@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\posts\models;
 
+use site\frontend\modules\comments\models\Comment;
 /**
  * This is the model class for table "post__contents".
  *
@@ -109,12 +110,19 @@ class Content extends \CActiveRecord implements \IHToJSON
         return array(
             'labelModels' => array(self::MANY_MANY, '\site\frontend\modules\posts\models\Label', 'post__tags(contentId, labelId)'),
             'tagModels' => array(self::HAS_MANY, '\site\frontend\modules\posts\models\Tag', 'contentId'),
+            'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
+            'communityContent' => array(self::BELONGS_TO, 'CommunityContent', 'originEntityId'),
+            'comments' => array(self::HAS_MANY, get_class(Comment::model()), 'new_entity_id'),
+            'comments_count' => array(self::STAT, get_class(Comment::model()), 'new_entity_id'),
         );
     }
 
     public function behaviors()
     {
         return array(
+            'CacheDelete' => array(
+                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+            ),
             'HTimestampBehavior' => array(
                 'class' => 'HTimestampBehavior',
                 'createAttribute' => 'dtimeCreate',
@@ -340,6 +348,7 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function setLabelsArray($array)
     {
+        $array = array_unique($array);
         $this->labels = implode($this->labelDelimiter, $array);
     }
 
@@ -497,12 +506,25 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function byLabels($labels)
     {
-        return $this->byTags(\site\frontend\modules\posts\models\Label::getIdsByLabels($labels));
+        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labels);
+        if (count($labels) != count($tags)) {
+            $this->getDbCriteria()->addCondition('1=0');
+            return $this;
+        }
+
+        return $this->byTags($tags);
     }
 
     public function byEntityClass($entity)
     {
         $this->getDbCriteria()->addColumnCondition(array('originEntity' => $entity));
+
+        return $this;
+    }
+
+    public function publishedAtLast($offset)
+    {
+        $this->getDbCriteria()->compare('dtimePublication', '>', time() - $offset);
 
         return $this;
     }

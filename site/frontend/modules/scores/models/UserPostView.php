@@ -61,6 +61,7 @@ class UserPostView extends HMongoModel
      */
     public function checkView($user_id, $id)
     {
+        \Yii::log("checkView", 'info', 'postview');
         $exist = $this->getCollection()->findOne(array(
             'user_id' => (int)$user_id,
             'id' => (int)$id,

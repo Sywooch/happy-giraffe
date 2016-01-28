@@ -46,6 +46,9 @@ return array(
         'testConvert' => array(
             'class' => 'site\frontend\modules\posts\commands\TestConvert',
         ),
+        'modelRebase' => array(
+            'class' => 'site\frontend\modules\v1\commands\ModelRebase',
+        ),
         'activityRenew' => array(
             'class' => 'site\frontend\modules\som\modules\activity\commands\RenewActivity',
         ),
@@ -84,6 +87,9 @@ return array(
         ),
         'statusMigrate' => array(
             'class' => 'site\frontend\modules\som\modules\status\commands\MigrateCommand',
+        ),
+        'buzz' => array(
+            'class' => 'site\frontend\modules\posts\modules\buzz\commands\DefaultCommand',
         ),
     ),
     'import' => array(
@@ -237,7 +243,7 @@ return array(
         ),
     ),
     'params' => array(
-        'photos_url' => 'http://img.happy-giraffe.ru',
+        'photos_url' => 'http://img.giraffe.code-geek.ru',
         'use_proxy_auth' => true,
     ),
 );

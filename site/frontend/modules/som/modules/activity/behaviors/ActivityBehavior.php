@@ -22,6 +22,7 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
 
     public function afterSave($event)
     {
+        \Yii::log("test", 'info', 'som.modules.activity.behaviors.PostBehavior');
         if ($this->isRemoved === $this->getIsRemoved()) {
             // Ничего не изменилось
             return;
@@ -45,7 +46,7 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
             $activity = $this->getActivityModel();
             $activity->hash = $this->getActivityId();
             $activity->save();
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             
         }
     }

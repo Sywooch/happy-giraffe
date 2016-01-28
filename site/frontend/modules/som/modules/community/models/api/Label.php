@@ -38,6 +38,11 @@ class Label extends \site\frontend\components\api\models\ApiModel
     {
         return self::model()->query('getLabels', array('rubricId' => $rubricId));
     }
+
+    public static function findByClub($clubId)
+    {
+        return self::model()->query('getLabels', array('clubId' => $clubId));
+    }
     
     public function findForBlog()
     {

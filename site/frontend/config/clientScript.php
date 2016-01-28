@@ -651,6 +651,12 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
+        'lite_forum-homepage' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/forum-homepage.css'
+            ),
+        ),
         'lite_contractubex' => array(
             'baseUrl' => '/',
             'css' => array(

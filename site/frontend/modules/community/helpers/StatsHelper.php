@@ -9,6 +9,8 @@ namespace site\frontend\modules\community\helpers;
 
 use site\frontend\modules\comments\models\Comment;
 use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\models\Label;
+use site\frontend\modules\posts\models\Tag;
 
 class StatsHelper
 {
@@ -74,8 +76,28 @@ class StatsHelper
         return $value;
     }
 
+    public static function getByLabels($labels, $renew = false)
+    {
+        $cacheId = 'StatsHelper.byLabels.' . serialize($labels);
+        $value = self::getCacheComponent()->get($cacheId);
+        if ($value === false || $renew) {
+            $posts = Content::model()->byLabels($labels)->findAll();
+            $postsIds = array_map(function($post) {
+                return $post->originEntityId;
+            }, $posts);
+
+            $criteria = new \CDbCriteria();
+            $criteria->addInCondition('entity_id', $postsIds);
+            $value = Comment::model()->count($criteria);
+            self::getCacheComponent()->set($cacheId, $value);
+        }
+        return $value;
+    }
+
     public static function warmCache()
     {
+        self::getByLabels(array(Label::LABEL_NEWS), true);
+
         $models = \CommunityClub::model()->findAll();
 
         echo "Клубы:\n";
@@ -84,6 +106,7 @@ class StatsHelper
             self::getSubscribers($m->id, true);
             self::getPosts($m->id, true);
             self::getComments($m->id, true);
+            self::getByLabels(array($m->toLabel(), Label::LABEL_NEWS), true);
         }
 
         $rubrics = \CommunityRubric::model()->findAll('community_id IS NOT NULL AND parent_id IS NULL');

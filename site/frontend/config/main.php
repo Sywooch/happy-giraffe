@@ -403,6 +403,13 @@ return array(
 //					'levels'=>'error, warning',
 //					'emails'=>'pavel@happy-giraffe.ru',
 //				),
+                array(
+					'class'=>'CFileLogRoute',
+					'levels'=>'trace',
+                    'categories'=>'api',
+                    'logFile' => 'api.log',
+					//'emails'=>'nikita@happy-giraffe.ru',
+				),
 			),
 		),
 		'shoppingCart' => array(

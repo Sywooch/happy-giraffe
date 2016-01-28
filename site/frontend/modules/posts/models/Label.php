@@ -14,6 +14,10 @@ namespace site\frontend\modules\posts\models;
  */
 class Label extends \CActiveRecord
 {
+    const LABEL_FORUMS = 'Форумы';
+    const LABEL_BUZZ = 'Buzz';
+    const LABEL_NEWS = 'Новости';
+    const LABEL_BLOG = 'Блог';
 
     // запомним соответствие тег-id
     protected static $_tags = null;
@@ -48,9 +52,7 @@ class Label extends \CActiveRecord
 
     public function behaviors() {
         return array(
-            /*'Rabbit' => array(
-                'class' => 'site.common.behaviors.RabbitMQBehavior',
-            ),*/
+            
         );
     }
 

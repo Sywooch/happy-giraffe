@@ -11,11 +11,25 @@ use \site\frontend\modules\posts\models\Label;
  */
 class ApiController extends \site\frontend\components\api\ApiController
 {
+    public function actionGetClub(array $labels)
+    {
+        foreach ($labels as $label) {
+            if (strpos($label, 'Клуб') !== false) {
+                $parts = explode(': ', $label);
+                $clubTitle = $parts[1];
+                $this->data = \CommunityClub::model()->findByAttributes(array(
+                    'title' => $clubTitle,
+                ));
+                $this->success = true;
+                break;
+            }
+        }
+    }
 
-    public function actionGetLabels($rubricId = false, $forumId = false, $communityId = false, $blog = false)
+    public function actionGetLabels($rubricId = false, $forumId = false, $clubId = false, $blog = false)
     {
         if ($forumId) {
-            $forum = Community::model()->with('club')->findByPk($forumId);
+            $forum = \Community::model()->with('club')->findByPk($forumId);
 
             $labels = array(
                 'Форум: ' . $forum->title,
@@ -26,6 +40,21 @@ class ApiController extends \site\frontend\components\api\ApiController
             $this->isPack = true;
             $this->data = array_map(function($label) {
                 return array('id' => Label::getIdByLabel($label, true), 'text' => $label);
+            }, $labels);
+        } elseif ($clubId) {
+            $club = \CommunityClub::model()->findByPk($clubId);
+
+            $labels = array(
+                $club->toLabel(),
+            );
+
+            $this->success = true;
+            $this->isPack = true;
+            $this->data = array_map(function($label) {
+                return array(
+                    'success' => true,
+                    'data' => array('id' => Label::getIdByLabel($label, true), 'text' => $label),
+                );
             }, $labels);
         } elseif ($blog) {
             $this->success = true;

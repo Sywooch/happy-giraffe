@@ -9,7 +9,6 @@ namespace site\frontend\components\api;
  */
 class ApiComponent extends \CComponent
 {
-
     public $baseUrl = false;
     public $cacheComponent = 'cache';
 

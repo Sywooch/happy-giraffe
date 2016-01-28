@@ -37,6 +37,13 @@ return array(
         'status/<_c>' => 'som/status/<_c>/index',
         'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
 
+        array('class' => 'site\frontend\modules\posts\modules\buzz\components\BuzzUrlRule'),
+        'buzz/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/buzz/post/view',
+        'buzz/<slug>' => 'posts/buzz/list/index',
+        'buzz' => 'posts/buzz/list/index',
+
+        'forums' => 'posts/forums/default/index',
+
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
         'findFriends/byInterests' => array('friends/find', 'defaultParams' => array('type' => 2)),
@@ -246,8 +253,9 @@ return array(
         // community/*
         'community/36.*' => 404,
         'news/rubric<rubric_id:\d+>' => array('som/community/news/index'),
+        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('som/community/newsView/view', 'defaultParams' => array('forum_id' => 36)),
+        'news/<slug>' => 'som/community/news/index',
         'news' => array('som/community/news/index'),
-        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/community/view', 'defaultParams' => array('forum_id' => 36)),
         
         array(
             'class' => 'UrlRule',

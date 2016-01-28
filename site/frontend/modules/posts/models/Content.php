@@ -120,9 +120,6 @@ class Content extends \CActiveRecord implements \IHToJSON
     public function behaviors()
     {
         return array(
-            /*'Rabbit' => array(
-                'class' => 'site.common.behaviors.RabbitMQBehavior',
-            ),*/
             'CacheDelete' => array(
                 'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
             ),
@@ -351,6 +348,7 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function setLabelsArray($array)
     {
+        $array = array_unique($array);
         $this->labels = implode($this->labelDelimiter, $array);
     }
 
@@ -508,12 +506,25 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function byLabels($labels)
     {
-        return $this->byTags(\site\frontend\modules\posts\models\Label::getIdsByLabels($labels));
+        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labels);
+        if (count($labels) != count($tags)) {
+            $this->getDbCriteria()->addCondition('1=0');
+            return $this;
+        }
+
+        return $this->byTags($tags);
     }
 
     public function byEntityClass($entity)
     {
         $this->getDbCriteria()->addColumnCondition(array('originEntity' => $entity));
+
+        return $this;
+    }
+
+    public function publishedAtLast($offset)
+    {
+        $this->getDbCriteria()->compare('dtimePublication', '>', time() - $offset);
 
         return $this;
     }

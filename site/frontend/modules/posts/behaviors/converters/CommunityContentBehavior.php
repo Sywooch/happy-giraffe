@@ -3,6 +3,7 @@
 namespace site\frontend\modules\posts\behaviors\converters;
 use site\frontend\modules\photo\helpers\PhotoHelper;
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\posts\models\Label;
 use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper;
 
 /**
@@ -94,7 +95,9 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
                 $tags[] = 'Секция: ' . $oldPost->rubric->community->club->section->title;
         }
         if($oldPost->isFromBlog) {
-            $tags[] = 'Блог';
+            $tags[] = Label::LABEL_BLOG;
+        } else {
+            $tags[] = Label::LABEL_FORUMS;
         }
 
         $newPost = \site\frontend\modules\posts\models\Content::model()->resetScope()->findByAttributes(array(

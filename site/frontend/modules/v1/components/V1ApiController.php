@@ -29,6 +29,7 @@ use site\frontend\modules\v1\helpers\ApiLog;
  */
 class V1ApiController extends \CController
 {
+    /**@todo: add required params check and get functional in there for every action*/
     #region Constants
     const ID = 'id';
     const WITH = 'expand';
@@ -362,6 +363,7 @@ class V1ApiController extends \CController
             $this->setError($this->identity->errorMessage, 401);
             return false;
         } else {
+            ApiLog::i($this->identity->getId());
             \Yii::app()->user->login($this->identity);
             return true;
         }
@@ -404,7 +406,7 @@ class V1ApiController extends \CController
      * @param $model
      * @return array of relations parameters.
      */
-    private function getWithParameters($model)
+    public function getWithParameters($model)
     {
         if (isset($_GET[self::WITH])) {
             $temp = explode(",", \Yii::app()->request->getParam(self::WITH));

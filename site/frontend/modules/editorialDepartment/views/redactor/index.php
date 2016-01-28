@@ -24,7 +24,6 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
 $forum = Community::model()->with('club')->findByPk($model->forumId);
 $users = departmentComponents\UsersControl::getUsersList();
 $users = array_combine($users, $users);
-$form->hiddenField($model, 'clubId');
 $this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый пост' : $model->title . ' - редактирование';
 $communityContent = CommunityContent::model()->findByPk($model->entityId); // нужно для вывода id коллекции при редактировании
 ?>
@@ -34,12 +33,14 @@ $communityContent = CommunityContent::model()->findByPk($model->entityId); // н
 <?=$form->textarea($model, 'markDown',  array('id' => 'markDown', 'class' => 'display-n')) ?>
 <?=$form->textarea($model, 'htmlText',  array('id' => 'htmlText', 'class' => 'display-n')) ?>
 <h1 class="heading-xl margin-b30">Добавление статьи</h1>
+<?php if ($forum->club): ?>
 <div class="postAdd_row">
     <div class="postAdd_count">1</div>
     <div class="b-main_col-article">
         <div class="postAdd_t">Клуб  </div><?=  CHtml::link($forum->club->title, $forum->club->getUrl(), array('class'=>'heading-m margin-0')) ?>
     </div>
 </div>
+<?php endif; ?>
 <!-- row -->
 <div class="postAdd_row">
     <div class="postAdd_count">2</div>

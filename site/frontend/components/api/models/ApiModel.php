@@ -104,6 +104,27 @@ abstract class ApiModel extends \CModel
         }
     }
 
+    /* @todo временное решение, надо перевести на работу с методом query() */
+    public function findAllByPk($pks)
+    {
+        $pack = array();
+        foreach ($pks as $pk) {
+            $pack[] = array(
+                'id' => $pk,
+                'avatarSize' => \Avatar::SIZE_MEDIUM,
+            );
+        }
+        $users = \CJSON::decode(\Yii::app()->api->request('users', 'get', array(
+            'pack' => $pack,
+        )));
+        $result = array();
+
+        foreach ($users['data'] as $user) {
+            $result[$user['data']['id']] = $this->populateRecord($user['data']);
+        }
+        return $result;
+    }
+
     public function findByPk($id)
     {
         self::trace('findByPk(' . $id . ')');

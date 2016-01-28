@@ -4,9 +4,6 @@
  */
 $this->pageTitle = 'Новости с Весёлым Жирафом';
 $this->metaNoindex = true;
-$this->breadcrumbs = array(
-    'Новости',
-);
 ?>
 
 <?php

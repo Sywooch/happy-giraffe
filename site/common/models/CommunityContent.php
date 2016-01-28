@@ -159,9 +159,6 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
                     'realOwner' => 'site\frontend\modules\posts\models\Content',
                 ),
-                'Rabbit' => array(
-                    'class' => 'site.common.behaviors.RabbitMQBehavior',
-                ),
                 'PhotoCollectionBehavior' => array(
                     'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',
                     'attributeCollections' => array('preview'),
@@ -179,9 +176,6 @@ class CommunityContent extends HActiveRecord implements IPreview
             'CacheDelete' => array(
                 'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
                 'realOwner' => 'site\frontend\modules\posts\models\Content',
-            ),
-            'Rabbit' => array(
-                'class' => 'site.common.behaviors.RabbitMQBehavior',
             ),
             'PhotoCollectionBehavior' => array(
                 'class' => 'site\frontend\modules\photo\components\ActivePhotoCollectionBehavior',

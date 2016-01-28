@@ -508,9 +508,6 @@ class User extends HActiveRecord
 //				'table'=>'shop__product_attribute_set',
 //				'attribute'=>'product_attribute_set_id',
 //			),
-            /*'Rabbit' => array(
-                'class' => 'site.common.behaviors.RabbitMQBehavior',
-            ),*/
             'CacheDelete' => array(
                 'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
             ),

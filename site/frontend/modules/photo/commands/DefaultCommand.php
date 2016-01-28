@@ -24,9 +24,24 @@ class DefaultCommand extends \CConsoleCommand
     {
         \Yii::app()->gearman->worker()->addFunction('deferredWrite', array($this, 'deferredWrite'));
         \Yii::app()->gearman->worker()->addFunction('updatePhotoPostPhoto', array($this, 'updatePhotoPostPhoto'));
+        \Yii::app()->gearman->worker()->addFunction('createThumb', array($this, 'createThumb'));
 
+        echo "123\n";
         for ($i = 0; $i < 100; $i++) {
             \Yii::app()->gearman->worker()->work();
+            echo "OK\n";
+        }
+    }
+
+    public function createThumb(\GearmanJob $job)
+    {
+        $data = unserialize($job->workload());
+        $photoId = $data['photoId'];
+        $usageName = $data['usageName'];
+        $photo = Photo::model()->findByPk($photoId);
+        if ($photo) {
+            \Yii::app()->thumbs->getThumb($photo, $usageName, false, false);
+            \Yii::app()->thumbs->getThumb($photo, $usageName, false, true);
         }
     }
 

@@ -243,7 +243,7 @@ return array(
         ),
     ),
     'params' => array(
-        'photos_url' => 'http://img.giraffe.code-geek.ru',
+        'photos_url' => 'http://img.happy-giraffe.ru',
         'use_proxy_auth' => true,
     ),
 );

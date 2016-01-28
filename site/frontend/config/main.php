@@ -259,14 +259,14 @@ return array(
                     'client_public' => 'CBAQHQOKEBABABABA',
                 ),
                 //true app
-                /*'vkontakte' => array(
+                'vkontakte' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
                     'title' => 'ВКонтакте',
-                ),*/
+                ),
                 //test app
-                'vkontakte' => array(
+                'vk_api' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '5197824',
                     'client_secret' => 'QWTJzplwU7QJHIaS5s7K',

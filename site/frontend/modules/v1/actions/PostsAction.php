@@ -204,7 +204,7 @@ class PostsAction extends RoutedAction implements IPostProcessable, IViewIncreme
 
                     if ($success) {
                         $this->controller->data = $model;
-                        ApiLog::i(get_class($model));
+                        //ApiLog::i(get_class($model));
                     } else {
                         $this->controller->setError('SavingFailed', 500);
                     }

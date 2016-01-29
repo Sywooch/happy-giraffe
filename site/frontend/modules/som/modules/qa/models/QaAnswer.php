@@ -196,7 +196,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		$criteria->with = array('question');
 		$criteria->addCondition('question.isRemoved = 0');
 		$this->getDbCriteria()->mergeWith($criteria);
-		return $criteria;
+		return $this;
 	}
 
 	public function defaultScope()

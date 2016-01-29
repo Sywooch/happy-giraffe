@@ -50,7 +50,7 @@ class MyController extends QaController
     public function actionAnswers($categoryId = null)
     {
         $model = clone QaAnswer::model();
-        $model->user(\Yii::app()->user->id)->orderDesc()->with('question')->checkQuestionExiststance()->apiWith('user');
+        $model->user(\Yii::app()->user->id)->orderDesc()->with('question')->apiWith('user');
         if ($categoryId !== null) {
             $model->category($categoryId);
         } else {
@@ -61,6 +61,11 @@ class MyController extends QaController
                 'pageVar' => 'page',
             ),
         ));
+
+//        $dp->getData();
+//
+//        \Yii::app()->end();
+
         $this->render('answers', compact('dp'));
     }
 }

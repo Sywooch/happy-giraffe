@@ -190,6 +190,15 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		return $this;
 	}
 
+	public function checkQuestionExiststance()
+	{
+		$criteria = new \CDbCriteria();
+		$criteria->with = array('question');
+		$criteria->addCondition('question.isRemoved = 0');
+		$this->getDbCriteria()->mergeWith($criteria);
+		return $criteria;
+	}
+
 	public function defaultScope()
 	{
 		$t = $this->getTableAlias(false, false);

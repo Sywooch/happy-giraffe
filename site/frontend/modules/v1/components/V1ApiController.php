@@ -146,7 +146,7 @@ class V1ApiController extends \CController
      */
     public function get($model, $action, $where = null)
     {
-        
+        //ApiLog::i('Get call with ' . get_class($model));
 
         $this->setCacheKey($model, $where);
 

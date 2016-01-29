@@ -17,7 +17,7 @@ class PhotoAction extends RoutedAction implements IPostProcessable
     public function postPhoto()
     {
         if (isset($_FILES['photo'])) {
-            ApiLog::i(print_r($_FILES, true));
+            //ApiLog::i(print_r($_FILES, true));
 
             $this->model = \AlbumPhoto::model()->createUserTempPhoto($_FILES['photo']);
             MigrateManager::movePhoto($this->model);

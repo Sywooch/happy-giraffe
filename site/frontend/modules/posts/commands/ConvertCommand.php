@@ -105,13 +105,18 @@ class ConvertCommand extends \CConsoleCommand
         try {
             $data = self::unserialize($job->workload());
             \Yii::app()->db->setActive(true);
-            usleep(100000); // на всякий случай поспим 0.1 сек, что бы быть уверенным, что реплика прошла
+            //usleep(100000); // на всякий случай поспим 0.1 сек, что бы быть уверенным, что реплика прошла
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
             if (!$model) {
                 throw new \Exception('no model');
             }
             echo $model->convertToNewPost() ? '.' : '!';
             \Yii::app()->db->setActive(false);
+            /**@todo: fix api cache*/
+            //\Yii::app()->cache->delete->delete(site\frontend\modules\v1\components\V1ApiController::KEYS_COLLECTION);
+            $del = new site\frontend\modules\v1\behaviors\CacheDeleteBehavior();
+            $del->realOwner = get_class(new site\frontend\modules\posts\models\Content());
+            $del->handleCollection();
         } catch (\Exception $e) {
             var_dump($data);
             echo $e;

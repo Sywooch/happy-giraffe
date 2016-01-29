@@ -12,7 +12,6 @@ use site\frontend\modules\photo\models\Photo;
  */
 class CommunityContentBehavior extends \CActiveRecordBehavior
 {
-
     public function events()
     {
         return array_merge(parent::events(), array(
@@ -63,8 +62,9 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
     public function addTaskToConvert()
     {
+        //\Yii::log('addTaskToConvert', 'info', 'Convert');
         if (!\site\frontend\modules\posts\commands\ConvertCommand::addConvertTask($this->owner))
-            $this->convertToNewPost();
+           $this->convertToNewPost();
     }
 
     protected function convertCommon(&$oldPost, &$newPost, $scenario = 'default', $service = false)

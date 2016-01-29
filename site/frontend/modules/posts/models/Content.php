@@ -123,9 +123,6 @@ class Content extends \CActiveRecord implements \IHToJSON
     public function behaviors()
     {
         return array(
-            /*'Rabbit' => array(
-                'class' => 'site.common.behaviors.RabbitMQBehavior',
-            ),*/
             'CacheDelete' => array(
                 'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
             ),

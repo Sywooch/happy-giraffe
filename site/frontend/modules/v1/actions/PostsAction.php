@@ -99,7 +99,7 @@ class PostsAction extends RoutedAction implements IPostProcessable, IViewIncreme
         } else {
             $model = $id == null ? new \BlogContent() : \BlogContent::model()->findByPk($id);
             $model->scenario = 'default';
-            ApiLog::i(get_class($model));
+            //ApiLog::i(get_class($model));
         }
 
         //$this->detach('Rabbit', $model);
@@ -289,7 +289,7 @@ class PostsAction extends RoutedAction implements IPostProcessable, IViewIncreme
                     $post->restore();
                 }
                 $this->controller->data = $post;
-            } catch (Eception $ex) {
+            } catch (Exception $ex) {
                 $this->controller->setError("DeleteFailed", 500);
             }
         } else {

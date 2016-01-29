@@ -53,19 +53,12 @@ class MyController extends QaController
         $model->user(\Yii::app()->user->id)->orderDesc()->with('question')->apiWith('user');
         if ($categoryId !== null) {
             $model->category($categoryId);
-        } else {
-            $model->with('question');
         }
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',
             ),
         ));
-
-//        $dp->getData();
-//
-//        \Yii::app()->end();
-
         $this->render('answers', compact('dp'));
     }
 }

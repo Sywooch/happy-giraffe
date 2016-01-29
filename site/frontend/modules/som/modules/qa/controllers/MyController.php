@@ -35,7 +35,7 @@ class MyController extends QaController
     public function actionQuestions($categoryId = null)
     {
         $model = clone QaQuestion::model();
-        $model->user(\Yii::app()->user->id)->orderDesc()->checkQuestionExiststance()->apiWith('user');
+        $model->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
         if ($categoryId !== null) {
             $model->category($categoryId);
         }
@@ -50,7 +50,7 @@ class MyController extends QaController
     public function actionAnswers($categoryId = null)
     {
         $model = clone QaAnswer::model();
-        $model->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
+        $model->user(\Yii::app()->user->id)->orderDesc()->checkQuestionExiststance()->apiWith('user');
         if ($categoryId !== null) {
             $model->category($categoryId);
         } else {

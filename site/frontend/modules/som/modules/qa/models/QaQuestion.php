@@ -172,7 +172,7 @@ class QaQuestion extends \HActiveRecord
 		return $this;
 	}
 
-	public function checkQuestionExists()
+	public function checkQuestionExiststance()
 	{
 		$criteria = new \CDbCriteria();
 		$criteria->with = array('question');

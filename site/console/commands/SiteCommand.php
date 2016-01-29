@@ -69,6 +69,21 @@ class SiteCommand extends CConsoleCommand
     public function actionRoutine()
     {
         \site\frontend\modules\community\helpers\StatsHelper::warmCache();
+
+        echo "sections\n";
+
+        $sections = \CommunitySection::model()->with('clubs')->findAll();
+
+        $posts = array();
+        foreach ($sections as $section) {
+            foreach ($section->clubs as $club) {
+                $label = $club->toLabel();
+                $post = \site\frontend\modules\posts\models\Content::model()->byLabels(array($label, \site\frontend\modules\posts\models\Label::LABEL_FORUMS))->orderDesc()->find();
+                if ($post) {
+                    $posts[$club->id] = $post;
+                }
+            }
+        }
     }
 
     public function actionCheckSeo()

@@ -23,6 +23,12 @@ class SeoTempCommand extends CConsoleCommand
 //        $this->ga->setProfile('ga:53688414');
     }
 
+    public function actionT()
+    {
+        $a = Yii::app()->thumbs->getPhotoByUrl('http://img.happy-giraffe.ru/v2/thumbs/e26e4ffdce15f4bc6711c767ffa68dac/94/42/6df992826e177d31784f2f1b2c26.jpg');
+        var_dump($a);
+    }
+
     public function actionActivity()
     {
         $content = \site\frontend\modules\posts\models\Content::model()->findByPk(701734);

@@ -28,6 +28,7 @@ class PostController extends \LiteController
      */
     public function actionView($content_id, $content_type_slug)
     {
+        \Yii::log("checkView", 'info', 'postview');
         // Включим прочтение сигналов
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
         /** @todo добавить условие byService для полноценного использования индекса */

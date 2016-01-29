@@ -65,7 +65,9 @@ class DefaultController extends \site\frontend\modules\posts\controllers\PostCon
                 }
             } else {
                 $this->_attach = $this->attaches[0];
-                $this->_nextAttach = $this->attaches[1];
+                if (isset($this->attaches[1])) {
+                    $this->_nextAttach = $this->attaches[1];
+                }
             }
         }
 

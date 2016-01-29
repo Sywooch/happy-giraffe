@@ -64,7 +64,10 @@ class WebUser extends CWebUser
         }
 
         if ($referrer !== null && $referrer != $loginUrl) {
-            Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
+            /** @todo: fix 'Creating default object from empty value'*/
+            try {
+                //Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
+            } catch (Exception $e) {}
         }
         return parent::beforeLogin($id, $states, $fromCookie);
     }

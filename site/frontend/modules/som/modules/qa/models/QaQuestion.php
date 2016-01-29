@@ -172,6 +172,15 @@ class QaQuestion extends \HActiveRecord
 		return $this;
 	}
 
+	public function checkQuestionExists()
+	{
+		$criteria = new \CDbCriteria();
+		$criteria->with = array('question');
+		$criteria->addCondition('question.isRemoved = 0');
+		$this->getDbCriteria()->mergeWith($criteria);
+		return $criteria;
+	}
+
 	public function defaultScope()
 	{
 		$t = $this->getTableAlias(false, false);

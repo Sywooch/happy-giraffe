@@ -50,9 +50,11 @@ class MyController extends QaController
     public function actionAnswers($categoryId = null)
     {
         $model = clone QaAnswer::model();
-        $model->user(\Yii::app()->user->id)->orderDesc()->with('question')->apiWith('user');
+        $model->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
         if ($categoryId !== null) {
             $model->category($categoryId);
+        } else {
+            $model->with('question');
         }
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(

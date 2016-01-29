@@ -26,7 +26,12 @@ class ImageDecorator
     /**
      * @var string
      */
-    protected $format;
+    protected $inputFormat;
+
+    /**
+     * @var string
+     */
+    protected $outputFormat;
 
     /**
      * @var bool
@@ -42,26 +47,27 @@ class ImageDecorator
     {
         $this->image = \Yii::app()->imagine->load($imageString);
         $imageSize = ImageSizeHelper::getImageSize($imageString);
-        $this->format = \Yii::app()->getModule('photo')->types[$imageSize[2]];
-        $this->animated = $animated && $this->format == 'gif';
+        $this->inputFormat = \Yii::app()->getModule('photo')->types[$imageSize[2]];
+        $this->animated = $animated && $this->inputFormat == 'gif';
+        $this->outputFormat = $this->animated ? 'gif' : 'jpg';
         $this->prepare();
     }
 
     public function get()
     {
-        return $this->image->get($this->format, $this->options);
+        return $this->image->get($this->outputFormat, $this->options);
     }
 
     public function show()
     {
-        return $this->image->show($this->format, $this->options);
+        return $this->image->show($this->outputFormat, $this->options);
     }
 
     public function applyFilter(CustomFilterInterface $filter)
     {
         $filters = array();
 
-        if ($this->format == 'gif') {
+        if ($this->inputFormat == 'gif') {
             if ($this->animated) {
                 $filters[] = new AnimatedGifFilter($filter);
             } else {
@@ -87,7 +93,7 @@ class ImageDecorator
     {
         $this->image->strip();
         $this->options['animated'] = $this->animated;
-        if ($this->format == 'jpg') {
+        if ($this->outputFormat == 'jpg') {
             $this->options['jpeg_quality'] = $this->getJpegQuality();
         }
     }

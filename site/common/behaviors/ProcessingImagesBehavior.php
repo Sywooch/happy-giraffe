@@ -41,7 +41,8 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
             foreach ($doc->find('img') as $image) {
                 $element = null;
                 for($i=1;$i<10;$i++)
-                    $image->src = str_replace('http://img' . $i . '.happy-giraffe.ru/', 'http://img.happy-giraffe.ru/', $image->src);
+                    //$image->src = str_replace('http://img' . $i . '.happy-giraffe.ru/', 'http://img.happy-giraffe.ru/', $image->src);
+                    $image->src = str_replace('http://img' . $i . '.giraffe.code-geek.ru/', 'http://img.giraffe.code-geek.ru/', $image->src);
 
                 if (strpos($image->src, Yii::app()->params['photos_url']) !== 0 && strpos($image->src, '/') !== 0) {
                     if (isset($this->owner->author_id))

@@ -46,6 +46,9 @@ return array(
         'testConvert' => array(
             'class' => 'site\frontend\modules\posts\commands\TestConvert',
         ),
+        'modelRebase' => array(
+            'class' => 'site\frontend\modules\v1\commands\ModelRebase',
+        ),
         'activityRenew' => array(
             'class' => 'site\frontend\modules\som\modules\activity\commands\RenewActivity',
         ),
@@ -87,6 +90,9 @@ return array(
         ),
         'qa' => array(
             'class' => 'site\frontend\modules\som\modules\qa\commands\DefaultCommand',
+        ),
+        'buzz' => array(
+            'class' => 'site\frontend\modules\posts\modules\buzz\commands\DefaultCommand',
         ),
     ),
     'import' => array(

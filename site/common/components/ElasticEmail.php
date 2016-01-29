@@ -77,7 +77,7 @@ class ElasticEmail extends CApplicationComponent
             }
             fclose($fp);
         }
-        //echo $res;
+        echo $res;
     }
 
     public static function addContact($email, $first_name, $last_name, $list)

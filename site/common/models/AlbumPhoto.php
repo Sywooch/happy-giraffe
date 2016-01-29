@@ -289,6 +289,7 @@ class AlbumPhoto extends HActiveRecord
 
         //define file extension if it is not set
         $dir = Yii::getPathOfAlias('site.common.uploads.photos.temp');
+        //$dir = Yii::getPathOfAlias("photos");
         $file_name = md5($url . time());
         file_put_contents($dir . DIRECTORY_SEPARATOR . $file_name, $file);
 
@@ -309,6 +310,7 @@ class AlbumPhoto extends HActiveRecord
 
         //prepare directory
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        //$dir = Yii::getPathOfAlias("photos");
         $model_dir = $dir . DIRECTORY_SEPARATOR . $model->original_folder . DIRECTORY_SEPARATOR . $model->author_id;
         if (!file_exists($model_dir))
             mkdir($model_dir);
@@ -339,6 +341,7 @@ class AlbumPhoto extends HActiveRecord
     public function saveFile($temp = false, $move_temp = false)
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        //$dir = Yii::getPathOfAlias("photos");
         if (!$temp) {
             $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id;
             if (!file_exists($model_dir))
@@ -366,6 +369,7 @@ class AlbumPhoto extends HActiveRecord
     public function savePhotoFromPhpThumb($image)
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        //$dir = Yii::getPathOfAlias("photos");
         $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id;
         if (!file_exists($model_dir))
             mkdir($model_dir);
@@ -390,6 +394,7 @@ class AlbumPhoto extends HActiveRecord
     public function getOriginalPath()
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        //$dir = Yii::getPathOfAlias("photos");
         return $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id .
         DIRECTORY_SEPARATOR . $this->fs_name;
     }
@@ -424,6 +429,7 @@ class AlbumPhoto extends HActiveRecord
     {
         // Uload root
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        //$dir = Yii::getPathOfAlias("photos");
         // Thumb relative path
         $thumb_dir = $this->thumb_folder . DIRECTORY_SEPARATOR . $width . 'x' . $height;
         // Thumb file system path
@@ -480,8 +486,8 @@ class AlbumPhoto extends HActiveRecord
         }
 
         if (Yii::app() instanceof CWebApplication && ($image->width <= $width && $image->height <= $height
-            || $master == Image::WIDTH && $image->height <= $height
-            || $master == Image::HEIGHT && $image->height <= $height
+                || $master == Image::WIDTH && $image->height <= $height
+                || $master == Image::HEIGHT && $image->height <= $height
             )) {
             //just copy file
             copy($this->originalPath, $thumb);
@@ -571,12 +577,12 @@ class AlbumPhoto extends HActiveRecord
 
     public function  getTemplatePath()
     {
-        return Yii::getPathOfAlias('site.common.uploads.photos') . DIRECTORY_SEPARATOR . $this->tmp_folder . DIRECTORY_SEPARATOR . $this->fs_name;
+        return Yii::getPathOfAlias('site.common.uploads.photos')/*Yii::getPathOfAlias("photos")*/ . DIRECTORY_SEPARATOR . $this->tmp_folder . DIRECTORY_SEPARATOR . $this->fs_name;
     }
 
     public function getTempPath()
     {
-        return Yii::getPathOfAlias('site.common.uploads.photos') . DIRECTORY_SEPARATOR . $this->tmp_folder . DIRECTORY_SEPARATOR;
+        return Yii::getPathOfAlias('site.common.uploads.photos')/*Yii::getPathOfAlias("photos")*/ . DIRECTORY_SEPARATOR . $this->tmp_folder . DIRECTORY_SEPARATOR;
     }
 
 
@@ -593,6 +599,7 @@ class AlbumPhoto extends HActiveRecord
     public function getAvatarPath($size)
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        //$dir = Yii::getPathOfAlias("photos");
         if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id))
             mkdir($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id);
 
@@ -622,6 +629,7 @@ class AlbumPhoto extends HActiveRecord
     public function getBlogPath()
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        //$dir = Yii::getPathOfAlias("photos");
 
         if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id))
             mkdir($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id);
@@ -643,6 +651,7 @@ class AlbumPhoto extends HActiveRecord
     public function getMailPath()
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        //$dir = Yii::getPathOfAlias("photos");
 
         if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->mail_folder . DIRECTORY_SEPARATOR . $this->author_id))
             mkdir($dir . DIRECTORY_SEPARATOR . $this->mail_folder . DIRECTORY_SEPARATOR . $this->author_id);
@@ -793,7 +802,7 @@ class AlbumPhoto extends HActiveRecord
     public function getWidget($edit = false, $parentModel = null)
     {
         if (get_class(Yii::app()) == 'CConsoleApplication')
-            return Yii::app()->command->renderFile(Yii::getPathOfAlias('site.frontend.views.albums') . DIRECTORY_SEPARATOR . '_widget.php', array(
+            return Yii::app()->command->renderFile(Yii::getPathOfAlias('site.frontend.views.albums')/*Yii::getPathOfAlias("albums")*/ . DIRECTORY_SEPARATOR . '_widget.php', array(
                 'model' => $this,
                 'edit' => $edit,
                 'parentModel' => $parentModel
@@ -864,6 +873,7 @@ class AlbumPhoto extends HActiveRecord
         $ext = pathinfo($name, PATHINFO_EXTENSION);
         list($this->width, $this->height) = @getimagesize($temp_name);
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        //$dir = Yii::getPathOfAlias("photos");
         $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $user_id;
         if (!file_exists($model_dir))
             mkdir($model_dir);
@@ -943,7 +953,7 @@ class AlbumPhoto extends HActiveRecord
         copy($source, $dest);
         $this->save();
     }
-    
+
     public function getType_id()
     {
         return CommunityContent::TYPE_PHOTO;

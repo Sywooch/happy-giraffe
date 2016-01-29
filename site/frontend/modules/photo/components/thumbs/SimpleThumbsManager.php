@@ -25,26 +25,39 @@ class SimpleThumbsManager extends ThumbsManager
      * @param Photo $photo
      * @param $usageName
      * @param bool $replace
+     * @param bool $animated
      * @return Thumb
      * @throws \CException
      */
-    public function getThumb(Photo $photo, $usageName, $replace = false)
+    public function getThumb(Photo $photo, $usageName, $replace = false, $animated = true)
     {
         $config = $this->getFilterConfigByUsage($usageName);
         $filter = $this->createFilter($config);
-        $path = $this->getFsPath($photo, $usageName);
-        return $this->getThumbInternal($photo, $filter, $path, true, $replace);
+        $path = $this->getFsPath($photo, $usageName, $animated);
+        return $this->getThumbInternal($photo, $filter, $path, $animated, $replace);
     }
 
     public function getThumbByUrl($url)
     {
         $photo = $this->getPhotoByUrl($url);
         $array = explode('/', $url);
-        $hash = $array[count($array) - 4];
+        $folder = $array[count($array) - 4];
+        if (strpos($folder, '-') !== false) {
+            $parts = explode('-', $folder);
+            $hash = $parts[0];
+            $flags = $parts[1];
+            if (strpos($flags, 's') !== false) {
+                $animated = false;
+            }
+        } else {
+            $hash = $folder;
+            $animated = true;
+        }
+
         $config = $this->getConfigByHash($hash);
         $filter = $this->createFilter($config);
         $path = 'thumbs/' . $hash . '/' . $photo->fs_name;
-        return $this->getThumbInternal($photo, $filter, $path, true, false);
+        return $this->getThumbInternal($photo, $filter, $path, $animated, false);
     }
 
     public function getPhotoByUrl($url)
@@ -93,9 +106,16 @@ class SimpleThumbsManager extends ThumbsManager
         return $filter;
     }
 
-    protected function getFsPath(Photo $photo, $usageName)
+    protected function getFsPath(Photo $photo, $usageName, $animated)
     {
-        return 'thumbs/' . $this->getHashByUsage($usageName) . '/' . $photo->fs_name;
+        $flags = '';
+        if (! $animated) {
+            $flags .= 's';
+        }
+        if (! empty($flags)) {
+            $flags = '-' . $flags;
+        }
+        return 'thumbs/' . $this->getHashByUsage($usageName) . $flags . '/' . $photo->fs_name;
     }
 
     protected function getFilterConfigByUsage($usageName)

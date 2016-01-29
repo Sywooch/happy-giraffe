@@ -31,6 +31,15 @@ class PostsModule extends \CWebModule
             'nextPost' => array(
                 'class' => 'site\frontend\modules\posts\modules\nextPost\NextPostModule',
             ),
+            'buzz' => array(
+                'class' => 'site\frontend\modules\posts\modules\buzz\BuzzModule',
+            ),
+            'forums' => array(
+                'class' => 'site\frontend\modules\posts\modules\forums\ForumsModule',
+            ),
+            'contractubex' => array(
+                'class' => 'site\frontend\modules\posts\modules\contractubex\ContractubexModule',
+            ),
         ));
     }
 

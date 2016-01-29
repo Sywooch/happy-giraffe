@@ -54,6 +54,7 @@ class MessagingMessage extends HActiveRecord
         // will receive user inputs.
         return array(
             array('author_id', 'required'),
+            array('text', 'length', 'max' => 1000),
             array('text', 'requiredIfNoImages'),
             array('updated, created', 'safe'),
             // The following rule is used by search().

@@ -114,9 +114,10 @@ class ConvertCommand extends \CConsoleCommand
             \Yii::app()->db->setActive(false);
             /**@todo: fix api cache*/
             //\Yii::app()->cache->delete->delete(site\frontend\modules\v1\components\V1ApiController::KEYS_COLLECTION);
-            $del = new site\frontend\modules\v1\behaviors\CacheDeleteBehavior();
-            $del->realOwner = get_class(new site\frontend\modules\posts\models\Content());
+            $del = new \site\frontend\modules\v1\behaviors\CacheDeleteBehavior();
+            $del->realOwner = get_class(new \site\frontend\modules\posts\models\Content());
             $del->handleCollection();
+            //\Yii::app()->cache->flush();
         } catch (\Exception $e) {
             var_dump($data);
             echo $e;

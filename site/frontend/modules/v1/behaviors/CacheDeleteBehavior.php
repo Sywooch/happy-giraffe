@@ -28,7 +28,7 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
         $this->handleCollection();
     }
 
-    private function handleCollection()
+    public function handleCollection()
     {
         try {
             $collection = \Yii::app()->cache->get(V1ApiController::KEYS_COLLECTION);

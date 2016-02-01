@@ -185,7 +185,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
             ),
             'withRelated' => array(
-                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+                'class' => 'site.common.extensions.wr2.WithRelatedBehavior',
                 'callback' => function($model) {
                     $model->convertToNewPost->addTaskToConvert();
                 }

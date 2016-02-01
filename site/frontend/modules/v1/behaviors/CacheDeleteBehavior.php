@@ -73,7 +73,7 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
         } catch (Exception $ex) {
             //Emergency fix.
             //ApiLog::i("WE ALL DIE!");
-            \Yii::app()->cache->flush();
+            \Yii::app()->cache->delete(V1ApiController::KEYS_COLLECTION);
         }
     }
 }

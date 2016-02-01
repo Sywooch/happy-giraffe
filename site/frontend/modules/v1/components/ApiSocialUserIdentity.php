@@ -70,7 +70,7 @@ class ApiSocialUserIdentity extends \CUserIdentity
 
     private function handleUser()
     {
-        ApiLog::i('handleUser');
+        //ApiLog::i('handleUser');
         if ($this->user_id) {
             $model = \User::model()->active()->findByPk($this->user_id);
             if ($model === null || $model->status == \User::STATUS_INACTIVE) {
@@ -78,7 +78,7 @@ class ApiSocialUserIdentity extends \CUserIdentity
             } elseif ($model->isBanned) {
                 $this->errorMessage = 'Banned';
             } else {
-                ApiLog::i('user attributes');
+                //ApiLog::i('user attributes');
                 foreach ($model->attributes as $k => $v) {
                     $this->setState($k, $v);
                 }

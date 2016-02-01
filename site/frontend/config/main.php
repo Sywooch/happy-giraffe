@@ -77,6 +77,7 @@ return array(
 
         'zii.behaviors.CTimestampBehavior',
         'site.common.extensions.wr.WithRelatedBehavior',
+        'site.common.extensions.wr2.WithRelatedBehavior',
         'site.frontend.modules.antispam.behaviors.AntispamBehavior',
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',

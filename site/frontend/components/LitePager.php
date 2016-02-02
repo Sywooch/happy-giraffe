@@ -28,6 +28,7 @@ class LitePager extends CLinkPager
 
     protected function createPageButtons()
     {
+
         if (($pageCount = $this->getPageCount()) <= 1)
             return array();
 

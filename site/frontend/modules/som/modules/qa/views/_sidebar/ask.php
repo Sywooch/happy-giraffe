@@ -1,0 +1,1 @@
+<a class="btn btn-success btn-xl btn-question login-button" href="<?=$this->createUrl('/som/qa/default/questionAddForm/')?>" data-bind="follow: {}">Задать вопрос</a>

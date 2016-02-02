@@ -99,7 +99,7 @@ class PostsAction extends RoutedAction implements IPostProcessable, IViewIncreme
         } else {
             $model = $id == null ? new \BlogContent() : \BlogContent::model()->findByPk($id);
             $model->scenario = 'default';
-            ApiLog::i(get_class($model));
+            //ApiLog::i(get_class($model));
         }
 
         //$this->detach('Rabbit', $model);
@@ -204,7 +204,7 @@ class PostsAction extends RoutedAction implements IPostProcessable, IViewIncreme
 
                     if ($success) {
                         $this->controller->data = $model;
-                        ApiLog::i(get_class($model));
+                        //ApiLog::i(get_class($model));
                     } else {
                         $this->controller->setError('SavingFailed', 500);
                     }

@@ -12,7 +12,7 @@ class ApiRelation extends \CComponent
     public $name;
     public $className;
     public $foreignKey;
-    public $params;
+    public $params = array();
 
     public function __construct($name, $className, $foreignKey, $options = array())
     {

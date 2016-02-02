@@ -32,19 +32,18 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
 
     public function softDelete()
     {
-        $result = false;
         if ($this->beforeSoftDelete()) {
             if (Yii::app() instanceof CWebApplication && Yii::app()->user->id) {
                 $model = new SoftDelete();
                 $model->entity = get_class($this->owner);
                 $model->entity_id = $this->owner->id;
                 $model->user_id = Yii::app()->user->id;
-                $result = $model->save();
+                $model->save();
             }
             $this->owner->{$this->removeAttribute} = 1;
-            $result = $result && $this->owner->save(false, $this->owner->{$this->removeAttribute});
+            $result = $this->owner->save(false, $this->owner->{$this->removeAttribute});
             if ($result) {
-                $this->afterSoftDelete();
+                $this->owner->afterSoftDelete();
             }
         }
         return $result;
@@ -57,7 +56,7 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
             $this->owner->{$this->removeAttribute} = 0;
             $result = $this->owner->save(false, $this->owner->{$this->removeAttribute});
             if ($result) {
-                $this->afterSoftRestore();
+                $this->owner->afterSoftRestore();
             }
         }
 

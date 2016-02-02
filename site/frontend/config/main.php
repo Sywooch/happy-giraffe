@@ -77,6 +77,7 @@ return array(
 
         'zii.behaviors.CTimestampBehavior',
         'site.common.extensions.wr.WithRelatedBehavior',
+        'site.common.extensions.wr2.WithRelatedBehavior',
         'site.frontend.modules.antispam.behaviors.AntispamBehavior',
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',
@@ -151,9 +152,6 @@ return array(
         'archive' => array(
            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),
-        'som' => array(
-            'class' => 'site\frontend\modules\som\SomModule',
-        ),
         'rss' => array(
             'class' => 'site\frontend\modules\rss\RssModule',
         ),
@@ -166,13 +164,10 @@ return array(
         'pages' => array(
             'class' => 'site\frontend\modules\pages\PagesModule',
         ),
-        /*'gii' => array(
-            'class' => 'system.gii.GiiModule',
-            //'password' => 'test',
-            'ipFilters' => array('192.168.0.137', '192.168.56.1'),
-            'newFileMode' => 0666,
-            'newDirMode' => 0777,
-        ),*/
+        'stream' => array(
+            'class' => 'site\frontend\modules\stream\StreamModule',
+            'controllerNamespace' => 'site\frontend\modules\stream\controllers',
+        ),
         'questionnaire' => array(
             'class' => 'site\frontend\modules\questionnaire\QuestionnaireModule',
             'controllerNamespace' => 'site\frontend\modules\questionnaire\controllers',

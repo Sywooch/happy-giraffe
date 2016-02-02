@@ -26,8 +26,54 @@ return array(
         'api/activity/<_a>' => 'som/activity/api/<_a>',
         'api/community/<_a:(getUserSubscriptions|setUserSubscriptions)>' => 'community/api/<_a>',
         'api/community/<_a>' => 'som/community/api/<_a>',
+        'api/qa/<_a>' => 'som/qa/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
+
+
+        /* QA */
+
+        //страница вопроса
+        'questions/question<id:\d+>' => 'som/qa/default/view',
+
+        // поиск
+        'questions/search/page<page:\d+>' => 'som/qa/default/search',
+        'questions/search' => 'som/qa/default/search',
+
+        // мои вопросы-ответы
+        'questions/my/answers/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers/<categoryId:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers/page<page:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers' => 'som/qa/my/answers',
+        'questions/my/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/questions',
+        'questions/my/<categoryId:\d+>' => 'som/qa/my/questions',
+        'questions/my/page<page:\d+>' => 'som/qa/my/questions',
+        'questions/my' => 'som/qa/my/questions',
+
+
+
+        // рейтинг
+        'questions/rating/<period:(week|all)>/page<page:\d+>' => 'som/qa/rating/index',
+        'questions/rating/<period:(week|all)>' => 'som/qa/rating/index',
+        'questions/rating/page<page:\d+>' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'day')),
+        'questions/rating' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'day')),
+
+        // консультация
+        'questions/consultation<consultationId:\d+>' => 'som/qa/consultation/index',
+
+        // задать вопрос
+        'questions/add' => 'som/qa/default/questionAddForm',
+        'questions/edit<questionId:\d+>' => 'som/qa/default/questionEditForm',
+
+        // главная
+        'questions/<categoryId:\d+>/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/<categoryId:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>/page<page:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>/page<page:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>' => 'som/qa/default/index',
 
         'contractubex' => 'posts/contractubex/default/index',
         'contractubex/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/contractubex/view/view'),

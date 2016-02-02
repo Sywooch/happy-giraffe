@@ -25,7 +25,7 @@ class RoutedAction extends \CAction
             'GET' => 'Param',
         );
 
-        ApiLog::i(print_r($_REQUEST, true));
+        //ApiLog::i(print_r($_REQUEST, true));
 
         try {
             $this->controller->requestType = $methods[\Yii::app()->request->requestType];

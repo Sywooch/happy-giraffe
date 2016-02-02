@@ -18,6 +18,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         return \CMap::mergeArray(parent::actions(), array(
             'get' => 'site\frontend\components\api\PackAction',
+            'checkAccess' => 'site\frontend\components\api\PackAction',
         ));
     }
 

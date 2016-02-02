@@ -107,7 +107,7 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
         </div>
     </article>
     <!-- /b-article-->
-    <?php //$this->renderPartial('//banners/_article_banner', compact('data')); ?>
+    <?php $this->renderPartial('//banners/_article_banner', array('data' => $this->post)); ?>
 
     <!-- Put this div tag to the place, where the Comments block will be -->
     <div id="vk_comments"></div>

@@ -679,7 +679,7 @@ class SiteController extends LiteController
         $real = Yii::app()->request->getPost('real', false);
 
         $lastSend = Yii::app()->getGlobalState('lastSend', 0);
-        if (($lastSend > (time() - 3600 * 20)) && $real) {
+        if (($lastSend > (time() - 3600 * 18)) && $real) {
             echo CJSON::encode(array('success' => false, 'error' => 'Сегодня уже отправляли'));
             Yii::app()->end();
         }

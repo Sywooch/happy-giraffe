@@ -11,6 +11,77 @@ require_once('simple_html_dom.php');
     <tbody><tr>
         <?php foreach ($models as $model): ?>
         <?php if ($model instanceof \site\frontend\modules\posts\models\Content): $adapter = new \site\frontend\modules\posts\components\MailAdapter($model); $commentsWidget = $adapter->getComments(); ?>
+
+            <?php if ($model->authorId == 450668): ?>
+
+                <td style="width:340px;padding-left:20px;" valign="top">
+
+                    <div style="padding:10px;border:1px solid #e7e7e7;width:318px;background: #fed408;">
+
+                        <table cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
+                            <tbody>
+                            <tr>
+                                <td valign="middle"><img src="<?=$adapter->getUser()->getAvatarUrl()?>"
+                                                         style="display:block;margin-top:-40px;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
+                                </td>
+                                <td valign="top">
+                                    <span style="color:#000;font:12px arial, helvetica, sans-serif;margin-left:10px;"><?=$adapter->getUser()->first_name?></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="margin-bottom:10px;">
+                <span style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;">
+                    <a href="<?=$model->url?>" target="_blank" style="color:#000;font:bold 18px/20px arial, helvetica, sans-serif;"><?=$model->title?></a></span>
+                        </div>
+
+
+                        <?php if ($photo = $adapter->getPhoto()): ?>
+                            <div style="margin-bottom:5px;">
+                                <a href="<?=$model->url?>" target="_blank" style="text-decoration: none;">
+                                    <img src="<?=$photo?>" width="318" border="0" style="display:block;"></a>
+                            </div>
+                        <?php endif; ?>
+
+                        <div style="font:13px/18px arial, helvetica, sans-serif;color:#333;">
+                            <?=$adapter->getText()?>
+                            <span style="color:#0d81d5;">
+                    <a href="<?=$model->url?>" target="_blank" style="color:#000;">Читать&nbsp;всю&nbsp;запись&nbsp;</a>
+                </span>
+                        </div>
+
+                        <table cellpadding="0" cellspacing="0" style="margin-top:20px;">
+                            <tbody>
+                            <tr>
+
+                                <td style="padding-right:15px;">
+                        <span style="color:#31a4f6;font:12px arial, helvetica, sans-serif;">
+                            <a href="<?=$model->url?>#comment_list" target="_blank" style="color:#000;font:12px arial, helvetica, sans-serif;"><img
+                                    src="http://www.happy-giraffe.ru/images/mail/icon_comments_white.gif"
+                                    style="margin-right:5px;vertical-align:top;"><?=$commentsWidget->getCount()?></a></span>
+                                </td>
+                                <td>
+                                    <?php $used = array(); $comments = $commentsWidget->dataProvider->data; ?>
+                                    <?php $j = 0; foreach ($comments as $comment): ?>
+                                        <?php if (!empty($comment->author->avatar_id) && !in_array($comment->author->avatar_id, $used)):?>
+                                            <?php $j++;$used[] = $comment->author->avatar_id ?>
+                                            <img src="<?php echo $comment->author->getAvatarUrl(Avatar::SIZE_MICRO) ?>"
+                                                 style="margin-right:5px;-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;">
+                                            <?php if ($j == 5) break; ?>
+                                        <?php endif ?>
+                                    <?php endforeach; ?>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </td>
+
+            <?php else: ?>
+
             <td style="width:340px;padding-left:20px;" valign="top">
 
                 <div style="padding:10px;border:1px solid #e7e7e7;width:318px;">
@@ -77,6 +148,7 @@ require_once('simple_html_dom.php');
                 </div>
 
             </td>
+            <?php endif; ?>
         <?php else: ?>
         <?php
             $url = 'http://www.happy-giraffe.ru' . ltrim($model->getUrl(), '.');

@@ -47,8 +47,7 @@ require_once('simple_html_dom.php');
                         <div style="font:13px/18px arial, helvetica, sans-serif;color:#333;">
                             <?=$adapter->getText()?>
                             <span style="color:#0d81d5;">
-                    <a href="<?=$model->url?>" target="_blank" style="color:#000;">Читать&nbsp;всю&nbsp;запись&nbsp;<img
-                            src="http://www.happy-giraffe.ru/images/mail/icon_more.gif" style="margin-left:5px;"></a>
+                    <a href="<?=$model->url?>" target="_blank" style="color:#000;">Читать&nbsp;всю&nbsp;запись&nbsp;</a>
                 </span>
                         </div>
 

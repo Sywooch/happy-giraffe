@@ -1,4 +1,5 @@
 <?php
+$this->noAdsense = true;
 $this->pageTitle = $this->post->title;
 $this->metaDescription = $this->post->metaObject->description;
 $this->metaNoindex = $this->post->isNoindex;

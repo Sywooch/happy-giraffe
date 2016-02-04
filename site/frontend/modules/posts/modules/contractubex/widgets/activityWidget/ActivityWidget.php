@@ -29,6 +29,7 @@ class ActivityWidget extends \CWidget
             'criteria' => $criteria,
             'pagination' => array(
                 'pageVar' => 'page',
+                'pageSize' => 1,
             ),
         ));
     }

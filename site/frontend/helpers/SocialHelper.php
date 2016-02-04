@@ -13,7 +13,6 @@ class SocialHelper
 
     public static function ok()
     {
-        return 1;
         $cacheId = 'SocialHelper.ok';
         $value = self::getCacheComponent()->get($cacheId);
         if ($value === false) {

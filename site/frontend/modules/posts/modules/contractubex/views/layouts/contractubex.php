@@ -5,7 +5,7 @@
         echo $content;
         ?>
         <aside class="b-main_col-sidebar visible-md">
-            <a class="fancy-top login-button" data-bind="follow: {}" href="<?=$this->createUrl('/blog/default/form', array('type' => 1, 'club_id' => \site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper::getForum()->id, 'useAMD' => true))?>">
+            <a class="<?=(Yii::app()->user->isGuest) ? 'login-button' : 'fancy-top'?>" data-bind="follow: {}" href="<?=$this->createUrl('/blog/default/form', array('type' => 1, 'club_id' => \site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper::getForum()->id, 'useAMD' => true))?>">
                 <div class="sidebar-promo-banner">
                     <div class="sidebar-promo-banner_h-first">Поделись</div>
                     <div class="sidebar-promo-banner_h-second">советом!</div>

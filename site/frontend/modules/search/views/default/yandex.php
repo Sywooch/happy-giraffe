@@ -86,8 +86,6 @@ else
                         </div>
                     </div>
                 </div>
-                <div class="footer-push"></div>
-                <?php $this->renderPartial('//_footer'); ?>
             </div>
         </div>
     </div>

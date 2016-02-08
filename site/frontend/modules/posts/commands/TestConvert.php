@@ -1,6 +1,8 @@
 <?php
 
 namespace site\frontend\modules\posts\commands;
+use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\components\ReverseParser;
 
 /**
  * Description of TestConvert
@@ -25,4 +27,10 @@ class TestConvert extends \CConsoleCommand
         echo "\n";
     }
 
+    public function actionTest()
+    {
+        $post = Content::model()->findByPk(47);
+        $parser = new ReverseParser($post->html);
+        //print_r($parser->gif);
+    }
 }

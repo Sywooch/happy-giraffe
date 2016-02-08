@@ -15,12 +15,17 @@ abstract class ChosenPostsWidget extends \CWidget
 
     public function run()
     {
-        $criteria = ContractubexHelper::getChosenPostsCriteria();
-        $criteria->order = 'RAND()';
-        $criteria->limit = $this->limit;
-        $models = Content::model()->findAll($criteria);
+        $models = Content::model()->findAll($this->getCriteria());
         if (count($models) > 0) {
             $this->render('view', compact('models'));
         }
+    }
+
+    protected function getCriteria()
+    {
+        $criteria = ContractubexHelper::getChosenPostsCriteria();
+        $criteria->order = 'RAND()';
+        $criteria->limit = $this->limit;
+        return $criteria;
     }
 }

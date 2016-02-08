@@ -100,12 +100,24 @@ class ApiController extends \CController
         return $result;
     }
 
+    protected function beforeAction($action)
+    {
+        foreach (\Yii::app()->log->routes as $route)
+        {
+            if ($route instanceof \CProfileLogRoute)
+            {
+                $route->enabled = false;
+            }
+        }
+        return true;
+    }
+
     // Вывод результата в конце действия
     public function afterAction($action)
     {
         $this->printResult();
 
-        return parent::afterAction($action);
+        parent::afterAction($action);
     }
 
     // Метод, отвечающий за вывод результата

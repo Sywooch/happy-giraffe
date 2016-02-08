@@ -69,6 +69,9 @@ class SiteCommand extends CConsoleCommand
     public function actionRoutine()
     {
         \site\frontend\modules\community\helpers\StatsHelper::warmCache();
+
+        \site\frontend\modules\som\modules\qa\components\QuestionsRatingManager::updateAll();
+        \site\frontend\modules\som\modules\qa\components\QaUsersRatingManager::run();
     }
 
     public function actionCheckSeo()

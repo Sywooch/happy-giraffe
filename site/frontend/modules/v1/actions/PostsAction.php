@@ -17,7 +17,8 @@ class PostsAction extends RoutedAction implements IPostProcessable, IViewIncreme
 
     public function getPosts()
     {
-        $this->controller->get(Content::model(), $this);
+        $where = "labels not rlike 'Buzz'";
+        $this->controller->get(Content::model(), $this, $where);
     }
 
     public function viewsIncrement()

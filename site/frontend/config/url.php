@@ -27,8 +27,54 @@ return array(
         'api/activity/<_a>' => 'som/activity/api/<_a>',
         'api/community/<_a:(getUserSubscriptions|setUserSubscriptions)>' => 'community/api/<_a>',
         'api/community/<_a>' => 'som/community/api/<_a>',
+        'api/qa/<_a>' => 'som/qa/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
+
+
+        /* QA */
+
+        //страница вопроса
+        'questions/question<id:\d+>' => 'som/qa/default/view',
+
+        // поиск
+        'questions/search/page<page:\d+>' => 'som/qa/default/search',
+        'questions/search' => 'som/qa/default/search',
+
+        // мои вопросы-ответы
+        'questions/my/answers/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers/<categoryId:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers/page<page:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers' => 'som/qa/my/answers',
+        'questions/my/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/questions',
+        'questions/my/<categoryId:\d+>' => 'som/qa/my/questions',
+        'questions/my/page<page:\d+>' => 'som/qa/my/questions',
+        'questions/my' => 'som/qa/my/questions',
+
+
+
+        // рейтинг
+        'questions/rating/<period:(week|all)>/page<page:\d+>' => 'som/qa/rating/index',
+        'questions/rating/<period:(week|all)>' => 'som/qa/rating/index',
+        'questions/rating/page<page:\d+>' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'day')),
+        'questions/rating' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'day')),
+
+        // консультация
+        'questions/consultation<consultationId:\d+>' => 'som/qa/consultation/index',
+
+        // задать вопрос
+        'questions/add' => 'som/qa/default/questionAddForm',
+        'questions/edit<questionId:\d+>' => 'som/qa/default/questionEditForm',
+
+        // главная
+        'questions/<categoryId:\d+>/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/<categoryId:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>/page<page:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>/page<page:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>' => 'som/qa/default/index',
 
         'contractubex' => 'posts/contractubex/default/index',
         'contractubex/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/contractubex/view/view'),
@@ -37,6 +83,13 @@ return array(
         'status' => 'som/status/default/index',
         'status/<_c>' => 'som/status/<_c>/index',
         'status/<_c>/<_a>' => 'som/status/<_c>/<_a>',
+
+        array('class' => 'site\frontend\modules\posts\modules\buzz\components\BuzzUrlRule'),
+        'buzz/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/buzz/post/view',
+        'buzz/<slug>' => 'posts/buzz/list/index',
+        'buzz' => 'posts/buzz/list/index',
+
+        'forums' => 'posts/forums/default/index',
 
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
@@ -247,8 +300,9 @@ return array(
         // community/*
         'community/36.*' => 404,
         'news/rubric<rubric_id:\d+>' => array('som/community/news/index'),
+        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('som/community/newsView/view', 'defaultParams' => array('forum_id' => 36)),
+        'news/<slug>' => 'som/community/news/index',
         'news' => array('som/community/news/index'),
-        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/community/view', 'defaultParams' => array('forum_id' => 36)),
         
         array(
             'class' => 'UrlRule',
@@ -615,6 +669,6 @@ return array(
         '<slug:\w+>/consultations/create' => 'consultation/default/create',
         '<slug:\w+>/consultations/page<page:\d+>' => 'consultation/default/index',
 
-        '<view:(about|adv|contacts|useragreement|legal|moderation_rule|confidential|klondike|dreamfields|carpets)>' => 'pages/default/page',
+        '<view:(about|advertising|contacts|useragreement|legal|moderation_rule|confidential|klondike|dreamfields|carpets)>' => 'pages/default/page',
     ),
 );

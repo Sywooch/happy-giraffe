@@ -334,7 +334,7 @@ class V1ApiController extends \CController
             'access_token' => true,
         );
 
-        if ($this->checkParams($required) /*&& $this->action instanceof LoginAction*/) {
+        if ($this->checkParams($required) && $this->action instanceof LoginAction) {
             $params = $this->getParams($required);
             $this->identity = new UserIdentity($params['auth_email'], $params['auth_password']);
         } else if ($this->checkParams($socialRequired)) {
@@ -363,7 +363,7 @@ class V1ApiController extends \CController
             $this->setError($this->identity->errorMessage, 401);
             return false;
         } else {
-            ApiLog::i($this->identity->getId());
+            //ApiLog::i($this->identity->getId());
             \Yii::app()->user->login($this->identity);
             return true;
         }

@@ -115,6 +115,16 @@ return array(
     ),
     array(
         'filter' => array(
+            'name' => 'widen',
+            'width' => 600,
+            'resizeUp' => true,
+        ),
+        'usages' => array(
+            'postGifImage',
+        ),
+    ),
+    array(
+        'filter' => array(
             'name' =>'widen',
             'width' => 320,
         ),
@@ -242,6 +252,7 @@ return array(
         ),
         'usages' => array(
             'postAnnouncement',
+            'buzzSidebar',
         ),
     ),
     array(

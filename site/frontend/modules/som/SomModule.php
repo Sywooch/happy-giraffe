@@ -35,6 +35,9 @@ class SomModule extends \CWebModule
             'idea' => array(
                 'class' => 'site\frontend\modules\som\modules\idea\IdeaModule',
             ),
+            'qa' => array(
+                'class' => 'site\frontend\modules\som\modules\qa\QaModule',
+            ),
         ));
     }
 

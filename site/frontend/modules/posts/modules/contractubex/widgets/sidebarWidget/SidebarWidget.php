@@ -3,23 +3,21 @@
 namespace site\frontend\modules\posts\modules\contractubex\widgets\sidebarWidget;
 use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper;
 use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\modules\contractubex\widgets\ChosenPostsWidget;
 
 /**
  * @author Никита
  * @date 03/12/15
  */
 
-class SidebarWidget extends \CWidget
+class SidebarWidget extends ChosenPostsWidget
 {
-    const LIMIT = 5;
+    public $exclude = array();
 
-    public function run()
+    protected function getCriteria()
     {
-        $criteria = ContractubexHelper::getChosenPostsCriteria();
-        $criteria->limit = self::LIMIT;
-        $models = Content::model()->findAll($criteria);
-        if (count($models) > 0) {
-            $this->render('view', compact('models'));
-        }
+        $criteria = parent::getCriteria();
+        $criteria->addNotInCondition('t.id', $this->exclude);
+        return $criteria;
     }
 }

@@ -9,8 +9,7 @@ return array(
     'id' => 'happy-giraffe',
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Клуб',
-	'homeUrl' => 'https://giraffe.code-geek.ru',
-
+    'homeUrl' => 'https://www.happy-giraffe.ru',
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -77,6 +76,7 @@ return array(
 
         'zii.behaviors.CTimestampBehavior',
         'site.common.extensions.wr.WithRelatedBehavior',
+        'site.common.extensions.wr2.WithRelatedBehavior',
         'site.frontend.modules.antispam.behaviors.AntispamBehavior',
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',
@@ -151,9 +151,6 @@ return array(
         'archive' => array(
            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),
-        'som' => array(
-            'class' => 'site\frontend\modules\som\SomModule',
-        ),
         'rss' => array(
             'class' => 'site\frontend\modules\rss\RssModule',
         ),
@@ -166,13 +163,10 @@ return array(
         'pages' => array(
             'class' => 'site\frontend\modules\pages\PagesModule',
         ),
-        /*'gii' => array(
-            'class' => 'system.gii.GiiModule',
-            //'password' => 'test',
-            'ipFilters' => array('192.168.0.137', '192.168.56.1'),
-            'newFileMode' => 0666,
-            'newDirMode' => 0777,
-        ),*/
+        'stream' => array(
+            'class' => 'site\frontend\modules\stream\StreamModule',
+            'controllerNamespace' => 'site\frontend\modules\stream\controllers',
+        ),
         'questionnaire' => array(
             'class' => 'site\frontend\modules\questionnaire\QuestionnaireModule',
             'controllerNamespace' => 'site\frontend\modules\questionnaire\controllers',
@@ -260,19 +254,19 @@ return array(
                     'client_public' => 'CBAQHQOKEBABABABA',
                 ),
                 //true app
-                /*'vkontakte' => array(
+                'vkontakte' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
                     'title' => 'ВКонтакте',
-                ),*/
+                ),
                 //test app
-                'vkontakte' => array(
+                /*'vk_api' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '5197824',
                     'client_secret' => 'QWTJzplwU7QJHIaS5s7K',
                     'title' => 'ВКонтакте',
-                ),
+                ),*/
                 /*'vkontakte' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '5198960',
@@ -409,6 +403,13 @@ return array(
 //					'levels'=>'error, warning',
 //					'emails'=>'pavel@happy-giraffe.ru',
 //				),
+                array(
+					'class'=>'CFileLogRoute',
+					'levels'=>'trace',
+                    'categories'=>'api',
+                    'logFile' => 'api.log',
+					//'emails'=>'nikita@happy-giraffe.ru',
+				),
 			),
 		),
 		'shoppingCart' => array(
@@ -436,10 +437,10 @@ return array(
         ),
         'comet'=>array(
             'class' => 'ext.Dklab_Realplexor',
-            'host' => 'plexor.www.giraffe.code-geek.ru',
+            'host' => 'plexor.www.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
-        ),
+            ),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
             'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',
@@ -487,7 +488,7 @@ return array(
 				'secret_key' => '9a33bbf4e3c6c78e1dd6427362b0d040',
 			),
 		),
-        'frontend_url'=>'http://www.giraffe.code-geek.ru/',
+        'frontend_url'=>'http://www.happy-giraffe.ru/',
         'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
         'google_map_key'=>'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc',
         'combineMap' => array(

@@ -5,7 +5,7 @@ namespace site\frontend\modules\v1\actions;
 use site\frontend\modules\v1\models\UserApiToken;
 use site\frontend\modules\v1\components\ApiUserIdentity;
 
-class ReLoginAction extends RoutedAction
+class ReLoginAction extends RoutedAction implements IPostProcessable
 {
     public function run()
     {
@@ -33,5 +33,13 @@ class ReLoginAction extends RoutedAction
         } else {
             $this->controller->setError('ParamsMissing', 401);
         }
+    }
+
+    public function postProcessing(&$data)
+    {
+        $data[0]['token'] = $data[1];
+        $data = $data[0];
+
+        $data['avatarInfo'] = $data['avatarInfo'] === '' ? null : $data['avatarInfo'];
     }
 }

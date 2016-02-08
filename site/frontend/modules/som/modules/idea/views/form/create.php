@@ -8,7 +8,7 @@ $cs->registerAMD('kow', array('kow'));
         <!--/////-->
         <!-- Основная колонка-->
         <div class="b-main_col-article">
-            <idea-add params="id:<?= $id ? $id : 'false' ?>"></idea-add>
+            <idea-editor-dialog params=""></idea-editor-dialog>
         </div>
     </div>
 </div>

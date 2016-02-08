@@ -33,7 +33,9 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
             <?php endif; ?>
         </div>
         <div class="userSection_center">
-            <div class="userSection_center-reg">с Веселым Жирафом <?=$user->withUs()?></div>
+            <?php if ($withUs = $user->withUs()): ?>
+            <div class="userSection_center-reg">с Веселым Жирафом <?=$withUs?></div>
+            <?php endif; ?>
             <div class="b-ava-large b-ava-large__nohover">
                 <div class="b-ava-large_ava-hold">
                     <?php $this->widget('Avatar', array(

@@ -115,6 +115,14 @@ class V1ApiController extends \CController
             }
         }
 
+        //if data contains 1 element - returns object, not array. except get pagination request.
+        /**@todo: create simple condition*/
+        if (!$this->checkRequestType('GET') || \Yii::app()->request->getParam('id', null)) {
+            if ($this->data != null && is_array($this->data) && count($this->data) == 1) {
+                $this->data = $this->data[0];
+            }
+        }
+
         $this->complete();
 
         parent::afterAction($action);

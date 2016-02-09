@@ -314,29 +314,6 @@ class ApiController extends V1ApiController
              * @apiDescription Получение списка пользователей.
              * @api {get} users/:id Получение пользователей.
              * @apiUse GetInstruction
-             * @apiParam (Relations:) {1x1} avatar Пока неизвестно.
-             * @apiParam (Relations:) {1xN} babies Дети пользователя.
-             * @apiParam (Relations:) {1xN} realBabies Настоящие дети пользователя.
-             * @apiParam (Relations:) {1xN} social_services Пока неизвестно.
-             * @apiParam (Relations:) {NxN} communities Подписки на форумы.
-             * @apiParam (Relations:) {1xN} comments Комментарии пользователя.
-             * @apiParam (Relations:) {1xN} menstrualUserCycles Менструальные циклы пользователя.
-             * @apiParam (Relations:) {1xN} UserCaches Пока неизвестно.
-             * @apiParam (Relations:) {1xN} Messages Сообщения пользователя.
-             * @apiParam (Relations:) {1xN} dialogUsers Пока неизвестно.
-             * @apiParam (Relations:) {1xN} names Имена?
-             * @apiParam (Relations:) {1xN} recipeBookRecipes Рецепты пользователя.
-             * @apiParam (Relations:) {1xN} userPointsHistories История очков пользователя.
-             * @apiParam (Relations:) {1xN} userSocialServices Пока неизвестно.
-             * @apiParam (Relations:) {Stat} commentsCount Количество комментариев.
-             * @apiParam (Relations:) {1x1} purpose Пока неизвестно.
-             * @apiParam (Relations:) {1xN} albums Альбомы пользователя.
-             * @apiParam (Relations:) {1x1} privateAlbum Пока неизвестно.
-             * @apiParam (Relations:) {1xN} simpleAlbums Пока неизвестно.
-             * @apiParam (Relations:) {NxN} interests Пока неизвестно.
-             * @apiParam (Relations:) {1x1} mood Настроение.
-             * @apiParam (Relations:) {1x1} partner Партнер.
-             * @apiParam (Relations:) {1xN} blog_rubrics Рубрики в блоге пользователя.
              * @apiParam (Relations:) {Stat} communityPostsCount Количество постов на форуме.
              * @apiParam (Relations:) {Stat} communityContestsCount Пока неизвестно.
              * @apiParam (Relations:) {Stat} cookRecipesCount Количество рецептов.
@@ -346,25 +323,6 @@ class ApiController extends V1ApiController
              * @apiParam (Relations:) {1xN} userDialogs Диалоги пользователя.
              * @apiParam (Relations:) {1x1} userDialog Пока неизвестно.
              * @apiParam (Relations:) {1xN} blogPosts Посты в блоге.
-             * @apiParam (Relations:) {1x1} address Адрес пользователя.
-             * @apiParam (Relations:) {1x1} priority Пока неизвестно.
-             * @apiParam (Relations:) {Stat} recipes Пока неизвестно.
-             * @apiParam (Relations:) {1xN} answers Пока неизвестно.
-             * @apiParam (Relations:) {1x1} activeQuestion Пока неизвестно.
-             * @apiParam (Relations:) {1xN} photos Пока неизвестно.
-             * @apiParam (Relations:) {1x1} mail_subs Пока неизвестно.
-             * @apiParam (Relations:) {1x1} score Пока неизвестно.
-             * @apiParam (Relations:) {1xN} awards Пока неизвестно.
-             * @apiParam (Relations:) {NxN} achievements Ачивки пользователя.
-             * @apiParam (Relations:) {1xN} friendLists Пока неизвестно.
-             * @apiParam (Relations:) {1x1} subscriber Пока неизвестно.
-             * @apiParam (Relations:) {1x1} clubSubscriber Пока неизвестно.
-             * @apiParam (Relations:) {1xN} clubSubscriptions Пока неизвестно.
-             * @apiParam (Relations:) {Stat} clubSubscriptionsCount Пока неизвестно.
-             * @apiParam (Relations:) {1x1} blogPhoto Пока неизвестно.
-             * @apiParam (Relations:) {NxN} specializations Пока неизвестно.
-             * @apiParam (Relations:) {1xN} communityPosts Посты на форуме.
-             * @apiParam (Relations:) {1x1} spamStatus Пока не известно.
              * @apiSuccessExample {json} Success-Response:
              HTTP/1.1 200 OK
             [
@@ -841,148 +799,6 @@ class ApiController extends V1ApiController
             'checkToken' => array(
                 'class' => 'site\frontend\modules\v1\actions\CheckTokenAction',
             ),
-            /**
-             * @apiGroup Ideas
-             * @api {get} ideas/:id Получение идей.
-             * @apiUse ApiAuthInstruction
-             * @apiUse SocialAuthInstruction
-             * @apiUse GetInstruction
-             * @apiParam (Relations: ) {1x1} collection Коллекция фотографий. Специально для этого маршрута вместе с коллекцией фотографий возвращаются attaches и photos одним запросом.
-             * @apiParam (Relations: ) {1x1} author Автор идеи.
-             * @apiSuccessExample {json} Success-Response:
-            [
-                {
-                    "id": "43",
-                    "title": "Idea From API 2",
-                    "collectionId": "606",
-                    "authorId": "241803",
-                    "isRemoved": "0",
-                    "dtimeCreate": "1453722349",
-                    "labels": "Идеи|Клуб: Беременность и роды|Форум: Беременность|Форум: Роды|Рубрика: Общение будущих мам|Рубрика: Информация для беременных|Рубрика: Документы, пособия, выплаты|Рубрика: Срок беременности, ПДР",
-                    "author": {
-                        "id": "241803",
-                        "first_name": "Stas",
-                        "last_name": "Fomin",
-                        "gender": "1",
-                        "birthday": "1996-04-02",
-                        "last_active": "2015-12-21 09:25:25",
-                        "online": "1",
-                        "register_date": "2015-11-12 15:30:08",
-                        "login_date": "2015-12-21 09:25:25",
-                        "relationship_status": null,
-                        "mood_id": null,
-                        "group": "1",
-                        "updated": "2015-11-12 15:30:08",
-                        "last_updated": null,
-                        "status": "1",
-                        "avatarInfo": ""
-                        },
-                    "collection": {
-                        "id": "606",
-                        "entity": null,
-                        "entity_id": null,
-                        "key": "",
-                        "cover_id": "33",
-                        "created": "2016-01-20 15:34:36",
-                        "updated": "2016-01-20 15:34:37",
-                        "attaches": [
-                        {
-                            "id": "33",
-                            "photo_id": "255",
-                            "position": "0",
-                            "created": 1453293277,
-                            "updated": 1453293277,
-                            "removed": "0",
-                            "photo": {
-                            "id": "255",
-                            "title": "",
-                            "description": "",
-                            "width": "18",
-                            "height": "18",
-                            "original_name": "18x18.png",
-                            "fs_name": "2c/b3/31ce59a0099796ab9e86da618c55.png",
-                            "created": 1453293264,
-                            "updated": 1453293264,
-                            "author_id": "241803"
-                        }
-                        },
-                            {
-                            "id": "34",
-                            "photo_id": "256",
-                            "position": "1",
-                            "created": 1453293277,
-                            "updated": 1453293277,
-                            "removed": "0",
-                            "photo": {
-                            "id": "256",
-                            "title": "",
-                            "description": "",
-                            "width": "50",
-                            "height": "50",
-                            "original_name": "50x50.png",
-                            "fs_name": "e3/2a/78a277c3ff49630bce1fd34c855f.png",
-                            "created": 1453293265,
-                            "updated": 1453293265,
-                            "author_id": "241803"
-                            }
-                        },
-                            {
-                            "id": "35",
-                            "photo_id": "257",
-                            "position": "2",
-                            "created": 1453293277,
-                            "updated": 1453293277,
-                            "removed": "0",
-                            "photo": {
-                            "id": "257",
-                            "title": "",
-                            "description": "",
-                            "width": "128",
-                            "height": "128",
-                            "original_name": "128x128.png",
-                            "fs_name": "2c/39/f23db9b9e111365f7ad07b37c6e3.png",
-                            "created": 1453293266,
-                            "updated": 1453293266,
-                            "author_id": "241803"
-                            }
-                        }
-                        ]
-                        }
-                }
-            ]
-             * @apiVersion 0.2.1
-             */
-            /**
-             * @apiGroup Ideas
-             * @api {post} ideas/ Создание идеи.
-             * @apiUse ApiAuthInstruction
-             * @apiUse SocialAuthInstruction
-             * @apiUse FormDataRequest
-             * @apiParam (Post Params:) {Number} collectionId Id коллекции фотографий.
-             * @apiParam (Post Params:) {String} title Заголовок идеи.
-             * @apiParam (Post Params:) {Number} club Id клуба.
-             * @apiParam (Post Params:) {Array} forums Айдишники форумов через запятую (без пробелов).
-             * @apiParam (Post Params:) {Array} rubrics Айдишники рубрик чяерез запятую (без пробелов).
-             * @apiVersion 0.2.1
-             */
-            /**
-             * @apiGroup Ideas
-             * @api {put} ideas/ Изменение идеи.
-             * @apiParam (Put Params:) {Number} id Id идеи.
-             * @apiParam (Put Params:) {Number} collectionId Id коллекции фотографий.
-             * @apiParam (Put Params:) {String} title Заголовок идеи.
-             * @apiVersion 0.2.1
-             */
-            /**
-             * @apiGroup Ideas
-             * @api {delete} ideas/ Удаление идеи.
-             * @apiParam (Delete Params:) {Number} id Id идеи.
-             * @apiParam (Delete Params:) {String=delete,restore} action Действие.
-             * @apiVersion 0.2.1
-             */
-            /*'ideas' => array(
-                'class' => 'site\frontend\modules\som\modules\idea\actions\IdeasAction',
-            ),*/
         );
     }
     #endregion

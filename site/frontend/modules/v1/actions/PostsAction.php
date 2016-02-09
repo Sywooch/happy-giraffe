@@ -17,7 +17,7 @@ class PostsAction extends RoutedAction implements IPostProcessable, IViewIncreme
 
     public function getPosts()
     {
-        $where = "labels not rlike 'Buzz'";
+        $where = "labels not rlike 'Buzz|Контрактубекс'";
         $this->controller->get(Content::model(), $this, $where);
     }
 
@@ -290,7 +290,7 @@ class PostsAction extends RoutedAction implements IPostProcessable, IViewIncreme
                     $post->restore();
                 }
                 $this->controller->data = $post;
-            } catch (Eception $ex) {
+            } catch (Exception $ex) {
                 $this->controller->setError("DeleteFailed", 500);
             }
         } else {

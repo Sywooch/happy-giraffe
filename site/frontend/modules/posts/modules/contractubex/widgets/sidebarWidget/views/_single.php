@@ -8,7 +8,7 @@
         <div class="sidebar-promo-latest_item_user_img">
             <span class="ava ava ava__<?=($this->model->user->gender) ? 'male' : 'female'?>">
                 <?php if ($this->model->user->avatarUrl): ?>
-                    <img alt="<?=$this->model->user->fullName?>" src="<?=$this->model->user->avatarUrl?>" class="ava_img">
+                    <a href="<?=$this->model->url?>"><img alt="<?=$this->model->user->fullName?>" src="<?=$this->model->user->avatarUrl?>" class="ava_img"></a>
                 <?php endif; ?>
             </span>
         </div>

@@ -30,6 +30,7 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
 
     public function handleCollection()
     {
+        ApiLog::i('ClearCacheInit');
         try {
             $collection = \Yii::app()->cache->get(V1ApiController::KEYS_COLLECTION);
 
@@ -40,6 +41,8 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
             $collection = array_filter($collection);
             $collection = array_values($collection);
 
+            //ApiLog::i(print_r($collection, true));
+
             //ApiLog::i("Before Cache Clear: " . print_r($collection, true));
 
             if ($this->realOwner) {
@@ -49,7 +52,7 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
             }
             $total = count($collection);
 
-            //ApiLog::i($owner);
+            //ApiLog::i('ClearCache call with ' . $owner);
 
             for ($i = 0; $i < $total; $i++) {
                 $key = json_decode($collection[$i]);
@@ -66,6 +69,8 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
                     }
                 }
             }
+
+            //ApiLog::i(print_r($collection, true));
 
             //ApiLog::i("After Cache Clear: " . print_r($collection, true));
 

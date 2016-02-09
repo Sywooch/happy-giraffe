@@ -8,7 +8,7 @@ namespace site\frontend\modules\v1\helpers;
  */
 class Formatter
 {
-    /**@todo: change to format classes list*/
+    /**@todo: change to format classes list */
     private static $rules = array(
         'User' => 'formatUser',
     );
@@ -38,10 +38,10 @@ class Formatter
                         'small' => $model->getAvatarUrl(24),
                         'medium' => $model->getAvatarUrl(40),
                         'big' => $model->getAvatarUrl(72),
-                    //)
-                );
+                        //)
+                    );
             } else {
-                $model->avatarInfo = \CJSON::decode($model->avatarInfo);
+                $model->avatarInfo =  \CJSON::decode($model->avatarInfo);
             }
         }
     }

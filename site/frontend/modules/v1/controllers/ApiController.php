@@ -34,13 +34,13 @@ class ApiController extends V1ApiController
              */
             /**
              * @apiDefine Version
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Auth
              * @api {post} / Авторизация через токен.
              * @apiUse ApiAuthInstruction
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Auth
@@ -82,7 +82,7 @@ class ApiController extends V1ApiController
                     "expire": 1451981388
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Auth
@@ -117,7 +117,7 @@ class ApiController extends V1ApiController
                     "expire": 1451981805
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Auth
@@ -134,7 +134,7 @@ class ApiController extends V1ApiController
                     "expire": 1451981699
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'login' => array(
                 'class' => 'site\frontend\modules\v1\actions\LoginAction',
@@ -187,7 +187,7 @@ class ApiController extends V1ApiController
                     "color": "ffd72c"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'sections' => array(
                 'class' => 'site\frontend\modules\v1\actions\SectionsAction',
@@ -223,7 +223,7 @@ class ApiController extends V1ApiController
                     "slug": "pregnancy-and-birth"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'clubs' => array(
                 'class' => 'site\frontend\modules\v1\actions\ClubsAction',
@@ -266,7 +266,7 @@ class ApiController extends V1ApiController
                     "club_id": "2"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'forums' => array(
                 'class' => 'site\frontend\modules\v1\actions\ForumsAction',
@@ -304,7 +304,7 @@ class ApiController extends V1ApiController
                     "label_id": null
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'rubrics' => array(
                 'class' => 'site\frontend\modules\v1\actions\RubricsAction',
@@ -345,7 +345,7 @@ class ApiController extends V1ApiController
                     "avatarInfo": ""
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'users' => array(
                 'class' => 'site\frontend\modules\v1\actions\UsersAction',
@@ -376,7 +376,7 @@ class ApiController extends V1ApiController
                     "new_entity_id": "430087"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Comments
@@ -407,7 +407,7 @@ class ApiController extends V1ApiController
                     "new_entity_id": "28"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Comments
@@ -434,7 +434,7 @@ class ApiController extends V1ApiController
                 "rootId": 1187752,
                 "dtimeCreate": 1449669117
             }
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Comments
@@ -442,7 +442,7 @@ class ApiController extends V1ApiController
              * @apiUse ApiAuthInstruction
              * @apiUse SocialAuthInstruction
              * @apiParam (Delete Params:) {Number} id Id комментария.
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'comments' => array(
                 'class' => 'site\frontend\modules\v1\actions\CommentsAction',
@@ -509,7 +509,7 @@ class ApiController extends V1ApiController
                     "views": "0"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Posts
@@ -524,7 +524,7 @@ class ApiController extends V1ApiController
              * @apiParam (Post Params:) {String="forum","blog"} type Тип поста в зависимости от расположения (форум или блог).
              * @apiParam (Post Params:) {Object[]} [photos] Коллекция фотографий для фотопостов.
              * @apiParam (Post Params:) {String} [link] Ссылка на видео для видеопостов.
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Posts
@@ -539,7 +539,7 @@ class ApiController extends V1ApiController
              * @apiParam (Put Params:) {Number} rubric_id Id рубрики.
              * @apiParam (Put Params:) {Object[]} [photos] Коллекция фотографий в фотопосте.
              * @apiParam (Put Params:) {String} [link] Ссылка на видео для видеопостов.
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Posts
@@ -548,7 +548,7 @@ class ApiController extends V1ApiController
              * @apiUse SocialAuthInstruction
              * @apiParam (Delete Params:) {Number} id Id удаляемого поста.
              * @apiParam (Delete Params:) {String="forum","blog"} type Тип поста в зависимости от расположения.
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'posts' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostsAction',
@@ -579,7 +579,7 @@ class ApiController extends V1ApiController
                     "hash": "73e09b287615622472ae278607a3dfe6"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'onair' => array(
                 'class' => 'site\frontend\modules\v1\actions\OnairAction',
@@ -654,7 +654,7 @@ class ApiController extends V1ApiController
                     "views": "0"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /*'postContent' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostContentAction',
@@ -677,7 +677,7 @@ class ApiController extends V1ApiController
                     "text": "Рубрика: Обо всём"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /*'postLabel' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostLabelAction',
@@ -699,7 +699,7 @@ class ApiController extends V1ApiController
                     "labelId": "2"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /*'postTag' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostTagAction',
@@ -745,7 +745,7 @@ class ApiController extends V1ApiController
                     "root_id": "1187738"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /*'postComments' => array(
                 'class' => 'site\frontend\modules\v1\actions\PostCommentsAction',
@@ -778,7 +778,7 @@ class ApiController extends V1ApiController
                     "new_photo_id": "186"
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'photo' => array(
                 'class' => 'site\frontend\modules\v1\actions\PhotoAction',
@@ -794,7 +794,7 @@ class ApiController extends V1ApiController
              * @apiGroup Auth
              * @api {post} check-token/ Проверка токена.
              * @apiParam (Post Params:) access_token Токен доступа.
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'checkToken' => array(
                 'class' => 'site\frontend\modules\v1\actions\CheckTokenAction',
@@ -908,7 +908,7 @@ class ApiController extends V1ApiController
                         }
                 }
             ]
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Ideas
@@ -921,7 +921,7 @@ class ApiController extends V1ApiController
              * @apiParam (Post Params:) {Number} club Id клуба.
              * @apiParam (Post Params:) {Array} forums Айдишники форумов через запятую (без пробелов).
              * @apiParam (Post Params:) {Array} rubrics Айдишники рубрик через запятую (без пробелов).
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Ideas
@@ -932,24 +932,95 @@ class ApiController extends V1ApiController
              * @apiParam (Put Params:) {Number} club Id клуба.
              * @apiParam (Put Params:) {Array} forums Айдишники форумов через запятую (без пробелов).
              * @apiParam (Put Params:) {Array} rubrics Айдишники рубрик через запятую (без пробелов).
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             /**
              * @apiGroup Ideas
              * @api {delete} ideas/ Удаление идеи.
              * @apiParam (Delete Params:) {Number} id Id идеи.
              * @apiParam (Delete Params:) {String=delete,restore} action Действие.
-             * @apiVersion 0.2.1
+             * @apiVersion 0.3.1
              */
             'ideas' => array(
                 'class' => 'site\frontend\modules\v1\actions\IdeasAction',
             ),
+            /**
+             * @apiGroup Questions
+             * @api {get} questions/:id Получение вопросов.
+             * @apiUse ApiAuthInstruction
+             * @apiUse SocialAuthInstruction
+             * @apiUse GetInstruction
+             * @apiParam (Relations: ) {1x1} consultation Консультация, к которой относится вопрос.
+             * @apiParam (Relations: ) {1x1} category Категория, в которой находится вопрос.
+             * @apiParam (Relations: ) {1xn} answers Ответы на этот вопрос.
+             * @apiParam (Relations: ) {1x1} lastAnswer Последний ответ на этот вопрос.
+             * @apiSuccessExample {json} Success-Response:
+            {
+                "id": "5000",
+                "title": "Вопрос 5000",
+                "text": "Lorem ipsum",
+                "sendNotifications": "1",
+                "categoryId": "1",
+                "consultationId": null,
+                "authorId": "219015",
+                "dtimeCreate": "1455015497",
+                "dtimeUpdate": null,
+                "url": "",
+                "isRemoved": "0",
+                "rating": "0.89456",
+                "answersCount": "7"
+            }
+             * @apiVersion 0.3.1
+             */
             'questions' => array(
                 'class' => 'site\frontend\modules\v1\actions\QuestionsAction',
             ),
+            /**
+             * @apiGroup Answers
+             * @api {get} answers/:id Получение ответов.
+             * @apiUse ApiAuthInstruction
+             * @apiUse SocialAuthInstruction
+             * @apiUse GetInstruction
+             * @apiParam (Get Params: ) {Number} [question_id] Получение ответов по айди вопроса.
+             * @apiParam (Relations: ) {1x1} question Вопрос, к которому относится этот ответ.
+             * @apiSuccessExample {json} Success-Response:
+            {
+                "id": "5000",
+                "text": "Lorem ipsum",
+                "questionId": "6448",
+                "authorId": "18621",
+                "dtimeCreate": "1455015803",
+                "dtimeUpdate": null,
+                "isRemoved": "0",
+                "votesCount": "0",
+                "isBest": "0"
+            }
+             * @apiVersion 0.3.1
+             */
             'answers' => array(
                 'class' => 'site\frontend\modules\v1\actions\AnswersAction',
             ),
+            /**
+             * @apiGroup QaCategories
+             * @api {get} qa-categories/:id Получение категорий в вопросах и ответах.
+             * @apiUse ApiAuthInstruction
+             * @apiUse SocialAuthInstruction
+             * @apiUse GetInstruction
+             * @apiParam (Relations: ) {1xn} questions Вопросы в этой категории.
+             * @apiParam (Relations: ) {stat} questionsCount Количество вопросов в этой категории.
+             * @apiSuccessExample {json} Success-Response:
+            [
+                {
+                    "id": "1",
+                    "title": "Свадьба"
+                },
+                {
+                    "id": "2",
+                    "title": "Отношения в семье"
+                }
+            ]
+             * @apiVersion 0.3.1
+             */
             'qaCategories' => array(
                 'class' => 'site\frontend\modules\v1\actions\QaCategoriesAction',
             ),

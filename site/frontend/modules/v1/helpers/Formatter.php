@@ -38,8 +38,12 @@ class Formatter
                         'small' => $model->getAvatarUrl(24),
                         'medium' => $model->getAvatarUrl(40),
                         'big' => $model->getAvatarUrl(72),
-                    //)
-                );
+                        //)
+                    );
+            }
+        } else {
+            if (!is_array($model->avatarInfo)) {
+                $model->avatarInfo = \CJSON::decode($model->avatarInfo, true);
             }
         }
     }

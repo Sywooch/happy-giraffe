@@ -536,8 +536,11 @@ return array(
         'v1/api/ideas' => 'v1/api/ideas',
         'v1/api/ideas/<id:\d+>' => 'v1/api/ideas',
         'v1/api/questions' => 'v1/api/questions',
+        'v1/api/questions/<id:\d+>' => 'v1/api/questions',
         'v1/api/answers' => 'v1/api/answers',
+        'v1/api/answers/<id:\d+>' => 'v1/api/answers',
         'v1/api/qa-categories' => 'v1/api/qaCategories',
+        'v1/api/qa-categories/<id:\d+>' => 'v1/api/qaCategories',
         /****************************************************** API V1 END ************************************************/
 
 

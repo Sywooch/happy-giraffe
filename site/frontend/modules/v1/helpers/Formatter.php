@@ -40,6 +40,8 @@ class Formatter
                         'big' => $model->getAvatarUrl(72),
                     //)
                 );
+            } else {
+                $model->avatarInfo = \CJSON::decode($model->avatarInfo);
             }
         }
     }

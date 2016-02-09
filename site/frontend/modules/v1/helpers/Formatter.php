@@ -42,7 +42,9 @@ class Formatter
                     );
             }
         } else {
-            $model->avatarInfo =  \CJSON::decode($model->avatarInfo);
+            if (!is_array($model->avatarInfo)) {
+                $model->avatarInfo = \CJSON::decode($model->avatarInfo, true);
+            }
         }
     }
 }

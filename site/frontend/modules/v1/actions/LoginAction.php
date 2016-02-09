@@ -53,6 +53,13 @@ class LoginAction extends RoutedAction implements IPostProcessable
         unset($data[0]);
         unset($data[1]);*/
 
+        //$data['user']['token'] = $data['token'];
+        $data[0]['token'] = $data[1];
+        //unset($data[1]);
+        $data = $data[0];
+
+        //$data['avatarInfo'] = $data['avatarInfo'] === '' ? null : $data['avatarInfo'];
+
         /*$token = $data[1];
         $data = $data[0];
         $data['token'] = $token;*/

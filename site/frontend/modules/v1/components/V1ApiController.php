@@ -11,6 +11,7 @@ use site\frontend\modules\v1\actions\LoginAction;
 use site\frontend\modules\v1\actions\LogoutAction;
 use site\frontend\modules\v1\actions\CheckTokenAction;
 use site\frontend\modules\v1\helpers\ApiLog;
+use site\frontend\modules\v1\helpers\Formatter;
 
 /**
  * @property string $data
@@ -115,6 +116,15 @@ class V1ApiController extends \CController
             }
         }
 
+        //if data contains 1 element - returns object, not array. except get pagination request.
+        /**@todo: create simple condition*/
+        /**@todo: bad idea, need refactor*/
+        if (!$this->checkRequestType('GET') || \Yii::app()->request->getParam('id', null)) {
+            if ($this->data != null && is_array($this->data) && count($this->data) == 1) {
+                $this->data = $this->data[0];
+            }
+        }
+
         $this->complete();
 
         parent::afterAction($action);
@@ -146,7 +156,7 @@ class V1ApiController extends \CController
      */
     public function get($model, $action, $where = null)
     {
-        //\Yii::app()->cache->flush();
+        //ApiLog::i('Get call with ' . get_class($model));
 
         $this->setCacheKey($model, $where);
 
@@ -440,11 +450,16 @@ class V1ApiController extends \CController
                     return;
                 }
 
+                Formatter::format($item);
+
                 $temp = $item->getAttributes(Filter::getFilter($item->getAttributes(), get_class($item)));
                 //$temp['filter_array'] = Filter::getFilter($item->getAttributes(), get_class($item));
                 if ($this->getWithParameters($item) != null) {
                     foreach ($this->getWithParameters($item) as $with) {
                         $temp[$with] = $item->getRelated($with);
+
+                        Formatter::format($temp[$with]);
+
                         if (is_object($temp[$with])) {
                             $this->postProcessingWith($temp[$with]);
                         }
@@ -458,10 +473,15 @@ class V1ApiController extends \CController
                 return;
             }
 
+            Formatter::format($this->data);
+
             $temp = $this->data->getAttributes(Filter::getFilter($this->data->getAttributes(), get_class($this->data)));
             if ($this->getWithParameters($this->data) != null) {
                 foreach ($this->getWithParameters($this->data) as $with) {
                     $temp[$with] = $this->data->getRelated($with);
+
+                    Formatter::format($temp[$with]);
+
                     if (is_object($temp[$with])) {
                         $this->postProcessingWith($temp[$with]);
                     }

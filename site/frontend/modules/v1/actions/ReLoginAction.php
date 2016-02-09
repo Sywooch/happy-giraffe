@@ -40,6 +40,6 @@ class ReLoginAction extends RoutedAction implements IPostProcessable
         $data[0]['token'] = $data[1];
         $data = $data[0];
 
-        $data['avatarInfo'] = $data['avatarInfo'] === '' ? null : $data['avatarInfo'];
+        //$data['avatarInfo'] = $data['avatarInfo'] === '' ? null : $data['avatarInfo'];
     }
 }

@@ -41,6 +41,8 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
             $collection = array_filter($collection);
             $collection = array_values($collection);
 
+            //ApiLog::i(print_r($collection, true));
+
             //ApiLog::i("Before Cache Clear: " . print_r($collection, true));
 
             if ($this->realOwner) {
@@ -67,6 +69,8 @@ class CacheDeleteBehavior extends \CActiveRecordBehavior
                     }
                 }
             }
+
+            //ApiLog::i(print_r($collection, true));
 
             //ApiLog::i("After Cache Clear: " . print_r($collection, true));
 

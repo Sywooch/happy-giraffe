@@ -314,29 +314,6 @@ class ApiController extends V1ApiController
              * @apiDescription Получение списка пользователей.
              * @api {get} users/:id Получение пользователей.
              * @apiUse GetInstruction
-             * @apiParam (Relations:) {1x1} avatar Пока неизвестно.
-             * @apiParam (Relations:) {1xN} babies Дети пользователя.
-             * @apiParam (Relations:) {1xN} realBabies Настоящие дети пользователя.
-             * @apiParam (Relations:) {1xN} social_services Пока неизвестно.
-             * @apiParam (Relations:) {NxN} communities Подписки на форумы.
-             * @apiParam (Relations:) {1xN} comments Комментарии пользователя.
-             * @apiParam (Relations:) {1xN} menstrualUserCycles Менструальные циклы пользователя.
-             * @apiParam (Relations:) {1xN} UserCaches Пока неизвестно.
-             * @apiParam (Relations:) {1xN} Messages Сообщения пользователя.
-             * @apiParam (Relations:) {1xN} dialogUsers Пока неизвестно.
-             * @apiParam (Relations:) {1xN} names Имена?
-             * @apiParam (Relations:) {1xN} recipeBookRecipes Рецепты пользователя.
-             * @apiParam (Relations:) {1xN} userPointsHistories История очков пользователя.
-             * @apiParam (Relations:) {1xN} userSocialServices Пока неизвестно.
-             * @apiParam (Relations:) {Stat} commentsCount Количество комментариев.
-             * @apiParam (Relations:) {1x1} purpose Пока неизвестно.
-             * @apiParam (Relations:) {1xN} albums Альбомы пользователя.
-             * @apiParam (Relations:) {1x1} privateAlbum Пока неизвестно.
-             * @apiParam (Relations:) {1xN} simpleAlbums Пока неизвестно.
-             * @apiParam (Relations:) {NxN} interests Пока неизвестно.
-             * @apiParam (Relations:) {1x1} mood Настроение.
-             * @apiParam (Relations:) {1x1} partner Партнер.
-             * @apiParam (Relations:) {1xN} blog_rubrics Рубрики в блоге пользователя.
              * @apiParam (Relations:) {Stat} communityPostsCount Количество постов на форуме.
              * @apiParam (Relations:) {Stat} communityContestsCount Пока неизвестно.
              * @apiParam (Relations:) {Stat} cookRecipesCount Количество рецептов.
@@ -346,25 +323,6 @@ class ApiController extends V1ApiController
              * @apiParam (Relations:) {1xN} userDialogs Диалоги пользователя.
              * @apiParam (Relations:) {1x1} userDialog Пока неизвестно.
              * @apiParam (Relations:) {1xN} blogPosts Посты в блоге.
-             * @apiParam (Relations:) {1x1} address Адрес пользователя.
-             * @apiParam (Relations:) {1x1} priority Пока неизвестно.
-             * @apiParam (Relations:) {Stat} recipes Пока неизвестно.
-             * @apiParam (Relations:) {1xN} answers Пока неизвестно.
-             * @apiParam (Relations:) {1x1} activeQuestion Пока неизвестно.
-             * @apiParam (Relations:) {1xN} photos Пока неизвестно.
-             * @apiParam (Relations:) {1x1} mail_subs Пока неизвестно.
-             * @apiParam (Relations:) {1x1} score Пока неизвестно.
-             * @apiParam (Relations:) {1xN} awards Пока неизвестно.
-             * @apiParam (Relations:) {NxN} achievements Ачивки пользователя.
-             * @apiParam (Relations:) {1xN} friendLists Пока неизвестно.
-             * @apiParam (Relations:) {1x1} subscriber Пока неизвестно.
-             * @apiParam (Relations:) {1x1} clubSubscriber Пока неизвестно.
-             * @apiParam (Relations:) {1xN} clubSubscriptions Пока неизвестно.
-             * @apiParam (Relations:) {Stat} clubSubscriptionsCount Пока неизвестно.
-             * @apiParam (Relations:) {1x1} blogPhoto Пока неизвестно.
-             * @apiParam (Relations:) {NxN} specializations Пока неизвестно.
-             * @apiParam (Relations:) {1xN} communityPosts Посты на форуме.
-             * @apiParam (Relations:) {1x1} spamStatus Пока не известно.
              * @apiSuccessExample {json} Success-Response:
              HTTP/1.1 200 OK
             [
@@ -962,7 +920,7 @@ class ApiController extends V1ApiController
              * @apiParam (Post Params:) {String} title Заголовок идеи.
              * @apiParam (Post Params:) {Number} club Id клуба.
              * @apiParam (Post Params:) {Array} forums Айдишники форумов через запятую (без пробелов).
-             * @apiParam (Post Params:) {Array} rubrics Айдишники рубрик чяерез запятую (без пробелов).
+             * @apiParam (Post Params:) {Array} rubrics Айдишники рубрик через запятую (без пробелов).
              * @apiVersion 0.2.1
              */
             /**
@@ -971,6 +929,9 @@ class ApiController extends V1ApiController
              * @apiParam (Put Params:) {Number} id Id идеи.
              * @apiParam (Put Params:) {Number} collectionId Id коллекции фотографий.
              * @apiParam (Put Params:) {String} title Заголовок идеи.
+             * @apiParam (Put Params:) {Number} club Id клуба.
+             * @apiParam (Put Params:) {Array} forums Айдишники форумов через запятую (без пробелов).
+             * @apiParam (Put Params:) {Array} rubrics Айдишники рубрик через запятую (без пробелов).
              * @apiVersion 0.2.1
              */
             /**
@@ -981,7 +942,16 @@ class ApiController extends V1ApiController
              * @apiVersion 0.2.1
              */
             'ideas' => array(
-                'class' => 'site\frontend\modules\som\modules\idea\actions\IdeasAction',
+                'class' => 'site\frontend\modules\v1\actions\IdeasAction',
+            ),
+            'questions' => array(
+                'class' => 'site\frontend\modules\v1\actions\QuestionsAction',
+            ),
+            'answers' => array(
+                'class' => 'site\frontend\modules\v1\actions\AnswersAction',
+            ),
+            'qaCategories' => array(
+                'class' => 'site\frontend\modules\v1\actions\QaCategoriesAction',
             ),
         );
     }

@@ -535,7 +535,9 @@ return array(
         'v1/api/check-token' => 'v1/api/checkToken',
         'v1/api/ideas' => 'v1/api/ideas',
         'v1/api/ideas/<id:\d+>' => 'v1/api/ideas',
-
+        'v1/api/questions' => 'v1/api/questions',
+        'v1/api/answers' => 'v1/api/answers',
+        'v1/api/qa-categories' => 'v1/api/qaCategories',
         /****************************************************** API V1 END ************************************************/
 
 

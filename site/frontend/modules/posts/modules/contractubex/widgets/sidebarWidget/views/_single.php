@@ -8,7 +8,7 @@
         <div class="sidebar-promo-latest_item_user_img">
             <span class="ava ava ava__<?=($this->model->user->gender) ? 'male' : 'female'?>">
                 <?php if ($this->model->user->avatarUrl): ?>
-                    <a href="<?=$this->model->url?>"><img alt="<?=$this->model->user->fullName?>" src="<?=$this->model->user->avatarUrl?>" class="ava_img"></a>
+                    <img alt="<?=$this->model->user->fullName?>" src="<?=$this->model->user->avatarUrl?>" class="ava_img">
                 <?php endif; ?>
             </span>
         </div>
@@ -16,7 +16,7 @@
     </div>
     <?php if ($this->photo): ?>
     <div class="sidebar-promo-latest_item_thumbnail">
-        <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncement')?>">
+        <a href="<?=$this->model->url?>"><img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncement')?>"></a>
     </div>
     <?php endif; ?>
     <a class="sidebar-promo-latest_item_heading" href="<?=$this->model->url?>"><?=$this->model->title?></a>

@@ -3,12 +3,12 @@
         <?php if ($dp->pagination->currentPage == 0): ?>
             <span class="club-promo-onair_arrows_arrow club-promo-onair_arrows_left inactive"></span>
         <?php else: ?>
-            <a href="<?=$this->controller->createUrl('', array('page' => ($dp->pagination->currentPage)))?>" class="club-promo-onair_arrows_arrow club-promo-onair_arrows_left"></a>
+            <a onclick="moveTo('<?=$this->controller->createUrl('', array('page' => ($dp->pagination->currentPage)))?>');" class="club-promo-onair_arrows_arrow club-promo-onair_arrows_left"></a>
         <?php endif; ?>
         <?php if ($dp->pagination->pageCount <= ($dp->pagination->currentPage + 1)): ?>
             <span class="club-promo-onair_arrows_arrow club-promo-onair_arrows_right inactive"></span>
         <?php else: ?>
-            <a href="<?=$this->controller->createUrl('', array('page' => ($dp->pagination->currentPage + 2)))?>" class="club-promo-onair_arrows_arrow club-promo-onair_arrows_right"></a>
+            <a onclick="moveTo('<?=$this->controller->createUrl('', array('page' => ($dp->pagination->currentPage + 2)))?>');" class="club-promo-onair_arrows_arrow club-promo-onair_arrows_right"></a>
         <?php endif; ?>
     </div>
 
@@ -23,3 +23,14 @@
     ));
     ?>
 </div>
+
+<script>
+function moveTo(url) {
+    $.get(url, function(html) {
+        $('.club-promo-onair').replaceWith($(html).find('.club-promo-onair'));
+        require(['knockout', 'ko_library'], function(ko) {
+            ko.applyBindings({}, $('.club-promo-onair time').get(0));
+        });
+    });
+}
+</script>

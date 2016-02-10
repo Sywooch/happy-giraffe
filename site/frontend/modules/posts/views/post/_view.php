@@ -110,7 +110,7 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
     <?php $this->renderPartial('//banners/_article_banner', array('data' => $this->post)); ?>
 
     <!-- Put this div tag to the place, where the Comments block will be -->
-    <div id="vk_comments"></div>
+    <div id="vk_comments" style="margin-top: 40px;"></div>
     <script type="text/javascript">
             VK.init({apiId: 2855330, onlyWidgets: true});
             VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});

@@ -11,7 +11,6 @@
             </span>
             <div class="username">
                 <span><?=$this->model->user->fullName?></span>
-                <?=HHtml::timeTag($this->model, array('class' => 'tx-date'))?>
             </div>
         </div>
         <a class="club-advices_list_item_heading" href="<?=$this->model->url?>"><?=$this->model->title?></a>

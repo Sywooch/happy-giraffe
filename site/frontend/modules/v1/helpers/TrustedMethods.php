@@ -8,6 +8,12 @@ class TrustedMethods
         'getIdeas',
         'getForums',
         'getClubs',
+        'getQuestions',
+        'getAnswers',
+        'getRubrics',
+        'getCategories',
+        'getPosts',
+        'getComments',
     );
 
     public static function isTrusted($method)

@@ -30,6 +30,10 @@ use site\frontend\modules\v1\helpers\Formatter;
  */
 class V1ApiController extends \CController
 {
+    /**
+     * @todo:
+     * create typical post/update/delete methods
+     */
     /**@todo: add required params check and get functional in there for every action*/
     #region Constants
     const ID = 'id';
@@ -157,6 +161,10 @@ class V1ApiController extends \CController
     public function get($model, $action, $where = null)
     {
         //ApiLog::i('Get call with ' . get_class($model));
+
+        /**
+         * @todo: create simple select query builder, instead of active record (ar for validation etc)
+         */
 
         $this->setCacheKey($model, $where);
 

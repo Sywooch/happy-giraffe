@@ -11,10 +11,11 @@ return array(
          *************************/
 
         /**-------------------------------------------------------------------------- API --------------------------------------------------*/
+        /**V1*/
         'v1/api/clubs' => 'api/v1/api/clubs',
         'v1/api/clubs/<id:\d+>' => 'api/v1/api/clubs',
         'v1/api/users' => 'api/v1/api/users',
-        'v1/api/users/<id:\d+>' => 'api/v1/apii/users',
+        'v1/api/users/<id:\d+>' => 'api/v1/api/users',
         'v1/api/comments' => 'api/v1/api/comments',
         'v1/api/comments/<id:\d+>' => 'api/v1/api/comments',
         'v1/api/posts' => 'api/v1/api/posts',
@@ -43,6 +44,40 @@ return array(
         'v1/api/answers/<id:\d+>' => 'api/v1/api/answers',
         'v1/api/qa-categories' => 'api/v1/api/qaCategories',
         'v1/api/qa-categories/<id:\d+>' => 'api/v1/api/qaCategories',
+
+        /**V1_1*/
+        'v1_1/api/clubs' => 'api/v1_1/api/clubs',
+        'v1_1/api/clubs/<id:\d+>' => 'api/v1_1/api/clubs',
+        'v1_1/api/users' => 'api/v1_1/api/users',
+        'v1_1/api/users/<id:\d+>' => 'api/v1_1/api/users',
+        'v1_1/api/comments' => 'api/v1_1/api/comments',
+        'v1_1/api/comments/<id:\d+>' => 'api/v1_1/api/comments',
+        'v1_1/api/posts' => 'api/v1_1/api/posts',
+        'v1_1/api/posts/<id:\d+>' => 'api/v1_1/api/posts',
+        //'v1.1/api/post-content' => 'api/v1.1/api/postContent',
+        //'v1.1/api/post-label' => 'api/v1.1/api/postLabel',
+        //'v1.1/api/post-tag' => 'api/v1.1/api/postTag',
+        'v1_1/api/onair' => 'api/v1_1/api/onair',
+        'v1_1/api/sections' => 'api/v1_1/api/sections',
+        'v1_1/api/sections/<id:\d+>' => 'api/v1_1/api/sections',
+        'v1_1/api/forums' => 'api/v1_1/api/forums',
+        'v1_1/api/forums/<id:\d+>' => 'api/v1_1/api/forums',
+        'v1_1/api/rubrics' => 'api/v1_1/api/rubrics',
+        'v1_1/api/rubrics/<id:\d+>' => 'api/v1_1/api/rubrics',
+        'v1_1/api/login' => 'api/v1_1/api/login',
+        //'v1.1/api/post-comments' => 'api/v1.1/api/postComments',
+        'v1_1/api/photo' => 'api/v1_1/api/photo',
+        'v1_1/api/relogin' => 'api/v1_1/api/relogin',
+        'v1_1/api/logout' => 'api/v1_1/api/logout',
+        'v1_1/api/check-token' => 'api/v1_1/api/checkToken',
+        'v1_1/api/ideas' => 'api/v1_1/api/ideas',
+        'v1_1/api/ideas/<id:\d+>' => 'api/v1_1/api/ideas',
+        'v1_1/api/questions' => 'api/v1_1/api/questions',
+        'v1_1/api/questions/<id:\d+>' => 'api/v1_1/api/questions',
+        'v1_1/api/answers' => 'api/v1_1/api/answers',
+        'v1_1/api/answers/<id:\d+>' => 'api/v1_1/api/answers',
+        'v1_1/api/qa-categories' => 'api/v1_1/api/qaCategories',
+        'v1_1/api/qa-categories/<id:\d+>' => 'api/v1_1/api/qaCategories',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

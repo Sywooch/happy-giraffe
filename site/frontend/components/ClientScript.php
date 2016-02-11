@@ -90,7 +90,11 @@ class ClientScript extends CClientScript
     protected function renderAMDConfig()
     {
         // Соберём конфиги
-        $this->amd['urlArgs'] = 'r=' . rand(0, 1000);
+
+	// Было бы неплохо отключать этот ужас на тестинге вместе с кэшем!
+        // $this->amd['urlArgs'] = 'r=' . rand(0, 1000);
+
+
         $this->releaseId;
         $this->addPackagesToAMDConfig();
         $conf = $this->amd;

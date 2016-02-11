@@ -124,7 +124,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     {
         return array(
             'CacheDelete' => array(
-                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
             ),
             'HTimestampBehavior' => array(
                 'class' => 'HTimestampBehavior',

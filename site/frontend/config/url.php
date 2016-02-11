@@ -10,6 +10,42 @@ return array(
          *      CONTROLLERS      *
          *************************/
 
+        /**-------------------------------------------------------------------------- API --------------------------------------------------*/
+        'v1/api/clubs' => 'api/v1/api/clubs',
+        'v1/api/clubs/<id:\d+>' => 'api/v1/api/clubs',
+        'v1/api/users' => 'api/v1/api/users',
+        'v1/api/users/<id:\d+>' => 'api/v1/apii/users',
+        'v1/api/comments' => 'api/v1/api/comments',
+        'v1/api/comments/<id:\d+>' => 'api/v1/api/comments',
+        'v1/api/posts' => 'api/v1/api/posts',
+        'v1/api/posts/<id:\d+>' => 'api/v1/api/posts',
+        //'v1/api/post-content' => 'api/v1/api/postContent',
+        //'v1/api/post-label' => 'api/v1/api/postLabel',
+        //'v1/api/post-tag' => 'api/v1/api/postTag',
+        'v1/api/onair' => 'api/v1/api/onair',
+        'v1/api/sections' => 'api/v1/api/sections',
+        'v1/api/sections/<id:\d+>' => 'api/v1/api/sections',
+        'v1/api/forums' => 'api/v1/api/forums',
+        'v1/api/forums/<id:\d+>' => 'api/v1/api/forums',
+        'v1/api/rubrics' => 'api/v1/api/rubrics',
+        'v1/api/rubrics/<id:\d+>' => 'api/v1/api/rubrics',
+        'v1/api/login' => 'api/v1/api/login',
+        //'v1/api/post-comments' => 'api/v1/api/postComments',
+        'v1/api/photo' => 'api/v1/api/photo',
+        'v1/api/relogin' => 'api/v1/api/relogin',
+        'v1/api/logout' => 'api/v1/api/logout',
+        'v1/api/check-token' => 'api/v1/api/checkToken',
+        'v1/api/ideas' => 'api/v1/api/ideas',
+        'v1/api/ideas/<id:\d+>' => 'api/v1/api/ideas',
+        'v1/api/questions' => 'api/v1/api/questions',
+        'v1/api/questions/<id:\d+>' => 'api/v1/api/questions',
+        'v1/api/answers' => 'api/v1/api/answers',
+        'v1/api/answers/<id:\d+>' => 'api/v1/api/answers',
+        'v1/api/qa-categories' => 'api/v1/api/qaCategories',
+        'v1/api/qa-categories/<id:\d+>' => 'api/v1/api/qaCategories',
+        /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
+
+
         'testupload' => 'blog/default/upload',
         'blog/default/createAlbum' => 'blog/default/createAlbum',
         // global
@@ -509,7 +545,7 @@ return array(
 
 
         /****************************************************** API V1 ***************************************************/
-        'v1/api/clubs' => 'v1/api/clubs',
+        /*'v1/api/clubs' => 'v1/api/clubs',
         'v1/api/clubs/<id:\d+>' => 'v1/api/clubs',
         'v1/api/users' => 'v1/api/users',
         'v1/api/users/<id:\d+>' => 'v1/api/users',
@@ -540,7 +576,7 @@ return array(
         'v1/api/answers' => 'v1/api/answers',
         'v1/api/answers/<id:\d+>' => 'v1/api/answers',
         'v1/api/qa-categories' => 'v1/api/qaCategories',
-        'v1/api/qa-categories/<id:\d+>' => 'v1/api/qaCategories',
+        'v1/api/qa-categories/<id:\d+>' => 'v1/api/qaCategories',*/
         /****************************************************** API V1 END ************************************************/
 
 

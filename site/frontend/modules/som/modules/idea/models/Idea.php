@@ -24,7 +24,7 @@ class Idea extends \CActiveRecord
     {
         return array(
             'CacheDelete' => array(
-                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
             ),
             'LabelsConstruct' => array(
                 'class' => 'site\frontend\modules\som\modules\idea\behaviors\LabelsConstructBehavior'

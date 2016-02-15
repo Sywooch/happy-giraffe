@@ -10,6 +10,42 @@ return array(
          *      CONTROLLERS      *
          *************************/
 
+        /**-------------------------------------------------------------------------- API --------------------------------------------------*/
+        '<_v>/api/clubs' => 'api/<_v>/api/clubs',
+        '<_v>/api/clubs/<id:\d+>' => 'api/<_v>/api/clubs',
+        '<_v>/api/users' => 'api/<_v>/api/users',
+        '<_v>/api/users/<id:\d+>' => 'api/<_v>/api/users',
+        '<_v>/api/comments' => 'api/<_v>/api/comments',
+        '<_v>/api/comments/<id:\d+>' => 'api/<_v>/api/comments',
+        '<_v>/api/posts' => 'api/<_v>/api/posts',
+        '<_v>/api/posts/<id:\d+>' => 'api/<_v>/api/posts',
+        //'<_v>/api/post-content' => 'api/<_v>api/postContent',
+        //'<_v>/api/post-label' => 'api/<_v>/api/postLabel',
+        //'<_v>/api/post-tag' => 'api/<_v>/api/postTag',
+        '<_v>/api/onair' => 'api/<_v>/api/onair',
+        '<_v>/api/sections' => 'api/<_v>/api/sections',
+        '<_v>/api/sections/<id:\d+>' => 'api/<_v>/api/sections',
+        '<_v>/api/forums' => 'api/<_v>/api/forums',
+        '<_v>/api/forums/<id:\d+>' => 'api/<_v>/api/forums',
+        '<_v>/api/rubrics' => 'api/<_v>/api/rubrics',
+        '<_v>/api/rubrics/<id:\d+>' => 'api/<_v>/api/rubrics',
+        '<_v>/api/login' => 'api/<_v>/api/login',
+        //'<_v>/api/post-comments' => 'api/<_v>/api/postComments',
+        '<_v>/api/photo' => 'api/<_v>/api/photo',
+        '<_v>/api/relogin' => 'api/<_v>/api/relogin',
+        '<_v>/api/logout' => 'api/<_v>api/logout',
+        '<_v>/api/check-token' => 'api/<_v>/api/checkToken',
+        '<_v>/api/ideas' => 'api/<_v>/api/ideas',
+        '<_v>/api/ideas/<id:\d+>' => 'api/<_v>/api/ideas',
+        '<_v>/api/questions' => 'api/<_v>/api/questions',
+        '<_v>/api/questions/<id:\d+>' => 'api/<_v>/api/questions',
+        '<_v>/api/answers' => 'api/<_v>/api/answers',
+        '<_v>/api/answers/<id:\d+>' => 'api/<_v>/api/answers',
+        '<_v>/api/qa-categories' => 'api/<_v>/api/qaCategories',
+        '<_v>/api/qa-categories/<id:\d+>' => 'api/<_v>/api/qaCategories',
+        /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
+
+
         'testupload' => 'blog/default/upload',
         'blog/default/createAlbum' => 'blog/default/createAlbum',
         // global
@@ -510,7 +546,7 @@ return array(
         //-----------------------------------------------------------------
         //NEW API
         //-----------------------------------------------------------------
-        'v1/api/clubs' => 'v1/api/clubs',
+        /*'v1/api/clubs' => 'v1/api/clubs',
         'v1/api/clubs/<id:\d+>' => 'v1/api/clubs',
         'v1/api/users' => 'v1/api/users',
         'v1/api/users/<id:\d+>' => 'v1/api/users',
@@ -533,7 +569,7 @@ return array(
         'v1/api/photo' => 'v1/api/photo',
         'v1/api/relogin' => 'v1/api/relogin',
         'v1/api/logout' => 'v1/api/logout',
-        'v1/api/check-token' => 'v1/api/checkToken',
+        'v1/api/check-token' => 'v1/api/checkToken',*/
 
 
         //horoscope

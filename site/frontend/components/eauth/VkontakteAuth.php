@@ -33,24 +33,12 @@ class VkontakteAuth extends VKontakteOAuthService
 
     protected function setAvatarAttribute($info)
     {
-        $avatarAttributes = array(
-            'photo_max_orig',
-            'photo_max',
-            'photo_400_orig',
-            'photo_200',
-            'photo_200_orig',
-            'photo_100',
-            'photo_50',
-        );
-
-        $result = null;
-        foreach ($avatarAttributes as $attr) {
-            if (isset($info->$attr)) {
-                $result = $info->$attr;
-                break;
-            }
+        if ($info->photo_max != 'http://vk.com/images/camera_b.gif') {
+            $avatarSrc = $info->photo_max;
+        } else {
+            $avatarSrc = null;
         }
-        $this->attributes['avatarSrc'] = $result;
+        $this->attributes['avatarSrc'] = $avatarSrc;
     }
 
     protected function setBirthdayAttributes($info)

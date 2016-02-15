@@ -24,6 +24,9 @@ class SocialManager
         $user = $this->findByService();
         if (! $user) {
             $user = $this->findByEmail();
+            if ($user) {
+                \Yii::app()->user->setState('possibleUserId', $user->id);
+            }
         } else {
             $alreadyAssociated = true;
         }

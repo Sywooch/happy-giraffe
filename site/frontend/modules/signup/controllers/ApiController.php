@@ -5,6 +5,7 @@ use site\frontend\modules\signup\components\SafeUserIdentity;
 use site\frontend\modules\signup\components\UserIdentity;
 use site\frontend\modules\signup\models\CaptchaForm;
 use site\frontend\modules\signup\models\LoginForm;
+use site\frontend\modules\signup\models\LoginSocialForm;
 use site\frontend\modules\signup\models\PasswordRecoveryForm;
 use site\frontend\modules\signup\models\RegisterForm;
 
@@ -44,7 +45,15 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionSocialLogin()
     {
-
+        $possibleUserId = \Yii::app()->user->getState('possibleUserId');
+        if ($possibleUserId !== null) {
+            $form = new LoginSocialForm();
+            $form->userId = $possibleUserId;
+            $this->data = array(
+                'returnUrl' => \Yii::app()->user->returnUrl,
+            );
+            $this->success = $form->login();
+        }
     }
 
     public function actionValidate(array $attributes)

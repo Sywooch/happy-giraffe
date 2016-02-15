@@ -7,9 +7,11 @@
 namespace site\frontend\modules\signup\models;
 
 
+use site\frontend\modules\signup\components\SocialUserIdentity;
+
 class LoginSocialForm extends \CFormModel
 {
-
+    public $userId;
 
     public function login()
     {
@@ -22,7 +24,13 @@ class LoginSocialForm extends \CFormModel
             $model = new \UserSocialService();
             $model->service = $socialService['name'];
             $model->service_id = $socialService['id'];
+            $model->user_id = $this->userId;
             $model->save();
         }
+        $identity = new SocialUserIdentity($socialService['name'], $socialService['id']);
+        if ($identity->authenticate()) {
+            return \Yii::app()->user->login($identity);
+        }
+        return false;
     }
 }

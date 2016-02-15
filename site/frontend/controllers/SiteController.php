@@ -122,6 +122,8 @@ class SiteController extends LiteController
 	 */
 	public function actionError()
 	{
+        die('234');
+
 	    if ($error = Yii::app()->errorHandler->error)
 	    {
 	    	if (Yii::app()->request->isAjaxRequest)

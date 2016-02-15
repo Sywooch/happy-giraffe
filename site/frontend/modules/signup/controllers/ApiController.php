@@ -17,6 +17,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 {
     public function actionRegister(array $attributes)
     {
+
         if (\Yii::app()->db instanceof \DbConnectionMan) {
             // Отключим слейвы, чтобы UserIdentity нашла пользователя
             \Yii::app()->db->enableSlave = false;
@@ -39,6 +40,11 @@ class ApiController extends \site\frontend\components\api\ApiController
                 'errors' => $form->user->getErrors(),
             );
         }
+    }
+
+    public function actionSocialLogin()
+    {
+
     }
 
     public function actionValidate(array $attributes)

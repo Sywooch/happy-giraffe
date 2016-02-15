@@ -42,6 +42,7 @@ class User extends \User implements \IHToJSON
             'profileUrl' => $this->getUrl(true),
             'publicChannel' => $this->getPublicChannel(),
             'specInfo' => empty($this->specInfo) ? null : $this->specInfoObject,
+            'avatarInfo' => \CJSON::decode($this->avatarInfo),
         );
     }
 

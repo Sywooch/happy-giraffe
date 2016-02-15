@@ -80,6 +80,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	public function behaviors()
 	{
 		return array(
+			'CacheDelete' => array(
+				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+			),
 			'softDelete' => array(
 				'class' => 'site.common.behaviors.SoftDeleteBehavior',
 				'removeAttribute' => 'isRemoved',

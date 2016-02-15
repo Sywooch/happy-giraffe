@@ -114,7 +114,8 @@ class ConvertCommand extends \CConsoleCommand
             \Yii::app()->db->setActive(false);
             /**@todo: fix api cache*/
             //\Yii::app()->cache->delete->delete(site\frontend\modules\v1\components\V1ApiController::KEYS_COLLECTION);
-            $del = new \site\frontend\modules\v1\behaviors\CacheDeleteBehavior(); //хз почему, но так классы похоже находятся, либо это тфайл в каком-то кеше хранится и пока тот не почистится я свежих ошибок не увижу.
+            $class = \site\frontend\modules\api\APiModule::CACHE_DELETE;
+            $del = new $class();
             $del->realOwner = get_class(new \site\frontend\modules\posts\models\Content());
             $del->handleCollection();
             //\Yii::app()->cache->flush();

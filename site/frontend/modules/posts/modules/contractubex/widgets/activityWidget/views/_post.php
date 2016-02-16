@@ -1,8 +1,5 @@
 <li class="club-promo-onair_items_item clearfix">
     <div class="club-promo-onair_items_item_top clearfix">
-        <div class="promo-like-badge">
-            <div class="promo-like-badge_img"></div>
-        </div>
         <a href="<?=$data->user->profileUrl?>" class="ava ava ava__<?=($data->user->gender) ? 'male' : 'female'?>">
             <?php if ($data->user->isOnline): ?>
                 <span class="ico-status ico-status__online"></span>

@@ -20,15 +20,16 @@ class SocialManager
 
     public function getData()
     {
-        $alreadyAssociated = false;
         $user = $this->findByService();
         if (! $user) {
+            $alreadyAssociated = false;
             $user = $this->findByEmail();
-            if ($user) {
-                \Yii::app()->user->setState('possibleUserId', $user->id);
-            }
         } else {
             $alreadyAssociated = true;
+        }
+
+        if ($user) {
+            \Yii::app()->user->setState('possibleUserId', $user->id);
         }
 
         return array(

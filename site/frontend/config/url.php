@@ -43,6 +43,7 @@ return array(
         '<_v>/api/answers/<id:\d+>' => 'api/<_v>/api/answers',
         '<_v>/api/qa-categories' => 'api/<_v>/api/qaCategories',
         '<_v>/api/qa-categories/<id:\d+>' => 'api/<_v>/api/qaCategories',
+        '<_v>/api/register' => 'api/<_v>/api/register',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

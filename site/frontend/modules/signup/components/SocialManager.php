@@ -20,6 +20,8 @@ class SocialManager
 
     public function getData()
     {
+        var_dump($this->service->getAttributes()); die;
+
         $user = $this->findByService();
         if (! $user) {
             $alreadyAssociated = false;

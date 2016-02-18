@@ -47,6 +47,10 @@ class WebUser extends CWebUser
 
     protected function beforeLogout()
     {
+        if (Yii::app()->user->isGuest) {
+            return false;
+        }
+
         $model = $this->getModel();
         OnlineManager::offline($model);
         \User::clearCache();

@@ -119,6 +119,12 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         /** @var \site\frontend\modules\users\models\User $user */
         $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
+
+        //temp fix
+        \UserSocialService::model()->deleteAllByAttributes(array(
+            'user_id' => $id,
+        ));
+
         $user->deleted = 1;
         $this->success = $user->save(false, array('deleted'));
         if ($this->success) {

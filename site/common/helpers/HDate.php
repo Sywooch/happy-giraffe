@@ -435,6 +435,7 @@ class HDate
      */
     public static function spentDays($sec_time)
     {
+        $rtime = $sec_time;
         // Сегодняшняя дата
         $sec_now = time();
         // Подсчитываем количество месяцев, лет

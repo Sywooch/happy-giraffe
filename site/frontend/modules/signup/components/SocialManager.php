@@ -41,7 +41,7 @@ class SocialManager
 
     protected function findByEmail()
     {
-        $user = User::model()->findByAttributes(array(
+        $user = User::model()->active()->findByAttributes(array(
             'email' => $this->service->getAttribute('email'),
         ));
         return $user;

@@ -181,6 +181,7 @@ return array(
         'usages' => array(
             'postCollectionCover',
             'socialImage',
+            'ideaCollectionCover',
         ),
     ),
     array(

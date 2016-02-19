@@ -18,7 +18,7 @@ $cs->registerAMD('kow', array('kow'));
     </div>
     <aside class="b-main_col-sidebar visible-md">
         <div class="sidebar-widget">
-            <div class="btn btn-success btn-xl btn-question">Добавить идею</div>
+            <a class="btn btn-success btn-xl btn-question" href="/idea/create">Добавить идею</a>
             <div class="personal-links">
                 <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                 <ul class="personal-links_ul">

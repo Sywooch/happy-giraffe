@@ -42,7 +42,7 @@ $this->pageTitle = 'Контакты';
 </div>
 <?php $this->widget('site\frontend\modules\pages\widgets\contactFormWidget\ContactFormWidget'); ?>
 
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAUFhZISC2X0NENV6Q8YJPEl1o8o1EIp6c"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCJ1S2cRAzz8_QA0yKA6WVqDT6eZ476Sow"></script>
 <script type="text/javascript">
     var initialize = function initialize(mapId, coordx, coordy) {
         var mapOptions,

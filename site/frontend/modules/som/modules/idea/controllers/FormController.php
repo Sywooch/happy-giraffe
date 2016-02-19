@@ -6,8 +6,8 @@ class FormController extends \LiteController
 {
 
     public $litePackage = 'member';
-    public $layout = '//layouts/lite/form';
-    public $bodyClass = 'body__create';
+    /*public $layout = '//layouts/lite/form';
+    public $bodyClass = 'body__create';*/
 
     public function actionCreate($id = false)
     {

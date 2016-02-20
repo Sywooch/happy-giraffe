@@ -123,7 +123,7 @@ class Comment extends HActiveRecord
     {
         return array(
             'CacheDelete' => array(
-                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+                'class' => site\frontend\modules\api\ApiModule::CACHE_DELETE,
             ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',

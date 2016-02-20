@@ -26,6 +26,9 @@ return array(
         'som' => array(
             'class' => 'site\frontend\modules\som\SomModule',
         ),
+        'api' => array(
+            'class' => 'site\frontend\modules\api\ApiModule',
+        ),
     ),
     'components' => array(
         'dbBackup' => array(

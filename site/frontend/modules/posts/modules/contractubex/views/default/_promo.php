@@ -32,7 +32,7 @@
                 <p>
                     2-3 раза в день<br>
                     наносить на<br>
-                    очищенный рубець
+                    очищенный рубец
                 </p>
             </li>
             <li class="club-promo_advices_list_item">

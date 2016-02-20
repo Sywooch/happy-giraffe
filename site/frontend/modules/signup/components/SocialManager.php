@@ -32,11 +32,8 @@ class SocialManager
             \Yii::app()->user->setState('possibleUserId', $user->id);
         }
 
-        $test = $this->service->getAttributes();
-        unset($test['email']);
-
         return array(
-            'attributes' => $test,
+            'attributes' => $this->service->getAttributes(),
             'user' => ($user) ? $user->toJSON() : null,
             'alreadyAssociated' => $alreadyAssociated,
         );

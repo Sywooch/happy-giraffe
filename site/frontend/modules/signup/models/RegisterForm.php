@@ -27,7 +27,8 @@ class RegisterForm extends \CFormModel
     public function rules()
     {
         return array(
-            array('firstName, email, password', 'required'),
+            array('firstName, email', 'required'),
+            array('password', 'required', 'except' => 'social'),
             array('firstName', 'length', 'max' => 50),
             array('lastName', 'length', 'max' => 50),
             array('email', 'email'),

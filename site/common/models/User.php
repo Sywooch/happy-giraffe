@@ -509,9 +509,9 @@ class User extends HActiveRecord
 //				'table'=>'shop__product_attribute_set',
 //				'attribute'=>'product_attribute_set_id',
 //			),
-//            'CacheDelete' => array(
-//                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
-//            ),
+            'CacheDelete' => array(
+                'class' => site\frontend\modules\api\ApiModule::CACHE_DELETE,
+            ),
             'getUrl' => array(
                 'class' => 'site.frontend.extensions.geturl.EGetUrlBehavior',
                 'route' => 'product/view',

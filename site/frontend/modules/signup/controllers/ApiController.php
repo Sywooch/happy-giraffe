@@ -16,7 +16,7 @@ use site\frontend\modules\signup\models\RegisterForm;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    public function actionRegister(array $attributes)
+    public function actionRegister(array $attributes, $social = false)
     {
 
         if (\Yii::app()->db instanceof \DbConnectionMan) {
@@ -25,8 +25,11 @@ class ApiController extends \site\frontend\components\api\ApiController
         }
 
         $form = new RegisterForm();
+        if ($social) {
+            $form->scenario = 'social';
+        }
         $form->attributes = $attributes;
-        $this->success = $form->save();
+        $this->success = $form->validate() && $form->save();
         if ($this->success) {
             $identity = new UserIdentity($form->email, $form->password);
             if ($identity->authenticate()) {
@@ -38,7 +41,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             );
         } else {
             $this->data = array(
-                'errors' => $form->user->getErrors(),
+                'errors' => $form->getErrors(),
             );
         }
     }

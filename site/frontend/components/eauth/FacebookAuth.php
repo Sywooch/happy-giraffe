@@ -19,7 +19,9 @@ class FacebookAuth extends FacebookOAuthService
         $this->attributes['uid'] = $info->id;
         $this->attributes['firstName'] = $info->first_name;
         $this->attributes['lastName'] = $info->last_name;
-        $this->attributes['email'] = $info->email;
+        if (isset($info->email)) {
+            $this->attributes['email'] = $info->email;
+        }
         $this->attributes['gender'] = $this->processGender($info->gender);
         $this->attributes['avatarSrc'] = $info->picture->data->url;
     }

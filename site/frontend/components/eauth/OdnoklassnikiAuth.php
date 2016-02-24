@@ -29,7 +29,6 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         $this->attributes['email'] = $info->email;
         $this->setBirthdayAttributes($info);
         $this->attributes['gender'] = $info->gender == 'male' ? '1' : '0';
-        $this->setLocationAttributes($info);
         $this->setAvatarAttribute($info);
     }
 
@@ -63,25 +62,5 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         $this->attributes['birthday_year'] = $year;
         $this->attributes['birthday_month'] = $month;
         $this->attributes['birthday_day'] = $day;
-    }
-
-    protected function setLocationAttributes($info)
-    {
-        $countryModel = GeoCountry::model()->findByAttributes(array('iso_code' => $info->location->countryCode));
-        if ($countryModel === null) {
-            $this->attributes['country'] = null;
-            $this->attributes['city'] = null;
-        }
-        else {
-            $this->attributes['country_id'] = $countryModel->id;
-            $citiesCount = GeoCity::model()->countByAttributes(array('country_id' => $countryModel->id, 'name' => $info->location->city));
-            if ($citiesCount == 1) {
-                $cityModel = GeoCity::model()->findByAttributes(array('country_id' => $countryModel->id, 'name' => $info->location->city));
-                $this->attributes['city_id'] = $cityModel->id;
-            }
-            else
-                $this->attributes['city_id'] = null;
-            $this->attributes['city_name'] = $info->location->city;
-        }
     }
 }

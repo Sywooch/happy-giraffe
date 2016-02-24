@@ -27,7 +27,6 @@ class VkontakteAuth extends VKontakteOAuthService
         $this->attributes['lastName'] = $info->last_name;
         $this->setBirthdayAttributes($info);
         $this->attributes['gender'] = $info->sex == 0 ? null : (($info->sex == 1 ? '0' : '1'));
-        $this->setLocationAttributes($info);
         $this->setAvatarAttribute($info);
     }
 
@@ -67,38 +66,5 @@ class VkontakteAuth extends VKontakteOAuthService
             $this->attributes['email'] = $token->email;
         }
         parent::saveAccessToken($token);
-    }
-
-    protected function setLocationAttributes($info)
-    {
-        var_dump($info->country);
-        var_dump($info->city);
-        die;
-
-        if ($info->country != 0) {
-            $countryInfo = $this->makeSignedRequest('https://api.vk.com/method/places.getCountryById.json', array(
-                'query' => array(
-                    'cids' => $info->country,
-                ),
-            ));
-            $countryModel = GeoCountry::model()->findByAttributes(array('name' => $countryInfo->response[0]->name));
-            $this->attributes['country_id'] = ($countryModel === null) ? null : $countryModel->id;
-
-            if ($info->city != 0) {
-                $cityInfo = $this->makeSignedRequest('https://api.vk.com/method/places.getCityById.json', array(
-                    'query' => array(
-                        'cids' => $info->city,
-                    ),
-                ));
-                $citiesCount = array('country_id' => $countryModel->id, 'name' => $cityInfo->response[0]->name);
-                if ($citiesCount == 1) {
-                    $cityModel = GeoCity::model()->findByAttributes(array('country_id' => $countryModel->id, 'name' => $cityInfo->response[0]->name));
-                    $this->attributes['city_id'] = $cityModel->id;
-                }
-                else
-                    $this->attributes['city_id'] = null;
-                $this->attributes['city_name'] = $cityInfo->response[0]->name;
-            }
-        }
     }
 }

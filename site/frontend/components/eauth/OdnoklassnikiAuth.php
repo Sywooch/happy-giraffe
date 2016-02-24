@@ -57,10 +57,8 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
                 $month = ltrim($array[$count - 2], '0');
                 $day = ltrim($array[$count - 1], '0');
             }
-        }
 
-        $this->attributes['birthday_year'] = $year;
-        $this->attributes['birthday_month'] = $month;
-        $this->attributes['birthday_day'] = $day;
+            $this->attributes['birthday'] = implode('-', array($year, $month, $day));
+        }
     }
 }

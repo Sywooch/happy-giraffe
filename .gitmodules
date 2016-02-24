@@ -10,3 +10,12 @@
 [submodule "site/frontend/vendor/mobiledetect"]
 	path = site/frontend/vendor/mobiledetect
 	url = git@github.com:serbanghita/Mobile-Detect.git
+[submodule "site/frontend/modules/api/modules/v1"]
+	path = site/frontend/modules/api/modules/v1
+	url = https://github.com/beknown/HGApi.git
+[submodule "site/frontend/modules/api/modules/v1_1"]
+	path = site/frontend/modules/api/modules/v1_1
+	url = https://github.com/beknown/HGApi.git
+[submodule "site/frontend/modules/api/modules/v1_2"]
+	path = site/frontend/modules/api/modules/v1_2
+	url = https://github.com/beknown/HGApi.git

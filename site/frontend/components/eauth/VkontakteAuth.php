@@ -83,6 +83,10 @@ class VkontakteAuth extends VKontakteOAuthService
 
     protected function setLocationAttributes($info)
     {
+        var_dump($info->country);
+        var_dump($info->city);
+        die;
+
         if ($info->country != 0) {
             $countryInfo = $this->makeSignedRequest('https://api.vk.com/method/places.getCountryById.json', array(
                 'query' => array(

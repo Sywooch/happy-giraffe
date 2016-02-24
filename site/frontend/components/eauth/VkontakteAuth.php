@@ -46,6 +46,8 @@ class VkontakteAuth extends VKontakteOAuthService
         $month = null;
         $year = null;
 
+        var_dump($info->bdate); die;
+
         if (isset($info->bdate)) {
             $array = explode('.', $info->bdate);
             $count = count($array);

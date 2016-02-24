@@ -90,13 +90,9 @@ class RegisterForm extends \CFormModel
             $photo->author_id = $this->user->id;
             $photo->original_name = pathinfo($this->avatarSrc, PATHINFO_BASENAME);
             $photo->image = file_get_contents($this->avatarSrc);
-            var_dump($photo->save());
             if ($photo->save()) {
-                echo $photo->fs_name;
                 AvatarManager::setAvatar($this->user, $photo);
             }
-            echo 'false';
-            die;
         }
     }
 

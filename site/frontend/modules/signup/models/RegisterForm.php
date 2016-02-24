@@ -85,6 +85,8 @@ class RegisterForm extends \CFormModel
 
     protected function createAvatar()
     {
+        var_dump($this->avatarSrc); die;
+
         if ($this->avatarSrc) {
             $photo = new Photo();
             $photo->author_id = $this->user->id;

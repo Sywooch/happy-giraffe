@@ -55,9 +55,9 @@ class VkontakteAuth extends VKontakteOAuthService
                 if ($count == 3)
                     $year = $array[2];
             }
-        }
 
-        $this->attributes['birthday'] = implode('-', array($year, $month, $day));
+            $this->attributes['birthday'] = implode('-', array($year, $month, $day));
+        }
     }
 
     protected function saveAccessToken($token)

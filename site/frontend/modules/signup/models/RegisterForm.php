@@ -27,11 +27,12 @@ class RegisterForm extends \CFormModel
     public function rules()
     {
         return array(
-            array('firstName, lastName, birthday, gender, email, password', 'required'),
+            array('firstName, email', 'required'),
+            array('password', 'required', 'except' => 'social'),
             array('firstName', 'length', 'max' => 50),
             array('lastName', 'length', 'max' => 50),
             array('email', 'email'),
-            array('email', 'unique', 'className' => 'User', 'caseSensitive' => false, 'criteria' => array('condition' => 'deleted = 0 AND status = :active', 'params' => array(':active' => \User::STATUS_ACTIVE))),
+            array('email', 'unique', 'className' => 'User', 'caseSensitive' => false, 'criteria' => array('scopes' => array('active'))),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
             array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE)),
             array('password', 'length', 'min' => 6, 'max' => 15),

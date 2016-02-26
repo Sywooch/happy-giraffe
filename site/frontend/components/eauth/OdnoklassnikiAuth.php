@@ -26,7 +26,9 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         $this->attributes['uid'] = $info->uid;
         $this->attributes['firstName'] = $info->first_name;
         $this->attributes['lastName'] = $info->last_name;
-        $this->attributes['email'] = $info->email;
+        if (isset($info->email)) {
+            $this->attributes['email'] = $info->email;
+        }
         $this->setBirthdayAttributes($info);
         $this->attributes['gender'] = $info->gender == 'male' ? '1' : '0';
         $this->setAvatarAttribute($info);

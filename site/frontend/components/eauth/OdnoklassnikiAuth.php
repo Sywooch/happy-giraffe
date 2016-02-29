@@ -36,7 +36,7 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
 
     protected function setAvatarAttribute($info)
     {
-        if ($info->pic190x190) {
+        if (isset($info->pic190x190) && (strpos($info->pic190x190, 'stub') === false)) {
             $avatarSrc = $info->pic190x190;
         } else {
             $avatarSrc = null;

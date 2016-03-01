@@ -6,7 +6,7 @@ class ApiModule extends \CWebModule
 {
     /**current api version for take latest behavior in outer code*/
     const CURRENT = 'v1_3';
-    const CACHE_DELETE = '\site\frontend\modules\api\modules\v1_2\behaviors\CacheDeleteBehavior';
+    const CACHE_DELETE = '\site\frontend\modules\api\modules\v1_3\behaviors\CacheDeleteBehavior';
 
     public function init()
     {

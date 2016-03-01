@@ -5,8 +5,8 @@ namespace site\frontend\modules\api;
 class ApiModule extends \CWebModule
 {
     /**current api version for take latest behavior in outer code*/
-    const CURRENT = 'v1_2';
-    const CACHE_DELETE = '\site\frontend\modules\api\modules\v1_2\behaviors\CacheDeleteBehavior';
+    const CURRENT = 'v1_3';
+    const CACHE_DELETE = '\site\frontend\modules\api\modules\v1_3\behaviors\CacheDeleteBehavior';
 
     public function init()
     {
@@ -26,6 +26,10 @@ class ApiModule extends \CWebModule
             'v1_2' => array (
                 'class' => 'site\frontend\modules\api\modules\v1_2\ApiVersionModule',
                 'controllerNamespace' => 'site\frontend\modules\api\modules\v1_2\controllers',
+            ),
+            'v1_3' => array (
+                'class' => 'site\frontend\modules\api\modules\v1_2\ApiVersionModule',
+                'controllerNamespace' => 'site\frontend\modules\api\modules\v1_3\controllers',
             ),
         ));
     }

@@ -128,15 +128,16 @@ class Family extends \HActiveRecord implements \IHToJSON
      * Позволяет выбрать из отношения members отфильтрованный список членов семьи.
      *
      * @param null|string $type тип члена семьи для фильтрации по типу или null для ее отсутствия
-     * @param bool $public только публичные члены семьи (информация о которых актуальна и корректна)
+     * @param bool $publicOnly только публичные члены семьи (информация о которых актуальна и корректна)
      * @return \site\frontend\modules\family\models\FamilyMember[] отфильтрованный массив членов семьи
      */
-    public function getMembers($type = null, $public = true)
+    public function getMembers($type = null, $publicOnly = true)
     {
         $result = array();
+
         foreach ($this->members as $member) {
             $typeOk = $type === null || $type == $member->type;
-            $publicOk = $public === false || $member->isPublic();
+            $publicOk = $publicOnly === false || $member->isPublic();
             if ($typeOk && $publicOk) {
                 $result[] = $member;
             }

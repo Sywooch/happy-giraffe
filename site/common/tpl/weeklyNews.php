@@ -13,10 +13,7 @@ require_once('simple_html_dom.php');
 
         <?php if ($i == 1): ?>
 
-            <td align="center" valign="top" style="">
-                <table style="width:100%;margin-bottom:50px" cellpadding="0" cellspacing="0">
-                    <tbody>
-                    <tr>
+
                         <td style="width:340px" valign="top">
                             <div style="padding:10px;border:0;width:318px; background: #83b242">
                                 <table cellpadding="0" cellspacing="0" style="margin-bottom:8px">
@@ -55,12 +52,7 @@ require_once('simple_html_dom.php');
                                 </table>
                             </div>
                         </td>
-                        <td style="width:340px;padding-left:20px" valign="top">
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </td>
+
 
         <?php endif; ?>
 

@@ -28,7 +28,7 @@ class ApiModule extends \CWebModule
                 'controllerNamespace' => 'site\frontend\modules\api\modules\v1_2\controllers',
             ),
             'v1_3' => array (
-                'class' => 'site\frontend\modules\api\modules\v1_2\ApiVersionModule',
+                'class' => 'site\frontend\modules\api\modules\v1_3\ApiVersionModule',
                 'controllerNamespace' => 'site\frontend\modules\api\modules\v1_3\controllers',
             ),
         ));

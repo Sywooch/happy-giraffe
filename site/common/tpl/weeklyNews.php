@@ -43,7 +43,7 @@ require_once('simple_html_dom.php');
 
 
                                 </div>
-                                <table cellpadding="0" cellspacing="0" style="margin-top:20px">
+                                <table cellpadding="0" cellspacing="0" style="margin-top:10px">
                                     <tbody>
                                     <tr>
                                         <a href="http://www.parents.ru/article/svoimi-rukami-dlya-mamy-babushki-i-sestrenki/" style="background: #fff; color: #E481BB; display: inline-block; padding: 5px 18px; text-align: center; border-radius: 3px; font-size: 14px;margin: 10px 0 0 0; text-decoration: none">Читать далее</a>

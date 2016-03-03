@@ -29,7 +29,7 @@ require_once('simple_html_dom.php');
                                 </table>
                                 <div style="margin-bottom:10px">
 															                <span style="color:#0d81d5;font:normal 18px/20px arial,helvetica,sans-serif">
-															                    <a href="http://www.parents.ru/article/svoimi-rukami-dlya-mamy-babushki-i-sestrenki/" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block; text-transform: uppercase" target="_blank">9 подарков своими руками для мамы, бабушки и сестренки</a>
+															                    <a href="http://www.parents.ru/article/svoimi-rukami-dlya-mamy-babushki-i-sestrenki/" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block;" target="_blank">9 подарков своими руками для мамы, бабушки и сестренки</a>
 															                </span>
                                 </div>
                                 <div style="margin-bottom:5px">
@@ -38,7 +38,7 @@ require_once('simple_html_dom.php');
                                     </a>
                                 </div>
 
-                                <div style="font:12px arial,helvetica,sans-serif;color:#fff; text-transform: uppercase; line-height: 17px; margin: 10px 0 0;">
+                                <div style="font:12px arial,helvetica,sans-serif;color:#fff; line-height: 17px; margin: 10px 0 0;">
                                     Банка с признаниями, самодельное шоколадное мыло, поделка из солёного теста, хэнд-мейд фартук и другие подарки к 8 Марта, которые могут сделать маленькие дети своими руками.
 
 

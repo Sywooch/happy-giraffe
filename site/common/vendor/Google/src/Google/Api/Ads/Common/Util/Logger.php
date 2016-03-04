@@ -25,9 +25,6 @@
  * @copyright  2011, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Adam Rogal
- * @author     Eric Koleda
- * @author     Vincent Tsao
  */
 
 /**
@@ -103,7 +100,6 @@ class Logger {
 
   /**
    * The Logger class is not meant to have any instances.
-   * @access private
    */
   private function __construct() {}
 
@@ -137,7 +133,6 @@ class Logger {
    * Logs the log to a handle location which can be any writable stream.
    * @param string $log the unique name of the log
    * @param string $handleLocation the location of the handle to fopen
-   * @access private
    */
   private static function LogTo($log, $handleLocation) {
     if (!array_key_exists($log, self::$logToMap)) {
@@ -146,7 +141,7 @@ class Logger {
 
     $appenders = self::$logToMap[$log];
 
-    if (array_search($handleLocation, $appenders) === FALSE) {
+    if (array_search($handleLocation, $appenders) === false) {
       array_push($appenders, $handleLocation);
     }
 
@@ -169,7 +164,7 @@ class Logger {
    * @param string $message the message to write
    * @param string $level the level at which to write the message
    */
-  public static function Log($log, $message, $level = NULL) {
+  public static function Log($log, $message, $level = null) {
     if (!isset($level)) {
       $level = self::$INFO;
     }
@@ -182,7 +177,6 @@ class Logger {
    * @param string $log the unique name of the log
    * @param string $message the message to write
    * @param string $level the level at which to write the message
-   * @access private
    */
   private static function LogToAllAppenders($log, $message, $level) {
     if (array_key_exists($log, self::$logToMap)) {
@@ -214,7 +208,6 @@ class Logger {
    * @param array $appenders the appenders to write to
    * @param string $message the message to write
    * @param string $level the level at which to write the message
-   * @access private
    */
   private static function LogToAppenders(array $appenders, $message, $level) {
     foreach ($appenders as $handle) {
@@ -229,7 +222,6 @@ class Logger {
    *     fopen'ed
    * @param string $message the message to write
    * @param string $level the level of the message
-   * @access private
    */
   private static function WriteMessage($handleLocation, $message, $level) {
     $fp = fopen($handleLocation, 'a');

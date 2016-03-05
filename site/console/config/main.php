@@ -94,6 +94,9 @@ return array(
         'buzz' => array(
             'class' => 'site\frontend\modules\posts\modules\buzz\commands\DefaultCommand',
         ),
+        'nstream' => array(
+            'class' => 'site\frontend\modules\api\modules\v1_3\commands\NStreamTest',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

@@ -468,6 +468,11 @@ return array(
                 'jpegQuality' => 70,
             ),
         ),
+        'NStream' => array (
+            'class' => 'site\frontend\modules\api\modules\v1_3\components\nstream\NginxStream',
+            'host' => 'stream.happy-giraffe.ru',
+            'port' => '80',
+        ),
 	),
 
 	// application-level parameters that can be accessed

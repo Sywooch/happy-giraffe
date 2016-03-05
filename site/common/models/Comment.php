@@ -125,6 +125,9 @@ class Comment extends HActiveRecord
             'CacheDelete' => array(
                 'class' => site\frontend\modules\api\ApiModule::CACHE_DELETE,
             ),
+            'NStream' => array(
+                'class' => site\frontend\modules\api\ApiModule::PUSH_STREAM,
+            ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
                 'entityClass' => 'Comment',

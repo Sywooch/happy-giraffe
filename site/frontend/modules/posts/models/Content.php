@@ -341,7 +341,7 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function getCommentsUrl()
     {
-        return $this->parsedUrl . '#comment_list';
+        return $this->parsedUrl . '#commentsList';
     }
 
     public function getLabelsArray()

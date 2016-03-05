@@ -13,45 +13,41 @@ class SocialUserIdentity extends \CBaseUserIdentity
     const ERROR_NOT_AUTHENTICATED = 5;
     const ERROR_NOT_ASSOCIATED = 6;
 
-    public $service;
+    protected $serviceName;
+    protected $serviceId;
     private $_model;
 
-    public function __construct($service)
+    public function __construct($serviceName, $serviceId)
     {
-        $this->service = $service;
+        $this->serviceName = $serviceName;
+        $this->serviceId = $serviceId;
     }
 
     public function authenticate()
     {
-        if (! $this->service->isAuthenticated) {
-            $this->errorCode = self::ERROR_NOT_AUTHENTICATED;
-            $this->errorMessage = 'Вы не авторизовались в социальной сети';
+        $serviceModel = \UserSocialService::model()->findByAttributes(array(
+            'service' => $this->serviceName,
+            'service_id' => $this->serviceId,
+        ), array(
+            'with' => 'user',
+            'condition' => 'user.deleted = 0',
+        ));
+        if ($serviceModel === null || $serviceModel->user->status == \User::STATUS_INACTIVE) {
+            $this->errorCode = self::ERROR_NOT_ASSOCIATED;
+            $this->errorMessage = 'Этот социальный аккаунт не привязан';
         }
         else {
-            $serviceModel = \UserSocialService::model()->findByAttributes(array(
-                'service' => $this->service->getServiceName(),
-                'service_id' => $this->service->getAttribute('uid'),
-            ), array(
-                'with' => 'user',
-                'condition' => 'user.deleted = 0',
-            ));
-            if ($serviceModel === null || $serviceModel->user->status == \User::STATUS_INACTIVE) {
-                $this->errorCode = self::ERROR_NOT_ASSOCIATED;
-                $this->errorMessage = 'Этот социальный аккаунт не привязан';
+            /** @var \User _model */
+            $this->_model = $serviceModel->user;
+
+            if ($this->_model->isBanned) {
+                $this->errorCode = self::ERROR_BANNED;
+                $this->errorMessage = 'Вы заблокированы';
             }
             else {
-                /** @var \User _model */
-                $this->_model = $serviceModel->user;
-
-                if ($this->_model->isBanned) {
-                    $this->errorCode = self::ERROR_BANNED;
-                    $this->errorMessage = 'Вы заблокированы';
-                }
-                else {
-                    foreach ($this->_model->attributes as $k => $v)
-                        $this->setState($k, $v);
-                    $this->errorCode = self::ERROR_NONE;
-                }
+                foreach ($this->_model->attributes as $k => $v)
+                    $this->setState($k, $v);
+                $this->errorCode = self::ERROR_NONE;
             }
         }
         return $this->errorCode == self::ERROR_NONE;

@@ -137,7 +137,7 @@
                 <div class="b-main_col-article clearfix">
                     <div class="postAdd_btns-hold">
                         <?=CHtml::resetButton('Отмена', array('class' => 'btn btn-link-gray margin-r15')) ?>
-                        <?=CHtml::submitButton('Опубликовать', array('class' => 'btn btn-xl btn-success')) ?>
+                        <?=CHtml::submitButton('Опубликовать', array('class' => 'btn btn-xl btn-success', 'onclick' => '$(this).addClass("disabled").prop("disabled", true).parents("form").submit();')) ?>
                     </div>
                 </div>
             </div>

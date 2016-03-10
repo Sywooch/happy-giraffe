@@ -7,7 +7,7 @@ class ApiModule extends \CWebModule
     /**current api version for take latest behavior in outer code*/
     const CURRENT = 'v1_3';
     const CACHE_DELETE = '\site\frontend\modules\api\modules\v1_3\behaviors\CacheDeleteBehavior';
-    const PUSH_STREAM = '\site\frontend\modules\api\modules\v1_3\behaviors\NStreamBehavior';
+    const PUSH_STREAM = '\site\frontend\modules\api\modules\v1_3\behaviors\PushBehavior';
 
     public function init()
     {

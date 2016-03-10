@@ -83,7 +83,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'CacheDelete' => array(
 				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
 			),
-			'NStream' => array(
+			'PushStream' => array(
 				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
 			),
 			'softDelete' => array(

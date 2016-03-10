@@ -46,6 +46,7 @@ return array(
         '<_v>/api/register' => 'api/<_v>/api/register',
         '<_v>/api/social-register' => 'api/<_v>/api/social-register',
         '<_v>/api/device-register' => 'api/<_v>/api/device-register',
+        '<_v>/api/device-unregister' => 'api/<_v>/api/device-unregister',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

@@ -29,11 +29,11 @@ require_once('simple_html_dom.php');
                                 </table>
                                 <div style="margin-bottom:10px">
 															                <span style="color:#0d81d5;font:normal 18px/20px arial,helvetica,sans-serif">
-															                    <a href="http://www.parents.ru/article/jex-maslenicza-reczepty-vkusnyx-blinov-ot-shefa/" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block;" target="_blank">НЕОБЫЧНЫЕ РЕЦЕПТЫ БЛИНОВ ДЛЯ ВСЕЙ СЕМЬИ</a>
+															                    <a href="http://www.parents.ru/article/blin-goroxovyj-neobychnye-reczepty-blinov/" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block;" target="_blank">НЕОБЫЧНЫЕ РЕЦЕПТЫ БЛИНОВ ДЛЯ ВСЕЙ СЕМЬИ</a>
 															                </span>
                                 </div>
                                 <div style="margin-bottom:5px">
-                                    <a href="http://www.parents.ru/article/jex-maslenicza-reczepty-vkusnyx-blinov-ot-shefa/" style="text-decoration:none" target="_blank">
+                                    <a href="http://www.parents.ru/article/blin-goroxovyj-neobychnye-reczepty-blinov/" style="text-decoration:none" target="_blank">
                                         <img src="http://www.happy-giraffe.ru/mail/headline2.jpg" width="318" border="0" style="display:block" class="CToWUd">
                                     </a>
                                 </div>
@@ -46,7 +46,7 @@ require_once('simple_html_dom.php');
                                 <table cellpadding="0" cellspacing="0" style="margin-top:10px">
                                     <tbody>
                                     <tr>
-                                        <a href="http://www.parents.ru/article/jex-maslenicza-reczepty-vkusnyx-blinov-ot-shefa/" style="background: #fff; color: #E481BB; display: inline-block; padding: 5px 18px; text-align: center; border-radius: 3px; font-size: 14px;margin: 10px 0 0 0; text-decoration: none">Читать далее</a>
+                                        <a href="http://www.parents.ru/article/blin-goroxovyj-neobychnye-reczepty-blinov/" style="background: #fff; color: #E481BB; display: inline-block; padding: 5px 18px; text-align: center; border-radius: 3px; font-size: 14px;margin: 10px 0 0 0; text-decoration: none">Читать далее</a>
                                     </tr>
                                     </tbody>
                                 </table>

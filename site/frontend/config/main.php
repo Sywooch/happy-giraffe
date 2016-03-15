@@ -236,6 +236,12 @@ return array(
             'cache' => false,
             'cacheExpire' => 0,
 			'services' => array( // You can change the providers and their classes.
+                'facebook' => array(
+                    'class' => 'application.components.eauth.FacebookAuth',
+                    'client_id' => '412497558776154',
+                    'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
+                    'title' => 'Facebook',
+                ),
 //                'mailru' => array(
 //                    'class' => 'CustomMailruService',
 //                    'client_id' => '667969',

@@ -378,7 +378,8 @@ class User extends HActiveRecord
     {
         return array(
             'active' => array(
-                'condition' => $this->getTableAlias(false, false) . '.deleted = 0'
+                'condition' => $this->getTableAlias(false, false) . '.deleted = 0 AND ' . $this->getTableAlias(false, false) . '.status = :statusActive',
+                'params' => array(':statusActive' => self::STATUS_ACTIVE),
             ),
         );
     }

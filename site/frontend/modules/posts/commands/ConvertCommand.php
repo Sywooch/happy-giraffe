@@ -76,7 +76,6 @@ class ConvertCommand extends \CConsoleCommand
 
     public function actionIndex(Array $command = array(), $fake = false)
     {
-        //\Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         // Загрузим возможные модели
         \Yii::import('site.frontend.modules.cook.models.*');
@@ -105,20 +104,12 @@ class ConvertCommand extends \CConsoleCommand
         try {
             $data = self::unserialize($job->workload());
             \Yii::app()->db->setActive(true);
-            //usleep(100000); // на всякий случай поспим 0.1 сек, что бы быть уверенным, что реплика прошла
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
             if (!$model) {
                 throw new \Exception('no model');
             }
             echo $model->convertToNewPost() ? '.' : '!';
             \Yii::app()->db->setActive(false);
-            /**@todo: fix api cache*/
-            //\Yii::app()->cache->delete->delete(site\frontend\modules\v1\components\V1ApiController::KEYS_COLLECTION);
-            $class = \site\frontend\modules\api\APiModule::CACHE_DELETE;
-            $del = new $class();
-            $del->realOwner = get_class(new \site\frontend\modules\posts\models\Content());
-            $del->handleCollection();
-            //\Yii::app()->cache->flush();
         } catch (\Exception $e) {
             var_dump($data);
             echo $e;

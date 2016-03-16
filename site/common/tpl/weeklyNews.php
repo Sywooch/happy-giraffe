@@ -29,7 +29,7 @@ require_once('simple_html_dom.php');
                                 </table>
                                 <div style="margin-bottom:10px">
 															                <span style="color:#0d81d5;font:normal 18px/20px arial,helvetica,sans-serif">
-															                    <a href="http://www.parents.ru/article/izbavlyaemsya-ot-diastaza-8-uprazhnenij/" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block;" target="_blank">Избавляемся от диастаза: 8 эффективных упражнений</a>
+															                    <a href="http://www.parents.ru/article/izbavlyaemsya-ot-diastaza-8-uprazhnenij/" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block;" target="_blank">Избавляемся от диастаза: <br>8 эффективных упражнений</a>
 															                </span>
                                 </div>
                                 <div style="margin-bottom:5px">

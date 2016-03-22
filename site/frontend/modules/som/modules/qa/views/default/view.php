@@ -27,6 +27,7 @@ $this->pageTitle = CHtml::encode($question->title);
     </div>
     <div class="clearfix"></div>
     <h1 class="questions_item_heading"><?=CHtml::encode($question->title)?></h1>
+    <?php if ($question->consultationId !== null || $question->categoryId !== null): ?>
     <div class="questions_item_category">
         <div class="questions_item_category_ico sharp-test"></div>
         <?php if ($question->consultationId === null): ?>
@@ -35,6 +36,7 @@ $this->pageTitle = CHtml::encode($question->title);
             <a href="<?=$this->createUrl('/som/qa/consultation/index/', array('consultationId' => $question->consultation->id))?>" class="questions_item_category_link"><?=$question->consultation->title?></a>
         <?php endif; ?>
     </div>
+    <?php endif; ?>
     <div class="clearfix"></div>
     <div class="question_text">
         <?=nl2br(CHtml::encode($question->text))?>

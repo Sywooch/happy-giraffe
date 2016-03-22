@@ -53,7 +53,7 @@ class QaQuestion extends \HActiveRecord
 			array('sendNotifications', 'boolean'),
 
 			// категория
-			array('categoryId', 'required', 'except' => 'consultation'),
+			array('categoryId', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('categoryId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaCategory', 'except' => 'consultation'),
 
 			// консультация

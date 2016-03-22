@@ -199,10 +199,14 @@ class QaQuestion extends \HActiveRecord
 
 	public function canBeAnsweredBy($userId)
 	{
-		return (! $this->isFromConsultation()) || QaConsultant::model()->exists('userId = :userId AND consultationId = :consultationId', array(
-			':userId' => $userId,
-			':consultationId' => $this->consultationId,
-		));
+		if (! $this->isFromConsultation()) {
+			return $this->authorId != $userId;
+		} else {
+			return QaConsultant::model()->exists('userId = :userId AND consultationId = :consultationId', array(
+				':userId' => $userId,
+				':consultationId' => $this->consultationId,
+			));
+		}
 	}
 
 	public function isFromConsultation()

@@ -11,8 +11,17 @@ class QaController extends \LiteController
 {
     public $litePackage = 'faq';
     public $layout = '/layouts/main';
+    public $hideUserAdd = true;
 
     public $sidebar = array();
+
+    public function init()
+    {
+        if (! \Yii::app()->user->isGuest) {
+            $this->hideAdsense = true;
+        }
+        parent::init();
+    }
 
     public function renderSidebarClip()
     {

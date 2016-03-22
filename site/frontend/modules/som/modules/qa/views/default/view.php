@@ -44,4 +44,5 @@ $this->pageTitle = CHtml::encode($question->title);
         <question-settings params="questionId: <?=$question->id?>"></question-settings>
     <?php endif; ?>
 </div>
+
 <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget', array('question' => $question)); ?>

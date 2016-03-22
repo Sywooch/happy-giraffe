@@ -8,7 +8,6 @@ $this->sidebar = array('ask', 'personal', 'menu' => array('urlParams' => array('
 $this->pageTitle = 'Вопрос-ответ';
 ?>
 <div class="heading-link-xxl"> Вопрос-ответ</div>
-<?php $this->renderPartial('/_search', array('query' => '')); ?>
 <?php
 $this->widget('zii.widgets.CMenu', array(
     'htmlOptions' => array(

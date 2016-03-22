@@ -3,8 +3,8 @@ namespace site\frontend\modules\ads\components;
 \Yii::import('site.common.vendor.Google.src.*');
 require_once 'Google/Api/Ads/Dfp/Lib/DfpUser.php';
 require_once 'Google/Api/Ads/Common/Util/MediaUtils.php';
-require_once 'Google/Api/Ads/Dfp/Util/DateTimeUtils.php';
-require_once 'Google/Api/Ads/Dfp/Util/StatementBuilder.php';
+require_once 'Google/Api/Ads/Dfp/Util/v201602/DateTimeUtils.php';
+require_once 'Google/Api/Ads/Dfp/Util/v201602/StatementBuilder.php';
 require_once 'Google/Api/Ads/Common/Util/Logger.php';
 
 /**
@@ -97,7 +97,7 @@ class DfpHelper extends \CApplicationComponent
 
     public function updateLica($lineId, $creativeId, $options)
     {
-        $licaService = $this->user->GetService('LineItemCreativeAssociationService', 'v201411');
+        $licaService = $this->user->GetService('LineItemCreativeAssociationService', $this->version);
         $statementBuilder = $this->prepareLicaStatement($lineId, $creativeId);
         $page = $licaService->getLineItemCreativeAssociationsByStatement($statementBuilder->ToStatement());
         $lica = $page->results[0];
@@ -107,7 +107,7 @@ class DfpHelper extends \CApplicationComponent
 
     protected function updateLicaStatus($lineId, $creativeId, $action)
     {
-        $licaService = $this->user->GetService('LineItemCreativeAssociationService', 'v201411');
+        $licaService = $this->user->GetService('LineItemCreativeAssociationService', $this->version);
         $statementBuilder = $this->prepareLicaStatement($lineId, $creativeId);
 
         $action = ($action == self::LICA_DEACTIVATE) ?

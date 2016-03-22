@@ -43,7 +43,8 @@ class DefaultController extends HController
                 ),
                 'pagination' => array(
                     'pageSize' => 15,
-                    'currentPage' => $page
+                    'currentPage' => $page,
+                    'validateCurrentPage' => false,
                 )
             ));
             $users = array_map(function ($friend) {

@@ -24,9 +24,6 @@
  * @copyright  2011, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Adam Rogal
- * @author     Eric Koleda
- * @author     Vincent Tsao
  */
 require_once 'Google/Api/Ads/Common/Util/MapUtils.php';
 
@@ -79,145 +76,6 @@ class XmlUtils {
   }
 
   /**
-   * Converts a DOMDocument to a stdClass object, where each element under
-   * the root node is a field. Atribute values are ignored.
-   * @param DOMDocument $document the document to convert
-   * @returns Object the converted object
-   */
-  public static function ConvertDocumentToObject($document) {
-    return self::ConvertElementToObject($document->documentElement);
-  }
-
-  /**
-   * Converts a DOMElement to a stdClass object, where each child element is
-   * a field. Attribute values are ignored.
-   * @param DOMElement $element the element to convert
-   * @returns Object the converted object
-   */
-  private static function ConvertElementToObject($element) {
-    $result = array();
-    if ($element->hasChildNodes()) {
-      $numChildNodes = $element->childNodes->length;
-      for ($i = 0; $i < $numChildNodes; $i++) {
-        $childNode = $element->childNodes->item($i);
-        if ($childNode instanceof DOMElement) {
-          $name = $childNode->tagName;
-          $value = self::ConvertElementToObject($childNode);
-          if (isset($result[$name])) {
-            if (!is_array($result[$name])) {
-              $result[$name] = array($result[$name]);
-            }
-            $result[$name][] = $value;
-          } else {
-            $result[$name] = $value;
-          }
-        }
-      }
-    }
-    if (sizeof($result) > 0) {
-      return (Object) $result;
-    } else {
-      return self::ConvertNodeValueToObject($element->nodeValue);
-    }
-  }
-
-  /**
-   * Converts a node value to a PHP value of the appropriate type.
-   * @param string $value the value of the node
-   * @return mixed the PHP value as the appropriate type
-   */
-  private static function ConvertNodeValueToObject($value) {
-    if (is_numeric($value)) {
-      if (strcmp(strval(intval($value)), $value) === 0) {
-        return intval($value);
-      } elseif (strcmp(sprintf('%.0f', floatval($value)), $value) === 0) {
-        return floatval($value);
-      } else {
-        return $value;
-      }
-    } else if (strtolower($value) == 'true' || strtolower($value) == 'false') {
-      return filter_var($value, FILTER_VALIDATE_BOOLEAN);
-    } else {
-      return $value;
-    }
-  }
-
-  /**
-   * Converts an object to a DOMDocument. The root element name is passed in as
-   * a parameter, and each field of the object becomes a child element. Array
-   * values are represented by multiples instances of that element. Methods on
-   * the object are ignored. There is no support for XML attributes.
-   * @param Object $object the object to serialize
-   * @param string $rootElementName the name of the root element
-   * @return DOMDocument the document representing the object
-   */
-  public static function ConvertObjectToDocument($object, $rootElementName) {
-    $document = new DOMDocument();
-    $document->appendChild(
-        self::ConvertObjectToElement($object, $rootElementName, $document));
-    return $document;
-  }
-
-  /**
-   * Converts an object to an DOMElement.
-   * @param Object $object the object to serialize
-   * @param string $elementName the name of the element to serialize
-   * @param DOMDocument $document the document that the element will be added to
-   * @return DOMElement the element representing the object
-   */
-  private static function ConvertObjectToElement($object, $elementName,
-      $document) {
-    if (!isset($object)) {
-      return NULL;
-    }
-    $element = $document->createElement($elementName);
-    $children = array();
-    if (is_array($object) && MapUtils::IsMap($object)) {
-      $object = (Object) $object;
-    }
-    if (is_object($object)) {
-      foreach(get_object_vars($object) as $field => $value) {
-        if (is_array($value) && !MapUtils::IsMap($value)) {
-          foreach($value as $item) {
-            $children[] =
-                self::ConvertObjectToElement($item, $field, $document);
-          }
-        } else {
-          $children[] =
-              self::ConvertObjectToElement($value, $field, $document);
-        }
-      }
-      foreach ($children as $child) {
-        if (isset($child)) {
-          $element->appendChild($child);
-        }
-      }
-    } else {
-      $element->nodeValue = self::ConvertObjectToNodeValue($object);
-    }
-    return $element;
-  }
-
-  /**
-   * Converts a PHP value to a string for use in an XML node value.
-   * @param mixed $object the PHP value
-   * @returns string the string value of the object
-   */
-  private static function ConvertObjectToNodeValue($object) {
-    if (is_float($object)) {
-      if (floatval(strval($object)) == $object) {
-        return strval($object);
-      } else {
-        return sprintf('%.0f', $object);
-      }
-    } else if (is_bool($object)) {
-      return $object ? 'true': 'false';
-    } else {
-      return strval($object);
-    }
-  }
-
-  /**
    * Caputures the warnings thrown by the loadXML function to create a proper
    * DOMException.
    * @param string $errno contains the level of the error raised, as an integer
@@ -226,7 +84,7 @@ class XmlUtils {
    *     as a string
    * @param integer $errline contains the line number the error was raised at,
    *     as an integer
-   * @return boolean <var>FALSE</var> if the normal error handler should
+   * @return boolean <var>false</var> if the normal error handler should
    *     continue
    */
   public static function HandleXmlError($errno, $errstr, $errfile, $errline) {
@@ -234,7 +92,7 @@ class XmlUtils {
         && substr_count($errstr, 'DOMDocument::loadXML()') > 0) {
       throw new DOMException($errstr);
     } else {
-      return FALSE;
+      return false;
     }
   }
 }

@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="icons-meta">
-        <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>
+        <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></span></div>
     </div>
     <div class="clearfix"></div><a class="questions_item_heading" href="<?=$data->url?>"><?=CHtml::encode($data->title)?></a>
     <div class="questions_item_category">

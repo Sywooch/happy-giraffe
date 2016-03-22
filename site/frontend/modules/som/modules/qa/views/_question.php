@@ -23,10 +23,10 @@
     <?php if ($data->consultationId !== null || $data->categoryId !== null): ?>
     <div class="questions_item_category">
         <div class="questions_item_category_ico sharp-test"></div>
-        <?php if ($data->consultationId === null): ?>
-            <a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $data->category->id))?>" class="questions_item_category_link"><?=$data->category->title?></a>
-        <?php else: ?>
+        <?php if ($data->consultationId !== null): ?>
             <a href="<?=$this->createUrl('/som/qa/consultation/index/', array('consultationId' => $data->consultation->id))?>" class="questions_item_category_link"><?=$data->consultation->title?></a>
+        <?php else: ?>
+            <a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $data->category->id))?>" class="questions_item_category_link"><?=$data->category->title?></a>
         <?php endif; ?>
     </div>
     <?php endif; ?>

@@ -29,7 +29,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  */
 class QaQuestion extends \HActiveRecord
 {
-	private $_user;
+	public $sendNotifications = true;
 
 	/**
 	 * @return string the associated database table name
@@ -53,7 +53,7 @@ class QaQuestion extends \HActiveRecord
 			array('sendNotifications', 'boolean'),
 
 			// категория
-			array('categoryId', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('categoryId', 'default', 'value' => null),
 			array('categoryId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaCategory', 'except' => 'consultation'),
 
 			// консультация

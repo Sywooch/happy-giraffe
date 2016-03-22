@@ -5,6 +5,13 @@
  */
 $this->sidebar = array('ask', 'personal', 'menu', 'rating');
 $this->pageTitle = CHtml::encode($question->title);
+$this->breadcrumbs['Ответы'] = array('/som/qa/default/index');
+if ($question->consultationId !== null) {
+    $this->breadcrumbs[$question->consultation->title] = array('/som/qa/consultation/index/', 'consultationId' => $question->consultation->id);
+} elseif ($question->categoryId !== null) {
+    $this->breadcrumbs[$question->category->title] = array('/som/qa/default/index/', 'categoryId' => $question->category->id);
+}
+$this->breadcrumbs[] = $question->title;
 ?>
 
 <div class="question">
@@ -30,10 +37,10 @@ $this->pageTitle = CHtml::encode($question->title);
     <?php if ($question->consultationId !== null || $question->categoryId !== null): ?>
     <div class="questions_item_category">
         <div class="questions_item_category_ico sharp-test"></div>
-        <?php if ($question->consultationId === null): ?>
-            <a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $question->category->id))?>" class="questions_item_category_link"><?=$question->category->title?></a>
-        <?php else: ?>
+        <?php if ($question->consultationId !== null): ?>
             <a href="<?=$this->createUrl('/som/qa/consultation/index/', array('consultationId' => $question->consultation->id))?>" class="questions_item_category_link"><?=$question->consultation->title?></a>
+        <?php else: ?>
+            <a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $question->category->id))?>" class="questions_item_category_link"><?=$question->category->title?></a>
         <?php endif; ?>
     </div>
     <?php endif; ?>

@@ -25,9 +25,6 @@
  * @copyright  2011, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Adam Rogal
- * @author     Eric Koleda
- * @author     Vincent Tsao
  */
 
 /**
@@ -40,7 +37,6 @@ class MediaUtils {
 
   /**
    * The MediaUtils class is not meant to have any instances.
-   * @access private
    */
   private function __construct() {}
 
@@ -53,8 +49,8 @@ class MediaUtils {
    * @return string the base64 encoded data of the file
    * @see http://us2.php.net/file_get_contents
    */
-  public static function GetBase64Data($path, $useIncludePath = NULL,
-      $context = NULL) {
+  public static function GetBase64Data($path, $useIncludePath = null,
+      $context = null) {
     if ($useIncludePath) {
       return file_get_contents($path, FILE_USE_INCLUDE_PATH, $context);
     } else {

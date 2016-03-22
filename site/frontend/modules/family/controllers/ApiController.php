@@ -47,13 +47,13 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = $family->delete();
     }
 
-    public function actionGet($userId, $public = true)
+    public function actionGet($userId, $publicOnly = true)
     {
         /** @var \site\frontend\modules\family\models\Family $family */
         $family = Family::model()->hasMember($userId)->find();
         if ($family !== null) {
             $this->data = $family->toJSON();
-            $this->data['members'] = $family->getMembers(null, $public);
+            $this->data['members'] = $family->getMembers(null, $publicOnly);
         } else {
             $this->data = null;
         }

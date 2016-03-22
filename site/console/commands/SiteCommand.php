@@ -264,6 +264,13 @@ class SiteCommand extends CConsoleCommand
         Yii::app()->clearGlobalState(ClientScript::RELEASE_ID_KEY);
     }
 
+    public function actionClearLastSend()
+    {
+        Yii::app()->db->schema->getTables();
+        Yii::app()->db->schema->refresh();
+        Yii::app()->clearGlobalState('lastSend');
+    }
+
     public function actionCleanJsd()
     {
         $path = Yii::getPathOfAlias('site.frontend.www-submodule.jsd') . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*';

@@ -24,8 +24,6 @@
  * @copyright  2012, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Eric Koleda
- * @author     Vincent Tsao
  */
 require_once 'Google/Api/Ads/Common/Util/OAuth2Handler.php';
 require_once 'Google/Api/Ads/Common/Util/CurlUtils.php';
@@ -44,8 +42,8 @@ class SimpleOAuth2Handler extends OAuth2Handler {
    * @param string $server the auth server to make OAuth2 request against
    * @param CurlUtils $curlUtils an instance of CurlUtils
    */
-  public function __construct($server = NULL, $scope = NULL,
-      $curlUtils = NULL) {
+  public function __construct($server = null, $scope = null,
+      $curlUtils = null) {
     parent::__construct($server, $scope);
     $this->curlUtils = is_null($curlUtils) ? new CurlUtils() : $curlUtils;
   }
@@ -54,7 +52,7 @@ class SimpleOAuth2Handler extends OAuth2Handler {
    * @see OAuth2Hanlder::GetAccessToken()
    */
   public function GetAccessToken(array $credentials, $code,
-      $redirectUri = NULL) {
+      $redirectUri = null) {
     if (empty($credentials['client_id'])) {
       throw new OAuth2Exception('client_id required.');
     }
@@ -120,6 +118,6 @@ class SimpleOAuth2Handler extends OAuth2Handler {
     if ($httpCode != 200) {
       throw new OAuth2Exception($response, $httpCode);
     }
-    return json_decode($response, TRUE);
+    return json_decode($response, true);
   }
 }

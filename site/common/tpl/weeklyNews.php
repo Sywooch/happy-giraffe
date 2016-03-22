@@ -10,6 +10,8 @@ require_once('simple_html_dom.php');
 <table style="width:100%;margin-bottom:50px;" cellpadding="0" cellspacing="0">
     <tbody><tr>
         <?php foreach ($models as $model): ?>
+
+
         <?php if ($model instanceof \site\frontend\modules\posts\models\Content): $adapter = new \site\frontend\modules\posts\components\MailAdapter($model); $commentsWidget = $adapter->getComments(); ?>
 
             <?php if ($model->authorId == 450668): ?>
@@ -260,6 +262,7 @@ require_once('simple_html_dom.php');
 
     </td>
     <?php endif; ?>
+
     <?php $i++; ?>
         <?php if ($i % 2 == 0 && $i != count($models)):?>
                         </tr>

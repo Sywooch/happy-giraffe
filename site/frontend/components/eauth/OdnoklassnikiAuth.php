@@ -26,7 +26,9 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         $this->attributes['uid'] = $info->uid;
         $this->attributes['firstName'] = $info->first_name;
         $this->attributes['lastName'] = $info->last_name;
-        $this->attributes['email'] = $info->email;
+        if (isset($info->email)) {
+            $this->attributes['email'] = $info->email;
+        }
         $this->setBirthdayAttributes($info);
         $this->attributes['gender'] = $info->gender == 'male' ? '1' : '0';
         $this->setAvatarAttribute($info);
@@ -34,7 +36,7 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
 
     protected function setAvatarAttribute($info)
     {
-        if ($info->pic190x190) {
+        if (isset($info->pic190x190) && (strpos($info->pic190x190, 'stub') === false)) {
             $avatarSrc = $info->pic190x190;
         } else {
             $avatarSrc = null;

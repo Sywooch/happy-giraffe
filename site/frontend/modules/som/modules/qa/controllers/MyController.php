@@ -44,7 +44,7 @@ class MyController extends QaController
                 'pageVar' => 'page',
             ),
         ));
-        $this->render('questions', compact('dp'));
+        $this->render('questions', compact('dp', 'categoryId'));
     }
 
     public function actionAnswers($categoryId = null)
@@ -61,6 +61,6 @@ class MyController extends QaController
                 'pageVar' => 'page',
             ),
         ));
-        $this->render('answers', compact('dp'));
+        $this->render('answers', compact('dp', 'categoryId'));
     }
 }

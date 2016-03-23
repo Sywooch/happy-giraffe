@@ -13,10 +13,12 @@ use site\frontend\modules\som\modules\qa\widgets\SidebarMenu;
 
 abstract class CategoriesMenu extends SidebarMenu
 {
+    public $categoryId;
+
     public function init()
     {
         $firstItem = $this->getFirstItem();
-        $firstItem['active'] = \Yii::app()->request->getQuery('categoryId') === null;
+        $firstItem['active'] = $this->categoryId === null;
         $this->items[] = $firstItem;
 
         $categories = $this->getCategories();
@@ -31,7 +33,9 @@ abstract class CategoriesMenu extends SidebarMenu
 
     protected function getItemByCategory(QaCategory $category)
     {
-        return $this->getItem($category->title, $this->getCountByCategory($category), $this->getUrlByCategory($category));
+        $item = $this->getItem($category->title, $this->getCountByCategory($category), $this->getUrlByCategory($category));
+        $item['active'] = $category->id == $this->categoryId;
+        return $item;
     }
 
     abstract protected function getFirstItem();

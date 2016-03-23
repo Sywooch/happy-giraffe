@@ -4,10 +4,18 @@
  * @var \CActiveDataProvider $dp
  * @var string $tab
  */
-$this->sidebar = array('ask', 'personal', 'menu' => array('urlParams' => array('tab' => Yii::app()->request->getQuery('tab'))), 'rating');
+$this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => ($category === null) ? null : $category->id), 'rating');
 $this->pageTitle = 'Вопрос-ответ';
+if ($category !== null) {
+    $this->breadcrumbs = array(
+        'Ответы' => array('/som/qa/default/index'),
+        $category->title,
+    );
+}
 ?>
+<?php if ($category === null): ?>
 <div class="heading-link-xxl"> Вопрос-ответ</div>
+<?php endif; ?>
 <?php
 $this->widget('zii.widgets.CMenu', array(
     'htmlOptions' => array(

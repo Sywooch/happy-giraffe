@@ -67,7 +67,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             'text' => $text,
         );
         $this->success = $answer->save();
-        $this->data = $answer->toJSON();
+        $this->data = $answer;
     }
 
     public function actionGetAnswers($questionId)
@@ -95,7 +95,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         if (! \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answerId))) {
             throw new \CHttpException(403);
         }
-        $this->data = VotesManager::changeVote(\Yii::app()->user->id, $answerId)->toJSON();
+        $this->data = VotesManager::changeVote(\Yii::app()->user->id, $answerId);
         $this->success = $this->data !== false;
     }
 
@@ -115,7 +115,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         if ($this->success == true && in_array($action->id, array_keys($types)))
         {
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
-            $this->send(AnswersWidget::getChannelIdByAnswer($this->data), $data, $types[$action->id]);
+            $this->send(AnswersWidget::getChannelIdByQuestion($this->data->questionId), $data, $types[$action->id]);
         }
         parent::afterAction($action);
     }

@@ -15,7 +15,7 @@ class QaUsersRatingManager
 {
     const QUESTIONS_RATING_COEFFICIENT = 1;
     const ANSWERS_COUNT_COEFFICIENT = 1;
-    const BEST_ANSWERS_COUNT_COEFFICIENT = 1;
+    const BEST_ANSWERS_COUNT_COEFFICIENT = 10;
     const INSERTS_PER_QUERY = 10000;
 
     public static function run()
@@ -35,7 +35,6 @@ class QaUsersRatingManager
     {
         $questionsData = self::getQuestionsData($period);
         $answersData = self::getAnswersData($period);
-        $bestAnswers = self::getAnswersData($period);
 
         $rating = array();
         foreach ($questionsData as $value) {
@@ -48,16 +47,11 @@ class QaUsersRatingManager
             $userId = $value['authorId'];
             self::createRow($rating, $userId, $type);
             $rating[$userId]['answersCount'] = $value['c'];
-            $rating[$userId]['rating'] += $value['c'] * self::ANSWERS_COUNT_COEFFICIENT;
-        }
-        foreach ($bestAnswers as $value) {
-            $userId = $value['authorId'];
-            self::createRow($rating, $userId, $type);
-            $rating[$userId]['rating'] += $value['c'] * self::BEST_ANSWERS_COUNT_COEFFICIENT;
+            $rating[$userId]['rating'] += $value['c'] * (($value['isBest']) ? self::BEST_ANSWERS_COUNT_COEFFICIENT : self::ANSWERS_COUNT_COEFFICIENT);
         }
         $rating = self::setPositions($rating);
 
-        QaUserRating::model()->deleteAll();
+        QaUserRating::model()->deleteAll('type = :type', array(':type' => $type));
         $nInserts = ceil(count($rating) / self::INSERTS_PER_QUERY);
         for ($i = 0; $i < $nInserts; $i++) {
             $toInsert = array_slice($rating, $i * self::INSERTS_PER_QUERY, self::INSERTS_PER_QUERY);
@@ -114,7 +108,7 @@ class QaUsersRatingManager
     {
         $criteria = clone QaAnswer::model()->getDbCriteria();
         self::augmentCriteriaByPeriod($criteria, $period);
-        $criteria->select = 'authorId, COUNT(*) c';
+        $criteria->select = 'authorId, isBest, COUNT(*) c';
         $criteria->group = 'authorId';
         $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(QaAnswer::model()->tableName(), $criteria);
         return $command->queryAll();

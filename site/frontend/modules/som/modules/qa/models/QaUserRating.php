@@ -49,7 +49,7 @@ class QaUserRating extends \HActiveRecord
 	public function apiRelations()
 	{
 		return array(
-			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'userId'),
+			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'userId', 'params' => array('avatarSize' => 72)),
 		);
 	}
 

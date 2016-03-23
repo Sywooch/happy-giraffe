@@ -32,6 +32,7 @@
             <div class="popup-widget_cont_list">
                 <?=$form->dropDownList($model, 'categoryId', CHtml::listData(\site\frontend\modules\som\modules\qa\models\QaCategory::model()->findAll(), 'id', 'title'), array(
                     'class' => 'select-cus select-cus__search-off select-cus__gray',
+                    'empty' => 'Выберите тему',
                 ))?>
             </div>
             <?php endif; ?>

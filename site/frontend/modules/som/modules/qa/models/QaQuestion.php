@@ -29,7 +29,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  */
 class QaQuestion extends \HActiveRecord
 {
-	private $_user;
+	public $sendNotifications = true;
 
 	/**
 	 * @return string the associated database table name
@@ -53,7 +53,7 @@ class QaQuestion extends \HActiveRecord
 			array('sendNotifications', 'boolean'),
 
 			// категория
-			array('categoryId', 'required', 'except' => 'consultation'),
+			array('categoryId', 'default', 'value' => null),
 			array('categoryId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaCategory', 'except' => 'consultation'),
 
 			// консультация
@@ -80,7 +80,7 @@ class QaQuestion extends \HActiveRecord
 	public function apiRelations()
 	{
 		return array(
-			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
+			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 72)),
 		);
 	}
 
@@ -199,10 +199,14 @@ class QaQuestion extends \HActiveRecord
 
 	public function canBeAnsweredBy($userId)
 	{
-		return (! $this->isFromConsultation()) || QaConsultant::model()->exists('userId = :userId AND consultationId = :consultationId', array(
-			':userId' => $userId,
-			':consultationId' => $this->consultationId,
-		));
+		if (! $this->isFromConsultation()) {
+			return $this->authorId != $userId;
+		} else {
+			return QaConsultant::model()->exists('userId = :userId AND consultationId = :consultationId', array(
+				':userId' => $userId,
+				':consultationId' => $this->consultationId,
+			));
+		}
 	}
 
 	public function isFromConsultation()

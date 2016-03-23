@@ -80,7 +80,7 @@ class QaQuestion extends \HActiveRecord
 	public function apiRelations()
 	{
 		return array(
-			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
+			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 72)),
 		);
 	}
 

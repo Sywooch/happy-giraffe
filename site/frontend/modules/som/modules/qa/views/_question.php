@@ -17,17 +17,19 @@
         </div>
     </div>
     <div class="icons-meta">
-        <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>
+        <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></span></div>
     </div>
     <div class="clearfix"></div><a class="questions_item_heading" href="<?=$data->url?>"><?=CHtml::encode($data->title)?></a>
+    <?php if ($data->consultationId !== null || $data->categoryId !== null): ?>
     <div class="questions_item_category">
         <div class="questions_item_category_ico sharp-test"></div>
-        <?php if ($data->consultationId === null): ?>
-            <a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $data->category->id))?>" class="questions_item_category_link"><?=$data->category->title?></a>
-        <?php else: ?>
+        <?php if ($data->consultationId !== null): ?>
             <a href="<?=$this->createUrl('/som/qa/consultation/index/', array('consultationId' => $data->consultation->id))?>" class="questions_item_category_link"><?=$data->consultation->title?></a>
+        <?php else: ?>
+            <a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $data->category->id))?>" class="questions_item_category_link"><?=$data->category->title?></a>
         <?php endif; ?>
     </div>
+    <?php endif; ?>
     <?php if ($data->answersCount == 0): ?>
         <?php if (Yii::app()->user->checkAccess('createQaAnswer', array('question' => $data))): ?>
             <a class="questions_item_answers" href="<?=$data->url?>"><span class="questions_item_answers_ans">ответить</span></a>

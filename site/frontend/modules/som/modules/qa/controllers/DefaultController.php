@@ -52,7 +52,7 @@ class DefaultController extends QaController
                 throw new \CHttpException(404);
             }
         }
-        $this->render('index', compact('dp', 'tab', 'category'));
+        $this->render('index', compact('dp', 'tab', 'categoryId', 'category'));
     }
 
     public function actionView($id)

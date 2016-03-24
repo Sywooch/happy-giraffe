@@ -13,6 +13,7 @@ use site\frontend\modules\consultation\models\Consultation;
 use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\components\QuestionsDataProvider;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaUserRating;
@@ -43,7 +44,15 @@ class DefaultController extends QaController
     public function actionIndex($tab, $categoryId = null)
     {
         $dp = $this->getDataProvider($tab, $categoryId);
-        $this->render('index', compact('dp', 'tab'));
+        if ($categoryId === null) {
+            $category = null;
+        } else {
+            $category = QaCategory::model()->findByPk($categoryId);
+            if ($category === null) {
+                throw new \CHttpException(404);
+            }
+        }
+        $this->render('index', compact('dp', 'tab', 'category'));
     }
 
     public function actionView($id)

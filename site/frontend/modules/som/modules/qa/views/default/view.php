@@ -3,7 +3,7 @@
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
-$this->sidebar = array('ask', 'personal', 'menu', 'rating');
+$this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $question->categoryId), 'rating');
 $this->pageTitle = CHtml::encode($question->title);
 $this->breadcrumbs['Ответы'] = array('/som/qa/default/index');
 if ($question->consultationId !== null) {

@@ -3,7 +3,7 @@
  * @var site\frontend\modules\som\modules\qa\controllers\MyController $this
  * @var \CActiveDataProvider $dp
  */
-$this->sidebar = array('my_answers', 'my_rating');
+$this->sidebar = array('my_answers' => array('categoryId' => $categoryId), 'my_rating');
 $this->pageTitle = 'Мои ответы';
 ?>
 

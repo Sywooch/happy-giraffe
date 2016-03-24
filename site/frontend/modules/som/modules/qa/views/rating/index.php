@@ -3,7 +3,7 @@
  * @var site\frontend\modules\som\modules\qa\controllers\RatingController $this
  * @var \CActiveDataProvider $dp
  */
-$this->sidebar = array('personal', 'menu');
+$this->sidebar = array('personal', 'menu' => array('categoryId' => false));
 $this->pageTitle = 'Рейтинг';
 ?>
 <div class="heading-link-xxl"> Рейтинг</div>

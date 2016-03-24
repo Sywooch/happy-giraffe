@@ -3,43 +3,25 @@
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \CActiveDataProvider $dp
  * @var string $tab
+ * @var string $categoryId
+ * @var site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
-$this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => ($category === null) ? null : $category->id), 'rating');
+$this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $categoryId), 'rating');
 $this->pageTitle = 'Вопрос-ответ';
-if ($category !== null) {
+if ($categoryId !== null) {
     $this->breadcrumbs = array(
         'Ответы' => array('/som/qa/default/index'),
         $category->title,
     );
 }
 ?>
-<?php if ($category === null): ?>
+<?php if ($categoryId === null): ?>
 <div class="heading-link-xxl"> Вопрос-ответ</div>
 <?php endif; ?>
 <?php
-$this->widget('zii.widgets.CMenu', array(
-    'htmlOptions' => array(
-        'class' => 'filter-menu',
-    ),
-    'itemCssClass' => 'filter-menu_item',
-    'items' => array(
-        array(
-            'label' => 'Новые',
-            'url' => array('/som/qa/default/index'),
-            'linkOptions' => array('class' => 'filter-menu_item_link'),
-            'active' => Yii::app()->request->getQuery('tab') == $this::TAB_NEW,
-        ),
-        array(
-            'label' => 'Популярные',
-            'url' => array('/som/qa/default/index', 'tab' => $this::TAB_POPULAR),
-            'linkOptions' => array('class' => 'filter-menu_item_link')
-        ),
-        array(
-            'label' => 'Без ответа',
-            'url' => array('/som/qa/default/index', 'tab' => $this::TAB_UNANSWERED),
-            'linkOptions' => array('class' => 'filter-menu_item_link')
-        ),
-    ),
+$this->widget('site\frontend\modules\som\modules\qa\widgets\QuestionsFilterWidget', array(
+    'tab' => $tab,
+    'categoryId' => $categoryId,
 ));
 ?>
 <div class="clearfix"></div>

@@ -69,4 +69,10 @@ class QaCategory extends \CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function sorted()
+	{
+		$this->getDbCriteria()->order = 'sort ASC';
+		return $this;
+	}
 }

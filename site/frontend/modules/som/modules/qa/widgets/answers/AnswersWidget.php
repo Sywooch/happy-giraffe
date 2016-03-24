@@ -62,16 +62,4 @@ class AnswersWidget extends \CWidget
 
         return 'AnswersWidget_' . $question;
     }
-
-    public static function getChannelIdByAnswer($answer)
-    {
-        if (! $answer instanceof QaAnswer) {
-            $answerId = (is_array($answer) ? $answer['id'] : $answer);
-            $answer = QaAnswer::model()->resetScope()->findByPk($answerId);
-            if ($answer === null) {
-                throw new \CException('Invalid answer');
-            }
-        }
-        return self::getChannelIdByQuestion($answer->questionId);
-    }
 }

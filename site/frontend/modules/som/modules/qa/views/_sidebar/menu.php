@@ -6,7 +6,9 @@ $consultationsMenu = $this->createWidget('site\frontend\modules\som\modules\qa\w
 ?>
 
     <div class="questions-categories">
-        <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\categories\MainCategoriesMenu'); ?>
+        <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\categories\MainCategoriesMenu', array(
+            'categoryId' => $categoryId,
+        )); ?>
     </div>
 
 <?php if (count($consultationsMenu->items) > 0): ?>

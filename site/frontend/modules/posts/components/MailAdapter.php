@@ -2,6 +2,7 @@
 namespace site\frontend\modules\posts\components;
 
 use site\common\helpers\HStr;
+use site\frontend\modules\comments\models\Comment;
 
 class MailAdapter
 {
@@ -32,6 +33,7 @@ class MailAdapter
 
     public function getComments()
     {
+        Comment::model()->resetScope();
         $widget=\Yii::app()->getComponent('widgetFactory')->createWidget($this,'site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
             'entity' => $this->content->originService == 'oldBlog' ? 'BlogContent' : $this->content->originEntity,
             'entity_id' => $this->content->originEntityId,

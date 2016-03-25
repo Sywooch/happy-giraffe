@@ -99,6 +99,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 				'class' => 'site\common\behaviors\AuthorBehavior',
 				'attr' => 'authorId',
 			),
+			'purified' => array(
+				'class' => 'site.common.behaviors.PurifiedBehavior',
+				'attributes' => array('text'),
+				'options' => array(
+					'AutoFormat.Linkify' => true,
+				),
+			),
 		);
 	}
 
@@ -219,7 +226,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'id' => (int) $this->id,
 			'authorId' => (int) $this->authorId,
 			'dtimeCreate' => (int) $this->dtimeCreate,
-			'text' => \CHtml::encode($this->text),
+			'text' => $this->purified->text,
 			'votesCount' => (int) $this->votesCount,
 			'user' => $this->user,
 			'isRemoved' => (bool) $this->isRemoved,

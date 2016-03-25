@@ -34,7 +34,7 @@ return array(
         //'<_v>/api/post-comments' => 'api/<_v>/api/postComments',
         '<_v>/api/photo' => 'api/<_v>/api/photo',
         '<_v>/api/relogin' => 'api/<_v>/api/relogin',
-        '<_v>/api/logout' => 'api/<_v>api/logout',
+        '<_v>/api/logout' => 'api/<_v>/api/logout',
         '<_v>/api/check-token' => 'api/<_v>/api/checkToken',
         '<_v>/api/ideas' => 'api/<_v>/api/ideas',
         '<_v>/api/ideas/<id:\d+>' => 'api/<_v>/api/ideas',
@@ -48,6 +48,7 @@ return array(
         '<_v>/api/social-register' => 'api/<_v>/api/social-register',
         '<_v>/api/device-register' => 'api/<_v>/api/device-register',
         '<_v>/api/device-unregister' => 'api/<_v>/api/device-unregister',
+        '<_v>/api/cache' => 'api/<_v>/api/cache',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

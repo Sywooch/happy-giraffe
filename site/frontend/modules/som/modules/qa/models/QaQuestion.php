@@ -108,9 +108,9 @@ class QaQuestion extends \HActiveRecord
 			'CacheDelete' => array(
 				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
 			),
-			/*'PushStream' => array(
-				'class' => site\frontend\modules\api\ApiModule::PUSH_STREAM,
-			),*/
+			'PushStream' => array(
+				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
+			),
 			'softDelete' => array(
 				'class' => 'site.common.behaviors.SoftDeleteBehavior',
 				'removeAttribute' => 'isRemoved',

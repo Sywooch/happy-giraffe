@@ -34,7 +34,7 @@ class MainCategoriesMenu extends CategoriesMenu
 
     protected function getCategories()
     {
-        return QaCategory::model()->with('questionsCount')->findAll();
+        return QaCategory::model()->with('questionsCount')->sorted()->findAll();
     }
 
     protected function augmentUrl($url)

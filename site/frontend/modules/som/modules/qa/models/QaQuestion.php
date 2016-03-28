@@ -133,6 +133,13 @@ class QaQuestion extends \HActiveRecord
 				'class' => 'site\common\behaviors\AuthorBehavior',
 				'attr' => 'authorId',
 			),
+			'purified' => array(
+				'class' => 'site.common.behaviors.PurifiedBehavior',
+				'attributes' => array('text'),
+				'options' => array(
+					'AutoFormat.Linkify' => true,
+				),
+			),
 		);
 	}
 

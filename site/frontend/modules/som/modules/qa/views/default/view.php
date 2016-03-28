@@ -46,7 +46,7 @@ $this->breadcrumbs[] = $question->title;
     <?php endif; ?>
     <div class="clearfix"></div>
     <div class="question_text">
-        <?=nl2br(CHtml::encode($question->text))?>
+        <?=$question->purified->text?>
     </div>
 
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>

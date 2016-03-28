@@ -3,6 +3,15 @@
  * @var site\frontend\modules\som\modules\qa\models\QaQuestion $model
  * @var site\frontend\components\requirejsHelpers\ActiveForm $form
  */
+Yii::app()->clientScript->registerAMD('qa-redactor', array('hgwswg' => 'care-wysiwyg'), 'var wysiwyg = new hgwswg($(".ask-widget textarea").get(0), {
+            minHeight: 88,
+            buttons: ["bold", "italic", "underline"],
+            plugins: ["imageCustom", "smilesModal", "imageCamera"],
+            callbacks: {
+                init: [
+                ]
+            }
+        }); wysiwyg.run();');
 ?>
 
 <div class="popup-widget ask-widget">
@@ -36,10 +45,15 @@
                 ))?>
             </div>
             <?php endif; ?>
+            <div class="redactor-control">
+                <div class="redactor-control_toolbar"></div>
+                <div class="redactor-control_hold">
             <?=$form->textArea($model, 'text', array(
                 'placeholder' => 'Введите сам вопрос',
                 'class' => 'popup-widget_cont_textarea',
             ))?>
+                </div>
+            </div>
             <?=$form->checkBox($model, 'sendNotifications', array(
                 'class' => 'popup-widget_cont_checkbox',
             ))?>
@@ -60,35 +74,3 @@
     </div>
 </div>
 
-<?php if (false): ?>
-<?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
-    'id'=>'user-form',
-    'enableAjaxValidation'=>true,
-    'enableClientValidation'=>true,
-    'focus'=>array($model,'firstName'),
-)); ?>
-
-<div class="row">
-    <?php echo $form->textField($model, 'title'); ?>
-    <?php echo $form->error($model, 'title'); ?>
-</div>
-
-<div class="row">
-    <?php echo $form->textArea($model, 'text'); ?>
-    <?php echo $form->error($model, 'text'); ?>
-</div>
-
-<div class="row">
-    <?php echo $form->dropDownList($model, 'categoryId', CHtml::listData(\site\frontend\modules\som\modules\qa\models\QaCategory::model()->simple()->findAll(), 'id', 'title')); ?>
-    <?php echo $form->error($model, 'categoryId'); ?>
-</div>
-
-<div class="row">
-    <?php echo $form->checkBox($model, 'sendNotifications'); ?>
-    <?php echo $form->error($model, 'sendNotifications'); ?>
-</div>
-
-<input type="submit">
-
-
-<?php endif; ?>

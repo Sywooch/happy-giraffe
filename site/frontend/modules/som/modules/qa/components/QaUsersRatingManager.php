@@ -46,7 +46,7 @@ class QaUsersRatingManager
         foreach ($answersData as $value) {
             $userId = $value['authorId'];
             self::createRow($rating, $userId, $type);
-            $rating[$userId]['answersCount'] = $value['c'];
+            $rating[$userId]['answersCount'] += $value['c'];
             $rating[$userId]['rating'] += $value['c'] * (($value['isBest']) ? self::BEST_ANSWERS_COUNT_COEFFICIENT : self::ANSWERS_COUNT_COEFFICIENT);
         }
         $rating = self::setPositions($rating);
@@ -100,6 +100,7 @@ class QaUsersRatingManager
         self::augmentCriteriaByPeriod($criteria, $period);
         $criteria->select = 'authorId, COUNT(*) c, SUM(rating) r';
         $criteria->group = 'authorId';
+        $criteria->compare('t.isRemoved', 0);
         $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(QaQuestion::model()->tableName(), $criteria);
         return $command->queryAll();
     }
@@ -109,23 +110,10 @@ class QaUsersRatingManager
         $criteria = clone QaAnswer::model()->getDbCriteria();
         self::augmentCriteriaByPeriod($criteria, $period);
         $criteria->select = 'authorId, isBest, COUNT(*) c';
-        $criteria->group = 'authorId';
+        $criteria->group = 'authorId, isBest';
+        $criteria->compare('t.isRemoved', 0);
         $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(QaAnswer::model()->tableName(), $criteria);
         return $command->queryAll();
-    }
-
-    protected static function getBestAnswers($period)
-    {
-        $criteria = clone QaAnswer::model()->getDbCriteria();
-        self::augmentCriteriaByPeriod($criteria, $period);
-        $criteria->addCondition('t.votesCount > 0');
-        $criteria->group = 't.questionId';
-        $criteria->order = 't.votesCount DESC';
-        $criteria->index = 't.id';
-
-        $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(QaAnswer::model()->tableName(), $criteria);
-        $outerCommand = \Yii::app()->db->createCommand("SELECT authorId, COUNT(*) c FROM (" . $command->text . ") s GROUP BY authorId;");
-        return $outerCommand->queryAll();
     }
 
     protected static function augmentCriteriaByPeriod(&$criteria, $period)

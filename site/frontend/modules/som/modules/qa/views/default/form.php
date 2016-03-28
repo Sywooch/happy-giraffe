@@ -6,7 +6,7 @@
 Yii::app()->clientScript->registerAMD('qa-redactor', array('hgwswg' => 'care-wysiwyg'), 'var wysiwyg = new hgwswg($(".ask-widget textarea").get(0), {
             minHeight: 88,
             buttons: ["bold", "italic", "underline"],
-            plugins: ["imageCustom", "smilesModal", "imageCamera"],
+            plugins: ["imageCustom", "smilesModal"],
             callbacks: {
                 init: [
                 ]

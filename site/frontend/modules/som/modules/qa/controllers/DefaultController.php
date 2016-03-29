@@ -61,20 +61,21 @@ class DefaultController extends QaController
         $this->render('view', compact('question'));
     }
 
-    public function actionSearch($query = '')
+    public function actionSearch($query = '', $categoryId = null)
     {
         $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category'), array(
             'sphinxCriteria' => array(
                 'select' => '*',
                 'query' => $query,
                 'from' => 'qa',
+                'filters' => array('categoryId' => $categoryId),
             ),
             'pagination' => array(
                 'pageVar' => 'page',
             ),
         ));
 
-        $this->render('search', compact('dp', 'query'));
+        $this->render('search', compact('dp', 'query', 'categoryId'));
     }
 
     protected function getDataProvider($tab, $categoryId)

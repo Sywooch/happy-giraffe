@@ -44,10 +44,10 @@ class SearchCategoriesMenu extends CategoriesMenu
     {
         if ($this->_counters === null) {
             $searchCriteria = new \stdClass();
-            $searchCriteria->select = 'categoryId, @count';
+            $searchCriteria->select = 'categoryid, @count';
             $searchCriteria->paginator = new \CPagination();
             $searchCriteria->query = $this->query;
-            $searchCriteria->groupby = array('field' => 'categoryId', 'mode' => 4, 'order' => "@group desc");
+            $searchCriteria->groupby = array('field' => 'categoryid', 'mode' => 4, 'order' => "@group desc");
             $searchCriteria->from = 'qa';
             $result = \Yii::app()->search->searchRaw($searchCriteria);
             $_result = array();

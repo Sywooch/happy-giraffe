@@ -68,7 +68,7 @@ class DefaultController extends QaController
                 'select' => '*',
                 'query' => $query,
                 'from' => 'qa',
-                'filters' => array('categoryId' => $categoryId),
+                'filters' => array('categoryid' => $categoryId),
             ),
             'pagination' => array(
                 'pageVar' => 'page',

@@ -18,6 +18,7 @@ if ($categoryId !== null) {
 <?php if ($categoryId === null): ?>
 <div class="heading-link-xxl"> Вопрос-ответ</div>
 <?php endif; ?>
+<?php $this->renderPartial('/_search', array('query' => '')); ?>
 <?php
 $this->widget('site\frontend\modules\som\modules\qa\widgets\QuestionsFilterWidget', array(
     'tab' => $tab,

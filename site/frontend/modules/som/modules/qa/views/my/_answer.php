@@ -25,7 +25,7 @@
                 <div class="dialog-arrow dialog-arrow-bestred"></div>
             <?php endif; ?>
             <div class="answers-list_item_text-block_text">
-                <?=CHtml::encode($data->text)?>
+                <?=$data->purified->text?>
             </div>
         </div>
         <div class="answers-list_item_like-block">

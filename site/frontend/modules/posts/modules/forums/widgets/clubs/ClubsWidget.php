@@ -9,7 +9,7 @@ class ClubsWidget extends \CWidget
 {
     public function run()
     {
-        $sections = \CommunitySection::model()->with('clubs')->findAll();
+        $sections = \CommunitySection::model()->sorted()->with('clubs')->findAll();
         $clubs = \CommunityClub::model()->findAll();
         $clubLabels = $this->getLabels($clubs);
         $result = $this->getPosts($clubLabels);
@@ -65,7 +65,7 @@ JOIN post__labels pl ON t.labelId = pl.id
 GROUP BY t.labelId;";
 
         return \Yii::app()->db->createCommand($sql)->queryAll(true, array(
-            ':labelForum' => Label::LABEL_FORUMS,
+            ':labelForum' => Label::getIdByLabel(Label::LABEL_FORUMS),
         ));
     }
 }

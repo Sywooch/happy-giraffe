@@ -10,6 +10,7 @@ namespace site\frontend\modules\posts\modules\forums\controllers;
 class DefaultController extends \LiteController
 {
     public $litePackage = 'forum-homepage';
+    public $hideUserAdd = true;
 
     public function actionIndex()
     {

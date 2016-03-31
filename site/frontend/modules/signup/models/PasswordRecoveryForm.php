@@ -16,7 +16,7 @@ class PasswordRecoveryForm extends \CFormModel
         return array(
             array('email', 'required'),
             array('email', 'email'),
-            array('email', 'exist', 'className' => 'User', 'attributeName' => 'email', 'message' => 'Пользователя с таким e-mail не существует'),
+            array('email', 'exist', 'className' => 'User', 'attributeName' => 'email', 'message' => 'Пользователя с таким e-mail не существует', 'criteria' => array('scopes' => array('active'))),
         );
     }
 

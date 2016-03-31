@@ -259,7 +259,11 @@ class Local implements Adapter,
      */
     protected function createDirectory($directory)
     {
+        set_error_handler(function() use ($directory) {
+            \Yii::log('Thumbs permission denied (' . $directory . ')', \CLogger::LEVEL_ERROR);
+        }, E_WARNING);
         $created = mkdir($directory, $this->mode, true);
+        restore_error_handler();
 
         if (!$created) {
             if (!is_dir($directory)) {

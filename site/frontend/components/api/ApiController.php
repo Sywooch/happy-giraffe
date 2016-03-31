@@ -117,7 +117,7 @@ class ApiController extends \CController
     {
         $this->printResult();
 
-        return parent::afterAction($action);
+        parent::afterAction($action);
     }
 
     // Метод, отвечающий за вывод результата

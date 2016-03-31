@@ -13,7 +13,6 @@ class SocialHelper
 
     public static function ok()
     {
-        return 1;
         $cacheId = 'SocialHelper.ok';
         $value = self::getCacheComponent()->get($cacheId);
         if ($value === false) {
@@ -28,7 +27,7 @@ class SocialHelper
             } else {
                 $doc = str_get_html($page);
                 $el = $doc->find('#groupMembersCntEl', 0);
-                if ($el) {
+                if (! $el) {
                     $value = 0;
                 } else {
                     $value = $doc->find('#groupMembersCntEl', 0)->plaintext;

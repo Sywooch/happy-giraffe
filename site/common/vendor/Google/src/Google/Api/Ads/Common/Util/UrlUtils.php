@@ -24,8 +24,6 @@
  * @copyright  2012, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Eric Koleda
- * @author     Vincent Tsao
  */
 
 /**
@@ -37,7 +35,6 @@ class UrlUtils {
 
   /**
    * The UrlUtils class is not meant to have any instances.
-   * @access private
    */
   private function __construct() {}
 
@@ -69,7 +66,7 @@ class UrlUtils {
     if (!isset($params) || sizeof($params) == 0) {
       return $url;
     } else {
-      $paramString = http_build_query($params, NULL, '&');
+      $paramString = http_build_query($params, null, '&');
       $query = parse_url($url, PHP_URL_QUERY);
       $separator = empty($query) ? '?' : '&';
       return $url . $separator . $paramString;

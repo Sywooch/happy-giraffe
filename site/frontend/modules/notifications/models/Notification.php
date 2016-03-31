@@ -369,21 +369,15 @@ class Notification extends \EMongoDocument implements \IHToJSON
 
         $conds = $this->dbCriteria->getConditions();
 
-        $conds['$where'] = new \MongoCode('
-            function() {
-                if(this.unreadEntities)
-                for(var i = 0; i < this.unreadEntities.length; i++) {
-                    if(this.unreadEntities[i].id == entityId && this.unreadEntities[i].class == entity)
-                        return true;
-                }
-                if(this.readEntities)
-                for(var i = 0; i < this.readEntities.length; i++) {
-                    if(this.readEntities[i].id == entityId && this.readEntities[i].class == entity)
-                        return true;
-                }
-            }', $entity);
+        $conds['$or'] = array(array('unreadEntities' => '$elemMatch: {
+            id: '.$entity['entityId'].'
+            }'), array('readEntities' => '$elemMatch: {
+            id: '.$entity['entityId'].'
+            }'));
 
         $this->dbCriteria->setConditions($conds);
+
+        //var_dump($this->dbCriteria->getConditions()); die;
 
         return $this;
     }

@@ -156,7 +156,7 @@ class CommunityContent extends HActiveRecord implements IPreview
         if($this->scenario == 'advEditor')
             return array(
                 'CacheDelete' => array(
-                    'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+                    'class' => site\frontend\modules\api\ApiModule::CACHE_DELETE,
                     'realOwner' => 'site\frontend\modules\posts\models\Content',
                 ),
                 'PhotoCollectionBehavior' => array(
@@ -174,7 +174,7 @@ class CommunityContent extends HActiveRecord implements IPreview
             );
         return array(
             'CacheDelete' => array(
-                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+                'class' => site\frontend\modules\api\ApiModule::CACHE_DELETE,
                 'realOwner' => 'site\frontend\modules\posts\models\Content',
             ),
             'PhotoCollectionBehavior' => array(
@@ -185,7 +185,10 @@ class CommunityContent extends HActiveRecord implements IPreview
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
             ),
             'withRelated' => array(
-                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+                'class' => 'site.common.extensions.wr2.WithRelatedBehavior2',
+                'callback' => function($model) {
+                    $model->convertToNewPost->addTaskToConvert();
+                }
             ),
             'HTimestampBehavior' => array(
                 'class' => 'HTimestampBehavior',

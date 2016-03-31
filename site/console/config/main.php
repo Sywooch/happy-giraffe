@@ -88,8 +88,14 @@ return array(
         'statusMigrate' => array(
             'class' => 'site\frontend\modules\som\modules\status\commands\MigrateCommand',
         ),
+        'qa' => array(
+            'class' => 'site\frontend\modules\som\modules\qa\commands\DefaultCommand',
+        ),
         'buzz' => array(
             'class' => 'site\frontend\modules\posts\modules\buzz\commands\DefaultCommand',
+        ),
+        'nstream' => array(
+            'class' => 'site\frontend\modules\api\modules\v1_3\commands\NStreamTest',
         ),
     ),
     'import' => array(

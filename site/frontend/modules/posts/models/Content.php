@@ -121,7 +121,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     {
         return array(
             'CacheDelete' => array(
-                'class' => 'site\frontend\modules\v1\behaviors\CacheDeleteBehavior',
+                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
             ),
             'HTimestampBehavior' => array(
                 'class' => 'HTimestampBehavior',
@@ -338,7 +338,7 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function getCommentsUrl()
     {
-        return $this->parsedUrl . '#comment_list';
+        return $this->parsedUrl . '#commentsList';
     }
 
     public function getLabelsArray()

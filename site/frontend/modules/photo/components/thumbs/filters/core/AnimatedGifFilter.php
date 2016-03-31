@@ -12,6 +12,8 @@
 namespace site\frontend\modules\photo\components\thumbs\filters\core;
 use Imagine\Filter\FilterInterface;
 use Imagine\Image\ImageInterface;
+use Imagine\Image\Point;
+use Imagine\Imagick\Image;
 
 class AnimatedGifFilter implements FilterInterface
 {
@@ -26,8 +28,14 @@ class AnimatedGifFilter implements FilterInterface
     {
         $layers = $image->layers();
         $layers->coalesce();
-        foreach ($layers as $frame) {
-            $this->filter->apply($frame);
+        $layersCount = $layers->count();
+        $newLayers = array();
+        for ($i = $layersCount; $i > 0; $i--) {
+            array_unshift($newLayers, $this->filter->apply($layers[$i]));
+            unset($layers[$i]);
+        }
+        foreach ($newLayers as $layer) {
+            $layers->add($layer);
         }
         return $image;
     }

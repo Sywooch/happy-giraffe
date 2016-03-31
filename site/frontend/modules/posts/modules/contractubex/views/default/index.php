@@ -24,7 +24,7 @@ $this->hideAdsense = true;
             А как Вы боретесь<br>
             со шрамами?
         </h1>
-        <a class="club-share-advice_button fancy-top" href="<?=$this->createUrl('/blog/default/form', array('type' => 1, 'club_id' => $forum->id, 'useAMD' => true))?>">Поделись советом!</a>
+        <a class="club-share-advice_button <?=(Yii::app()->user->isGuest) ? 'login-button' : 'fancy-top'?>" data-bind="follow: {}" href="<?=$this->createUrl('/blog/default/form', array('type' => 1, 'club_id' => $forum->id, 'useAMD' => true))?>">Поделись советом!</a>
     </div>
 
     <?php $this->widget('site\frontend\modules\posts\modules\contractubex\widgets\activityWidget\ActivityWidget'); ?>

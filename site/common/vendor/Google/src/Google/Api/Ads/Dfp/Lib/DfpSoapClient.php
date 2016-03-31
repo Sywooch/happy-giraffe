@@ -25,10 +25,6 @@
  * @copyright  2011, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Adam Rogal
- * @author     Eric Koleda
- * @author     Paul Rashidi
- * @author     Vincent Tsao
  * @see        AdsSoapClient
  */
 require_once 'Google/Api/Ads/Common/Lib/AdsSoapClient.php';
@@ -43,7 +39,7 @@ class DfpSoapClient extends AdsSoapClient {
 
   /**
    * Constructor for Google's DoubleClick for Publishers API SOAP client.
-   * @param string $wsdl URI of the WSDL file or <var>NULL</var> if working in
+   * @param string $wsdl URI of the WSDL file or <var>null</var> if working in
    *     non-WSDL mode
    * @param array $options the SOAP client options
    * @param AdsUser $user the user which is responsible for this client
@@ -63,24 +59,17 @@ class DfpSoapClient extends AdsSoapClient {
   protected function GenerateSoapHeader() {
     $headerObject = $this->Create('SoapRequestHeader');
     foreach (get_object_vars($headerObject) as $var => $value) {
-      $authToken = $this->GetHeaderValue('authToken');
-      if ($var === 'authentication' && !empty($authToken)) {
-        $authentication = $this->Create('ClientLogin');
-        $authentication->token = $this->GetHeaderValue('authToken');
-        $headerObject->$var = $authentication;
-      } else {
-        $headerObject->$var = $this->GetHeaderValue($var);
-      }
+      $headerObject->$var = $this->GetHeaderValue($var);
     }
     return new SoapHeader($this->serviceNamespace, 'RequestHeader',
-        $headerObject, FALSE);
+        $headerObject, false);
   }
 
   /**
    * @see AdsSoapClient::RemoveSensitiveInfo()
    */
   protected function RemoveSensitiveInfo($request) {
-    $tags = array('authToken', 'authentication');
+    $tags = array('authentication');
     $regexFormat = '/(<(?:[^:]+:)?%s(?:\s[^>]*)?>).*(<\/(?:[^:]+:)?%s\s*>)/sU';
     $result = $request;
     foreach ($tags as $tag) {
@@ -94,12 +83,16 @@ class DfpSoapClient extends AdsSoapClient {
    * @see AdsSoapClient::GenerateRequestInfoMessage()
    */
   protected function GenerateRequestInfoMessage() {
-    return 'email=' . $this->GetEmail() . ' service=' . $this->GetServiceName()
-        . ' method=' . $this->GetLastMethodName() . ' responseTime='
-        . $this->GetLastResponseTime() . ' requestId='
-        . $this->GetLastRequestId() . ' server=' . $this->GetServer()
-        . ' isFault=' . $this->IsFault() . ' faultMessage='
-        . $this->GetLastFaultMessage();
+    return sprintf('service=%s method=%s responseTime=%d requestId=%s '
+        . 'server=%s isFault=%b faultMessage=%s',
+        $this->GetServiceName(),
+        $this->GetLastMethodName(),
+        $this->GetLastResponseTime(),
+        $this->GetLastRequestId(),
+        $this->GetServer(),
+        $this->IsFault(),
+        $this->GetLastFaultMessage()
+    );
   }
 }
 

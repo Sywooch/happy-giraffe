@@ -16,7 +16,7 @@
     </div>
     <?php if ($this->photo): ?>
     <div class="sidebar-promo-latest_item_thumbnail">
-        <img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncement')?>">
+        <a href="<?=$this->model->url?>"><img src="<?=Yii::app()->thumbs->getThumb($this->getPhoto(), 'postAnnouncement')?>"></a>
     </div>
     <?php endif; ?>
     <a class="sidebar-promo-latest_item_heading" href="<?=$this->model->url?>"><?=$this->model->title?></a>

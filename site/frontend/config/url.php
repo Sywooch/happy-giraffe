@@ -10,6 +10,48 @@ return array(
          *      CONTROLLERS      *
          *************************/
 
+        /**-------------------------------------------------------------------------- API --------------------------------------------------*/
+        '<_v>/api/clubs' => 'api/<_v>/api/clubs',
+        '<_v>/api/clubs/<id:\d+>' => 'api/<_v>/api/clubs',
+        '<_v>/api/users' => 'api/<_v>/api/users',
+        '<_v>/api/users/<id:\d+>' => 'api/<_v>/api/users',
+        '<_v>/api/comments' => 'api/<_v>/api/comments',
+        '<_v>/api/comments/<id:\d+>' => 'api/<_v>/api/comments',
+        '<_v>/api/posts' => 'api/<_v>/api/posts',
+        '<_v>/api/posts/<id:\d+>' => 'api/<_v>/api/posts',
+        '<_v>/api/posts/<action:(my)>' => 'api/<_v>/api/posts',
+        //'<_v>/api/post-content' => 'api/<_v>api/postContent',
+        //'<_v>/api/post-label' => 'api/<_v>/api/postLabel',
+        //'<_v>/api/post-tag' => 'api/<_v>/api/postTag',
+        '<_v>/api/onair' => 'api/<_v>/api/onair',
+        '<_v>/api/sections' => 'api/<_v>/api/sections',
+        '<_v>/api/sections/<id:\d+>' => 'api/<_v>/api/sections',
+        '<_v>/api/forums' => 'api/<_v>/api/forums',
+        '<_v>/api/forums/<id:\d+>' => 'api/<_v>/api/forums',
+        '<_v>/api/rubrics' => 'api/<_v>/api/rubrics',
+        '<_v>/api/rubrics/<id:\d+>' => 'api/<_v>/api/rubrics',
+        '<_v>/api/login' => 'api/<_v>/api/login',
+        //'<_v>/api/post-comments' => 'api/<_v>/api/postComments',
+        '<_v>/api/photo' => 'api/<_v>/api/photo',
+        '<_v>/api/relogin' => 'api/<_v>/api/relogin',
+        '<_v>/api/logout' => 'api/<_v>/api/logout',
+        '<_v>/api/check-token' => 'api/<_v>/api/checkToken',
+        '<_v>/api/ideas' => 'api/<_v>/api/ideas',
+        '<_v>/api/ideas/<id:\d+>' => 'api/<_v>/api/ideas',
+        '<_v>/api/questions' => 'api/<_v>/api/questions',
+        '<_v>/api/questions/<id:\d+>' => 'api/<_v>/api/questions',
+        '<_v>/api/answers' => 'api/<_v>/api/answers',
+        '<_v>/api/answers/<id:\d+>' => 'api/<_v>/api/answers',
+        '<_v>/api/qa-categories' => 'api/<_v>/api/qaCategories',
+        '<_v>/api/qa-categories/<id:\d+>' => 'api/<_v>/api/qaCategories',
+        '<_v>/api/register' => 'api/<_v>/api/register',
+        '<_v>/api/social-register' => 'api/<_v>/api/social-register',
+        '<_v>/api/device-register' => 'api/<_v>/api/device-register',
+        '<_v>/api/device-unregister' => 'api/<_v>/api/device-unregister',
+        '<_v>/api/cache' => 'api/<_v>/api/cache',
+        /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
+
+
         'testupload' => 'blog/default/upload',
         'blog/default/createAlbum' => 'blog/default/createAlbum',
         // global
@@ -26,8 +68,54 @@ return array(
         'api/activity/<_a>' => 'som/activity/api/<_a>',
         'api/community/<_a:(getUserSubscriptions|setUserSubscriptions)>' => 'community/api/<_a>',
         'api/community/<_a>' => 'som/community/api/<_a>',
+        'api/qa/<_a>' => 'som/qa/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
+
+
+        /* QA */
+
+        //страница вопроса
+        'questions/question<id:\d+>' => 'som/qa/default/view',
+
+        // поиск
+        'questions/search/page<page:\d+>' => 'som/qa/default/search',
+        'questions/search' => 'som/qa/default/search',
+
+        // мои вопросы-ответы
+        'questions/my/answers/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers/<categoryId:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers/page<page:\d+>' => 'som/qa/my/answers',
+        'questions/my/answers' => 'som/qa/my/answers',
+        'questions/my/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/questions',
+        'questions/my/<categoryId:\d+>' => 'som/qa/my/questions',
+        'questions/my/page<page:\d+>' => 'som/qa/my/questions',
+        'questions/my' => 'som/qa/my/questions',
+
+
+
+        // рейтинг
+        'questions/rating/<period:(week|all)>/page<page:\d+>' => 'som/qa/rating/index',
+        'questions/rating/<period:(week|all)>' => 'som/qa/rating/index',
+        'questions/rating/page<page:\d+>' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'all')),
+        'questions/rating' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'all')),
+
+        // консультация
+        'questions/consultation<consultationId:\d+>' => 'som/qa/consultation/index',
+
+        // задать вопрос
+        'questions/add' => 'som/qa/default/questionAddForm',
+        'questions/edit<questionId:\d+>' => 'som/qa/default/questionEditForm',
+
+        // главная
+        'questions/<categoryId:\d+>/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/<categoryId:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>/page<page:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>/<categoryId:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>/page<page:\d+>' => 'som/qa/default/index',
+        'questions/<tab:(popular|unanswered)>' => 'som/qa/default/index',
 
         'contractubex' => 'posts/contractubex/default/index',
         'contractubex/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/contractubex/view/view'),
@@ -464,7 +552,7 @@ return array(
         //-----------------------------------------------------------------
         //NEW API
         //-----------------------------------------------------------------
-        'v1/api/clubs' => 'v1/api/clubs',
+        /*'v1/api/clubs' => 'v1/api/clubs',
         'v1/api/clubs/<id:\d+>' => 'v1/api/clubs',
         'v1/api/users' => 'v1/api/users',
         'v1/api/users/<id:\d+>' => 'v1/api/users',
@@ -487,7 +575,7 @@ return array(
         'v1/api/photo' => 'v1/api/photo',
         'v1/api/relogin' => 'v1/api/relogin',
         'v1/api/logout' => 'v1/api/logout',
-        'v1/api/check-token' => 'v1/api/checkToken',
+        'v1/api/check-token' => 'v1/api/checkToken',*/
 
 
         //horoscope

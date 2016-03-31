@@ -9,8 +9,7 @@ return array(
     'id' => 'happy-giraffe',
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Клуб',
-	'homeUrl' => 'https://www.happy-giraffe.ru',
-
+	'homeUrl' => 'http://www.happy-giraffe.ru',
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -77,6 +76,7 @@ return array(
 
         'zii.behaviors.CTimestampBehavior',
         'site.common.extensions.wr.WithRelatedBehavior',
+        'site.common.extensions.wr2.WithRelatedBehavior',
         'site.frontend.modules.antispam.behaviors.AntispamBehavior',
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',
@@ -151,9 +151,6 @@ return array(
         'archive' => array(
            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),
-        'som' => array(
-            'class' => 'site\frontend\modules\som\SomModule',
-        ),
         'rss' => array(
             'class' => 'site\frontend\modules\rss\RssModule',
         ),
@@ -166,21 +163,21 @@ return array(
         'pages' => array(
             'class' => 'site\frontend\modules\pages\PagesModule',
         ),
-        /*'gii' => array(
-            'class' => 'system.gii.GiiModule',
-            //'password' => 'test',
-            'ipFilters' => array('192.168.0.137', '192.168.56.1'),
-            'newFileMode' => 0666,
-            'newDirMode' => 0777,
-        ),*/
+        'stream' => array(
+            'class' => 'site\frontend\modules\stream\StreamModule',
+            'controllerNamespace' => 'site\frontend\modules\stream\controllers',
+        ),
         'questionnaire' => array(
             'class' => 'site\frontend\modules\questionnaire\QuestionnaireModule',
             'controllerNamespace' => 'site\frontend\modules\questionnaire\controllers',
         ),
-        'v1' => array(
+        /*'v1' => array(
             'class' => 'site\frontend\modules\v1\V1Module',
             'controllerNamespace' => 'site\frontend\modules\v1\controllers',
-        ),
+        ),*/
+        /*'api' => array(
+            'class' => 'site\frontend\modules\api\ApiModule',
+        ),*/
 	),
 	// application components
 	'components'=>array(
@@ -239,6 +236,12 @@ return array(
             'cache' => false,
             'cacheExpire' => 0,
 			'services' => array( // You can change the providers and their classes.
+                'facebook' => array(
+                    'class' => 'application.components.eauth.FacebookAuth',
+                    'client_id' => '412497558776154',
+                    'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
+                    'title' => 'Facebook',
+                ),
 //                'mailru' => array(
 //                    'class' => 'CustomMailruService',
 //                    'client_id' => '667969',
@@ -440,7 +443,7 @@ return array(
             'host' => 'plexor.www.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
-        ),
+            ),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
             'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',
@@ -465,6 +468,11 @@ return array(
                 'jpegQuality' => 70,
             ),
         ),
+        /*'NStream' => array (
+            'class' => 'site\frontend\modules\api\modules\v1_3\components\nstream\NginxStream',
+            'host' => 'stream.happy-giraffe.ru',
+            'port' => '80',
+        ),*/
 	),
 
 	// application-level parameters that can be accessed

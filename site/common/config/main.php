@@ -23,6 +23,12 @@ return array(
             ),
         ),
         'ads' => require(dirname(__FILE__) . '/../../frontend/modules/ads/config/main.php'),
+        'som' => array(
+            'class' => 'site\frontend\modules\som\SomModule',
+        ),
+        'api' => array(
+            'class' => 'site\frontend\modules\api\ApiModule',
+        ),
     ),
     'components' => array(
         'dbBackup' => array(
@@ -98,6 +104,11 @@ return array(
         ),
         'imagine' => array(
             'class' => '\site\common\components\ImagineComponent',
+        ),
+        'NStream' => array (
+            'class' => 'site\frontend\modules\api\modules\v1_3\components\nstream\NginxStream',
+            'host' => 'stream.happy-giraffe.ru',
+            'port' => '80',
         ),
     ),
 );

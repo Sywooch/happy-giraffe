@@ -18,6 +18,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         return \CMap::mergeArray(parent::actions(), array(
             'get' => 'site\frontend\components\api\PackAction',
+            'checkAccess' => 'site\frontend\components\api\PackAction',
         ));
     }
 
@@ -118,6 +119,12 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         /** @var \site\frontend\modules\users\models\User $user */
         $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
+
+        //temp fix
+        \UserSocialService::model()->deleteAllByAttributes(array(
+            'user_id' => $id,
+        ));
+
         $user->deleted = 1;
         $this->success = $user->save(false, array('deleted'));
         if ($this->success) {

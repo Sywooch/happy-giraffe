@@ -70,20 +70,8 @@ class SiteCommand extends CConsoleCommand
     {
         \site\frontend\modules\community\helpers\StatsHelper::warmCache();
 
-        echo "sections\n";
-
-        $sections = \CommunitySection::model()->with('clubs')->findAll();
-
-        $posts = array();
-        foreach ($sections as $section) {
-            foreach ($section->clubs as $club) {
-                $label = $club->toLabel();
-                $post = \site\frontend\modules\posts\models\Content::model()->byLabels(array($label, \site\frontend\modules\posts\models\Label::LABEL_FORUMS))->orderDesc()->find();
-                if ($post) {
-                    $posts[$club->id] = $post;
-                }
-            }
-        }
+        \site\frontend\modules\som\modules\qa\components\QuestionsRatingManager::updateAll();
+        \site\frontend\modules\som\modules\qa\components\QaUsersRatingManager::run();
     }
 
     public function actionCheckSeo()
@@ -274,6 +262,13 @@ class SiteCommand extends CConsoleCommand
         Yii::app()->db->schema->getTables();
         Yii::app()->db->schema->refresh();
         Yii::app()->clearGlobalState(ClientScript::RELEASE_ID_KEY);
+    }
+
+    public function actionClearLastSend()
+    {
+        Yii::app()->db->schema->getTables();
+        Yii::app()->db->schema->refresh();
+        Yii::app()->clearGlobalState('lastSend');
     }
 
     public function actionCleanJsd()

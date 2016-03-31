@@ -24,9 +24,6 @@
  * @copyright  2011, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Adam Rogal
- * @author     Eric Koleda
- * @author     Vincent Tsao
  */
 require_once 'Google/Api/Ads/Common/Lib/AdsUser.php';
 require_once 'Google/Api/Ads/Common/Lib/SoapClientFactory.php';
@@ -41,6 +38,7 @@ class DfpSoapClientFactory extends SoapClientFactory {
   /**
    * The constructor for Google's DoubleClick for Publishers API SOAP client
    * factory.
+   *
    * @param AdsUser $user the user which the client will use for credentials
    * @param string $version the version to generate clients for
    * @param string $server the server to generate clients for
@@ -51,8 +49,8 @@ class DfpSoapClientFactory extends SoapClientFactory {
 
   /**
    * Initiates a require_once for the service.
+   *
    * @param string $serviceName the service to instantiate
-   * @access protected
    */
   public function DoRequireOnce($serviceName) {
     require_once implode("/", array(dirname(__FILE__), '..',

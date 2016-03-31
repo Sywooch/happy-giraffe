@@ -23,6 +23,53 @@ class SeoTempCommand extends CConsoleCommand
 //        $this->ga->setProfile('ga:53688414');
     }
 
+    public function actionMailPosts()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $criteria = new EMongoCriteria();
+        $criteria->sort('visits', EMongoCriteria::SORT_DESC);
+        $criteria->_id = new MongoRegex('/.*advpost.*/');
+        $posts = \site\frontend\modules\analytics\models\PageView::model()->findAll($criteria);
+
+//        foreach ($posts as $post) {
+//            echo $post->_id . '-' . $post->visits .  "\n";
+//        }
+
+        $criteria2 = new EMongoCriteria();
+        $criteria2->block = Favourites::WEEKLY_MAIL;
+        $criteria2->entity = 'site\\frontend\\modules\\posts\\models\\Content';
+        $mail = Favourites::model()->findAll($criteria2);
+
+//        echo "\n\n\n";
+//        foreach ($mail as $m) {
+//
+//            echo $m->entity_id;
+//        }
+
+
+        $result = array();
+        foreach ($posts as $post) {
+            $id = filter_var($post->_id, FILTER_SANITIZE_NUMBER_INT);
+
+            foreach ($mail as $m) {
+                if ($id == $m->entity_id) {
+                    continue 2;
+                }
+            }
+
+            $result[] = $post;
+            if (count($result) == 150) {
+                break;
+            }
+        }
+
+        foreach ($result as $row) {
+            echo 'http://www.happy-giraffe.ru' . $row->_id . "\n";
+        }
+    }
+
     public function actionT()
     {
         $a = Yii::app()->thumbs->getPhotoByUrl('http://img.happy-giraffe.ru/v2/thumbs/e26e4ffdce15f4bc6711c767ffa68dac/94/42/6df992826e177d31784f2f1b2c26.jpg');

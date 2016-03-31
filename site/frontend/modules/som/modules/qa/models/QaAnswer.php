@@ -106,6 +106,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 					'AutoFormat.Linkify' => true,
 				),
 			),
+			'notificationBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
+			),
 		);
 	}
 

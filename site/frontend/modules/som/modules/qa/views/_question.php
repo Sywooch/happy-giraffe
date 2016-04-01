@@ -31,7 +31,7 @@
     </div>
     <?php endif; ?>
     <?php if ($data->answersCount == 0): ?>
-        <?php if (Yii::app()->user->checkAccess('createQaAnswer', array('question' => $data))): ?>
+        <?php if (Yii::app()->user->isGuest || Yii::app()->user->checkAccess('createQaAnswer', array('question' => $data))): ?>
             <a class="questions_item_answers" href="<?=$data->url?>"><span class="questions_item_answers_ans">ответить</span></a>
         <?php endif; ?>
     <?php else: ?>

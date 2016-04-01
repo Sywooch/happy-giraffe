@@ -10,6 +10,7 @@ namespace site\frontend\modules\som\modules\qa\controllers;
 use site\common\components\SphinxDataProvider;
 use site\frontend\components\api\models\User;
 use site\frontend\modules\consultation\models\Consultation;
+use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\components\QuestionsDataProvider;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
@@ -57,7 +58,9 @@ class DefaultController extends QaController
 
     public function actionView($id)
     {
+        ContentBehavior::$active = true;
         $question = $this->getModel($id);
+        ContentBehavior::$active = false;
         $this->render('view', compact('question'));
     }
 

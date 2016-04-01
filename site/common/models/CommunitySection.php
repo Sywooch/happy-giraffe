@@ -83,4 +83,9 @@ class CommunitySection extends HActiveRecord
         return 'Секция: ' . $this->title;
     }
 
+    public function sorted()
+    {
+        $this->getDbCriteria()->order = 'sort ASC';
+        return $this;
+    }
 }

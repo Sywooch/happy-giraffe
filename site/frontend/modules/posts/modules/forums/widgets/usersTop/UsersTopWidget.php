@@ -22,7 +22,7 @@ class UsersTopWidget extends \CWidget
     public function run()
     {
         $scores = $this->getScores();
-        $users = User::model()->findAllByPk(array_keys($scores));
+        $users = User::model()->findAllByPk(array_keys($scores), array('avatarSize' => 40));
         $this->render('view', compact('scores', 'users'));
     }
 

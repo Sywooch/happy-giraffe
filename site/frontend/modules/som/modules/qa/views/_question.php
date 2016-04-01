@@ -22,7 +22,7 @@
     <div class="clearfix"></div><a class="questions_item_heading" href="<?=$data->url?>"><?=CHtml::encode($data->title)?></a>
     <?php if ($data->consultationId !== null || $data->categoryId !== null): ?>
     <div class="questions_item_category">
-        <div class="questions_item_category_ico sharp-test"></div>
+        <div class="questions_item_category_ico"></div>
         <?php if ($data->consultationId !== null): ?>
             <a href="<?=$this->createUrl('/som/qa/consultation/index/', array('consultationId' => $data->consultation->id))?>" class="questions_item_category_link"><?=$data->consultation->title?></a>
         <?php else: ?>

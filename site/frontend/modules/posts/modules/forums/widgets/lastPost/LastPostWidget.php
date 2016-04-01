@@ -22,7 +22,7 @@ class LastPostWidget extends \CWidget
 
         $users = User::model()->findAllByPk(array_map(function($post) {
             return $post->authorId;
-        }, $posts));
+        }, $posts), array('avatarSize' => 24));
 
         $this->render('view', compact('posts', 'users'));
     }

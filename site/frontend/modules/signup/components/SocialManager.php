@@ -49,12 +49,8 @@ class SocialManager
 
     protected function findByService()
     {
-//        var_dump($this->service->getAttribute('uid'));
-//        var_dump($this->service->getAttribute('email'));
-//        die();
-
         /** @var \UserSocialService $service */
-        $service = \UserSocialService::model()->findByAttributes(array(
+        $service = \UserSocialService::model()->activeUser()->findByAttributes(array(
             'service' => $this->service->getServiceName(),
             'service_id' => $this->service->getAttribute('uid'),
         ));

@@ -125,4 +125,16 @@ class UserSocialService extends HActiveRecord
     {
         return (! empty($this->name)) ? $this->name : $this->getUrlString();
     }
+
+	public function activeUser()
+	{
+		$criteria = new CDbCriteria();
+		$criteria->with = array(
+			'user' => array(
+				'scopes' => array('active'),
+			),
+		);
+		$this->getDbCriteria()->mergeWith($criteria);
+		return $this;
+	}
 }

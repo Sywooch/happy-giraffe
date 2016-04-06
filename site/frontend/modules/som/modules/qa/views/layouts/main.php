@@ -8,16 +8,20 @@ $this->beginContent('//layouts/lite/main');
 $this->renderSidebarClip();
 ?>
 
-<div class="b-main clearfix">
-    <div class="b-main_cont">
-        <div class="b-main_col-article">
-            <?=$content?>
-        </div>
-        <aside class="b-main_col-sidebar visible-md">
-            <div class="sidebar-widget">
-                <?=$this->clips['sidebar']?>
+    <div class="b-main clearfix">
+        <div class="b-main_cont">
+            <div class="heading-link-xxl"> Вопрос-ответ</div>
+            <div class="b-main_col-article">
+                <?=$content?>
             </div>
-        </aside>
+            <aside class="b-main_col-sidebar visible-md">
+                <div class="sidebar-widget">
+                    <?php $this->renderPartial('/_sidebar/ask', array());?>
+                    <?php $this->renderPartial('/_sidebar/personal', array());?>
+                    <?php $this->renderPartial('/_sidebar/menu', array());?>
+                </div>
+                <?php $this->renderPartial('/_sidebar/rating', array());?>
+            </aside>
+        </div>
     </div>
-</div>
 <?php $this->endContent(); ?>

@@ -511,6 +511,7 @@ class User extends HActiveRecord
 //			),
             'CacheDelete' => array(
                 'class' => site\frontend\modules\api\ApiModule::CACHE_DELETE,
+                'realOwner' => 'User',
             ),
             'getUrl' => array(
                 'class' => 'site.frontend.extensions.geturl.EGetUrlBehavior',

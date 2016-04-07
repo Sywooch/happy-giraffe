@@ -100,9 +100,6 @@ class SiteController extends LiteController
         $this->render('search', $viewData);
     }
 
-	/**
-	 * @sitemap changefreq=daily
-	 */
 	public function actionIndex($openLogin = false, $openRegister = false)
 	{
         Yii::app()->clientScript->useAMD = true;

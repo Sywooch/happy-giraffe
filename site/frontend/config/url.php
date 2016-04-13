@@ -49,6 +49,7 @@ return array(
         '<_v>/api/device-register' => 'api/<_v>/api/device-register',
         '<_v>/api/device-unregister' => 'api/<_v>/api/device-unregister',
         '<_v>/api/cache' => 'api/<_v>/api/cache',
+        '<_v>/api/logs' => 'api/<_v>/api/logs',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

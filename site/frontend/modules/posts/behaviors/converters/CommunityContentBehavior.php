@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\posts\behaviors\converters;
+
 use site\frontend\modules\photo\helpers\PhotoHelper;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\posts\models\Label;
@@ -12,19 +13,16 @@ use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelp
  * @author Кирилл
  * @property \CommunityContent $owner Description
  */
-class CommunityContentBehavior extends \CActiveRecordBehavior
-{
+class CommunityContentBehavior extends \CActiveRecordBehavior {
 
-    public function events()
-    {
+    public function events() {
         return array_merge(parent::events(), array(
             'onAfterSoftDelete' => 'afterSoftDelete',
             'onAfterSoftRestore' => 'afterSoftRestore',
         ));
     }
 
-    public function convertToNewPost()
-    {
+    public function convertToNewPost() {
         if ($this->owner->type_id == \CommunityContent::TYPE_POST) {
             $advContent = \site\frontend\modules\editorialDepartment\models\Content::model()->findByAttributes(array(
                 'entity' => $this->owner->getIsFromBlog() ? 'BlogContent' : 'CommunityContent',
@@ -47,33 +45,28 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             return $this->convertMorning();
     }
 
-    public function afterSave($event)
-    {
+    public function afterSave($event) {
         parent::afterSave($event);
         $this->addTaskToConvert();
     }
 
-    public function afterSoftDelete($event)
-    {
+    public function afterSoftDelete($event) {
         $this->addTaskToConvert();
     }
 
-    public function afterSoftRestore($event)
-    {
+    public function afterSoftRestore($event) {
         $this->addTaskToConvert();
     }
 
-    public function addTaskToConvert()
-    {
+    public function addTaskToConvert() {
         if (!\site\frontend\modules\posts\commands\ConvertCommand::addConvertTask($this->owner))
             $this->convertToNewPost();
     }
 
-    protected function convertCommon(&$oldPost, &$newPost, $scenario = 'default', $service = false)
-    {
+    protected function convertCommon(&$oldPost, &$newPost, $scenario = 'default', $service = false) {
         $oldPost = $this->owner;
         $oldPost->purified->clearCache();
-        if(!$service) {
+        if (!$service) {
             $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         }
         $entity = get_class($oldPost);
@@ -94,7 +87,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             if ($oldPost->rubric->community->club && $oldPost->rubric->community->club->section)
                 $tags[] = 'Секция: ' . $oldPost->rubric->community->club->section->title;
         }
-        if($oldPost->isFromBlog) {
+        if ($oldPost->isFromBlog) {
             $tags[] = Label::LABEL_BLOG;
         } else {
             $tags[] = Label::LABEL_FORUMS;
@@ -140,8 +133,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         }
     }
 
-    protected function convertAdvPost(\site\frontend\modules\editorialDepartment\models\Content $advContent)
-    {
+    protected function convertAdvPost(\site\frontend\modules\editorialDepartment\models\Content $advContent) {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'advPost');
@@ -154,8 +146,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         return $newPost->save();
     }
 
-    protected function convertQuestion()
-    {
+    protected function convertQuestion() {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldQuestion');
@@ -174,12 +165,11 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         return $newPost->save();
     }
 
-    protected function convertMorning()
-    {
+    protected function convertMorning() {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldMorning', 'oldMorning');
-        
+
         $newPost->templateObject->data['type'] = 'morning';
 
         $newPost->templateObject->data['geo'] = array(
@@ -190,7 +180,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             'zoom' => $oldPost->morning->zoom,
             'position' => $oldPost->morning->position,
         );
-        
+
         $oldPost->purified->clearCache();
         $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.morning', array('article' => $oldPost));
         $newPost->text = $oldPost->purified->preview;
@@ -203,8 +193,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         return $newPost->save();
     }
 
-    protected function convertPost()
-    {
+    protected function convertPost() {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldPost');
@@ -216,9 +205,23 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $clearText = $newPost->fillText();
         $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
         $photo = $oldPost->post->photo;
+        # require_once(\Yii::getPathOfAlias('webroot') . '/frontend/vendor/Jevix-master/jevix.class.php');
+        $jevix = new \site\frontend\components\Jevix();
+        $jevix->cfgAllowTags(array('br', 'p', 'b', 'strong', 'i', 'u', 'ul', 'li', 'ol', 'strike', 'a'));
+        $e = null;
+        $prev = $newPost->html;
+        $prev = $jevix->parse($newPost->html, $e);
+        #var_dump($prev);exit();
+        if (strlen($prev) < 200) {
+            $prev = '<p>' . $jevix->parse(\site\common\helpers\HStr::truncate($prev, 200), $e) . '</p>';
+        } else {
+            $prev = \site\common\helpers\HStr::truncate($prev, 200, '');
+            $prev = '<p>' . $jevix->parse($prev, $e) . ' <a class="ico-more" href="' . $oldPost->url . '"></a>' . '</p>';
+        }
 
-        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
-        if ($oldPost->gallery !== null && ! empty($oldPost->gallery->items)) {
+        $newPost->preview = $prev;
+        #$newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
+        if ($oldPost->gallery !== null && !empty($oldPost->gallery->items)) {
             // Скопировано из convertPhotoPost
             $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
             $count = $collection->attachesCount;
@@ -227,18 +230,18 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
             $photoAlbumTag = '<div class="b-album-cap">'
                     . '<div class="b-album-cap_hold">'
-                        . '<div class="b-album">'
-                            . '<a class="b-album_img-hold" href="' . $url . '" title="Начать просмотр">'
-                                . '<div class="b-album-img_a">'
-                                    . '<div class="b-album_img-pad"></div>'
-                                    . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
-                                    . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
-                                . '</div>'
-                                . '<div class="b-album_img-hold-ovr">'
-                                    . '<div class="ico-zoom ico-zoom__abs"></div>'
-                                . '</div>'
-                            . '</a>'
-                        . '</div>'
+                    . '<div class="b-album">'
+                    . '<a class="b-album_img-hold" href="' . $url . '" title="Начать просмотр">'
+                    . '<div class="b-album-img_a">'
+                    . '<div class="b-album_img-pad"></div>'
+                    . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
+                    . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
+                    . '</div>'
+                    . '<div class="b-album_img-hold-ovr">'
+                    . '<div class="ico-zoom ico-zoom__abs"></div>'
+                    . '</div>'
+                    . '</a>'
+                    . '</div>'
                     . '</div>'
                     . \CHtml::tag('photo-collection', array(
                         'params' =>
@@ -262,8 +265,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         return $newPost->save();
     }
 
-    protected function convertPhotoPost()
-    {
+    protected function convertPhotoPost() {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldPhotoPost');
@@ -277,18 +279,18 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $photoAlbumTag = '<div class="b-album-cap">'
                 . '<div class="b-album-cap_hold">'
-                    . '<div class="b-album">'
-                        . '<a class="b-album_img-hold" href="' . $url . '" title="Начать просмотр">'
-                            . '<div class="b-album-img_a">'
-                                . '<div class="b-album_img-pad"></div>'
-                                . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
-                                . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
-                            . '</div>'
-                            . '<div class="b-album_img-hold-ovr">'
-                                . '<div class="ico-zoom ico-zoom__abs"></div>'
-                            . '</div>'
-                        . '</a>'
-                    . '</div>'
+                . '<div class="b-album">'
+                . '<a class="b-album_img-hold" href="' . $url . '" title="Начать просмотр">'
+                . '<div class="b-album-img_a">'
+                . '<div class="b-album_img-pad"></div>'
+                . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
+                . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
+                . '</div>'
+                . '<div class="b-album_img-hold-ovr">'
+                . '<div class="ico-zoom ico-zoom__abs"></div>'
+                . '</div>'
+                . '</a>'
+                . '</div>'
                 . '</div>'
                 . \CHtml::tag('photo-collection', array(
                     'params' =>
@@ -310,8 +312,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         return $newPost->save();
     }
 
-    protected function convertVideoPost()
-    {
+    protected function convertVideoPost() {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldVideoPost');
@@ -328,8 +329,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         return $newPost->save();
     }
 
-    protected function convertStatus()
-    {
+    protected function convertStatus() {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldStatusPost');
@@ -350,8 +350,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         return $newPost->save();
     }
 
-    protected function render($file, $data)
-    {
+    protected function render($file, $data) {
         $file = \Yii::getPathOfAlias($file) . '.php';
         if (\Yii::app() instanceof \CConsoleApplication) {
             return \Yii::app()->command->renderFile($file, $data, true);
@@ -359,6 +358,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             return \Yii::app()->controller->renderInternal($file, $data, true);
         }
     }
+
 }
 
 ?>

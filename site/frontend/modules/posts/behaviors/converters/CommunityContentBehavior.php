@@ -205,21 +205,33 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
         $clearText = $newPost->fillText();
         $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
         $photo = $oldPost->post->photo;
-        # require_once(\Yii::getPathOfAlias('webroot') . '/frontend/vendor/Jevix-master/jevix.class.php');
-        $jevix = new \site\frontend\components\Jevix();
-        $jevix->cfgAllowTags(array('br', 'p', 'b', 'strong', 'i', 'u', 'ul', 'li', 'ol', 'strike', 'a'));
-        $e = null;
-        $prev = $newPost->html;
-        $prev = $jevix->parse($newPost->html, $e);
-        #var_dump($prev);exit();
-        if (strlen($prev) < 200) {
-            $prev = '<p>' . $jevix->parse(\site\common\helpers\HStr::truncate($prev, 200), $e) . '</p>';
-        } else {
-            $prev = \site\common\helpers\HStr::truncate($prev, 200, '');
-            $prev = '<p>' . $jevix->parse($prev, $e) . ' <a class="ico-more" href="' . $oldPost->url . '"></a>' . '</p>';
-        }
 
-        $newPost->preview = $prev;
+//        /* используем библиотеку Qevix для правильной обрезки html */
+//        $qevix = new \site\frontend\components\Qevix();
+//        $qevix->cfgAllowTags(array('br', 'p', 'b', 'strong', 'i', 'u', 'ul', 'li', 'ol', 'strike', 'a', 'img'));
+//        $qevix->cfgSetTagShort(array('br', 'img'));
+//        $qevix->cfgSetTagNoAutoBr(array('ul', 'ol'));
+//        $qevix->cfgSetTagCutWithContent(array('script', 'object', 'iframe', 'style', 'img'));
+//        $qevix->cfgSetTagChilds('ul', 'li', true, true);
+//        $qevix->cfgSetTagChilds('ol', 'li', true, true);
+//
+//        $e = null;
+//        $prev = $qevix->parse($newPost->html, $e);
+//        /* из за странного бага img с параметрами обрабатывается не корректно, поэтому
+//         * сперва разрешаем этот тэг и у него удаляются параметры, потом еще раз
+//         * обрбатываем текс и у него удаляются img */
+//        $qevix->cfgAllowTags(array('br', 'p', 'b', 'strong', 'i', 'u', 'ul', 'li', 'ol', 'strike', 'a'));
+//        $qevix->cfgSetTagShort(array('br'));
+//        $prev = $qevix->parse($prev, $e);
+//        if (strlen($prev) < 200) {
+//            $prev = '<p>' . $qevix->parse(\site\common\helpers\HStr::truncate($prev, 200), $e) . '</p>';
+//        } else {
+//            $prev = \site\common\helpers\HStr::truncate($prev, 200, '');
+//            /* удалим последний не закрытый тэг */
+//            $prev = '<p>' . $qevix->parse($prev, $e) . ' <a class="ico-more" href="' . $oldPost->url . '"></a>' . '</p>';
+//        }
+
+        $newPost->preview = \site\common\helpers\HStr::trancateHTML1V($newPost->html, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>');
         #$newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
         if ($oldPost->gallery !== null && !empty($oldPost->gallery->items)) {
             // Скопировано из convertPhotoPost

@@ -158,9 +158,8 @@ class DefaultController extends \LiteController
 
     public function sitemapView()
     {
-        $criteria = new \CDbCriteria(array(
-            'order' => 'id ASC',
-        ));
+        $criteria = ConsultationQuestion::model()->getDbCriteria();
+        $criteria->order = 'id ASC';
         $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(ConsultationQuestion::model()->tableName(), $criteria);
         $models = $command->queryAll();
         return array_map(function($model) {

@@ -15,7 +15,7 @@ class DefaultController extends LiteController
         $this->render('yandex');
     }
 
-    public function actionIndex($query = '')
+    /* public function actionIndex($query = '')
       {
       $menu = array_map(function($title, $entity) {
       return compact('title', 'entity');
@@ -38,5 +38,5 @@ class DefaultController extends LiteController
       );
 
       echo CJSON::encode($data);
-      }
+      } */
 }

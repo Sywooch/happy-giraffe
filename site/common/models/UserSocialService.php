@@ -131,6 +131,7 @@ class UserSocialService extends HActiveRecord
 		$criteria = new CDbCriteria();
 		$criteria->with = array(
 			'user' => array(
+				'joinType' => 'INNER JOIN',
 				'scopes' => array('active'),
 			),
 		);

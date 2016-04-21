@@ -89,6 +89,7 @@ class PostController extends \LiteController
     public function sitemapView($param)
     {
         $criteria = new \CDbCriteria(array(
+            'select' => 'url, dtimeUpdate',
             'condition' => 'isNoindex = 0',
             'limit' => 50000,
             'offset' => ($param['page'] - 1) * 50000,

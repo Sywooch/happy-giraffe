@@ -6,7 +6,7 @@ $this->pageTitle = 'Новости с Весёлым Жирафом';
 $this->metaNoindex = true;
  
 
-if ($this->club->title) 
+if (isset($this->club->title)) 
 {
     $this->breadcrumbs = array(
         $this->pageTitle => $this->createUrl('/som/community/news/index'),

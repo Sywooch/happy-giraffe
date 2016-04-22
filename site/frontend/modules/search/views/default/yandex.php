@@ -16,7 +16,7 @@
     if(Yii::app()->user->isGuest)
     {
         //Yii::app()->clientScript->registerPackage('lite-default');
-        Yii::app()->clientScript->registerCssFile('/lite/css/min/services.css');
+        Yii::app()->clientScript->registerCssFile('/lite/css/min/services-user.css');
     }
 ?>
 <?php

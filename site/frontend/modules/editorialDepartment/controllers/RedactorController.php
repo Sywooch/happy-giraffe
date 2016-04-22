@@ -11,7 +11,7 @@ use site\frontend\modules\posts\models\Label;
  * @author Кирилл
  */
 class RedactorController extends \LiteController
-{
+    {
 
     public function actionIndex($forumId)
     {
@@ -190,10 +190,10 @@ class RedactorController extends \LiteController
             throw new \CHttpException(404);
         if ($model->authorId != \Yii::app()->user->id)
             throw new \CHttpException(403);
-        
+
         return $model;
     }
 
-}
+    }
 
 ?>

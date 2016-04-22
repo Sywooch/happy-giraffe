@@ -11,7 +11,7 @@ use site\frontend\modules\posts\models\Label;
  * @author Кирилл
  */
 class RedactorController extends \LiteController
-    {
+{
 
     public function actionIndex($forumId)
     {
@@ -22,7 +22,8 @@ class RedactorController extends \LiteController
         $model->clubId = \Community::model()->findByPk($forumId)->club_id;
         $model->label = Label::LABEL_FORUMS;
 
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -30,7 +31,9 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->redirect(array('edit', 'entity' => $model->entity, 'entityId' => $model->entityId));
+            }
         }
 
         $this->render('index', array('model' => $model));
@@ -40,7 +43,8 @@ class RedactorController extends \LiteController
     {
         $model = $this->getModel($entity, $entityId);
         $model->scenario = 'forums';
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -48,7 +52,9 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->refresh();
+            }
         }
 
         $this->render('index', array('model' => $model));
@@ -61,7 +67,8 @@ class RedactorController extends \LiteController
         $model->authorId = \Yii::app()->user->id;
         $model->label = Label::LABEL_BUZZ;
 
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -69,7 +76,9 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->redirect(array('editBuzz', 'entity' => $model->entity, 'entityId' => $model->entityId));
+            }
         }
 
         $this->render('buzz', array('model' => $model));
@@ -79,7 +88,8 @@ class RedactorController extends \LiteController
     {
         $model = $this->getModel($entity, $entityId);
         $model->scenario = 'buzz';
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -87,7 +97,9 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->refresh();
+            }
         }
 
         $this->render('buzz', array('model' => $model));
@@ -100,7 +112,8 @@ class RedactorController extends \LiteController
         $model->authorId = \Yii::app()->user->id;
         $model->label = Label::LABEL_NEWS;
 
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -108,7 +121,9 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->redirect(array('editNews', 'entity' => $model->entity, 'entityId' => $model->entityId));
+            }
         }
 
         $this->render('news', array('model' => $model));
@@ -118,7 +133,8 @@ class RedactorController extends \LiteController
     {
         $model = $this->getModel($entity, $entityId);
         $model->scenario = 'news';
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -126,7 +142,9 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->refresh();
+            }
         }
 
         $this->render('news', array('model' => $model));
@@ -137,7 +155,8 @@ class RedactorController extends \LiteController
         $model = new departmentModels\Content('blog');
         $model->authorId = \Yii::app()->user->id;
 
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -145,7 +164,9 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->redirect(array('editBlog', 'entity' => $model->entity, 'entityId' => $model->entityId));
+            }
         }
 
         $this->render('blog', array('model' => $model));
@@ -155,7 +176,8 @@ class RedactorController extends \LiteController
     {
         $model = $this->getModel($entity, $entityId);
         $model->scenario = 'blog';
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -163,7 +185,9 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->refresh();
+            }
         }
 
         $this->render('blog', array('model' => $model));
@@ -194,6 +218,6 @@ class RedactorController extends \LiteController
         return $model;
     }
 
-    }
+}
 
 ?>

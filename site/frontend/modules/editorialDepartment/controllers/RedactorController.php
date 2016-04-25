@@ -25,7 +25,8 @@ class RedactorController extends \LiteController
         $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
         if (isset($_POST['Content']))
         {
-            if (($en = $formSendControl->getEntity()) != null)
+            $formKey = $_POST['formKey'];
+            if (($en = $formSendControl->getEntity($formKey)) != null)
             {
                 $this->redirect(array('edit', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
             }
@@ -37,12 +38,12 @@ class RedactorController extends \LiteController
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
             {
-                $formSendControl->setEntity($model->entity, $model->entityId);
+                $formSendControl->setEntity($formKey, $model->entity, $model->entityId);
                 $this->redirect(array('edit', 'entity' => $model->entity, 'entityId' => $model->entityId));
             }
         }
-        $formSendControl->clear();
-        $this->render('index', array('model' => $model));
+        $formKey = $formSendControl->createNewFormKey();
+        $this->render('index', array('model' => $model, 'formKey' => $formKey));
     }
 
     public function actionEdit($entity, $entityId)
@@ -63,7 +64,7 @@ class RedactorController extends \LiteController
             }
         }
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', array('model' => $model, 'formKey' => null));
     }
 
     public function actionBuzz()
@@ -76,7 +77,8 @@ class RedactorController extends \LiteController
         $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
         if (isset($_POST['Content']))
         {
-            if (($en = $formSendControl->getEntity()) != null)
+            $formKey = $_POST['formKey'];
+            if (($en = $formSendControl->getEntity($formKey)) != null)
             {
                 $this->redirect(array('editBuzz', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
             }
@@ -88,12 +90,12 @@ class RedactorController extends \LiteController
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
             {
-                $formSendControl->setEntity($model->entity, $model->entityId);
+                $formSendControl->setEntity($formKey, $model->entity, $model->entityId);
                 $this->redirect(array('editBuzz', 'entity' => $model->entity, 'entityId' => $model->entityId));
             }
         }
-        $formSendControl->clear();
-        $this->render('buzz', array('model' => $model));
+        $formKey = $formSendControl->createNewFormKey();
+        $this->render('buzz', array('model' => $model, 'formKey' => $formKey));
     }
 
     public function actionEditBuzz($entity, $entityId)
@@ -114,7 +116,7 @@ class RedactorController extends \LiteController
             }
         }
 
-        $this->render('buzz', array('model' => $model));
+        $this->render('buzz', array('model' => $model, 'formKey' => null));
     }
 
     public function actionNews()
@@ -127,7 +129,8 @@ class RedactorController extends \LiteController
         $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
         if (isset($_POST['Content']))
         {
-            if (($en = $formSendControl->getEntity()) != null)
+            $formKey = $_POST['formKey'];
+            if (($en = $formSendControl->getEntity($formKey)) != null)
             {
                 $this->redirect(array('editNews', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
             }
@@ -139,12 +142,12 @@ class RedactorController extends \LiteController
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
             {
-                $formSendControl->setEntity($model->entity, $model->entityId);
+                $formSendControl->setEntity($formKey, $model->entity, $model->entityId);
                 $this->redirect(array('editNews', 'entity' => $model->entity, 'entityId' => $model->entityId));
             }
         }
-        $formSendControl->clear();
-        $this->render('news', array('model' => $model));
+        $formKey = $formSendControl->createNewFormKey();
+        $this->render('news', array('model' => $model, 'formKey' => $formKey));
     }
 
     public function actionEditNews($entity, $entityId)
@@ -165,7 +168,7 @@ class RedactorController extends \LiteController
             }
         }
 
-        $this->render('news', array('model' => $model));
+        $this->render('news', array('model' => $model, 'formKey' => null));
     }
 
     public function actionBlog()
@@ -176,7 +179,8 @@ class RedactorController extends \LiteController
         $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
         if (isset($_POST['Content']))
         {
-            if (($en = $formSendControl->getEntity()) != null)
+            $formKey = $_POST['formKey'];
+            if (($en = $formSendControl->getEntity($formKey)) != null)
             {
                 $this->redirect(array('editBlog', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
             }
@@ -188,12 +192,12 @@ class RedactorController extends \LiteController
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
             {
-                $formSendControl->setEntity($model->entity, $model->entityId);
+                $formSendControl->setEntity($formKey, $model->entity, $model->entityId);
                 $this->redirect(array('editBlog', 'entity' => $model->entity, 'entityId' => $model->entityId));
             }
         }
-        $formSendControl->clear();
-        $this->render('blog', array('model' => $model));
+        $formKey = $formSendControl->createNewFormKey();
+        $this->render('blog', array('model' => $model, 'formKey' => $formKey));
     }
 
     public function actionEditBlog($entity, $entityId)
@@ -214,7 +218,7 @@ class RedactorController extends \LiteController
             }
         }
 
-        $this->render('blog', array('model' => $model));
+        $this->render('blog', array('model' => $model, 'formKey' => null));
     }
 
     public function actionUrlForEdit($entity = 'CommunityContent', $entityId)

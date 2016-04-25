@@ -32,11 +32,17 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
             <?= $form->textarea($model, 'htmlTextPreview', array('id' => 'htmlTextPreview', 'class' => 'display-n')) ?>
             <?= $form->textarea($model, 'markDown', array('id' => 'markDown', 'class' => 'display-n')) ?>
             <?= $form->textarea($model, 'htmlText', array('id' => 'htmlText', 'class' => 'display-n')) ?>
-            <?php if ($model->entityId === null) { ?>
+            <?php if ($model->entityId === null)
+            {
+                ?>
                 <h1 class="heading-xl margin-b30">Добавление статьи</h1>
-            <?php } else { ?>
+            <?php
+            }
+            else
+            {
+                ?>
                 <h1 class="heading-xl margin-b30">Редактирование статьи</h1>
-            <?php } ?>
+<?php } ?>
             <!-- row -->
             <div class="postAdd_row">
                 <div class="postAdd_count">3</div>
@@ -137,6 +143,7 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
 
 
 <?= $form->hiddenField($model, 'social[image]') ?>
+            <input type="hidden" name="formKey" value="<?= $formKey ?>">
 
             <div class="postAdd_row">
                 <div class="postAdd_count"></div>

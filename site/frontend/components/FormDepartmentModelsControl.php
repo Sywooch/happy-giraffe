@@ -21,7 +21,7 @@ class FormDepartmentModelsControl
 
     /**
      * singleton
-     * @return type
+     * @return FormDepartmentModelsControl
      */
     public static function getInstance()
     {
@@ -34,28 +34,46 @@ class FormDepartmentModelsControl
         return self::$_instans;
     }
 
-    public function setEntity($entity, $entityId)
+    /**
+     * запоминаем данные о созданном посте для заданной формы
+     * @param string $key
+     * @param string $entity
+     * @param int $entityId
+     */
+    public function setEntity($key, $entity, $entityId)
     {
-        self::$session['FormDepartmentModelsControlEntity'] = $entity;
-        self::$session['FormDepartmentModelsControlEntityId'] = $entityId;
+        self::$session[$key] = array(
+            'FormDepartmentModelsControlEntity' => $entity,
+            'FormDepartmentModelsControlEntityId' => $entityId
+        );
     }
 
-    public function getEntity()
+    /**
+     * возвращаем данные о созданном посте для формы
+     * @param string $key
+     * @return mixed
+     */
+    public function getEntity($key)
     {
-        if (isset(self::$session['FormDepartmentModelsControlEntity']) && self::$session['FormDepartmentModelsControlEntity'] != null)
+        if (isset(self::$session[$key]['FormDepartmentModelsControlEntity']) && isset(self::$session[$key]['FormDepartmentModelsControlEntity']) && self::$session[$key]['FormDepartmentModelsControlEntity'] != null)
         {
             return array(
-                'entity' => self::$session['FormDepartmentModelsControlEntity'],
-                'entityId' => self::$session['FormDepartmentModelsControlEntityId']
+                'entity' => self::$session[$key]['FormDepartmentModelsControlEntity'],
+                'entityId' => self::$session[$key]['FormDepartmentModelsControlEntityId']
             );
         }
         return null;
     }
 
-    public function clear()
+    /**
+     * создать новый ключ формы для отслеживания уникальности создания постов
+     * @return string
+     */
+    public function createNewFormKey()
     {
-        self::$session['FormDepartmentModelsControlEntity'] = null;
-        self::$session['FormDepartmentModelsControlEntityId'] = null;
+        $key = uniqid();
+        self::$session[$key] = array();
+        return $key;
     }
 
 }

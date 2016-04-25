@@ -41,7 +41,24 @@
         </div>
         <div class="article-anonce_bottom">
             <div class="article-anonce_tag"><?=$this->getClubTitle()?></div>
-            <div class="article-anonce_t"><?=$this->model->title?>
+            <div class="article-anonce_t">
+                <?php
+                    /* Ограничиваем длину заголовка с добавлением "..." */ 
+                    
+                    $title = $this->model->title;
+                    
+                    $maxTitleLength = 62;
+                    $titleLength = mb_strlen($title);
+                    
+                    if ($titleLength > $maxTitleLength)
+                    {
+                        echo mb_substr($title, 0, $maxTitleLength) . ' ...';
+                    }
+                    else 
+                    {
+                        echo $title;
+                    }        
+                ?>
             </div>
         </div>
     </a>

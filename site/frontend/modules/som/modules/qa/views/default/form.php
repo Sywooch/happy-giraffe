@@ -12,65 +12,230 @@ Yii::app()->clientScript->registerAMD('qa-redactor', array('hgwswg' => 'care-wys
                 ]
             }
         }); wysiwyg.run();');
+#Yii::app()->clientScript->registerAMD('knockout');
+Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 ?>
 
 <div class="popup-widget ask-widget">
     <div class="popup-widget_heading">
         <div class="popup-widget_heading_icon"></div>
         <div class="popup-widget_heading_text">Задать вопрос</div>
-        <a href="<?=$this->createUrl('/som/qa/default/index')?>" class="popup-widget_heading_close-btn"></a>
+        <a href="<?= $this->createUrl('/som/qa/default/index') ?>" class="popup-widget_heading_close-btn"></a>
     </div>
     <div class="popup-widget_wrap">
-        <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
+        <?php
+        $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
             'id' => 'question-form',
             'enableAjaxValidation' => true,
             'enableClientValidation' => true,
             'focus' => array($model, 'title'),
             'htmlOptions' => array(
-                'class' => 'popup-widget_cont',
-            ),
-        )); ?>
-        <?=$form->errorSummary($model)?>
+                'class' => 'popup-widget_cont'
+            )
+        ));
+        ?>
+        <?= $form->errorSummary($model) ?>
         <form class="popup-widget_cont">
             <div class="popup-widget_cont_tx-text"></div>
-            <?=$form->textField($model, 'title', array(
-                'placeholder' => 'Введите заголовок вопроса',
-                'class' => 'popup-widget_cont_input-text',
-            ))?>
-            <?php if ($model->scenario != 'consultation'): ?>
-            <div class="popup-widget_cont_list">
-                <?=$form->dropDownList($model, 'categoryId', CHtml::listData(\site\frontend\modules\som\modules\qa\models\QaCategory::model()->sorted()->findAll(), 'id', 'title'), array(
-                    'class' => 'select-cus select-cus__search-off select-cus__gray',
-                    'empty' => 'Выберите тему',
-                ))?>
+            <div class="inp-valid inp-valid__abs"  >
+                <?=
+                $form->textField($model, 'title', array(
+                    'placeholder' => 'Введите заголовок вопроса',
+                    'class' => 'popup-widget_cont_input-text',
+                    'data-bind' => "value: qTtitle",
+                    'id' => 'qTtitle'
+                ))
+                ?>            
+                <div class="inp-valid_error" id="qTtitleE" data-bind="validationMessage: qTtitle">Это обязательное поле</div>
             </div>
+            <?php if ($model->scenario != 'consultation'): ?>
+                <div class="inp-valid inp-valid__abs">
+                    <div class="popup-widget_cont_list">
+                        <?=
+                        $form->dropDownList($model, 'categoryId', CHtml::listData(\site\frontend\modules\som\modules\qa\models\QaCategory::model()->sorted()->findAll(), 'id', 'title'), array(
+                            'class' => 'select-cus select-cus__search-off select-cus__gray',
+                            'empty' => 'Выберите тему',
+                        ))
+                        ?>
+                    </div>
+                    <div class="inp-valid_error" id="qThemeE" data-bind="validationMessage: qThemeE">Это обязательное поле</div>
+                </div>
             <?php endif; ?>
             <div class="redactor-control">
                 <div class="redactor-control_toolbar"></div>
                 <div class="redactor-control_hold">
-            <?=$form->textArea($model, 'text', array(
-                'placeholder' => 'Введите сам вопрос',
-                'class' => 'popup-widget_cont_textarea',
-            ))?>
+                    <div class="inp-valid inp-valid__abs"  >
+                        <?=
+                        $form->textArea($model, 'text', array(
+                            'placeholder' => 'Введите сам вопрос',
+                            'class' => 'popup-widget_cont_textarea',
+                            'data-bind' => "value: qText",
+                            'id' => 'qText'
+                        ))
+                        ?>                    
+                        <div class="inp-valid_error" id="qTextE" data-bind="validationMessage: qText">Это обязательное поле</div>
+                    </div>
                 </div>
             </div>
-            <?=$form->checkBox($model, 'sendNotifications', array(
+            <?=
+            $form->checkBox($model, 'sendNotifications', array(
                 'class' => 'popup-widget_cont_checkbox',
-            ))?>
-            <?=$form->label($model, 'sendNotifications')?>
+            ))
+            ?>
+            <?= $form->label($model, 'sendNotifications') ?>
             <div class="popup-widget_cont_buttons">
-                <a href="<?=$this->createUrl('/som/qa/default/index')?>" class="btn btn-secondary btn-xm">Отмена</a>
-                <button class="btn btn-success btn-xm"><?=($model->isNewRecord) ? 'Опубликовать' : 'Редактировать'?></button>
+                <a href="<?= $this->createUrl('/som/qa/default/index') ?>" class="btn btn-secondary btn-xm">Отмена</a>
+                <button class="btn btn-success btn-xm" data-bind='click: qSubmit'><?= ($model->isNewRecord) ? 'Опубликовать' : 'Редактировать' ?></button>
             </div>
             <?php $this->endWidget(); ?>
-        <div class="popup-widget_sidebar">
-            <div class="popup-widget_sidebar_advice-smile"></div>
-            <div class="popup-widget_sidebar_advice-heading">Совет</div>
-            <ol class="popup-widget_sidebar_ol">
-                <li class="popup-widget_sidebar_li">Старайтесь формулировать вопрос максимально четко и понятно.</li>
-                <li class="popup-widget_sidebar_li">Чем понятнее будет Ваш вопрос, тем более конкретные ответы вы получите.</li>
-            </ol>
-        </div>
+            <div class="popup-widget_sidebar">
+                <div class="popup-widget_sidebar_advice-smile"></div>
+                <div class="popup-widget_sidebar_advice-heading">Совет</div>
+                <ol class="popup-widget_sidebar_ol">
+                    <li class="popup-widget_sidebar_li">Старайтесь формулировать вопрос максимально четко и понятно.</li>
+                    <li class="popup-widget_sidebar_li">Чем понятнее будет Ваш вопрос, тем более конкретные ответы вы получите.</li>
+                </ol>
+            </div>
     </div>
 </div>
+
+
+
+<script type="text/javascript">
+
+    function QuestForValid() {
+
+        this.titleValid = false
+
+        this.submitDisable = function (flag) {
+            return false;
+            tt = $($("#question-form").find(".btn-success")[0]);
+            if (flag) {
+                tt.attr('disabled', 'disabled').addClass('disabled');
+            } else {
+                tt.removeAttr('disabled').removeClass('disabled');
+            }
+
+        }
+
+        this.testTitleTok = function (obj) {
+            return function (event) {
+                if ($(this).val() == '') {
+                    $('#' + this.id + 'E').show();
+                    $(this).addClass('error');
+                    obj.titleValid = false;
+                    obj.submitDisable(true);
+                    //console.log(this.id + " error");
+                } else {
+                    $('#' + this.id + 'E').hide();
+                    $(this).removeClass('error');
+                    obj.titleValid = true;
+                    obj.submitDisable(false);
+                    //console.log(this.id + " ok");
+                }
+            }
+        }
+
+        this.testThemTok = function (obj) {
+            return function (event) {
+                if ($(this).val() == '') {
+                    $('#' + this.id + 'E').show();
+                    $(this).addClass('error');
+                    obj.titleValid = false;
+                } else {
+
+                    $(this).removeClass('error');
+                    obj.titleValid = true;
+                }
+            }
+        }
+
+        this.testTextTok = function (obj) {
+            return function (event) {
+                if ($(this).val() == '') {
+                    $('#' + this.id + 'E').show();
+                    $(this).addClass('error');
+                    obj.titleValid = false;
+                } else {
+
+                    $(this).removeClass('error');
+                    obj.titleValid = true;
+                }
+            }
+        }
+
+        this.isFormValidTok = function (obj) {
+            return function (event) {
+                var flagError = false;
+                if ($("#qText").val() == '') {
+                    flagError = true;
+                    $("#qText").addClass('error');
+                    $("#qTextE").show();
+                } else {
+                    $("#qText").removeClass('error');
+                    $("#qTextE").hide();
+                }
+                if ($("#qTtitle").val() == '') {
+                    flagError = true;
+                    $("#qTtitle").addClass('error');
+                    $("#qTtitleE").show();
+                } else {
+                    $("#qTtitle").removeClass('error');
+                    $("#qTtitleE").hide();
+                }
+                if ($("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").val() == '') {
+                    flagError = true;
+                    $("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").addClass('error');
+                    $("#qThemeE").show();
+                } else {
+                    $("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").removeClass('error');
+                    $("#qThemeE").hide();
+                }
+                console.log('form status ' + flagError);
+                setTimeout(obj.testDropBoxTok(obj), 100);
+                if (flagError) {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        $("#qTtitle").change(this.testTitleTok(this)).keyup(this.testTitleTok(this));
+
+        setTimeout(function () {
+            $('.redactor_popup-widget_cont_textarea').on('keyup', function (event) {
+                if ($("#qText").val() == '') {
+                    flagError = true;
+                    $("#qText").addClass('error');
+                    $("#qTextE").show();
+                } else {
+                    $("#qText").removeClass('error');
+                    $("#qTextE").hide();
+                }
+            });
+            $('#s2id_site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId').on()
+        }, 3000);
+
+        this.testDropBoxTok = function (obj) {
+            return function () {
+                if ($("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").val() == '') {
+                    flagError = true;
+                    $("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").addClass('error');
+                    $("#qThemeE").show();
+                } else {
+                    $("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").removeClass('error');
+                    $("#qThemeE").hide();
+                }
+                setTimeout(obj.testDropBoxTok(obj), 100);
+            }
+        }
+        $("#question-form").submit(this.isFormValidTok(this));
+
+    }
+
+    $(document).ready(function () {
+        var qv = new QuestForValid();
+    }
+    )
+</script>
 

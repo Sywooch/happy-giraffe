@@ -20,6 +20,7 @@
                     'validationDelay' => 400,
                 ),
             )); ?>
+            <input type="hidden" name="formKey" value="<?= \site\frontend\components\FormDepartmentModelsControl::getInstance()->createNewFormKey() ?>">
             <?=$form->hiddenField($model, 'type_id')?>
             <?=$form->hiddenField($model, 'rubric_id')?>
             <?=CHtml::hiddenField('contest_id', $contest->id)?>

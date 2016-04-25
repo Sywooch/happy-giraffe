@@ -22,8 +22,13 @@ class RedactorController extends \LiteController
         $model->clubId = \Community::model()->findByPk($forumId)->club_id;
         $model->label = Label::LABEL_FORUMS;
 
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
         if (isset($_POST['Content']))
         {
+            if (($en = $formSendControl->getEntity()) != null)
+            {
+                $this->redirect(array('edit', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
+            }
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -32,10 +37,11 @@ class RedactorController extends \LiteController
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
             {
+                $formSendControl->setEntity($model->entity, $model->entityId);
                 $this->redirect(array('edit', 'entity' => $model->entity, 'entityId' => $model->entityId));
             }
         }
-
+        $formSendControl->clear();
         $this->render('index', array('model' => $model));
     }
 
@@ -67,8 +73,13 @@ class RedactorController extends \LiteController
         $model->authorId = \Yii::app()->user->id;
         $model->label = Label::LABEL_BUZZ;
 
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
         if (isset($_POST['Content']))
         {
+            if (($en = $formSendControl->getEntity()) != null)
+            {
+                $this->redirect(array('editBuzz', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
+            }
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -77,10 +88,11 @@ class RedactorController extends \LiteController
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
             {
+                $formSendControl->setEntity($model->entity, $model->entityId);
                 $this->redirect(array('editBuzz', 'entity' => $model->entity, 'entityId' => $model->entityId));
             }
         }
-
+        $formSendControl->clear();
         $this->render('buzz', array('model' => $model));
     }
 
@@ -112,8 +124,13 @@ class RedactorController extends \LiteController
         $model->authorId = \Yii::app()->user->id;
         $model->label = Label::LABEL_NEWS;
 
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
         if (isset($_POST['Content']))
         {
+            if (($en = $formSendControl->getEntity()) != null)
+            {
+                $this->redirect(array('editNews', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
+            }
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -122,10 +139,11 @@ class RedactorController extends \LiteController
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
             {
+                $formSendControl->setEntity($model->entity, $model->entityId);
                 $this->redirect(array('editNews', 'entity' => $model->entity, 'entityId' => $model->entityId));
             }
         }
-
+        $formSendControl->clear();
         $this->render('news', array('model' => $model));
     }
 
@@ -155,8 +173,13 @@ class RedactorController extends \LiteController
         $model = new departmentModels\Content('blog');
         $model->authorId = \Yii::app()->user->id;
 
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
         if (isset($_POST['Content']))
         {
+            if (($en = $formSendControl->getEntity()) != null)
+            {
+                $this->redirect(array('editBlog', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
+            }
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -165,10 +188,11 @@ class RedactorController extends \LiteController
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
             {
+                $formSendControl->setEntity($model->entity, $model->entityId);
                 $this->redirect(array('editBlog', 'entity' => $model->entity, 'entityId' => $model->entityId));
             }
         }
-
+        $formSendControl->clear();
         $this->render('blog', array('model' => $model));
     }
 

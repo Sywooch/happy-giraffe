@@ -13,24 +13,30 @@ use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelp
  * @author Кирилл
  * @property \CommunityContent $owner Description
  */
-class CommunityContentBehavior extends \CActiveRecordBehavior {
+class CommunityContentBehavior extends \CActiveRecordBehavior
+{
 
-    public function events() {
+    public function events()
+    {
         return array_merge(parent::events(), array(
             'onAfterSoftDelete' => 'afterSoftDelete',
             'onAfterSoftRestore' => 'afterSoftRestore',
         ));
     }
 
-    public function convertToNewPost() {
-        if ($this->owner->type_id == \CommunityContent::TYPE_POST) {
+    public function convertToNewPost()
+    {
+        if ($this->owner->type_id == \CommunityContent::TYPE_POST)
+        {
             $advContent = \site\frontend\modules\editorialDepartment\models\Content::model()->findByAttributes(array(
                 'entity' => $this->owner->getIsFromBlog() ? 'BlogContent' : 'CommunityContent',
                 'entityId' => (int) $this->owner->id
             ));
-            if (!is_null($advContent)) {
+            if (!is_null($advContent))
+            {
                 return $this->convertAdvPost($advContent);
-            } else {
+            } else
+            {
                 return $this->convertPost();
             }
         } elseif ($this->owner->type_id == \CommunityContent::TYPE_PHOTO_POST)
@@ -45,28 +51,34 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
             return $this->convertMorning();
     }
 
-    public function afterSave($event) {
+    public function afterSave($event)
+    {
         parent::afterSave($event);
         $this->addTaskToConvert();
     }
 
-    public function afterSoftDelete($event) {
+    public function afterSoftDelete($event)
+    {
         $this->addTaskToConvert();
     }
 
-    public function afterSoftRestore($event) {
+    public function afterSoftRestore($event)
+    {
         $this->addTaskToConvert();
     }
 
-    public function addTaskToConvert() {
+    public function addTaskToConvert()
+    {
         if (!\site\frontend\modules\posts\commands\ConvertCommand::addConvertTask($this->owner))
             $this->convertToNewPost();
     }
 
-    protected function convertCommon(&$oldPost, &$newPost, $scenario = 'default', $service = false) {
+    protected function convertCommon(&$oldPost, &$newPost, $scenario = 'default', $service = false)
+    {
         $oldPost = $this->owner;
         $oldPost->purified->clearCache();
-        if (!$service) {
+        if (!$service)
+        {
             $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         }
         $entity = get_class($oldPost);
@@ -76,20 +88,24 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
 
         $tags = array();
         $rubric = $oldPost->rubric;
-        while ($rubric) {
+        while ($rubric)
+        {
             $tags[] = 'Рубрика: ' . $rubric->title;
             $rubric = $rubric->parent;
         }
-        if ($oldPost->rubric->community) {
+        if ($oldPost->rubric->community)
+        {
             $tags[] = 'Форум: ' . $oldPost->rubric->community->title;
             if ($oldPost->rubric->community->club)
                 $tags[] = 'Клуб: ' . $oldPost->rubric->community->club->title;
             if ($oldPost->rubric->community->club && $oldPost->rubric->community->club->section)
                 $tags[] = 'Секция: ' . $oldPost->rubric->community->club->section->title;
         }
-        if ($oldPost->isFromBlog) {
+        if ($oldPost->isFromBlog)
+        {
             $tags[] = Label::LABEL_BLOG;
-        } else {
+        } else
+        {
             $tags[] = Label::LABEL_FORUMS;
         }
 
@@ -128,12 +144,14 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
         $newPost->socialObject->description = $newPost->metaObject->description;
         $newPost->isAutoSocial = true;
 
-        if ($oldPost->rubric->community_id == ContractubexHelper::getForum()->id) {
+        if ($oldPost->rubric->community_id == ContractubexHelper::getForum()->id)
+        {
             $newPost->templateObject->data['hideAdsense'] = true;
         }
     }
 
-    protected function convertAdvPost(\site\frontend\modules\editorialDepartment\models\Content $advContent) {
+    protected function convertAdvPost(\site\frontend\modules\editorialDepartment\models\Content $advContent)
+    {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'advPost');
@@ -146,7 +164,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
         return $newPost->save();
     }
 
-    protected function convertQuestion() {
+    protected function convertQuestion()
+    {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldQuestion');
@@ -165,7 +184,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
         return $newPost->save();
     }
 
-    protected function convertMorning() {
+    protected function convertMorning()
+    {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldMorning', 'oldMorning');
@@ -193,7 +213,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
         return $newPost->save();
     }
 
-    protected function convertPost() {
+    protected function convertPost()
+    {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldPost');
@@ -206,34 +227,9 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
         $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
         $photo = $oldPost->post->photo;
 
-//        /* используем библиотеку Qevix для правильной обрезки html */
-//        $qevix = new \site\frontend\components\Qevix();
-//        $qevix->cfgAllowTags(array('br', 'p', 'b', 'strong', 'i', 'u', 'ul', 'li', 'ol', 'strike', 'a', 'img'));
-//        $qevix->cfgSetTagShort(array('br', 'img'));
-//        $qevix->cfgSetTagNoAutoBr(array('ul', 'ol'));
-//        $qevix->cfgSetTagCutWithContent(array('script', 'object', 'iframe', 'style', 'img'));
-//        $qevix->cfgSetTagChilds('ul', 'li', true, true);
-//        $qevix->cfgSetTagChilds('ol', 'li', true, true);
-//
-//        $e = null;
-//        $prev = $qevix->parse($newPost->html, $e);
-//        /* из за странного бага img с параметрами обрабатывается не корректно, поэтому
-//         * сперва разрешаем этот тэг и у него удаляются параметры, потом еще раз
-//         * обрбатываем текс и у него удаляются img */
-//        $qevix->cfgAllowTags(array('br', 'p', 'b', 'strong', 'i', 'u', 'ul', 'li', 'ol', 'strike', 'a'));
-//        $qevix->cfgSetTagShort(array('br'));
-//        $prev = $qevix->parse($prev, $e);
-//        if (strlen($prev) < 200) {
-//            $prev = '<p>' . $qevix->parse(\site\common\helpers\HStr::truncate($prev, 200), $e) . '</p>';
-//        } else {
-//            $prev = \site\common\helpers\HStr::truncate($prev, 200, '');
-//            /* удалим последний не закрытый тэг */
-//            $prev = '<p>' . $qevix->parse($prev, $e) . ' <a class="ico-more" href="' . $oldPost->url . '"></a>' . '</p>';
-//        }
-
         $newPost->preview = \site\common\helpers\HStr::trancateHTML1V($newPost->html, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>');
-        #$newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
-        if ($oldPost->gallery !== null && !empty($oldPost->gallery->items)) {
+        if ($oldPost->gallery !== null && !empty($oldPost->gallery->items))
+        {
             // Скопировано из convertPhotoPost
             $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
             $count = $collection->attachesCount;
@@ -266,7 +262,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
             $newPost->html .= $photoAlbumTag;
             $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopostPreview', array('tag' => $photoAlbumTag, 'text' => \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($newPost->text))), 200, ' <span class="ico-more"></span>')));
             $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
-        } elseif ($photo) {
+        } elseif ($photo)
+        {
             $newPost->preview = '<div class="b-article_in-img"><a href="' . $oldPost->url . '">' . $photo->getPreviewHtml(600, 1100) . '</a></div>' . $newPost->preview;
             $newPost->socialObject->imageUrl = $photo->getPreviewUrl(200, 200);
         }
@@ -277,7 +274,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
         return $newPost->save();
     }
 
-    protected function convertPhotoPost() {
+    protected function convertPhotoPost()
+    {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldPhotoPost');
@@ -324,7 +322,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
         return $newPost->save();
     }
 
-    protected function convertVideoPost() {
+    protected function convertVideoPost()
+    {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldVideoPost');
@@ -341,7 +340,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
         return $newPost->save();
     }
 
-    protected function convertStatus() {
+    protected function convertStatus()
+    {
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldStatusPost');
@@ -362,11 +362,14 @@ class CommunityContentBehavior extends \CActiveRecordBehavior {
         return $newPost->save();
     }
 
-    protected function render($file, $data) {
+    protected function render($file, $data)
+    {
         $file = \Yii::getPathOfAlias($file) . '.php';
-        if (\Yii::app() instanceof \CConsoleApplication) {
+        if (\Yii::app() instanceof \CConsoleApplication)
+        {
             return \Yii::app()->command->renderFile($file, $data, true);
-        } else {
+        } else
+        {
             return \Yii::app()->controller->renderInternal($file, $data, true);
         }
     }

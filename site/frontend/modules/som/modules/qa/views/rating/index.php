@@ -13,10 +13,11 @@ $this->widget('zii.widgets.CMenu', array(
         'class' => 'filter-menu',
     ),
     'itemCssClass' => 'filter-menu_item',
-    'items' => array_map(function($periodData, $periodId) {
+    'items' => array_map(function($periodData, $periodId)
+    {
         return array(
             'label' => $periodData['label'],
-            'url' => ($periodId == 'day') ? array('/som/qa/rating/index') : array('/som/qa/rating/index', 'period' => $periodId),
+            'url' => array('/som/qa/rating/index', 'period' => $periodId),
             'linkOptions' => array('class' => 'filter-menu_item_link'),
             'active' => Yii::app()->request->getQuery('period') == $periodId,
         );

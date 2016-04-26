@@ -96,8 +96,8 @@ return array(
 
 
         // рейтинг
-        'questions/rating/<period:(week|all)>/page<page:\d+>' => 'som/qa/rating/index',
-        'questions/rating/<period:(week|all)>' => 'som/qa/rating/index',
+        'questions/rating/<period:(day|week|all)>/page<page:\d+>' => 'som/qa/rating/index',
+        'questions/rating/<period:(day|week|all)>' => 'som/qa/rating/index',
         'questions/rating/page<page:\d+>' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'all')),
         'questions/rating' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'all')),
 

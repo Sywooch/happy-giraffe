@@ -44,17 +44,26 @@
             <div class="article-anonce_t">
                 <?php
                     /* Ограничиваем длину заголовка с добавлением "..." */ 
+                    /* Только для маленьких окон */
                     
                     $title = $this->model->title;
-                    
-                    $maxTitleLength = 62;
-                    $titleLength = mb_strlen($title);
-                    
-                    if ($titleLength > $maxTitleLength)
-                    {
-                        echo mb_substr($title, 0, $maxTitleLength) . ' ...';
+                
+                    if ($this->size != $this::SIZE_BIG)
+                    {                        
+                        $titleLength = mb_strlen($title);
+                        
+                        if ($titleLength > $this::MAX_TITLE_LENGTH)
+                        {   
+                            $cropLength = $this::MAX_TITLE_LENGTH - 4;
+                            
+                            echo mb_substr($title, 0, $cropLength) . ' ...';
+                        }
+                        else 
+                        {
+                            echo $title;
+                        }
                     }
-                    else 
+                    else
                     {
                         echo $title;
                     }        

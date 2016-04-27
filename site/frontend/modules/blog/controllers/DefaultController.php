@@ -295,6 +295,17 @@ class DefaultController extends HController
 
     public function actionSave($id = null)
     {
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
+        $formKey = $_POST['formKey'];
+        if (($en = $formSendControl->getEntity($formKey)) != null)
+        {
+            $model = CommunityContent::model()->findByPk($en['entityId']);
+            if (isset($_POST['redirect']))
+                $this->redirect($_POST['redirect']);
+            else
+                $this->redirect($model->url);
+        }
+        
         $model = ($id === null) ? new BlogContent() : BlogContent::model()->findByPk($id);
         $new = $model->isNewRecord;
         if (! $new && ! $model->canEdit())
@@ -319,6 +330,7 @@ class DefaultController extends HController
         }
         
         if ($success) {
+            $formSendControl->setEntity($formKey, $model->entity, $model->id);
             if (isset($_POST['redirect']))
                 $this->redirect($_POST['redirect']);
             else

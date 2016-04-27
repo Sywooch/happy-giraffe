@@ -19,6 +19,7 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
 
 <?php if (isset($_GET['redirect'])) echo CHtml::hiddenField('redirect', $_GET['redirect']) ?>
 <?=$form->hiddenField($model, 'type_id')?>
+<input type="hidden" name="formKey" value="<?= \site\frontend\components\FormDepartmentModelsControl::getInstance()->createNewFormKey() ?>">
 
 <div id="popup-user-add-status" class="b-settings-blue b-settings-blue__status">
 

@@ -2,8 +2,10 @@
 
 class DefaultController extends HController
 {
+
     public $layout = '//layouts/community';
     public $breadcrumbs = false;
+
     /**
      * @var CommunityClub
      */
@@ -15,7 +17,8 @@ class DefaultController extends HController
     {
         $filters = array();
 
-        if (Yii::app()->user->isGuest) {
+        if (Yii::app()->user->isGuest)
+        {
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,
@@ -49,9 +52,11 @@ class DefaultController extends HController
         if ($this->club)
             Yii::app()->user->setState('last_club_id', $this->club->id);
 
-        if (Yii::app()->user->isGuest && $this->club) {
+        if (Yii::app()->user->isGuest && $this->club)
+        {
             $clubs = Yii::app()->user->getState('visitedClubs', array());
-            if (array_search($this->club->id, $clubs) === false) {
+            if (array_search($this->club->id, $clubs) === false)
+            {
                 $clubs[] = $this->club->id;
                 Yii::app()->user->setState('visitedClubs', $clubs);
             }
@@ -103,13 +108,15 @@ class DefaultController extends HController
         $this->layout = ($forum_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/forum';
         $this->rubric_id = $rubric_id;
 
-        if ($forum_id != Community::COMMUNITY_NEWS) {
+        if ($forum_id != Community::COMMUNITY_NEWS)
+        {
             $this->breadcrumbs = array(
                 $this->club->section->title => $this->club->section->getUrl(),
                 $this->club->title => $this->club->getUrl()
             );
             $forumTitle = (isset($this->club->communities) && count($this->club->communities) > 1) ? $this->forum->title : 'Форум';
-            if ($rubric_id !== null) {
+            if ($rubric_id !== null)
+            {
                 $rubric = CommunityRubric::model()->findByPk($rubric_id);
                 if ($rubric === null)
                     throw new CHttpException(404);
@@ -118,9 +125,11 @@ class DefaultController extends HController
                     $forumTitle => $this->forum->getUrl(),
                     $rubric->title,
                 );
-            } else
+            }
+            else
                 $this->breadcrumbs[] = $forumTitle;
-        } else {
+        } else
+        {
             $this->breadcrumbs = array(
                 'Новости',
             );
@@ -143,9 +152,9 @@ class DefaultController extends HController
         $content = $this->loadContent($content_id, $content_type_slug);
         if ($content->type_id == 1)
             $content
-                ->getContent()
-                ->forEdit
-                ->text;
+                            ->getContent()
+                    ->forEdit
+                    ->text;
         NoindexHelper::setNoIndex($content);
 
         if ($content->contestWork !== null)
@@ -154,7 +163,8 @@ class DefaultController extends HController
         $this->pageTitle = $content->title;
         $this->rubric_id = $content->rubric_id;
 
-        if ($forum_id != Community::COMMUNITY_NEWS) {
+        if ($forum_id != Community::COMMUNITY_NEWS)
+        {
             $this->breadcrumbs = array(
                 $this->club->section->title => $this->club->section->getUrl(),
                 $this->club->title => $this->club->getUrl(),
@@ -162,17 +172,20 @@ class DefaultController extends HController
                 $content->rubric->title => $content->rubric->getUrl(),
                 $content->title,
             );
-        } else {
+        }
+        else
+        {
             $this->breadcrumbs = array(
-                'Новости'  => $this->forum->getUrl(),
+                'Новости' => $this->forum->getUrl(),
                 $content->title,
             );
         }
 
-        if (!Yii::app()->user->isGuest) {
+        if (!Yii::app()->user->isGuest)
+        {
             UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
         }
-        
+
         // Поставим флаг, что бы для найденных сущностей прочитались сигналы
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
         \Yii::log("checkView", 'info', 'postview');
@@ -187,7 +200,7 @@ class DefaultController extends HController
         // Закрываем страницу с сервисами.
         throw new CHttpException(404);
         $this->loadClub($club);
-        $this->pageTitle = $this->club->title.' - Сервисы';
+        $this->pageTitle = $this->club->title . ' - Сервисы';
         $this->breadcrumbs = array(
             $this->club->section->title => $this->club->section->getUrl(),
             $this->club->title => $this->club->getUrl(),
@@ -208,24 +221,39 @@ class DefaultController extends HController
 
     public function actionSave($id = null)
     {
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
+        $formKey = $_POST['formKey'];
+        if (($en = $formSendControl->getEntity($formKey)) != null)
+        {
+            $model = CommunityContent::model()->findByPk($en['entityId']);
+            if (isset($_POST['redirect']))
+                $this->redirect($_POST['redirect']);
+            else
+                $this->redirect($model->url);
+        }
         $contest_id = Yii::app()->request->getPost('contest_id');
         $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
         $new = $model->isNewRecord;
-        if (! $new && ! $model->canEdit())
+        if (!$new && !$model->canEdit())
             throw new CHttpException(403);
         $model->scenario = 'default_club';
         $model->attributes = $_POST['CommunityContent'];
         if ($id === null)
+        {
             $model->author_id = Yii::app()->user->id;
+        }
         $slug = $model->type->slug;
         $slaveModelName = 'Community' . ucfirst($slug);
         $slaveModel = ($id === null) ? new $slaveModelName() : $model->content;
         $slaveModel->attributes = $_POST[$slaveModelName];
         if ($contest_id !== null)
+        {
             $slaveModel->isContestWork = true;
+        }
         $this->performAjaxValidation(array($model, $slaveModel));
         $model->$slug = $slaveModel;
-        if ($contest_id !== null) {
+        if ($contest_id !== null)
+        {
             $contestWork = new CommunityContestWork();
             $contestWork->contest_id = $contest_id;
             $model->contestWork = $contestWork;
@@ -235,19 +263,25 @@ class DefaultController extends HController
             ));
         }
         else
+        {
             $success = $model->withRelated->save(true, array($slug));
+        }
 
         // Небольшой костыль для не сконвертированных постов
-        if($new) {
+        if ($new)
+        {
             Yii::app()->user->setState('newPost' . $model->id, true);
         }
-        
-        if ($success) {
+
+        if ($success)
+        {
+            $formSendControl->setEntity($formKey, $model->entity, $model->id);
             if (isset($_POST['redirect']))
                 $this->redirect($_POST['redirect']);
             else
                 $this->redirect($model->url);
-        } else {
+        } else
+        {
             echo 'Root:<br />';
             var_dump($model->getErrors());
             echo 'Slave:<br />';
@@ -261,14 +295,14 @@ class DefaultController extends HController
 
         $this->performAjaxValidation($model);
 
-        if (isset($_POST['CommunityQuestionForm'])) {
+        if (isset($_POST['CommunityQuestionForm']))
+        {
             $model->attributes = $_POST['CommunityQuestionForm'];
             if ($model->validate() && $model->save())
                 $this->redirect($model->post->url);
         }
 
 //        print_r($model->errors);
-
 //        if (Yii::app()->user->isGuest) {
 //            $user = new User('signupQuestion');
 //            $user->attributes = $_POST['User'];
@@ -305,10 +339,11 @@ class DefaultController extends HController
             throw new CHttpException(404);
 
         $title = $content->gallery->widget === null ? $content->title : $content->gallery->widget->title;
-        $photos = array_map(function($item) {
+        $photos = array_map(function($item)
+        {
             return array(
                 'id' => $item->id,
-                'url' =>  $item->photo->getPreviewUrl(480, 250),
+                'url' => $item->photo->getPreviewUrl(480, 250),
             );
         }, $content->gallery->items);
         $checkedPhoto = $content->gallery->widget === null ? null : $content->gallery->widget->item->id;
@@ -323,13 +358,15 @@ class DefaultController extends HController
     public function actionPhotoWidgetSave()
     {
         $widgetId = Yii::app()->request->getPost('widgetId');
-        if ($widgetId === null) {
+        if ($widgetId === null)
+        {
             $contentId = Yii::app()->request->getPost('contentId');
             $content = CommunityContent::model()->findByPk($contentId);
             $widget = new CommunityContentGalleryWidget();
             $widget->gallery_id = $content->gallery->id;
             $widget->club_id = $content->rubric->community->club_id;
-        } else
+        }
+        else
             $widget = CommunityContentGalleryWidget::model()->findByPk($widgetId);
         $widget->hidden = (int) CJSON::decode(Yii::app()->request->getPost('hidden'));
         $widget->item_id = Yii::app()->request->getPost('item_id');
@@ -342,7 +379,7 @@ class DefaultController extends HController
 
     public function actionClubFavourites($clubId, $type = null)
     {
-        if (Yii::app()->user->isGuest || Yii::app()->user->model->group == UserGroup::USER || ! Yii::app()->user->model->checkAuthItem('clubFavourites'))
+        if (Yii::app()->user->isGuest || Yii::app()->user->model->group == UserGroup::USER || !Yii::app()->user->model->checkAuthItem('clubFavourites'))
             throw new CHttpException(404);
 
         $this->club = CommunityClub::model()->findByPk($clubId);
@@ -357,7 +394,7 @@ class DefaultController extends HController
 
     public function actionClubPhotoPosts($clubId)
     {
-        if (Yii::app()->user->isGuest || Yii::app()->user->model->group == UserGroup::USER || ! Yii::app()->user->model->checkAuthItem('clubFavourites'))
+        if (Yii::app()->user->isGuest || Yii::app()->user->model->group == UserGroup::USER || !Yii::app()->user->model->checkAuthItem('clubFavourites'))
             throw new CHttpException(404);
 
         $this->club = CommunityClub::model()->findByPk($clubId);
@@ -372,7 +409,8 @@ class DefaultController extends HController
 
     protected function performAjaxValidation($models)
     {
-        if (isset($_POST['ajax']) && in_array($_POST['ajax'], array('blog-form', 'question-form'), true)) {
+        if (isset($_POST['ajax']) && in_array($_POST['ajax'], array('blog-form', 'question-form'), true))
+        {
             echo CActiveForm::validate($models);
             Yii::app()->end();
         }
@@ -393,7 +431,8 @@ class DefaultController extends HController
         if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video', 'photoPost', 'question')))
             throw new CHttpException(404, 'Страницы не существует');
 
-        if ($this->forum !== null && $this->forum->id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
+        if ($this->forum !== null && $this->forum->id != $content->rubric->community->id || $content_type_slug != $content->type->slug)
+        {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $content->url);
             Yii::app()->end();
@@ -447,12 +486,11 @@ class DefaultController extends HController
     public function getUrl($overwrite = array(), $route = '/community/default/forum')
     {
         $params = array_filter(CMap::mergeArray(
-            array(
-                'forum_id' => $this->forum->id,
-                'rubric_id' => isset($this->actionParams['rubric_id']) ? $this->actionParams['rubric_id'] : null,
-                'content_type_slug' => isset($this->actionParams['content_type_slug']) ? $this->actionParams['content_type_slug'] : null,
-            ),
-            $overwrite
+                        array(
+                    'forum_id' => $this->forum->id,
+                    'rubric_id' => isset($this->actionParams['rubric_id']) ? $this->actionParams['rubric_id'] : null,
+                    'content_type_slug' => isset($this->actionParams['content_type_slug']) ? $this->actionParams['content_type_slug'] : null,
+                        ), $overwrite
         ));
 
         return $this->createUrl($route, $params);
@@ -461,18 +499,19 @@ class DefaultController extends HController
     public function sitemapView($param)
     {
         $models = Yii::app()->db->createCommand()
-            ->select('c.id, c.created, c.updated, r.community_id, ct.slug')
-            ->from('community__contents c')
-            ->join('community__rubrics r', 'c.rubric_id = r.id')
-            ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.community_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
-            ->limit(50000)
-            ->offset(($param - 1) * 50000)
-            ->order('c.id ASC')
-            ->queryAll();
+                ->select('c.id, c.created, c.updated, r.community_id, ct.slug')
+                ->from('community__contents c')
+                ->join('community__rubrics r', 'c.rubric_id = r.id')
+                ->join('community__content_types ct', 'c.type_id = ct.id')
+                ->where('r.community_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
+                ->limit(50000)
+                ->offset(($param - 1) * 50000)
+                ->order('c.id ASC')
+                ->queryAll();
 
         $data = array();
-        foreach ($models as $model) {
+        foreach ($models as $model)
+        {
             $data[] = array(
                 'params' => array(
                     'content_id' => $model['id'],
@@ -495,4 +534,5 @@ class DefaultController extends HController
         $this->layout = '//layouts/news';
         $this->render('contacts');
     }
+
 }

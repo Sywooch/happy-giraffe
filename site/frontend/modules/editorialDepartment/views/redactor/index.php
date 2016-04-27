@@ -32,7 +32,17 @@ $communityContent = CommunityContent::model()->findByPk($model->entityId); // н
 <?=$form->textarea($model, 'htmlTextPreview',  array('id' => 'htmlTextPreview', 'class' => 'display-n')) ?>
 <?=$form->textarea($model, 'markDown',  array('id' => 'markDown', 'class' => 'display-n')) ?>
 <?=$form->textarea($model, 'htmlText',  array('id' => 'htmlText', 'class' => 'display-n')) ?>
-<h1 class="heading-xl margin-b30">Добавление статьи</h1>
+<?php if ($model->entityId === null)
+            {
+                ?>
+                <h1 class="heading-xl margin-b30">Добавление статьи</h1>
+            <?php
+            }
+            else
+            {
+                ?>
+                <h1 class="heading-xl margin-b30">Редактирование статьи</h1>
+<?php } ?>
 <?php if ($forum->club): ?>
 <div class="postAdd_row">
     <div class="postAdd_count">1</div>
@@ -146,6 +156,7 @@ $communityContent = CommunityContent::model()->findByPk($model->entityId); // н
 
 
 <?=$form->hiddenField($model, 'social[image]') ?>
+<input type="hidden" name="formKey" value="<?= $formKey ?>">
 
 <div class="postAdd_row">
     <div class="postAdd_count"></div>

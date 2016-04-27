@@ -6,6 +6,8 @@
 
 namespace site\frontend\modules\ads\components\creatives;
 
+use site\frontend\modules\som\modules\community\models\api\CommunityClub;
+
 \Yii::import('site.frontend.vendor.simplehtmldom_1_5.*');
 require_once('simple_html_dom.php');
 
@@ -78,11 +80,7 @@ class PostCreative extends BaseCreative
         if ($originEntity !== null) {
             return $originEntity->rubric->community->club;
         }
-        if (preg_match('#community\/(\d+)#', $this->model->url, $matches)) {
-            $forumId = $matches[1];
-            $forum = \Community::model()->findByPk($forumId);
-            return $forum->club;
-        }
-
+        $a = CommunityClub::getClub($this->model->labelsArray);
+        return $a;
     }
 }

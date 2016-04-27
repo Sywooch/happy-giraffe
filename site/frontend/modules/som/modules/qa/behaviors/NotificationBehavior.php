@@ -29,7 +29,9 @@ class NotificationBehavior extends BaseBehavior
             $signals = Notification::model()->byEntity($question)->findAll();
 
             foreach ($signals as &$signal) {
-                if ($this->removeEntity($signal->readEntities, $this->owner) || $this->removeEntity($signal->unreadEntities, $this->owner)) {
+                $readEntityDeleted = $signal->readEntities && $this->removeEntity($signal->readEntities, $this->owner);
+                $unreadEntityDeleted = $signal->unreadEntities && $this->removeEntity($signal->unreadEntities, $this->owner);
+                if ($readEntityDeleted || $unreadEntityDeleted) {
                     if ((count($signal->readEntities) + count($signal->unreadEntities)) == 0) {
                         $signal->delete();
                     } else {

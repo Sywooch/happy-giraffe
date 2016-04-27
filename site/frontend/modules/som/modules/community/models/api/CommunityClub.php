@@ -22,6 +22,7 @@ class CommunityClub extends \site\frontend\components\api\models\ApiModel
             'id',
             'title',
             'url',
+            'section_id',
         );
     }
 

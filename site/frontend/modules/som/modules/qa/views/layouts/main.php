@@ -6,11 +6,21 @@
  */
 $this->beginContent('//layouts/lite/main');
 $this->renderSidebarClip();
-?>
 
+$parentTitle = 'Вопрос-ответ';
+
+if ($this->pageTitle !== $parentTitle) 
+{   
+    $title = 'Ответы';
+    
+    $this->breadcrumbs[$title] = $this->createUrl('/questions'); 
+    $this->breadcrumbs[] = $this->pageTitle;
+}
+
+?>
     <div class="b-main clearfix">
         <div class="b-main_cont">
-            <div class="heading-link-xxl"> Вопрос-ответ</div>
+            <div class="heading-link-xxl"><?php echo $this->pageTitle; ?></div>
             <div class="b-main_col-article">
                 <?=$content?>
             </div>

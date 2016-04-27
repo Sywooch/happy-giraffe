@@ -29,14 +29,19 @@ class AnimatedGifFilter implements FilterInterface
         $layers = $image->layers();
         $layers->coalesce();
         $layersCount = $layers->count();
-        $newLayers = array();
+        $newLayers = array();  
+
         for ($i = $layersCount; $i > 0; $i--) {
-            array_unshift($newLayers, $this->filter->apply($layers[$i]));
-            unset($layers[$i]);
+            $index = $i - 1;
+            
+            array_unshift($newLayers, $this->filter->apply($layers[$index]));
+            unset($layers[$index]);
         }
+   
         foreach ($newLayers as $layer) {
             $layers->add($layer);
         }
+        
         return $image;
     }
 } 

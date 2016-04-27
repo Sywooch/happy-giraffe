@@ -22,6 +22,7 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
 )); ?>
 
 <?=$form->hiddenField($model, 'type_id')?>
+<input type="hidden" name="formKey" value="<?= \site\frontend\components\FormDepartmentModelsControl::getInstance()->createNewFormKey() ?>">
 
 <div id="popup-user-add-article" class="b-settings-blue b-settings-blue__article">
     <?php if ($model->isNewRecord): ?>

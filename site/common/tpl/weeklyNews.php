@@ -11,6 +11,7 @@ require_once('simple_html_dom.php');
     <tbody><tr>
         <?php foreach ($models as $model): ?>
 
+
         <?php if ($model instanceof \site\frontend\modules\posts\models\Content): $adapter = new \site\frontend\modules\posts\components\MailAdapter($model); $commentsWidget = $adapter->getComments(); ?>
 
             <?php if ($model->authorId == 450668): ?>

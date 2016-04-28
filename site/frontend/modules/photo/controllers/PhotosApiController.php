@@ -54,33 +54,15 @@ class PhotosApiController extends ApiController
 
     public function actionUploadByUrl($url = false, $collectionId = null)
     {
-        /**
-         * пришлось вставить костыль из за связанности с мобильным апи через
-         * который приходит этот запрос и которым мы не 
-         */
-        //$ar = array_keys($this->getActionParams());
-        $ar = array_keys($_POST);
-        if (isset($ar[0]))
-        {
-            $var = \CJSON::decode($ar[0]);
-            if (isset($var['url']))
-            {
-                $url = $var['url'];
-            }
-            else
-            {
-                throw new \CHttpException(403, 'Не указан url');
-            }
-        }
+        $params = parent::getActionParams();
 
-
-        if (!\Yii::app()->user->checkAccess('uploadPhoto'))
+        if (!\Yii::app()->user->checkAccess('uploadPhoto') || !isset($params['url']))
         {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
         $form = new ByUrlUploadForm($this->getCollection($collectionId));
-        $form->url = $url;
+        $form->url = $params['url'];
         $this->success = $form->save();
         $this->data = $form;
     }

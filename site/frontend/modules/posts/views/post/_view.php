@@ -42,7 +42,8 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
             <div class="b-article_cont-tale"></div>
             <div class="b-article_header clearfix">
                 <div class="float-l">
-                    <?php $this->renderPartial('site.frontend.modules.posts.views._author', array('post' => $this->post)); ?>
+                    <?php $this->widget('site\frontend\modules\posts\widgets\author\AuthorWidget', array('post' => $this->post)); ?>
+                    <?=HHtml::timeTag($this->post, array('class' => 'tx-date'), null)?>
                 </div>
                 <div class="icons-meta"><a href="<?=$this->post->commentsUrl?>" class="icons-meta_comment"><span class="icons-meta_tx"><?=$comments->count?></span></a>
                     <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>

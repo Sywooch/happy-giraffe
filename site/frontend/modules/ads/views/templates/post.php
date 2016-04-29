@@ -6,7 +6,6 @@
 <!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,10 +52,8 @@
                         $titleLength = mb_strlen($title);
                         
                         if ($titleLength > $this::MAX_TITLE_LENGTH)
-                        {   
-                            $cropLength = $this::MAX_TITLE_LENGTH - 4;
-                            
-                            echo mb_substr($title, 0, $cropLength) . ' ...';
+                        { 
+                            echo mb_substr($title, 0, $this::MAX_TITLE_LENGTH) . ' ...';
                         }
                         else 
                         {

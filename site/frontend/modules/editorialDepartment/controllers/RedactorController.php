@@ -22,7 +22,14 @@ class RedactorController extends \LiteController
         $model->clubId = \Community::model()->findByPk($forumId)->club_id;
         $model->label = Label::LABEL_FORUMS;
 
-        if (isset($_POST['Content'])) {
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
+        if (isset($_POST['Content']))
+        {
+            $formKey = $_POST['formKey'];
+            if (($en = $formSendControl->getEntity($formKey)) != null)
+            {
+                $this->redirect(array('edit', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
+            }
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -30,17 +37,21 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
+                $formSendControl->setEntity($formKey, $model->entity, $model->entityId);
                 $this->redirect(array('edit', 'entity' => $model->entity, 'entityId' => $model->entityId));
+            }
         }
-
-        $this->render('index', array('model' => $model));
+        $formKey = $formSendControl->createNewFormKey();
+        $this->render('index', array('model' => $model, 'formKey' => $formKey));
     }
 
     public function actionEdit($entity, $entityId)
     {
         $model = $this->getModel($entity, $entityId);
         $model->scenario = 'forums';
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -48,10 +59,12 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->refresh();
+            }
         }
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', array('model' => $model, 'formKey' => null));
     }
 
     public function actionBuzz()
@@ -61,7 +74,14 @@ class RedactorController extends \LiteController
         $model->authorId = \Yii::app()->user->id;
         $model->label = Label::LABEL_BUZZ;
 
-        if (isset($_POST['Content'])) {
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
+        if (isset($_POST['Content']))
+        {
+            $formKey = $_POST['formKey'];
+            if (($en = $formSendControl->getEntity($formKey)) != null)
+            {
+                $this->redirect(array('editBuzz', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
+            }
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -69,17 +89,21 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
+                $formSendControl->setEntity($formKey, $model->entity, $model->entityId);
                 $this->redirect(array('editBuzz', 'entity' => $model->entity, 'entityId' => $model->entityId));
+            }
         }
-
-        $this->render('buzz', array('model' => $model));
+        $formKey = $formSendControl->createNewFormKey();
+        $this->render('buzz', array('model' => $model, 'formKey' => $formKey));
     }
 
     public function actionEditBuzz($entity, $entityId)
     {
         $model = $this->getModel($entity, $entityId);
         $model->scenario = 'buzz';
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -87,10 +111,12 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->refresh();
+            }
         }
 
-        $this->render('buzz', array('model' => $model));
+        $this->render('buzz', array('model' => $model, 'formKey' => null));
     }
 
     public function actionNews()
@@ -100,7 +126,14 @@ class RedactorController extends \LiteController
         $model->authorId = \Yii::app()->user->id;
         $model->label = Label::LABEL_NEWS;
 
-        if (isset($_POST['Content'])) {
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
+        if (isset($_POST['Content']))
+        {
+            $formKey = $_POST['formKey'];
+            if (($en = $formSendControl->getEntity($formKey)) != null)
+            {
+                $this->redirect(array('editNews', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
+            }
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -108,17 +141,21 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
+                $formSendControl->setEntity($formKey, $model->entity, $model->entityId);
                 $this->redirect(array('editNews', 'entity' => $model->entity, 'entityId' => $model->entityId));
+            }
         }
-
-        $this->render('news', array('model' => $model));
+        $formKey = $formSendControl->createNewFormKey();
+        $this->render('news', array('model' => $model, 'formKey' => $formKey));
     }
 
     public function actionEditNews($entity, $entityId)
     {
         $model = $this->getModel($entity, $entityId);
         $model->scenario = 'news';
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -126,10 +163,12 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->refresh();
+            }
         }
 
-        $this->render('news', array('model' => $model));
+        $this->render('news', array('model' => $model, 'formKey' => null));
     }
 
     public function actionBlog()
@@ -137,7 +176,14 @@ class RedactorController extends \LiteController
         $model = new departmentModels\Content('blog');
         $model->authorId = \Yii::app()->user->id;
 
-        if (isset($_POST['Content'])) {
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
+        if (isset($_POST['Content']))
+        {
+            $formKey = $_POST['formKey'];
+            if (($en = $formSendControl->getEntity($formKey)) != null)
+            {
+                $this->redirect(array('editBlog', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
+            }
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -145,17 +191,21 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
+                $formSendControl->setEntity($formKey, $model->entity, $model->entityId);
                 $this->redirect(array('editBlog', 'entity' => $model->entity, 'entityId' => $model->entityId));
+            }
         }
-
-        $this->render('blog', array('model' => $model));
+        $formKey = $formSendControl->createNewFormKey();
+        $this->render('blog', array('model' => $model, 'formKey' => $formKey));
     }
 
     public function actionEditBlog($entity, $entityId)
     {
         $model = $this->getModel($entity, $entityId);
         $model->scenario = 'blog';
-        if (isset($_POST['Content'])) {
+        if (isset($_POST['Content']))
+        {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -163,10 +213,12 @@ class RedactorController extends \LiteController
             $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
             $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
+            {
                 $this->refresh();
+            }
         }
 
-        $this->render('blog', array('model' => $model));
+        $this->render('blog', array('model' => $model, 'formKey' => null));
     }
 
     public function actionUrlForEdit($entity = 'CommunityContent', $entityId)
@@ -190,7 +242,7 @@ class RedactorController extends \LiteController
             throw new \CHttpException(404);
         if ($model->authorId != \Yii::app()->user->id)
             throw new \CHttpException(403);
-        
+
         return $model;
     }
 

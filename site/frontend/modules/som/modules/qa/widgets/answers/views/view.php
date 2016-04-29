@@ -15,17 +15,21 @@
 </div>
 <div class="clearfix"></div>
 
-<div class="answers">
-    <div class="answers_heading">Лучший ответ</div>
-    <ul class="answers-list best-answer">
-        <?php foreach ($bestAnswers as $data): ?>
-            <?php $this->controller->renderPartial('/_answer', array('data' => $data)); ?>
-        <?php endforeach; ?>
-    </ul>
-    <div class="answers_heading">Ответы:<span><?=count($otherAnswers)?></span></div>
-    <ul class="answers-list all-answers">
-        <?php foreach ($otherAnswers as $data): ?>
-            <?php $this->controller->renderPartial('/_answer', compact('data')); ?>
-        <?php endforeach; ?>
-    </ul>
-</div>
+<?php if (count($otherAnswers) > 0)
+{
+    ?>
+    <div class="answers">
+        <div class="answers_heading">Лучший ответ</div>
+        <ul class="answers-list best-answer">
+            <?php foreach ($bestAnswers as $data): ?>
+                <?php $this->controller->renderPartial('/_answer', array('data' => $data)); ?>
+    <?php endforeach; ?>
+        </ul>
+        <div class="answers_heading">Ответы:<span><?= count($otherAnswers) ?></span></div>
+        <ul class="answers-list all-answers">
+            <?php foreach ($otherAnswers as $data): ?>
+                <?php $this->controller->renderPartial('/_answer', compact('data')); ?>
+    <?php endforeach; ?>
+        </ul>
+    </div>
+<?php } ?>

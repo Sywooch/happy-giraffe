@@ -31,3 +31,6 @@
 [submodule "site/frontend/modules/api/modules/v1_6"]
 	path = site/frontend/modules/api/modules/v1_6
 	url = https://github.com/beknown/HGApi.git
+[submodule "site/frontend/modules/api/modules/v1_7"]
+	path = site/frontend/modules/api/modules/v1_7
+	url = https://github.com/beknown/HGApi.git

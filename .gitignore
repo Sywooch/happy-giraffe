@@ -76,3 +76,7 @@ Session.vim
 /site/frontend/modules/notifications/models~old/NotificationReposts.php
 /site/frontend/modules/notifications/models~old/NotificationSummary.php
 /site/frontend/modules/notifications/models~old/NotificationUserContentComment.php
+/site/console/command_info.txt
+/site/test.php
+/site/yiic.php
+/site/frontend/test.html

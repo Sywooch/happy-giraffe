@@ -6,7 +6,6 @@
 <!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +40,31 @@
         </div>
         <div class="article-anonce_bottom">
             <div class="article-anonce_tag"><?=$this->getClubTitle()?></div>
-            <div class="article-anonce_t"><?=$this->model->title?>
+            <div class="article-anonce_t">
+                <?php
+                    /* Ограничиваем длину заголовка с добавлением "..." */ 
+                    /* Только для маленьких окон */
+                    
+                    $title = $this->model->title;
+                
+                    if ($this->size != $this::SIZE_BIG)
+                    {                        
+                        $titleLength = mb_strlen($title);
+                        
+                        if ($titleLength > $this::MAX_TITLE_LENGTH)
+                        { 
+                            echo mb_substr($title, 0, $this::MAX_TITLE_LENGTH) . ' ...';
+                        }
+                        else 
+                        {
+                            echo $title;
+                        }
+                    }
+                    else
+                    {
+                        echo $title;
+                    }        
+                ?>
             </div>
         </div>
     </a>

@@ -6,6 +6,8 @@ nbproject/
 nbactions.xml
 nb-configuration.xml
 
+/yii/
+
 *.pydevproject
 .project
 .metadata

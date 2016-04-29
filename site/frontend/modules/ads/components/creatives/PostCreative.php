@@ -14,7 +14,7 @@ class PostCreative extends BaseCreative
     const SIZE_SMALL = 'small';
     const SIZE_BIG = 'big';
     
-    const MAX_TITLE_LENGTH = 66;
+    const MAX_TITLE_LENGTH = 55;
 
     public $modelClass = 'site\frontend\modules\posts\models\Content';
     public $size;

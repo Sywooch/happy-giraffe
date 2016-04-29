@@ -12,7 +12,7 @@ class UsersControl extends \CComponent
 
     public static function getUsersList()
     {
-        return array(\Yii::app()->user->id);
+        return array(\Yii::app()->user->id, 455993); // @todo Сделать роль для супермодератора, убрать хардкод
     }
 
 }

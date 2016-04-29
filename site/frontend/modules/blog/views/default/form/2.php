@@ -23,6 +23,7 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
 )); ?>
 
 <?=$form->hiddenField($model, 'type_id')?>
+<input type="hidden" name="formKey" value="<?= \site\frontend\components\FormDepartmentModelsControl::getInstance()->createNewFormKey() ?>">
 
 <div id="popup-user-add-video" class="b-settings-blue b-settings-blue__video">
     <?php if ($model->isNewRecord): ?>

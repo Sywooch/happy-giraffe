@@ -34,7 +34,7 @@ require_once('simple_html_dom.php');
                                 </div>
                                 <div style="margin-bottom:5px">
                                     <a href="http://www.parents.ru/article/zachem-nashim-detyam-golos/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=golos" style="text-decoration:none" target="_blank">
-                                        <img src="http://www.happy-giraffe.ru/mail/headline7.jpg" width="318" border="0" style="display:block" class="CToWUd">
+                                        <img src="http://www.happy-giraffe.ru/mail/headline8.jpg" width="318" border="0" style="display:block" class="CToWUd">
                                     </a>
                                 </div>
 

@@ -3,15 +3,24 @@
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
+
 $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $question->categoryId), 'rating');
+
 $this->pageTitle = CHtml::encode($question->title);
+
 $this->breadcrumbs['Ответы'] = array('/som/qa/default/index');
-if ($question->consultationId !== null) {
+
+if ($question->consultationId !== null) 
+{
     $this->breadcrumbs[$question->consultation->title] = array('/som/qa/consultation/index/', 'consultationId' => $question->consultation->id);
-} elseif ($question->categoryId !== null) {
+} 
+elseif ($question->categoryId !== null) 
+{
     $this->breadcrumbs[$question->category->title] = array('/som/qa/default/index/', 'categoryId' => $question->category->id);
 }
-$this->breadcrumbs[] = $question->title;
+
+// $this->breadcrumbs[] = $question->title;
+
 ?>
 
 <div class="question">

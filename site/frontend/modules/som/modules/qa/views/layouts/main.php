@@ -20,7 +20,13 @@ if ($this->pageTitle !== $parentTitle)
 ?>
     <div class="b-main clearfix">
         <div class="b-main_cont">
-            <div class="heading-link-xxl"><?php echo $this->pageTitle; ?></div>
+            
+            <?php if (FALSE === $this->isQuestion): ?>
+                
+                <div class="heading-link-xxl"><?php echo $this->pageTitle; ?></div>
+           
+            <?php endif; ?>
+            
             <div class="b-main_col-article">
                 <?=$content?>
             </div>

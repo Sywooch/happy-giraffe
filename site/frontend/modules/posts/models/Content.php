@@ -541,6 +541,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     {
         $this->getDbCriteria()->compare('dtimePublication', '<' . $post->dtimePublication);
         $this->orderDesc();
+        $this->getDbCriteria()->limit = 1;
 
         return $this;
     }
@@ -554,6 +555,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     {
         $this->getDbCriteria()->compare('dtimePublication', '>' . $post->dtimePublication);
         $this->orderAsc();
+        $this->getDbCriteria()->limit = 1;
 
         return $this;
     }

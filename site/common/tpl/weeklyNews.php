@@ -11,7 +11,7 @@ require_once('simple_html_dom.php');
     <tbody><tr>
         <?php foreach ($models as $model): ?>
 
-        <?php if ($i == 1 && (date('Y-m-d') == '2016-05-05')): ?>
+        <?php if ($i == 1 && (date('Y-m-d') == '2016-05-12')): ?>
 
 
                         <td style="width:340px" valign="top">
@@ -29,24 +29,24 @@ require_once('simple_html_dom.php');
                                 </table>
                                 <div style="margin-bottom:10px">
 															                <span style="color:#0d81d5;font:normal 18px/20px arial,helvetica,sans-serif">
-															                    <a href="http://www.parents.ru/article/zachem-nashim-detyam-golos/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=golos" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block;" target="_blank">ЗАЧЕМ НАШИМ ДЕТЯМ «ГОЛОС»?</a>
+															                    <a href="http://www.parents.ru/article/pervyj-god-malysha-instrukcziya-dlya-roditelej/" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block;" target="_blank">ПЕРВЫЙ ГОД МАЛЫША: ИНСТРУКЦИЯ ДЛЯ РОДИТЕЛЕЙ</a>
 															                </span>
                                 </div>
                                 <div style="margin-bottom:5px">
-                                    <a href="http://www.parents.ru/article/zachem-nashim-detyam-golos/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=golos" style="text-decoration:none" target="_blank">
-                                        <img src="http://www.happy-giraffe.ru/mail/headline8.jpg" width="318" border="0" style="display:block" class="CToWUd">
+                                    <a href="http://www.parents.ru/article/pervyj-god-malysha-instrukcziya-dlya-roditelej/" style="text-decoration:none" target="_blank">
+                                        <img src="http://www.happy-giraffe.ru/mail/headline9.jpg" width="318" border="0" style="display:block" class="CToWUd">
                                     </a>
                                 </div>
 
                                 <div style="font:12px arial,helvetica,sans-serif;color:#fff; line-height: 17px; margin: 10px 0 0;">
-                                    Шоу «голос. Дети» на экране выглядит красиво и зрелищно. Но что скрывается за кулисами? Стоит ли детям участвовать в телевизионных конкурсах, и как это сказывается на их дальнейшей судьбе?
+                                    Организм малыша должен научиться защищать себя от неблагоприятного воздействия внешней среды, а также от вредных вирусов и бактерий. Как же помочь ему справиться с такой непростой задачей?
 
 
                                 </div>
                                 <table cellpadding="0" cellspacing="0" style="margin-top:10px">
                                     <tbody>
                                     <tr>
-                                        <a href="http://www.parents.ru/article/zachem-nashim-detyam-golos/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=golos" style="background: #fff; color: #E481BB; display: inline-block; padding: 5px 18px; text-align: center; border-radius: 3px; font-size: 14px;margin: 10px 0 0 0; text-decoration: none">Читать далее</a>
+                                        <a href="http://www.parents.ru/article/pervyj-god-malysha-instrukcziya-dlya-roditelej/" style="background: #fff; color: #E481BB; display: inline-block; padding: 5px 18px; text-align: center; border-radius: 3px; font-size: 14px;margin: 10px 0 0 0; text-decoration: none">Читать далее</a>
                                     </tr>
                                     </tbody>
                                 </table>

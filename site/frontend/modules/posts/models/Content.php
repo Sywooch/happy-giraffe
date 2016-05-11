@@ -3,6 +3,7 @@
 namespace site\frontend\modules\posts\models;
 
 use site\frontend\modules\comments\models\Comment;
+
 /**
  * This is the model class for table "post__contents".
  *
@@ -286,26 +287,33 @@ class Content extends \CActiveRecord implements \IHToJSON
         /** @todo убрать в поведение */
         $labels = $this->labelsArray;
         $oldLabels = $this->labelModels;
-        foreach ($oldLabels as $oldLabel) {
+        foreach ($oldLabels as $oldLabel)
+        {
             $i = array_search($oldLabel->text, $labels);
-            if ($i === false) {
+            if ($i === false)
+            {
                 // старого тега больше нет
                 Tag::model()->deleteByPk(array('labelId' => $oldLabel->id, 'contentId' => $this->id));
-            } else {
+            }
+            else
+            {
                 // тег уже есть
                 unset($labels[$i]);
             }
         }
         $ids = array();
 
-        foreach ($labels as $label) {
+        foreach ($labels as $label)
+        {
             $model = Label::model()->findByAttributes(array('text' => $label));
-            if (!$model) {
+            if (!$model)
+            {
                 $model = new Label();
                 $model->text = $label;
                 $model->save();
             }
-            if ($model->id && !isset($ids[$model->id])) {
+            if ($model->id && !isset($ids[$model->id]))
+            {
                 $tag = new Tag();
                 $tag->attributes = array('labelId' => $model->id, 'contentId' => $this->id);
                 $tag->save();
@@ -318,7 +326,8 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function getUser()
     {
-        if (is_null($this->_user)) {
+        if (is_null($this->_user))
+        {
             $this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
                 'id' => (int) $this->authorId,
                 'avatarSize' => \Avatar::SIZE_MEDIUM,
@@ -406,11 +415,13 @@ class Content extends \CActiveRecord implements \IHToJSON
             'oldRecipe',
         );
 
-        if (in_array($this->originService, $blogs)) {
+        if (in_array($this->originService, $blogs))
+        {
             return 'blog';
         }
 
-        if (in_array($this->originService, $community)) {
+        if (in_array($this->originService, $community))
+        {
             return 'community';
         }
 
@@ -510,7 +521,8 @@ class Content extends \CActiveRecord implements \IHToJSON
     public function byLabels($labels)
     {
         $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labels);
-        if (count($labels) != count($tags)) {
+        if (count($labels) != count($tags))
+        {
             $this->getDbCriteria()->addCondition('1=0');
             return $this;
         }
@@ -541,7 +553,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     {
         $this->getDbCriteria()->compare('dtimePublication', '<' . $post->dtimePublication);
         $this->orderDesc();
-
+        $this->getDbCriteria()->limit = 1;
         return $this;
     }
 
@@ -554,6 +566,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     {
         $this->getDbCriteria()->compare('dtimePublication', '>' . $post->dtimePublication);
         $this->orderAsc();
+        $this->getDbCriteria()->limit = 1;
 
         return $this;
     }

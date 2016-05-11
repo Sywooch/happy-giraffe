@@ -47,6 +47,13 @@ return array(
                 'height' => 450,
             ),
         ),
+        'smallPostTest' => array(
+            'lineId' => 348227529,
+            'size' => array(
+                'width' => 300,
+                'height' => 315,
+            ),
+        ),
     ),
     'components' => array(
         'dfp' => array(
@@ -67,6 +74,11 @@ return array(
                     'size' => 'big',
                 ),
                 'smallPost' => array(
+                    'class' => 'site\frontend\modules\ads\components\creatives\PostCreative',
+                    'template' => 'post',
+                    'size' => 'small',
+                ),
+                'smallPostTest' => array(
                     'class' => 'site\frontend\modules\ads\components\creatives\PostCreative',
                     'template' => 'post',
                     'size' => 'small',

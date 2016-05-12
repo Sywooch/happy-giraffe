@@ -545,6 +545,30 @@ class Content extends \CActiveRecord implements \IHToJSON
     }
 
     /**
+     * возвращает список последних постов по метке, в частности для форума
+     * @param int $labelId
+     * @param int $limit
+     * @return \site\frontend\modules\posts\models\Content
+     */
+    public function getLastByLabel($labelId, $limit)
+    {
+
+        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels(array($labelId));
+        if (sizeof($tags) == 0)
+        {
+            return [];
+        }
+        $this->getDbCriteria()->with = [];
+        $this->getDbCriteria()->having = '';
+        $this->getDbCriteria()->condition = '(`t`.`isRemoved`=0) AND id in (SELECT pt.contentId FROM post__tags AS pt WHERE pt.labelId=' . (int) $tags[0]
+                . ' ORDER BY pt.contentId desc'
+                . ')';
+        return $this->orderDesc()->findAll(array(
+                    'limit' => $limit
+        ));
+    }
+
+    /**
      * Создаёт критерй для выбора поста, стоящего с "лева" от переданого поста.
      * Из за некой специфики выборки, критерий представляет из себя 
      * выборку требуемого поста по id

@@ -64,6 +64,7 @@ class Content extends \CActiveRecord implements \IHToJSON
         'NewStatus' => 'site\frontend\modules\som\modules\status\models\Status',
         'AdvPost' => 'site\frontend\modules\posts\models\Content',
     );
+    protected $tagList = [];
 
     /**
      * @return string the associated database table name
@@ -508,7 +509,7 @@ class Content extends \CActiveRecord implements \IHToJSON
         //$criteria->select = 't.* , count(tagModelss.labelId) as c';
         $criteria->group = 't.id';
         $criteria->having = 'count(tagModels.labelId) = ' . count($tags);
-
+        $this->tagList = $tags;
         return $this;
     }
 
@@ -577,6 +578,50 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function leftFor($post)
     {
+        $labelsList = [];
+        if (sizeof($this->tagList) > 0)
+        {
+            $labelsList = $this->tagList;
+        }
+        else
+        {
+            $labelsList = array_map(function($lb)
+            {
+                return $lb->id;
+            }, $post->labelModels);
+        }
+        $labelsCount = sizeof($labelsList);
+        $labelsList = implode(', ', $labelsList);
+
+        $sql = "SELECT * 
+FROM post__contents AS pc 
+	JOIN (SELECT pt.contentId
+	FROM post__tags AS pt
+	WHERE pt.labelId in ({$labelsList})
+	GROUP BY pt.contentId 
+	HAVING COUNT(pt.contentId) = {$labelsCount}
+	ORDER BY pt.contentId desc
+	) AS tmp ON (pc.id=tmp.contentId)
+WHERE  pc.isRemoved = 0 
+    AND (pc.dtimePublication<{$post->dtimePublication})
+ORDER BY pc.dtimePublication DESC
+LIMIT 1";
+        $itm = \Yii::app()->db->createCommand($sql)->queryAll(true);
+        if (isset($itm[0]))
+        {
+            $criteria = $this->getDbCriteria();
+            $criteria->condition = 'id=' . $itm[0]['id'];
+            $criteria->with = [];
+            $criteria->params = [];
+            $criteria->group = '';
+            $criteria->having = '';
+        }
+        else
+        {
+            $this->getDbCriteria()->condition = 'id=-1';
+        }
+        return $this;
+
         $this->getDbCriteria()->compare('dtimePublication', '<' . $post->dtimePublication);
         $this->orderDesc();
         $this->getDbCriteria()->limit = 1;

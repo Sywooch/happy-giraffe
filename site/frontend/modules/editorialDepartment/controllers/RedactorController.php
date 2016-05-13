@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\editorialDepartment\controllers;
 
+use site\frontend\modules\editorialDepartment\components\UsersControl;
 use \site\frontend\modules\editorialDepartment\models as departmentModels;
 use site\frontend\modules\posts\models\Label;
 
@@ -240,7 +241,7 @@ class RedactorController extends \LiteController
         $model = departmentModels\Content::model()->findByAttributes(compact('entity', 'entityId'));
         if (is_null($model))
             throw new \CHttpException(404);
-        if ($model->authorId != \Yii::app()->user->id)
+        if (! in_array($model->authorId, UsersControl::getUsersList()))
             throw new \CHttpException(403);
 
         return $model;

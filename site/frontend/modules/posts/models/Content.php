@@ -577,32 +577,9 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function leftFor($post)
     {
-        $labelsList = array_map(function($lb)
-        {
-            return $lb->id;
-        }, $post->labelModels);
-        $labelsCount = sizeof($labelsList);
-        $labelsList = implode(', ', $labelsList);
-        $sql = "SELECT * 
-FROM post__contents AS pc 
-	JOIN (SELECT pt.contentId
-	FROM post__tags AS pt
-	WHERE pt.labelId in ({$labelsList}) and pt.contentId<{$post->id}
-	GROUP BY pt.contentId desc
-	HAVING COUNT(pt.contentId) = {$labelsCount}
-	ORDER BY pt.contentId desc
-	LIMIT 20) AS tmp ON (pc.id=tmp.contentId)
-WHERE  pc.isRemoved = 0 
-LIMIT 1";
-        $itm = \Yii::app()->db->createCommand($sql)->queryAll(true);
-        if (isset($itm[0]))
-        {
-            $this->getDbCriteria()->condition = 'id=' . $itm[0]['id'];
-        }
-        else
-        {
-            $this->getDbCriteria()->condition = 'id=-1';
-        }
+        $this->getDbCriteria()->compare('dtimePublication', '<' . $post->dtimePublication);
+        $this->orderDesc();
+        $this->getDbCriteria()->limit = 1;
         return $this;
     }
 

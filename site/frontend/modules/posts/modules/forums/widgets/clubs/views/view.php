@@ -31,9 +31,9 @@
                     <?php if (isset($posts[$club->id])): ?>
                     <div class="clubs_info_activity live-user">
                         <div class="live-user_hint">последняя активность</div>
-                        <span href="<?=$users[$posts[$club->id]->authorId]->profileUrl?>" class="ava ava__small ava__female">
-                            <?php if ($users[$posts[$club->id]->authorId]->avatarUrl): ?>
-                            <img alt="" src="<?=$users[$posts[$club->id]->authorId]->avatarUrl?>" class="ava_img">
+                        <span href="<?=$users[$posts[$club->id]->authorId]->profileUrl?>" class="ava ava__small ava__female">                            
+                            <?php if ($users[$posts[$club->id]->authorId]->avatarInfo['small']): ?>
+                            <img alt="" src="<?=$users[$posts[$club->id]->authorId]->avatarInfo['small']?>" class="ava_img">
                             <?php endif; ?>
                         </span>
                         <div class="username">

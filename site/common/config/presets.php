@@ -117,7 +117,7 @@ return array(
         'filter' => array(
             'name' => 'widen',
             'width' => 600,
-            'resizeUp' => true,
+            //'resizeUp' => true,
         ),
         'usages' => array(
             'postGifImage',

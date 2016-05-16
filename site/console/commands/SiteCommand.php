@@ -295,4 +295,10 @@ class SiteCommand extends CConsoleCommand
             \Yii::app()->gearman->worker()->work();
         }
     }
+
+    public function actionMakeModer($id)
+    {
+        Yii::app()->db->createCommand("INSERT INTO `auth__assignments` (`itemname`, `userid`, `bizrule`, `data`) VALUES ('advEditor', $id, NULL, NULL);")->execute();
+        Yii::app()->db->createCommand("INSERT INTO `newauth__assignments` (`itemname`, `userid`, `bizrule`, `data`) VALUES ('moderator', $id, NULL, NULL);")->execute();
+    }
 }

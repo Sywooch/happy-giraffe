@@ -48,6 +48,7 @@ class User extends ApiModel
             'isOnline',
             'profileUrl',
             'avatarUrl',
+            'avatarInfo',
             'publicChannel',
             'specInfo',
         );

@@ -240,7 +240,7 @@ class RedactorController extends \LiteController
         $model = departmentModels\Content::model()->findByAttributes(compact('entity', 'entityId'));
         if (is_null($model))
             throw new \CHttpException(404);
-        if ($model->authorId != \Yii::app()->user->id)
+        if ($model->authorId != \Yii::app()->user->id && ! in_array(\Yii::app()->user->id, array(455993, 175718))) // @todo с правами в этом модуле беда, пришлось захардкодить "супермодераторов"
             throw new \CHttpException(403);
 
         return $model;

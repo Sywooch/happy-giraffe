@@ -16,10 +16,8 @@ class LastPostWidget extends \CWidget
 
     public function run()
     {
-        $posts = Content::model()->byLabels(array(Label::LABEL_FORUMS))->orderDesc()->findAll(array(
-            'limit' => self::LIMIT
-        ));
-
+        $posts = Content::model()->getLastByLabel(Label::LABEL_FORUMS, self::LIMIT);
+      
         $users = User::model()->findAllByPk(array_map(function($post) {
             return $post->authorId;
         }, $posts), array('avatarSize' => 24));

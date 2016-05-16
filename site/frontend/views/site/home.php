@@ -73,6 +73,11 @@ if ($openLogin == 'login') {
                     <?php endif; ?>
                 </div>
             </header>
+            <style>
+                body #ya-site-form0 .ya-site-suggest-list {
+                    background-color: #fff;                                    	        
+                }
+            </style>
             <!-- header-->
         </div>
         <div class="layout-loose_hold clearfix">

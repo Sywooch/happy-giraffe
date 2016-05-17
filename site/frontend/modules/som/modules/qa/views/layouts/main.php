@@ -36,7 +36,10 @@ if ($this->pageTitle !== $parentTitle)
                     <?php $this->renderPartial('/_sidebar/personal', array());?>
                     <?php $this->renderPartial('/_sidebar/menu', array());?>
                 </div>
-                <?php $this->renderPartial('/_sidebar/rating', array());?>
+                <?php 
+                    if ('rating' !== Yii::app()->controller->id)
+                        $this->renderPartial('/_sidebar/rating', array());
+                ?>
             </aside>
         </div>
     </div>

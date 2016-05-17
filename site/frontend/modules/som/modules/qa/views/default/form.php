@@ -126,7 +126,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                     obj.titleValid = false;
                     obj.submitDisable(true);
                     //console.log(this.id + " error");
-                } else {
+                } else { 
                     $('#' + this.id + 'E').hide();
                     $(this).removeClass('error');
                     obj.titleValid = true;
@@ -167,35 +167,67 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
         this.isFormValidTok = function (obj) {
             return function (event) {
                 var flagError = false;
-                if ($("#qText").val() == '') {
+
+                var textValue = $.trim($($('.redactor_box textarea').val()).text()); 
+
+                if (textValue != '' && textValue.length < 30)
+                {
+                	flagError = true;
+                	
+                    $("#qText").addClass('error');
+                    $("#qTextE").text('Введите более 30 символов').show();
+                }
+                else 
+                {
+                	$("#qText").removeClass('error');
+                    $("#qTextE").hide();
+                }
+                
+                /* if (textValue == '') {
                     flagError = true;
                     $("#qText").addClass('error');
                     $("#qTextE").show();
                 } else {
                     $("#qText").removeClass('error');
                     $("#qTextE").hide();
-                }
-                if ($("#qTtitle").val() == '') {
+                } */
+                
+                if ($.trim($("#qTtitle").val()) == '') {
                     flagError = true;
+                    
                     $("#qTtitle").addClass('error');
-                    $("#qTtitleE").show();
+                    $("#qTtitleE").text('Это обязательное поле').show();
                 } else {
-                    $("#qTtitle").removeClass('error');
-                    $("#qTtitleE").hide();
+                    if ($.trim($("#qTtitle").val()).length < 20)
+                    {   
+                    	flagError = true;
+                    	
+                    	$("#qTtitle").addClass('error');
+                        $("#qTtitleE").text('Введите более 20 символов').show();
+                    }
+                    else {
+                        $("#qTtitle").removeClass('error');
+                        $("#qTtitleE").hide();
+                    }
                 }
-                if ($("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").val() == '') {
+                
+                /* if ($("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").val() == '') {
                     flagError = true;
                     $("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").addClass('error');
                     $("#qThemeE").show();
                 } else {
                     $("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").removeClass('error');
                     $("#qThemeE").hide();
-                }
-                console.log('form status ' + flagError);
+                } */
+                
+                // console.log('form status ' + flagError);
+
                 setTimeout(obj.testDropBoxTok(obj), 100);
+
                 if (flagError) {
                     return false;
                 }
+
                 return true;
             }
         }
@@ -217,7 +249,9 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
         }, 3000);
 
         this.testDropBoxTok = function (obj) {
-            return function () {
+            return function() {};
+            
+           /*  return function () {
                 if ($("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").val() == '') {
                     flagError = true;
                     $("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").addClass('error');
@@ -227,8 +261,9 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                     $("#qThemeE").hide();
                 }
                 setTimeout(obj.testDropBoxTok(obj), 100);
-            }
+            } */
         }
+        
         $("#question-form").submit(this.isFormValidTok(this));
 
     }

@@ -21,7 +21,7 @@ if ($this->pageTitle !== $parentTitle)
     <div class="b-main clearfix">
         <div class="b-main_cont">
             
-            <?php if (FALSE === $this->isQuestion): ?>
+            <?php if (FALSE === isset($this->isQuestion)): ?>
                 
                 <div class="heading-link-xxl"><?php echo $this->pageTitle; ?></div>
            

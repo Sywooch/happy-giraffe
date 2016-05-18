@@ -13,6 +13,7 @@ namespace site\frontend\components\api\models;
  * @property-read bool $isOnline true, если пользователь online, иначе - false
  * @property-read string $profileUrl Ссылка на профиль
  * @property-read string $avatarUrl Ссылка на аватар, запрошенного размера
+ * @property-read array $avatarInfo массив с размерами аватаров
  * @property-read string $publicChannel Публичный канал пользователя
  * @author Кирилл
  */
@@ -48,6 +49,7 @@ class User extends ApiModel
             'isOnline',
             'profileUrl',
             'avatarUrl',
+            'avatarInfo',
             'publicChannel',
             'specInfo',
         );

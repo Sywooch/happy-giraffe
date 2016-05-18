@@ -20,11 +20,18 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaUserRating;
 
 class DefaultController extends QaController
-{
+{   
     const TAB_NEW = 'new';
     const TAB_POPULAR = 'popular';
     const TAB_UNANSWERED = 'unanswered';
-
+    
+    /**
+     * Открыт ли отдельный вопрос
+     * 
+     * @var bool isQuestion
+     */
+    public $isQuestion = FALSE;
+    
     public function filters()
     {
         return array(
@@ -57,7 +64,9 @@ class DefaultController extends QaController
     }
 
     public function actionView($id)
-    {
+    {   
+        $this->isQuestion = TRUE;
+        
         ContentBehavior::$active = true;
         $question = $this->getModel($id);
         ContentBehavior::$active = false;

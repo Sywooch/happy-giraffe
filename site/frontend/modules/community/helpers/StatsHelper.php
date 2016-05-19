@@ -11,6 +11,7 @@ use site\frontend\modules\comments\models\Comment;
 use site\frontend\modules\posts\models\Content;
 use site\frontend\modules\posts\models\Label;
 use site\frontend\modules\posts\models\Tag;
+use site\frontend\components\LineDebug;
 
 /*
  * у класса не было документации, но в целом он считает колличество комментариев
@@ -131,18 +132,24 @@ WHERE
      */
     public static function warmCache()
     {
+        LineDebug::init();
         self::getByLabels(array(Label::LABEL_NEWS), true);
-
+        LineDebug::printDebugLine();
         $models = \CommunityClub::model()->findAll();
 
         echo "Клубы:\n";
         foreach ($models as $m)
         {
             echo "\t" . $m->title . "\r\n";
+            LineDebug::printDebugLine();
             self::getSubscribers($m->id, true);
+            LineDebug::printDebugLine();
             self::getPosts($m->id, true);
+            LineDebug::printDebugLine();
             self::getComments($m->id, true);
+            LineDebug::printDebugLine();
             self::getByLabels(array($m->toLabel(), Label::LABEL_NEWS), true);
+            LineDebug::printDebugLine();
         }
 
         $rubrics = \CommunityRubric::model()->findAll('community_id IS NOT NULL AND parent_id IS NULL');
@@ -151,6 +158,7 @@ WHERE
         {
             echo "\t" . $rubric->title . "\r\n";
             self::getRubricCount($rubric->id, true);
+            LineDebug::printDebugLine();
         }
     }
 

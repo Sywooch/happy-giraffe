@@ -25,7 +25,7 @@ class LineDebug
     /**
      * выводит строку отладки
      */
-    public static function printDebugLine($line = __LINE__)
+    public static function printDebugLine()
     {
         $debug = debug_backtrace(null, 1);
 

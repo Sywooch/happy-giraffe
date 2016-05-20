@@ -40,10 +40,12 @@ $user = Yii::app()->user->model;
             </div>
         <?php else: ?>
             <div class="heading-small">Мои клубы <span class="color-gray">(0)</span> </div>
+            <!-- 
             <div class="header-drop_b-empty clearfix">
                 <span class="color-gray padding-r5">Какие клубы выбрать?</span>
-                <a href="<?=$this->createUrl('/myGiraffe/default/recommends')?>">Жираф рекомендует</a>
+                <a href="<?//=$this->createUrl('/myGiraffe/default/recommends')?>">Жираф рекомендует</a>
             </div>
+            -->
         <?php endif; ?>
     </div>
     <!-- /header-drop_b-->

@@ -23,31 +23,33 @@ $user = Yii::app()->user->model;
         </ul>
     </div>
     <!-- header-drop_b-->
-    <div class="header-drop_b">
+    <!-- <div class="header-drop_b"> -->
         <?php if ($user->clubSubscriptionsCount > 0): ?>
-            <div class="float-r margin-t3"><a href="<?=$this->createUrl('/myGiraffe/default/recommends')?>">Жираф рекомендует</a></div>
-            <div class="heading-small">Мои клубы <span class="color-gray"> (<?=$user->clubSubscriptionsCount?>)</span></div>
-            <div class="club-list club-list__small clearfix">
-                <ul class="club-list_ul clearfix">
-                    <?php foreach ($user->clubSubscriptions as $cs): ?>
-                        <?php if ($cs->club_id != 21 && $cs->club_id != 22): ?>
-                            <li class="club-list_li">
-                                <a href="<?=$cs->club->getUrl()?>" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/<?=$cs->club_id?>-w50.png" alt="" class="club-list_img"/></span></a>
-                            </li>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+             <div class="header-drop_b">
+                <!-- <div class="float-r margin-t3"><a href="<?//=$this->createUrl('/myGiraffe/default/recommends')?>">Жираф рекомендует</a></div>  -->
+                <div class="heading-small">Мои клубы <span class="color-gray"> (<?=$user->clubSubscriptionsCount?>)</span></div>
+                <div class="club-list club-list__small clearfix">
+                    <ul class="club-list_ul clearfix">
+                        <?php foreach ($user->clubSubscriptions as $cs): ?>
+                            <?php if ($cs->club_id != 21 && $cs->club_id != 22): ?>
+                                <li class="club-list_li">
+                                    <a href="<?=$cs->club->getUrl()?>" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/<?=$cs->club_id?>-w50.png" alt="" class="club-list_img"/></span></a>
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+             </div>
         <?php else: ?>
-            <div class="heading-small">Мои клубы <span class="color-gray">(0)</span> </div>
             <!-- 
+            <div class="heading-small">Мои клубы <span class="color-gray">(0)</span> </div>
             <div class="header-drop_b-empty clearfix">
                 <span class="color-gray padding-r5">Какие клубы выбрать?</span>
                 <a href="<?//=$this->createUrl('/myGiraffe/default/recommends')?>">Жираф рекомендует</a>
             </div>
             -->
         <?php endif; ?>
-    </div>
+   <!--  </div> -->
     <!-- /header-drop_b-->
 </div>
 <!-- /header-drop-->

@@ -47,7 +47,8 @@ class QaQuestion extends \HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, text', 'required'),
+			// array('title, text', 'required'),
+		    array('title', 'required'),
 			array('title', 'length', 'max' => 150),
 			array('text', 'length', 'max' => 1000),
 			array('sendNotifications', 'boolean'),

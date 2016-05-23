@@ -20,7 +20,13 @@ if ($this->pageTitle !== $parentTitle)
 ?>
     <div class="b-main clearfix">
         <div class="b-main_cont">
-            <div class="heading-link-xxl"><?php echo $this->pageTitle; ?></div>
+            
+            <?php if (FALSE === isset($this->isQuestion)): ?>
+                
+                <div class="heading-link-xxl"><?php echo $this->pageTitle; ?></div>
+           
+            <?php endif; ?>
+            
             <div class="b-main_col-article">
                 <?=$content?>
             </div>
@@ -30,7 +36,10 @@ if ($this->pageTitle !== $parentTitle)
                     <?php $this->renderPartial('/_sidebar/personal', array());?>
                     <?php $this->renderPartial('/_sidebar/menu', array());?>
                 </div>
-                <?php $this->renderPartial('/_sidebar/rating', array());?>
+                <?php 
+                    if ('rating' !== Yii::app()->controller->id)
+                        $this->renderPartial('/_sidebar/rating', array());
+                ?>
             </aside>
         </div>
     </div>

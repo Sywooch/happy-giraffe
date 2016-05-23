@@ -11,7 +11,7 @@ require_once('simple_html_dom.php');
     <tbody><tr>
         <?php foreach ($models as $model): ?>
 
-        <?php if ($i == 1): ?>
+        <?php if ($i == 1 && (date('Y-m-d') == '2016-05-19')): ?>
 
 
                         <td style="width:340px" valign="top">
@@ -29,24 +29,24 @@ require_once('simple_html_dom.php');
                                 </table>
                                 <div style="margin-bottom:10px">
 															                <span style="color:#0d81d5;font:normal 18px/20px arial,helvetica,sans-serif">
-															                    <a href="http://www.parents.ru/article/pikantnaya-notka-speczii-v-detskom-menyu/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=pitanie" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block;" target="_blank">ПИКАНТНАЯ НОТКА: СПЕЦИИ В ДЕТСКОМ МЕНЮ</a>
+															                    <a href="http://www.parents.ru/article/kakaya-vy-mama-robot-czerber-gost-ili-drug/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=kakaya-vy-mama" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block;" target="_blank">КАКАЯ ВЫ МАМА: РОБОТ, ЦЕРБЕР, ГОСТЬ ИЛИ ДРУГ?</a>
 															                </span>
                                 </div>
                                 <div style="margin-bottom:5px">
-                                    <a href="http://www.parents.ru/article/pikantnaya-notka-speczii-v-detskom-menyu/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=pitanie" style="text-decoration:none" target="_blank">
-                                        <img src="http://www.happy-giraffe.ru/mail/headline7.jpg" width="318" border="0" style="display:block" class="CToWUd">
+                                    <a href="http://www.parents.ru/article/kakaya-vy-mama-robot-czerber-gost-ili-drug/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=kakaya-vy-mama" style="text-decoration:none" target="_blank">
+                                        <img src="http://www.happy-giraffe.ru/mail/headline10.jpg" width="318" border="0" style="display:block" class="CToWUd">
                                     </a>
                                 </div>
 
                                 <div style="font:12px arial,helvetica,sans-serif;color:#fff; line-height: 17px; margin: 10px 0 0;">
-                                    Без специй на столе у взрослых не обходится ни одно блюдо, ведь они открывают простор кулинарной фантазии. Но детские диетологи относятся к ним довольно сдержанно, особенно если речь идет о самых маленьких.
+                                    В школе или детском садике, в парке или в поликлинике часто приходится видеть самых разных мам: шумных и молчаливых, грубых и по светски выдержанных, оптимистичных и недовольных всем вокруг. Но часто люди надевают маски в присутствии посторонних, а дома ведут себя иначе. Самых распространенных типов мам всего четыре – это робот, цербер, гость и друг. Кто вы?
 
 
                                 </div>
                                 <table cellpadding="0" cellspacing="0" style="margin-top:10px">
                                     <tbody>
                                     <tr>
-                                        <a href="http://www.parents.ru/article/pikantnaya-notka-speczii-v-detskom-menyu/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=pitanie" style="background: #fff; color: #E481BB; display: inline-block; padding: 5px 18px; text-align: center; border-radius: 3px; font-size: 14px;margin: 10px 0 0 0; text-decoration: none">Читать далее</a>
+                                        <a href="http://www.parents.ru/article/kakaya-vy-mama-robot-czerber-gost-ili-drug/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=kakaya-vy-mama" style="background: #fff; color: #E481BB; display: inline-block; padding: 5px 18px; text-align: center; border-radius: 3px; font-size: 14px;margin: 10px 0 0 0; text-decoration: none">Читать далее</a>
                                     </tr>
                                     </tbody>
                                 </table>

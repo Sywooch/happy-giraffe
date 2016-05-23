@@ -320,6 +320,12 @@ class DefaultController extends HController
         $slaveModelName = 'Community' . ucfirst($slug);
         $slaveModel = ($id === null) ? new $slaveModelName() : $model->content;
         $slaveModel->attributes = $_POST[$slaveModelName];
+        /**
+         * убираем xss
+         */
+        $prufer = site\frontend\components\PreparedHTMLPurifier::getInstans();
+        #var_dump($slaveModel->text); exit();
+        $slaveModel->text = $prufer->purifyUserHTML($slaveModel->text);
         $this->performAjaxValidation(array($model, $slaveModel));
         $model->$slug = $slaveModel;
         $success = $model->withRelated->save(true, array($slug));

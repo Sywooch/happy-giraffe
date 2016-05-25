@@ -9,7 +9,7 @@ class m160524_121945_user_edit_permission_fix extends CDbMigration
 
     public function up()
     {
-        $this->execute('UPDATE `newauth__items` SET `bizrule` = "return $params\'entity\']->id == \\Yii::app()->user->id;" WHERE `name` = "manageOwnProfile";');
+        $this->execute('UPDATE `newauth__items` SET `bizrule` = "return $params[\'entity\']->id == \\Yii::app()->user->id;" WHERE `name` = "manageOwnProfile";');
     }
 
     public function down()

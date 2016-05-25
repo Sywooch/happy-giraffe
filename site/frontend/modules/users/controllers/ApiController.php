@@ -54,7 +54,6 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     /**
      * метод обновления информации о пользователе
-     * TODO: исправить возможность редактирования других пользователей
      * @param type $id
      * @param array $attributes
      */

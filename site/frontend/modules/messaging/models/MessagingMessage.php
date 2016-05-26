@@ -101,6 +101,9 @@ class MessagingMessage extends HActiveRecord
     public function behaviors()
     {
         return array(
+            'CacheDelete' => array(
+                'class' => site\frontend\modules\api\ApiModule::CACHE_DELETE,
+            ),
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),

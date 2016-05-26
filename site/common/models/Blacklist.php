@@ -43,6 +43,18 @@ class Blacklist extends HActiveRecord
         );
     }
 
+    public function behaviors()
+    {
+        return array(
+            'CacheDelete' => array(
+                'class' => site\frontend\modules\api\ApiModule::CACHE_DELETE,
+            ),
+            'PushStream' => array(
+                'class' => site\frontend\modules\api\ApiModule::PUSH_STREAM,
+            ),
+        );
+    }
+
     /**
      * @return array relational rules.
      */

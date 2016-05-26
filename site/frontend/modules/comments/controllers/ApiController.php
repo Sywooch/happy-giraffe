@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\comments\controllers;
+
 use Aws\CloudFront\Exception\Exception;
 use site\frontend\modules\comments\models\Comment;
 
@@ -15,7 +16,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function filters()
     {
         return \CMap::mergeArray(parent::filters(), array(
-                'accessControl',
+                    'accessControl',
         ));
     }
 
@@ -39,18 +40,18 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actions()
     {
         return \CMap::mergeArray(parent::actions(), array(
-                'get' => 'site\frontend\components\api\PackAction',
-                /** @todo добавить проверку на удаление корневого комментария */
-                'remove' => array(
-                    'class' => 'site\frontend\components\api\SoftDeleteAction',
-                    'modelName' => '\site\frontend\modules\comments\models\Comment',
-                    'checkAccess' => 'removeComment',
-                ),
-                'restore' => array(
-                    'class' => 'site\frontend\components\api\SoftRestoreAction',
-                    'modelName' => '\site\frontend\modules\comments\models\Comment',
-                    'checkAccess' => 'removeComment',
-                ),
+                    'get' => 'site\frontend\components\api\PackAction',
+                    /** @todo добавить проверку на удаление корневого комментария */
+                    'remove' => array(
+                        'class' => 'site\frontend\components\api\SoftDeleteAction',
+                        'modelName' => '\site\frontend\modules\comments\models\Comment',
+                        'checkAccess' => 'removeComment',
+                    ),
+                    'restore' => array(
+                        'class' => 'site\frontend\components\api\SoftRestoreAction',
+                        'modelName' => '\site\frontend\modules\comments\models\Comment',
+                        'checkAccess' => 'removeComment',
+                    ),
         ));
     }
 
@@ -63,24 +64,35 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionCreate($entity, $entityId, $text, $responseId = false)
     {
-        if (!\Yii::app()->user->checkAccess('createComment')) {
+        if (!\Yii::app()->user->checkAccess('createComment'))
+        {
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
         }
         $comment = new \site\frontend\modules\comments\models\Comment('default');
+        $prufer = \site\frontend\components\PreparedHTMLPurifier::getInstans();
+        $text = $prufer->purifyUserHTML($text);
+        if (strlen($text == ''))
+        {
+            throw new \CHttpException('Пустой текст в комментарии', 403);
+        }
         $comment->attributes = array(
             'author_id' => \Yii::app()->user->id,
             'entity' => $entity,
             'entity_id' => $entityId,
             'text' => $text,
         );
-        if ($responseId) {
+        if ($responseId)
+        {
             $comment->response_id = $responseId;
         }
 
-        if ($entity != 'BlogContent') {
+        if ($entity != 'BlogContent')
+        {
             $content = \site\frontend\modules\posts\models\Content::model()->find(array(
                 'condition' => "originEntity = '" . $entity . "' and originEntityId = " . $entityId));
-        } else {
+        }
+        else
+        {
             $content = \site\frontend\modules\posts\models\Content::model()->find(array(
                 'condition' => "originService = 'oldBlog' and originEntityId = " . $entityId));
         }
@@ -131,9 +143,9 @@ class ApiController extends \site\frontend\components\api\ApiController
         $models = $model->findAll();
 
         $this->data['list'] = array_map(function($item)
-            {
-                return $item->toJSON();
-            }, $models);
+        {
+            return $item->toJSON();
+        }, $models);
         $this->data['isLast'] = false;
         $this->success = true;
     }
@@ -146,7 +158,8 @@ class ApiController extends \site\frontend\components\api\ApiController
         $criteria->order = 't.created DESC';
         $models = Comment::model()->findAll($criteria);
 
-        $this->data = array_map(function($item) {
+        $this->data = array_map(function($item)
+        {
             return $item->toJSON();
         }, $models);
         $this->success = true;

@@ -50,6 +50,11 @@ return array(
         '<_v>/api/device-unregister' => 'api/<_v>/api/device-unregister',
         '<_v>/api/cache' => 'api/<_v>/api/cache',
         '<_v>/api/logs' => 'api/<_v>/api/logs',
+        '<_v>/api/signals' => 'api/<_v>/api/signals',
+        '<_v>/api/messages' => 'api/<_v>/api/messages',
+        '<_v>/api/dialogs' => 'api/<_v>/api/dialogs',
+        '<_v>/api/blacklist' => 'api/<_v>/api/blacklist',
+        '<_v>/api/contacts' => 'api/<_v>/api/contacts',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

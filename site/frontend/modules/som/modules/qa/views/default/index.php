@@ -7,12 +7,18 @@
  * @var site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
 $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $categoryId), 'rating');
-$this->pageTitle = 'Вопрос-ответ';
+
+
 if ($categoryId !== null) {
+    $this->pageTitle = '';
+    
     $this->breadcrumbs = array(
         'Ответы' => array('/som/qa/default/index'),
         $category->title,
     );
+}
+else {
+    $this->pageTitle = 'Вопрос-ответ';
 }
 ?>
 

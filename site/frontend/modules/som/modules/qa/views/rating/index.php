@@ -6,7 +6,7 @@
 $this->sidebar = array('personal', 'menu');
 $this->pageTitle = 'Рейтинг';
 ?>
-<div class="heading-link-xxl"> Рейтинг</div>
+<!-- <div class="heading-link-xxl"> Рейтинг</div> -->
 <?php
 $this->widget('zii.widgets.CMenu', array(
     'htmlOptions' => array(

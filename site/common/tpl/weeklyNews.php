@@ -11,6 +11,51 @@ require_once('simple_html_dom.php');
     <tbody><tr>
         <?php foreach ($models as $model): ?>
 
+        <?php if ($i == 1 && (date('Y-m-d') == '2016-05-26')): ?>
+
+
+                        <td style="width:340px" valign="top">
+                            <div style="padding:10px;border:0;width:318px; background: #83b242">
+                                <table cellpadding="0" cellspacing="0" style="margin-bottom:8px">
+                                    <tbody>
+                                    <tr>
+                                        <td valign="middle"><img src="http://www.happy-giraffe.ru/mail/ava.png" style="display:block;border-radius:36px; width: 73px;" class="CToWUd">
+                                        </td>
+                                        <td valign="top">
+                                            <span style="color:#fff;font:12px arial,helvetica,sans-serif;margin-left:10px">журнал «Счастливые родители»</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div style="margin-bottom:10px">
+															                <span style="color:#0d81d5;font:normal 18px/20px arial,helvetica,sans-serif">
+															                    <a href="http://www.parents.ru/article/chego-na-samom-dele-xochet-rebenok/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=chego-xochet-rebenok" style="color:#fff;font:bold 20px arial,helvetica,sans-serif; text-decoration: none;margin-top: 14px;display: block;" target="_blank">ЧЕГО НА САМОМ ДЕЛЕ ХОТЯТ НАШИ ДЕТИ</a>
+															                </span>
+                                </div>
+                                <div style="margin-bottom:5px">
+                                    <a href="http://www.parents.ru/article/chego-na-samom-dele-xochet-rebenok/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=chego-xochet-rebenok" style="text-decoration:none" target="_blank">
+                                        <img src="http://www.happy-giraffe.ru/mail/headline11.jpg" width="318" border="0" style="display:block" class="CToWUd">
+                                    </a>
+                                </div>
+
+                                <div style="font:12px arial,helvetica,sans-serif;color:#fff; line-height: 17px; margin: 10px 0 0;">
+                                    Знаете ли вы, что важно для вашего ребенка на самом деле? Посвящены ли вы в тайный мир его внутренних жизненных ценностей и идеалов? Уверены, что ответ «да»? А вот и нет…
+
+
+                                </div>
+                                <table cellpadding="0" cellspacing="0" style="margin-top:10px">
+                                    <tbody>
+                                    <tr>
+                                        <a href="http://www.parents.ru/article/chego-na-samom-dele-xochet-rebenok/?utm_source=happy-giraffe.ru&utm_medium=email&utm_campaign=chego-xochet-rebenok" style="background: #fff; color: #E481BB; display: inline-block; padding: 5px 18px; text-align: center; border-radius: 3px; font-size: 14px;margin: 10px 0 0 0; text-decoration: none">Читать далее</a>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+
+
+
+        <?php else: ?>
 
         <?php if ($model instanceof \site\frontend\modules\posts\models\Content): $adapter = new \site\frontend\modules\posts\components\MailAdapter($model); $commentsWidget = $adapter->getComments(); ?>
 
@@ -262,7 +307,7 @@ require_once('simple_html_dom.php');
 
     </td>
     <?php endif; ?>
-
+        <?php endif; ?>
     <?php $i++; ?>
         <?php if ($i % 2 == 0 && $i != count($models)):?>
                         </tr>

@@ -28,7 +28,7 @@ class ByUrlUploadForm extends UploadForm
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
-            array('url', 'url'),
+            array('url', 'required'),
         ));
     }
 

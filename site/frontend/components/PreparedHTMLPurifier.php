@@ -30,7 +30,7 @@ class PreparedHTMLPurifier
         $this->purifier->options = array(
             'URI.AllowedSchemes' => array('http' => true, 'https' => true),
             'AutoFormat.AutoParagraph' => true,
-            'AutoFormat.RemoveEmpt' => true
+            //'AutoFormat.RemoveEmpt' => true
         ); // Передача конфига в формате массива
     }
 

@@ -94,6 +94,8 @@ class HStr extends \CComponent
      */
     public static function trancateHTML1V($string, $length = 80, $etc = '...', $breakWords = false)
     {
+        /* сперва удаляем лишние пустые переносы строк */
+        $string = preg_replace('/<p>[\s]{0,}<br[\s \/]{0,}>[\s]{0,}<\/p>/', '', $string);
         /* используем библиотеку Qevix для правильной обрезки html */
         $qevix = new \site\frontend\components\Qevix();
         $qevix->cfgAllowTags(array('br', 'p', 'b', 'strong', 'i', 'u', 'ul', 'li', 'ol', 'strike', 'a', 'img', 'source'));
@@ -113,7 +115,9 @@ class HStr extends \CComponent
         $qevix->cfgAllowTags(array('br', 'p', 'b', 'strong', 'i', 'u', 'ul', 'li', 'ol', 'strike', 'a'));
         $qevix->cfgSetTagShort(array('br'));
         $returnStr = $qevix->parse($string, $e);
+        $returnStr = preg_replace('/<p>[\s]{0,}<br[\s \/]{0,}>[\s]{0,}<\/p>/', '', $returnStr);
         $length = self::htmlLenConvert($returnStr, $length);
+        /* еще раз убираем пустые переносы строк */
         /* обрезаетм текс, предварительно делаем пересчёт того, сколько будет 
          * реально напечатано символов */
         if (mb_strlen($returnStr, 'UTF-8') > $length)

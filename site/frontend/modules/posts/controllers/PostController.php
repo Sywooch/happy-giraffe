@@ -27,7 +27,7 @@ class PostController extends \LiteController
      * @sitemap dataSource=sitemapView
      */
     public function actionView($content_id, $content_type_slug)
-    {
+    {   
         \Yii::log("checkView", 'info', 'postview');
         // Включим прочтение сигналов
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
@@ -39,8 +39,9 @@ class PostController extends \LiteController
         if ($this->post && $this->post->id == 689739) {
             $this->strictCheck = false;
         }
-
-        if (!$this->post || ($this->strictCheck && $this->post->parsedUrl !== \Yii::app()->request->requestUri)) {
+        
+        // Результат обращения к свойствам преобразован в нижний регистр для правильной обработки, т.к. URL должен быть регистронезависим.
+        if (!$this->post || ($this->strictCheck && strtolower($this->post->parsedUrl) !== strtolower(\Yii::app()->request->requestUri))) {
             // Временная заглушка, если пост ещё не сконвертировался
             if (\Yii::app()->user->getState('newPost' . $content_id)) {
                 $this->layout = '//layouts/lite/main';

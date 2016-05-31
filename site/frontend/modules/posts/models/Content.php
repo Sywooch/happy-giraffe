@@ -51,7 +51,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     public static $slugAliases = array(
         'nppost' => 'NewPhotoPost',
         'post' => 'CommunityContent',
-        'photoPost' => 'CommunityContent',
+        'photopost' => 'CommunityContent', // до этого ключ был "photoPost"
         'status' => 'NewStatus',
         'advpost' => 'AdvPost',
         'video' => 'CommunityContent',
@@ -463,6 +463,8 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function bySlug($slug, $entityId)
     {
+        $slug = strtolower($slug);
+        
         return $this->byEntity(Content::$slugAliases[$slug], $entityId);
     }
 

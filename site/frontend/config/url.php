@@ -56,7 +56,9 @@ return array(
         '<_v>/api/blacklist' => 'api/<_v>/api/blacklist',
         '<_v>/api/contacts' => 'api/<_v>/api/contacts',
         '<_v>/api/applications' => 'api/<_v>/api/applications',
+        '<_v>/api/applications/<action:(default)>' => 'api/<_v>/api/applications',
         '<_v>/api/photo-post' => 'api/<_v>/api/photo-post',
+        '<_v>/api/init' => 'api/<_v>/api/init',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 
@@ -103,8 +105,8 @@ return array(
 
 
         // рейтинг
-        'questions/rating/<period:(day|week|all)>/page<page:\d+>' => 'som/qa/rating/index',
-        'questions/rating/<period:(day|week|all)>' => 'som/qa/rating/index',
+        'questions/rating/<period:(week|all)>/page<page:\d+>' => 'som/qa/rating/index',
+        'questions/rating/<period:(week|all)>' => 'som/qa/rating/index',
         'questions/rating/page<page:\d+>' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'all')),
         'questions/rating' => array('som/qa/rating/index', 'defaultParams' => array('period' => 'all')),
 

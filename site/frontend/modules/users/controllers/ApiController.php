@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\users\controllers;
+
 use site\frontend\modules\users\models\ChangeEmailForm;
 use site\frontend\modules\users\models\ChangePasswordForm;
 use site\frontend\modules\users\models\User;
@@ -17,8 +18,8 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actions()
     {
         return \CMap::mergeArray(parent::actions(), array(
-            'get' => 'site\frontend\components\api\PackAction',
-            'checkAccess' => 'site\frontend\components\api\PackAction',
+                    'get' => 'site\frontend\components\api\PackAction',
+                    'checkAccess' => 'site\frontend\components\api\PackAction',
         ));
     }
 
@@ -51,10 +52,19 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = $data;
     }
 
+    /**
+     * метод обновления информации о пользователе
+     * @param type $id
+     * @param array $attributes
+     */
     public function actionUpdate($id, array $attributes)
     {
         /** @var \site\frontend\modules\users\models\User $user */
         $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
+        foreach($attributes AS &$at)
+        {
+            $at = htmlentities($at, ENT_QUOTES, 'UTF-8');
+        }
         $user->attributes = $attributes;
         $this->success = $user->save();
         $this->data = ($this->success) ? $user : array(
@@ -100,7 +110,8 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionRemoveSocialService($id)
     {
         $service = $this->getModel('\UserSocialService', $id);
-        if (! \Yii::app()->user->checkAccess('editSettings', array('entity' => $service->user))) {
+        if (!\Yii::app()->user->checkAccess('editSettings', array('entity' => $service->user)))
+        {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
@@ -127,7 +138,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         $user->deleted = 1;
         $this->success = $user->save(false, array('deleted'));
-        if ($this->success) {
+        if ($this->success)
+        {
             \Yii::app()->user->logout();
         }
     }
@@ -138,7 +150,8 @@ class ApiController extends \site\frontend\components\api\ApiController
         $user = $this->getModel('\site\frontend\modules\users\models\User', $userId, 'setAvatar');
         $avatarInfo = AvatarManager::setAvatar($user, $photo, $cropData);
         $this->success = $avatarInfo !== false;
-        if ($this->success) {
+        if ($this->success)
+        {
             $this->data = $avatarInfo;
         }
     }
@@ -152,12 +165,14 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionGetAvatar($userId)
     {
         $user = $this->getModel('\site\frontend\modules\users\models\User', $userId);
-        if ($user->avatarId !== null) {
+        if ($user->avatarId !== null)
+        {
             $crop = \Yii::app()->api->request('photo/crops', 'get', array('id' => $user->avatarId));
             $this->data = \CJSON::decode($crop);
         }
         $this->success = $user->avatarId !== null;
     }
+
 }
 
 ?>

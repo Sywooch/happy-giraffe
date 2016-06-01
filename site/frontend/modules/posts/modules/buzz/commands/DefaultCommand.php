@@ -31,6 +31,54 @@ class DefaultCommand extends \CConsoleCommand
         250794,
     );
 
+    public function actionMigrate3($all = false, $id = null, $list = true)
+    {
+        ConvertBehavior::$migration = true;
+
+        if ($all === false && $id === null) {
+            throw new \CException("Invalid parameters");
+        }
+
+        $criteria = new \EMongoCriteria();
+        if ($id !== null) {
+            $criteria->addCond('entityId', '==', (int) $id);
+        }
+
+        $criteria->sort('dtimeCreated', \EMongoCriteria::SORT_ASC);
+        $criteria->addCond('label', '==', Label::LABEL_FORUMS);
+
+        //$criteria->addCond('entityId', '>=', 690624);
+
+        $dp = new \EMongoDocumentDataProvider(MigrateContent::model(), array(
+            'criteria' => $criteria,
+        ));
+        $total = $dp->totalItemCount;
+        $iterator = new \CDataProviderIterator($dp);
+
+        $ids = \Yii::app()->db->createCommand("SELECT id
+FROM post__contents
+WHERE originEntity = 'AdvPost' AND isRemoved = 0;")->queryColumn();
+
+        foreach ($iterator as $i => $model) {
+            if ($list) {
+                echo $model->entityId . "\n";
+                continue;
+            }
+
+            echo $model->entityId . "\n";
+            if (array_search($model->entityId, $ids) === false) {
+                continue;
+            }
+
+            $model->scenario = 'buzz';
+            $model->label = Label::LABEL_BUZZ;
+            if (array_search($model->entityId, $this->advExceptions) === false) {
+                $model->save();
+            }
+            echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
+        }
+    }
+    
     public function actionMigrate2($all = false, $id = null)
     {
         ConvertBehavior::$migration = true;

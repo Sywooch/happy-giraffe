@@ -119,6 +119,9 @@ class Notification extends \EMongoDocument implements \IHToJSON
     public function behaviors()
     {
         return array(
+            'CacheDelete' => array(
+                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+            ),
             'embededUnreadEntities' => array(
                 'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'unreadEntities',

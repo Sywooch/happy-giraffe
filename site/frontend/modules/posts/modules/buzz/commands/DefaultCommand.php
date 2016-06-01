@@ -471,25 +471,27 @@ class DefaultCommand extends \CConsoleCommand
                 if ($model) {
                     $mModel->label = Label::LABEL_BUZZ;
                     $mModel->save(false, array('label'));
-
-                    if ($model) {
-                        if ($mModel->rubricId !== null) {
-                            $labels = Label::model()->findByRubric($mModel->rubricId);
-                        } elseif ($mModel->forumId !== null) {
-                            $labels = Label::model()->findByForum($mModel->forumId);
-                        } elseif ($mModel->clubId !== null) {
-                            $labels = Label::model()->findByClub($mModel->clubId);
-                        } else {
-                            $labels = Label::model()->findForBlog();
-                        }
-
-                        $labels = array_map(function($labelModel) {
-                            return $labelModel->text;
-                        }, $labels);
-                        if ($mModel->label !== null) {
-                            $labels[] = $mModel->label;
-                        }
+                    
+                    if ($mModel->rubricId !== null) {
+                        $labels = Label::model()->findByRubric($mModel->rubricId);
+                    } elseif ($mModel->forumId !== null) {
+                        $labels = Label::model()->findByForum($mModel->forumId);
+                    } elseif ($mModel->clubId !== null) {
+                        $labels = Label::model()->findByClub($mModel->clubId);
+                    } else {
+                        $labels = Label::model()->findForBlog();
                     }
+
+                    $labels = array_map(function($labelModel) {
+                        return $labelModel->text;
+                    }, $labels);
+                    if ($mModel->label !== null) {
+                        $labels[] = $mModel->label;
+                    }
+                    
+                    $model->labels = $labels;
+                    $model->detachBehavior('ActivityBehavior');
+                    $model->save();
                 }
             }
             echo '[' . ($i + 1) . '/' . $total . ']' . "\n";

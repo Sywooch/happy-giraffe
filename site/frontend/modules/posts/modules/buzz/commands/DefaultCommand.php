@@ -31,7 +31,7 @@ class DefaultCommand extends \CConsoleCommand
         250794,
     );
 
-    public function actionMigrate3($all = false, $id = null, $list = true)
+    public function actionMigrate3()
     {
         $ids = array(
             710753,
@@ -471,15 +471,15 @@ class DefaultCommand extends \CConsoleCommand
                 if ($model) {
                     $mModel->label = Label::LABEL_BUZZ;
                     $mModel->save(false, array('label'));
-                    
+
                     if ($mModel->rubricId !== null) {
-                        $labels = Label::model()->findByRubric($mModel->rubricId);
+                        $labels = \site\frontend\modules\som\modules\community\models\api\Label::model()->findByRubric($mModel->rubricId);
                     } elseif ($mModel->forumId !== null) {
-                        $labels = Label::model()->findByForum($mModel->forumId);
+                        $labels = \site\frontend\modules\som\modules\community\models\api\LabelLabel::model()->findByForum($mModel->forumId);
                     } elseif ($mModel->clubId !== null) {
-                        $labels = Label::model()->findByClub($mModel->clubId);
+                        $labels = \site\frontend\modules\som\modules\community\models\api\LabelLabel::model()->findByClub($mModel->clubId);
                     } else {
-                        $labels = Label::model()->findForBlog();
+                        $labels = \site\frontend\modules\som\modules\community\models\api\LabelLabel::model()->findForBlog();
                     }
 
                     $labels = array_map(function($labelModel) {
@@ -488,8 +488,8 @@ class DefaultCommand extends \CConsoleCommand
                     if ($mModel->label !== null) {
                         $labels[] = $mModel->label;
                     }
-                    
-                    $model->labels = $labels;
+
+                    $model->labelsArrat = $labels;
                     $model->detachBehavior('ActivityBehavior');
                     $model->save();
                 }

@@ -91,6 +91,9 @@ return array(
         'qa' => array(
             'class' => 'site\frontend\modules\som\modules\qa\commands\DefaultCommand',
         ),
+        'photopostFix' => array(
+            'class' => 'site\frontend\modules\som\modules\photopost\commands\PhotopostFix',
+        ),
         'buzz' => array(
             'class' => 'site\frontend\modules\posts\modules\buzz\commands\DefaultCommand',
         ),

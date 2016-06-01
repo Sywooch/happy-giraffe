@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\som\modules\photopost\controllers;
 
+use site\frontend\modules\photo\models\PhotoCollection;
+
 /**
  * Description of ApiController
  *
@@ -27,7 +29,7 @@ class ApiController extends \site\frontend\components\api\ApiController
                 'users' => array('*'),
             ),
             array('allow',
-                'actions' => array('remove', 'restore', 'create', 'update'),
+                'actions' => array('remove', 'restore', 'create', 'update', 'createByPhoto'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -53,6 +55,63 @@ class ApiController extends \site\frontend\components\api\ApiController
         ));
     }
 
+    /**
+     * создание фотопоста из списка фото
+     * @param array $photosIds
+     * @param string $title
+     * @author crocodile
+     */
+    public function actionCreateByPhoto(array $photoIds, $title, $photopostCover, $isDraft)
+    {
+
+        if (!\Yii::app()->user->checkAccess('createPhotopost'))
+        {
+            throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
+        }
+        if (sizeof($photoIds) == 0)
+        {
+            throw new \CHttpException('Не корректные параметры', 403);
+        }
+        /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
+        $collection = new PhotoCollection();
+        $collection->save();
+        $collection->attachPhotos($photoIds);
+        $collection->save();
+
+        if ($photopostCover > 0)
+        {
+            $attaches = $collection->observer->getSlice(0, null, false);
+            foreach ($attaches AS $att)
+            {
+                if ($att->photo->id == $photopostCover)
+                {
+                    $collection->setCover($att->id);
+                    break;
+                }
+            }
+            $collection->save();
+        }
+
+        $model = self::$model;
+        $photopost = new $model('default');
+        $photopost->attributes = array(
+            'authorId' => \Yii::app()->user->id,
+            'title' => $title,
+            'collectionId' => $collection->id,
+        );
+        if ($photopost->save())
+        {
+            $photopost->refresh();
+            $this->success = true;
+            $this->data = $photopost->toJSON();
+        }
+        else
+        {
+            $this->errorCode = 1;
+            $this->errorMessage = $photopost->getErrorsText();
+        }
+    }
+
     public function packGet($id)
     {
         $comment = $this->getModel(self::$model, $id, true);
@@ -62,7 +121,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionCreate($title, $collectionId, $isDraft = 0)
     {
-        if (!\Yii::app()->user->checkAccess('createPhotopost')) {
+        if (!\Yii::app()->user->checkAccess('createPhotopost'))
+        {
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
         }
 
@@ -73,11 +133,14 @@ class ApiController extends \site\frontend\components\api\ApiController
             'title' => $title,
             'collectionId' => $collectionId,
         );
-        if ($photopost->save()) {
+        if ($photopost->save())
+        {
             $photopost->refresh();
             $this->success = true;
             $this->data = $photopost->toJSON();
-        } else {
+        }
+        else
+        {
             $this->errorCode = 1;
             $this->errorMessage = $photopost->getErrorsText();
         }
@@ -89,11 +152,14 @@ class ApiController extends \site\frontend\components\api\ApiController
         $photopost->title = $title;
         $photopost->collectionId = $collectionId;
         $photopost->isDraft = $isDraft;
-        if ($photopost->save()) {
+        if ($photopost->save())
+        {
             $photopost->refresh();
             $this->success = true;
             $this->data = $photopost->toJSON();
-        } else {
+        }
+        else
+        {
             $this->errorCode = 1;
             $this->errorMessage = $photopost->errors;
         }

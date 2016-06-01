@@ -460,7 +460,8 @@ class DefaultCommand extends \CConsoleCommand
             710853
         );
 
-        foreach ($ids as $id) {
+        $total = count($ids);
+        foreach ($ids as $i => $id) {
             $mCriteria = new \EMongoCriteria();
             $mCriteria->addCond('entityId', '==', (int) $id);
             $mModel = \site\frontend\modules\editorialDepartment\models\Content::model()->find($mCriteria);
@@ -491,6 +492,7 @@ class DefaultCommand extends \CConsoleCommand
                     }
                 }
             }
+            echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
         }
     }
     

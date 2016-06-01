@@ -31,7 +31,7 @@ class DefaultCommand extends \CConsoleCommand
         250794,
     );
 
-    public function actionMigrate3($all = false, $id = null)
+    public function actionMigrate3($all = false, $id = null, $list = true)
     {
         ConvertBehavior::$migration = true;
 
@@ -60,6 +60,11 @@ FROM post__contents
 WHERE originEntity = 'AdvPost' AND isRemoved = 0;")->queryColumn();
 
         foreach ($iterator as $i => $model) {
+            if ($list) {
+                echo $model->entityId . "\n";
+                continue;
+            }
+
             echo $model->entityId . "\n";
             if (array_search($model->entityId, $ids) === false) {
                 continue;

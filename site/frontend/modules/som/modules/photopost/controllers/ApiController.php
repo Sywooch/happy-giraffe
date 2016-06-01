@@ -63,7 +63,15 @@ class ApiController extends \site\frontend\components\api\ApiController
      */
     public function actionCreateByPhoto(array $photoIds, $title, $photopostCover, $isDraft)
     {
-
+        if (\Yii::app()->db instanceof \DbConnectionMan)
+        {
+            /*
+             * Отключим слейвы, чтобы Collection нашло фото - костыль костылём,
+             * но тут так модно делать, а на правильный вариант нет ни времени
+             * ни жиелания админа работать.
+             */
+            \Yii::app()->db->enableSlave = false;
+        }
         if (!\Yii::app()->user->checkAccess('createPhotopost'))
         {
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);

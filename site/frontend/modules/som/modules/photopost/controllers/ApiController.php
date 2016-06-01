@@ -85,7 +85,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             {
                 if ($att->photo->id == $photopostCover)
                 {
-                    $collection->setCover($att->id);
+                    $collection->setCover($att);
                     break;
                 }
             }

@@ -597,7 +597,7 @@ class Content extends \CActiveRecord implements \IHToJSON
 
         $sql = "SELECT * 
 FROM post__contents AS pc 
-	JOIN (SELECT pt.contentId
+	LEFT JOIN (SELECT pt.contentId
 	FROM post__tags AS pt
 	WHERE pt.labelId in ({$labelsList})
 	GROUP BY pt.contentId 

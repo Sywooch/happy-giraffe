@@ -20,8 +20,8 @@ class PhotopostFix extends \CConsoleCommand
     public function actionFix($startTime = null, $endTime = null)
     {
 
-        $startTime = $startTime == null ? $startTime = strtotime("-30 hour") : intval($startTime);
-        $endTime = $endTime == null ? $endTime = time() : intval($endTime);
+        $startTime = $startTime == null ? $startTime = strtotime("-5 minute") : strtotime($startTime);
+        $endTime = $endTime == null ? $endTime = time() : strtotime($endTime);
 
         $list = Photopost::model()->findAll(
                 array(
@@ -29,25 +29,26 @@ class PhotopostFix extends \CConsoleCommand
                     'params' => array('startDate' => $startTime, 'endDate' => $endTime)
                 )
         );
+        $count = sizeof($list);
         /*
          * @var $p site\frontend\modules\som\modules\photopost\models\Photopost
          */
-        foreach ($list AS $p)
+        foreach ($list AS $i => $p)
         {
-
-            $p->save();
+            print "start process {$i}/{$count}, photo post id: {$p->id}\r\n";
+            //$p->save();
             $entity = array_search(get_class($p->owner), \site\frontend\modules\posts\models\Content::$entityAliases);
             $post = $p->getPost($entity);
             $post = \site\frontend\modules\posts\models\Content::model()->findByPk($post->id);
-            var_dump($post->getActivityId());
-            #$post->addActivity();
-
-            $activity = \site\frontend\modules\som\modules\activity\models\api\Activity::model()->query('get', array('hash' => $post->getActivityId()));
-            exit();
-            var_dump($activity);exit();
-            
-            $activity = $post->getActivityModel();
-            $activity->save(true);
+            if ($post == null)
+            {
+                print "post content not found for {$p->id}\r\n";
+                continue;
+            }
+            print "updating";
+            $post->delActivity();
+            $post->addActivity();
+            print ", updated\r\n";
         }
     }
 

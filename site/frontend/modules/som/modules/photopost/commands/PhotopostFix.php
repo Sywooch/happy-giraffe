@@ -35,7 +35,8 @@ class PhotopostFix extends \CConsoleCommand
          */
         foreach ($list AS $i => $p)
         {
-            print "start process {$i}/{$count}, photo post id: {$p->id}\r\n";
+            $c = $i + 1;
+            print "start process {$c}/{$count}, photo post id: {$p->id}\r\n";
             //$p->save();
             $entity = array_search(get_class($p->owner), \site\frontend\modules\posts\models\Content::$entityAliases);
             $post = $p->getPost($entity);
@@ -45,6 +46,7 @@ class PhotopostFix extends \CConsoleCommand
                 print "post content not found for {$p->id}\r\n";
                 continue;
             }
+            print "post_content: {$post->id}, original_id: {$post->originEntityId}\r\n";
             print "updating";
             $post->delActivity();
             $post->addActivity();

@@ -48,7 +48,6 @@ class PhotopostFix extends \CConsoleCommand
             }
             print "post_content: {$post->id}, original_id: {$post->originEntityId}\r\n";
             print "updating";
-            $post->preview = $p->getPhotopostTag();
             $post->delActivity();
             $post->addActivity();
             print ", updated\r\n";

@@ -20,7 +20,7 @@ class PhotopostFix extends \CConsoleCommand
     public function actionFix($startTime = null, $endTime = null)
     {
 
-        $startTime = $startTime == null ? $startTime = strtotime("-30 hour") : intval($startTime);
+        $startTime = $startTime == null ? $startTime = strtotime("-5 minute") : intval($startTime);
         $endTime = $endTime == null ? $endTime = time() : intval($endTime);
 
         $list = Photopost::model()->findAll(

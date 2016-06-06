@@ -46,7 +46,7 @@ return array(
         'testConvert' => array(
             'class' => 'site\frontend\modules\posts\commands\TestConvert',
         ),
-        'PostsRebuildPreview' => array(
+        'postsRebuildPreview' => array(
             'class' => 'site\frontend\modules\posts\commands\RebuildPreview'
         ),
         'modelRebase' => array(

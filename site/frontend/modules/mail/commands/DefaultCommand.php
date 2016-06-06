@@ -5,7 +5,6 @@
  * Список поддерживаемых рассылок:
  * dialogues - новые непрочитанные сообщения
  */
-
 class DefaultCommand extends CConsoleCommand
 {
     /**
@@ -15,7 +14,7 @@ class DefaultCommand extends CConsoleCommand
      */
     public function init()
     {
-        \Yii::app()->db->enableSlave = false;
+        //\Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         Yii::import('site.frontend.modules.mail.MailModule');
         MailModule::externalImport();
@@ -63,9 +62,10 @@ class DefaultCommand extends CConsoleCommand
         $sender->sendAll();
     }
 
-    public function actionTest()
+    public function actionTest($userId)
     {
         $sender = new MailSenderTest();
+        $sender->setTestUserId($userId);
         $sender->sendAll();
     }
 

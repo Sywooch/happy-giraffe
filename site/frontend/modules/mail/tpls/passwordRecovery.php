@@ -118,7 +118,7 @@
                                         <!-- // END BODY -->
                                     </td>
                                 </tr>
-                                <?php $message->render('_footer'); ?>
+                                <?php $message->render('_footer2'); ?>
                             </table>
                             <!-- // END TEMPLATE -->
                         </td>

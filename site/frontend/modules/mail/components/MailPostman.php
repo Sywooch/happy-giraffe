@@ -20,8 +20,7 @@ class MailPostman extends CApplicationComponent
      * возможности отписаться
      * @var array
      */
-    private $transactionalDeliver = array('test', 'dialogues', 'passwordRecovery', 'confirmEmail');
-
+    private $transactionalDeliver = array('test', 'passwordRecovery', 'confirmEmail');
     public $mode = self::MODE_QUEUE;
 
     /**

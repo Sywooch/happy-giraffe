@@ -55,6 +55,10 @@ return array(
         '<_v>/api/dialogs' => 'api/<_v>/api/dialogs',
         '<_v>/api/blacklist' => 'api/<_v>/api/blacklist',
         '<_v>/api/contacts' => 'api/<_v>/api/contacts',
+        '<_v>/api/applications' => 'api/<_v>/api/applications',
+        '<_v>/api/applications/<action:(default)>' => 'api/<_v>/api/applications',
+        '<_v>/api/photo-post' => 'api/<_v>/api/photo-post',
+        '<_v>/api/init' => 'api/<_v>/api/init',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

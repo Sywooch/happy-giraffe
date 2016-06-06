@@ -101,6 +101,9 @@ class MessagingMessage extends HActiveRecord
     public function behaviors()
     {
         return array(
+            'CacheDelete' => array(
+                'class' => site\frontend\modules\api\ApiModule::CACHE_DELETE,
+            ),
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
@@ -173,13 +176,13 @@ class MessagingMessage extends HActiveRecord
         /** @todo перенести бизнес-логику в модель формы */
         /** @todo вместо threadId может уже передаваться модель */
         $thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
-
+        $prufer = \site\frontend\components\PreparedHTMLPurifier::getInstans();
         $message = new MessagingMessage();
         if ($raw)
             $message->detachBehavior('processingImages');
         $message->author_id = $authorId;
         $message->thread_id = $threadId;
-        $message->text = $text;
+        $message->text = $prufer->purifyUserHTML($text);
         $messageUsers = array();
         foreach ($thread->threadUsers as $threadUser)
         {
@@ -304,11 +307,11 @@ class MessagingMessage extends HActiveRecord
         );
 
         $criteria->params['statsUser'] = $userId;
-		
-		if($activeOnly)
-		{
-			$criteria->addColumnCondition(array('messageUsers.dtime_delete' => null));
-		}
+
+        if ($activeOnly)
+        {
+            $criteria->addColumnCondition(array('messageUsers.dtime_delete' => null));
+        }
 
         return $this;
     }
@@ -334,17 +337,17 @@ class MessagingMessage extends HActiveRecord
             'on' => '`messageUsers`.`user_id` <> ' . $alias . '.`author_id`',
         );
 
-		if($activeOnly)
-		{
-			// не надо выбирать дату удаления, т.к. берём только не удалённые
-			$criteria->with['messageUsers']['select'] = array(
-				'`messageUsers`.`user_id`',
-				'`messageUsers`.`message_id`',
-				'`messageUsers`.`dtime_read`',
-			);
-			// id не должно быть в списке удалённыйх сообщений этого пользователя
-			$criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL AND `user_id` = ' . (int)$forUser . ')');
-		}
+        if ($activeOnly)
+        {
+            // не надо выбирать дату удаления, т.к. берём только не удалённые
+            $criteria->with['messageUsers']['select'] = array(
+                '`messageUsers`.`user_id`',
+                '`messageUsers`.`message_id`',
+                '`messageUsers`.`dtime_read`',
+            );
+            // id не должно быть в списке удалённыйх сообщений этого пользователя
+            $criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL AND `user_id` = ' . (int) $forUser . ')');
+        }
 
         return $this;
     }
@@ -371,13 +374,13 @@ class MessagingMessage extends HActiveRecord
 
         $criteria->params['statsUser'] = $userId;
 
- 		if($activeOnly)
-		{
-			// id не должно быть в списке удалённыйх сообщений этого пользователя
-			$criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL AND `user_id` = ' . (int)$userId . ')');
-		}
+        if ($activeOnly)
+        {
+            // id не должно быть в списке удалённыйх сообщений этого пользователя
+            $criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL AND `user_id` = ' . (int) $userId . ')');
+        }
 
-       return $this;
+        return $this;
     }
 
     /**
@@ -418,9 +421,12 @@ class MessagingMessage extends HActiveRecord
         $criteria = $this->dbCriteria;
         $alias = $this->tableAlias;
 
-        if (is_int($date)) {
+        if (is_int($date))
+        {
             $criteria->addCondition('`' . $alias . '`.`created` ' . $sign . ' FROM_UNIXTIME(:older)');
-        } else {
+        }
+        else
+        {
             $criteria->addCondition('`' . $alias . '`.`created` ' . $sign . ' :older');
         }
 
@@ -428,7 +434,7 @@ class MessagingMessage extends HActiveRecord
 
         return $this;
     }
-    
+
     /**
      * Параметризованный scope, выбирает все непрочитанные сообщения,
      * начиная с сообщения с указанным id и раньше
@@ -445,7 +451,7 @@ class MessagingMessage extends HActiveRecord
             $this->tableAlias . '.`author_id`' => $from,
             '`messageUsers`.`user_id`' => $to,
         ));
-        
+
         return $this;
     }
 

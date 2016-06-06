@@ -23,16 +23,20 @@ class ConvertBehavior extends \CActiveRecordBehavior
 
     public function getPost($entity)
     {
-        try {
+        try
+        {
             $post = Content::model()->query('getByAttributes', array(
                 'entity' => $entity,
                 'entityId' => $this->owner->id,
             ));
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e)
+        {
             $post = false;
         }
 
-        if (!$post) {
+        if (!$post)
+        {
             $post = new Content();
         }
         return $post;
@@ -72,7 +76,8 @@ class ConvertBehavior extends \CActiveRecordBehavior
         $post->text = '';
         $post->preview = $this->getPhotopostTag();
         $post->html = $post->preview;
-        $post->labels = array_map(function($labelModel) {
+        $post->labels = array_map(function($labelModel)
+        {
             return $labelModel->text;
         }, $labels);
         $post->originEntity = $entity;
@@ -126,7 +131,17 @@ class ConvertBehavior extends \CActiveRecordBehavior
 
     public function getPhotopostTag()
     {
-        try {
+        try
+        {
+            if (\Yii::app()->db instanceof \DbConnectionMan)
+            {
+                /*
+                 * Отключим слейвы, чтобы Collection нашло фото - костыль костылём,
+                 * но тут так модно делать, а на правильный вариант нет ни времени
+                 * ни жиелания админа работать.
+                 */
+                \Yii::app()->db->enableSlave = false;
+            }
             $collection = \site\frontend\modules\photo\models\api\Collection::model()->findByPk($this->owner->collectionId);
             $cover = new \site\frontend\modules\photo\models\Photo();
             $cover->fromJSON($collection->cover['photo']);
@@ -155,7 +170,9 @@ class ConvertBehavior extends \CActiveRecordBehavior
                         'coverId: ' . (int) $collection->cover['id'],
                             ), '') . '</div>';
             return $photoAlbumTag;
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e)
+        {
             throw $e;
         }
     }

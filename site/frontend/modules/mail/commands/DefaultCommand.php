@@ -14,7 +14,14 @@ class DefaultCommand extends CConsoleCommand
      */
     public function init()
     {
-        //\Yii::app()->db->enableSlave = false;
+       if (\Yii::app()->db instanceof \DbConnectionMan)
+        {
+            /*
+             * Отключим слейвы
+             * TODO::убрать это когда база будет человеческая
+             */
+            \Yii::app()->db->enableSlave = false;
+        }
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         Yii::import('site.frontend.modules.mail.MailModule');
         MailModule::externalImport();

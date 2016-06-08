@@ -660,7 +660,7 @@ return array(
         'lite_forum-homepage' => array(
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/forum-homepage.css'
+                'lite/css/dev/all.css',
             ),
         ),
         'lite_contractubex' => array(

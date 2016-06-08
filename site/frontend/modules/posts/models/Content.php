@@ -42,7 +42,7 @@ use site\frontend\modules\comments\models\Comment;
  * The followings are the available model relations:
  * @property PostLabels[] $labelModels
  */
-class Content extends \CActiveRecord implements \IHToJSON
+class Content extends \HActiveRecord implements \IHToJSON
 {
 
     protected $labelDelimiter = '|';
@@ -119,6 +119,13 @@ class Content extends \CActiveRecord implements \IHToJSON
         );
     }
 
+    public function apiRelations()
+    {
+        return array(
+            'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
+        );
+    }
+
     public function behaviors()
     {
         return array(
@@ -149,6 +156,13 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
                 'removeAttribute' => 'isRemoved',
             ),
+            'site\frontend\modules\posts\behaviors\HotBehavior',
+            [
+                'class' => 'site\frontend\modules\comments\behaviors\CommentableBehavior',
+                'relationParameters' => [
+                    'join' => 'INNER JOIN ' . $this->tableName() . ' pc ON t.entity = pc.originEntity AND t.entity_id = pc.originEntityId',
+                ],
+            ]
         );
     }
 
@@ -505,13 +519,13 @@ class Content extends \CActiveRecord implements \IHToJSON
     public function byTags($tags)
     {
         $criteria = $this->getDbCriteria();
-        $criteria->with[] = 'tagModels';
-        $criteria->together = true;
-        $criteria->addInCondition('tagModels.labelId', $tags);
-        //$criteria->select = 't.* , count(tagModelss.labelId) as c';
-        $criteria->group = 't.id';
-        $criteria->having = 'count(tagModels.labelId) = ' . count($tags);
-        $this->tagList = $tags;
+        $criteria->addCondition($this->tableAlias . '.id IN (SELECT contentId
+            FROM post__tags
+            WHERE labelId IN (:tags)
+            GROUP BY contentId
+            HAVING COUNT(labelId) = :tagsCount)');
+        $criteria->params[':tags'] = implode(',', $tags);
+        $criteria->params[':tagsCount'] = count($tags);
         return $this;
     }
 
@@ -519,7 +533,7 @@ class Content extends \CActiveRecord implements \IHToJSON
      * Поиск по текстовым "ярлыкам"
      * 
      * @param type $labels
-     * @return type
+     * @return \site\frontend\modules\posts\models\Content
      */
     public function byLabels($labels)
     {
@@ -580,49 +594,49 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function leftFor($post)
     {
-        $labelsList = [];
-        if (sizeof($this->tagList) > 0)
-        {
-            $labelsList = $this->tagList;
-        }
-        else
-        {
-            $labelsList = array_map(function($lb)
-            {
-                return $lb->id;
-            }, $post->labelModels);
-        }
-        $labelsCount = sizeof($labelsList);
-        $labelsList = implode(', ', $labelsList);
-
-        $sql = "SELECT * 
-FROM post__contents AS pc 
-	LEFT JOIN (SELECT pt.contentId
-	FROM post__tags AS pt
-	WHERE pt.labelId in ({$labelsList})
-	GROUP BY pt.contentId 
-	HAVING COUNT(pt.contentId) = {$labelsCount}
-	ORDER BY pt.contentId desc
-	) AS tmp ON (pc.id=tmp.contentId)
-WHERE  pc.isRemoved = 0 
-    AND (pc.dtimePublication<{$post->dtimePublication})
-ORDER BY pc.dtimePublication DESC
-LIMIT 1";
-        $itm = \Yii::app()->db->createCommand($sql)->queryAll(true);
-        if (isset($itm[0]))
-        {
-            $criteria = $this->getDbCriteria();
-            $criteria->condition = 'id=' . $itm[0]['id'];
-            $criteria->with = [];
-            $criteria->params = [];
-            $criteria->group = '';
-            $criteria->having = '';
-        }
-        else
-        {
-            $this->getDbCriteria()->condition = 'id=-1';
-        }
-        return $this;
+//        $labelsList = [];
+//        if (sizeof($this->tagList) > 0)
+//        {
+//            $labelsList = $this->tagList;
+//        }
+//        else
+//        {
+//            $labelsList = array_map(function($lb)
+//            {
+//                return $lb->id;
+//            }, $post->labelModels);
+//        }
+//        $labelsCount = sizeof($labelsList);
+//        $labelsList = implode(', ', $labelsList);
+//
+//        $sql = "SELECT * 
+//FROM post__contents AS pc 
+//	LEFT JOIN (SELECT pt.contentId
+//	FROM post__tags AS pt
+//	WHERE pt.labelId in ({$labelsList})
+//	GROUP BY pt.contentId 
+//	HAVING COUNT(pt.contentId) = {$labelsCount}
+//	ORDER BY pt.contentId desc
+//	) AS tmp ON (pc.id=tmp.contentId)
+//WHERE  pc.isRemoved = 0 
+//    AND (pc.dtimePublication<{$post->dtimePublication})
+//ORDER BY pc.dtimePublication DESC
+//LIMIT 1";
+//        $itm = \Yii::app()->db->createCommand($sql)->queryAll(true);
+//        if (isset($itm[0]))
+//        {
+//            $criteria = $this->getDbCriteria();
+//            $criteria->condition = 'id=' . $itm[0]['id'];
+//            $criteria->with = [];
+//            $criteria->params = [];
+//            $criteria->group = '';
+//            $criteria->having = '';
+//        }
+//        else
+//        {
+//            $this->getDbCriteria()->condition = 'id=-1';
+//        }
+//        return $this;
 
         $this->getDbCriteria()->compare('dtimePublication', '<' . $post->dtimePublication);
         $this->orderDesc();

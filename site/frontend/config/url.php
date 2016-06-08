@@ -397,13 +397,13 @@ return array(
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
-            'pattern' => '<club:[\w-]+>',
-            'route' => 'som/community/default/index',
+            'pattern' => '<club:[\w-]+>/<tab:[\w]+>',
+            'route' => 'posts/forums/default/club',
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',
-            'route' => 'community/default/club',
+            'route' => 'posts/forums/default/club',
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',

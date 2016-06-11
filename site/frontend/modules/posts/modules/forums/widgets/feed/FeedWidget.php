@@ -1,6 +1,8 @@
 <?php
 
 namespace site\frontend\modules\posts\modules\forums\widgets\feed;
+use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\models\Label;
 use site\frontend\modules\som\modules\community\models\api\CommunityClub;
 
 /**
@@ -19,9 +21,24 @@ class FeedWidget extends \CWidget
     public $club;
 
     /**
+     * @var \Community
+     */
+    public $forum;
+
+    /**
      * @var string
      */
     public $tab;
+
+    /**
+     * @var string
+     */
+    public $defaultTab = self::TAB_NEW;
+
+    /**
+     * @var integer
+     */
+    public $labelId;
 
     protected $tabs = [
         self::TAB_NEW => 'Новые',
@@ -33,7 +50,7 @@ class FeedWidget extends \CWidget
     {
         parent::init();
         if ($this->tab === null) {
-            $this->tab = self::TAB_NEW;
+            $this->tab = $this->defaultTab;
         }
     }
 
@@ -45,20 +62,48 @@ class FeedWidget extends \CWidget
     public function getMenuItems()
     {
         $items = [];
-
         foreach ($this->tabs as $tab => $label) {
             $items[] = [
                 'label' => $label,
-                'url' => ['/posts/forums/default/club', 'club' => $this->club->slug, 'tab' => $tab],
+                'url' => $this->getUrl(['feedTab' => $tab]),
                 'active' => $this->tab == $tab,
             ];
         }
         return $items;
     }
 
+    public function getFilterItems()
+    {
+        $items = [
+            [
+                'label' => 'Все',
+                'url' => $this->getUrl(['feedForumId' => null]),
+                'active' => $this->forum == null,
+            ],
+        ];
+        foreach ($this->club->communities as $forum) {
+            $items[] = [
+                'label' => $forum->title,
+                'url' => $this->getUrl(['feedForumId' => $forum->id]),
+                'active' => $this->forum->id == $forum->id,
+            ];
+        }
+        return $items;
+    }
+
+    public function getUrl($params)
+    {
+        $params = \CMap::mergeArray($_GET, $params);
+        $params = array_filter($params);
+        if (isset($params['feedTab']) && $params['feedTab'] == $this->defaultTab) {
+            unset($params['feedTab']);
+        }
+        return \Yii::app()->controller->createUrl('/posts/forums/default/club', $params);
+    }
+
     public function getListDataProvider()
     {
-        $model = clone \site\frontend\modules\posts\models\Content::model();
+        $model = \site\frontend\modules\posts\models\Content::model();
         switch ($this->tab) {
             case self::TAB_NEW:
                 $model->orderDesc();
@@ -67,16 +112,43 @@ class FeedWidget extends \CWidget
                 $model->orderHotRate();
                 break;
             case self::TAB_DISCUSS:
-                $model->uncommented();
+                $model->orderDesc()->uncommented();
                 break;
         }
         $model
-            ->byLabels([$this->club->toLabel()])
             ->with('commentsCount', 'commentatorsCount')
-            ->apiWith('user')
         ;
-        return new \CActiveDataProvider('\site\frontend\modules\posts\models\Content', [
-            'criteria' => $model->getDbCriteria(),
+        $this->applyLabelScopes($model);
+        $criteria = $model->getDbCriteria();
+        $model->resetScope(false);
+        return new \CActiveDataProvider($model->apiWith('user'), [
+            'criteria' => $criteria,
         ]);
+    }
+    
+    public function getTag(Content $post)
+    {
+        $rubricLabel = $post->getLabelByPrefix('Рубрика');
+
+        if ($rubricLabel) {
+            return [
+                'text' => str_replace('Рубрика: ', '', $rubricLabel->text),
+                //'url' => \Yii::app()->controller->createUrl('/posts/forums/default/club', ['club' => $this->club, 'label' => $rubricLabel->id]),
+            ];
+        }
+        return null;
+    }
+    
+    protected function applyLabelScopes(Content $model)
+    {
+        if ($this->labelId) {
+            $model->byTags([$this->labelId]);
+        } else {
+            $labels = [$this->club->toLabel(), Label::LABEL_FORUMS];
+            if ($this->forum) {
+                $labels[] = $this->forum->toLabel();
+            }
+            $model->byLabels($labels);
+        }
     }
 }

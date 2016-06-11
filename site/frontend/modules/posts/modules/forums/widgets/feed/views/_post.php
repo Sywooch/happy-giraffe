@@ -1,7 +1,11 @@
 <?php
 /**
+ * @var \site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget $this
  * @var \site\frontend\modules\posts\models\Content $data
  */
+$tag = $this->getTag($data);
+
+
 ?>
 
 <div class="b-froum-theme top-theme">
@@ -17,9 +21,11 @@
         <a class="b-froum-theme-info-title" href="<?=$data->url?>"><?=$data->title?></a>
         <p><?=\site\common\helpers\HStr::truncate($data->text)?></p>
         <div class="b-froum-theme-info-more">
-            <div class="hashtag">
-                <a href="#">Общее развитие ребенка</a>
-            </div>
+            <?php if ($tag): ?>
+                <div class="hashtag">
+                    <a href="#"><?=$tag['text']?></a>
+                </div>
+            <?php endif; ?>
             <div class="b-users-info">
                 <span class="see"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span>
                 <span class="people"><?=$data->commentatorsCount?></span>

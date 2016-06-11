@@ -7,6 +7,12 @@
 
 <div class="tabs">
     <?php $this->widget('zii.widgets.CMenu', [
+        'items' => $this->getFilterItems(),
+    ]); ?>
+</div>
+
+<div class="tabs">
+    <?php $this->widget('zii.widgets.CMenu', [
         'items' => $this->getMenuItems(),
     ]); ?>
 </div>

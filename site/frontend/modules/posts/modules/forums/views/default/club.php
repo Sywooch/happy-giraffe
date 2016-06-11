@@ -1,8 +1,10 @@
 <?php
 /**
  * @var site\frontend\modules\posts\modules\forums\controllers\DefaultController $this
- * @var string $tab
  * @var CommunityClub $club
+ * @var string $feedTab
+ * @var null|Community $feedForum
+ * @var null|integer $feedLabelId
  */
 $this->breadcrumbs = [
     'Главная' => ['/site/index'],
@@ -35,48 +37,20 @@ $this->breadcrumbs = [
     <aside class="right">
         <div class="text-center"><a href="#" class="btn green">Добавить тему</a></div>
         <ul>
-            <li class="forummen-month">
-                <div class="head">форумчанин июля</div>
-                <div class="b-user one">
-                    <div class="b-user-number one">1</div>
-                    <div class="b-user-ava"><img src="/images/icons/ava.jpg" alt=""></div>
-                    <div class="b-user-name">Вероника Петрова</div>
-                    <div class="b-user-rating"><span>698</span>баллов</div>
-                </div>
-                <div class="b-user">
-                    <div class="b-user-number two">2</div>
-                    <div class="b-user-ava"><img src="/images/icons/ava.jpg" alt=""></div>
-                    <div class="b-user-name">Вероника Петрова</div>
-                    <div class="b-user-rating"><span>698</span>баллов</div>
-                </div>
-                <div class="b-user">
-                    <div class="b-user-number three">3</div>
-                    <div class="b-user-ava"><img src="/images/icons/ava.jpg" alt=""></div>
-                    <div class="b-user-name">Вероника Петрова</div>
-                    <div class="b-user-rating"><span>698</span>баллов</div>
-                </div>
-                <div class="b-user">
-                    <div class="b-user-number four">4</div>
-                    <div class="b-user-ava"><img src="/images/icons/ava.jpg" alt=""></div>
-                    <div class="b-user-name">Вероника Петрова</div>
-                    <div class="b-user-rating"><span>698</span>баллов</div>
-                </div>
-                <div class="b-user">
-                    <div class="b-user-number five">5</div>
-                    <div class="b-user-ava"><img src="/images/icons/ava.jpg" alt=""></div>
-                    <div class="b-user-name">Вероника Петрова</div>
-                    <div class="b-user-rating"><span>698</span>баллов</div>
-                </div>
-            </li>
-            <li>
-                <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
-                    'labels' => [$club->toLabel()],
-                ]); ?>
-            </li>
+            <?php Yii::beginProfile('usersTopWidget'); $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget'); Yii::endProfile('usersTopWidget'); ?>
+            <?php Yii::beginProfile('hotWidget'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
+                'labels' => [
+                    \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
+                    $club->toLabel(),
+                ],
+            ]); Yii::endProfile('hotWidget'); ?>
         </ul>
     </aside>
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget', [
+    
+    <?php Yii::beginProfile('feedWidget'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget', [
         'club' => $club,
-        'tab' => $tab,
-    ]); ?>
+        'forum' => $feedForum,
+        'labelId' => $feedLabelId,
+        'tab' => $feedTab,
+    ]); Yii::endProfile('feedWidget');  ?>
 </div>

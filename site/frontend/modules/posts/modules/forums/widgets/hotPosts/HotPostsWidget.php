@@ -16,17 +16,22 @@ class HotPostsWidget extends \CWidget
     
     public function run()
     {
-        $this->render('index', ['posts' => $this->getPosts()]);
+        $posts = $this->getPosts();
+        if (! empty($posts)) {
+            $this->render('index', compact('posts'));
+        }
     }
 
     protected function getPosts()
     {
-        $criteria = new \CDbCriteria();
-        $criteria->limit = $this->limit;
-        return Content::model()
-//            ->byLabels($this->labels)
+        $model = Content::model()
             ->orderHotRate()
             ->with(['commentsCount', 'commentatorsCount'])
-            ->findAll($criteria);
+            ->apiWith('user')
+        ;
+        if (false && ! empty($this->labels)) {
+            $model->byLabels($this->labels);
+        }
+        return $model->findAll(['limit' => $this->limit]);
     }
 }

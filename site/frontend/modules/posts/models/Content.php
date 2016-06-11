@@ -519,13 +519,11 @@ class Content extends \HActiveRecord implements \IHToJSON
     public function byTags($tags)
     {
         $criteria = $this->getDbCriteria();
-        $criteria->addCondition($this->tableAlias . '.id IN (SELECT contentId
-            FROM post__tags
-            WHERE labelId IN (:tags)
-            GROUP BY contentId
-            HAVING COUNT(labelId) = :tagsCount)');
-        $criteria->params[':tags'] = implode(',', $tags);
-        $criteria->params[':tagsCount'] = count($tags);
+        $criteria->addCondition($this->getTableAlias(true) . '.`id` IN (SELECT `contentId`
+            FROM `post__tags`
+            WHERE `labelId` IN (' . implode(', ', $tags) . ')
+            GROUP BY `contentId`
+            HAVING COUNT(`labelId`) = ' . count($tags) . ')');
         return $this;
     }
 
@@ -658,4 +656,17 @@ class Content extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    /**
+     * @param string $prefix
+     * @return null|Label
+     */
+    public function getLabelByPrefix($prefix)
+    {
+        foreach ($this->labelModels as $model) {
+            if (strpos($model->text, $prefix) !== false) {
+                return $model;
+            }
+        }
+        return null;
+    }
 }

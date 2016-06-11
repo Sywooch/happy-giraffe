@@ -16,47 +16,87 @@ class UsersTopWidget extends \CWidget
     const POSTS_MULTIPLIER = 5;
     const COMMENTS_MULTIPLIER = 1;
     const LIMIT = 5;
+    const MONTH_THRESHOLD = 10;
+
+    protected $scores = [];
 
     public function run()
     {
-        $scores = $this->getScores();
-        $users = User::model()->findAllByPk(array_keys($scores), array('avatarSize' => 40));
-        $this->render('view', compact('scores', 'users'));
-    }
-
-    protected function getScores()
-    {
-        $scores = [];
-        $this->process($this->getPostsCounts(), $scores, self::POSTS_MULTIPLIER);
-        $this->process($this->getCommentsCounts(), $scores, self::COMMENTS_MULTIPLIER);
-        arsort($scores);
-        return array_slice($scores, 0, self::LIMIT, true);
-    }
-
-    protected function process($input, &$output, $multiplier = 1)
-    {
-        foreach ($input as $row) {
-            if (! isset($output[$row['uId']])) {
-                $output[$row['uId']] = 0;
-            }
-
-            $output[$row['uId']] += $row['c'] * $multiplier;
+        $rows = $this->getRows();
+        if (! empty($rows)) {
+            $this->render('view', compact('rows'));
         }
     }
 
-    protected function getPostsCounts()
+    protected function getTime()
     {
-        $criteria = $this->getPostsCriteria();
-        $criteria->select = 'authorId uId, COUNT(*) c';
-        return \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
+        if (date("j") > self::MONTH_THRESHOLD) {
+            $time = time();
+        } else {
+            $time = strtotime("first day of last month");
+        }
+        return $time;
     }
 
-    protected function getCommentsCounts()
+    protected function getRows()
+    {
+        $top = $this->getTop();
+        $users = User::model()->findAllByPk(array_keys($top), array('avatarSize' => 40));
+        $rows = [];
+        foreach ($top as $uId => $score) {
+            $rows[] = [
+                'user' => $users[$uId],
+                'score' => $score,
+            ];
+        }
+        return $rows;
+    }
+
+    protected function getTop()
+    {
+        $this->chargePostScore();
+        $this->chargeCommentsScore();
+        arsort($this->scores);
+        return array_slice($this->scores, 0, self::LIMIT, true);
+    }
+
+    protected function charge($userId, $score)
+    {
+        if (! isset ($this->scores[$userId])) {
+            $this->scores[$userId] = 0;
+        }
+        $this->scores[$userId] += $score;
+    }
+
+    protected function chargePostScore()
+    {
+        $criteria = $this->getPostsCriteria();
+        $criteria->compare('authorId', '<>' . \User::HAPPY_GIRAFFE);
+        $criteria->select = 'authorId uId, COUNT(*) c';
+        $criteria->group = 'authorId';
+        //$criteria->params[':month'] = date("n", $this->getTime());
+        //$criteria->addCondition(new \CDbExpression('MONTH(FROM_UNIXTIME(dtimeCreate)) = :month AND YEAR(FROM_UNIXTIME(dtimeCreate)) = YEAR(CURDATE())'));
+        $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
+        $this->processQuery($rows, self::POSTS_MULTIPLIER);
+    }
+
+    protected function chargeCommentsScore()
     {
         $criteria = $this->getPostsCriteria();
         $criteria->select = 'comments.author_id uId, COUNT(*) c';
-        $criteria->join = 'JOIN comments c ON comments.entity_id = t.originEntityId AND comments.entity = t.originEntity';
-        return \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
+        $criteria->join = 'JOIN comments ON comments.entity_id = t.originEntityId AND comments.entity = t.originEntity';
+        $criteria->group = 'author_id';
+        //$criteria->params[':month'] = date("n", $this->getTime());
+        //$criteria->addCondition(new \CDbExpression('MONTH(comments.created) = :month AND YEAR(FROM_UNIXTIME(dtimeCreate)) = YEAR(CURDATE())'));
+        $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
+        $this->processQuery($rows, self::COMMENTS_MULTIPLIER);
+    }
+
+    protected function processQuery($input, $multiplier = 1)
+    {
+        foreach ($input as $row) {
+            $this->charge($row['uId'], $row['c'] * $multiplier);
+        }
     }
 
     /**
@@ -64,14 +104,8 @@ class UsersTopWidget extends \CWidget
      */
     protected function getPostsCriteria()
     {
-        $criteria = clone Content::model()
-            ->byLabels([Label::LABEL_FORUMS])
-            ->getDbCriteria()
-        ;
-
-        $criteria->compare('authorId', '<>' . \User::HAPPY_GIRAFFE);
-        $criteria->group = 'authorId';
-        $criteria->addCondition(new \CDbExpression('MONTH(FROM_UNIXTIME(dtimeCreate)) = MONTH(CURDATE()) AND YEAR(FROM_UNIXTIME(dtimeCreate)) = YEAR(CURDATE())'));
-        return;
+        $criteria = clone Content::model()->getDbCriteria();
+        $criteria->scopes = ['byLabels' => [Label::LABEL_FORUMS]];
+        return $criteria;
     }
 }

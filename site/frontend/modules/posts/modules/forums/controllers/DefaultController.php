@@ -16,12 +16,20 @@ class DefaultController extends \LiteController
     public $litePackage = 'forum-homepage';
     public $hideUserAdd = true;
 
-    public function actionClub($club, $tab = null)
+    public $layout = '//layouts/lite/test';
+
+    public function actionClub($club, $feedForumId = null, $feedLabelId = null, $feedTab = null)
     {
         $club = \CommunityClub::model()->findByAttributes(['slug' => $club]);
         if (! $club) {
             throw new \CHttpException(404);
         }
-        $this->render('club', compact('club', 'tab'));
+        if ($feedForumId !== null) {
+            $feedForum = \Community::model()->findByPk($feedForumId);
+            if (! $feedForum) {
+                throw new \CHttpException(404);
+            }
+        }
+        $this->render('club', compact('club', 'feedForum', 'feedTab', 'feedLabelId'));
     }
 }

@@ -4,8 +4,6 @@
  * @var \site\frontend\modules\posts\models\Content $data
  */
 $tag = $this->getTag($data);
-
-
 ?>
 
 <div class="b-froum-theme top-theme">

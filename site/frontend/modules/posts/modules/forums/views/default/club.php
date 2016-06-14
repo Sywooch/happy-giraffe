@@ -37,20 +37,19 @@ $this->breadcrumbs = [
     <aside class="right">
         <div class="text-center"><a href="#" class="btn green">Добавить тему</a></div>
         <ul>
-            <?php Yii::beginProfile('usersTopWidget'); $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget'); Yii::endProfile('usersTopWidget'); ?>
-            <?php Yii::beginProfile('hotWidget'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
+            <?php if ($this->beginCache('Forums.UsersTopWidget', array('duration' => 3600))) { $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget'); $this->endCache(); } ?>
+            <?php if ($this->beginCache('Forums.HotPostsWidget', array('duration' => 3600))) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
                 'labels' => [
                     \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
                     $club->toLabel(),
                 ],
-            ]); Yii::endProfile('hotWidget'); ?>
+            ]); $this->endCache(); } ?>
         </ul>
     </aside>
     
-    <?php Yii::beginProfile('feedWidget'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget', [
+    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget', [
         'club' => $club,
         'forum' => $feedForum,
-        'labelId' => $feedLabelId,
         'tab' => $feedTab,
-    ]); Yii::endProfile('feedWidget');  ?>
+    ]); ?>
 </div>

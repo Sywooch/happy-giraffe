@@ -18,7 +18,7 @@ class DefaultController extends \LiteController
 
     public $layout = '//layouts/lite/test';
 
-    public function actionClub($club, $feedForumId = null, $feedLabelId = null, $feedTab = null)
+    public function actionClub($club, $feedForumId = null, $feedTab = null)
     {
         $club = \CommunityClub::model()->findByAttributes(['slug' => $club]);
         if (! $club) {
@@ -30,6 +30,6 @@ class DefaultController extends \LiteController
                 throw new \CHttpException(404);
             }
         }
-        $this->render('club', compact('club', 'feedForum', 'feedTab', 'feedLabelId'));
+        $this->render('club', compact('club', 'feedForum', 'feedTab'));
     }
 }

@@ -35,11 +35,6 @@ class FeedWidget extends \CWidget
      */
     public $defaultTab = self::TAB_NEW;
 
-    /**
-     * @var integer
-     */
-    public $labelId;
-
     protected $tabs = [
         self::TAB_NEW => 'Новые',
         self::TAB_HOT => 'Горячие',
@@ -125,7 +120,10 @@ class FeedWidget extends \CWidget
             'criteria' => $criteria,
         ]);
     }
-    
+
+    /**
+     * @todo обсудить
+     */
     public function getTag(Content $post)
     {
         $rubricLabel = $post->getLabelByPrefix('Рубрика');
@@ -141,14 +139,10 @@ class FeedWidget extends \CWidget
     
     protected function applyLabelScopes(Content $model)
     {
-        if ($this->labelId) {
-            $model->byTags([$this->labelId]);
-        } else {
-            $labels = [$this->club->toLabel(), Label::LABEL_FORUMS];
-            if ($this->forum) {
-                $labels[] = $this->forum->toLabel();
-            }
-            $model->byLabels($labels);
+        $labels = [$this->club->toLabel(), Label::LABEL_FORUMS];
+        if ($this->forum) {
+            $labels[] = $this->forum->toLabel();
         }
+        $model->byLabels($labels);
     }
 }

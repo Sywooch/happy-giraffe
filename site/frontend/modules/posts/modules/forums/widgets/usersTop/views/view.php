@@ -7,7 +7,7 @@ $classes = ['one', 'two', 'three', 'four', 'five'];
 ?>
 
 <li class="forummen-month">
-    <div class="head">форумчанин <?=\Yii::app()->dateFormatter->format('MMMM', $this->getTime())?></div>
+    <div class="head">форумчанин <?=\Yii::app()->dateFormatter->format('MMMM', $this->getTimeFrom())?></div>
     <?php foreach ($rows as $i => $row): ?>
     <div class="b-user">
         <div class="b-user-number <?=(isset($classes[$i]) ? $classes[$i] : '')?>"><?=($i+1)?></div>

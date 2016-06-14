@@ -15,8 +15,9 @@ class UsersTopWidget extends \CWidget
 {
     const POSTS_MULTIPLIER = 5;
     const COMMENTS_MULTIPLIER = 1;
-    const LIMIT = 5;
     const MONTH_THRESHOLD = 10;
+
+    public $limit = 5;
 
     protected $scores = [];
 
@@ -28,14 +29,19 @@ class UsersTopWidget extends \CWidget
         }
     }
 
-    protected function getTime()
+    protected function getTimeFrom()
     {
         if (date("j") > self::MONTH_THRESHOLD) {
-            $time = time();
+            $time = strtotime("first day of this month", strtotime(date("Y-m")));
         } else {
-            $time = strtotime("first day of last month");
+            $time = strtotime("first day of last month", strtotime(date("Y-m")));
         }
         return $time;
+    }
+
+    protected function getTimeTo()
+    {
+        return strtotime("first day of next month", $this->getTimeFrom());
     }
 
     protected function getRows()
@@ -57,7 +63,7 @@ class UsersTopWidget extends \CWidget
         $this->chargePostScore();
         $this->chargeCommentsScore();
         arsort($this->scores);
-        return array_slice($this->scores, 0, self::LIMIT, true);
+        return array_slice($this->scores, 0, $this->limit, true);
     }
 
     protected function charge($userId, $score)
@@ -70,25 +76,48 @@ class UsersTopWidget extends \CWidget
 
     protected function chargePostScore()
     {
-        $criteria = $this->getPostsCriteria();
+        $criteria = clone Content::model()->getDbCriteria();
+        $criteria->scopes = ['byLabels' => [Label::LABEL_FORUMS]];
         $criteria->compare('authorId', '<>' . \User::HAPPY_GIRAFFE);
         $criteria->select = 'authorId uId, COUNT(*) c';
         $criteria->group = 'authorId';
-        //$criteria->params[':month'] = date("n", $this->getTime());
-        //$criteria->addCondition(new \CDbExpression('MONTH(FROM_UNIXTIME(dtimeCreate)) = :month AND YEAR(FROM_UNIXTIME(dtimeCreate)) = YEAR(CURDATE())'));
+        $criteria->params[':timeFrom'] = $this->getTimeFrom();
+        $criteria->addCondition('dtimeCreate > :timeFrom');
+        if (time() > $this->getTimeTo()) {
+            $criteria[':timeTo'] = $this->getTimeTo();
+            $criteria->addCondition('dtimeCreate < :timeTo');
+        }
         $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
         $this->processQuery($rows, self::POSTS_MULTIPLIER);
     }
 
+    /**
+     * @todo обсудить
+     */
     protected function chargeCommentsScore()
     {
-        $criteria = $this->getPostsCriteria();
-        $criteria->select = 'comments.author_id uId, COUNT(*) c';
-        $criteria->join = 'JOIN comments ON comments.entity_id = t.originEntityId AND comments.entity = t.originEntity';
+        $label = Label::model()->byTags(Label::LABEL_FORUMS)->find();
+        if ($label === null) {
+            return;
+        }
+
+        $criteria = clone Comment::model()->getDbCriteria();
+        $criteria->select = 'author_id uId, COUNT(*) c';
         $criteria->group = 'author_id';
-        //$criteria->params[':month'] = date("n", $this->getTime());
-        //$criteria->addCondition(new \CDbExpression('MONTH(comments.created) = :month AND YEAR(FROM_UNIXTIME(dtimeCreate)) = YEAR(CURDATE())'));
-        $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
+        $criteria->params[':timeFrom'] = date("Y-m-d H:i:s", $this->getTimeFrom());
+        $criteria->addCondition('created > :timeFrom');
+        if (time() > $this->getTimeTo()) {
+            $criteria[':timeTo'] = date("Y-m-d H:i:s", $this->getTimeTo());
+            $criteria->addCondition('created < :timeTo');
+        }
+        $criteria->addCondition("`new_entity_id` IN (
+            SELECT `contentId`
+            FROM `post__tags`
+            WHERE `labelId` IN (" . $label->id . ")
+            GROUP BY `contentId`
+            HAVING COUNT(labelId) = 1
+        )");
+        $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Comment::model()->tableName(), $criteria)->queryAll();
         $this->processQuery($rows, self::COMMENTS_MULTIPLIER);
     }
 
@@ -97,15 +126,5 @@ class UsersTopWidget extends \CWidget
         foreach ($input as $row) {
             $this->charge($row['uId'], $row['c'] * $multiplier);
         }
-    }
-
-    /**
-     * @return \CDbCriteria
-     */
-    protected function getPostsCriteria()
-    {
-        $criteria = clone Content::model()->getDbCriteria();
-        $criteria->scopes = ['byLabels' => [Label::LABEL_FORUMS]];
-        return $criteria;
     }
 }

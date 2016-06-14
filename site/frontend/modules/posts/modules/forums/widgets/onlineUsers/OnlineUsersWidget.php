@@ -9,49 +9,34 @@ use site\frontend\components\api\models\User;
 
 class OnlineUsersWidget extends \CWidget
 {
-    const LIMIT = 300;
-    const CACHE_DURATION = 300;
+    public $limit = 40;
 
     public function run()
     {
-        $_users = $this->getUsers();
-        $users = $_users['models'];
-        $usersCount = $_users['count'];
-        $guestsCount = $this->getGuestsCount();
-        $this->render('view', compact('users', 'usersCount', 'guestsCount'));
+        $users = $this->getUsers();
+        if (! empty($users)) {
+            $this->render('view', compact('users'));
+        }
     }
 
-    protected function getGuestsCount()
-    {
-        $guests = \Yii::app()->comet->cmdOnlineWithCounters('guest');
-        return isset($guests['guest']) ? $guests['guest'] : 0;
-    }
-
+    /**
+     * @todo обсудить
+     */
     protected function getUsers()
     {
-        $cacheId = get_class($this) . '.users';
-        $value = \Yii::app()->cache->get($cacheId);
-        if ($value === false) {
-            $counters = \Yii::app()->comet->cmdOnlineWithCounters('onOff');
-            $ids = array();
-            $c = 0;
-            foreach ($counters as $id => $counter) {
-                if ($counter > 0 && $c <= self::LIMIT) {
-                    $userId = str_replace('onOff', '', $id);
-                    $ids[] = $userId;
-                }
-                $c++;
+        $counters = \Yii::app()->comet->cmdOnlineWithCounters('onOff');
+        $ids = array();
+        $c = 0;
+        foreach ($counters as $id => $counter) {
+            if ($counter > 0 && $c <= $this->limit) {
+                $userId = str_replace('onOff', '', $id);
+                $ids[] = $userId;
             }
-            $models = User::model()->findAllByPk($ids);
-            $models = array_filter($models, function($model) {
-                return $model->avatarUrl !== null;
-            });
-            $value = array(
-                'models' => $models,
-                'count' => $c,
-            );
-            \Yii::app()->cache->set($cacheId, $value, self::CACHE_DURATION);
+            $c++;
         }
-        return $value;
+        $models = User::model()->findAllByPk($ids);
+        return array_filter($models, function($model) {
+            return $model->avatarUrl !== null;
+        });
     }
 }

@@ -12,24 +12,18 @@ use site\frontend\modules\posts\models\Label;
 
 class LastPostWidget extends \CWidget
 {
-    const LIMIT = 4;
+    public $limit = 3;
 
     public function run()
     {
-        $posts = Content::model()->getLastByLabel(Label::LABEL_FORUMS, self::LIMIT);
-      
-        $users = User::model()->findAllByPk(array_map(function($post) {
-            return $post->authorId;
-        }, $posts), array('avatarSize' => 24));
-
-        $this->render('view', compact('posts', 'users'));
+        $posts = $this->getPosts();
+        if (! empty($posts)) {
+            $this->render('view', compact('posts'));
+        }
     }
 
-    public function getUser($id)
+    protected function getPosts()
     {
-        return \site\frontend\components\api\models\User::model()->query('get', array(
-            'id' => $id,
-            'avatarSize' => \Avatar::SIZE_SMALL,
-        ));
+        return Content::model()->byLabels([Label::LABEL_FORUMS])->apiWith('user')->findAll(['limit' => $this->limit]);
     }
 }

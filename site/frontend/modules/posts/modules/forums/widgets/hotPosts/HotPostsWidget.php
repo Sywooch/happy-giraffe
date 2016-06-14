@@ -29,7 +29,7 @@ class HotPostsWidget extends \CWidget
             ->with(['commentsCount', 'commentatorsCount'])
             ->apiWith('user')
         ;
-        if (false && ! empty($this->labels)) {
+        if (! empty($this->labels)) {
             $model->byLabels($this->labels);
         }
         return $model->findAll(['limit' => $this->limit]);

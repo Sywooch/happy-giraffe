@@ -18,7 +18,8 @@ class DefaultController extends \site\frontend\modules\posts\controllers\ListCon
 
     public function getListDataProvider()
     {
-        $criteria = Content::model()->byLabels(array(Label::LABEL_FORUMS, $this->club->toLabel()))->orderDesc()->getDbCriteria();
+        #$criteria = Content::model()->byLabels(array(Label::LABEL_FORUMS, $this->club->toLabel()))->orderDesc()->getDbCriteria();
+        $criteria = Content::model()->createCriteriaForForum(array(Label::LABEL_FORUMS, $this->club->toLabel()));
         return new \CActiveDataProvider('\site\frontend\modules\posts\models\Content', array(
             'criteria' => clone $criteria,
             'pagination' => array(

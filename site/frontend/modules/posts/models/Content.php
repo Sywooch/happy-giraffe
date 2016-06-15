@@ -622,12 +622,11 @@ class Content extends \CActiveRecord implements \IHToJSON
 
         $sql = "SELECT * 
 FROM post__contents AS pc 
-	LEFT JOIN (SELECT pt.contentId
+	JOIN (SELECT pt.contentId
 	FROM post__tags AS pt
 	WHERE pt.labelId in ({$labelsList})
 	GROUP BY pt.contentId 
 	HAVING COUNT(pt.contentId) = {$labelsCount}
-	ORDER BY pt.contentId desc
 	) AS tmp ON (pc.id=tmp.contentId)
 WHERE  pc.isRemoved = 0 
     AND (pc.dtimePublication<{$post->dtimePublication})

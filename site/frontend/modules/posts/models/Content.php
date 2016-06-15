@@ -464,7 +464,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     public function bySlug($slug, $entityId)
     {
         $slug = strtolower($slug);
-        
+
         return $this->byEntity(Content::$slugAliases[$slug], $entityId);
     }
 
@@ -548,10 +548,35 @@ class Content extends \CActiveRecord implements \IHToJSON
     }
 
     /**
+     * возвращает модифицированный критерий выборки из бд списка постов форума
+     * @param array $labelsId
+     */
+    public function createCriteriaForForum(array $labelsId)
+    {
+
+        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labelsId);
+        if (count($labelsId) != count($tags))
+        {
+            $this->getDbCriteria()->addCondition('1=0');
+            return $this;
+        }
+        $cr = $this->getDbCriteria();
+        $cr->with = [];
+        $cr->having = '';
+        $cr->join = 'JOIN (SELECT pt.contentId FROM post__tags AS pt WHERE pt.labelId in ('
+                . implode(', ', $tags)
+                . ') GROUP BY pt.contentId HAVING (count(pt.contentId) = ' . count($tags) . ')'
+                . ') AS tmp ON (tmp.contentId=t.id)';
+        $cr->order = $this->tableAlias . '.dtimePublication DESC';
+        return $cr;
+    }
+
+    /**
      * возвращает список последних постов по метке, в частности для форума
      * @param int $labelId
      * @param int $limit
      * @return \site\frontend\modules\posts\models\Content
+     * @author crocodile
      */
     public function getLastByLabel($labelId, $limit)
     {

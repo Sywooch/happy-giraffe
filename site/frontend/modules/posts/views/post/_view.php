@@ -34,6 +34,10 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
                 'title' => 'Маленький пост',
             )); ?>
         <?php endif; ?>
+        <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\OnOffWidget', array(
+            'model' => $this->post,
+            'title' => 'В конкурс',
+        )); ?>
     <?php endif; ?>
     <!-- Статья с текстом-->
     <!-- b-article-->

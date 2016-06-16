@@ -21,8 +21,15 @@ class OnOffWidget extends \CWidget
 
     public function getIsActive()
     {
+        if ($this->model->communityContent)
+        {
 
-        return \Favourites::model()->inFavourites($this->model->communityContent, \Favourites::BLOCK_COMMENTATORS_CONTEST);
+            return \Favourites::model()->inFavourites($this->model->communityContent, \Favourites::BLOCK_COMMENTATORS_CONTEST);
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public function getParams()

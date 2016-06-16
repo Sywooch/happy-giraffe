@@ -12,61 +12,6 @@ use site\frontend\modules\posts\models\Label;
  */
 class RedactorController extends \LiteController
 {
-
-    public function actionIndex($forumId)
-    {
-        $model = new departmentModels\Content();
-        $model->scenario = 'forums';
-        $model->authorId = \Yii::app()->user->id;
-        $model->forumId = $forumId;
-        $model->clubId = \Community::model()->findByPk($forumId)->club_id;
-        $model->label = Label::LABEL_FORUMS;
-
-        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
-        if (isset($_POST['Content']))
-        {
-            $formKey = $_POST['formKey'];
-            if (($en = $formSendControl->getEntity($formKey)) != null)
-            {
-                $this->redirect(array('edit', 'entity' => $en['entity'], 'entityId' => $en['entityId']));
-            }
-            $model->setAttributes($_POST['Content'], false);
-            /**
-             * @todo Сделать лучше, быстрее, сильнее
-             */
-            $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
-            $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
-            if ($model->save())
-            {
-                $formSendControl->setEntity($formKey, $model->entity, $model->entityId);
-                $this->redirect(array('edit', 'entity' => $model->entity, 'entityId' => $model->entityId));
-            }
-        }
-        $formKey = $formSendControl->createNewFormKey();
-        $this->render('index', array('model' => $model, 'formKey' => $formKey));
-    }
-
-    public function actionEdit($entity, $entityId)
-    {
-        $model = $this->getModel($entity, $entityId);
-        $model->scenario = 'forums';
-        if (isset($_POST['Content']))
-        {
-            $model->setAttributes($_POST['Content'], false);
-            /**
-             * @todo Сделать лучше, быстрее, сильнее
-             */
-            $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
-            $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
-            if ($model->save())
-            {
-                $this->refresh();
-            }
-        }
-
-        $this->render('index', array('model' => $model, 'formKey' => null));
-    }
-
     public function actionBuzz()
     {
         $model = new departmentModels\Content();
@@ -240,7 +185,7 @@ class RedactorController extends \LiteController
         $model = departmentModels\Content::model()->findByAttributes(compact('entity', 'entityId'));
         if (is_null($model))
             throw new \CHttpException(404);
-        if ($model->authorId != \Yii::app()->user->id)
+        if ($model->authorId != \Yii::app()->user->id && ! in_array(\Yii::app()->user->id, array(455993, 175718))) // @todo с правами в этом модуле беда, пришлось захардкодить "супермодераторов"
             throw new \CHttpException(403);
 
         return $model;

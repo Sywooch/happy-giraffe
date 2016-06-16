@@ -1,11 +1,11 @@
 <?php
+
 /**
  * @author Никита
  * @date 09/11/15
  */
 
 namespace site\frontend\modules\som\modules\qa\controllers;
-
 
 use site\common\components\SphinxDataProvider;
 use site\frontend\components\api\models\User;
@@ -21,9 +21,17 @@ use site\frontend\modules\som\modules\qa\models\QaUserRating;
 
 class DefaultController extends QaController
 {
+
     const TAB_NEW = 'new';
     const TAB_POPULAR = 'popular';
     const TAB_UNANSWERED = 'unanswered';
+
+    /**
+     * Открыт ли отдельный вопрос
+     * 
+     * @var bool isQuestion
+     */
+    public $isQuestion = FALSE;
 
     public function filters()
     {
@@ -45,11 +53,15 @@ class DefaultController extends QaController
     public function actionIndex($tab, $categoryId = null)
     {
         $dp = $this->getDataProvider($tab, $categoryId);
-        if ($categoryId === null) {
+        if ($categoryId === null)
+        {
             $category = null;
-        } else {
+        }
+        else
+        {
             $category = QaCategory::model()->findByPk($categoryId);
-            if ($category === null) {
+            if ($category === null)
+            {
                 throw new \CHttpException(404);
             }
         }
@@ -58,6 +70,8 @@ class DefaultController extends QaController
 
     public function actionView($id)
     {
+        $this->isQuestion = TRUE;
+
         ContentBehavior::$active = true;
         $question = $this->getModel($id);
         ContentBehavior::$active = false;
@@ -85,12 +99,16 @@ class DefaultController extends QaController
     {
         $model = clone QaQuestion::model();
         $model->apiWith('user')->with('category');
-        if ($categoryId !== null) {
+        if ($categoryId !== null)
+        {
             $model->category($categoryId);
-        } else {
+        }
+        else
+        {
             $model->notConsultation();
         }
-        switch ($tab) {
+        switch ($tab)
+        {
             case self::TAB_NEW:
                 $model->orderDesc();
                 break;
@@ -115,18 +133,22 @@ class DefaultController extends QaController
 
         $question = new QaQuestion();
         $this->performAjaxValidation($question);
-        if ($consultationId !== null) {
+        if ($consultationId !== null)
+        {
             $consultation = QaConsultation::model()->findByPk($consultationId);
-            if ($consultation === null) {
+            if ($consultation === null)
+            {
                 throw new \CHttpException(404);
             }
             $question->consultationId = $consultationId;
             $question->scenario = 'consultation';
         }
 
-        if (isset($_POST[\CHtml::modelName($question)])) {
+        if (isset($_POST[\CHtml::modelName($question)]))
+        {
             $question->attributes = $_POST[\CHtml::modelName($question)];
-            if ($question->save()) {
+            if ($question->save())
+            {
                 $this->redirect($question->url);
             }
         }
@@ -140,13 +162,20 @@ class DefaultController extends QaController
 
         $question = $this->getModel($questionId);
         $this->performAjaxValidation($question);
-        if ($question->consultationId !== null) {
+        if ($question->consultationId !== null)
+        {
             $question->scenario = 'consultation';
         }
+        if ($question->authorId != \Yii::app()->user->id)
+        {
+            throw new \CHttpException(404);
+        }
 
-        if (isset($_POST[\CHtml::modelName($question)])) {
+        if (isset($_POST[\CHtml::modelName($question)]))
+        {
             $question->attributes = $_POST[\CHtml::modelName($question)];
-            if ($question->save()) {
+            if ($question->save())
+            {
                 $this->redirect($question->url);
             }
         }
@@ -157,7 +186,8 @@ class DefaultController extends QaController
     protected function getModel($pk)
     {
         $question = QaQuestion::model()->with('category')->findByPk($pk);
-        if ($question === null) {
+        if ($question === null)
+        {
             throw new \CHttpException(404);
         }
         return $question;
@@ -171,4 +201,5 @@ class DefaultController extends QaController
             \Yii::app()->end();
         }
     }
+
 }

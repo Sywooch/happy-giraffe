@@ -1,6 +1,6 @@
 <?php
 
-namespace site\frontend\modules\ads\widgets;
+namespace site\frontend\modules\comments\modules\contest\widgets;
 
 /**
  * @author crocodile
@@ -21,16 +21,13 @@ class OnOffWidget extends \CWidget
 
     public function getIsActive()
     {
-        return false;
-        $ad = Ad::model()->active()->preset($this->preset)->line(\Yii::app()->getModule('ads')->lines[$this->line]['lineId'])->entity($this->model)->find();
-        return $ad !== null;
+
+        return \Favourites::model()->inFavourites($this->model->communityContent, \Favourites::BLOCK_COMMENTATORS_CONTEST);
     }
 
     public function getParams()
     {
         return array(
-            'preset' => $this->preset,
-            'line' => $this->line,
             'modelPk' => $this->model->id,
         );
     }

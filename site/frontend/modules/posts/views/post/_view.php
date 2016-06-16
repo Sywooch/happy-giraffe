@@ -35,6 +35,12 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
             )); ?>
         <?php endif; ?>
     <?php endif; ?>
+    <?php if  (Yii::app()->user->checkAccess('moderator')):?>
+        <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\OnOffWidget', array(
+            'model' => $this->post,
+            'title' => 'В конкурс',
+        )); ?>
+    <?php endif; ?>
     <!-- Статья с текстом-->
     <!-- b-article-->
     <article class="b-article b-article__single clearfix b-article__lite">

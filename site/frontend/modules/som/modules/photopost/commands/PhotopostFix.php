@@ -14,8 +14,9 @@ class PhotopostFix extends \CConsoleCommand
 {
 
     /**
-     * перегенерируем записи в onair 
-     * @param type $timeLimit
+     * перегенерируем записи в onair
+     * @param string $startTime
+     * @param string $endTime
      */
     public function actionFix($startTime = null, $endTime = null)
     {
@@ -35,7 +36,8 @@ class PhotopostFix extends \CConsoleCommand
          */
         foreach ($list AS $i => $p)
         {
-            print "start process {$i}/{$count}, photo post id: {$p->id}\r\n";
+            $c = $i + 1;
+            print "start process {$c}/{$count}, photo post id: {$p->id}\r\n";
             //$p->save();
             $entity = array_search(get_class($p->owner), \site\frontend\modules\posts\models\Content::$entityAliases);
             $post = $p->getPost($entity);
@@ -45,7 +47,10 @@ class PhotopostFix extends \CConsoleCommand
                 print "post content not found for {$p->id}\r\n";
                 continue;
             }
+            print "post_content: {$post->id}, original_id: {$post->originEntityId}\r\n";
             print "updating";
+            $post->preview = $p->getPhotopostTag();
+            $post->save();
             $post->delActivity();
             $post->addActivity();
             print ", updated\r\n";

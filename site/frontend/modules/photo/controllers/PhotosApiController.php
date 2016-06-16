@@ -61,7 +61,7 @@ class PhotosApiController extends ApiController
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
-        $form = new ByUrlUploadForm($this->getCollection($collectionId));
+        $form = new ByUrlUploadForm($this->getCollection(isset($params['collectionId']) ? intval($params['collectionId']) : null));
         $form->url = $params['url'];
         $this->success = $form->save();
         $this->data = $form;

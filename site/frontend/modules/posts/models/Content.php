@@ -518,12 +518,14 @@ class Content extends \HActiveRecord implements \IHToJSON
      */
     public function byTags($tags)
     {
-        $criteria = $this->getDbCriteria();
-        $criteria->addCondition($this->getTableAlias(true) . '.`id` IN (SELECT `contentId`
+        if (! empty($tags)) {
+            $criteria = $this->getDbCriteria();
+            $criteria->addCondition($this->getTableAlias(true) . '.`id` IN (SELECT `contentId`
             FROM `post__tags`
             WHERE `labelId` IN (' . implode(', ', $tags) . ')
             GROUP BY `contentId`
             HAVING COUNT(`labelId`) = ' . count($tags) . ')');
+        }
         return $this;
     }
 

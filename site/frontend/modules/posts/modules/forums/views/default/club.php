@@ -37,7 +37,11 @@ $this->breadcrumbs = [
     <aside class="right">
         <div class="text-center"><a href="#" class="btn green">Добавить тему</a></div>
         <ul>
-            <?php if ($this->beginCache('Forums.UsersTopWidget', array('duration' => 3600))) { $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget'); $this->endCache(); } ?>
+            <?php if ($this->beginCache('Forums.UsersTopWidget', array('duration' => 3600))) { $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget', [
+                'labels' => [
+                    \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
+                ],
+            ]); $this->endCache(); } ?>
             <?php if ($this->beginCache('Forums.HotPostsWidget', array('duration' => 3600))) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
                 'labels' => [
                     \site\frontend\modules\posts\models\Label::LABEL_FORUMS,

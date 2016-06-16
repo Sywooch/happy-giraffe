@@ -34,6 +34,8 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
                 'title' => 'Маленький пост',
             )); ?>
         <?php endif; ?>
+    <?php endif; ?>
+    <?php if  (Yii::app()->user->checkAccess('moderator')):?>
         <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\OnOffWidget', array(
             'model' => $this->post,
             'title' => 'В конкурс',

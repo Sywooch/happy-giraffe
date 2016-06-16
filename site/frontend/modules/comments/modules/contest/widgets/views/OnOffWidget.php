@@ -1,1 +1,1 @@
-<p><ads-toggle params='params: <?=CJSON::encode($this->params)?>, isActive: <?=CJSON::encode($this->isActive)?>'></ads-toggle> <?=$this->title?></p>
+<p><comments-contest-toggle params='params: <?=CJSON::encode($this->params)?>, isActive: <?=CJSON::encode($this->isActive)?>'></comments-contest-toggle> <?=$this->title?></p>

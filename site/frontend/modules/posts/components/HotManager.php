@@ -13,6 +13,9 @@ use site\frontend\modules\posts\models\Content;
 class HotManager
 {
     const HOT_THRESHOLD = 5;
+    const COMMENTS_COUNT_MULTIPLIER = 10;
+    const VIEWS_COUNT_MULTIPLIER = 1;
+
     const STATUS_NORMAL = 0;
     const STATUS_HOT = 1;
     const STATUS_WAS_HOT = 2;
@@ -43,7 +46,7 @@ class HotManager
             if ($this->isHot($row['rate'])) {
                 $attributes['hotStatus'] = self::STATUS_HOT;
             }
-            Content::model()->updateAll($attributes, 'originEntityId = :originEntityId', [':originEntityId' => $row['entity_id']]);
+            Content::model()->updateByPk($row['id'], $attributes);
         }
     }
 
@@ -55,13 +58,19 @@ class HotManager
 
     protected function getRates()
     {
-        $criteria = clone Comment::model()->getDbCriteria();
-        $criteria->select = $this->getSelectExpression();
-        $criteria->addCondition(new \CDbExpression('created > (CURDATE() - INTERVAL :days DAY)'));
-        $criteria->params[':days'] = end(array_keys($this->config));
-        $criteria->group = 'entity_id';
-        $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Comment::model()->tableName(), $criteria);
-        return $command->queryAll();
+        $criteria = Content::model()->getDbCriteria();
+        $criteria->select = 't.id, url, COUNT(*) c';
+        $criteria->join = 'JOIN comments cm ON cm.new_entity_id = t.id';
+        $criteria->group = 't.id';
+        $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
+        return array_map(function($row) {
+            $views = \Yii::app()->getModule('analytics')->visitsManager->getVisits($row['url']);
+            $rate = $row['c'] * self::COMMENTS_COUNT_MULTIPLIER + $views * self::VIEWS_COUNT_MULTIPLIER;
+             return [
+                'rate' => $rate,
+                 'id' => $row['id'],
+            ];
+        }, $rows);
     }
 
     protected function getSelectExpression()

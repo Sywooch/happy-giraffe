@@ -13,11 +13,14 @@ use site\frontend\modules\posts\models\Tag;
 
 class UsersTopWidget extends \CWidget
 {
-    const POSTS_MULTIPLIER = 5;
-    const COMMENTS_MULTIPLIER = 1;
+    const POSTS_COUNT_MULTIPLIER = 5;
+    const COMMENTS_COUNT_MULTIPLIER = 1;
+    const POSTS_QUALITY_VIEW_WEIGHT = 0.01;
+    const POSTS_QUALITY_COMMENT_WEIGHT = 0.1;
     const MONTH_THRESHOLD = 10;
 
     public $limit = 5;
+    public $labels = [];
 
     protected $scores = [];
 
@@ -60,8 +63,7 @@ class UsersTopWidget extends \CWidget
 
     protected function getTop()
     {
-        $this->chargePostScore();
-        $this->chargeCommentsScore();
+        $this->chargeAll();
         arsort($this->scores);
         return array_slice($this->scores, 0, $this->limit, true);
     }
@@ -74,33 +76,55 @@ class UsersTopWidget extends \CWidget
         $this->scores[$userId] += $score;
     }
 
-    protected function chargePostScore()
+    protected function chargeAll()
     {
-        $criteria = clone Content::model()->getDbCriteria();
-        $criteria->scopes = ['byLabels' => [Label::LABEL_FORUMS]];
+        $this->chargePostCounts();
+        $this->chargeCommentsCounts();
+        $this->chargePostsQuality();
+    }
+
+    protected function getPostsCommonCriteria()
+    {
+        $criteria = Content::model()->byLabels($this->labels)->getDbCriteria();
+        Content::model()->resetScope(false);
         $criteria->compare('authorId', '<>' . \User::HAPPY_GIRAFFE);
-        $criteria->select = 'authorId uId, COUNT(*) c';
-        $criteria->group = 'authorId';
         $criteria->params[':timeFrom'] = $this->getTimeFrom();
         $criteria->addCondition('dtimeCreate > :timeFrom');
         if (time() > $this->getTimeTo()) {
             $criteria[':timeTo'] = $this->getTimeTo();
             $criteria->addCondition('dtimeCreate < :timeTo');
         }
+        return $criteria;
+    }
+
+    protected function chargePostCounts()
+    {
+        $criteria = $this->getPostsCommonCriteria();
+        $criteria->select = 'authorId uId, COUNT(*) c';
+        $criteria->group = 'authorId';
         $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
-        $this->processQuery($rows, self::POSTS_MULTIPLIER);
+        $this->processQuery($rows, self::POSTS_COUNT_MULTIPLIER);
+    }
+
+    protected function chargePostsQuality()
+    {
+        $criteria = $this->getPostsCommonCriteria();
+        $criteria->select = 'url, authorId uId, COUNT(*) c';
+        $criteria->join = 'JOIN comments cm ON cm.new_entity_id = t.id';
+        $criteria->group = 't.id';
+        $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
+        foreach ($rows as $row) {
+            $views = \Yii::app()->getModule('analytics')->visitsManager->getVisits($row['url']);
+            $score = $views * self::POSTS_QUALITY_VIEW_WEIGHT + $row['c'] * self::POSTS_QUALITY_COMMENT_WEIGHT;
+            $this->charge($row['uid'], $score);
+        }
     }
 
     /**
      * @todo обсудить
      */
-    protected function chargeCommentsScore()
+    protected function chargeCommentsCounts()
     {
-        $label = Label::model()->byTags(Label::LABEL_FORUMS)->find();
-        if ($label === null) {
-            return;
-        }
-
         $criteria = clone Comment::model()->getDbCriteria();
         $criteria->select = 'author_id uId, COUNT(*) c';
         $criteria->group = 'author_id';
@@ -110,15 +134,18 @@ class UsersTopWidget extends \CWidget
             $criteria[':timeTo'] = date("Y-m-d H:i:s", $this->getTimeTo());
             $criteria->addCondition('created < :timeTo');
         }
-        $criteria->addCondition("`new_entity_id` IN (
-            SELECT `contentId`
-            FROM `post__tags`
-            WHERE `labelId` IN (" . $label->id . ")
-            GROUP BY `contentId`
-            HAVING COUNT(labelId) = 1
-        )");
+        $labelsIds = Label::getIdsByLabels($this->labels);
+        if (! empty($labelsIds)) {
+            $criteria->addCondition('`new_entity_id` IN (
+                SELECT `contentId`
+                FROM `post__tags`
+                WHERE `labelId` IN (' . implode(', ', $labelsIds) . ')
+                GROUP BY `contentId`
+                HAVING COUNT(labelId) = ' . count($labelsIds) . '
+            )');
+        }
         $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Comment::model()->tableName(), $criteria)->queryAll();
-        $this->processQuery($rows, self::COMMENTS_MULTIPLIER);
+        $this->processQuery($rows, self::COMMENTS_COUNT_MULTIPLIER);
     }
 
     protected function processQuery($input, $multiplier = 1)

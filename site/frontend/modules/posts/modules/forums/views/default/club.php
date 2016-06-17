@@ -6,11 +6,11 @@
  * @var null|Community $feedForum
  * @var null|integer $feedLabelId
  */
-$this->breadcrumbs = [
-    'Главная' => ['/site/index'],
-    'Форумы' => ['/posts/forums/default/club', 'club' => $club->slug],
-    $club->title,
-];
+//$this->breadcrumbs = [
+//    'Главная' => ['/site/index'],
+//    'Форумы' => ['/posts/forums/default/club', 'club' => $club->slug],
+//    $club->title,
+//];
 ?>
 
 <div class="forum-page">

@@ -6,14 +6,22 @@
 $classes = ['one', 'two', 'three', 'four', 'five'];
 ?>
 
-<li class="forummen-month">
-    <div class="head">форумчанин <?=\Yii::app()->dateFormatter->format('MMMM', $this->getTimeFrom())?></div>
-    <?php foreach ($rows as $i => $row): ?>
-    <div class="b-user">
-        <div class="b-user-number <?=(isset($classes[$i]) ? $classes[$i] : '')?>"><?=($i+1)?></div>
-        <div class="b-user-ava"><img src="/images/icons/ava.jpg" alt=""></div>
-        <div class="b-user-name"><?=$row['user']->fullName?></div>
-        <div class="b-user-rating"><span><?=$row['score']?></span>баллов</div>
+
+<div class="b-widget-wrapper b-widget-wrapper_people b-widget-wrapper_border b-widget-wrapper_forum">
+    <div class="b-widget-header">
+        <div class="b-widget-header__title">Форумчанин <?=\Yii::app()->dateFormatter->format('MMMM', $this->getTimeFrom())?></div>
     </div>
-    <?php endforeach; ?>
-</li>
+    <div class="b-widget-content">
+        <ul class="b-widget-content__list">
+            <?php foreach ($rows as $i => $row): ?>
+            <li class="b-widget-content__item">
+                <div class="b-widget-content__number"><?=($i+1)?></div>
+                <div class="b-widget-content__ava"><img src="/images/icons/ava.jpg" alt=""></div>
+                <div class="b-widget-content__name"><a href="<?=$row['user']->profileUrl?>" class="b-widget-content__link"><?=$row['user']->fullName?></a></div>
+                <div class="b-widget-content__rating"><?=$row['score']?><span>баллов</span></div>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+

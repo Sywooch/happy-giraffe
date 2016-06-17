@@ -16,7 +16,12 @@ class DefaultController extends \LiteController
     public $litePackage = 'forum-homepage';
     public $hideUserAdd = true;
 
-    public $layout = '//layouts/lite/test';
+    //public $layout = '//layouts/lite/test';
+
+    public function actionIndex()
+    {
+        $this->render('index');
+    }
 
     public function actionClub($club, $feedForumId = null, $feedTab = null)
     {

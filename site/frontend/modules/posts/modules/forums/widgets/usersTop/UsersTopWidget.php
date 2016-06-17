@@ -89,10 +89,10 @@ class UsersTopWidget extends \CWidget
         Content::model()->resetScope(false);
         $criteria->compare('authorId', '<>' . \User::HAPPY_GIRAFFE);
         $criteria->params[':timeFrom'] = $this->getTimeFrom();
-        $criteria->addCondition('dtimeCreate > :timeFrom');
+        $criteria->addCondition('dtimePublication > :timeFrom');
         if (time() > $this->getTimeTo()) {
             $criteria[':timeTo'] = $this->getTimeTo();
-            $criteria->addCondition('dtimeCreate < :timeTo');
+            $criteria->addCondition('dtimePublication < :timeTo');
         }
         return $criteria;
     }

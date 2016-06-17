@@ -13,7 +13,15 @@ class HotPostsWidget extends \CWidget
 {
     public $limit = 5;
     public $labels = [];
-    
+
+    protected $interval;
+
+    public function init()
+    {
+        $this->interval = 72 * 60 * 60;
+        parent::init();
+    }
+
     public function run()
     {
         $posts = $this->getPosts();
@@ -32,6 +40,12 @@ class HotPostsWidget extends \CWidget
         if (! empty($this->labels)) {
             $model->byLabels($this->labels);
         }
-        return $model->findAll(['limit' => $this->limit]);
+        return $model->findAll([
+            'limit' => $this->limit,
+            'condition' => 'dtimePublication > :dtimeThreshold',
+            'params' => [
+                'dtimeThreshold' => time() - $this->interval,
+            ],
+        ]);
     }
 }

@@ -233,7 +233,7 @@ class DefaultController extends HController
                     'id' => $rubric->id,
                     'title' => $rubric->title,
                 );
-            }, Community::model()->findByPk($club_id)->rubrics);
+            }, CommunityClub::model()->findByPk($club_id)->communities);
         }else{
             $rubricsList = array_map(function ($rubric) {
                 return array(

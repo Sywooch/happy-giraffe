@@ -89,12 +89,13 @@ class CommunityContent extends HActiveRecord implements IPreview
             array('title', 'filter', 'filter' => array('\site\frontend\components\TrimFilter', 'trimTitle')),
             array('title', 'required', 'except' => 'status'),
             array('type_id', 'required'),
-            array('rubric_id', 'required', 'on' => 'default_club'),
+            array('forum_id', 'required', 'on' => 'default_club'),
             array('title', 'length', 'max' => 100),
             array('meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
-            array('rubric_id, type_id', 'length', 'max' => 11),
-            array('rubric_id, type_id', 'numerical', 'integerOnly' => true),
+            array('forum_id, rubric_id, type_id', 'length', 'max' => 11),
+            array('forum_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
             array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
+            array('forum_id', 'exist', 'attributeName' => 'id', 'className' => 'Community'),
             array('by_happy_giraffe', 'boolean'),
             array('privacy', 'numerical', 'min' => 0, 'max' => 1),
             array('preview', 'safe'),
@@ -113,6 +114,7 @@ class CommunityContent extends HActiveRecord implements IPreview
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'community' => array(self::BELONGS_TO, 'Community', 'forum_id'),
             'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
             'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
             'source' => array(self::BELONGS_TO, 'CommunityContent', 'source_id'),
@@ -313,7 +315,7 @@ class CommunityContent extends HActiveRecord implements IPreview
     {
         if($this->scenario == 'advEditor')
             return parent::beforeSave();
-        if (empty($this->rubric_id))
+        if (empty($this->forum_id) && empty($this->rubric_id))
             $this->rubric_id = CommunityRubric::getDefaultUserRubric($this->author_id);
 
         $this->title = strip_tags($this->title);
@@ -445,7 +447,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                 if ($this->isValentinePost()) {
                     $route = '/valentinesDay/default/howToSpend';
                     $params = array();
-                } elseif($this->rubric->community_id == \site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper::getForum()->id) {
+                } elseif($this->forum_id == \site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper::getForum()->id) {
                     $route = '/posts/contractubex/view/view';
                     $params = array(
                         'content_type_slug' => $this->type->slug,
@@ -460,7 +462,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                 } else {
                     $route = '/community/default/view';
                     $params = array(
-                        'forum_id' => $this->rubric->community_id,
+                        'forum_id' => $this->forum_id,
                         'content_type_slug' => $this->type->slug,
                         'content_id' => $this->id,
                     );
@@ -756,7 +758,7 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function getIsFromBlog()
     {
-        return ($this->getRelated('rubric')->user_id !== null && $this->type_id != self::TYPE_MORNING) || in_array($this->type_id, array(self::TYPE_STATUS, self::TYPE_REPOST));
+        return ($this->rubric && $this->rubric->user_id !== null && $this->type_id != self::TYPE_MORNING) || in_array($this->type_id, array(self::TYPE_STATUS, self::TYPE_REPOST));
     }
 
     /**

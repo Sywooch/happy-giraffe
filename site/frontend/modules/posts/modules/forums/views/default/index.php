@@ -2,18 +2,23 @@
 /**
  * @var site\frontend\modules\posts\modules\forums\controllers\DefaultController $this
  */
-//$this->breadcrumbs = [
-//    'Главная' => ['/site/index'],
-//    'Форумы',
-//];
+$this->pageTitle = 'Форумы';
+$breadcrumbs = [
+    'Главная' => ['/site/index'],
+    'Форумы',
+];
 ?>
 
 <div class="homepage homepage_adaptive">
     <div class="b-breadcrumbs">
-        <ul>
-            <li><a href="#">Главная</a></li>
-            <li>Форумы</li>
-        </ul>
+        <?php $this->widget('zii.widgets.CBreadcrumbs', [
+            'links' => $breadcrumbs,
+            'tagName' => 'ul',
+            'homeLink' => false,
+            'separator' => '',
+            'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>',
+            'inactiveLinkTemplate' => '<li>{label}</li>',
+        ]); ?>
     </div>
     <section class="b-top-blocks">
         <ul class="list">
@@ -26,7 +31,9 @@
             </li>
             <li class="item conversion"><img src="/images/icons/family.jpg" alt="">
                 <p>самые актуальные темы для мам и пап</p>
-                <a href="#" class="btn btn-xl green registration-button" data-bind="follow: {}">Присоеденяйтесь!</a>
+                <?php if (Yii::app()->user->isGuest): ?>
+                    <a href="#" class="btn btn-xl green registration-button" data-bind="follow: {}">Присоеденяйтесь!</a>
+                <?php endif; ?>
             </li>
             <li class="item sidebar-widget_item">
                 <?php $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget', [

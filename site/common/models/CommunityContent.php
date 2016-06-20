@@ -356,6 +356,10 @@ class CommunityContent extends HActiveRecord implements IPreview
             return parent::afterSave();
 
         if ($this->isNewRecord) {
+            if (! UserClubSubscription::subscribed($this->author_id, $this->community->club_id)) {
+                UserClubSubscription::add($this->community->club_id, $this->author_id);
+            }
+
             if ($this->type_id != self::TYPE_MORNING) {
                 if ($this->getIsFromBlog()) {
                     UserAction::model()->add($this->author_id, UserAction::USER_ACTION_BLOG_CONTENT_ADDED, array('model' => $this));

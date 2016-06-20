@@ -16,8 +16,8 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionToggle($preset, $modelPk, $line, array $properties = array())
     {
         $result = \Yii::app()->getModule('ads')->manager->toggle($preset, $modelPk, $line, $properties);
-        $this->data = is_array($result) ? $result['message'] : '';
-        $this->success = $result === true ? true : false;
+        $this->data = $result;
+        $this->success = isset($result['data']) ? $result['data'] : false;
     }
 
     public function actionCookie()

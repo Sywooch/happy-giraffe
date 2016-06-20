@@ -22,11 +22,15 @@ class AdsManager extends \CApplicationComponent
         $ad = Ad::model()->preset($preset)->entity($creative->model)->line($lineId)->find();
         if ($ad === null)
         {
-            return $this->add($preset, $modelPk, $line, $properties);
+            return array('data' => $this->add($preset, $modelPk, $line, $properties), 'active' => true);
         }
         else
         {
-            return ($ad->active == 1) ? $this->remove($ad) : $this->reactivate($ad);
+            $ret = array(
+                'data' => ($ad->active == 1) ? $this->remove($ad) : $this->reactivate($ad),
+                'active' => (!$ad->active)
+            );
+            return $ret;
         }
     }
 
@@ -51,6 +55,7 @@ class AdsManager extends \CApplicationComponent
                 'name' => $localCreative->getName(),
                 'htmlSnippet' => $localCreative->getHtml(),
                     ), $lineConfig['size']);
+            return true;
         }
         catch (\Exception $e)
         {

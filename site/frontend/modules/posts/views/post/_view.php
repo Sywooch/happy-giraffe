@@ -25,34 +25,40 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
 <!-- Основная колонка-->
 <div class="b-main_col-article">
     <?php if (Yii::app()->user->checkAccess('toggleAnounces')): ?>
-        <?php if (in_array($this->post->originService, array('oldCommunity', 'advPost'))): ?>
-            <?php
+        <?php
+        if (in_array($this->post->originService, array('oldCommunity', 'advPost')))
+        {
             $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
                 'model' => $this->post,
                 'line' => 'bigPost',
                 'preset' => 'bigPost',
                 'title' => 'Большой пост',
             ));
-            ?>
-            <?php
             $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
                 'model' => $this->post,
                 'line' => 'smallPost',
                 'preset' => 'smallPost',
                 'title' => 'Маленький пост',
             ));
-            ?>
-        <?php endif; ?>
+            $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
+                'model' => $this->post,
+                'line' => 'smallPostTest',
+                'preset' => 'smallPostTest',
+                'title' => 'Тестовая лента пост',
+            ));
+        }
+        ?>
     <?php endif; ?>
     <?php if (Yii::app()->user->checkAccess('moderator')): ?>
-        <?php if (!in_array($this->post->originService, array('advPost'))): ?>
-            <?php
+        <?php
+        if (!in_array($this->post->originService, array('advPost')))
+        {
             $this->widget('site\frontend\modules\comments\modules\contest\widgets\OnOffWidget', array(
                 'model' => $this->post,
                 'title' => 'В конкурс',
             ));
-            ?>
-        <?php endif; ?>
+        }
+        ?>
     <?php endif; ?>
     <!-- Статья с текстом-->
     <!-- b-article-->
@@ -90,7 +96,8 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
             }
             ?>
             <div class="b-article_in clearfix">
-                <?php if ($geo = $this->post->templateObject->getAttr('geo', false))
+                <?php
+                if ($geo = $this->post->templateObject->getAttr('geo', false))
                 {
                     ?>
                     <geo-morning params='<?= CJSON::encode($geo) ?>'>
@@ -102,11 +109,12 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
                         </div>
                     </geo-morning>
                 <?php } ?>
-                <?php if ($this->post->templateObject->getAttr('noWysiwyg', false))
+                <?php
+                if ($this->post->templateObject->getAttr('noWysiwyg', false))
                 {
                     ?>
                     <?= $this->post->html ?>
-                <?php
+                    <?php
                 }
                 else
                 {
@@ -130,15 +138,15 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
                     </div>
                 </div>
 
-<?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
+                <?php $this->renderPartial('site.frontend.modules.posts.views.post._lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
 
                 <!-- Реклама яндекса-->
-    <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
+                <?php $this->renderPartial('//banners/_post_footer', array('data' => $this->post)); ?>
             </div>
         </div>
     </article>
     <!-- /b-article-->
-<?php $this->renderPartial('//banners/_article_banner', array('data' => $this->post)); ?>
+    <?php $this->renderPartial('//banners/_article_banner', array('data' => $this->post)); ?>
 
     <!-- Put this div tag to the place, where the Comments block will be -->
     <div id="vk_comments" style="margin-top: 40px;"></div>
@@ -157,7 +165,7 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
             </ul>
         </div>
         <div class="tab-content">
-    <?php $comments->run(); ?>
+            <?php $comments->run(); ?>
         </div>
     </section>
     <!-- /comments-->

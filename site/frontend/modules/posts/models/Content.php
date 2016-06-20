@@ -586,11 +586,13 @@ class Content extends \CActiveRecord implements \IHToJSON
         {
             return [];
         }
-        $this->getDbCriteria()->with = [];
-        $this->getDbCriteria()->having = '';
-        $this->getDbCriteria()->condition = '(`t`.`isRemoved`=0) AND id in (SELECT pt.contentId FROM post__tags AS pt WHERE pt.labelId=' . (int) $tags[0]
-                . ' ORDER BY pt.contentId desc'
-                . ')';
+        $this->resetScope();
+        $criteria = $this->getDbCriteria();
+        $criteria->with = [];
+        $criteria->having = '';
+        $criteria->join = "JOIN (SELECT pt.contentId  FROM post__tags AS pt "
+                . " WHERE pt.labelId=" . intval($tags[0])
+                . " ORDER BY pt.contentId desc LIMIT 100)  AS tmp on (tmp.contentId=t.id)";
         return $this->orderDesc()->findAll(array(
                     'limit' => $limit
         ));

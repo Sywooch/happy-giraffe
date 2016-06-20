@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Никита
  * @date 04/02/15
@@ -6,12 +7,12 @@
 
 namespace site\frontend\modules\ads\components;
 
-
 use site\frontend\modules\ads\components\creatives\BaseCreative;
 use site\frontend\modules\ads\models\Ad;
 
 class AdsManager extends \CApplicationComponent
 {
+
     const DURATION = '+2 day';
 
     public function toggle($preset, $modelPk, $line, $properties)
@@ -19,9 +20,12 @@ class AdsManager extends \CApplicationComponent
         $creative = \Yii::app()->getModule('ads')->creativesFactory->create($preset, $modelPk, $properties);
         $lineId = \Yii::app()->getModule('ads')->lines[$line]['lineId'];
         $ad = Ad::model()->preset($preset)->entity($creative->model)->line($lineId)->find();
-        if ($ad === null) {
+        if ($ad === null)
+        {
             return $this->add($preset, $modelPk, $line, $properties);
-        } else {
+        }
+        else
+        {
             return ($ad->active == 1) ? $this->remove($ad) : $this->reactivate($ad);
         }
     }
@@ -33,18 +37,25 @@ class AdsManager extends \CApplicationComponent
             'destinationUrl' => $creative->getUrl(),
             'name' => $creative->getName(),
             'htmlSnippet' => $creative->getHtml(),
-        ), $ad->creativeId);
+                ), $ad->creativeId);
     }
 
     public function add($preset, $modelPk, $line, $properties)
     {
         $localCreative = \Yii::app()->getModule('ads')->creativesFactory->create($preset, $modelPk, $properties);
         $lineConfig = \Yii::app()->getModule('ads')->lines[$line];
-        $creative = \Yii::app()->getModule('ads')->dfp->addCreative(array(
-            'destinationUrl' => $localCreative->getUrl(),
-            'name' => $localCreative->getName(),
-            'htmlSnippet' => $localCreative->getHtml(),
-        ), $lineConfig['size']);
+        try
+        {
+            $creative = \Yii::app()->getModule('ads')->dfp->addCreative(array(
+                'destinationUrl' => $localCreative->getUrl(),
+                'name' => $localCreative->getName(),
+                'htmlSnippet' => $localCreative->getHtml(),
+                    ), $lineConfig['size']);
+        }
+        catch (\Exception $e)
+        {
+            return array('success' => false, 'message' => $e->getMessage());
+        }
 
 
         $lica = \Yii::app()->getModule('ads')->dfp->addLica($lineConfig['lineId'], $creative->id, array(
@@ -84,4 +95,5 @@ class AdsManager extends \CApplicationComponent
     {
         return new \DateTime(self::DURATION);
     }
+
 }

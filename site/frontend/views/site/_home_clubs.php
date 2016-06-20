@@ -166,10 +166,12 @@
                 </ul>
             </div>
         </div>
-        <div class="homepage-clubs_b">
-            <div class="homepage-clubs_btn-hold"><a class="homepage_btn-sign btn btn-xxl registration-button" data-bind="follow: {}">Начни общаться!</a></div>
-            <div class="homepage_desc-tx">узнавай новое, делись самым интересным </div>
-        </div>
+        <?php if (Yii::app()->user->isGuest): ?>
+            <div class="homepage-clubs_b">
+                <div class="homepage-clubs_btn-hold"><a class="homepage_btn-sign btn btn-xxl registration-button" data-bind="follow: {}">Начни общаться!</a></div>
+                <div class="homepage_desc-tx">узнавай новое, делись самым интересным </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 <!-- /Клубы-->

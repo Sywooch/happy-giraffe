@@ -12,6 +12,7 @@
         <li class="now-online__item">
             <a href="<?=$user->profileUrl?>" class="now-online__link"><img src="/images/icons/ava.jpg" alt="" class="now-online__img"></a>
         </li>
+        <?php endforeach; ?>
     </ul>
-    <div class="text-center"><a href="#" class="w-240 btn btn-xl green">Найти друзей</a></div>
+    <div class="text-center"><a href="#" class="w-240 btn btn-xl green registration-button" data-bind="follow: {}">Найти друзей</a></div>
 </section>

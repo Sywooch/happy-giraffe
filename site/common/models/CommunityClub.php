@@ -107,7 +107,7 @@ class CommunityClub extends HActiveRecord implements IHToJSON
 
     public function getUrl()
     {
-        return Yii::app()->createUrl('community/default/club', array(
+        return Yii::app()->createUrl('/posts/forums/default/club/', array(
             'club' => $this->slug,
         ));
     }

@@ -5,6 +5,18 @@
  */
 ?>
 
+
+<?php
+$this->widget('LiteListView', array(
+    'dataProvider' => $this->getListDataProvider(),
+    'itemView' => '_post',
+    'htmlOptions' => [
+        'class' => 'b-main_col-article',
+    ],
+));
+?>
+
+<?php if (false): ?>
 <div class="tabs">
     <?php $this->widget('zii.widgets.CMenu', [
         'items' => $this->getFilterItems(),
@@ -27,3 +39,5 @@ $this->widget('LiteListView', array(
     ],
 ));
 ?>
+
+<?php endif; ?>

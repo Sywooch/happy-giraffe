@@ -6,13 +6,84 @@
  * @var null|Community $feedForum
  * @var null|integer $feedLabelId
  */
-//$this->breadcrumbs = [
-//    'Главная' => ['/site/index'],
-//    'Форумы' => ['/posts/forums/default/club', 'club' => $club->slug],
-//    $club->title,
-//];
+$this->pageTitle = $club->title;
+$breadcrumbs = [
+    'Главная' => ['/site/index'],
+    'Форумы' => ['/posts/forums/default/club', 'club' => $club->slug],
+    $club->title,
+];
+
+/** @var \site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget $feedWidget */
+$feedWidget = $this->createWidget('site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget', [
+    'club' => $club,
+    'forum' => $feedForum,
+    'tab' => $feedTab,
+]);
 ?>
 
+<div class="forum-page">
+    <div class="b-top-block-forum">
+        <div class="b-breadcrumbs">
+            <?php $this->widget('zii.widgets.CBreadcrumbs', [
+                'links' => $breadcrumbs,
+                'tagName' => 'ul',
+                'homeLink' => false,
+                'separator' => '',
+                'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>',
+                'inactiveLinkTemplate' => '<li>{label}</li>',
+            ]); ?>
+        </div>
+        <div class="b-theme-title">
+            <div class="b-theme-title-img"></div>
+            <h1><?=$club->title?></h1>
+            <p><?=$club->description?></p><a href="#" class="start mobile"> </a>
+        </div>
+        <ul class="b-theme-title-more">
+            <subscribe params="clubId: <?=$club->id?>, isSubscribed: <?=UserClubSubscription::subscribed(Yii::app()->user->id, $club->id)?>"></subscribe>
+            <li class="users"><span><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers($club->id)?></span>участники</li>
+            <li class="messages"><span><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers($club->id)?></span>сообщений</li>
+        </ul>
+    </div>
+    <div class="tabs visible-md">
+        <?php $feedWidget->getMenuWidget()->run(); ?>
+    </div>
+    <div class="b-main_cont b-main_cont-mobile">
+        <div class="b-main-wrapper">
+            <?php $feedWidget->run(); ?>
+            <aside class="b-main_col-sidebar visible-md">
+                <div class="sidebar-widget__padding">
+                    <div class="textalign-c">
+                        <a class="btn btn-success btn-xl btn-question w-240 fancy-top" href="<?=$this->createUrl('/blog/default/form', [
+                            'type' => CommunityContent::TYPE_POST,
+                            'club_id' => $club->id,
+                            'useAMD' => true,
+                        ])?>">Добавить тему</a>
+                    </div>
+                    <div class="questions-categories">
+                        <?php $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget', [
+                            'labels' => [
+                                \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
+                            ],
+                        ]); ?>
+                    </div>
+                    <div class="margin-t30">
+                        <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
+                            'labels' => [
+                                \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
+                            ],
+                            'allUrl' => $this->createUrl('/posts/forums/default/club', [
+                                'club' => $club->slug,
+                                'feedTab' => \site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget::TAB_HOT,
+                            ]),
+                        ]); ?>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<?php if (false): ?>
 <div class="forum-page">
     <div class="b-top-block-forum">
         <div class="b-breadcrumbs">
@@ -57,3 +128,4 @@
         'tab' => $feedTab,
     ]); ?>
 </div>
+<?php endif; ?>

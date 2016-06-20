@@ -13,12 +13,13 @@ class HotPostsWidget extends \CWidget
 {
     public $limit = 5;
     public $labels = [];
+    public $allUrl;
 
     protected $interval;
 
     public function init()
     {
-        $this->interval = 72 * 60 * 60;
+        $this->interval = 5 * 24 * 60 * 60;
         parent::init();
     }
 

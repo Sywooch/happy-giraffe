@@ -34,7 +34,7 @@ class OnlineUsersWidget extends \CWidget
             }
             $c++;
         }
-        $models = User::model()->findAllByPk($ids);
+        $models = User::model()->findAllByPk($ids, ['avatarSize' => 40]);
         return array_filter($models, function($model) {
             return $model->avatarUrl !== null;
         });

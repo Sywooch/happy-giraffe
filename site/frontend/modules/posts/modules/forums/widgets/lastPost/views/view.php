@@ -14,9 +14,11 @@
             <div class="name"><?=$post->user->fullName?></div>
             <div class="time"><span>5</span>минут назад</div>
             <h3><a href="<?=$post->url?>"><?=$post->title?></a></h3>
-            <div class="hashtag">
-                <a href="#">Товары для развития детей</a>
-            </div>
+            <?php if ($tag = \site\frontend\modules\posts\modules\forums\components\TagHelper::getTag($post)): ?>
+                <div class="hashtag">
+                    <span><?=$tag?></span>
+                </div>
+            <?php endif; ?>
         </li>
         <?php endforeach; ?>
     </ul>

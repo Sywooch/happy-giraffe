@@ -44,7 +44,10 @@ class FeedWidget extends \CWidget
     public function init()
     {
         parent::init();
-        if ($this->tab === null) {
+        if ($this->forum) {
+            unset($this->tabs[self::TAB_HOT]);
+        }
+        if ($this->tab === null || ! isset ($this->tabs[$this->tab])) {
             $this->tab = $this->defaultTab;
         }
     }
@@ -54,7 +57,7 @@ class FeedWidget extends \CWidget
         $this->render('index');
     }
 
-    public function getMenuItems()
+    public function getMenuWidget()
     {
         $items = [];
         foreach ($this->tabs as $tab => $label) {
@@ -62,9 +65,16 @@ class FeedWidget extends \CWidget
                 'label' => $label,
                 'url' => $this->getUrl(['feedTab' => $tab]),
                 'active' => $this->tab == $tab,
+                'linkOptions' => ['class' => 'filter-menu_item_link'],
             ];
         }
-        return $items;
+        return \Yii::app()->controller->createWidget('zii.widgets.CMenu', [
+            'items' => $items,
+            'htmlOptions' => [
+                'class' => 'filter-menu',
+            ],
+            'itemCssClass' => 'filter-menu_item',
+        ]);
     }
 
     public function getFilterItems()
@@ -119,22 +129,6 @@ class FeedWidget extends \CWidget
         return new \CActiveDataProvider($model->apiWith('user'), [
             'criteria' => $criteria,
         ]);
-    }
-
-    /**
-     * @todo обсудить
-     */
-    public function getTag(Content $post)
-    {
-        $rubricLabel = $post->getLabelByPrefix('Рубрика');
-
-        if ($rubricLabel) {
-            return [
-                'text' => str_replace('Рубрика: ', '', $rubricLabel->text),
-                //'url' => \Yii::app()->controller->createUrl('/posts/forums/default/club', ['club' => $this->club, 'label' => $rubricLabel->id]),
-            ];
-        }
-        return null;
     }
     
     protected function applyLabelScopes(Content $model)

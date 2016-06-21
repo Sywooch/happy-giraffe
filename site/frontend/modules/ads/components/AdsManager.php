@@ -18,19 +18,37 @@ class AdsManager extends \CApplicationComponent
     public function toggle($preset, $modelPk, $line, $properties)
     {
         $creative = \Yii::app()->getModule('ads')->creativesFactory->create($preset, $modelPk, $properties);
+
         $lineId = \Yii::app()->getModule('ads')->lines[$line]['lineId'];
         $ad = Ad::model()->preset($preset)->entity($creative->model)->line($lineId)->find();
         if ($ad === null)
         {
-            return array('data' => $this->add($preset, $modelPk, $line, $properties), 'active' => true);
+            return array(
+                'data' => $this->add($preset, $modelPk, $line, $properties),
+                'active' => true,
+                'action' => 'created'
+            );
         }
         else
         {
-            $ret = array(
-                'data' => ($ad->active == 1) ? $this->remove($ad) : $this->reactivate($ad),
-                'active' => (!$ad->active)
-            );
-            return $ret;
+            if ($ad->active)
+            {
+                $rez = $this->remove($ad);
+                return array(
+                    'data' => $rez,
+                    'active' => !$rez,
+                    'action' => 'remove'
+                );
+            }
+            else
+            {
+                $rez = $this->reactivate($ad);
+                array(
+                    'data' => $rez,
+                    'active' => $rez,
+                    'action' => 'reactivate'
+                );
+            }
         }
     }
 
@@ -55,7 +73,6 @@ class AdsManager extends \CApplicationComponent
                 'name' => $localCreative->getName(),
                 'htmlSnippet' => $localCreative->getHtml(),
                     ), $lineConfig['size']);
-            return true;
         }
         catch (\Exception $e)
         {

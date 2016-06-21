@@ -40,12 +40,6 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
                 'preset' => 'smallPost',
                 'title' => 'Маленький пост',
             ));
-            $this->widget('site\frontend\modules\ads\widgets\OnOffWidget', array(
-                'model' => $this->post,
-                'line' => 'smallPostTest',
-                'preset' => 'smallPostTest',
-                'title' => 'Тестовая лента пост',
-            ));
         }
         ?>
     <?php endif; ?>

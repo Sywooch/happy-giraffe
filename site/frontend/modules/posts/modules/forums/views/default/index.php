@@ -45,6 +45,10 @@ $breadcrumbs = [
         </ul>
     </section>
     <?php $this->renderPartial('//site/_home_clubs'); ?>
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); ?>
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); ?>
+    <?php if ($this->beginCache('Forums.LastPostWidget', ['duration' => 300])) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); $this->endCache(); } ?>
+    <?php if ($this->beginCache('Forums.OnlineUsersWidget', ['duration' => 300])) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); $this->endCache(); } ?>
+    <section class="now-online">
+        <div class="text-center"><a href="<?=Yii::app()->controller->createUrl('/friends/search/index')?>" class="w-240 btn btn-xl green registration-button" data-bind="follow: {}">Найти друзей</a></div>
+    </section>
+
 </div>

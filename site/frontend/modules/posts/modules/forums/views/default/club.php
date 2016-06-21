@@ -60,14 +60,14 @@ $feedWidget = $this->createWidget('site\frontend\modules\posts\modules\forums\wi
                         ])?>">Добавить тему</a>
                     </div>
                     <div class="questions-categories">
-                        <?php $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget', [
+                        <?php if ($this->beginCache('Forums.OnlineUsersWidget', ['duration' => 300])) { $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget', [
                             'labels' => [
                                 \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
                             ],
-                        ]); ?>
+                        ]); $this->endCache(); } ?>
                     </div>
                     <div class="margin-t30">
-                        <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
+                        <?php if ($this->beginCache('Forums.LastPostWidget', ['duration' => 300])) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
                             'labels' => [
                                 \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
                             ],
@@ -75,7 +75,7 @@ $feedWidget = $this->createWidget('site\frontend\modules\posts\modules\forums\wi
                                 'club' => $club->slug,
                                 'feedTab' => \site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget::TAB_HOT,
                             ]),
-                        ]); ?>
+                        ]); $this->endCache(); } ?>
                     </div>
                 </div>
             </aside>

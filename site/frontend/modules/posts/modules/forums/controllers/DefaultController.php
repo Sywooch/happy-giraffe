@@ -34,6 +34,8 @@ class DefaultController extends \LiteController
             if (! $feedForum) {
                 throw new \CHttpException(404);
             }
+        } else {
+            $feedForum = null;
         }
         $this->render('club', compact('club', 'feedForum', 'feedTab'));
     }

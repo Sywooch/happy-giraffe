@@ -119,8 +119,9 @@ class HStr extends \CComponent
         $returnStr = preg_replace('/<p>[\s\h\v]{0,}(' . $brReg . ')?[\s\h\v]{0,}<p>/u', '', $returnStr);
         $returnStr = preg_replace('/' . $brReg . '[\s\h\v]{0,}' . $brReg . '/u', '', $returnStr);
         $returnStr = preg_replace('/<p>[\s\h\v]{0,}<br[\s\h\v\/]{0,}>[\s\h\v]{0,}<\/p>/u', '', $returnStr);
-        $returnStr = preg_replace('/[\s\h\v]{2,}/u' ,' ', $returnStr);
+        $returnStr = preg_replace('/[\s\h\v]{2,}/u', ' ', $returnStr);
         $returnStr = $qevix->parse($returnStr, $e);
+
         $length = self::htmlLenConvert($returnStr, $length);
         /* еще раз убираем пустые переносы строк */
         /* обрезаетм текс, предварительно делаем пересчёт того, сколько будет 
@@ -144,7 +145,9 @@ class HStr extends \CComponent
             if ($p2 > $p1)
             {
                 $returnStr = mb_substr($returnStr, 0, $p2, 'UTF-8');
-            }
+            }            
+            /* закрываем не закрытые тэги */
+            $returnStr = $qevix->parse($returnStr, $e);
             $returnStr .= $etc;
         }
 

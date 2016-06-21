@@ -52,6 +52,7 @@ class HotManager
         $criteria->select = 't.id, url, COUNT(*) c';
         $criteria->join = 'JOIN comments cm ON cm.new_entity_id = t.id';
         $criteria->group = 't.id';
+        $criteria->addCondition('cm.removed = 0');
         $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
         return array_map(function($row) {
             $views = \Yii::app()->getModule('analytics')->visitsManager->getVisits($row['url']);

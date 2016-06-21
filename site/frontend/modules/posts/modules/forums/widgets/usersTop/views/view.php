@@ -18,7 +18,7 @@ $classes = ['one', 'two', 'three', 'four', 'five'];
                 <div class="b-widget-content__number"><?=($i+1)?></div>
                 <div class="b-widget-content__ava"><img src="/images/icons/ava.jpg" alt=""></div>
                 <div class="b-widget-content__name"><a href="<?=$row['user']->profileUrl?>" class="b-widget-content__link"><?=$row['user']->fullName?></a></div>
-                <div class="b-widget-content__rating"><?=$row['score']?><span>баллов</span></div>
+                <div class="b-widget-content__rating"><?=intval($row['score'])?><span>баллов</span></div>
             </li>
             <?php endforeach; ?>
         </ul>

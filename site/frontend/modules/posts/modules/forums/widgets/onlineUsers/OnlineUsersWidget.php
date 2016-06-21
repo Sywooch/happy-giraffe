@@ -20,23 +20,14 @@ class OnlineUsersWidget extends \CWidget
     }
 
     /**
-     * @todo обсудить
+     * @todo необходимо получать пользователей через API (SOA)
      */
     protected function getUsers()
     {
-        $counters = \Yii::app()->comet->cmdOnlineWithCounters('onOff');
-        $ids = array();
-        $c = 0;
-        foreach ($counters as $id => $counter) {
-            if ($counter > 0 && $c <= $this->limit) {
-                $userId = str_replace('onOff', '', $id);
-                $ids[] = $userId;
-            }
-            $c++;
-        }
-        $models = User::model()->findAllByPk($ids, ['avatarSize' => 40]);
-        return array_filter($models, function($model) {
-            return $model->avatarUrl !== null;
-        });
+        $criteria = new \CDbCriteria();
+        $criteria->limit = $this->limit;
+        $criteria->compare('online', '1');
+        $criteria->addCondition('avatarId IS NOT NULL');
+        return \User::model()->findAll($criteria);
     }
 }

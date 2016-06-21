@@ -4,7 +4,7 @@ class m160617_064148_forum_column extends CDbMigration
 {
 	public function up()
 	{
-		$this->execute("ALTER TABLE `community__contents` ADD `forum_id` INT(11)  UNSIGNED  NULL  DEFAULT NULL  AFTER `test2`;");
+		$this->execute("ALTER TABLE `community__contents` ADD `forum_id` INT(11)  UNSIGNED  NULL  DEFAULT NULL  AFTER `rubric_id`;");
 		$this->execute("ALTER TABLE `community__contents` ADD INDEX (`forum_id`);");
 		$this->execute("UPDATE community__contents c
 JOIN community__rubrics r ON r.id = c.rubric_id

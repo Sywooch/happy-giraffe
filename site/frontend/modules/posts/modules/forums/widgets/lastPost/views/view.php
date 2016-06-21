@@ -12,7 +12,7 @@
         <li>
             <div class="img"><img src="/images/icons/ava.jpg" alt=""></div>
             <div class="name"><?=$post->user->fullName?></div>
-            <?=HHtml::timeTag($data, ['class' => 'time'], null)?>
+            <?=HHtml::timeTag($post, ['class' => 'time'], null)?>
             <h3><a href="<?=$post->url?>"><?=$post->title?></a></h3>
             <?php if ($tag = \site\frontend\modules\posts\modules\forums\components\TagHelper::getTag($post)): ?>
                 <div class="hashtag">

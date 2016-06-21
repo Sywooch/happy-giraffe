@@ -53,20 +53,6 @@
                 </ul>
             </div>
 
-            <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adsense')); ?>
-            <div class="bnr-base">
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- ÕÂ·ÓÒÍÂ· new -->
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:300px;height:600px"
-                     data-ad-client="ca-pub-3807022659655617"
-                     data-ad-slot="5201434880"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-            <?php $this->endWidget(); ?>
-
             <?php $this->renderPartial('application.modules.community.views.default._users2'); ?>
 
             <?php /* Убираем поиск

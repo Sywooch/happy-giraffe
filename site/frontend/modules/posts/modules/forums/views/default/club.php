@@ -4,7 +4,6 @@
  * @var CommunityClub $club
  * @var string $feedTab
  * @var null|Community $feedForum
- * @var null|integer $feedLabelId
  */
 $this->pageTitle = $club->title;
 $breadcrumbs = [

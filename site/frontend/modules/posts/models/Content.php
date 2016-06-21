@@ -159,9 +159,8 @@ class Content extends \HActiveRecord implements \IHToJSON
             'site\frontend\modules\posts\behaviors\HotBehavior',
             [
                 'class' => 'site\frontend\modules\comments\behaviors\CommentableBehavior',
-                'relationParameters' => [
-                    'join' => 'INNER JOIN ' . $this->tableName() . ' pc ON t.entity = pc.originEntity AND t.entity_id = pc.originEntityId',
-                ],
+                'fk' => 'new_entity_id',
+                'joinOn' => 'commentable.entity_id = ' . $this->getTableAlias(true) . '.originEntityId AND commentable.entity = ' . $this->getTableAlias(true) . '.originEntity',
             ]
         );
     }

@@ -11,37 +11,42 @@ use site\frontend\modules\comments\models\Comment;
 
 class CommentableBehavior extends \CActiveRecordBehavior
 {
-    public $relationParameters;
-
+    public $relationParameters = [];
+    public $fk = 'entity_id';
+    public $joinOn;
+    
     public function attach($owner)
     {
         parent::attach($owner);
 
-        if ($this->relationParameters === null) {
-            $this->relationParameters = [
+        if ($this->fk == 'entity_id') {
+            $this->relationParameters = \CMap::mergeArray([
                 'condition' => 'entity = :class',
                 'params' => [':class' => get_class($owner)],
-            ];
+            ], $this->relationParameters);
         }
 
         $this->owner->getMetaData()->addRelation('commentsCount', \CMap::mergeArray([
             \CActiveRecord::STAT,
             'site\frontend\modules\comments\models\Comment',
-            'entity_id',
+            $this->fk,
         ], $this->relationParameters));
         $this->owner->getMetaData()->addRelation('commentatorsCount', \CMap::mergeArray([
             \CActiveRecord::STAT,
             'site\frontend\modules\comments\models\Comment',
-            'entity_id',
-            'select' => 'COUNT(DISTINCT t.author_id)',
+            $this->fk,
+            'select' => 'COUNT(DISTINCT ' . $owner->getTableAlias(true) . '.author_id)',
         ], $this->relationParameters));
     }
 
     public function uncommented()
     {
         $criteria = new \CDbCriteria();
-        $criteria->join = 'LEFT OUTER JOIN ' . Comment::model()->tableName() . ' c ON c.entity_id = t.originEntityId AND c.entity = t.originEntity';
-        $criteria->addCondition('c.id IS NULL');
+        if ($this->joinOn === null) {
+            $this->joinOn = 'commentable.entity_id = ' . $this->owner->getTableAlias(true) . '.id AND commentable.entity = "' . get_class($this->owner) . '"';
+        }
+        $criteria->join = 'LEFT OUTER JOIN ' . Comment::model()->tableName() . ' commentable ON ' . $this->joinOn;
+        $criteria->addCondition('commentable.id IS NULL');
         $this->owner->getDbCriteria()->mergeWith($criteria);
         return $this->owner;
     }

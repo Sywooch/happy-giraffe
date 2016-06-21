@@ -40,7 +40,7 @@ $feedWidget = $this->createWidget('site\frontend\modules\posts\modules\forums\wi
         <ul class="b-theme-title-more">
             <subscribe params="clubId: <?=$club->id?>, isSubscribed: <?=UserClubSubscription::subscribed(Yii::app()->user->id, $club->id)?>"></subscribe>
             <li class="users"><span><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers($club->id)?></span>участники</li>
-            <li class="messages"><span><?=\site\frontend\modules\community\helpers\StatsHelper::getSubscribers($club->id)?></span>сообщений</li>
+            <li class="messages"><span><?=\site\frontend\modules\community\helpers\StatsHelper::getComments($club->id)?></span>сообщений</li>
         </ul>
     </div>
     <div class="tabs visible-md">

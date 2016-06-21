@@ -14,5 +14,4 @@
         </li>
         <?php endforeach; ?>
     </ul>
-    <div class="text-center"><a href="#" class="w-240 btn btn-xl green registration-button" data-bind="follow: {}">Найти друзей</a></div>
 </section>

@@ -13,7 +13,7 @@ use site\frontend\modules\posts\models\Content;
 
 class HotManager
 {
-    const HOT_THRESHOLD = 1000;
+    const HOT_THRESHOLD = 500;
     const COMMENTS_COUNT_MULTIPLIER = 10;
     const VIEWS_COUNT_MULTIPLIER = 1;
     

@@ -116,7 +116,7 @@ class UsersTopWidget extends \CWidget
         foreach ($rows as $row) {
             $views = \Yii::app()->getModule('analytics')->visitsManager->getVisits($row['url']);
             $score = $views * self::POSTS_QUALITY_VIEW_WEIGHT + $row['c'] * self::POSTS_QUALITY_COMMENT_WEIGHT;
-            $this->charge($row['uid'], $score);
+            $this->charge($row['uId'], $score);
         }
     }
 

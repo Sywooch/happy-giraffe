@@ -44,7 +44,7 @@ $feedWidget = $this->createWidget('site\frontend\modules\posts\modules\forums\wi
         </ul>
     </div>
     <div class="tabs visible-md">
-        <?php $feedWidget->getMenuWidget()->run(); ?>
+        <?php Yii::beginProfile('FeedWidget'); $feedWidget->getMenuWidget()->run(); Yii::endProfile('FeedWidget'); ?>
     </div>
     <div class="b-main_cont b-main_cont-mobile">
         <div class="b-main-wrapper">
@@ -59,14 +59,14 @@ $feedWidget = $this->createWidget('site\frontend\modules\posts\modules\forums\wi
                         ])?>">Добавить тему</a>
                     </div>
                     <div class="questions-categories">
-                        <?php if ($this->beginCache('Forums.OnlineUsersWidget', ['duration' => 300])) { $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget', [
+                        <?php Yii::beginProfile('UsersTopWidget'); $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget', [
                             'labels' => [
                                 \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
                             ],
-                        ]); $this->endCache(); } ?>
+                        ]); Yii::endProfile('UsersTopWidget'); ?>
                     </div>
                     <div class="margin-t30">
-                        <?php if ($this->beginCache('Forums.LastPostWidget', ['duration' => 300])) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
+                        <?php Yii::beginProfile('HotPostsWidget'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
                             'labels' => [
                                 \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
                             ],
@@ -74,7 +74,7 @@ $feedWidget = $this->createWidget('site\frontend\modules\posts\modules\forums\wi
                                 'club' => $club->slug,
                                 'feedTab' => \site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget::TAB_HOT,
                             ]),
-                        ]); $this->endCache(); } ?>
+                        ]); Yii::endProfile('HotPostsWidget'); ?>
                     </div>
                 </div>
             </aside>

@@ -3,7 +3,7 @@
  * @var LiteController $this
  * @var site\frontend\modules\family\models\Family $family
  */
-$familyCollection = $family->getPhotoCollection('all');
+$familyCollection = $family->getPhotoCollection('default');
 $attach = $familyCollection->observer->getByAttach($family->photoCollection->observer->getSingle(0));
 if ($attach !== null) {
     /** @var \ClientScript $cs */

@@ -56,7 +56,7 @@ class SGController extends CController
                 $cache = Yii::app()->{$map_config['cache'][0]};
                 if ($cache === null)
                     throw new Exception(Yii::t('sitemapgenerator.msg', 'Specified cache component not founed. Cache ID: {value}', array('{value}' => $map_config['cache'][0])));
-                $output = $cache->get($this->cache_record_id);
+                $output = $cache->get($this->cache_record_id . $mapName);
                 $cachemode = true;
                 ob_start();
             }
@@ -92,12 +92,14 @@ class SGController extends CController
 
             // Sitemap render
             if (isset($map_config['index']) && $map_config['index'])
-            { // Index sitemap
+            {
+                // Index sitemap
                 unset($config[$mapName]);
                 $this->renderIndex($config);
             }
             else
-            {         // Basic sitemap
+            {
+                // Basic sitemap
                 $this->renderNormal($map_config);
             }
 
@@ -214,7 +216,14 @@ class SGController extends CController
      */
     private function renderNormal($config)
     {
-        $map = new SitemapGenerator($config['aliases'], isset($config['param']) ? $config['param'] : null);
+        if (isset($config['mapClass']))
+        {
+            $map = new $config['mapClass']($config['aliases'], isset($config['param']) ? $config['param'] : null);
+        }
+        else
+        {
+            $map = new SitemapGenerator($config['aliases'], isset($config['param']) ? $config['param'] : null);
+        }
         $map->setDefaults($config);
         echo $map->getAsXml();
     }

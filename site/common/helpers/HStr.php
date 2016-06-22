@@ -94,6 +94,9 @@ class HStr extends \CComponent
      */
     public static function trancateHTML1V($string, $length = 80, $etc = '...', $breakWords = false)
     {
+
+        /* сперва удаляем лишние пустые переносы строк */
+        $string = preg_replace('/<p>[\s]{0,}<br[\s \/]{0,}>[\s]{0,}<\/p>/', '', $string);
         /* используем библиотеку Qevix для правильной обрезки html */
         $qevix = new \site\frontend\components\Qevix();
         $qevix->cfgAllowTags(array('br', 'p', 'b', 'strong', 'i', 'u', 'ul', 'li', 'ol', 'strike', 'a', 'img', 'source'));
@@ -112,8 +115,15 @@ class HStr extends \CComponent
          * обрбатываем текс и у него удаляются img */
         $qevix->cfgAllowTags(array('br', 'p', 'b', 'strong', 'i', 'u', 'ul', 'li', 'ol', 'strike', 'a'));
         $qevix->cfgSetTagShort(array('br'));
-        $returnStr = $qevix->parse($string, $e);
+        $brReg = '<br[\s\h\v\/]{0,}>';
+        $returnStr = preg_replace('/<p>[\s\h\v]{0,}(' . $brReg . ')?[\s\h\v]{0,}<p>/u', '', $returnStr);
+        $returnStr = preg_replace('/' . $brReg . '[\s\h\v]{0,}' . $brReg . '/u', '', $returnStr);
+        $returnStr = preg_replace('/<p>[\s\h\v]{0,}<br[\s\h\v\/]{0,}>[\s\h\v]{0,}<\/p>/u', '', $returnStr);
+        $returnStr = preg_replace('/[\s\h\v]{2,}/u', ' ', $returnStr);
+        $returnStr = $qevix->parse($returnStr, $e);
+
         $length = self::htmlLenConvert($returnStr, $length);
+        /* еще раз убираем пустые переносы строк */
         /* обрезаетм текс, предварительно делаем пересчёт того, сколько будет 
          * реально напечатано символов */
         if (mb_strlen($returnStr, 'UTF-8') > $length)
@@ -135,7 +145,9 @@ class HStr extends \CComponent
             if ($p2 > $p1)
             {
                 $returnStr = mb_substr($returnStr, 0, $p2, 'UTF-8');
-            }
+            }            
+            /* закрываем не закрытые тэги */
+            $returnStr = $qevix->parse($returnStr, $e);
             $returnStr .= $etc;
         }
 

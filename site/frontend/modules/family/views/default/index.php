@@ -36,7 +36,7 @@ if ($this->owner->id == Yii::app()->user->id) {
             <?php if ($family->description): ?>
                 <div class="family-about_bubble">
                     <div class="family-about_t">О нашей семье</div>
-                    <div class="family-about_tx"><?=$family->description?></div>
+                    <div class="family-about_tx"><?= htmlentities($family->description, ENT_COMPAT, 'utf-8') ?></div>
                 </div>
             <?php endif; ?>
             <?php $this->widget('site\frontend\modules\family\widgets\MembersListWidget\MembersListWidget', array(

@@ -14,8 +14,9 @@ class PhotopostFix extends \CConsoleCommand
 {
 
     /**
-     * перегенерируем записи в onair 
-     * @param type $timeLimit
+     * перегенерируем записи в onair
+     * @param string $startTime
+     * @param string $endTime
      */
     public function actionFix($startTime = null, $endTime = null)
     {

@@ -511,7 +511,7 @@ return array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/services.css',
+                'lite/css/min/services-na.css',
             ),
         ),
         'lite_services_user' => array(

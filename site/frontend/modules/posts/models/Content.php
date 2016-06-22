@@ -477,7 +477,7 @@ class Content extends \HActiveRecord implements \IHToJSON
     public function bySlug($slug, $entityId)
     {
         $slug = strtolower($slug);
-        
+
         return $this->byEntity(Content::$slugAliases[$slug], $entityId);
     }
 
@@ -561,10 +561,35 @@ class Content extends \HActiveRecord implements \IHToJSON
     }
 
     /**
+     * возвращает модифицированный критерий выборки из бд списка постов форума
+     * @param array $labelsId
+     */
+    public function createCriteriaForForum(array $labelsId)
+    {
+
+        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labelsId);
+        if (count($labelsId) != count($tags))
+        {
+            $this->getDbCriteria()->addCondition('1=0');
+            return $this;
+        }
+        $cr = $this->getDbCriteria();
+        $cr->with = [];
+        $cr->having = '';
+        $cr->join = 'JOIN (SELECT pt.contentId FROM post__tags AS pt WHERE pt.labelId in ('
+                . implode(', ', $tags)
+                . ') GROUP BY pt.contentId HAVING (count(pt.contentId) = ' . count($tags) . ')'
+                . ') AS tmp ON (tmp.contentId=t.id)';
+        $cr->order = $this->tableAlias . '.dtimePublication DESC';
+        return $cr;
+    }
+
+    /**
      * возвращает список последних постов по метке, в частности для форума
      * @param int $labelId
      * @param int $limit
      * @return \site\frontend\modules\posts\models\Content
+     * @author crocodile
      */
 //    public function getLastByLabel($labelId, $limit)
 //    {
@@ -574,11 +599,13 @@ class Content extends \HActiveRecord implements \IHToJSON
 //        {
 //            return [];
 //        }
-//        $this->getDbCriteria()->with = [];
-//        $this->getDbCriteria()->having = '';
-//        $this->getDbCriteria()->condition = '(`t`.`isRemoved`=0) AND id in (SELECT pt.contentId FROM post__tags AS pt WHERE pt.labelId=' . (int) $tags[0]
-//                . ' ORDER BY pt.contentId desc'
-//                . ')';
+//        $this->resetScope();
+//        $criteria = $this->getDbCriteria();
+//        $criteria->with = [];
+//        $criteria->having = '';
+//        $criteria->join = "JOIN (SELECT pt.contentId  FROM post__tags AS pt "
+//                . " WHERE pt.labelId=" . intval($tags[0])
+//                . " ORDER BY pt.contentId desc LIMIT 100)  AS tmp on (tmp.contentId=t.id)";
 //        return $this->orderDesc()->findAll(array(
 //                    'limit' => $limit
 //        ));
@@ -608,16 +635,15 @@ class Content extends \HActiveRecord implements \IHToJSON
 //        $labelsCount = sizeof($labelsList);
 //        $labelsList = implode(', ', $labelsList);
 //
-//        $sql = "SELECT * 
-//FROM post__contents AS pc 
-//	LEFT JOIN (SELECT pt.contentId
+//        $sql = "SELECT *
+//FROM post__contents AS pc
+//	JOIN (SELECT pt.contentId
 //	FROM post__tags AS pt
 //	WHERE pt.labelId in ({$labelsList})
-//	GROUP BY pt.contentId 
+//	GROUP BY pt.contentId
 //	HAVING COUNT(pt.contentId) = {$labelsCount}
-//	ORDER BY pt.contentId desc
 //	) AS tmp ON (pc.id=tmp.contentId)
-//WHERE  pc.isRemoved = 0 
+//WHERE  pc.isRemoved = 0
 //    AND (pc.dtimePublication<{$post->dtimePublication})
 //ORDER BY pc.dtimePublication DESC
 //LIMIT 1";

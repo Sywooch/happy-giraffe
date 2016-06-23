@@ -27,7 +27,7 @@ if (! Yii::app()->user->isGuest) {
                 <ul class="header__menu">
                     <li class="header__li"><a href="<?=$this->createUrl('/posts/forums/default/index')?>" class="header__link header__link_comment">Форумы</a></li>
                     <li class="header__li"><a href="<?=$this->createUrl('/som/qa/default/index')?>" class="header__link header__link_answers">Ответы</a></li>
-                    <!--<li class="header__li"><a href="#" class="header__link header__link_blog">Блоги</a></li>-->
+                    <li class="header__li"><a href="<?php echo $this->createUrl('/blogs'); ?>" class="header__link header__link_blog">Блоги</a></li>
                     <li class="header__li"><a href="<?=$this->createUrl('/posts/buzz/list/index')?>" class="header__link header__link_like">Жизнь</a></li>
                 </ul>
                 <?php if (Yii::app()->user->isGuest): ?>

@@ -141,6 +141,9 @@ return array(
         'buzz' => 'posts/buzz/list/index',
 
         'forums' => 'posts/forums/default/index',
+        
+        'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
+        'blogs'              => 'posts/blogs/default/index',
 
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),

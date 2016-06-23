@@ -161,6 +161,11 @@ class Content extends \HActiveRecord implements \IHToJSON
                 'class' => 'site\frontend\modules\comments\behaviors\CommentableBehavior',
                 'fk' => 'new_entity_id',
                 'joinOn' => 'commentable.entity_id = ' . $this->getTableAlias(true) . '.originEntityId AND commentable.entity = ' . $this->getTableAlias(true) . '.originEntity',
+            ],
+            [
+                'class'  => 'site\frontend\modules\comments\behaviors\BlogsCommentableBehavior',
+                'fk'     => 'new_entity_id',
+                'joinOn' => 'commentable.entity_id = ' . $this->getTableAlias(true) . '.originEntityId AND commentable.entity = "BlogContent"',
             ]
         );
     }

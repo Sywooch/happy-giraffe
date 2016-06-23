@@ -1,0 +1,178 @@
+<?php
+
+namespace site\frontend\modules\posts\modules\blogs\widgets\feed;
+
+use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\models\Label;
+
+use site\frontend\modules\som\modules\community\models\api\CommunityClub;
+
+/**
+ * @author Sergey Gubarev
+ */
+class FeedWidget extends \CWidget
+{
+    
+    const TAB_NEW      = 'new';
+    const TAB_HOT      = 'hot';
+    const TAB_DISCUSS  = 'discuss';
+    const TAB_COMMENTS = 'comments';
+    
+    //-----------------------------------------------------------------------------------------------------------
+    
+    /**
+     * Текущая вкладка
+     * 
+     * @var string
+     */
+    public $tab;
+
+    /**
+     * Вкладка по умолчанию
+     * 
+     * @var string
+     */
+    public $defaultTab = self::TAB_NEW;
+    
+    /**
+     * Используемые вкладки
+     * 
+     * @var array
+     */
+    private $_tabs = [
+        self::TAB_NEW      => 'Новые',
+        self::TAB_HOT      => 'Горячие',
+        self::TAB_DISCUSS  => 'Обсудить',
+        self::TAB_COMMENTS => 'Комментарии',
+    ];
+    
+    //-----------------------------------------------------------------------------------------------------------
+
+    /**
+     * {@inheritDoc}
+     * @see CWidget::init()
+     */
+    public function init()
+    {
+        parent::init();
+        
+        if (is_null($this->tab) || ! isset($this->_tabs[$this->tab])) 
+        {
+            $this->tab = $this->defaultTab;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see CWidget::run()
+     */
+    public function run()
+    {
+        if ($this->tab === self::TAB_COMMENTS)
+        {
+            // ...
+        }
+        else 
+        {   
+            $maxTextLength = $this->controller->module->getConfig('maxTextLength');
+            
+            $this->render('posts', compact('maxTextLength'));
+        }
+    }
+
+    /**
+     * Вкладки 
+     * 
+     * @return Ambiguous
+     */
+    public function getMenuWidget()
+    {
+        $items = [];
+        
+        foreach ($this->_tabs as $tab => $label) 
+        {
+            $items[] = [
+                'label'       => $label,
+                'url'         => $this->getUrl($tab),
+                'linkOptions' => [
+                    'class' => $this->tab == $tab ? 'active' : NULL
+                ],
+            ];
+        }
+        
+        return \Yii::app()->controller->createWidget('zii.widgets.CMenu', [
+            'items'       => $items,
+            'htmlOptions' => [
+                'class' => 'b-filter',
+            ],
+            'itemCssClass' => 'b-filter_item',
+        ]);
+    }
+
+    /**
+     * URL для каждой вкладки
+     * 
+     * @param string $tab
+     * @return string
+     */
+    public function getUrl($tab)
+    {
+        return \Yii::app()->controller->createUrl('/blogs/' . $tab);
+    }
+    
+    /**
+     * @return \CActiveDataProvider
+     */
+    public function getListDataProvider()
+    {
+        $perPage = $this->controller->module->getConfig('postsPerPage');
+        
+        $model = Content::model()->byService('oldBlog');
+        
+        switch ($this->tab) 
+        {
+            case self::TAB_NEW:
+                $model->orderDesc();
+                break;
+                
+            case self::TAB_HOT:
+                $model->orderHotRate();
+                break;
+                
+            case self::TAB_DISCUSS:
+                $model
+                    ->orderDesc()
+                    ->uncommentedBlogs()
+                ;
+                break;
+        }
+        
+        $criteria = $model
+            ->with('author')
+            ->getDbCriteria()
+        ;
+        
+        $model->resetScope();
+        
+        $queryCount = Content::model()
+            ->byService('oldBlog')
+        ;
+        
+        if ($this->tab == self::TAB_DISCUSS)
+        {
+            $queryCount->uncommentedBlogs();
+        }
+        
+        $criteriaCount = $queryCount->getDbCriteria();
+            
+        return new \CActiveDataProvider($model, [
+            'criteria'   => $criteria,
+            'pagination' => [
+                'pageSize' => $perPage,
+                'pageVar'  => 'page'
+            ],
+            'countCriteria' => $criteriaCount
+        ]);
+    }
+    
+}

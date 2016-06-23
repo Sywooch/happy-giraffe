@@ -663,6 +663,13 @@ return array(
                 'lite/css/dev/all.css',
             ),
         ),
+        'lite_blogs-homepage' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                //'lite/css/min/blogs-homepage.css',
+                'lite/css/dev/all.css',
+            ),
+        ),
         'lite_contractubex' => array(
             'baseUrl' => '/',
             'css' => array(

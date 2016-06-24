@@ -3,9 +3,7 @@
  * @var \site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget $this
  * @var array $rows
  */
-$classes = ['one', 'two', 'three', 'four', 'five'];
 ?>
-
 
 <div class="b-widget-wrapper b-widget-wrapper_people b-widget-wrapper_border b-widget-wrapper_forum">
     <div class="b-widget-header">

@@ -20,7 +20,6 @@ class DefaultController extends \LiteController
 
     public function actionIndex()
     {
-        \Yii::app()->apc->flush();
         $this->render('index');
     }
 

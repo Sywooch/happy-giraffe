@@ -424,7 +424,7 @@ return array(
 		),
         'mongodb' => array(
             'class'            => 'EMongoDB',
-            'connectionString' => 'mongodb://localhost',
+            'connectionString' => 'mongodb://mongo',
             'dbName'           => 'happy_giraffe_db',
             'fsyncFlag'        => true,
             'safeFlag'         => true,

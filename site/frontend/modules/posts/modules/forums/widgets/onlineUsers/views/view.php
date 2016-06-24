@@ -14,4 +14,7 @@
         </li>
         <?php endforeach; ?>
     </ul>
+    <div class="text-center">
+        <a href="<?=Yii::app()->controller->createUrl('/friends/search/index')?>" class="w-240 btn btn-xl green-btn fontweight-b registration-button" data-bind="follow: {}">Найти друзей</a>
+    </div>
 </section>

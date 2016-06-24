@@ -3,6 +3,7 @@
 namespace site\frontend\modules\posts\models;
 
 use site\frontend\modules\comments\models\Comment;
+
 /**
  * This is the model class for table "post__contents".
  *
@@ -50,7 +51,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     public static $slugAliases = array(
         'nppost' => 'NewPhotoPost',
         'post' => 'CommunityContent',
-        'photoPost' => 'CommunityContent',
+        'photopost' => 'CommunityContent', // до этого ключ был "photoPost"
         'status' => 'NewStatus',
         'advpost' => 'AdvPost',
         'video' => 'CommunityContent',
@@ -63,6 +64,7 @@ class Content extends \CActiveRecord implements \IHToJSON
         'NewStatus' => 'site\frontend\modules\som\modules\status\models\Status',
         'AdvPost' => 'site\frontend\modules\posts\models\Content',
     );
+    protected $tagList = [];
 
     /**
      * @return string the associated database table name
@@ -122,6 +124,9 @@ class Content extends \CActiveRecord implements \IHToJSON
         return array(
             'CacheDelete' => array(
                 'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+            ),
+            'PushStream' => array(
+                'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
             ),
             'HTimestampBehavior' => array(
                 'class' => 'HTimestampBehavior',
@@ -283,26 +288,33 @@ class Content extends \CActiveRecord implements \IHToJSON
         /** @todo убрать в поведение */
         $labels = $this->labelsArray;
         $oldLabels = $this->labelModels;
-        foreach ($oldLabels as $oldLabel) {
+        foreach ($oldLabels as $oldLabel)
+        {
             $i = array_search($oldLabel->text, $labels);
-            if ($i === false) {
+            if ($i === false)
+            {
                 // старого тега больше нет
                 Tag::model()->deleteByPk(array('labelId' => $oldLabel->id, 'contentId' => $this->id));
-            } else {
+            }
+            else
+            {
                 // тег уже есть
                 unset($labels[$i]);
             }
         }
         $ids = array();
 
-        foreach ($labels as $label) {
+        foreach ($labels as $label)
+        {
             $model = Label::model()->findByAttributes(array('text' => $label));
-            if (!$model) {
+            if (!$model)
+            {
                 $model = new Label();
                 $model->text = $label;
                 $model->save();
             }
-            if ($model->id && !isset($ids[$model->id])) {
+            if ($model->id && !isset($ids[$model->id]))
+            {
                 $tag = new Tag();
                 $tag->attributes = array('labelId' => $model->id, 'contentId' => $this->id);
                 $tag->save();
@@ -315,7 +327,8 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function getUser()
     {
-        if (is_null($this->_user)) {
+        if (is_null($this->_user))
+        {
             $this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
                 'id' => (int) $this->authorId,
                 'avatarSize' => \Avatar::SIZE_MEDIUM,
@@ -403,11 +416,13 @@ class Content extends \CActiveRecord implements \IHToJSON
             'oldRecipe',
         );
 
-        if (in_array($this->originService, $blogs)) {
+        if (in_array($this->originService, $blogs))
+        {
             return 'blog';
         }
 
-        if (in_array($this->originService, $community)) {
+        if (in_array($this->originService, $community))
+        {
             return 'community';
         }
 
@@ -448,6 +463,8 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function bySlug($slug, $entityId)
     {
+        $slug = strtolower($slug);
+
         return $this->byEntity(Content::$slugAliases[$slug], $entityId);
     }
 
@@ -494,7 +511,7 @@ class Content extends \CActiveRecord implements \IHToJSON
         //$criteria->select = 't.* , count(tagModelss.labelId) as c';
         $criteria->group = 't.id';
         $criteria->having = 'count(tagModels.labelId) = ' . count($tags);
-
+        $this->tagList = $tags;
         return $this;
     }
 
@@ -507,7 +524,8 @@ class Content extends \CActiveRecord implements \IHToJSON
     public function byLabels($labels)
     {
         $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labels);
-        if (count($labels) != count($tags)) {
+        if (count($labels) != count($tags))
+        {
             $this->getDbCriteria()->addCondition('1=0');
             return $this;
         }
@@ -530,15 +548,111 @@ class Content extends \CActiveRecord implements \IHToJSON
     }
 
     /**
-     * 
+     * возвращает модифицированный критерий выборки из бд списка постов форума
+     * @param array $labelsId
+     */
+    public function createCriteriaForForum(array $labelsId)
+    {
+
+        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labelsId);
+        if (count($labelsId) != count($tags))
+        {
+            $this->getDbCriteria()->addCondition('1=0');
+            return $this;
+        }
+        $cr = $this->getDbCriteria();
+        $cr->with = [];
+        $cr->having = '';
+        $cr->join = 'JOIN (SELECT pt.contentId FROM post__tags AS pt WHERE pt.labelId in ('
+                . implode(', ', $tags)
+                . ') GROUP BY pt.contentId HAVING (count(pt.contentId) = ' . count($tags) . ')'
+                . ') AS tmp ON (tmp.contentId=t.id)';
+        $cr->order = $this->tableAlias . '.dtimePublication DESC';
+        return $cr;
+    }
+
+    /**
+     * возвращает список последних постов по метке, в частности для форума
+     * @param int $labelId
+     * @param int $limit
+     * @return \site\frontend\modules\posts\models\Content
+     * @author crocodile
+     */
+    public function getLastByLabel($labelId, $limit)
+    {
+
+        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels(array($labelId));
+        if (sizeof($tags) == 0)
+        {
+            return [];
+        }
+        $this->resetScope();
+        $criteria = $this->getDbCriteria();
+        $criteria->with = [];
+        $criteria->having = '';
+        $criteria->join = "JOIN (SELECT pt.contentId  FROM post__tags AS pt "
+                . " WHERE pt.labelId=" . intval($tags[0])
+                . " ORDER BY pt.contentId desc LIMIT 100)  AS tmp on (tmp.contentId=t.id)";
+        return $this->orderDesc()->findAll(array(
+                    'limit' => $limit
+        ));
+    }
+
+    /**
+     * Создаёт критерй для выбора поста, стоящего с "лева" от переданого поста.
+     * Из за некой специфики выборки, критерий представляет из себя 
+     * выборку требуемого поста по id
      * @param site\frontend\modules\posts\models\Content $post
      * @return site\frontend\modules\posts\models\Content
      */
     public function leftFor($post)
     {
+        $labelsList = [];
+        if (sizeof($this->tagList) > 0)
+        {
+            $labelsList = $this->tagList;
+        }
+        else
+        {
+            $labelsList = array_map(function($lb)
+            {
+                return $lb->id;
+            }, $post->labelModels);
+        }
+        $labelsCount = sizeof($labelsList);
+        $labelsList = implode(', ', $labelsList);
+
+        $sql = "SELECT * 
+FROM post__contents AS pc 
+	JOIN (SELECT pt.contentId
+	FROM post__tags AS pt
+	WHERE pt.labelId in ({$labelsList})
+	GROUP BY pt.contentId 
+	HAVING COUNT(pt.contentId) = {$labelsCount}
+	) AS tmp ON (pc.id=tmp.contentId)
+WHERE  pc.isRemoved = 0 
+    AND (pc.dtimePublication<{$post->dtimePublication})
+ORDER BY pc.dtimePublication DESC
+LIMIT 1";
+        $itm = \Yii::app()->db->createCommand($sql)->queryAll(true);
+        if (isset($itm[0]))
+        {
+            $criteria = $this->getDbCriteria();
+            $criteria->condition = 'id=' . $itm[0]['id'];
+            $criteria->with = [];
+            $criteria->params = [];
+            $criteria->group = '';
+            $criteria->having = '';
+        }
+        else
+        {
+            $this->getDbCriteria()->condition = 'id=-1';
+        }
+        return $this;
+
         $this->getDbCriteria()->compare('dtimePublication', '<' . $post->dtimePublication);
         $this->orderDesc();
-
+        $this->getDbCriteria()->limit = 1;
         return $this;
     }
 
@@ -551,6 +665,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     {
         $this->getDbCriteria()->compare('dtimePublication', '>' . $post->dtimePublication);
         $this->orderAsc();
+        $this->getDbCriteria()->limit = 1;
 
         return $this;
     }

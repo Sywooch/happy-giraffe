@@ -1,13 +1,14 @@
 <?php
+
 /**
  * Сообщение
  *
  * Каждый экземпляр этого класса представляет собой готовое сообщение для отправки. Отвечает за генерацию письма
  * и все смежные действия
  */
-
 abstract class MailMessage extends CComponent
 {
+
     /**
      * Пользователь, для которого предназначено письмо
      *
@@ -54,8 +55,9 @@ abstract class MailMessage extends CComponent
     {
         $this->user = $user;
         foreach ($params as $k => $v)
+        {
             $this->$k = $v;
-
+        }
         $this->delivery = $this->createDelivery();
         $this->token = $this->createToken();
         $this->bodyHtml = $this->render($this->getTemplateFile(), array(), true);
@@ -95,7 +97,7 @@ abstract class MailMessage extends CComponent
         {
             if (isset($url[0]))
             {
-                    $url = Yii::app()->createAbsoluteUrl($url[0], array_splice($url, 1));
+                $url = Yii::app()->createAbsoluteUrl($url[0], array_splice($url, 1));
             }
             else
                 throw new CException('Wrong url parameter');
@@ -121,9 +123,12 @@ abstract class MailMessage extends CComponent
         $data['message'] = $this;
         $runner = $app instanceof CConsoleApplication ? $app->getCommandRunner()->getCommand() : $app->controller;
         $output = $runner->renderFile($this->getTemplateInternal($file), $data, true);
-        if ($return) {
+        if ($return)
+        {
             return $output;
-        } else {
+        }
+        else
+        {
             echo $output;
         }
     }
@@ -160,9 +165,12 @@ abstract class MailMessage extends CComponent
         $glue = (strpos($url, '?') === false) ? '?' : '&';
 
         $hashSymbolPos = strpos($url, '#');
-        if ($hashSymbolPos === false) {
+        if ($hashSymbolPos === false)
+        {
             return $url . $glue . $utmString;
-        } else {
+        }
+        else
+        {
             return substr_replace($url, $glue . $utmString, $hashSymbolPos, 0);
         }
     }
@@ -247,4 +255,5 @@ abstract class MailMessage extends CComponent
     {
         return Yii::getPathOfAlias('site.frontend.modules.mail.tpls');
     }
+
 }

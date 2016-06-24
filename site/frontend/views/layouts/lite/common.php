@@ -14,24 +14,6 @@
 </head>
 <body class="body body__lite theme body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?> <?php if (Yii::app()->user->isGuest): ?> body__guest <?php else: ?>  body__user<?php endif; ?>">
 
-<?php if (Yii::app()->vm->version == VersionManager::VERSION_DESKTOP): ?>
-    <?php if (! $this->hideAdsense): ?>
-        <? if (! ($this instanceof site\frontend\modules\posts\controllers\PostController) ||($this->post && $this->post->isNoindex == 0 && ! $this->post->templateObject->getAttr('hideAdsense', false))): ?>
-        <div style="text-align: center; margin-top: 20px;">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- ƒÓÒÍ‡ -->
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:970px;height:250px"
-                 data-ad-client="ca-pub-3807022659655617"
-                 data-ad-slot="6861468089"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-        <?php endif; ?>
-    <?php endif; ?>
-<?php endif; ?>
-
 <?php Yii::app()->ads->showCounters(); ?>
 <?php if (Yii::app()->user->checkAccess('editMeta')):?>
     <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
@@ -51,18 +33,19 @@
 <?php if (Yii::app()->user->isGuest): ?>
     <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
 <?php endif; ?>
-<?php if (false): ?>
+
+<?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
 <!--AdFox START-->
 <!--giraffe-->
 <!--Площадка: Весёлый Жираф / * / *-->
-<!--Тип баннера: Брендирование-->
-<!--Расположение: бэкграунд-->
+<!--Тип баннера: Fullscreen Mobile-->
+<!--Расположение: <верх страницы>-->
 <script type="text/javascript">
     <!--
-    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
     if (typeof(document.referrer) != 'undefined') {
         if (typeof(afReferrer) == 'undefined') {
-            afReferrer = escape(document.referrer);
+            afReferrer = encodeURIComponent(document.referrer);
         }
     } else {
         afReferrer = '';
@@ -78,9 +61,10 @@
         scrwidth = scrsize.width;
         scrheight = scrsize.height;
     }
-    document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=dtx&amp;ps=bkqy&amp;p2=ewfb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+    document.write('<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/211012/prepareCode?pp=g&amp;ps=bkqy&amp;p2=evcc&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
     // -->
 </script>
 <!--AdFox END-->
-<?php endif; ?>
+<?php $this->endWidget(); ?>
+
 </body></html>

@@ -21,11 +21,13 @@ class CommunityListController extends ListController
 
     public function getClub()
     {
-        if (is_null($this->_club)) {
+        if (is_null($this->_club))
+        {
             $id = \Yii::app()->request->getParam('forum_id');
             $this->_forum = \Community::model()->with(array('club', 'club.section'))->findByPk($id);
             $this->_club = $this->_forum->club;
-            if(is_null($this->_club)) {
+            if (is_null($this->_club))
+            {
                 // Так случилось, что в некоторых форумах нету клубов, и это не про текущие посты.
                 throw new \CHttpException(404);
             }
@@ -37,7 +39,8 @@ class CommunityListController extends ListController
     public function getRubric()
     {
         $id = \Yii::app()->request->getParam('rubric_id');
-        if (is_null($this->_rubric) && !is_null($id)) {
+        if (is_null($this->_rubric) && !is_null($id))
+        {
             $this->_rubric = \CommunityRubric::model()->findByPk($id);
         }
 
@@ -46,7 +49,8 @@ class CommunityListController extends ListController
 
     public function getForum()
     {
-        if (is_null($this->_forum)) {
+        if (is_null($this->_forum))
+        {
             $this->getClub();
         }
         return $this->_forum;
@@ -56,7 +60,8 @@ class CommunityListController extends ListController
     {
         $tags = array(Label::LABEL_FORUMS);
         $rubric = $this->getRubric();
-        while ($rubric) {
+        while ($rubric)
+        {
             $tags[] = 'Рубрика: ' . $rubric->title;
             $rubric = $rubric->parent;
         }
@@ -69,7 +74,9 @@ class CommunityListController extends ListController
 
     public function getListDataProvider()
     {
-        return new \CActiveDataProvider(Content::model()->byLabels($this->tags)->orderDesc(), array(
+        $criteria = Content::model()->createCriteriaForForum($this->tags);
+        return new \CActiveDataProvider('\site\frontend\modules\posts\models\Content', array(
+            'criteria' => clone $criteria,
             'pagination' => array(
                 'pageSize' => 10,
                 'pageVar' => 'CommunityContent_page',

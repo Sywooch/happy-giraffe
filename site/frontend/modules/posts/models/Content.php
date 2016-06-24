@@ -519,11 +519,11 @@ class Content extends \HActiveRecord implements \IHToJSON
     {
         if (! empty($tags)) {
             $criteria = $this->getDbCriteria();
-            $criteria->addCondition($this->getTableAlias(true) . '.`id` IN (SELECT `contentId`
+            $criteria->join .= ' JOIN (SELECT `contentId`
             FROM `post__tags`
             WHERE `labelId` IN (' . implode(', ', $tags) . ')
             GROUP BY `contentId`
-            HAVING COUNT(`labelId`) = ' . count($tags) . ')');
+            HAVING COUNT(`labelId`) = ' . count($tags) . ') byTags ON byTags.contentId = ' . $this->getTableAlias(true) . '.id';
         }
         return $this;
     }

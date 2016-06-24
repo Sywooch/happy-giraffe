@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\posts\behaviors\converters;
+
 use site\frontend\modules\photo\helpers\PhotoHelper;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\posts\models\Label;
@@ -25,14 +26,17 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
     public function convertToNewPost()
     {
-        if ($this->owner->type_id == \CommunityContent::TYPE_POST) {
+        if ($this->owner->type_id == \CommunityContent::TYPE_POST)
+        {
             $advContent = \site\frontend\modules\editorialDepartment\models\Content::model()->findByAttributes(array(
                 'entity' => $this->owner->getIsFromBlog() ? 'BlogContent' : 'CommunityContent',
                 'entityId' => (int) $this->owner->id
             ));
-            if (!is_null($advContent)) {
+            if (!is_null($advContent))
+            {
                 return $this->convertAdvPost($advContent);
-            } else {
+            } else
+            {
                 return $this->convertPost();
             }
         } elseif ($this->owner->type_id == \CommunityContent::TYPE_PHOTO_POST)
@@ -73,7 +77,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     {
         $oldPost = $this->owner;
         $oldPost->purified->clearCache();
-        if(!$service) {
+        if (!$service)
+        {
             $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         }
         $entity = get_class($oldPost);
@@ -83,20 +88,24 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $tags = array();
         $rubric = $oldPost->rubric;
-        while ($rubric) {
+        while ($rubric)
+        {
             $tags[] = 'Рубрика: ' . $rubric->title;
             $rubric = $rubric->parent;
         }
-        if ($oldPost->rubric->community) {
+        if ($oldPost->rubric->community)
+        {
             $tags[] = 'Форум: ' . $oldPost->rubric->community->title;
             if ($oldPost->rubric->community->club)
                 $tags[] = 'Клуб: ' . $oldPost->rubric->community->club->title;
             if ($oldPost->rubric->community->club && $oldPost->rubric->community->club->section)
                 $tags[] = 'Секция: ' . $oldPost->rubric->community->club->section->title;
         }
-        if($oldPost->isFromBlog) {
+        if ($oldPost->isFromBlog)
+        {
             $tags[] = Label::LABEL_BLOG;
-        } else {
+        } else
+        {
             $tags[] = Label::LABEL_FORUMS;
         }
 
@@ -135,7 +144,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->socialObject->description = $newPost->metaObject->description;
         $newPost->isAutoSocial = true;
 
-        if ($oldPost->rubric->community_id == ContractubexHelper::getForum()->id) {
+        if ($oldPost->rubric->community_id == ContractubexHelper::getForum()->id)
+        {
             $newPost->templateObject->data['hideAdsense'] = true;
         }
     }
@@ -179,7 +189,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldMorning', 'oldMorning');
-        
+
         $newPost->templateObject->data['type'] = 'morning';
 
         $newPost->templateObject->data['geo'] = array(
@@ -190,7 +200,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             'zoom' => $oldPost->morning->zoom,
             'position' => $oldPost->morning->position,
         );
-        
+
         $oldPost->purified->clearCache();
         $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.morning', array('article' => $oldPost));
         $newPost->text = $oldPost->purified->preview;
@@ -217,8 +227,9 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
         $photo = $oldPost->post->photo;
 
-        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>') . '</p>';
-        if ($oldPost->gallery !== null && ! empty($oldPost->gallery->items)) {
+        $newPost->preview = \site\common\helpers\HStr::trancateHTML1V($newPost->html, 200, ' <a class="ico-more" href="' . $oldPost->url . '"></a>');
+        if ($oldPost->gallery !== null && !empty($oldPost->gallery->items))
+        {
             // Скопировано из convertPhotoPost
             $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
             $count = $collection->attachesCount;
@@ -227,18 +238,18 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
             $photoAlbumTag = '<div class="b-album-cap">'
                     . '<div class="b-album-cap_hold">'
-                        . '<div class="b-album">'
-                            . '<a class="b-album_img-hold" href="' . $url . '" title="Начать просмотр">'
-                                . '<div class="b-album-img_a">'
-                                    . '<div class="b-album_img-pad"></div>'
-                                    . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
-                                    . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
-                                . '</div>'
-                                . '<div class="b-album_img-hold-ovr">'
-                                    . '<div class="ico-zoom ico-zoom__abs"></div>'
-                                . '</div>'
-                            . '</a>'
-                        . '</div>'
+                    . '<div class="b-album">'
+                    . '<a class="b-album_img-hold" href="' . $url . '" title="Начать просмотр">'
+                    . '<div class="b-album-img_a">'
+                    . '<div class="b-album_img-pad"></div>'
+                    . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
+                    . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
+                    . '</div>'
+                    . '<div class="b-album_img-hold-ovr">'
+                    . '<div class="ico-zoom ico-zoom__abs"></div>'
+                    . '</div>'
+                    . '</a>'
+                    . '</div>'
                     . '</div>'
                     . \CHtml::tag('photo-collection', array(
                         'params' =>
@@ -251,7 +262,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $newPost->html .= $photoAlbumTag;
             $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.photopostPreview', array('tag' => $photoAlbumTag, 'text' => \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($newPost->text))), 200, ' <span class="ico-more"></span>')));
             $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
-        } elseif ($photo) {
+        } elseif ($photo)
+        {
             $newPost->preview = '<div class="b-article_in-img"><a href="' . $oldPost->url . '">' . $photo->getPreviewHtml(600, 1100) . '</a></div>' . $newPost->preview;
             $newPost->socialObject->imageUrl = $photo->getPreviewUrl(200, 200);
         }
@@ -277,18 +289,18 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $photoAlbumTag = '<div class="b-album-cap">'
                 . '<div class="b-album-cap_hold">'
-                    . '<div class="b-album">'
-                        . '<a class="b-album_img-hold" href="' . $url . '" title="Начать просмотр">'
-                            . '<div class="b-album-img_a">'
-                                . '<div class="b-album_img-pad"></div>'
-                                . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
-                                . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
-                            . '</div>'
-                            . '<div class="b-album_img-hold-ovr">'
-                                . '<div class="ico-zoom ico-zoom__abs"></div>'
-                            . '</div>'
-                        . '</a>'
-                    . '</div>'
+                . '<div class="b-album">'
+                . '<a class="b-album_img-hold" href="' . $url . '" title="Начать просмотр">'
+                . '<div class="b-album-img_a">'
+                . '<div class="b-album_img-pad"></div>'
+                . '<img width="' . $cover->getWidth() . '" height="' . $cover->getHeight() . '" class="b-album_img-big" alt="'
+                . $collection->cover->photo->title . '" src="' . $cover->getUrl() . '">'
+                . '</div>'
+                . '<div class="b-album_img-hold-ovr">'
+                . '<div class="ico-zoom ico-zoom__abs"></div>'
+                . '</div>'
+                . '</a>'
+                . '</div>'
                 . '</div>'
                 . \CHtml::tag('photo-collection', array(
                     'params' =>
@@ -353,12 +365,15 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     protected function render($file, $data)
     {
         $file = \Yii::getPathOfAlias($file) . '.php';
-        if (\Yii::app() instanceof \CConsoleApplication) {
+        if (\Yii::app() instanceof \CConsoleApplication)
+        {
             return \Yii::app()->command->renderFile($file, $data, true);
-        } else {
+        } else
+        {
             return \Yii::app()->controller->renderInternal($file, $data, true);
         }
     }
+
 }
 
 ?>

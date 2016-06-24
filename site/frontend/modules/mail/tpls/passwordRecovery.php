@@ -108,7 +108,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2" style="color: #999">
-                                                                Вы всегда можете поменять свой пароль в разделе <a href="<?php echo $message->createUrl(array('/profile/settings/password')); ?>" style="color: #0e72ed;" target="_blank">"Мои настройки"</a>
+                                                                Вы всегда можете поменять свой пароль в разделе <a href="<?php echo $message->createUrl(array('/user/settings/')); ?>" style="color: #0e72ed;" target="_blank">"Мои настройки"</a>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -118,7 +118,7 @@
                                         <!-- // END BODY -->
                                     </td>
                                 </tr>
-                                <?php $message->render('_footer'); ?>
+                                <?php $message->render('_footer2'); ?>
                             </table>
                             <!-- // END TEMPLATE -->
                         </td>

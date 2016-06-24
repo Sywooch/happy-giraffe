@@ -295,6 +295,22 @@ class DefaultController extends HController
 
     public function actionSave($id = null)
     {
+        $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
+
+        if (isset($_POST['formKey']) && !empty($_POST['formKey']))
+        {
+            $formKey = $_POST['formKey'];
+
+            if (($en = $formSendControl->getEntity($formKey)) != null)
+            {
+                $model = CommunityContent::model()->findByPk($en['entityId']);
+                if (isset($_POST['redirect']))
+                    $this->redirect($_POST['redirect']);
+                else
+                    $this->redirect($model->url);
+            }
+        }
+        
         $model = ($id === null) ? new BlogContent() : BlogContent::model()->findByPk($id);
         $new = $model->isNewRecord;
         if (! $new && ! $model->canEdit())
@@ -309,6 +325,12 @@ class DefaultController extends HController
         $slaveModelName = 'Community' . ucfirst($slug);
         $slaveModel = ($id === null) ? new $slaveModelName() : $model->content;
         $slaveModel->attributes = $_POST[$slaveModelName];
+        /**
+         * убираем xss
+         */
+        $prufer = site\frontend\components\PreparedHTMLPurifier::getInstans();
+        #var_dump($slaveModel->text); exit();
+        $slaveModel->text = $prufer->purifyUserHTML($slaveModel->text);
         $this->performAjaxValidation(array($model, $slaveModel));
         $model->$slug = $slaveModel;
         $success = $model->withRelated->save(true, array($slug));
@@ -319,6 +341,10 @@ class DefaultController extends HController
         }
         
         if ($success) {
+
+            if (isset($_POST['formKey']) && !empty($_POST['formKey']))
+                $formSendControl->setEntity($_POST['formKey'], $model->entity, $model->id);
+
             if (isset($_POST['redirect']))
                 $this->redirect($_POST['redirect']);
             else

@@ -23,13 +23,16 @@ class PhotosApiController extends ApiController
     {
         /** @var \site\frontend\modules\photo\models\Photo $photo */
         $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId, 'editPhoto');
-        if ($url !== false) {
+        if ($url !== false)
+        {
             $photo->image = file_get_contents($url);
         }
-        if ($title !== false) {
+        if ($title !== false)
+        {
             $photo->title = htmlspecialchars($title);
         }
-        if ($description !== false) {
+        if ($description !== false)
+        {
             $photo->description = htmlspecialchars($description);
         }
         $this->success = $photo->save();
@@ -38,7 +41,8 @@ class PhotosApiController extends ApiController
 
     public function actionUploadFromComputer($collectionId = null)
     {
-        if (!\Yii::app()->user->checkAccess('uploadPhoto')) {
+        if (!\Yii::app()->user->checkAccess('uploadPhoto'))
+        {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
@@ -48,16 +52,17 @@ class PhotosApiController extends ApiController
         $this->data = $form;
     }
 
-    public function actionUploadByUrl($url, $collectionId = null)
+    public function actionUploadByUrl($url = false, $collectionId = null)
     {
-        var_dump($this->getActionParams()); die;
+        $params = parent::getActionParams();
 
-        if (!\Yii::app()->user->checkAccess('uploadPhoto')) {
+        if (!\Yii::app()->user->checkAccess('uploadPhoto') || !isset($params['url']))
+        {
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
-        $form = new ByUrlUploadForm($this->getCollection($collectionId));
-        $form->url = $url;
+        $form = new ByUrlUploadForm($this->getCollection(isset($params['collectionId']) ? intval($params['collectionId']) : null));
+        $form->url = $params['url'];
         $this->success = $form->save();
         $this->data = $form;
     }
@@ -65,7 +70,8 @@ class PhotosApiController extends ApiController
     public function actionPresets()
     {
         $data = \Yii::app()->thumbs->presets;
-        foreach ($data as &$preset) {
+        foreach ($data as &$preset)
+        {
             $preset['hash'] = \Yii::app()->thumbs->hash($preset['filter']);
         }
         $this->success = true;
@@ -74,10 +80,13 @@ class PhotosApiController extends ApiController
 
     protected function getCollection($collectionId)
     {
-        if ($collectionId !== null) {
+        if ($collectionId !== null)
+        {
             //$collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'addPhotos');
             $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, false);
-        } else {
+        }
+        else
+        {
             $collection = null;
         }
         return $collection;
@@ -89,7 +98,8 @@ class PhotosApiController extends ApiController
         $angle = $clockwise ? 90 : -90;
         $result = InlinePhotoModifier::rotate($photo, $angle);
         $this->success = $result !== false;
-        if ($this->success) {
+        if ($this->success)
+        {
             $this->data = $result;
         }
     }
@@ -99,9 +109,12 @@ class PhotosApiController extends ApiController
      */
     public function getActionParams()
     {
-        if (!empty($_POST)) {
+        if (!empty($_POST))
+        {
             return $_POST;
-        } else {
+        }
+        else
+        {
             return parent::getActionParams();
         }
     }

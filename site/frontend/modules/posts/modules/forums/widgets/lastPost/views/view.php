@@ -18,6 +18,7 @@
                 <div class="hashtag">
                     <a href="<?=$tag['url']?>"><?=$tag['text']?></a>
                 </div>
+                <div class="c-list_item_btn" style="display:block"><span class="c-list_item_btn__view">589</span><span class="c-list_item_btn__users">6</span><span class="c-list_item_btn__comment">28</span>
             <?php endif; ?>
         </li>
         <?php endforeach; ?>

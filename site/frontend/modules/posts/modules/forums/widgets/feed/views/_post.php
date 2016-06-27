@@ -25,7 +25,7 @@ if ($data->isHot) {
             <div class="b-froum-theme-info-more clearfix">
                 <?php if ($tag): ?>
                     <div class="hashtag">
-                        <span><?=$tag?></span>
+                        <a href="<?=$tag['url']?>"><?=$tag['text']?></a>
                     </div>
                 <?php endif; ?>
                 <div class="c-list_item_btn">

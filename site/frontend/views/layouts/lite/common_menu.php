@@ -22,7 +22,7 @@ if (! Yii::app()->user->isGuest) {
     <?php $this->renderPartial('application.modules.comments.modules.contest.views._banner'); ?>
 
     <div class="layout-header">
-        <header class="header header__redesign"><a class="mobile-menu"></a><a href="/" class="logo"></a><a class="header__search popup-a" href="#js-madal-search-box"></a>
+        <header class="header header__redesign"><a class="js-mobile-menu mobile-menu"></a><a href="/" class="logo"></a><a class="header__search popup-a" href="#js-madal-search-box"></a>
             <nav class="header__nav">
                 <ul class="header__menu">
                     <li class="header__li"><a href="<?=$this->createUrl('/posts/forums/default/index')?>" class="header__link header__link_comment">Форумы</a></li>
@@ -35,8 +35,8 @@ if (! Yii::app()->user->isGuest) {
                         <a href="#" class="user-unloged__link login-button" data-bind="follow: {}"><img src="/images/icons/avatar.png" class="user-unloged__img">ВОЙТИ</a>
                     </div>
                 <?php else: ?>
-                    <div class="user-on"><a href="<?=$this->createUrl('/notifications/default/index')?>" class="signal" data-bind="css: { active: newNotificationsCount() > 0 && activeModule() != 'notifications' }"></a>
-                        <div class="ava"><a href="#" data-bind="click: function(data, event) {menuExtended(! menuExtended()); event.stopPropagation(); return true;}"><img src="<?=Yii::app()->user->model->getAvatarUrl(40)?>"></a></div>
+                    <div class="user-on"><a href="<?=$this->createUrl('/notifications/default/index')?>" class="signal active" data-bind="css: { active: newNotificationsCount() > 0 && activeModule() != 'notifications' }"></a>
+                        <div class="ava"><a class="js-ava__link ava__link" href="#" data-bind="click: function(data, event) {menuExtended(! menuExtended()); event.stopPropagation(); return true;}"><img src="<?=Yii::app()->user->model->getAvatarUrl(40)?>"></a></div>
                     </div>
                 <?php endif; ?>
             </nav>

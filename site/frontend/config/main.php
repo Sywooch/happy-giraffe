@@ -2,31 +2,29 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
-
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
     'id' => 'happy-giraffe',
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Клуб',
-	'homeUrl' => 'http://www.happy-giraffe.ru',
-	// preloading 'log' component
-	'preload'=>array('log'),
-
-	// autoloading model and component classes
-	'import'=>array(
+    'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+    'name' => 'Клуб',
+    'homeUrl' => 'http://www.happy-giraffe.ru',
+    // preloading 'log' component
+    'preload' => array('log'),
+    // autoloading model and component classes
+    'import' => array(
         'site.common.components.*',
-		'site.common.models.*',
-		'site.common.models.User',
+        'site.common.models.*',
+        'site.common.models.User',
         'site.common.models.mongo.*',
         'site.common.models.interest.*',
         'site.common.models.*',
         'site.common.helpers.*',
-		'ext.ufile.UFiles',
-		'application.models.*',
-		'application.components.*',
+        'ext.ufile.UFiles',
+        'application.models.*',
+        'application.components.*',
         'application.components.video.*',
-		'application.helpers.*',
+        'application.helpers.*',
         'application.widgets.*',
         'application.vendor.*',
         'ext.eoauth.*',
@@ -34,10 +32,10 @@ return array(
         'ext.lightopenid.*',
         'ext.eauth.*',
         'ext.eauth.services.*',
-		'ext.Captcha',
-		'ext.CaptchaAction',
-		'ext.LinkPager',
-		'ext.image.Image',
+        'ext.Captcha',
+        'ext.CaptchaAction',
+        'ext.LinkPager',
+        'ext.image.Image',
         'ext.YiiMongoDbSuite.*',
         'application.modules.geo.models.*',
         'application.modules.scores.models.*',
@@ -73,7 +71,6 @@ return array(
         'application.modules.antispam.components.*',
         'application.modules.signup.widgets.*',
         'application.modules.signup.models.*',
-
         'zii.behaviors.CTimestampBehavior',
         'site.common.extensions.wr.WithRelatedBehavior',
         'site.common.extensions.wr2.WithRelatedBehavior',
@@ -81,27 +78,24 @@ return array(
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',
         'site.frontend.extensions.geturl.EGetUrlBehavior',
-
         'application.modules.onlineManager.widgets.*',
         'application.modules.onlineManager.components.*',
         'site.frontend.widgets.photopostAdWidget.PhotopostAdWidget',
     ),
-
-	'sourceLanguage' => 'en',
-	'language' => 'ru',
-
+    'sourceLanguage' => 'en',
+    'language' => 'ru',
     /* Техническое обслуживание */
-    /*'catchAllRequest' => (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '88.87.70.93', '178.35.209.102', '91.205.122.228')))?null:array(
-        '/site/maintenance',
-    ),*/
+    /* 'catchAllRequest' => (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '88.87.70.93', '178.35.209.102', '91.205.122.228')))?null:array(
+      '/site/maintenance',
+      ), */
     'behaviors' => array(
         'edms' => array(
-            'class'=>'EDMSBehavior',
+            'class' => 'EDMSBehavior',
             'connectionId' => 'mongodb',
         )
     ),
-	'modules'=>array(
-		'contest',
+    'modules' => array(
+        'contest',
         'im',
         'geo',
         'signal',
@@ -149,7 +143,7 @@ return array(
         'mail',
         'developers',
         'archive' => array(
-           'class' => 'site\frontend\modules\archive\ArchiveModule',
+            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),
         'rss' => array(
             'class' => 'site\frontend\modules\rss\RssModule',
@@ -171,16 +165,19 @@ return array(
             'class' => 'site\frontend\modules\questionnaire\QuestionnaireModule',
             'controllerNamespace' => 'site\frontend\modules\questionnaire\controllers',
         ),
-        /*'v1' => array(
-            'class' => 'site\frontend\modules\v1\V1Module',
-            'controllerNamespace' => 'site\frontend\modules\v1\controllers',
-        ),*/
-        /*'api' => array(
-            'class' => 'site\frontend\modules\api\ApiModule',
-        ),*/
-	),
-	// application components
-	'components'=>array(
+    /* 'v1' => array(
+      'class' => 'site\frontend\modules\v1\V1Module',
+      'controllerNamespace' => 'site\frontend\modules\v1\controllers',
+      ), */
+    /* 'api' => array(
+      'class' => 'site\frontend\modules\api\ApiModule',
+      ), */
+    ),
+    // application components
+    'components' => array(
+        'fileCache' => [
+            'class' => 'system.caching.CFileCache',
+        ],
         'vm' => array(
             'class' => 'VersionManager',
         ),
@@ -204,38 +201,38 @@ return array(
             'basePath' => null,
         ),
         'clientScript' => require_once(dirname(__FILE__) . '/clientScript.php'),
-		'widgetFactory' => array(
-			'widgets' => array(
-				'LinkPager' => array(
-					'cssFile' => FALSE,
-					'header' => '',
-					'nextPageLabel' => '',
-					'prevPageLabel' => '',
-					'maxButtonCount' => 5,
-				),
-				'CKEditorWidget' => array(
-					'ckEditor' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www-submodule' . DIRECTORY_SEPARATOR . 'ckeditor' . DIRECTORY_SEPARATOR . 'ckeditor.php',
-				),
-			),
-		),
-		'search' => array(
-		    'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',
-		    'server' => '127.0.0.1',
-		    'port' => 9312,
-		    'maxQueryTime' => 3000,
-		    'enableProfiling'=>0,
-		    'enableResultTrace'=>0,
-		    'fieldWeights' => array(
-			'name' => 10000,
-			'keywords' => 100,
-		    ),
-		),
-		'eauth' => array(
+        'widgetFactory' => array(
+            'widgets' => array(
+                'LinkPager' => array(
+                    'cssFile' => FALSE,
+                    'header' => '',
+                    'nextPageLabel' => '',
+                    'prevPageLabel' => '',
+                    'maxButtonCount' => 5,
+                ),
+                'CKEditorWidget' => array(
+                    'ckEditor' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www-submodule' . DIRECTORY_SEPARATOR . 'ckeditor' . DIRECTORY_SEPARATOR . 'ckeditor.php',
+                ),
+            ),
+        ),
+        'search' => array(
+            'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',
+            'server' => '127.0.0.1',
+            'port' => 9312,
+            'maxQueryTime' => 3000,
+            'enableProfiling' => 0,
+            'enableResultTrace' => 0,
+            'fieldWeights' => array(
+                'name' => 10000,
+                'keywords' => 100,
+            ),
+        ),
+        'eauth' => array(
             'class' => 'ext.eauth.EAuth',
             'popup' => true,
             'cache' => false,
             'cacheExpire' => 0,
-			'services' => array( // You can change the providers and their classes.
+            'services' => array(// You can change the providers and their classes.
                 'facebook' => array(
                     'class' => 'application.components.eauth.FacebookAuth',
                     'client_id' => '412497558776154',
@@ -269,18 +266,18 @@ return array(
                     'title' => 'ВКонтакте',
                 ),
                 //test app
-                /*'vk_api' => array(
-                    'class' => 'application.components.eauth.VkontakteAuth',
-                    'client_id' => '5197824',
-                    'client_secret' => 'QWTJzplwU7QJHIaS5s7K',
-                    'title' => 'ВКонтакте',
-                ),*/
-                /*'vkontakte' => array(
-                    'class' => 'application.components.eauth.VkontakteAuth',
-                    'client_id' => '5198960',
-                    'client_secret' => '6ENyzHlfcTaOZE1k3UYk',
-                    'title' => 'ВКонтакте',
-                ),*/
+                /* 'vk_api' => array(
+                  'class' => 'application.components.eauth.VkontakteAuth',
+                  'client_id' => '5197824',
+                  'client_secret' => 'QWTJzplwU7QJHIaS5s7K',
+                  'title' => 'ВКонтакте',
+                  ), */
+                /* 'vkontakte' => array(
+                  'class' => 'application.components.eauth.VkontakteAuth',
+                  'client_id' => '5198960',
+                  'client_secret' => '6ENyzHlfcTaOZE1k3UYk',
+                  'title' => 'ВКонтакте',
+                  ), */
                 'google' => array(
                     'class' => 'application.components.eauth.GoogleAuth',
                     'client_id' => '152056798430-h2dd83jfs4q4mka119s1tftorp0171ol.apps.googleusercontent.com',
@@ -298,57 +295,56 @@ return array(
 //                    'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
 //                    'title' => 'Facebook',
 //                ),
-                /*'google' => array(
-                    'class' => 'CustomGoogleService',
-                    'client_id' => '999100941078.apps.googleusercontent.com',
-                    'client_secret' => '6fDvpI0FO0lmhdDTMCl-I8gD',
-                ),*/
+            /* 'google' => array(
+              'class' => 'CustomGoogleService',
+              'client_id' => '999100941078.apps.googleusercontent.com',
+              'client_secret' => '6fDvpI0FO0lmhdDTMCl-I8gD',
+              ), */
 //                'twitter' => array(
 //                    'class' => 'CustomTwitterService',
 //                    'key' => '9NY9gDqPgU2DMIYrEv2pCA',
 //                    'secret' => '2Lk4Q34fINqSrx5BlpKz6qtyCsofI3M9FHRYCElceE',
 //                    'title' => 'Twitter',
 //                ),
-			),
-		),
-		'format' => array(
-			'booleanFormat' => array('Нет', 'Да'),
-			'dateFormat' => 'd.m.Y',
-			'datetimeFormat' => 'd.m.Y H:i',
-			'numberFormat' => array(
-				'decimals' => 2,
-				'thousandSeparator' => ' ',
-				'decimalSeparator' => '.',
-			),
-		),
-		'assetManager'=>require_once(dirname(__FILE__).'/assets.php'),
-		'cache'=>require_once(dirname(__FILE__).'/cache.php'),
-        'apc'=>array(
-            'class'=>'CApcCache',
+            ),
         ),
-        
-		'user'=>array(
-			// enable cookie-based authentication
-			'class'=>'WebUser',
-			'allowAutoLogin'=>true,
-            'autoRenewCookie'=>true,
-			'loginUrl'=> array('/site/index', 'openLogin' => 1),
-		),
-        'authManager'=>array(
-            'class'=>'CDbAuthManager',
-            'connectionID'=>'db',
-            'itemTable'=>'auth__items',
-            'itemChildTable'=>'auth__items_childs',
-            'assignmentTable'=>'auth__assignments',
-			'defaultRoles' => array('user'),
-		),
-		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
-		'db' => array(
+        'format' => array(
+            'booleanFormat' => array('Нет', 'Да'),
+            'dateFormat' => 'd.m.Y',
+            'datetimeFormat' => 'd.m.Y H:i',
+            'numberFormat' => array(
+                'decimals' => 2,
+                'thousandSeparator' => ' ',
+                'decimalSeparator' => '.',
+            ),
+        ),
+        'assetManager' => require_once(dirname(__FILE__) . '/assets.php'),
+        'cache' => require_once(dirname(__FILE__) . '/cache.php'),
+        'apc' => array(
+            'class' => 'CApcCache',
+        ),
+        'user' => array(
+            // enable cookie-based authentication
+            'class' => 'WebUser',
+            'allowAutoLogin' => true,
+            'autoRenewCookie' => true,
+            'loginUrl' => array('/site/index', 'openLogin' => 1),
+        ),
+        'authManager' => array(
+            'class' => 'CDbAuthManager',
+            'connectionID' => 'db',
+            'itemTable' => 'auth__items',
+            'itemChildTable' => 'auth__items_childs',
+            'assignmentTable' => 'auth__assignments',
+            'defaultRoles' => array('user'),
+        ),
+        'urlManager' => require_once(dirname(__FILE__) . '/url.php'),
+        'db' => array(
             'schemaCachingDuration' => 300,
-            'tablePrefix'=> '',
+            'tablePrefix' => '',
         ),
         'db_seo' => array(
-            'class'=>'CDbConnection',
+            'class' => 'CDbConnection',
             'connectionString' => 'mysql:host=192.168.0.137;dbname=happy_giraffe_seo',
             'emulatePrepare' => true,
             'username' => 'root',
@@ -365,28 +361,28 @@ return array(
             'charset' => 'utf8',
             'schemaCachingDuration' => 60,
         ),
-		'errorHandler'=>array(
-			// use 'site/error' action to display errors
-            'errorAction'=>'site/error',
+        'errorHandler' => array(
+            // use 'site/error' action to display errors
+            'errorAction' => 'site/error',
         ),
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
+        'log' => array(
+            'class' => 'CLogRouter',
+            'routes' => array(
 //                array(
 //                    'class' => 'CProfileLogRoute',
 //                ),
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
+                array(
+                    'class' => 'CFileLogRoute',
+                    'levels' => 'error, warning',
+                ),
 //                array(
 //                    'class'=>'CEmailLogRoute',
 //                    'levels'=>'error, warning',
 //                    'emails'=>'nikita@happy-giraffe.ru',
 //                ),
                 array(
-                    'class'=>'CFileLogRoute',
-                    'levels'=>'info',
+                    'class' => 'CFileLogRoute',
+                    'levels' => 'info',
                     'logFile' => 'info.log',
                 ),
 //				array(
@@ -394,41 +390,40 @@ return array(
 //					'categories'=>'system.db.CDbCommand',
 //					'showInFireBug'=>false,
 //				),
-
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
+                // uncomment the following to show log messages on web pages
+                /*
+                  array(
+                  'class'=>'CWebLogRoute',
+                  ),
+                 */
 //                array(
 //					'class'=>'CEmailLogRoute',
 //					'levels'=>'error, warning',
 //					'emails'=>'pavel@happy-giraffe.ru',
 //				),
                 array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'trace',
-                    'categories'=>'api',
+                    'class' => 'CFileLogRoute',
+                    'levels' => 'trace',
+                    'categories' => 'api',
                     'logFile' => 'api.log',
-					//'emails'=>'nikita@happy-giraffe.ru',
-				),
-			),
-		),
-		'shoppingCart' => array(
-			'class' => 'ext.shoppingCart.EShoppingCart',
-			'discounts' => array(
-				array('class' => 'JirafFrandsDiscount'),
-				array('class' => 'JirafDiscount'),
-			),
-		),
+                //'emails'=>'nikita@happy-giraffe.ru',
+                ),
+            ),
+        ),
+        'shoppingCart' => array(
+            'class' => 'ext.shoppingCart.EShoppingCart',
+            'discounts' => array(
+                array('class' => 'JirafFrandsDiscount'),
+                array('class' => 'JirafDiscount'),
+            ),
+        ),
         'mongodb' => array(
-            'class'            => 'EMongoDB',
+            'class' => 'EMongoDB',
             'connectionString' => 'mongodb://localhost',
-            'dbName'           => 'happy_giraffe_db',
-            'fsyncFlag'        => true,
-            'safeFlag'         => true,
-            'useCursor'        => false
+            'dbName' => 'happy_giraffe_db',
+            'fsyncFlag' => true,
+            'safeFlag' => true,
+            'useCursor' => false
         ),
         'mongodb_production' => array(
             'class' => 'EMongoDB',
@@ -438,12 +433,12 @@ return array(
             'safeFlag' => true,
             'useCursor' => false
         ),
-        'comet'=>array(
+        'comet' => array(
             'class' => 'ext.Dklab_Realplexor',
             'host' => 'plexor.www.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
-            ),
+        ),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
             'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',
@@ -453,7 +448,7 @@ return array(
             'class' => 'site.common.components.Mandrill',
             'apiKey' => '1f816ac2-65b7-4a28-90c9-7e8fb1669d43',
         ),
-        'email'=>array(
+        'email' => array(
             'class' => 'site.common.components.HEmailSender',
         ),
         'piwik' => array(
@@ -468,37 +463,36 @@ return array(
                 'jpegQuality' => 70,
             ),
         ),
-        /*'NStream' => array (
-            'class' => 'site\frontend\modules\api\modules\v1_3\components\nstream\NginxStream',
-            'host' => 'stream.happy-giraffe.ru',
-            'port' => '80',
-        ),*/
-	),
-
-	// application-level parameters that can be accessed
-	// using Yii::app()->params['paramName']
-	'params'=>array(
+    /* 'NStream' => array (
+      'class' => 'site\frontend\modules\api\modules\v1_3\components\nstream\NginxStream',
+      'host' => 'stream.happy-giraffe.ru',
+      'port' => '80',
+      ), */
+    ),
+    // application-level parameters that can be accessed
+    // using Yii::app()->params['paramName']
+    'params' => array(
         'valentinesAlbum' => '41340',
         'is_api_request' => false,
-		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
-        'gaPass'=>'',
+        // this is used in contact page
+        'adminEmail' => 'webmaster@example.com',
+        'gaPass' => '',
         'gaCode' => 'UA-27545132-1',
-		'ufileStorageRoot'=>'temp_upload',
-		'social' => array(
-			'vk' => array(
-				'api_id' => 2450198,
-				'secret_key' => 'yUpyEwys04uWtVfFVBLp',
-			),
-			'mail' => array(
-				'api_id' => 642108,
-				'private_key' => 'f80cfac7dc87add3be6d6126e2c56b49',
-				'secret_key' => '9a33bbf4e3c6c78e1dd6427362b0d040',
-			),
-		),
-        'frontend_url'=>'http://www.happy-giraffe.ru/',
-        'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
-        'google_map_key'=>'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc',
+        'ufileStorageRoot' => 'temp_upload',
+        'social' => array(
+            'vk' => array(
+                'api_id' => 2450198,
+                'secret_key' => 'yUpyEwys04uWtVfFVBLp',
+            ),
+            'mail' => array(
+                'api_id' => 642108,
+                'private_key' => 'f80cfac7dc87add3be6d6126e2c56b49',
+                'secret_key' => '9a33bbf4e3c6c78e1dd6427362b0d040',
+            ),
+        ),
+        'frontend_url' => 'http://www.happy-giraffe.ru/',
+        'yandex_map_key' => 'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
+        'google_map_key' => 'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc',
         'combineMap' => array(
             '/javascripts/all.js' => array(
                 'jquery.min.js',
@@ -541,10 +535,8 @@ return array(
                 'social.js',
             ),
         ),
-	),
-
-        'controllerMap' => array(
-            'sitemap' => require_once(dirname(__FILE__) . '/sitemap.php'),
-        ),
-
+    ),
+    'controllerMap' => array(
+        'sitemap' => require_once(dirname(__FILE__) . '/sitemap.php'),
+    ),
 );

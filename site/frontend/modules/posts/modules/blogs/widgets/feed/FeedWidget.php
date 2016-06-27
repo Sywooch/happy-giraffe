@@ -5,7 +5,7 @@ namespace site\frontend\modules\posts\modules\blogs\widgets\feed;
 use site\frontend\modules\posts\models\Content;
 use site\frontend\modules\posts\models\Label;
 
-use site\frontend\modules\som\modules\community\models\api\CommunityClub;
+use site\frontend\modules\som\modules\activity\models\Activity;
 
 /**
  * @author Sergey Gubarev
@@ -70,7 +70,14 @@ class FeedWidget extends \CWidget
     {
         if ($this->tab === self::TAB_COMMENTS)
         {
-            // ...
+            $criteria = Activity::model()
+                ->onlyComments()
+                ->getDbCriteria()
+            ;
+            
+            $perPage = $this->controller->module->getConfig('commentsPerPage');
+            
+            $this->render('comments', compact('criteria', 'perPage'));
         }
         else 
         {   
@@ -125,9 +132,9 @@ class FeedWidget extends \CWidget
      */
     public function getListDataProvider()
     {
-        $perPage = $this->controller->module->getConfig('postsPerPage');
-        
-        $model = Content::model()->byService('oldBlog');
+        $model = Content::model()->byLabels([
+            Label::LABEL_BLOG
+        ]);
         
         switch ($this->tab) 
         {
@@ -147,31 +154,18 @@ class FeedWidget extends \CWidget
                 break;
         }
         
-        $criteria = $model
-            ->with('author')
-            ->getDbCriteria()
-        ;
+        $criteria = $model->getDbCriteria();
         
-        $model->resetScope();
+        $model->resetScope(false);
         
-        $queryCount = Content::model()
-            ->byService('oldBlog')
-        ;
+        $perPage = $this->controller->module->getConfig('postsPerPage');
         
-        if ($this->tab == self::TAB_DISCUSS)
-        {
-            $queryCount->uncommentedBlogs();
-        }
-        
-        $criteriaCount = $queryCount->getDbCriteria();
-            
         return new \CActiveDataProvider($model, [
             'criteria'   => $criteria,
             'pagination' => [
                 'pageSize' => $perPage,
                 'pageVar'  => 'page'
             ],
-            'countCriteria' => $criteriaCount
         ]);
     }
     

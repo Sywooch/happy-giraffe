@@ -5,6 +5,7 @@
  */
 class LitePagerDots extends LitePager
 {
+    
     const PAGE_FIRST = 1;
     
     //-----------------------------------------------------------------------------------------------------------
@@ -46,14 +47,31 @@ class LitePagerDots extends LitePager
     private $_allPages;
     
     /**
+     * Нужли ты точки слева + первая страница
+     * 
      * @var boolean
      */
     private $_dotsLeft = FALSE;
     
+    /**
+     * Нужли ты точки справа + последняя страница
+     *
+     * @var boolean
+     */
     private $_dotsRight = FALSE;
     
+    /**
+     * Начало отсчета страниц для вывода
+     * 
+     * @var integer
+     */
     private $_pageStart;
     
+    /**
+     * Конец отсчета страниц для вывода
+     *
+     * @var integer
+     */
     private $_pageEnd;
     
     //-----------------------------------------------------------------------------------------------------------
@@ -81,14 +99,18 @@ class LitePagerDots extends LitePager
      */
     private function _getPagesData()
     {
+        if ($this->_allPages <= 1)
+        {
+            return [];    
+        }
+        
         $buttons = [];
         
         $buttons[] = $this->createPageButton($this->prevPageLabel, $this->_pageIndex - 1, $this->previousPageCssClass, !$this->showPrevNext || $this->_page <= 1, FAlSE);
         
-        $buttons[] = $this->createPageButton(self::PAGE_FIRST, NULL, $this->internalPageCssClass, FALSE, self::PAGE_FIRST == $this->_page);
-        
         if ($this->_dotsLeft)
         {
+            $buttons[] = $this->createPageButton(self::PAGE_FIRST, NULL, $this->internalPageCssClass, FALSE, self::PAGE_FIRST == $this->_page);
             $buttons[] = $this->dotsLabel;
         }
         
@@ -100,10 +122,9 @@ class LitePagerDots extends LitePager
         if ($this->_dotsRight)
         {
             $buttons[] = $this->dotsLabel;
+            $buttons[] = $this->createPageButton($this->_allPages, $this->_allPages - 1, $this->internalPageCssClass, FALSE, $this->_allPages == $this->_page);
         }
-        
-        $buttons[] = $this->createPageButton($this->_allPages, $this->_allPages - 1, $this->internalPageCssClass, FALSE, $this->_allPages == $this->_page);
-        
+
         $buttons[] = $this->createPageButton($this->nextPageLabel, $this->_page, $this->nextPageCssClass, !$this->showPrevNext || $this->_page == $this->_allPages, FALSE);
         
         return $buttons;
@@ -114,47 +135,60 @@ class LitePagerDots extends LitePager
      * @see LitePager::createPageButtons()
      */
     protected function createPageButtons()
-    {   
-        
+    {
         if (is_double($resultDivision = $this->showButtonCount / 2))
         {
             $halfLeft = $halfRight = floor($resultDivision);
         }
         else
         {
-            $halfLeft  = $resultDivision - 1;
+            $halfLeft = $resultDivision - 1;
             $halfRight = $resultDivision;
         }
-        
-        if (self::PAGE_FIRST + $this->_page - $halfLeft > $this->showButtonCount)
+    
+        // Тут проверка, нужны ли точки перед текущей странице
+        if ($this->_page - $halfLeft > $this->showButtonCount)
         {
+            // Нужны, мы не в начале
             $this->_dotsLeft = TRUE;
-        
-            if ($this->_allPages - ($this->_page + $halfRight) < 2)
+    
+            if ($this->_allPages - $this->_page <= $this->showButtonCount)
             {
+                // Диапазон конца
                 $this->_pageStart = $this->_allPages - $this->showButtonCount;
-        
-                $this->_pageEnd = $this->_allPages - 1;
-        
             }
             else
             {
-                $this->_dotsRight = TRUE;
                 $this->_pageStart = $this->_page - $halfLeft;
-                $this->_pageEnd   = $this->_page + $halfRight;
             }
         }
         else
         {
-            $this->_pageStart = self::PAGE_FIRST + 1;
-            $this->_pageEnd   = $this->showButtonCount + 1;
-        
-            if ($this->_allPages - ($this->_page + $halfRight) >= $this->showButtonCount)
+            // Мы в начале
+            $this->_pageStart = 1;
+        }
+    
+        // Тут проверка, нужны ли точки после текущей странице
+        if ($this->_allPages - ($this->_page + $halfRight) >= $this->showButtonCount)
+        {
+            // Мы не в конце
+            $this->_dotsRight = TRUE;
+    
+            if (! $this->_dotsLeft)
             {
-                $this->_dotsRight = TRUE;
+                $this->_pageEnd = $this->showButtonCount + 1;
+            }
+            else
+            {
+                $this->_pageEnd = $this->_page + $halfRight;
             }
         }
-        
+        else
+        {
+            // Мы в конце
+            $this->_pageEnd = $this->_allPages;
+        }
+    
         return $this->_getPagesData();
     }
 

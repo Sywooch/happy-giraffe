@@ -6,7 +6,9 @@
 
 $this->widget('LiteListView', [
     'dataProvider' => $this->getListDataProvider(),
-    'viewData'     => ['maxTextLength' => $maxTextLength],
+    'viewData'     => [
+        'maxTextLength' => $maxTextLength
+    ],
     'itemView'     => '_post',
     'tagName'      => 'div',
     'htmlOptions'  => [
@@ -15,12 +17,12 @@ $this->widget('LiteListView', [
     'itemsTagName' => 'div',
     'template'     => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
     'pager' => [
-        'class'          => 'LitePager',
-        'maxButtonCount' => 10,
-        'prevPageLabel'  => '&nbsp;',
-        'nextPageLabel'  => '&nbsp;',
-        'showPrevNext'   => TRUE,
-        // 'showButtonCount' => 4
+        'class'          => 'LitePagerDots',
+        'prevPageLabel'   => '&nbsp;',
+        'nextPageLabel'   => '&nbsp;',
+        'showPrevNext'    => TRUE,
+        'showButtonCount' => 3,
+        'dotsLabel'       => '<li class="page-points">...</li>' 
     ]
 ]);
 

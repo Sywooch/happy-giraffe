@@ -9,6 +9,7 @@ namespace site\frontend\modules\posts\modules\forums\controllers;
 
 use site\frontend\modules\posts\models\Content;
 use site\frontend\modules\posts\models\Label;
+use site\frontend\modules\posts\modules\forums\components\TagHelper;
 use site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget;
 
 class DefaultController extends \LiteController
@@ -38,5 +39,14 @@ class DefaultController extends \LiteController
             $feedForum = null;
         }
         $this->render('club', compact('club', 'feedForum', 'feedTab'));
+    }
+
+    public function actionRubric($rubricId)
+    {
+        $rubric = \CommunityRubric::model()->findByPk($rubricId); // @todo нарушаем SOA
+        if (! $rubric) {
+            throw new \CHttpException(404);
+        }
+        $this->render('rubric', compact('rubric'));
     }
 }

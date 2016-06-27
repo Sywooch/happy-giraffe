@@ -61,9 +61,9 @@ class UsersTopWidget extends \CWidget
     }
     
     /**
-     * Timestamp для инициализации названия месяца в шаблоне 
+     * Название месяца в шаблоне
      * 
-     * @return number
+     * @return string
      */
     public function getMonthName()
     {
@@ -72,6 +72,11 @@ class UsersTopWidget extends \CWidget
     
     //-----------------------------------------------------------------------------------------------------------   
     
+    /**
+     * Timestamp начала периода выборки
+     *
+     * @return number
+     */
     protected function _getTimeFrom()
     {
         if (date("j") > self::MONTH_THRESHOLD)
@@ -86,6 +91,12 @@ class UsersTopWidget extends \CWidget
         return $time;
     }
     
+    
+    /**
+     * Timestamp конца периода выборки
+     * 
+     * @return number
+     */
     protected function _getTimeTo()
     {
         return strtotime("first day of next month", $this->_getTimeFrom());

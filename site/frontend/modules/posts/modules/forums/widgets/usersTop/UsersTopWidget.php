@@ -121,7 +121,7 @@ class UsersTopWidget extends \CWidget
     }
 
     /**
-     * @todo обсудить
+     * @todo обсудить использование new_entity_id
      */
     protected function chargeCommentsCounts()
     {

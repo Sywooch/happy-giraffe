@@ -39,13 +39,32 @@ if (! empty($parser->images))
             	<?php echo HHtml::timeTag($data, ['class' => 'tx-date']); ?>
             
             	<div class="b-subscribe">
-         		 	<div class="btn btn-tiny green">Подписаться</div>
-              		<div class="b-subscribe_tx">23</div>
+            	
+                	<?php if (Yii::app()->user->isGuest): ?>
+                	
+             		 <div class="btn btn-tiny green login-button" data-bind="follow: {}">Подписаться</div>
+             		 
+             		 <?php else: ?>
+             		 
+             		 <div class="btn btn-tiny green">Подписаться</div>
+             		 
+             		 <?php endif; ?>
+             		 
+             		 <div class="b-subscribe_tx">23</div>
+                  	
             	</div>
+            	
           	</div>
         </div>
         <div class="b-article_t-list article_t-feed">
-        	<a class="b-article_t-a article_t-feed"><?php echo $data->title; ?></a>
+        	<?php 
+            
+        	echo CHtml::link($data->title, $data->parsedUrl, [
+        	    'class' => 'b-article_t-a article_t-feed'
+        	    
+        	]);
+        	
+        	?>
     	</div>
     	
     	<?php if (isset($imageUrl)): ?>
@@ -65,7 +84,9 @@ if (! empty($parser->images))
           	
           	echo HStr::truncate($data->text, $maxTextLength, ''); 
           	
-          	echo CHtml::link('', $data->parsedUrl, ['class' => 'ico-more']);
+          	echo CHtml::link('', $data->parsedUrl, [
+          	    'class' => 'ico-more'
+          	]);
           	
           	?>
           	

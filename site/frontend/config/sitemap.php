@@ -2,7 +2,7 @@
 
 return array(
     'class' => 'ext.sitemapgenerator.SGController',
-    'import'=>array(
+    'import' => array(
         'routes.models.Route'
     ),
     'config' => array(
@@ -52,13 +52,18 @@ return array(
             'aliases' => array(
                 'application.modules.routes.controllers.DefaultController',
             ),
-            'param'=>1,
+            'param' => 1,
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
         'sitemapRoutesAll.xml' => array(
             'aliases' => array(
                 'application.modules.routes.controllers.DefaultController',
             ),
-            'param'=>-1,
+            'param' => -1,
         ),
         'sitemapUsers1.xml' => array(
             'aliases' => array(

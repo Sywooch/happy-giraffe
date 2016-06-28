@@ -30,9 +30,15 @@ class BlogoefirWidget extends \CWidget
         
         if (! empty($rows))
         {
-            $this->render('view', compact('rows'));
+            $renderItems = $this->render('_items', compact('rows'), TRUE);
+            
+            $this->render('view', [
+                'items' => $renderItems
+            ]);
         }
     }
+    
+    //-----------------------------------------------------------------------------------------------------------
     
     private function _getItemsData()
     {
@@ -45,8 +51,6 @@ class BlogoefirWidget extends \CWidget
                 'limit' => $this->_limit
             ]);
         ;
-            
-        // var_dump($items);
         
         return $rows;
     }

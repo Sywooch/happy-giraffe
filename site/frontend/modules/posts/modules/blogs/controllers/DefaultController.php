@@ -21,7 +21,22 @@ class DefaultController extends \LiteController
     //-----------------------------------------------------------------------------------------------------------
     
     /**
-     * @param string $tab
+     * {@inheritDoc}
+     * @see LiteController::filters()
+     */
+    public function filters()
+    {
+        return [
+            [
+                'COutputCache',
+                'cacheID'     => 'cache',
+                'duration'    => 0,
+            ]
+        ];     
+    }
+    
+    /**
+     * @param NULL||string $tab
      */
     public function actionIndex($tab = NULL)
     {

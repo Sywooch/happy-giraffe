@@ -56,9 +56,16 @@ class FeedWidget extends \CWidget
     {
         parent::init();
         
-        if (is_null($this->tab) || ! isset($this->_tabs[$this->tab])) 
+        if (is_null($this->tab)) 
         {
             $this->tab = $this->defaultTab;
+        }
+        else 
+        {
+            if (! isset($this->_tabs[$this->tab]))
+            {
+                throw new \CHttpException(404,'Некорректный запрос');
+            }
         }
     }
 
@@ -132,9 +139,14 @@ class FeedWidget extends \CWidget
      */
     public function getListDataProvider()
     {
-        $model = Content::model()->byLabels([
-            Label::LABEL_BLOG
-        ]);
+        $dependency = new \CDbCacheDependency('SELECT MAX(dtimePublication) FROM ' . Content::tableName());
+        
+        $model = Content::model()
+            ->cache(60, $dependency, 2)
+            ->byLabels([
+                Label::LABEL_BLOG
+            ])
+        ;
         
         switch ($this->tab) 
         {

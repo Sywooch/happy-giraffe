@@ -8,6 +8,11 @@ return array(
     'config' => array(
         'sitemap.xml' => array(
             'index' => true,
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
         'sitemapCommunity1' => array(
             'aliases' => array(
@@ -15,6 +20,11 @@ return array(
             ),
             'changefreq' => 'daily',
             'param' => array('page' => 1, 'service' => 'oldCommunity'),
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
         'sitemapCommunity2' => array(
             'aliases' => array(
@@ -22,6 +32,11 @@ return array(
             ),
             'changefreq' => 'daily',
             'param' => array('page' => 2, 'service' => 'oldCommunity'),
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
         'sitemapBlog1' => array(
             'aliases' => array(
@@ -29,6 +44,11 @@ return array(
             ),
             'changefreq' => 'daily',
             'param' => array('page' => 1, 'service' => 'oldBlog'),
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
 //                    'sitemapBlog2.xml' => array(
 //                        'aliases' => array(
@@ -42,11 +62,21 @@ return array(
                 'application.modules.cook.controllers.ChooseController',
                 'application.modules.cook.controllers.RecipeController',
             ),
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
         'sitemapDecor.xml' => array(
             'aliases' => array(
                 'application.modules.cook.controllers.DecorController',
             ),
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
         'sitemapRoutes1.xml' => array(
             'aliases' => array(
@@ -64,11 +94,21 @@ return array(
                 'application.modules.routes.controllers.DefaultController',
             ),
             'param' => -1,
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
         'sitemapUsers1.xml' => array(
             'aliases' => array(
                 'application.modules.userProfile.controllers.DefaultController',
             ),
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
 //                    'sitemapRoutes2.xml' => array(
 //                        'aliases' => array(
@@ -103,17 +143,32 @@ return array(
                 'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
                 'application.modules.consultation.controllers.DefaultController',
             ),
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
         'sitemapRecipeBook.xml' => array(
             'aliases' => array(
                 'application.modules.services.modules.recipeBook.controllers.DefaultController',
             ),
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
         'sitemapHoroscope.xml' => array(
             'aliases' => array(
                 'application.modules.services.modules.horoscope.controllers.DefaultController',
                 'application.modules.services.modules.horoscope.controllers.CompatibilityController',
             ),
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
         ),
     ),
 );

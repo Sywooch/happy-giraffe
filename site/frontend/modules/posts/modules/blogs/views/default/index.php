@@ -83,8 +83,13 @@ $breadcrumbs = [
                     ?>
                     
                  	</li>
-                  
+                  	
+                  	<?php $this->widget('\site\frontend\modules\posts\modules\blogs\widgets\blogoefir\BlogoefirWidget'); ?>
+                  	
         			<li class="sidebar-widget_item">
+        				
+        				<?php if (FALSE): ?>
+        				
                         <div class="b-widget-wrapper b-widget-wrapper_theme b-widget-wrapper_border">
                       		<div class="b-widget-header">
                             	<div class="b-widget-header__title b-widget-header__title_live">Блогоэфир</div>
@@ -118,6 +123,9 @@ $breadcrumbs = [
                             	</div>
                           	</div>
                         </div>
+                        
+                        <?php endif; ?>
+                        
                   	</li>
                   	
                 </ul>

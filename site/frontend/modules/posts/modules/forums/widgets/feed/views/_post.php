@@ -25,7 +25,7 @@ if ($data->isHot) {
             <div class="b-froum-theme-info-more clearfix">
                 <?php if ($tag): ?>
                     <div class="hashtag">
-                        <span><?=$tag?></span>
+                        <a href="<?=$tag['url']?>"><?=$tag['text']?></a>
                     </div>
                 <?php endif; ?>
                 <div class="c-list_item_btn">
@@ -37,33 +37,3 @@ if ($data->isHot) {
         </div>
     </div>
 </div>
-
-<?php if (false): ?>
-<div class="b-froum-theme top-theme">
-    <div class="b-froum-theme-img">
-        <?php if ($data->user->avatarUrl): ?>
-            <img src="<?=$data->user->avatarUrl?>" alt="">
-        <?php endif; ?>
-    </div>
-    <div class="b-froum-theme-info">
-        <a class="name" href="<?=$data->user->profileUrl?>"><?=$data->user->fullName?></a>
-        <?=HHtml::timeTag($data, ['class' => 'time'], null)?>
-        <img src="/images/icons/attach.png" alt="">
-        <a class="b-froum-theme-info-title" href="<?=$data->url?>"><?=$data->title?></a>
-        <p><?=\site\common\helpers\HStr::truncate($data->text)?></p>
-        <div class="b-froum-theme-info-more">
-            <?php if ($tag): ?>
-                <div class="hashtag">
-                    <a href="#"><?=$tag['text']?></a>
-                </div>
-            <?php endif; ?>
-            <div class="b-users-info">
-                <span class="see"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></span>
-                <span class="people"><?=$data->commentatorsCount?></span>
-                <span class="message"><?=$data->commentsCount?></span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php endif; ?>

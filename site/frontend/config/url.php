@@ -145,6 +145,8 @@ return array(
         'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
         'blogs'              => 'posts/blogs/default/index',
 
+        'forums/rubric<rubricId:\d+>' => 'posts/forums/default/rubric',
+
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
         'findFriends/byInterests' => array('friends/find', 'defaultParams' => array('type' => 2)),

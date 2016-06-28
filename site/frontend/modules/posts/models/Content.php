@@ -689,14 +689,15 @@ class Content extends \HActiveRecord implements \IHToJSON
     }
 
     /**
+     * @todo переосмыслить (метод поощряет нарушение SOA)
      * @param string $prefix
      * @return null|Label
      */
-    public function getLabelByPrefix($prefix)
+    public function getLabelTextByPrefix($prefix)
     {
-        foreach ($this->labelModels as $model) {
-            if (strpos($model->text, $prefix) !== false) {
-                return $model;
+        foreach ($this->labelsArray as $label) {
+            if (strpos($label, $prefix) !== false) {
+                return str_replace($prefix, '', $label);
             }
         }
         return null;

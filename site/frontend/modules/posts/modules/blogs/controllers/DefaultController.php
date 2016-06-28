@@ -2,10 +2,6 @@
 
 namespace site\frontend\modules\posts\modules\blogs\controllers;
 
-
-use site\frontend\modules\posts\models\Content;
-use site\frontend\modules\posts\models\Label;
-
 /**
  * @author Sergey Gubarev
  */

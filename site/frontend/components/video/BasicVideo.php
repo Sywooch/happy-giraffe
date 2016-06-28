@@ -49,7 +49,7 @@ class BasicVideo extends CComponent
 
     protected function addTransparent($html)
     {
-        $doc = phpQuery::newDocumentHTML($html, $charset = 'utf-8');
+        $doc = phpQuery::newDocumentHTML($html);
         $iframe = $doc->find('iframe');
         $src = $iframe->attr('src');
         $newSrc = $src . (strpos($src, '?') === false ? '?' : '&') . 'wmode=transparent';

@@ -1,5 +1,6 @@
 <?php 
 
+use site\frontend\modules\posts\models\Content;
 /**  
  * @var $this       \site\frontend\modules\posts\modules\blogs\controllers\DefaultController
  * @var $feedWidget \site\frontend\modules\posts\modules\blogs\widgets\feed\FeedWidget
@@ -66,65 +67,33 @@ $breadcrumbs = [
                     
                     <?php 
                     
-                    Yii::beginProfile('UsersTopWidget'); 
+                    Yii::beginProfile('BlogesTopWidget'); 
                         
-                        $this->beginCache('usersTopBlogs', ['duration' => 1000]);
-                    
+                        if ($this->beginCache('usersTopBlogs', [
+                            'dependency' => [
+                                'class' => 'system.caching.dependencies.CDbCacheDependency',
+                                'sql'   => 'SELECT MAX(hotRate) FROM ' . Content::tableName()
+                            ]
+                        ]))
+                        {
                             $this->widget('\site\frontend\modules\posts\modules\blogs\widgets\usersTop\UsersTopWidget', [
                                 'labels' => [
                                     \site\frontend\modules\posts\models\Label::LABEL_BLOG,
                                 ],
                             ]); 
                             
-                        $this->endCache();
+                            $this->endCache();
+                        }
                     
-                    Yii::endProfile('UsersTopWidget'); 
+                    Yii::endProfile('BlogesTopWidget'); 
                     
                     ?>
                     
                  	</li>
                   	
-                  	<?php $this->widget('\site\frontend\modules\posts\modules\blogs\widgets\blogoefir\BlogoefirWidget'); ?>
-                  	
         			<li class="sidebar-widget_item">
-        				
-        				<?php if (FALSE): ?>
-        				
-                        <div class="b-widget-wrapper b-widget-wrapper_theme b-widget-wrapper_border">
-                      		<div class="b-widget-header">
-                            	<div class="b-widget-header__title b-widget-header__title_live">Блогоэфир</div>
-                      		</div>
-                          	<div class="b-widget-content">
-                                <ul class="b-widget-content__list">
-                              		<li class="b-widget-content__item">
-                                    	<div class="b-widget-content__ava"><img src="/images/icons/ava.jpg" alt=""></div><a href="#" class="b-widget-content__username">Ольга Емельянова</a>
-                                    	<div class="b-widget-content__date">30 минут назад</div>
-                                    	<div class="b-widget-content__title"><a href="#" class="b-widget-content__link">Что вы ели при токсиккозе? Не могу больше пить чай с бубликами</a></div>
-                              		</li>
-                                  	<li class="b-widget-content__item">
-                                    	<div class="b-widget-content__ava"><img src="/images/icons/ava.jpg" alt=""></div><a href="#" class="b-widget-content__username">Ольга Емельянова</a>
-                                    	<div class="b-widget-content__date">30 минут назад</div>
-                                    	<div class="b-widget-content__title"><a href="#" class="b-widget-content__link">Что вы ели при токсиккозе? Не могу больше пить чай с бубликами</a></div>
-                                  	</li>
-                                  	<li class="b-widget-content__item">
-                                    	<div class="b-widget-content__ava"><img src="/images/icons/ava.jpg" alt=""></div><a href="#" class="b-widget-content__username">Ольга Емельянова</a>
-                                    	<div class="b-widget-content__date">30 минут назад</div>
-                                    	<div class="b-widget-content__title"><a href="#" class="b-widget-content__link">Что вы ели при токсиккозе? Не могу больше пить чай с бубликами</a></div>
-                                  	</li>
-                                  	<li class="b-widget-content__item">
-                                    	<div class="b-widget-content__ava"><img src="/images/icons/ava.jpg" alt=""></div><a href="#" class="b-widget-content__username">Ольга Емельянова</a>
-                                    	<div class="b-widget-content__date">30 минут назад</div>
-                                    	<div class="b-widget-content__title"><a href="#" class="b-widget-content__link">Что вы ели при токсиккозе? Не могу больше пить чай с бубликами</a></div>
-                                  	</li>
-                                </ul>
-                            	<div class="b-widget-controls">
-                              		<div class="b-widget-controls__left"></div>
-                              		<div class="b-widget-controls__right"></div>
-                            	</div>
-                          	</div>
-                        </div>
-                        
-                        <?php endif; ?>
+						
+						<?php $this->widget('\site\frontend\modules\posts\modules\blogs\widgets\blogoefir\BlogoefirWidget'); ?>
                         
                   	</li>
                   	

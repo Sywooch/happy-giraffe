@@ -20,18 +20,7 @@ class m160627_080821_post_contents_performance extends CDbMigration
 
     public function down()
     {
-        $this->execute("ALTER TABLE happy_giraffe.post__contents DROP COLUMN label_section, DROP COLUMN label_subsections");
+        $this->execute("ALTER TABLE post__contents DROP COLUMN label_section, DROP COLUMN label_subsections");
         return true;
     }
-
-    /*
-      // Use safeUp/safeDown to do migration with transaction
-      public function safeUp()
-      {
-      }
-
-      public function safeDown()
-      {
-      }
-     */
 }

@@ -1,5 +1,36 @@
 <?php
-
+/**
+ * добавление колонок в облако тегов для построение индекса в нём, добавляет 
+ * колонки в таблицу post__tags:
+ * deleted - пометка о том что запись с которой в post__contents удалена (продублировано)
+ * add_data - время создания записи post__contents (продублировано)
+ * выборка подразумевает использовать запросы в таком виде:
+ * SELECT sql_no_cache * 
+FROM post__contents AS pc 
+WHERE pc.id= (
+	SELECT pt.contentId 
+	FROM post__tags AS pt 
+	WHERE pt.labelId in (6282, 187, 192, 6752, 18319) 
+		and pt.deleted=0
+		and pt.add_data < FROM_UNIXTIME(1380823242)
+	GROUP BY pt.contentId 
+	HAVING COUNT(pt.contentId) = 5 
+	ORDER BY pt.add_data DESC
+	LIMIT 1;
+ * 
+ SELECT sql_no_cache * 
+FROM `post__contents` `t` 
+JOIN (
+	SELECT pt.contentId 
+	FROM post__tags AS pt 
+	WHERE pt.labelId in (18319, 187) 
+	and pt.deleted=0
+	GROUP BY pt.contentId HAVING (count(pt.contentId) = 2)
+	ORDER BY pt.add_data
+	LIMIT 10 OFFSET 130
+) AS tmp ON (tmp.contentId=t.id) ;
+);
+ */
 class m160629_080023_post_contents_performance2 extends CDbMigration
 {
 

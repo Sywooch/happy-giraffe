@@ -14,7 +14,7 @@ class CacheClear extends \CConsoleCommand
 
     public function actionIndex()
     {
-
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         $dataProvider = new \CActiveDataProvider(Content::model()->resetScope(), array(
             'criteria' => new \CDbCriteria(),
             #'criteria' => ['condition' => 'label_section is null and label_subsections  is null'],

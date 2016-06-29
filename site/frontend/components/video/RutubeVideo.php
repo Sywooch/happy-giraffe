@@ -11,7 +11,7 @@ class RutubeVideo extends BasicVideo
 {
     protected function _getEmbed($width = 580)
     {
-        $doc = phpQuery::newDocumentHTML($this->html, $charset = 'utf-8');
+        $doc = phpQuery::newDocumentHTML($this->html);
         $iframe = $doc->find('iframe');
         $ratio = pq($iframe)->attr('width') / $width;
 

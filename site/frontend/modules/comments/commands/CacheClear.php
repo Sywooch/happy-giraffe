@@ -40,7 +40,10 @@ class CacheClear extends \CConsoleCommand
 //                    'entity_id' => $post->originEntityId,
 //            )));
             $widget->getCacheComponent()->delete($widget->getCacheKey());
-            print "{$i}/{$iterator->count()} " . round($i / $iterator->count(), 2) . "% processed\r\n";
+            if (($i % 500) == 0)
+            {
+                print "{$i}/{$iterator->count()} " . round($i / $iterator->count() * 100, 2) . "% processed\r\n";
+            }
             #exit();
         }
     }

@@ -53,7 +53,7 @@ $feedWidget = $this->createWidget('site\frontend\modules\posts\modules\forums\wi
             <?=CHtml::dropDownList('feedForumId', Yii::app()->request->url, $feedWidget->getFilterItems(), [
                 'class' => 'js-dropdown__select dropdown__select',
                 'encode' => false,
-                'onchange' => "js: console.log($(this).find(':selected').val())",
+                'onchange' => "js: location.href = $(this).find(':selected').val()",
             ])?>
         </div>
         <?php endif; ?>

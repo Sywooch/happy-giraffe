@@ -632,12 +632,11 @@ return array(
 //        'auto/routes/<_a>/<id:[\d]+>' => 'routes/default/<_a>',
 
         'auto/routes/<routeId:[\d]+>' => 'routes/default/view',
-        'auto/routes' => 'routes/default/index',
         'auto/routes/cities/<letter:[А-Я]>' => 'routes/default/cities',
         'auto/routes/city<cityId:[\d]+>' => 'routes/default/city',
-
         'auto/routes/<_a>' => 'routes/defaultOld/<_a>',
         'auto/routes/<_a>/<id:[\d]+>' => 'routes/defaultOld/<_a>',
+        'auto/routes' => 'routes/default/index',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',

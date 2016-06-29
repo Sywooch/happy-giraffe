@@ -48,7 +48,7 @@ $breadcrumbs = [
     <?php $this->renderPartial('//site/_home_clubs'); ?>
     <?php Yii::beginProfile('LastPostWidget'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); Yii::endProfile('LastPostWidget'); ?>
     <?php Yii::beginProfile('OnlineUsersWidget'); $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); Yii::endProfile('OnlineUsersWidget'); ?>
-    <div class="text-center">
+    <div class="text-center visible-md">
         <a href="<?=Yii::app()->controller->createUrl('/friends/search/index')?>" class="w-240 btn btn-xl green-btn fontweight-b registration-button" data-bind="follow: {}">Найти друзей</a>
     </div>
 </div>

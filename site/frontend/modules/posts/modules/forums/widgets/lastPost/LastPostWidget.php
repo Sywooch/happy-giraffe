@@ -24,6 +24,6 @@ class LastPostWidget extends \CWidget
 
     protected function getPosts()
     {
-        return Content::model()->orderDesc()->byLabels([Label::LABEL_FORUMS])->apiWith('user')->findAll(['limit' => $this->limit]);
+        return Content::model()->orderDesc()->byLabels([Label::LABEL_FORUMS])->with('commentsCount', 'commentatorsCount')->apiWith('user')->findAll(['limit' => $this->limit]);
     }
 }

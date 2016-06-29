@@ -76,22 +76,19 @@ class FeedWidget extends \CWidget
             'itemCssClass' => 'filter-menu_item',
         ]);
     }
+    
+    public function getShowFilter()
+    {
+        return count($this->club->communities) > 1;
+    }
 
     public function getFilterItems()
     {
         $items = [
-            [
-                'label' => 'Все',
-                'url' => $this->getUrl(['feedForumId' => null]),
-                'active' => $this->forum == null,
-            ],
+            $this->getUrl(['feedForumId' => null]) => 'Все',
         ];
         foreach ($this->club->communities as $forum) {
-            $items[] = [
-                'label' => $forum->title,
-                'url' => $this->getUrl(['feedForumId' => $forum->id]),
-                'active' => $this->forum->id == $forum->id,
-            ];
+            $items[$this->getUrl(['feedForumId' => $forum->id])] = $forum->title;
         }
         return $items;
     }

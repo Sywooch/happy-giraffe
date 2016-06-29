@@ -13,12 +13,17 @@ if ($data->isHot) {
 
 <div class="<?=$class?>">
     <div class="b-froum-theme">
-        <div class="b-froum-theme-img"><img src="/images/icons/ava.jpg" alt=""></div>
+        <div class="b-froum-theme-img">
+            <a class="ava ava__middle ava__<?=$data->user->gender == '1' ? 'male' : 'female'?>" href="<?=$data->user->profileUrl?>">
+                <img class="ava_img" src="<?=$data->user->avatarUrl?>" alt="">
+            </a>
+        </div>
         <div class="b-froum-theme-info">
             <a href="<?=$data->user->profileUrl?>" class="name"><?=$data->title?></a>
             <?=HHtml::timeTag($data, ['class' => 'time'], null)?>
             <span class="a-mark-wrapper">
                 <?php if ($data->isHot): ?><span class="a-mark a-mark_hot"></span><?php endif; ?>
+                <?php if ($data->wasHot): ?><span class="a-mark a-mark_default"></span><?php endif; ?>
             </span>
             <a href="<?=$data->url?>" class="b-froum-theme-info-title" style="display:block;"><?=$data->title?></a>
             <p><?=\site\common\helpers\HStr::truncate($data->text)?></p>

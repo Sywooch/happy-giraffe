@@ -5,7 +5,7 @@
  */
 ?>
 
-<section class="now-online">
+<section class="now-online now-online_margin">
     <div class="title text-center">Сейчас онлайн</div>
     <ul class="now-online__list">
         <?php foreach ($users as $user): ?>
@@ -14,7 +14,4 @@
         </li>
         <?php endforeach; ?>
     </ul>
-    <div class="text-center">
-        <a href="<?=Yii::app()->controller->createUrl('/friends/search/index')?>" class="w-240 btn btn-xl green-btn fontweight-b registration-button" data-bind="follow: {}">Найти друзей</a>
-    </div>
 </section>

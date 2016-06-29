@@ -1,6 +1,8 @@
 <?php 
 
 use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\models\Label;
+
 /**  
  * @var $this       \site\frontend\modules\posts\modules\blogs\controllers\DefaultController
  * @var $feedWidget \site\frontend\modules\posts\modules\blogs\widgets\feed\FeedWidget
@@ -78,7 +80,7 @@ $breadcrumbs = [
                         {
                             $this->widget('\site\frontend\modules\posts\modules\blogs\widgets\usersTop\UsersTopWidget', [
                                 'labels' => [
-                                    \site\frontend\modules\posts\models\Label::LABEL_BLOG,
+                                    Label::LABEL_BLOG,
                                 ],
                             ]); 
                             

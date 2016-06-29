@@ -103,6 +103,9 @@ return array(
         'nstream' => array(
             'class' => 'site\frontend\modules\api\modules\v1_3\commands\NStreamTest',
         ),
+        'commentCacheClear' => array(
+            'class' => 'site\frontend\modules\comments\commands\CacheClear',
+        )
     ),
     'import' => array(
         'site.common.components.*',

@@ -33,18 +33,12 @@ class CacheClear extends \CConsoleCommand
                 'entity_id' => $post->originEntityId,
             );
             $widget->init();
-
-//            $comments = \Yii::app()->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
-//                    /** @todo Исправить класс при конвертации */
-//                    'entity' => $post->originService == 'oldBlog' ? 'BlogContent' : $post->originEntity,
-//                    'entity_id' => $post->originEntityId,
-//            )));
             $widget->getCacheComponent()->delete($widget->getCacheKey());
             if (($i % 500) == 0)
             {
                 print "{$i}/{$iterator->count()} " . round($i / $iterator->count() * 100, 2) . "% processed\r\n";
+                \Yii::app()->db->createCommand('COMMIT')->execute();
             }
-            #exit();
         }
     }
 

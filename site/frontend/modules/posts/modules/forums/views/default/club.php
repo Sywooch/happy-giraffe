@@ -51,7 +51,7 @@ $feedWidget = $this->createWidget('site\frontend\modules\posts\modules\forums\wi
         <?php if ($feedWidget->getShowFilter()): ?>
         <div class="b-dropdown-cat b-dropdown-cat_position">
             <?=CHtml::dropDownList('feedForumId', Yii::app()->request->url, $feedWidget->getFilterItems(), [
-                'class' => 'js-dropdown__select dropdown__select select-cus__search-off',
+                'class' => 'js-dropdown__select dropdown__select',
                 'encode' => false,
                 'onchange' => "js: console.log($(this).find(':selected').val())",
             ])?>

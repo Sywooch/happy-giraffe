@@ -20,12 +20,10 @@ if (! Yii::app()->user->isGuest) {
 ?>
 
     <?php $this->renderPartial('application.modules.comments.modules.contest.views._banner'); ?>
-    <div class="js-overlay-menu overlay-menu"></div>
-    <div class="js-overlay-user overlay-user"></div>
     <div class="layout-header">
-        <header class="header header__redesign"><a class="js-mobile-menu mobile-menu"></a><a href="/" class="logo"></a><a class="header__search popup-a" href="#js-madal-search-box"></a>
+        <header class="header header__redesign"><a class="mobile-menu" data-bind="click: function(data, event) {mobileMenuExtended(! mobileMenuExtended()); event.stopPropagation(); return true;}"></a><a href="/" class="logo"></a><a class="header__search popup-a" href="#js-madal-search-box"></a>
             <nav class="header__nav">
-                <ul class="header__menu">
+                <ul class="header__menu" data-bind="click: function(data, event) {event.stopPropagation(); return true;}, css: { 'header__menu_open': mobileMenuExtended() }">
                     <li class="header__li"><a href="<?=$this->createUrl('/posts/forums/default/index')?>" class="header__link header__link_comment">Форумы</a></li>
                     <li class="header__li"><a href="<?=$this->createUrl('/som/qa/default/index')?>" class="header__link header__link_answers">Ответы</a></li>
                     <!--<li class="header__li"><a href="#" class="header__link header__link_blog">Блоги</a></li>-->
@@ -38,7 +36,7 @@ if (! Yii::app()->user->isGuest) {
                     </div>
                 <?php else: ?>
                     <div class="user-on"><a href="<?=$this->createUrl('/notifications/default/index')?>" class="signal active" data-bind="css: { active: newNotificationsCount() > 0 && activeModule() != 'notifications' }"></a>
-                        <div class="ava"><a class="js-ava__link ava__link" href="#" data-bind="click: function(data, event) {menuExtended(! menuExtended()); event.stopPropagation(); return true;}"><img src="<?=Yii::app()->user->model->getAvatarUrl(40)?>"></a></div>
+                        <div class="ava"><a class="ava__link" href="#" data-bind="click: function(data, event) {menuExtended(! menuExtended()); event.stopPropagation(); return true;}"><img src="<?=Yii::app()->user->model->getAvatarUrl(40)?>"></a></div>
                     </div>
                 <?php endif; ?>
             </nav>
@@ -63,9 +61,9 @@ if (! Yii::app()->user->isGuest) {
 
     <div class="layout-loose_hold clearfix">
         <!-- b-main -->
-
+        <div class="b-main clearfix">
             <?= $content ?>
-
+        </div>
         <!-- b-main -->
 
         <?php $this->renderPartial('//_footer'); ?>

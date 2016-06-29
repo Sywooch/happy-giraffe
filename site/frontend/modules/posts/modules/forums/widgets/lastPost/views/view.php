@@ -23,7 +23,7 @@
                     <a href="<?=$tag['url']?>"><?=$tag['text']?></a>
                 </div>
             <?php endif; ?>
-            <div class="c-list_item_btn">
+            <div class="c-list_item_btn display-b">
                 <span class="c-list_item_btn__view"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($post->url)?></span>
                 <span class="c-list_item_btn__users"><?=$post->commentatorsCount?></span>
                 <span class="c-list_item_btn__comment"><?=$post->commentsCount?></span>

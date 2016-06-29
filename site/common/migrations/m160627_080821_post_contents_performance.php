@@ -1,5 +1,26 @@
 <?php
 
+/**
+ * добавление колонок label_section и label_subsections для выборки по ним
+ * и незадействовании облака тегов, выборки должны делаться по средствам FIND_IN_SET
+ * label_section - конкретный раздел (форумы, блоги, баз, ...)
+ * label_subsections - список тэгов
+ * SELECT sql_no_cache * 
+  FROM post__contents AS pc
+  WHERE
+  pc.isRemoved = 0
+  AND (pc.dtimePublication>1380823242)
+  and FIND_IN_SET(6282, pc.label_subsections)
+  and FIND_IN_SET(187, pc.label_subsections)
+  and FIND_IN_SET(192, pc.label_subsections)
+  and FIND_IN_SET(6752, pc.label_subsections)
+  and FIND_IN_SET(18319, pc.label_subsections)
+  ORDER BY pc.dtimePublication ASC
+  LIMIT 1;
+ * 
+ * после тестов данный метод показал падение производительности при обработке 
+ * длинных списков постов
+ */
 class m160627_080821_post_contents_performance extends CDbMigration
 {
 
@@ -23,4 +44,5 @@ class m160627_080821_post_contents_performance extends CDbMigration
         $this->execute("ALTER TABLE post__contents DROP COLUMN label_section, DROP COLUMN label_subsections");
         return true;
     }
+
 }

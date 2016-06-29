@@ -71,7 +71,7 @@ class FeedWidget extends \CWidget
         return \Yii::app()->controller->createWidget('zii.widgets.CMenu', [
             'items' => $items,
             'htmlOptions' => [
-                'class' => 'filter-menu',
+                'class' => 'filter-menu filter-menu_position',
             ],
             'itemCssClass' => 'filter-menu_item',
         ]);

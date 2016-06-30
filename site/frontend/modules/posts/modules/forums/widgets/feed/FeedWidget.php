@@ -16,7 +16,7 @@ class FeedWidget extends \CWidget
     const TAB_DISCUSS = 'discuss';
 
     /**
-     * @var CommunityClub
+     * @var \CommunityClub
      */
     public $club;
 
@@ -57,7 +57,7 @@ class FeedWidget extends \CWidget
         $this->render('index');
     }
 
-    public function getMenuWidget()
+    public function getMenuItems()
     {
         $items = [];
         foreach ($this->tabs as $tab => $label) {
@@ -68,13 +68,7 @@ class FeedWidget extends \CWidget
                 'linkOptions' => ['class' => 'filter-menu_item_link'],
             ];
         }
-        return \Yii::app()->controller->createWidget('zii.widgets.CMenu', [
-            'items' => $items,
-            'htmlOptions' => [
-                'class' => 'filter-menu filter-menu_position',
-            ],
-            'itemCssClass' => 'filter-menu_item',
-        ]);
+        return $items;
     }
     
     public function getShowFilter()
@@ -100,7 +94,7 @@ class FeedWidget extends \CWidget
         if (isset($params['feedTab']) && $params['feedTab'] == $this->defaultTab) {
             unset($params['feedTab']);
         }
-        return \Yii::app()->controller->createUrl('/posts/forums/default/club', $params);
+        return \Yii::app()->controller->createUrl('/posts/forums/club/index', $params);
     }
 
     public function getListDataProvider()
@@ -130,7 +124,11 @@ class FeedWidget extends \CWidget
     
     protected function applyLabelScopes(Content $model)
     {
-        $labels = [$this->club->toLabel(), Label::LABEL_FORUMS];
+        $labels = [
+            Label::LABEL_FORUMS,
+            $this->club->section->toLabel(),
+            $this->club->toLabel(),
+        ];
         if ($this->forum) {
             $labels[] = $this->forum->toLabel();
         }

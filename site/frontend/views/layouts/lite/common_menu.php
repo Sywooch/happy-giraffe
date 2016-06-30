@@ -28,7 +28,7 @@ if (! Yii::app()->user->isGuest) {
                     <li class="header__li"><a href="<?=$this->createUrl('/som/qa/default/index')?>" class="header__link header__link_answers">Ответы</a></li>
                     <!--<li class="header__li"><a href="#" class="header__link header__link_blog">Блоги</a></li>-->
                     <li class="header__li"><a href="<?=$this->createUrl('/posts/buzz/list/index')?>" class="header__link header__link_like">Жизнь</a></li>
-                    <li class="header__li hidden-md"><a href="#" class="header__link header__link_search">Поиск</a></li>
+                    <li class="header__li hidden-md"><a href="#js-madal-search-box" class="header__link header__link_search popup-a">Поиск</a></li>
                 </ul>
                 <?php if (Yii::app()->user->isGuest): ?>
                     <div class="user-unloged">

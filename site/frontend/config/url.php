@@ -141,7 +141,7 @@ return array(
         'buzz' => 'posts/buzz/list/index',
 
         'forums' => 'posts/forums/default/index',
-        'forums/rubric<rubricId:\d+>' => 'posts/forums/default/rubric',
+        'forums/rubric<rubricId:\d+>' => 'posts/forums/club/rubric',
 
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
@@ -399,12 +399,12 @@ return array(
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>/<feedTab:[\w]+>',
-            'route' => 'posts/forums/default/club',
+            'route' => 'posts/forums/club/index',
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',
-            'route' => 'posts/forums/default/club',
+            'route' => 'posts/forums/club/index',
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',

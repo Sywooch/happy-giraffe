@@ -33,8 +33,10 @@ $feedWidget = $this->createWidget('site\frontend\modules\posts\modules\forums\wi
             ]); ?>
         </div>
         <div class="b-theme-title">
-            <div class="b-theme-title-wrapper ico-club__<?=$club->id?>"></div>
-            <h1><?=$club->title?></h1>
+            <a href="<?=$club->getUrl()?>">
+                <div class="b-theme-title-wrapper ico-club__<?=$club->id?>"></div>
+                <h1><?=$club->title?></h1>
+            </a>
             <p><?=$club->description?></p><a href="#" class="start mobile"> </a>
         </div>
         <ul class="b-theme-title-more">

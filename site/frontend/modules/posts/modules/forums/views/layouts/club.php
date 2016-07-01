@@ -18,6 +18,7 @@
                             'type' => CommunityContent::TYPE_POST,
                             'club_id' => $this->club->id,
                             'useAMD' => true,
+                            'short' => true,
                         ])?>">Добавить тему</a>
                     </div>
                     <div class="questions-categories">

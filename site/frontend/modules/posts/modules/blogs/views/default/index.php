@@ -38,7 +38,7 @@ $breadcrumbs = [
   	</div>
   	
   	<?php $feedWidget->getMenuWidget()->run(); ?> 
-  	
+
   	<div class="mobile-ctrl">
     	<div class="mobile-ctrl_heading"><img src="/lite/images/new-design/images/blog-logo.png"><span>Блоги</span></div>
     	<div class="mobile-ctrl_btn"></div>
@@ -107,18 +107,18 @@ $breadcrumbs = [
 
 <?php
 
-$cs = Yii::app()->clientScript;
+// $cs = Yii::app()->clientScript;
 
-if ($cs->useAMD)
-{
-    $cs->registerAMD('blogVM', [
-        'ko'       => 'knockout', 
-        'ko_blogs' => 'ko_blogs'
-    ]);
-}
-else
-{
-    $cs->registerPackage('ko_blogs');
-}
+// if ($cs->useAMD)
+// {
+//     $cs->registerAMD('BlogsSubscription', [
+//         'ko'       => 'knockout', 
+//         'ko_blogs' => 'ko_blogs'
+//     ]);
+// }
+// else
+// {
+//     $cs->registerPackage('BlogsSubscription');
+// }
 
 ?>

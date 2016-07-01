@@ -37,21 +37,25 @@ if (! empty($parser->images))
                 ?>
                 
             	<?php echo HHtml::timeTag($data, ['class' => 'tx-date']); ?>
-            
+
             	<div class="b-subscribe">
-            	
-                	<?php if (Yii::app()->user->isGuest): ?>
-                	
-             		 <div class="btn btn-tiny green login-button" data-bind="follow: {}">Подписаться</div>
-             		 
-             		 <?php else: ?>
-             		 
-             		 <div class="btn btn-tiny green">Подписаться</div>
-             		 
-             		 <?php endif; ?>
-             		 
-             		 <div class="b-subscribe_tx">23</div>
-                  	
+            		
+            		<?php 
+	                
+            		$userBlogSubscribeJSON = CJSON::encode([
+            		    'userId'       => $data->user->id,
+            		    'show'         => Yii::app()->user->id != $data->user->id,
+            		    'isGuest'      => Yii::app()->user->isGuest,
+            		    'isSubscribed' => UserBlogSubscription::isSubscribed(Yii::app()->user->id, $data->user->id),
+            		    'count'        => (int) UserBlogSubscription::model()->subscribersCount($data->user->id)
+            		]);
+            		
+            		$userBlogSubscribeJSON = str_replace('"', '\'', $userBlogSubscribeJSON);
+            		
+            		?>
+            		
+            		<user-blog-subscribe params="<?php echo $userBlogSubscribeJSON; ?>"></user-blog-subscribe>
+            		
             	</div>
             	
           	</div>
@@ -69,31 +73,32 @@ if (! empty($parser->images))
     	
     	<?php if (isset($imageUrl)): ?>
     	
-        <div class="b-album-cap">
-      		<div class="b-album-cap_hold"><img src="<?php echo $imageUrl; ?>"></div>
-        </div>
+            <div class="b-album-cap">
+          		<div class="b-album-cap_hold"><img src="<?php echo $imageUrl; ?>"></div>
+            </div>
         
         <?php endif; ?>
         
         <?php if ($data->text): ?>
         
-        <div class="b-article_content wysiwyg-content clearfix">
-          	<p>
-          	
-          	<?php 
-          	
-          	echo HStr::truncate($data->text, $maxTextLength, ''); 
-          	
-          	echo CHtml::link('', $data->parsedUrl, [
-          	    'class' => 'ico-more'
-          	]);
-          	
-          	?>
-          	
-          	</p>
-        </div>
+            <div class="b-article_content wysiwyg-content clearfix">
+              	<p>
+              	
+              	<?php 
+              	
+              	echo HStr::truncate($data->text, $maxTextLength, ''); 
+              	
+              	echo CHtml::link('', $data->parsedUrl, [
+              	    'class' => 'ico-more'
+              	]);
+              	
+              	?>
+              	
+              	</p>
+            </div>
         
         <?php endif; ?>
         
   	</div>
 </article>
+

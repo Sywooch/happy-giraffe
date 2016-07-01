@@ -666,10 +666,7 @@ return array(
             'depends' => array('lite_services_user'),
         ),
         'lite_forum-homepage' => array(
-            'baseUrl' => '/',
-            'css' => array(
-                'lite/css/dev/all.css',
-            ),
+            'depends' => array('lite_posts'),
         ),
         'lite_blogs-homepage' => array(
             'baseUrl' => '/',

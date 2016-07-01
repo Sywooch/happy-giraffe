@@ -14,7 +14,11 @@
             <?php foreach ($rows as $i => $row): ?>
             <li class="b-widget-content__item">
                 <div class="b-widget-content__number"><?=($i+1)?></div>
-                <div class="b-widget-content__ava"><img src="/images/icons/ava.jpg" alt=""></div>
+                <div class="b-widget-content__ava">
+                    <a class="ava ava__middle ava__<?=$row['user']->gender == '1' ? 'male' : 'female'?>" href="<?=$row['user']->profileUrl?>">
+                        <img class="ava_img" src="<?=$row['user']->avatarUrl?>" alt="">
+                    </a>
+                </div>
                 <div class="b-widget-content__name"><a href="<?=$row['user']->profileUrl?>" class="b-widget-content__link"><?=$row['user']->fullName?></a></div>
                 <div class="b-widget-content__rating"><?=intval($row['score'])?><span>баллов</span></div>
             </li>

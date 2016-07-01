@@ -91,7 +91,7 @@ class UsersTopWidget extends \CWidget
         $criteria->params[':timeFrom'] = $this->getTimeFrom();
         $criteria->addCondition('dtimePublication > :timeFrom');
         if (time() > $this->getTimeTo()) {
-            $criteria[':timeTo'] = $this->getTimeTo();
+            $criteria->params[':timeTo'] = $this->getTimeTo();
             $criteria->addCondition('dtimePublication < :timeTo');
         }
         return $criteria;
@@ -131,7 +131,7 @@ class UsersTopWidget extends \CWidget
         $criteria->params[':timeFrom'] = date("Y-m-d H:i:s", $this->getTimeFrom());
         $criteria->addCondition('created > :timeFrom');
         if (time() > $this->getTimeTo()) {
-            $criteria[':timeTo'] = date("Y-m-d H:i:s", $this->getTimeTo());
+            $criteria->params[':timeTo'] = date("Y-m-d H:i:s", $this->getTimeTo());
             $criteria->addCondition('created < :timeTo');
         }
         $labelsIds = Label::getIdsByLabels($this->labels);

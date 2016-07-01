@@ -12,6 +12,8 @@ class BlogoefirWidget extends \CWidget
 {
     
     /**
+     * Лимит постов в блоке
+     * 
      * @var integer
      */
     private $_limit;
@@ -26,23 +28,35 @@ class BlogoefirWidget extends \CWidget
     {   
         $this->_limit = $this->controller->module->getConfig('itemsCountBlogoefir');
         
-        $rows = $this->_getItemsData();
+        // $data = $this->_getItemsData();
         
-        if (! empty($rows))
+        $itemsList = $this->_getItemsList();
+        
+        // echo count($itemsList);
+        // return;
+        
+        if (! empty($itemsList))
         {
-            $renderItems = $this->render('_items', compact('rows'), TRUE);
+            // $renderItems = $this->render('_items', compact('rows'), TRUE);
+            // echo count($itemsList);
+            
+            $itemsDataJSON = \CJSON::encode($itemsList);
+            $itemsDataJSON = str_replace('"', '\'', $itemsDataJSON);
             
             $this->render('view', [
-                'items' => $renderItems
+                // 'items' => $renderItems
+                'itemsDataJSON' => $itemsDataJSON,
+                'limit'         => $this->_limit
             ]);
         }
     }
     
     //-----------------------------------------------------------------------------------------------------------
     
-    private function _getItemsData()
+    // private function _getItemsData()
+    private function _getItemsList()
     {
-        $rows = Content::model()
+        $models = Content::model()
             ->byLabels([
                 Label::LABEL_BLOG
             ])
@@ -52,7 +66,29 @@ class BlogoefirWidget extends \CWidget
             ]);
         ;
         
-        return $rows;
+        $itemsList = [];
+        
+        if (! empty($models))
+        {
+            foreach ($models as $model)
+            {
+                $itemsList[] = [
+                    'avatarUrl'  => $model->user->avatarUrl,
+                    'profileUrl' => $model->user->profileUrl,
+                    'fullName'   => $model->user->fullName,
+                    'timeTag'    => \HHtml::timeTag($model, ['class' => '']),
+                    'title'      => $model->title,
+                    'parsedUrl'  => $model->parsedUrl
+                ];
+            }
+        }
+        
+        /* echo '<pre>';
+        print_r($itemsList);
+        echo '</pre>'; */
+        
+        return $itemsList;
+        // return $rows;
     }
     
 }

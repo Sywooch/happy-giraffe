@@ -181,7 +181,7 @@ class UsersTopWidget extends \CWidget
         
         if (time() > $this->_getTimeTo()) 
         {
-            $criteria[':timeTo'] = $this->_getTimeTo();
+            $criteria->params[':timeTo'] = $this->_getTimeTo();
             
             $criteria->addCondition('dtimePublication < :timeTo');
         }
@@ -240,7 +240,7 @@ class UsersTopWidget extends \CWidget
         
         if (time() > $this->_getTimeTo()) 
         {
-            $criteria[':timeTo'] = date("Y-m-d H:i:s", $this->_getTimeTo());
+            $criteria->params[':timeTo'] = date("Y-m-d H:i:s", $this->_getTimeTo());
         
             $criteria->addCondition('created < :timeTo');
         }

@@ -64,9 +64,6 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
                         </div>
                     </div>
                     <div class="wysiwyg-v wysiwyg-blue clearfix">
-                        <div class="wysiwyg-toolbar">
-                            <div class="wysiwyg-toolbar-btn"></div>
-                        </div>
                         <?php $slaveModel->text = $slaveModel->forEdit->text ?>
                         <?=$form->textArea($slaveModel, 'text', array('class' => 'wysiwyg-redactor-v'))?>
                         <?=$form->error($slaveModel, 'text')?>

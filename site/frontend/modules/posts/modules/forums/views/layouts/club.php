@@ -29,6 +29,7 @@
                         ]); ?>
                     </div>
                     <div class="margin-t30">
+                        <div class="b-widget-wrapper_border">
                         <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
                             'labels' => [
                                 \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
@@ -38,6 +39,7 @@
                                 'feedTab' => \site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget::TAB_HOT,
                             ]),
                         ]); ?>
+                        </div>
                     </div>
                 </div>
             </aside>

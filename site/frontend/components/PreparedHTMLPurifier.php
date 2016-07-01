@@ -30,7 +30,9 @@ class PreparedHTMLPurifier
         $this->purifier->options = array(
             'URI.AllowedSchemes' => array('http' => true, 'https' => true),
             'AutoFormat.AutoParagraph' => true,
-            //'AutoFormat.RemoveEmpt' => true
+            'HTML.SafeIframe' => true,
+            'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/|rutube\.ru/play/)%'
+                //'AutoFormat.RemoveEmpt' => true
         ); // Передача конфига в формате массива
     }
 

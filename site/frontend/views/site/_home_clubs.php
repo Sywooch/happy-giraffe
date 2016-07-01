@@ -1,7 +1,6 @@
 <!-- Клубы-->
 <div class="homepage_row">
     <div class="homepage-clubs">
-        <div class="homepage__title_comment">Форумы</div>
         <?php if (Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP): ?>
           <div class="homepage_title"> Мы здесь общаемся<br>на различные семейные темы </div>
         <?php else: ?>

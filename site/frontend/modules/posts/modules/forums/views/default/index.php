@@ -45,6 +45,9 @@ $breadcrumbs = [
             </li>
         </ul>
     </section>
+    <div class="homepage__title_comment-wrapper">
+        <div class="homepage__title_comment">Форумы</div>
+    </div>
     <?php $this->renderPartial('//site/_home_clubs'); ?>
     <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); ?>
     <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); ?>

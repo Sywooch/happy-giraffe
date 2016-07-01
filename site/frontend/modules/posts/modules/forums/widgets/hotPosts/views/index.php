@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="b-widget-wrapper b-widget-wrapper_theme b-widget-wrapper_border">
+<div class="b-widget-wrapper b-widget-wrapper_theme">
     <div class="b-widget-header">
         <?php if ($this->allUrl): ?>
             <a href="<?=$this->allUrl?>" class="b-widget-header__btn">Все</a>
@@ -16,7 +16,11 @@
         <ul class="b-widget-content__list">
             <?php foreach ($posts as $post): ?>
             <li class="b-widget-content__item">
-                <div class="b-widget-content__ava"><img src="/images/icons/ava.jpg" alt=""></div>
+                <div class="b-widget-content__ava">
+                    <a class="ava ava__small ava__<?=$post->user->gender == '1' ? 'male' : 'female'?>" href="<?=$post->user->profileUrl?>">
+                        <img class="ava_img" src="<?=$post->user->avatarUrl?>" alt="">
+                    </a>
+                </div>
                 <div class="b-widget-content__title">
                     <a href="<?=$post->url?>" class="link"><?=$post->title?></a>
                 </div>

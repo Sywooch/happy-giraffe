@@ -24,6 +24,60 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
 <?=$form->hiddenField($model, 'type_id')?>
 <input type="hidden" name="formKey" value="<?= \site\frontend\components\FormDepartmentModelsControl::getInstance()->createNewFormKey() ?>">
 
+<?php if (true): ?>
+
+    <div id="popup-user-add-article" class="popup-user-add-record"><a onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть" class="popup-transparent-close popup-transparent-close_mod"></a>
+        <div class="clearfix">
+            <div class="w-720 float-r popup_mod">
+                <div class="b-settings__header clearfix">
+                    <div class="b-settings__title float-l">Добавить тему</div>
+                </div>
+                <div class="b-settings-blue b-settings-blue__article b-settings-blue_mod">
+                    <div class="b-settings-blue_head">
+                        <div class="b-settings-blue_row clearfix">
+                            <div class="float-r">
+                                <select name="<?=CHtml::activeName($model, 'forum_id')?>" id="<?=CHtml::activeId($model, 'forum_id')?>" data-bind="options: rubricsList,
+                value: selectedRubric,
+                optionsText: function(rubric) {
+                    return rubric.title;
+                },
+                optionsValue: function(rubric) {
+                    return rubric.id;
+                },
+                select2: {
+                    allowClear: true,
+                    minimumResultsForSearch: -1,
+                    dropdownAutoWidth: true,
+                    containerCssClass: 'select-wrapper',
+                    dropdownCssClass: 'select-dropdown'
+                }" data-placeholder="Выберите подфорум"></select>
+                                <?=$form->error($model, 'forum_id')?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b-settings-blue_head">
+                        <div class="b-settings-blue_row clearfix">
+                            <div class="float-l f">
+                                <?=$form->textField($model, 'title', array('class' => 'itx-simple itx-simple_mod', 'placeholder' => 'Введите заголовок'))?>
+                                <?=$form->error($model, 'title')?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wysiwyg-v wysiwyg-blue clearfix">
+                        <?php $slaveModel->text = $slaveModel->forEdit->text ?>
+                        <?=$form->textArea($slaveModel, 'text', array('class' => 'wysiwyg-redactor-v'))?>
+                        <?=$form->error($slaveModel, 'text')?>
+                    </div>
+                    <div class="clearfix"><a href="" class="btn-blue btn-h46 float-r btn-inactive">Опубликовать</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php endif; ?>
+
+<?php if (false): ?>
+
 <div id="popup-user-add-article" class="b-settings-blue b-settings-blue__article">
     <?php if ($model->isNewRecord): ?>
         <div class="b-settings-blue_tale"></div>
@@ -62,6 +116,8 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
         <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
     </div>
 </div>
+
+<?php endif; ?>
 
 <?php $this->endWidget(); ?>
 

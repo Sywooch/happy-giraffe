@@ -4,19 +4,26 @@
  */
 $this->beginContent('//layouts/lite/common');
 
-if (! Yii::app()->user->isGuest) {
-    /* @var $cs ClientScript */
-    $cs = Yii::app()->clientScript;
-    if ($cs->useAMD) {
-        $cs->registerAMD('menuVM', array('ko' => 'knockout', 'MenuViewModel' => 'ko_menu'), "menuVm = new MenuViewModel(" . CJSON::encode($this->menuData) . "); ko.applyBindings(menuVm, $('.layout-header')[0]); return menuVm;");
-    }
-    else {
-        $cs->registerPackage('ko_menu');
-        ?><script type="text/javascript">
-        menuVm = new MenuViewModel(<?=CJSON::encode($this->menuData)?>);
-        ko.applyBindings(menuVm, $('.layout-header')[0]);
-    </script><?php
-    }}
+/* @var $cs ClientScript */
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('headerSearch', ['common'], '$("[href=#js-madal-search-box]").magnificPopup({
+              type: "inline",
+              preloader: false,
+              closeOnBgClick: false,
+              closeBtnInside: false,
+              mainClass: "b-modal-search"
+            });');
+
+if ($cs->useAMD) {
+    $cs->registerAMD('menuVM', array('ko' => 'knockout', 'MenuViewModel' => 'ko_menu'), "menuVm = new MenuViewModel(" . CJSON::encode($this->menuData) . "); ko.applyBindings(menuVm, $('.layout-header')[0]);");
+}
+else {
+    $cs->registerPackage('ko_menu');
+    ?><script type="text/javascript">
+    menuVm = new MenuViewModel(<?=CJSON::encode($this->menuData)?>);
+    ko.applyBindings(menuVm, $('.layout-header')[0]);
+</script><?php
+}
 ?>
 
     <?php $this->renderPartial('application.modules.comments.modules.contest.views._banner'); ?>
@@ -28,7 +35,7 @@ if (! Yii::app()->user->isGuest) {
                     <li class="header__li"><a href="<?=$this->createUrl('/som/qa/default/index')?>" class="header__link header__link_answers">Ответы</a></li>
                     <!--<li class="header__li"><a href="#" class="header__link header__link_blog">Блоги</a></li>-->
                     <li class="header__li"><a href="<?=$this->createUrl('/posts/buzz/list/index')?>" class="header__link header__link_like">Жизнь</a></li>
-                    <li class="header__li hidden-md"><a href="#js-madal-search-box" class="header__link header__link_search popup-a">Поиск</a></li>
+                    <li class="header__li hidden-md"><a href="#js-madal-search-box" class="header__link header__link_search">Поиск</a></li>
                 </ul>
                 <?php if (Yii::app()->user->isGuest): ?>
                     <div class="user-unloged">

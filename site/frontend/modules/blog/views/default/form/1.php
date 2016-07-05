@@ -68,7 +68,7 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
                         <?=$form->textArea($slaveModel, 'text', array('class' => 'wysiwyg-redactor-v'))?>
                         <?=$form->error($slaveModel, 'text')?>
                     </div>
-                    <div class="clearfix"><a href="" class="btn-blue btn-h46 float-r btn-inactive">Опубликовать</a></div>
+                    <div class="clearfix"><button class="btn-blue btn-h46 float-r btn-inactive">Опубликовать</button></div>
                 </div>
             </div>
         </div>

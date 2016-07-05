@@ -19,14 +19,12 @@ if (! empty($parser->images))
         <div class="b-article_cont-tale"></div>
         <div class="b-article_header clearfix">
           	<div class="icons-meta">
-          		<a href="#" class="icons-meta_comment">
-          			<span class="icons-meta_tx"><?php echo $data->comments_count; ?></span>
-      			</a>
-            	<div class="icons-meta_view">
-            		<span class="icons-meta_tx"><?php echo $data->views; ?></span>
-        		</div>
+          		<div class="c-list_item_btn">
+          			<span class="c-list_item_btn__view"><?php echo $data->comments_count; ?></span>
+            		<a href="#" class="c-list_item_btn__comment"><?php echo $data->views; ?></a>
+            	</div>
           	</div>
-          	<div class="float-l">
+          	<div class="float-l position-rel w-300">
           	
                 <?php 
                 

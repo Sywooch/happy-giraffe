@@ -40,7 +40,10 @@ $breadcrumbs = [
   	<?php $feedWidget->getMenuWidget()->run(); ?> 
 
   	<div class="mobile-ctrl">
-    	<div class="mobile-ctrl_heading"><img src="/lite/images/new-design/images/blog-logo.png"><span>Блоги</span></div>
+    	<div class="mobile-ctrl_heading">
+    		<img src="/lite/images/new-design/images/blog-logo.png">
+    		<span>Блоги</span>
+		</div>
     	<div class="mobile-ctrl_btn"></div>
   	</div>
   
@@ -72,10 +75,7 @@ $breadcrumbs = [
                     Yii::beginProfile('BlogesTopWidget'); 
                         
                         if ($this->beginCache('usersTopBlogs', [
-                            'dependency' => [
-                                'class' => 'system.caching.dependencies.CDbCacheDependency',
-                                'sql'   => 'SELECT MAX(hotRate) FROM ' . Content::tableName()
-                            ]
+                            'duration' => 3600
                         ]))
                         {
                             $this->widget('\site\frontend\modules\posts\modules\blogs\widgets\usersTop\UsersTopWidget', [
@@ -104,21 +104,3 @@ $breadcrumbs = [
     	</div>
   	</div>
 </div>
-
-<?php
-
-// $cs = Yii::app()->clientScript;
-
-// if ($cs->useAMD)
-// {
-//     $cs->registerAMD('BlogsSubscription', [
-//         'ko'       => 'knockout', 
-//         'ko_blogs' => 'ko_blogs'
-//     ]);
-// }
-// else
-// {
-//     $cs->registerPackage('BlogsSubscription');
-// }
-
-?>

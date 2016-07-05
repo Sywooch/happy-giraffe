@@ -398,7 +398,7 @@ return array(
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
-            'pattern' => '<club:[\w-]+>/<feedTab:[\w]+>',
+            'pattern' => '<club:[\w-]+>/<feedTab:(new|hot|discuss)>',
             'route' => 'posts/forums/club/index',
         ),
         array(

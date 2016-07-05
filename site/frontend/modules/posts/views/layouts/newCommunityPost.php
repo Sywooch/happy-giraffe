@@ -9,7 +9,18 @@ $this->beginContent('//layouts/lite/community');
         ?>
         <aside class="b-main_col-sidebar visible-md">
             <?php if ($this->club): ?>
-                <community-add params="forumId: <?= $this->forum->id ?>, clubSubscription: <?= CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id)) ?>, clubId: <?= $this->club->id ?>, subsCount: <?= (int) UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>"></community-add>
+                <div class="clearfix margin-b20">
+                    <?php if (Yii::app()->user->isGuest): ?>
+                        <a class="btn btn-block btn-success btn-xl w-240 login-button" data-bind="follow: {}">Добавить тему</a>
+                    <?php else: ?>
+                        <a class="btn btn-block btn-success btn-xl w-240 fancy-top" href="<?=$this->createUrl('/blog/default/form', [
+                            'type' => CommunityContent::TYPE_POST,
+                            'club_id' => $this->club->id,
+                            'useAMD' => true,
+                            'short' => true,
+                        ])?>">Добавить тему</a>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
 
             <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>

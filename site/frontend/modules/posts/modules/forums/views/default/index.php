@@ -9,6 +9,14 @@ $breadcrumbs = [
 ];
 ?>
 
+<?php $this->beginClip('home'); ?>
+<?php if (Yii::app()->user->isGuest): ?>
+<div class="homepage-clubs_b">
+    <div class="homepage-clubs_btn-hold"><a href="#" class="w-240 btn btn-xl green-btn fontweight-b login-button" data-bind="follow: {}">Начать общаться</a></div>
+</div>
+<?php endif; ?>
+<?php $this->endClip(); ?>
+
 <div class="homepage homepage_adaptive">
     <div class="b-breadcrumbs">
         <?php $this->widget('zii.widgets.CBreadcrumbs', [

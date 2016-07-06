@@ -19,7 +19,7 @@
                         <?php else: ?>
                             <a class="btn btn-success btn-xl btn-question w-240 fancy-top" href="<?=$this->createUrl('/blog/default/form', [
                                 'type' => CommunityContent::TYPE_POST,
-                                'club_id' => $club->id,
+                                'club_id' => $this->club->id,
                                 'useAMD' => true,
                                 'short' => true,
                             ])?>">Добавить тему</a>

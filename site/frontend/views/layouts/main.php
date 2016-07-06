@@ -52,13 +52,13 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 <?php $this->renderPartial('application.modules.comments.modules.contest.views._banner'); ?>
 <div class="layout-w1">
     <div class="layout-container" id="layout-container">
-        <?php if (Yii::app()->user->isGuest): ?>
-            <?php $this->renderPartial('//_header_guest'); ?>
-        <?php else: ?>
-            <div class="layout-header clearfix">
-                <?php $this->renderPartial('//_menu_base'); ?>
-            </div>
-        <?php endif; ?>
+        <!-- ko stopBinding: true -->
+        <div class="layout-header">
+            <header class="header header__redesign">
+                <?php $this->renderPartial('//_header'); ?>
+            </header>
+        </div>
+        <!-- /ko -->
 
         <div class="layout-wrapper">
             <?php if (false): ?>

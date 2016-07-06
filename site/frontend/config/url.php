@@ -141,10 +141,13 @@ return array(
 
         'forums' => 'posts/forums/default/index',
 
+        // @todo Sergey Gubarev: Убрать, только теста comet
+        'blogs/comet'         => 'posts/blogs/default/test',
+        
         'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',
         'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
         'blogs'              => 'posts/blogs/default/index',
-
+        
         'forums/rubric<rubricId:\d+>' => 'posts/forums/default/rubric',
         'forums/rubric<rubricId:\d+>' => 'posts/forums/club/rubric',
 

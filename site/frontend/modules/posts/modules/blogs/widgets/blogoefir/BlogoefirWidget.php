@@ -31,10 +31,9 @@ class BlogoefirWidget extends \CWidget
         // $data = $this->_getItemsData();
         
         $itemsList = $this->_getItemsList();
-        
         // echo count($itemsList);
         // return;
-        
+       
         if (! empty($itemsList))
         {
             // $renderItems = $this->render('_items', compact('rows'), TRUE);
@@ -53,7 +52,6 @@ class BlogoefirWidget extends \CWidget
     
     //-----------------------------------------------------------------------------------------------------------
     
-    // private function _getItemsData()
     private function _getItemsList()
     {
         $models = Content::model()
@@ -83,12 +81,7 @@ class BlogoefirWidget extends \CWidget
             }
         }
         
-        /* echo '<pre>';
-        print_r($itemsList);
-        echo '</pre>'; */
-        
         return $itemsList;
-        // return $rows;
     }
     
 }

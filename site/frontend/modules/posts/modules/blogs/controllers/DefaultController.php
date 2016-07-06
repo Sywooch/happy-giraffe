@@ -47,4 +47,10 @@ class DefaultController extends \LiteController
         $this->render('index', compact('feedWidget'));
     }
     
+    public function actionTest()
+    {
+        $comet = new \CometModel;
+        var_dump($comet->send(\Yii::app()->user->id, ['foo' => 'bar'], \CometModel::BLOGS_EFIR_NEW_POST));
+    } 
+    
 }

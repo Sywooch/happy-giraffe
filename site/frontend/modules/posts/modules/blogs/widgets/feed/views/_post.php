@@ -40,6 +40,8 @@ if (! empty($parser->images))
             		
             		<?php 
 	                
+            		var_dump(Yii::app()->user->isGuest);
+            		
             		$userBlogSubscribeJSON = CJSON::encode([
             		    'userId'       => $data->user->id,
             		    'show'         => Yii::app()->user->id != $data->user->id,

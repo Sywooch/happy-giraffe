@@ -775,7 +775,7 @@ class CommunityContent extends HActiveRecord implements IPreview
             return false;
         }
 
-        if ($this->rubric->community_id == Community::COMMUNITY_NEWS) {
+        if ($this->rubric && $this->rubric->community_id == Community::COMMUNITY_NEWS) {
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
         }
 

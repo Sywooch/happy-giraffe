@@ -5,7 +5,7 @@
 
 $breadcrumbs = [
     'Главная' => ['/site/index'],
-    'Форумы' => ['/posts/forums/club/index', 'club' => $club->slug],
+    'Форумы' => ['/posts/forums/default/index'],
     $club->title,
 ];
 ?>

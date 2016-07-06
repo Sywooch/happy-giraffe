@@ -53,7 +53,10 @@ class ClubController extends \LiteController
                     $rubric->community->toLabel(),
                     $rubric->toLabel(),
                 ]]],
-            ]
+            ],
+            'pagination' => [
+                'pageVar' => 'page',    
+            ],
         ]);
         $this->render('rubric', compact('rubric', 'dp'));
     }

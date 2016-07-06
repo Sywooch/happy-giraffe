@@ -119,6 +119,9 @@ class FeedWidget extends \CWidget
         $model->resetScope(false);
         return new \CActiveDataProvider($model->apiWith('user'), [
             'criteria' => $criteria,
+            'pagination' => [
+                'pageVar' => 'page',
+            ],
         ]);
     }
     

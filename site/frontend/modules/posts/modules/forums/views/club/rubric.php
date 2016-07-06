@@ -5,6 +5,7 @@
  * @var CActiveDataProvider $dp
  */
 $this->pageTitle = $rubric->title;
+$this->metaNoindex = true;
 ?>
 
 <div class="tabs visible-md clearfix">

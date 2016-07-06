@@ -39,8 +39,6 @@ if (! empty($parser->images))
             	<div class="b-subscribe">
             		
             		<?php 
-	                
-            		var_dump(Yii::app()->user->isGuest);
             		
             		$userBlogSubscribeJSON = CJSON::encode([
             		    'userId'       => $data->user->id,

@@ -72,6 +72,8 @@ class SiteCommand extends CConsoleCommand
 
         \site\frontend\modules\som\modules\qa\components\QuestionsRatingManager::updateAll();
         \site\frontend\modules\som\modules\qa\components\QaUsersRatingManager::run();
+        
+        (new \site\frontend\modules\posts\components\HotManager())->run();
     }
 
     public function actionCheckSeo()

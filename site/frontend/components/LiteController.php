@@ -31,6 +31,9 @@ class LiteController extends HController
     {
         header('Vary: User-Agent');
         $this->dnsPrefetch();
+        if (! Yii::app()->user->isGuest) {
+            Yii::app()->clientScript->registerAMD('Realplexor-reg', array('common', 'comet'), 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
+        }
         parent::init();
     }
 

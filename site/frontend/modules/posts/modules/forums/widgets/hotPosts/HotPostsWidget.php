@@ -19,7 +19,7 @@ class HotPostsWidget extends \CWidget
 
     public function init()
     {
-        $this->interval = 30 * 24 * 60 * 60;
+        $this->interval = 3 * 24 * 60 * 60;
         parent::init();
     }
 

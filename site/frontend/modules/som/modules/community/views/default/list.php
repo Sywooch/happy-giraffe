@@ -18,12 +18,5 @@ $this->widget('LiteListView', array(
     ),
     'itemsTagName' => 'div',
     'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
-    'pager' => array(
-        'class' => 'LitePager',
-        'maxButtonCount' => 10,
-        'prevPageLabel' => '&nbsp;',
-        'nextPageLabel' => '&nbsp;',
-        'showPrevNext' => true,
-    ),
 ));
 ?>

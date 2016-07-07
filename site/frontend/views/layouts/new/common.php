@@ -36,7 +36,7 @@ if (! Yii::app()->user->isGuest)
     ?></title>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <!-- including .css-->
-    <link rel="stylesheet" type="text/css" href="/new/css/all1.css?2" />
+    <link rel="stylesheet" type="text/css" href="/new/css/all1.css?3" />
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
     <script src="/new/javascript/jquery.tooltipster.js"></script>
     <script src="/new/javascript/modernizr-2.7.1.min.js"></script>

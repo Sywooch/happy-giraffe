@@ -13,96 +13,145 @@ use site\frontend\modules\posts\models\Tag;
 
 class UsersTopWidget extends \CWidget
 {
-    const DAYS = 7;
-    const POSTS_MULTIPLIER = 5;
-    const COMMENTS_MULTIPLIER = 1;
-    const CACHE_DURATION = 300;
-    const LIMIT = 5;
+    const POSTS_COUNT_MULTIPLIER = 5;
+    const COMMENTS_COUNT_MULTIPLIER = 1;
+    const POSTS_QUALITY_VIEW_WEIGHT = 0.01;
+    const POSTS_QUALITY_COMMENT_WEIGHT = 0.1;
+    const MONTH_THRESHOLD = 10;
+
+    public $limit = 5;
+    public $labels = [];
+
+    protected $scores = [];
 
     public function run()
     {
-        $scores = $this->getScores();
-        $users = User::model()->findAllByPk(array_keys($scores), array('avatarSize' => 40));
-        $this->render('view', compact('scores', 'users'));
-    }
-
-    protected function getScores()
-    {
-        $cacheId = $this->getCacheId();
-        $value = \Yii::app()->cache->get($cacheId);
-        if ($value === false) {
-            $criteria = clone Content::model()->byLabels(array(Label::LABEL_FORUMS))->getDbCriteria();
-            $criteria->select = 'id, originEntityId, originEntity';
-            $criteria->compare('authorId', '<>' . \User::HAPPY_GIRAFFE);
-            $criteria->compare('dtimeCreate', '>' . (time() - (3600 * 24 * self::DAYS)));
-            $criteria->join = 'JOIN ' . Tag::model()->tableName() . ' tagModels ON tagModels.contentId = t.id';
-            $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria);
-            $data = $command->queryAll();
-            $ids = array_map(function($row) {
-                return $row['id'];
-            }, $data);
-            $advPostIds = array();
-            $communityContentIds = array();
-            foreach ($data as $row) {
-                if ($row['originEntity'] == 'AdvPost') {
-                    $advPostIds[] = $row['originEntityId'];
-                } else {
-                    $communityContentIds[] = $row['originEntityId'];
-                }
-            }
-
-            // посты
-            $criteria2 = new \CDbCriteria();
-            $criteria2->addInCondition('t.id', $ids);
-            $criteria2->group = 'authorId';
-            $criteria2->select = 'authorId AS uId, COUNT(*) AS n';
-            $command2 = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria2);
-            $posts = $command2->queryAll();
-
-            // комментарии к постам из расширенного редактора (AdvPost)
-            $criteria2 = new \CDbCriteria();
-            $criteria2->compare('t.entity', 'AdvPost');
-            $criteria2->addInCondition('t.entity_id', $advPostIds);
-            $criteria2->group = 'author_id';
-            $criteria2->select = 'author_id AS uId, COUNT(*) AS n';
-            $command2 = \Yii::app()->db->getCommandBuilder()->createFindCommand(Comment::model()->tableName(), $criteria2);
-            $comments = $command2->queryAll();
-
-            // комментарии к старым постам (CommunityContent)
-            $criteria2 = new \CDbCriteria();
-            $criteria2->compare('t.entity', 'CommunityContent');
-            $criteria2->addInCondition('t.entity_id', $communityContentIds);
-            $criteria2->group = 'author_id';
-            $criteria2->select = 'author_id AS uId, COUNT(*) AS n';
-            $command2 = \Yii::app()->db->getCommandBuilder()->createFindCommand(Comment::model()->tableName(), $criteria2);
-            $comments2 = $command2->queryAll();
-
-            $scores = array();
-            $this->process($posts, $scores, self::POSTS_MULTIPLIER);
-            $this->process($comments, $scores, self::COMMENTS_MULTIPLIER);
-            $this->process($comments2, $scores, self::COMMENTS_MULTIPLIER);
-            arsort($scores);
-            $scores = array_slice($scores, 0, self::LIMIT, true);
-            $value = $scores;
-
-            \Yii::app()->cache->set($cacheId, $value, self::CACHE_DURATION);
+        $rows = $this->getRows();
+        if (! empty($rows)) {
+            $this->render('view', compact('rows'));
         }
-        return $value;
     }
 
-    protected function getCacheId()
+    protected function getTimeFrom()
     {
-        return get_class() . '.scores';
+        if (date("j") > self::MONTH_THRESHOLD) {
+            $time = strtotime("first day of this month", strtotime(date("Y-m")));
+        } else {
+            $time = strtotime("first day of last month", strtotime(date("Y-m")));
+        }
+        return $time;
     }
 
-    protected function process($input, &$output, $multiplier = 1)
+    protected function getTimeTo()
     {
-        foreach ($input as $p) {
-            if (! isset($output[$p['uId']])) {
-                $output[$p['uId']] = 0;
-            }
+        return strtotime("first day of next month", $this->getTimeFrom());
+    }
 
-            $output[$p['uId']] += $p['n'] * $multiplier;
+    protected function getRows()
+    {
+        $top = $this->getTop();
+        $users = User::model()->findAllByPk(array_keys($top), array('avatarSize' => 40));
+        $rows = [];
+        foreach ($top as $uId => $score) {
+            $rows[] = [
+                'user' => $users[$uId],
+                'score' => $score,
+            ];
+        }
+        return $rows;
+    }
+
+    protected function getTop()
+    {
+        $this->chargeAll();
+        arsort($this->scores);
+        return array_slice($this->scores, 0, $this->limit, true);
+    }
+
+    protected function charge($userId, $score)
+    {
+        if (! isset ($this->scores[$userId])) {
+            $this->scores[$userId] = 0;
+        }
+        $this->scores[$userId] += $score;
+    }
+
+    protected function chargeAll()
+    {
+        $this->chargePostCounts();
+        $this->chargeCommentsCounts();
+        $this->chargePostsQuality();
+    }
+
+    protected function getPostsCommonCriteria()
+    {
+        $criteria = Content::model()->byLabels($this->labels)->getDbCriteria();
+        Content::model()->resetScope(false);
+        $criteria->compare('authorId', '<>' . \User::HAPPY_GIRAFFE);
+        $criteria->params[':timeFrom'] = $this->getTimeFrom();
+        $criteria->addCondition('dtimePublication > :timeFrom');
+        if (time() > $this->getTimeTo()) {
+            $criteria->params[':timeTo'] = $this->getTimeTo();
+            $criteria->addCondition('dtimePublication < :timeTo');
+        }
+        return $criteria;
+    }
+
+    protected function chargePostCounts()
+    {
+        $criteria = $this->getPostsCommonCriteria();
+        $criteria->select = 'authorId uId, COUNT(*) c';
+        $criteria->group = 'authorId';
+        $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
+        $this->processQuery($rows, self::POSTS_COUNT_MULTIPLIER);
+    }
+
+    protected function chargePostsQuality()
+    {
+        $criteria = $this->getPostsCommonCriteria();
+        $criteria->select = 'url, authorId uId, COUNT(*) c';
+        $criteria->join = 'JOIN comments cm ON cm.new_entity_id = t.id';
+        $criteria->group = 't.id';
+        $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Content::model()->tableName(), $criteria)->queryAll();
+        foreach ($rows as $row) {
+            $views = \Yii::app()->getModule('analytics')->visitsManager->getVisits($row['url']);
+            $score = $views * self::POSTS_QUALITY_VIEW_WEIGHT + $row['c'] * self::POSTS_QUALITY_COMMENT_WEIGHT;
+            $this->charge($row['uId'], $score);
+        }
+    }
+
+    /**
+     * @todo обсудить использование new_entity_id
+     */
+    protected function chargeCommentsCounts()
+    {
+        $criteria = clone Comment::model()->getDbCriteria();
+        $criteria->select = 'author_id uId, COUNT(*) c';
+        $criteria->group = 'author_id';
+        $criteria->params[':timeFrom'] = date("Y-m-d H:i:s", $this->getTimeFrom());
+        $criteria->addCondition('created > :timeFrom');
+        if (time() > $this->getTimeTo()) {
+            $criteria->params[':timeTo'] = date("Y-m-d H:i:s", $this->getTimeTo());
+            $criteria->addCondition('created < :timeTo');
+        }
+        $labelsIds = Label::getIdsByLabels($this->labels);
+        if (! empty($labelsIds)) {
+            $criteria->addCondition('`new_entity_id` IN (
+                SELECT `contentId`
+                FROM `post__tags`
+                WHERE `labelId` IN (' . implode(', ', $labelsIds) . ')
+                GROUP BY `contentId`
+                HAVING COUNT(labelId) = ' . count($labelsIds) . '
+            )');
+        }
+        $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand(Comment::model()->tableName(), $criteria)->queryAll();
+        $this->processQuery($rows, self::COMMENTS_COUNT_MULTIPLIER);
+    }
+
+    protected function processQuery($input, $multiplier = 1)
+    {
+        foreach ($input as $row) {
+            $this->charge($row['uId'], $row['c'] * $multiplier);
         }
     }
 }

@@ -1,41 +1,29 @@
 <?php
 /**
- * @var array[] $scores
- * @var \site\frontend\components\api\models\User[] $users
+ * @var \site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget $this
+ * @var array $rows
  */
 ?>
 
-<div class="top-forum">
-    <div class="widget-top">
-        <div class="heading-wd">Топ форумчан</div><span class="tx-hint">за неделю</span>
+<div class="b-widget-wrapper b-widget-wrapper_people b-widget-wrapper_border b-widget-wrapper_forum">
+    <div class="b-widget-header">
+        <div class="b-widget-header__title">Форумчанин <?=\Yii::app()->dateFormatter->format('MMMM', $this->getTimeFrom())?></div>
     </div>
-    <ul>
-        <?php foreach ($scores as $id => $score): ?>
-        <li class="widget_item">
-            <div class="widget-top_block_user">
-                <a href="<?=$users[$id]->profileUrl?>" class="ava ava__middle ava__<?=($users[$id]->gender) ? 'male' : 'female'?>">
-                    <?php if ($users[$id]->avatarUrl): ?>
-                        <img alt="" src="<?=$users[$id]->avatarUrl?>" class="ava_img">
-                    <?php endif; ?>
-                </a>
-                <a class="username" href="<?=$users[$id]->profileUrl?>"><?=$users[$id]->fullName?></a>
-            </div>
-            <div class="widget-top_block_rating counter-block"><span class="rating_count counter-text"><?=$score?></span>
-                <div class="rating_text counter-hint"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $score)?></div>
-            </div>
-        </li>
-        <?php endforeach; ?>
-    </ul>
+    <div class="b-widget-content">
+        <ul class="b-widget-content__list">
+            <?php foreach ($rows as $i => $row): ?>
+            <li class="b-widget-content__item">
+                <div class="b-widget-content__number"><?=($i+1)?></div>
+                <div class="b-widget-content__ava">
+                    <a class="ava ava__middle ava__<?=$row['user']->gender == '1' ? 'male' : 'female'?>" href="<?=$row['user']->profileUrl?>">
+                        <img class="ava_img" src="<?=$row['user']->avatarUrl?>" alt="">
+                    </a>
+                </div>
+                <div class="b-widget-content__name"><a href="<?=$row['user']->profileUrl?>" class="b-widget-content__link"><?=$row['user']->fullName?></a></div>
+                <div class="b-widget-content__rating"><?=intval($row['score'])?><span>баллов</span></div>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
 </div>
 
-    <?php if (false): ?>
-<?php foreach ($scores as $id => $score): ?>
-
-
-        <li>
-            <p><?=CHtml::link($users[$id]->fullName, $users[$id]->profileUrl)?></p>
-            <p><?=$score?></p>
-        </li>
-
-<?php endforeach; ?>
-<?php endif; ?>

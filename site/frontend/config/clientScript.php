@@ -320,7 +320,7 @@ return array(
                 'javascripts/ko_post.js',
                 //'javascripts/baron.js',
             ),
-            'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload', 'ko_library'),
+            'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload', 'ko_library', 'common'),
         ),
         'ko_blog' => array(
             'baseUrl' => '/',
@@ -658,10 +658,7 @@ return array(
             'depends' => array('lite_services_user'),
         ),
         'lite_forum-homepage' => array(
-            'baseUrl' => '/',
-            'css' => array(
-                'lite/css/min/forum-homepage.css'
-            ),
+            'depends' => array('lite_posts'),
         ),
         'lite_contractubex' => array(
             'baseUrl' => '/',

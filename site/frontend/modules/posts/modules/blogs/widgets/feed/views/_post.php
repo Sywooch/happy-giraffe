@@ -21,7 +21,7 @@ if (! empty($parser->images))
           	<div class="icons-meta">
           		<div class="c-list_item_btn">
           			<span class="c-list_item_btn__view"><?php echo $data->comments_count; ?></span>
-            		<a href="#" class="c-list_item_btn__comment"><?php echo $data->views; ?></a>
+            		<a href="#" class="c-list_item_btn__comment margin-r0"><?php echo $data->views; ?></a>
             	</div>
           	</div>
           	<div class="float-l position-rel w-300">

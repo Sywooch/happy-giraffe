@@ -26,7 +26,17 @@ $breadcrumbs = [
             <div class="b-theme-title-wrapper ico-club__<?=$club->id?>"></div>
             <h1><?=$club->title?></h1>
         </a>
-        <p><?=$club->description?></p><a href="#" class="start mobile"> </a>
+        <p><?=$club->description?></p>
+        <?php if (Yii::app()->user->isGuest): ?>
+            <a class="start mobile login-button" data-bind="follow: {}"> </a>
+        <?php else: ?>
+            <a href="<?=$this->createUrl('/blog/default/form', [
+                'type' => CommunityContent::TYPE_POST,
+                'club_id' => $this->club->id,
+                'useAMD' => true,
+                'short' => true,
+            ])?>" class="start mobile fancy-top"> </a>
+        <?php endif; ?>
     </div>
     <ul class="b-theme-title-more">
         <li class="theme-title__item">

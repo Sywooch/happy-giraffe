@@ -146,8 +146,8 @@ class LitePagerDots extends LitePager
             $halfRight = $resultDivision;
         }
     
-        // Тут проверка, нужны ли точки перед текущей странице
-        if ($this->_page - $halfLeft > $this->showButtonCount)
+        // Тут проверка, нужны ли точки перед текущей страницей
+        if ($this->_page - $halfLeft >= $this->showButtonCount)
         {
             // Нужны, мы не в начале
             $this->_dotsLeft = TRUE;

@@ -83,15 +83,23 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionLogin(array $attributes)
     {
-        /* $referrer = \Yii::app()->request->urlReferrer;
+        /*
+        @todo Sergey Gubarev: Для сервиса Блоги 
+                
+        $referrer = \Yii::app()->request->urlReferrer;
         
-        if (FALSE !== strpos($referrer, 'blogs'))
+        $urlData = parse_url($referrer);
+        
+        $referrerSchemeHost = $urlData['scheme'] . '://' . $urlData['host'];
+        
+        $returnUrl = \Yii::app()->user->returnUrl;
+        
+        if (\Yii::app()->request->hostInfo === $referrerSchemeHost)
         {
-            $returnUrl = $referrer;
-        }
-        else 
-        {
-            $returnUrl = \Yii::app()->user->returnUrl;
+            if (FALSE !== strpos($urlData['path'], 'blogs'))
+            {
+                $returnUrl = $urlData['path'] . '?' . $urlData['query'];
+            }
         } */
         
         $form = new LoginForm();

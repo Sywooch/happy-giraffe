@@ -85,7 +85,8 @@ $('.wysiwyg-redactor-v').promise().done(function()
                 	<?php $slaveModel->text = $slaveModel->forEdit->text; ?>
                 	
                     <?php echo $form->textArea($slaveModel, 'text', ['class' => 'wysiwyg-redactor-v']); ?>
-                    <?php echo $form->error($slaveModel, 'text'); ?>
+                    
+                    <div class="margin-l59"><?php echo $form->error($slaveModel, 'text'); ?></div>
                 </div>
                 <div class="clearfix">
                 	<button class="btn-blue btn-h46 float-r btn-inactive">Опубликовать</button>

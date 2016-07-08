@@ -1,7 +1,7 @@
 <?php
 		
 /**
- * @var \site\frontend\modules\posts\modules\blogs\widgets\feed\FeedWidget $this
+ * @var $this \site\frontend\modules\posts\modules\blogs\widgets\feed\FeedWidget 
  */
 
 $this->widget('LiteListView', [
@@ -17,11 +17,11 @@ $this->widget('LiteListView', [
     'itemsTagName' => 'div',
     'template'     => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
     'pager' => [
-        'class'          => 'LitePagerDots',
+        'class'           => 'LitePagerDots',
         'prevPageLabel'   => '&nbsp;',
         'nextPageLabel'   => '&nbsp;',
         'showPrevNext'    => TRUE,
-        'showButtonCount' => 3,
+        'showButtonCount' => 5,
         'dotsLabel'       => '<li class="page-points">...</li>' 
     ]
 ]);

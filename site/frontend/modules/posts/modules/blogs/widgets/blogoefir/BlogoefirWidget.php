@@ -12,7 +12,14 @@ class BlogoefirWidget extends \CWidget
 {
     
     /**
-     * Лимит постов в блоке
+     * Comet канал
+     * 
+     * @var string
+     */
+    const CHANNEL_ID = 'efir'; 
+    
+    /**
+     * Лимит записей в блоке
      * 
      * @var integer
      */
@@ -26,24 +33,24 @@ class BlogoefirWidget extends \CWidget
      */
     public function run()
     {   
+        $cometJs = 'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . self::CHANNEL_ID . '\');';
+        
+        $cs = \Yii::app()->clientScript;
+        
+        $cs
+            ->registerAMD('Realplexor-reg', array('common', 'comet'), $cometJs)
+        ;
+        
         $this->_limit = $this->controller->module->getConfig('itemsCountBlogoefir');
         
-        // $data = $this->_getItemsData();
-        
         $itemsList = $this->_getItemsList();
-        // echo count($itemsList);
-        // return;
        
         if (! empty($itemsList))
         {
-            // $renderItems = $this->render('_items', compact('rows'), TRUE);
-            // echo count($itemsList);
-            
             $itemsDataJSON = \CJSON::encode($itemsList);
             $itemsDataJSON = str_replace('"', '\'', $itemsDataJSON);
             
             $this->render('view', [
-                // 'items' => $renderItems
                 'itemsDataJSON' => $itemsDataJSON,
                 'limit'         => $this->_limit
             ]);
@@ -52,6 +59,11 @@ class BlogoefirWidget extends \CWidget
     
     //-----------------------------------------------------------------------------------------------------------
     
+    /**
+     * Данные
+     * 
+     * @return NULL|string
+     */
     private function _getItemsList()
     {
         $models = Content::model()

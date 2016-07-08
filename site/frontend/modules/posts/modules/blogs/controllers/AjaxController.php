@@ -27,6 +27,7 @@ class AjaxController extends \HController
      * 
      * @return string
      */
+    /*
     public function actionBlogoefirItems()
     {
         $offset = \Yii::app()->request->getPost('offset');
@@ -59,6 +60,7 @@ class AjaxController extends \HController
         
         echo \CJSON::encode($itemsList);
     }
+    */
     
     /**
      * Добавить подписку на блог юзера

@@ -321,7 +321,7 @@ return array(
                 'javascripts/ko_post.js',
                 //'javascripts/baron.js',
             ),
-            'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload', 'ko_library'),
+            'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload', 'ko_library', 'common'),
         ),
         'ko_blog' => array(
             'baseUrl' => '/',

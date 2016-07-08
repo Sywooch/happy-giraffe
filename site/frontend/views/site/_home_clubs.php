@@ -1,6 +1,6 @@
 <!-- Клубы-->
 <div class="homepage_row">
-    <div class="homepage-clubs">
+    <div class="homepage-clubs homepage-clubs__margin-110px">
         <?php if (Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP): ?>
           <div class="homepage_title"> Мы здесь общаемся<br>на различные семейные темы </div>
         <?php else: ?>
@@ -12,7 +12,7 @@
                 <div class="homepage-clubs_title-hold">
                     <div class="homepage-clubs_title">Муж и жена</div>
                 </div>
-                    <div class="homepage-clubs_li"><a href="/wedding/" class="homepage-clubs_a">
+                    <div class="homepage-clubs_li margin-l0"><a href="/wedding/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__14"></div>
                             </div>
@@ -31,7 +31,7 @@
                     <div class="homepage-clubs_title">Беременность и дети</div>
                 </div>
 
-                    <div class="homepage-clubs_li"><a href="/planning-pregnancy/" class="homepage-clubs_a">
+                    <div class="homepage-clubs_li margin-l0"><a href="/planning-pregnancy/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__1"></div>
                             </div>
@@ -68,7 +68,7 @@
                 <div class="homepage-clubs_title-hold">
                     <div class="homepage-clubs_title">Наш дом</div>
                 </div>
-                    <div class="homepage-clubs_li"><a href="/cook/" class="homepage-clubs_a">
+                    <div class="homepage-clubs_li margin-l0"><a href="/cook/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__7"></div>
                             </div>
@@ -116,7 +116,7 @@
                 <div class="homepage-clubs_title-hold">
                     <div class="homepage-clubs_title">Интересы и увлечения</div>
                 </div>
-                    <div class="homepage-clubs_li"><a href="/auto/" class="homepage-clubs_a">
+                    <div class="homepage-clubs_li margin-l0"><a href="/auto/" class="homepage-clubs_a">
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__18"></div>
                             </div>

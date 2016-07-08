@@ -12,7 +12,7 @@ $breadcrumbs = [
 <?php $this->beginClip('home'); ?>
 <?php if (Yii::app()->user->isGuest): ?>
 <div class="homepage-clubs_b">
-    <div class="homepage-clubs_btn-hold"><a href="#" class="w-240 btn btn-xl green-btn fontweight-b login-button" data-bind="follow: {}">Начать общаться</a></div>
+    <div class="homepage-clubs_btn-hold"><a class="w-240 btn btn-xl green-btn fontweight-b login-button" data-bind="follow: {}">Начать общаться</a></div>
 </div>
 <?php endif; ?>
 <?php $this->endClip(); ?>
@@ -41,7 +41,7 @@ $breadcrumbs = [
                 <div class="item__img item__img_margin"></div>
                 <p>самые актуальные темы для мам и пап</p>
                 <?php if (Yii::app()->user->isGuest): ?>
-                    <a href="#" class="btn btn-xl green registration-button" data-bind="follow: {}">Присоеденяйтесь!</a>
+                    <a class="btn btn-xl green registration-button" data-bind="follow: {}">Присоеденяйтесь!</a>
                 <?php endif; ?>
             </li>
             <li class="item statistik sidebar-widget_item">

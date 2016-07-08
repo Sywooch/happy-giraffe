@@ -363,7 +363,7 @@ class CommunityContent extends HActiveRecord implements IPreview
             if ($this->type_id != self::TYPE_MORNING) {
                 if ($this->getIsFromBlog()) {
                     UserAction::model()->add($this->author_id, UserAction::USER_ACTION_BLOG_CONTENT_ADDED, array('model' => $this));
-                } elseif ($this->rubric && $this->rubric->community_id != Community::COMMUNITY_NEWS) {
+                } elseif ($this->forum_id != Community::COMMUNITY_NEWS) {
                     UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMUNITY_CONTENT_ADDED, array('model' => $this));
                 }
             }
@@ -775,7 +775,7 @@ class CommunityContent extends HActiveRecord implements IPreview
             return false;
         }
 
-        if ($this->rubric && $this->rubric->community_id == Community::COMMUNITY_NEWS) {
+        if ($this->forum_id == Community::COMMUNITY_NEWS) {
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
         }
 
@@ -787,7 +787,7 @@ class CommunityContent extends HActiveRecord implements IPreview
 
         return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog
             ? null
-            : $this->rubric->community->id, 'user_id' => $this->author->id)));
+            : $this->forum_id, 'user_id' => $this->author->id)));
     }
 
     /**

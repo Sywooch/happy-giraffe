@@ -1048,7 +1048,7 @@ class CommunityContent extends HActiveRecord implements IPreview
         } elseif ($this->type_id == self::TYPE_MORNING) {
             $t = 'Утро с Веселым жирафом';
         } else {
-            $t = htmlentities(("Клуб <span class='color-category " . $this->rubric->community->css_class . "'>" . $this->rubric->community->title . "</span>"), ENT_QUOTES, "UTF-8");
+            $t = htmlentities(("Клуб <span class='color-category " . $this->community->css_class . "'>" . $this->community->title . "</span>"), ENT_QUOTES, "UTF-8");
         }
         if (!$full)
             return $t;

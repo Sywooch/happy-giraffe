@@ -108,7 +108,6 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = array(
             'errors' => $form->getErrors(),
             'returnUrl' => \Yii::app()->user->returnUrl,
-            'returnUrl' => $returnUrl
         );
     }
 

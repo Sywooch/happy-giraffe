@@ -141,6 +141,7 @@ return array(
         'buzz' => 'posts/buzz/list/index',
 
         'forums' => 'posts/forums/default/index',
+        'forums/rubric<rubricId:\d+>' => 'posts/forums/club/rubric',
 
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
@@ -397,13 +398,13 @@ return array(
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
-            'pattern' => '<club:[\w-]+>',
-            'route' => 'som/community/default/index',
+            'pattern' => '<club:[\w-]+>/<feedTab:(new|hot|discuss)>',
+            'route' => 'posts/forums/club/index',
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',
-            'route' => 'community/default/club',
+            'route' => 'posts/forums/club/index',
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
@@ -632,12 +633,11 @@ return array(
 //        'auto/routes/<_a>/<id:[\d]+>' => 'routes/default/<_a>',
 
         'auto/routes/<routeId:[\d]+>' => 'routes/default/view',
-        'auto/routes' => 'routes/default/index',
         'auto/routes/cities/<letter:[А-Я]>' => 'routes/default/cities',
         'auto/routes/city<cityId:[\d]+>' => 'routes/default/city',
-
         'auto/routes/<_a>' => 'routes/defaultOld/<_a>',
         'auto/routes/<_a>/<id:[\d]+>' => 'routes/defaultOld/<_a>',
+        'auto/routes' => 'routes/default/index',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',

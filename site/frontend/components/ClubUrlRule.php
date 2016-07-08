@@ -25,15 +25,10 @@ class ClubUrlRule extends CBaseUrlRule
             ->from('community__clubs')
             ->queryColumn();
 
-        if (in_array($pathInfo, $slugs)) {
+        $requestedSlug = explode('/', $pathInfo)[0];
+        if (in_array($requestedSlug, $slugs)) {
             return $this->returnTrue($manager, $request, $pathInfo, $rawPathInfo);
         } else {
-            foreach ($slugs as $slug){
-                if (str_replace('<club:[\w-]+>', $slug, $this->pattern) == $pathInfo){
-                    return $this->returnTrue($manager, $request, $pathInfo, $rawPathInfo);
-                }
-            }
-
             return false;
         }
     }

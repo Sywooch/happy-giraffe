@@ -93,13 +93,13 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $tags[] = 'Рубрика: ' . $rubric->title;
             $rubric = $rubric->parent;
         }
-        if ($oldPost->rubric->community)
+        if ($oldPost->community)
         {
-            $tags[] = 'Форум: ' . $oldPost->rubric->community->title;
-            if ($oldPost->rubric->community->club)
-                $tags[] = 'Клуб: ' . $oldPost->rubric->community->club->title;
-            if ($oldPost->rubric->community->club && $oldPost->rubric->community->club->section)
-                $tags[] = 'Секция: ' . $oldPost->rubric->community->club->section->title;
+            $tags[] = 'Форум: ' . $oldPost->community->title;
+            if ($oldPost->community->club)
+                $tags[] = 'Клуб: ' . $oldPost->community->club->title;
+            if ($oldPost->community->club && $oldPost->community->club->section)
+                $tags[] = 'Секция: ' . $oldPost->community->club->section->title;
         }
         if ($oldPost->isFromBlog)
         {
@@ -144,7 +144,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->socialObject->description = $newPost->metaObject->description;
         $newPost->isAutoSocial = true;
 
-        if ($oldPost->rubric->community_id == ContractubexHelper::getForum()->id)
+        if ($oldPost->rubric && $oldPost->rubric->community_id == ContractubexHelper::getForum()->id)
         {
             $newPost->templateObject->data['hideAdsense'] = true;
         }

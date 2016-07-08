@@ -7,10 +7,14 @@
 namespace site\frontend\modules\posts\modules\forums\controllers;
 
 
+use site\frontend\modules\posts\models\Content;
+use site\frontend\modules\posts\models\Label;
+use site\frontend\modules\posts\modules\forums\components\TagHelper;
+use site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget;
+
 class DefaultController extends \LiteController
 {
     public $litePackage = 'forum-homepage';
-    public $hideUserAdd = true;
 
     public function actionIndex()
     {

@@ -44,7 +44,17 @@ $breadcrumbs = [
     		<img src="/lite/images/new-design/images/blog-logo.png">
     		<span>Блоги</span>
 		</div>
-    	<div class="mobile-ctrl_btn"></div>
+            <!--     	<div class="mobile-ctrl_btn"></div> -->
+			<?php if (Yii::app()->user->isGuest): ?>
+                	
+            	<div class="mobile-ctrl_btn login-button" data-bind="follow: {}"></div>
+            	
+                
+        	<?php else: ?>
+        	
+            	<a href="/blogs/add-form" class="mobile-ctrl_btn fancy"></a>
+        	
+        	<?php endif; ?>
   	</div>
   
   	<div class="b-main_cont">
@@ -72,7 +82,7 @@ $breadcrumbs = [
                     
                     <?php 
                     
-                    Yii::beginProfile('BlogesTopWidget'); 
+                    Yii::beginProfile('BlogersTopWidget'); 
                         
                         if ($this->beginCache('usersTopBlogs', [
                             'duration' => 3600
@@ -87,7 +97,7 @@ $breadcrumbs = [
                             $this->endCache();
                         }
                     
-                    Yii::endProfile('BlogesTopWidget'); 
+                    Yii::endProfile('BlogersTopWidget'); 
                     
                     ?>
                     
@@ -95,7 +105,7 @@ $breadcrumbs = [
                   	
         			<li class="sidebar-widget_item">
 						
-						<?php $this->widget('\site\frontend\modules\posts\modules\blogs\widgets\blogoefir\BlogoefirWidget'); ?>
+						<?php // $this->widget('\site\frontend\modules\posts\modules\blogs\widgets\blogoefir\BlogoefirWidget'); ?>
                         
                   	</li>
                   	

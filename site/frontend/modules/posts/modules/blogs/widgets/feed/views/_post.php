@@ -20,8 +20,24 @@ if (! empty($parser->images))
         <div class="b-article_header clearfix">
           	<div class="icons-meta">
           		<div class="c-list_item_btn">
-          			<span class="c-list_item_btn__view"><?php echo $data->comments_count; ?></span>
-            		<a href="#" class="c-list_item_btn__comment margin-r0"><?php echo $data->views; ?></a>
+          			<span class="c-list_item_btn__view">
+          				<?php echo \Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url); ?>
+          			</span>
+          			
+            		<?php 
+            		
+            		echo CHtml::link(
+                        $data->comments_count, 
+            		    [
+            		        $data->parsedUrl,
+            		        '#' => 'commentsList'
+        		        ],
+            		    [
+                            'class' => 'c-list_item_btn__comment margin-r0'
+        		        ]
+            		);
+            		
+            		?>
             	</div>
           	</div>
           	<div class="float-l position-rel w-300">

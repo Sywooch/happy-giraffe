@@ -97,7 +97,7 @@ class FeedWidget extends \CWidget
     /**
      * Вкладки 
      * 
-     * @return Ambiguous
+     * @return CMenu
      */
     public function getMenuWidget()
     {

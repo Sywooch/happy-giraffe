@@ -13,7 +13,6 @@ class HotPostsWidget extends \CWidget
 {
     public $limit = 5;
     public $labels = [];
-    public $allUrl;
 
     protected $interval;
 

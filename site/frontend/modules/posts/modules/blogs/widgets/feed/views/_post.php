@@ -8,8 +8,6 @@ $templateData = CJSON::decode($data->getAttribute('template'));
 
 $type = $templateData['data']['type'];
 
-var_dump($type);
-
 switch ($type)
 {   
     case 'morning':

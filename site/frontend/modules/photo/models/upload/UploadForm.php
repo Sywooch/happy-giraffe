@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Форма загрузки фото
  *
@@ -9,14 +10,17 @@
  */
 
 namespace site\frontend\modules\photo\models\upload;
+
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoCollection;
 
 abstract class UploadForm extends \CFormModel implements \IHToJSON
 {
+
     const PRESET_NAME = 'uploadPreview';
 
     abstract protected function getImageString();
+
     abstract protected function getOriginalName();
 
     /**
@@ -28,13 +32,13 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
      * @var bool загружено ли фото
      */
     protected $success = false;
-
     protected $collection;
     protected $attach;
 
     public function __construct($collection = null)
     {
-        if ($collection !== null) {
+        if ($collection !== null)
+        {
             $this->collection = $collection;
         }
     }
@@ -49,7 +53,6 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     public function rules()
     {
         return array(
-
         );
     }
 
@@ -59,20 +62,38 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
      */
     public function save()
     {
-        if ($this->validate()) {
-            try {
+        if ($this->validate())
+        {
+            try
+            {
                 $this->photo = new Photo();
                 $this->photo->setImage($this->getImageString());
                 $this->photo->original_name = $this->getOriginalName();
-                if ($this->success = $this->photo->save()) {
-                    if ($this->collection !== null) {
+                if ($this->success = $this->photo->save())
+                {
+                    if ($this->collection !== null)
+                    {
+                        if ($this->collection->entity == 'Family' && $this->collection->key == 'default')
+                        {
+                            /**
+                             * нужно отчистить коллекцию семейного фото, потому что в ней должно быть
+                             * только одно фото
+                             */
+                            foreach ($this->collection->attaches AS $attach)
+                            {
+                                /** @var \site\frontend\modules\photo\models\PhotoAttach[] $attach */
+                                $attach->softDelete();
+                            }
+                        }
                         $attaches = $this->collection->attachPhotos($this->photo->id);
                         $this->attach = $attaches[0];
                         $this->attach->photo = $this->photo;
                     }
                     \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
                 }
-            } catch (\Exception $e) {
+            }
+            catch (\Exception $e)
+            {
                 $this->addError('photo', 'Ошибка загрузки');
             }
         }
@@ -82,11 +103,14 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
 
     public function toJSON()
     {
-        if ($this->collection === null) {
+        if ($this->collection === null)
+        {
             $json = array(
                 'photo' => $this->photo,
             );
-        } else {
+        }
+        else
+        {
             $json = array(
                 'attach' => $this->attach,
             );
@@ -101,16 +125,21 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
      */
     protected function getFirstError()
     {
-        if (! $this->hasErrors() && ! $this->photo->hasErrors()) {
+        if (!$this->hasErrors() && !$this->photo->hasErrors())
+        {
             return null;
         }
 
-        if ($this->hasErrors()) {
+        if ($this->hasErrors())
+        {
             $errors = $this->getErrors();
-        } else {
+        }
+        else
+        {
             $errors = $this->photo->getErrors();
         }
 
         return $errors[key($errors)][0];
     }
-} 
+
+}

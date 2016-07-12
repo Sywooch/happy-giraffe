@@ -31,13 +31,17 @@ class ConvertCommand extends \CConsoleCommand
     public static function addConvertTask($oldPost)
     {
         $client = \Yii::app()->gearman->client();
-        if ($oldPost instanceof \CookRecipe) {
+        if ($oldPost instanceof \CookRecipe)
+        {
             $service = 'oldRecipe';
-        } else {
+        }
+        else
+        {
             $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         }
         $entity = get_class($oldPost);
-        if ($entity == 'BlogContent') {
+        if ($entity == 'BlogContent')
+        {
             $entity = 'CommunityContent';
         }
         $id = $oldPost->id;
@@ -50,7 +54,8 @@ class ConvertCommand extends \CConsoleCommand
             999 => 'recipe',
         );
         $type = $oldPost instanceof \CookRecipe ? 999 : $oldPost->type_id;
-        if (!isset($types[$type])) {
+        if (!isset($types[$type]))
+        {
             return false;
         }
         $fName = $service . '_' . $entity . '_convert_' . $types[$type];
@@ -80,15 +85,18 @@ class ConvertCommand extends \CConsoleCommand
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         // Загрузим возможные модели
         \Yii::import('site.frontend.modules.cook.models.*');
-        
+
         /** @todo параметризировать команду, что бы можно было выбирать обработчики */
         $worker = \Yii::app()->gearman->worker();
-        if (empty($command)) {
+        if (empty($command))
+        {
             $command = $this->commands;
         }
 
-        foreach ($command as $c) {
-            if (in_array($c, $this->commands)) {
+        foreach ($command as $c)
+        {
+            if (in_array($c, $this->commands))
+            {
                 $worker->addFunction($c, array($this, $fake ? 'fake' : 'convertPost'));
             }
         }
@@ -102,25 +110,43 @@ class ConvertCommand extends \CConsoleCommand
      */
     public function convertPost($job)
     {
-        try {
+        try
+        {
             $data = self::unserialize($job->workload());
             \Yii::app()->db->setActive(true);
             //usleep(100000); // на всякий случай поспим 0.1 сек, что бы быть уверенным, что реплика прошла
+            $this->printLogStr("entyti_id: {$data['entityId']}; entity: {$data['entity']}");
+            $startTime = microtime(true);
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
-            if (!$model) {
-                throw new \Exception('no model');
+            if (!$model)
+            {
+                /**
+                 * данные еще не попали в базу
+                 */
+                $this->printLogStr("entyti not found in bd");
+                return false;
+                //throw new \Exception('no model');
             }
-            echo $model->convertToNewPost() ? '.' : '!';
+            $this->printLogStr('status ' . ( $model->convertToNewPost() ? 'ok' : 'fail'));
+            $this->printLogStr('process time ' . (microtime(true) - $startTime));
             $model->handleCollection();
             \Yii::app()->db->setActive(false);
-        } catch (\Exception $e) {
-            var_dump($data);
+        }
+        catch (\Exception $e)
+        {
             echo $e;
-            if($e instanceof \CDbException) {
+            if ($e instanceof \CDbException)
+            {
                 echo "db error, exit\n";
                 exit(1);
             }
         }
+    }
+
+    public function printLogStr($str)
+    {
+        print $str . "\r\n";
+        #\Yii::log($str, 'info', 'coomand');
     }
 
     public function fake($job)

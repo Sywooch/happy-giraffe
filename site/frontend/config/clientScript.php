@@ -28,6 +28,7 @@ return array(
             'wysiwyg' => '/new/javascript/wysiwyg',
             'ko_library' => '/javascripts/ko_library',
             'ko_blog' => '/javascripts/ko_blog',
+            'ko_blogs' => '/new/javascript/ko_blogs',
             'ko_post' => '/javascripts/ko_post',
             'ko_menu' => '/javascripts/ko_menu',
             'ko_favourites' => '/javascripts/ko_favourites',
@@ -320,7 +321,7 @@ return array(
                 'javascripts/ko_post.js',
                 //'javascripts/baron.js',
             ),
-            'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload', 'ko_library'),
+            'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload', 'ko_library', 'common'),
         ),
         'ko_blog' => array(
             'baseUrl' => '/',
@@ -328,6 +329,13 @@ return array(
                 'javascripts/ko_blog.js',
             ),
             'depends' => array('knockout', 'gallery', 'jcrop', 'ko_upload', 'ko_library'),
+        ),
+        'ko_blogs' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/ko_blogs.js',
+            ),
+            'depends' => array('knockout', 'ko_library', 'comet'),
         ),
         'ko_community' => array(
             'baseUrl' => '/',
@@ -511,7 +519,7 @@ return array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/services.css',
+                'lite/css/min/services-na.css',
             ),
         ),
         'lite_services_user' => array(
@@ -658,10 +666,10 @@ return array(
             'depends' => array('lite_services_user'),
         ),
         'lite_forum-homepage' => array(
-            'baseUrl' => '/',
-            'css' => array(
-                'lite/css/min/forum-homepage.css'
-            ),
+            'depends' => array('lite_posts'),
+        ),
+        'lite_blogs-homepage' => array(
+            'depends' => array('lite_posts'),
         ),
         'lite_contractubex' => array(
             'baseUrl' => '/',

@@ -46,7 +46,7 @@ class TmpController extends HController
         if($model->isFromBlog) {
             $rubrics = Yii::app()->user->model->blog_rubrics;
         } else {
-            $rubrics = $model->rubric->community->rubrics;
+            $rubrics = $model->community->club->communities;
         }
         
         $rubricsList = array_map(function ($rubric) {

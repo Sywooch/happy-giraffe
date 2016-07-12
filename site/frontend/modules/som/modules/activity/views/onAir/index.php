@@ -8,8 +8,12 @@ $this->pageTitle = 'Прямой эфир';
 <div class="b-main_cont b-main_cont__wide">
     <!--+userSubscribers('visible-md-block')-->
     <div class="b-main_col-hold clearfix">
+
+
         <!-- Основная колонка-->
         <div class="b-main_col-article">
+            <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\MyGiraffeWidget'); ?>
+
             <div style="text-align: center;">
                 <?php
                 $this->widget('zii.widgets.CMenu', array(

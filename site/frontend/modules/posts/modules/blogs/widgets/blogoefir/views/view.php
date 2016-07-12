@@ -1,0 +1,1 @@
+<blogoefir params="{ items: <?php echo $itemsDataJSON; ?>, limit: <?php echo $limit; ?>}"></blogoefir>

@@ -17,18 +17,9 @@ $this->adaptiveBreadcrumbs = true;
         <div class="section-empty section-empty__blog">
             <div class="section-empty_t">Что бы вы хотели добавить в свой блог</div>
             <ul class="section-empty_ul">
-                <li class="section-empty_li"><a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_POST, 'useAMD' => true)) ?>" data-theme="transparent" class="section-empty_i fancy">
+                <li class="section-empty_li"><a href="<?php echo $this->createUrl('/blogs/add-form'); ?>" data-theme="transparent" class="section-empty_i fancy">
                         <div class="section-empty_ico section-empty_ico__blog"></div>
                         <div class="section-empty_ico-tx">Запись</div></a></li>
-                <li class="section-empty_li"><a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_PHOTO_POST, 'useAMD' => true)) ?>" data-theme="transparent" class="section-empty_i fancy">
-                        <div class="section-empty_ico section-empty_ico__photo"></div>
-                        <div class="section-empty_ico-tx">Фотопост</div></a></li>
-                <li class="section-empty_li"><a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_VIDEO, 'useAMD' => true)) ?>" data-theme="transparent" class="section-empty_i fancy">
-                        <div class="section-empty_ico section-empty_ico__video"></div>
-                        <div class="section-empty_ico-tx">Видео </div></a></li>
-                <li class="section-empty_li"><a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_STATUS, 'useAMD' => true)) ?>" data-theme="transparent" class="section-empty_i fancy">
-                        <div class="section-empty_ico section-empty_ico__status"></div>
-                        <div class="section-empty_ico-tx">Статус</div></a></li>
             </ul>
             <div class="section-empty_desc-hold">
                 <div class="section-empty_desc">
@@ -48,13 +39,6 @@ $this->adaptiveBreadcrumbs = true;
                 ),
                 'itemsTagName' => 'div',
                 'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
-                'pager' => array(
-                    'class' => 'LitePager',
-                    'maxButtonCount' => 10,
-                    'prevPageLabel' => '&nbsp;',
-                    'nextPageLabel' => '&nbsp;',
-                    'showPrevNext' => true,
-                ),
             ));
             ?>
             <aside class="b-main_col-sidebar visible-md"></aside>

@@ -46,6 +46,9 @@ return array(
         'testConvert' => array(
             'class' => 'site\frontend\modules\posts\commands\TestConvert',
         ),
+        'postsRebuildPreview' => array(
+            'class' => 'site\frontend\modules\posts\commands\RebuildPreview'
+        ),
         'modelRebase' => array(
             'class' => 'site\frontend\modules\v1\commands\ModelRebase',
         ),
@@ -100,6 +103,9 @@ return array(
         'nstream' => array(
             'class' => 'site\frontend\modules\api\modules\v1_3\commands\NStreamTest',
         ),
+        'commentCacheClear' => array(
+            'class' => 'site\frontend\modules\comments\commands\CacheClear',
+        )
     ),
     'import' => array(
         'site.common.components.*',
@@ -125,7 +131,7 @@ return array(
             'class' => 'EDMSBehavior',
             'connectionId' => 'mongodb',
         ),
-        'viewRenderer'=>'application.components.CAViewRendererBehavior',
+        'viewRenderer' => 'application.components.CAViewRendererBehavior',
     ),
     'components' => array(
         'widgetFactory' => array(

@@ -7,34 +7,7 @@ $this->beginContent('//layouts/lite/common_menu');
 Yii::app()->clientScript->registerAMD('userAdd', array('common' => 'common', '$' => 'jquery'), "$('#userAdd').show();");
 ?>
 <?=$this->clips['header-banner']?>
-<?php if (!Yii::app()->user->isGuest && !($this instanceof LiteController && $this->hideUserAdd)): ?>
-    <div class="b-main_cols clearfix">
-        <div class="b-main_col-1">
-            <?php if ($this->module === null || $this->module->id != 'search'): ?>
-                <div class="sidebar-search clearfix sidebar-search__big">
-                    <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
-                </div>
-            <?php endif; ?>
-        </div>
-        <div class="b-main_col-23">
-            <!-- userAddRecord-->
-            <div class="userAddRecord clearfix userAddRecord__s userAddRecord__s" style="display: none" id="userAdd">
-                <div class="userAddRecord_ava-hold">
-                    <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => Avatar::SIZE_SMALL)); ?>
-                </div>
-                <div class="userAddRecord_hold">
-                    <div class="userAddRecord_tx">Я хочу добавить
-                    </div>
-                    <a href="<?= $this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_POST, 'useAMD' => true)) ?>" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a>
-                    <a href="/user/blog/photopost/create/" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo powertip"></a>
-                    <a href="<?= $this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_VIDEO, 'useAMD' => true)) ?>" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy powertip"></a>
-                    <a href="/user/blog/status/create/" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status powertip"></a>
-                </div>
-            </div>
-            <!-- /userAddRecord-->
-        </div>
-    </div>
-<?php endif; ?>
+
 <div class="b-main_cont b-main_cont__broad">
     <?php if ($this->breadcrumbs): ?>
         <div class="b-crumbs b-crumbs__s<?php if ($this->adaptiveBreadcrumbs): ?> visible-md visible-lg<?php endif; ?>">

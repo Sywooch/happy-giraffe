@@ -1,19 +1,26 @@
 <?php
+
 /**
  * Компонент, выполняющий роль "почтальона"
  *
  * Этот класс отвечает за доставку сообщения (объект типа MailMessage) конечному пользователю. Сами сообщения
  * генерируются за пределами компонента, в основном в объектах типа MailSender
  */
-
 class MailPostman extends CApplicationComponent
 {
+
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
-
     const MODE_SIMPLE = 0;
     const MODE_QUEUE = 1;
 
+    /**
+     * небольшое не самое лучше решение, но в стиле предидущих разработчиков,
+     * список шаблонов которые используют транзакционный профиль рассылки без
+     * возможности отписаться
+     * @var array
+     */
+    private $transactionalDeliver = array('test', 'passwordRecovery', 'confirmEmail');
     public $mode = self::MODE_QUEUE;
 
     /**
@@ -23,9 +30,12 @@ class MailPostman extends CApplicationComponent
      */
     public function send(MailMessage $message)
     {
-        if ($this->mode == self::MODE_SIMPLE) {
+        if ($this->mode == self::MODE_SIMPLE)
+        {
             $this->sendEmail($message);
-        } else {
+        }
+        else
+        {
             $this->addToQueue($message);
         }
     }
@@ -47,8 +57,19 @@ class MailPostman extends CApplicationComponent
      */
     public function sendEmail(MailMessage $message)
     {
-        if (ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
+        $flag = false;
+        if (in_array($message->type, $this->transactionalDeliver))
+        {
+            $flag = ElasticEmailTransactional::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME);
+        }
+        else
+        {
+            $flag = ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME);
+        }
+        if ($flag)
+        {
             $message->delivery->sent();
         }
     }
+
 }

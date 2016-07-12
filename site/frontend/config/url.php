@@ -82,7 +82,6 @@ return array(
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
 
-
         /* QA */
 
         //страница вопроса
@@ -141,6 +140,17 @@ return array(
         'buzz' => 'posts/buzz/list/index',
 
         'forums' => 'posts/forums/default/index',
+
+        // @todo Sergey Gubarev: только для теста comet
+        // 'blogs/comet'         => 'posts/blogs/default/test',
+        
+        'blogs/add-form' => 'posts/blogs/default/AddForm',
+        'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',
+        'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
+        'blogs'              => 'posts/blogs/default/index',
+        
+        'forums/rubric<rubricId:\d+>' => 'posts/forums/default/rubric',
+        'forums/rubric<rubricId:\d+>' => 'posts/forums/club/rubric',
 
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
@@ -397,13 +407,13 @@ return array(
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
-            'pattern' => '<club:[\w-]+>',
-            'route' => 'som/community/default/index',
+            'pattern' => '<club:[\w-]+>/<feedTab:(new|hot|discuss)>',
+            'route' => 'posts/forums/club/index',
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',
-            'route' => 'community/default/club',
+            'route' => 'posts/forums/club/index',
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',
@@ -632,12 +642,11 @@ return array(
 //        'auto/routes/<_a>/<id:[\d]+>' => 'routes/default/<_a>',
 
         'auto/routes/<routeId:[\d]+>' => 'routes/default/view',
-        'auto/routes' => 'routes/default/index',
         'auto/routes/cities/<letter:[А-Я]>' => 'routes/default/cities',
         'auto/routes/city<cityId:[\d]+>' => 'routes/default/city',
-
         'auto/routes/<_a>' => 'routes/defaultOld/<_a>',
         'auto/routes/<_a>/<id:[\d]+>' => 'routes/defaultOld/<_a>',
+        'auto/routes' => 'routes/default/index',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',

@@ -42,7 +42,7 @@ use site\frontend\modules\comments\models\Comment;
  * The followings are the available model relations:
  * @property PostLabels[] $labelModels
  */
-class Content extends \CActiveRecord implements \IHToJSON
+class Content extends \HActiveRecord implements \IHToJSON
 {
 
     protected $labelDelimiter = '|';
@@ -119,6 +119,13 @@ class Content extends \CActiveRecord implements \IHToJSON
         );
     }
 
+    public function apiRelations()
+    {
+        return array(
+            'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
+        );
+    }
+
     public function behaviors()
     {
         return array(
@@ -149,6 +156,17 @@ class Content extends \CActiveRecord implements \IHToJSON
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
                 'removeAttribute' => 'isRemoved',
             ),
+            'site\frontend\modules\posts\behaviors\HotBehavior',
+            [
+                'class' => 'site\frontend\modules\comments\behaviors\CommentableBehavior',
+                'fk' => 'new_entity_id',
+                'joinOn' => 'commentable.entity_id = ' . $this->getTableAlias(true) . '.originEntityId AND commentable.entity = ' . $this->getTableAlias(true) . '.originEntity',
+            ],
+            [
+                'class'  => 'site\frontend\modules\comments\behaviors\BlogsCommentableBehavior',
+                'fk'     => 'new_entity_id',
+                'joinOn' => 'commentable.entity_id = ' . $this->getTableAlias(true) . '.originEntityId AND commentable.entity = "BlogContent"',
+            ]
         );
     }
 
@@ -464,7 +482,7 @@ class Content extends \CActiveRecord implements \IHToJSON
     public function bySlug($slug, $entityId)
     {
         $slug = strtolower($slug);
-        
+
         return $this->byEntity(Content::$slugAliases[$slug], $entityId);
     }
 
@@ -504,14 +522,14 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function byTags($tags)
     {
-        $criteria = $this->getDbCriteria();
-        $criteria->with[] = 'tagModels';
-        $criteria->together = true;
-        $criteria->addInCondition('tagModels.labelId', $tags);
-        //$criteria->select = 't.* , count(tagModelss.labelId) as c';
-        $criteria->group = 't.id';
-        $criteria->having = 'count(tagModels.labelId) = ' . count($tags);
-        $this->tagList = $tags;
+        if (! empty($tags)) {
+            $criteria = $this->getDbCriteria();
+            $criteria->addCondition($this->getTableAlias(true) . '.`id` IN (SELECT `contentId`
+            FROM `post__tags`
+            WHERE `labelId` IN (' . implode(', ', $tags) . ')
+            GROUP BY `contentId`
+            HAVING COUNT(`labelId`) = ' . count($tags) . ')');
+        }
         return $this;
     }
 
@@ -519,7 +537,7 @@ class Content extends \CActiveRecord implements \IHToJSON
      * Поиск по текстовым "ярлыкам"
      * 
      * @param type $labels
-     * @return type
+     * @return \site\frontend\modules\posts\models\Content
      */
     public function byLabels($labels)
     {
@@ -548,28 +566,55 @@ class Content extends \CActiveRecord implements \IHToJSON
     }
 
     /**
+     * возвращает модифицированный критерий выборки из бд списка постов форума
+     * @param array $labelsId
+     */
+    public function createCriteriaForForum(array $labelsId)
+    {
+
+        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labelsId);
+        if (count($labelsId) != count($tags))
+        {
+            $this->getDbCriteria()->addCondition('1=0');
+            return $this;
+        }
+        $cr = $this->getDbCriteria();
+        $cr->with = [];
+        $cr->having = '';
+        $cr->join = 'JOIN (SELECT pt.contentId FROM post__tags AS pt WHERE pt.labelId in ('
+                . implode(', ', $tags)
+                . ') GROUP BY pt.contentId HAVING (count(pt.contentId) = ' . count($tags) . ')'
+                . ') AS tmp ON (tmp.contentId=t.id)';
+        $cr->order = $this->tableAlias . '.dtimePublication DESC';
+        return $cr;
+    }
+
+    /**
      * возвращает список последних постов по метке, в частности для форума
      * @param int $labelId
      * @param int $limit
      * @return \site\frontend\modules\posts\models\Content
+     * @author crocodile
      */
-    public function getLastByLabel($labelId, $limit)
-    {
-
-        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels(array($labelId));
-        if (sizeof($tags) == 0)
-        {
-            return [];
-        }
-        $this->getDbCriteria()->with = [];
-        $this->getDbCriteria()->having = '';
-        $this->getDbCriteria()->condition = '(`t`.`isRemoved`=0) AND id in (SELECT pt.contentId FROM post__tags AS pt WHERE pt.labelId=' . (int) $tags[0]
-                . ' ORDER BY pt.contentId desc'
-                . ')';
-        return $this->orderDesc()->findAll(array(
-                    'limit' => $limit
-        ));
-    }
+//    public function getLastByLabel($labelId, $limit)
+//    {
+//
+//        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels(array($labelId));
+//        if (sizeof($tags) == 0)
+//        {
+//            return [];
+//        }
+//        $this->resetScope();
+//        $criteria = $this->getDbCriteria();
+//        $criteria->with = [];
+//        $criteria->having = '';
+//        $criteria->join = "JOIN (SELECT pt.contentId  FROM post__tags AS pt "
+//                . " WHERE pt.labelId=" . intval($tags[0])
+//                . " ORDER BY pt.contentId desc LIMIT 100)  AS tmp on (tmp.contentId=t.id)";
+//        return $this->orderDesc()->findAll(array(
+//                    'limit' => $limit
+//        ));
+//    }
 
     /**
      * Создаёт критерй для выбора поста, стоящего с "лева" от переданого поста.
@@ -580,49 +625,48 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function leftFor($post)
     {
-        $labelsList = [];
-        if (sizeof($this->tagList) > 0)
-        {
-            $labelsList = $this->tagList;
-        }
-        else
-        {
-            $labelsList = array_map(function($lb)
-            {
-                return $lb->id;
-            }, $post->labelModels);
-        }
-        $labelsCount = sizeof($labelsList);
-        $labelsList = implode(', ', $labelsList);
-
-        $sql = "SELECT * 
-FROM post__contents AS pc 
-	LEFT JOIN (SELECT pt.contentId
-	FROM post__tags AS pt
-	WHERE pt.labelId in ({$labelsList})
-	GROUP BY pt.contentId 
-	HAVING COUNT(pt.contentId) = {$labelsCount}
-	ORDER BY pt.contentId desc
-	) AS tmp ON (pc.id=tmp.contentId)
-WHERE  pc.isRemoved = 0 
-    AND (pc.dtimePublication<{$post->dtimePublication})
-ORDER BY pc.dtimePublication DESC
-LIMIT 1";
-        $itm = \Yii::app()->db->createCommand($sql)->queryAll(true);
-        if (isset($itm[0]))
-        {
-            $criteria = $this->getDbCriteria();
-            $criteria->condition = 'id=' . $itm[0]['id'];
-            $criteria->with = [];
-            $criteria->params = [];
-            $criteria->group = '';
-            $criteria->having = '';
-        }
-        else
-        {
-            $this->getDbCriteria()->condition = 'id=-1';
-        }
-        return $this;
+//        $labelsList = [];
+//        if (sizeof($this->tagList) > 0)
+//        {
+//            $labelsList = $this->tagList;
+//        }
+//        else
+//        {
+//            $labelsList = array_map(function($lb)
+//            {
+//                return $lb->id;
+//            }, $post->labelModels);
+//        }
+//        $labelsCount = sizeof($labelsList);
+//        $labelsList = implode(', ', $labelsList);
+//
+//        $sql = "SELECT *
+//FROM post__contents AS pc
+//	JOIN (SELECT pt.contentId
+//	FROM post__tags AS pt
+//	WHERE pt.labelId in ({$labelsList})
+//	GROUP BY pt.contentId
+//	HAVING COUNT(pt.contentId) = {$labelsCount}
+//	) AS tmp ON (pc.id=tmp.contentId)
+//WHERE  pc.isRemoved = 0
+//    AND (pc.dtimePublication<{$post->dtimePublication})
+//ORDER BY pc.dtimePublication DESC
+//LIMIT 1";
+//        $itm = \Yii::app()->db->createCommand($sql)->queryAll(true);
+//        if (isset($itm[0]))
+//        {
+//            $criteria = $this->getDbCriteria();
+//            $criteria->condition = 'id=' . $itm[0]['id'];
+//            $criteria->with = [];
+//            $criteria->params = [];
+//            $criteria->group = '';
+//            $criteria->having = '';
+//        }
+//        else
+//        {
+//            $this->getDbCriteria()->condition = 'id=-1';
+//        }
+//        return $this;
 
         $this->getDbCriteria()->compare('dtimePublication', '<' . $post->dtimePublication);
         $this->orderDesc();
@@ -644,4 +688,18 @@ LIMIT 1";
         return $this;
     }
 
+    /**
+     * @todo переосмыслить (метод поощряет нарушение SOA)
+     * @param string $prefix
+     * @return null|Label
+     */
+    public function getLabelTextByPrefix($prefix)
+    {
+        foreach ($this->labelsArray as $label) {
+            if (strpos($label, $prefix) !== false) {
+                return str_replace($prefix, '', $label);
+            }
+        }
+        return null;
+    }
 }

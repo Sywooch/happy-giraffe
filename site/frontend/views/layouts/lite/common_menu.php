@@ -4,12 +4,15 @@
  */
 $this->beginContent('//layouts/lite/common');
 ?>
+
     <?php $this->renderPartial('application.modules.comments.modules.contest.views._banner'); ?>
-    <?php if (Yii::app()->user->isGuest): ?>
-        <?php $this->renderPartial('//_header_guest'); ?>
-    <?php  else: ?>
-        <?php $this->renderDynamic(array($this, 'renderPartial'), '//_menu', null, true); ?>
-    <?php endif; ?>
+    <div class="layout-header">
+
+        <header class="header header__redesign">
+            <?php $this->renderPartial('//_header'); ?>
+        </header>
+    </div>
+
     <div class="layout-loose_hold clearfix">
         <!-- b-main -->
         <div class="b-main clearfix">

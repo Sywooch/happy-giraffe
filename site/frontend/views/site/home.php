@@ -21,6 +21,12 @@ if ($openLogin == 'login') {
     $cs->registerAmd('openLogin', array('LoginForm' => 'signup/login-form'), 'LoginForm.viewModel.prototype.open();');
 }
 ?>
+<?php $this->beginClip('home'); ?>
+<div class="homepage-clubs_b">
+    <div class="homepage-clubs_btn-hold"><a class="homepage_btn-sign btn btn-xxl registration-button" data-bind="follow: {}">Начни общаться!</a></div>
+    <div class="homepage_desc-tx">узнавай новое, делись самым интересным </div>
+</div>
+<?php $this->endClip(); ?>
 <!DOCTYPE html>
 <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->

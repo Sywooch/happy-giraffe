@@ -15,8 +15,10 @@ class LitePager extends CLinkPager
 
     public $cssFile = false;
     public $header = '';
-    public $maxButtonCount;
-    public $showPrevNext = false;
+    public $maxButtonCount = 10;
+    public $showPrevNext = true;
+    public $prevPageLabel = '&nbsp;';
+    public $nextPageLabel = '&nbsp;';
 
     public function init()
     {

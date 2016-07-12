@@ -8,9 +8,11 @@ $templateData = CJSON::decode($data->getAttribute('template'));
 
 $type = $templateData['data']['type'];
 
+var_dump($type);
+
 switch ($type)
 {   
-    case 'photoPost':
+    case 'morning':
     case 'photopost':
     case 'videoPost':
         \Yii::app()->controller->renderPartial(

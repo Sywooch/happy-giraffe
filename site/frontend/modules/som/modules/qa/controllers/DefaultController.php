@@ -153,7 +153,10 @@ class DefaultController extends QaController
             }
         }
 
-        $this->render('form', array('model' => $question));
+        $this->render('form', array(
+            'model' => $question,
+            'categories' => QaCategory::model()->sorted()->with('tags')->findAll(),
+            ));
     }
 
     public function actionQuestionEditForm($questionId)

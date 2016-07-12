@@ -37,10 +37,6 @@
                             'labels' => [
                                 \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
                             ],
-                            'allUrl' => $this->createUrl('/posts/forums/club/index', [
-                                'club' => $this->club->slug,
-                                'feedTab' => \site\frontend\modules\posts\modules\forums\widgets\feed\FeedWidget::TAB_HOT,
-                            ]),
                         ]); $this->endCache(); } ?>
                     </div>
                 </div>

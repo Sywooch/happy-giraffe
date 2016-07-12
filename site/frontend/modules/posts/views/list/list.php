@@ -17,7 +17,7 @@ $this->adaptiveBreadcrumbs = true;
         <div class="section-empty section-empty__blog">
             <div class="section-empty_t">Что бы вы хотели добавить в свой блог</div>
             <ul class="section-empty_ul">
-                <li class="section-empty_li"><a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_POST, 'useAMD' => true)) ?>" data-theme="transparent" class="section-empty_i fancy">
+                <li class="section-empty_li"><a href="<?php echo $this->createUrl('/blogs/add-form'); ?>" data-theme="transparent" class="section-empty_i fancy">
                         <div class="section-empty_ico section-empty_ico__blog"></div>
                         <div class="section-empty_ico-tx">Запись</div></a></li>
             </ul>

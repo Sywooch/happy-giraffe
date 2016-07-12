@@ -19,7 +19,7 @@ if ($data->isHot) {
             </a>
         </div>
         <div class="b-froum-theme-info">
-            <a href="<?=$data->user->profileUrl?>" class="name"><?=$data->title?></a>
+            <a href="<?=$data->user->profileUrl?>" class="name"><?=$data->user->fullName?></a>
             <?=HHtml::timeTag($data, ['class' => 'time'], null)?>
             <span class="a-mark-wrapper">
                 <?php if ($data->isHot): ?><span class="a-mark a-mark_hot"></span><?php endif; ?>

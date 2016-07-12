@@ -1,6 +1,7 @@
 <?php
 /**
  * @var site\frontend\modules\som\modules\qa\models\QaQuestion $model
+ * @var site\frontend\modules\som\modules\qa\models\QaCategory[] $categories
  * @var site\frontend\components\requirejsHelpers\ActiveForm $form
  */
 Yii::app()->clientScript->registerAMD('qa-redactor', array('hgwswg' => 'care-wysiwyg'), 'var wysiwyg = new hgwswg($(".ask-widget textarea").get(0), {
@@ -52,7 +53,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                 <div class="inp-valid inp-valid__abs">
                     <div class="popup-widget_cont_list">
                         <?=
-                        $form->dropDownList($model, 'categoryId', CHtml::listData(\site\frontend\modules\som\modules\qa\models\QaCategory::model()->sorted()->findAll(), 'id', 'title'), array(
+                        $form->dropDownList($model, 'categoryId', CHtml::listData($categories, 'id', 'title'), array(
                             'class' => 'select-cus select-cus__search-off select-cus__gray',
                             'empty' => 'Выберите тему',
                         ))
@@ -250,7 +251,6 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 
         this.testDropBoxTok = function (obj) {
             return function() {};
-            
            /*  return function () {
                 if ($("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").val() == '') {
                     flagError = true;
@@ -265,7 +265,6 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
         }
         
         $("#question-form").submit(this.isFormValidTok(this));
-
     }
 
     $(document).ready(function () {

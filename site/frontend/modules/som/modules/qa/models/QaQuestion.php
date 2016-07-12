@@ -18,6 +18,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property bool $isRemoved
  * @property double $rating
  * @property int $answersCount
+ * @property int $tag_id
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaConsultation $consultation
@@ -47,8 +48,7 @@ class QaQuestion extends \HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			// array('title, text', 'required'),
-		    array('title', 'required'),
+			array('title, text', 'required'),
 			array('title', 'length', 'max' => 150),
 			array('text', 'length', 'max' => 1000),
 			array('sendNotifications', 'boolean'),
@@ -60,6 +60,15 @@ class QaQuestion extends \HActiveRecord
 			// консультация
 			array('consultationId', 'required', 'on' => 'consultation'),
 			array('consultationId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'on' => 'consultation'),
+
+            // с тегами
+            array('tag_id', 'required', 'on' => 'withTags'),
+            array('tag_id', 'exist', 'attributeName' => 'id', 'className' => get_class(QaTag::model()), 'criteria' => array(
+                'condition' => 'category_id = :category_id',
+                'params' => array(
+                    ':category_id' => $this->categoryId,
+                ),
+            ), 'on' => 'withTags'),
 		);
 	}
 
@@ -75,6 +84,8 @@ class QaQuestion extends \HActiveRecord
 			'category' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'),
 			'answers' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'),
 			'lastAnswer' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'),
+            'tag' => array(self::HAS_ONE, get_class(QaTag::model()), 'tag_id'),
+            'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
 		);
 	}
 
@@ -100,6 +111,7 @@ class QaQuestion extends \HActiveRecord
 			'dtimeCreate' => 'Dtime Create',
 			'dtimeUpdate' => 'Dtime Update',
 			'url' => 'Url',
+            'tag_id' => 'Тэг',
 		);
 	}
 

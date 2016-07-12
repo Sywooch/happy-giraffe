@@ -37,7 +37,7 @@ else
 
 $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
     'id'     => 'blog-form',
-    'action' => '/newblog/save',
+    'action' => '/newblog/save/',
     'enableAjaxValidation'   => true,
     'enableClientValidation' => true,
     'clientOptions' => [

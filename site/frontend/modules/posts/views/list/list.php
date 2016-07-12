@@ -20,15 +20,6 @@ $this->adaptiveBreadcrumbs = true;
                 <li class="section-empty_li"><a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_POST, 'useAMD' => true)) ?>" data-theme="transparent" class="section-empty_i fancy">
                         <div class="section-empty_ico section-empty_ico__blog"></div>
                         <div class="section-empty_ico-tx">Запись</div></a></li>
-                <li class="section-empty_li"><a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_PHOTO_POST, 'useAMD' => true)) ?>" data-theme="transparent" class="section-empty_i fancy">
-                        <div class="section-empty_ico section-empty_ico__photo"></div>
-                        <div class="section-empty_ico-tx">Фотопост</div></a></li>
-                <li class="section-empty_li"><a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_VIDEO, 'useAMD' => true)) ?>" data-theme="transparent" class="section-empty_i fancy">
-                        <div class="section-empty_ico section-empty_ico__video"></div>
-                        <div class="section-empty_ico-tx">Видео </div></a></li>
-                <li class="section-empty_li"><a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_STATUS, 'useAMD' => true)) ?>" data-theme="transparent" class="section-empty_i fancy">
-                        <div class="section-empty_ico section-empty_ico__status"></div>
-                        <div class="section-empty_ico-tx">Статус</div></a></li>
             </ul>
             <div class="section-empty_desc-hold">
                 <div class="section-empty_desc">

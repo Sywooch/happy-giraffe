@@ -53,14 +53,30 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                 <div class="inp-valid inp-valid__abs">
                     <div class="popup-widget_cont_list">
                         <?=
-                        $form->dropDownList($model, 'categoryId', CHtml::listData($categories, 'id', 'title'), array(
-                            'class' => 'select-cus select-cus__search-off select-cus__gray',
-                            'empty' => 'Выберите тему',
-                        ))
+                            $form->dropDownList($model, 'categoryId', CHtml::listData($categories, 'id', 'title'), array(
+                                'class' => 'select-cus select-cus__search-off select-cus__gray categories',
+                                'empty' => 'Выберите тему',
+                            ));
                         ?>
                     </div>
                     <div class="inp-valid_error" id="qThemeE" data-bind="validationMessage: qThemeE">Это обязательное поле</div>
                 </div>
+
+            <div class="inp-valid inp-valid__abs">
+                <div class="popup-widget_cont_list">
+                    <?php
+                    foreach ($categories as $category) {
+                        if (count($category->tags) > 0) {
+                            echo $form->dropDownList($model, 'tag_id', CHtml::listData($category->tags, 'id', 'name'), array(
+                                'class' => 'select-cus select-cus__search-off select-cus__gray tags ' . ($category->id == $model->categoryId ? ' ' : 'hidden'),
+                                'empty' => 'Выберите тэг',
+                                'id' => "tags{$category->id}",
+                            ));
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
             <?php endif; ?>
             <div class="redactor-control">
                 <div class="redactor-control_toolbar"></div>
@@ -265,6 +281,17 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
         }
         
         $("#question-form").submit(this.isFormValidTok(this));
+
+        $('.categories').change(function() {
+            var categoryId = $(this).val();
+            $('.tags').each(function(index) {
+                if (!$(this).hasClass('hidden')) {
+                    $(this).addClass('hidden');
+                }
+            });
+
+            $('#s2id_tags' + categoryId).removeClass('hidden');
+        });
     }
 
     $(document).ready(function () {

@@ -147,6 +147,12 @@ class DefaultController extends QaController
         if (isset($_POST[\CHtml::modelName($question)]))
         {
             $question->attributes = $_POST[\CHtml::modelName($question)];
+
+            if (count($question->category->tags) > 0) {
+                $question->tag_id = $_POST[\CHtml::modelName($question)]['tag_id'];
+                $question->setScenario('withTags');
+            }
+
             if ($question->save())
             {
                 $this->redirect($question->url);
@@ -177,13 +183,22 @@ class DefaultController extends QaController
         if (isset($_POST[\CHtml::modelName($question)]))
         {
             $question->attributes = $_POST[\CHtml::modelName($question)];
+
+            if (count($question->category->tags) > 0) {
+                $question->tag_id = $_POST[\CHtml::modelName($question)]['tag_id'];
+                $question->setScenario('withTags');
+            }
+
             if ($question->save())
             {
                 $this->redirect($question->url);
             }
         }
 
-        $this->render('form', array('model' => $question));
+        $this->render('form', array(
+            'model' => $question,
+            'categories' => QaCategory::model()->sorted()->with('tags')->findAll(),
+        ));
     }
 
     protected function getModel($pk)
@@ -200,7 +215,7 @@ class DefaultController extends QaController
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'question-form')
         {
-            echo \CActiveForm::validate($model);
+           echo \CActiveForm::validate($model);
             \Yii::app()->end();
         }
     }

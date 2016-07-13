@@ -63,12 +63,7 @@ class QaQuestion extends \HActiveRecord
 
             // с тегами
             array('tag_id', 'required', 'on' => 'withTags'),
-            array('tag_id', 'exist', 'attributeName' => 'id', 'className' => get_class(QaTag::model()), 'criteria' => array(
-                'condition' => 'category_id = :category_id',
-                'params' => array(
-                    ':category_id' => $this->categoryId,
-                ),
-            ), 'on' => 'withTags'),
+            array('tag_id', 'exist', 'attributeName' => 'id', 'className' => get_class(QaTag::model()), 'on' => 'withTags'),
 		);
 	}
 
@@ -84,7 +79,7 @@ class QaQuestion extends \HActiveRecord
 			'category' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'),
 			'answers' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'),
 			'lastAnswer' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'),
-            'tag' => array(self::HAS_ONE, get_class(QaTag::model()), 'tag_id'),
+            'tag' => array(self::BELONGS_TO, get_class(QaTag::model()), 'tag_id'),
             'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
 		);
 	}

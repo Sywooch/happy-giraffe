@@ -61,10 +61,17 @@ class QaQuestion extends \HActiveRecord
 			array('consultationId', 'required', 'on' => 'consultation'),
 			array('consultationId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'on' => 'consultation'),
 
-            // с тегами
-            array('tag_id', 'required', 'on' => 'withTags'),
-            array('tag_id', 'exist', 'attributeName' => 'id', 'className' => get_class(QaTag::model()), 'on' => 'withTags'),
+            // теги
+            array('tag_id', 'required', 'on' => 'tag'),
+			array('tag_id', 'tagValidator', 'on' => 'tag'),
 		);
+	}
+
+	public function tagValidator($attribute, $params)
+	{
+		if ($this->$attribute && !QaTag::model()->byCategory($this->categoryId)->findByPk($this->$attribute)) {
+			$this->addError($attribute, "Tag belongs to other category");
+		}
 	}
 
 	/**
@@ -218,7 +225,7 @@ class QaQuestion extends \HActiveRecord
 
 	public function canBeAnsweredBy($userId)
 	{
-		if (! $this->isFromConsultation()) {
+		if (!$this->isFromConsultation()) {
 			return $this->authorId != $userId;
 		} else {
 			return QaConsultant::model()->exists('userId = :userId AND consultationId = :consultationId', array(

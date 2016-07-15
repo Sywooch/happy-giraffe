@@ -32,6 +32,7 @@ class HotPostsWidget extends \CWidget
 
     protected function getPosts()
     {
+        /** @var Content $model */
         $model = Content::model()
             ->orderHotRate()
             ->with(['commentsCount', 'commentatorsCount'])
@@ -42,6 +43,8 @@ class HotPostsWidget extends \CWidget
         }
         return $model->findAll([
             'limit' => $this->limit,
+            'join' => 'JOIN post__tags pt ON pt.contentId = ' . $model->tableAlias . '.id JOIN post__labels pl ON pl.id = pt.labelId AND pl.text LIKE "Клуб:%"',
+            'group' => 'pl.id',
             'condition' => 'dtimePublication > :dtimeThreshold',
             'params' => [
                 'dtimeThreshold' => time() - $this->interval,

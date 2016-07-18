@@ -14,15 +14,17 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
     private $preview_photo;
 
     public function afterSave($event)
-    {
-        $entity = get_class($this->owner);
-        if ($entity == 'BlogContent')
-            $entity = 'CommunityContent';
-        $entity_id = $this->owner->id;
-
-        foreach($this->owner->processed_photos as $photo)
-            AttachPhoto::add($photo, $entity, $entity_id);
-
+    {   
+        if ($this->owner->isNewRecord)
+        {
+            $entity = get_class($this->owner);
+            if ($entity == 'BlogContent')
+                $entity = 'CommunityContent';
+            $entity_id = $this->owner->id;
+            
+            foreach($this->owner->processed_photos as $photo)
+                AttachPhoto::add($photo, $entity, $entity_id);
+        }
         parent::afterSave($event);
     }
 

@@ -28,7 +28,7 @@ class VotesManager
                 $success = $vote->delete();
                 $count = -1;
             }
-            if (! ($success && $vote->answer->saveCounters(array('votesCount' => $count)))) {
+            if (!($success && $vote->answer->saveCounters(array('votesCount' => $count)))) {
                 throw new \CException('Vote is not saved');
             }
             self::setIsBest($vote->answer);

@@ -17,6 +17,9 @@ namespace site\frontend\modules\som\modules\qa\models;
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion $question
+ * @property \User $author
+ * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
+ * @property \site\frontend\modules\som\modules\qa\models\QaAnswerVote[] $votes
  *
  * @property \site\frontend\components\api\models\User $user
  */
@@ -52,6 +55,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		// class name for the relations automatically generated below.
 		return array(
 			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'),
+			'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
+			'category' => array(self::HAS_ONE, get_class(QaCategory::model()), array('categoryId' => 'id'), 'through' => 'question'),
+			'votes' => array(self::HAS_MANY, get_class(QaAnswerVote::model()), 'answerId'),
 		);
 	}
 

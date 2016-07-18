@@ -59,6 +59,7 @@ return array(
         '<_v>/api/applications/<action:(default)>' => 'api/<_v>/api/applications',
         '<_v>/api/photo-post' => 'api/<_v>/api/photo-post',
         '<_v>/api/init' => 'api/<_v>/api/init',
+        '<_v>/api/answer/vote' => 'api/<_v>/api/vote',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

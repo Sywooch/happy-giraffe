@@ -66,7 +66,7 @@ class ConvertCommand extends \CConsoleCommand
         );
 
         // обеспечим уникальность задач
-        $client->do($fName, self::serialize($data), implode('-', $data));
+        $client->doBackground($fName, self::serialize($data), implode('-', $data));
         return true;
     }
 

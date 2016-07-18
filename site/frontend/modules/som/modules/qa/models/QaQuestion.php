@@ -25,6 +25,8 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $answers
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $lastAnswer
+ * @property \User $author
+ * @property \site\frontend\modules\som\modules\qa\models\QaTag $tag
  *
  * @property \site\frontend\components\api\models\User $user
  */

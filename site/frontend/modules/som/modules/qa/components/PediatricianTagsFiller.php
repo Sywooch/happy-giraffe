@@ -9,10 +9,10 @@ class PediatricianTagsFiller
 {
     private static $title = 'Мой педиатр';
     private static $tags = array(
-        '0-1',
-        '1-3',
-        '3-7',
-        '7-14',
+        'Дети до года',
+        'Дети старше года',
+        'Дошкольники',
+        'Школьники',
     );
 
     public static function run()

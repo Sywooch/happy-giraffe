@@ -43,6 +43,7 @@ class QaAnswerVote extends \CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'answer' => array(self::BELONGS_TO, '\site\frontend\modules\som\modules\qa\models\QaAnswer', 'answerId'),
+			'user' => array(self::BELONGS_TO, get_class(\User::model()), 'userId'),
 		);
 	}
 
@@ -76,9 +77,25 @@ class QaAnswerVote extends \CActiveRecord
 		return $this;
 	}
 
+	/**
+	 * @param int $userId
+	 *
+	 * @return QaAnswerVote
+	 */
 	public function user($userId)
 	{
 		$this->getDbCriteria()->compare($this->tableAlias . '.userId', $userId);
+		return $this;
+	}
+
+	/**
+	 * @param int $answerId
+	 *
+	 * @return QaAnswerVote
+	 */
+	public function byAnswer($answerId)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.answerId', $answerId);
 		return $this;
 	}
 

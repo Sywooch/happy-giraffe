@@ -7,6 +7,7 @@ $this->beginContent('//layouts/lite/common');
 
     <?php $this->renderPartial('application.modules.comments.modules.contest.views._banner'); ?>
     <div class="layout-header">
+
         <header class="header header__redesign">
             <?php $this->renderPartial('//_header'); ?>
         </header>

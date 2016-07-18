@@ -14,7 +14,7 @@ class SubscriptionBehavior extends \CActiveRecordBehavior
 {
     public function afterSave()
     {
-        \site\frontend\modules\posts\modules\myGiraffe\components\FeedManager::updateForUser($this->owner->user_id);
+        // \site\frontend\modules\posts\modules\myGiraffe\components\FeedManager::updateForUser($this->owner->user_id);
     }
 
     public function afterDelete()

@@ -7,9 +7,6 @@
 
 <div class="b-widget-wrapper b-widget-wrapper_theme">
     <div class="b-widget-header">
-        <?php if ($this->allUrl): ?>
-            <a href="<?=$this->allUrl?>" class="b-widget-header__btn">Все</a>
-        <?php endif; ?>
         <div class="div b-widget-header__title b-widget-header__title_hot">Горячие темы</div>
     </div>
     <div class="b-widget-content">

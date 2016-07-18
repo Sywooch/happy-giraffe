@@ -128,16 +128,6 @@ class CommunityPost extends HActiveRecord
         );
     }
 
-    protected function afterSave()
-    {
-        if ($this->isNewRecord) {
-            $this->content->uniqueness = CopyScape::getUniquenessByText($this->text);
-            $this->content->update(array('uniqueness'));
-        }
-
-        parent::afterSave();
-    }
-
     protected function afterFind()
     {
         if (isset(Yii::app()->controller->route) && Yii::app()->controller->route == 'community/edit')

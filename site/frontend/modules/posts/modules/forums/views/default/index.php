@@ -31,11 +31,11 @@ $breadcrumbs = [
     <section class="b-top-blocks">
         <ul class="list">
             <li class="item sidebar-widget_item b-widget-wrapper_bordergrunt b-widget-wrapper_outline">
-                <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
+                <?php if ($this->beginCache('HotPostsWidget', array('duration' => 300))) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
                     'labels' => [
                         \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
                     ],
-                ]); ?>
+                ]); $this->endCache(); } ?>
             </li>
             <li class="item conversion b-widget-wrapper_border">
                 <div class="item__img item__img_margin"></div>
@@ -45,11 +45,11 @@ $breadcrumbs = [
                 <?php endif; ?>
             </li>
             <li class="item statistik sidebar-widget_item">
-                <?php $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget', [
+                <?php if ($this->beginCache('UsersTopWidget', array('duration' => 300))) { $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget', [
                     'labels' => [
                         \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
                     ],
-                ]); ?>
+                ]); $this->endCache(); } ?>
             </li>
         </ul>
     </section>
@@ -57,8 +57,8 @@ $breadcrumbs = [
         <div class="homepage__title_comment">Форумы</div>
     </div>
     <?php $this->renderPartial('//site/_home_clubs'); ?>
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); ?>
-    <?php $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); ?>
+    <?php if ($this->beginCache('LastPostWidget', array('duration' => 300))) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); $this->endCache(); } ?>
+    <?php if ($this->beginCache('OnlineUsersWidget', array('duration' => 300))) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); $this->endCache(); } ?>
     <div class="text-center visible-md">
         <a href="<?=Yii::app()->controller->createUrl('/friends/search/index')?>" class="w-240 btn btn-xl green-btn fontweight-b registration-button" data-bind="follow: {}">Найти друзей</a>
     </div>

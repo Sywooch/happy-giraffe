@@ -64,8 +64,9 @@ class ConvertCommand extends \CConsoleCommand
             'entity' => $entity,
             'entityId' => $id,
         );
+
         // обеспечим уникальность задач
-        $client->doBackground($fName, self::serialize($data), implode('-', $data));
+        $client->do($fName, self::serialize($data), implode('-', $data));
         return true;
     }
 

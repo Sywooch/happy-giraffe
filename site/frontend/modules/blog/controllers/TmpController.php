@@ -98,8 +98,10 @@ class TmpController extends HController
         }
 
         $club_id = null;
-
-        $this->render('index', compact('model', 'slaveModel', 'json', 'club_id'));
+        
+        $isBlogPost = $model->getIsFromBlog(); 
+        
+        $this->render('index', compact('model', 'slaveModel', 'json', 'club_id', 'isBlogPost'));
     }
 
     public function actionFavourites($entity, $entityId)

@@ -11,6 +11,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $answer
+ * @property \User $user
  */
 class QaAnswerVote extends \CActiveRecord
 {
@@ -65,6 +66,9 @@ class QaAnswerVote extends \CActiveRecord
 			'HTimestampBehavior' => array(
 				'class' => 'HTimestampBehavior',
 				'createAttribute' => 'dtimeCreate',
+			),
+			'VoteNotificationBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\VoteNotificationBehavior',
 			),
 		);
 	}

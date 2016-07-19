@@ -1,7 +1,6 @@
 <?php
 
 namespace site\frontend\modules\som\modules\qa\behaviors;
-use site\frontend\modules\analytics\models\PageView;
 use site\frontend\modules\notifications\behaviors\BaseBehavior;
 use site\frontend\modules\notifications\models\Entity;
 use site\frontend\modules\notifications\models\Notification;

@@ -16,7 +16,11 @@ class VotesManager
 
     public static function changeVote($userId, $answerId)
     {
-        $vote = QaAnswerVote::model()->findByPk(compact('userId', 'answerId'));
+        $vote = QaAnswerVote::model()
+            ->byAnswer($answerId)
+            ->user($userId)
+            ->find();
+
         $transaction = \Yii::app()->db->beginTransaction();
         try {
             if ($vote === null) {

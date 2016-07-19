@@ -5,6 +5,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * This is the model class for table "qa__answers_votes".
  *
  * The followings are the available columns in table 'qa__answers_votes':
+ * @property int $id
  * @property int $answerId
  * @property int $userId
  * @property int $dtimeCreate
@@ -69,6 +70,9 @@ class QaAnswerVote extends \CActiveRecord
 			),
 			'VoteNotificationBehavior' => array(
 				'class' => 'site\frontend\modules\som\modules\qa\behaviors\VoteNotificationBehavior',
+			),
+			'RatingBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
 			),
 		);
 	}

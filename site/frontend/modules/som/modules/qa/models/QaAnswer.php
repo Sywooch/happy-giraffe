@@ -115,6 +115,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'notificationBehavior' => array(
 				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
 			),
+			'RatingBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
+			),
 		);
 	}
 

@@ -60,6 +60,7 @@ return array(
         '<_v>/api/photo-post' => 'api/<_v>/api/photo-post',
         '<_v>/api/init' => 'api/<_v>/api/init',
         '<_v>/api/answer/vote' => 'api/<_v>/api/vote',
+        '<_v>/api/user/rating' => 'api/<_v>/api/rating',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 
@@ -82,6 +83,7 @@ return array(
         'api/qa/<_a>' => 'som/qa/api/<_a>',
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
+
 
         /* QA */
 
@@ -141,16 +143,6 @@ return array(
         'buzz' => 'posts/buzz/list/index',
 
         'forums' => 'posts/forums/default/index',
-
-        // @todo Sergey Gubarev: только для теста comet
-        // 'blogs/comet'         => 'posts/blogs/default/test',
-        
-        'blogs/add-form' => 'posts/blogs/default/AddForm',
-        'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',
-        'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
-        'blogs'              => 'posts/blogs/default/index',
-        
-        'forums/rubric<rubricId:\d+>' => 'posts/forums/default/rubric',
         'forums/rubric<rubricId:\d+>' => 'posts/forums/club/rubric',
 
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),

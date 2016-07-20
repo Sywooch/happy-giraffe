@@ -40,6 +40,7 @@ if (! empty($parser->images))
             		?>
             	</div>
           	</div>
+          	
           	<div class="float-l position-rel">
           	
                 <?php 

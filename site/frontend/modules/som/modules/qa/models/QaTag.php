@@ -81,4 +81,15 @@ class QaTag extends \CActiveRecord
         $this->getDbCriteria()->compare($this->tableAlias . '.category_id', $categoryId);
         return $this;
     }
+
+    /**
+     * @param string $name
+     *
+     * @return QaTag
+     */
+    public function byName($name)
+    {
+        $this->getDbCriteria()->compare($this->tableAlias . '.name', $name);
+        return $this;
+    }
 }

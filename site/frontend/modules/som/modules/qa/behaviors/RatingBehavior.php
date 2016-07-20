@@ -90,7 +90,7 @@ class RatingBehavior extends \CActiveRecordBehavior
             if ($this->owner instanceof QaAnswer) {
                 $this->userId = $this->owner->authorId;
             } else if ($this->owner instanceof QaAnswerVote) {
-                $this->userId = $this->owner->userId;
+                $this->userId = $this->owner->answer->authorId;
             }
         }
 
@@ -131,6 +131,7 @@ class RatingBehavior extends \CActiveRecordBehavior
             $this->fieldName = 'answers_count';
         } else if ($this->owner instanceof QaAnswerVote) {
             $this->categoryId = $this->owner->answer->question->categoryId;
+            $this->userId = $this->owner->answer->authorId;
             $this->fieldName = 'votes_count';
         }
     }

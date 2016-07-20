@@ -60,7 +60,7 @@ return array(
         '<_v>/api/photo-post' => 'api/<_v>/api/photo-post',
         '<_v>/api/init' => 'api/<_v>/api/init',
         '<_v>/api/answer/vote' => 'api/<_v>/api/vote',
-        '<_v>/api/user/rating' => 'api/<_v>/api/rating',
+        '<_v>/api/users/rating' => 'api/<_v>/api/rating',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

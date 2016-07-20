@@ -35,9 +35,11 @@ else
 
 <?php
 
+$action = $model->isNewRecord ? array('/blog/default/save') : array('/blog/default/save', 'id' => $model->id);
+
 $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
     'id'     => 'blog-form',
-    'action' => '/newblog/save/',
+    'action' => $action,
     'enableAjaxValidation'   => true,
     'enableClientValidation' => true,
     'clientOptions' => [

@@ -12,8 +12,11 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
             <div class="float-l">
                 <?php $this->widget('site\frontend\modules\posts\widgets\author\AuthorWidget', array('post' => $data)); ?>
             </div>
-            <div class="icons-meta"><a href="<?=$data->commentsUrl?>" class="icons-meta_comment"><span class="icons-meta_tx"><?=$comments->count?></span></a>
-                <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></span></div>
+            <div class="icons-meta">
+                <div class="c-list_item_btn">
+                    <span class="c-list_item_btn__view"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></span>
+                    <a href="<?=$data->commentsUrl?>" class="c-list_item_btn__comment"><?=$comments->count?></a>
+                </div>
             </div>
         </div>
         <?php if (!$data->templateObject->getAttr('hideTitle', false)) { ?>

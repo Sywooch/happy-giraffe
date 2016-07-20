@@ -36,6 +36,11 @@ class PediatricianTagsFiller
         $transaction = \Yii::app()->db->beginTransaction();
         try {
             foreach (self::$tags as $tag) {
+                if (QaTag::model()->byCategory($category->id)->byName($tag)->find()) {
+                    echo "Tag with name' {$tag}'' already exist.\n";
+                    continue;
+                }
+
                 $model = new QaTag();
                 $model->category_id = $category->id;
                 $model->name = $tag;

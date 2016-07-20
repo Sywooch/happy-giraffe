@@ -47,8 +47,16 @@ $this->pageTitle = $model->isNewRecord ? 'Добавление записи' : '
         </div>
 
         <?php
-
-        $this->renderPartial('/default/form', compact('model', 'slaveModel', 'json', 'club_id'));
+        
+        if ($isBlogPost)
+        {
+            $this->renderPartial('site.frontend.modules.posts.modules.blogs.views.default.addForm', compact('model', 'slaveModel', 'json'));
+        }
+        else
+        {
+            $this->renderPartial('/default/form', compact('model', 'slaveModel', 'json', 'club_id'));
+        }
+        
         ?>
     </div>
 

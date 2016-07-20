@@ -11,9 +11,9 @@ $this->beginContent('//layouts/lite/community');
             <?php if ($this->club): ?>
                 <div class="clearfix margin-b20">
                     <?php if (Yii::app()->user->isGuest): ?>
-                        <a class="btn btn-block btn-success btn-xl w-240 login-button" data-bind="follow: {}">Добавить тему</a>
+                        <a class="btn btn-block btn-success btn-xl login-button" data-bind="follow: {}">Добавить тему</a>
                     <?php else: ?>
-                        <a class="btn btn-block btn-success btn-xl w-240 fancy-top" href="<?=$this->createUrl('/blog/default/form', [
+                        <a class="btn btn-block btn-success btn-xl fancy-top" href="<?=$this->createUrl('/blog/default/form', [
                             'type' => CommunityContent::TYPE_POST,
                             'club_id' => $this->club->id,
                             'useAMD' => true,

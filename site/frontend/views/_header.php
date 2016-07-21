@@ -80,7 +80,7 @@ if (! Yii::app()->user->isGuest) {
             <div class="modal-search-block__panel">
                 <input type="hidden" name="searchid" value="1883818">
                 <input type="hidden" name="web" value="0">
-                <input type="text" name="text" placeholder="Поиск" class="modal-search-block__input">
+                <input type="text" name="text" placeholder="Поиск" autocomplete="off" class="modal-search-block__input">
                 <button class="modal-search-block__btn"></button>
             </div>
         </form>

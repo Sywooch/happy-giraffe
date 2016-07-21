@@ -6,7 +6,6 @@
 
 namespace site\frontend\modules\posts\widgets\author;
 
-
 class AuthorWidget extends \CWidget
 {
     public $post;
@@ -20,7 +19,10 @@ class AuthorWidget extends \CWidget
                 $this->render('_user', array('user' => $this->post->user));
                 break;
             case 'club':
-                $this->render('_club', $this->post->templateObject->getAttr('clubData'));
+                $this->render('_club', [
+                    'post'   => $this->post,
+                    'clubId' => $this->post->templateObject->getAttr(clubData)['id']
+                ]);
                 break;
         }
     }

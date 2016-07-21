@@ -19,10 +19,13 @@ class AuthorWidget extends \CWidget
                 $this->render('_user', array('user' => $this->post->user));
                 break;
             case 'club':
-                $this->render('_club', [
-                    'post'   => $this->post,
-                    'clubId' => $this->post->templateObject->getAttr(clubData)['id']
-                ]);
+                $post = $this->post;
+                
+                $clubData = $post->templateObject->getAttr('clubData');
+                
+                $clubId = $clubData['id'];
+                
+                $this->render('_club', compact('post', 'clubId'));
                 break;
         }
     }

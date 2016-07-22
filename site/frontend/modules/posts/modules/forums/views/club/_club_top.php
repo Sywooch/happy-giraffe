@@ -8,6 +8,16 @@ $breadcrumbs = [
     'Форумы' => ['/posts/forums/default/index'],
     $club->title,
 ];
+
+$sectionClasses = [
+    1 => 'b-top-block-forum_blue',
+    2 => 'b-top-block-forum_orange',
+    3 => 'b-top-block-forum_yellow',
+    4 => 'b-top-block-forum_antiquewhite',
+    5 => 'b-top-block-forum_green',
+    6 => 'b-top-block-forum_deeppink',
+];
+
 ?>
 
 <div class="b-top-block-forum <?=$sectionClasses[$club->section_id]?>">

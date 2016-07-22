@@ -10,7 +10,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
 <article class="b-article hrecipe clearfix" id="recipe">
     <?php /* $this->renderPartial('_recipe_parts/_controls', array('recipe' => $recipe)); */ ?>
     <!-- hrecipe -->
-    <div class="b-article_cont hrecipe clearfix">
+    <div class="b-article_cont clearfix">
         <div class="b-article_cont clearfix">
             <div class="b-article_header clearfix">
                 <div class="b-article_header clearfix">
@@ -20,7 +20,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                             <span class="ico-status ico-status__online"></span>
                             <img alt="" src="<?= $recipe->author->getAvatarUrl(72); ?>" class="ava_img">
                         </a>
-                        <a href="#" class="b-article_author"><?= $recipe->author->getFullName() ?></a>
+                        <a href="#" class="b-article_author author"><?= $recipe->author->getFullName() ?></a>
                         <?= HHtml::timeTag($recipe, array('class' => 'tx-date'), ''); ?>
                     </div>
                     <div class="icons-meta"><a href="#commentsList" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
@@ -39,7 +39,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <div class="wysiwyg-content clearfix">
                     <?php if ($recipe->mainPhoto !== null): ?>
                         <div class="b-article_in-img">
-                            <?= CHtml::image($recipe->mainPhoto->getPreviewUrl(580, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'content-img')) ?>
+                            <?= CHtml::image($recipe->mainPhoto->getPreviewUrl(580, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'content-img photo')) ?>
                         </div>
                     <?php else: ?>
                         <br>
@@ -60,15 +60,16 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                 <?php if ($recipe->preparation_duration): ?>
                                     <div class="recipe-desc_i">
                                         <div class="recipe-desc_ico recipe-desc_ico__time-1 powertip" title="Время подготовки"></div>
-                                        <?= $recipe->preparation_duration_h ?> : <?= $recipe->preparation_duration_m ?>
+                                        <span class="prepTime"><span class="value-title" title="<?=HDate::timeToInterval($recipe->preparation_duration * 60)?>"></span><?= $recipe->preparation_duration_h ?> : <?= $recipe->preparation_duration_m ?></span>
                                     </div>
                                 <?php endif; ?>
                                 <?php if ($recipe->cooking_duration): ?>
                                     <div class="recipe-desc_i">
                                         <div class="recipe-desc_ico recipe-desc_ico__time-2 powertip" title="Время приготовления"></div>
-                                        <?= $recipe->cooking_duration_h ?> : <?= $recipe->cooking_duration_m ?>
+                                        <span class="cookTime"><span class="value-title" title="<?=HDate::timeToInterval($recipe->cooking_duration * 60)?>"></span><?= $recipe->cooking_duration_h ?> : <?= $recipe->cooking_duration_m ?></span>
                                     </div>
                                 <?php endif; ?>
+                                <span class="duration"><span class="value-title" title="<?=HDate::timeToInterval(($recipe->preparation_duration + $recipe->cooking_duration) * 60)?>"></span></span>
                             </div>
                         <?php endif; ?>
                         <?php if ($recipe->servings): ?>
@@ -224,16 +225,6 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     <?php endif; ?>
                 </div>
             </div>
-
-            <div class="custom-likes">
-                <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
-                <div class="custom-likes_in">
-                    <share-buttons params="url: '<?=$recipe->getUrl(false, true)?>'"></share-buttons>
-                </div>
-            </div>
-
-            <!-- Реклама яндекса-->
-            <?php $this->renderPartial('//banners/_post_footer'); ?>
         </div>
     </div>
 

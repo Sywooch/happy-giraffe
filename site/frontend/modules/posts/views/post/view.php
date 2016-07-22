@@ -14,3 +14,7 @@ $this->breadcrumbs = array(
 <?php
 $this->renderPartial('site.frontend.modules.posts.views.post._view');
 ?>
+
+<?php
+$this->widget('site\frontend\modules\posts\widgets\articleSchema\ArticleSchemaWidget', ['post' => $this->post]);
+?>

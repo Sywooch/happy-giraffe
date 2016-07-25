@@ -17,6 +17,7 @@ $sectionClasses = [
     5 => 'b-top-block-forum_green',
     6 => 'b-top-block-forum_deeppink',
 ];
+
 ?>
 
 <div class="b-top-block-forum <?=$sectionClasses[$club->section_id]?>">

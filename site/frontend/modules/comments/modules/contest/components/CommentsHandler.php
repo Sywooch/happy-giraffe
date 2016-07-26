@@ -64,6 +64,7 @@ class CommentsHandler
         if ($contestComment === null) {
             return;
         }
+
         $newCounts = self::counts($comment->text);
         $result = -intval($contestComment->counts) + intval($newCounts);
         $contestComment->counts = $newCounts;
@@ -77,6 +78,7 @@ class CommentsHandler
         if ($contestComment === null) {
             return;
         }
+
         $counts = self::counts($comment->text);
         $contestComment->counts = 0;
         $contestComment->update(array('counts'));
@@ -91,8 +93,10 @@ class CommentsHandler
         if ($contestComment === null) {
             return;
         }
+
         $counts = self::counts($comment->text);
         $contestComment->counts = $counts;
+
         if ($counts) {
             $participant->score += 1;
         }
@@ -114,6 +118,12 @@ class CommentsHandler
 
     protected static function counts($text)
     {
-        return mb_strlen(strip_tags($text), 'UTF-8') >= self::MIN_LENGTH;
+        $counts =  mb_strlen(strip_tags($text), 'UTF-8') >= self::MIN_LENGTH;
+
+        if (\Yii::app()->params['is_api_request']) {
+            $counts *= 2;
+        }
+
+        return $counts;
     }
 }

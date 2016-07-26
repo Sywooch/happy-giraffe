@@ -1752,4 +1752,43 @@ class SeoTempCommand extends CConsoleCommand
         }
         return $emails;
     }
-} 
+
+    public function actionCheckAlt($label)
+    {
+        Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        \Yii::app()->db->enableSlave = false;
+        
+
+        $count = \site\frontend\modules\posts\models\Content::model()->byLabels([$label])->count();
+        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model()->byLabels([$label]));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $n => $i) {
+            if ($n % 1000 == 0) {
+                echo $n . "/" . $count . "\n";
+            }
+
+            if (strpos($i->html, 'user-status') !== false) {
+                continue;
+            }
+
+            $doc = str_get_html($i->html);
+            $imgs = $doc->find('img');
+            $needFix = false;
+            foreach ($imgs as $img) {
+                if ($img->alt === false) {
+                    $needFix = true;
+                    echo $i->url . "\n";
+                    break;
+                }
+            }
+
+            if ($needFix && strpos($i->title, '"') !== false) {
+                $content = CommunityContent::model()->findByPk($i->originEntityId);
+                if ($content->type_id == 1) {
+                    $content->withRelated->save(true, ['post']);
+                }
+            }
+        }
+    }
+}
+

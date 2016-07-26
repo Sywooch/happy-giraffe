@@ -21,6 +21,7 @@ class CommentsHandler
 
     public static function handle($commentId, $event)
     {
+        throw new \Exception('Deprecated');
         $comment = Comment::model()->resetScope()->findByPk($commentId);
         $participant = self::getParticipant($comment);
         if ($participant === null) {
@@ -45,6 +46,7 @@ class CommentsHandler
 
     public static function added(Comment $comment, CommentatorsContestParticipant $participant)
     {
+        throw new \Exception('Deprecated');
         $counts = self::counts($comment->text);
 
         $contestComment = new CommentatorsContestComment();
@@ -60,6 +62,7 @@ class CommentsHandler
 
     public static function updated(Comment $comment, CommentatorsContestParticipant $participant)
     {
+        throw new \Exception('Deprecated');
         $contestComment = self::getContestComment($comment, $participant);
         if ($contestComment === null) {
             return;
@@ -74,6 +77,7 @@ class CommentsHandler
 
     public static function removed(Comment $comment, CommentatorsContestParticipant $participant)
     {
+        throw new \Exception('Deprecated');
         $contestComment = self::getContestComment($comment, $participant);
         if ($contestComment === null) {
             return;
@@ -89,6 +93,7 @@ class CommentsHandler
 
     public static function restored(Comment $comment, CommentatorsContestParticipant $participant)
     {
+        throw new \Exception('Deprecated');
         $contestComment = self::getContestComment($comment, $participant);
         if ($contestComment === null) {
             return;
@@ -104,6 +109,7 @@ class CommentsHandler
 
     protected static function getContestComment(Comment $comment, CommentatorsContestParticipant $participant)
     {
+        throw new \Exception('Deprecated');
         return CommentatorsContestComment::model()->findByPk(array(
             'commentId' => $comment->id,
             'participantId' => $participant->id,
@@ -112,12 +118,14 @@ class CommentsHandler
 
     protected static function getParticipant(Comment $comment)
     {
+        throw new \Exception('Deprecated');
         $contest = CommentatorsContest::model()->active()->find();
         return CommentatorsContestParticipant::model()->contest($contest->id)->user($comment->author_id)->find();
     }
 
     protected static function counts($text)
     {
+        throw new \Exception('Deprecated');
         $counts =  mb_strlen(strip_tags($text), 'UTF-8') >= self::MIN_LENGTH;
 
         if (\Yii::app()->params['is_api_request']) {

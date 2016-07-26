@@ -133,27 +133,36 @@ class DefaultController extends QaController
 
         $question = new QaQuestion();
         $this->performAjaxValidation($question);
-        if ($consultationId !== null)
-        {
+        if ($consultationId !== null) {
             $consultation = QaConsultation::model()->findByPk($consultationId);
-            if ($consultation === null)
-            {
+            if ($consultation === null) {
                 throw new \CHttpException(404);
             }
             $question->consultationId = $consultationId;
             $question->scenario = 'consultation';
         }
 
-        if (isset($_POST[\CHtml::modelName($question)]))
-        {
-            $question->attributes = $_POST[\CHtml::modelName($question)];
-            if ($question->save())
-            {
+        if (isset($_POST[\CHtml::modelName($question)])) {
+            $params = $_POST[\CHtml::modelName($question)];
+
+            $question->attributes = $params;
+
+            if ($question->category && count($question->category->tags) > 0) {
+                $question->setScenario('tag');
+                $question->tag_id = isset($params['tag_id']) ? $params['tag_id'] : null;
+            } else {
+                $question->tag_id = null;
+            }
+
+            if ($question->save()) {
                 $this->redirect($question->url);
             }
         }
 
-        $this->render('form', array('model' => $question));
+        $this->render('form', array(
+            'model' => $question,
+            'categories' => QaCategory::model()->sorted()->with('tags')->findAll(),
+            ));
     }
 
     public function actionQuestionEditForm($questionId)
@@ -162,32 +171,46 @@ class DefaultController extends QaController
 
         $question = $this->getModel($questionId);
         $this->performAjaxValidation($question);
-        if ($question->consultationId !== null)
-        {
+        if ($question->consultationId !== null)  {
             $question->scenario = 'consultation';
         }
-        if ($question->authorId != \Yii::app()->user->id)
-        {
+        if ($question->authorId != \Yii::app()->user->id)  {
             throw new \CHttpException(404);
         }
 
-        if (isset($_POST[\CHtml::modelName($question)]))
-        {
-            $question->attributes = $_POST[\CHtml::modelName($question)];
-            if ($question->save())
-            {
+        if (isset($_POST[\CHtml::modelName($question)])) {
+            $params = $_POST[\CHtml::modelName($question)];
+
+            $question->attributes = $params;
+            $category = QaCategory::model()->with('tags')->findByPk($question->categoryId);
+
+            if ($category && count($category->tags) > 0) {
+                $question->setScenario('tag');
+                $question->tag_id = isset($params['tag_id']) ? $params['tag_id'] : null;
+            } else {
+                $question->tag_id = null;
+            }
+
+            if ($question->save()) {
                 $this->redirect($question->url);
             }
         }
 
-        $this->render('form', array('model' => $question));
+        $this->render('form', array(
+            'model' => $question,
+            'categories' => QaCategory::model()->sorted()->with('tags')->findAll(),
+        ));
     }
 
+    /**
+     * @param integer $pk
+     * @throws \CHttpException
+     * @return QaQuestion
+     */
     protected function getModel($pk)
     {
         $question = QaQuestion::model()->with('category')->findByPk($pk);
-        if ($question === null)
-        {
+        if ($question === null) {
             throw new \CHttpException(404);
         }
         return $question;
@@ -195,9 +218,8 @@ class DefaultController extends QaController
 
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'question-form')
-        {
-            echo \CActiveForm::validate($model);
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'question-form') {
+           echo \CActiveForm::validate($model);
             \Yii::app()->end();
         }
     }

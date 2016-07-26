@@ -1753,14 +1753,14 @@ class SeoTempCommand extends CConsoleCommand
         return $emails;
     }
 
-    public function actionCheckAlt($label)
+    public function actionCheckAlt()
     {
         Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         \Yii::app()->db->enableSlave = false;
         
 
-        $count = \site\frontend\modules\posts\models\Content::model()->byLabels([$label])->count();
-        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model()->byLabels([$label]));
+        $count = \site\frontend\modules\posts\models\Content::model()->byLabels([\site\frontend\modules\posts\models\Label::LABEL_BLOG])->count();
+        $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model()->byLabels([\site\frontend\modules\posts\models\Label::LABEL_BLOG]));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $n => $i) {
             if ($n % 1000 == 0) {

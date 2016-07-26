@@ -72,7 +72,7 @@ $breadcrumbs = [
                         
                 	<?php else: ?>
                 	
-                    	<a href="/blogs/add-form" class="btn bnt-massive green fancy">Добавить в блог</a>
+                    	<a href="/blogs/add-form" class="btn bnt-massive green fancy is-need-loading">Добавить в блог</a>
                 	
                 	<?php endif; ?>
                   

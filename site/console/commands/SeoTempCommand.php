@@ -1757,7 +1757,6 @@ class SeoTempCommand extends CConsoleCommand
     {
         Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         \Yii::app()->db->enableSlave = false;
-        
 
         $count = \site\frontend\modules\posts\models\Content::model()->byLabels([\site\frontend\modules\posts\models\Label::LABEL_BLOG])->count();
         $dp = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model()->byLabels([\site\frontend\modules\posts\models\Label::LABEL_BLOG]));

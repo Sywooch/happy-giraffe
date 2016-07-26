@@ -1755,7 +1755,7 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionCheckAlt()
     {
-        Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
         \Yii::app()->db->enableSlave = false;
 
         $count = \site\frontend\modules\posts\models\Content::model()->byLabels([\site\frontend\modules\posts\models\Label::LABEL_BLOG])->count();

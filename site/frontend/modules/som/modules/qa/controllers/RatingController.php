@@ -6,7 +6,6 @@
 
 namespace site\frontend\modules\som\modules\qa\controllers;
 
-
 use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\models\QaUserRating;
 

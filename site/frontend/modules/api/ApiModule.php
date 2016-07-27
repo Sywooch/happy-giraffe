@@ -5,9 +5,9 @@ namespace site\frontend\modules\api;
 class ApiModule extends \CWebModule
 {
     /**current api version for take latest behavior in outer code*/
-    const CURRENT = 'v2';
-    const CACHE_DELETE = '\site\frontend\modules\api\modules\v2\behaviors\CacheDeleteBehavior';
-    const PUSH_STREAM = '\site\frontend\modules\api\modules\v2\behaviors\PushBehavior';
+    const CURRENT = 'v2_1';
+    const CACHE_DELETE = '\site\frontend\modules\api\modules\v2_1\behaviors\CacheDeleteBehavior';
+    const PUSH_STREAM = '\site\frontend\modules\api\modules\v2_1\behaviors\PushBehavior';
 
     public function init()
     {
@@ -51,6 +51,10 @@ class ApiModule extends \CWebModule
             'v2' => array (
                 'class' => 'site\frontend\modules\api\modules\v2\ApiVersionModule',
                 'controllerNamespace' => 'site\frontend\modules\api\modules\v2\controllers',
+            ),
+            'v2_1' => array (
+                'class' => 'site\frontend\modules\api\modules\v2_1\ApiVersionModule',
+                'controllerNamespace' => 'site\frontend\modules\api\modules\v2_1\controllers',
             ),
         ));
     }

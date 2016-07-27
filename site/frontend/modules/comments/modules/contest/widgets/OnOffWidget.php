@@ -16,13 +16,12 @@ class OnOffWidget extends \CWidget
 
     public function run()
     {
-        echo '';
-        //$this->render('OnOffWidget');
+        return '';
+        $this->render('OnOffWidget');
     }
 
     public function getIsActive()
     {
-        return true;
         if ($this->model->communityContent)
         {
 

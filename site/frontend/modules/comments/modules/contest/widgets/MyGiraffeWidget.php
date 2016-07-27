@@ -12,6 +12,7 @@ class MyGiraffeWidget extends \CWidget
 {
     public function run()
     {
+        return '';
         if (\UserAttributes::get(\Yii::app()->user->id, $this->getAttributeKey(), 0) == 1) {
             return;
         }

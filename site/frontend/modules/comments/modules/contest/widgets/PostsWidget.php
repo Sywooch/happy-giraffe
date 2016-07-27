@@ -18,6 +18,7 @@ class PostsWidget extends \CWidget
 
     public function init()
     {
+        return '';
         $favourites = \Favourites::model()->block(\Favourites::BLOCK_COMMENTATORS_CONTEST)->orderDesc()->findAll();
         $ids = array_map(function($f)
         {
@@ -40,6 +41,7 @@ class PostsWidget extends \CWidget
 
     public function run()
     {
+        return '';
         foreach ($this->models as $model)
         {
             $this->render('site.frontend.modules.posts.views.list._view', array('data' => $model));

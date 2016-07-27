@@ -18,7 +18,6 @@ class NotificationBehavior extends BaseBehavior
 
     public function afterSave($event)
     {
-
         /** @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question */
         $question = $this->owner->question;
         if ($this->owner->isNewRecord && $question->sendNotifications) {
@@ -26,6 +25,9 @@ class NotificationBehavior extends BaseBehavior
         }
 
         if ($this->owner->isRemoved == 1) {
+            /**
+             * @var Notification[] $signals
+             */
             $signals = Notification::model()->byEntity($question)->findAll();
 
             foreach ($signals as &$signal) {

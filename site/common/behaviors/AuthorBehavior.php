@@ -14,7 +14,7 @@ class AuthorBehavior extends \CActiveRecordBehavior
 
     public function beforeValidate($event)
     {
-        if (! $this->owner->hasAttribute($this->attr)) {
+        if (!$this->owner->hasAttribute($this->attr)) {
             throw new \CException('Attribute is invalid');
         }
 
@@ -36,7 +36,7 @@ class AuthorBehavior extends \CActiveRecordBehavior
      */
     protected function addAuthorRelation($owner)
     {
-        if (! $owner->getMetaData()->hasRelation('author')) {
+        if (!$owner->getMetaData()->hasRelation('author')) {
             $owner->getMetaData()->addRelation('author', array(
                 \CActiveRecord::BELONGS_TO,
                 '\User',

@@ -88,7 +88,7 @@ class DefaultController extends \LiteController
     protected function loadContest($contestId)
     {
         $this->contest = CommentatorsContest::model()->findByPk($contestId);
-        $this->isParticipant = ! \Yii::app()->user->isGuest && $this->contest->isRegistered(\Yii::app()->user->id);
+        $this->isParticipant = ! \Yii::app()->user->isGuest && $this->contest->isParticipant(\Yii::app()->user->id);
         if ($this->contest === null) {
             throw new \CHttpException(404);
         }

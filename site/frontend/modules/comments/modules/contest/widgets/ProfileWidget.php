@@ -18,6 +18,7 @@ class ProfileWidget extends \CWidget
 
     public function init()
     {
+        return '';
         $this->contest = CommentatorsContest::model()->active()->find();
         if ($this->contest) {
             $this->participant = CommentatorsContestParticipant::model()->byContest($this->contest->id)->byUser($this->userId)->find();
@@ -26,6 +27,7 @@ class ProfileWidget extends \CWidget
 
     public function run()
     {
+        return '';
         if ($this->participant !== null) {
             $this->render('ProfileWidget');
         }

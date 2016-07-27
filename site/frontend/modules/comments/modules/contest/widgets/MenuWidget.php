@@ -18,6 +18,7 @@ class MenuWidget extends \CWidget
 
     public function run()
     {
+        return '';
         $this->contest = CommentatorsContest::model()->active()->find();
         if ($this->contest !== null) {
             $this->participant = CommentatorsContestParticipant::model()->byContest($this->contest->id)->byUser($this->userId)->find();

@@ -82,7 +82,7 @@ class DefaultController extends \LiteController
 
     public function actionCounts($contestId)
     {
-        echo CommentatorsContestParticipant::model()->contest($contestId)->count();
+        echo CommentatorsContestParticipant::model()->byContest($contestId)->count();
     }
 
     protected function loadContest($contestId)

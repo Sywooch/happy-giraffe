@@ -474,6 +474,7 @@ return array(
     'params' => array(
         'valentinesAlbum' => '41340',
         'is_api_request' => false,
+        'is_from_device' => false,
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         'gaPass' => '',

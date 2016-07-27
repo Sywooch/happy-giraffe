@@ -4,14 +4,11 @@ namespace site\frontend\modules\comments\modules\contest\models;
 /**
  * @property int $participantId
  * @property int $commentId
- * @property bool $counts
+ * @property int $points
  *
  * @author Никита
  * @date 25/02/15
  */
-
-
-
 class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
 {
     public function tableName()
@@ -45,32 +42,64 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function participant($participantId)
+    /**
+     * @param int $participantId
+     *
+     * @return CommentatorsContestComment
+     */
+    public function byParticipant($participantId)
     {
         $this->getDbCriteria()->compare('t.participantId', $participantId);
         return $this;
     }
 
-    public function user($userId)
+    /**
+     * @param int $userId
+     *
+     * @return CommentatorsContestComment
+     */
+    public function byUser($userId)
     {
         $this->getDbCriteria()->with[] = 'participant';
         $this->getDbCriteria()->compare('participant.userId', $userId);
         return $this;
     }
 
-    public function contest($contestId)
+    /**
+     * @param int $contestId
+     *
+     * @return CommentatorsContestComment
+     */
+    public function byContest($contestId)
     {
         $this->getDbCriteria()->with[] = 'participant';
         $this->getDbCriteria()->compare('participant.contestId', $contestId);
         return $this;
     }
 
-    public function counts($counts)
+    /**
+     * @return CommentatorsContestComment
+     */
+    public function byPoints()
     {
-        $this->getDbCriteria()->compare('t.counts', intval($counts));
+        $this->getDbCriteria()->compare('t.points', '> 0');
         return $this;
     }
 
+    /**
+     * @param int $commentId
+     *
+     * @return CommentatorsContestComment
+     */
+    public function byComment($commentId)
+    {
+        $this->getDbCriteria()->compare('t.commentId', $commentId);
+        return $this;
+    }
+
+    /**
+     * @return CommentatorsContestComment
+     */
     public function orderDesc()
     {
         $c = $this->getDbCriteria();

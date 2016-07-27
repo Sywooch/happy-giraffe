@@ -2,6 +2,7 @@
 namespace site\frontend\modules\comments\modules\contest\models;
 
 /**
+ * @property int $id
  * @property int $userId
  * @property int $contestId
  * @property int $score
@@ -32,6 +33,9 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
     public function behaviors()
     {
         return array(
+            'CacheDelete' => array(
+                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+            ),
             'HTimestampBehavior' => array(
                 'class' => 'HTimestampBehavior',
                 'createAttribute' => 'dtimeRegister',
@@ -40,27 +44,37 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function contest($contestId)
+    /**
+     * @param int $contestId
+     *
+     * @return CommentatorsContestParticipant
+     */
+    public function byContest($contestId)
     {
         $this->getDbCriteria()->compare('t.contestId', $contestId);
         return $this;
     }
 
-    public function user($userId)
+    /**
+     * @param int $userId
+     *
+     * @return CommentatorsContestParticipant
+     */
+    public function byUser($userId)
     {
         $this->getDbCriteria()->compare('t.userId', $userId);
         return $this;
     }
 
-    public function active()
-    {
-        $this->getDbCriteria()->with = array(
-            'contest' => array(
-                'joinType' => 'INNER JOIN',
-                'scopes' => 'active',
-            ),
-        );
-    }
+//    public function active()
+//    {
+//        $this->getDbCriteria()->with = array(
+//            'contest' => array(
+//                'joinType' => 'INNER JOIN',
+//                'scopes' => 'active',
+//            ),
+//        );
+//    }
 
     public function relations()
     {
@@ -71,6 +85,7 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
         );
     }
 
+    //----------------------------
     public function top()
     {
         $this->getDbCriteria()->addCondition($this->tableAlias . '.score != 0');

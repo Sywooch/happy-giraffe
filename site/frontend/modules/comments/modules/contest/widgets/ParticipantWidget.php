@@ -14,7 +14,7 @@ class ParticipantWidget extends \CWidget
 
     public function init()
     {
-        $this->participant = CommentatorsContestParticipant::model()->contest($this->contestId)->user(\Yii::app()->user->id)->find();
+        $this->participant = CommentatorsContestParticipant::model()->byContest($this->contestId)->byUser(\Yii::app()->user->id)->find();
     }
 
     public function run()

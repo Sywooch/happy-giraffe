@@ -1,6 +1,7 @@
 <?php
 namespace site\frontend\modules\comments\modules\contest\behaviors;
 use site\frontend\modules\comments\models\Comment;
+use site\frontend\modules\comments\modules\contest\components\ContestManager;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContest;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContestComment;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant;
@@ -23,9 +24,7 @@ class ContestBehavior extends \CActiveRecordBehavior
     private function getContest()
     {
         if (!$this->currentContest) {
-            $this->currentContest = CommentatorsContest::model()
-                ->currentActive()
-                ->find();
+            $this->currentContest = ContestManager::getCurrentActive();
         }
 
         return $this->currentContest;
@@ -38,8 +37,8 @@ class ContestBehavior extends \CActiveRecordBehavior
     {
         if (!$this->participant) {
             $this->participant = CommentatorsContestParticipant::model()
-                ->user($this->owner->author_id)
-                ->contest($this->getContest()->id)
+                ->byUser($this->owner->author_id)
+                ->byContest($this->getContest()->id)
                 ->find();
         }
 
@@ -50,7 +49,7 @@ class ContestBehavior extends \CActiveRecordBehavior
     {
         if (!$this->getContest() ||
             !$this->getParticipant() ||
-            !$this->getContest()->register($this->owner->author_id)) {
+            !$this->getContest()->addParticipant($this->owner->author_id)) {
             return false;
         }
 
@@ -70,19 +69,101 @@ class ContestBehavior extends \CActiveRecordBehavior
         if (!$this->init()) {
             return;
         }
+
         if ($this->owner->isNewRecord) {
-            //CommentatorsContestComment::model()->
+            $points = $this->getPoints($this->owner);
+
+            $contestComment = new CommentatorsContestComment();
+            $contestComment->commentId = $this->owner->id;
+            $contestComment->participantId = $this->getParticipant()->id;;
+            $contestComment->points = $points;
+            $contestComment->save();
+
+            if ($points) {
+                $this->getParticipant()->score += $points;
+                $this->getParticipant()->update(array('score'));
+            }
+        } else {
+            /**
+             * @var CommentatorsContestComment $contestComment
+             */
+            $contestComment = CommentatorsContestComment::model()
+                ->byComment($this->owner->id)
+                ->byParticipant($this->getParticipant()->id)
+                ->find();
+
+            if (!$contestComment) {
+                return;
+            }
+
+            $points = $this->getPoints($this->owner);
+
+            $this->getParticipant()->score -= $contestComment->points;
+
+            $contestComment->points = $points;
+
+            $contestComment->update(array('points'));
+
+            $this->getParticipant()->score += $contestComment->points;
+
+            $this->getParticipant()->update(array('score'));
         }
     }
 
     public function afterSoftDelete()
     {
+        if (!$this->init()) {
+            return;
+        }
 
+        /**
+         * @var CommentatorsContestComment $contestComment
+         */
+        $contestComment = CommentatorsContestComment::model()
+            ->byComment($this->owner->id)
+            ->byParticipant($this->getParticipant()->id)
+            ->find();
+
+        if (!$contestComment) {
+            return;
+        }
+
+        if ($contestComment->points) {
+            $this->getParticipant()->score -= $contestComment->points;
+        }
+
+        $contestComment->points = 0;
+        $contestComment->update(array('points'));
+        $this->getParticipant()->update(array('score'));
     }
 
     public function afterSoftRestore()
     {
+        if (!$this->init()) {
+            return;
+        }
 
+        /**
+         * @var CommentatorsContestComment $contestComment
+         */
+        $contestComment = CommentatorsContestComment::model()
+            ->byComment($this->owner->id)
+            ->byParticipant($this->getParticipant()->id)
+            ->find();
+
+        if (!$contestComment) {
+            return;
+        }
+
+        $points = $this->getPoints($this->owner);
+        $contestComment->points = $points;
+
+        $contestComment->update(array('points'));
+
+        if ($points) {
+            $this->getParticipant()->score += $points;
+            $this->getParticipant()->update(array('score'));
+        }
     }
 
     /**

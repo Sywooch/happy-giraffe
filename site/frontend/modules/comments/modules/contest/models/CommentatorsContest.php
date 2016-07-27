@@ -5,6 +5,7 @@ namespace site\frontend\modules\comments\modules\contest\models;
  * @property int $id
  * @property string $name
  * @property string $cssClass
+ * @property string $month
  */
 class CommentatorsContest extends \HActiveRecord
 {
@@ -41,22 +42,22 @@ class CommentatorsContest extends \HActiveRecord
         return $this;
     }
 
-    public function register($userId)
+    public function addParticipant($userId)
     {
-        if ($this->isRegistered($userId)) {
+        if ($this->isParticipant($userId)) {
             return false;
         }
 
         $participant = new CommentatorsContestParticipant();
         $participant->userId = $userId;
         $participant->contestId = $this->id;
-        $participant->place = (int) CommentatorsContestParticipant::model()->contest($this->id)->count() + 1;
+        $participant->place = (int) CommentatorsContestParticipant::model()->byContest($this->id)->count() + 1;
         return $participant->save();
     }
 
-    public function isRegistered($userId)
+    public function isParticipant($userId)
     {
-        return CommentatorsContestParticipant::model()->user($userId)->contest($this->id)->find() !== null;
+        return CommentatorsContestParticipant::model()->byUser($userId)->byContest($this->id)->find() !== null;
     }
 
     public function updatePositions()
@@ -64,7 +65,7 @@ class CommentatorsContest extends \HActiveRecord
         /**
          * @var CommentatorsContestParticipant[] $participants
          */
-        $participants = CommentatorsContestParticipant::model()->contest($this->id)->findAll(array(
+        $participants = CommentatorsContestParticipant::model()->byContest($this->id)->findAll(array(
             'order' => 'score DESC',
         ));
 

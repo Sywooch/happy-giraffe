@@ -4,9 +4,16 @@ namespace site\frontend\modules\comments\models;
 use site\frontend\modules\posts\models\Content;
 
 /**
- * Description of Comment
- *
- * @author Кирилл
+ * @property string $id
+ * @property string $text
+ * @property string $created
+ * @property string $author_id
+ * @property string $entity
+ * @property string $entity_id
+ * @property string $response_id
+ * @property string $root_id
+ * @property string $removed
+ * @property int $new_entity_id
  * @property array $answers Обсуждение под данным комментарием
  */
 class Comment extends \Comment implements \IHToJSON

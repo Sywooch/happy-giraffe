@@ -9,11 +9,11 @@ $this->beginContent('//layouts/lite/community');
         ?>
         <aside class="b-main_col-sidebar visible-md">
             <?php if ($this->club): ?>
-                <div class="clearfix margin-b20">
+                <div class="clearfix margin-b20 textalign-c">
                     <?php if (Yii::app()->user->isGuest): ?>
-                        <a class="btn btn-block btn-success btn-xl w-240 login-button" data-bind="follow: {}">Добавить тему</a>
+                        <a class="btn btn-success btn-xl login-button" data-bind="follow: {}">Добавить тему</a>
                     <?php else: ?>
-                        <a class="btn btn-block btn-success btn-xl w-240 fancy-top" href="<?=$this->createUrl('/blog/default/form', [
+                        <a class="btn btn-success btn-xl fancy-top is-need-loading" href="<?=$this->createUrl('/blog/default/form', [
                             'type' => CommunityContent::TYPE_POST,
                             'club_id' => $this->club->id,
                             'useAMD' => true,

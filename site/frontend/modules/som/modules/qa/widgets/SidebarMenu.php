@@ -18,10 +18,18 @@ abstract class SidebarMenu extends \CMenu
 
     protected function getItem($title, $count, $url)
     {
-        return array(
-            'label' => $title . \CHtml::tag('span', array('class' => 'questions-categories_count'), $count),
+        $linkOptions = ['class' => 'questions-categories_link'];
+
+        if ($title == 'Мой педиатр')
+        {
+            $linkOptions['class'] .= ' questions-categories_pediator';
+        }
+
+        return [
+            'label' => $title . \CHtml::tag('span', ['class' => 'questions-categories_count'], $count),
             'url' => $url,
-            'linkOptions' => array('class' => 'questions-categories_link'),
-        );
+            'linkOptions' => $linkOptions,
+        ];
+        
     }
 }

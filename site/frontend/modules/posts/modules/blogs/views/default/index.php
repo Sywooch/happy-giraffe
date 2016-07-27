@@ -57,7 +57,7 @@ $breadcrumbs = [
         	<?php endif; ?>
   	</div>
   
-  	<div class="b-main_cont">
+  	<div class="b-main_cont b-main_cont-xs">
     	<div class="b-main_col-hold clearfix">
       		<div class="b-main_col-article"><?php $feedWidget->run(); ?></div>
       
@@ -72,7 +72,7 @@ $breadcrumbs = [
                         
                 	<?php else: ?>
                 	
-                    	<a href="/blogs/add-form" class="btn bnt-massive green fancy">Добавить в блог</a>
+                    	<a href="/blogs/add-form" class="btn bnt-massive green fancy is-need-loading">Добавить в блог</a>
                 	
                 	<?php endif; ?>
                   

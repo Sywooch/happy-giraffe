@@ -1,7 +1,7 @@
 <article class="b-article clearfix b-article__list b-article__user-status">
 	<div class="b-article_cont clearfix">
     	<div class="b-article_header clearfix">
-        	<div class="float-l position-rel w-300">
+        	<div class="float-l position-rel">
             	<?php 
                         
                 $this->widget('site\frontend\modules\posts\widgets\author\AuthorWidget', [

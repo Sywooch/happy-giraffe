@@ -11,6 +11,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion[] $questions
  * @property int $questionsCount
+ * @property \site\frontend\modules\som\modules\qa\models\QaTag[] $tags
  */
 class QaCategory extends \CActiveRecord
 {
@@ -44,6 +45,7 @@ class QaCategory extends \CActiveRecord
 		return array(
 			'questions' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'categoryId'),
 			'questionsCount' => array(self::STAT, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'categoryId'),
+			'tags' => array(self::HAS_MANY, get_class(QaTag::model()), 'category_id'),
 		);
 	}
 
@@ -73,6 +75,12 @@ class QaCategory extends \CActiveRecord
 	public function sorted()
 	{
 		$this->getDbCriteria()->order = 'sort ASC';
+		return $this;
+	}
+
+	public function byTitle($title)
+	{
+		$this->getDbCriteria()->compare('title', $title);
 		return $this;
 	}
 }

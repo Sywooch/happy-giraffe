@@ -12,7 +12,7 @@ $breadcrumbs = [
 <?php $this->beginClip('home'); ?>
 <?php if (Yii::app()->user->isGuest): ?>
 <div class="homepage-clubs_b">
-    <div class="homepage-clubs_btn-hold"><a class="w-240 btn btn-xl green-btn fontweight-b login-button" data-bind="follow: {}">Начать общаться</a></div>
+    <div class="homepage-clubs_btn-hold"><a class="btn btn-xl green-btn fontweight-b login-button" data-bind="follow: {}">Начать общаться</a></div>
 </div>
 <?php endif; ?>
 <?php $this->endClip(); ?>
@@ -60,6 +60,6 @@ $breadcrumbs = [
     <?php if ($this->beginCache('LastPostWidget', array('duration' => 300))) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\lastPost\LastPostWidget'); $this->endCache(); } ?>
     <?php if ($this->beginCache('OnlineUsersWidget', array('duration' => 300))) { $this->widget('site\frontend\modules\posts\modules\forums\widgets\onlineUsers\OnlineUsersWidget'); $this->endCache(); } ?>
     <div class="text-center visible-md">
-        <a href="<?=Yii::app()->controller->createUrl('/friends/search/index')?>" class="w-240 btn btn-xl green-btn fontweight-b registration-button" data-bind="follow: {}">Найти друзей</a>
+        <a href="<?=Yii::app()->controller->createUrl('/friends/search/index')?>" class="btn btn-xl green-btn fontweight-b registration-button" data-bind="follow: {}">Найти друзей</a>
     </div>
 </div>

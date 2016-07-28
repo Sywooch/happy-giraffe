@@ -1,4 +1,7 @@
 <div class="ico-hold-small">
-    <div class="ico-club ico-club__<?=$id?> small"></div>
+    <div class="ico-club ico-club__<?php echo $clubId; ?> small"></div>
 </div>
-<a href="<?=$url?>" class="b-article_author"><?=$title?></a>
+
+<?php echo \HHtml::timeTag($post, ['class' => 'tx-date float-l']); ?>
+
+<?php if (FALSE): ?><a href="<?=$url?>" class="b-article_author"><?=$title?></a><?php endif; ?>

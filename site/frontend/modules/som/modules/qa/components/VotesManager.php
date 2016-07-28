@@ -16,7 +16,11 @@ class VotesManager
 
     public static function changeVote($userId, $answerId)
     {
-        $vote = QaAnswerVote::model()->findByPk(compact('userId', 'answerId'));
+        $vote = QaAnswerVote::model()
+            ->byAnswer($answerId)
+            ->user($userId)
+            ->find();
+
         $transaction = \Yii::app()->db->beginTransaction();
         try {
             if ($vote === null) {
@@ -28,7 +32,7 @@ class VotesManager
                 $success = $vote->delete();
                 $count = -1;
             }
-            if (! ($success && $vote->answer->saveCounters(array('votesCount' => $count)))) {
+            if (!($success && $vote->answer->saveCounters(array('votesCount' => $count)))) {
                 throw new \CException('Vote is not saved');
             }
             self::setIsBest($vote->answer);

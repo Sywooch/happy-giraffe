@@ -8,6 +8,7 @@ namespace site\frontend\modules\comments\modules\contest\models;
  * @property int $score
  * @property int $place
  * @property int $dtimeRegister
+ * @property string $settings -> temp field
  *
  * @author Никита
  * @date 20/02/15
@@ -101,5 +102,14 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
             'score' => (int) $this->score,
             'place' => (int) $this->place,
         );
+    }
+
+    public function getSettingArray()
+    {
+        if (isset($this->settings)) {
+            return \CJSON::decode($this->settings, true);
+        }
+
+        return null;
     }
 }

@@ -30,7 +30,7 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
     public function rules()
     {
         return array(
-            array('counts', 'filter', 'filter' => 'intval'),
+            array('points', 'filter', 'filter' => 'intval'),
         );
     }
 

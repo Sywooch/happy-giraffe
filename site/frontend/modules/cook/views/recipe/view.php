@@ -8,6 +8,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
         )));
 ?>
 <article class="b-article hrecipe clearfix" id="recipe">
+    <span class="category"><span class="value-title" title="<?=$recipe->getTypeString()?>"></span></span>
     <?php /* $this->renderPartial('_recipe_parts/_controls', array('recipe' => $recipe)); */ ?>
     <!-- hrecipe -->
     <div class="b-article_cont clearfix">
@@ -21,7 +22,10 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                             <img alt="" src="<?= $recipe->author->getAvatarUrl(72); ?>" class="ava_img">
                         </a>
                         <a href="#" class="b-article_author author"><?= $recipe->author->getFullName() ?></a>
-                        <?= HHtml::timeTag($recipe, array('class' => 'tx-date'), ''); ?>
+                        <span class="published">
+                            <span class="value-title" title="<?=date('c', strtotime($recipe->created))?>">
+                            <?= HHtml::timeTag($recipe, array('class' => 'tx-date'), ''); ?>
+                        </span>
                     </div>
                     <div class="icons-meta"><a href="#commentsList" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
                         <div class="icons-meta_view"><span class="icons-meta_tx"><?= $this->getViews() ?></span></div>
@@ -52,7 +56,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                 <?php if (!empty($recipe->cuisine->country_id)): ?>
                                     <span class="flag-big flag-big-<?= $recipe->cuisine->country->iso_code ?>"></span>
                                 <?php endif; ?>
-                                <span class="location_tx"><?= $recipe->cuisine->title ?></span>
+                                <span class="location_tx"><span class="cuisine-type"><span class="value-title" title="<?=$recipe->cuisine->title?> кухня"></span><?= $recipe->cuisine->title ?></span></span>
                             </div>
                         <?php endif; ?>
                         <?php if ($recipe->preparation_duration || $recipe->cooking_duration): ?>
@@ -75,13 +79,13 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                         <?php if ($recipe->servings): ?>
                             <div class="recipe-desc_i">
                                 <div class="recipe-desc_ico recipe-desc_ico__yield powertip" title="Количество порций"></div>
-                                на <span class="yeild"><?= $recipe->servings ?> <?= Str::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings) ?></span>
+                                на <span class="yield"><?= $recipe->servings ?> <?= Str::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings) ?></span>
                             </div>
                         <?php endif; ?>
                     </div>
 
                     <div class="clearfix">
-                        <div class="nutrition float-r">
+                        <div class="float-r" style="position: relative; margin: 23px 20px;">
                             <a class="nutrition_t a-pseudo" data-bind="click: rootNutritionHandler">Калорийность блюда - <?= $recipe->getTotalCalories() ?> ккал</a>
 
                             <div class="nutrition_hold" data-bind="css: { 'display-b' : showNutritions() !== false }">
@@ -96,7 +100,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                         </div>
                                         <div class="nutrition_tx">
                                             Калории -
-                                            <span class="calories"><?= $recipe->getNutritionalsPer100g(1) ?></span>
+                                            <span><?= $recipe->getNutritionalsPer100g(1) ?></span>
                                             <span class="nutrition_measure">ккал.</span>
                                         </div>
                                     </li>
@@ -106,7 +110,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                         </div>
                                         <div class="nutrition_tx">
                                             Белки -
-                                            <span class="protein"><?= $recipe->getNutritionalsPer100g(3) ?></span>
+                                            <span><?= $recipe->getNutritionalsPer100g(3) ?></span>
                                             <span class="nutrition_measure">г.</span>
                                         </div>
                                     </li>
@@ -116,7 +120,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                         </div>
                                         <div class="nutrition_tx">
                                             Жиры -
-                                            <span class="fat"><?= $recipe->getNutritionalsPer100g(2) ?></span>
+                                            <span><?= $recipe->getNutritionalsPer100g(2) ?></span>
                                             <span class="nutrition_measure">г.</span>
                                         </div>
                                     </li>
@@ -126,7 +130,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                         </div>
                                         <div class="nutrition_tx">
                                             Углеводы -
-                                            <span class="carbohydrates"><?= $recipe->getNutritionalsPer100g(4) ?></span>
+                                            <span><?= $recipe->getNutritionalsPer100g(4) ?></span>
                                             <span class="nutrition_measure">г.</span>
                                         </div>
                                     </li>
@@ -140,7 +144,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                             </div>
                                             <div class="nutrition_tx">
                                                 Калории -
-                                                <span class="calories"><?= $recipe->getNutritionalsPerServing(1) ?></span>
+                                                <span><?= $recipe->getNutritionalsPerServing(1) ?></span>
                                                 <span class="nutrition_measure">ккал.</span>
                                             </div>
                                         </li>
@@ -150,7 +154,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                             </div>
                                             <div class="nutrition_tx">
                                                 Белки -
-                                                <span class="protein"><?= $recipe->getNutritionalsPerServing(3) ?></span>
+                                                <span><?= $recipe->getNutritionalsPerServing(3) ?></span>
                                                 <span class="nutrition_measure">см.</span>
                                             </div>
                                         </li>
@@ -160,7 +164,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                             </div>
                                             <div class="nutrition_tx">
                                                 Жиры -
-                                                <span class="fat"><?= $recipe->getNutritionalsPerServing(2) ?></span>
+                                                <span><?= $recipe->getNutritionalsPerServing(2) ?></span>
                                                 <span class="nutrition_measure">г.</span>
                                             </div>
                                         </li>
@@ -170,7 +174,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                             </div>
                                             <div class="nutrition_tx">
                                                 Углеводы -
-                                                <span class="carbohydrates"><?= $recipe->getNutritionalsPerServing(4) ?></span>
+                                                <span><?= $recipe->getNutritionalsPerServing(4) ?></span>
                                                 <span class="nutrition_measure">г.</span>
                                             </div>
                                         </li>

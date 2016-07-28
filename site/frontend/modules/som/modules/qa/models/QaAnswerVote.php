@@ -5,12 +5,14 @@ namespace site\frontend\modules\som\modules\qa\models;
  * This is the model class for table "qa__answers_votes".
  *
  * The followings are the available columns in table 'qa__answers_votes':
+ * @property int $id
  * @property int $answerId
  * @property int $userId
  * @property int $dtimeCreate
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $answer
+ * @property \User $user
  */
 class QaAnswerVote extends \CActiveRecord
 {
@@ -43,6 +45,7 @@ class QaAnswerVote extends \CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'answer' => array(self::BELONGS_TO, '\site\frontend\modules\som\modules\qa\models\QaAnswer', 'answerId'),
+			'user' => array(self::BELONGS_TO, get_class(\User::model()), 'userId'),
 		);
 	}
 
@@ -65,6 +68,12 @@ class QaAnswerVote extends \CActiveRecord
 				'class' => 'HTimestampBehavior',
 				'createAttribute' => 'dtimeCreate',
 			),
+			'VoteNotificationBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\VoteNotificationBehavior',
+			),
+			'RatingBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
+			),
 		);
 	}
 
@@ -76,9 +85,25 @@ class QaAnswerVote extends \CActiveRecord
 		return $this;
 	}
 
+	/**
+	 * @param int $userId
+	 *
+	 * @return QaAnswerVote
+	 */
 	public function user($userId)
 	{
 		$this->getDbCriteria()->compare($this->tableAlias . '.userId', $userId);
+		return $this;
+	}
+
+	/**
+	 * @param int $answerId
+	 *
+	 * @return QaAnswerVote
+	 */
+	public function byAnswer($answerId)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.answerId', $answerId);
 		return $this;
 	}
 

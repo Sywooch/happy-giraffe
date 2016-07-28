@@ -173,3 +173,9 @@ Yii::app()->clientScript->registerScriptFile('https://vk.com/js/api/openapi.js?1
 </div>
 <!-- /Основная колонка-->
 <!--/////-->
+
+<?php if (! empty($this->post->articleSchemaData)): ?>
+    <script type="application/ld+json">
+<?=$this->post->articleSchemaData?>
+</script>
+<?php endif; ?>

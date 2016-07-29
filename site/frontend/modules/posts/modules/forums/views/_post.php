@@ -26,7 +26,7 @@ if ($data->isHot) {
                 <?php if ($data->wasHot): ?><span class="a-mark a-mark_default"></span><?php endif; ?>
             </span>
             <a href="<?=$data->url?>" class="b-froum-theme-info-title" style="display:block;"><?=$data->title?></a>
-            <p><?=\site\common\helpers\HStr::truncate($data->text)?></p>
+            <p><?=\site\common\helpers\HStr::truncate($data->text, 140)?></p>
             <div class="b-froum-theme-info-more clearfix">
                 <?php if ($tag): ?>
                     <div class="hashtag">

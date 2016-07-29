@@ -40,7 +40,8 @@ if (! empty($parser->images))
             		?>
             	</div>
           	</div>
-          	<div class="float-l position-rel w-300">
+          	
+          	<div class="float-l position-rel">
           	
                 <?php 
                 
@@ -78,7 +79,7 @@ if (! empty($parser->images))
         	<?php 
             
         	echo CHtml::link($data->title, $data->parsedUrl, [
-        	    'class' => 'b-article_t-a article_t-feed'
+        	    'class' => 'b-article_t-a'
         	    
         	]);
         	

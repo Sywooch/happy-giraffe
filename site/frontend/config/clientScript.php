@@ -643,7 +643,7 @@ return array(
             'depends' => array('lite_posts'),
         ),
         'lite_clubs_user' => array(
-            'depends' => array('lite_posts_user'),
+            'depends' => array('lite_posts'),
         ),
         'lite_family_user' => array(
             'depends' => array('lite_member_user'),

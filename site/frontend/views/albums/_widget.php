@@ -7,7 +7,7 @@
 if (!isset($edit))
     $edit = false;
 
-$add = empty($model->title) ? '' : ' title="' . $model->title . '" alt="' . $model->title . '"';
+$add = empty($model->title) ? '' : ' title="' . htmlspecialchars($model->title) . '" alt="' . htmlspecialchars($model->title) . '"';
 
 if (!$edit)
     echo '<!-- widget: { entity : "AlbumPhoto", entity_id : "' . $model->id . '" } -->';

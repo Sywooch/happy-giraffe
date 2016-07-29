@@ -20,7 +20,7 @@ class m160726_132623_alter_commentators_contest extends CDbMigration
 		try {
 			$this->createIndex('month_idx', 'commentators__contests', 'month');
 		} catch (\Exception $ex) {
-			
+
 		}
 
 		$this->renameColumn('commentators__contests', 'title', 'name');

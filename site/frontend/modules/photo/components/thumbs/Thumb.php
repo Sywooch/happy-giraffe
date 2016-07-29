@@ -45,7 +45,7 @@ class Thumb extends \CComponent
      */
     public function getWidth()
     {
-        return $this->filter->getWidth($this->photo->width, $this->photo->height);
+        return round($this->filter->getWidth($this->photo->width, $this->photo->height));
     }
 
     /**

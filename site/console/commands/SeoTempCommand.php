@@ -1789,5 +1789,28 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionSetArticle()
+    {
+        $offset = 0;
+        $limit = 1000;
+        do {
+            $posts = Yii::app()->db->createCommand('SELECT id FROM community__contents WHERE type_id = 1 AND removed = 0' . ' LIMIT ' . $limit . ' OFFSET ' . $offset)->queryColumn();
+            foreach ($posts as $p) {
+                $newPost = \site\frontend\modules\posts\models\Content::model()->findByAttributes([
+                    'originEntityId' => $p,
+                    'originEntity' => 'CommunityContent',
+                ]);
+                if ($newPost) {
+                    \site\frontend\modules\posts\models\Content::model()->updateByPk($newPost->id, [
+                        'articleSchemaData' => \site\frontend\modules\posts\components\ArticleHelper::getJsonLd($newPost),
+                    ]);
+                } else {
+                    echo $p . "\n";
+                }
+            }
+            $offset += $limit;
+        } while (count($posts) > 0);
+    }
 }
 

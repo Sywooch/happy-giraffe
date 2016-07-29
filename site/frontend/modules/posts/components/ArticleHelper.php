@@ -30,16 +30,16 @@ class ArticleHelper
                 'name' => $post->getUser()->fullName,
                 'url' => $post->getUser()->profileUrl,
             ],
-//            'publisher' => [
-//                '@type' => 'Organization',
-//                'name' => 'Веселый Жираф',
-//                'logo' => [
-//                    '@type' => 'ImageObject',
-//                    'url' => 'http://www.happy-giraffe.ru/lite/images/base/logo.png',
-//                    'width' => 230,
-//                    'height' => 65,
-//                ],
-//            ],
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => 'Веселый Жираф',
+                'logo' => [
+                    '@type' => 'ImageObject',
+                    'url' => 'http://www.happy-giraffe.ru/lite/images/base/logo.png',
+                    'width' => 230,
+                    'height' => 65,
+                ],
+            ],
         ];
 
         if ($photo = self::getPhoto($post)) {

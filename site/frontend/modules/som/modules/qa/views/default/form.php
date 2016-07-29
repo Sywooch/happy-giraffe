@@ -46,11 +46,11 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                     'data-bind' => "value: qTtitle",
                     'id' => 'qTtitle'
                 ))
-                ?>            
+                ?>
                 <div class="inp-valid_error" id="qTtitleE" data-bind="validationMessage: qTtitle">Это обязательное поле</div>
             </div>
             <?php if ($model->scenario != 'consultation'): ?>
-                <div class="inp-valid inp-valid__abs">
+                <div class="inp-valid inp-valid__abs margin-b15">
                     <div class="popup-widget_cont_list">
                         <?=
                             $form->dropDownList($model, 'categoryId', CHtml::listData($categories, 'id', 'title'), array(
@@ -76,6 +76,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                         }
                         ?>
                     </div>
+                    <div class="inp-valid_error" id="qTtagsE" data-bind="validationMessage: qThemeE">Выберите возраст ребенка</div>
                 </div>
             <?php endif; ?>
             <div class="redactor-control">
@@ -89,7 +90,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                             'data-bind' => "value: qText",
                             'id' => 'qText'
                         ))
-                        ?>                    
+                        ?>
                         <div class="inp-valid_error" id="qTextE" data-bind="validationMessage: qText">Это обязательное поле</div>
                     </div>
                 </div>
@@ -143,7 +144,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                     obj.titleValid = false;
                     obj.submitDisable(true);
                     //console.log(this.id + " error");
-                } else { 
+                } else {
                     $('#' + this.id + 'E').hide();
                     $(this).removeClass('error');
                     obj.titleValid = true;
@@ -185,21 +186,21 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
             return function (event) {
                 var flagError = false;
 
-                var textValue = $.trim($($('.redactor_box textarea').val()).text()); 
+                var textValue = $.trim($($('.redactor_box textarea').val()).text());
 
                 if (textValue != '' && textValue.length < 30)
                 {
                 	flagError = true;
-                	
+
                     $("#qText").addClass('error');
                     $("#qTextE").text('Введите более 30 символов').show();
                 }
-                else 
+                else
                 {
                 	$("#qText").removeClass('error');
                     $("#qTextE").hide();
                 }
-                
+
                 /* if (textValue == '') {
                     flagError = true;
                     $("#qText").addClass('error');
@@ -208,17 +209,17 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                     $("#qText").removeClass('error');
                     $("#qTextE").hide();
                 } */
-                
+
                 if ($.trim($("#qTtitle").val()) == '') {
                     flagError = true;
-                    
+
                     $("#qTtitle").addClass('error');
                     $("#qTtitleE").text('Это обязательное поле').show();
                 } else {
                     if ($.trim($("#qTtitle").val()).length < 20)
-                    {   
+                    {
                     	flagError = true;
-                    	
+
                     	$("#qTtitle").addClass('error');
                         $("#qTtitleE").text('Введите более 20 символов').show();
                     }
@@ -227,7 +228,18 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                         $("#qTtitleE").hide();
                     }
                 }
-                
+
+                var selectTags = $('select.tags');
+                if (selectTags.val() == '' && $('select.categories').val() == 124) {
+                    flagError = true;
+
+                    $("#tags124").addClass('error');
+                    $("#qTtagsE").show();
+                } else {
+                    $("#tags124").removeClass('error');
+                    $("#qTtagsE").hide();
+                }
+
                 /* if ($("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").val() == '') {
                     flagError = true;
                     $("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").addClass('error');
@@ -236,7 +248,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                     $("#site_frontend_modules_som_modules_qa_models_QaQuestion_categoryId").removeClass('error');
                     $("#qThemeE").hide();
                 } */
-                
+
                 // console.log('form status ' + flagError);
 
                 setTimeout(obj.testDropBoxTok(obj), 100);
@@ -279,7 +291,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                 setTimeout(obj.testDropBoxTok(obj), 100);
             } */
         }
-        
+
         $("#question-form").submit(this.isFormValidTok(this));
 
         $('.categories').change(function() {
@@ -290,8 +302,15 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                 }
             });
 
+            $('#qTchildAge').addClass('hidden');
+            if (categoryId == 124)
+            {
+				$('#qTchildAge').removeClass('hidden');
+            }
+
             $('#s2id_tags' + categoryId).removeClass('hidden');
             $('#tags' + categoryId).removeClass('hidden');
+            $("#qTtagsE").hide();
         });
     }
 

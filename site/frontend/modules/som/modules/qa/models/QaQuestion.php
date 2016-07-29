@@ -50,7 +50,7 @@ class QaQuestion extends \HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, text', 'required'),
+			array('title', 'required'),
 			array('title', 'length', 'max' => 150),
 			array('text', 'length', 'max' => 1000),
 			array('sendNotifications', 'boolean'),
@@ -188,6 +188,12 @@ class QaQuestion extends \HActiveRecord
 		return $this;
 	}
 
+	public function byTag($tagId)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.tag_id', $tagId);
+		return $this;
+	}
+
 	public function consultation($consultationId)
 	{
 		$this->getDbCriteria()->compare($this->tableAlias . '.consultationId', $consultationId);
@@ -240,5 +246,12 @@ class QaQuestion extends \HActiveRecord
 	public function isFromConsultation()
 	{
 		return $this->consultationId !== null;
+	}
+
+	public function answersUsersCount()
+	{
+	    return count(array_unique(array_map(function ($value){
+	        return $value->authorId;
+	    }, $this->answers)));
 	}
 }

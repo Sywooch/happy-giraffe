@@ -4,53 +4,64 @@
  */
 ?>
 
-<li class="questions_item">
-    <div class="live-user">
-        <a href="<?=$data->user->profileUrl?>" class="ava ava__small ava__<?=($data->user->gender) ? 'male' : 'female'?>">
-            <?php if ($data->user->avatarUrl): ?>
-                <img alt="" src="<?=$data->user->avatarUrl?>" class="ava_img">
-            <?php endif; ?>
-        </a>
-        <div class="username">
-            <a href="<?=$data->user->profileUrl?>"><?=$data->user->getFullName()?></a>
-            <?= HHtml::timeTag($data, array('class' => 'tx-date')); ?>
-        </div>
+<li class="questions_item clearfix">
+	<div class="questions-modification__avatar awatar-wrapper">
+		<a href="<?=$data->user->profileUrl?>" class="awatar-wrapper__link">
+			<?php if ($data->user->avatarUrl): ?>
+				<img src="<?=$data->user->avatarUrl?>" class="awatar-wrapper__img">
+			<?php endif; ?>
+		</a>
+	</div>
+	<div class="questions-modification__box box-wrapper">
+      <div class="box-wrapper__user">
+      	<a href="<?=$data->user->profileUrl?>" class="box-wrapper__link"><?=$data->user->getFullName()?></a>
+      	<span class="box-wrapper__date"><?= HHtml::timeTag($data, array('class' => 'tx-date')); ?></span>
+      </div>
+      <div class="box-wrapper__header box-header">
+      	<a href="<?=$data->url?>" class="box-header__link"><?=CHtml::encode($data->title)?></a>
+        <p class="box-header__text"><?=strip_tags($data->text)?></p>
+      </div>
+      <div class="box-wrapper__footer box-footer">
+      	<?php if ($data->consultationId !== null || $data->categoryId !== null): ?>
+      		<?php if ($data->consultationId !== null): ?>
+      			<a href="<?=$this->createUrl('/som/qa/consultation/index/', ['consultationId' => $data->consultation->id])?>" class="box-footer__cat"><?=$data->consultation->title?></a>
+      		<?php else: ?>
+              	<a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $data->category->id])?>" class="box-footer__cat"><?=$data->category->title?></a>
+      		<?php endif; ?>
+  		<?php endif; ?>
+  		<?php if (!is_null($data->tag)): ?>
+  			<a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $data->category->id, 'tagId' => $data->tag->id])?>" class="box-footer__cat"><?=$data->tag->name?></a>
+  		<?php endif; ?>
+      	<span class="box-footer__review"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></span>
+      </div>
     </div>
-    <div class="icons-meta">
-        <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></span></div>
-    </div>
-    <div class="clearfix"></div><a class="questions_item_heading" href="<?=$data->url?>"><?=CHtml::encode($data->title)?></a>
-    <?php if ($data->consultationId !== null || $data->categoryId !== null): ?>
-    <div class="questions_item_category">
-        <div class="questions_item_category_ico"></div>
-        <?php if ($data->consultationId !== null): ?>
-            <a href="<?=$this->createUrl('/som/qa/consultation/index/', array('consultationId' => $data->consultation->id))?>" class="questions_item_category_link"><?=$data->consultation->title?></a>
-        <?php else: ?>
-            <a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $data->category->id))?>" class="questions_item_category_link"><?=$data->category->title?></a>
-        <?php endif; ?>
-    </div>
-    <?php endif; ?>
-    <?php if ($data->answersCount == 0): ?>
-        <?php if (Yii::app()->user->isGuest || Yii::app()->user->checkAccess('createQaAnswer', array('question' => $data))): ?>
-            <a class="questions_item_answers" href="<?=$data->url?>"><span class="questions_item_answers_ans">ответить</span></a>
-        <?php endif; ?>
-    <?php else: ?>
-        <?php if ($data->isFromConsultation()): ?>
-            <a class="questions_item_answers" href="<?=$data->url?>">
-                <div class="questions_item_answers_img">
-                    <span class="ava ava__small ava__<?=($data->lastAnswer->user->gender) ? 'male' : 'female'?>">
-                        <?php if ($data->lastAnswer->user->avatarUrl): ?>
-                            <img alt="" src="<?=$data->lastAnswer->user->avatarUrl?>" class="ava_img">
-                        <?php endif; ?>
-                    </span>
-                </div>
-                <span class="questions_item_answers_text">ответ</span>
-            </a>
-        <?php else: ?>
-            <a class="questions_item_answers" href="<?=$data->url?>">
-                <span class="questions_item_answers_text"><?=$data->answersCount?> <?=Str::GenerateNoun(array('ответ', 'ответа', 'ответов'), $data->answersCount)?></span>
-            </a>
-        <?php endif; ?>
-    <?php endif; ?>
-    <div class="clearfix"></div>
+    <div class="box-wrapper__answer answer-wrapper">
+    	<?php if ($data->answersCount == 0): ?>
+    		<?php if (Yii::app()->user->isGuest || Yii::app()->user->checkAccess('createQaAnswer', array('question' => $data))): ?>
+    			<a href="<?=$data->url?>" class="answer-wrapper__box answer-wrapper__box_green">
+    				<span class="answer-wrapper__num"><?=$data->answersCount?></span>
+                	<span class="answer-wrapper__descr">ответить</span>
+            	</a>
+    		<?php endif; ?>
+		<?php else: ?>
+			<?php if ($data->isFromConsultation()): ?>
+				<?php /**
+				<a href="<?=$data->url?>" class="answer-wrapper__box answer-wrapper__box_blue">
+					<span class="answer-wrapper__num"><?=$data->answersCount?></span>
+                	<span class="answer-wrapper__descr">ответ</span>
+    				<span href="<?=$data->user->profileUrl?>" class="awatar-wrapper__link">
+            			<?php if ($data->lastAnswer->user->avatarUrl): ?>
+            				<img src="<?=$data->lastAnswer->user->avatarUrl?>" class="awatar-wrapper__img">
+            			<?php endif; ?>
+            		</span>
+        		</a>
+        		**/?>
+			<?php else: ?>
+            	<a href="<?=$data->url?>" class="answer-wrapper__box answer-wrapper__box_blue">
+                	<span class="answer-wrapper__num"><?=$data->answersCount?></span>
+                	<span class="answer-wrapper__descr">ответа</span>
+            	</a>
+			<?php endif; ?>
+		<?php endif; ?>
+	</div>
 </li>

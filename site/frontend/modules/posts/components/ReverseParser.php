@@ -11,16 +11,18 @@ class ReverseParser
 {
     public $doc;
 
-    public $images;
-    public $gifs;
-    public $videos;
+    public $images = [];
+    public $gifs = [];
+    public $videos = [];
 
     public function __construct($html)
     {
         $this->doc = str_get_html($html);
-        $this->gifs = $this->getGifsData();
-        $this->images = $this->getImagesData();
-        $this->videos = $this->getVideos();
+        if ($this->doc) {
+            $this->gifs = $this->getGifsData();
+            $this->images = $this->getImagesData();
+            $this->videos = $this->getVideos();
+        }
     }
 
     protected function getImagesData()

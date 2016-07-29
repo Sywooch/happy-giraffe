@@ -44,7 +44,7 @@ class ArticleHelper
 
         if ($photo = self::getPhoto($post)) {
             /** @var Thumb $thumb */
-            $thumb = \Yii::app()->thumbs->getThumb($photo['photo'], 'postCollectionCover');
+            $thumb = \Yii::app()->thumbs->getThumb($photo['photo'], 'postImage');
             $object['image'] = [
                 '@type' => 'ImageObject',
                 'url' => $thumb->getUrl(),

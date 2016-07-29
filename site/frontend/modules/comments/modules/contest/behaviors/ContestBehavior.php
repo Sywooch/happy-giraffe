@@ -47,8 +47,8 @@ class ContestBehavior extends \CActiveRecordBehavior
 
     private function init()
     {
-        if (!$this->getContest() ||
-            !$this->getParticipant() ||
+        if ( !$this->getContest() ||
+             !$this->getParticipant() ||
             !$this->getContest()->addParticipant($this->owner->author_id)) {
             return false;
         }

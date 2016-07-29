@@ -45,7 +45,7 @@ class CommentatorsContest extends \HActiveRecord
     public function addParticipant($userId)
     {
         if ($this->isParticipant($userId)) {
-            return false;
+            return true;
         }
 
         $participant = new CommentatorsContestParticipant();

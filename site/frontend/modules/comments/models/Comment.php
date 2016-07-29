@@ -15,6 +15,8 @@ use site\frontend\modules\posts\models\Content;
  * @property string $removed
  * @property int $new_entity_id
  * @property array $answers Обсуждение под данным комментарием
+ *
+ * @property Content $post
  */
 class Comment extends \Comment implements \IHToJSON
 {

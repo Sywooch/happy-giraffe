@@ -165,13 +165,9 @@ return array(
             'class' => 'site\frontend\modules\questionnaire\QuestionnaireModule',
             'controllerNamespace' => 'site\frontend\modules\questionnaire\controllers',
         ),
-    /* 'v1' => array(
-      'class' => 'site\frontend\modules\v1\V1Module',
-      'controllerNamespace' => 'site\frontend\modules\v1\controllers',
-      ), */
-    /* 'api' => array(
-      'class' => 'site\frontend\modules\api\ApiModule',
-      ), */
+        'quests' => array(
+            'class' => 'site\frontend\modules\quests\QuestsModule',
+        ),
     ),
     // application components
     'components' => array(

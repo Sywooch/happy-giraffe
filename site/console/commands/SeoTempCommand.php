@@ -1801,9 +1801,13 @@ class SeoTempCommand extends CConsoleCommand
                     'originEntityId' => $p,
                     'originEntity' => 'CommunityContent',
                 ]);
-                \site\frontend\modules\posts\models\Content::model()->updateByPk($newPost->id, [
-                    'articleSchemaData' => \site\frontend\modules\posts\components\ArticleHelper::getJsonLd($newPost),
-                ]);
+                if ($newPost) {
+                    \site\frontend\modules\posts\models\Content::model()->updateByPk($newPost->id, [
+                        'articleSchemaData' => \site\frontend\modules\posts\components\ArticleHelper::getJsonLd($newPost),
+                    ]);
+                } else {
+                    echo $p . "\n";
+                }
             }
             $offset += $limit;
         } while (count($posts) > 0);

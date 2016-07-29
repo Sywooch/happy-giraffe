@@ -1797,7 +1797,7 @@ class SeoTempCommand extends CConsoleCommand
         do {
             $posts = Yii::app()->db->createCommand('SELECT id FROM community__contents WHERE type_id = 1 AND removed = 0' . ' LIMIT ' . $limit . ' OFFSET ' . $offset)->queryColumn();
             foreach ($posts as $p) {
-                $newPost = \site\frontend\modules\posts\models\Content::model()->findAllByAttributes([
+                $newPost = \site\frontend\modules\posts\models\Content::model()->findByAttributes([
                     'originEntityId' => $p,
                     'originEntity' => 'CommunityContent',
                 ]);

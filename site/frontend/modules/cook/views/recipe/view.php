@@ -43,7 +43,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <div class="wysiwyg-content clearfix">
                     <?php if ($recipe->mainPhoto !== null): ?>
                         <div class="b-article_in-img">
-                            <?= CHtml::image($recipe->mainPhoto->getPreviewUrl(580, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'content-img photo')) ?>
+                            <?= CHtml::image($recipe->mainPhoto->getPreviewUrl(580, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'content-img photo result-photo')) ?>
                         </div>
                     <?php else: ?>
                         <br>

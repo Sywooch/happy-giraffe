@@ -118,6 +118,15 @@ class Quest extends \CActiveRecord
         return parent::model($className);
     }
 
+    public function defaultScope()
+    {
+        $alias = $this->getTableAlias(true, false);
+
+        return array(
+            'condition' => $alias . '.`is_completed` = 0 AND ' . $alias . '.`is_dropped` = 0',
+        );
+    }
+
     /**
      * @param int $userId
      *
@@ -185,6 +194,9 @@ class Quest extends \CActiveRecord
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getSettingsArray()
     {
         if (isset($this->settings)) {
@@ -194,18 +206,27 @@ class Quest extends \CActiveRecord
         return array();
     }
 
+    /**
+     * @return bool
+     */
     public function complete()
     {
         $this->is_completed = true;
         return $this->update(array('is_completed'));
     }
 
+    /**
+     * @return bool
+     */
     public function drop()
     {
         $this->is_dropped = true;
         return $this->update(array('is_dropped'));
     }
 
+    /**
+     * @return bool
+     */
     public function isActive()
     {
         return $this->end_date > time();

@@ -19,6 +19,9 @@ class CommentPostQuest extends BaseQuest implements IQuest
         return $this->type;
     }
 
+    /**
+     * @return Quest
+     */
     protected function getQuest()
     {
         if (!$this->instance) {
@@ -42,6 +45,11 @@ class CommentPostQuest extends BaseQuest implements IQuest
     public function run($model, $event)
     {
         $this->model = $model;
-        // TODO: Implement run() method.
+
+        if (!$this->getQuest()) {
+            return;
+        }
+
+        return $this->getQuest()->complete();
     }
 }

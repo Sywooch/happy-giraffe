@@ -49,9 +49,11 @@ class QuestsManager
      * @param int $endDate
      * @param string $name
      * @param string $description
+     *
+     * @return bool
      */
-    public static function addQuest($userId, $questType, $model, $settings = array()
-        , $endDate = null, $name = '', $description = '')
+    public static function addQuest($userId, $questType, $model, $settings = array(),
+                                    $endDate = null, $name = '', $description = '')
     {
         $quest = Quest::model()
             ->byUser($userId)
@@ -73,5 +75,7 @@ class QuestsManager
 
             return $quest->save();
         }
+
+        return true;
     }
 }

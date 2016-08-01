@@ -28,17 +28,4 @@ abstract class BaseQuest
 
     protected abstract function getType();
     protected abstract function getQuest();
-//    protected function getQuest()
-//    {
-//        //TODO: Write as abstract cause only single quest handler knows how to get instance of quest.
-//        if (!$this->instance) {
-//            $this->instance = Quest::model()
-//                ->byUser($this->getUserId())
-//                ->byType($this->getType())
-//                ->byModel((new \ReflectionClass($this->model))->getShortName(), $this->model->id)
-//                ->find();
-//        }
-//
-//        return $this->instance;
-//    }
 }

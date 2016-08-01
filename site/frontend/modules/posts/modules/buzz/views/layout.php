@@ -15,6 +15,7 @@ $this->beginContent('//layouts/lite/main');
             echo $content;
             ?>
             <aside class="b-main_col-sidebar visible-md">
+                <?php if (false): ?>
                 <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
                 <!--AdFox START-->
                 <!--giraffe-->
@@ -46,6 +47,7 @@ $this->beginContent('//layouts/lite/main');
                     // -->
                 </script>
                 <?php $this->endWidget(); ?>
+                <?php endif; ?>
 
                 <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
                 <div class="bnr-base">
@@ -84,7 +86,9 @@ $this->beginContent('//layouts/lite/main');
                         document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
                         document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
 
-                        AdFox_getCodeScript(1,pr1,'//ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '&amp;dl='+dl+'&amp;pr1='+pr1);
+                        require(['/javascripts/fox.js'], function() {
+                            AdFox_getCodeScript(1, pr1, '//ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '&amp;dl=' + dl + '&amp;pr1=' + pr1);
+                        });
                         // -->
                     </script>
                     <!-- _________________________AdFox Asynchronous code END___________________________ -->

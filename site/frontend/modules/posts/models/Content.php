@@ -592,7 +592,7 @@ class Content extends \HActiveRecord implements \IHToJSON
      */
     public function publishedAtLast($offset)
     {
-        $this->getDbCriteria()->compare('dtimePublication', '>', time() - $offset);
+        $this->getDbCriteria()->compare('dtimePublication', '>' . (time() - $offset));
 
         return $this;
     }

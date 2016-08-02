@@ -66,6 +66,8 @@ return array(
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 
+        'referals/<ref>' => 'referals/default/index',
+
         'testupload' => 'blog/default/upload',
         'blog/default/createAlbum' => 'blog/default/createAlbum',
         // global

@@ -33,6 +33,7 @@
     <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
 <?php endif; ?>
 
+<?php if (false): ?>
 <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
 <!--AdFox START-->
 <!--giraffe-->
@@ -65,6 +66,7 @@
 </script>
 <!--AdFox END-->
 <?php $this->endWidget(); ?>
+<?php endif; ?>
 
 <?php if (Yii::app()->vm->getVersion() == VersionManager::VERSION_MOBILE): ?>
     <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'mailru')); ?>

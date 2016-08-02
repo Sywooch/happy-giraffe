@@ -39,7 +39,13 @@ class ListController extends \site\frontend\modules\posts\controllers\ListContro
 
     public function getListDataProvider()
     {
-        return new \CActiveDataProvider(Content::model()->byLabels($this->getTags())->orderDesc(), array(
+        return new \CActiveDataProvider(Content::model(), array(
+            'criteria' => [
+                'scopes' => [
+                    'byLabels' => [$this->getTags()],
+                    'orderDesc',
+                ],
+            ],
             'pagination' => array(
                 'pageSize' => 10,
                 'pageVar' => 'page',

@@ -2,11 +2,6 @@
 
 namespace site\frontend\modules\quests;
 
-/**
- * Description of PostsModule
- *
- * @author Кирилл
- */
 class QuestsModule extends \CWebModule
 {
     public $controllerNamespace = 'site\frontend\modules\quests\controllers';

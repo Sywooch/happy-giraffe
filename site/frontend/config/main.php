@@ -168,6 +168,9 @@ return array(
         'quests' => array(
             'class' => 'site\frontend\modules\quests\QuestsModule',
         ),
+        'referals' => array(
+            'class' => 'site\frontend\modules\referals\ReferalsModule',
+        ),
     ),
     // application components
     'components' => array(

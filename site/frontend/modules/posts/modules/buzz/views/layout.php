@@ -95,7 +95,8 @@ $this->beginContent('//layouts/lite/main');
                 </div>
                 <?php $this->endWidget(); ?>
 
-                <?php $this->widget('site\frontend\modules\posts\modules\buzz\widgets\SidebarWidget'); ?>
+
+                <?php if ($this->beginCache('site\frontend\modules\posts\modules\buzz\widgets\SidebarWidget', array('duration' => 300))) { $this->widget('site\frontend\modules\posts\modules\buzz\widgets\SidebarWidget'); $this->endCache(); } ?>
             </aside>
         </div>
     </div>

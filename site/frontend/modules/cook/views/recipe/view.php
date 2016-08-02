@@ -85,6 +85,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     </div>
 
                     <div class="clearfix">
+                        <?php if ($recipe->getTotalCalories() > 0): ?>
                         <div class="float-r" style="position: relative; margin: 23px 20px;">
                             <a class="nutrition_t a-pseudo" data-bind="click: rootNutritionHandler">Калорийность блюда - <?= $recipe->getTotalCalories() ?> ккал</a>
 
@@ -182,9 +183,8 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                     </ul>
                                 <?php endif; ?>
                             </div>
-
-
                         </div>
+                        <?php endif; ?>
 
                         <?php if ($recipe->ingredients): ?>
                             <h2 class="wysiwyg-content_t-sub">Ингредиенты</h2>

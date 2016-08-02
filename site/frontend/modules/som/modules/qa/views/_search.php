@@ -2,12 +2,33 @@
 /**
  * @var string $query
  */
-Yii::app()->clientScript->registerAMD('qa-search', array('ko' => 'knockout', 'QaSearch' => 'qa/search'), 'ko.applyBindings(new QaSearch("' . $query . '"), $(".info-search").get(0));')
+Yii::app()->clientScript->registerAMD('qa-search', array('ko' => 'knockout', 'QaSearch' => 'qa/search'), 'ko.applyBindings(new QaSearch("' . $query . '"), $(".b-main-search").get(0));')
 ?>
 
-<div class="info-search">
-    <form data-bind="submit: submit" action="<?=Yii::app()->createUrl('/som/qa/default/search/')?>">
-        <input type="text" placeholder="Найти ответ" name="query" class="info-search_itx info-search_normal info-search_tablet info-search_mobile" data-bind="textInput: query">
+<div class="b-main-search float-r">
+    <div class="b-main-search__title">Найти вопрос</div>
+    <form class="b-main-search__form" action="<?=Yii::app()->createUrl('/som/qa/default/search/')?>">
+      <input type="search" placeholder="Найти вопрос" class="b-main-search__input">
+      <span class="js-b-main-search__submit b-main-search__submit"></span>
+      <span class="js-b-main-search__close b-main-search__close">&times;</span>
     </form>
-    <button class="info-search_btn" data-bind="click: clear, css: { active: query().length > 0 }"></button>
 </div>
+
+<script type="text/javascript">
+  $(function () {
+
+      $('.js-b-main-search__submit').on('click', function () {
+          $('.b-main-search__input').css('display', 'block');
+          $('.b-main-search__submit').css('display', 'none');
+          $('.b-main-search__close').css('display', 'inline-block');
+      });
+
+      $('.js-b-main-search__close').on('click', function () {
+          $('.b-main-search__input').css('display', 'none');
+          $('.b-main-search__submit').css('display', 'inline-block');
+          $('.b-main-search__close').css('display', 'none');
+      });
+
+  });
+
+</script>

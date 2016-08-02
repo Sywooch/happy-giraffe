@@ -27,13 +27,13 @@ if ($this->pageTitle !== $parentTitle)
 
             <?php endif; ?>
 
-            <div class="b-main_col-article">
+            <div class="b-main_col-article margin-b25 position-rel">
                 <?=$content?>
             </div>
             <aside class="b-main_col-sidebar visible-md">
                 <div class="sidebar-widget sidebar-widget__padding">
                     <?php $this->renderPartial('/_sidebar/ask', array());?>
-                    <?php $this->renderPartial('/_sidebar/personal', array());?>
+                    <?php //$this->renderPartial('/_sidebar/personal', array());?>
                     <?php $this->renderPartial('/_sidebar/top', array('member' => null, 'titlePrefix' => 'Знаток'));?>
                     <?php $this->renderPartial('/_sidebar/menu', array());?>
                 </div>

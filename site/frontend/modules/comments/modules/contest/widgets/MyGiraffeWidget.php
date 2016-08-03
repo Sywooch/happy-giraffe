@@ -12,12 +12,13 @@ class MyGiraffeWidget extends \CWidget
 {
     public function run()
     {
+        return '';
         if (\UserAttributes::get(\Yii::app()->user->id, $this->getAttributeKey(), 0) == 1) {
             return;
         }
         $contest = CommentatorsContest::model()->active()->find();
         if ($contest !== null) {
-            $leaders = CommentatorsContestParticipant::model()->contest($contest->id)->top()->findAll(array(
+            $leaders = CommentatorsContestParticipant::model()->byContest($contest->id)->top()->findAll(array(
                 'limit' => 5,
             ));
             $this->render('MyGiraffeWidget', compact('contest', 'leaders'));

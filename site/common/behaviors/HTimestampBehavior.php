@@ -9,7 +9,6 @@ Yii::import('zii.behaviors.CTimestampBehavior');
  */
 class HTimestampBehavior extends CTimestampBehavior
 {
-
     public $publicationAttribute = null;
     public $owerwriteAttributeIfSet = true;
 

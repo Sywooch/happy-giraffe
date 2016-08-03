@@ -43,7 +43,7 @@ class DefaultCommand extends \CConsoleCommand
         $contest = CommentatorsContest::model()->find();
         foreach ($iterator as $comment) {
             if ($contest->isRegistered($comment->author_id)) {
-                $participant = CommentatorsContestParticipant::model()->user($comment->author_id)->contest($contest->id)->find();
+                $participant = CommentatorsContestParticipant::model()->byUser($comment->author_id)->byContest($contest->id)->find();
                 CommentsHandler::added($comment, $participant);
                 $participant->update(array('score'));
             }

@@ -2,7 +2,7 @@
 /**
  * @var site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant $participant
  */
-$this->pageTitle = $this->contest->title . ' - Лидеры';
+$this->pageTitle = $this->contest->name . ' - Лидеры';
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('contestCommentsIndex', array('kow'));
 ?>

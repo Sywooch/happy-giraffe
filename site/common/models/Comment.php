@@ -82,6 +82,7 @@ class Comment extends HActiveRecord
         return array(
             'author' => array(self::BELONGS_TO, get_class(\User::model()), 'author_id'),
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
+            'post' => array(self::BELONGS_TO, get_class(\site\frontend\modules\posts\models\Content::model()), 'new_entity_id'),
         );
     }
 
@@ -127,6 +128,9 @@ class Comment extends HActiveRecord
             ),
             'PushStream' => array(
                 'class' => site\frontend\modules\api\ApiModule::PUSH_STREAM,
+            ),
+            'Quests' => array(
+                'class' => site\frontend\modules\quests\QuestsModule::QUEST_BEHAVIOR,
             ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',

@@ -14,11 +14,13 @@ class ParticipantWidget extends \CWidget
 
     public function init()
     {
-        $this->participant = CommentatorsContestParticipant::model()->contest($this->contestId)->user(\Yii::app()->user->id)->find();
+        return '';
+        $this->participant = CommentatorsContestParticipant::model()->byContest($this->contestId)->byUser(\Yii::app()->user->id)->find();
     }
 
     public function run()
     {
+        return '';
         if (! \Yii::app()->user->isGuest && $this->participant !== null) {
             $this->render('ParticipantWidget');
         }

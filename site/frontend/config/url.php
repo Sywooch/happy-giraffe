@@ -61,8 +61,12 @@ return array(
         '<_v>/api/init' => 'api/<_v>/api/init',
         '<_v>/api/answer/vote' => 'api/<_v>/api/vote',
         '<_v>/api/users/rating' => 'api/<_v>/api/rating',
+        '<_v>/api/contest' => 'api/<_v>/api/contest',
+        '<_v>/api/quests' => 'api/<_v>/api/quests',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
+
+        'referals/<ref>' => 'referals/default/index',
 
         'testupload' => 'blog/default/upload',
         'blog/default/createAlbum' => 'blog/default/createAlbum',

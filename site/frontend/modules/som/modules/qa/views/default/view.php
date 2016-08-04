@@ -3,7 +3,6 @@
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
-
 $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $question->categoryId), 'rating');
 
 $this->pageTitle = CHtml::encode($question->title);
@@ -63,6 +62,8 @@ elseif ($question->categoryId !== null)
     <div class="question_text">
         <?=$question->purified->text?>
     </div>
+
+    <?php $this->renderPartial('/default/navigation_arrow', array('next' => $this->getNextQuestions($question->id), 'previous' => $this->getPrevQuestions($question->id))); ?>
 
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
         <question-settings params="questionId: <?=$question->id?>"></question-settings>

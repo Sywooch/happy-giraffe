@@ -18,10 +18,19 @@ Yii::app()->clientScript->registerAMD('qa-search', array('ko' => 'knockout', 'Qa
   $(function () {
 
       $('.js-b-main-search__submit').on('click', function () {
+    	  showSearch();
+      });
+
+      $('.b-main-search__title').on('click', function () {
+    	  showSearch();
+      });
+
+      function showSearch()
+      {
           $('.b-main-search__input').css('display', 'block');
           $('.b-main-search__submit').css('display', 'none');
           $('.b-main-search__close').css('display', 'inline-block');
-      });
+      }
 
       $('.js-b-main-search__close').on('click', function () {
           $('.b-main-search__input').css('display', 'none');

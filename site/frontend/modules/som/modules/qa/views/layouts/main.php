@@ -34,8 +34,8 @@ if ($this->pageTitle !== $parentTitle)
                 <div class="sidebar-widget sidebar-widget__padding">
                     <?php $this->renderPartial('/_sidebar/ask', array());?>
                     <?php //$this->renderPartial('/_sidebar/personal', array());?>
-                    <?php $this->renderPartial('/_sidebar/top', array('member' => null, 'titlePrefix' => 'Знаток'));?>
                     <?php $this->renderPartial('/_sidebar/menu', array());?>
+                    <?php $this->renderPartial('/_sidebar/top', array('member' => null, 'titlePrefix' => 'Знаток'));?>
                 </div>
                 <?php /**
                     if ('rating' !== Yii::app()->controller->id)

@@ -182,6 +182,12 @@ class QaQuestion extends \HActiveRecord
 		return $this;
 	}
 
+	public function orderAsc()
+	{
+		$this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate ASC';
+		return $this;
+	}
+
 	public function category($categoryId)
 	{
 		$this->getDbCriteria()->compare($this->tableAlias . '.categoryId', $categoryId);
@@ -253,5 +259,23 @@ class QaQuestion extends \HActiveRecord
 	    return count(array_unique(array_map(function ($value){
 	        return $value->authorId;
 	    }, $this->answers)));
+	}
+
+	public function next()
+	{
+	    $this->getDbCriteria()->compare('dtimeCreate', '>' . $this->dtimeCreate);
+	    $this->orderAsc();
+	    $this->getDbCriteria()->limit = 1;
+
+	    return $this;
+	}
+
+	public function previous()
+	{
+	    $this->getDbCriteria()->compare('dtimeCreate', '<' . $this->dtimeCreate);
+	    $this->orderDesc();
+	    $this->getDbCriteria()->limit = 1;
+
+	    return $this;
 	}
 }

@@ -211,6 +211,20 @@ class DefaultController extends QaController
         ));
     }
 
+    public function getNextQuestions($currentQuestionId)
+    {
+        $objQuestion = $this->getModel($currentQuestionId);
+
+        return $objQuestion->next()->find();
+    }
+
+    public function getPrevQuestions($currentQuestionId)
+    {
+        $objQuestion = $this->getModel($currentQuestionId);
+
+        return $objQuestion->previous()->find();
+    }
+
     /**
      * @param integer $pk
      * @throws \CHttpException

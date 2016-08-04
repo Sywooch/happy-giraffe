@@ -1,23 +1,22 @@
 <?php
-/**
- * @author Никита
- * @date 26/02/15
- */
 
 namespace site\frontend\modules\comments\modules\contest\controllers;
 
 
+use site\frontend\modules\comments\modules\contest\components\ContestManager;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContest;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant;
 use site\frontend\modules\posts\models\Content;
 
+/**
+ * @property CommentatorsContest $contest
+ */
 class DefaultController extends \LiteController
 {
     public $layout = '/layout';
     public $litePackage = 'contest_commentator';
-    public $bodyClass = 'body__contest-commentator';
+    public $bodyClass = 'body_competition';
     public $contest;
-    public $isParticipant;
 
     public function filters()
     {
@@ -44,53 +43,57 @@ class DefaultController extends \LiteController
         );
     }
 
-    public function actionIndex($contestId)
+    protected function beforeAction($action)
     {
-        $this->loadContest($contestId);
+        $this->loadContest();
+        return parent::beforeAction($action);
+    }
+
+    public function actionIndex()
+    {
         $this->render('/index');
     }
 
-    public function actionRating($contestId)
-    {
-        $this->loadContest($contestId);
-        $this->render('/rating', compact('participant'));
-    }
+//    public function actionRating($contestId)
+//    {
+//        $this->loadContest($contestId);
+//        $this->render('/rating', compact('participant'));
+//    }
+//
+//    public function actionRules($contestId)
+//    {
+//        $this->loadContest($contestId);
+//        $this->render('/rules');
+//    }
+//
+//    public function actionMy($contestId)
+//    {
+//        $this->loadContest($contestId);
+//        $this->render('/my');
+//    }
+//
+//    public function actionComments($contestId)
+//    {
+//        $this->loadContest($contestId);
+//        $this->render('/comments');
+//    }
+//
+//    public function actionPosts($contestId)
+//    {
+//        $this->loadContest($contestId);
+//        $this->render('/posts');
+//    }
+//
+//    public function actionCounts($contestId)
+//    {
+//        echo CommentatorsContestParticipant::model()->byContest($contestId)->count();
+//    }
 
-    public function actionRules($contestId)
+    protected function loadContest()
     {
-        $this->loadContest($contestId);
-        $this->render('/rules');
-    }
-
-    public function actionMy($contestId)
-    {
-        $this->loadContest($contestId);
-        $this->render('/my');
-    }
-
-    public function actionComments($contestId)
-    {
-        $this->loadContest($contestId);
-        $this->render('/comments');
-    }
-
-    public function actionPosts($contestId)
-    {
-        $this->loadContest($contestId);
-        $this->render('/posts');
-    }
-
-    public function actionCounts($contestId)
-    {
-        echo CommentatorsContestParticipant::model()->byContest($contestId)->count();
-    }
-
-    protected function loadContest($contestId)
-    {
-        $this->contest = CommentatorsContest::model()->findByPk($contestId);
-        $this->isParticipant = ! \Yii::app()->user->isGuest && $this->contest->isParticipant(\Yii::app()->user->id);
-        if ($this->contest === null) {
-            throw new \CHttpException(404);
+        $this->contest = ContestManager::getCurrentActive();
+        if (!$this->contest) {
+            throw new \HttpException(404);
         }
     }
 }

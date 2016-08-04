@@ -6,8 +6,8 @@ namespace site\frontend\modules\comments\modules\contest\models;
  * @property int $commentId
  * @property int $points
  *
- * @author Никита
- * @date 25/02/15
+ * @property \site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant $participant
+ * @property \site\frontend\modules\comments\models\Comment $comment
  */
 class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
 {
@@ -104,7 +104,7 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
     {
         $c = $this->getDbCriteria();
 
-        if (! isset($c->with['comment'])) {
+        if (!isset($c->with['comment'])) {
             $c->with[] = 'comment';
         }
 

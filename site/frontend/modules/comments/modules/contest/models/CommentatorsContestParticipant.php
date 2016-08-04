@@ -67,15 +67,14 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
-//    public function active()
-//    {
-//        $this->getDbCriteria()->with = array(
-//            'contest' => array(
-//                'joinType' => 'INNER JOIN',
-//                'scopes' => 'active',
-//            ),
-//        );
-//    }
+    /**
+     * @return CommentatorsContestParticipant
+     */
+    public function orderByScore()
+    {
+        $this->getDbCriteria()->order = $this->tableAlias . '.score DESC';
+        return $this;
+    }
 
     public function relations()
     {

@@ -712,8 +712,8 @@ return array(
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
         'map' => 'archive/default/map',
         
-        'commentatorsContest/<contestId:\d+>' => 'comments/contest/default/index',
-        'commentatorsContest/<contestId:\d+>/<_a>' => 'comments/contest/default/<_a>',
+        'commentatorsContest' => 'comments/contest/default/index',
+        'commentatorsContest/<_a>' => 'comments/contest/default/<_a>',
 
         'views' => 'analytics/default/index',
 

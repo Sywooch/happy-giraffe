@@ -41,6 +41,7 @@ use site\frontend\modules\comments\models\Comment;
  *
  * The followings are the available model relations:
  * @property PostLabels[] $labelModels
+ * @property \User $author
  */
 class Content extends \HActiveRecord implements \IHToJSON
 {
@@ -592,7 +593,7 @@ class Content extends \HActiveRecord implements \IHToJSON
      */
     public function publishedAtLast($offset)
     {
-        $this->getDbCriteria()->compare('dtimePublication', '>' . (time() - $offset));
+        $this->getDbCriteria()->compare('dtimePublication', '>', time() - $offset);
 
         return $this;
     }

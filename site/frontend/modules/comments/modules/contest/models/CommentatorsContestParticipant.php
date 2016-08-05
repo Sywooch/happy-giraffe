@@ -10,8 +10,7 @@ namespace site\frontend\modules\comments\modules\contest\models;
  * @property int $dtimeRegister
  * @property string $settings -> temp field
  *
- * @author Никита
- * @date 20/02/15
+ * @property \User $user
  */
 class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
 {

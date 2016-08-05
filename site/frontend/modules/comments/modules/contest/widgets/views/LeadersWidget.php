@@ -8,8 +8,8 @@
 
 <div class="b-contest__title-blue textalign-c">Сейчас лидируют</div>
 <div class="b-contest-container">
-    <?php for ($i = 0; $i < $this->count;$i++): ?>
     <div class="b-raiting margin-t30 margin-b30 clearfix">
+    <?php for ($i = 0; $i < $this->count;$i++): ?>
         <div class="b-raiting__left float-l">
             <div class="b-raiting-wrapper b-raiting-wrapper_blue clearfix">
                 <div class="b-raiting__item float-l">

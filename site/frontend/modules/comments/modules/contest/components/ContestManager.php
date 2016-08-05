@@ -7,20 +7,20 @@ use site\frontend\modules\comments\modules\contest\models\CommentatorsContestPar
 
 class ContestManager
 {
-    const COMMENTS_CONTEST_NAME = 'Конкурс ';
+    const COMMENTS_CONTEST_NAME = 'Комментатор ';
     private static $monthes = array(
-        '01' => 'Января',
-        '02' => 'Февраля',
-        '03' => 'Марта',
-        '04' => 'Апреля',
-        '05' => 'Мая',
-        '06' => 'Июня',
-        '07' => 'Июля',
-        '08' => 'Августа',
-        '09' => 'Сентября',
-        '10' => 'Октября',
-        '11' => 'Ноября',
-        '12' => 'Декабря',
+        '01' => 'января',
+        '02' => 'февраля',
+        '03' => 'марта',
+        '04' => 'апреля',
+        '05' => 'мая',
+        '06' => 'июня',
+        '07' => 'июля',
+        '08' => 'августа',
+        '09' => 'сентября',
+        '10' => 'октября',
+        '11' => 'ноября',
+        '12' => 'декабря',
     );
 
     /**
@@ -38,6 +38,10 @@ class ContestManager
             if (!$current->save()) {
                 return false;
             }
+        }
+
+        if (!\Yii::app()->user->isGuest) {
+            $current->addParticipant(\Yii::app()->user->id);
         }
 
         return $current;

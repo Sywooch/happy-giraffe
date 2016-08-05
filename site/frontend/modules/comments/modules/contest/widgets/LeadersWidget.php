@@ -7,7 +7,7 @@ use site\frontend\modules\comments\modules\contest\models\CommentatorsContestPar
 
 /**
  * @property int $limit
- * @property iny $count
+ * @property int $count
  * @property CommentatorsContestParticipant[] $leaders
  */
 class LeadersWidget extends \CWidget

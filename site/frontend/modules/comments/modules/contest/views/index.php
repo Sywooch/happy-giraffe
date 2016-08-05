@@ -5,6 +5,9 @@ $cs->registerAMD('contestCommentsIndex', array('kow'));
 $cs->registerAMD('contestCommentsButton', array('joinOrAuth' => 'extensions/joinOrAuth', 'ContestComments' => 'models/ContestComments'), 'joinOrAuth(".contest-commentator_btn-orange", ContestComments);');
 ?>
 
+<?php if (!\Yii::app()->user->isGuest): ?>
+    <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\MyStatWidget'); ?>
+<?php endif; ?>
 <div class="b-contest__block textalign-c">
     <div class="b-contest__title visible-md">Все просто как раз, два, три</div>
     <ul class="b-contest__list">

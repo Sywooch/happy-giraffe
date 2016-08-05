@@ -6,7 +6,7 @@
  */
 class NewSeoCommand extends CConsoleCommand
 {
-    public function actionFixActivity()
+    public function actionFixActivity($delete = false)
     {
         \Yii::app()->db->enableSlave = false;
         \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
@@ -45,7 +45,10 @@ class NewSeoCommand extends CConsoleCommand
                         $post = \site\frontend\modules\posts\models\Content::model()->resetScope()->byEntity($originEntity, $id)->find();
                         if (! $post || $post->isRemoved == 1) {
                             $c++;
-                            Yii::app()->db->createCommand()->delete('som__activity', 'id = :id', [':id' => $row['id']]);
+                            if ($delete) {
+                                Yii::app()->db->createCommand()->delete('som__activity', 'id = :id', [':id' => $row['id']]);
+                                echo $row['id'] . " delete\n";
+                            }
                         }
                         break;
                     }

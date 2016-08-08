@@ -59,7 +59,7 @@ class UsersTopWidget extends TopWidgetAbstract
      * {@inheritDoc}
      * @see \site\frontend\components\TopWidgetAbstract::getTitle()
      */
-    public function getTitle()
+     public function getTitle()
     {
         return $this->title;
     }
@@ -80,12 +80,15 @@ class UsersTopWidget extends TopWidgetAbstract
      */
     protected function _process()
     {
-            $this->_getRating();
+        $this->_getRating();
+
         if (!is_null($this->authorId))
         {
             $this->_getRatingForAuthor();
         }
+
         $this->_setTitle();
+
         arsort($this->scores);
     }
 

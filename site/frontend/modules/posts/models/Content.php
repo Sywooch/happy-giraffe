@@ -32,6 +32,7 @@ use site\frontend\modules\comments\models\Comment;
  * @property integer $isAutoMeta
  * @property integer $isAutoSocial
  * @property integer $isRemoved
+ * @property integer $views
  * @property string $meta
  * @property site\frontentd\modules\posts\models\MetaInfo $metaObject
  * @property string $social
@@ -42,6 +43,7 @@ use site\frontend\modules\comments\models\Comment;
  * The followings are the available model relations:
  * @property PostLabels[] $labelModels
  * @property \User $author
+ * @property int $comments_count
  */
 class Content extends \HActiveRecord implements \IHToJSON
 {
@@ -119,6 +121,8 @@ class Content extends \HActiveRecord implements \IHToJSON
             'communityContent' => array(self::BELONGS_TO, 'CommunityContent', 'originEntityId'),
             'comments' => array(self::HAS_MANY, get_class(Comment::model()), 'new_entity_id'),
             'comments_count' => array(self::STAT, get_class(Comment::model()), 'new_entity_id'),
+            'forum' => array(self::BELONGS_TO, get_class(\Community::model()), array('forum_id' => 'id'), 'through' => 'communityContent'),
+            'club' => array(self::BELONGS_TO, get_class(\CommunityClub::model()), array('club_id' => 'id'), 'through' => 'forum'),
         );
     }
 
@@ -636,6 +640,21 @@ class Content extends \HActiveRecord implements \IHToJSON
             $this->getDbCriteria()->with[] = 'communityContent';
         }
         $this->getDbCriteria()->addInCondition('communityContent.forum_id', $forumIds);
+
+        return $this;
+    }
+
+    /**
+     * @param array $clubIds
+     *
+     * @return Content
+     */
+    public function byClubs($clubIds)
+    {
+        if (!isset($this->getDbCriteria()->with['club'])) {
+            $this->getDbCriteria()->with[] = 'club';
+        }
+        $this->getDbCriteria()->addInCondition('club.id', $clubIds);
 
         return $this;
     }

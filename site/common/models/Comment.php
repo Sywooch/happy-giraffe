@@ -131,6 +131,7 @@ class Comment extends HActiveRecord
             ),
             'Quests' => array(
                 'class' => site\frontend\modules\quests\QuestsModule::QUEST_BEHAVIOR,
+                'type' => \site\frontend\modules\quests\components\QuestTypes::COMMENT_POST,
             ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',

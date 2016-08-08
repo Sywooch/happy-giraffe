@@ -5,6 +5,8 @@
  * @var int $contestId
  */
 
+use site\frontend\modules\comments\modules\contest\components\ContestHelper;
+
 $this->pageTitle = 'Победители';
 ?>
 <div class="b-contest__block b-contest-winner textalign-c">
@@ -44,7 +46,7 @@ $this->pageTitle = 'Победители';
                     <div class="b-raiting__item float-r">
                         <div class="contest-footer__ball contest-footer__ball_black margin-t10">
                             <div class="contest-footer__ball-num"><?= $winners[$i]->score ?></div>
-                            <div class="contest-footer__ball-text">балла</div>
+                            <div class="contest-footer__ball-text"><?= ContestHelper::getPointsWord($winners[$i]->score)?></div>
                         </div>
                     </div>
                 </div>

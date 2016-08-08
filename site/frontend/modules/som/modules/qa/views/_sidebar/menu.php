@@ -8,9 +8,11 @@ $sitebarCategoryId = array_key_exists('menu', $this->sidebar) && array_key_exist
 ?>
 
     <div class="questions-categories">
-        <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\categories\MainCategoriesMenu', array(
-            'categoryId' => isset($categoryId) ? $categoryId : $sitebarCategoryId,
-        )); ?>
+    	<div class="personal-links">
+            <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\categories\MainCategoriesMenu', array(
+                'categoryId' => isset($categoryId) ? $categoryId : $sitebarCategoryId,
+            )); ?>
+    	</div>
     </div>
 
 <?php if (count($consultationsMenu->items) > 0): ?>

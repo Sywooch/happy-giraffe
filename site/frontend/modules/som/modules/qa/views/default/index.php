@@ -26,12 +26,12 @@ else {
 }
 ?>
 
-
 <?php $this->renderPartial('/_search', array('query' => '')); ?>
 <?php
 $this->widget('site\frontend\modules\som\modules\qa\widgets\QuestionsFilterWidget', array(
     'tab' => $tab,
     'categoryId' => $categoryId,
+    'htmlOptions' => ['class' => 'filter-menu filter-menu_mod visibles-lg'],
 ));
 ?>
 <div class="clearfix"></div>
@@ -41,7 +41,7 @@ $this->widget('LiteListView', array(
     'dataProvider' => $dp,
     'itemView' => '/_question',
     'htmlOptions' => array(
-        'class' => 'questions'
+        'class' => 'questions margin-t40'
     ),
     'itemsTagName' => 'ul',
     'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',

@@ -99,10 +99,12 @@ class UsersTopWidget extends TopWidgetAbstract
      */
     private function _getRatingForAuthor()
     {
+        $authorScore = isset($this->scores[$this->authorId]) ? $this->scores[$this->authorId] : 0;
+
         $cmd = \Yii::app()->db->createCommand()
             ->select('authorId, cc, COUNT(*) AS count')
             ->from('(SELECT authorId ,SUM(qa.votesCount) + COUNT(*) AS cc FROM qa__answers qa GROUP BY qa.authorId ORDER BY cc DESC, authorId DESC) AS t1')
-            ->where('cc > ' . $this->scores[$this->authorId]);
+            ->where('cc > ' . $authorScore);
 
         $result = $cmd->queryAll();
 

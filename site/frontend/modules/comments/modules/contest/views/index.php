@@ -31,7 +31,7 @@ $cs->registerAMD('contestCommentsButton', array('joinOrAuth' => 'extensions/join
         </li>
     </ul>
     <?php if (\Yii::app()->user->isGuest): ?>
-        <div class="textalign-c"><a href="#" class="btn btn-forum green-btn">Принять участие</a></div>
+        <div class="textalign-c"><a href="#" class="btn btn-forum green-btn login-button" data-bind="follow: {}">Принять участие</a></div>
     <?php endif ?>
 </div>
 <div class="b-contest__block textalign-c bg-yellow">

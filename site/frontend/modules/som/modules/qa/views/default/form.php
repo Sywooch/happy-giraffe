@@ -106,14 +106,6 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                 <button class="btn btn-success btn-xm" data-bind='click: qSubmit'><?= ($model->isNewRecord) ? 'Опубликовать' : 'Редактировать' ?></button>
             </div>
             <?php $this->endWidget(); ?>
-            <div class="popup-widget_sidebar">
-                <div class="popup-widget_sidebar_advice-smile"></div>
-                <div class="popup-widget_sidebar_advice-heading">Совет</div>
-                <ol class="popup-widget_sidebar_ol">
-                    <li class="popup-widget_sidebar_li">Старайтесь формулировать вопрос максимально четко и понятно.</li>
-                    <li class="popup-widget_sidebar_li">Чем понятнее будет Ваш вопрос, тем более конкретные ответы вы получите.</li>
-                </ol>
-            </div>
     </div>
 </div>
 

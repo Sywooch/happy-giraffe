@@ -21,7 +21,7 @@ if ($this->pageTitle !== $parentTitle)
     <div class="b-main">
         <div class="mobile-header">
             <div class="mobile-header__title mobile-header__title_answer">Ответы</div>
-            <div class="mobile-header__btn btn-wrapper"><a href="#" class="btn-wrapper__link">+</a></div>
+            <div class="mobile-header__btn btn-wrapper"><a href="<?=$this->createUrl('/som/qa/default/questionAddForm/')?>" class="btn-wrapper__link">+</a></div>
     	</div>
         <div class="b-main_cont">
 

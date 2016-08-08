@@ -46,21 +46,21 @@ $this->pageTitle = 'Победители';
                     <div class="b-raiting__item float-r">
                         <div class="contest-footer__ball contest-footer__ball_black margin-t10">
                             <div class="contest-footer__ball-num"><?= $winners[$i]->score ?></div>
-                            <div class="contest-footer__ball-text"><?= ContestHelper::getPointsWord($winners[$i]->score)?></div>
+                            <div class="contest-footer__ball-text"><?= ContestHelper::getWord($winners[$i]->score, ContestHelper::$pointsWords)?></div>
                         </div>
                     </div>
                 </div>
             </div>
             <?php endfor; ?>
             <?php if (\Yii::app()->user->isGuest && $contestId != $this->contest->id):?>
-                <div class="textalign-c"><a href="#" class="btn btn-forum green-btn">Принять участие</a></div>
+                <div class="textalign-c"><a href="#" class="btn btn-forum green-btn login-button" data-bind="follow: {}">Принять участие</a></div>
             <?php endif; ?>
         <?php if (\Yii::app()->user->isGuest && $contestId == $this->contest->id): ?>
             <div class="b-contest-winner__contain textalign-c">
                 <div class="b-contest-winner__center">
                     <div class="b-contest-winner__contain-ico"></div>
                     <div class="b-contest-winner__contain-title">В этом месяце идет серьезная борьба, попробуй поучаствуй!</div>
-                    <a href="#" class="btn btn-forum green-btn">Принять участие</a>
+                    <a href="#" class="btn btn-forum green-btn login-button" data-bind="follow: {}">Принять участие</a>
                 </div>
             </div>
         <?php endif; ?>

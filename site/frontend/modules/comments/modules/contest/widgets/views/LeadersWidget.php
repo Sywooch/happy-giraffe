@@ -32,6 +32,6 @@ use site\frontend\modules\comments\modules\contest\components\ContestHelper;
     <?php endfor; ?>
     </div>
     <?php if (\Yii::app()->user->isGuest): ?>
-        <div class="textalign-c"><a href="#" class="btn btn-ml btn-yellow">Принять участие</a></div>
+        <div class="textalign-c"><a href="#" class="btn btn-ml btn-yellow login-button" data-bind="follow: {}">Принять участие</a></div>
     <?php endif; ?>
 </div>

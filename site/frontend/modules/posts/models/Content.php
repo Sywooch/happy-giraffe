@@ -660,6 +660,19 @@ class Content extends \HActiveRecord implements \IHToJSON
     }
 
     /**
+     * @return int
+     */
+    public function getDistinctComments()
+    {
+        return \Comment::model()->count(array(
+            'condition' => 'new_entity_id = :new_entity_id',
+            'params' => array(':new_entity_id' => $this->id),
+            'distinct' => true,
+            'select' => 'author_id'
+        ));
+    }
+
+    /**
      * возвращает модифицированный критерий выборки из бд списка постов форума
      * @param array $labelsId
      */

@@ -65,38 +65,4 @@ class ContestHelper
 
         return $words[1];
     }
-
-    /**
-     * @param int $time
-     *
-     * @return string
-     */
-    public static function getTimeString($time)
-    {
-        if (is_numeric($time)) {
-            $time = (int) $time;
-        }
-
-        if (is_string($time)) {
-            $time = strtotime($time);
-        }
-
-        $currentTime = time();
-
-        if ($currentTime - $time <= self::MINUTE) {
-            return 'только что';
-        }
-
-        if ($currentTime - $time <= self::HOUR) {
-            return ($currentTime - $time) / self::MINUTE . ' минут назад';
-        }
-
-        if ($currentTime - $time <= self::DAY) {
-            return ($currentTime - $time) / self::HOUR . ' часов назад';
-        }
-
-        if ($currentTime - $time <= self::DAY * 2) {
-            return 'Вчера';
-        }
-    }
 }

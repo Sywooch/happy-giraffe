@@ -3,23 +3,20 @@
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
-
 $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $question->categoryId), 'rating');
 
 $this->pageTitle = CHtml::encode($question->title);
 
 $this->breadcrumbs['Ответы'] = array('/som/qa/default/index');
 
-if ($question->consultationId !== null) 
+if ($question->consultationId !== null)
 {
     $this->breadcrumbs[$question->consultation->title] = array('/som/qa/consultation/index/', 'consultationId' => $question->consultation->id);
-} 
-elseif ($question->categoryId !== null) 
+}
+elseif ($question->categoryId !== null)
 {
     $this->breadcrumbs[$question->category->title] = array('/som/qa/default/index/', 'categoryId' => $question->category->id);
 }
-
-// $this->breadcrumbs[] = $question->title;
 
 ?>
 
@@ -45,11 +42,19 @@ elseif ($question->categoryId !== null)
     <h1 class="questions_item_heading"><?=CHtml::encode($question->title)?></h1>
     <?php if ($question->consultationId !== null || $question->categoryId !== null): ?>
     <div class="questions_item_category">
-        <div class="questions_item_category_ico"></div>
         <?php if ($question->consultationId !== null): ?>
             <a href="<?=$this->createUrl('/som/qa/consultation/index/', array('consultationId' => $question->consultation->id))?>" class="questions_item_category_link"><?=$question->consultation->title?></a>
         <?php else: ?>
-            <a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $question->category->id))?>" class="questions_item_category_link"><?=$question->category->title?></a>
+            <div class="margin-t18">
+            	<a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $question->category->id))?>" class="box-footer__cat"><?=$question->category->title?></a>
+            	<?php if (!is_null($question->tag)): ?>
+          			<a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id])?>" class="box-footer__cat"><?=$question->tag->name?></a>
+          		<?php endif; ?>
+        	</div>
+        	<a href="#" class="box-footer__answer box-footer__answer_blue box-footer__answer_mod">
+        		<span class="box-footer__num"><?=$question->answersCount?></span>
+        		<span class="box-footer__descr">ответов</span>
+    		</a>
         <?php endif; ?>
     </div>
     <?php endif; ?>
@@ -58,9 +63,12 @@ elseif ($question->categoryId !== null)
         <?=$question->purified->text?>
     </div>
 
+    <?php $this->renderPartial('/default/navigation_arrow', array('next' => $this->getNextQuestions($question->id), 'previous' => $this->getPrevQuestions($question->id))); ?>
+
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
         <question-settings params="questionId: <?=$question->id?>"></question-settings>
     <?php endif; ?>
 </div>
+
 
 <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget', array('question' => $question)); ?>

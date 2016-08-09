@@ -27,7 +27,7 @@
     </div>
     <div class="clearfix"></div>
     <div class="answers-list_item_like-block login-button" data-bind="follow: {}">
-        <div class="answers-list_item_like-block_like"></div><span>Полезный ответ <?=$data->votesCount?></span>
+        <div class="answers-list_item_like-block_like"></div><span>Спасибо <?=$data->votesCount?></span>
         <div class="clearfix"></div>
     </div>
 </li>

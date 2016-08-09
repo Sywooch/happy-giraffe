@@ -21,9 +21,11 @@ $this->renderSidebarClip();
                             <div class="popup-widget_cont">
                                 <?=$content?>
                             </div>
-                            <div class="popup-widget_sidebar">
-                                <?=$this->clips['sidebar']?>
-                            </div>
+                            <aside class="b-main_col-sidebar visible-md">
+                            	<div class="sidebar-widget sidebar-widget__padding">
+                                    <?=$this->clips['sidebar']?>
+                            	</div>
+                            </aside>
                         </div>
                     </div>
                 </div>

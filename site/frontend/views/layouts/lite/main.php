@@ -8,7 +8,7 @@ Yii::app()->clientScript->registerAMD('userAdd', array('common' => 'common', '$'
 ?>
 <?=$this->clips['header-banner']?>
 
-<div class="b-main_cont b-main_cont__broad">
+<div class="b-main_cont b-main_cont__broad visibles-lg">
     <?php if ($this->breadcrumbs): ?>
         <div class="b-crumbs b-crumbs__s<?php if ($this->adaptiveBreadcrumbs): ?> visible-md visible-lg<?php endif; ?>">
             <div class="b-crumbs_tx">Я здесь:</div>

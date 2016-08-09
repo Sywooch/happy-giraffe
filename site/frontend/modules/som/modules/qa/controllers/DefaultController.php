@@ -18,6 +18,7 @@ use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaUserRating;
+use site\frontend\modules\som\modules\qa\models\QaTag;
 
 class DefaultController extends QaController
 {
@@ -28,10 +29,12 @@ class DefaultController extends QaController
 
     /**
      * Открыт ли отдельный вопрос
-     * 
+     *
      * @var bool isQuestion
      */
     public $isQuestion = FALSE;
+
+    public $litePackage = 'qa';
 
     public function filters()
     {
@@ -50,9 +53,10 @@ class DefaultController extends QaController
         );
     }
 
-    public function actionIndex($tab, $categoryId = null)
+    public function actionIndex($tab, $categoryId = null, $tagId = null)
     {
-        $dp = $this->getDataProvider($tab, $categoryId);
+        $dp = $this->getDataProvider($tab, $categoryId, $tagId);
+
         if ($categoryId === null)
         {
             $category = null;
@@ -65,6 +69,7 @@ class DefaultController extends QaController
                 throw new \CHttpException(404);
             }
         }
+
         $this->render('index', compact('dp', 'tab', 'categoryId', 'category'));
     }
 
@@ -95,13 +100,17 @@ class DefaultController extends QaController
         $this->render('search', compact('dp', 'query', 'categoryId'));
     }
 
-    protected function getDataProvider($tab, $categoryId)
+    protected function getDataProvider($tab, $categoryId, $tagId = null)
     {
         $model = clone QaQuestion::model();
         $model->apiWith('user')->with('category');
         if ($categoryId !== null)
         {
             $model->category($categoryId);
+            if (!is_null($tagId))
+            {
+                $model->byTag($tagId);
+            }
         }
         else
         {
@@ -200,6 +209,20 @@ class DefaultController extends QaController
             'model' => $question,
             'categories' => QaCategory::model()->sorted()->with('tags')->findAll(),
         ));
+    }
+
+    public function getNextQuestions($currentQuestionId)
+    {
+        $objQuestion = $this->getModel($currentQuestionId);
+
+        return $objQuestion->next()->find();
+    }
+
+    public function getPrevQuestions($currentQuestionId)
+    {
+        $objQuestion = $this->getModel($currentQuestionId);
+
+        return $objQuestion->previous()->find();
     }
 
     /**

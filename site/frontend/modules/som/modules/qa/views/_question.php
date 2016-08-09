@@ -33,6 +33,10 @@
   			<a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $data->category->id, 'tagId' => $data->tag->id])?>" class="box-footer__cat"><?=$data->tag->name?></a>
   		<?php endif; ?>
       	<span class="box-footer__review"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></span>
+      	<a class="box-footer__answer box-footer__answer_blue" href="<?=$data->url?>">
+      		<span class="box-footer__num"><?=$data->answersCount?></span>
+      		<span class="box-footer__descr">ответов</span>
+  		</a>
       </div>
     </div>
     <div class="box-wrapper__answer answer-wrapper">

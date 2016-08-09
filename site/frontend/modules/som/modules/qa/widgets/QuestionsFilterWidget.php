@@ -21,7 +21,7 @@ class QuestionsFilterWidget extends \CMenu
 
     protected $tabs = array(
         DefaultController::TAB_NEW => 'Новые',
-        DefaultController::TAB_POPULAR => 'Популярные',
+        DefaultController::TAB_POPULAR => 'Горячие',
         DefaultController::TAB_UNANSWERED => 'Без ответа',
     );
 

@@ -14,6 +14,9 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class MyController extends QaController
 {
+
+    public $litePackage = 'qa';
+
     public function filters()
     {
         return array(

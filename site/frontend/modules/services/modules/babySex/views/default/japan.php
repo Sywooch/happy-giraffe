@@ -9,6 +9,12 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/japan.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerCss('japan-baby', '.child_sex_japan_banner div.row {display: inline;}
     .child_sex_japan_banner .errorMessage {display: none !important;}');
+
+$this->breadcrumbs = array(
+    'Главная' => ['/site/index'],
+    $this->service->title => ['/services/babySex/default/index'],
+    'Японский метод',
+);
 ?>
 <div class="col-white-hoar">
     <div id="baby">
@@ -85,8 +91,6 @@ Yii::app()->clientScript->registerCss('japan-baby', '.child_sex_japan_banner div
 <div id="japan-result">
 
 </div>
-
-        <?php $this->renderPartial('//banners/_direct_others'); ?>
 
 <?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
     'service' => $service,

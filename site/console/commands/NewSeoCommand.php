@@ -1,5 +1,7 @@
 <?php
 
+include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+
 /**
  * @author Никита
  * @date 05/08/16
@@ -63,5 +65,98 @@ class NewSeoCommand extends CConsoleCommand
         } while (count($rows) > 0);
 
         echo "Итого " . $c . "\n";
+    }
+
+    public function actionFindLinks()
+    {
+        $posts = new CActiveDataProvider(\site\frontend\modules\posts\models\Content::model());
+        $count = $posts->totalItemCount;
+        $iterator = new CDataProviderIterator($posts, 1000);
+        $data = [];
+        foreach ($iterator as $i => $post) {
+            if (($i % 1000) == 0) {
+                echo $i . "/" . $count . "\n";
+            }
+
+            $links = $this->getLinks($post->html);
+            foreach ($links as $link) {
+                if (! isset($data[$link])) {
+                    $data[$link] = [
+                        'from' => $post->url,
+                        'status' => '0',
+                        'url' => $link,
+                    ];
+                } else {
+                    $data[$link]['from'] .= "\n" . $post->url;
+                }
+            }
+        }
+        $linksCount = count($data);
+
+        echo $linksCount . " links rdy\n";
+
+        $client = new \Guzzle\Http\Client();
+        $requests = array_map(function($row) use ($client) {
+            return $client->get($row['url']);
+        }, $data);
+
+        echo "Requests rdy\n";
+
+        for ($i = 0; $i < ceil(count($requests) / 1000); $i++) {
+            echo $i * 1000 . "/" . $linksCount . "\n";
+
+            try {
+                $responses = $client->send(array_slice($requests, $i * 1000, 1000));
+            } catch (\Guzzle\Http\Exception\MultiTransferException $e) {
+                foreach ($e->getFailedRequests() as $request) {
+                    $data[$request->getUrl()]['status'] = 2;
+                }
+
+                foreach ($e->getSuccessfulRequests() as $request) {
+                    $data[$request->getUrl()]['status'] = 1;
+                }
+            }
+        }
+
+        $this->writeCsv('links', $data);
+    }
+
+    public function actionTestWrite()
+    {
+        $data = [
+            [1, 2, 3]
+        ];
+
+        $this->writeCsv('data', $data);
+    }
+
+    protected function writeCsv($name, $data)
+    {
+        $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . $name . '.csv';
+        if (is_file($path)) {
+            unlink($path);
+        }
+        $fp = fopen($path, 'w');
+
+        foreach ($data as $fields) {
+            fputcsv($fp, $fields);
+        }
+
+        fclose($fp);
+    }
+
+    protected function getLinks($html)
+    {
+        $doc = str_get_html($html);
+        if (! $doc) {
+            return [];
+        }
+
+        $links = $doc->find('a');
+        $urls = [];
+        foreach ($links as $link) {
+            $urls[] = (strpos($link->href, '/') == 0) ? ('http://www.happy-giraffe.ru' . $link->href) : $link->href;
+        }
+        return $urls;
     }
 }

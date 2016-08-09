@@ -7,6 +7,10 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 $this->meta_description = 'Вес при беременности – важный показатель, позволяющий быстро оценить, нормально ли протекает беременность. Наш сервис поможет вам узнать, находится ли ваш вес в пределах допустимого или нужно обратиться к врачу';
 
+$this->breadcrumbs = array(
+    'Главная' => ['/site/index'],
+    $this->service->title,
+);
 ?>
 <div class="col-white-hoar">
     <div id="baby">

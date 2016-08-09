@@ -35,7 +35,7 @@ if ($this->pageTitle !== $parentTitle)
 
             </div>
             <div class="b-main-wrapper">
-              	<div class="b-main_col-article">
+              	<div class="b-main_col-article position-rel clearfix">
                 	<?=$content?>
             	</div>
                 <aside class="b-main_col-sidebar visible-md margin-t60">

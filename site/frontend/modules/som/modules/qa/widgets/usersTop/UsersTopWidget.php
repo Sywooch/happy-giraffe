@@ -53,6 +53,11 @@ class UsersTopWidget extends TopWidgetAbstract
     {
         $this->setViewName($this->viewFileName);
         $this->_model = QaAnswer::model();
+
+        if (!is_null($this->authorId))
+        {
+            $this->_monthThreshold = 0;
+        }
     }
 
     /**

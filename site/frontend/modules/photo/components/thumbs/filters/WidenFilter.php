@@ -33,7 +33,7 @@ class WidenFilter implements CustomFilterInterface
 
     public function getHeight($imageWidth, $imageHeight)
     {
-        $ratio = $imageWidth / $this->width;
+        $ratio = $this->width / $imageWidth;
         return $imageHeight * $ratio;
     }
 

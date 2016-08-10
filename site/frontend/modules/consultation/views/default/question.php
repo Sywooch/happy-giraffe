@@ -5,6 +5,12 @@
  */
 
 $this->pageTitle = $question->title;
+$this->breadcrumbs = [
+    'Главная' => ['/site/index'],
+    'Обсуждаем проблему недостатка грудного молока' => ['/consultation/default/index', 'slug' => 'apilak'],
+    $question->title,
+];
+$this->metaDescription = \site\common\helpers\HStr::truncate($question->text, 150);
 ?>
 
 <div class="b-main_col-article">

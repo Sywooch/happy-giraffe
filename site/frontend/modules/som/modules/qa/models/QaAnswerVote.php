@@ -64,6 +64,9 @@ class QaAnswerVote extends \CActiveRecord
 	public function behaviors()
 	{
 		return array(
+			'CacheDelete' => array(
+				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+			),
 			'HTimestampBehavior' => array(
 				'class' => 'HTimestampBehavior',
 				'createAttribute' => 'dtimeCreate',

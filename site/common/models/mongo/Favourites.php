@@ -6,7 +6,6 @@
  */
 class Favourites extends EMongoDocument
 {
-
     const BLOCK_SIMPLE = 1;
     const BLOCK_INTERESTING = 2;
     const BLOCK_BLOGS = 3;

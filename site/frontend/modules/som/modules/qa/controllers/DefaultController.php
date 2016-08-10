@@ -176,15 +176,15 @@ class DefaultController extends QaController
 
     public function actionQuestionEditForm($questionId)
     {
-        $this->layout = '//layouts/lite/common';
-
         $question = $this->getModel($questionId);
+        if (! \Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question)))  {
+            throw new \CHttpException(403);
+        }
+        
+        $this->layout = '//layouts/lite/common';
         $this->performAjaxValidation($question);
         if ($question->consultationId !== null)  {
             $question->scenario = 'consultation';
-        }
-        if ($question->authorId != \Yii::app()->user->id)  {
-            throw new \CHttpException(404);
         }
 
         if (isset($_POST[\CHtml::modelName($question)])) {

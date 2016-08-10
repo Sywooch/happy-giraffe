@@ -4,6 +4,10 @@
  * @var \CActiveDataProvider $dp
  */
 $this->pageTitle = 'Обсуждаем проблему недостатка грудного молока';
+$this->breadcrumbs = [
+    'Главная' => ['/site/index'],
+    'Обсуждаем проблему недостатка грудного молока',
+];
 ?>
 
 <div class="b-main_col-article">

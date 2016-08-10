@@ -125,6 +125,7 @@ return array(
         'site.frontend.modules.geo.models.*',
         'site.frontend.modules.geo.components.*',
         'site.frontend.extensions.YiiMongoDbSuite.*',
+        'site.frontend.widgets.userAvatarWidget.*',
     ),
     'behaviors' => array(
         'edms' => array(

@@ -13,8 +13,9 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
 
     public function attach($owner)
     {
-        if (!$owner->hasAttribute($this->removeAttribute))
+        if (!$owner->hasAttribute($this->removeAttribute)) {
             throw new Exception('На данную модель нельзя добавить поведение ' . __CLASS__);
+        }
 
         return parent::attach($owner);
     }

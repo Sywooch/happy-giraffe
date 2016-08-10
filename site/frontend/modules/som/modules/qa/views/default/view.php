@@ -16,6 +16,7 @@ if ($question->consultationId !== null)
 elseif ($question->categoryId !== null)
 {
     $this->breadcrumbs[$question->category->title] = array('/som/qa/default/index/', 'categoryId' => $question->category->id);
+    $this->breadcrumbs[] = $question->title;
 }
 
 ?>

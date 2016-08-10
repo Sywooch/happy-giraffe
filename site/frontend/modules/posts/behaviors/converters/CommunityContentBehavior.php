@@ -4,6 +4,7 @@ namespace site\frontend\modules\posts\behaviors\converters;
 
 use site\frontend\modules\photo\helpers\PhotoHelper;
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\posts\components\ArticleHelper;
 use site\frontend\modules\posts\models\Label;
 use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelper;
 
@@ -271,6 +272,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->post->text)));
 
+        $newPost->articleSchemaData = ArticleHelper::getJsonLd($newPost);
         return $newPost->save();
     }
 

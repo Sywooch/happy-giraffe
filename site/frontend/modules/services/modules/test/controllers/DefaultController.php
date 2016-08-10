@@ -31,6 +31,12 @@ class DefaultController extends ServiceController
         Yii::app()->clientScript->registerScriptFile($baseUrl . "/" . $test->getTypeName() . ".js?3", CClientScript::POS_HEAD);
         $this->meta_description = $test->meta_description;
 
+        $this->breadcrumbs = [
+            'Главная' => ['/site/index'],
+            'Тесты' => ['/services/test/default/index'],
+            $this->service->title,
+        ];
+
         $this->render($test->getTypeName() . '_' . $test->slug, array(
             'test' => $test
         ));

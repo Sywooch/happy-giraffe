@@ -468,4 +468,22 @@ class HDate
         return HDate::translate_date(date($format, $time));
     }
 
+    public static function timeToInterval($time)
+    {
+        $multipliers = [
+            'H' => 3600,
+            'M' => 60,
+            'S' => 1,
+        ];
+
+        $interval = 'PT';
+        foreach ($multipliers as $k => $v) {
+            $intVal = intval($time / $v);
+            if ($intVal > 0) {
+                $time = $time % $v;
+                $interval .= $intVal . $k;
+            }
+        }
+        return $interval;
+    }
 }

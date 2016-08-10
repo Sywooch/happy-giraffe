@@ -1789,5 +1789,28 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionSetArticle()
+    {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+
+        $offset = 0;
+        $limit = 1000;
+        do {
+            $posts = Yii::app()->db->createCommand('SELECT id FROM community__contents WHERE type_id = 1 AND removed = 0' . ' LIMIT ' . $limit . ' OFFSET ' . $offset)->queryColumn();
+            $criteria = new CDbCriteria();
+            $criteria->addInCondition('originEntityId', $posts);
+            $criteria->compare('originEntity', 'CommunityContent');
+            $criteria->addCondition('articleSchemaData IS NULL');
+            $newPosts = \site\frontend\modules\posts\models\Content::model()->findAll($criteria);
+            foreach ($newPosts as $newPost) {
+                \site\frontend\modules\posts\models\Content::model()->updateByPk($newPost->id, [
+                    'articleSchemaData' => \site\frontend\modules\posts\components\ArticleHelper::getJsonLd($newPost),
+                ]);
+            }
+            $offset += $limit;
+        } while (count($posts) > 0);
+    }
 }
 

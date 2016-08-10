@@ -7,6 +7,7 @@ use site\frontend\modules\comments\modules\contest\components\ContestHelper;
  * @var int $clubsCount
  * @var \CommunityClub[] $clubs
  * @var site\frontend\modules\quests\models\Quest[] $social
+ * @var site\frontend\modules\referals\models\UserRefLink $link
  */
 $this->pageTitle = $this->contest->name . ' - Задания';
 $cs = \Yii::app()->clientScript;
@@ -19,8 +20,60 @@ $cs = \Yii::app()->clientScript;
 <script src="/lite/javascript/select2_locale_ru.js"></script>
 <script src="/lite//redactor/redactor.js"></script>
 <script src="/lite//redactor/lang/ru.js"></script>
+<script src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     $(document).ready(function(){
+        //Social Api Init
+        VK.init({
+            apiId: 5197824
+        });
+
+        //post to wall functions
+        var postToWall = {
+            link: function() {
+                return $('#referal_link').val();
+            },
+            vk: function(link) {
+                VK.Api.call('wall.post', {
+                    message: link,
+                    attachments: ""
+                }, function(r) {
+                    if(r.response) {
+                        $.post('/v2_1/api/quests/', {
+                            action: 'complete',
+                            social_service: 'vk'
+                        }, function(response) {
+                            location.reload();
+                            //alert(JSON.stringify(response));
+                        });
+                    }
+                });
+            },
+            ok: function(link) {
+                alert('ok');
+            },
+            fb: function(link) {
+                alert('fb');
+            }
+        };
+
+        $('.b-contest-task__link').on('click', function() {
+            var service;
+            if ($(this).hasClass('ico-vk')) {
+                service = 'vk';
+            } else if ($(this).hasClass('ico-fb')) {
+                service = 'fb';
+            } else if ($(this).hasClass('ico-odnoklasniki')) {
+                service = 'ok';
+            } else {
+                return;
+            }
+
+            if ($(this).children('span .b-contest-task__mark')) {
+                postToWall[service](postToWall.link());
+            }
+        });
 
         /*-- вывзов попапа комментирования --*/
         $('.js-b-contest-task__choose').magnificPopup({
@@ -108,6 +161,7 @@ $cs = \Yii::app()->clientScript;
 <div class="b-contest-task b-contest__block textalign-c">
     <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
     <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
+    <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>
     <ul class="b-contest-task__list">
         <li class="b-contest-task__li b-contest-task__li_onnoklasniki"><a href="#" class="b-contest-task__link ico-odnoklasniki"><?php if ($this->checkSocialService('ok', $social)): ?><span class="b-contest-task__mark"></span><? endif; ?></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы</a></li>
         <li class="b-contest-task__li b-contest-task__li_fb"><a href="#" class="b-contest-task__link ico-fb"><?php if ($this->checkSocialService('fb', $social)): ?><span class="b-contest-task__mark"></span><? endif; ?></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы</a></li>

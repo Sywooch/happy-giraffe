@@ -182,14 +182,10 @@ class DefaultController extends QaController
         }
 
         $this->layout = '//layouts/lite/common';
-
         $this->performAjaxValidation($question);
 
         if ($question->consultationId !== null)  {
             $question->scenario = 'consultation';
-        }
-        if ($question->authorId != \Yii::app()->user->id)  {
-            throw new \CHttpException(404);
         }
 
         if (isset($_POST[\CHtml::modelName($question)])) {

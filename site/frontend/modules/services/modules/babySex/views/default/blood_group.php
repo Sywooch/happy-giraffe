@@ -7,6 +7,11 @@ $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPAR
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_group.js', CClientScript::POS_HEAD);
 
+$this->breadcrumbs = array(
+    'Главная' => ['/site/index'],
+    $this->service->title => ['/services/babySex/default/index'],
+    'По группе крови родителей',
+);
 ?>
 <div class="col-white-hoar">
     <div id="baby">
@@ -79,8 +84,6 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_group.js', CClie
                     гарантировано.</p>
             </div>
         </div>
-
-        <?php $this->renderPartial('//banners/_direct_others'); ?>
 
         <?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
             'service' => $service,

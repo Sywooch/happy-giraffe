@@ -37,7 +37,12 @@ class RatingBehavior extends \CActiveRecordBehavior
                 }
             }
 
-            $rating->saveCounters(array($this->getFieldName() => 1, 'total_count' => 1));
+            $rating->total_count += 1;
+            $rating->{$this->getFieldName()} += 1;
+
+            $rating->save();
+
+            //$rating->saveCounters(array($this->getFieldName() => 1, 'total_count' => 1));
 
             $history = new QaRatingHistory();
 
@@ -68,7 +73,11 @@ class RatingBehavior extends \CActiveRecordBehavior
             ->find();
 
         if ($rating) {
-            $rating->saveCounters(array($this->getFieldName() => -1, 'total_count' => -1));
+            $rating->total_count -= 1;
+            $rating->{$this->getFieldName()} -= 1;
+
+            $rating->save();
+            //$rating->saveCounters(array($this->getFieldName() => -1, 'total_count' => -1));
 
             $history = QaRatingHistory::model()
                 ->byUser($this->getUserId())

@@ -2,6 +2,11 @@
 /* @var $this Controller
  * @var $tests Test[]
  */
+
+$this->breadcrumbs = [
+    'Главная' => ['/site/index'],
+    'Тесты',
+];
 ?>
 <ul>
     <?php foreach ($tests as $test): ?>

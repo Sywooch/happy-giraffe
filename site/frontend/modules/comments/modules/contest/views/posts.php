@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = $this->contest->title . ' - Что комментировать?';
+$this->pageTitle = $this->contest->name . ' - Что комментировать?';
 ?>
 <div class="contest-commentator-blog_top">
     <h4 class="contest-commentator-blog_top__bold">Мы вам поможем и предложим прокомментировать интересные записи!</h4>

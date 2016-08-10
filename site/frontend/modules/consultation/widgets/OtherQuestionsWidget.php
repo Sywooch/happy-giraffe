@@ -9,7 +9,7 @@ use site\frontend\modules\consultation\models\ConsultationQuestion;
 
 class OtherQuestionsWidget extends \CWidget
 {
-    const LIMIT = 5;
+    const LIMIT = 2;
 
     public $question;
 

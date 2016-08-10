@@ -8,7 +8,7 @@
 class ServiceController extends HController
 {
     public $service_id = 8;
-    public $layout = '//layouts/community2';
+    public $layout = '//layouts/oldService';
     public $club;
     public $service;
 

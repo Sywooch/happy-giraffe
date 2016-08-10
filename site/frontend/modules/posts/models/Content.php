@@ -44,6 +44,8 @@ use site\frontend\modules\comments\models\Comment;
  */
 class Content extends \HActiveRecord implements \IHToJSON
 {
+    const BLOG_SERVICE = 'oldBlog';
+    const COMMUNITY_SERVICE = 'oldCommunity';
 
     protected $labelDelimiter = '|';
     protected $_relatedModels = array();
@@ -479,6 +481,12 @@ class Content extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    /**
+     * @param string $slug
+     * @param int $entityId
+     *
+     * @return Content
+     */
     public function bySlug($slug, $entityId)
     {
         $slug = strtolower($slug);
@@ -486,6 +494,9 @@ class Content extends \HActiveRecord implements \IHToJSON
         return $this->byEntity(Content::$slugAliases[$slug], $entityId);
     }
 
+    /**
+     * @return Content
+     */
     public function published()
     {
         $this->getDbCriteria()->addCondition($this->tableAlias . '.dtimePublication IS NOT NULL');
@@ -493,6 +504,9 @@ class Content extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    /**
+     * @return Content
+     */
     public function orderAsc()
     {
         $this->getDbCriteria()->order = $this->tableAlias . '.dtimePublication ASC';
@@ -500,6 +514,9 @@ class Content extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    /**
+     * @return Content
+     */
     public function orderDesc()
     {
         $this->getDbCriteria()->order = $this->tableAlias . '.dtimePublication DESC';
@@ -507,6 +524,11 @@ class Content extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    /**
+     * @param string $service
+     *
+     * @return Content
+     */
     public function byService($service)
     {
         $this->getDbCriteria()->addColumnCondition(array('originService' => $service));
@@ -551,6 +573,11 @@ class Content extends \HActiveRecord implements \IHToJSON
         return $this->byTags($tags);
     }
 
+    /**
+     * @param string $entity
+     *
+     * @return Content
+     */
     public function byEntityClass($entity)
     {
         $this->getDbCriteria()->addColumnCondition(array('originEntity' => $entity));
@@ -558,9 +585,56 @@ class Content extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    /**
+     * @param int $offset
+     *
+     * @return Content
+     */
     public function publishedAtLast($offset)
     {
-        $this->getDbCriteria()->compare('dtimePublication', '>', time() - $offset);
+        $this->getDbCriteria()->compare('dtimePublication', '>' . (time() - $offset));
+
+        return $this;
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return Content
+     */
+    public function withoutUserComments($userId)
+    {
+        $this->getDbCriteria()->addCondition('(select COUNT(*) from comments as c where `c`.author_id = ' . $userId . ' and `c`.new_entity_id = ' . $this->tableAlias . '.id) = 0');
+
+        return $this;
+    }
+
+    /**
+     * @param int $forumId
+     *
+     * @return Content
+     */
+    public function byForum($forumId)
+    {
+        if (!isset($this->getDbCriteria()->with['communityContent'])) {
+            $this->getDbCriteria()->with[] = 'communityContent';
+        }
+        $this->getDbCriteria()->compare('communityContent.forum_id', $forumId);
+
+        return $this;
+    }
+
+    /**
+     * @param array $forumIds
+     *
+     * @return Content
+     */
+    public function byForums($forumIds)
+    {
+        if (!isset($this->getDbCriteria()->with['communityContent'])) {
+            $this->getDbCriteria()->with[] = 'communityContent';
+        }
+        $this->getDbCriteria()->addInCondition('communityContent.forum_id', $forumIds);
 
         return $this;
     }

@@ -25,7 +25,7 @@ class DefaultController extends LiteController
     {
         $this->pageTitle = $this->meta_description = 'Составь маршрут для автомобиля';
         $this->breadcrumbs = array(
-            '<div class="ico-club ico-club__s ico-club__18"></div>' => array('/community/default/club', 'club' => 'auto'),
+            '<div class="ico-club ico-club__s ico-club__18"></div>' => array('/posts/forums/club/index', 'club' => 'auto'),
             'Маршруты',
         );
         $this->render('index');
@@ -40,7 +40,7 @@ class DefaultController extends LiteController
 
         $this->pageTitle = $this->meta_description = 'Маршруты из городов на букву «' . $letter . '»';
         $this->breadcrumbs = array(
-            '<div class="ico-club ico-club__s ico-club__18"></div>' => array('/community/default/club', 'club' => 'auto'),
+            '<div class="ico-club ico-club__s ico-club__18"></div>' => array('/posts/forums/club/index', 'club' => 'auto'),
             'Маршруты' => array('/routes/default/index'),
             $letter,
         );
@@ -61,7 +61,7 @@ class DefaultController extends LiteController
 
         $this->pageTitle = $this->meta_description = 'Маршруты из города ' . $city->name . ' ' . $city->region->name;
         $this->breadcrumbs = array(
-            '<div class="ico-club ico-club__s ico-club__18"></div>' => array('/community/default/club', 'club' => 'auto'),
+            '<div class="ico-club ico-club__s ico-club__18"></div>' => array('/posts/forums/club/index', 'club' => 'auto'),
             'Маршруты' => array('/routes/default/index'),
             'Маршруты города ' . $city->name . ' ' . $city->region->name,
         );
@@ -92,7 +92,7 @@ class DefaultController extends LiteController
         $this->meta_description = $route->texts['description'];
         $this->meta_keywords = $route->texts['keywords'];
         $this->breadcrumbs = array(
-            '<div class="ico-club ico-club__s ico-club__18"></div>' => array('/community/default/club', 'club' => 'auto'),
+            '<div class="ico-club ico-club__s ico-club__18"></div>' => array('/posts/forums/club/index', 'club' => 'auto'),
             'Маршруты' => array('/routes/default/index'),
             $route->cityFrom->name . ' — ' . $route->cityTo->name,
 

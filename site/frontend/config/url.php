@@ -61,8 +61,12 @@ return array(
         '<_v>/api/init' => 'api/<_v>/api/init',
         '<_v>/api/answer/vote' => 'api/<_v>/api/vote',
         '<_v>/api/users/rating' => 'api/<_v>/api/rating',
+        '<_v>/api/contest' => 'api/<_v>/api/contest',
+        '<_v>/api/quests' => 'api/<_v>/api/quests',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
+
+        'referals/<ref>' => 'referals/default/index',
 
         'testupload' => 'blog/default/upload',
         'blog/default/createAlbum' => 'blog/default/createAlbum',
@@ -556,11 +560,11 @@ return array(
         'childCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
         'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
 
-        '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
-        '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
-
         'babySex' => 'services/babySex/default/index',
         'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
+
+        '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
+        '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',
 

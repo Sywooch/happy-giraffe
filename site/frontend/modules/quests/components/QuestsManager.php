@@ -169,6 +169,7 @@ class QuestsManager
     public function getAllQuests()
     {
         return Quest::model()
+            ->resetScope()
             ->byUser($this->userId)
             ->byType($this->questType)
             ->byModel((new \ReflectionClass($this->model))->getShortName(), $this->model->id)

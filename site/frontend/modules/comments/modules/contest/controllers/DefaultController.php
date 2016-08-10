@@ -11,6 +11,8 @@ use site\frontend\modules\quests\components\QuestsManager;
 use site\frontend\modules\quests\components\QuestTypes;
 use site\frontend\modules\analytics\models\PageView;
 use site\frontend\modules\quests\models\Quest;
+use site\frontend\modules\referals\components\ReferalsEvents;
+use site\frontend\modules\referals\models\UserRefLink;
 
 /**
  * @property CommentatorsContest $contest
@@ -121,6 +123,18 @@ class DefaultController extends \LiteController
 
         $this->addSocialQuests();
 
+        $link = UserRefLink::model()
+            ->byUser(\Yii::app()->user->id)
+            ->byEvent(ReferalsEvents::INVITE_TO_CONTEST)
+            ->find();
+
+        if (!$link) {
+            $link = UserRefLink::generate(ReferalsEvents::INVITE_TO_CONTEST);
+            if (!$link->save()) {
+                throw new \HttpException(500);
+            }
+        }
+
         $socialQuests = Quest::model()
             ->byUser(\Yii::app()->user->id)
             ->byType(QuestTypes::POST_TO_WALL)
@@ -135,6 +149,7 @@ class DefaultController extends \LiteController
                 : \CommunityClub::model()->count(),
             'clubs' => \CommunityClub::model()->findAll(),
             'social' => $socialQuests,
+            'link' => $link,
         ));
     }
 

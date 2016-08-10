@@ -8,21 +8,18 @@
  */
 $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $categoryId), 'rating');
 
+$this->pageTitle = 'Ответы';
 
-if ($categoryId !== null) {
-    $this->pageTitle = '';
-
+if ($categoryId !== null)
+{
     $this->breadcrumbs = array(
         'Ответы' => array('/som/qa/default/index'),
         $category->title,
     );
 }
-else {
-    $this->breadcrumbs = array(
-        'Ответы',
-    );
-
-    $this->pageTitle = 'Вопрос-ответ';
+else
+{
+    $this->breadcrumbs[] = 'Ответы';
 }
 ?>
 

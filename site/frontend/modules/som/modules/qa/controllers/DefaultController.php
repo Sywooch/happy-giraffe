@@ -180,9 +180,10 @@ class DefaultController extends QaController
         if (! \Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question)))  {
             throw new \CHttpException(403);
         }
-        
+
         $this->layout = '//layouts/lite/common';
         $this->performAjaxValidation($question);
+
         if ($question->consultationId !== null)  {
             $question->scenario = 'consultation';
         }

@@ -261,6 +261,9 @@ class QaQuestion extends \HActiveRecord
 	    }, $this->answers)));
 	}
 
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+	 */
 	public function next()
 	{
 	    $this->getDbCriteria()->compare('dtimeCreate', '>' . $this->dtimeCreate);
@@ -270,6 +273,9 @@ class QaQuestion extends \HActiveRecord
 	    return $this;
 	}
 
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+	 */
 	public function previous()
 	{
 	    $this->getDbCriteria()->compare('dtimeCreate', '<' . $this->dtimeCreate);

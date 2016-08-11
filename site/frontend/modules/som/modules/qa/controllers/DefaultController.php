@@ -73,7 +73,7 @@ class DefaultController extends QaController
         $this->render('index', compact('dp', 'tab', 'categoryId', 'category'));
     }
 
-    public function actionView($id)
+    public function actionView($id, $next = null, $prev = null)
     {
         $this->isQuestion = TRUE;
 
@@ -125,7 +125,10 @@ class DefaultController extends QaController
                 $model->orderRating();
                 break;
             case self::TAB_UNANSWERED:
-                $model->unanswered();
+                $model
+                    ->unanswered()
+                    ->orderDesc()
+                ;
                 break;
         }
 
@@ -212,16 +215,26 @@ class DefaultController extends QaController
         ));
     }
 
+    /**
+     * @param integer $currentQuestionId
+     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     */
     public function getNextQuestions($currentQuestionId)
     {
         $objQuestion = $this->getModel($currentQuestionId);
+        $objQuestion->category($objQuestion->categoryId);
 
         return $objQuestion->next()->find();
     }
 
+    /**
+     * @param integer $currentQuestionId
+     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     */
     public function getPrevQuestions($currentQuestionId)
     {
         $objQuestion = $this->getModel($currentQuestionId);
+        $objQuestion->category($objQuestion->categoryId);
 
         return $objQuestion->previous()->find();
     }

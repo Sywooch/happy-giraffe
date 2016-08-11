@@ -34,11 +34,11 @@ class LiteListView extends CListView
             $viewFile = $owner->getViewFile($this->itemView);
             $j = 0;
             foreach ($data as $i => $item) {
-                $data = $this->viewData;
-                $data['index'] = $i;
-                $data['data'] = $item;
-                $data['widget'] = $this;
-                $owner->renderFile($viewFile, $data);
+                $viewData = $this->viewData;
+                $viewData['index'] = $i;
+                $viewData['data'] = $item;
+                $viewData['widget'] = $this;
+                $owner->renderFile($viewFile, $viewData);
                 if ($j++ < $n - 1)
                     echo $this->separator;
             }

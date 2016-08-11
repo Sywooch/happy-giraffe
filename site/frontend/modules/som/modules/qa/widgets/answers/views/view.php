@@ -7,7 +7,6 @@
 ?>
 
 <div class="answer-form">
-    <div class="answer-form_heading">Ваш ответ на вопрос</div>
     <!-- ava--><a href="#" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"></a>
     <textarea placeholder="Введите ваш ответ" class="answer-form_textarea login-button" data-bind="follow: {}"></textarea>
     <div class="clearfix"></div>
@@ -19,7 +18,6 @@
 {
     ?>
     <div class="answers">
-        <div class="answers_heading">Лучший ответ</div>
         <ul class="answers-list best-answer">
             <?php foreach ($bestAnswers as $data): ?>
                 <?php $this->controller->renderPartial('/_answer', array('data' => $data)); ?>

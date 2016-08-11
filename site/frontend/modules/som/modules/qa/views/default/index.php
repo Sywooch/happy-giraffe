@@ -38,7 +38,7 @@ $this->widget('LiteListView', array(
     'dataProvider' => $dp,
     'itemView' => '/_question',
     'htmlOptions' => array(
-        'class' => 'questions margin-t40'
+        'class' => 'questions questions-modification margin-t40'
     ),
     'itemsTagName' => 'ul',
     'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',

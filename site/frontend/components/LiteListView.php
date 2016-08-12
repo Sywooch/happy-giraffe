@@ -19,6 +19,8 @@ class LiteListView extends CListView
         'class' => 'LitePager',
     );
     public $emptyText = '';
+    public $tab;
+    public $category;
 
     /**
      * Renders the data item list.
@@ -36,6 +38,8 @@ class LiteListView extends CListView
             foreach ($data as $i => $item) {
                 $viewData = $this->viewData;
                 $viewData['index'] = $i;
+                $viewData['tab'] = $this->tab;
+                $viewData['category'] = $this->category;
                 $viewData['data'] = $item;
                 $viewData['widget'] = $this;
                 $owner->renderFile($viewFile, $viewData);

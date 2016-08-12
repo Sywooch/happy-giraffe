@@ -172,7 +172,7 @@ class QaQuestion extends \HActiveRecord
 
 	public function orderRating()
 	{
-		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC';
+		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC, dtimeCreate DESC';
 		return $this;
 	}
 

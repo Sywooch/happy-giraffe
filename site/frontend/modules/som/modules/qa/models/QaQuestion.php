@@ -284,4 +284,26 @@ class QaQuestion extends \HActiveRecord
 
 	    return $this;
 	}
+
+	/**
+	 * @param string $tab
+	 * @param integer $categoryId
+	 * @return string
+	 */
+	public function formatedUrl($tab = NULL, $categoryId = NULL)
+	{
+	    $url = $this->url;
+
+	    if (is_null($tab) && is_null($categoryId))
+	    {
+	        return $url;
+	    }
+
+        $url .= '?';
+        $url .= is_null($tab) ? '' : 'tab=' . $tab;
+        $url .= is_null($tab) || is_null($categoryId) ? '' : '&';
+        $url .= is_null($categoryId) ? '' : 'category=' . $categoryId;
+
+        return $url;
+	}
 }

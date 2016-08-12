@@ -37,6 +37,8 @@ $this->widget('site\frontend\modules\som\modules\qa\widgets\QuestionsFilterWidge
 $this->widget('LiteListView', array(
     'dataProvider'  => $dp,
     'itemView'      => '/_question',
+    'tab'           => $tab,
+    'category'      => $categoryId,
     'htmlOptions'   => array(
         'class' => 'questions margin-t40'
     ),

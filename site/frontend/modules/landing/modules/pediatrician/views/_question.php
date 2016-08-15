@@ -11,7 +11,7 @@
     		<span class="box-wrapper__date"><?= HHtml::timeTag($data, array('class' => 'tx-date')); ?></span>
     	</div>
         <div class="box-wrapper__header box-header">
-        	<a href="<?=$data->url?>" class="box-header__link"><?=CHtml::encode($data->title)?></a>
+        	<a href="<?=$data->formatedUrl(NULL, $data->categoryId)?>" class="box-header__link"><?=CHtml::encode($data->title)?></a>
           	<p class="box-header__text"><?=strip_tags($data->text)?></p>
         </div>
         <div class="box-wrapper__footer box-footer">

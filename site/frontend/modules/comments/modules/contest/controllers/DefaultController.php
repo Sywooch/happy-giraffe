@@ -90,7 +90,7 @@ class DefaultController extends \LiteController
                 ->byService(Content::COMMUNITY_SERVICE)
                 ->withoutUserComments(\Yii::app()->user->id);
 
-            if ($clubsCount > 0) {
+            if (isset($clubsCount) && $clubsCount > 0) {
                 $model->byClubs($clubs);
             }
         } else if ($type == 'blog') {
@@ -141,6 +141,10 @@ class DefaultController extends \LiteController
             ->byModel((new \ReflectionClass($this->contest))->getShortName(), $this->contest->id)
             ->findAll();
 
+        $user = \User::model()->findByPk(\Yii::app()->user->id);
+
+        $eauth = \Yii::app()->eauth->services;
+
         $this->render('/quests', array(
             'type' => $type,
             'posts' => $posts,
@@ -150,6 +154,8 @@ class DefaultController extends \LiteController
             'clubs' => \CommunityClub::model()->findAll(),
             'social' => $socialQuests,
             'link' => $link,
+            'user' => $user,
+            'eauth' => $eauth,
         ));
     }
 

@@ -18,23 +18,24 @@ else
 ?>
 
 <li class="questions_item clearfix">
-	<div class="questions-modification__avatar awatar-wrapper">
+	
 		
 		<?php if ($data->user->avatarUrl && ! $isAnonQuestion): ?>
-		
-			<a href="<?=$data->user->profileUrl?>" class="awatar-wrapper__link">			
-				<img src="<?=$data->user->avatarUrl?>" class="awatar-wrapper__img">
-			</a>
+			
+			<div class="questions-modification__avatar awatar-wrapper">
+    			<a href="<?=$data->user->profileUrl?>" class="awatar-wrapper__link">			
+    				<img src="<?=$data->user->avatarUrl?>" class="awatar-wrapper__img">
+    			</a>
+			</div>
 				
 		<?php endif; ?>
-		
-	</div>
-	<div class="questions-modification__box box-wrapper">
+	
+	<div class="questions-modification__box box-wrapper w-no-ava">
       <div class="box-wrapper__user">
       
       	<?php if ($isAnonQuestion): ?>
       		
-      		<?php echo $data->user->getAnonName(); ?>
+      		<span class="anon-name"><?php echo $data->user->getAnonName(); ?></span>
       		
       	<?php else: ?>
       	

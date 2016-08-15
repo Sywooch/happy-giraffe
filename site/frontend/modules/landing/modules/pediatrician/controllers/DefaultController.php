@@ -15,19 +15,17 @@ class DefaultController extends \LiteController
     */
    public $litePackage = 'contest_commentator';
 
-   /**
-    * @var integer
-    */
-   private $_pediatorCategoryId = 124;
-
    //-----------------------------------------------------------------------------------------------------------
 
    public function actionIndex()
    {
        $question = clone QaQuestion::model();
-//        $objCategoty = QaCategory::model();
-//        $question->category($objCategoty::);
-       $question->category($this->_pediatorCategoryId);
+
+       $objCategoty = QaCategory::model();
+       $question
+        ->category($objCategoty::PEDIATRICIAN_ID)
+        ->orderDesc()
+       ;
 
        $dp = new \CActiveDataProvider($question, array(
            'pagination' => array(
@@ -35,7 +33,7 @@ class DefaultController extends \LiteController
            ),
        ));
 
-       $this->render('index', ['dp' => $dp]);
+       $this->render('index', ['dp' => $dp, 'categories' => QaCategory::model()->findAll()]);
 
    }
 

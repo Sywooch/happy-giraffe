@@ -21,7 +21,7 @@ class QaCategory extends \CActiveRecord
      * 
      * @var integer
      */
-    const PEDIATRICIAN_ID = 125;
+    const PEDIATRICIAN_ID = 124;
     
 	/**
 	 * @return string the associated database table name

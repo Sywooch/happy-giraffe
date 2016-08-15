@@ -19,10 +19,22 @@ elseif ($question->categoryId !== null)
     $this->breadcrumbs[] = $question->title;
 }
 
+if (! is_null($question->category))
+{
+    $isAnonQuestion = $question->category->isPediatrician();
+}
+else
+{
+    $isAnonQuestion = FALSE;
+}
+
 ?>
 
 <div class="question">
     <div class="live-user">
+    
+    	<?php if (! $isAnonQuestion): ?>
+    	
         <a href="<?=$question->user->profileUrl?>" class="ava ava ava__<?=($question->user->gender) ? 'male' : 'female'?>">
             <?php if ($question->user->isOnline): ?>
                 <span class="ico-status ico-status__online"></span>
@@ -31,9 +43,23 @@ elseif ($question->categoryId !== null)
                 <img alt="" src="<?=$question->user->avatarUrl?>" class="ava_img">
             <?php endif; ?>
         </a>
+        
+        <?php endif; ?>
+        
         <div class="username">
-            <a href="<?=$question->user->profileUrl?>"><?=$question->user->fullName?></a>
+        	
+        	<?php if ($isAnonQuestion): ?>
+        		
+        		<?php echo $question->user->getAnonName(); ?>
+        	
+        	<?php else: ?>
+        	
+        		<a href="<?=$question->user->profileUrl?>"><?=$question->user->fullName?></a>
+        	
+        	<?php endif; ?>
+            
             <?= HHtml::timeTag($question, array('class' => 'tx-date')); ?>
+            
         </div>
     </div>
     <div class="icons-meta">

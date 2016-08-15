@@ -50,7 +50,7 @@ else
         	
         	<?php if ($isAnonQuestion): ?>
         		
-        		<?php echo $question->user->getAnonName(); ?>
+        		<span class="anon-name"><?php echo $question->user->getAnonName(); ?></span>
         	
         	<?php else: ?>
         	

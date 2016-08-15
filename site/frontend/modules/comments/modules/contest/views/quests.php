@@ -8,6 +8,8 @@ use site\frontend\modules\comments\modules\contest\components\ContestHelper;
  * @var \CommunityClub[] $clubs
  * @var site\frontend\modules\quests\models\Quest[] $social
  * @var site\frontend\modules\referals\models\UserRefLink $link
+ * @var \User $user
+ * @var array $eauth
  */
 $this->pageTitle = $this->contest->name . ' - Задания';
 $cs = \Yii::app()->clientScript;
@@ -21,13 +23,28 @@ $cs = \Yii::app()->clientScript;
 <script src="/lite//redactor/redactor.js"></script>
 <script src="/lite//redactor/lang/ru.js"></script>
 <script src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
+<script type="text/javascript" src="//api.ok.ru/js/fapi5.js" defer="defer"></script>
 
 <script type="text/javascript">
     $(document).ready(function(){
         //Social Api Init
         VK.init({
-            apiId: 5197824
+            apiId: $('#vk_app').val()
         });
+
+
+//        var rParams = FAPI.Util.getRequestParameters();
+//
+//        FAPI.init(rParams["api_server"], rParams["apiconnection"],
+//            function() {
+//                alert('success');
+//            },
+//            function(error) {
+//                alert(JSON.stringify(error));
+//            }
+//        );
+
+
 
         //post to wall functions
         var postToWall = {
@@ -51,7 +68,16 @@ $cs = \Yii::app()->clientScript;
                 });
             },
             ok: function(link) {
-                alert('ok');
+//                FAPI.Client.call({
+//                    method: "mediatopic.post",
+//                    attachment: {"media" : [{
+//                        "type": "text",
+//                        "text": "test"
+//                    }
+//                    ]}
+//                }, function (response) {
+//                    alert(JSON.stringify(response));
+//                });
             },
             fb: function(link) {
                 alert('fb');
@@ -84,12 +110,81 @@ $cs = \Yii::app()->clientScript;
             mainClass: 'b-modal-theme',
         });
 
-        $('.js-popup-comment').magnificPopup({
+        var currentPost = 0;
+
+        var loadPost = function(sender) {
+            if (!sender.jquery) {
+                $.magnificPopup.instance.close();
+                return;
+            }
+
+            currentPost = sender.data('id');
+
+            $.get('/v2_1/api/posts/', {
+                id: currentPost,
+                expand: 'author,comments_count'
+            }, function (response) {
+                var popup = $('#js-b-popup-modal');
+
+                $( popup.find('.ava_img').get(0)).attr('src', response.author.avatarInfo.big);
+                $(popup.find('.username a').get(0)).html(response.author.first_name + ' ' + response.author.last_name);
+                popup.find('.c-list_item_btn__view').html(response.views);
+                popup.find('.c-list_item_btn__comment').html(response.comments_count);
+                popup.find('.questions_item_heading').html(response.title);
+                popup.find('.questions_item_heading').attr('href', response.url);
+                popup.find('.question_text').html(response.html);
+                popup.find('.answer-form').hide(0);
+                popup.find('.tx-date').html($('#time' + currentPost).html());
+                popup.find('.b-subscribe_tx').html(response.subscribers);
+            });
+        };
+
+        var goNext = function() {
+            var next = false;
+
+            $('.js-popup-comment').each(function() {
+                if (next === true) {
+                    next = $(this);
+                }
+                if ($(this).data('id') == currentPost) {
+                    next = true;
+                }
+            });
+
+            loadPost(next);
+        };
+
+        $('#js-b-popup-modal .green-btn').on('click', function() {
+            $('#js-b-popup-modal .answer-form').show(0);
+        });
+
+        $('#js-b-popup-modal .btn-secondary').on('click', function() {
+            //дропать квест, если надо
+            goNext();
+        });
+
+        $('.answer-form_button').on('click', function() {
+            var text = $('.redactor-editor').html();
+
+            $.post('/v2_1/api/comments/', {
+                entity_id: currentPost,
+                text: text
+            }, function(response) {
+                goNext();
+            });
+        });
+
+            $('.js-popup-comment').magnificPopup({
             type: 'inline',
             preloader: false,
             showCloseBtn: false,
             closeOnContentClick: false,
             mainClass: 'b-modal-comment',
+            callbacks: {
+                open: function() {
+                    loadPost($(this.st.el));
+                }
+            }
         });
 
         $('.add-post__close').on('click', function (e) {
@@ -149,7 +244,7 @@ $cs = \Yii::app()->clientScript;
             lang: 'ru',
             minHeight: 130,
             autoresize: true,
-            placeholder: 'Введите ваш комментарии',
+            placeholder: 'Введите ваш комментарий',
             focus: true,
             toolbarExternal: '#add-post-toolbar',
             buttons: ['']
@@ -157,6 +252,9 @@ $cs = \Yii::app()->clientScript;
     });
 
 </script>
+<input type="hidden" id="vk_app" value="<?= $eauth['vkontakte']['client_id'] ?>"/>
+<input type="hidden" id="ok_app" value="<?= $eauth['odnoklassniki']['client_id'] ?>"/>
+<input type="hidden" id="fb_app" value="<?= $eauth['facebook']['client_id'] ?>"/>
 
 <div class="b-contest-task b-contest__block textalign-c">
     <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
@@ -179,13 +277,13 @@ $cs = \Yii::app()->clientScript;
             <div class="default-theme">
                 <div class="b-froum-theme"><a class="b-froum-theme-img ava__middle ava__female"><img src="<?= $post->author->getAvatarUrl() ?>" alt=""></a>
                     <div class="b-froum-theme-info"><a href="<?= $post->author->getUrl() ?>" class="name"><?= $post->author->getFullName() ?></a>
-                        <time class="time"><?= HHtml::timeTag($post, array('class' => 'tx-date'), null); ?></time><a href="<?= ContestHelper::getValidPostUrl($post->url) ?>" class="b-froum-theme-info-title"><?= $post->title ?></a>
+                        <time class="time" id="time<?= $post->id ?>"><?= HHtml::timeTag($post, array('class' => 'tx-date'), null); ?></time><a href="<?= ContestHelper::getValidPostUrl($post->url) ?>" class="b-froum-theme-info-title"><?= $post->title ?></a>
                         <p><?= $post->preview ?></p>
                         <div class="b-froum-theme-info-more clearfix">
                             <div class="float-l lh-34">
                                 <div class="c-list_item_btn"><span class="c-list_item_btn__view"><?= $post->views ?></span><span class="c-list_item_btn__users"><?= $post->getDistinctComments()?></span><a href="#" class="c-list_item_btn__comment"><?=$post->comments_count ?></a></div>
                             </div>
-                            <div class="float-r"><a href="#js-b-popup-modal" class="js-popup-comment btn btn-ms green-btn"><span class="hidden-smm">Комментировать</span><span class="b-comment-furt visible-smm">></span></a></div>
+                            <div class="float-r"><a href="#js-b-popup-modal" class="js-popup-comment btn btn-ms green-btn" data-id="<?= $post->id ?>"><span class="hidden-smm">Комментировать</span><span class="b-comment-furt visible-smm">></span></a></div>
                         </div>
                     </div>
                 </div>
@@ -201,34 +299,25 @@ $cs = \Yii::app()->clientScript;
         <div class="add-post__header add-post__header_grey">
             <div class="b-main_cont">
                 <div class="b-main_col-article">
-                    <div class="add-post__comment">Запись блога</div><span class="js-add-post__close add-post__close"></span>
+                    <div class="add-post__comment">Запись <?= $type == 'blog' ? 'блога' : 'форума' ?></div><span class="js-add-post__close add-post__close"></span>
                 </div>
             </div>
         </div>
         <div class="b-contest-winner__container">
             <div class="question">
-                <div class="live-user position-rel"><a href="#" class="ava ava__female ava__middle-xs ava__middle-sm-mid"><span class="ico-status ico-status__online"></span><img src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                    <div class="username"><a>Валерия Остапенко</a>
+                <div class="live-user position-rel"><a href="#" class="ava ava__female ava__middle-xs ava__middle-sm-mid"><span class="ico-status ico-status__online"></span><img src="" class="ava_img"></a>
+                    <div class="username"><a></a>
                         <time class="tx-date">минуту назад</time>
                     </div>
                     <div class="b-subscribe">
                         <div class="btn btn-tiny green">Подписаться</div>
-                        <div class="b-subscribe_tx">23</div>
+                        <div class="b-subscribe_tx"></div>
                     </div>
                 </div>
                 <div class="icons-meta">
-                    <div class="c-list_item_btn"><span class="c-list_item_btn__view">589</span><a href="#" class="c-list_item_btn__comment margin-r0">28</a></div>
-                </div><a class="questions_item_heading">Как научить ребенка самостоятельно одеваться?</a>
+                    <div class="c-list_item_btn"><span class="c-list_item_btn__view"></span><a href="#" class="c-list_item_btn__comment margin-r0"></a></div>
+                </div><a class="questions_item_heading"></a>
                 <div class="question_text">
-                    <p>Дочке уже месяц и неделя, а ГВ не могу наладить.</p>Трещины на сосках зажили, но соски всё ровно очень воспалены: болят даже между кормлениями,а после кормления сосок как бы белеет.
-                    Очень больно когда сосет. Прикладывание вроде бы правильное. Единственное что смущает, ореол захватывает почти весь,а когда отпустит грудь, сосок как бы прикушен.
-                    Очень хочу кормить грудью, но боль настолько измучила меня, что иногда боюсь дать грудь малышке.
-                </div>
-                <div class="question_images"><img src="/lite/images/sovhoz.jpg"></div>
-                <div class="question_text">
-                    <p>Дочке уже месяц и неделя, а ГВ не могу наладить.</p>Трещины на сосках зажили, но соски всё ровно очень воспалены: болят даже между кормлениями,а после кормления сосок как бы белеет.
-                    Очень больно когда сосет. Прикладывание вроде бы правильное. Единственное что смущает, ореол захватывает почти весь,а когда отпустит грудь, сосок как бы прикушен.
-                    Очень хочу кормить грудью, но боль настолько измучила меня, что иногда боюсь дать грудь малышке.
                 </div>
                 <div class="queastion__page-nav clearfix">
                     <div class="float-l"><span class="btn btn-xl btn-secondary">Пропустить</span></div>
@@ -237,7 +326,7 @@ $cs = \Yii::app()->clientScript;
             </div>
             <form class="answer-form">
                 <div class="answer-form__header clearfix">
-                    <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                    <!-- ava--><span href="<?= $user->getUrl() ?>" class="ava ava__middle ava__female"><img alt="" src="<?= $user->getAvatarUrl() ?>" class="ava_img"></span>
                     <textarea id="js-answer-form_textarea" placeholder="Введите ваш ответ" class="answer-form_textarea"></textarea>
                 </div>
                 <div class="answer-form__footer clearfix">

@@ -63,6 +63,7 @@ return array(
         '<_v>/api/users/rating' => 'api/<_v>/api/rating',
         '<_v>/api/contest' => 'api/<_v>/api/contest',
         '<_v>/api/quests' => 'api/<_v>/api/quests',
+        '<_v>/api/subscribe' => 'api/<_v>/api/subscribe',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

@@ -667,7 +667,7 @@ return array(
         ),
         'lite_forum-homepage' => array(
             'depends' => array('lite_posts'),
-        ), 
+        ),
         'lite_blogs-homepage' => array(
             'depends' => array('lite_posts'),
         ),
@@ -681,11 +681,5 @@ return array(
         'lite_qa' => array(
             'depends' => array('lite_services', 'lite_posts'),
         ),
-        'lite_landing_pediatrician' => [
-            'baseUrl' => '/',
-            'css'     => [
-                'lite/css/min/landing/pediatrician.css'
-            ]
-        ],
     )
 );

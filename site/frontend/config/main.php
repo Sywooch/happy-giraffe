@@ -171,6 +171,9 @@ return array(
         'referals' => array(
             'class' => 'site\frontend\modules\referals\ReferalsModule',
         ),
+        'landing' => [
+            'class' => 'site\frontend\modules\landing\LandingModule'
+        ]
     ),
     // application components
     'components' => array(

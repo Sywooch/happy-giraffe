@@ -16,13 +16,25 @@ if ($question->consultationId !== null)
 elseif ($question->categoryId !== null)
 {
     $this->breadcrumbs[$question->category->title] = array('/som/qa/default/index/', 'categoryId' => $question->category->id);
-    $this->breadcrumbs[] = $question->title;
+}
+$this->breadcrumbs[] = $question->title;
+
+if (! is_null($question->category))
+{
+    $isAnonQuestion = $question->category->isPediatrician();
+}
+else
+{
+    $isAnonQuestion = FALSE;
 }
 
 ?>
 
 <div class="question">
     <div class="live-user">
+    
+    	<?php if (! $isAnonQuestion): ?>
+    	
         <a href="<?=$question->user->profileUrl?>" class="ava ava ava__<?=($question->user->gender) ? 'male' : 'female'?>">
             <?php if ($question->user->isOnline): ?>
                 <span class="ico-status ico-status__online"></span>
@@ -31,9 +43,23 @@ elseif ($question->categoryId !== null)
                 <img alt="" src="<?=$question->user->avatarUrl?>" class="ava_img">
             <?php endif; ?>
         </a>
+        
+        <?php endif; ?>
+        
         <div class="username">
-            <a href="<?=$question->user->profileUrl?>"><?=$question->user->fullName?></a>
+        	
+        	<?php if ($isAnonQuestion): ?>
+        		
+        		<?php echo $question->user->getAnonName(); ?>
+        	
+        	<?php else: ?>
+        	
+        		<a href="<?=$question->user->profileUrl?>"><?=$question->user->fullName?></a>
+        	
+        	<?php endif; ?>
+            
             <?= HHtml::timeTag($question, array('class' => 'tx-date')); ?>
+            
         </div>
     </div>
     <div class="icons-meta">
@@ -64,7 +90,7 @@ elseif ($question->categoryId !== null)
         <?=$question->purified->text?>
     </div>
 
-    <?php $this->renderPartial('/default/navigation_arrow', array('next' => $this->getNextQuestions($question->id), 'previous' => $this->getPrevQuestions($question->id))); ?>
+    <?php $this->renderPartial('/default/navigation_arrow', array('next' => $this->getNextQuestions($question->id, $tab, $category), 'previous' => $this->getPrevQuestions($question->id, $tab, $category))); ?>
 
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
         <question-settings params="questionId: <?=$question->id?>"></question-settings>

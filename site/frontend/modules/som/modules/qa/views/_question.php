@@ -4,21 +4,48 @@
  */
 ?>
 
+<?php 
+
+if (! is_null($data->category))
+{
+    $isAnonQuestion = $data->category->isPediatrician();
+}
+else 
+{
+    $isAnonQuestion = FALSE;
+}
+
+?>
+
 <li class="questions_item clearfix">
 	<div class="questions-modification__avatar awatar-wrapper">
-		<a href="<?=$data->user->profileUrl?>" class="awatar-wrapper__link">
-			<?php if ($data->user->avatarUrl): ?>
+		
+		<?php if ($data->user->avatarUrl && ! $isAnonQuestion): ?>
+		
+			<a href="<?=$data->user->profileUrl?>" class="awatar-wrapper__link">			
 				<img src="<?=$data->user->avatarUrl?>" class="awatar-wrapper__img">
-			<?php endif; ?>
-		</a>
+			</a>
+				
+		<?php endif; ?>
+		
 	</div>
 	<div class="questions-modification__box box-wrapper">
       <div class="box-wrapper__user">
-      	<a href="<?=$data->user->profileUrl?>" class="box-wrapper__link"><?=$data->user->getFullName()?></a>
+      
+      	<?php if ($isAnonQuestion): ?>
+      		
+      		<?php echo $data->user->getAnonName(); ?>
+      		
+      	<?php else: ?>
+      	
+      		<a href="<?=$data->user->profileUrl?>" class="box-wrapper__link"><?=$data->user->getFullName()?></a>
+      	
+      	<?php endif; ?>
+      	
       	<span class="box-wrapper__date"><?= HHtml::timeTag($data, array('class' => 'tx-date')); ?></span>
       </div>
       <div class="box-wrapper__header box-header">
-      	<a href="<?=$data->url?>" class="box-header__link"><?=CHtml::encode($data->title)?></a>
+      	<a href="<?=$data->formatedUrl($tab, $category)?>" class="box-header__link"><?=CHtml::encode($data->title)?></a>
         <p class="box-header__text"><?=strip_tags($data->text)?></p>
       </div>
       <div class="box-wrapper__footer box-footer">

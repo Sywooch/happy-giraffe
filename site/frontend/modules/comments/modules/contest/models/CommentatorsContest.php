@@ -101,4 +101,15 @@ class CommentatorsContest extends \HActiveRecord
             return $this->name;
         }
     }
+
+    public function getMonthString()
+    {
+        $words = explode(' ', $this->name);
+
+        if (isset($words[1])) {
+            return $words[1];
+        }
+
+        return 'конкурса';
+    }
 }

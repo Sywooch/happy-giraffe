@@ -1,17 +1,18 @@
 <?php
 /**
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $data
+ * @var \site\frontend\modules\landing\modules\pediatrician\controllers\DefaultController $this
  */
 ?>
 
  <li class="questions_item clearfix">
   	<div class="questions-modification__box box-wrapper">
         <div class="box-wrapper__user">
-        	<span class="box-wrapper__link"><?=$data->user->getFullName()?></span>
+        	<span class="box-wrapper__link"><?=$data->user->getAnonName()?></span>
     		<span class="box-wrapper__date"><?= HHtml::timeTag($data, array('class' => 'tx-date')); ?></span>
     	</div>
         <div class="box-wrapper__header box-header">
-        	<a href="<?=$data->formatedUrl(NULL, $data->categoryId)?>" class="box-header__link"><?=CHtml::encode($data->title)?></a>
+        	<a href="<?=$data->formatedUrl(NULL, $data->categoryId)?>" class="box-header__link"><?=strip_tags($data->title)?></a>
           	<p class="box-header__text"><?=strip_tags($data->text)?></p>
         </div>
         <div class="box-wrapper__footer box-footer">

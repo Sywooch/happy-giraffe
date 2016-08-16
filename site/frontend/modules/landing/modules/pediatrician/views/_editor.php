@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 	<?php
     $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
         'id' => 'question-form',
-        'action' => $this->createUrl('/som/qa/default/questionAddForm/', ['redirect' => $this->createUrl('default/index')]),
+        'action' => $this->createUrl('/som/qa/default/questionAddForm/', ['redirectUrl' => $this->createUrl('default/index')]),
         'enableAjaxValidation' => true,
         'enableClientValidation' => true,
         'focus' => array($model, 'title'),
@@ -33,7 +33,6 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
     <?= $form->errorSummary($model) ?>
     <ul class="landing-question__list">
     	<?php
-//     	var_dump($category->tags);exit;
         $classRelashion = [
             3 => 'landing-question__ico-one',
             7 => 'landing-question__ico-two',
@@ -54,7 +53,6 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
             $form->textField($model, 'title', array(
                 'placeholder' => 'Введите заголовок вопроса',
                 'class' => 'popup-widget_cont_input-text login-button',
-//                 'data-bind' => "value: qTtitle",
                 'data-bind' => "follow: {}",
                 'id' => 'qTtitle'
             ))
@@ -88,9 +86,9 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 </div>
 <script type="text/javascript">
 
-    function QuestForValid() {
-
-        this.testTitleTok = function (obj) {
+$(document).ready(function () {
+	scope = {
+        testTitleTok: function (obj) {
             return function (event) {
                 if ($(this).val() == '') {
                     $('#' + this.id + 'E').show();
@@ -100,45 +98,51 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                     $(this).removeClass('error');
                 }
             }
-        }
+        },
 
-        this.isFormValidTok = function (obj) {
+        validateText: function (textLength) {
+        	switch (true)
+            {
+            	case textLength > 0 && textLength < 30:
+                	$("#qText").addClass('error');
+                    $("#qTextE").text('Введите более 30 символов').show();
+                    return false;
+            	case textLength > 999:
+                	$("#qText").addClass('error');
+                    $("#qTextE").text('Не более 1000 символов').show();
+                    return false;
+        		default:
+        			$("#qText").removeClass('error');
+                	$("#qTextE").hide();
+                	return true;
+            }
+        },
+
+        validateTitle: function (textLength) {
+        	switch (true)
+            {
+            	case textLength == 0:
+                    $("#qTtitle").addClass('error');
+                    $("#qTtitleE").text('Это обязательное поле').show();
+                    return false;
+            	case textLength < 20:
+                	$("#qTtitle").addClass('error');
+                    $("#qTtitleE").text('Введите более 20 символов').show();
+                    return false;
+        		default:
+        			$("#qTtitle").removeClass('error');
+                	$("#qTtitleE").hide();
+                	return true;
+            }
+        },
+
+        isFormValidTok: function (obj) {
             return function (event) {
                 var flagError = false;
 
                 var textValue = $.trim($($('.redactor_box textarea').val()).text());
 
-                if (textValue != '' && textValue.length < 30)
-                {
-                	flagError = true;
-
-                    $("#qText").addClass('error');
-                    $("#qTextE").text('Введите более 30 символов').show();
-                }
-                else
-                {
-                	$("#qText").removeClass('error');
-                    $("#qTextE").hide();
-                }
-
-                if ($.trim($("#qTtitle").val()) == '') {
-                    flagError = true;
-
-                    $("#qTtitle").addClass('error');
-                    $("#qTtitleE").text('Это обязательное поле').show();
-                } else {
-                    if ($.trim($("#qTtitle").val()).length < 20)
-                    {
-                    	flagError = true;
-
-                    	$("#qTtitle").addClass('error');
-                        $("#qTtitleE").text('Введите более 20 символов').show();
-                    }
-                    else {
-                        $("#qTtitle").removeClass('error');
-                        $("#qTtitleE").hide();
-                    }
-                }
+                flagError = !scope.validateText(textValue.length) || !scope.validateTitle($.trim($("#qTtitle").val()).length);
 
                 var selected = $("input[type='radio'][name='tags']:checked");
                 if (selected.length > 0) {
@@ -158,31 +162,14 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                 return !flagError;
             }
         }
+	};
 
-        $("input[type='radio'][name='tags']").change(function(){
-        	$("#qTtagsE").hide();
-        });
+    $("input[type='radio'][name='tags']").change(function(){
+    	$("#qTtagsE").hide();
+    });
 
-        $("#qTtitle").change(this.testTitleTok(this)).keyup(this.testTitleTok(this));
+    $("#qTtitle").change(scope.testTitleTok(this)).keyup(scope.testTitleTok(this));
 
-        setTimeout(function () {
-            $('.redactor_popup-widget_cont_textarea').on('keyup', function (event) {
-                if ($("#qText").val() == '') {
-                    flagError = true;
-                    $("#qText").addClass('error');
-                    $("#qTextE").show();
-                } else {
-                    $("#qText").removeClass('error');
-                    $("#qTextE").hide();
-                }
-            });
-        }, 3000);
-
-        $("#question-form").submit(this.isFormValidTok(this));
-    }
-
-    $(document).ready(function () {
-        var qv = new QuestForValid();
-    }
-    )
+    $("#question-form").submit(scope.isFormValidTok(this));
+});
 </script>

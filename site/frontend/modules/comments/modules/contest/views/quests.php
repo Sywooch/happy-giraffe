@@ -24,25 +24,45 @@ $cs = \Yii::app()->clientScript;
 <script src="/lite//redactor/lang/ru.js"></script>
 <script src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
 <script type="text/javascript" src="//api.ok.ru/js/fapi5.js" defer="defer"></script>
+<script src="https://odnoklassniki.github.io/ok-js-sdk/oksdk.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function(){
         //Social Api Init
         VK.init({
-            apiId: $('#vk_app').val()
+            apiId: /*5197824*/$('#vk_app').val()
         });
 
 
-//        var rParams = FAPI.Util.getRequestParameters();
-//
+        var rParams = FAPI.Util.getRequestParameters();
+        console.log(rParams);
+        var hParams = FAPI.Util.getRequestParameters(window.location.hash);
+        console.log(hParams);
+
 //        FAPI.init(rParams["api_server"], rParams["apiconnection"],
 //            function() {
 //                alert('success');
 //            },
 //            function(error) {
-//                alert(JSON.stringify(error));
+//                console.log(JSON.stringify(error));
 //            }
 //        );
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : /*'1730218027231947',*/$('#fb_app').val(),
+                xfbml      : true,
+                version    : 'v2.7'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/ru_RU/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
 
 
@@ -53,8 +73,7 @@ $cs = \Yii::app()->clientScript;
             },
             vk: function(link) {
                 VK.Api.call('wall.post', {
-                    message: link,
-                    attachments: ""
+                    attachments: link
                 }, function(r) {
                     if(r.response) {
                         $.post('/v2_1/api/quests/', {
@@ -78,9 +97,34 @@ $cs = \Yii::app()->clientScript;
 //                }, function (response) {
 //                    alert(JSON.stringify(response));
 //                });
+
+                var attachments = {
+                    type: 'link',
+                    link: link
+                };
+
+                window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment={attachment_json}&st.signature={signature}&st.return={return_url}&st.popup={popup}&st.silent={silent}&st.utext={text}');
             },
             fb: function(link) {
-                alert('fb');
+                FB.ui({
+                    method: 'feed',
+                    link: link,
+                    name: 'Invite To Contest',
+                    actions: [{
+                        name: 'join',
+                        link: link
+                    }]
+                }, function(response){
+                    if (response && response.post_id) {
+                        $.post('/v2_1/api/quests/', {
+                            action: 'complete',
+                            social_service: 'fb'
+                        }, function (response) {
+                            location.reload();
+                            //alert(JSON.stringify(response));
+                        });
+                    }
+                });
             }
         };
 
@@ -101,6 +145,8 @@ $cs = \Yii::app()->clientScript;
             }
         });
 
+        var magnific = $.magnificPopup.instance;
+
         /*-- вывзов попапа комментирования --*/
         $('.js-b-contest-task__choose').magnificPopup({
             type: 'inline',
@@ -114,7 +160,7 @@ $cs = \Yii::app()->clientScript;
 
         var loadPost = function(sender) {
             if (!sender.jquery) {
-                $.magnificPopup.instance.close();
+                magnific.close();
                 return;
             }
 
@@ -122,12 +168,23 @@ $cs = \Yii::app()->clientScript;
 
             $.get('/v2_1/api/posts/', {
                 id: currentPost,
-                expand: 'author,comments_count'
+                expand: 'author,comments_count,club'
             }, function (response) {
                 var popup = $('#js-b-popup-modal');
 
-                $( popup.find('.ava_img').get(0)).attr('src', response.author.avatarInfo.big);
+                if (response.author.avatarInfo) {
+                    $(popup.find('.ava_img').get(0)).attr('src', response.author.avatarInfo.big);
+                }
+                $(popup.find('.ava_img').get(0)).prev('span').removeClass('ico-status__online');
+
+                if (response.author.online) {
+                    $(popup.find('.ava_img').get(0)).prev('span').addClass('ico-status__online');
+                }
+
+                $(popup.find('.ava_img').get(0)).parent('a').attr('href', '/user/' + response.author.id);
+
                 $(popup.find('.username a').get(0)).html(response.author.first_name + ' ' + response.author.last_name);
+                $(popup.find('.username a').get(0)).attr('href', '/user/' + response.author.id);
                 popup.find('.c-list_item_btn__view').html(response.views);
                 popup.find('.c-list_item_btn__comment').html(response.comments_count);
                 popup.find('.questions_item_heading').html(response.title);
@@ -135,6 +192,45 @@ $cs = \Yii::app()->clientScript;
                 popup.find('.question_text').html(response.html);
                 popup.find('.answer-form').hide(0);
                 popup.find('.tx-date').html($('#time' + currentPost).html());
+
+                if (response.originService == 'oldBlog') {
+                    $.get('/v2_1/api/subscribe/', {
+                        user_id: response.authorId
+                    }, function(r) {
+                        if (r[0].message) {
+                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
+                            popup.find('.b-subscribe_tx').html(response.subscribers);
+                        }
+                    });
+                } else if (response.originService == 'oldCommunity') {
+                    $.get('/v2_1/api/subscribe/', {
+                        club_id: response.club.id
+                    }, function(r) {
+                        if (r[0].message) {
+                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
+                            popup.find('.b-subscribe_tx').html(response.subscribers);
+                        }
+                    });
+                }
+
+                popup.find('div.btn.btn-tiny.green').on('click', function() {
+                    if (response.originService == 'oldBlog') {
+                        $.post('/v2_1/api/subscribe/', {
+                            user_id: response.author.id
+                        }, function (r) {
+                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
+                            popup.find('.b-subscribe_tx').html(response.subscribers + 1);
+                        });
+                    } else if (response.originService == 'oldCommunity') {
+                        $.post('/v2_1/api/subscribe/', {
+                            club_id: response.club.id
+                        }, function (r) {
+                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
+                            popup.find('.b-subscribe_tx').html(response.subscribers + 1);
+                        });
+                    }
+                });
+
                 popup.find('.b-subscribe_tx').html(response.subscribers);
             });
         };
@@ -189,7 +285,7 @@ $cs = \Yii::app()->clientScript;
 
         $('.add-post__close').on('click', function (e) {
             e.preventDefault();
-            $.magnificPopup.instance.close();
+            magnific.close();
         });
 
         $(':checkbox.homepage-check__input').on('click', function() {
@@ -200,6 +296,12 @@ $cs = \Yii::app()->clientScript;
                     filter.push($(this).data('value'));
                 }
             });
+
+            if (filter.length == 0) {
+                alert('Нельзя произвести выборку без клубов');
+                $(this).prop('checked', true);
+                return;
+            }
 
             $('.popup_clubs_count').text(filter.length);
 
@@ -224,13 +326,13 @@ $cs = \Yii::app()->clientScript;
                     var smile = this.button.add('smile', 'смайл');
 
                     this.button.addCallback(smile, function () {
-                        alert('смайл')
+                        //alert('смайл')
                     });
                     this.button.addCallback(videos, function () {
-                        alert('видео')
+                        //alert('видео')
                     });
                     this.button.addCallback(picture, function () {
-                        alert('изображение')
+                        //alert('изображение')
                     });
 
                 }
@@ -307,11 +409,11 @@ $cs = \Yii::app()->clientScript;
             <div class="question">
                 <div class="live-user position-rel"><a href="#" class="ava ava__female ava__middle-xs ava__middle-sm-mid"><span class="ico-status ico-status__online"></span><img src="" class="ava_img"></a>
                     <div class="username"><a></a>
-                        <time class="tx-date">минуту назад</time>
+                        <time class="tx-date"></time>
                     </div>
                     <div class="b-subscribe">
-                        <div class="btn btn-tiny green">Подписаться</div>
-                        <div class="b-subscribe_tx"></div>
+<!--                        <div class="btn btn-tiny green">Подписаться</div>-->
+<!--                        <div class="b-subscribe_tx"></div>-->
                     </div>
                 </div>
                 <div class="icons-meta">

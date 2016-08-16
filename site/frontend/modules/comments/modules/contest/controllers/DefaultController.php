@@ -256,7 +256,7 @@ class DefaultController extends \LiteController
         ));
     }
 
-    public function actionMy()
+    public function actionMy($count = 5)
     {
         $participant = CommentatorsContestParticipant::model()
             ->byContest($this->contest->id)
@@ -265,20 +265,28 @@ class DefaultController extends \LiteController
             ->find();
 
         $comments = CommentatorsContestComment::model()
+            ->orderDesc()
             ->byContest($this->contest->id)
             ->byParticipant($participant->id)
             ->with('comment')
             ->findAll(array(
-                'limit' => 5,
+                'limit' => $count,
             ));
+
+        $commentsCount = CommentatorsContestComment::model()
+            ->byContest($this->contest->id)
+            ->byParticipant($participant->id)
+            ->count();
 
         $this->render('/my', array(
             'comments' => $comments,
             'participant' => $participant,
+            'commentsCount' => $commentsCount,
+            'count' => $count
         ));
     }
 
-    public function actionPulse()
+    public function actionPulse($count = 10)
     {
         $comments = array();
 
@@ -290,7 +298,7 @@ class DefaultController extends \LiteController
             ->byContest($this->contest->id)
             ->with('comment')
             ->findAll(array(
-                'limit' => 10,
+                'limit' => $count,
             ));
 
         foreach ($contestComments as $c) {
@@ -309,6 +317,7 @@ class DefaultController extends \LiteController
             'comments' => $comments,
             'participantsCount' => $participantsCount,
             'commentsCount' => $commentsCount,
+            'count' => $count
         ));
     }
 

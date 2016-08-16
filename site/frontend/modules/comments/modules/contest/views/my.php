@@ -4,6 +4,8 @@ use site\frontend\modules\comments\modules\contest\components\ContestHelper;
 /**
  * @var site\frontend\modules\comments\modules\contest\models\CommentatorsContestComment[] $comments
  * @var site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant $participant
+ * @var int $commentsCount
+ * @var int $count
  */
 $this->pageTitle = $this->contest->name . ' - Мои баллы';
 $cs = Yii::app()->clientScript;
@@ -57,5 +59,9 @@ $cs->registerAMD('contestCommentsIndex', array('kow'));
             </div>
         </article>
         <?php endforeach; ?>
+
+        <?php if ($commentsCount > $count): ?>
+            <div class="textalign-c"><a href="<?= \Yii::app()->createUrl('/comments/contest/default/my', array('count' => $count + 30)) ?>" class="b-contest__link">Показать еще 30</a></div>
+        <?php endif; ?>
     </div>
 </div>

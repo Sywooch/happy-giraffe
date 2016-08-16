@@ -175,7 +175,7 @@ class ContestBehavior extends \CActiveRecordBehavior
     {
         $points =  mb_strlen(strip_tags($comment->text), 'UTF-8') >= self::MIN_LENGTH;
 
-        if ($points != 0 && \Yii::app()->params['is_api_request']) {
+        if ($points != 0 && \Yii::app()->params['is_api_request'] && \Yii::app()->params['is_from_device']) {
             $points *= 2;
         }
 

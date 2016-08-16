@@ -6,6 +6,7 @@ $this->pageTitle = $this->contest->name;
  * @var \site\frontend\modules\comments\models\Comment[] $comments
  * @var int $participantsCount
  * @var int $commentsCount
+ * @var int $count
  */
 ?>
 
@@ -55,8 +56,8 @@ $this->pageTitle = $this->contest->name;
         <!-- /b-article-->
         <?php endforeach; ?>
 
-        <?php if ($commentsCount > 10): ?>
-            <div class="textalign-c"><a href="#" class="b-contest__link">Показать еще 30 комментариев</a></div>
+        <?php if ($commentsCount > $count): ?>
+            <div class="textalign-c"><a href="<?= \Yii::app()->createUrl('/comments/contest/default/pulse', array('count' => $count + 30)) ?>" class="b-contest__link">Показать еще 30 комментариев</a></div>
         <?php endif; ?>
     </div>
 </div>

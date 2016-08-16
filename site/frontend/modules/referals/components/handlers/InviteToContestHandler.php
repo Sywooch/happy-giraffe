@@ -19,17 +19,18 @@ class InviteToContestHandler extends Handler
                 throw new \HttpException('UserForThisRefNotFound', 404);
             }
 
+            //later
             /**
              * @var CommentatorsContestParticipant $participant
              */
-            $participant = CommentatorsContestParticipant::model()
-                ->byUser($user->id)
-                ->byContest(ContestManager::getCurrentActive()->id)
-                ->find();
-
-            $participant->score += 5;
-
-            $participant->update(array('score'));
+//            $participant = CommentatorsContestParticipant::model()
+//                ->byUser($user->id)
+//                ->byContest(ContestManager::getCurrentActive()->id)
+//                ->find();
+//
+//            $participant->score += 5;
+//
+//            $participant->update(array('score'));
         }
 
         return \Yii::app()->createUrl('/comments/contest/default/index');

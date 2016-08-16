@@ -32,9 +32,9 @@ else
 
 <div class="question">
     <div class="live-user">
-    
+
     	<?php if (! $isAnonQuestion): ?>
-    	
+
         <a href="<?=$question->user->profileUrl?>" class="ava ava ava__<?=($question->user->gender) ? 'male' : 'female'?>">
             <?php if ($question->user->isOnline): ?>
                 <span class="ico-status ico-status__online"></span>
@@ -43,30 +43,30 @@ else
                 <img alt="" src="<?=$question->user->avatarUrl?>" class="ava_img">
             <?php endif; ?>
         </a>
-        
+
         <?php endif; ?>
-        
+
         <div class="username">
-        	
+
         	<?php if ($isAnonQuestion): ?>
-        		
+
         		<?php echo $question->user->getAnonName(); ?>
-        	
+
         	<?php else: ?>
-        	
+
         		<a href="<?=$question->user->profileUrl?>"><?=$question->user->fullName?></a>
-        	
+
         	<?php endif; ?>
-            
+
             <?= HHtml::timeTag($question, array('class' => 'tx-date')); ?>
-            
+
         </div>
     </div>
     <div class="icons-meta">
         <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>
     </div>
     <div class="clearfix"></div>
-    <h1 class="questions_item_heading"><?=CHtml::encode($question->title)?></h1>
+    <h1 class="questions_item_heading"><?=strip_tags($question->title)?></h1>
     <?php if ($question->consultationId !== null || $question->categoryId !== null): ?>
     <div class="questions_item_category">
         <?php if ($question->consultationId !== null): ?>

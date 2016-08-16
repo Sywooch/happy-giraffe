@@ -8,20 +8,6 @@ $this->pageTitle = 'Контакты';
 <div class="info-hero info-start">
     <div class="info-hero-line main">По всем вопросам и предложениям по работе сайта обращайтесь</div>
     <div class="info-hero-line"><a href="mailto:info@happy-giraffe.ru" class="info-hero-line__mail blue">info@happy-giraffe.ru</a></div>
-    <div class="info-hero-line main">
-        <div class="info-hero-line__part">
-            <div class="info-hero-line__part__question">
-                У вас важный <br />
-                вопрос?
-            </div>
-        </div>
-        <div class="info-hero-line__part"><img src="/lite/images/info/ceo.png" alt=""></div>
-        <div class="info-hero-line__part text-left">
-            <div class="info-hero-line__part__small position">Генеральный директор</div>
-            <div class="info-hero-line__part__small name">Мира Смурков</div>
-            <div class="info-hero-line__part__small"><a href="mailto:mira@happy-giraffe.ru" class="info-hero-line__part__mail">mira@happy-giraffe.ru</a></div>
-        </div>
-    </div>
 </div>
 <div class="info-maps">
     <div class="info-maps-part left">

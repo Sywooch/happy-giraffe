@@ -1,7 +1,7 @@
 <div class="landing">
     <?php $this->renderPartial('/_header'); ?>
     <?php $this->renderPartial('/_editor', ['model' => $dp->model, 'category' => $category]); ?>
-    <?php $this->renderPartial('/_doctors'); ?>
+    <?php $this->widget('site\frontend\modules\landing\modules\pediatrician\widgets\doctors\DoctorsWidget'); ?>
     <div class="landing__body">
         <div class="landing-question">
             <div class="textalign-c margin-b30">

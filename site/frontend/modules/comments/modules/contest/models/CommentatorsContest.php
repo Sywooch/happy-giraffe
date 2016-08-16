@@ -92,9 +92,13 @@ class CommentatorsContest extends \HActiveRecord
 
     public function getFullMonth()
     {
-        $month = mb_substr($this->month, 0, 2);
-        $year = mb_substr($this->month, 2);
+        if ($this->month) {
+            $month = mb_substr($this->month, 0, 2);
+            $year = mb_substr($this->month, 2);
 
-        return self::$monthNames[$month] . ' ' . $year;
+            return self::$monthNames[$month] . ' ' . $year;
+        } else {
+            return '----';
+        }
     }
 }

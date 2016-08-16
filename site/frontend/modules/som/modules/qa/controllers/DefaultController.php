@@ -111,7 +111,7 @@ class DefaultController extends QaController
         ));
     }
 
-    public function actionQuestionAddForm($consultationId = null)
+    public function actionQuestionAddForm($consultationId = null, $redirect = null)
     {
         $this->layout = '//layouts/lite/common';
 
@@ -139,7 +139,8 @@ class DefaultController extends QaController
             }
 
             if ($question->save()) {
-                $this->redirect($question->url);
+                $url = $redirect ?: $question->url;
+                $this->redirect($url);
             }
         }
 

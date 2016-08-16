@@ -254,6 +254,9 @@ class QaQuestion extends \HActiveRecord
 		return $this->consultationId !== null;
 	}
 
+	/**
+	 * @return integer
+	 */
 	public function answersUsersCount()
 	{
 	    return count(array_unique(array_map(function ($value){

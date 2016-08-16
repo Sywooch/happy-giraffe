@@ -1,6 +1,6 @@
 <div class="landing">
     <?php $this->renderPartial('/_header'); ?>
-    <?php $this->renderPartial('/_editor', ['model' => $dp->model, 'categories' => $categories]); ?>
+    <?php $this->renderPartial('/_editor', ['model' => $dp->model, 'category' => $category]); ?>
     <?php $this->renderPartial('/_doctors'); ?>
     <div class="landing__body">
         <div class="landing-question">

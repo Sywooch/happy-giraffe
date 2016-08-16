@@ -98,7 +98,7 @@ class CommentatorsContest extends \HActiveRecord
 
             return self::$monthNames[$month] . ' ' . $year;
         } else {
-            return '----';
+            return $this->name;
         }
     }
 }

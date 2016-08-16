@@ -20,7 +20,7 @@ $cs->registerAMD('contestCommentsButton', array('joinOrAuth' => 'extensions/join
         <li class="b-contest__li">
             <div class="b-prize__ico-wrapper">
                 <div class="b-prize__ico b-prize__ico_attachment"></div>
-            </div><a href="#" class="b-prize__link-appstore"></a>
+            </div><a href="https://play.google.com/store/apps/details?id=ru.happy_giraffe.blogger" class="b-prize__link-appstore"></a>
             <div class="b-prize__descr">Получай за комментарии в мобильном приложении в 2 раза больше баллов</div>
         </li>
         <li class="b-contest__li">

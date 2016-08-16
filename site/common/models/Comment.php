@@ -82,7 +82,7 @@ class Comment extends HActiveRecord
         return array(
             'author' => array(self::BELONGS_TO, get_class(\User::model()), 'author_id'),
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
-            'post' => array(self::BELONGS_TO, get_class(\site\frontend\modules\posts\models\Content::model()), 'new_entity_id'),
+            'post' => array(self::BELONGS_TO, 'site\frontend\modules\posts\models\Content', 'new_entity_id'),
         );
     }
 

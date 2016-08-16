@@ -3,7 +3,11 @@
  * @var site\frontend\modules\som\modules\qa\controllers\MyController $this
  * @var \CActiveDataProvider $dp
  */
-$this->sidebar = array('ask', 'my_questions' => array('categoryId' => $categoryId), 'my_rating');
+$this->sidebar = array('ask', 'top' => array(
+    'member' => \Yii::app()->user->id,
+    'title' => 'Мой рейтинг',
+    'viewFileName' => 'my_questions'
+),'my_questions' => array('categoryId' => $categoryId), 'my_rating');
 $this->pageTitle = 'Мои вопросы';
 ?>
 <?php
@@ -15,6 +19,14 @@ $this->widget('LiteListView', array(
     ),
     'itemsTagName' => 'ul',
     'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
+    'pager' => [
+        'class'           => 'LitePagerDots',
+        'prevPageLabel'   => '&nbsp;',
+        'nextPageLabel'   => '&nbsp;',
+        'showPrevNext'    => TRUE,
+        'showButtonCount' => 5,
+        'dotsLabel'       => '<li class="page-points">...</li>'
+    ]
 ));
 ?>
 

@@ -10,7 +10,14 @@ $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPAR
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/china.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerCss('china-baby', '.child_sex_china_banner div.row{display: inline;}
-.child_sex_china_banner .errorMessage{display: none !important;}');?>
+.child_sex_china_banner .errorMessage{display: none !important;}');
+
+$this->breadcrumbs = array(
+    'Главная' => ['/site/index'],
+    $this->service->title => ['/services/babySex/default/index'],
+    'По китайскому календарю',
+);
+?>
 
 <div class="col-white-hoar">
     <div id="baby">
@@ -109,8 +116,6 @@ Yii::app()->clientScript->registerCss('china-baby', '.child_sex_china_banner div
                     рождения мальчика, но почему бы и не попробовать?</p>
             </div>
         </div>
-
-        <?php $this->renderPartial('//banners/_direct_others'); ?>
 
         <?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
             'service' => $service,

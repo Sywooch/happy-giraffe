@@ -18,7 +18,7 @@ class TagHelper
         }
         $rubric = \CommunityRubric::model()->findByAttributes([
             'title' => $labelText,    
-        ]);
+        ], 'community_id IS NOT NULL');
         $url = \Yii::app()->controller->createUrl('/posts/forums/club/rubric', ['rubricId' => $rubric->id]);
         return [
             'text' => $labelText,

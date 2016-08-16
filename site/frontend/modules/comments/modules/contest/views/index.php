@@ -36,7 +36,7 @@ $cs->registerAMD('contestCommentsButton', array('joinOrAuth' => 'extensions/join
 </div>
 <div class="b-contest__block textalign-c bg-yellow">
     <div class="b-contest-container">
-        <div class="b-contest__title">Приз августа</div>
+        <div class="b-contest__title">Приз <?= $this->contest->getMonthString() ?></div>
         <div class="b-prize__contain b-prize__contain_bg"><img src="/lite/images/konkurs/ico-contest-prize.svg"></div>
         <div class="w-700 margin-auto font-m">
             <div class="b-contest__text-middle margin-b5">Набор «Каляка-Маляка»</div>

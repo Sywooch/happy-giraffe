@@ -8,7 +8,7 @@ use site\frontend\modules\comments\modules\contest\components\ContestHelper;
 
 <div class="contest-footer">
     <div class="contest-footer__flex">
-        <div class="contest-footer__box"><a href="#" class="contest-commentator-rating_user-a">
+        <div class="contest-footer__box"><a href="<?= $this->participant->user->getUrl() ?>" class="contest-commentator-rating_user-a">
                 <!-- ava--><span href="<?= $this->participant->user->getUrl() ?>" class="ava"><img alt="" src="<?= $this->participant->user->getAvatarUrl() ?>" class="ava_img"></span></a>
             <div class="contest-footer__ball">
                 <div class="contest-footer__ball-num"><?= $this->participant->score ?></div>

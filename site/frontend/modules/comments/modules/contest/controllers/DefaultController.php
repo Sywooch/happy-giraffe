@@ -72,8 +72,8 @@ class DefaultController extends \LiteController
          * @var CommentatorsContestParticipant $participant
          */
         $participant = CommentatorsContestParticipant::model()
-            ->byUser(\Yii::app()->user->id)
             ->byContest($this->contest->id)
+            ->byUser(\Yii::app()->user->id)
             ->find();
 
         if (($settings = $participant->getSettingArray()) && isset($settings['community_filter'])) {

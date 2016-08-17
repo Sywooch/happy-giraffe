@@ -16,7 +16,7 @@ Yii::app()->clientScript->registerAMD('qa-redactor', array('hgwswg' => 'care-wys
 Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 ?>
 
-<div class="landing__body landing-question textalign-c">
+<div class="landing__body landing-question textalign-c login-button" data-bind="follow: {}">
     <div class="landing-question__title font__title-s">Возраст Вашего ребенка?</div>
 	<?php
     $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
@@ -26,7 +26,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
         'enableClientValidation' => true,
         'focus' => array($model, 'title'),
         'htmlOptions' => array(
-            'class' => 'popup-widget_cont'
+            'class' => 'popup-widget_cont',
         )
     ));
     ?>
@@ -53,7 +53,6 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
             $form->textField($model, 'title', array(
                 'placeholder' => 'Введите заголовок вопроса',
                 'class' => 'popup-widget_cont_input-text login-button',
-                'data-bind' => "follow: {}",
                 'id' => 'qTtitle'
             ))
             ?>

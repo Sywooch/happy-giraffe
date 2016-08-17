@@ -88,6 +88,7 @@ return array(
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
 
+        'pediatrician/<_a:(questions|answers)>' => 'specialists/pediatrician/default/<_a>',
 
         /* QA */
 

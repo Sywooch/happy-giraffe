@@ -42,6 +42,11 @@ class WebUser extends CWebUser
             CookRecipe::checkRecipeBookAfterLogin($model->id);
         }
 
+        /** @todo костыль */
+        if ($model->specialistProfile !== null) {
+            $this->returnUrl = Yii::app()->createUrl('/specialists/pediatrician/default/questions');
+        }
+
         Yii::app()->request->cookies['not_guest'] = new CHttpCookie('not_guest', '1', array('expire' => time() + 3600*24*100));
     }
 

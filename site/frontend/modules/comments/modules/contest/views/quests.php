@@ -232,6 +232,8 @@ $cs = \Yii::app()->clientScript;
                 });
 
                 popup.find('.b-subscribe_tx').html(response.subscribers);
+
+                $('.redactor-editor').html('');
             });
         };
 

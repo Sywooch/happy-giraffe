@@ -16,8 +16,8 @@ if ($question->consultationId !== null)
 elseif ($question->categoryId !== null)
 {
     $this->breadcrumbs[$question->category->title] = array('/som/qa/default/index/', 'categoryId' => $question->category->id);
-    $this->breadcrumbs[] = $question->title;
 }
+$this->breadcrumbs[] = $question->title;
 
 ?>
 
@@ -64,7 +64,7 @@ elseif ($question->categoryId !== null)
         <?=$question->purified->text?>
     </div>
 
-    <?php $this->renderPartial('/default/navigation_arrow', array('next' => $this->getNextQuestions($question->id), 'previous' => $this->getPrevQuestions($question->id))); ?>
+    <?php $this->renderPartial('/default/navigation_arrow', array('next' => $this->getNextQuestions($question->id, $tab, $category), 'previous' => $this->getPrevQuestions($question->id, $tab, $category))); ?>
 
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
         <question-settings params="questionId: <?=$question->id?>"></question-settings>

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \site\frontend\modules\landing\modules\pediatrician\widgets\DoctorsWidget $this
+ * @var \site\frontend\modules\landing\modules\pediatrician\widgets\doctors\DoctorsWidget $this
  * @var \site\frontend\modules\specialists\models\SpecialistProfile[] $profiles
  */
 

@@ -53,6 +53,6 @@ class QaManager
 
     protected static function getCategoryId()
     {
-        return QaCategory::model()->find('title = :title', [':title' => 'Мой педиатр'])->id;
+        return QaCategory::PEDIATRICIAN_ID;
     }
 }

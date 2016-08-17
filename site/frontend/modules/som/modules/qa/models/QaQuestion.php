@@ -309,4 +309,15 @@ class QaQuestion extends \HActiveRecord
 
         return $url;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see CActiveRecord::save()
+	 */
+	public function save($runValidation=true,$attributes=null)
+	{
+        $this->title = htmlspecialchars($this->title);
+
+        return parent::save($runValidation, $attributes);
+	}
 }

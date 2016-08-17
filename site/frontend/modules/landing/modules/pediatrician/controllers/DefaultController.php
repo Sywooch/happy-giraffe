@@ -32,9 +32,8 @@ class DefaultController extends \LiteController
                'pageVar' => 'page',
            ),
        ));
-
-       $this->render('index', ['dp' => $dp, 'category' => QaCategory::model()->find()]);
-
+       
+       $this->render('index', ['dp' => $dp, 'category' => QaCategory::model()->findByPk($objCategoty::PEDIATRICIAN_ID)]);
    }
 
 }

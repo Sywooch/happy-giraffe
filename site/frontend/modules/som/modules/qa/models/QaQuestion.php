@@ -172,7 +172,7 @@ class QaQuestion extends \HActiveRecord
 
 	public function orderRating()
 	{
-		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC';
+		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC, dtimeCreate DESC';
 		return $this;
 	}
 
@@ -261,6 +261,9 @@ class QaQuestion extends \HActiveRecord
 	    }, $this->answers)));
 	}
 
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+	 */
 	public function next()
 	{
 	    $this->getDbCriteria()->compare('dtimeCreate', '>' . $this->dtimeCreate);
@@ -270,6 +273,9 @@ class QaQuestion extends \HActiveRecord
 	    return $this;
 	}
 
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+	 */
 	public function previous()
 	{
 	    $this->getDbCriteria()->compare('dtimeCreate', '<' . $this->dtimeCreate);
@@ -277,5 +283,27 @@ class QaQuestion extends \HActiveRecord
 	    $this->getDbCriteria()->limit = 1;
 
 	    return $this;
+	}
+
+	/**
+	 * @param string $tab
+	 * @param integer $categoryId
+	 * @return string
+	 */
+	public function formatedUrl($tab = NULL, $categoryId = NULL)
+	{
+	    $url = $this->url;
+
+	    if (is_null($tab) && is_null($categoryId))
+	    {
+	        return $url;
+	    }
+
+        $url .= '?';
+        $url .= is_null($tab) ? '' : 'tab=' . $tab;
+        $url .= is_null($tab) || is_null($categoryId) ? '' : '&';
+        $url .= is_null($categoryId) ? '' : 'category=' . $categoryId;
+
+        return $url;
 	}
 }

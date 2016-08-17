@@ -313,6 +313,7 @@ class DefaultController extends \LiteController
 
         $commentsCount = CommentatorsContestComment::model()
             ->byContest($this->contest->id)
+            ->existingComments()
             ->count();
 
         $this->render('/pulse', array(

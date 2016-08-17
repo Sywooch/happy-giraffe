@@ -12,9 +12,9 @@
         <div class="contest-header__box">
             <div class="contest-header__descr visible-md"> КОНКУРС ПРОВОДИТСЯ ЕЖЕМЕСЯЧНО</div>
             <div class="contest-header__title"> <?= $this->contest->name; ?></div>
-            <div class="textalign-c padding-t20"><a href="#" class="btn btn-ml btn-yellow hidden-lg">Принять участие</a></div>
+            <?php if (\Yii::app()->user->isGuest): ?><div class="textalign-c padding-t20"><a href="#" class="btn btn-ml btn-yellow hidden-lg">Принять участие</a></div> <?php endif; ?>
         </div>
-        <div class="contest-header__footer visible-md">
+        <div class="contest-header__footer <?php if (\Yii::app()->user->isGuest): ?> visible-md <?php endif; ?>">
             <?php
                 $this->widget('zii.widgets.CMenu', array(
                     'items' => array(
@@ -27,6 +27,7 @@
                             'label' => 'Пульс',
                             'url' => array('/comments/contest/default/pulse'),
                             'linkOptions' => array('class' => 'contest-header__link'),
+                            'itemOptions' => array('class' => 'visibles-lg'),
                         ),
                         array(
                             'label' => 'Мои баллы',
@@ -44,11 +45,13 @@
                             'label' => 'Победители',
                             'url' => array('/comments/contest/default/winners'),
                             'linkOptions' => array('class' => 'contest-header__link'),
+                            'itemOptions' => array('class' => 'visibles-lg'),
                         ),
                         array(
                             'label' => 'Правила',
                             'url' => array('/comments/contest/default/rules'),
                             'linkOptions' => array('class' => 'contest-header__link'),
+                            'itemOptions' => array('class' => 'visibles-lg'),
                         ),
                     ),
                     'encodeLabel' => false,

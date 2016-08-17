@@ -128,13 +128,13 @@ $cs = \Yii::app()->clientScript;
             }
         };
 
-        $('.b-contest-task__link').on('click', function() {
+        $('.b-contest-task__li').on('click', function() {
             var service;
-            if ($(this).hasClass('ico-vk')) {
+            if ($(this).hasClass('b-contest-task__li_vk')) {
                 service = 'vk';
-            } else if ($(this).hasClass('ico-fb')) {
+            } else if ($(this).hasClass('b-contest-task__li_fb')) {
                 service = 'fb';
-            } else if ($(this).hasClass('ico-odnoklasniki')) {
+            } else if ($(this).hasClass('b-contest-task__li_onnoklasniki')) {
                 service = 'ok';
             } else {
                 return;

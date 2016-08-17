@@ -173,7 +173,10 @@ return array(
         ),
         'landing' => [
             'class' => 'site\frontend\modules\landing\LandingModule'
-        ]
+        ],
+        'specialists' => [
+            'class' => 'site\frontend\modules\specialists\SpecialistsModule',    
+        ],
     ),
     // application components
     'components' => array(

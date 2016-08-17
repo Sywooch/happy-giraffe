@@ -3,6 +3,7 @@
  * @var \site\frontend\modules\landing\modules\pediatrician\widgets\DoctorsWidget $this
  * @var \site\frontend\modules\specialists\models\SpecialistProfile[] $profiles
  */
+var_dump($profile->user->specialistInfoObject);
 ?>
 
 <div class="landing__body landing-doctors textalign-c">

@@ -12,7 +12,7 @@ class QaManager
 {
     public static function getQuestionsDp()
     {
-        return new \CActiveDataProvider(QaQuestion::model()->apiWith('user'), [
+        return new \CActiveDataProvider(QaQuestion::model()->orderDesc()->apiWith('user'), [
             'criteria' => self::getQuestionsCriteria(),
         ]);
     }
@@ -24,7 +24,9 @@ class QaManager
 
     public static function getAnswersDp($userId)
     {
-        return new \CActiveDataProvider(QaAnswer::model()->apiWith('user'), [
+        $criteria = self::getAnswersCriteria($userId);
+
+        return new \CActiveDataProvider(QaAnswer::model()->orderDesc()->apiWith('user'), [
             'criteria' => self::getAnswersCriteria($userId),
         ]);
     }

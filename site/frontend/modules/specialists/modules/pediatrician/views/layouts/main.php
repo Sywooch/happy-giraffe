@@ -37,9 +37,7 @@ $questionsCount = ($questionsCount > 99) ? '99+' : $questionsCount;
             <div class="pediator-header__log margin-t22">
                 <div class="user-on">
                     <a href="<?=$user->getUrl()?>" class="pediator-header__name"><?=$user->getFullName()?></a>
-                    <div class="ava ava-pediator">
-                        <a href="<?=$user->getUrl()?>" class="js-ava__link ava__link"><?=$user->getAvatarUrl(Avatar::SIZE_SMALL)?></a>
-                    </div>
+                    <div class="ava ava-pediator"><a href="<?=$user->getUrl()?>" class="js-ava__link ava__link"><img src="<?=$user->getAvatarUrl(Avatar::SIZE_SMALL)?>"></a></div>
                 </div>
             </div>
         </div>

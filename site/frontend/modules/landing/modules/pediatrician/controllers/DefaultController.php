@@ -33,7 +33,7 @@ class DefaultController extends \LiteController
            ),
        ));
 
-       $this->render('index', ['dp' => $dp, 'category' => QaCategory::model()->findByPk(124)]);
+       $this->render('index', ['dp' => $dp, 'category' => QaCategory::model()->findByPk($objCategoty::PEDIATRICIAN_ID)]);
 
    }
 

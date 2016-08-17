@@ -1,4 +1,5 @@
 <?php
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \CActiveDataProvider $dp
@@ -24,6 +25,7 @@ else
 ?>
 
 <?php $this->renderPartial('/_search', array('query' => '')); ?>
+
 <?php
 $this->widget('site\frontend\modules\som\modules\qa\widgets\QuestionsFilterWidget', array(
     'tab' => $tab,
@@ -31,16 +33,28 @@ $this->widget('site\frontend\modules\som\modules\qa\widgets\QuestionsFilterWidge
     'htmlOptions' => ['class' => 'filter-menu filter-menu_mod visibles-lg'],
 ));
 ?>
+
 <div class="clearfix"></div>
 
 <?php
+
+$class = 'questions questions-modification margin-t40';
+
+if (! is_null($categoryId))
+{
+    if ($categoryId == QaCategory::PEDIATRICIAN_ID)
+    {
+        $class .= ' questions-pediatrician';
+    }
+}
+
 $this->widget('LiteListView', array(
     'dataProvider'  => $dp,
     'itemView'      => '/_question',
     'tab'           => $tab,
     'category'      => $categoryId,
     'htmlOptions'   => array(
-        'class' => 'questions questions-modification margin-t40'
+        'class' => $class
     ),
     'itemsTagName' => 'ul',
     'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',

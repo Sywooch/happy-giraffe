@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\posts\commands;
+use site\frontend\modules\posts\components\ArticleHelper;
 use site\frontend\modules\posts\models\Content;
 use site\frontend\modules\posts\components\ReverseParser;
 
@@ -32,5 +33,15 @@ class TestConvert extends \CConsoleCommand
         $post = Content::model()->findByPk(47);
         $parser = new ReverseParser($post->html);
         //print_r($parser->gif);
+    }
+    
+    public function actionSchema()
+    {
+        $dp = new \CActiveDataProvider(Content::model());
+        $iterator = new \CDataProviderIterator($dp, 1000);
+        /** @var Content $i */
+        foreach ($iterator as $i) {
+            \Yii::app()->dbCache->set('articleSchema.' . $this->post->id, ArticleHelper::getJsonLd($i));
+        }
     }
 }

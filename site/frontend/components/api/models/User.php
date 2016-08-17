@@ -25,8 +25,30 @@ class User extends ApiModel
     public function getFullName()
     {
         return $this->firstName . ' ' . $this->lastName;
+    }   
+    
+    /**
+     * Формат имени для анонимного юзера
+     * 
+     * @author Sergey Gubarev
+     * @return string
+     */
+    public function getAnonName()
+    {   
+        $model = \UserAddress::model()->find('user_id=:user_id', [':user_id' => $this->id]);
+        
+        $stringData = [];
+        
+        $stringData[] = $this->firstName;
+        
+        if ($model->city)
+        {
+            $stringData[] = $model->city->name;
+        }
+        
+        return implode(', ', $stringData);
     }
-
+    
     /**
      * 
      * @param string $className

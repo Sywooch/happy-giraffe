@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
+    //'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -61,8 +61,12 @@ return array(
         '<_v>/api/init' => 'api/<_v>/api/init',
         '<_v>/api/answer/vote' => 'api/<_v>/api/vote',
         '<_v>/api/users/rating' => 'api/<_v>/api/rating',
+        '<_v>/api/contest' => 'api/<_v>/api/contest',
+        '<_v>/api/quests' => 'api/<_v>/api/quests',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
+
+        'referals/<ref>' => 'referals/default/index',
 
         'testupload' => 'blog/default/upload',
         'blog/default/createAlbum' => 'blog/default/createAlbum',
@@ -121,6 +125,7 @@ return array(
 
         // главная
         'questions/<categoryId:\d+>/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'questions/<categoryId:\d+>/<tagId:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions/<categoryId:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
@@ -131,7 +136,7 @@ return array(
 
         'contractubex' => 'posts/contractubex/default/index',
         'contractubex/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/contractubex/view/view'),
-        
+
         /* SOM */
         'status' => 'som/status/default/index',
         'status/<_c>' => 'som/status/<_c>/index',
@@ -143,15 +148,15 @@ return array(
         'buzz' => 'posts/buzz/list/index',
 
         'forums' => 'posts/forums/default/index',
-        
+
         // @todo Sergey Gubarev: только для теста comet
         // 'blogs/comet'         => 'posts/blogs/default/test',
-        
+
         'blogs/add-form' => 'posts/blogs/default/AddForm',
         'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',
         'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
         'blogs'              => 'posts/blogs/default/index',
-        
+
         //'forums/rubric<rubricId:\d+>' => 'posts/forums/default/rubric',
         'forums/rubric<rubricId:\d+>' => 'posts/forums/club/rubric',
 
@@ -293,7 +298,7 @@ return array(
         'user/<user_id:\d+>/blog/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/post/view',
         // Парсим старые урлы и добавляем параметр
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => array('posts/post/view', 'defaultParams' => array('content_type_slug' => 'post')),
-        
+
         'user/blog/photopost/create' => 'posts/form/photopost',
         'user/blog/status/create' => 'posts/form/status',
         /*array(
@@ -344,7 +349,7 @@ return array(
         'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),
         'user/<user_id:\d+>/awards' => 'profile/default/awards',
         'profile/<_a>' => 'profile/default/<_a>',
-        
+
         'user/<userId:\d+>/rss/page<page:\d+>' => 'rss/default/user',
         'user/<userId:\d+>/rss' => 'rss/default/user',
         'user/<userId:\d+>/comments/rss/page<page:\d+>' => 'rss/default/comments',
@@ -367,19 +372,19 @@ return array(
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('som/community/newsView/view', 'defaultParams' => array('forum_id' => 36)),
         'news/<slug>' => 'som/community/news/index',
         'news' => array('som/community/news/index'),
-        
+
         array(
             'class' => 'UrlRule',
             'pattern' => 'news/<content_type_slug:[a-z]+><content_id:\d+>',
             'route' => 'community/default/view',
             'defaultParams' => array('forum_id' => 36),
         ),
-        
+
 
         // пагинация в клубах
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'posts/communityList/index',
         'community/<forum_id:\d+>/forum/' => 'posts/communityList/index',
-        
+
         // posts
         'posts' => 'posts/default/index',
         'posts/<_a>' => 'posts/default/<_a>',
@@ -432,7 +437,7 @@ return array(
         'family-holiday' => array('community/default/section', 'defaultParams' => array('section_id' => 6)),
 
         'community/<_a:(subscribe)>/' => 'community/default/<_a>',
-        
+
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'posts/community/view',
         array(
             'class' => 'UrlRule',
@@ -555,11 +560,11 @@ return array(
         'childCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
         'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
 
-        '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
-        '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
-
         'babySex' => 'services/babySex/default/index',
         'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
+
+        '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
+        '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',
 
@@ -707,7 +712,7 @@ return array(
 
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
         'map' => 'archive/default/map',
-        
+
         'commentatorsContest/<contestId:\d+>' => 'comments/contest/default/index',
         'commentatorsContest/<contestId:\d+>/<_a>' => 'comments/contest/default/<_a>',
 

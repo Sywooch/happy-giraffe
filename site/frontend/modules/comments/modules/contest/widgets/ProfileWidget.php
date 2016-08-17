@@ -18,14 +18,16 @@ class ProfileWidget extends \CWidget
 
     public function init()
     {
+        return '';
         $this->contest = CommentatorsContest::model()->active()->find();
         if ($this->contest) {
-            $this->participant = CommentatorsContestParticipant::model()->contest($this->contest->id)->user($this->userId)->find();
+            $this->participant = CommentatorsContestParticipant::model()->byContest($this->contest->id)->byUser($this->userId)->find();
         }
     }
 
     public function run()
     {
+        return '';
         if ($this->participant !== null) {
             $this->render('ProfileWidget');
         }

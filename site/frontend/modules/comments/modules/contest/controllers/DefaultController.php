@@ -145,6 +145,14 @@ class DefaultController extends \LiteController
 
         $eauth = \Yii::app()->eauth->services;
 
+        $eauth['odnoklassniki']['attachment'] = \CJSON::encode(array('media' => array(
+            array(
+                'type' => 'link',
+                'url' => $link->getLink()
+            ))));
+
+        $eauth['odnoklassniki']['signature'] = md5('st.attachment=' . $eauth['odnoklassniki']['attachment'] . $eauth['odnoklassniki']['client_secret']);
+
         $this->render('/quests', array(
             'type' => $type,
             'posts' => $posts,

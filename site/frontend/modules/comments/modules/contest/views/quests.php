@@ -33,21 +33,6 @@ $cs = \Yii::app()->clientScript;
             apiId: /*5197824*/$('#vk_app').val()
         });
 
-
-        var rParams = FAPI.Util.getRequestParameters();
-        console.log(rParams);
-        var hParams = FAPI.Util.getRequestParameters(window.location.hash);
-        console.log(hParams);
-
-//        FAPI.init(rParams["api_server"], rParams["apiconnection"],
-//            function() {
-//                alert('success');
-//            },
-//            function(error) {
-//                console.log(JSON.stringify(error));
-//            }
-//        );
-
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : /*'1730218027231947',*/$('#fb_app').val(),
@@ -87,23 +72,8 @@ $cs = \Yii::app()->clientScript;
                 });
             },
             ok: function(link) {
-//                FAPI.Client.call({
-//                    method: "mediatopic.post",
-//                    attachment: {"media" : [{
-//                        "type": "text",
-//                        "text": "test"
-//                    }
-//                    ]}
-//                }, function (response) {
-//                    alert(JSON.stringify(response));
-//                });
-
-                var attachments = {
-                    type: 'link',
-                    link: link
-                };
-
-                window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment={attachment_json}&st.signature={signature}&st.return={return_url}&st.popup={popup}&st.silent={silent}&st.utext={text}');
+                window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=off',
+                    "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
             },
             fb: function(link) {
                 FB.ui({
@@ -367,6 +337,8 @@ $cs = \Yii::app()->clientScript;
 </script>
 <input type="hidden" id="vk_app" value="<?= $eauth['vkontakte']['client_id'] ?>"/>
 <input type="hidden" id="ok_app" value="<?= $eauth['odnoklassniki']['client_id'] ?>"/>
+<input type="hidden" id="ok_attach" value='<?= $eauth['odnoklassniki']['attachment'] ?>'/>
+<input type="hidden" id="ok_sig" value="<?= $eauth['odnoklassniki']['signature'] ?>"/>
 <input type="hidden" id="fb_app" value="<?= $eauth['facebook']['client_id'] ?>"/>
 
 <div class="b-contest-task b-contest__block textalign-c">

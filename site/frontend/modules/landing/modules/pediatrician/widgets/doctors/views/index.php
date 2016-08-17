@@ -3,13 +3,16 @@
  * @var \site\frontend\modules\landing\modules\pediatrician\widgets\DoctorsWidget $this
  * @var \site\frontend\modules\specialists\models\SpecialistProfile[] $profiles
  */
-var_dump($profile->user->specialistInfoObject);
+
 ?>
 
 <div class="landing__body landing-doctors textalign-c">
     <div class="font__title-xm font__bold">Здесь отвечают<br>сотни педиатров и 300 000 опытных мам</div>
     <ul class="landing-doctors__list">
         <?php foreach ($profiles as $profile): ?>
+
+            <?php var_dump($profile->user->specialistInfoObject); ?>
+
         <li class="landing-doctors__li"><a href="#" class="landing-doctors__link">
                 <div class="b-ava-large b-ava-large__nohover margin-b0 margin-t0">
                     <div class="b-ava-large_ava-hold">

@@ -19,8 +19,8 @@ class MyStatWidget extends \CWidget
         }
 
         $this->participant = CommentatorsContestParticipant::model()
-            ->byUser(\Yii::app()->user->id)
             ->byContest(ContestManager::getCurrentActive()->id)
+            ->byUser(\Yii::app()->user->id)
             ->with('user')
             ->find();
 

@@ -50,6 +50,9 @@
         <![endif]-->
     </head>
     <body class="body-gray theme theme__adfox body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
+        <div class="js-overlay-menu overlay-menu"></div>
+        <div class="js-overlay-user overlay-user"></div>
+
         <?php Yii::app()->ads->showCounters(); ?>
 
         <?php if (Yii::app()->user->checkAccess('editMeta')):?>

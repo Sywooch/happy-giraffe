@@ -33,7 +33,7 @@ class DefaultController extends \LiteController
     {
         $user = User::model()->active()->findByPk($userId);
         if ($user === null) {
-            throw new \CHttpException(404);
+            $this->render('deleted');
         }
         \NoindexHelper::setNoIndex($user);
         $this->render('index', array('user' => $user));

@@ -69,6 +69,9 @@ class Entity extends \EMongoEmbeddedDocument implements \IHToJSON
         {
             $result = 'comment';
         }
+//        else if ($this->class == 'site\frontend\modules\som\modules\qa\models\QaAnswerVote') {
+//            $result = 'vote';
+//        }
 
         return $result;
     }

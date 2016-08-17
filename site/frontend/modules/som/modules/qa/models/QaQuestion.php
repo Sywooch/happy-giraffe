@@ -50,7 +50,7 @@ class QaQuestion extends \HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, text', 'required'),
+			array('title', 'required'),
 			array('title', 'length', 'max' => 150),
 			array('text', 'length', 'max' => 1000),
 			array('sendNotifications', 'boolean'),
@@ -172,7 +172,7 @@ class QaQuestion extends \HActiveRecord
 
 	public function orderRating()
 	{
-		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC';
+		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC, dtimeCreate DESC';
 		return $this;
 	}
 
@@ -182,9 +182,21 @@ class QaQuestion extends \HActiveRecord
 		return $this;
 	}
 
+	public function orderAsc()
+	{
+		$this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate ASC';
+		return $this;
+	}
+
 	public function category($categoryId)
 	{
 		$this->getDbCriteria()->compare($this->tableAlias . '.categoryId', $categoryId);
+		return $this;
+	}
+
+	public function byTag($tagId)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.tag_id', $tagId);
 		return $this;
 	}
 
@@ -240,5 +252,58 @@ class QaQuestion extends \HActiveRecord
 	public function isFromConsultation()
 	{
 		return $this->consultationId !== null;
+	}
+
+	public function answersUsersCount()
+	{
+	    return count(array_unique(array_map(function ($value){
+	        return $value->authorId;
+	    }, $this->answers)));
+	}
+
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+	 */
+	public function next()
+	{
+	    $this->getDbCriteria()->compare('dtimeCreate', '>' . $this->dtimeCreate);
+	    $this->orderAsc();
+	    $this->getDbCriteria()->limit = 1;
+
+	    return $this;
+	}
+
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+	 */
+	public function previous()
+	{
+	    $this->getDbCriteria()->compare('dtimeCreate', '<' . $this->dtimeCreate);
+	    $this->orderDesc();
+	    $this->getDbCriteria()->limit = 1;
+
+	    return $this;
+	}
+
+	/**
+	 * @param string $tab
+	 * @param integer $categoryId
+	 * @return string
+	 */
+	public function formatedUrl($tab = NULL, $categoryId = NULL)
+	{
+	    $url = $this->url;
+
+	    if (is_null($tab) && is_null($categoryId))
+	    {
+	        return $url;
+	    }
+
+        $url .= '?';
+        $url .= is_null($tab) ? '' : 'tab=' . $tab;
+        $url .= is_null($tab) || is_null($categoryId) ? '' : '&';
+        $url .= is_null($categoryId) ? '' : 'category=' . $categoryId;
+
+        return $url;
 	}
 }

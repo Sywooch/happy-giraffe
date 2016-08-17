@@ -60,6 +60,7 @@ class NotificationBehavior extends BaseBehavior
     protected function addNotification(QaAnswer $model, QaQuestion $question)
     {
         $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, self::TYPE, array($model->authorId, $model->user->avatarUrl));
+
         $notification->entity->tooltip = $question->title;
 
         $entity = new Entity($model);

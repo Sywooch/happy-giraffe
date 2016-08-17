@@ -18,6 +18,7 @@ use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaUserRating;
+use site\frontend\modules\som\modules\qa\models\QaTag;
 
 class DefaultController extends QaController
 {
@@ -28,10 +29,12 @@ class DefaultController extends QaController
 
     /**
      * Открыт ли отдельный вопрос
-     * 
+     *
      * @var bool isQuestion
      */
     public $isQuestion = FALSE;
+
+    public $litePackage = 'qa';
 
     public function filters()
     {
@@ -50,9 +53,10 @@ class DefaultController extends QaController
         );
     }
 
-    public function actionIndex($tab, $categoryId = null)
+    public function actionIndex($tab, $categoryId = null, $tagId = null)
     {
-        $dp = $this->getDataProvider($tab, $categoryId);
+        $dp = $this->getDataProvider($tab, $categoryId, $tagId);
+
         if ($categoryId === null)
         {
             $category = null;
@@ -65,17 +69,18 @@ class DefaultController extends QaController
                 throw new \CHttpException(404);
             }
         }
+
         $this->render('index', compact('dp', 'tab', 'categoryId', 'category'));
     }
 
-    public function actionView($id)
+    public function actionView($id, $tab = null, $category = null)
     {
         $this->isQuestion = TRUE;
-
+        
         ContentBehavior::$active = true;
         $question = $this->getModel($id);
         ContentBehavior::$active = false;
-        $this->render('view', compact('question'));
+        $this->render('view', compact('question', 'tab', 'category'));
     }
 
     public function actionSearch($query = '', $categoryId = null)
@@ -95,30 +100,9 @@ class DefaultController extends QaController
         $this->render('search', compact('dp', 'query', 'categoryId'));
     }
 
-    protected function getDataProvider($tab, $categoryId)
+    protected function getDataProvider($tab, $categoryId, $tagId = null)
     {
-        $model = clone QaQuestion::model();
-        $model->apiWith('user')->with('category');
-        if ($categoryId !== null)
-        {
-            $model->category($categoryId);
-        }
-        else
-        {
-            $model->notConsultation();
-        }
-        switch ($tab)
-        {
-            case self::TAB_NEW:
-                $model->orderDesc();
-                break;
-            case self::TAB_POPULAR;
-                $model->orderRating();
-                break;
-            case self::TAB_UNANSWERED:
-                $model->unanswered();
-                break;
-        }
+        $model = $this->_sortByTabAndCategory($tab, $categoryId, $tagId);
 
         return new \CActiveDataProvider($model, array(
             'pagination' => array(
@@ -167,15 +151,16 @@ class DefaultController extends QaController
 
     public function actionQuestionEditForm($questionId)
     {
-        $this->layout = '//layouts/lite/common';
-
         $question = $this->getModel($questionId);
+        if (! \Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question)))  {
+            throw new \CHttpException(403);
+        }
+
+        $this->layout = '//layouts/lite/common';
         $this->performAjaxValidation($question);
+
         if ($question->consultationId !== null)  {
             $question->scenario = 'consultation';
-        }
-        if ($question->authorId != \Yii::app()->user->id)  {
-            throw new \CHttpException(404);
         }
 
         if (isset($_POST[\CHtml::modelName($question)])) {
@@ -203,6 +188,105 @@ class DefaultController extends QaController
     }
 
     /**
+     * @param integer $currentQuestionId
+     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     */
+    public function getNextQuestions($currentQuestionId, $tab, $categotyId)
+    {
+        list($qaList, $currentIndex) = $this->_getQaListForArrow($currentQuestionId, $tab, $categotyId);;
+
+        $objNextQa = $currentIndex >= count($qaList) - 1 ? NULL : $qaList[$currentIndex + 1];
+
+        return ['qa' => $objNextQa, 'tab' => $tab, 'categoryId' => $categotyId];
+    }
+
+    /**
+     * @param integer $currentQuestionId
+     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     */
+    public function getPrevQuestions($currentQuestionId, $tab, $categotyId)
+    {
+        list($qaList, $currentIndex) = $this->_getQaListForArrow($currentQuestionId, $tab, $categotyId);
+
+        $objPrevQa = $currentIndex <= 0 ? NULL : $qaList[$currentIndex - 1];
+
+        return ['qa' => $objPrevQa, 'tab' => $tab, 'categoryId' => $categotyId];
+    }
+
+
+    /**
+     * @param integer $qaId
+     * @param string $tab
+     * @param integer $categotyId
+     * @return array
+     */
+    private function _getQaListForArrow($qaId, $tab, $categotyId)
+    {
+        $objQuestion = $this->getModel($qaId);
+        $model = $this->_sortByTabAndCategory($tab, $categotyId, $objQuestion->tag_id);
+
+        $qaList = $model->findAll();
+
+        $currentIndex = null;
+
+        foreach ($qaList as $key => $question)
+        {
+            if ($question->id == $qaId)
+            {
+                $currentIndex = $key;
+                break;
+            }
+        }
+
+        return [$qaList, $currentIndex];
+    }
+
+    /**
+     * @param string $tab
+     * @param integer $categoryId
+     * @param integer $tagId
+     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     */
+    private function _sortByTabAndCategory($tab, $categoryId, $tagId = null)
+    {
+        $model = clone QaQuestion::model();
+
+        $model->apiWith('user')->with('category');
+
+        if ($categoryId !== null)
+        {
+            $model->category($categoryId);
+
+            if (!is_null($tagId))
+            {
+                $model->byTag($tagId);
+            }
+        }
+        else
+        {
+            $model->notConsultation();
+        }
+
+        switch ($tab)
+        {
+            case self::TAB_NEW:
+                $model->orderDesc();
+                break;
+            case self::TAB_POPULAR;
+                $model->orderRating();
+                break;
+            case self::TAB_UNANSWERED:
+                $model
+                    ->unanswered()
+                    ->orderDesc()
+                ;
+                break;
+        }
+
+        return $model;
+    }
+
+    /**
      * @param integer $pk
      * @throws \CHttpException
      * @return QaQuestion
@@ -215,6 +299,7 @@ class DefaultController extends QaController
         }
         return $question;
     }
+
 
     protected function performAjaxValidation($model)
     {

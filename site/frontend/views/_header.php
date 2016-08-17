@@ -37,7 +37,7 @@ if (! Yii::app()->user->isGuest) {
 }
 ?>
 
-<a class="mobile-menu" onclick="$('header .header__menu').toggleClass('header__menu_open'); event.stopPropagation()"></a>
+<a class="mobile-menu" onclick="$('.js-overlay-menu').toggleClass('header__menu_open'); $(this).toggleClass('on'); $('header .header__menu').toggleClass('header__menu_open'); event.stopPropagation()"><span></span></a>
 <a href="/" class="logo"></a><a class="header__search popup-a" href="#js-madal-search-box"></a>
 <nav class="header__nav">
     <ul class="header__menu">
@@ -68,7 +68,7 @@ if (! Yii::app()->user->isGuest) {
             <li class="user-widget-block__li"><a href="<?=$this->createUrl('/friends/default/index')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_friend"></span><span class="user-widget-block__text">Друзья</span></a></li>
             <li class="user-widget-block__li"><a href="<?=$this->createUrl('/photo/default/index', array('userId' => Yii::app()->user->id))?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_photo"></span><span class="user-widget-block__text">Фото</span></a></li>
             <li class="user-widget-block__li"><a href="<?=$this->createUrl('/users/default/settings')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_setting"></span><span class="user-widget-block__text">Настройки</span></a></li>
-            <!--<li class="user-widget-block__li"><a href="#" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_answers"></span><span class="user-widget-block__text">Ответы</span></a></li>-->
+            <li class="user-widget-block__li"><a href="<?=$this->createUrl('/som/qa/my/questions')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_answers"></span><span class="user-widget-block__text">Ответы</span></a></li>
             <li class="user-widget-block__li"><a href="<?=$this->createUrl('/site/logout')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_exit"></span><span class="user-widget-block__text">Выход</span></a></li>
         </ul>
     </div>

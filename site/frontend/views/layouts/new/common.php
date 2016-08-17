@@ -44,6 +44,8 @@ if (! Yii::app()->user->isGuest)
     <script src="/new/redactor/redactor.js"></script>
 </head>
 <body class="body body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
+    <div class="js-overlay-menu overlay-menu"></div>
+    <div class="js-overlay-user overlay-user"></div>
 <?php Yii::app()->ads->showCounters(); ?>
 <div class="layout-container">
     <div class="error-serv display-n">

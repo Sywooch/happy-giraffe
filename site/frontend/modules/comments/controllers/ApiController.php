@@ -68,7 +68,9 @@ class ApiController extends \site\frontend\components\api\ApiController
         {
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
         }
-        $comment = new \site\frontend\modules\comments\models\Comment('default');
+
+        $class = get_class(Comment::model());
+        $comment = new $class;
         $prufer = \site\frontend\components\PreparedHTMLPurifier::getInstans();
         $text = $prufer->purifyUserHTML($text);
         if (strlen($text == ''))

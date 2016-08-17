@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = $this->contest->title . ' - Правила';
+$this->pageTitle = $this->contest->name . ' - Правила';
 ?>
 
 <div class="contest-commentator-how">
@@ -71,7 +71,7 @@ $this->pageTitle = $this->contest->title . ' - Правила';
             <h3 class="contest-commentator-rule_t-sub">1. &nbsp; Общие правила проведения Конкурса</h3>
             <ol>
                 <li>
-                    Конкурс проводится с <?=Yii::app()->dateFormatter->format('dd.MM.yyyy', $this->contest->startDate)?> по <?=Yii::app()->dateFormatter->format('dd.MM.yyyy', $this->contest->endDate)?> на сайте <a href="#">http://www.happy-giraffe.ru</a>.
+<!--                    Конкурс проводится с --><?//=Yii::app()->dateFormatter->format('dd.MM.yyyy', $this->contest->startDate)?><!-- по --><?//=Yii::app()->dateFormatter->format('dd.MM.yyyy', $this->contest->endDate)?><!-- на сайте <a href="#">http://www.happy-giraffe.ru</a>.-->
                 </li>
                 <li>
                     Организаторы Конкурса - Сайт для всей семьи “Веселый Жираф” <a href="#">http://www.happy-giraffe.ru</a>.

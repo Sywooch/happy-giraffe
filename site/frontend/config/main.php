@@ -165,13 +165,12 @@ return array(
             'class' => 'site\frontend\modules\questionnaire\QuestionnaireModule',
             'controllerNamespace' => 'site\frontend\modules\questionnaire\controllers',
         ),
-    /* 'v1' => array(
-      'class' => 'site\frontend\modules\v1\V1Module',
-      'controllerNamespace' => 'site\frontend\modules\v1\controllers',
-      ), */
-    /* 'api' => array(
-      'class' => 'site\frontend\modules\api\ApiModule',
-      ), */
+        'quests' => array(
+            'class' => 'site\frontend\modules\quests\QuestsModule',
+        ),
+        'referals' => array(
+            'class' => 'site\frontend\modules\referals\ReferalsModule',
+        ),
     ),
     // application components
     'components' => array(
@@ -474,6 +473,7 @@ return array(
     'params' => array(
         'valentinesAlbum' => '41340',
         'is_api_request' => false,
+        'is_from_device' => false,
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         'gaPass' => '',

@@ -16,6 +16,7 @@ class OnOffWidget extends \CWidget
 
     public function run()
     {
+        return '';
         $this->render('OnOffWidget');
     }
 

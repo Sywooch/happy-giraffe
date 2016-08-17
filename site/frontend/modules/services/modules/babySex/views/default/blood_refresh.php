@@ -9,6 +9,12 @@ $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPAR
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_refresh.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerCss('blood_refresh', '.lists_td .errorMessage {display: none !important;}');
+
+$this->breadcrumbs = array(
+    'Главная' => ['/site/index'],
+    $this->service->title => ['/services/babySex/default/index'],
+    'По датам рождения родителей',
+);
 ?>
 <div class="col-white-hoar">
     <div id="baby">
@@ -123,8 +129,6 @@ Yii::app()->clientScript->registerCss('blood_refresh', '.lists_td .errorMessage 
         <div id="blood-update-result">
 
         </div>
-
-        <?php $this->renderPartial('//banners/_direct_others'); ?>
 
         <?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
             'service' => $service,

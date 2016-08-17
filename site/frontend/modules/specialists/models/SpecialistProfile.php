@@ -48,7 +48,7 @@ class SpecialistProfile extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'id'),
+			'user' => array(self::BELONGS_TO, 'site\frontend\modules\users\models\User', 'id'),
 			'specializations' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistSpecialization', 'specialists__profiles_specializations(profileId, specializationId)'),
 		);
 	}

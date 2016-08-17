@@ -95,6 +95,8 @@ else
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
         <question-settings params="questionId: <?=$question->id?>"></question-settings>
     <?php endif; ?>
+    
+    <div class="clearfix"></div>
 </div>
 
 

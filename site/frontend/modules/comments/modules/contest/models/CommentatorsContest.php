@@ -53,7 +53,7 @@ class CommentatorsContest extends \HActiveRecord
      */
     public function currentActive()
     {
-        $this->getDbCriteria()->compare('month', date('mY'));
+        $this->getDbCriteria()->compare($this->tableAlias . '.month', date('mY'));
         return $this;
     }
 

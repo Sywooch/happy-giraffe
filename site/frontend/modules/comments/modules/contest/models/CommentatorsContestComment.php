@@ -49,7 +49,7 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
      */
     public function byParticipant($participantId)
     {
-        $this->getDbCriteria()->compare('t.participantId', $participantId);
+        $this->getDbCriteria()->compare($this->tableAlias . '.participantId', $participantId);
         return $this;
     }
 
@@ -82,7 +82,7 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
      */
     public function byPoints()
     {
-        $this->getDbCriteria()->compare('t.points', '> 0');
+        $this->getDbCriteria()->compare($this->tableAlias . '.points', '> 0');
         return $this;
     }
 
@@ -93,7 +93,7 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
      */
     public function byComment($commentId)
     {
-        $this->getDbCriteria()->compare('t.commentId', $commentId);
+        $this->getDbCriteria()->compare($this->tableAlias . '.commentId', $commentId);
         return $this;
     }
 

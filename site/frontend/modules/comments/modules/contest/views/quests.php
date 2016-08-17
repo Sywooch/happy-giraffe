@@ -262,10 +262,19 @@ $cs = \Yii::app()->clientScript;
         $('.answer-form_button').on('click', function() {
             var text = $('.redactor-editor').html();
 
+            if ($(this).hasClass('locked')) {
+                return;
+            }
+
+            $(this).addClass('locked');
+
+            var button = $(this);
+
             $.post('/v2_1/api/comments/', {
                 entity_id: currentPost,
                 text: text
             }, function(response) {
+                button.removeClass('locked');
                 goNext();
             });
         });

@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="landing-doctors__title font__title-sx"><?=$profile->user->getFullName()?></div>
-                <div class="landing-doctors__descr font__title-sx"><?=$this->getSpecs($profile)?></div></a>
+                <div class="landing-doctors__descr font__title-sx"><?=$profile->user->specialistInfoObject->title?></div></a>
         </li>
         <?php endforeach; ?>
     </ul>

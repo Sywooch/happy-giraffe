@@ -76,7 +76,7 @@ class DefaultController extends QaController
     public function actionView($id, $tab = null, $category = null)
     {
         $this->isQuestion = TRUE;
-
+        
         ContentBehavior::$active = true;
         $question = $this->getModel($id);
         ContentBehavior::$active = false;

@@ -268,6 +268,7 @@ class DefaultController extends \LiteController
             ->orderDesc()
             ->byContest($this->contest->id)
             ->byParticipant($participant->id)
+            ->existingComments()
             ->with('comment')
             ->findAll(array(
                 'limit' => $count,
@@ -296,6 +297,7 @@ class DefaultController extends \LiteController
         $contestComments = CommentatorsContestComment::model()
             ->orderDesc()
             ->byContest($this->contest->id)
+            ->existingComments()
             ->with('comment')
             ->findAll(array(
                 'limit' => $count,

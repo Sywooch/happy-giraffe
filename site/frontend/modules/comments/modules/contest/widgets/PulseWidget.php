@@ -18,6 +18,7 @@ class PulseWidget extends \CWidget
         $contestComments = CommentatorsContestComment::model()
             ->orderDesc()
             ->byContest(ContestManager::getCurrentActive()->id)
+            ->existingComments()
             ->with('comment')
             ->findAll(array(
                 'limit' => $this->limit,

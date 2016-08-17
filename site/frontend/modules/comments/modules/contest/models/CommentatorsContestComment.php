@@ -80,6 +80,18 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
     /**
      * @return CommentatorsContestComment
      */
+    public function existingComments()
+    {
+        if (!isset($this->getDbCriteria()->with['comment'])) {
+            $this->getDbCriteria()->with[] = 'comment';
+        }
+        $this->getDbCriteria()->compare('comment.removed', 0);
+        return $this;
+    }
+
+    /**
+     * @return CommentatorsContestComment
+     */
     public function byPoints()
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.points', '> 0');

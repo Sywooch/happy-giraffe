@@ -395,7 +395,7 @@ $cs = \Yii::app()->clientScript;
                                 </div>
                             </div>
                             <div class="b-article_t-list article_t-feed"><a href="<?= ContestHelper::getValidPostUrl($post->url) ?>" class="b-article_t-a"><?= $post->title ?></a></div>
-                            <?= $post->preview ?>
+                            <p><?= $post->preview ?></p>
                             <div class="float-r"><a href="#js-b-popup-modal" class="js-popup-comment btn btn-ms green-btn" data-id="<?= $post->id ?>"><span class="hidden-smm">Комментировать</span><span class="b-comment-furt visible-smm">></span></a></div>
                         </div>
                     </article>

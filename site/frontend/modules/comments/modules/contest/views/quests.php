@@ -367,7 +367,11 @@ $cs = \Yii::app()->clientScript;
                         <div class="b-froum-theme"><a class="b-froum-theme-img ava__middle ava__female"><img src="<?= $post->author->getAvatarUrl() ?>" alt=""></a>
                             <div class="b-froum-theme-info"><a href="<?= $post->author->getUrl() ?>" class="name"><?= $post->author->getFullName() ?></a>
                                 <time class="time" id="time<?= $post->id ?>"><?= HHtml::timeTag($post, array('class' => 'tx-date'), null); ?></time><a href="<?= ContestHelper::getValidPostUrl($post->url) ?>" class="b-froum-theme-info-title"><?= $post->title ?></a>
-                                <p><?= $post->preview ?></p>
+                                <?php if ($post->templateObject->getAttr('noWysiwyg', false)) { ?>
+                                    <?= $post->preview ?>
+                                <?php } else { ?>
+                                    <div class="b-article_in clearfix"><div class="wysiwyg-content clearfix"><?= $post->preview ?></div></div>
+                                <?php } ?>
                                 <div class="b-froum-theme-info-more clearfix">
                                     <div class="float-l lh-34">
                                         <div class="c-list_item_btn"><span class="c-list_item_btn__view"><?= $post->views ?></span><span class="c-list_item_btn__users"><?= $post->getDistinctComments()?></span><a href="#" class="c-list_item_btn__comment"><?=$post->comments_count ?></a></div>

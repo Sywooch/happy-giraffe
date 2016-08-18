@@ -254,6 +254,9 @@ class QaQuestion extends \HActiveRecord
 		return $this->consultationId !== null;
 	}
 
+	/**
+	 * @return integer
+	 */
 	public function answersUsersCount()
 	{
 	    return count(array_unique(array_map(function ($value){
@@ -305,5 +308,16 @@ class QaQuestion extends \HActiveRecord
         $url .= is_null($categoryId) ? '' : 'category=' . $categoryId;
 
         return $url;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see CActiveRecord::save()
+	 */
+	public function save($runValidation=true,$attributes=null)
+	{
+        $this->title = htmlspecialchars($this->title);
+
+        return parent::save($runValidation, $attributes);
 	}
 }

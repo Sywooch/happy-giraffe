@@ -1,5 +1,7 @@
 <?php
 
+namespace site\frontend\modules\specialists\models;
+
 /**
  * This is the model class for table "specialists__specializations".
  *
@@ -8,9 +10,9 @@
  * @property string $title
  *
  * The followings are the available model relations:
- * @property SpecialistsProfiles[] $specialistsProfiles
+ * @property SpecialistProfile[] $specialistsProfiles
  */
-class SpecialistSpecialization extends CActiveRecord
+class SpecialistSpecialization extends \CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -43,7 +45,7 @@ class SpecialistSpecialization extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'profiles' => array(self::MANY_MANY, 'SpecialistProfile', 'specialists__profiles_specializations(specializationId, profileId)'),
+			'profiles' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistProfile', 'specialists__profiles_specializations(specializationId, profileId)'),
 		);
 	}
 
@@ -67,19 +69,19 @@ class SpecialistSpecialization extends CActiveRecord
 	 * models according to data in model fields.
 	 * - Pass data provider to CGridView, CListView or any similar widget.
 	 *
-	 * @return CActiveDataProvider the data provider that can return the models
+	 * @return \CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria=new \CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('title',$this->title,true);
 
-		return new CActiveDataProvider($this, array(
+		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

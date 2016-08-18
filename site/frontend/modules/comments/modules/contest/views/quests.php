@@ -138,7 +138,8 @@ $cs = \Yii::app()->clientScript;
 
             $.get('/v2_1/api/posts/', {
                 id: currentPost,
-                expand: 'author,comments_count,club'
+                expand: 'author,comments_count,club',
+                origin_html: true
             }, function (response) {
                 var popup = $('#js-b-popup-modal');
 
@@ -161,6 +162,7 @@ $cs = \Yii::app()->clientScript;
                 popup.find('.questions_item_heading').attr('href', response.url);
                 popup.find('.question_text').html(response.html);
                 popup.find('.answer-form').hide(0);
+                popup.find('.queastion__page-nav').show(0);
                 popup.find('.tx-date').html($('#time' + currentPost).html());
 
                 if (response.originService == 'oldBlog') {
@@ -224,6 +226,7 @@ $cs = \Yii::app()->clientScript;
 
         $('#js-b-popup-modal .green-btn').on('click', function() {
             $('#js-b-popup-modal .answer-form').show(0);
+            $('.queastion__page-nav').hide(0);
         });
 
         $('#js-b-popup-modal .btn-secondary').on('click', function() {
@@ -395,8 +398,8 @@ $cs = \Yii::app()->clientScript;
                         <time class="tx-date"></time>
                     </div>
                     <div class="b-subscribe">
-<!--                        <div class="btn btn-tiny green">Подписаться</div>-->
-<!--                        <div class="b-subscribe_tx"></div>-->
+                        <div class="btn btn-tiny green">Подписаться</div>
+                        <div class="b-subscribe_tx"></div>
                     </div>
                 </div>
                 <div class="icons-meta">

@@ -23,7 +23,7 @@ return array(
         'paths' => array(
             'facebook' => '//connect.facebook.net/ru_RU/all',
             'ok' => '//connect.ok.ru/connect',
-            'vk' => '//vk.com/js/api/share',
+            'vk' => '//vk.com/js/api/share?90',
             'knockout-amd-helpers' => 'knockout-amd-helpers.min',
             'wysiwyg' => '/new/javascript/wysiwyg',
             'ko_library' => '/javascripts/ko_library',

@@ -88,6 +88,7 @@ return array(
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
 
+        'pediatrician/<_a:(questions|answers)>' => 'specialists/pediatrician/default/<_a>',
 
         /* QA */
 
@@ -156,7 +157,10 @@ return array(
         'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',
         'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
         'blogs'              => 'posts/blogs/default/index',
-
+        
+        'landing/pediatrician' => 'landing/pediatrician/default/index',
+        
+    
         //'forums/rubric<rubricId:\d+>' => 'posts/forums/default/rubric',
         'forums/rubric<rubricId:\d+>' => 'posts/forums/club/rubric',
 

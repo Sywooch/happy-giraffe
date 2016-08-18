@@ -1,5 +1,7 @@
 <?php
 
+namespace site\frontend\modules\specialists\models;
+
 /**
  * This is the model class for table "specialists__profiles".
  *
@@ -8,10 +10,10 @@
  * @property string $text
  *
  * The followings are the available model relations:
- * @property Users $id0
- * @property SpecialistsSpecializations[] $specialistsSpecializations
+ * @property \User $user
+ * @property SpecialistSpecialization $specializations
  */
-class SpecialistProfile extends CActiveRecord
+class SpecialistProfile extends \CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -46,8 +48,8 @@ class SpecialistProfile extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'id'),
-			'specializations' => array(self::MANY_MANY, 'SpecialistSpecialization', 'specialists__profiles_specializations(profileId, specializationId)'),
+			'user' => array(self::BELONGS_TO, 'site\frontend\modules\users\models\User', 'id'),
+			'specializations' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistSpecialization', 'specialists__profiles_specializations(profileId, specializationId)'),
 		);
 	}
 
@@ -71,19 +73,19 @@ class SpecialistProfile extends CActiveRecord
 	 * models according to data in model fields.
 	 * - Pass data provider to CGridView, CListView or any similar widget.
 	 *
-	 * @return CActiveDataProvider the data provider that can return the models
+	 * @return \CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria=new \CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('text',$this->text,true);
 
-		return new CActiveDataProvider($this, array(
+		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

@@ -76,7 +76,7 @@ class DefaultController extends QaController
     public function actionView($id, $tab = null, $category = null)
     {
         $this->isQuestion = TRUE;
-        
+
         ContentBehavior::$active = true;
         $question = $this->getModel($id);
         ContentBehavior::$active = false;
@@ -111,7 +111,7 @@ class DefaultController extends QaController
         ));
     }
 
-    public function actionQuestionAddForm($consultationId = null)
+    public function actionQuestionAddForm($consultationId = null, $redirectUrl = null)
     {
         $this->layout = '//layouts/lite/common';
 
@@ -139,7 +139,8 @@ class DefaultController extends QaController
             }
 
             if ($question->save()) {
-                $this->redirect($question->url);
+                $url = $redirectUrl ?: $question->url;
+                $this->redirect($url);
             }
         }
 

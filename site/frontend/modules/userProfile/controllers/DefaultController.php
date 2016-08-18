@@ -36,7 +36,8 @@ class DefaultController extends \LiteController
             $this->render('deleted');
         }
         \NoindexHelper::setNoIndex($user);
-        $this->render('index', array('user' => $user));
+        $view = ($user->specialistProfile == null) ? 'index' : 'specialist';
+        $this->render($view, array('user' => $user));
     }
 
     public function sitemapView()

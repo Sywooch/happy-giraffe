@@ -24,6 +24,7 @@ class DoctorsWidget extends \CWidget
     {
         return SpecialistProfile::model()->with('user', 'specializations')->findAll([
             'limit' => $this->nDoctors,
+            'order' => 'RAND()',
         ]);
     }
     

@@ -362,20 +362,44 @@ $cs = \Yii::app()->clientScript;
         </ul>
         <div class="textalign-l">
             <?php foreach ($posts as $post): ?>
-            <div class="default-theme">
-                <div class="b-froum-theme"><a class="b-froum-theme-img ava__middle ava__female"><img src="<?= $post->author->getAvatarUrl() ?>" alt=""></a>
-                    <div class="b-froum-theme-info"><a href="<?= $post->author->getUrl() ?>" class="name"><?= $post->author->getFullName() ?></a>
-                        <time class="time" id="time<?= $post->id ?>"><?= HHtml::timeTag($post, array('class' => 'tx-date'), null); ?></time><a href="<?= ContestHelper::getValidPostUrl($post->url) ?>" class="b-froum-theme-info-title"><?= $post->title ?></a>
-                        <p><?= $post->preview ?></p>
-                        <div class="b-froum-theme-info-more clearfix">
-                            <div class="float-l lh-34">
-                                <div class="c-list_item_btn"><span class="c-list_item_btn__view"><?= $post->views ?></span><span class="c-list_item_btn__users"><?= $post->getDistinctComments()?></span><a href="#" class="c-list_item_btn__comment"><?=$post->comments_count ?></a></div>
+                <?php if ($type == 'community'): ?>
+                    <div class="default-theme">
+                        <div class="b-froum-theme"><a class="b-froum-theme-img ava__middle ava__female"><img src="<?= $post->author->getAvatarUrl() ?>" alt=""></a>
+                            <div class="b-froum-theme-info"><a href="<?= $post->author->getUrl() ?>" class="name"><?= $post->author->getFullName() ?></a>
+                                <time class="time" id="time<?= $post->id ?>"><?= HHtml::timeTag($post, array('class' => 'tx-date'), null); ?></time><a href="<?= ContestHelper::getValidPostUrl($post->url) ?>" class="b-froum-theme-info-title"><?= $post->title ?></a>
+                                <p><?= $post->preview ?></p>
+                                <div class="b-froum-theme-info-more clearfix">
+                                    <div class="float-l lh-34">
+                                        <div class="c-list_item_btn"><span class="c-list_item_btn__view"><?= $post->views ?></span><span class="c-list_item_btn__users"><?= $post->getDistinctComments()?></span><a href="#" class="c-list_item_btn__comment"><?=$post->comments_count ?></a></div>
+                                    </div>
+                                    <div class="float-r"><a href="#js-b-popup-modal" class="js-popup-comment btn btn-ms green-btn" data-id="<?= $post->id ?>"><span class="hidden-smm">Комментировать</span><span class="b-comment-furt visible-smm">></span></a></div>
+                                </div>
                             </div>
-                            <div class="float-r"><a href="#js-b-popup-modal" class="js-popup-comment btn btn-ms green-btn" data-id="<?= $post->id ?>"><span class="hidden-smm">Комментировать</span><span class="b-comment-furt visible-smm">></span></a></div>
                         </div>
                     </div>
-                </div>
-            </div>
+                <?php elseif ($type == 'blog'): ?>
+                    <article class="b-article clearfix b-article__list">
+                        <div class="b-article_cont clearfix">
+                            <div class="b-article_cont-tale"></div>
+                            <div class="b-article_header clearfix">
+                                <div class="icons-meta">
+                                    <div class="c-list_item_btn"><span class="c-list_item_btn__view"><?= $post->views ?></span><span class="c-list_item_btn__comment margin-r0"> <?= $post->getDistinctComments() ?></span></div>
+                                </div>
+                                <div class="float-l position-rel w-300"><a href="<?= $post->author->getUrl() ?>" class="ava ava__female ava__middle-xs ava__middle-sm-mid"><span class="ico-status <?php if($post->author->online): ?>ico-status__online <?php endif; ?>"></span><img src="<?= $post->author->getAvatarUrl() ?>" class="ava_img"></a><a href="<?= $post->author->getUrl() ?>" class="b-article_author"><?= $post->author->getFullName() ?></a>
+                                    <time pubdate="1957-10-04" class="tx-date" id="time<?= $post->id ?>"><?= HHtml::timeTag($post, array('class' => 'tx-date'), null); ?></time>
+<!--                                    <div style="display: none" class="b-subscribe">-->
+<!--                                        <div class="btn btn-tiny green">Подписаться</div>-->
+<!--                                        <div class="b-subscribe_tx">23</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="b-subscribe"><span class="b-subscribe__done"></span><span class="b-subscribe_tx">23</span></div>-->
+                                </div>
+                            </div>
+                            <div class="b-article_t-list article_t-feed"><a href="<?= ContestHelper::getValidPostUrl($post->url) ?>" class="b-article_t-a"><?= $post->title ?></a></div>
+                            <?= $post->preview ?>
+                            <div class="float-r"><a href="#js-b-popup-modal" class="js-popup-comment btn btn-ms green-btn" data-id="<?= $post->id ?>"><span class="hidden-smm">Комментировать</span><span class="b-comment-furt visible-smm">></span></a></div>
+                        </div>
+                    </article>
+                <?php endif?>
             <?php endforeach; ?>
         </div>
     </div>

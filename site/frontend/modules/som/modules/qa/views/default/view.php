@@ -49,9 +49,7 @@ else
         <div class="username">
 
         	<?php if ($isAnonQuestion): ?>
-
-        		<?php echo $question->user->getAnonName(); ?>
-
+        		<span class="anon-name"><?php echo $question->user->getAnonName(); ?></span>
         	<?php else: ?>
 
         		<a href="<?=$question->user->profileUrl?>"><?=$question->user->fullName?></a>
@@ -72,10 +70,10 @@ else
         <?php if ($question->consultationId !== null): ?>
             <a href="<?=$this->createUrl('/som/qa/consultation/index/', array('consultationId' => $question->consultation->id))?>" class="questions_item_category_link"><?=$question->consultation->title?></a>
         <?php else: ?>
-            <div class="margin-t18">
-            	<a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $question->category->id))?>" class="box-footer__cat"><?=$question->category->title?></a>
+            <div class="hashtag hashtag_mobile margin-t18">
+            	<a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $question->category->id))?>" class=""><?=$question->category->title?></a>
             	<?php if (!is_null($question->tag)): ?>
-          			<a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id])?>" class="box-footer__cat"><?=$question->tag->name?></a>
+          			<a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id])?>" class=""><?=$question->tag->name?></a>
           		<?php endif; ?>
         	</div>
         	<a href="#" class="box-footer__answer box-footer__answer_blue box-footer__answer_mod">
@@ -95,6 +93,8 @@ else
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
         <question-settings params="questionId: <?=$question->id?>"></question-settings>
     <?php endif; ?>
+    
+    <div class="clearfix"></div>
 </div>
 
 

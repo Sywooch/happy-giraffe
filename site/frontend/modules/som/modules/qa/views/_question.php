@@ -17,25 +17,24 @@ else
 
 ?>
 
-<li class="questions_item clearfix">
-	<div class="questions-modification__avatar awatar-wrapper">
 
-		<?php if ($data->user->avatarUrl && ! $isAnonQuestion): ?>
-
-			<a href="<?=$data->user->profileUrl?>" class="awatar-wrapper__link">
+<li class="questions_item clearfix <?php echo $isAnonQuestion ? 'questions_item-no-avatar' : ''; ?>">
+	
+	<?php if ($data->user->avatarUrl && ! $isAnonQuestion): ?>
+	
+		<div class="questions-modification__avatar awatar-wrapper">	
+			<a href="<?=$data->user->profileUrl?>" class="awatar-wrapper__link">			
 				<img src="<?=$data->user->avatarUrl?>" class="awatar-wrapper__img">
 			</a>
+		</div>	
+		
+	<?php endif; ?>
+	
 
-		<?php endif; ?>
-
-	</div>
 	<div class="questions-modification__box box-wrapper">
       <div class="box-wrapper__user">
-
       	<?php if ($isAnonQuestion): ?>
-
-      		<?php echo $data->user->getAnonName(); ?>
-
+      		<span class="anon-name"><?php echo $data->user->getAnonName(); ?></span>
       	<?php else: ?>
 
       		<a href="<?=$data->user->profileUrl?>" class="box-wrapper__link"><?=$data->user->getFullName()?></a>

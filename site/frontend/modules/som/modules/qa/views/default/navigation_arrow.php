@@ -1,10 +1,13 @@
 <?php
-$objNext = $next['qa'];
-$objPrevious = $previous['qa'];
+/**
+ * @var \site\frontend\modules\som\modules\qa\controllers\DefaultController $this
+ * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $left
+ * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $right
+ */
 ?>
 <table class="article-nearby clearfix">
     <tr>
-        <td><?= $objPrevious ? '<a href="' . $objPrevious->formatedUrl($previous['tab'], $previous['categoryId']) . '" class="article-nearby_a article-nearby_a__l" rel="prev"><span class="article-nearby_tx">' . strip_tags($objPrevious->title) . '</span></a>' : '&nbsp;' ?></td>
-        <td><?= $objNext ? '<a href="' . $objNext->formatedUrl($next['tab'], $next['categoryId']) . '" class="article-nearby_a article-nearby_a__r" rel="next"><span class="article-nearby_tx">' . strip_tags($objNext->title) . '</span></a>' : '&nbsp;' ?></td>
+        <td><?= $left ? '<a href="' . $left->url . '" class="article-nearby_a article-nearby_a__l" rel="prev"><span class="article-nearby_tx">' . $left->title . '</span></a>' : '&nbsp;' ?></td>
+        <td><?= $right ? '<a href="' . $right->url . '" class="article-nearby_a article-nearby_a__r" rel="next"><span class="article-nearby_tx">' . $right->title . '</span></a>' : '&nbsp;' ?></td>
     </tr>
 </table>

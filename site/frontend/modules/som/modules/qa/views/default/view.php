@@ -72,10 +72,12 @@ else
         <?php else: ?>
             <div class="hashtag hashtag_mobile margin-t18">
             	<a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $question->category->id))?>" class=""><?=$question->category->title?></a>
-            	<?php if (!is_null($question->tag)): ?>
-          			<a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id])?>" class=""><?=$question->tag->name?></a>
-          		<?php endif; ?>
         	</div>
+            <?php if (!is_null($question->tag)): ?>
+                <div class="hashtag hashtag_mobile margin-t18">
+                    <a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id])?>" class=""><?=$question->tag->name?></a>
+                </div>
+            <?php endif; ?>
         	<a href="#" class="box-footer__answer box-footer__answer_blue box-footer__answer_mod">
         		<span class="box-footer__num"><?=$question->answersCount?></span>
         		<span class="box-footer__descr">ответов</span>
@@ -88,7 +90,7 @@ else
         <?=$question->purified->text?>
     </div>
 
-    <?php $this->renderPartial('/default/navigation_arrow', array('next' => $this->getNextQuestions($question->id, $tab, $category), 'previous' => $this->getPrevQuestions($question->id, $tab, $category))); ?>
+    <?php $this->renderPartial('/default/navigation_arrow', ['left' => $this->getLeftQuestion($question), 'right' => $this->getRightQuestion($question)]); ?>
 
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
         <question-settings params="questionId: <?=$question->id?>"></question-settings>

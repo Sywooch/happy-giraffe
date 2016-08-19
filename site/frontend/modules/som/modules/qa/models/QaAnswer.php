@@ -57,6 +57,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'),
 			'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
 			'category' => array(self::HAS_ONE, get_class(QaCategory::model()), array('categoryId' => 'id'), 'through' => 'question'),
+			'tag' => array(self::BELONGS_TO, get_class(QaTag::model()), array('tag_id' => 'id'), 'through' => 'question'),
 			'votes' => array(self::HAS_MANY, get_class(QaAnswerVote::model()), 'answerId'),
 		);
 	}

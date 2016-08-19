@@ -13,6 +13,7 @@ use site\frontend\modules\comments\modules\contest\components\ContestHelper;
  */
 $this->pageTitle = $this->contest->name . ' - Задания';
 $cs = \Yii::app()->clientScript;
+Yii::app()->clientScript->registerAMD('kow', array('kow'))
 ?>
 <script src="/lite/javascript/jquery.magnific-popup.js"></script>
 

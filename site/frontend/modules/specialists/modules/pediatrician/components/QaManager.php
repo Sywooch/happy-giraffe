@@ -44,8 +44,7 @@ class QaManager
         $criteria = new \CDbCriteria();
         $criteria->scopes = ['category' => [self::getCategoryId()]];
         $criteria->select = 't.*';
-        $criteria->join = 'LEFT OUTER JOIN ' . QaAnswer::model()->tableName() . ' answers ON answers.questionId = t.id';
-        $criteria->addCondition('answers.authorId NOT IN (SELECT id FROM specialists__profiles)');
+        $criteria->join = 'LEFT OUTER JOIN ' . QaAnswer::model()->tableName() . ' answers ON answers.questionId = t.id AND answers.authorId NOT IN (SELECT id FROM specialists__profiles)';
         $criteria->group = 't.id';
         $criteria->with = 'category';
         return $criteria;

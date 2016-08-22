@@ -143,7 +143,7 @@ else
     <!-- Put this div tag to the place, where the Comments block will be -->
     <div id="vk_comments" style="margin-top: 40px;"></div>
     <script type="text/javascript">
-        require(['https://vk.com/js/api/openapi.js?117'], function() {
+        require(['https://vk.com/js/api/openapi.js?127'], function() {
             VK.init({apiId: 2855330, onlyWidgets: true});
             VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
         });

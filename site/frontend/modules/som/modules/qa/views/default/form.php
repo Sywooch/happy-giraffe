@@ -1,4 +1,5 @@
 <?php
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 /**
  * @var site\frontend\modules\som\modules\qa\models\QaQuestion $model
  * @var site\frontend\modules\som\modules\qa\models\QaCategory[] $categories
@@ -69,7 +70,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                             if (count($category->tags) > 0) {
                                 echo $form->dropDownList($model, "tag_id", CHtml::listData($category->tags, 'id', 'name'), array(
                                     'class' => 'select-cus select-cus__search-off select-cus__gray tags ' . ($category->id == $model->categoryId ? ' ' : 'hidden'),
-                                    'empty' => 'Выберите тэг',
+                                    'empty' => 'Выберите возраст ребенка',
                                     'id' => "tags{$category->id}",
                                 ));
                             }
@@ -115,7 +116,9 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 
     function QuestForValid() {
 
-        this.titleValid = false
+        this.titleValid = false;
+        pediatorCategoryId = <?=QaCategory::PEDIATRICIAN_ID?>;
+
 
         this.submitDisable = function (flag) {
             return false;
@@ -222,13 +225,13 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                 }
 
                 var selectTags = $('select.tags');
-                if (selectTags.val() == '' && $('select.categories').val() == 124) {
+                if (selectTags.val() == '' && $('select.categories').val() == pediatorCategoryId) {
                     flagError = true;
 
-                    $("#tags124").addClass('error');
+                    $("#tags" + pediatorCategoryId).addClass('error');
                     $("#qTtagsE").show();
                 } else {
-                    $("#tags124").removeClass('error');
+                    $("#tags" + this.pediatorCategoryId).removeClass('error');
                     $("#qTtagsE").hide();
                 }
 
@@ -295,7 +298,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
             });
 
             $('#qTchildAge').addClass('hidden');
-            if (categoryId == 124)
+            if (categoryId == pediatorCategoryId)
             {
 				$('#qTchildAge').removeClass('hidden');
             }

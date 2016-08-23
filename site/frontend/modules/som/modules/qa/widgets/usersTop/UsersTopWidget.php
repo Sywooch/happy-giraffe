@@ -4,6 +4,7 @@ namespace site\frontend\modules\som\modules\qa\widgets\usersTop;
 
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\components\TopWidgetAbstract;
+use site\frontend\modules\specialists\models\SpecialistProfile;
 
 /**
  * @author Emil Vililyaev
@@ -132,7 +133,20 @@ class UsersTopWidget extends TopWidgetAbstract
      */
     private function _getRating()
     {
-        $criteria = clone $this->_model->getDbCriteria();
+        $criteria           = clone $this->_model->getDbCriteria();
+        $specialistCriteria = clone SpecialistProfile::model()->getDbCriteria();
+
+        $specialistCriteria->select = 'id';
+        $specialistIdList = \Yii::app()->db->getCommandBuilder()->createFindCommand(SpecialistProfile::model()->tableName(), $specialistCriteria)->queryAll();
+
+        $exludeIdList[] = \User::HAPPY_GIRAFFE;
+
+        if (!is_null($specialistIdList))
+        {
+            $exludeIdList = array_merge($exludeIdList, array_map(function($value){
+                return (int)$value['id'];
+            }, $specialistIdList));
+        }
 
         $this->_model->resetScope(false);
 
@@ -143,7 +157,7 @@ class UsersTopWidget extends TopWidgetAbstract
 
         if (is_null($this->authorId))
         {
-            $criteria->addCondition('authorId <> ' . \User::HAPPY_GIRAFFE);
+            $criteria->addCondition('authorId NOT IN (' . implode(',', $exludeIdList) . ')');
         }
         else
         {

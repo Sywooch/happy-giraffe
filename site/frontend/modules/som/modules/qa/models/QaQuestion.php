@@ -294,7 +294,7 @@ class QaQuestion extends \HActiveRecord
 	 */
 	public function save($runValidation=true,$attributes=null)
 	{
-        $this->title = htmlspecialchars($this->title);
+        $this->title = \CHtml::encode($this->title);
 
         return parent::save($runValidation, $attributes);
 	}

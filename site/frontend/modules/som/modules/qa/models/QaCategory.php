@@ -14,15 +14,15 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property \site\frontend\modules\som\modules\qa\models\QaTag[] $tags
  */
 class QaCategory extends \CActiveRecord
-{   
-    
+{
+
     /**
      * ID категории "Мой педиатр"
-     * 
+     *
      * @var integer
      */
     const PEDIATRICIAN_ID = 124;
-    
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -91,10 +91,10 @@ class QaCategory extends \CActiveRecord
 		$this->getDbCriteria()->compare('title', $title);
 		return $this;
 	}
-	
+
 	/**
 	 * Проверка на категорию "Мой педиатр"
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function isPediatrician()

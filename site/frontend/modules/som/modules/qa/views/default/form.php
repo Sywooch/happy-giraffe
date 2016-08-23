@@ -70,7 +70,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                             if (count($category->tags) > 0) {
                                 echo $form->dropDownList($model, "tag_id", CHtml::listData($category->tags, 'id', 'name'), array(
                                     'class' => 'select-cus select-cus__search-off select-cus__gray tags ' . ($category->id == $model->categoryId ? ' ' : 'hidden'),
-                                    'empty' => 'Выберите тэг',
+                                    'empty' => 'Выберите возраст ребенка',
                                     'id' => "tags{$category->id}",
                                 ));
                             }

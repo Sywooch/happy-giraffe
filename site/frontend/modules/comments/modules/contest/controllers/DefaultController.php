@@ -25,6 +25,8 @@ class DefaultController extends \LiteController
     public $bodyClass = 'body_competition';
     public $contest;
 
+    const QUESTS_PER_PAGE = 30;
+
     private $clubsFilter;
 
     public function filters()
@@ -67,7 +69,7 @@ class DefaultController extends \LiteController
      */
     public function actionQuests($type = 'community')
     {
-        // TODO: добавить проверку на дропнутый квест при получении поста, когда будет
+        //$this->getQuests(Content::BLOG_SERVICE);
         /**
          * @var CommentatorsContestParticipant $participant
          */
@@ -87,24 +89,27 @@ class DefaultController extends \LiteController
 
         if ($type == 'community') {
             $model = Content::model()
-                ->byService(Content::COMMUNITY_SERVICE)
-                ->withoutUserComments(\Yii::app()->user->id);
+                ->byService(Content::COMMUNITY_SERVICE);
 
             if (isset($clubsCount) && $clubsCount > 0) {
                 $model->byClubs($clubs);
             }
         } else if ($type == 'blog') {
             $model = Content::model()
-                ->byService(Content::BLOG_SERVICE)
-                ->withoutUserComments(\Yii::app()->user->id);
+                ->byService(Content::BLOG_SERVICE);
         } else {
             throw new \HttpException(404);
         }
 
-        $posts = $model->orderDesc()
-            ->findAll(array(
-            'limit' => 10
-        ));
+        $model->notMine()
+            ->withoutUserComments(\Yii::app()->user->id)
+            ->byActiveQuest()
+            ->orderDesc();
+
+        $model->getDbCriteria()->limit = 30;
+
+        $posts = $model->with()
+            ->findAll();
 
         $title = 'Прокомментировать пост ' . ($type == 'blog' ? 'в блоге' : 'на форуме');
 

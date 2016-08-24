@@ -128,10 +128,12 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
         });
 
         var currentPost = 0;
+        var haveChanges = false;
 
         var loadPost = function(sender) {
             if (!sender.jquery) {
                 magnific.close();
+                location.reload();
                 return;
             }
 
@@ -140,7 +142,8 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
             $.get('/v2_1/api/posts/', {
                 id: currentPost,
                 expand: 'author,comments_count,club',
-                origin_html: true
+                origin_html: true,
+                cache: 'false'
             }, function (response) {
                 var popup = $('#js-b-popup-modal');
 
@@ -222,6 +225,8 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 }
             });
 
+            haveChanges = true;
+
             loadPost(next);
         };
 
@@ -231,8 +236,14 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
         });
 
         $('#js-b-popup-modal .btn-secondary').on('click', function() {
-            //дропать квест, если надо
-            goNext();
+            $.post('/v2_1/api/quests/', {
+                action: 'drop',
+                type: 0,
+                model: 'Content',
+                model_id: currentPost
+            }, function (response) {
+                goNext();
+            });
         });
 
         $('.answer-form_button').on('click', function() {
@@ -255,7 +266,33 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
             });
         });
 
-            $('.js-popup-comment').magnificPopup({
+        $('.js-popup-comment').magnificPopup({
+            type: 'inline',
+            preloader: false,
+            showCloseBtn: false,
+            closeOnContentClick: false,
+            mainClass: 'b-modal-comment',
+            callbacks: {
+                open: function() {
+                    loadPost($(this.st.el));
+                }
+            }
+        });
+
+        $('article.b-article').magnificPopup({
+            type: 'inline',
+            preloader: false,
+            showCloseBtn: false,
+            closeOnContentClick: false,
+            mainClass: 'b-modal-comment',
+            callbacks: {
+                open: function() {
+                    loadPost($(this.st.el));
+                }
+            }
+        });
+
+        $('div.default-theme').magnificPopup({
             type: 'inline',
             preloader: false,
             showCloseBtn: false,
@@ -271,6 +308,9 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
         $('.add-post__close').on('click', function (e) {
             e.preventDefault();
             magnific.close();
+            if (haveChanges) {
+                location.reload();
+            }
         });
 
         $(':checkbox.homepage-check__input').on('click', function() {
@@ -364,10 +404,10 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
         <div class="textalign-l">
             <?php foreach ($posts as $post): ?>
                 <?php if ($type == 'community'): ?>
-                    <div class="default-theme">
+                    <div href="#js-b-popup-modal" class="default-theme" data-id="<?= $post->id?>">
                         <div class="b-froum-theme"><a class="b-froum-theme-img ava__middle ava__female"><img src="<?= $post->author->getAvatarUrl() ?>" alt=""></a>
-                            <div class="b-froum-theme-info"><a href="<?= $post->author->getUrl() ?>" class="name"><?= $post->author->getFullName() ?></a>
-                                <time class="time" id="time<?= $post->id ?>"><?= HHtml::timeTag($post, array('class' => 'tx-date'), null); ?></time><a href="<?= ContestHelper::getValidPostUrl($post->url) ?>" class="b-froum-theme-info-title"><?= $post->title ?></a>
+                            <div class="b-froum-theme-info"><a href="<?= /*$post->author->getUrl()*/'#' ?>" class="name"><?= $post->author->getFullName() ?></a>
+                                <time class="time" id="time<?= $post->id ?>"><?= HHtml::timeTag($post, array('class' => 'tx-date'), null); ?></time><a href="<?= /*ContestHelper::getValidPostUrl($post->url)*/'#' ?>" class="b-froum-theme-info-title"><?= $post->title ?></a>
                                 <?php if ($post->templateObject->getAttr('noWysiwyg', false)) { ?>
                                     <?= $post->preview ?>
                                 <?php } else { ?>
@@ -383,14 +423,14 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                         </div>
                     </div>
                 <?php elseif ($type == 'blog'): ?>
-                    <article class="b-article clearfix b-article__list">
+                    <article href="#js-b-popup-modal" class="b-article clearfix b-article__list" data-id="<?= $post->id?>">
                         <div class="b-article_cont clearfix">
                             <div class="b-article_cont-tale"></div>
                             <div class="b-article_header clearfix">
                                 <div class="icons-meta">
                                     <div class="c-list_item_btn"><span class="c-list_item_btn__view"><?= $post->views ?></span><span class="c-list_item_btn__comment margin-r0"> <?= $post->getDistinctComments() ?></span></div>
                                 </div>
-                                <div class="float-l position-rel w-300"><a href="<?= $post->author->getUrl() ?>" class="ava ava__female ava__middle-xs ava__middle-sm-mid"><span class="ico-status <?php if($post->author->online): ?>ico-status__online <?php endif; ?>"></span><img src="<?= $post->author->getAvatarUrl() ?>" class="ava_img"></a><a href="<?= $post->author->getUrl() ?>" class="b-article_author"><?= $post->author->getFullName() ?></a>
+                                <div class="float-l position-rel w-300"><a href="<?= /*$post->author->getUrl()*/ '#' ?>" class="ava ava__female ava__middle-xs ava__middle-sm-mid"><span class="ico-status <?php if($post->author->online): ?>ico-status__online <?php endif; ?>"></span><img src="<?= $post->author->getAvatarUrl() ?>" class="ava_img"></a><a href="<?= /*$post->author->getUrl()*/'#' ?>" class="b-article_author"><?= $post->author->getFullName() ?></a>
                                     <time pubdate="1957-10-04" class="tx-date" id="time<?= $post->id ?>"><?= HHtml::timeTag($post, array('class' => 'tx-date'), null); ?></time>
 <!--                                    <div style="display: none" class="b-subscribe">-->
 <!--                                        <div class="btn btn-tiny green">Подписаться</div>-->
@@ -399,7 +439,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 <!--                                    <div class="b-subscribe"><span class="b-subscribe__done"></span><span class="b-subscribe_tx">23</span></div>-->
                                 </div>
                             </div>
-                            <div class="b-article_t-list article_t-feed"><a href="<?= ContestHelper::getValidPostUrl($post->url) ?>" class="b-article_t-a"><?= $post->title ?></a></div>
+                            <div class="b-article_t-list article_t-feed"><a href="<?= /*ContestHelper::getValidPostUrl($post->url)*/'#' ?>" class="b-article_t-a"><?= $post->title ?></a></div>
                             <p><?= $post->preview ?></p>
                             <div class="float-r"><a href="#js-b-popup-modal" class="js-popup-comment btn btn-ms green-btn" data-id="<?= $post->id ?>"><span class="hidden-smm">Комментировать</span><span class="b-comment-furt visible-smm">></span></a></div>
                         </div>

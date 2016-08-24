@@ -7,11 +7,17 @@ namespace site\frontend\modules\specialists\models;
  *
  * The followings are the available columns in table 'specialists__profiles':
  * @property string $id
- * @property string $text
+ * @property string $specialization
+ * @property string $courses
+ * @property string $education
+ * @property string $career
+ * @property string $experience
+ * @property string $category
+ * @property string $placeOfWork
  *
  * The followings are the available model relations:
- * @property \User $user
- * @property SpecialistSpecialization $specializations
+ * @property \site\frontend\modules\users\models\User $user
+ * @property SpecialistSpecialization[] $specialistsSpecializations
  */
 class SpecialistProfile extends \CActiveRecord
 {
@@ -31,12 +37,7 @@ class SpecialistProfile extends \CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
-			array('id', 'length', 'max'=>11),
-			array('text', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, text', 'safe', 'on'=>'search'),
+
 		);
 	}
 
@@ -60,7 +61,13 @@ class SpecialistProfile extends \CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'text' => 'Text',
+			'specialization' => 'Specialization',
+			'courses' => 'Courses',
+			'education' => 'Education',
+			'career' => 'Career',
+			'experience' => 'Experience',
+			'category' => 'Category',
+			'placeOfWork' => 'Place Of Work',
 		);
 	}
 
@@ -83,7 +90,13 @@ class SpecialistProfile extends \CActiveRecord
 		$criteria=new \CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('text',$this->text,true);
+		$criteria->compare('specialization',$this->specialization,true);
+		$criteria->compare('courses',$this->courses,true);
+		$criteria->compare('education',$this->education,true);
+		$criteria->compare('career',$this->career,true);
+		$criteria->compare('experience',$this->experience,true);
+		$criteria->compare('category',$this->category,true);
+		$criteria->compare('placeOfWork',$this->placeOfWork,true);
 
 		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

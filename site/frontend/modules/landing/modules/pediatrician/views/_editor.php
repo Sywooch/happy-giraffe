@@ -52,7 +52,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 			<?=
             $form->textField($model, 'title', array(
                 'placeholder' => 'Введите заголовок вопроса',
-                'class' => 'popup-widget_cont_input-text login-button',
+                'class' => 'popup-widget_cont_input-text',
                 'id' => 'qTtitle'
             ))
             ?>
@@ -84,92 +84,99 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
     <?php $this->endWidget(); ?>
 </div>
 <script type="text/javascript">
-
-$(document).ready(function () {
-	scope = {
-        testTitleTok: function (obj) {
-            return function (event) {
-                if ($(this).val() == '') {
-                    $('#' + this.id + 'E').show();
-                    $(this).addClass('error');
-                } else {
-                    $('#' + this.id + 'E').hide();
-                    $(this).removeClass('error');
-                }
-            }
-        },
-
-        validateText: function (textLength) {
-        	switch (true)
-            {
-            	case textLength > 0 && textLength < 30:
-                	$("#qText").addClass('error');
-                    $("#qTextE").text('Введите более 30 символов').show();
-                    return false;
-            	case textLength > 999:
-                	$("#qText").addClass('error');
-                    $("#qTextE").text('Не более 1000 символов').show();
-                    return false;
-        		default:
-        			$("#qText").removeClass('error');
-                	$("#qTextE").hide();
-                	return true;
-            }
-        },
-
-        validateTitle: function (textLength) {
-        	switch (true)
-            {
-            	case textLength == 0:
-                    $("#qTtitle").addClass('error');
-                    $("#qTtitleE").text('Это обязательное поле').show();
-                    return false;
-            	case textLength < 20:
-                	$("#qTtitle").addClass('error');
-                    $("#qTtitleE").text('Введите более 20 символов').show();
-                    return false;
-        		default:
-        			$("#qTtitle").removeClass('error');
-                	$("#qTtitleE").hide();
-                	return true;
-            }
-        },
-
-        isFormValidTok: function (obj) {
-            return function (event) {
-                var flagError = false;
-
-                /* @todo replace('[object HTMLTextAreaElement]', "") <- костыль! до перехода плагина redactor на версию 10 */
-                var textValue = $.trim($($('#qText').val().replace('[object HTMLTextAreaElement]', "")).text());
-
-                flagError = !scope.validateText(textValue.length) || !scope.validateTitle($.trim($("#qTtitle").val()).length);
-
-                var selected = $("input[type='radio'][name='tags']:checked");
-                if (selected.length > 0) {
-                    $('#category_tag_id').attr('value', selected.attr('tag_id'));
-                    $("#qTtagsE").hide();
-                }
-                else
-                {
-                	flagError = true;
-                    $("#qTtagsE").show();
-                }
-
-                if (!flagError) {
-                    $('select.tags.hidden').remove();
-                }
-
-                return !flagError;
+scope = {
+    testTitleTok: function (obj) {
+        return function (event) {
+            if ($(this).val() == '') {
+                $('#' + this.id + 'E').show();
+                $(this).addClass('error');
+            } else {
+                $('#' + this.id + 'E').hide();
+                $(this).removeClass('error');
             }
         }
-	};
+    },
 
-    $("input[type='radio'][name='tags']").change(function(){
-    	$("#qTtagsE").hide();
-    });
+    validateText: function (textLength) {
+    	switch (true)
+        {
+        	case textLength == 0:
+            	$("#qText").addClass('error');
+                $("#qTextE").text('Это обязательное поле').show();
+                return false;
+        	case textLength > 0 && textLength < 30:
+            	$("#qText").addClass('error');
+                $("#qTextE").text('Введите более 30 символов').show();
+                return false;
+        	case textLength > 999:
+            	$("#qText").addClass('error');
+                $("#qTextE").text('Не более 1000 символов').show();
+                return false;
+    		default:
+    			$("#qText").removeClass('error');
+            	$("#qTextE").hide();
+            	return true;
+        }
+    },
 
-    $("#qTtitle").change(scope.testTitleTok(this)).keyup(scope.testTitleTok(this));
+    validateTitle: function (textLength) {
+    	switch (true)
+        {
+        	case textLength == 0:
+                $("#qTtitle").addClass('error');
+                $("#qTtitleE").text('Это обязательное поле').show();
+                return false;
+        	case textLength < 20:
+            	$("#qTtitle").addClass('error');
+                $("#qTtitleE").text('Введите более 20 символов').show();
+                return false;
+    		default:
+    			$("#qTtitle").removeClass('error');
+            	$("#qTtitleE").hide();
+            	return true;
+        }
+    },
 
-    $("#question-form").submit(scope.isFormValidTok(this));
+    isFormValidTok: function (obj) {
+        return function (event) {
+            var flagError = false;
+
+            /* @todo replace('[object HTMLTextAreaElement]', "") <- костыль! до перехода плагина redactor на версию 10 */
+            var textValue = $.trim($($('#qText').val().replace('[object HTMLTextAreaElement]', "")).text());
+
+            flagError = !(scope.validateText(textValue.length) || scope.validateTitle($.trim($("#qTtitle").val()).length));
+
+            var selected = $("input[type='radio'][name='tags']:checked");
+            if (selected.length > 0) {
+                $('#category_tag_id').attr('value', selected.attr('tag_id'));
+                $("#qTtagsE").hide();
+            }
+            else
+            {
+            	flagError = true;
+                $("#qTtagsE").show();
+            }
+
+            if (!flagError) {
+                $('select.tags.hidden').remove();
+            }
+
+            return !flagError;
+        }
+    }
+};
+
+$("input[type='radio'][name='tags']").change(function(){
+	$("#qTtagsE").hide();
 });
+
+$("#question-form").submit(scope.isFormValidTok(this));
+
+$("#qTtitle").change(scope.testTitleTok(this)).keyup(scope.testTitleTok(this));
+
+$.editorChangeCallback = function()
+{
+	$("#qText").removeClass('error');
+	$("#qTextE").hide();
+};
 </script>

@@ -49,24 +49,24 @@ class QaQuestion extends \HActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('title', 'required'),
-			array('title', 'length', 'max' => 150),
-			array('text', 'length', 'max' => 1000),
-			array('sendNotifications', 'boolean'),
+		return [
+			[['title', 'text'], 'required'],
+			['title', 'length', 'max' => 150],
+			['text', 'length', 'max' => 1000],
+			['sendNotifications', 'boolean'],
 
 			// категория
-			array('categoryId', 'default', 'value' => null),
-			array('categoryId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaCategory', 'except' => 'consultation'),
+			['categoryId', 'default', 'value' => null],
+			['categoryId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaCategory', 'except' => 'consultation'],
 
 			// консультация
-			array('consultationId', 'required', 'on' => 'consultation'),
-			array('consultationId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'on' => 'consultation'),
+			['consultationId', 'required', 'on' => 'consultation'],
+			['consultationId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'on' => 'consultation'],
 
             // теги
-            array('tag_id', 'required', 'on' => 'tag'),
-			array('tag_id', 'tagValidator', 'on' => 'tag'),
-		);
+            ['tag_id', 'required', 'on' => 'tag'],
+			['tag_id', 'tagValidator', 'on' => 'tag'],
+		];
 	}
 
 	public function tagValidator($attribute, $params)
@@ -83,14 +83,14 @@ class QaQuestion extends \HActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-			'consultation' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'consultationId'),
-			'category' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'),
-			'answers' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'),
-			'lastAnswer' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'),
-            'tag' => array(self::BELONGS_TO, get_class(QaTag::model()), 'tag_id'),
-            'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
-		);
+		return [
+			'consultation'   => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'consultationId'],
+			'category'       => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'],
+		    'answers'        => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'],
+			'lastAnswer'     => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'],
+            'tag'            => [self::BELONGS_TO, get_class(QaTag::model()), 'tag_id'],
+            'author'         => [self::BELONGS_TO, get_class(\User::model()), 'authorId'],
+		];
 	}
 
 	public function apiRelations()

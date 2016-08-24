@@ -183,7 +183,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 
                 var textValue = $.trim($($('.redactor_box textarea').val()).text());
 
-                if (textValue != '' && textValue.length < 30)
+                if (textValue.length < 30)
                 {
                 	flagError = true;
 

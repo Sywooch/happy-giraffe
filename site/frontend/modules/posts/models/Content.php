@@ -3,6 +3,8 @@
 namespace site\frontend\modules\posts\models;
 
 use site\frontend\modules\comments\models\Comment;
+use site\frontend\modules\quests\components\QuestTypes;
+use site\frontend\modules\quests\models\Quest;
 
 /**
  * This is the model class for table "post__contents".
@@ -44,6 +46,7 @@ use site\frontend\modules\comments\models\Comment;
  * @property PostLabels[] $labelModels
  * @property \User $author
  * @property int $comments_count
+ * @property Quest $quest
  */
 class Content extends \HActiveRecord implements \IHToJSON
 {
@@ -670,6 +673,32 @@ class Content extends \HActiveRecord implements \IHToJSON
             'distinct' => true,
             'select' => 'author_id'
         ));
+    }
+
+    /**
+     * @return Content
+     */
+    public function byActiveQuest()
+    {
+        $alias = $this->getTableAlias();
+        $userId = \Yii::app()->user->id;
+
+        $this->getDbCriteria()
+            ->addCondition("not exists(select * from `quests` `q` where `q`.model_id = {$alias}.id and `q`.model_name = 'Content' and `q`.user_id = {$userId})
+                or (select count(`quest`.id) from `quests` `quest` where `quest`.model_id = {$alias}.id and `quest`.is_completed = 0 and `quest`.is_dropped = 0
+                and `quest`.model_name = 'Content' and `quest`.user_id = {$userId}) = 1");
+
+        return $this;
+    }
+
+    /**
+     * @return Content
+     */
+    public function notMine()
+    {
+        $this->getDbCriteria()->addCondition($this->getTableAlias() . '.authorId != ' . \Yii::app()->user->id);
+
+        return $this;
     }
 
     /**

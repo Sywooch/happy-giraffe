@@ -5,7 +5,7 @@
  */
 $this->beginContent('//layouts/lite/common');
 
-$questionsCount = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionsCount();
+$questionsCount = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionsCount(Yii::app()->user->id);
 $questionsCount = ($questionsCount > 99) ? '99+' : $questionsCount;
 ?>
 

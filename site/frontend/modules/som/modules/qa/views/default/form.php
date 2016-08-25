@@ -183,17 +183,27 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 
                 var textValue = $.trim($($('.redactor_box textarea').val()).text());
 
-                if (textValue.length < 30)
+                if (textValue == '')
                 {
                 	flagError = true;
 
                     $("#qText").addClass('error');
-                    $("#qTextE").text('Введите более 30 символов').show();
+                    $("#qTextE").text('Это обязательное поле').show();
                 }
                 else
                 {
-                	$("#qText").removeClass('error');
-                    $("#qTextE").hide();
+                    if (textValue.length < 30)
+                    {
+                    	flagError = true;
+
+                        $("#qText").addClass('error');
+                        $("#qTextE").text('Введите более 30 символов').show();
+                    }
+                    else
+                    {
+                    	$("#qText").removeClass('error');
+                        $("#qTextE").hide();
+                    }
                 }
 
                 /* if (textValue == '') {

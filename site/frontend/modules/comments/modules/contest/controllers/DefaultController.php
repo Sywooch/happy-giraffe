@@ -125,7 +125,7 @@ class DefaultController extends \LiteController
                 $title
             );
         }
-        
+
         $this->addSocialQuests();
 
         $link = UserRefLink::model()

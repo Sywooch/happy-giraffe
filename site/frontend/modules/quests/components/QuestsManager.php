@@ -152,15 +152,21 @@ class QuestsManager
      */
     public function getQuest()
     {
-        if (!$this->quest) {
-            $this->quest = Quest::model()
-                ->byUser($this->userId)
-                ->byType($this->questType)
-                ->byModel((new \ReflectionClass($this->model))->getShortName(), $this->model->id)
-                ->find();
-        }
+//        if (!$this->quest) {
+//            $this->quest = Quest::model()
+//                ->byUser($this->userId)
+//                ->byType($this->questType)
+//                ->byModel((new \ReflectionClass($this->model))->getShortName(), $this->model->id)
+//                ->find();
+//        }
+//
+//        return $this->quest;
 
-        return $this->quest;
+        return Quest::model()
+            ->byUser($this->userId)
+            ->byType($this->questType)
+            ->byModel((new \ReflectionClass($this->model))->getShortName(), $this->model->id)
+            ->find();
     }
 
     /**

@@ -115,7 +115,7 @@ class DefaultController extends \LiteController
 
         foreach ($posts as $post) {
             $post->views = PageView::getModel($post->url)->visits;
-            QuestsManager::addQuest(
+            $quest = QuestsManager::addQuest(
                 \Yii::app()->user->id,
                 QuestTypes::COMMENT_POST,
                 $post,
@@ -125,7 +125,7 @@ class DefaultController extends \LiteController
                 $title
             );
         }
-
+        
         $this->addSocialQuests();
 
         $link = UserRefLink::model()

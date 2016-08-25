@@ -37,7 +37,7 @@ if (! Yii::app()->user->isGuest) {
 }
 ?>
 
-<a class="mobile-menu" onclick="$('header .header__menu').toggleClass('header__menu_open'); event.stopPropagation()"></a>
+<a class="mobile-menu" onclick="$('.js-overlay-menu').toggleClass('header__menu_open'); $(this).toggleClass('on'); $('header .header__menu').toggleClass('header__menu_open'); event.stopPropagation()"><span></span></a>
 <a href="/" class="logo"></a><a class="header__search popup-a" href="#js-madal-search-box"></a>
 <nav class="header__nav">
     <ul class="header__menu">

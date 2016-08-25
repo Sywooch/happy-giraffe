@@ -172,7 +172,7 @@ class QaQuestion extends \HActiveRecord
 
 	public function orderRating()
 	{
-		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC';
+		$this->getDbCriteria()->order = $this->tableAlias . '.rating DESC, dtimeCreate DESC';
 		return $this;
 	}
 
@@ -254,6 +254,9 @@ class QaQuestion extends \HActiveRecord
 		return $this->consultationId !== null;
 	}
 
+	/**
+	 * @return integer
+	 */
 	public function answersUsersCount()
 	{
 	    return count(array_unique(array_map(function ($value){
@@ -261,6 +264,9 @@ class QaQuestion extends \HActiveRecord
 	    }, $this->answers)));
 	}
 
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+	 */
 	public function next()
 	{
 	    $this->getDbCriteria()->compare('dtimeCreate', '>' . $this->dtimeCreate);
@@ -270,6 +276,9 @@ class QaQuestion extends \HActiveRecord
 	    return $this;
 	}
 
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+	 */
 	public function previous()
 	{
 	    $this->getDbCriteria()->compare('dtimeCreate', '<' . $this->dtimeCreate);
@@ -277,5 +286,16 @@ class QaQuestion extends \HActiveRecord
 	    $this->getDbCriteria()->limit = 1;
 
 	    return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see CActiveRecord::save()
+	 */
+	public function save($runValidation=true,$attributes=null)
+	{
+        $this->title = \CHtml::encode($this->title);
+
+        return parent::save($runValidation, $attributes);
 	}
 }

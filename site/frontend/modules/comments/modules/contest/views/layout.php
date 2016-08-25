@@ -5,7 +5,7 @@
  */
 ?>
 <?php $this->beginContent('//layouts/lite/common_menu'); ?>
-<div class="layout-loose_hold clearfix">
+<div class="clearfix">
 <div class="contest">
 <div class="contest-header contest-header_blue textalign-c">
     <div class="b-contest-container">
@@ -56,7 +56,6 @@
                     ),
                     'encodeLabel' => false,
                     'itemCssClass' => 'contest-header__li',
-                    //добавлятся к li, нужно к a. Лучший вариант перепилить класс, чтобы он работал на li.
                     'activeCssClass' => 'contest-header__link-active',
                     'htmlOptions' => array(
                         'class' => 'textalign-c',

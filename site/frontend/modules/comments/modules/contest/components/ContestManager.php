@@ -44,6 +44,12 @@ class ContestManager
             $current->addParticipant(\Yii::app()->user->id);
         }
 
+        if ($current->name != self::COMMENTS_CONTEST_NAME . self::$monthes[date('m')]) {
+            $current->name = self::COMMENTS_CONTEST_NAME . self::$monthes[date('m')];
+
+            $current->save();
+        }
+
         return $current;
     }
 }

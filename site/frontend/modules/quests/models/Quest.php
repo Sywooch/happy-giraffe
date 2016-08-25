@@ -22,8 +22,6 @@ namespace site\frontend\modules\quests\models;
  */
 class Quest extends \CActiveRecord
 {
-    private $_ignoreDefaultScope = false;
-
     /**
      * @return string the associated database table name
      */
@@ -120,23 +118,19 @@ class Quest extends \CActiveRecord
         return parent::model($className);
     }
 
-    public function resetScope($resetDefault = true)
-    {
-        $this->_ignoreDefaultScope = true;
-        return parent::resetScope($resetDefault);
-    }
+//    public function resetScope($resetDefault = true)
+//    {
+//        $this->_ignoreDefaultScope = true;
+//        return parent::resetScope($resetDefault);
+//    }
 
     public function defaultScope()
     {
         $alias = $this->getTableAlias(true, false);
 
-        if ($this->_ignoreDefaultScope) {
-            return array();
-        } else {
-            return array(
-                'condition' => $alias . '.`is_completed` = 0 AND ' . $alias . '.`is_dropped` = 0',
-            );
-        }
+        return array(
+            'condition' => $alias . '.`is_completed` = 0 AND ' . $alias . '.`is_dropped` = 0',
+        );
     }
 
     /**

@@ -73,11 +73,6 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 });
             },
             ok: function(link) {
-                var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=on',
-                    "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
-
-                okWindow.focus();
-
                 //:(
                 $.post('/v2_1/api/quests/', {
                     action: 'complete',
@@ -85,6 +80,11 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 }, function (response) {
                     console.log(JSON.stringify(response));
                 });
+
+                var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=on',
+                    "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+
+                okWindow.focus();
 
 //                var interval = window.setInterval(function() {
 //                    try {

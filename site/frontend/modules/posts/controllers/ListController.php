@@ -14,7 +14,7 @@ class ListController extends \LiteController
 {
 
     public $layout = '//layouts/lite/main';
-    public $litePackage = 'posts';
+    public $litePackage = 'blogs-homepage';
     /**
      * @var null|\CActiveDataProvider
      */

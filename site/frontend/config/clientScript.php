@@ -669,7 +669,7 @@ return array(
             'depends' => array('lite_posts'),
         ),
         'lite_blogs-homepage' => array(
-            'depends' => array('lite_posts'),
+            'depends' => array('lite_posts', 'lite_posts_user'),
         ),
         'lite_contractubex' => array(
             'baseUrl' => '/',

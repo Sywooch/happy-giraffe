@@ -310,7 +310,7 @@ class DefaultController extends HController
                     $this->redirect($model->url);
             }
         }
-        
+
         $model = ($id === null) ? new BlogContent() : BlogContent::model()->findByPk($id);
         $new = $model->isNewRecord;
         if (! $new && ! $model->canEdit())
@@ -329,7 +329,6 @@ class DefaultController extends HController
          * убираем xss
          */
         $prufer = site\frontend\components\PreparedHTMLPurifier::getInstans();
-        #var_dump($slaveModel->text); exit();
         $slaveModel->text = $prufer->purifyUserHTML($slaveModel->text);
         $this->performAjaxValidation(array($model, $slaveModel));
         $model->$slug = $slaveModel;
@@ -339,7 +338,7 @@ class DefaultController extends HController
         if($new) {
             Yii::app()->user->setState('newPost' . $model->id, true);
         }
-        
+
         if ($success) {
 
             if (isset($_POST['formKey']) && !empty($_POST['formKey']))

@@ -2,6 +2,7 @@
 namespace site\frontend\modules\som\modules\qa\widgets\answers;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 
 /**
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $answers
@@ -44,8 +45,10 @@ class AnswersWidget extends \CWidget
     protected function runForUser()
     {
         $params = array(
-            'questionId' => $this->question->id,
-            'channelId' => self::getChannelIdByQuestion($this->question),
+            'questionId'                => $this->question->id,
+            'categoryId'                => $this->question->categoryId,
+            'pediatricianCategoryId'    => QaCategory::PEDIATRICIAN_ID,
+            'channelId'                 => self::getChannelIdByQuestion($this->question),
         );
         $paramsParts = array_map(function($value, $key) {
             return $key . ': ' . \CJSON::encode($value);

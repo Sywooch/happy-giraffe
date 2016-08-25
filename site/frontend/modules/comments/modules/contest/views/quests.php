@@ -78,17 +78,25 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 
                 okWindow.focus();
 
+                //:(
+                $.post('/v2_1/api/quests/', {
+                    action: 'complete',
+                    social_service: 'ok'
+                }, function (response) {
+                    console.log(JSON.stringify(response));
+                });
+
                 var interval = window.setInterval(function() {
                     try {
                         if (okWindow == null || okWindow.closed) {
                             window.clearInterval(interval);
                             //cors, not working
-                            $.post('/v2_1/api/quests/', {
-                                action: 'complete',
-                                social_service: 'ok'
-                            }, function (response) {
-                                console.log(JSON.stringify(response));
-                            });
+//                            $.post('/v2_1/api/quests/', {
+//                                action: 'complete',
+//                                social_service: 'ok'
+//                            }, function (response) {
+//                                console.log(JSON.stringify(response));
+//                            });
                         }
                     } catch (e) {
                     }
@@ -238,6 +246,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 if (next === true) {
                     next = $(this);
                 }
+
                 if ($(this).data('id') == currentPost) {
                     next = true;
                 }

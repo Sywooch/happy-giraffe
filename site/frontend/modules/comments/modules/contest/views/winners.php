@@ -6,6 +6,7 @@
  */
 
 use site\frontend\modules\comments\modules\contest\components\ContestHelper;
+use site\frontend\modules\comments\modules\contest\components\ContestManager;
 
 $this->pageTitle = 'Победители';
 ?>
@@ -39,8 +40,10 @@ $this->pageTitle = 'Победители';
                     </div>
                     <div class="b-raiting__item float-l">
                         <div class="b-contest-winner__box float-l">
+                            <?php if ($contestId != ContestManager::getCurrentActive()->id): ?>
                             <div class="b-contest-winner__box-ico"></div>
                             <div class="b-contest-winner__box-text">Денежный приз<br>1000 рублей</div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="b-raiting__item float-r">

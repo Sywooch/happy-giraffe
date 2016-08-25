@@ -86,21 +86,21 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                     console.log(JSON.stringify(response));
                 });
 
-                var interval = window.setInterval(function() {
-                    try {
-                        if (okWindow == null || okWindow.closed) {
-                            window.clearInterval(interval);
-                            //cors, not working
+//                var interval = window.setInterval(function() {
+//                    try {
+//                        if (okWindow == null || okWindow.closed) {
+//                            window.clearInterval(interval);
+//                            //cors, not working
 //                            $.post('/v2_1/api/quests/', {
 //                                action: 'complete',
 //                                social_service: 'ok'
 //                            }, function (response) {
 //                                console.log(JSON.stringify(response));
 //                            });
-                        }
-                    } catch (e) {
-                    }
-                }, 1000);
+//                        }
+//                    } catch (e) {
+//                    }
+//                }, 1000);
             },
             fb: function(link) {
                 FB.ui({
@@ -164,6 +164,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
             }
 
             currentPost = sender.data('id');
+            console.log(currentPost);
 
             $.get('/v2_1/api/posts/', {
                 id: currentPost,
@@ -373,19 +374,19 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
         RedactorPlugins.panel = function () {
             return {
                 init: function () {
-                    var picture = this.button.add('picture', 'добавить изображение');
-                    var videos = this.button.add('videos', 'добавить видео');
-                    var smile = this.button.add('smile', 'смайл');
+//                    var picture = this.button.add('picture', 'добавить изображение');
+//                    var videos = this.button.add('videos', 'добавить видео');
+//                    var smile = this.button.add('smile', 'смайл');
 
-                    this.button.addCallback(smile, function () {
-                        //alert('смайл')
-                    });
-                    this.button.addCallback(videos, function () {
-                        //alert('видео')
-                    });
-                    this.button.addCallback(picture, function () {
-                        //alert('изображение')
-                    });
+//                    this.button.addCallback(smile, function () {
+//                        //alert('смайл')
+//                    });
+//                    this.button.addCallback(videos, function () {
+//                        //alert('видео')
+//                    });
+//                    this.button.addCallback(picture, function () {
+//                        //alert('изображение')
+//                    });
 
                 }
             }

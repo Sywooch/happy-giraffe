@@ -34,12 +34,17 @@ class WebUser extends CWebUser
     protected function afterLogin($fromCookie)
     {
         $model = $this->getModel();
-        
+
         OnlineManager::online($model, true);
 
         if (! $fromCookie) {
             Yii::import('site.frontend.modules.cook.models.*');
             CookRecipe::checkRecipeBookAfterLogin($model->id);
+        }
+
+        /** @todo костыль */
+        if ($model->specialistProfile !== null) {
+            $this->returnUrl = Yii::app()->createUrl('/specialists/pediatrician/default/questions');
         }
 
         Yii::app()->request->cookies['not_guest'] = new CHttpCookie('not_guest', '1', array('expire' => time() + 3600*24*100));
@@ -70,7 +75,10 @@ class WebUser extends CWebUser
         if ($referrer !== null && $referrer != $loginUrl) {
             /** @todo: fix 'Creating default object from empty value'*/
             try {
-                //Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
+                if (isset(Yii::app()->user))
+                {
+                    Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
+                }
             } catch (Exception $e) {}
         }
         return parent::beforeLogin($id, $states, $fromCookie);

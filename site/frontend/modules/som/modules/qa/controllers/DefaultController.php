@@ -73,14 +73,14 @@ class DefaultController extends QaController
         $this->render('index', compact('dp', 'tab', 'categoryId', 'category'));
     }
 
-    public function actionView($id)
+    public function actionView($id, $tab = null, $category = null)
     {
         $this->isQuestion = TRUE;
 
         ContentBehavior::$active = true;
         $question = $this->getModel($id);
         ContentBehavior::$active = false;
-        $this->render('view', compact('question'));
+        $this->render('view', compact('question', 'tab', 'category'));
     }
 
     public function actionSearch($query = '', $categoryId = null)
@@ -102,32 +102,7 @@ class DefaultController extends QaController
 
     protected function getDataProvider($tab, $categoryId, $tagId = null)
     {
-        $model = clone QaQuestion::model();
-        $model->apiWith('user')->with('category');
-        if ($categoryId !== null)
-        {
-            $model->category($categoryId);
-            if (!is_null($tagId))
-            {
-                $model->byTag($tagId);
-            }
-        }
-        else
-        {
-            $model->notConsultation();
-        }
-        switch ($tab)
-        {
-            case self::TAB_NEW:
-                $model->orderDesc();
-                break;
-            case self::TAB_POPULAR;
-                $model->orderRating();
-                break;
-            case self::TAB_UNANSWERED:
-                $model->unanswered();
-                break;
-        }
+        $model = $this->_sortByTabAndCategory($tab, $categoryId, $tagId);
 
         return new \CActiveDataProvider($model, array(
             'pagination' => array(
@@ -136,7 +111,7 @@ class DefaultController extends QaController
         ));
     }
 
-    public function actionQuestionAddForm($consultationId = null)
+    public function actionQuestionAddForm($consultationId = null, $redirectUrl = null)
     {
         $this->layout = '//layouts/lite/common';
 
@@ -164,7 +139,8 @@ class DefaultController extends QaController
             }
 
             if ($question->save()) {
-                $this->redirect($question->url);
+                $url = $redirectUrl ?: $question->url;
+                $this->redirect($url);
             }
         }
 
@@ -212,18 +188,67 @@ class DefaultController extends QaController
         ));
     }
 
-    public function getNextQuestions($currentQuestionId)
+    /**
+     * @param QaQuestion $question
+     * @return QaQuestion|null
+     */
+    public function getLeftQuestion(QaQuestion $question)
     {
-        $objQuestion = $this->getModel($currentQuestionId);
-
-        return $objQuestion->next()->find();
+        return $question->previous()->category($question->categoryId)->find();
     }
 
-    public function getPrevQuestions($currentQuestionId)
+    /**
+     * @param QaQuestion $question
+     * @return QaQuestion|null
+     */
+    public function getRightQuestion(QaQuestion $question)
     {
-        $objQuestion = $this->getModel($currentQuestionId);
+        return $question->next()->category($question->categoryId)->find();
+    }
 
-        return $objQuestion->previous()->find();
+    /**
+     * @param string $tab
+     * @param integer $categoryId
+     * @param integer $tagId
+     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     */
+    private function _sortByTabAndCategory($tab, $categoryId, $tagId = null)
+    {
+        $model = clone QaQuestion::model();
+
+        $model->apiWith('user')->with('category');
+
+        if ($categoryId !== null)
+        {
+            $model->category($categoryId);
+
+            if (!is_null($tagId))
+            {
+                $model->byTag($tagId);
+            }
+        }
+        else
+        {
+            $model->notConsultation();
+        }
+
+        switch ($tab)
+        {
+            case self::TAB_NEW:
+                $model->orderDesc();
+                break;
+            case self::TAB_POPULAR;
+                $model->orderRating();
+                break;
+            case self::TAB_UNANSWERED:
+                $model
+                    ->unanswered()
+                    ->orderDesc()
+                ;
+                break;
+        }
+
+        return $model;
     }
 
     /**
@@ -239,6 +264,7 @@ class DefaultController extends QaController
         }
         return $question;
     }
+
 
     protected function performAjaxValidation($model)
     {

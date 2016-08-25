@@ -361,6 +361,8 @@ class User extends HActiveRecord
             'communityPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id'),
 
             'spamStatus' => array(self::HAS_ONE, 'AntispamStatus', 'user_id'),
+            
+            'specialistProfile' => array(self::BELONGS_TO, 'site\frontend\modules\specialists\models\SpecialistProfile', 'id'),
         );
     }
 

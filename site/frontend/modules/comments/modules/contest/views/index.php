@@ -37,10 +37,9 @@ $cs->registerAMD('contestCommentsButton', array('joinOrAuth' => 'extensions/join
 <div class="b-contest__block textalign-c bg-yellow">
     <div class="b-contest-container">
         <div class="b-contest__title">Приз <?= $this->contest->getMonthString() ?></div>
-        <div class="b-prize__contain b-prize__contain_bg"><img src="/lite/images/konkurs/ico-contest-prize.svg"></div>
+        <div class="b-prize__contain"><img src="/lite/images/contest/commentator/contest-commentator-prize_img.jpg"></div>
         <div class="w-700 margin-auto font-m">
-            <div class="b-contest__text-middle margin-b5">Набор «Каляка-Маляка»</div>
-            <p>В набор входит: портфель, альбом для рисования (20 л.), раскраска пластилином, пластилин (12 цв.), магические фломастеры (10 шт.), акварельные карандаши (12 цв.), восковые карандаши (24 цв.)  трафареты для витражей.</p>
+            <div class="b-contest__text-middle margin-b5">Лучшим 10 комментаторам зачисляется<br>1000 рублей на мобильный телефон!</div>
         </div>
     </div>
 </div>

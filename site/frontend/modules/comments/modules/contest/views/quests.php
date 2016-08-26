@@ -126,6 +126,10 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
         };
 
         $('.b-contest-task__li').on('click', function() {
+            if ($(this).hasClass('completed')) {
+                return;
+            }
+
             var service;
             if ($(this).hasClass('b-contest-task__li_vk')) {
                 service = 'vk';
@@ -196,45 +200,45 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 popup.find('.queastion__page-nav').show(0);
                 popup.find('.tx-date').html($('#time' + currentPost).html());
 
-                if (response.originService == 'oldBlog') {
-                    $.get('/v2_1/api/subscribe/', {
-                        user_id: response.authorId
-                    }, function(r) {
-                        if (r[0].message) {
-                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
-                            popup.find('.b-subscribe_tx').html(response.subscribers);
-                        }
-                    });
-                } else if (response.originService == 'oldCommunity') {
-                    $.get('/v2_1/api/subscribe/', {
-                        club_id: response.club.id
-                    }, function(r) {
-                        if (r[0].message) {
-                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
-                            popup.find('.b-subscribe_tx').html(response.subscribers);
-                        }
-                    });
-                }
-
-                popup.find('div.btn.btn-tiny.green').on('click', function() {
-                    if (response.originService == 'oldBlog') {
-                        $.post('/v2_1/api/subscribe/', {
-                            user_id: response.author.id
-                        }, function (r) {
-                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
-                            popup.find('.b-subscribe_tx').html(response.subscribers + 1);
-                        });
-                    } else if (response.originService == 'oldCommunity') {
-                        $.post('/v2_1/api/subscribe/', {
-                            club_id: response.club.id
-                        }, function (r) {
-                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
-                            popup.find('.b-subscribe_tx').html(response.subscribers + 1);
-                        });
-                    }
-                });
-
-                popup.find('.b-subscribe_tx').html(response.subscribers);
+//                if (response.originService == 'oldBlog') {
+//                    $.get('/v2_1/api/subscribe/', {
+//                        user_id: response.authorId
+//                    }, function(r) {
+//                        if (r[0].message) {
+//                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
+//                            popup.find('.b-subscribe_tx').html(response.subscribers);
+//                        }
+//                    });
+//                } else if (response.originService == 'oldCommunity') {
+//                    $.get('/v2_1/api/subscribe/', {
+//                        club_id: response.club.id
+//                    }, function(r) {
+//                        if (r[0].message) {
+//                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
+//                            popup.find('.b-subscribe_tx').html(response.subscribers);
+//                        }
+//                    });
+//                }
+//
+//                popup.find('div.btn.btn-tiny.green').on('click', function() {
+//                    if (response.originService == 'oldBlog') {
+//                        $.post('/v2_1/api/subscribe/', {
+//                            user_id: response.author.id
+//                        }, function (r) {
+//                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
+//                            popup.find('.b-subscribe_tx').html(response.subscribers + 1);
+//                        });
+//                    } else if (response.originService == 'oldCommunity') {
+//                        $.post('/v2_1/api/subscribe/', {
+//                            club_id: response.club.id
+//                        }, function (r) {
+//                            popup.find('.b-subscribe').html('<span class="b-subscribe__done"></span><span class="b-subscribe_tx"></span>');
+//                            popup.find('.b-subscribe_tx').html(response.subscribers + 1);
+//                        });
+//                    }
+//                });
+//
+//                popup.find('.b-subscribe_tx').html(response.subscribers);
 
                 $('.redactor-editor').html('');
             });
@@ -417,11 +421,13 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
     <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
     <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
     <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>
+    <?php if(count($social) > 0): ?>
     <ul class="b-contest-task__list">
-        <li class="b-contest-task__li b-contest-task__li_onnoklasniki"><a href="#" class="b-contest-task__link ico-odnoklasniki"><?php if ($this->checkSocialService('ok', $social)): ?><span class="b-contest-task__mark"></span><? endif; ?></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы</a></li>
-        <li class="b-contest-task__li b-contest-task__li_fb"><a href="#" class="b-contest-task__link ico-fb"><?php if ($this->checkSocialService('fb', $social)): ?><span class="b-contest-task__mark"></span><? endif; ?></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы</a></li>
-        <li class="b-contest-task__li b-contest-task__li_vk"><a href="#" class="b-contest-task__link ico-vk"><?php if ($this->checkSocialService('vk', $social)): ?><span class="b-contest-task__mark"></span><? endif; ?></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы</a></li>
+        <li class="b-contest-task__li b-contest-task__li_onnoklasniki <?php if (!$this->checkSocialService('ok', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-odnoklasniki" <?php if (!$this->checkSocialService('ok', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('ok', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
+        <li class="b-contest-task__li b-contest-task__li_fb <?php if (!$this->checkSocialService('fb', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-fb" <?php if (!$this->checkSocialService('fb', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('fb', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
+        <li class="b-contest-task__li b-contest-task__li_vk <?php if (!$this->checkSocialService('vk', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-vk" <?php if (!$this->checkSocialService('vk', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('vk', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
     </ul>
+    <?php endif; ?>
     <div class="b-contest-winner__container">
         <div class="b-contest__title">Комментируй и получай баллы</div>
         <p class="b-contest__p margin-t10 margin-b20">Выбрано <span class="popup_clubs_count"><?= $clubsCount ?></span> <?= ContestHelper::getWord($clubsCount, ContestHelper::$themeWords) ?> &nbsp;<span class="hidden-xss">для комментирования &nbsp;</span><a href="#js-b-popup-theme" class="js-b-contest-task__choose b-contest-task__choose">Выбрать</a></p>
@@ -490,10 +496,10 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                     <div class="username"><a></a>
                         <time class="tx-date"></time>
                     </div>
-                    <div class="b-subscribe">
-                        <div class="btn btn-tiny green">Подписаться</div>
-                        <div class="b-subscribe_tx"></div>
-                    </div>
+<!--                    <div class="b-subscribe">-->
+<!--                        <div class="btn btn-tiny green">Подписаться</div>-->
+<!--                        <div class="b-subscribe_tx"></div>-->
+<!--                    </div>-->
                 </div>
                 <div class="icons-meta">
                     <div class="c-list_item_btn"><span class="c-list_item_btn__view"></span><a href="#" class="c-list_item_btn__comment margin-r0"></a></div>

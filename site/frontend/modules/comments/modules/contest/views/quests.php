@@ -418,10 +418,10 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 <input type="hidden" id="fb_app" value="<?= $eauth['facebook']['client_id'] ?>"/>
 
 <div class="b-contest-task b-contest__block textalign-c">
+    <?php if(count($social) > 0): ?>
     <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
     <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
     <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>
-    <?php if(count($social) > 0): ?>
     <ul class="b-contest-task__list">
         <li class="b-contest-task__li b-contest-task__li_onnoklasniki <?php if (!$this->checkSocialService('ok', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-odnoklasniki" <?php if (!$this->checkSocialService('ok', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('ok', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
         <li class="b-contest-task__li b-contest-task__li_fb <?php if (!$this->checkSocialService('fb', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-fb" <?php if (!$this->checkSocialService('fb', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('fb', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>

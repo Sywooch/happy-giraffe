@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\specialists\controllers;
 use site\frontend\modules\specialists\components\SpecialistsManager;
+use site\frontend\modules\specialists\models\ProfileForm;
 
 /**
  * @author Никита
@@ -9,15 +10,30 @@ use site\frontend\modules\specialists\components\SpecialistsManager;
  */
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    public function actions()
+    public function actionUpdateProfile($profileId, array $data)
     {
-        return \CMap::mergeArray(parent::actions(), array(
-            'edit' => array(
-                'class' => 'site\frontend\components\api\EditAction',
-                'modelName' => '\site\frontend\modules\specialists\models\SpecialistProfile',
-                'checkAccess' => 'editSpecialistProfileData',
-            ),
-        ));
+        $form = new ProfileForm();
+        $form->profileId = $profileId;
+        $form->attributes = $data;
+        $this->success = $form->validate() && $form->save();
+        $this->data = [
+            'form' => $form,
+            'errors' => $form->errors,    
+        ];
+    }
+
+    public function actionValidate(array $data)
+    {
+        $form = new ProfileForm();
+        $form->attributes = $data;
+        $form->validate();
+        $this->success = true;
+
+
+
+        $this->data = array(
+            'errors' => $form->getErrors(),
+        );
     }
     
     public function actionMakeSpecialist($userId = null, array $specializations = [])

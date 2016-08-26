@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\specialists\models;
+use site\frontend\modules\specialists\models\sub\MultipleRowsModel;
 
 /**
  * This is the model class for table "specialists__profiles".
@@ -17,10 +18,12 @@ namespace site\frontend\modules\specialists\models;
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\users\models\User $user
- * @property SpecialistSpecialization[] $specialistsSpecializations
+ * @property SpecialistSpecialization[] $specializations
  */
 class SpecialistProfile extends \CActiveRecord
 {
+    protected $_relatedModels = [];
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -37,7 +40,7 @@ class SpecialistProfile extends \CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-
+            array('career', 'filter', 'filter' => array($this->careerObject, 'serialize')),
 		);
 	}
 
@@ -113,4 +116,28 @@ class SpecialistProfile extends \CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getCareerObject()
+    {
+        if (!isset($this->_relatedModels['career']))
+            $this->_relatedModels['career'] = new MultipleRowsModel($this->career, $this, 'site\frontend\modules\specialists\models\sub\Career');
+
+        return $this->_relatedModels['career'];
+    }
+
+    public function getEducationObject()
+    {
+        if (!isset($this->_relatedModels['education']))
+            $this->_relatedModels['education'] = new MultipleRowsModel($this->career, $this, 'site\frontend\modules\specialists\models\sub\Education');
+
+        return $this->_relatedModels['education'];
+    }
+
+    public function getCoursesObject()
+    {
+        if (!isset($this->_relatedModels['courses']))
+            $this->_relatedModels['courses'] = new MultipleRowsModel($this->career, $this, 'site\frontend\modules\specialists\models\sub\Courses');
+
+        return $this->_relatedModels['courses'];
+    }
 }

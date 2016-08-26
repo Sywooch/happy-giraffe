@@ -42,8 +42,11 @@ class SpecialistsManager
         return SpecialistSpecialization::model()->findAll('groupId = :groupId', [':groupId' => $groupId]);
     }
 
-    protected static function assignSpecializations($specializations, $userId)
+    public static function assignSpecializations($specializations, $userId, $deleteOld = false)
     {
+        if ($deleteOld) {
+            \Yii::app()->db->createCommand()->delete('specialists__profiles_specializations', 'profileId = :userId', [':userId' => $userId]);
+        }
         $rows = array_map(function($specId) use ($userId) {
             return [
                 'profileId' => $userId,

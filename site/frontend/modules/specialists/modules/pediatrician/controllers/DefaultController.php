@@ -3,7 +3,9 @@
 namespace site\frontend\modules\specialists\modules\pediatrician\controllers;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\specialists\components\SpecialistsManager;
+use site\frontend\modules\specialists\models\ProfileForm;
 use site\frontend\modules\specialists\models\SpecialistGroup;
+use site\frontend\modules\specialists\models\SpecialistProfile;
 use site\frontend\modules\specialists\models\SpecialistSpecialization;
 use site\frontend\modules\specialists\modules\pediatrician\components\QaManager;
 
@@ -51,5 +53,12 @@ class DefaultController extends \LiteController
         $specs = SpecialistsManager::getSpecializations(SpecialistGroup::PEDIATRICIAN);
         $this->layout = '/layouts/register';
         $this->render('register', compact('specs'));
+    }
+
+    public function actionProfile()
+    {
+        $form = new ProfileForm();
+        $form->initialize(\Yii::app()->user->id);
+        $this->render('profile', compact('form'));
     }
 }

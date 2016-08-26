@@ -56,7 +56,7 @@ $this->pageTitle = 'Победители';
             </div>
             <?php endfor; ?>
             <?php if (\Yii::app()->user->isGuest && $contestId != $this->contest->id):?>
-                <div class="textalign-c"><a href="#" class="btn btn-forum green-btn login-button" data-bind="follow: {}">Принять участие</a></div>
+                <div class="textalign-c margin-t20" ><a href="#" class="btn btn-forum green-btn login-button" data-bind="follow: {}">Принять участие</a></div>
             <?php endif; ?>
         <?php if (\Yii::app()->user->isGuest && $contestId == $this->contest->id): ?>
             <div class="b-contest-winner__contain textalign-c">

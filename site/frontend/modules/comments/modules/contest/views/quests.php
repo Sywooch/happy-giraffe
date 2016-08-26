@@ -431,10 +431,12 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
     <div class="b-contest-winner__container">
         <div class="b-contest__title">Комментируй и получай баллы</div>
         <p class="b-contest__p margin-t10 margin-b20">Выбрано <span class="popup_clubs_count"><?= $clubsCount ?></span> <?= ContestHelper::getWord($clubsCount, ContestHelper::$themeWords) ?> &nbsp;<span class="hidden-xss">для комментирования &nbsp;</span><a href="#js-b-popup-theme" class="js-b-contest-task__choose b-contest-task__choose">Выбрать</a></p>
+        <div class="b-contest-winner__menu">
         <ul class="textalign-c margin-b30">
             <li class="contest-header__li"><a href="<?= \Yii::app()->createUrl('/comments/contest/default/quests', array('type' => 'blog')) ?>" class="b-contest-winner__link <?= $type == 'blog' ? 'b-contest-winner__link-active' : ''?>">Блоги</a></li>
             <li class="contest-header__li"><a href="<?= \Yii::app()->createUrl('/comments/contest/default/quests', array('type' => 'community')) ?>" class="b-contest-winner__link <?= $type == 'community' ? 'b-contest-winner__link-active' : ''?>">Форумы</a></li>
         </ul>
+        </div>
         <div class="textalign-l">
             <?php foreach ($posts as $post): ?>
                 <?php if ($type == 'community'): ?>

@@ -34,7 +34,7 @@ $this->pageTitle = 'Победители';
                     <div class="b-raiting__item float-l">
                         <div class="b-raiting__num b-raiting__num_yellow margin-r15"><?= $i + 1 ?></div><a href="<?= $winners[$i]->user->getUrl() ?>" class="contest-commentator-rating_user-a">
                             <!-- ava--><span href="<?= $winners[$i]->user->getUrl() ?>" class="ava ava__female"><img alt="" src="<?= $winners[$i]->user->getAvatarUrl() ?>" class="ava_img"></span></a>
-                        <div class="contest-footer__ball w-110">
+                        <div class="contest-footer__ball w-110 textalign-l">
                             <a href="<?= $winners[$i]->user->getUrl() ?>" class="contest-footer__ball-text contest-footer__ball-text_blue textalign-l"><?= $winners[$i]->user->getFullName() ?></a>
                         </div>
                     </div>

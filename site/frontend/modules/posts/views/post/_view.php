@@ -144,7 +144,7 @@ else
     <div id="vk_comments" style="margin-top: 40px;"></div>
     <script type="text/javascript">
         require(['https://vk.com/js/api/openapi.js?127'], function() {
-            VK.init({apiId: 2855330, onlyWidgets: true});
+            VK.init({apiId: 5609049, onlyWidgets: true});
             VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
         });
     </script>

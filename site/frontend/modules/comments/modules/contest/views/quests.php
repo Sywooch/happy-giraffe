@@ -73,34 +73,24 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 });
             },
             ok: function(link) {
-                //:(
-                $.post('/v2_1/api/quests/', {
-                    action: 'complete',
-                    social_service: 'ok'
-                }, function (response) {
-                    console.log(JSON.stringify(response));
-                });
-
                 var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=on',
                     "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
 
-                okWindow.focus();
-
-//                var interval = window.setInterval(function() {
-//                    try {
-//                        if (okWindow == null || okWindow.closed) {
-//                            window.clearInterval(interval);
-//                            //cors, not working
-//                            $.post('/v2_1/api/quests/', {
-//                                action: 'complete',
-//                                social_service: 'ok'
-//                            }, function (response) {
-//                                console.log(JSON.stringify(response));
-//                            });
-//                        }
-//                    } catch (e) {
-//                    }
-//                }, 1000);
+                var interval = window.setInterval(function() {
+                    try {
+                        if (okWindow == null || okWindow.closed) {
+                            window.clearInterval(interval);
+                            //cors, not working
+                            $.post('/v2_1/api/quests/', {
+                                action: 'complete',
+                                social_service: 'ok'
+                            }, function (response) {
+                                location.reload();
+                            });
+                        }
+                    } catch (e) {
+                    }
+                }, 1000);
             },
             fb: function(link) {
                 FB.ui({

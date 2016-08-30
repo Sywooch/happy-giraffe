@@ -65,6 +65,8 @@ return array(
         '<_v>/api/quests' => 'api/<_v>/api/quests',
         '<_v>/api/subscribe' => 'api/<_v>/api/subscribe',
         '<_v>/api/(favourites|favorites)' => 'api/<_v>/api/favourites',
+        '<_v>/api/(childs|children)' => 'api/<_v>/api/childs',
+        '<_v>/api/users/<action:(profile)>' => 'api/<_v>/api/users',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 
@@ -90,7 +92,6 @@ return array(
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
 
-        'pediatrician/<_a:(questions|answers)>' => 'specialists/pediatrician/default/<_a>',
 
         /* QA */
 
@@ -159,10 +160,7 @@ return array(
         'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',
         'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
         'blogs'              => 'posts/blogs/default/index',
-        
-        'landing/pediatrician' => 'landing/pediatrician/default/index',
-        
-    
+
         //'forums/rubric<rubricId:\d+>' => 'posts/forums/default/rubric',
         'forums/rubric<rubricId:\d+>' => 'posts/forums/club/rubric',
 

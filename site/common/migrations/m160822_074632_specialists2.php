@@ -5,7 +5,7 @@ class m160822_074632_specialists2 extends CDbMigration
 	public function up()
 	{
 		$sql = <<<'SQL'
-INSERT INTO `newauth__items` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('specialist', '2', 'Специалист', NULL, NULL);"
+INSERT INTO `newauth__items` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('specialist', '2', 'Специалист', NULL, NULL);
 INSERT INTO `newauth__items` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('manageOwnSpecialistProfile', 1, 'Управление профилем специалиста', 'return $params[\"entity\"]->id == Yii::app()->user->id;', NULL);
 INSERT INTO `newauth__items` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('editSpecialistProfileData', 0, 'Редактирование данных профиля специалиста', NULL, NULL);
 INSERT INTO `newauth__items_childs` (`parent`, `child`) VALUES ('specialist', 'manageOwnSpecialistProfile');

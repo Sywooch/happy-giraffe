@@ -41,6 +41,8 @@ class SpecialistProfile extends \CActiveRecord
 		// will receive user inputs.
 		return array(
             array('career', 'filter', 'filter' => array($this->careerObject, 'serialize')),
+			array('education', 'filter', 'filter' => array($this->educationObject, 'serialize')),
+			array('courses', 'filter', 'filter' => array($this->coursesObject, 'serialize')),
 		);
 	}
 
@@ -128,7 +130,7 @@ class SpecialistProfile extends \CActiveRecord
     public function getEducationObject()
     {
         if (!isset($this->_relatedModels['education']))
-            $this->_relatedModels['education'] = new MultipleRowsModel($this->career, $this, 'site\frontend\modules\specialists\models\sub\Education');
+            $this->_relatedModels['education'] = new MultipleRowsModel($this->education, $this, 'site\frontend\modules\specialists\models\sub\Education');
 
         return $this->_relatedModels['education'];
     }
@@ -136,7 +138,7 @@ class SpecialistProfile extends \CActiveRecord
     public function getCoursesObject()
     {
         if (!isset($this->_relatedModels['courses']))
-            $this->_relatedModels['courses'] = new MultipleRowsModel($this->career, $this, 'site\frontend\modules\specialists\models\sub\Courses');
+            $this->_relatedModels['courses'] = new MultipleRowsModel($this->courses, $this, 'site\frontend\modules\specialists\models\sub\Courses');
 
         return $this->_relatedModels['courses'];
     }

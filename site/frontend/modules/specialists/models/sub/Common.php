@@ -24,6 +24,7 @@ class Common extends \CModel implements \IHToJSON
     {
         return [
             ['years, place', 'required'],
+            ['years', 'numerical', 'integerOnly' => true, 'max' => date('Y'), 'min' => date('Y') - 100],
         ];
     }
 

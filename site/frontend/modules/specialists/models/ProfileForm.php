@@ -8,6 +8,8 @@ use site\frontend\modules\specialists\models\sub\Career;
  * @property \CModel[] $career
  * @property \CModel[] $education
  * @property \CModel[] $courses
+ * @property \User $user
+ * @property SpecialistProfile $profile
  */
 class ProfileForm extends \CFormModel implements \IHToJSON
 {
@@ -15,23 +17,24 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
     public $firstName;
     public $lastName;
-
     public $experience;
     public $category;
     public $placeOfWork;
+    public $text;
     
     public $specializations;
-    public $spec1;
-    public $spec2;
 
     private $_career = [];
     private $_education = [];
     private $_courses = [];
 
+    private $_profile;
+    private $_user;
+
     public function rules()
     {
         return [
-            ['firstName, lastName, category, experience, placeOfWork, spec1, spec2', 'safe'],
+            ['firstName, lastName, category, experience, placeOfWork, specializations, text', 'safe'],
 
             ['career', 'validateRelatedModels'],
             ['education', 'validateRelatedModels'],
@@ -46,7 +49,10 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $isValid = true;
         $errors = [];
         foreach ($models as $model) {
-            if (! $model->validate()) {
+            $modelIsEmpty = count(array_filter($model->attributes, function($val) {
+                return $val != '';
+            })) == 0;
+            if (! $modelIsEmpty && ! $model->validate()) {
                 $isValid = false;
             }
             $errors[] = $model->errors;
@@ -56,43 +62,51 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         }
     }
     
-    public function save()
+    public function attributeLabels()
     {
-        $profile = SpecialistProfile::model()->findByPk($this->profileId);
-        $user = \User::model()->findByPk($this->profileId);
-        
-        foreach (['experience', 'category', 'placeOfWork'] as $attr) {
-            $profile->$attr = $this->$attr;
-        }
-
-        $user->first_name = $this->firstName;
-        $user->last_name = $this->lastName;
-
-        $profile->experience = $this->experience;
-        $profile->category = $this->category;
-        $profile->placeOfWork = $this->placeOfWork;
-        
-        $profile->careerObject->models = $this->career;
-        $profile->educationObject->models = $this->education;
-        $profile->coursesObject->models = $this->courses;
-        SpecialistsManager::assignSpecializations(array_filter([$this->spec1, $this->spec2]), $this->profileId, true);
-        return $user->save() && $profile->save();
+        return [
+            'firstName' => 'Имя',
+            'lastName' => 'Фамилия',
+            'experience' => 'Стаж',
+            'category' => 'Категория',
+            'placeOfWork' => 'Место работы',
+        ];
     }
 
     public function initialize($profileId)
     {
-        $profile = SpecialistProfile::model()->findByPk($profileId);
-        $user = \User::model()->findByPk($profileId);
         $this->profileId = $profileId;
 
-        $this->firstName = $user->first_name;
-        $this->lastName = $user->last_name;
-        
-        $this->experience = $profile->experience;
-        $this->category = $profile->category;
-        $this->placeOfWork = $profile->placeOfWork;
+        $this->firstName = $this->user->first_name;
+        $this->lastName = $this->user->last_name;
+        $this->experience = $this->profile->experience;
+        $this->category = $this->profile->category;
+        $this->placeOfWork = $this->profile->placeOfWork;
+        $this->text = $this->profile->specialization;
 
-        $this->career = $profile->careerObject->models;
+        $this->specializations = $this->getSpecializations();
+
+        $this->career = $this->profile->careerObject->models;
+        $this->education = $this->profile->educationObject->models;
+        $this->courses = $this->profile->coursesObject->models;
+    }
+    
+    public function save()
+    {
+        $this->user->first_name = $this->firstName;
+        $this->user->last_name = $this->lastName;
+        $this->profile->experience = $this->experience;
+        $this->profile->category = $this->category;
+        $this->profile->placeOfWork = $this->placeOfWork;
+        $this->profile->specialization = $this->text;
+
+        SpecialistsManager::assignSpecializations($this->specializations, $this->profileId, true);
+
+        $this->profile->careerObject->models = $this->career;
+        $this->profile->educationObject->models = $this->education;
+        $this->profile->coursesObject->models = $this->courses;
+        
+        return $this->user->save() && $this->profile->save();
     }
 
     public function toJSON()
@@ -102,17 +116,17 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
-
             'experience' => $this->experience,
             'placeOfWork' => $this->placeOfWork,
             'category' => $this->category,
+            'text' => $this->text,
 
             'career' => $this->career,
             'education' => $this->education,
             'courses' => $this->courses,
 
             'specializationsList' => $this->getSpecializationsList(),
-            'specializations' => $this->getSpecializations(),
+            'specializations' => $this->specializations,
         ];
     }
 
@@ -138,12 +152,28 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
     public function setCourses(array $data)
     {
-        $this->_courses = $this->createModels($data, 'site\frontend\modules\specialists\models\sub\Career');
+        $this->_courses = $this->createModels($data, 'site\frontend\modules\specialists\models\sub\Courses');
     }
 
     public function getCourses()
     {
         return $this->_courses;
+    }
+
+    public function getUser()
+    {
+        if (! $this->_user) {
+            $this->_user = \User::model()->findByPk($this->profileId);
+        }
+        return $this->_user;
+    }
+
+    public function getProfile()
+    {
+        if (! $this->_profile) {
+            $this->_profile = SpecialistProfile::model()->findByPk($this->profileId);
+        }
+        return $this->_profile;
     }
     
     protected function getSpecializations()
@@ -164,9 +194,9 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
     protected function createModels(array $data, $modelName)
     {
-        return  array_map(function($row) {
+        return  array_map(function($row) use ($modelName) {
             if (is_array($row)) {
-                $model = new Career();
+                $model = new $modelName;
                 $model->setAttributes($row);
             } else {
                 $model = $row;

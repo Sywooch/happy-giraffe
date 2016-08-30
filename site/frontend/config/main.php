@@ -413,6 +413,12 @@ return array(
                     'logFile' => 'api.log',
                 //'emails'=>'nikita@happy-giraffe.ru',
                 ),
+                [
+                    'class'         => 'CFileLogRoute',
+                    'levels'        => 'info',
+                    'categories'    => 'comet',
+                    'logFile'       => 'log.txt'
+                ]
             ),
         ),
         'shoppingCart' => array(

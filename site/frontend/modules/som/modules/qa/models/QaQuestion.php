@@ -254,6 +254,9 @@ class QaQuestion extends \HActiveRecord
 		return $this->consultationId !== null;
 	}
 
+	/**
+	 * @return integer
+	 */
 	public function answersUsersCount()
 	{
 	    return count(array_unique(array_map(function ($value){
@@ -286,24 +289,13 @@ class QaQuestion extends \HActiveRecord
 	}
 
 	/**
-	 * @param string $tab
-	 * @param integer $categoryId
-	 * @return string
+	 * {@inheritDoc}
+	 * @see CActiveRecord::save()
 	 */
-	public function formatedUrl($tab = NULL, $categoryId = NULL)
+	public function save($runValidation=true,$attributes=null)
 	{
-	    $url = $this->url;
+        $this->title = \CHtml::encode($this->title);
 
-	    if (is_null($tab) && is_null($categoryId))
-	    {
-	        return $url;
-	    }
-
-        $url .= '?';
-        $url .= is_null($tab) ? '' : 'tab=' . $tab;
-        $url .= is_null($tab) || is_null($categoryId) ? '' : '&';
-        $url .= is_null($categoryId) ? '' : 'category=' . $categoryId;
-
-        return $url;
+        return parent::save($runValidation, $attributes);
 	}
 }

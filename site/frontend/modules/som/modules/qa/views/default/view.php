@@ -32,9 +32,9 @@ else
 
 <div class="question">
     <div class="live-user">
-    
+
     	<?php if (! $isAnonQuestion): ?>
-    	
+
         <a href="<?=$question->user->profileUrl?>" class="ava ava ava__<?=($question->user->gender) ? 'male' : 'female'?>">
             <?php if ($question->user->isOnline): ?>
                 <span class="ico-status ico-status__online"></span>
@@ -43,30 +43,28 @@ else
                 <img alt="" src="<?=$question->user->avatarUrl?>" class="ava_img">
             <?php endif; ?>
         </a>
-        
+
         <?php endif; ?>
-        
+
         <div class="username">
-        	
+
         	<?php if ($isAnonQuestion): ?>
-        		
         		<span class="anon-name"><?php echo $question->user->getAnonName(); ?></span>
-        	
         	<?php else: ?>
-        	
+
         		<a href="<?=$question->user->profileUrl?>"><?=$question->user->fullName?></a>
-        	
+
         	<?php endif; ?>
-            
+
             <?= HHtml::timeTag($question, array('class' => 'tx-date')); ?>
-            
+
         </div>
     </div>
     <div class="icons-meta">
         <div class="icons-meta_view"><span class="icons-meta_tx"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span></div>
     </div>
     <div class="clearfix"></div>
-    <h1 class="questions_item_heading"><?=CHtml::encode($question->title)?></h1>
+    <h1 class="questions_item_heading"><?=strip_tags($question->title)?></h1>
     <?php if ($question->consultationId !== null || $question->categoryId !== null): ?>
     <div class="questions_item_category">
         <?php if ($question->consultationId !== null): ?>
@@ -74,10 +72,12 @@ else
         <?php else: ?>
             <div class="hashtag hashtag_mobile margin-t18">
             	<a href="<?=$this->createUrl('/som/qa/default/index/', array('categoryId' => $question->category->id))?>" class=""><?=$question->category->title?></a>
-            	<?php if (!is_null($question->tag)): ?>
-          			<a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id])?>" class=""><?=$question->tag->name?></a>
-          		<?php endif; ?>
         	</div>
+            <?php if (!is_null($question->tag)): ?>
+                <div class="hashtag hashtag_mobile margin-t18">
+                    <a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id])?>" class=""><?=$question->tag->name?></a>
+                </div>
+            <?php endif; ?>
         	<a href="#" class="box-footer__answer box-footer__answer_blue box-footer__answer_mod">
         		<span class="box-footer__num"><?=$question->answersCount?></span>
         		<span class="box-footer__descr">ответов</span>
@@ -90,7 +90,7 @@ else
         <?=$question->purified->text?>
     </div>
 
-    <?php $this->renderPartial('/default/navigation_arrow', array('next' => $this->getNextQuestions($question->id, $tab, $category), 'previous' => $this->getPrevQuestions($question->id, $tab, $category))); ?>
+    <?php $this->renderPartial('/default/navigation_arrow', ['left' => $this->getLeftQuestion($question), 'right' => $this->getRightQuestion($question)]); ?>
 
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
         <question-settings params="questionId: <?=$question->id?>"></question-settings>

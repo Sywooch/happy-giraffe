@@ -4,18 +4,19 @@
  */
 ?>
 
-<?php 
+<?php
 
 if (! is_null($data->category))
 {
     $isAnonQuestion = $data->category->isPediatrician();
 }
-else 
+else
 {
     $isAnonQuestion = FALSE;
 }
 
 ?>
+
 
 <li class="questions_item clearfix <?php echo $isAnonQuestion ? 'questions_item-no-avatar' : ''; ?>">
 	
@@ -29,23 +30,21 @@ else
 		
 	<?php endif; ?>
 	
+
 	<div class="questions-modification__box box-wrapper">
       <div class="box-wrapper__user">
-      
       	<?php if ($isAnonQuestion): ?>
-      		
       		<span class="anon-name"><?php echo $data->user->getAnonName(); ?></span>
-      		
       	<?php else: ?>
-      	
+
       		<a href="<?=$data->user->profileUrl?>" class="box-wrapper__link"><?=$data->user->getFullName()?></a>
-      	
+
       	<?php endif; ?>
-      	
+
       	<span class="box-wrapper__date"><?= HHtml::timeTag($data, array('class' => 'tx-date')); ?></span>
       </div>
       <div class="box-wrapper__header box-header">
-      	<a href="<?=$data->formatedUrl($tab, $category)?>" class="box-header__link"><?=CHtml::encode($data->title)?></a>
+      	<a href="<?=$data->url?>" class="box-header__link"><?=strip_tags($data->title)?></a>
         <p class="box-header__text"><?=strip_tags($data->text)?></p>
       </div>
       <div class="box-wrapper__footer box-footer">

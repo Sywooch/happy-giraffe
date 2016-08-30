@@ -47,11 +47,13 @@ class SpecialistsManager
         if ($deleteOld) {
             \Yii::app()->db->createCommand()->delete('specialists__profiles_specializations', 'profileId = :userId', [':userId' => $userId]);
         }
-        $rows = array_map(function($specId) use ($userId) {
-            return [
-                'profileId' => $userId,
-                'specializationId' => $specId];
-        }, $specializations);
-        \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand('specialists__profiles_specializations', $rows)->execute();
+        if (count($specializations) > 0) {
+            $rows = array_map(function ($specId) use ($userId) {
+                return [
+                    'profileId' => $userId,
+                    'specializationId' => $specId];
+            }, $specializations);
+            \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand('specialists__profiles_specializations', $rows)->execute();
+        }
     }
 }

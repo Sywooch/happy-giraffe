@@ -13,7 +13,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionUpdateProfile($profileId, array $data)
     {
         $form = new ProfileForm();
-        $form->profileId = $profileId;
+        $form->initialize($profileId);
         $form->attributes = $data;
         $this->success = $form->validate() && $form->save();
         $this->data = [
@@ -28,9 +28,6 @@ class ApiController extends \site\frontend\components\api\ApiController
         $form->attributes = $data;
         $form->validate();
         $this->success = true;
-
-
-
         $this->data = array(
             'errors' => $form->getErrors(),
         );

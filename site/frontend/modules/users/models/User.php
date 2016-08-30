@@ -45,7 +45,7 @@ class User extends \User implements \IHToJSON
             'publicChannel' => $this->getPublicChannel(),
             'specInfo' => empty($this->specInfo) ? null : $this->specInfoObject,
             'avatarInfo' => \CJSON::decode($this->avatarInfo),
-            'specialistInfo' => empty($this->specialistInfo) ? null : $this->specialistInfoObject,
+            'specialistInfo' => $this->specialistInfoObject->attributes,
         );
     }
 

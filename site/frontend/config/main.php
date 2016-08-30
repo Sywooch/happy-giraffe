@@ -171,6 +171,12 @@ return array(
         'referals' => array(
             'class' => 'site\frontend\modules\referals\ReferalsModule',
         ),
+        'landing' => [
+            'class' => 'site\frontend\modules\landing\LandingModule'
+        ],
+        'specialists' => [
+            'class' => 'site\frontend\modules\specialists\SpecialistsModule',    
+        ],
     ),
     // application components
     'components' => array(
@@ -407,6 +413,12 @@ return array(
                     'logFile' => 'api.log',
                 //'emails'=>'nikita@happy-giraffe.ru',
                 ),
+                [
+                    'class'         => 'CFileLogRoute',
+                    'levels'        => 'info',
+                    'categories'    => 'comet',
+                    'logFile'       => 'log.txt'
+                ]
             ),
         ),
         'shoppingCart' => array(

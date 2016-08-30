@@ -76,7 +76,7 @@ class DefaultController extends QaController
     public function actionView($id, $tab = null, $category = null)
     {
         $this->isQuestion = TRUE;
-        
+
         ContentBehavior::$active = true;
         $question = $this->getModel($id);
         ContentBehavior::$active = false;
@@ -111,7 +111,7 @@ class DefaultController extends QaController
         ));
     }
 
-    public function actionQuestionAddForm($consultationId = null)
+    public function actionQuestionAddForm($consultationId = null, $redirectUrl = null)
     {
         $this->layout = '//layouts/lite/common';
 
@@ -139,7 +139,8 @@ class DefaultController extends QaController
             }
 
             if ($question->save()) {
-                $this->redirect($question->url);
+                $url = $redirectUrl ?: $question->url;
+                $this->redirect($url);
             }
         }
 
@@ -188,57 +189,21 @@ class DefaultController extends QaController
     }
 
     /**
-     * @param integer $currentQuestionId
-     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     * @param QaQuestion $question
+     * @return QaQuestion|null
      */
-    public function getNextQuestions($currentQuestionId, $tab, $categotyId)
+    public function getLeftQuestion(QaQuestion $question)
     {
-        list($qaList, $currentIndex) = $this->_getQaListForArrow($currentQuestionId, $tab, $categotyId);;
-
-        $objNextQa = $currentIndex >= count($qaList) - 1 ? NULL : $qaList[$currentIndex + 1];
-
-        return ['qa' => $objNextQa, 'tab' => $tab, 'categoryId' => $categotyId];
+        return $question->previous()->category($question->categoryId)->find();
     }
 
     /**
-     * @param integer $currentQuestionId
-     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     * @param QaQuestion $question
+     * @return QaQuestion|null
      */
-    public function getPrevQuestions($currentQuestionId, $tab, $categotyId)
+    public function getRightQuestion(QaQuestion $question)
     {
-        list($qaList, $currentIndex) = $this->_getQaListForArrow($currentQuestionId, $tab, $categotyId);
-
-        $objPrevQa = $currentIndex <= 0 ? NULL : $qaList[$currentIndex - 1];
-
-        return ['qa' => $objPrevQa, 'tab' => $tab, 'categoryId' => $categotyId];
-    }
-
-
-    /**
-     * @param integer $qaId
-     * @param string $tab
-     * @param integer $categotyId
-     * @return array
-     */
-    private function _getQaListForArrow($qaId, $tab, $categotyId)
-    {
-        $objQuestion = $this->getModel($qaId);
-        $model = $this->_sortByTabAndCategory($tab, $categotyId, $objQuestion->tag_id);
-
-        $qaList = $model->findAll();
-
-        $currentIndex = null;
-
-        foreach ($qaList as $key => $question)
-        {
-            if ($question->id == $qaId)
-            {
-                $currentIndex = $key;
-                break;
-            }
-        }
-
-        return [$qaList, $currentIndex];
+        return $question->next()->category($question->categoryId)->find();
     }
 
     /**

@@ -11,6 +11,7 @@ use Aws\CloudFront\Exception\Exception;
 use site\frontend\components\AuthManager;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 use site\frontend\modules\specialists\models\SpecialistSpecialization;
+use site\frontend\modules\users\models\User;
 
 class SpecialistsManager
 {
@@ -53,7 +54,13 @@ class SpecialistsManager
                     'profileId' => $userId,
                     'specializationId' => $specId];
             }, $specializations);
-            \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand('specialists__profiles_specializations', $rows)->execute();
+            $success = \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand('specialists__profiles_specializations', $rows)->execute() > 0;
+            if ($success) {
+                $user = User::model()->findByPk($userId);
+                $profile = SpecialistProfile::model()->findByPk($userId);
+                $user->specialistInfoObject->title = $profile->getSpecsString();
+                $user->save();
+            }
         }
     }
 }

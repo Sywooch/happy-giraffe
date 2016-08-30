@@ -90,6 +90,8 @@ return array(
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
 
+        ['class' => 'site\frontend\modules\specialists\components\SpecialistsUrlRule'],
+        'user/<userId:\d+>/info' => 'specialists/profile/info',
         'specialists/editProfile' => 'specialists/default/index',
         'pediatrician/answer<questionId:\d+>' => 'specialists/pediatrician/default/answer',
         'pediatrician/<_a>' => 'specialists/pediatrician/default/<_a>',

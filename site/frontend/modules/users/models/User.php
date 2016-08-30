@@ -19,7 +19,7 @@ class User extends \User implements \IHToJSON
     {
         return array(
             array('specInfo', 'filter', 'filter' => array($this->specInfoObject, 'serialize')),
-            array('specialistInfo', 'filter', 'filter' => array($this->specInfoObject, 'serialize')),
+            array('specialistInfo', 'filter', 'filter' => array($this->specialistInfoObject, 'serialize')),
             array('first_name, last_name', 'length', 'max' => 50),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
             array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE)),

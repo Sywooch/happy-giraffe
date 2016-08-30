@@ -142,4 +142,11 @@ class SpecialistProfile extends \CActiveRecord
 
         return $this->_relatedModels['courses'];
     }
+	
+	public function getSpecsString()
+	{
+		return $this->specializations ? implode(', ', array_map(function($spec) {
+			return $spec->title;
+		}, $this->specializations)) : '';
+	}
 }

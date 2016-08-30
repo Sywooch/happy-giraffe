@@ -27,13 +27,13 @@ class m160824_080502_specialists3 extends CDbMigration
 
 CREATE TABLE `specialists__profiles` (
   `id` int(11) unsigned NOT NULL,
-  `specialization` text,
-  `courses` text,
-  `education` text,
-  `career` text,
-  `experience` varchar(255) DEFAULT NULL,
-  `category` varchar(255) DEFAULT NULL,
-  `placeOfWork` varchar(255) DEFAULT NULL,
+  `specialization` text NOT NULL,
+  `courses` text NOT NULL,
+  `education` text NOT NULL,
+  `career` text NOT NULL,
+  `experience` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `placeOfWork` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `specialists__profiles_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

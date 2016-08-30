@@ -240,8 +240,8 @@ return array(
             'services' => array(// You can change the providers and their classes.
                 'facebook' => array(
                     'class' => 'application.components.eauth.FacebookAuth',
-                    'client_id' => '412497558776154',
-                    'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
+                    'client_id' => '1648409175470149',
+                    'client_secret' => '5b205be5986475a0244bb4d44f4a2299',
                     'title' => 'Facebook',
                 ),
 //                'mailru' => array(
@@ -266,8 +266,8 @@ return array(
                 //true app
                 'vkontakte' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
-                    'client_id' => '2855330',
-                    'client_secret' => 'T9pHwkodkssoEjswy2fw',
+                    'client_id' => '5609049',
+                    'client_secret' => 'DEIkXbwnoMprdaEQJRs3',
                     'title' => 'ВКонтакте',
                 ),
                 //test app

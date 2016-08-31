@@ -20,6 +20,13 @@ class ApiController extends \site\frontend\components\api\ApiController
     public static $answerModel = '\site\frontend\modules\som\modules\qa\models\QaAnswer';
     public static $questionModel = '\site\frontend\modules\som\modules\qa\models\QaQuestion';
 
+    protected function beforeAction($action)
+    {
+        \TimeLogger::model()->startTimer(date('j D в H:i:s') . ' [ACTION] ' . $action->id);
+
+        return parent::beforeAction($action);
+    }
+
     public function actions()
     {
         return \CMap::mergeArray(parent::actions(), array(
@@ -60,14 +67,21 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(403);
         }
 
+        \CommentLogger::model()->startTimer();
+        \CommentLogger::model()->addToLog('actionCreateAnswer', 'before create answerModel()');
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
         $answer = new self::$answerModel();
+        \CommentLogger::model()->addToLog('actionCreateAnswer', 'answerModel() created');
         $answer->attributes = array(
             'questionId' => $questionId,
             'text' => $text,
         );
+        \CommentLogger::model()->addToLog('actionCreateAnswer', 'answerModel() filled, before save!');
         $this->success = $answer->save();
+        \CommentLogger::model()->addToLog('actionCreateAnswer', 'answerModel() saved!!');
         $this->data = $answer;
+        \CommentLogger::model()->addToLog('actionCreateAnswer', 'end actionCreateAnswer');
+        \CommentLogger::model()->push();
     }
 
     public function actionGetAnswers($questionId)
@@ -105,6 +119,9 @@ class ApiController extends \site\frontend\components\api\ApiController
      */
     public function afterAction($action)
     {
+        \CommentLogger::model()->startTimer();
+        \CommentLogger::model()->addToLog('afterAction', 'start afterAction');
+
         $types = array(
             'vote' => \CometModel::QA_VOTE,
             'createAnswer' => \CometModel::QA_NEW_ANSWER,
@@ -112,11 +129,23 @@ class ApiController extends \site\frontend\components\api\ApiController
             'restoreAnswer' => \CometModel::QA_RESTORE_ANSWER,
             'editAnswer' => \CometModel::QA_EDIT_ANSWER,
         );
+
         if ($this->success == true && in_array($action->id, array_keys($types)))
         {
+            \CommentLogger::model()->addToLog('afterAction', $action->id . 'before send data to plexor');
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
+
+            \CommentLogger::model()->addToLog('afterAction', $action->id . 'send data to plexor');
             $this->send(AnswersWidget::getChannelIdByQuestion($this->data->questionId), $data, $types[$action->id]);
+            \CommentLogger::model()->addToLog('afterAction', $action->id . 'after send data to plexor');
         }
+
         parent::afterAction($action);
+
+        if (! is_null($this->errorCode))
+        {
+            \CommentLogger::model()->addToLog('COMMET ERROR', $this->errorMessage);
+        }
+        \CommentLogger::model()->push();
     }
 }

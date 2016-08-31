@@ -3,6 +3,7 @@
 namespace site\frontend\modules\specialists\controllers;
 use site\frontend\modules\specialists\components\SpecialistsManager;
 use site\frontend\modules\specialists\models\ProfileForm;
+use site\frontend\modules\specialists\models\SpecialistProfile;
 
 /**
  * @author Никита
@@ -14,6 +15,9 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         $form = new ProfileForm();
         $form->initialize($profileId);
+        if (! \Yii::app()->user->checkAccess('editSpecialistProfileData', ['entity' => $form->getProfile()])) {
+            throw new \CHttpException(403);
+        }
         $form->attributes = $data;
         $this->success = $form->validate() && $form->save();
         $this->data = [

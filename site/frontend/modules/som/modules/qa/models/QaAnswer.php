@@ -130,7 +130,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		}
 
 		$transaction = $this->dbConnection->beginTransaction();
-		\CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'current Transaction null, create new Transaction');
 		try {
 		    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'try {} before called parent save()');
 			$success = parent::save($runValidation, $attributes);

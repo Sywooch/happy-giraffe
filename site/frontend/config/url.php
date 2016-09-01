@@ -67,6 +67,8 @@ return array(
         '<_v>/api/(favourites|favorites)' => 'api/<_v>/api/favourites',
         '<_v>/api/(childs|children)' => 'api/<_v>/api/childs',
         '<_v>/api/users/<action:(profile)>' => 'api/<_v>/api/users',
+        '<_v>/api/questions/<action:(search)>' => 'api/<_v>/api/questions',
+        '<_v>/api/users/<action:(social)>' => 'api/<_v>/api/users',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

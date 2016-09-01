@@ -6,7 +6,7 @@ namespace site\frontend\modules\notifications\models;
  * Description of Notification
  *
  * @author Кирилл
- * 
+ *
  * @property Entity $entity Сущность, к которой привязаны события
  * @property \EMongoCriteria $dbCriteria
  */
@@ -95,51 +95,56 @@ class Notification extends \EMongoDocument implements \IHToJSON
 
     public function indexes()
     {
-        return array(
-            'uid' => array(
-                'key' => array(
+        return [
+            'uid' => [
+                'key' => [
                     'userId' => \EMongoCriteria::SORT_ASC,
-                ),
-            ),
-            'date' => array(
-                'key' => array(
+                ],
+            ],
+            'date' => [
+                'key' => [
                     'dtimeUpdate' => \EMongoCriteria::SORT_DESC,
-                ),
-            ),
-        );
+                ],
+            ],
+            'entity.id_1' => [
+                'key' => [
+                    'entity.id' => \EMongoCriteria::SORT_ASC,
+                ],
+            ],
+        ];
     }
 
     public function embeddedDocuments()
     {
-        return array(
+        return [
             'entity' => 'site\frontend\modules\notifications\models\Entity',
-        );
+        ];
     }
 
     public function behaviors()
     {
-        return array(
-            'CacheDelete' => array(
+        return [
+            'CacheDelete' => [
                 'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
-            ),
-            'embededUnreadEntities' => array(
+            ],
+            'embededUnreadEntities' => [
                 'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'unreadEntities',
                 'arrayDocClassName' => 'site\frontend\modules\notifications\models\Entity'
-            ),
-            'embededReadEntities' => array(
+            ],
+            'embededReadEntities' => [
                 'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'readEntities',
                 'arrayDocClassName' => 'site\frontend\modules\notifications\models\Entity'
-            ),
-            'cometBehavior' => array(
+            ],
+            'cometBehavior' => [
                 'class' => 'site\frontend\modules\notifications\behaviors\CometBehavior',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
-     * 
+     *
      * @param string $className
      * @return Notification
      */
@@ -154,20 +159,20 @@ class Notification extends \EMongoDocument implements \IHToJSON
     }
 
     /**
-     * 
+     *
      * @return int Сумма всех непрочитанных уведомлений текущего пользователя
      */
     public static function getUnreadSum()
     {
         $res = self::model()->getCollection()->aggregate(
-            array(
-                array(
-                    '$match' => array('userId' => (int) \Yii::app()->user->id),
-                ),
-                array(
-                    '$group' => array('_id' => '$userId', 'count' => array('$sum' => '$unreadCount'))
-                )
-            )
+            [
+                [
+                    '$match' => ['userId' => (int) \Yii::app()->user->id],
+                ],
+                [
+                    '$group' => ['_id' => '$userId', 'count' => ['$sum' => '$unreadCount']]
+                ]
+            ]
         );
         $res = $res['result'];
 
@@ -175,7 +180,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
     }
 
     /**
-     * 
+     *
      * @return int Количество непрочитанных уведомлений текущего пользователя
      */
     public static function getUnreadCount()
@@ -254,7 +259,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
 
     /**
      * Добавление автарки к сигналу
-     * 
+     *
      * @param int $userId id пользователя, чья аватарка добавляется
      * @param string $avatarUrl url аватарки
      * @param bool $unread добавить для непрочитанного сигнала
@@ -292,7 +297,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
     /* scopes */
 
     /**
-     * 
+     *
      * @return \site\frontend\modules\notifications\models\Notification
      */
     public function byRead($read)
@@ -322,7 +327,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
     }
 
     /**
-     * 
+     *
      * @param int $type
      * @return \site\frontend\modules\notifications\models\Notification
      */
@@ -334,7 +339,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
     }
 
     /**
-     * 
+     *
      * @param int $userId
      * @return \site\frontend\modules\notifications\models\Notification
      */
@@ -346,7 +351,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
     }
 
     /**
-     * 
+     *
      * @param type $date
      * @return \site\frontend\modules\notifications\models\Notification
      */
@@ -361,7 +366,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
     /**
      * Добавляет условие, находящее сигналы, в которых есть упоминание об указанной сущности
      * Не рекомендуется использовать без дополнительных ограницений
-     * 
+     *
      * @param mixed $entity Модель с int атрибутом id или массив array('entity' => class, 'entityId' => id)
      * @return \site\frontend\modules\notifications\models\Notification
      */

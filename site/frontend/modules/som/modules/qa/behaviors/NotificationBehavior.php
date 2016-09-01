@@ -33,7 +33,7 @@ class NotificationBehavior extends BaseBehavior
              */
             \CommentLogger::model()->addToLog('NotificationBehavior:afterSave', 'row is removed, before find signals? O_o');
             $signals = Notification::model()->byEntity($question)->findAll();
-            \CommentLogger::model()->addToLog('NotificationBehavior:afterSave', 'row is removed, after find signals, before forech');
+            \CommentLogger::model()->addToLog('NotificationBehavior:afterSave', 'row is removed, after find signals, before forech. objCount: ' . count($signals));
 
             foreach ($signals as &$signal) {
                 $readEntityDeleted = $signal->readEntities && $this->removeEntity($signal->readEntities, $this->owner);

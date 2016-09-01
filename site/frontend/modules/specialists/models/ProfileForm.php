@@ -119,7 +119,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             'experience' => $this->experience,
             'placeOfWork' => $this->placeOfWork,
             'category' => $this->category,
-            'text' => $this->text,
+            'text' => preg_replace('#onclick="[^"]*"#', '', $this->text),
 
             'career' => $this->career,
             'education' => $this->education,

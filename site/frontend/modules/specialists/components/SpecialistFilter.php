@@ -11,7 +11,6 @@ class SpecialistFilter
 {
     public static function denySpecialists()
     {
-        return;
         if (\Yii::app()->user->checkAccess('specialist') && strpos(\Yii::app()->controller->route, 'specialists') !== 0) {
             throw new \CHttpException(403);
         }

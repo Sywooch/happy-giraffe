@@ -68,10 +68,8 @@ class ApiController extends \site\frontend\components\api\ApiController
         }
 
         \CommentLogger::model()->startTimer();
-        \CommentLogger::model()->addToLog('actionCreateAnswer', 'before create answerModel()');
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
         $answer = new self::$answerModel();
-        \CommentLogger::model()->addToLog('actionCreateAnswer', 'answerModel() created');
         $answer->attributes = array(
             'questionId' => $questionId,
             'text' => $text,
@@ -80,7 +78,6 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = $answer->save();
         \CommentLogger::model()->addToLog('actionCreateAnswer', 'answerModel() saved!!');
         $this->data = $answer;
-        \CommentLogger::model()->addToLog('actionCreateAnswer', 'end actionCreateAnswer');
         \CommentLogger::model()->push();
     }
 
@@ -132,7 +129,6 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         if ($this->success == true && in_array($action->id, array_keys($types)))
         {
-            \CommentLogger::model()->addToLog('afterAction', $action->id . 'before send data to plexor');
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
 
             \CommentLogger::model()->addToLog('afterAction', $action->id . 'send data to plexor');

@@ -6,4 +6,4 @@
 $this->pageTitle = 'Профиль специалиста';
 ?>
 
-<pediatrician-profile-form params='<?=\HJSON::encode($form)?>'></pediatrician-profile-form>
+<pediatrician-profile-form params="<?=htmlentities(\HJSON::encode($form))?>"></pediatrician-profile-form>

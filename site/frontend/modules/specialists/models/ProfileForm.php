@@ -49,10 +49,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $isValid = true;
         $errors = [];
         foreach ($models as $model) {
-            $modelIsEmpty = count(array_filter($model->attributes, function($val) {
-                return $val != '';
-            })) == 0;
-            if (! $modelIsEmpty && ! $model->validate()) {
+            if ($this->isFilledModel($model) && ! $model->validate()) {
                 $isValid = false;
             }
             $errors[] = $model->errors;
@@ -137,7 +134,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
     public function getCareer()
     {
-        return $this->_career;
+        return $this->filterEmpty($this->_career);
     }
 
     public function setEducation(array $data)
@@ -147,7 +144,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
     public function getEducation()
     {
-        return $this->_education;
+        return $this->filterEmpty($this->_education);
     }
 
     public function setCourses(array $data)
@@ -157,7 +154,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
     public function getCourses()
     {
-        return $this->_courses;
+        return $this->filterEmpty($this->_courses);
     }
 
     public function getUser()
@@ -174,6 +171,18 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             $this->_profile = SpecialistProfile::model()->findByPk($this->profileId);
         }
         return $this->_profile;
+    }
+
+    protected function filterEmpty($models)
+    {
+        return array_values(array_filter($models, [$this, 'isFilledModel']));
+    }
+
+    protected function isFilledModel($model)
+    {
+        return count(array_filter($model->attributes, function($val) {
+            return $val != '';
+        })) > 0;
     }
     
     protected function getSpecializations()

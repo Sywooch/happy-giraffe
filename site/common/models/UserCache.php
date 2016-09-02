@@ -110,6 +110,12 @@ class UserCache extends HActiveRecord
      */
     public static function GetUserCache($user_id)
     {
+        if (is_null($user_id))
+        {
+            \Yii::log('Passed null param, called from: ' . get_called_class() . ' class.', CLogger::LEVEL_ERROR);
+            return;
+        }
+
         $value = Yii::app()->cache->get(self::CACHE_ID . $user_id);
         if ($value === false) {
             $model = self::model()->find('user_id=' . $user_id);

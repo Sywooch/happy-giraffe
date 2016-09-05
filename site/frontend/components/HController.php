@@ -82,6 +82,8 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
+        \site\frontend\modules\specialists\components\SpecialistFilter::denySpecialists();
+
         $this->addView($action);
 
         $this->filterBySpamStatus();

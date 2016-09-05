@@ -5,6 +5,14 @@
  */
 
 $profile = $user->specialistProfile;
+
+$expCat = [];
+if ($profile->experience) {
+    $expCat[] = 'Стаж: ' . \site\frontend\modules\specialists\models\SpecialistProfile::$experienceList[$profile->experience];
+}
+if ($profile->category && \site\frontend\modules\specialists\models\SpecialistProfile::$categoriesList[$profile->category]) {
+    $expCat[] = \site\frontend\modules\specialists\models\SpecialistProfile::$categoriesList[$profile->category];
+}
 ?>
 
 <section class="userSection pediator">
@@ -17,8 +25,8 @@ $profile = $user->specialistProfile;
             <?php if ($specs = $profile->getSpecsString()): ?>
                 <div class="location locationsmall clearfix margin-t12"><span class="font__title-sn font__semi pediator__color-red"><?=$specs?></span></div>
             <?php endif; ?>
-            <?php if ($profile->experience || $profile->category): ?>
-                <div class="location locationsmall clearfix"><span class="location_tx"><?=implode(' / ', array_filter(['Стаж: ' . $profile->experience, $profile->category], function($el) {return $el && $el != 'Стаж: ';}))?></span></div>
+            <?php if (count($expCat) > 0): ?>
+                <div class="location locationsmall clearfix"><span class="location_tx"><?=implode(' / ', $expCat)?></span></div>
             <?php endif; ?>
         </div>
         <div class="userSection_center">

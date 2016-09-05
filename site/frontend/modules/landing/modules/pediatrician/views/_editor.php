@@ -139,7 +139,8 @@ $(document).ready(function () {
             return function (event) {
                 var flagError = false;
 
-                var textValue = $.trim($($('.redactor_box textarea').val()).text());
+                /* @todo replace('[object HTMLTextAreaElement]', "") <- костыль! до перехода плагина redactor на версию 10 */
+                var textValue = $.trim($($('#qText').val().replace('[object HTMLTextAreaElement]', "")).text());
 
                 flagError = !scope.validateText(textValue.length) || !scope.validateTitle($.trim($("#qTtitle").val()).length);
 

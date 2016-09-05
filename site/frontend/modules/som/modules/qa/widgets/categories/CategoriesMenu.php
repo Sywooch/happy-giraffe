@@ -33,7 +33,7 @@ abstract class CategoriesMenu extends SidebarMenu
 
     protected function getItemByCategory(QaCategory $category)
     {
-        $item = $this->getItem($category->title, $this->getCountByCategory($category), $this->getUrlByCategory($category));
+        $item = $this->getItem($category->title, $this->getCountByCategory($category), $this->getUrlByCategory($category), $category->id);
         $item['active'] = $category->id == $this->categoryId;
         return $item;
     }

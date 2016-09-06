@@ -22,18 +22,25 @@ use site\frontend\modules\specialists\models\sub\MultipleRowsModel;
  */
 class SpecialistProfile extends \CActiveRecord
 {
-	public static $categoriesList = [
-		'empty' => '',
-		'no' => 'Нет категории',
-		'first' => 'Первая категория',
-		'second' => 'Вторая категория',
-		'top' => 'Высшая категория',
-	];
+	public static function getCategoriesList()
+	{
+		return [
+			'empty' => '',
+			'no' => 'Нет категории',
+			'first' => 'Первая категория',
+			'second' => 'Вторая категория',
+			'top' => 'Высшая категория',
+		];
+	}
 
-	public static $experienceList = [
-		'0-20' => 'До 20 лет',
-		'20+' => 'Более 20 лет',
-	];
+	public static function getExperienceList()
+	{
+		return array_merge(array_combine(range(1, 20), array_map(function($n) {
+			return $n . ' ' . \Str::GenerateNoun(['год', 'года', 'лет'], $n);
+		}, range(1, 20))), [
+			'20+' => 'Более 20 лет',
+		]);
+	}
 
 	protected $_relatedModels = [];
 

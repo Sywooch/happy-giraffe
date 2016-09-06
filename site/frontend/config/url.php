@@ -74,6 +74,8 @@ return array(
         '.*/index' => 404,
 
         /* API */
+        'api/specialists/<_a>' => 'specialists/api/<_a>',
+        'api/pediatrician/<_a>' => 'specialists/pediatrician/api/<_a>',
         'api/nextPost/<_a>' => 'posts/nextPost/api/<_a>',
         'api/photoAds/<_a>' => 'posts/photoAds/api/<_a>',
         'api/myGiraffe/<_a>' => 'posts/myGiraffe/api/<_a>',
@@ -88,7 +90,11 @@ return array(
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
 
-        'pediatrician/<_a:(questions|answers)>' => 'specialists/pediatrician/default/<_a>',
+        ['class' => 'site\frontend\modules\specialists\components\SpecialistsUrlRule'],
+        'user/<userId:\d+>/info' => 'specialists/profile/info',
+        'specialists/editProfile' => 'specialists/default/index',
+        'pediatrician/answer<questionId:\d+>' => 'specialists/pediatrician/default/answer',
+        'pediatrician/<_a>' => 'specialists/pediatrician/default/<_a>',
 
         /* QA */
 

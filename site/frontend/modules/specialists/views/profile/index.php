@@ -3,15 +3,18 @@
  * @var LiteController $this
  * @var CActiveDataProvider $dp
  */
-$this->pageTitle = 'Жираф педиатр - Вопросы';
+
+$this->pageTitle = $this->user->getFullName() . ' на Веселом Жирафе';
 ?>
 
-<div class="landing-question pediator pediator-top">
+<?php $this->renderPartial('_userSection', ['user' => $this->user]); ?>
+
+<div class="landing-question pediator margin-t50">
     <?php
     $this->widget('LiteListView', array(
-        'htmlOptions' => ['class' => 'questions questions-modification'],
+        'htmlOptions' => ['class' => 'questions margin-t0'],
         'dataProvider' => $dp,
-        'itemView' => '_question',
+        'itemView' => '_answer',
         'itemsTagName' => 'ul',
         'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
         'pager' => [

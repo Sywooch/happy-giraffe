@@ -36,8 +36,8 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         return [
             ['firstName, lastName, placeOfWork, specializations, text', 'safe'],
 
-            ['category', 'in', 'range' => array_keys(SpecialistProfile::$categoriesList)],
-            ['experience', 'in', 'range' => array_keys(SpecialistProfile::$experienceList)],
+            ['category', 'in', 'range' => array_keys(SpecialistProfile::getCategoriesList())],
+            ['experience', 'in', 'range' => array_keys(SpecialistProfile::getExperienceList())],
 
             ['career', 'validateRelatedModels'],
             ['education', 'validateRelatedModels'],
@@ -128,8 +128,8 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             'specializationsList' => $this->getSpecializationsList(),
             'specializations' => $this->specializations,
 
-            'categoriesList' => SpecialistProfile::$categoriesList,
-            'experienceList' => SpecialistProfile::$experienceList,
+            'categoriesList' => SpecialistProfile::getCategoriesList(),
+            'experienceList' => SpecialistProfile::getExperienceList(),
         ];
     }
 

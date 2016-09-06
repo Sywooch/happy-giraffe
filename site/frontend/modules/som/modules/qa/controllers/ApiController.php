@@ -67,7 +67,6 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(403);
         }
 
-        \CommentLogger::model()->startTimer();
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
         $answer = new self::$answerModel();
         $answer->attributes = array(
@@ -78,7 +77,6 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = $answer->save();
         \CommentLogger::model()->addToLog('actionCreateAnswer', 'answerModel() saved!!');
         $this->data = $answer;
-        \CommentLogger::model()->push();
     }
 
     public function actionGetAnswers($questionId)
@@ -116,8 +114,7 @@ class ApiController extends \site\frontend\components\api\ApiController
      */
     public function afterAction($action)
     {
-        \CommentLogger::model()->startTimer();
-        \CommentLogger::model()->addToLog('afterAction', 'start afterAction');
+        \CommentLogger::model()->addToLog('afterAction', 'start, action: ' . $action->id);
 
         $types = array(
             'vote' => \CometModel::QA_VOTE,
@@ -142,6 +139,5 @@ class ApiController extends \site\frontend\components\api\ApiController
         {
             \CommentLogger::model()->addToLog('COMMET ERROR', $this->errorMessage);
         }
-        \CommentLogger::model()->push();
     }
 }

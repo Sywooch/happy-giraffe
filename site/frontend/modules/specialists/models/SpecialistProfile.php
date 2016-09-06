@@ -22,7 +22,20 @@ use site\frontend\modules\specialists\models\sub\MultipleRowsModel;
  */
 class SpecialistProfile extends \CActiveRecord
 {
-    protected $_relatedModels = [];
+	public static $categoriesList = [
+		'empty' => '',
+		'no' => 'Нет категории',
+		'first' => 'Первая категория',
+		'second' => 'Вторая категория',
+		'top' => 'Высшая категория',
+	];
+
+	public static $experienceList = [
+		'0-20' => 'До 20 лет',
+		'20+' => 'Более 20 лет',
+	];
+
+	protected $_relatedModels = [];
 
 	/**
 	 * @return string the associated database table name

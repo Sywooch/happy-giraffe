@@ -70,7 +70,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         }
 
         \CommentLogger::model()->addToLog('ApiController:actionCreate', 'before create comment obj');
-        $comment = Comment::model();
+        $comment = new Comment('default');
         \CommentLogger::model()->addToLog('ApiController:actionCreate', 'obj created, before create purifier obj');
         $prufer = \site\frontend\components\PreparedHTMLPurifier::getInstans();
         \CommentLogger::model()->addToLog('ApiController:actionCreate', 'obj created, before purified text');

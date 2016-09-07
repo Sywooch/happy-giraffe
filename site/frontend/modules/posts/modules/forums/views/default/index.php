@@ -9,6 +9,7 @@ $breadcrumbs = [
 ];
 ?>
 
+
 <?php $this->beginClip('home'); ?>
 <?php if (Yii::app()->user->isGuest): ?>
 <div class="homepage-clubs_b">

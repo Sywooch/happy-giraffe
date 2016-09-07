@@ -243,6 +243,7 @@ class DefaultController extends \LiteController
          * @var CommentatorsContest[] $contests
          */
         $contests = CommentatorsContest::model()
+            ->notEmpty()
             ->findAll(array(
                 'order' => 'id DESC',
                 'limit' => 4,

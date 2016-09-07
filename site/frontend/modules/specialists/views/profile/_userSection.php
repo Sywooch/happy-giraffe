@@ -8,10 +8,10 @@ $profile = $user->specialistProfile;
 
 $expCat = [];
 if ($profile->experience) {
-    $expCat[] = 'Стаж: ' . \site\frontend\modules\specialists\models\SpecialistProfile::$experienceList[$profile->experience];
+    $expCat[] = 'Стаж: ' . \site\frontend\modules\specialists\models\SpecialistProfile::getCategoriesList()[$profile->experience];
 }
-if ($profile->category && \site\frontend\modules\specialists\models\SpecialistProfile::$categoriesList[$profile->category]) {
-    $expCat[] = \site\frontend\modules\specialists\models\SpecialistProfile::$categoriesList[$profile->category];
+if ($profile->category && \site\frontend\modules\specialists\models\SpecialistProfile::getCategoriesList()[$profile->category]) {
+    $expCat[] = \site\frontend\modules\specialists\models\SpecialistProfile::getCategoriesList()[$profile->category];
 }
 ?>
 

@@ -33,7 +33,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         if ($this->success) {
             $identity = new UserIdentity($form->email, $form->password);
             if ($identity->authenticate()) {
-//                 \Yii::app()->user->login($identity);
+                \Yii::app()->user->login($identity);
             }
             $returnUrl = (strpos(\Yii::app()->user->returnUrl, 'commentatorsContest') === false) ? $form->user->getUrl() : \Yii::app()->user->returnUrl;
 

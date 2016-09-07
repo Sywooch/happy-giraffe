@@ -1,20 +1,49 @@
 <?php
 
 namespace site\frontend\modules\specialists\models;
+use site\frontend\modules\specialists\models\sub\MultipleRowsModel;
 
 /**
  * This is the model class for table "specialists__profiles".
  *
  * The followings are the available columns in table 'specialists__profiles':
  * @property string $id
- * @property string $text
+ * @property string $specialization
+ * @property string $courses
+ * @property string $education
+ * @property string $career
+ * @property string $experience
+ * @property string $category
+ * @property string $placeOfWork
  *
  * The followings are the available model relations:
- * @property \User $user
- * @property SpecialistSpecialization $specializations
+ * @property \site\frontend\modules\users\models\User $user
+ * @property SpecialistSpecialization[] $specializations
  */
 class SpecialistProfile extends \CActiveRecord
 {
+	public static function getCategoriesList()
+	{
+		return [
+			'empty' => '',
+			'no' => 'Нет категории',
+			'first' => 'Первая категория',
+			'second' => 'Вторая категория',
+			'top' => 'Высшая категория',
+		];
+	}
+
+	public static function getExperienceList()
+	{
+		return array_merge(array_combine(range(1, 20), array_map(function($n) {
+			return $n . ' ' . \Str::GenerateNoun(['год', 'года', 'лет'], $n);
+		}, range(1, 20))), [
+			'20+' => 'Более 20 лет',
+		]);
+	}
+
+	protected $_relatedModels = [];
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -31,12 +60,9 @@ class SpecialistProfile extends \CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
-			array('id', 'length', 'max'=>11),
-			array('text', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, text', 'safe', 'on'=>'search'),
+            array('career', 'filter', 'filter' => array($this->careerObject, 'serialize')),
+			array('education', 'filter', 'filter' => array($this->educationObject, 'serialize')),
+			array('courses', 'filter', 'filter' => array($this->coursesObject, 'serialize')),
 		);
 	}
 
@@ -60,7 +86,13 @@ class SpecialistProfile extends \CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'text' => 'Text',
+			'specialization' => 'Specialization',
+			'courses' => 'Courses',
+			'education' => 'Education',
+			'career' => 'Career',
+			'experience' => 'Experience',
+			'category' => 'Category',
+			'placeOfWork' => 'Place Of Work',
 		);
 	}
 
@@ -83,7 +115,13 @@ class SpecialistProfile extends \CActiveRecord
 		$criteria=new \CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('text',$this->text,true);
+		$criteria->compare('specialization',$this->specialization,true);
+		$criteria->compare('courses',$this->courses,true);
+		$criteria->compare('education',$this->education,true);
+		$criteria->compare('career',$this->career,true);
+		$criteria->compare('experience',$this->experience,true);
+		$criteria->compare('category',$this->category,true);
+		$criteria->compare('placeOfWork',$this->placeOfWork,true);
 
 		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -99,5 +137,36 @@ class SpecialistProfile extends \CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+    public function getCareerObject()
+    {
+        if (!isset($this->_relatedModels['career']))
+            $this->_relatedModels['career'] = new MultipleRowsModel($this->career, $this, 'site\frontend\modules\specialists\models\sub\Career');
+
+        return $this->_relatedModels['career'];
+    }
+
+    public function getEducationObject()
+    {
+        if (!isset($this->_relatedModels['education']))
+            $this->_relatedModels['education'] = new MultipleRowsModel($this->education, $this, 'site\frontend\modules\specialists\models\sub\Education');
+
+        return $this->_relatedModels['education'];
+    }
+
+    public function getCoursesObject()
+    {
+        if (!isset($this->_relatedModels['courses']))
+            $this->_relatedModels['courses'] = new MultipleRowsModel($this->courses, $this, 'site\frontend\modules\specialists\models\sub\Courses');
+
+        return $this->_relatedModels['courses'];
+    }
+	
+	public function getSpecsString()
+	{
+		return $this->specializations ? implode(', ', array_map(function($spec) {
+			return $spec->title;
+		}, $this->specializations)) : '';
 	}
 }

@@ -69,11 +69,14 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
         }
 
-        $class = get_class(Comment::model());
-        $comment = new $class;
+        \CommentLogger::model()->addToLog('ApiController:actionCreate', 'before create comment obj');
+        $comment = new Comment('default');
+        \CommentLogger::model()->addToLog('ApiController:actionCreate', 'obj created, before create purifier obj');
         $prufer = \site\frontend\components\PreparedHTMLPurifier::getInstans();
+        \CommentLogger::model()->addToLog('ApiController:actionCreate', 'obj created, before purified text');
         $text = $prufer->purifyUserHTML($text);
-        if (strlen($text == ''))
+        \CommentLogger::model()->addToLog('ApiController:actionCreate', 'after purified text');
+        if ($text == '')
         {
             throw new \CHttpException('Пустой текст в комментарии', 403);
         }
@@ -88,6 +91,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             $comment->response_id = $responseId;
         }
 
+        \CommentLogger::model()->addToLog('ApiController:actionCreate', 'before find entity');
         if ($entity != 'BlogContent')
         {
             $content = \site\frontend\modules\posts\models\Content::model()->find(array(
@@ -101,6 +105,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         $comment->new_entity_id = $content->id;
 
+        \CommentLogger::model()->addToLog('ApiController:actionCreate', 'after find entity, before save');
         if ($comment->save())
         {
             $comment->refresh();
@@ -112,6 +117,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             $this->errorCode = 1;
             $this->errorMessage = $comment->getErrorsText();
         }
+        \CommentLogger::model()->addToLog('ApiController:actionCreate', 'after save comment. End action');
     }
 
     public function actionUpdate($id, $text)

@@ -7,7 +7,6 @@ namespace site\frontend\modules\som\modules\qa\models;
  * The followings are the available columns in table 'qa__rating_history':
  * @property int $user_id
  * @property int $category_id
- * @property int $answers_count
  * @property int $created_at
  * @property string $owner_model
  * @property int $owner_id
@@ -18,6 +17,8 @@ namespace site\frontend\modules\som\modules\qa\models;
  */
 class QaRatingHistory extends \CActiveRecord
 {
+    public $points;
+
     /**
      * @return string the associated database table name
      */
@@ -86,6 +87,16 @@ class QaRatingHistory extends \CActiveRecord
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
+    }
+
+    /**
+     * @param string $modelName
+     * @return QaRatingHistory
+     */
+    public function byModel($modelName)
+    {
+        $this->getDbCriteria()->compare($this->tableAlias . '.owner_model', $modelName);
+        return $this;
     }
 
     /**

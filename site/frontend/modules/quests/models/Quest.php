@@ -118,6 +118,12 @@ class Quest extends \CActiveRecord
         return parent::model($className);
     }
 
+//    public function resetScope($resetDefault = true)
+//    {
+//        $this->_ignoreDefaultScope = true;
+//        return parent::resetScope($resetDefault);
+//    }
+
     public function defaultScope()
     {
         $alias = $this->getTableAlias(true, false);
@@ -146,6 +152,19 @@ class Quest extends \CActiveRecord
     public function byType($typeId)
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.type_id', $typeId);
+        return $this;
+    }
+
+    /**
+     * @param string $modelName
+     *
+     * @return Quest
+     */
+    public function byModelName($modelName)
+    {
+        $this->getDbCriteria()
+            ->compare($this->tableAlias . '.model_name', $modelName);
+
         return $this;
     }
 

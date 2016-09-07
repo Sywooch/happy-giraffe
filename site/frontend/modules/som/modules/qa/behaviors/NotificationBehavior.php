@@ -14,6 +14,7 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class NotificationBehavior extends BaseBehavior
 {
+
     const TYPE = 10;
 
     public function afterSave($event)

@@ -3,6 +3,8 @@
 namespace site\frontend\modules\posts\models;
 
 use site\frontend\modules\comments\models\Comment;
+use site\frontend\modules\quests\components\QuestTypes;
+use site\frontend\modules\quests\models\Quest;
 
 /**
  * This is the model class for table "post__contents".
@@ -32,6 +34,7 @@ use site\frontend\modules\comments\models\Comment;
  * @property integer $isAutoMeta
  * @property integer $isAutoSocial
  * @property integer $isRemoved
+ * @property integer $views
  * @property string $meta
  * @property site\frontentd\modules\posts\models\MetaInfo $metaObject
  * @property string $social
@@ -41,6 +44,9 @@ use site\frontend\modules\comments\models\Comment;
  *
  * The followings are the available model relations:
  * @property PostLabels[] $labelModels
+ * @property \User $author
+ * @property int $comments_count
+ * @property Quest $quest
  */
 class Content extends \HActiveRecord implements \IHToJSON
 {
@@ -118,6 +124,8 @@ class Content extends \HActiveRecord implements \IHToJSON
             'communityContent' => array(self::BELONGS_TO, 'CommunityContent', 'originEntityId'),
             'comments' => array(self::HAS_MANY, get_class(Comment::model()), 'new_entity_id'),
             'comments_count' => array(self::STAT, get_class(Comment::model()), 'new_entity_id'),
+            'forum' => array(self::BELONGS_TO, get_class(\Community::model()), array('forum_id' => 'id'), 'through' => 'communityContent'),
+            'club' => array(self::BELONGS_TO, get_class(\CommunityClub::model()), array('club_id' => 'id'), 'through' => 'forum'),
         );
     }
 
@@ -592,7 +600,7 @@ class Content extends \HActiveRecord implements \IHToJSON
      */
     public function publishedAtLast($offset)
     {
-        $this->getDbCriteria()->compare('dtimePublication', '>' . (time() - $offset));
+        $this->getDbCriteria()->compare('dtimePublication', '>', time() - $offset);
 
         return $this;
     }
@@ -635,6 +643,60 @@ class Content extends \HActiveRecord implements \IHToJSON
             $this->getDbCriteria()->with[] = 'communityContent';
         }
         $this->getDbCriteria()->addInCondition('communityContent.forum_id', $forumIds);
+
+        return $this;
+    }
+
+    /**
+     * @param array $clubIds
+     *
+     * @return Content
+     */
+    public function byClubs($clubIds)
+    {
+        if (!isset($this->getDbCriteria()->with['club'])) {
+            $this->getDbCriteria()->with[] = 'club';
+        }
+        $this->getDbCriteria()->addInCondition('club.id', $clubIds);
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDistinctComments()
+    {
+        return \Comment::model()->count(array(
+            'condition' => 'new_entity_id = :new_entity_id',
+            'params' => array(':new_entity_id' => $this->id),
+            'distinct' => true,
+            'select' => 'author_id'
+        ));
+    }
+
+    /**
+     * @return Content
+     */
+    public function byActiveQuest()
+    {
+        $alias = $this->getTableAlias();
+        $userId = \Yii::app()->user->id;
+
+        $this->getDbCriteria()
+            ->addCondition("not exists(select * from `quests` `q` where `q`.model_id = {$alias}.id and `q`.model_name = 'Content' and `q`.user_id = {$userId})
+                or (select count(`quest`.id) from `quests` `quest` where `quest`.model_id = {$alias}.id and `quest`.is_completed = 0 and `quest`.is_dropped = 0
+                and `quest`.model_name = 'Content' and `quest`.user_id = {$userId}) = 1");
+
+        return $this;
+    }
+
+    /**
+     * @return Content
+     */
+    public function notMine()
+    {
+        $this->getDbCriteria()->addCondition($this->getTableAlias() . '.authorId != ' . \Yii::app()->user->id);
 
         return $this;
     }

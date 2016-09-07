@@ -8,9 +8,11 @@ namespace site\frontend\modules\specialists\models;
  * The followings are the available columns in table 'specialists__specializations':
  * @property string $id
  * @property string $title
+ * @property string $groupId
  *
  * The followings are the available model relations:
  * @property SpecialistProfile[] $specialistsProfiles
+ * @property SpecialistGroup[] $group
  */
 class SpecialistSpecialization extends \CActiveRecord
 {
@@ -30,10 +32,7 @@ class SpecialistSpecialization extends \CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title', 'length', 'max'=>255),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, title', 'safe', 'on'=>'search'),
+
 		);
 	}
 
@@ -46,6 +45,7 @@ class SpecialistSpecialization extends \CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'profiles' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistProfile', 'specialists__profiles_specializations(specializationId, profileId)'),
+			'group' => array(self::BELONGS_TO, 'site\frontend\modules\specialists\models\SpecialistGroup', 'groupId'),
 		);
 	}
 
@@ -57,6 +57,7 @@ class SpecialistSpecialization extends \CActiveRecord
 		return array(
 			'id' => 'ID',
 			'title' => 'Title',
+			'groupId' => 'Group',
 		);
 	}
 
@@ -80,6 +81,7 @@ class SpecialistSpecialization extends \CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('title',$this->title,true);
+		$criteria->compare('groupId',$this->groupId,true);
 
 		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

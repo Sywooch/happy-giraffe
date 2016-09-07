@@ -21,7 +21,7 @@ $sectionClasses = [
 ?>
 
 <div class="b-top-block-forum <?=$sectionClasses[$club->section_id]?>">
-    <div class="b-breadcrumbs margin-l0">
+    <div class="b-breadcrumbs margin-l0 margin-b0">
         <?php $this->widget('zii.widgets.CBreadcrumbs', [
             'links' => $breadcrumbs,
             'tagName' => 'ul',

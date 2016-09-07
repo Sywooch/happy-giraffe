@@ -18,18 +18,11 @@ abstract class SidebarMenu extends \CMenu
 
     protected function getItem($title, $count, $url)
     {
-        $linkOptions = ['class' => 'questions-categories_link'];
-
-        if ($title == 'Мой педиатр')
-        {
-            $linkOptions['class'] .= ' questions-categories_pediator';
-        }
-
         return [
             'label' => $title . \CHtml::tag('span', ['class' => 'questions-categories_count'], $count),
             'url' => $url,
-            'linkOptions' => $linkOptions,
+            'linkOptions' => ['class' => 'questions-categories_link'],
         ];
-        
+
     }
 }

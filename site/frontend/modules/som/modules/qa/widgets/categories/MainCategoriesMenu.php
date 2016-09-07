@@ -13,6 +13,23 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class MainCategoriesMenu extends CategoriesMenu
 {
+
+    /**
+     * {@inheritDoc}
+     * @see \site\frontend\modules\som\modules\qa\widgets\SidebarMenu::getItem()
+     */
+    protected function getItem($title, $count, $url, $categoryId = NULL)
+    {
+        $result = parent::getItem($title, $count, $url);
+
+        if ($categoryId == QaCategory::PEDIATRICIAN_ID)
+        {
+            $result['linkOptions']['class'] .= ' questions-categories_pediator';
+        }
+
+        return $result;
+    }
+
     protected function getFirstItem()
     {
         $count = QaQuestion::model()->notConsultation()->count();

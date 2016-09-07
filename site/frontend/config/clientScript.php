@@ -681,5 +681,11 @@ return array(
         'lite_qa' => array(
             'depends' => array('lite_services', 'lite_posts'),
         ),
+        'lite_pediatrician' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/pediator.css',
+            ),
+        ),
     )
 );

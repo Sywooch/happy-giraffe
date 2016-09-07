@@ -1,1 +1,0 @@
-<?php foreach ($this->models as $model) $this->renderPartial('site.frontend.modules.posts.views.list._view', array('data' => $model)); ?>

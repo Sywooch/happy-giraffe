@@ -63,6 +63,12 @@ return array(
         '<_v>/api/users/rating' => 'api/<_v>/api/rating',
         '<_v>/api/contest' => 'api/<_v>/api/contest',
         '<_v>/api/quests' => 'api/<_v>/api/quests',
+        '<_v>/api/subscribe' => 'api/<_v>/api/subscribe',
+        '<_v>/api/(favourites|favorites)' => 'api/<_v>/api/favourites',
+        '<_v>/api/(childs|children)' => 'api/<_v>/api/childs',
+        '<_v>/api/users/<action:(profile)>' => 'api/<_v>/api/users',
+        '<_v>/api/questions/<action:(search)>' => 'api/<_v>/api/questions',
+        '<_v>/api/users/<action:(social)>' => 'api/<_v>/api/users',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 
@@ -74,6 +80,8 @@ return array(
         '.*/index' => 404,
 
         /* API */
+        'api/specialists/<_a>' => 'specialists/api/<_a>',
+        'api/pediatrician/<_a>' => 'specialists/pediatrician/api/<_a>',
         'api/nextPost/<_a>' => 'posts/nextPost/api/<_a>',
         'api/photoAds/<_a>' => 'posts/photoAds/api/<_a>',
         'api/myGiraffe/<_a>' => 'posts/myGiraffe/api/<_a>',
@@ -88,6 +96,11 @@ return array(
         'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
 
+        ['class' => 'site\frontend\modules\specialists\components\SpecialistsUrlRule'],
+        'user/<userId:\d+>/info' => 'specialists/profile/info',
+        'specialists/editProfile' => 'specialists/default/index',
+        'pediatrician/answer<questionId:\d+>' => 'specialists/pediatrician/default/answer',
+        'pediatrician/<_a>' => 'specialists/pediatrician/default/<_a>',
 
         /* QA */
 
@@ -156,10 +169,7 @@ return array(
         'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',
         'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
         'blogs'              => 'posts/blogs/default/index',
-        
-        'landing/pediatrician' => 'landing/pediatrician/default/index',
-        
-    
+
         //'forums/rubric<rubricId:\d+>' => 'posts/forums/default/rubric',
         'forums/rubric<rubricId:\d+>' => 'posts/forums/club/rubric',
 
@@ -716,8 +726,8 @@ return array(
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
         'map' => 'archive/default/map',
 
-        'commentatorsContest/<contestId:\d+>' => 'comments/contest/default/index',
-        'commentatorsContest/<contestId:\d+>/<_a>' => 'comments/contest/default/<_a>',
+        'commentatorsContest' => 'comments/contest/default/index',
+        'commentatorsContest/<_a>' => 'comments/contest/default/<_a>',
 
         'views' => 'analytics/default/index',
 

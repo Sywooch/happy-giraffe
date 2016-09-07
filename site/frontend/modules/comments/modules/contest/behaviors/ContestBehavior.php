@@ -18,6 +18,8 @@ class ContestBehavior extends \CActiveRecordBehavior
     private $currentContest;
     private $participant;
 
+    private $isSoftAction = false;
+
     /**
      * @return CommentatorsContest
      */
@@ -83,7 +85,7 @@ class ContestBehavior extends \CActiveRecordBehavior
                 $this->getParticipant()->score += $points;
                 $this->getParticipant()->update(array('score'));
             }
-        } else {
+        } else if (!$this->isSoftAction) {
             /**
              * @var CommentatorsContestComment $contestComment
              */
@@ -102,11 +104,11 @@ class ContestBehavior extends \CActiveRecordBehavior
 
             $contestComment->points = $points;
 
-            $contestComment->update(array('points'));
+            $contestComment->save();
 
             $this->getParticipant()->score += $contestComment->points;
 
-            $this->getParticipant()->update(array('score'));
+            $this->getParticipant()->save();
         }
     }
 
@@ -115,6 +117,8 @@ class ContestBehavior extends \CActiveRecordBehavior
         if (!$this->init()) {
             return;
         }
+
+        $this->isSoftAction = true;
 
         /**
          * @var CommentatorsContestComment $contestComment
@@ -133,8 +137,8 @@ class ContestBehavior extends \CActiveRecordBehavior
         }
 
         $contestComment->points = 0;
-        $contestComment->update(array('points'));
-        $this->getParticipant()->update(array('score'));
+        $contestComment->save();
+        $this->getParticipant()->save();
     }
 
     public function afterSoftRestore()
@@ -142,6 +146,8 @@ class ContestBehavior extends \CActiveRecordBehavior
         if (!$this->init()) {
             return;
         }
+
+        $this->isSoftAction = true;
 
         /**
          * @var CommentatorsContestComment $contestComment
@@ -155,14 +161,16 @@ class ContestBehavior extends \CActiveRecordBehavior
             return;
         }
 
-        $points = $this->getPoints($this->owner);
-        $contestComment->points = $points;
+        if ($contestComment->points == 0) {
+            $points = $this->getPoints($this->owner);
+            $contestComment->points = $points;
 
-        $contestComment->update(array('points'));
+            $contestComment->save();
 
-        if ($points) {
-            $this->getParticipant()->score += $points;
-            $this->getParticipant()->update(array('score'));
+            if ($points) {
+                $this->getParticipant()->score += $points;
+                $this->getParticipant()->save();
+            }
         }
     }
 
@@ -174,6 +182,10 @@ class ContestBehavior extends \CActiveRecordBehavior
     private function getPoints($comment)
     {
         $points =  mb_strlen(strip_tags($comment->text), 'UTF-8') >= self::MIN_LENGTH;
+
+        if (array_key_exists('HTTP_APP_ID', $_SERVER) || array_key_exists('HTTP_ACCESS_TOKEN', $_SERVER)) {
+            \Yii::app()->params['is_from_device'] = true;
+        }
 
         if ($points != 0 && \Yii::app()->params['is_api_request'] && \Yii::app()->params['is_from_device']) {
             $points *= 2;

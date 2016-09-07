@@ -49,6 +49,10 @@ class ContestBehavior extends \CActiveRecordBehavior
 
     private function init()
     {
+        if (\Yii::app()->user->checkAccess('moderator')) {
+            return false;
+        }
+
         if (!$this->getContest() ||
             !$this->getContest()->addParticipant($this->owner->author_id) ||
             !$this->getParticipant()) {

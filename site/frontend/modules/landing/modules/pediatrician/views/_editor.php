@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 	<?php
     $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
         'id' => 'question-form',
-        'action' => $this->createUrl('/som/qa/default/questionAddForm/', ['redirectUrl' => $this->createUrl('default/index')]),
+        'action' => $this->createUrl('/som/qa/default/questionAddForm/'),
         'enableAjaxValidation' => true,
         'enableClientValidation' => true,
         'focus' => array($model, 'title'),

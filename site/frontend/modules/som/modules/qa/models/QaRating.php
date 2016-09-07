@@ -105,4 +105,18 @@ class QaRating extends \CActiveRecord
         $this->getDbCriteria()->compare($this->tableAlias . '.user_id', $userId);
         return $this;
     }
+
+    /**
+     * @return QaRating
+     */
+    public function notSpecialist()
+    {
+        if (!isset($this->getDbCriteria()->with['user'])) {
+            $this->getDbCriteria()->with[] = 'user';
+        }
+
+        $this->getDbCriteria()->addCondition('user.specialistInfo is null');
+
+        return $this;
+    }
 }

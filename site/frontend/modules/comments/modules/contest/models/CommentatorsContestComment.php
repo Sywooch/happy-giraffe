@@ -6,8 +6,8 @@ namespace site\frontend\modules\comments\modules\contest\models;
  * @property int $commentId
  * @property int $points
  *
- * @author Никита
- * @date 25/02/15
+ * @property \site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant $participant
+ * @property \site\frontend\modules\comments\models\Comment $comment
  */
 class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
 {
@@ -49,7 +49,7 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
      */
     public function byParticipant($participantId)
     {
-        $this->getDbCriteria()->compare('t.participantId', $participantId);
+        $this->getDbCriteria()->compare($this->tableAlias . '.participantId', $participantId);
         return $this;
     }
 
@@ -80,9 +80,21 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
     /**
      * @return CommentatorsContestComment
      */
+    public function existingComments()
+    {
+        if (!isset($this->getDbCriteria()->with['comment'])) {
+            $this->getDbCriteria()->with[] = 'comment';
+        }
+        $this->getDbCriteria()->compare('comment.removed', 0);
+        return $this;
+    }
+
+    /**
+     * @return CommentatorsContestComment
+     */
     public function byPoints()
     {
-        $this->getDbCriteria()->compare('t.points', '> 0');
+        $this->getDbCriteria()->compare($this->tableAlias . '.points', '> 0');
         return $this;
     }
 
@@ -93,7 +105,7 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
      */
     public function byComment($commentId)
     {
-        $this->getDbCriteria()->compare('t.commentId', $commentId);
+        $this->getDbCriteria()->compare($this->tableAlias . '.commentId', $commentId);
         return $this;
     }
 
@@ -104,7 +116,7 @@ class CommentatorsContestComment extends \HActiveRecord implements \IHToJSON
     {
         $c = $this->getDbCriteria();
 
-        if (! isset($c->with['comment'])) {
+        if (!isset($c->with['comment'])) {
             $c->with[] = 'comment';
         }
 

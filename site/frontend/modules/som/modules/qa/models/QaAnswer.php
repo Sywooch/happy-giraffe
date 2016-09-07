@@ -57,6 +57,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'),
 			'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
 			'category' => array(self::HAS_ONE, get_class(QaCategory::model()), array('categoryId' => 'id'), 'through' => 'question'),
+			'tag' => array(self::HAS_ONE, get_class(QaTag::model()), array('tag_id' => 'id'), 'through' => 'question'),
 			'votes' => array(self::HAS_MANY, get_class(QaAnswerVote::model()), 'answerId'),
 		);
 	}
@@ -89,9 +90,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'CacheDelete' => array(
 				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
 			),
-// 			'PushStream' => array(
-// 				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
-// 			),
+ 			'PushStream' => array(
+ 				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
+ 			),
 			'softDelete' => array(
 				'class' => 'site.common.behaviors.SoftDeleteBehavior',
 				'removeAttribute' => 'isRemoved',
@@ -230,6 +231,22 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		$criteria->with = array('question');
 		$criteria->addCondition('question.isRemoved = 0');
 		$this->getDbCriteria()->mergeWith($criteria);
+		return $this;
+	}
+
+	/**
+	 * @param int $tagId
+	 *
+	 * @return QaAnswer
+	 */
+	public function byTag($tagId)
+	{
+		if (!isset($this->getDbCriteria()->with['tag'])) {
+			$this->getDbCriteria()->with[] = 'tag';
+		}
+
+		$this->getDbCriteria()->compare('tag.id', $tagId);
+
 		return $this;
 	}
 

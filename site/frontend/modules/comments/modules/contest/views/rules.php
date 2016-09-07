@@ -9,7 +9,7 @@ $this->pageTitle = $this->contest->name . ' - Правила';
             <div class="b-rules__ico-wrapper">
                 <div class="b-rules__ico b-rules__ico-commentator"></div>
             </div>
-            <div class="b-rules__descr">Комментируй все что интересно на сайте. А также вступай в дискуссии с другими пользователями - отвечай на их комментарии</div>
+            <div class="b-rules__descr">Комментируй все, что интересно на сайте. А также вступай в дискуссии с другими пользователями - отвечай на их комментарии</div>
         </li>
         <li class="b-contest__li">
             <div class="b-rules__ico-wrapper">

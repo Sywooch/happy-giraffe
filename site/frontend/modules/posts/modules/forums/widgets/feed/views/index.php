@@ -5,7 +5,8 @@
  */
 ?>
 
-<div class="tabs visible-md">
+
+<div class="tabs clearfix visible-md">
     <?php $this->widget('zii.widgets.CMenu', [
         'items' => $this->getMenuItems(),
         'htmlOptions' => [

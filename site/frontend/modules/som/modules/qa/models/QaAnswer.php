@@ -57,6 +57,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'),
 			'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
 			'category' => array(self::HAS_ONE, get_class(QaCategory::model()), array('categoryId' => 'id'), 'through' => 'question'),
+			'tag' => array(self::HAS_ONE, get_class(QaTag::model()), array('tag_id' => 'id'), 'through' => 'question'),
 			'votes' => array(self::HAS_MANY, get_class(QaAnswerVote::model()), 'answerId'),
 		);
 	}
@@ -89,9 +90,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'CacheDelete' => array(
 				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
 			),
-			'PushStream' => array(
-				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
-			),
+ 			'PushStream' => array(
+ 				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
+ 			),
 			'softDelete' => array(
 				'class' => 'site.common.behaviors.SoftDeleteBehavior',
 				'removeAttribute' => 'isRemoved',
@@ -123,18 +124,27 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
 	public function save($runValidation = true, $attributes = null)
 	{
+	    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'start save method');
 		if (\Yii::app()->db->getCurrentTransaction() !== null) {
+		    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'current Transaction not null called parent::save()');
 			return parent::save($runValidation, $attributes);
 		}
 
 		$transaction = $this->dbConnection->beginTransaction();
 		try {
+		    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'try {} before called parent save()');
 			$success = parent::save($runValidation, $attributes);
+			\CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'try {} success = ' . $success . ', before commit Transaction!');
 			$transaction->commit();
+			\CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'try {} Transaction commited!');
 		} catch (\Exception $e) {
+		    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'catch {} before rollback!');
+		    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'catch {} error message: ' . $e->getMessage());
 			$transaction->rollback();
+			\CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'catch {} rollback complete! end save method');
 			return false;
 		}
+		\CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'end save method!');
 		return $success;
 	}
 
@@ -221,6 +231,22 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		$criteria->with = array('question');
 		$criteria->addCondition('question.isRemoved = 0');
 		$this->getDbCriteria()->mergeWith($criteria);
+		return $this;
+	}
+
+	/**
+	 * @param int $tagId
+	 *
+	 * @return QaAnswer
+	 */
+	public function byTag($tagId)
+	{
+		if (!isset($this->getDbCriteria()->with['tag'])) {
+			$this->getDbCriteria()->with[] = 'tag';
+		}
+
+		$this->getDbCriteria()->compare('tag.id', $tagId);
+
 		return $this;
 	}
 

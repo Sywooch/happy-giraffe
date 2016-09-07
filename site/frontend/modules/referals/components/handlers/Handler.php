@@ -74,15 +74,15 @@ abstract class Handler
     {
         $visitor = new UserRefVisitor();
 
-        $visitor->ref = $this->getRef()->id;
+        $visitor->ref_id = $this->getRef()->id;
         $visitor->ip = \Yii::app()->request->userHostAddress;
         $visitor->from = \Yii::app()->request->urlReferrer;
 
-        if ($visitor->save()) {
-            $this->visitor = $visitor;
-            return $this->visitor;
+        if (!$visitor->save()) {
+            throw new \HttpException('VisitorNotSaved', 500);
         }
 
-        throw new \HttpException('VisitorNotSaved', 500);
+        $this->visitor = $visitor;
+        return $this->visitor;
     }
 }

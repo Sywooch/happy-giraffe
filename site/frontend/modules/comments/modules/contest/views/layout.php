@@ -3,71 +3,69 @@
  * @var site\frontend\modules\comments\modules\contest\controllers\DefaultController $this
  * @var string $content
  */
-$this->adaptive = false;
 ?>
-
 <?php $this->beginContent('//layouts/lite/common_menu'); ?>
-
-
-        <div class="contest-commentator<?=empty($this->contest->cssClass) ? '' : ' contest-commentator-' . $this->contest->cssClass?>">
-            <!-- Шапка-->
-            <div class="contest-commentator-header">
-<!--                <div class="contest-commentator-header_date">Сроки проведения:  с --><?//=Yii::app()->dateFormatter->format('d MMMM', $this->contest->startDate)?><!-- по --><?//=Yii::app()->dateFormatter->format('d MMMM', $this->contest->endDate)?><!--</div>-->
-                <h1 class="contest-commentator-header_t"><?=$this->contest->name?></h1>
-                <?php if ($this->isParticipant): ?>
-                    <div class="contest-commentator-header__sub">
-                        <a href="<?=Yii::app()->createUrl('/comments/contest/default/rules', array('contestId' => $this->contest->id))?>" class="contest-commentator-header__sub__link">Правила</a>
-                        <a href="<?=Yii::app()->createUrl('/comments/contest/default/index', array('contestId' => $this->contest->id))?>" class="contest-commentator-header__sub__link">О конкурсе</a>
-                    </div>
-                <?php endif; ?>
-                <?php
-                    $this->widget('zii.widgets.CMenu', array(
-                        'items' => array(
-                            array(
-                                'label' => 'Правила',
-                                'url' => array('/comments/contest/default/rules', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xm btn-link'),
-                                'visible' => ! $this->isParticipant,
-                            ),
-                            array(
-                                'label' => 'О конкурсе',
-                                'url' => array('/comments/contest/default/index', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
-                                'visible' => ! $this->isParticipant,
-                            ),
-                            array(
-                                'label' => 'Рейтинг',
-                                'url' => array('/comments/contest/default/rating', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
-                            ),
-                            array(
-                                'label' => 'Моя лента',
-                                'url' => array('/comments/contest/default/my', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
-                                'visible' => $this->isParticipant,
-                            ),
-                            array(
-                                'label' => 'Пульс',
-                                'url' => array('/comments/contest/default/comments', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
-                                'visible' => $this->isParticipant,
-                            ),
-                            array(
-                                'label' => 'Что комментировать?<span class="pulse"></span>',
-                                'url' => array('/comments/contest/default/posts', 'contestId' => $this->contest->id),
-                                'linkOptions' => array('class' => 'btn btn-xxl btn-link'),
-                                'visible' => $this->isParticipant,
-                            ),
-                        ),
-                        'encodeLabel' => false,
-                        'itemCssClass' => 'contest-commentator-header_li',
-                        'htmlOptions' => array(
-                            'class' => 'contest-commentator-header_ul',
-                        ),
-                    ));
-                ?>
-            </div>
-            <!-- Шапка-->
-            <?=$content?>
+<div class="clearfix">
+<div class="contest">
+<div class="contest-header contest-header_blue textalign-c">
+    <div class="b-contest-container">
+        <div class="contest-header__box">
+            <div class="contest-header__descr visible-md"> КОНКУРС ПРОВОДИТСЯ ЕЖЕМЕСЯЧНО</div>
+            <div class="contest-header__title"> <?= $this->contest->name; ?></div>
+            <?php if (\Yii::app()->user->isGuest): ?><div class="textalign-c padding-t20"><a href="#" class="btn btn-ml btn-yellow hidden-lg">Принять участие</a></div> <?php endif; ?>
         </div>
+        <div class="contest-header__footer <?php if (\Yii::app()->user->isGuest): ?> visible-md <?php endif; ?>">
+            <?php
+                $this->widget('zii.widgets.CMenu', array(
+                    'items' => array(
+                        array(
+                            'label' => 'Главная',
+                            'url' => array('/comments/contest/default/index'),
+                            'linkOptions' => array('class' => 'contest-header__link'),
+                        ),
+                        array(
+                            'label' => 'Пульс',
+                            'url' => array('/comments/contest/default/pulse'),
+                            'linkOptions' => array('class' => 'contest-header__link'),
+                            'itemOptions' => array('class' => 'visibles-lg'),
+                        ),
+                        array(
+                            'label' => 'Мои баллы',
+                            'url' => array('/comments/contest/default/my'),
+                            'linkOptions' => array('class' => 'contest-header__link'),
+                            'visible' => !\Yii::app()->user->isGuest,
+                        ),
+                        array(
+                            'label' => 'Задания',
+                            'url' => array('/comments/contest/default/quests'),
+                            'linkOptions' => array('class' => 'contest-header__link'),
+                            'visible' => !\Yii::app()->user->isGuest,
+                        ),
+                        array(
+                            'label' => 'Победители',
+                            'url' => array('/comments/contest/default/winners'),
+                            'linkOptions' => array('class' => 'contest-header__link'),
+                            'itemOptions' => array('class' => 'visibles-lg'),
+                        ),
+                        array(
+                            'label' => 'Правила',
+                            'url' => array('/comments/contest/default/rules'),
+                            'linkOptions' => array('class' => 'contest-header__link'),
+                            'itemOptions' => array('class' => 'visibles-lg'),
+                        ),
+                    ),
+                    'encodeLabel' => false,
+                    'itemCssClass' => 'contest-header__li',
+                    'activeCssClass' => 'contest-header__link-active',
+                    'htmlOptions' => array(
+                        'class' => 'textalign-c',
+                    ),
+                    'activateItems' => true,
+                ));
+            ?>
+        </div>
+    </div>
+</div>
+<?=$content?>
 <?php $this->endContent(); ?>
+</div>

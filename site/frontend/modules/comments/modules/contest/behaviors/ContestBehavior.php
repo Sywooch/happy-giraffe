@@ -47,9 +47,9 @@ class ContestBehavior extends \CActiveRecordBehavior
 
     private function init()
     {
-        if ( !$this->getContest() ||
-             !$this->getParticipant() ||
-            !$this->getContest()->addParticipant($this->owner->author_id)) {
+        if (!$this->getContest() ||
+            !$this->getContest()->addParticipant($this->owner->author_id) ||
+            !$this->getParticipant()) {
             return false;
         }
 
@@ -175,7 +175,7 @@ class ContestBehavior extends \CActiveRecordBehavior
     {
         $points =  mb_strlen(strip_tags($comment->text), 'UTF-8') >= self::MIN_LENGTH;
 
-        if ($points != 0 && \Yii::app()->params['is_api_request']) {
+        if ($points != 0 && \Yii::app()->params['is_api_request'] && \Yii::app()->params['is_from_device']) {
             $points *= 2;
         }
 

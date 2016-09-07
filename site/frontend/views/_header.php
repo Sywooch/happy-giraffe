@@ -36,7 +36,6 @@ if (! Yii::app()->user->isGuest) {
     }
 }
 ?>
-
 <a class="mobile-menu" onclick="$('.js-overlay-menu').toggleClass('header__menu_open'); $(this).toggleClass('on'); $('header .header__menu').toggleClass('header__menu_open'); event.stopPropagation()"><span></span></a>
 <a href="/" class="logo"></a><a class="header__search popup-a" href="#js-madal-search-box"></a>
 <nav class="header__nav">
@@ -50,7 +49,7 @@ if (! Yii::app()->user->isGuest) {
     </ul>
     <?php if (Yii::app()->user->isGuest): ?>
         <div class="user-unloged">
-            <a href="#" class="user-unloged__link login-button" data-bind="follow: {}"><img src="/images/icons/avatar.png" class="user-unloged__img">ВОЙТИ</a>
+            <a href="#" class="user-unloged__link login-button" data-bind="follow: {}"><img src="/images/icons/avatar.png" class="user-unloged__img"><span>ВОЙТИ</span></a>
         </div>
     <?php else: ?>
         <div class="user-on"><a href="<?=$this->createUrl('/notifications/default/index')?>" class="signal active" data-bind="css: { active: newNotificationsCount() > 0 && activeModule() != 'notifications' }"></a>
@@ -74,6 +73,7 @@ if (! Yii::app()->user->isGuest) {
         </ul>
     </div>
 <?php endif; ?>
+
 
 <div id="js-madal-search-box" class="madal-search-box mfp-hide">
     <div class="modal-search-block">

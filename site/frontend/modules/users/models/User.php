@@ -10,6 +10,7 @@ namespace site\frontend\modules\users\models;
 class User extends \User implements \IHToJSON
 {
     private $_specInfo;
+    private $_specialistInfo;
 
     const GENDER_FEMALE = 0;
     const GENDER_MALE = 1;
@@ -18,6 +19,7 @@ class User extends \User implements \IHToJSON
     {
         return array(
             array('specInfo', 'filter', 'filter' => array($this->specInfoObject, 'serialize')),
+            array('specialistInfo', 'filter', 'filter' => array($this->specialistInfoObject, 'serialize')),
             array('first_name, last_name', 'length', 'max' => 50),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
             array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE)),
@@ -43,6 +45,7 @@ class User extends \User implements \IHToJSON
             'publicChannel' => $this->getPublicChannel(),
             'specInfo' => empty($this->specInfo) ? null : $this->specInfoObject,
             'avatarInfo' => \CJSON::decode($this->avatarInfo),
+            'specialistInfo' => $this->specialistInfoObject->attributes,
         );
     }
 
@@ -52,5 +55,13 @@ class User extends \User implements \IHToJSON
             $this->_specInfo = new Spec($this->specInfo, $this);
 
         return $this->_specInfo;
+    }
+
+    public function getSpecialistInfoObject()
+    {
+        if (! isset($this->_specialistInfo))
+            $this->_specialistInfo = new SpecialistInfo($this->specialistInfo, $this);
+
+        return $this->_specialistInfo;
     }
 }

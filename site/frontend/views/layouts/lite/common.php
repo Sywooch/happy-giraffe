@@ -13,6 +13,8 @@
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
 <body class="body body__lite theme body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?> <?php if (Yii::app()->user->isGuest): ?> body__guest <?php endif; ?>">
+    <div class="js-overlay-menu overlay-menu"></div>
+    <div class="js-overlay-user overlay-user"></div>
 <?php Yii::app()->ads->showCounters(); ?>
 <?php if (Yii::app()->user->checkAccess('editMeta')):?>
     <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>

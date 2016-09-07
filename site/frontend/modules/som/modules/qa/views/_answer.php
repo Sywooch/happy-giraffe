@@ -1,4 +1,5 @@
 <?php
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 /**
  * @var site\frontend\modules\som\modules\qa\models\QaAnswer $data
  */
@@ -27,7 +28,7 @@
     </div>
     <div class="clearfix"></div>
     <div class="answers-list_item_like-block login-button" data-bind="follow: {}">
-        <div class="answers-list_item_like-block_like"></div><span>Спасибо <?=$data->votesCount?></span>
+        <div class="answers-list_item_like-block_like"></div><span><?=$data->question->category->isPediatrician() ? 'Спасибо' : 'Полезный ответ'?> <?=$data->votesCount?></span>
         <div class="clearfix"></div>
     </div>
 </li>

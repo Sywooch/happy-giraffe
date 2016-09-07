@@ -20,6 +20,9 @@
                         'nextPageLabel'   => '&nbsp;',
                         'showPrevNext'    => TRUE,
                         'showButtonCount' => 5,
+                        'pagerAdaptive'   => TRUE,
+                        'mobileStyleClass'   => 'sx;ddgjgkdlfkfgk',
+                        'desktopStyleClass'  => 'xkdjvhfvkxdjdgh',
                         'dotsLabel'       => '<li class="page-points">...</li>'
                     ]
                 ));

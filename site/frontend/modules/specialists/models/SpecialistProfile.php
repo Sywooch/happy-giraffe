@@ -26,7 +26,6 @@ class SpecialistProfile extends \CActiveRecord
 	{
 		return [
 			'empty' => '',
-			'no' => 'Нет категории',
 			'first' => 'Первая категория',
 			'second' => 'Вторая категория',
 			'top' => 'Высшая категория',

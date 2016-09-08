@@ -63,6 +63,12 @@ return array(
         '<_v>/api/users/rating' => 'api/<_v>/api/rating',
         '<_v>/api/contest' => 'api/<_v>/api/contest',
         '<_v>/api/quests' => 'api/<_v>/api/quests',
+        '<_v>/api/subscribe' => 'api/<_v>/api/subscribe',
+        '<_v>/api/(favourites|favorites)' => 'api/<_v>/api/favourites',
+        '<_v>/api/(childs|children)' => 'api/<_v>/api/childs',
+        '<_v>/api/users/<action:(profile)>' => 'api/<_v>/api/users',
+        '<_v>/api/questions/<action:(search)>' => 'api/<_v>/api/questions',
+        '<_v>/api/users/<action:(social)>' => 'api/<_v>/api/users',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 
@@ -163,10 +169,9 @@ return array(
         'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',
         'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
         'blogs'              => 'posts/blogs/default/index',
-        
+
         'landing/pediatrician' => 'landing/pediatrician/default/index',
-        
-    
+
         //'forums/rubric<rubricId:\d+>' => 'posts/forums/default/rubric',
         'forums/rubric<rubricId:\d+>' => 'posts/forums/club/rubric',
 
@@ -723,8 +728,8 @@ return array(
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
         'map' => 'archive/default/map',
 
-        'commentatorsContest/<contestId:\d+>' => 'comments/contest/default/index',
-        'commentatorsContest/<contestId:\d+>/<_a>' => 'comments/contest/default/<_a>',
+        'commentatorsContest' => 'comments/contest/default/index',
+        'commentatorsContest/<_a>' => 'comments/contest/default/<_a>',
 
         'views' => 'analytics/default/index',
 

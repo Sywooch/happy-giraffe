@@ -18,6 +18,7 @@
         //Yii::app()->clientScript->registerPackage('lite-default');
         Yii::app()->clientScript->registerCssFile('/lite/css/min/services-na.css');
     }
+    $this->breadcrumbs[] = 'Поиск';
 ?>
 <?php
 if(Yii::app()->user->isGuest)
@@ -39,8 +40,8 @@ else
         <div class="layout-wrapper_frame clearfix">
             <div class="b-main b-main__white"  style="margin: 0 -20px; padding: 30px 0 0;">
                 <div class="b-main_cont">
-                    <div class="b-main_col-hold" style="margin-left: 60px;">
-                        <?php if ($this->breadcrumbs): ?>
+                    <div class="b-main_col-hold" style="margin-left: 20px;">
+                        <?php if (false): ?>
                             <div class="b-crumbs b-crumbs__s" style="margin-left: 10px;">
                                 <div class="b-crumbs_tx">Я здесь:</div>
                                 <?php

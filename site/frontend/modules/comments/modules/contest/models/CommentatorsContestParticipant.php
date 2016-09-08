@@ -10,8 +10,7 @@ namespace site\frontend\modules\comments\modules\contest\models;
  * @property int $dtimeRegister
  * @property string $settings -> temp field
  *
- * @author Никита
- * @date 20/02/15
+ * @property \User $user
  */
 class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
 {
@@ -52,7 +51,7 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
      */
     public function byContest($contestId)
     {
-        $this->getDbCriteria()->compare('t.contestId', $contestId);
+        $this->getDbCriteria()->compare($this->tableAlias . '.contestId', $contestId);
         return $this;
     }
 
@@ -63,19 +62,18 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
      */
     public function byUser($userId)
     {
-        $this->getDbCriteria()->compare('t.userId', $userId);
+        $this->getDbCriteria()->compare($this->tableAlias . '.userId', $userId);
         return $this;
     }
 
-//    public function active()
-//    {
-//        $this->getDbCriteria()->with = array(
-//            'contest' => array(
-//                'joinType' => 'INNER JOIN',
-//                'scopes' => 'active',
-//            ),
-//        );
-//    }
+    /**
+     * @return CommentatorsContestParticipant
+     */
+    public function orderByScore()
+    {
+        $this->getDbCriteria()->order = $this->tableAlias . '.score DESC';
+        return $this;
+    }
 
     public function relations()
     {

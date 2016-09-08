@@ -25,7 +25,7 @@ class SpecialistsUrlRule extends \CBaseUrlRule
     {
         if (preg_match('#^user\/(\d+)$#', $pathInfo, $matches)) {
             $id = $matches[1];
-            if (SpecialistProfile::model()->exists('id = :id', [':id' => $id])) {
+            if (SpecialistProfile::model()->exists('id = :id', [':id' => $id]) && User::model()->active()->exists('id = :id', [':id' => $id])) {
                 $_GET['userId'] = $id;
                 return 'specialists/profile/index';
             }

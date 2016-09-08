@@ -8,7 +8,7 @@ $profile = $user->specialistProfile;
 
 $expCat = [];
 if ($profile->experience) {
-    $expCat[] = 'Стаж: ' . \site\frontend\modules\specialists\models\SpecialistProfile::getCategoriesList()[$profile->experience];
+    $expCat[] = 'Стаж: ' . \site\frontend\modules\specialists\models\SpecialistProfile::getExperienceList()[$profile->experience];
 }
 if ($profile->category && \site\frontend\modules\specialists\models\SpecialistProfile::getCategoriesList()[$profile->category]) {
     $expCat[] = \site\frontend\modules\specialists\models\SpecialistProfile::getCategoriesList()[$profile->category];

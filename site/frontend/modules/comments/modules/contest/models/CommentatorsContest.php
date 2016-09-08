@@ -51,6 +51,16 @@ class CommentatorsContest extends \HActiveRecord
     /**
      * @return CommentatorsContest
      */
+    public function notEmpty()
+    {
+        $this->getDbCriteria()->addCondition('(select COUNT(*) from commentators__contests_participants as p where `p`.contestId = ' . $this->getTableAlias(). '.id) != 0');
+
+        return $this;
+    }
+
+    /**
+     * @return CommentatorsContest
+     */
     public function currentActive()
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.month', date('mY'));

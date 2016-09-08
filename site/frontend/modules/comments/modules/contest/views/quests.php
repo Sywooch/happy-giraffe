@@ -50,8 +50,6 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-
-
         //post to wall functions
         var postToWall = {
             link: function() {
@@ -73,7 +71,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 });
             },
             ok: function(link) {
-                var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=on',
+                var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=off',
                     "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
 
                 var interval = window.setInterval(function() {
@@ -408,7 +406,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 <input type="hidden" id="fb_app" value="<?= $eauth['facebook']['client_id'] ?>"/>
 
 <div class="b-contest-task b-contest__block textalign-c">
-    <?php if(count($social) > 0): ?>
+    <?php if(false && count($social) > 0): ?>
     <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
     <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
     <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>

@@ -36,6 +36,10 @@ class ApiController extends \site\frontend\components\api\ApiController
                 \Yii::app()->user->login($identity);
             }
             $returnUrl = (strpos(\Yii::app()->user->returnUrl, 'commentatorsContest') === false) ? $form->user->getUrl() : \Yii::app()->user->returnUrl;
+
+            /* @todo Костыль для лендинга */
+            $returnUrl = (strpos(\Yii::app()->request->urlReferrer, 'landing/pediatrician') === false) ? $returnUrl : \Yii::app()->request->urlReferrer;
+
             $this->data = array(
                 'returnUrl' => $returnUrl,
             );
@@ -84,16 +88,16 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionLogin(array $attributes)
     {
         /*
-        @todo Sergey Gubarev: Для сервиса Блоги 
-                
+        @todo Sergey Gubarev: Для сервиса Блоги
+
         $referrer = \Yii::app()->request->urlReferrer;
-        
+
         $urlData = parse_url($referrer);
-        
+
         $referrerSchemeHost = $urlData['scheme'] . '://' . $urlData['host'];
-        
+
         $returnUrl = \Yii::app()->user->returnUrl;
-        
+
         if (\Yii::app()->request->hostInfo === $referrerSchemeHost)
         {
             if (FALSE !== strpos($urlData['path'], 'blogs'))
@@ -101,7 +105,7 @@ class ApiController extends \site\frontend\components\api\ApiController
                 $returnUrl = $urlData['path'] . '?' . $urlData['query'];
             }
         } */
-        
+
         $form = new LoginForm();
         $form->attributes = $attributes;
         $this->success = $form->validate() && $form->login();
@@ -120,4 +124,4 @@ class ApiController extends \site\frontend\components\api\ApiController
             'errors' => $form->getErrors(),
         );
     }
-} 
+}

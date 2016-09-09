@@ -1,8 +1,10 @@
 <?php
 
 namespace site\frontend\modules\specialists\controllers;
+use site\frontend\modules\signup\components\UserIdentity;
 use site\frontend\modules\specialists\components\SpecialistsManager;
 use site\frontend\modules\specialists\models\ProfileForm;
+use site\frontend\modules\specialists\models\RegisterForm;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
 /**
@@ -11,6 +13,42 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  */
 class ApiController extends \site\frontend\components\api\ApiController
 {
+    public function actionRegister(array $attributes)
+    {
+        if (\Yii::app()->db instanceof \DbConnectionMan) {
+            // Отключим слейвы, чтобы UserIdentity нашла пользователя
+            \Yii::app()->db->enableSlave = false;
+        }
+
+        $form = new RegisterForm();
+        $form->attributes = $attributes;
+        $this->success = $form->validate() && $form->save();
+        if ($this->success) {
+            $identity = new UserIdentity($form->email, $form->password);
+            if ($identity->authenticate()) {
+                \Yii::app()->user->login($identity);
+            }
+            $this->data = array(
+                'returnUrl' => \Yii::app()->createUrl('/specialists/pediatrician/default/questions'),
+            );
+        } else {
+            $this->data = array(
+                'errors' => $form->getErrors(),
+            );
+        }
+    }
+
+    public function actionValidateRegister(array $attributes)
+    {
+        $form = new RegisterForm();
+        $form->attributes = $attributes;
+        $form->validate();
+        $this->success = true;
+        $this->data = array(
+            'errors' => $form->getErrors(),
+        );
+    }
+    
     public function actionUpdateProfile($profileId, array $data)
     {
         $form = new ProfileForm();

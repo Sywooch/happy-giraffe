@@ -20,7 +20,7 @@ class ClubController extends \LiteController
      */
     public $club;
 
-    public function actionIndex($club, $feedForumId = null, $feedTab = null)
+    public function actionIndex($club, $feedForumId = null, $feedTab = null, $page = 1)
     {
         $this->club = \CommunityClub::model()->findByAttributes(['slug' => $club]);
         if (! $this->club) {

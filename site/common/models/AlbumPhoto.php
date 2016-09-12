@@ -801,6 +801,7 @@ class AlbumPhoto extends HActiveRecord
      */
     public function getWidget($edit = false, $parentModel = null)
     {
+        \CommentLogger::model()->addToLog('AlbumPhoto', 'getWidget start,  $edit: ' . $edit . ' $parentModel: ' . get_class($parentModel));
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return Yii::app()->command->renderFile(Yii::getPathOfAlias('site.frontend.views.albums')/*Yii::getPathOfAlias("albums")*/ . DIRECTORY_SEPARATOR . '_widget.php', array(
                 'model' => $this,

@@ -29,7 +29,7 @@ class DefaultController extends \LiteController
      * @throws \CHttpException
      * @sitemap dataSource=sitemapView
      */
-    public function actionIndex($userId)
+    public function actionIndex($userId, $page = 1)
     {
         $user = User::model()->active()->findByPk($userId);
         if ($user === null) {

@@ -8,6 +8,7 @@ $this->pageTitle = $question->title;
 Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'specialists/pediatrician/reply', 'ko' => 'knockout'], 'ko.applyBindings(new ReplyForm(' . $question->id . '), document.getElementById("pediatrician-reply"));');
 ?>
 
+<div class="user-setting__exit"><a href="<?=$this->createUrl('/specialists/pediatrician/default/questions')?>" class="user-setting__exit-link">Отменить</a></div>
 <div class="landing-question pediator pediator-top padding-b50" id="pediatrician-reply" style="display: none" data-bind="visible: true">
     <div class="b-contest-winner__container">
         <div class="question">

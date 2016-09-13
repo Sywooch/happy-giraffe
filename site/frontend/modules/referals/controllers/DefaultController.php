@@ -22,6 +22,6 @@ class DefaultController extends \CController
 
         $redirectUrl = ReferalsManager::handleRef($ref);
 
-        echo $redirectUrl;
+        $this->redirect($redirectUrl);
     }
 }

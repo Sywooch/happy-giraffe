@@ -2,12 +2,10 @@
 namespace site\frontend\modules\comments\modules\contest\widgets;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContest;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant;
-
 /**
  * @author Никита
  * @date 03/03/15
  */
-
 class MyGiraffeWidget extends \CWidget
 {
     public function run()

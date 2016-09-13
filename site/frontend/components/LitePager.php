@@ -46,17 +46,17 @@ class LitePager extends CLinkPager
     /**
      * @var boolean
      */
-    public $pagerAdaptive = FALSE;
+    public $pagerAdaptive = TRUE;
 
     /**
      * @var string
      */
-    public $mobileStyleClass = 'visibles-md';
+    public $mobileStyleClass = 'visible-smm';
 
     /**
      * @var string
      */
-    public $desktopStyleClass = 'visibles-lg';
+    public $desktopStyleClass = 'hidden-smm';
 
     //-----------------------------------------------------------------------------------------------------------
 

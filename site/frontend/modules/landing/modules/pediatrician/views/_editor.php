@@ -16,17 +16,17 @@ Yii::app()->clientScript->registerAMD('qa-redactor', array('hgwswg' => 'care-wys
 Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 ?>
 
-<div class="landing__body landing-question textalign-c">
+<div class="landing__body landing-question textalign-c login-button" data-bind="follow: {}">
     <div class="landing-question__title font__title-s">Возраст Вашего ребенка?</div>
 	<?php
     $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
         'id' => 'question-form',
-        'action' => $this->createUrl('/som/qa/default/questionAddForm/', ['redirectUrl' => $this->createUrl('default/index')]),
+        'action' => $this->createUrl('/som/qa/default/questionAddForm/'),
         'enableAjaxValidation' => true,
         'enableClientValidation' => true,
         'focus' => array($model, 'title'),
         'htmlOptions' => array(
-            'class' => 'popup-widget_cont'
+            'class' => 'popup-widget_cont',
         )
     ));
     ?>
@@ -53,7 +53,6 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
             $form->textField($model, 'title', array(
                 'placeholder' => 'Введите заголовок вопроса',
                 'class' => 'popup-widget_cont_input-text login-button',
-                'data-bind' => "follow: {}",
                 'id' => 'qTtitle'
             ))
             ?>
@@ -140,7 +139,8 @@ $(document).ready(function () {
             return function (event) {
                 var flagError = false;
 
-                var textValue = $.trim($($('.redactor_box textarea').val()).text());
+                /* @todo replace('[object HTMLTextAreaElement]', "") <- костыль! до перехода плагина redactor на версию 10 */
+                var textValue = $.trim($($('#qText').val().replace('[object HTMLTextAreaElement]', "")).text());
 
                 flagError = !scope.validateText(textValue.length) || !scope.validateTitle($.trim($("#qTtitle").val()).length);
 

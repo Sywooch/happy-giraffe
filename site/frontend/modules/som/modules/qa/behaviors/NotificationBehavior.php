@@ -68,11 +68,8 @@ class NotificationBehavior extends BaseBehavior
     protected function addNotification(QaAnswer $model, QaQuestion $question)
     {
         \CommentLogger::model()->addToLog('NotificationBehavior:addNotification', 'before find data');
-        if ($question->categoryId == QaCategory::PEDIATRICIAN_ID) {
-            $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, self::PEDIATRICIAN_TYPE, array($model->authorId, $model->user->avatarUrl));
-        } else {
-            $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, self::TYPE, array($model->authorId, $model->user->avatarUrl));
-        }
+        $type = $question->categoryId == QaCategory::PEDIATRICIAN_ID ? self::PEDIATRICIAN_TYPE : self::TYPE;
+        $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, $type, array($model->authorId, $model->user->avatarUrl));
         \CommentLogger::model()->addToLog('NotificationBehavior:addNotification', 'after find data');
 
         $notification->entity->tooltip = $question->title;

@@ -115,13 +115,26 @@ class MigrateManager
         \CommentLogger::model()->addToLog('MigrateManager', 'start movePhoto()');
         if ($oldPhoto->newPhotoId !== null) {
             \CommentLogger::model()->addToLog('MigrateManager', 'newPhotoId is not null: ' . $oldPhoto->newPhotoId);
-            $objPhoto = (new Photo())->findByPk($oldPhoto->newPhotoId);
-            if (is_object($objPhoto))
+            $objPhoto = new Photo();
+            $photoRow = $objPhoto->findByPk($oldPhoto->newPhotoId);
+            if (is_object($photoRow))
             {
-                return $objPhoto;
+                return $photoRow;
+            }
+            else
+            {
+                \CommentLogger::model()->addToLog('MigrateManager', 'photo row not found, sleep 50ms');
+                usleep(50000);
+                $photoRow = $objPhoto->findByPk($oldPhoto->newPhotoId);
+                if (is_object($photoRow))
+                {
+                    \CommentLogger::model()->addToLog('MigrateManager', 'row is found!!');
+                    return $photoRow;
+                }
+                \CommentLogger::model()->addToLog('MigrateManager', 'photo row not found again');
             }
 
-            \CommentLogger::model()->addToLog('MigrateManager', '!!Ahtung!! objPhoto not exist by id: ' . $oldPhoto->newPhotoId);
+            \CommentLogger::model()->addToLog('MigrateManager', '!!Ahtung!! objPhoto not found by id: ' . $oldPhoto->newPhotoId);
             return $oldPhoto->newPhoto;
         }
 

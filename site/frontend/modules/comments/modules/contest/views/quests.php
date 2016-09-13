@@ -31,12 +31,12 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
     $(document).ready(function(){
         //Social Api Init
         VK.init({
-            apiId: /*5197824*/$('#vk_app').val()
+            apiId: $('#vk_app').val()
         });
 
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : /*'1730218027231947',*/$('#fb_app').val(),
+                appId      : $('#fb_app').val(),
                 xfbml      : true,
                 version    : 'v2.7'
             });
@@ -50,6 +50,9 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
+        var socialVkText = 'СТАНЬ КОММЕНТАТОРОМ МЕСЯЦА!\nhttp://www.happy-giraffe.ru/commentatorsContest/\nЕсли вам нравится общаться с интересными людьми на самые\nактуальные темы, и за это получать  подарки – тогда этот конкурс для вас!\n10 победителей получат приз в размере 1000 рублей!\nУсловия конкурса? Все очень просто - пишите комментарии к\nпостам, которые вам нравятся, и отвечайте на комментарии других пользователей.\nЖдем вас на сайте «Веселый Жираф»!';
+        var socialFbText = 'СТАНЬ КОММЕНТАТОРОМ МЕСЯЦА! Если вам нравится общаться с интересными людьми на самые актуальные темы, и за это получать  подарки – тогда этот конкурс для вас! 10 победителей получат приз в размере 1000 рублей! Условия конкурса? Все очень просто - пишите комментарии к постам, которые вам нравятся, и отвечайте на комментарии других пользователей. Ждем вас на сайте «Веселый Жираф»!';
+
         //post to wall functions
         var postToWall = {
             link: function() {
@@ -57,7 +60,8 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
             },
             vk: function(link) {
                 VK.Api.call('wall.post', {
-                    attachments: link
+                    attachments: link + ',' + '<?= ContestHelper::getVkPostImage() ?>',
+                    message: socialVkText
                 }, function(r) {
                     if(r.response) {
                         $.post('/v2_1/api/quests/', {
@@ -65,20 +69,18 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                             social_service: 'vk'
                         }, function(response) {
                             location.reload();
-                            //alert(JSON.stringify(response));
                         });
                     }
                 });
             },
             ok: function(link) {
-                var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=off',
+                var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=on',
                     "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
 
                 var interval = window.setInterval(function() {
                     try {
                         if (okWindow == null || okWindow.closed) {
                             window.clearInterval(interval);
-                            //cors, not working
                             $.post('/v2_1/api/quests/', {
                                 action: 'complete',
                                 social_service: 'ok'
@@ -93,12 +95,15 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
             fb: function(link) {
                 FB.ui({
                     method: 'feed',
+                    description: socialFbText,
+                    name: 'Конкурс',
+                    caption: 'Конкурс',
                     link: link,
-                    name: 'Invite To Contest',
                     actions: [{
-                        name: 'join',
+                        name: 'Присоединиться',
                         link: link
-                    }]
+                    }],
+                    picture: '<?= ContestHelper::getFbPostImage() ?>'
                 }, function(response){
                     if (response && response.post_id) {
                         $.post('/v2_1/api/quests/', {
@@ -106,7 +111,6 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                             social_service: 'fb'
                         }, function (response) {
                             location.reload();
-                            //alert(JSON.stringify(response));
                         });
                     }
                 });
@@ -406,7 +410,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 <input type="hidden" id="fb_app" value="<?= $eauth['facebook']['client_id'] ?>"/>
 
 <div class="b-contest-task b-contest__block textalign-c">
-    <?php if(false && count($social) > 0): ?>
+    <?php if(/*false && */count($social) > 0): ?>
     <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
     <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
     <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>

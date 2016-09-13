@@ -6,12 +6,14 @@ use site\frontend\modules\notifications\models\Entity;
 use site\frontend\modules\notifications\models\Notification;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 
 /**
  * @property QaAnswerVote $owner
  */
 class VoteNotificationBehavior extends BaseBehavior
 {
+    const PEDIATRICIAN_TYPE = 16;
     const TYPE = 11;
 
     public function afterSave($event)
@@ -58,7 +60,8 @@ class VoteNotificationBehavior extends BaseBehavior
 
     protected function addNotification(QaAnswerVote $vote, QaAnswer $answer)
     {
-        $notification = $this->findOrCreateNotification(get_class($answer), $answer->id, $answer->authorId, self::TYPE, array($vote->userId, $vote->user->avatarUrl));
+        $type = $answer->question->categoryId == QaCategory::PEDIATRICIAN_ID ? self::PEDIATRICIAN_TYPE : self::TYPE;
+        $notification = $this->findOrCreateNotification(get_class($answer), $answer->id, $answer->authorId, $type, array($vote->userId, $vote->user->avatarUrl));
         $entity = new Entity($vote);
         $entity->userId = $vote->userId;
 

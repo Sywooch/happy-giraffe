@@ -115,11 +115,18 @@ class MigrateManager
         \CommentLogger::model()->addToLog('MigrateManager', 'start movePhoto()');
         if ($oldPhoto->newPhotoId !== null) {
             \CommentLogger::model()->addToLog('MigrateManager', 'newPhotoId is not null: ' . $oldPhoto->newPhotoId);
+            $objPhoto = (new Photo())->findByPk($oldPhoto->newPhotoId);
+            if (is_object($objPhoto))
+            {
+                return $objPhoto;
+            }
+
+            \CommentLogger::model()->addToLog('MigrateManager', '!!Ahtung!! objPhoto not exist by id: ' . $oldPhoto->newPhotoId);
             return $oldPhoto->newPhoto;
         }
 
         if (! is_file($oldPhoto->getOriginalPath())) {
-            \CommentLogger::model()->addToLog('MigrateManager', 'getOriginalPath is not file: ' . $oldPhoto->getOriginalPath());
+            \CommentLogger::model()->addToLog('MigrateManager', 'getOriginalPath is not file, return false');
             return false;
         }
 
@@ -132,7 +139,7 @@ class MigrateManager
         self::updatePhotoInfo($oldPhoto, $photo, $attributes);
         if (! $photo->save()) {
             echo "error\n";
-            \CommentLogger::model()->addToLog('MigrateManager', '$photo is dont save!');
+            \CommentLogger::model()->addToLog('MigrateManager', '$photo is not save!, return false');
             return false;
         }
 

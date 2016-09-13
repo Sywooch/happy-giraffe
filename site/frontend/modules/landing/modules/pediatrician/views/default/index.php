@@ -13,18 +13,7 @@
                     'itemView' => '/_question',
                     'itemsTagName' => 'ul',
                     'itemsCssClass' => 'questions questions-modification',
-                    'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
-                    'pager' => [
-                        'class'           => 'LitePagerDots',
-                        'prevPageLabel'   => '&nbsp;',
-                        'nextPageLabel'   => '&nbsp;',
-                        'showPrevNext'    => TRUE,
-                        'showButtonCount' => 5,
-                        'pagerAdaptive'   => TRUE,
-                        'mobileStyleClass'   => 'sx;ddgjgkdlfkfgk',
-                        'desktopStyleClass'  => 'xkdjvhfvkxdjdgh',
-                        'dotsLabel'       => '<li class="page-points">...</li>'
-                    ]
+                    'template' => '{items}<div class="yiipagination yiipagination__center"></div>',
                 ));
                 ?>
         </div>

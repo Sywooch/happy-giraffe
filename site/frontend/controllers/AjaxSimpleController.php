@@ -224,6 +224,8 @@ class AjaxSimpleController extends CController
             'comment_html' => $model->getWidget(true, new Comment()),
             'url' => $model->getPreviewUrl(480, 250, Image::WIDTH),
         ));
+
+        \CommentLogger::model()->push();
     }
 
     public function actionUploadAvatar()

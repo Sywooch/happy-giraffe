@@ -209,6 +209,8 @@ class AjaxSimpleController extends CController
 
     public function actionUploadPhoto()
     {
+        \CommentLogger::model()->addToLog('AjaxSimpleController', 'startAction: actionUploadPhoto');
+
         foreach ($_FILES as $file) {
             \Yii::log(print_r($file, true), 'info', 'ajax');
             $model = AlbumPhoto::model()->createUserTempPhoto($file);

@@ -74,6 +74,7 @@ class User extends ApiModel
             'avatarInfo',
             'publicChannel',
             'specInfo',
+            'specialistInfo',
         );
     }
 

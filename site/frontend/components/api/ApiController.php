@@ -149,8 +149,8 @@ class ApiController extends \CController
     public function run($action)
     {
         header('Content-Type: application/json');
-//        \Yii::app()->attachEventHandler('onError', array($this, 'onError'));
-//        \Yii::app()->attachEventHandler('onException', array($this, 'onError'));
+       \Yii::app()->attachEventHandler('onError', array($this, 'onError'));
+       \Yii::app()->attachEventHandler('onException', array($this, 'onError'));
         parent::run($action);
     }
 
@@ -167,8 +167,8 @@ class ApiController extends \CController
         $this->errorCode = method_exists($exception, 'getCode') ? $exception->getCode() : $exception->code;
         $this->errorMessage = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;
         $this->data = null;
-
-        $this->printResult();
+        
+        // $this->printResult();
     }
 
     public function getActionParams()

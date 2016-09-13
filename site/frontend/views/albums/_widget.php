@@ -13,7 +13,7 @@ if (!$edit)
     echo '<!-- widget: { entity : "AlbumPhoto", entity_id : "' . $model->id . '" } -->';
 
 $newPhoto = \site\frontend\modules\photo\components\MigrateManager::movePhoto($model);
-\CommentLogger::model()->addToLog('_widget', 'newPhoto: ' . is_object($newPhoto) ? get_class($newPhoto) : $newPhoto);
+\CommentLogger::model()->addToLog('_widget', is_object($newPhoto) ? get_class($newPhoto) : 'newPhoto is not object');
 if($newPhoto) {
     \CommentLogger::model()->addToLog('_widget', '$newPhoto is true');
     if (isset($parentModel) && in_array(get_class($parentModel), array('Comment', 'MessagingMessage')))
@@ -45,5 +45,5 @@ if($newPhoto) {
 }
 else
 {
-    \CommentLogger::model()->addToLog('_widget', "newPhoto is false");
+    \CommentLogger::model()->addToLog('_widget', "newPhoto is false, model: " . get_class($model));
 }

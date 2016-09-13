@@ -10,11 +10,12 @@ use site\frontend\modules\notifications\behaviors\BaseBehavior;
 use site\frontend\modules\notifications\models\Entity;
 use site\frontend\modules\notifications\models\Notification;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class NotificationBehavior extends BaseBehavior
 {
-
+    const PEDIATRICIAN_TYPE = 15;
     const TYPE = 10;
 
     public function afterSave($event)
@@ -67,7 +68,11 @@ class NotificationBehavior extends BaseBehavior
     protected function addNotification(QaAnswer $model, QaQuestion $question)
     {
         \CommentLogger::model()->addToLog('NotificationBehavior:addNotification', 'before find data');
-        $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, self::TYPE, array($model->authorId, $model->user->avatarUrl));
+        if ($question->categoryId == QaCategory::PEDIATRICIAN_ID) {
+            $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, self::PEDIATRICIAN_TYPE, array($model->authorId, $model->user->avatarUrl));
+        } else {
+            $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, self::TYPE, array($model->authorId, $model->user->avatarUrl));
+        }
         \CommentLogger::model()->addToLog('NotificationBehavior:addNotification', 'after find data');
 
         $notification->entity->tooltip = $question->title;

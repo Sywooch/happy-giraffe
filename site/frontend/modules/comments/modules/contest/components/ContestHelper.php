@@ -61,4 +61,28 @@ class ContestHelper
 
         return $words[1];
     }
+
+    /**
+     * @return string
+     */
+    public static function getVkPostImage()
+    {
+        return 'photo9488596_433668714';
+    }
+
+    /**
+     * @return string
+     */
+    public static function getFbPostImage()
+    {
+        return 'https://pp.vk.me/c637118/v637118596/e80c/PHwI3AOBR28.jpg';
+    }
+
+    /**
+     * @return int
+     */
+    public static function getOkPostImage()
+    {
+        return 838838369584;
+    }
 }

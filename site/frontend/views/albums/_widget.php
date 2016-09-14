@@ -2,6 +2,7 @@
 
 /**
  * @var AlbumPhoto $model
+ * @var AlbumPhoto $photoRow
  * @var bool $edit редактирование
  */
 if (!isset($edit))
@@ -12,7 +13,8 @@ $add = empty($model->title) ? '' : ' title="' . htmlspecialchars($model->title) 
 if (!$edit)
     echo '<!-- widget: { entity : "AlbumPhoto", entity_id : "' . $model->id . '" } -->';
 
-$newPhoto = \site\frontend\modules\photo\components\MigrateManager::movePhoto($model);
+$newPhoto = isset($photoRow) && !is_null($photoRow) ? $photoRow : \site\frontend\modules\photo\components\MigrateManager::movePhoto($model);
+
 \CommentLogger::model()->addToLog('_widget', is_object($newPhoto) ? get_class($newPhoto) : 'newPhoto is not object');
 if($newPhoto) {
     \CommentLogger::model()->addToLog('_widget', '$newPhoto is true');

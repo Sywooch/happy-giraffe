@@ -9,6 +9,21 @@ namespace site\frontend\modules\comments\modules\contest\models;
  */
 class CommentatorsContest extends \HActiveRecord
 {
+    private static $monthNames = array(
+        '01' => 'Январь',
+        '02' => 'Февраль',
+        '03' => 'Март',
+        '04' => 'Апрель',
+        '05' => 'Май',
+        '06' => 'Июнь',
+        '07' => 'Июль',
+        '08' => 'Август',
+        '09' => 'Сентябрь',
+        '10' => 'Октябрь',
+        '11' => 'Ноябрь',
+        '12' => 'Декабрь',
+    );
+
     public function tableName()
     {
         return 'commentators__contests';
@@ -36,9 +51,19 @@ class CommentatorsContest extends \HActiveRecord
     /**
      * @return CommentatorsContest
      */
+    public function notEmpty()
+    {
+        $this->getDbCriteria()->addCondition('(select COUNT(*) from commentators__contests_participants as p where `p`.contestId = ' . $this->getTableAlias(). '.id) != 0');
+
+        return $this;
+    }
+
+    /**
+     * @return CommentatorsContest
+     */
     public function currentActive()
     {
-        $this->getDbCriteria()->compare('month', date('mY'));
+        $this->getDbCriteria()->compare($this->tableAlias . '.month', date('mY'));
         return $this;
     }
 
@@ -73,5 +98,28 @@ class CommentatorsContest extends \HActiveRecord
             $p->place = $i + 1;
             $p->update('place');
         }
+    }
+
+    public function getFullMonth()
+    {
+        if ($this->month) {
+            $month = mb_substr($this->month, 0, 2);
+            $year = mb_substr($this->month, 2);
+
+            return self::$monthNames[$month] . ' ' . $year;
+        } else {
+            return $this->name;
+        }
+    }
+
+    public function getMonthString()
+    {
+        $words = explode(' ', $this->name);
+
+        if (isset($words[1])) {
+            return $words[1];
+        }
+
+        return 'конкурса';
     }
 }

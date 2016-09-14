@@ -29,15 +29,14 @@ class DefaultController extends \LiteController
      * @throws \CHttpException
      * @sitemap dataSource=sitemapView
      */
-    public function actionIndex($userId)
+    public function actionIndex($userId, $page = 1)
     {
         $user = User::model()->active()->findByPk($userId);
         if ($user === null) {
             $this->render('deleted');
         }
         \NoindexHelper::setNoIndex($user);
-        $view = ($user->specialistProfile == null) ? 'index' : 'specialist';
-        $this->render($view, array('user' => $user));
+        $this->render('index', array('user' => $user));
     }
 
     public function sitemapView()

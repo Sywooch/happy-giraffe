@@ -31,7 +31,8 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
     $(document).ready(function(){
         //Social Api Init
         VK.init({
-            apiId: $('#vk_app').val()
+            apiId: $('#vk_app').val(),
+            status: true
         });
 
         window.fbAsyncInit = function() {
@@ -59,17 +60,37 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 return $('#referal_link').val();
             },
             vk: function(link) {
-                VK.Api.call('wall.post', {
-                    attachments: link + ',' + '<?= ContestHelper::getVkPostImage() ?>',
-                    message: socialVkText
-                }, function(r) {
-                    if(r.response) {
-                        $.post('/v2_1/api/quests/', {
-                            action: 'complete',
-                            social_service: 'vk'
-                        }, function(response) {
-                            location.reload();
+                var post = function() {
+                    console.log('post call');
+                    VK.Api.call('wall.post', {
+                        attachments: link + ',' + '<?= ContestHelper::getVkPostImage() ?>',
+                        message: socialVkText
+                    }, function (r) {
+                        if (r.response) {
+                            $.post('/v2_1/api/quests/', {
+                                action: 'complete',
+                                social_service: 'vk'
+                            }, function (response) {
+                                location.reload();
+                            });
+                        }
+                    });
+                };
+
+                VK.Auth.getLoginStatus(function(response) {
+                    if (response.session) {
+                        post();
+                    } else {
+                        VK.Observer.subscribe('auth.login', function() {
+                            var interval = setInterval(function() {
+                                if (!VK.UI.active.top || VK.UI.active.closed) {
+                                    window.clearInterval(interval);
+                                    post();
+                                }
+                            }, 100);
                         });
+
+                        VK.Auth.login();
                     }
                 });
             },

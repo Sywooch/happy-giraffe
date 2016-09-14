@@ -15,7 +15,7 @@ Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'spe
                 <div class="username"><a href="<?=$question->user->profileUrl?>"><?=$question->user->getFullName()?></a>
                     <?=HHtml::timeTag($question, ['class' => 'tx-date'])?>
                 </div>
-            </div><a class="questions_item_heading" href="<?=$question->url?>"><?=$question->title?></a>
+            </div><span class="questions_item_heading"><?=$question->title?></span>
             <?php if ($question->tag): ?>
                 <div class="pediator-answer__footer-box">
                     <div class="box-wrapper__footer box-footer"><a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->categoryId, 'tagId' => $question->tag->id])?>" class="box-footer__cat"><?=$question->tag->name?></a></div>

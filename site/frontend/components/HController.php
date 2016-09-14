@@ -139,7 +139,12 @@ class HController extends CController
             'services/childrenDiseases/default',
             'cook/spices',
             'cook/choose',
-        )) || in_array($this->route, array('cook/recipe/view', 'cook/recipe/index'))
+        )) || in_array($this->route, array(
+                'cook/recipe/view',
+                'cook/recipe/index',
+                'userProfile/default/index',
+                'posts/forums/club/index',
+                ))
         ) {
             $reflector = new ReflectionClass($this);
             $parametersObjects = $reflector->getMethod('action' . $this->action->id)->getParameters();
@@ -147,7 +152,7 @@ class HController extends CController
             foreach ($parametersObjects as $p)
                 $parametersNames[] = $p->name;
             foreach ($this->actionParams as $p => $v)
-                if (array_search($p, $parametersNames) === false && strpos($p, '_page') === false && !in_array($p, $received_params))
+                if (array_search($p, $parametersNames) === false && (strpos($p, '_page') === false || in_array($this->route, ['userProfile/default/index', 'posts/forums/club/index'])) && !in_array($p, $received_params))
                     throw new CHttpException(404, 'Такой записи не существует');
         }
 

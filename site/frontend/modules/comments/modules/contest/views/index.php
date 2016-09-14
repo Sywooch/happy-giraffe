@@ -1,35 +1,52 @@
 <?php
 $this->pageTitle = $this->contest->name;
-$cs = Yii::app()->clientScript;
+$cs = \Yii::app()->clientScript;
 $cs->registerAMD('contestCommentsIndex', array('kow'));
 $cs->registerAMD('contestCommentsButton', array('joinOrAuth' => 'extensions/joinOrAuth', 'ContestComments' => 'models/ContestComments'), 'joinOrAuth(".contest-commentator_btn-orange", ContestComments);');
 ?>
-<!-- описание конкурса-->
-<div class="contest-commentator-desc">
-    <div class="contest-commentator-desc_hold">
-        <h3 class="contest-commentator-desc_t">Что нужно для участия?</h3>
-        <div class="contest-commentator-desc_tx">Все очень просто! Добавляйте комментарии к тому, что вам нравится и отвечайте на комментарии других.</div>
-        <h3 class="contest-commentator-desc_t">Как стать лидером?</h3>
-        <div class="contest-commentator-desc_tx">Для того чтобы стать лидером нужно написать много интересных и полезных комментариев.</div><a href="<?=$this->createUrl('/comments/contest/default/rules', array('contestId' => $this->contest->id))?>" class="contest-commentator-desc_a">Полные правила и рекомендации</a>
-    </div>
-    <?php if (! $this->isParticipant): ?>
-        <div class="contest-commentator-desc_btn-hold"> <a href="#" class="btn btn-xxxl contest-commentator_btn-orange" data-bind="joinOrAuthBind: {}">Принять участие!</a></div>
-    <?php endif; ?>
-</div>
-<!-- описание конкурса-->
-<!-- призы-->
-<div class="contest-commentator-prize">
-    <h2 class="contest-commentator_t">Призы победителям!</h2>
-    <div class="contest-commentator-prize_img"><img src="/lite/images/contest/commentator/contest-commentator-prize_img.jpg" alt=""></div>
-    <div class="contest-commentator-prize_sub">
 
-        Лучшим 10 комментаторам зачисляется <br>1000 рублей на мобильный телефон!
-    </div>
-    <?php if (! $this->isParticipant): ?>
-        <div class="contest-commentator-prize_btn-hold"><a href="#" class="btn btn-xxxl contest-commentator_btn-orange" data-bind="joinOrAuthBind: {}">Хочу приз!</a></div>
-    <?php endif; ?>
+<?php if (!\Yii::app()->user->isGuest): ?>
+    <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\MyStatWidget'); ?>
+<?php endif; ?>
+<div class="b-contest__block textalign-c">
+    <div class="b-contest__title visible-md">Все просто как раз, два, три</div>
+    <ul class="b-contest__list">
+        <li class="b-contest__li">
+            <div class="b-prize__ico-wrapper">
+                <div class="b-prize__ico b-prize__ico_girl"></div>
+            </div>
+            <div class="b-prize__descr">Пиши комментарии на сайте и получай за них баллы</div>
+        </li>
+        <li class="b-contest__li">
+            <div class="b-prize__ico-wrapper">
+                <a href="https://play.google.com/store/apps/details?id=ru.happy_giraffe.blogger"><div class="b-prize__ico b-prize__ico_attachment"></div></a>
+            </div><a href="https://play.google.com/store/apps/details?id=ru.happy_giraffe.blogger" class="b-prize__link-appstore"></a>
+            <div class="b-prize__descr">Получай за комментарии в мобильном приложении в 2 раза больше баллов</div>
+        </li>
+        <li class="b-contest__li">
+            <div class="b-prize__ico-wrapper">
+                <div class="b-prize__ico b-prize__ico_all"></div>
+            </div>
+            <div class="b-prize__descr">Попади в 10-ку лучших комментаторов месяца и получи приз</div>
+        </li>
+    </ul>
+    <?php if (\Yii::app()->user->isGuest): ?>
+        <div class="textalign-c"><a href="#" class="btn btn-forum green-btn login-button" data-bind="follow: {}">Принять участие</a></div>
+    <?php endif ?>
 </div>
-<!-- призы-->
-<contest-comments params="contestId: <?=$this->contest->id?>"></contest-comments>
-<!-- рейтинг-->
-<contest-rating params="contestId: <?=$this->contest->id?>, main: true"></contest-rating>
+<div class="b-contest__block textalign-c bg-yellow">
+    <div class="b-contest-container">
+        <div class="b-contest__title">Приз <?= $this->contest->getMonthString() ?></div>
+        <div class="b-prize__contain"><img src="/lite/images/contest/commentator/contest-commentator-prize_img.jpg"></div>
+        <div class="w-700 margin-auto font-m">
+            <div class="b-contest__text-middle margin-b5">Лучшим 10 комментаторам зачисляется<br>1000 рублей на мобильный телефон!</div>
+        </div>
+    </div>
+</div>
+<div class="b-contest__block visible-md">
+    <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\PulseWidget'); ?>
+</div>
+<div class="b-contest__block bg-blue">
+    <?php $this->widget('site\frontend\modules\comments\modules\contest\widgets\LeadersWidget'); ?>
+</div>
+</div>

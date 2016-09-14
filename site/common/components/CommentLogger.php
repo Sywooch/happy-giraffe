@@ -14,12 +14,17 @@ class CommentLogger
     /**
      * @var mixed
      */
-    private $_start_time;
+    private $_startTime;
 
     /**
      * @var mixed
      */
-    private $_last_time;
+    private $_lastTime;
+
+    /**
+     * @var mixed
+     */
+    private $_maxDifferenceTime = 0;
 
     /**
      * @var array
@@ -34,7 +39,6 @@ class CommentLogger
      */
     private function __construct()
     {
-
     }
 
     /**
@@ -51,8 +55,8 @@ class CommentLogger
     private function _getTime()
     {
         $currentTime = $this->_getCurrentTime();
-        $difference = $currentTime - $this->_last_time;
-        $this->_last_time = $currentTime;
+        $difference = $currentTime - $this->_lastTime;
+        $this->_lastTime = $currentTime;
         $date = date('j D H:i:s');
 
         return [
@@ -67,8 +71,23 @@ class CommentLogger
     private function _writeToFile()
     {
         $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'log.txt', 'a');
-        fwrite($fh, implode("\n", $this->_log) . "\n\n\n");
-        $this->_log = [];
+        fwrite($fh, implode("\n", $this->_log) . "\n\n");
+        $this->_cleanData();
+    }
+
+    /**
+     * @param boolean $cleanLogArray
+     */
+    private function _cleanData($cleanLogArray = TRUE)
+    {
+        $this->_lastTime = null;
+        $this->_startTime = null;
+        $this->_maxDifferenceTime = 0;
+
+        if ($cleanLogArray)
+        {
+            $this->_log = [];
+        }
     }
 
     //-----------------------------------------------------------------------------------------------------------
@@ -92,9 +111,9 @@ class CommentLogger
      */
     public function startTimer()
     {
-        $this->_start_time = $this->_getCurrentTime();
-        $this->_last_time = $this->_start_time;
-        $this->addToLog('Start action', '--------------------------------');
+        $this->_startTime = $this->_getCurrentTime();
+        $this->_lastTime = $this->_startTime;
+        $this->addToLog('Start log', '--------------------------------');
     }
 
     /**
@@ -103,7 +122,18 @@ class CommentLogger
      */
     public function addToLog($title, $message, $level = null)
     {
+        if (is_null($this->_startTime))
+        {
+            $this->startTimer();
+        }
+
         $arrTime = $this->_getTime();
+
+        if ($this->_maxDifferenceTime < $arrTime['difference'])
+        {
+            $this->_maxDifferenceTime = $arrTime['difference'];
+        }
+
         $prefix = is_null($level) ? '' : "\t";
         $this->_log[] = $prefix . $arrTime['date'] . ' [+' . $arrTime['difference'] . ']' . ' [' . $title . '] -> ' . $message;
     }
@@ -111,12 +141,26 @@ class CommentLogger
     /**
      * set final handker and write to file
      */
-    public function push()
+    public function push($bPushTotal = TRUE, $stopLogMessage = '--------------------------------')
     {
-        $this->addToLog('Total time: ', round($this->_getCurrentTime() - $this->_start_time, 3) . ' ms');
-        $this->addToLog('Stop action', '--------------------------------');
+        if ($this->_maxDifferenceTime < 100)
+        {
+            $this->_cleanData();
+
+            return;
+        }
+
+        if ($bPushTotal)
+        {
+            $this->addToLog('Total time: ', round($this->_getCurrentTime() - $this->_startTime, 3) . ' ms');
+        }
+
+        $this->addToLog('Stop log', $stopLogMessage);
         $this->_writeToFile();
-        $this->_last_time = 0;
-        $this->_start_time = 0;
+    }
+
+    public function __destruct()
+    {
+        $this->push(TRUE, 'called from destructor');
     }
 }

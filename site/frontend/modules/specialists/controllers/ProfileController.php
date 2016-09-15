@@ -25,6 +25,9 @@ class ProfileController extends \LiteController
                     'orderDesc',
                 ],
             ],
+            'pagination' => [
+                'pageVar' => 'page',
+            ],
         ]);
         $this->render('index', compact('dp'));
     }

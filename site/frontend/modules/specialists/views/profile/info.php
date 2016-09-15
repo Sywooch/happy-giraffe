@@ -13,10 +13,12 @@ $profile = $this->user->specialistProfile;
 
 <div class="landing-question">
     <div class="user-settings form-edit">
-        <div class="user-settings_hold"><span class="heading-sm">Специализация</span></div>
-        <div class="user-settings_hold">
-            <div class="form-edit_tx"><?=$profile->specialization?></div>
-        </div>
+        <?php if ($profile->specialization): ?>
+            <div class="user-settings_hold"><span class="heading-sm">Специализация</span></div>
+            <div class="user-settings_hold">
+                <div class="form-edit_tx"><?=$profile->specialization?></div>
+            </div>
+        <?php endif; ?>
         <?php if ($profile->careerObject->models): ?>
             <div class="user-settings_hold"><span class="heading-sm">Опыт работы</span></div>
             <?php $this->renderPartial('_infoTable', ['models' => $profile->careerObject->models]); ?>

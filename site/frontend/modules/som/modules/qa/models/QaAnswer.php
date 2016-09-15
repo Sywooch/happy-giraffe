@@ -124,27 +124,18 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
 	public function save($runValidation = true, $attributes = null)
 	{
-	    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'start save method');
 		if (\Yii::app()->db->getCurrentTransaction() !== null) {
-		    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'current Transaction not null called parent::save()');
 			return parent::save($runValidation, $attributes);
 		}
 
 		$transaction = $this->dbConnection->beginTransaction();
 		try {
-		    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'try {} before called parent save()');
 			$success = parent::save($runValidation, $attributes);
-			\CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'try {} success = ' . $success . ', before commit Transaction!');
 			$transaction->commit();
-			\CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'try {} Transaction commited!');
 		} catch (\Exception $e) {
-		    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'catch {} before rollback!');
-		    \CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'catch {} error message: ' . $e->getMessage());
 			$transaction->rollback();
-			\CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'catch {} rollback complete! end save method');
 			return false;
 		}
-		\CommentLogger::model()->addToLog('actionCreateAnswer->save()', 'end save method!');
 		return $success;
 	}
 

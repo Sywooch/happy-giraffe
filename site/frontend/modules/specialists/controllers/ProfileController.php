@@ -27,6 +27,7 @@ class ProfileController extends \LiteController
             ],
             'pagination' => [
                 'pageVar' => 'page',
+                'pageSize' => 1,
             ],
         ]);
         $this->render('index', compact('dp'));

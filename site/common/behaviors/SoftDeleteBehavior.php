@@ -22,10 +22,8 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
 
     public function beforeDelete($event)
     {
-        \CommentLogger::model()->addToLog('SoftDeleteBehavior:beforeDelete', 'start.');
         $this->softDelete();
         $event->isValid = false;
-        \CommentLogger::model()->addToLog('SoftDeleteBehavior:beforeDelete', 'end.');
     }
 
     public function restore()

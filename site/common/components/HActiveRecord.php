@@ -230,16 +230,8 @@ class HActiveRecord extends CActiveRecord
     public function __get($name)
     {
         if (($apiMd = $this->getApiMd()) && isset($apiMd[$name])) {
-            if ($name == 'newPhoto')
-            {
-                \CommentLogger::model()->addToLog('HActiveRecord', 'called custom __get: ' . $name);
-            }
             return $this->getApiRelated($name);
         } else {
-            if ($name == 'newPhoto')
-            {
-                \CommentLogger::model()->addToLog('HActiveRecord', 'called parent __get: ' . $name);
-            }
             return parent::__get($name);
         }
     }

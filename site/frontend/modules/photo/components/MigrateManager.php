@@ -113,6 +113,22 @@ class MigrateManager
     public static function movePhoto(\AlbumPhoto &$oldPhoto, $attributes = array())
     {
         if ($oldPhoto->newPhotoId !== null) {
+            $objPhoto = new Photo();
+            $photoRow = $objPhoto->findByPk($oldPhoto->newPhotoId);
+            if (is_object($photoRow))
+            {
+                return $photoRow;
+            }
+            else
+            {
+                usleep(50000);
+                $photoRow = $objPhoto->findByPk($oldPhoto->newPhotoId);
+                if (is_object($photoRow))
+                {
+                    return $photoRow;
+                }
+            }
+
             return $oldPhoto->newPhoto;
         }
 

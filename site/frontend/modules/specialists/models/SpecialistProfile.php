@@ -25,7 +25,6 @@ class SpecialistProfile extends \CActiveRecord
 	public static function getCategoriesList()
 	{
 		return [
-			'empty' => '',
 			'first' => 'Первая категория',
 			'second' => 'Вторая категория',
 			'top' => 'Высшая категория',

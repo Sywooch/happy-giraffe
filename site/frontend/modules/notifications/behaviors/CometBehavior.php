@@ -38,17 +38,13 @@ class CometBehavior extends \CActiveRecordBehavior
 
     public function afterSave($event)
     {
-        \CommentLogger::model()->addToLog('CometBehavior:afterSave', 'start afterSave() method, before send to server');
         $type = $this->owner->isNewRecord ? \CometModel::NOTIFY_ADDED : \CometModel::NOTIFY_UPDATED;
         self::getComet()->send($this->owner->userId, array('notification' => $this->owner->toJSON()), $type);
-        \CommentLogger::model()->addToLog('CometBehavior:afterSave', 'after send to server');
 
         $diff = $this->owner->unreadCount - $this->_oldUnreadCount;
         $count = ($this->_oldUnreadCount == 0 ? +1 : ($this->owner->unreadCount == 0 ? -1 : 0));
         if ($diff !== 0)
-            \CommentLogger::model()->addToLog('CometBehavior:afterSave', '$diff !== 0, before send to server');
             $this->comet->send($this->owner->userId, array('unreadSum' => $diff, 'unreadCount' => $count), \CometModel::TYPE_UPDATE_NOTIFICATIONS);
-            \CommentLogger::model()->addToLog('CometBehavior:afterSave', 'after send to server');
 
         return parent::afterSave($event);
     }

@@ -26,7 +26,7 @@ class Comment extends HActiveRecord
 
     /**
      * Комментируемая сущность
-     * @var CActiveRecord 
+     * @var CActiveRecord
      */
     protected $_entity = null;
 
@@ -234,7 +234,7 @@ class Comment extends HActiveRecord
         }
         parent::afterSave();
     }
-    
+
     public function insert($attributes = null)
     {
         $result = parent::insert($attributes);
@@ -242,7 +242,7 @@ class Comment extends HActiveRecord
         $this->root_id = is_null($this->response_id) ? $this->id : $this->response->root_id;
         // сделаем это быстро
         $this->updateByPk($this->id, array('root_id' => $this->root_id));
-        
+
         return $result;
     }
 
@@ -546,7 +546,7 @@ class Comment extends HActiveRecord
         );
         return $data;
     }
-    
+
     /* scopes */
 
     public function defaultScope()
@@ -559,13 +559,13 @@ class Comment extends HActiveRecord
 
     public function scopes()
     {
-        return array( 
+        return array(
             'specialSort' => array(
                 'order' => $this->tableAlias . '.`root_id` DESC, IF(' . $this->tableAlias . '.`root_id` IS NULL, 0, ' . $this->tableAlias . '.`created`) ASC'
             ),
         );
     }
-    
+
     public function byEntity($entity)
     {
         $this->dbCriteria->addColumnCondition(array(

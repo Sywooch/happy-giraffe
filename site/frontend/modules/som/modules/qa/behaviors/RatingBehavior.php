@@ -20,7 +20,6 @@ class RatingBehavior extends \CActiveRecordBehavior
 
     public function afterSave($event)
     {
-        \CommentLogger::model()->addToLog('RatingBehavior:afterSave', 'start');
         if ($this->owner->isNewRecord) {
             $this->setProperties();
             $rating = QaRating::model()
@@ -40,10 +39,7 @@ class RatingBehavior extends \CActiveRecordBehavior
 
             $rating->total_count += 1;
             $rating->{$this->getFieldName()} += 1;
-
-            \CommentLogger::model()->addToLog('RatingBehavior:afterSave', 'before rating save');
             $rating->save();
-            \CommentLogger::model()->addToLog('RatingBehavior:afterSave', 'after rating save, before history save');
 
             //$rating->saveCounters(array($this->getFieldName() => 1, 'total_count' => 1));
 
@@ -57,7 +53,6 @@ class RatingBehavior extends \CActiveRecordBehavior
             if (!$history->save()) {
                 throw new \CException('History is not saved');
             }
-            \CommentLogger::model()->addToLog('RatingBehavior:afterSave', 'after history save');
         }
 
         return parent::afterSave($event);

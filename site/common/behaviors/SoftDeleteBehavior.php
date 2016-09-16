@@ -33,20 +33,26 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
 
     public function softDelete()
     {
+        \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'start softDelete()');
         if ($this->beforeSoftDelete()) {
             if (Yii::app() instanceof CWebApplication && Yii::app()->user->id) {
                 $model = new SoftDelete();
                 $model->entity = get_class($this->owner);
                 $model->entity_id = $this->owner->id;
                 $model->user_id = Yii::app()->user->id;
+                \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'softDelete obj filled, before save');
                 $model->save();
+                \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'softDelete obj saved! before save owner data');
             }
             $this->owner->{$this->removeAttribute} = 1;
             $result = $this->owner->save(false, $this->owner->{$this->removeAttribute});
+            \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'Owner data saved');
             if ($result) {
                 $this->owner->afterSoftDelete();
             }
         }
+
+        \CommentLogger::model()->push();
         return $result;
     }
 

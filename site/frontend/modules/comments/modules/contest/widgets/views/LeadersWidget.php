@@ -16,7 +16,7 @@ use site\frontend\modules\comments\modules\contest\components\ContestHelper;
             <div class="b-raiting-wrapper b-raiting-wrapper_blue clearfix">
                 <div class="b-raiting__item float-l">
                     <div class="b-raiting__num b-raiting__num_yellow margin-r15"><?= $i + 1 ?></div><a href="<?= $this->leaders[$i]->user->getUrl() ?>" class="contest-commentator-rating_user-a">
-                        <!-- ava--><span href="<?= $this->leaders[$i]->user->getUrl() ?>" class="ava ava__female"><img alt="" src="<?= $this->leaders[$i]->user->getAvatarUrl() ?>" class="ava_img"></span></a>
+                        <!-- ava--><span href="<?= $this->leaders[$i]->user->getUrl() ?>" class="ava ava__female ava__middle-sm"><img alt="" src="<?= $this->leaders[$i]->user->getAvatarUrl() ?>" class="ava_img"></span></a>
                     <div class="contest-footer__ball w-110">
                         <div class="contest-footer__ball-text textalign-l"><?= $this->leaders[$i]->user->getFullName() ?></div>
                     </div>

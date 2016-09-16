@@ -19,7 +19,7 @@ $breadcrumbs = array(
 
 ?>
 
-<div class="b-breadcrumbs" style="margin: 0;">
+<div class="b-breadcrumbs" style="margin-left: 0;">
 
 <?php 
         

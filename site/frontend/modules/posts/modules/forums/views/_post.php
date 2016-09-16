@@ -34,9 +34,9 @@ if ($data->isHot) {
                     </div>
                 <?php endif; ?>
                 <div class="c-list_item_btn">
-                    <span class="c-list_item_btn__view"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></span>
-                    <span class="c-list_item_btn__users"><?=$data->commentatorsCount?></span>
-                    <span class="c-list_item_btn__comment"><?=$data->commentsCount?></span>
+                    <a href="<?php echo $data->url; ?>" class="c-list_item_btn__view"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url)?></a>
+                    <a href="<?php echo $data->url; ?>" class="c-list_item_btn__users"><?=$data->commentatorsCount?></a>
+                    <a href="<?php echo $data->url; ?>#commentsBlock" class="c-list_item_btn__comment"><?=$data->commentsCount?></a>
                 </div>
             </div>
         </div>

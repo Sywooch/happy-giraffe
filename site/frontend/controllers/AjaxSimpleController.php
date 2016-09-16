@@ -209,19 +209,16 @@ class AjaxSimpleController extends CController
 
     public function actionUploadPhoto()
     {
-        \CommentLogger::model()->addToLog('AjaxSimpleController', 'startAction: actionUploadPhoto');
-
-        foreach ($_FILES as $file) {
-            \Yii::log(print_r($file, true), 'info', 'ajax');
-            $model = AlbumPhoto::model()->createUserTempPhoto($file);
-            \site\frontend\modules\photo\components\MigrateManager::movePhoto($model);
-        }
+        $file = array_pop($_FILES);
+        \Yii::log(print_r($file, true), 'info', 'ajax');
+        $model = AlbumPhoto::model()->createUserTempPhoto($file);
+        $photoRow = site\frontend\modules\photo\components\MigrateManager::movePhoto($model);
 
         echo CJSON::encode(array(
             'status' => 200,
             'id' => $model->id,
-            'html' => $model->getWidget(true),
-            'comment_html' => $model->getWidget(true, new Comment()),
+            'html' => $model->getWidget(true, null, $photoRow),
+            'comment_html' => $model->getWidget(true, new Comment(), $photoRow),
             'url' => $model->getPreviewUrl(480, 250, Image::WIDTH),
         ));
     }

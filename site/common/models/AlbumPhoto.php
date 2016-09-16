@@ -799,21 +799,22 @@ class AlbumPhoto extends HActiveRecord
      * @param null $parentModel
      * @return string
      */
-    public function getWidget($edit = false, $parentModel = null)
+    public function getWidget($edit = false, $parentModel = null, $photoRow = null)
     {
-        \CommentLogger::model()->addToLog('AlbumPhoto', 'getWidget start,  $edit: ' . $edit . ' $parentModel: ' . get_class($parentModel));
         if (get_class(Yii::app()) == 'CConsoleApplication')
-            return Yii::app()->command->renderFile(Yii::getPathOfAlias('site.frontend.views.albums')/*Yii::getPathOfAlias("albums")*/ . DIRECTORY_SEPARATOR . '_widget.php', array(
+            return Yii::app()->command->renderFile(Yii::getPathOfAlias('site.frontend.views.albums')/*Yii::getPathOfAlias("albums")*/ . DIRECTORY_SEPARATOR . '_widget.php', [
                 'model' => $this,
                 'edit' => $edit,
-                'parentModel' => $parentModel
-            ), true);
+                'parentModel' => $parentModel,
+                'photoRow' => $photoRow,
+            ], true);
 
-        return Yii::app()->controller->renderPartial('//albums/_widget', array(
+        return Yii::app()->controller->renderPartial('//albums/_widget', [
             'model' => $this,
             'edit' => $edit,
-            'parentModel' => $parentModel
-        ), true);
+            'parentModel' => $parentModel,
+            'photoRow' => $photoRow,
+        ], true);
     }
 
     protected function setDimensions()

@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\comments\modules\contest\controllers;
 
+use site\frontend\modules\comments\modules\contest\components\ContestHelper;
 use site\frontend\modules\comments\modules\contest\components\ContestManager;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContest;
 use site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant;
@@ -148,15 +149,7 @@ class DefaultController extends \LiteController
 
         $user = \User::model()->findByPk(\Yii::app()->user->id);
 
-        $eauth = \Yii::app()->eauth->services;
-
-        $eauth['odnoklassniki']['attachment'] = \CJSON::encode(array('media' => array(
-            array(
-                'type' => 'link',
-                'url' => $link->getLink()
-            ))));
-
-        $eauth['odnoklassniki']['signature'] = md5('st.attachment=' . $eauth['odnoklassniki']['attachment'] . $eauth['odnoklassniki']['client_secret']);
+        $eauth = $this->createSocialObject();
 
         $this->render('/quests', array(
             'type' => $type,
@@ -170,6 +163,26 @@ class DefaultController extends \LiteController
             'user' => $user,
             'eauth' => $eauth,
         ));
+    }
+
+    /**
+     * @return string
+     */
+    private function createSocialObject()
+    {
+        $eauth = \Yii::app()->eauth->services;
+
+        $eauth['odnoklassniki']['attachment'] = \CJSON::encode(['media' => [[
+            'type' => 'photo',
+            'list' =>[['photoId' => ContestHelper::getOkPostImage()]]
+        ], [
+            'type' => 'text',
+            'text' => "СТАНЬ КОММЕНТАТОРОМ МЕСЯЦА!\nhttp://www.happy-giraffe.ru/commentatorsContest/\nЕсли вам нравится общаться с интересными людьми на самые\nактуальные темы, и за это получать  подарки – тогда этот конкурс для вас!\n10 победителей получат приз в размере 1000 рублей!\nУсловия конкурса? Все очень просто - пишите комментарии к\nпостам, которые вам нравятся, и отвечайте на комментарии других пользователей.\nЖдем вас на сайте «Веселый Жираф»!"
+        ]]]);
+
+        $eauth['odnoklassniki']['signature'] = md5('st.attachment=' . $eauth['odnoklassniki']['attachment'] . $eauth['odnoklassniki']['client_secret']);
+
+        return $eauth;
     }
 
     /**

@@ -209,8 +209,6 @@ class AjaxSimpleController extends CController
 
     public function actionUploadPhoto()
     {
-        \CommentLogger::model()->addToLog('AjaxSimpleController', 'startAction: actionUploadPhoto');
-
         $file = array_pop($_FILES);
         \Yii::log(print_r($file, true), 'info', 'ajax');
         $model = AlbumPhoto::model()->createUserTempPhoto($file);
@@ -223,8 +221,6 @@ class AjaxSimpleController extends CController
             'comment_html' => $model->getWidget(true, new Comment(), $photoRow),
             'url' => $model->getPreviewUrl(480, 250, Image::WIDTH),
         ));
-
-        \CommentLogger::model()->push();
     }
 
     public function actionUploadAvatar()

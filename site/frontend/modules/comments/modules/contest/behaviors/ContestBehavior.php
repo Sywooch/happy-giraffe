@@ -49,7 +49,10 @@ class ContestBehavior extends \CActiveRecordBehavior
 
     private function init()
     {
-        if (\Yii::app()->user->checkAccess('moderator') || \Yii::app()->user->checkAccess('advEditor')) {
+        if (\Yii::app()->user->checkAccess('moderator')
+            || \Yii::app()->user->checkAccess('advEditor')
+            || \Yii::app()->user->checkAccess('editor')
+            || in_array(\Yii::app()->user->id, [457198, 175718, 457158, 458713, 15814, 15426, 459499, 436014, 243290, 458733, 208514, 462879, 462875, 462895, 462959, 462943, 463529, 463559, 466068, 15363])) {
             return false;
         }
 

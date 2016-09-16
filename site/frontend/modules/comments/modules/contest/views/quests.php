@@ -61,7 +61,6 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
             },
             vk: function(link) {
                 var post = function() {
-                    console.log('post call');
                     VK.Api.call('wall.post', {
                         attachments: link + ',' + '<?= ContestHelper::getVkPostImage() ?>',
                         message: socialVkText
@@ -77,22 +76,29 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                     });
                 };
 
-                VK.Auth.getLoginStatus(function(response) {
-                    if (response.session) {
-                        post();
-                    } else {
-                        VK.Observer.subscribe('auth.login', function() {
-                            var interval = setInterval(function() {
-                                if (!VK.UI.active.top || VK.UI.active.closed) {
-                                    window.clearInterval(interval);
-                                    post();
-                                }
-                            }, 100);
-                        });
+                var origin = window;
 
-                        VK.Auth.login();
-                    }
-                });
+                if (VK.Auth.getSession() == null) {
+                    VK.Auth.login(function() {
+                        setTimeout(function() {
+                            var offset = $('.b-contest-task__li.b-contest-task__li_vk').offset();
+                            var el = document.elementFromPoint(offset.left, offset.top);
+
+                            var evt = new MouseEvent("click", {
+                                view: origin,
+                                bubbles: true,
+                                cancelable: true,
+                                clientX: offset.top,
+                                clientY: offset.left
+                            });
+
+                            el.dispatchEvent(evt);
+                        }, 1000);
+
+                    });
+                } else {
+                    post();
+                }
             },
             ok: function(link) {
                 var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=on',
@@ -431,7 +437,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 <input type="hidden" id="fb_app" value="<?= $eauth['facebook']['client_id'] ?>"/>
 
 <div class="b-contest-task b-contest__block textalign-c">
-    <?php if(/*false && */count($social) > 0): ?>
+    <?php if(false && count($social) > 0): ?>
     <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
     <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
     <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>

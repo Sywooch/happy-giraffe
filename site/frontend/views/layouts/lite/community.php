@@ -1,11 +1,11 @@
 <?php $this->beginContent('//layouts/lite/main'); ?>
 <?php /* <div class="b-main_cont"> */ ?>
-<?php if($this->club) {/* Тут происходит неведомая хрень. Я просто скопировал это из application.modules.community.views.default._links */ ?>
+<?php if(false) {/* Тут происходит неведомая хрень. Я просто скопировал это из application.modules.community.views.default._links */ ?>
 <section class="b-section b-section__collection-<?= $this->club->section->id ?>">
     <div class="b-section_hold b-main_cont">
         <div class="b-main_col-hold clearfix">
             <div class="b-section_sidebar">
-                <a href="#" class="i-club i-club__section"> 
+                <a href="#" class="i-club i-club__section">
                     <div class="ico-club ico-club__<?= $this->club->id ?>"></div>
                 </a>
             </div>

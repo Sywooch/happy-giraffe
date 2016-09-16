@@ -112,14 +112,27 @@ class MigrateManager
 
     public static function movePhoto(\AlbumPhoto &$oldPhoto, $attributes = array())
     {
-        \CommentLogger::model()->addToLog('MigrateManager', 'start movePhoto()');
         if ($oldPhoto->newPhotoId !== null) {
-            \CommentLogger::model()->addToLog('MigrateManager', 'newPhotoId is not null: ' . $oldPhoto->newPhotoId);
+            $objPhoto = new Photo();
+            $photoRow = $objPhoto->findByPk($oldPhoto->newPhotoId);
+            if (is_object($photoRow))
+            {
+                return $photoRow;
+            }
+            else
+            {
+                usleep(50000);
+                $photoRow = $objPhoto->findByPk($oldPhoto->newPhotoId);
+                if (is_object($photoRow))
+                {
+                    return $photoRow;
+                }
+            }
+
             return $oldPhoto->newPhoto;
         }
 
         if (! is_file($oldPhoto->getOriginalPath())) {
-            \CommentLogger::model()->addToLog('MigrateManager', 'getOriginalPath is not file: ' . $oldPhoto->getOriginalPath());
             return false;
         }
 
@@ -132,13 +145,11 @@ class MigrateManager
         self::updatePhotoInfo($oldPhoto, $photo, $attributes);
         if (! $photo->save()) {
             echo "error\n";
-            \CommentLogger::model()->addToLog('MigrateManager', '$photo is dont save!');
             return false;
         }
 
         $oldPhoto->newPhotoId = $photo->id;
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
-        \CommentLogger::model()->addToLog('MigrateManager', '$photo is saved, id: ' . $photo->id);
         return $photo;
     }
 

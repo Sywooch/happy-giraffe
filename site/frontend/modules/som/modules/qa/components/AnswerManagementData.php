@@ -21,6 +21,7 @@ class AnswerManagementData
             $_answer['canRemove'] = \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $answer));
             $_answer['canVote'] = \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answer));
             $_answer['isVoted'] = isset($votes[$answer->id]);
+            $_answer['question'] = $answer->question->toJSON();
             $_answers[] = $_answer;
         }
         return $_answers;

@@ -15,9 +15,14 @@ class SpecialistsUrlRule extends \CBaseUrlRule
     public function createUrl($manager, $route, $params, $ampersand)
     {
         if ($route == 'specialists/profile/index') {
-            return 'user/' . $params['userId'] . $manager->urlSuffix;
+            $url = 'user/' . $params['userId'] . $manager->urlSuffix;
+            unset($params['userId']);
+            if (! empty($params)) {
+                $url .= '?' . $manager->createPathInfo($params, '=', $ampersand);
+            }
+            return $url;
         }
-
+        
         return false;
     }
     

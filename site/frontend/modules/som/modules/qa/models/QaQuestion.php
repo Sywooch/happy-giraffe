@@ -161,6 +161,7 @@ class QaQuestion extends \HActiveRecord
 				'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
 				'entityClass' => 'site\frontend\modules\som\modules\qa\models\QaQuestion',
 			),
+			'site\frontend\modules\som\modules\qa\behaviors\QaBehavior',
 		);
 	}
 

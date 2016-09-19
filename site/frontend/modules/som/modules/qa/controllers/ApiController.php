@@ -99,7 +99,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionVote($answerId)
     {
-        if (! \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answerId))) {
+        $answer = $this->getModel(self::$answerModel, $answerId);
+        if (! \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answer))) {
             throw new \CHttpException(403);
         }
         $this->data = VotesManager::changeVote(\Yii::app()->user->id, $answerId);

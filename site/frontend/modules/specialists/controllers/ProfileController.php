@@ -25,6 +25,9 @@ class ProfileController extends \LiteController
                     'orderDesc',
                 ],
             ],
+            'pagination' => [
+                'pageVar' => 'page',
+            ],
         ]);
         $this->render('index', compact('dp'));
     }
@@ -39,7 +42,7 @@ class ProfileController extends \LiteController
     {
         $this->user = User::model()->findByPk($userId);
         if (! $this->user) {
-            throw new \CHttpException(403);
+            throw new \CHttpException(404);
         }
     }
 }

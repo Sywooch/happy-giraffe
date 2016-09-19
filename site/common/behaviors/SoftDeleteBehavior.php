@@ -44,9 +44,16 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
                 $model->save();
                 \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'softDelete obj saved! before save owner data');
             }
+            \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'Owner data saved! Owner class name: ' . get_class($this->owner));
             $this->owner->{$this->removeAttribute} = 1;
-            $result = $this->owner->save(false, $this->owner->{$this->removeAttribute});
-            \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'Owner data saved');
+            try {
+                $result = $this->owner->save(false, $this->owner->{$this->removeAttribute});
+            }
+            catch (\Exception $e)
+            {
+                $result = false;
+                \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'Exception message: ' . $e->getMessage());
+            }
             if ($result) {
                 $this->owner->afterSoftDelete();
             }

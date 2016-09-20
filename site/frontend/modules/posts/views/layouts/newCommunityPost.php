@@ -97,18 +97,27 @@ $this->beginContent('//layouts/lite/community');
                     </div>
                 <?php endif; ?>
                 
-                <?php 
+                <?php if ($this->beginCache('HotPostsWidget', array('duration' => 300))): ?>
                 
-                if ($this->beginCache('HotPostsWidget', array('duration' => 300))) 
-                {
-                    $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
-                        'labels' => [
-                            \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
-                        ],
-                    ]); 
+                    <div class="side-block">
+                    
+                    	<?php 
+                    	
+                        $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
+                            'labels' => [
+                                \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
+                            ],
+                        ]);
+                        
+                        ?>
+                        
+                    </div>
                 
-                    $this->endCache(); 
-                } 
+                <?php  
+                
+                $this->endCache();
+                
+                endif;
                 
                 ?>
                 

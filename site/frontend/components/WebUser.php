@@ -1,4 +1,6 @@
 <?php
+use Aws\CloudFront\Exception\Exception;
+
 class WebUser extends CWebUser
 {
     /**
@@ -77,7 +79,7 @@ class WebUser extends CWebUser
             try {
                 if (isset(Yii::app()->user))
                 {
-                    Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
+                    Yii::app()->user->setReturnUrl($referrer);
                 }
             } catch (Exception $e) {}
         }

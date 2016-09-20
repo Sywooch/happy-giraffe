@@ -65,12 +65,8 @@ class QaManager
     {
         $criteria = new \CDbCriteria();
         $criteria->scopes = ['category' => [self::getCategoryId()]];
-        $criteria->select = 't.*';
-        $criteria->join = 'LEFT OUTER JOIN ' . QaAnswer::model()->tableName() . ' answers ON answers.questionId = t.id AND answers.authorId IN (SELECT id FROM specialists__profiles)';
-        $criteria->group = 't.id';
         $criteria->with = 'category';
         $criteria->addCondition('t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)');
-        $criteria->addCondition('answers.id IS NULL');
         $criteria->params[':userId'] = $userId;
         return $criteria;
     }

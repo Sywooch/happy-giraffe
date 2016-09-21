@@ -161,6 +161,6 @@ class CommentLogger
 
     public function __destruct()
     {
-//         $this->push(TRUE, 'called from destructor');
+        $this->push(TRUE, 'called from destructor');
     }
 }

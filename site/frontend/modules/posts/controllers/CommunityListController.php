@@ -12,13 +12,31 @@ use site\frontend\modules\posts\models\Label;
  */
 class CommunityListController extends ListController
 {
-
+    
     public $litePackage = 'clubs';
     public $layout = '/layouts/newCommunityPost';
     protected $_club = null;
     protected $_forum = null;
     protected $_rubric = null;
-
+    
+    /**
+     * {@inheritDoc}
+     * @see LiteController::beforeAction()
+     */
+    protected function beforeAction($action)
+    {        
+        if ($action->id === $action->controller->defaultAction)
+        {
+            $rubricId = \Yii::app()->request->getParam('rubric_id');
+            
+            $url = $this->createUrl('/posts/forums/club/rubric', compact('rubricId'));
+            
+            $this->redirect($url, TRUE, 301);
+        }
+        
+        parent::beforeAction($action);
+    }
+    
     public function getClub()
     {
         if (is_null($this->_club))

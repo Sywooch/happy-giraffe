@@ -7,17 +7,22 @@ $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $quest
 
 $this->pageTitle = CHtml::encode($question->title);
 
-$this->breadcrumbs['Ответы'] = array('/som/qa/default/index');
+$breadcrumbs = [
+    'Главная'   => ['/site/index'],
+    'Ответы'    => ['/som/qa/default/index']
+];
 
-if ($question->consultationId !== null)
+if (!is_null($question->consultationId))
 {
-    $this->breadcrumbs[$question->consultation->title] = array('/som/qa/consultation/index/', 'consultationId' => $question->consultation->id);
+    $breadcrumbs[$question->consultation->title] = ['/som/qa/consultation/index/', 'consultationId' => $question->consultation->id];
 }
-elseif ($question->categoryId !== null)
+elseif (!is_null($question->categoryId))
 {
-    $this->breadcrumbs[$question->category->title] = array('/som/qa/default/index/', 'categoryId' => $question->category->id);
+    $breadcrumbs[$question->category->title] = ['/som/qa/default/index/', 'categoryId' => $question->category->id];
 }
-$this->breadcrumbs[] = $question->title;
+
+$breadcrumbs[] = $question->title;
+
 
 if (! is_null($question->category))
 {
@@ -29,6 +34,23 @@ else
 }
 
 ?>
+
+<div class="b-breadcrumbs" style="margin-left: 0">
+  		
+<?php 
+
+$this->widget('zii.widgets.CBreadcrumbs', [
+    'links'                => $breadcrumbs,
+    'tagName'              => 'ul',
+    'homeLink'             => FALSE,
+    'separator'            => '',
+    'activeLinkTemplate'   => '<li><a href="{url}">{label}</a></li>',
+    'inactiveLinkTemplate' => '<li>{label}</li>',
+]); 
+
+?>
+
+</div>
 
 <div class="question">
     <div class="live-user">

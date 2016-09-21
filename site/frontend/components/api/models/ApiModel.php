@@ -6,7 +6,7 @@ namespace site\frontend\components\api\models;
  * Модель, общая для моделей, работающих через API
  *
  * @author Кирилл
- * 
+ *
  * @property \CCache $cache компонент для кеширования
  */
 abstract class ApiModel extends \CModel
@@ -54,7 +54,7 @@ abstract class ApiModel extends \CModel
 
     public function init()
     {
-        
+
     }
 
     public function trace($msg)

@@ -22,7 +22,7 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
 
     public function afterSave($event)
     {
-        \Yii::log("test", 'info', 'som.modules.activity.behaviors.PostBehavior');
+        \Yii::log('called from: ' . get_class($event->sender), 'info', 'som.modules.activity.behaviors.PostBehavior');
         if ($this->isRemoved === $this->getIsRemoved()) {
             // Ничего не изменилось
             return;
@@ -47,7 +47,7 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
             $activity->hash = $this->getActivityId();
             $activity->save();
         } catch (\Exception $ex) {
-            
+            \Yii::log('message: ' . $ex->getMessage(), 'info', 'som.modules.activity.behaviors.PostBehavior');
         }
     }
 
@@ -59,13 +59,13 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
         try {
             Activity::model()->request('removeByHash', array('hash' => $this->getActivityId()));
         } catch (\Exception $ex) {
-            
+
         }
     }
 
     /**
      * Восстановление активности
-     * 
+     *
      * Сама активность не переписывается. Только создаётся/удаляется, если надо.
      * Не рекомендуется использовать этот метод вне консоли, т.к. может выполняться
      * достаточно долго.
@@ -93,19 +93,19 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
     /**
      * Метод, возвращающий уникальный идентификатор сущности,
      * которой соответствует активность.
-     * 
+     *
      * @return string Результат md5 от идентификатора сущности
      */
     public abstract function getActivityId();
 
     /**
-     * 
+     *
      * @return \site\frontend\modules\som\modules\activity\models\api\Activity Модель активности, заполненная данными
      */
     public abstract function getActivityModel();
 
     /**
-     * 
+     *
      * @return mixed true - модель удалена и надо удалить активность, false - модель есть и при необходимости, надо создать активность.
      */
     public abstract function getIsRemoved();

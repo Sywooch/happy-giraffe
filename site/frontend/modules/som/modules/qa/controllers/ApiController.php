@@ -73,9 +73,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             'questionId' => $questionId,
             'text' => $text,
         );
-        \CommentLogger::model()->addToLog('actionCreateAnswer', 'answerModel() filled, before save!');
         $this->success = $answer->save();
-        \CommentLogger::model()->addToLog('actionCreateAnswer', 'answerModel() saved!!');
         $this->data = $answer;
     }
 
@@ -101,7 +99,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionVote($answerId)
     {
-        if (! \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answerId))) {
+        $answer = $this->getModel(self::$answerModel, $answerId);
+        if (! \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answer))) {
             throw new \CHttpException(403);
         }
         $this->data = VotesManager::changeVote(\Yii::app()->user->id, $answerId);
@@ -114,8 +113,6 @@ class ApiController extends \site\frontend\components\api\ApiController
      */
     public function afterAction($action)
     {
-        \CommentLogger::model()->addToLog('afterAction', 'start, action: ' . $action->id);
-
         $types = array(
             'vote' => \CometModel::QA_VOTE,
             'createAnswer' => \CometModel::QA_NEW_ANSWER,
@@ -127,17 +124,9 @@ class ApiController extends \site\frontend\components\api\ApiController
         if ($this->success == true && in_array($action->id, array_keys($types)))
         {
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
-
-            \CommentLogger::model()->addToLog('afterAction', $action->id . 'send data to plexor');
             $this->send(AnswersWidget::getChannelIdByQuestion($this->data->questionId), $data, $types[$action->id]);
-            \CommentLogger::model()->addToLog('afterAction', $action->id . 'after send data to plexor');
         }
 
         parent::afterAction($action);
-
-        if (! is_null($this->errorCode))
-        {
-            \CommentLogger::model()->addToLog('COMMET ERROR', $this->errorMessage);
-        }
     }
 }

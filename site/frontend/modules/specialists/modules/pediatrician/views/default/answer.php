@@ -48,7 +48,10 @@ Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'spe
                 <div class="answer-form__footer-panel">
                     <div id="add-post-toolbar"></div>
                 </div>
-                <div class="answer-form_button btn btn-primary btn-s" data-bind="click: reply">Ответить</div>
+                <div class="textalign-r">
+                    <div class="answer-form_button btn btn-primary btn-s" data-bind="click: reply">Ответить</div>
+                    <a class="btn btn-ms btn-secondary margin-t6 margin-r10" href="<?=$this->createUrl('/specialists/pediatrician/default/questions')?>">Отменить</a>
+                </div>
             </div>
         </form>
     </div>

@@ -143,7 +143,7 @@ class CommentLogger
      */
     public function push($bPushTotal = TRUE, $stopLogMessage = '--------------------------------')
     {
-        if ($this->_maxDifferenceTime < 100)
+        if ($this->_maxDifferenceTime < 1)
         {
             $this->_cleanData();
 

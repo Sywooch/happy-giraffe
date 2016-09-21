@@ -11,18 +11,38 @@ $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $categ
 
 $this->pageTitle = 'Ответы';
 
-if ($categoryId !== null)
+$breadcrumbs = [
+    'Главная' => ['/site/index'],
+];
+
+if (!is_null($categoryId))
 {
-    $this->breadcrumbs = array(
-        'Ответы' => array('/som/qa/default/index'),
-        $category->title,
-    );
+    $breadcrumbs['Ответы'] = ['/som/qa/default/index'];
+    $breadcrumbs[] = $category->title;
+    
 }
-else
-{
-    $this->breadcrumbs[] = 'Ответы';
+else {
+    $breadcrumbs[] = 'Ответы';
 }
+
 ?>
+
+<div class="b-breadcrumbs" style="margin-left: 0">
+  		
+<?php 
+
+$this->widget('zii.widgets.CBreadcrumbs', [
+    'links'                => $breadcrumbs,
+    'tagName'              => 'ul',
+    'homeLink'             => FALSE,
+    'separator'            => '',
+    'activeLinkTemplate'   => '<li><a href="{url}">{label}</a></li>',
+    'inactiveLinkTemplate' => '<li>{label}</li>',
+]); 
+
+?>
+
+</div>
 
 <?php $this->renderPartial('/_search', array('query' => '')); ?>
 

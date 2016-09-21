@@ -64,6 +64,10 @@ if ($profile->category && \site\frontend\modules\specialists\models\SpecialistPr
                         'label' => 'Информация',
                         'url' => ['/specialists/profile/info', 'userId' => $user->id],
                         'linkOptions' => ['class' => 'userSection_panel-a'],
+                        'visible' => $profile->specialization ||
+                            $profile->careerObject->models ||
+                            $profile->educationObject->models ||
+                            $profile->coursesObject->models,
                     ],
                 ],
             ]);

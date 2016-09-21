@@ -9,7 +9,7 @@ $user = $this->getUserInfo($data->userId);
         <div class="b-article_header clearfix">
             <div class="float-l">
                 <!-- ava-->
-                <a href="<?= $user->profileUrl ?>" class="ava ava__<?= $user->gender ? '' : 'fe' ?>male ava__small-xxs ava__middle-xs ava__middle-sm-mid ">
+                <a href="<?= $user->profileUrl ?>" class="ava ava__<?= $user->gender ? '' : 'fe' ?>male ava__middle-xs ava__middle-sm-mid ">
                     <span class="ico-status ico-status__online"></span>
                     <img alt="" src="<?= $user->avatarUrl ?>" class="ava_img">
                 </a>

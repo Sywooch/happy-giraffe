@@ -8,16 +8,36 @@ $this->pageTitle = $this->post->title;
 $this->metaDescription = $this->post->metaObject->description;
 $this->metaNoindex = $this->post->isNoindex;
 
-// Скопировано из site\frontend\modules\community\controllers\DefaultController::actionView
-$this->breadcrumbs = array(
-    'Жизнь' => array('/posts/buzz/list/index'),
-    $this->post->title,
-);
+$breadcrumbs = [
+    'Главная'   => ['/site/index'],
+    'Жизнь'     => ['/posts/buzz/list/index'],
+];
+
+$breadcrumbs[] = $this->post->title;
 
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
     /** @todo Исправить класс при конвертации */
     'entity' => 'BlogContent', //$this->post->originEntity,
     'entity_id' => $this->post->originEntityId,
 )));
+
 ?>
+
+<div class="b-breadcrumbs" style="margin-left: 0">
+  		
+<?php 
+
+$this->widget('zii.widgets.CBreadcrumbs', [
+    'links'                => $breadcrumbs,
+    'tagName'              => 'ul',
+    'homeLink'             => FALSE,
+    'separator'            => '',
+    'activeLinkTemplate'   => '<li><a href="{url}">{label}</a></li>',
+    'inactiveLinkTemplate' => '<li>{label}</li>',
+]); 
+
+?>
+
+</div>
+
 <?php $this->renderPartial('site.frontend.modules.posts.views.post._view'); ?>

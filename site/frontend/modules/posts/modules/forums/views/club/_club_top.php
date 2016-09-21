@@ -4,10 +4,19 @@
  */
 
 $breadcrumbs = [
-    'Главная' => ['/site/index'],
-    'Форумы' => ['/posts/forums/default/index'],
-    $club->title,
+    'Главная'   => ['/site/index'],
+    'Форумы'    => ['/posts/forums/default/index'],
 ];
+
+if (!is_null($forum))
+{
+    $breadcrumbs[$club->title] = $club->getUrl();
+    $breadcrumbs[] = $forum->title;
+}
+else
+{
+    $breadcrumbs[] = $club->title;
+}
 
 $sectionClasses = [
     1 => 'b-top-block-forum_blue',

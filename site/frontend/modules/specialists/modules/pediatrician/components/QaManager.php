@@ -52,16 +52,16 @@ class QaManager
         return QaQuestion::model()->find($criteria);
     }
     
-    protected static function getAnswersCriteria($userId)
+    public static function getAnswersCriteria($userId)
     {
         $criteria = new \CDbCriteria();
-        $criteria->scopes = ['category' => [self::getCategoryId()]];
+        $criteria->scopes = ['category' => [self::getCategoryId(), 'checkQuestionExiststance']];
         $criteria->with = 'question';
         $criteria->compare('t.authorId', $userId);
         return $criteria;
     }
     
-    protected static function getQuestionsCriteria($userId)
+    public static function getQuestionsCriteria($userId)
     {
         $criteria = new \CDbCriteria();
         $criteria->scopes = ['category' => [self::getCategoryId()]];

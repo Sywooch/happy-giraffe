@@ -19,6 +19,11 @@ class ClubController extends \LiteController
      * @var \CommunityClub
      */
     public $club;
+    
+    /**
+     * @var \Community
+     */
+    public $forum;
 
     public function actionIndex($club, $feedForumId = null, $feedTab = null, $page = 1)
     {
@@ -28,6 +33,9 @@ class ClubController extends \LiteController
         }
         if ($feedForumId !== null) {
             $feedForum = \Community::model()->findByPk($feedForumId);
+            
+            $this->forum = $feedForum;
+            
             if (! $feedForum) {
                 throw new \CHttpException(404);
             }

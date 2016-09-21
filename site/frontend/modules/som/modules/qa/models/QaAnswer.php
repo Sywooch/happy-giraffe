@@ -119,6 +119,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'RatingBehavior' => array(
 				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
 			),
+		    'site\frontend\modules\som\modules\qa\behaviors\QaBehavior',
 		);
 	}
 

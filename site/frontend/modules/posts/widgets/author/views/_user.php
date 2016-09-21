@@ -6,7 +6,7 @@ $classGender = USER::GENDER_MALE == $user->gender ? 'male' : 'female';
 
 ?>
 
-<a href="<?= $user->profileUrl ?>" class="ava ava__<?php echo $classGender; ?> ava__small-xs ava__middle-sm">
+<a href="<?= $user->profileUrl ?>" class="ava ava__<?php echo $classGender; ?> ava__middle-sm">
 	<span class="ico-status ico-status__online"></span>
 	<img alt="" src="<?= $user->avatarUrl ?>" class="ava_img">
 </a>

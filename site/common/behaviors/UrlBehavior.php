@@ -17,7 +17,7 @@ class UrlBehavior extends \CActiveRecordBehavior
 
     private $urlSaved = false;
 
-    public function afterSave()
+    protected function afterSave($event)
     {
         if ($this->owner->hasAttribute($this->urlAttribute) && $this->urlSaved === false) {
             $this->owner->url = $this->getUrl(true);

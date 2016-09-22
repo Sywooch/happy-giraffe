@@ -17,11 +17,16 @@
  * @property CommunityClub $club
  */
 class Community extends HActiveRecord
-{
+{   
+    /**
+     * @var string
+     */
+    const FORUM_QUERY_PARAM = 'feedForumId';
+    
     const USERS_COMMUNITY = 999999;
     const COMMUNITY_NEWS = 36;
     const COMMUNITY_VALENTINE = 37;
-
+    
     private $_typeCounts = null;
 
     public function getCount($type_id = null)
@@ -177,17 +182,20 @@ class Community extends HActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }    
+    
+    /**
+     * URL форума
+     * 
+     * @return string
+     */
+    public function getUrl()
+    {   
+        $url = $this->club->getUrl() . '?' . http_build_query([self::FORUM_QUERY_PARAM => $this->id]);
+        
+        return $url;
     }
-
-    public function getUrl($absolute = false)
-    {
-        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
-
-        return Yii::app()->$method('community/default/forum', array(
-            'forum_id' => $this->id,
-        ));
-    }
-
+    
     public function getBanners($limit = 2)
     {
         return CommunityBanner::model()->findAll(array(

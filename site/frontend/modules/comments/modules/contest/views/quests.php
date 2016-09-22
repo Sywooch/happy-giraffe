@@ -76,48 +76,38 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                     });
                 };
 
-                var origin = window;
+                console.log(VK._session);
 
-                if (VK.Auth.getSession() == null) {
-                    VK.Auth.login(function() {
-                        setTimeout(function() {
-                            var offset = $('.b-contest-task__li.b-contest-task__li_vk').offset();
-                            var el = document.elementFromPoint(offset.left, offset.top);
-
-                            var evt = new MouseEvent("click", {
-                                view: origin,
-                                bubbles: true,
-                                cancelable: true,
-                                clientX: offset.top,
-                                clientY: offset.left
-                            });
-
-                            el.dispatchEvent(evt);
-                        }, 1000);
-
+                if (VK._session == null) {
+                    VK.Auth.login(function(response) {
+                        if (response.session) {
+                            showAlert();
+                        }
                     });
                 } else {
                     post();
                 }
             },
             ok: function(link) {
+                var listener = function(event) {
+                    if (JSON.parse(event.data).id) {
+                        $.post('/v2_1/api/quests/', {
+                            action: 'complete',
+                            social_service: 'ok'
+                        }, function (response) {
+                            location.reload();
+                        });
+                    }
+                };
+
+                if (window.addEventListener) {
+                    window.addEventListener("message", listener);
+                } else {
+                    window.attachEvent("onmessage", listener);
+                }
+
                 var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=on',
                     "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
-
-                var interval = window.setInterval(function() {
-                    try {
-                        if (okWindow == null || okWindow.closed) {
-                            window.clearInterval(interval);
-                            $.post('/v2_1/api/quests/', {
-                                action: 'complete',
-                                social_service: 'ok'
-                            }, function (response) {
-                                location.reload();
-                            });
-                        }
-                    } catch (e) {
-                    }
-                }, 1000);
             },
             fb: function(link) {
                 FB.ui({
@@ -143,6 +133,26 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 });
             }
         };
+
+        var showAlert = function() {
+            var el = $('div.alert.alert-pos.alert-green');
+
+            el.addClass('alert-in');
+
+            setTimeout(function() {
+                hideAlert();
+            }, 5000);
+        };
+
+        var hideAlert = function() {
+            var el = $('div.alert.alert-pos.alert-green');
+
+            el.removeClass('alert-in');
+        };
+
+        $('span.alert__close').on('click', function() {
+            hideAlert();
+        });
 
         $('.b-contest-task__li').on('click', function() {
             if ($(this).hasClass('completed')) {
@@ -435,9 +445,16 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 <input type="hidden" id="ok_attach" value='<?= $eauth['odnoklassniki']['attachment'] ?>'/>
 <input type="hidden" id="ok_sig" value="<?= $eauth['odnoklassniki']['signature'] ?>"/>
 <input type="hidden" id="fb_app" value="<?= $eauth['facebook']['client_id'] ?>"/>
-
+<div class="alert alert-pos alert-green">
+    <div class="position-rel">
+        <div class="alert__container">
+            <div class="alert__ico"></div>
+            <div class="alert__text">Спасибо, теперь для получения баллов необходимо еще раз нажать на кнопку</div>
+        </div><span class="alert__close"></span>
+    </div>
+</div>
 <div class="b-contest-task b-contest__block textalign-c">
-    <?php if(false && count($social) > 0): ?>
+    <?php if(/*false &&*/ count($social) > 0): ?>
     <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
     <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
     <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>

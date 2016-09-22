@@ -125,9 +125,8 @@ class CommunityRubric extends HActiveRecord
     public function getUrl()
     {
         if (empty($this->user_id))
-            return Yii::app()->createUrl('community/default/forum/', array(
-                        'forum_id' => $this->community_id,
-                        'rubric_id' => $this->id,
+            return Yii::app()->createUrl('/posts/forums/club/rubric', array(
+                        'rubricId' => $this->id
             ));
         else
             return Yii::app()->createUrl('/blog/default/index', array(

@@ -150,7 +150,7 @@ else
     </script>
 
     <!-- comments-->
-    <section class="comments comments__buble">
+    <section class="comments comments__buble" id="commentsBlock">
         <div class="comments-menu">
             <ul data-tabs="tabs" class="comments-menu_ul">
                 <li class="comments-menu_li active"><a href="#commentsList" data-toggle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии <?= $comments->count ?> </a></li>

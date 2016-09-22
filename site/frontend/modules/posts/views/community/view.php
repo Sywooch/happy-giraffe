@@ -8,21 +8,57 @@ $this->pageTitle = $this->post->title;
 $this->metaDescription = $this->post->metaObject->description;
 $this->metaNoindex = $this->post->isNoindex;
 
-// Скопировано из site\frontend\modules\community\controllers\DefaultController::actionView
-$this->breadcrumbs = array();
-if($this->club) {
-    $this->breadcrumbs[$this->club->title] = $this->club->getUrl();
-} elseif($this->forum) {
-    $this->breadcrumbs[$this->forum->title] = $this->forum->getUrl();
+$breadcrumbs = [
+    'Главная'   => ['/site/index'],
+    'Форумы'    => ['/posts/forums/default/index'],
+];
+
+if (!is_null($this->forum))
+{   
+    $breadcrumbs[$this->club->title] = $this->club->getUrl();
+    
+    if (isset($this->post->title))
+    {
+        if (count($this->club->communities) > 1)
+        {
+            $breadcrumbs[$this->forum->title] = $this->forum->getUrl();
+        }
+    }
+    else
+    {
+        $breadcrumbs[] = $this->forum->title;
+    }
 }
-if (isset($this->club->communities) && count($this->club->communities) > 1) {
-    $this->breadcrumbs[$this->forum->title] = $this->forum->getUrl();
+else
+{
+    $breadcrumbs[] = $this->club->title;
 }
-$this->breadcrumbs[] = $this->post->title;
+
+$breadcrumbs[] = $this->post->title;
+
+
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
         /** @todo Исправить класс при конвертации */
         'entity' => 'BlogContent', //$this->post->originEntity,
         'entity_id' => $this->post->originEntityId,
         )));
 ?>
+
+<div class="b-breadcrumbs" style="margin-left: 0">
+  		
+<?php 
+
+$this->widget('zii.widgets.CBreadcrumbs', [
+    'links'                => $breadcrumbs,
+    'tagName'              => 'ul',
+    'homeLink'             => FALSE,
+    'separator'            => '',
+    'activeLinkTemplate'   => '<li><a href="{url}">{label}</a></li>',
+    'inactiveLinkTemplate' => '<li>{label}</li>',
+]); 
+
+?>
+
+</div>
+
 <?php $this->renderPartial('site.frontend.modules.posts.views.post._view'); ?>

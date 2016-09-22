@@ -30,7 +30,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  *
  * @property \site\frontend\components\api\models\User $user
  */
-class QaQuestion extends \HActiveRecord
+class QaQuestion extends \HActiveRecord implements \IHToJSON
 {
 	public $sendNotifications = true;
 
@@ -161,6 +161,7 @@ class QaQuestion extends \HActiveRecord
 				'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
 				'entityClass' => 'site\frontend\modules\som\modules\qa\models\QaQuestion',
 			),
+			'site\frontend\modules\som\modules\qa\behaviors\QaBehavior',
 		);
 	}
 
@@ -297,5 +298,14 @@ class QaQuestion extends \HActiveRecord
         $this->title = \CHtml::encode($this->title);
 
         return parent::save($runValidation, $attributes);
+	}
+
+	public function toJSON()
+	{
+		return [
+			'id' => $this->id,
+			'title' => $this->title,
+			'url' => $this->url,
+		];
 	}
 }

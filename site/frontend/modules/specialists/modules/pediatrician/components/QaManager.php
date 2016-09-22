@@ -52,25 +52,21 @@ class QaManager
         return QaQuestion::model()->find($criteria);
     }
     
-    protected static function getAnswersCriteria($userId)
+    public static function getAnswersCriteria($userId)
     {
         $criteria = new \CDbCriteria();
-        $criteria->scopes = ['category' => [self::getCategoryId()]];
+        $criteria->scopes = ['category' => [self::getCategoryId(), 'checkQuestionExiststance']];
         $criteria->with = 'question';
         $criteria->compare('t.authorId', $userId);
         return $criteria;
     }
     
-    protected static function getQuestionsCriteria($userId)
+    public static function getQuestionsCriteria($userId)
     {
         $criteria = new \CDbCriteria();
         $criteria->scopes = ['category' => [self::getCategoryId()]];
-        $criteria->select = 't.*';
-        $criteria->join = 'LEFT OUTER JOIN ' . QaAnswer::model()->tableName() . ' answers ON answers.questionId = t.id AND answers.authorId IN (SELECT id FROM specialists__profiles)';
-        $criteria->group = 't.id';
         $criteria->with = 'category';
         $criteria->addCondition('t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)');
-        $criteria->addCondition('answers.id IS NULL');
         $criteria->params[':userId'] = $userId;
         return $criteria;
     }

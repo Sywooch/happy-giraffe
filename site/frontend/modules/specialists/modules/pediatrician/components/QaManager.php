@@ -64,6 +64,10 @@ class QaManager
     public static function getQuestionsCriteria($userId)
     {
         $criteria = new \CDbCriteria();
+        $criteria->select = 't.*';
+        $criteria->join = 'LEFT OUTER JOIN ' . QaAnswer::model()->tableName() . ' answers ON answers.questionId = t.id AND answers.authorId = :userId';
+        $criteria->group = 't.id';
+        $criteria->addCondition('answers.id IS NULL');
         $criteria->scopes = ['category' => [self::getCategoryId()]];
         $criteria->with = 'category';
         $criteria->addCondition('t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)');

@@ -3,6 +3,7 @@
 namespace site\frontend\modules\specialists\models;
 use site\frontend\modules\specialists\components\SpecialistsManager;
 use site\frontend\modules\specialists\models\sub\Career;
+use site\frontend\modules\users\models\User;
 
 /**
  * @property \CModel[] $career
@@ -15,6 +16,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 {
     public $profileId;
 
+    public $gender;
     public $firstName;
     public $lastName;
     public $experience;
@@ -34,10 +36,13 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     public function rules()
     {
         return [
-            ['firstName, lastName, placeOfWork, specializations, text', 'safe'],
+            ['placeOfWork, specializations, text', 'safe'],
 
+            ['firstName, lastName, gender', 'required'],
+            ['firstName, lastName', 'length', 'max' => 50],
             ['category', 'in', 'range' => array_keys(SpecialistProfile::getCategoriesList())],
             ['experience', 'in', 'range' => array_keys(SpecialistProfile::getExperienceList())],
+            ['gender', 'in', 'range' => [User::GENDER_MALE, User::GENDER_FEMALE]],
 
             ['career', 'validateRelatedModels'],
             ['education', 'validateRelatedModels'],
@@ -77,6 +82,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     {
         $this->profileId = $profileId;
 
+        $this->gender = $this->user->gender;
         $this->firstName = $this->user->first_name;
         $this->lastName = $this->user->last_name;
         $this->experience = $this->profile->experience;
@@ -90,9 +96,10 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->education = $this->profile->educationObject->models;
         $this->courses = $this->profile->coursesObject->models;
     }
-    
+
     public function save()
     {
+        $this->user->gender = $this->gender;
         $this->user->first_name = $this->firstName;
         $this->user->last_name = $this->lastName;
         $this->profile->experience = $this->experience;
@@ -114,6 +121,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         return [
             'profileId' => $this->profileId,
 
+            'gender' => $this->gender,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
             'experience' => $this->experience,

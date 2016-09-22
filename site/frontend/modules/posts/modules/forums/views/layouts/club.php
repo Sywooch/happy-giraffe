@@ -7,7 +7,7 @@
 <?php $this->beginContent('//layouts/lite/main'); ?>
 
 <div class="forum-page">
-    <?php $this->renderPartial('_club_top', ['club' => $this->club]); ?>
+    <?php $this->renderPartial('_club_top', ['club' => $this->club, 'forum' => $this->forum]); ?>
     <div class="b-main_cont b-main_cont-mobile">
         <div class="b-main-wrapper">
             <?=$content?>

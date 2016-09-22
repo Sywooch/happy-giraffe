@@ -22,9 +22,9 @@
                     <a href="<?=$post->url?>" class="link"><?=$post->title?></a>
                 </div>
                 <div class="b-widget-group-btn">
-                    <span class="b-widget-group-btn__view"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($post->url)?></span>
-                    <span class="b-widget-group-btn__users"><?=$post->commentatorsCount?></span>
-                    <span class="b-widget-group-btn__comment"><?=$post->commentsCount?></span>
+                    <a href="<?php echo $post->url; ?>" class="b-widget-group-btn__view"><?=Yii::app()->getModule('analytics')->visitsManager->getVisits($post->url)?></a>
+                    <a href="<?php echo $post->url; ?>" class="b-widget-group-btn__users"><?=$post->commentatorsCount?></a>
+                    <a href="<?php echo $post->url; ?>#commentsBlock" class="b-widget-group-btn__comment"><?=$post->commentsCount?></a>
                 </div>
             </li>
             <?php endforeach; ?>

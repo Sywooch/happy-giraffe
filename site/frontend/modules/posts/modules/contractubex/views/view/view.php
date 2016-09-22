@@ -3,11 +3,30 @@ $this->hideAdsense = true;
 $this->pageTitle = $this->post->title;
 $this->metaDescription = $this->post->metaObject->description;
 $this->metaNoindex = $this->post->isNoindex;
-$this->breadcrumbs = array(
-    'Контрактубекс' => array('/posts/contractubex/default/index'),
+
+$breadcrumbs = [
+    'Контрактубекс' => ['/posts/contractubex/default/index'],
     $this->post->title,
-);
+];
+
 ?>
+
+<div class="b-breadcrumbs" style="margin-left: 0;">
+  		
+<?php 
+
+$this->widget('zii.widgets.CBreadcrumbs', [
+    'links'                => $breadcrumbs,
+    'tagName'              => 'ul',
+    'homeLink'             => FALSE,
+    'separator'            => '',
+    'activeLinkTemplate'   => '<li><a href="{url}">{label}</a></li>',
+    'inactiveLinkTemplate' => '<li>{label}</li>',
+]); 
+
+?>
+
+</div>
 
 <?php $this->beginClip('header-banner'); ?>
 <div class="header-banner-medium">

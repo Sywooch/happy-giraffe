@@ -8,6 +8,7 @@ namespace site\frontend\modules\specialists\controllers;
 
 
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\specialists\modules\pediatrician\components\QaManager;
 use site\frontend\modules\users\models\User;
 
 class ProfileController extends \LiteController
@@ -19,11 +20,9 @@ class ProfileController extends \LiteController
     {
         $this->loadUser($userId);
         $dp = new \CActiveDataProvider(QaAnswer::model(), [
-            'criteria' => [
-                'scopes' => [
-                    'user' => [$userId],
-                    'orderDesc',
-                ],
+            'criteria' => QaManager::getAnswersCriteria($userId),
+            'pagination' => [
+                'pageVar' => 'page',
             ],
         ]);
         $this->render('index', compact('dp'));
@@ -39,7 +38,7 @@ class ProfileController extends \LiteController
     {
         $this->user = User::model()->findByPk($userId);
         if (! $this->user) {
-            throw new \CHttpException(403);
+            throw new \CHttpException(404);
         }
     }
 }

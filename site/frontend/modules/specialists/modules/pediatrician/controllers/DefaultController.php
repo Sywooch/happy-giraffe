@@ -21,8 +21,11 @@ class DefaultController extends \LiteController
     public function accessRules()
     {
         return array(
+            array('allow',
+                'roles' => array('specialist'),
+            ),
             array('deny',
-                'users' => array('?'),
+                'users' => array('*'),
             ),
         );
     }

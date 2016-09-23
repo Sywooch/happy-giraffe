@@ -141,7 +141,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 
             setTimeout(function() {
                 hideAlert();
-            }, 5000);
+            }, 10000);
         };
 
         var hideAlert = function() {
@@ -448,13 +448,13 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 <div class="alert alert-pos alert-green">
     <div class="position-rel">
         <div class="alert__container">
-            <div class="alert__ico"></div>
-            <div class="alert__text">Спасибо, теперь для получения баллов необходимо еще раз нажать на кнопку</div>
-        </div><span class="alert__close"></span>
+            <div class="alert__ico alert__ico-green"></div>
+            <div class="alert__text alert__text-green">Спасибо, теперь для получения баллов необходимо еще раз нажать на кнопку</div>
+        </div><span class="alert__close alert__close-green"></span>
     </div>
 </div>
 <div class="b-contest-task b-contest__block textalign-c">
-    <?php if(/*false &&*/ count($social) > 0): ?>
+    <?php if(false && count($social) > 0): ?>
     <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
     <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
     <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>

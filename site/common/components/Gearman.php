@@ -16,29 +16,44 @@ class Gearman extends CApplicationComponent
         parent::init();
     }
 
+    /**
+     * @param GearmanClient|GearmanWorker $instance
+     *
+     * @return GearmanClient|GearmanWorker
+     */
     protected function setServers($instance)
     {
-        if (empty($this->servers))
+        if (empty($this->servers)) {
             $instance->addServer();
+        }
 
-        foreach ($this->servers as $s)
-            $instance->addServer($s['host'], $s['port']);
+        foreach ($this->servers as $server) {
+            $instance->addServer($server['host'], $server['port']);
+        }
 
         return $instance;
     }
 
+    /**
+     * @return GearmanClient
+     */
     public function client()
     {
-        if (!$this->client)
+        if (!$this->client) {
             $this->client = $this->setServers(new GearmanClient());
+        }
 
         return $this->client;
     }
 
+    /**
+     * @return GearmanWorker
+     */
     public function worker()
     {
-        if (!$this->worker)
+        if (!$this->worker) {
             $this->worker = $this->setServers(new GearmanWorker());
+        }
 
         return $this->worker;
     }

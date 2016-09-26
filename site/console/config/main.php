@@ -104,7 +104,7 @@ return array(
             'class' => 'site\frontend\modules\comments\modules\contest\commands\ClearScoreCommand',
         ),
         'pushWorker' => [
-            'class' => 'site\frontend\modules\api\modules\v2_1\commands\PushWorker',
+            'class' => \site\frontend\modules\api\ApiModule::PUSH_WORKER,
         ]
     ),
     'import' => array(

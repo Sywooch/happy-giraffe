@@ -306,11 +306,18 @@ class DefaultController extends \LiteController
             ->byParticipant($participant->id)
             ->count();
 
+        $socialQuests = Quest::model()
+            ->byUser(\Yii::app()->user->id)
+            ->byType(QuestTypes::POST_TO_WALL)
+            ->byModel((new \ReflectionClass($this->contest))->getShortName(), $this->contest->id)
+            ->findAll();
+
         $this->render('/my', array(
             'comments' => $comments,
             'participant' => $participant,
             'commentsCount' => $commentsCount,
-            'count' => $count
+            'count' => $count,
+            'social' => $socialQuests
         ));
     }
 

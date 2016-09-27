@@ -16,6 +16,9 @@
                     'template' => '{items}<div class="yiipagination yiipagination__center"></div>',
                 ));
                 ?>
+                <div class="textalign-c">
+                    <a href="#" class="btn btn-forum btn-success">Задать вопрос</a>
+                </div>
         </div>
     </div>
     <?php $this->renderPartial('/_footer'); ?>

@@ -119,6 +119,8 @@ class CommentLogger
     /**
      * @param string $title
      * @param string $message
+     *
+     * @return self
      */
     public function addToLog($title, $message, $level = null)
     {
@@ -136,6 +138,8 @@ class CommentLogger
 
         $prefix = is_null($level) ? '' : "\t";
         $this->_log[] = $prefix . $arrTime['date'] . ' [+' . $arrTime['difference'] . ']' . ' [' . $title . '] -> ' . $message;
+
+        return $this;
     }
 
     /**
@@ -143,10 +147,14 @@ class CommentLogger
      */
     public function push($bPushTotal = TRUE, $stopLogMessage = '--------------------------------')
     {
-        if ($this->_maxDifferenceTime < 1)
+        if (empty($this->_log))
+        {
+            return;
+        }
+
+        if ($this->_maxDifferenceTime < 0)
         {
             $this->_cleanData();
-
             return;
         }
 
@@ -161,6 +169,6 @@ class CommentLogger
 
     public function __destruct()
     {
-//         $this->push(TRUE, 'called from destructor');
+        $this->push(TRUE, 'called from destructor');
     }
 }

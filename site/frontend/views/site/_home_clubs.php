@@ -22,7 +22,7 @@
                             <div class="homepage-clubs_ico-hold">
                                 <div class="ico-club ico-club__15"></div>
                             </div>
-                            <div class="homepage-clubs_tx">Отношение в семье </div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(15)?></div></a>
+                            <div class="homepage-clubs_tx">Отношения в семье </div><div class="homepage-clubs_comments"><?=\site\frontend\modules\community\helpers\StatsHelper::getComments(15)?></div></a>
                     </div>
             </div>
             <!-- collection-->

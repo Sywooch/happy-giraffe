@@ -54,7 +54,7 @@ else
     <?php endif; ?>
     <!-- Статья с текстом-->
     <!-- b-article-->
-    <article class="b-article b-article__single clearfix b-article__lite">
+    <article class="b-article margin-t0 b-article__single clearfix b-article__lite">
         <div class="b-article_cont clearfix">
             <div class="b-article_cont-tale"></div>
             <div class="b-article_header clearfix">
@@ -146,6 +146,16 @@ else
         require(['https://vk.com/js/api/openapi.js?127'], function() {
             VK.init({apiId: 5609049, onlyWidgets: true});
             VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('body').on('click', '.js-toogle-click', function () {
+//                $('.comments-gray_add').toggle();
+
+            });
+
         });
     </script>
 

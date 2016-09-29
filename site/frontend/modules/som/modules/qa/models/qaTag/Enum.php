@@ -1,4 +1,5 @@
 <?php
+
 namespace site\frontend\modules\som\modules\qa\models\qaTag;
 
 /**
@@ -56,6 +57,8 @@ class Enum
         self::SCHOOLKID         => '6 - 12',
     ];
 
+    //-----------------------------------------------------------------------------------------------------------
+
     /**
      * @param array $arrTitle
      * @param mixed $value
@@ -78,6 +81,8 @@ class Enum
         return $arrTitle[$value];
     }
 
+    //-----------------------------------------------------------------------------------------------------------
+
     /**
      * @param mixed $value
      * @return NULL|string
@@ -91,7 +96,7 @@ class Enum
      * @param mixed $value
      * @return NULL|string
      */
-    public function getTitleMobileApi($value, $validate = FALSE)
+    public function getTitleForMobileApi($value, $validate = FALSE)
     {
         return $this->_getTitle($this->_titlesForMobileApi, $value, $validate);
     }

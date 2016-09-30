@@ -87,7 +87,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 if (VK._session == null) {
                     VK.Auth.login(function(response) {
                         if (response.session) {
-                            showAlert('Спасибо, теперь для получения баллов необходимо еще раз нажать на кнопку');
+                            showAlert('Спасибо, теперь для получения баллов необходимо еще раз нажать на кнопку', null, 5000);
                         }
                     });
                 } else {
@@ -148,7 +148,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 
         var currentTimeoutId;
 
-        var showAlert = function(text, callback) {
+        var showAlert = function(text, callback, time) {
             var el = $('div.alert.alert-pos.alert-green');
 
             var notificationText = $('div.alert__text.alert__text-green');
@@ -156,6 +156,10 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
             notificationText.html(text);
 
             el.addClass('alert-in');
+
+            if (!time) {
+                time = 3000;
+            }
 
             $('span.alert__close').on('click', function() {
                 hideAlert(callback);
@@ -167,7 +171,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 
             currentTimeoutId = setTimeout(function() {
                 hideAlert(callback);
-            }, 10000);
+            }, time);
         };
 
         var hideAlert = function(callback) {

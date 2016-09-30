@@ -178,10 +178,10 @@ class DefaultController extends \LiteController
         $eauth['odnoklassniki']['attachment'] = \CJSON::encode(['media' => [[
             'type' => 'photo',
             'list' =>[['photoId' => ContestHelper::getOkPostImage()]]
-        ], /*[
+        ], [
             'type' => 'text',
-            'text' => "СТАНЬ КОММЕНТАТОРОМ МЕСЯЦА!\nhttp://www.happy-giraffe.ru/commentatorsContest/\nЕсли вам нравится общаться с интересными людьми на самые\nактуальные темы, и за это получать  подарки – тогда этот конкурс для вас!\n10 победителей получат приз в размере 1000 рублей!\nУсловия конкурса? Все очень просто - пишите комментарии к\nпостам, которые вам нравятся, и отвечайте на комментарии других пользователей.\nЖдем вас на сайте «Веселый Жираф»!"
-        ]*/]]);
+           'text' => "СТАНЬ КОММЕНТАТОРОМ МЕСЯЦА!\nhttp://www.happy-giraffe.ru/commentatorsContest/\nЕсли вам нравится общаться с интересными людьми на самые\nактуальные темы, и за это получать  подарки – тогда этот конкурс для вас!\n10 победителей получат приз в размере 1000 рублей!\nЖдем вас на сайте «Веселый Жираф»!"
+        ]]]);
 
         $eauth['odnoklassniki']['signature'] = md5('st.attachment=' . $eauth['odnoklassniki']['attachment'] . $eauth['odnoklassniki']['client_secret']);
 

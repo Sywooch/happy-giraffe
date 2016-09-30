@@ -53,7 +53,7 @@ $this->widget('site\frontend\modules\som\modules\qa\widgets\QuestionsFilterWidge
     'htmlOptions' => ['class' => 'filter-menu filter-menu_mod visibles-lg'],
 ));
 ?>
-
+</div>
 <div class="clearfix"></div>
 
 <?php

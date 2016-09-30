@@ -314,25 +314,23 @@ class DefaultController extends \LiteController
         ));
     }
 
-    public function actionPulse($count = 10)
+    public function actionPulse()
     {
-        $comments = array();
-
         /**
          * @var CommentatorsContestComment[] $contestComments
          */
-        $contestComments = CommentatorsContestComment::model()
-            ->orderDesc()
+        $contestComments = clone CommentatorsContestComment::model()
             ->byContest($this->contest->id)
             ->existingComments()
-            ->with('comment')
-            ->findAll(array(
-                'limit' => $count,
-            ));
+            ->orderDesc()
+            ->with('comment');
 
-        foreach ($contestComments as $c) {
-            $comments[] = $c->comment;
-        }
+        $dp =  new \CActiveDataProvider($contestComments, [
+            'pagination' => [
+                'pageVar' => 'page',
+                'pageSize' => 30,
+            ],
+        ]);
 
         $participantsCount = CommentatorsContestParticipant::model()
             ->byContest($this->contest->id)
@@ -343,12 +341,11 @@ class DefaultController extends \LiteController
             ->existingComments()
             ->count();
 
-        $this->render('/pulse', array(
-            'comments' => $comments,
+        $this->render('/pulse', [
+            'dp' => $dp,
             'participantsCount' => $participantsCount,
             'commentsCount' => $commentsCount,
-            'count' => $count
-        ));
+        ]);
     }
 
     protected function loadContest()

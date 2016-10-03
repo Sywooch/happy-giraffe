@@ -5,9 +5,9 @@
 ?>
 
 <?php if (Yii::app()->user->isGuest): ?>
-    <a class="btn btn-success btn-xl btn-question login-button" data-bind="follow: {}">Добавить тему</a>
+    <a class="btn green-btn btn-xl btn-question login-button" data-bind="follow: {}">Добавить тему</a>
 <?php else: ?>
-    <a class="btn btn-success btn-xl btn-question fancy-top is-need-loading" href="<?=$this->createUrl('/blog/default/form', [
+    <a class="btn green-btn btn-xl btn-question fancy-top is-need-loading" href="<?=$this->createUrl('/blog/default/form', [
         'type' => CommunityContent::TYPE_POST,
         'club_id' => $club->id,
         'useAMD' => true,

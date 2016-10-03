@@ -56,6 +56,17 @@ class CommentatorsContestParticipant extends \HActiveRecord implements \IHToJSON
     }
 
     /**
+ * @param array $ids
+ *
+ * @return CommentatorsContestParticipant
+ */
+    public function byUsers($ids)
+    {
+        $this->getDbCriteria()->addInCondition($this->getTableAlias() . '.userId', $ids);
+        return $this;
+    }
+
+    /**
      * @param int $userId
      *
      * @return CommentatorsContestParticipant

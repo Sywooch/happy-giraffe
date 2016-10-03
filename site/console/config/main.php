@@ -105,6 +105,9 @@ return array(
         ),
         'commentCacheClear' => array(
             'class' => 'site\frontend\modules\comments\commands\CacheClear',
+        ),
+        'clearContestScore' => array(
+            'class' => 'site\frontend\modules\comments\modules\contest\commands\ClearScoreCommand',
         )
     ),
     'import' => array(

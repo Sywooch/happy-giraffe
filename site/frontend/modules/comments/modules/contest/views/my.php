@@ -52,7 +52,7 @@ $cs->registerAMD('contestCommentsIndex', array('kow'));
                         <time pubdate="1957-10-04" class="tx-date"><?= HHtml::timeTag($comment->comment, array('class' => 'tx-date'), null); ?></time>
                     </div>
                     <div class="float-r">
-                        <div class="<?=$comment->points > 1 ? 'b-article__num' : 'b-article__num_mod' ?>"><span>+<?= $comment->points ?></span></div>
+                        <div class="<?=$comment->points > 1 ? 'b-article__num_mod' : 'b-article__num' ?>"><span>+<?= $comment->points ?></span></div>
                     </div>
                 </div>
                 <div class="b-article_in clearfix">

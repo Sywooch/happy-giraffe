@@ -328,7 +328,7 @@ class DefaultController extends \LiteController
         $dp =  new \CActiveDataProvider($contestComments, [
             'pagination' => [
                 'pageVar' => 'page',
-                'pageSize' => 30,
+                'pageSize' => 10,
             ],
         ]);
 

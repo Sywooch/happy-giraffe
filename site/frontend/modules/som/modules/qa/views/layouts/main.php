@@ -21,9 +21,8 @@ $this->renderSidebarClip();
 
             <?php endif; ?>
 
-<!--            <div class="b-main_col-article margin-b25 position-rel clearfix visibles-lg">-->
-<!---->
-<!--            </div>-->
+<!--           <div class="b-main_col-article margin-b25 position-rel clearfix visibles-lg">-->
+<!--           </div>-->
             <div class="b-main-wrapper">
 
               	<div class="b-main_col-article position-rel clearfix">

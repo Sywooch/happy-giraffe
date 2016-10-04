@@ -4,7 +4,7 @@
  */
 Yii::app()->clientScript->registerAMD('qa-search', array('ko' => 'knockout', 'QaSearch' => 'qa/search'), 'ko.applyBindings(new QaSearch("' . $query . '"), $(".b-main-search").get(0));')
 ?>
-
+<div class="position-rel clearfix">
 <div class="b-main-search float-r visibles-lg">
     <div class="b-main-search__title">Найти вопрос</div>
     <form class="b-main-search__form" action="<?=Yii::app()->createUrl('/som/qa/default/search/')?>" data-bind="submit: submit">

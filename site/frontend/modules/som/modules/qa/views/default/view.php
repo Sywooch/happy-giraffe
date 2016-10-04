@@ -36,8 +36,8 @@ else
 ?>
 
 <div class="b-breadcrumbs" style="margin-left: 0">
-  		
-<?php 
+
+<?php
 
 $this->widget('zii.widgets.CBreadcrumbs', [
     'links'                => $breadcrumbs,
@@ -46,7 +46,7 @@ $this->widget('zii.widgets.CBreadcrumbs', [
     'separator'            => '',
     'activeLinkTemplate'   => '<li><a href="{url}">{label}</a></li>',
     'inactiveLinkTemplate' => '<li>{label}</li>',
-]); 
+]);
 
 ?>
 

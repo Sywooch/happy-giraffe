@@ -25,7 +25,7 @@ class ConvertCommand extends \CConsoleCommand
 
     /**
      * Добавление задачи, для конвертирования CommunityContent в новый сервис постов
-     * 
+     *
      * @param \CommunityContent $oldPost
      */
     public static function addConvertTask($oldPost)
@@ -106,7 +106,7 @@ class ConvertCommand extends \CConsoleCommand
     }
 
     /**
-     * 
+     *
      * @param \GearmanJob $job
      */
     public function convertPost($job)
@@ -136,6 +136,7 @@ class ConvertCommand extends \CConsoleCommand
         catch (\Exception $e)
         {
             echo $e;
+            $this->printLogStr($e->getMessage());
             if ($e instanceof \CDbException)
             {
                 echo "db error, exit\n";
@@ -146,8 +147,13 @@ class ConvertCommand extends \CConsoleCommand
 
     public function printLogStr($str)
     {
+        if (!is_string($str))
+        {
+            return;
+        }
+
         print $str . "\r\n";
-        #\Yii::log($str, 'info', 'coomand');
+        \Yii::log($str, 'info', 'command');
     }
 
     public function fake($job)

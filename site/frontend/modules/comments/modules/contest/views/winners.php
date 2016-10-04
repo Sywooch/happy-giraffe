@@ -40,7 +40,7 @@ $this->pageTitle = 'Победители';
                     </div>
                     <div class="b-raiting__item float-l">
                         <div class="b-contest-winner__box float-l">
-                            <?php if ($contestId != ContestManager::getCurrentActive()->id): ?>
+                            <?php if ($contestId != ContestManager::getCurrentActive()->id && $winners[$i]->score >= 500 && $winners[$i]->user->getAvatarUrl()): ?>
                             <div class="b-contest-winner__box-ico"></div>
                             <div class="b-contest-winner__box-text">Денежный приз<br>1000 рублей</div>
                             <?php endif; ?>

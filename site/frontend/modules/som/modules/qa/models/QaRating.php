@@ -115,7 +115,7 @@ class QaRating extends \CActiveRecord
             $this->getDbCriteria()->with[] = 'user';
         }
 
-        $this->getDbCriteria()->addCondition('user.specialistInfo is null');
+        $this->getDbCriteria()->addCondition('user.specialistInfo is null or user.specialistInfo = \'\'');
 
         return $this;
     }

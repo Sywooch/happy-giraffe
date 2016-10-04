@@ -15,9 +15,21 @@ abstract class ThumbsManager extends \CApplicationComponent
     protected function getThumbInternal(Photo $photo, CustomFilterInterface $filter, $path, $animated, $replace)
     {
         $thumb = new Thumb($photo, $filter, $path, $animated);
-        if (! \Yii::app()->fs->has($path) || $replace) {
-              \Yii::app()->fs->write($path, $thumb->get(), true);
+
+        if (! \Yii::app()->fs->has($path) || $replace) 
+        {
+            try 
+            {
+                \Yii::app()->fs->write($path, $thumb->get(), TRUE);
+            }
+            catch (\Exception $e)
+            {
+                \Yii::log(PHP_EOL . $e->getMessage() . PHP_EOL . 'See: ' . $_SERVER['REQUEST_URI'] . PHP_EOL, \CLogger::LEVEL_INFO, 'post attachment');
+                
+                $thumb = NULL;
+            }            
         }
+        
         return $thumb;
     }
 }

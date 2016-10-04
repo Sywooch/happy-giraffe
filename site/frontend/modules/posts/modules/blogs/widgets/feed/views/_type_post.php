@@ -8,8 +8,10 @@ $parser = new ReverseParser($data->html);
 if (! empty($parser->images))
 {
     $photo = $parser->images[0]['photo'];
+     
+    $attachImage = \Yii::app()->thumbs->getThumb($photo, 'postImage');
     
-    $imageUrl = \Yii::app()->thumbs->getThumb($photo, 'postImage')->getUrl();
+    $imageUrl = !is_null($attachImage) ? $attachImage->getUrl() : FALSE;
 }
 
 ?>
@@ -87,7 +89,7 @@ if (! empty($parser->images))
     	</div>
     	
     	<?php if (isset($imageUrl)): ?>
-    	
+  			
             <div class="b-album-cap">
           		<div class="b-album-cap_hold"><img src="<?php echo $imageUrl; ?>"></div>
             </div>

@@ -26,7 +26,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
         'enableClientValidation' => true,
         'focus' => array($model, 'title'),
         'htmlOptions' => array(
-            'class' => 'popup-widget_cont',
+            'class' => 'add-post__form',
         )
     ));
     ?>
@@ -52,7 +52,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 			<?=
             $form->textField($model, 'title', array(
                 'placeholder' => 'Введите заголовок вопроса',
-                'class' => 'popup-widget_cont_input-text login-button',
+                'class' => 'itx-gray_big login-button',
                 'id' => 'qTtitle'
             ))
             ?>
@@ -68,7 +68,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
             <div class="add-post__textarea-body inp-valid inp-valid__abs">
 				<?=
                 $form->textArea($model, 'text', array(
-                    'placeholder' => 'Введите сам вопрос',
+                    'placeholder' => 'Опишите вопрос подробнее',
                     'class' => 'popup-widget_cont_textarea',
                     'data-bind' => "value: qText",
                     'id' => 'qText'

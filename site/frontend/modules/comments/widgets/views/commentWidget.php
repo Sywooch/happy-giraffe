@@ -13,7 +13,7 @@
          */
         $this->beginClip('comment');
         ?>
-        <div class="comments_i">
+        <div class="comments_i clearfix">
             <div class="comments_ava">
                 <!-- Аватарки размером 40*40-->
                 <!-- ava--><a href="{link}" class="ava ava__middle ava__small-sm-mid"><img alt="" src="{ava}" class="ava_img"></a>

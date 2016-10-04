@@ -32,6 +32,23 @@ class QaCategory extends \CActiveRecord
 	}
 
 	/**
+	 * @return array
+	 */
+	public function getTagTitles()
+	{
+	    $titles = [];
+
+	    foreach ($this->tags as $objTag)
+	    {
+            $titles[$objTag->id] = $objTag->getTitle();
+	    }
+
+	    asort($titles);
+
+	    return $titles;
+	}
+
+	/**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()

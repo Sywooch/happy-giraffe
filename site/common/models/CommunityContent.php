@@ -226,7 +226,7 @@ class CommunityContent extends HActiveRecord implements IPreview
             ),
         );
     }
-    
+
     public function onAfterSoftDelete()
     {
         // заглушка, для того, что бы можно было слушать события от SoftDeleteBehavior

@@ -68,6 +68,7 @@
  * @property int $albumsCount
  * @property CommunityClub[] $clubSubscriptions
  * @property string $publicChannel Имя публичного канала пользователя (в который отправляются события online/offline)
+ * @property site\frontend\modules\specialists\models\SpecialistProfile $specialistProfile
  *
  * @method User active()
  */
@@ -1628,5 +1629,25 @@ class User extends HActiveRecord
         }
 
         return $this->_avatarObject;
+    }
+
+    /**
+     * @param int $groupId
+     *
+     * @return bool
+     */
+    public function isSpecialistOfGroup($groupId)
+    {
+        if (!isset($this->specialistProfile)) {
+            return false;
+        }
+
+        foreach ($this->specialistProfile->specializations as $specialization) {
+            if ($specialization->groupId == $groupId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
+use site\frontend\modules\specialists\models\SpecialistGroup;
 
 /**
  * This is the model class for table "qa__answers".
@@ -14,12 +15,15 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property bool $isRemoved
  * @property int $votesCount
  * @property bool $isBest
+ * @property int $root_id
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  * @property \User $author
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswerVote[] $votes
+ * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $root
+ * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $children
  *
  * @property \site\frontend\components\api\models\User $user
  */
@@ -56,9 +60,11 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		return array(
 			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'),
 			'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
-			'category' => array(self::HAS_ONE, get_class(QaCategory::model()), array('categoryId' => 'id'), 'through' => 'question'),
-			'tag' => array(self::HAS_ONE, get_class(QaTag::model()), array('tag_id' => 'id'), 'through' => 'question'),
-			'votes' => array(self::HAS_MANY, get_class(QaAnswerVote::model()), 'answerId'),
+			'category' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', array('categoryId' => 'id'), 'through' => 'question'),
+			'tag' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', array('tag_id' => 'id'), 'through' => 'question'),
+			'votes' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'),
+			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
+			'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
 		);
 	}
 
@@ -224,6 +230,26 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		$criteria->addCondition('question.isRemoved = 0');
 		$this->getDbCriteria()->mergeWith($criteria);
 		return $this;
+	}
+
+	/**
+	 * @param \User $user
+	 *
+	 * @return bool
+	 */
+	public function canBeAnsweredBy($user)
+	{
+		// уточняющий вопрос
+		if ($this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id == null) {
+			return $user->id == $this->question->id && !$user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN);
+		}
+
+		// ответ на уточняющий вопрос
+		if (!$this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null) {
+			return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN);
+		}
+
+		return false;
 	}
 
 	/**

@@ -115,7 +115,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                     window.attachEvent("onmessage", listener);
                 }
 
-                var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=on',
+                var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=off',
                     "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500");
             },
             fb: function(link) {

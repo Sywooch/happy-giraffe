@@ -67,9 +67,9 @@ class FriendEvent extends EMongoDocument
         return 'friend_actions';
     }
 
-    public static function model($type)
+    public static function model($className=__CLASS__)
     {
-        return parent::model(self::getClassName($type));
+        return parent::model(self::getClassName($className));
     }
 
     public static function getClassName($type)

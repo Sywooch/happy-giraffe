@@ -66,7 +66,7 @@ class ConvertCommand extends \CConsoleCommand
         );
 
         // обеспечим уникальность задач
-        $client->do($fName, self::serialize($data), implode('-', $data));
+        $client->doNormal($fName, self::serialize($data), implode('-', $data));
         return true;
     }
 
@@ -143,22 +143,25 @@ class ConvertCommand extends \CConsoleCommand
                 exit(1);
             }
         }
+
+        \CommentLogger::model()->push(FALSE);
     }
 
     public function printLogStr($str)
     {
+        print $str . "\r\n";
+
         if (!is_string($str))
         {
             return;
         }
 
-        print $str . "\r\n";
-        \Yii::log($str, 'info', 'command');
+        \CommentLogger::model()->addToLog('postConvert', $str);
     }
 
     public function fake($job)
     {
-        return null;
+        return;
     }
 
 }

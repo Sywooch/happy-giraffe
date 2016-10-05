@@ -1,5 +1,7 @@
 <?php
 
+use site\frontend\modules\family\models\Family;
+use site\frontend\modules\family\models\FamilyMember;
 /**
  * This is the model class for table "user".
  *
@@ -362,7 +364,7 @@ class User extends HActiveRecord
             'communityPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id'),
 
             'spamStatus' => array(self::HAS_ONE, 'AntispamStatus', 'user_id'),
-            
+
             'specialistProfile' => array(self::BELONGS_TO, 'site\frontend\modules\specialists\models\SpecialistProfile', 'id'),
         );
     }
@@ -457,9 +459,12 @@ class User extends HActiveRecord
     protected function afterSave()
     {
         if ($this->trackable->isChanged('mood_id'))
+        {
             UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
+        }
 
-        foreach ($this->social_services as $service) {
+        foreach ($this->social_services as $service)
+        {
             $service->user_id = $this->id;
             $service->save();
         }
@@ -467,10 +472,26 @@ class User extends HActiveRecord
         /*Yii::app()->mc->saveUser($this);*/
 
         if (! $this->isNewRecord)
+        {
             self::clearCache($this->id);
+        }
 
         if ($this->trackable->isChanged('online'))
+        {
             $this->sendOnlineStatus();
+        }
+
+        if ($this->trackable->isChanged('gender'))
+        {
+            /** @var \site\frontend\modules\family\models\Family $family */
+            $family = Family::model()->with('members')->hasMember($this->id)->find();
+            $arrAdult = $family->getMembers(FamilyMember::TYPE_ADULT);
+            foreach ($arrAdult as $member)
+            {
+                $member->gender = $member->userId == $this->id ? $this->gender : !$this->gender;
+                $member->save();
+            }
+        }
 
         parent::afterSave();
     }
@@ -542,7 +563,7 @@ class User extends HActiveRecord
             ),
             'trackable' => array(
                 'class' => 'site.common.behaviors.TrackableBehavior',
-                'attributes' => array('mood_id', 'online', 'registration_finished'),
+                'attributes' => array('mood_id', 'online', 'registration_finished', 'gender'),
             ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
@@ -1600,9 +1621,9 @@ class User extends HActiveRecord
                 return $spec;
         return null;
     }
-	
+
 	/**
-	 * 
+	 *
 	 * @return string Имя публичного канала пользователя (в который отправляются события online/offline)
 	 */
 	public function getPublicChannel()

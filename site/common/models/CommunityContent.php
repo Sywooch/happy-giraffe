@@ -204,9 +204,9 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'AutoFormat.Linkify' => true,
                 ),
             ),
-//             'pingable' => array(
-//                 'class' => 'site.common.behaviors.PingableBehavior',
-//             ),
+            'pingable' => array(
+                'class' => 'site.common.behaviors.PingableBehavior',
+            ),
             'antispam' => array(
                 'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
                 'interval' => 7 * 60,
@@ -226,7 +226,7 @@ class CommunityContent extends HActiveRecord implements IPreview
             ),
         );
     }
-    
+
     public function onAfterSoftDelete()
     {
         // заглушка, для того, что бы можно было слушать события от SoftDeleteBehavior

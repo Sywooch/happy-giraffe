@@ -12,12 +12,12 @@ use site\frontend\modules\posts\modules\myGiraffe\components\FeedManager;
 
 class SubscriptionBehavior extends \CActiveRecordBehavior
 {
-    public function afterSave()
+    public function afterSave($event)
     {
         // \site\frontend\modules\posts\modules\myGiraffe\components\FeedManager::updateForUser($this->owner->user_id);
     }
 
-    public function afterDelete()
+    public function afterDelete($event)
     {
         \site\frontend\modules\posts\modules\myGiraffe\components\FeedManager::updateForUser($this->owner->user_id);
     }

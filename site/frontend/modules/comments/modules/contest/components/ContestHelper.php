@@ -109,6 +109,6 @@ class ContestHelper
      */
     public static function getOkPostImage()
     {
-        return 838838369584;
+        return /*838838369584*//*840062069455*/838960871748;
     }
 }

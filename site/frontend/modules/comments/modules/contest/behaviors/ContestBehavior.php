@@ -74,7 +74,7 @@ class ContestBehavior extends \CActiveRecordBehavior
         ));
     }
 
-    public function afterSave()
+    public function afterSave($event)
     {
         if (!$this->init()) {
             return;

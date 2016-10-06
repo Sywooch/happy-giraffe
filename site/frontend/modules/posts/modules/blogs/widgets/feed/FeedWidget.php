@@ -12,31 +12,31 @@ use site\frontend\modules\som\modules\activity\models\Activity;
  */
 class FeedWidget extends \CWidget
 {
-    
+
     const TAB_NEW      = 'new';
     const TAB_HOT      = 'hot';
     const TAB_DISCUSS  = 'discuss';
     const TAB_COMMENTS = 'comments';
-    
+
     //-----------------------------------------------------------------------------------------------------------
-    
+
     /**
      * Текущая вкладка
-     * 
+     *
      * @var string
      */
     public $tab;
 
     /**
      * Вкладка по умолчанию
-     * 
+     *
      * @var string
      */
     public $defaultTab = self::TAB_NEW;
-    
+
     /**
      * Используемые вкладки
-     * 
+     *
      * @var array
      */
     private $_tabs = [
@@ -45,7 +45,7 @@ class FeedWidget extends \CWidget
         self::TAB_DISCUSS  => 'Обсудить',
         self::TAB_COMMENTS => 'Комментарии',
     ];
-    
+
     //-----------------------------------------------------------------------------------------------------------
 
     /**
@@ -55,12 +55,12 @@ class FeedWidget extends \CWidget
     public function init()
     {
         parent::init();
-        
-        if (is_null($this->tab)) 
+
+        if (is_null($this->tab))
         {
             $this->tab = $this->defaultTab;
         }
-        else 
+        else
         {
             if (! isset($this->_tabs[$this->tab]))
             {
@@ -81,29 +81,29 @@ class FeedWidget extends \CWidget
                 ->onlyComments()
                 ->getDbCriteria()
             ;
-            
+
             $perPage = $this->controller->module->getConfig('commentsPerPage');
-            
+
             $this->render('comments', compact('criteria', 'perPage'));
         }
-        else 
-        {   
+        else
+        {
             $maxTextLength = $this->controller->module->getConfig('maxTextLength');
-            
+
             $this->render('posts', compact('maxTextLength'));
         }
     }
 
     /**
-     * Вкладки 
-     * 
+     * Вкладки
+     *
      * @return CMenu
      */
     public function getMenuWidget()
     {
         $items = [];
-        
-        foreach ($this->_tabs as $tab => $label) 
+
+        foreach ($this->_tabs as $tab => $label)
         {
             $items[] = [
                 'label'       => $label,
@@ -113,7 +113,7 @@ class FeedWidget extends \CWidget
                 ],
             ];
         }
-        
+
         return \Yii::app()->controller->createWidget('zii.widgets.CMenu', [
             'items'       => $items,
             'htmlOptions' => [
@@ -125,7 +125,7 @@ class FeedWidget extends \CWidget
 
     /**
      * URL для каждой вкладки
-     * 
+     *
      * @param string $tab
      * @return string
      */
@@ -133,31 +133,31 @@ class FeedWidget extends \CWidget
     {
         return \Yii::app()->controller->createUrl('/blogs/' . $tab);
     }
-    
+
     /**
      * @return \CActiveDataProvider
      */
     public function getListDataProvider()
     {
-        $dependency = new \CDbCacheDependency('SELECT MAX(dtimePublication) FROM ' . Content::tableName());
-        
+        $dependency = new \CDbCacheDependency('SELECT MAX(dtimePublication) FROM ' . Content::model()->tableName());
+
         $model = Content::model()
             ->cache(60, $dependency, 2)
             ->byLabels([
                 Label::LABEL_BLOG
             ])
         ;
-        
-        switch ($this->tab) 
+
+        switch ($this->tab)
         {
             case self::TAB_NEW:
                 $model->orderDesc();
                 break;
-                
+
             case self::TAB_HOT:
                 $model->orderHotRate();
                 break;
-                
+
             case self::TAB_DISCUSS:
                 $model
                     ->orderDesc()
@@ -165,13 +165,13 @@ class FeedWidget extends \CWidget
                 ;
                 break;
         }
-        
+
         $criteria = $model->getDbCriteria();
-        
+
         $model->resetScope(false);
-        
+
         $perPage = $this->controller->module->getConfig('postsPerPage');
-        
+
         return new \CActiveDataProvider($model, [
             'criteria'   => $criteria,
             'pagination' => [
@@ -180,5 +180,5 @@ class FeedWidget extends \CWidget
             ],
         ]);
     }
-    
+
 }

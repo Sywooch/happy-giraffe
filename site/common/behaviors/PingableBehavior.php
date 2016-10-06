@@ -5,6 +5,7 @@
  */
 class PingableBehavior extends CActiveRecordBehavior
 {
+
     public function attach($owner)
     {
         parent::attach($owner);
@@ -64,13 +65,21 @@ class PingableBehavior extends CActiveRecordBehavior
         $xml = $xmlDoc->saveXML();
 
         $ch = curl_init();
+        /*@todo Emil Vililyaev : вынести в конфиг когда реализуем сервис контроля ресурсов */
         curl_setopt($ch, CURLOPT_URL, 'http://ping.blogs.yandex.ru/RPC2');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         $output = curl_exec($ch);
         curl_close($ch);
 
-        Yii::log("Entity:\n$entity\n\nUrl:\n$pingUrl\n\nUid:\n$pingUserId\n\nOutput:\n$output\n\n", 'error');
+        if (!$output)
+        {
+            \Yii::log('Resource ping.blogs.yandex.ru not available!', 'error', 'pingable');
+            return;
+        }
+
+        \Yii::log("\nEntity: " . $entity . "\nUrl: " . $pingUrl . "\nUid: " . $pingUserId . "\nOutput: " . $output . "\n", 'info', 'pingable');
     }
 }

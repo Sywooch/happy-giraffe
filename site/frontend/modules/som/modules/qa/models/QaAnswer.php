@@ -253,6 +253,22 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function isAdditional()
+	{
+		return !$this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isAnswerToAdditional()
+	{
+		return $this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null;
+	}
+
+	/**
 	 * @param int $tagId
 	 *
 	 * @return QaAnswer

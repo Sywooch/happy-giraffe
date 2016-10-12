@@ -14,14 +14,48 @@ class StatsWidget extends \CWidget
 {
     public $userId;
 
+    protected $answers;
+    protected $likes;
+
+    public function init()
+    {
+        $this->answers = $this->getAnswers();
+        $this->likes = $this->getLikes();
+    }
+
     public function run()
     {
         $data = $this->getData();
-        $months = array_map(function($rowData, $key) {
-            list($year, $month) = explode('-', $key);
-            return new MonthRow($year, $month, $rowData);
-        }, $data, array_keys($data));
-        $this->render('stats', compact('months'));
+        if ($data) {
+            $months = [];
+            foreach ($data as $k => $v) {
+                list($year, $month) = explode('-', $k);
+                $nDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+                $monthData = [];
+                for ($i = 1; $i <= $nDays; $i++) {
+                    $date = $year . '-' . $month . '-' . sprintf("%02d", $i);;
+                    if ($this->dateIsValid($date)) {
+                        $monthData[$i] = array_merge([
+                            'nAnswers' => 0,
+                            'nLikes' => 0,
+                        ], (isset($data[$k][$i])) ? $data[$k][$i] : []);
+                    } else {
+                        $monthData[$i] = null;
+                    }
+                }
+                $months[] = new MonthRow($year, $month, $monthData);
+
+            }
+            $this->render('stats', compact('months'));
+        } else {
+            $this->render('empty');
+        }
+    }
+
+    protected function dateIsValid($date)
+    {
+        $firstAnswer = array_pop(array_slice($this->answers, -1))['date'];
+        return $date >= $firstAnswer && $date <= date('Y-m-d');
     }
 
     protected function getData()
@@ -40,9 +74,8 @@ class StatsWidget extends \CWidget
                 $months[$monthId][$day][$key] = $row['c'];
             }
         };
-        $group($months, $this->getAnswers(), 'nAnswers');
-        $group($months, $this->getLikes(), 'nLikes');
-        krsort($months);
+        $group($months, $this->answers, 'nAnswers');
+        $group($months, $this->likes, 'nLikes');
         return $months;
     }
 
@@ -51,6 +84,7 @@ class StatsWidget extends \CWidget
         $criteria = QaAnswer::model()->user($this->userId)->getDbCriteria();
         $criteria->select = new \CDbExpression('FROM_UNIXTIME(t.dtimeCreate, \'%Y-%m-%d\') date, COUNT(*) c');
         $criteria->group = 'date';
+        $criteria->order = 'date DESC';
         return \Yii::app()->db->getCommandBuilder()->createFindCommand(QaAnswer::model()->tableName(), $criteria)->queryAll();
     }
 
@@ -60,6 +94,7 @@ class StatsWidget extends \CWidget
         $criteria->select = new \CDbExpression('FROM_UNIXTIME(v.dtimeCreate, \'%Y-%m-%d\') date, COUNT(*) c');
         $criteria->join = 'JOIN qa__answers_votes v ON t.id = v.answerId';
         $criteria->group = 'date';
+        $criteria->order = 'date DESC';
         return \Yii::app()->db->getCommandBuilder()->createFindCommand(QaAnswer::model()->tableName(), $criteria)->queryAll();
     }
 }
@@ -70,20 +105,10 @@ class MonthRow
     public $month;
     public $days;
 
-    public function __construct($year, $month, $data)
+    public function __construct($year, $month, $days)
     {
         $this->year = $year;
         $this->month = $month;
-        $nDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-        for ($i = 1; $i <= $nDays; $i++) {
-            $day = [
-                'nAnswers' => 0,
-                'nLikes' => 0,
-            ];
-            if (isset($data[$i])) {
-                $day = array_merge($day, $data[$i]);
-            }
-            $this->days[$i] = $day;
-        }
+        $this->days = $days;
     }
 }

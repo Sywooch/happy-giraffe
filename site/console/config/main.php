@@ -49,9 +49,6 @@ return array(
         'postsRebuildPreview' => array(
             'class' => 'site\frontend\modules\posts\commands\RebuildPreview'
         ),
-        'modelRebase' => array(
-            'class' => 'site\frontend\modules\v1\commands\ModelRebase',
-        ),
         'activityRenew' => array(
             'class' => 'site\frontend\modules\som\modules\activity\commands\RenewActivity',
         ),
@@ -100,15 +97,15 @@ return array(
         'buzz' => array(
             'class' => 'site\frontend\modules\posts\modules\buzz\commands\DefaultCommand',
         ),
-        'nstream' => array(
-            'class' => 'site\frontend\modules\api\modules\v1_3\commands\NStreamTest',
-        ),
         'commentCacheClear' => array(
             'class' => 'site\frontend\modules\comments\commands\CacheClear',
         ),
         'clearContestScore' => array(
             'class' => 'site\frontend\modules\comments\modules\contest\commands\ClearScoreCommand',
-        )
+        ),
+        'pushWorker' => [
+            'class' => \site\frontend\modules\api\ApiModule::PUSH_WORKER,
+        ]
     ),
     'import' => array(
         'site.common.components.*',

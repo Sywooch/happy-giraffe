@@ -147,6 +147,8 @@ class DefaultController extends \LiteController
             ->byModel((new \ReflectionClass($this->contest))->getShortName(), $this->contest->id)
             ->findAll();
 
+        $socialQuestsCount = count($socialQuests);
+
         $user = \User::model()->findByPk(\Yii::app()->user->id);
 
         $eauth = $this->createSocialObject();
@@ -162,6 +164,7 @@ class DefaultController extends \LiteController
             'link' => $link,
             'user' => $user,
             'eauth' => $eauth,
+            'socialQuestsCount' => $socialQuestsCount,
         ));
     }
 
@@ -177,7 +180,7 @@ class DefaultController extends \LiteController
             'list' =>[['photoId' => ContestHelper::getOkPostImage()]]
         ], [
             'type' => 'text',
-            'text' => "СТАНЬ КОММЕНТАТОРОМ МЕСЯЦА!\nhttp://www.happy-giraffe.ru/commentatorsContest/\nЕсли вам нравится общаться с интересными людьми на самые\nактуальные темы, и за это получать  подарки – тогда этот конкурс для вас!\n10 победителей получат приз в размере 1000 рублей!\nУсловия конкурса? Все очень просто - пишите комментарии к\nпостам, которые вам нравятся, и отвечайте на комментарии других пользователей.\nЖдем вас на сайте «Веселый Жираф»!"
+           'text' => "СТАНЬ КОММЕНТАТОРОМ МЕСЯЦА!\nhttp://www.happy-giraffe.ru/commentatorsContest/\nЕсли вам нравится общаться с интересными людьми на самые\nактуальные темы, и за это получать  подарки – тогда этот конкурс для вас!\n10 победителей получат приз в размере 1000 рублей!\nЖдем вас на сайте «Веселый Жираф»!"
         ]]]);
 
         $eauth['odnoklassniki']['signature'] = md5('st.attachment=' . $eauth['odnoklassniki']['attachment'] . $eauth['odnoklassniki']['client_secret']);
@@ -306,33 +309,38 @@ class DefaultController extends \LiteController
             ->byParticipant($participant->id)
             ->count();
 
+        $socialQuests = Quest::model()
+            ->byUser(\Yii::app()->user->id)
+            ->byType(QuestTypes::POST_TO_WALL)
+            ->byModel((new \ReflectionClass($this->contest))->getShortName(), $this->contest->id)
+            ->findAll();
+
         $this->render('/my', array(
             'comments' => $comments,
             'participant' => $participant,
             'commentsCount' => $commentsCount,
-            'count' => $count
+            'count' => $count,
+            'social' => $socialQuests
         ));
     }
 
-    public function actionPulse($count = 10)
+    public function actionPulse()
     {
-        $comments = array();
-
         /**
          * @var CommentatorsContestComment[] $contestComments
          */
-        $contestComments = CommentatorsContestComment::model()
-            ->orderDesc()
+        $contestComments = clone CommentatorsContestComment::model()
             ->byContest($this->contest->id)
             ->existingComments()
-            ->with('comment')
-            ->findAll(array(
-                'limit' => $count,
-            ));
+            ->orderDesc()
+            ->with('comment');
 
-        foreach ($contestComments as $c) {
-            $comments[] = $c->comment;
-        }
+        $dp =  new \CActiveDataProvider($contestComments, [
+            'pagination' => [
+                'pageVar' => 'page',
+                'pageSize' => 10,
+            ],
+        ]);
 
         $participantsCount = CommentatorsContestParticipant::model()
             ->byContest($this->contest->id)
@@ -343,12 +351,11 @@ class DefaultController extends \LiteController
             ->existingComments()
             ->count();
 
-        $this->render('/pulse', array(
-            'comments' => $comments,
+        $this->render('/pulse', [
+            'dp' => $dp,
             'participantsCount' => $participantsCount,
             'commentsCount' => $commentsCount,
-            'count' => $count
-        ));
+        ]);
     }
 
     protected function loadContest()

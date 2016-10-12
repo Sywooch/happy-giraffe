@@ -25,7 +25,7 @@ class ConvertCommand extends \CConsoleCommand
 
     /**
      * Добавление задачи, для конвертирования CommunityContent в новый сервис постов
-     * 
+     *
      * @param \CommunityContent $oldPost
      */
     public static function addConvertTask($oldPost)
@@ -66,7 +66,7 @@ class ConvertCommand extends \CConsoleCommand
         );
 
         // обеспечим уникальность задач
-        $client->do($fName, self::serialize($data), implode('-', $data));
+        $client->doNormal($fName, self::serialize($data), implode('-', $data));
         return true;
     }
 
@@ -106,7 +106,7 @@ class ConvertCommand extends \CConsoleCommand
     }
 
     /**
-     * 
+     *
      * @param \GearmanJob $job
      */
     public function convertPost($job)
@@ -136,23 +136,32 @@ class ConvertCommand extends \CConsoleCommand
         catch (\Exception $e)
         {
             echo $e;
+            $this->printLogStr($e->getMessage());
             if ($e instanceof \CDbException)
             {
                 echo "db error, exit\n";
                 exit(1);
             }
         }
+
+        \CommentLogger::model()->push(FALSE);
     }
 
     public function printLogStr($str)
     {
         print $str . "\r\n";
-        #\Yii::log($str, 'info', 'coomand');
+
+        if (!is_string($str))
+        {
+            return;
+        }
+
+        \CommentLogger::model()->addToLog('postConvert', $str);
     }
 
     public function fake($job)
     {
-        return null;
+        return;
     }
 
 }

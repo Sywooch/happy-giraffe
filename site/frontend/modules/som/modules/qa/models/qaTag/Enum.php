@@ -51,10 +51,10 @@ class Enum
      * @var array
      */
     private $_titlesForMobileApi = [
-        self::LESS_THAN_YEAR    => '0 - 1',
-        self::MORE_THAN_YEAR    => '1 - 3',
-        self::PRESCHOOL         => '3 - 6',
-        self::SCHOOLKID         => '6 - 12',
+        self::LESS_THAN_YEAR    => 'Дети до года',
+        self::MORE_THAN_YEAR    => 'Дети старше года',
+        self::PRESCHOOL         => 'Дошкольники',
+        self::SCHOOLKID         => 'Школьники',
     ];
 
     //-----------------------------------------------------------------------------------------------------------

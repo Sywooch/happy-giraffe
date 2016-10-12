@@ -70,6 +70,7 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property int $albumsCount
  * @property CommunityClub[] $clubSubscriptions
  * @property string $publicChannel Имя публичного канала пользователя (в который отправляются события online/offline)
+ * @property site\frontend\modules\specialists\models\SpecialistProfile $specialistProfile
  *
  * @method User active()
  */
@@ -158,7 +159,7 @@ class User extends HActiveRecord
     );
 
     private $_avatarObject;
-
+    
     public function getAccessLabel()
     {
         return $this->accessLabels[$this->access];
@@ -461,37 +462,42 @@ class User extends HActiveRecord
         {
             UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
         }
-
+        
         foreach ($this->social_services as $service)
         {
             $service->user_id = $this->id;
             $service->save();
         }
-
+        
         /*Yii::app()->mc->saveUser($this);*/
 
         if (! $this->isNewRecord)
         {
             self::clearCache($this->id);
         }
-
+        
         if ($this->trackable->isChanged('online'))
         {
             $this->sendOnlineStatus();
         }
-
+        
         if ($this->trackable->isChanged('gender'))
         {
             /** @var \site\frontend\modules\family\models\Family $family */
             $family = Family::model()->with('members')->hasMember($this->id)->find();
-            $arrAdult = $family->getMembers(FamilyMember::TYPE_ADULT);
-            foreach ($arrAdult as $member)
+            
+            if (! is_null($family))
             {
-                $member->gender = $member->userId == $this->id ? $this->gender : !$this->gender;
-                $member->save();
+                $arrAdult = $family->getMembers(FamilyMember::TYPE_ADULT);
+                 
+                foreach ($arrAdult as $member)
+                {
+                    $member->gender = $member->userId == $this->id ? $this->gender : !$this->gender;
+                    $member->save();
+                }   
             }
         }
-
+        
         parent::afterSave();
     }
 
@@ -1649,5 +1655,25 @@ class User extends HActiveRecord
         }
 
         return $this->_avatarObject;
+    }
+
+    /**
+     * @param int $groupId
+     *
+     * @return bool
+     */
+    public function isSpecialistOfGroup($groupId)
+    {
+        if (!isset($this->specialistProfile)) {
+            return false;
+        }
+
+        foreach ($this->specialistProfile->specializations as $specialization) {
+            if ($specialization->groupId == $groupId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -8,6 +8,7 @@ class ApiModule extends \CWebModule
     const CURRENT = 'v2_1';
     const CACHE_DELETE = '\site\frontend\modules\api\modules\v2_1\behaviors\CacheDeleteBehavior';
     const PUSH_STREAM = '\site\frontend\modules\api\modules\v2_1\behaviors\PushBehavior';
+    const PUSH_WORKER = '\site\frontend\modules\api\modules\v2_1\commands\PushWorker';
 
     public function init()
     {

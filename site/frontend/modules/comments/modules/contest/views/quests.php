@@ -10,6 +10,7 @@ use site\frontend\modules\comments\modules\contest\components\ContestHelper;
  * @var site\frontend\modules\referals\models\UserRefLink $link
  * @var \User $user
  * @var array $eauth
+ * @var int $socialQuestsCount
  */
 $this->pageTitle = $this->contest->name . ' - Задания';
 $cs = \Yii::app()->clientScript;
@@ -54,6 +55,8 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
         var socialVkText = 'СТАНЬ КОММЕНТАТОРОМ МЕСЯЦА!\nhttp://www.happy-giraffe.ru/commentatorsContest/\nЕсли вам нравится общаться с интересными людьми на самые\nактуальные темы, и за это получать  подарки – тогда этот конкурс для вас!\n10 победителей получат приз в размере 1000 рублей!\nУсловия конкурса? Все очень просто - пишите комментарии к\nпостам, которые вам нравятся, и отвечайте на комментарии других пользователей.\nЖдем вас на сайте «Веселый Жираф»!';
         var socialFbText = 'СТАНЬ КОММЕНТАТОРОМ МЕСЯЦА! Если вам нравится общаться с интересными людьми на самые актуальные темы, и за это получать  подарки – тогда этот конкурс для вас! 10 победителей получат приз в размере 1000 рублей! Условия конкурса? Все очень просто - пишите комментарии к постам, которые вам нравятся, и отвечайте на комментарии других пользователей. Ждем вас на сайте «Веселый Жираф»!';
 
+        var socialQuestsCount = $('#social_count').val();
+
         //post to wall functions
         var postToWall = {
             link: function() {
@@ -70,7 +73,10 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                                 action: 'complete',
                                 social_service: 'vk'
                             }, function (response) {
-                                location.reload();
+                                socialQuestsCount--;
+                                showAlert('Вам начислено 25 баллов за приглашение в ВКонтакте', function() {
+                                    location.reload();
+                                });
                             });
                         }
                     });
@@ -81,7 +87,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                 if (VK._session == null) {
                     VK.Auth.login(function(response) {
                         if (response.session) {
-                            showAlert();
+                            showAlert('Спасибо, теперь для получения баллов необходимо еще раз нажать на кнопку', null, 5000);
                         }
                     });
                 } else {
@@ -95,7 +101,10 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                             action: 'complete',
                             social_service: 'ok'
                         }, function (response) {
-                            location.reload();
+                            socialQuestsCount--;
+                            showAlert('Вам начислено 25 баллов за приглашение в Одноклассники', function() {
+                                location.reload();
+                            });
                         });
                     }
                 };
@@ -106,8 +115,8 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                     window.attachEvent("onmessage", listener);
                 }
 
-                var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=on',
-                    "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+                var okWindow = window.open('http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app=' + $('#ok_app').val() + '&st.attachment=' + $('#ok_attach').val() + '&st.signature=' + $('#ok_sig').val() + '&st.popup=on&st.silent=off',
+                    "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500");
             },
             fb: function(link) {
                 FB.ui({
@@ -127,32 +136,56 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                             action: 'complete',
                             social_service: 'fb'
                         }, function (response) {
-                            location.reload();
+                            socialQuestsCount--;
+                            showAlert('Вам начислено 25 баллов за приглашение в Facebook', function() {
+                                location.reload();
+                            });
                         });
                     }
                 });
             }
         };
 
-        var showAlert = function() {
+        var currentTimeoutId;
+
+        var showAlert = function(text, callback, time) {
             var el = $('div.alert.alert-pos.alert-green');
+
+            var notificationText = $('div.alert__text.alert__text-green');
+
+            notificationText.html(text);
 
             el.addClass('alert-in');
 
-            setTimeout(function() {
-                hideAlert();
-            }, 10000);
+            if (!time) {
+                time = 3000;
+            }
+
+            $('span.alert__close').on('click', function() {
+                hideAlert(callback);
+            });
+
+            if (currentTimeoutId) {
+                clearTimeout(currentTimeoutId);
+            }
+
+            currentTimeoutId = setTimeout(function() {
+                hideAlert(callback);
+            }, time);
         };
 
-        var hideAlert = function() {
+        var hideAlert = function(callback) {
             var el = $('div.alert.alert-pos.alert-green');
 
             el.removeClass('alert-in');
-        };
 
-        $('span.alert__close').on('click', function() {
-            hideAlert();
-        });
+            if (socialQuestsCount == 0) {
+                socialQuestsCount = -1;
+                showAlert('Поздравляем! Вы успешно выполнили первое задание', callback);
+            } else if (callback) {
+                callback();
+            }
+        };
 
         $('.b-contest-task__li').on('click', function() {
             if ($(this).hasClass('completed')) {
@@ -445,6 +478,7 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 <input type="hidden" id="ok_attach" value='<?= $eauth['odnoklassniki']['attachment'] ?>'/>
 <input type="hidden" id="ok_sig" value="<?= $eauth['odnoklassniki']['signature'] ?>"/>
 <input type="hidden" id="fb_app" value="<?= $eauth['facebook']['client_id'] ?>"/>
+<input type="hidden" id="social_count" value="<?= $socialQuestsCount ?>" />
 <div class="alert alert-pos alert-green">
     <div class="position-rel">
         <div class="alert__container">
@@ -454,11 +488,11 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
     </div>
 </div>
 <div class="b-contest-task b-contest__block textalign-c">
-    <?php if(false && count($social) > 0): ?>
+    <?php if(/*false &&*/ $socialQuestsCount > 0): ?>
     <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
     <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
     <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>
-    <ul class="b-contest-task__list">
+        <ul class="b-contest-task__list">
         <li class="b-contest-task__li b-contest-task__li_onnoklasniki <?php if (!$this->checkSocialService('ok', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-odnoklasniki" <?php if (!$this->checkSocialService('ok', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('ok', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
         <li class="b-contest-task__li b-contest-task__li_fb <?php if (!$this->checkSocialService('fb', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-fb" <?php if (!$this->checkSocialService('fb', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('fb', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
         <li class="b-contest-task__li b-contest-task__li_vk <?php if (!$this->checkSocialService('vk', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-vk" <?php if (!$this->checkSocialService('vk', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('vk', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>

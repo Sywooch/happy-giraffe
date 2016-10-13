@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var \site\frontend\modules\specialists\modules\pediatrician\widgets\stats\StatsWidget $this
  * @var \site\frontend\modules\specialists\modules\pediatrician\widgets\stats\MonthRow[] $months
  */
 ?>

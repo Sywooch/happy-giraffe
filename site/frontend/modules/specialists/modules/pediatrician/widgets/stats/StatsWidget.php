@@ -30,19 +30,7 @@ class StatsWidget extends \CWidget
             $months = [];
             foreach ($data as $k => $v) {
                 list($year, $month) = explode('-', $k);
-                $nDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-                $monthData = [];
-                for ($i = 1; $i <= $nDays; $i++) {
-                    $date = $year . '-' . $month . '-' . sprintf("%02d", $i);;
-                    if ($this->dateIsValid($date)) {
-                        $monthData[$i] = array_merge([
-                            'nAnswers' => 0,
-                            'nLikes' => 0,
-                        ], (isset($data[$k][$i])) ? $data[$k][$i] : []);
-                    } else {
-                        $monthData[$i] = null;
-                    }
-                }
+                $monthData = $this->fill($data[$k], $year, $month);
                 $months[] = new MonthRow($year, $month, $monthData);
 
             }
@@ -50,6 +38,24 @@ class StatsWidget extends \CWidget
         } else {
             $this->render('empty');
         }
+    }
+
+    protected function fill($data, $year, $month)
+    {
+        $nDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $monthData = [];
+        for ($i = 1; $i <= $nDays; $i++) {
+            $date = $year . '-' . $month . '-' . sprintf("%02d", $i);;
+            if ($this->dateIsValid($date)) {
+                $monthData[$i] = array_merge([
+                    'nAnswers' => 0,
+                    'nLikes' => 0,
+                ], (isset($data[$i])) ? $data[$i] : []);
+            } else {
+                $monthData[$i] = null;
+            }
+        }
+        return $monthData;
     }
 
     protected function dateIsValid($date)

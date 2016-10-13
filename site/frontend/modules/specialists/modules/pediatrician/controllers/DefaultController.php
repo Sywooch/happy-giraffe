@@ -8,6 +8,7 @@ use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 use site\frontend\modules\specialists\models\SpecialistSpecialization;
 use site\frontend\modules\specialists\modules\pediatrician\components\QaManager;
+use site\frontend\modules\specialists\modules\pediatrician\components\StatsManager;
 
 /**
  * @author Никита
@@ -63,5 +64,10 @@ class DefaultController extends \LiteController
         $form = new ProfileForm();
         $form->initialize(\Yii::app()->user->id);
         $this->render('profile', compact('form'));
+    }
+
+    public function actionStats()
+    {
+        $this->render('stats');
     }
 }

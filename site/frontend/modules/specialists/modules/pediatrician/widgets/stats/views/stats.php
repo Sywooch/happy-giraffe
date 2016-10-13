@@ -5,6 +5,10 @@
  */
 ?>
 
+<?php $this->widget('site\frontend\modules\specialists\modules\pediatrician\widgets\summary\SummaryWidget', [
+    'userId' => $this->userId,
+]); ?>
+
 <div class="statistik-container">
     <?php foreach ($months as $i => $month): ?>
     <div class="table-responsive">

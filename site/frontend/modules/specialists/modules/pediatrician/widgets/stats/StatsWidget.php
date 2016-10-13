@@ -25,19 +25,20 @@ class StatsWidget extends \CWidget
 
     public function run()
     {
-        $data = $this->getData();
-        if ($data) {
-            $months = [];
-            foreach ($data as $k => $v) {
-                list($year, $month) = explode('-', $k);
-                $monthData = $this->fill($data[$k], $year, $month);
-                $months[] = new MonthRow($year, $month, $monthData);
-
-            }
-            $this->render('stats', compact('months'));
-        } else {
-            $this->render('empty');
-        }
+        $this->render('empty');
+//        $data = $this->getData();
+//        if ($data) {
+//            $months = [];
+//            foreach ($data as $k => $v) {
+//                list($year, $month) = explode('-', $k);
+//                $monthData = $this->fill($data[$k], $year, $month);
+//                $months[] = new MonthRow($year, $month, $monthData);
+//
+//            }
+//            $this->render('stats', compact('months'));
+//        } else {
+//            $this->render('empty');
+//        }
     }
 
     protected function fill($data, $year, $month)

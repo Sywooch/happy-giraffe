@@ -2,6 +2,9 @@
 /**
  * @var LiteController $this
  * @var CActiveDataProvider $dp
+ * @var boolean $authorizationIsDone
+ * @var boolean $photoUploadIsDone
+ * @var boolean $pactIsDone
  */
 $this->pageTitle = 'Жираф педиатр - Вопросы';
 ?>

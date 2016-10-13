@@ -1,6 +1,7 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 
+use site\frontend\modules\specialists\models\SpecialistProfile;
 /**
  * This is the model class for table "qa__questions".
  *
@@ -241,13 +242,28 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 	public function canBeAnsweredBy($userId)
 	{
 		if (!$this->isFromConsultation()) {
-			return $this->authorId != $userId;
+			return $this->authorId != $userId && $this->checkAccessForSpecialist();
 		} else {
 			return QaConsultant::model()->exists('userId = :userId AND consultationId = :consultationId', array(
 				':userId' => $userId,
 				':consultationId' => $this->consultationId,
 			));
 		}
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function checkAccessForSpecialist()
+	{
+	    $profile = \Yii::app()->user->getModel()->specialistProfile;
+
+	    if (is_null($profile))
+	    {
+	        return true;
+	    }
+
+	    return $profile->authorizationIsDone();
 	}
 
 	public function isFromConsultation()

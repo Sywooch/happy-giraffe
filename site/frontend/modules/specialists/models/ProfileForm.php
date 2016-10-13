@@ -23,7 +23,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     public $category;
     public $placeOfWork;
     public $text;
-    
+
     public $specializations;
 
     private $_career = [];
@@ -66,7 +66,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             $this->addError($attribute, $errors);
         }
     }
-    
+
     public function attributeLabels()
     {
         return [
@@ -112,7 +112,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->profile->careerObject->models = $this->career;
         $this->profile->educationObject->models = $this->education;
         $this->profile->coursesObject->models = $this->courses;
-        
+
         return $this->user->save() && $this->profile->save();
     }
 
@@ -186,7 +186,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         }
         return $this->_profile;
     }
-    
+
     protected function getSpecializations()
     {
         $profile = SpecialistProfile::model()->findByPk($this->profileId);
@@ -194,7 +194,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             return $spec->id;
         }, $profile->specializations);
     }
-    
+
     protected function getSpecializationsList()
     {
         return SpecialistSpecialization::model()->findAll([

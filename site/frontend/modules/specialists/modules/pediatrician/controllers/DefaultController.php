@@ -19,17 +19,37 @@ class DefaultController extends \LiteController
 {
     public $layout = '/layouts/main';
     public $litePackage = 'pediatrician';
-
+    
+    /**
+     * {@inheritDoc}
+     * @see LiteController::filters()
+     */
+    public function filters()
+    {
+        return ['accessControl'];
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see CController::accessRules()
+     */
     public function accessRules()
     {
-        return array(
-            array('allow',
-                'roles' => array('specialist'),
-            ),
-            array('deny',
-                'users' => array('*'),
-            ),
-        );
+        return [
+            [
+                'allow',
+                'actions'   => ['register'],
+                'users'     => ['*']
+            ],
+            [
+                'allow',
+                'roles' => ['specialist']
+            ],
+            [
+                'deny',
+                'users' => ['*']
+            ]
+        ];
     }
 
     public function actionQuestions()

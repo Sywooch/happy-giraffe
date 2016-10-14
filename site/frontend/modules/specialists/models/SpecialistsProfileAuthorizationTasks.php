@@ -4,6 +4,7 @@ namespace site\frontend\modules\specialists\models;
 
 use site\frontend\modules\specialists\models\specialistsProfileAuthorizationTasks\ProfileTasksStatusEnum;
 use site\frontend\modules\specialists\components\SpecialistsManager;
+use site\frontend\modules\specialists\models\specialistsAuthorizationTasks\AuthorizationTypeEnum;
 
 /**
  * @author Emil Vililyaev
@@ -70,13 +71,23 @@ class SpecialistsProfileAuthorizationTasks extends \CActiveRecord
     /**
      * @param integer $userId
      * @param integer $typeId
-     * @return Ambiguous
+     * @return self
      */
-    public static function getByUserAndType($userId, $typeId)
+    public static function getByUserAndType($userId, $relationId)
     {
         $model = parent::model(__CLASS__);
 
-        return $model->find('user_id=' . $userId . ' AND group_relation_id=' . $typeId);
+        return $model->find('user_id=' . $userId . ' AND group_relation_id=' . $relationId);
+    }
+
+    /**
+     * @return boolean
+     */
+    public function setStatusDone()
+    {
+        $this->status = ProfileTasksStatusEnum::DONE;
+
+        return $this->save();
     }
 
     /**

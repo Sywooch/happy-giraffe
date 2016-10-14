@@ -13,6 +13,15 @@ class SpecialistGroupTaskRelation extends \CActiveRecord
 {
 
     /**
+     * @param system $className
+     * @return self
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
+    /**
      * {@inheritDoc}
      * @see CActiveRecord::tableName()
      */
@@ -22,15 +31,13 @@ class SpecialistGroupTaskRelation extends \CActiveRecord
     }
 
     /**
-     * {@inheritDoc}
-     * @see CActiveRecord::relations()
+     * @param integer $groupId
+     * @param integer $taskId
+     * @return self
      */
-//     public function relations()
-//     {
-//         return [
-//             'task' => [self::BELONGS_TO, 'site\frontend\modules\specialists\models\SpecialistsAuthorizationTasks', 'id'],
-//             'group' => [self::BELONGS_TO, 'site\frontend\modules\specialists\models\SpecialistProfile', 'id'],
-//         ];
-//     }
+    public function getByGroupAndTask($groupId, $taskId)
+    {
+        return $this->find('group_id=' . $groupId . ' AND ' . 'task_id=' . $taskId);
+    }
 
 }

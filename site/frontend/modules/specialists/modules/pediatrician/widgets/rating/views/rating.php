@@ -16,7 +16,7 @@ $topColors = ['yellow', 'blue', 'green'];
                 'size' => Avatar::SIZE_LARGE,
                 'largeAdvanced' => false,
             ]); ?>
-            <a href="<?=$rating->user->getUrl()?>" class="font__color--blue display-ib margin-t5"><?=$rating->user->getFullName()?></a><span class="display-ib font__color--crimson margin-b3"><?=$user->specialistInfoObject->title?></span>
+            <a href="<?=$rating->user->getUrl()?>" class="font__color--blue display-ib margin-t5"><?=$rating->user->getFullName()?></a><span class="display-ib font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
             <p class="color-brown-dark margin-b5">
                 <span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span>
                 <span class="pediator-ico--roze pediator-ico--size-s margin-r2 verticalalign-m"></span>
@@ -46,7 +46,7 @@ $topColors = ['yellow', 'blue', 'green'];
                         </a>
                         <div class="contest-footer__ball textalign-l">
                             <a href="<?=$rating->user->getUrl()?>" class="font__color--blue display-b"><?=$rating->user->getFullName()?></a>
-                            <span class="display-b font__color--crimson margin-b3"><?=$user->specialistInfoObject->title?></span>
+                            <span class="display-b font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
                             <p class="color-brown-dark margin-b5">
                                 <span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span>
                                 <span class="pediator-ico--roze pediator-ico--size-s margin-r2 verticalalign-m"></span>

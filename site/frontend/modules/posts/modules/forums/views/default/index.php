@@ -42,7 +42,7 @@ $breadcrumbs = [
                 <div class="item__img item__img_margin"></div>
                 <p>самые актуальные темы для мам и пап</p>
                 <?php if (Yii::app()->user->isGuest): ?>
-                    <a class="btn btn-xl green registration-button" data-bind="follow: {}">Присоеденяйтесь!</a>
+                    <a class="btn btn-xl green registration-button" data-bind="follow: {}">Присоединяйтесь!</a>
                 <?php endif; ?>
             </li>
             <li class="item statistik sidebar-widget_item">

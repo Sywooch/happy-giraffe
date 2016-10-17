@@ -6,6 +6,7 @@
 
 $this->pageTitle = $question->title;
 Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'specialists/pediatrician/reply', 'ko' => 'knockout'], 'ko.applyBindings(new ReplyForm(' . $question->id . '), document.getElementById("pediatrician-reply"));');
+// var_dump($question->answers);exit;
 ?>
 
 <div class="landing-question pediator pediator-top padding-b50" id="pediatrician-reply" style="display: none" data-bind="visible: true">

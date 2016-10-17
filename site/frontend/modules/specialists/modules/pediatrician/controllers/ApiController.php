@@ -44,6 +44,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         $result = [];
 
+        $this->success = false;
+
         if (!is_null($specialistProfile))
         {
             $pactTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(1, AuthorizationTypeEnum::APPROVE_PACT);//@todo Hardcode
@@ -51,8 +53,6 @@ class ApiController extends \site\frontend\components\api\ApiController
 
             $this->success = $specialistApprovePactTask->setStatusDone();
         }
-
-        $this->success = false;
     }
 
 }

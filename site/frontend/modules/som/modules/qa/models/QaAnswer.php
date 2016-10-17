@@ -240,8 +240,8 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	public function canBeAnsweredBy($user)
 	{
 		// уточняющий вопрос
-		if ($this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id == null) {
-			return $user->id == $this->question->id && !$user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN);
+		if ($this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id == null && !$this->children) {
+			return $user->id == $this->question->authorId && !$user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN);
 		}
 
 		// ответ на уточняющий вопрос

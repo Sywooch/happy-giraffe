@@ -200,10 +200,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     
     protected function getSpecializationsList()
     {
-        return SpecialistSpecialization::model()->findAll([
-            'condition' => 'groupId = :groupId',
-            'params' => [':groupId' => SpecialistGroup::PEDIATRICIAN],
-        ]);
+        return SpecialistsManager::getSpecializations(SpecialistGroup::PEDIATRICIAN);
     }
 
     protected function createModels(array $data, $modelName)

@@ -21,23 +21,43 @@ class DefaultController extends \LiteController
     public $layout = '/layouts/main';
     public $litePackage = 'pediatrician';
 
+    /**
+     * {@inheritDoc}
+     * @see LiteController::filters()
+     */
+    public function filters()
+    {
+        return ['accessControl'];
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see CController::accessRules()
+     */
     public function accessRules()
     {
-        return array(
-            array('allow',
-                'roles' => array('specialist'),
-            ),
-            array('deny',
-                'users' => array('*'),
-            ),
-        );
+        return [
+            [
+                'allow',
+                'actions'   => ['register'],
+                'users'     => ['*']
+            ],
+            [
+                'allow',
+                'roles' => ['specialist']
+            ],
+            [
+                'deny',
+                'users' => ['*']
+            ]
+        ];
     }
 
     public function actionQuestions()
     {
         $user = \Yii::app()->user->getModel();
 
-        if (!$user->isSpecialistOfGroup(1))//хз где искать Enum, спросить у Никиты
+        if (!$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS))//хз где искать Enum, спросить у Никиты
         {
             throw new \CHttpException(403);
         }
@@ -49,8 +69,8 @@ class DefaultController extends \LiteController
 
         if (!is_null($specialistProfile))
         {
-            $uploadPhotoTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(1, AuthorizationTypeEnum::UPLOAD_PHOTO);//@todo Hardcode
-            $pactTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(1, AuthorizationTypeEnum::APPROVE_PACT);//@todo Hardcode
+            $uploadPhotoTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(SpecialistGroup::DOCTORS, AuthorizationTypeEnum::UPLOAD_PHOTO);
+            $pactTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(SpecialistGroup::DOCTORS, AuthorizationTypeEnum::APPROVE_PACT);
 
             $result['authorizationIsDone'] = $specialistProfile->authorizationIsDone();
 
@@ -89,7 +109,7 @@ class DefaultController extends \LiteController
 
     public function actionRegister()
     {
-        $specs = SpecialistsManager::getSpecializations(SpecialistGroup::PEDIATRICIAN);
+        $specs = SpecialistsManager::getSpecializations(SpecialistGroup::DOCTORS);
         $this->layout = '/layouts/register';
         $this->render('register', compact('specs'));
     }

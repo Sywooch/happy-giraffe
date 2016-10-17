@@ -199,7 +199,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     {
         return SpecialistSpecialization::model()->findAll([
             'condition' => 'groupId = :groupId',
-            'params' => [':groupId' => SpecialistGroup::PEDIATRICIAN],
+            'params' => [':groupId' => SpecialistGroup::DOCTORS],
         ]);
     }
 

@@ -52,7 +52,48 @@ class DefaultController extends \LiteController
             ]
         ];
     }
-
+    
+    /**
+     * Специальные данные специалиста по сервису
+     * @return string JSON
+     * @author Sergey Gubarev
+     */
+    public function getSpecialistJSON() 
+    {   
+        $user = \Yii::app()->user->getModel();
+        
+        /*@var $specialistProfile SpecialistProfile */
+        $specialistProfile = $user->specialistProfile;
+        
+        $response = [];
+        
+        if (!is_null($specialistProfile))
+        {
+            $uploadPhotoTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(1, AuthorizationTypeEnum::UPLOAD_PHOTO); //@todo Hardcode
+            $pactTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(1, AuthorizationTypeEnum::APPROVE_PACT); //@todo Hardcode
+        
+            
+            $response['authorizationIsDone'] = $specialistProfile->authorizationIsDone();
+        
+            
+            $specialistPhotoUploadTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $uploadPhotoTaskReletion->id);
+            
+            $response['photoUploadIsDone'] = is_null($specialistPhotoUploadTask) ? true : $specialistPhotoUploadTask->status == ProfileTasksStatusEnum::DONE;
+        
+            
+            $specialistApprovePactTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $pactTaskReletion->id);
+            
+            $pactIsDone = $specialistApprovePactTask->status == ProfileTasksStatusEnum::DONE;
+            
+            $response['pactIsDone'] = is_null($specialistApprovePactTask) ? true : $pactIsDone;
+            
+            
+            $response['dateOfPactIsDone'] = $pactIsDone ? \Yii::app()->dateFormatter->format('dd MMMM yyyy', $specialistApprovePactTask->updated) : null;
+        }
+        
+        return json_encode($response);
+    }
+    
     public function actionQuestions()
     {
         $user = \Yii::app()->user->getModel();
@@ -62,27 +103,9 @@ class DefaultController extends \LiteController
             throw new \CHttpException(403);
         }
 
-        /*@var $specialistProfile SpecialistProfile */
-        $specialistProfile = $user->specialistProfile;
-
-        $result = [];
-
-        if (!is_null($specialistProfile))
-        {
-            $uploadPhotoTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(1, AuthorizationTypeEnum::UPLOAD_PHOTO);//@todo Hardcode
-            $pactTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(1, AuthorizationTypeEnum::APPROVE_PACT);//@todo Hardcode
-
-            $result['authorizationIsDone'] = $specialistProfile->authorizationIsDone();
-
-            $specialistPhotoUploadTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $uploadPhotoTaskReletion->id);
-            $result['photoUploadIsDone'] = is_null($specialistPhotoUploadTask) ? true : $specialistPhotoUploadTask->status == ProfileTasksStatusEnum::DONE;
-
-            $specialistApprovePactTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $pactTaskReletion->id);
-            $result['pactIsDone'] = is_null($specialistApprovePactTask) ? true : $specialistApprovePactTask->status == ProfileTasksStatusEnum::DONE;
-        }
-
-        $result['dp'] = QaManager::getQuestionsDp(\Yii::app()->user->id);
-        $this->render('questions', $result);
+        $dp = QaManager::getQuestionsDp(\Yii::app()->user->id);
+        
+        $this->render('questions', compact('dp'));
     }
 
     public function actionAnswers()

@@ -70,4 +70,9 @@ class DefaultController extends \LiteController
     {
         $this->render('stats');
     }
+    
+    public function actionRating($page = 1)
+    {
+        $this->render('rating', compact('page'));
+    }
 }

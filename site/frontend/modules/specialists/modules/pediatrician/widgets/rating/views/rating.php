@@ -3,6 +3,7 @@
  * @var \site\frontend\modules\specialists\modules\pediatrician\widgets\rating\RatingWidget $this
  * @var \site\frontend\modules\som\modules\qa\models\QaRating[] $top
  * @var \site\frontend\modules\som\modules\qa\models\QaRating[] $others
+ * @var string|null $nextUrl
  */
 $topColors = ['yellow', 'blue', 'green'];
 ?>
@@ -67,7 +68,7 @@ $topColors = ['yellow', 'blue', 'green'];
             <?php endforeach; ?>
         </div>
     </div>
-    <?php if ($this->showButton()): ?>
-        <div class="textalign-c"><span class="btn btn-ml green-btn" onclick="$('#specialistsRating').load('<?=$this->getNextUrl()?> #specialistsRating');">Показать еще</span></div>
+    <?php if ($nextUrl): ?>
+        <div class="textalign-c"><span class="btn btn-ml green-btn" onclick="$('#specialistsRating').load('<?=$nextUrl?> #specialistsRating');">Показать еще</span></div>
     <?php endif; ?>
 </div>

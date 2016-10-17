@@ -1,5 +1,6 @@
 <?php
 
+use site\frontend\modules\specialists\models\SpecialistGroup;
 /**
  * Created by JetBrains PhpStorm.
  * User: mikita
@@ -595,13 +596,15 @@ class ClientScript extends CClientScript
     {
         $id = CJavaScript::encode(Yii::app()->user->id);
         $isGuest = CJSON::encode(Yii::app()->user->isGuest);
+        $isPediatrician = CJSON::encode(Yii::app()->user->getModel()->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN));
         $isModer = CJSON::encode(Yii::app()->user->checkAccess('moderator'));
         $mod = <<<JS
 define("user-config", function () {
     var userConfig = {
         userId: {$id},
         isGuest: {$isGuest},
-        isModer: {$isModer}
+        isModer: {$isModer},
+        isPediatrician: {$isPediatrician}
     };
 
     return userConfig;

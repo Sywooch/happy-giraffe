@@ -245,7 +245,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		}
 
 		// ответ на уточняющий вопрос
-		if (!$this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null) {
+		if (!$this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null && count($this->root->children) == 1) {
 			return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN);
 		}
 

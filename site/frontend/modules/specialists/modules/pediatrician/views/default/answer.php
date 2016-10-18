@@ -1,4 +1,6 @@
 <?php
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 /**
  * @var \site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
@@ -6,7 +8,7 @@
 
 $this->pageTitle = $question->title;
 Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'specialists/pediatrician/reply', 'ko' => 'knockout'], 'ko.applyBindings(new ReplyForm(' . $question->id . '), document.getElementById("pediatrician-reply"));');
-// var_dump($question->answers);exit;
+// var_dump((new AnswersTree())->render($question->answers));exit;
 ?>
 
 <div class="landing-question pediator pediator-top padding-b50" id="pediatrician-reply" style="display: none" data-bind="visible: true">
@@ -16,7 +18,8 @@ Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'spe
                 <div class="username"><a href="<?=$question->user->profileUrl?>"><?=$question->user->getFullName()?></a>
                     <?=HHtml::timeTag($question, ['class' => 'tx-date'])?>
                 </div>
-            </div><span class="questions_item_heading"><?=$question->title?></span>
+            </div>
+            <a class="questions_item_heading"><?=$question->title?></a>
             <?php if ($question->tag): ?>
                 <div class="pediator-answer__footer-box">
                     <div class="box-wrapper__footer box-footer"><a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->categoryId, 'tagId' => $question->tag->id])?>" class="box-footer__cat"><?=$question->tag->name?></a></div>
@@ -25,10 +28,19 @@ Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'spe
             <div class="question_text">
                 <?=$question->text?>
             </div>
-            <div class="queastion__page-nav clearfix" data-bind="visible: ! replyMode()">
-                <div class="float-l"><span class="btn btn-xl btn-secondary" data-bind="click: skip">Пропустить</span></div>
-                <div class="float-r"><span class="btn btn-xl green-btn" data-bind="click: openForm">Ответить</span></div>
-            </div>
+            <ul class="all-answers float-l margin-t15">
+            	<?=(new AnswersTree())->render($question->answers)?>
+        	</ul>
+        </div>
+            <?php /**
+                foreach ($question->answers as $answer)
+                {
+                    $this->renderPartial('_answer', ['data' => $answer]);
+                } **/
+            ?>
+        <div class="queastion__page-nav clearfix" data-bind="visible: ! replyMode()">
+            <div class="float-l"><span class="btn btn-xl btn-secondary" data-bind="click: skip">Пропустить</span></div>
+            <div class="float-r"><span class="btn btn-xl green-btn" data-bind="click: openForm">Ответить</span></div>
         </div>
         <form class="answer-form" data-bind="visible: replyMode">
             <div class="answer-form__header clearfix">
@@ -57,4 +69,4 @@ Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'spe
         </form>
     </div>
 </div>
-
+<?php //$this->widget('site\frontend\modules\specialists\modules\pediatrician\answers\AnswersWidget', array('question' => $question)); ?>

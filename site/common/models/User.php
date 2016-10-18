@@ -11,6 +11,7 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property string $phone
  * @property string $password
  * @property string $first_name
+ * @property string $middle_name
  * @property string $last_name
  * @property int $deleted
  * @property integer $gender
@@ -602,10 +603,12 @@ class User extends HActiveRecord
      */
     public function getFullName()
     {
-        $fullName = $this->first_name;
-        if (! empty($this->last_name))
-            $fullName .= ' ' . $this->last_name;
-        return $fullName;
+        if ($this->specialistInfo) {
+            $parts = [$this->first_name, $this->middle_name, mb_substr($this->last_name, 0, 1, 'UTF-8') . '.'];
+        } else {
+            $parts = [$this->first_name, $this->last_name];
+        }
+        return implode(' ', array_filter($parts));
     }
 
     /**

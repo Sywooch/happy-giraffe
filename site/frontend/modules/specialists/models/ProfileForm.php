@@ -18,6 +18,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
     public $gender;
     public $firstName;
+    public $middleName;
     public $lastName;
     public $experience;
     public $category;
@@ -38,8 +39,8 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         return [
             ['placeOfWork, specializations, text', 'safe'],
 
-            ['firstName, lastName, gender', 'required'],
-            ['firstName, lastName', 'length', 'max' => 50],
+            ['firstName, lastName, middleName, gender', 'required'],
+            ['firstName, lastName, middleName', 'length', 'max' => 50],
             ['category', 'in', 'range' => array_keys(SpecialistProfile::getCategoriesList())],
             ['experience', 'in', 'range' => array_keys(SpecialistProfile::getExperienceList())],
             ['gender', 'in', 'range' => [User::GENDER_MALE, User::GENDER_FEMALE]],
@@ -84,6 +85,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
         $this->gender = $this->user->gender;
         $this->firstName = $this->user->first_name;
+        $this->middleName = $this->user->middle_name;
         $this->lastName = $this->user->last_name;
         $this->experience = $this->profile->experience;
         $this->category = $this->profile->category;
@@ -101,6 +103,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     {
         $this->user->gender = $this->gender;
         $this->user->first_name = $this->firstName;
+        $this->user->middle_name = $this->middleName;
         $this->user->last_name = $this->lastName;
         $this->profile->experience = $this->experience;
         $this->profile->category = $this->category;
@@ -197,10 +200,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     
     protected function getSpecializationsList()
     {
-        return SpecialistSpecialization::model()->findAll([
-            'condition' => 'groupId = :groupId',
-            'params' => [':groupId' => SpecialistGroup::PEDIATRICIAN],
-        ]);
+        return SpecialistsManager::getSpecializations(SpecialistGroup::PEDIATRICIAN);
     }
 
     protected function createModels(array $data, $modelName)

@@ -40,7 +40,7 @@ class SpecialistsManager
 
     public static function getSpecializations($groupId)
     {
-        return SpecialistSpecialization::model()->findAll('groupId = :groupId', [':groupId' => $groupId]);
+        return SpecialistSpecialization::model()->sorted()->findAll('groupId = :groupId', [':groupId' => $groupId]);
     }
 
     public static function assignSpecializations($specializations, $userId, $deleteOld = false)

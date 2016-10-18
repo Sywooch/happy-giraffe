@@ -3,8 +3,22 @@
  * @var \site\frontend\modules\specialists\modules\pediatrician\widgets\rating\RatingWidget $this
  * @var \site\frontend\modules\som\modules\qa\models\QaRating[] $top
  * @var \site\frontend\modules\som\modules\qa\models\QaRating[] $others
+ * @var string|null $nextUrl
  */
 $topColors = ['yellow', 'blue', 'green'];
+$flowersCount = function($votesCount) {
+    $votesToFlowers = [
+        500 => 5,
+        100 => 3,
+        9 => 1,
+    ];
+    foreach ($votesToFlowers as $votesThreshold => $flowers) {
+        if ($votesCount > $votesThreshold) {
+            return $flowers;
+        }
+    }
+    return 0;
+}
 ?>
 
 <div id="specialistsRating">
@@ -19,10 +33,12 @@ $topColors = ['yellow', 'blue', 'green'];
             <a href="<?=$rating->user->getUrl()?>" class="font__color--blue display-ib margin-t5"><?=$rating->user->getFullName()?></a><span class="display-ib font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
             <p class="color-brown-dark margin-b5">
                 <span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span>
-                <span class="pediator-ico--roze pediator-ico--size-s margin-r2 verticalalign-m"></span>
-                <span class="pediator-ico--roze pediator-ico--size-s margin-r2 verticalalign-m"></span>
-                <span class="pediator-ico--roze pediator-ico--size-s margin-r5 verticalalign-m"></span>
-                <span class="margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>
+                <?php if ($rating->votes_count > 0): ?>
+                    <?php for ($i = 0; $i < $flowersCount($rating->votes_count); $i++): ?>
+                    <span class="pediator-ico--roze pediator-ico--size-s margin-r2 verticalalign-m"></span>
+                    <?php endfor; ?>
+                    <span class="margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>
+                <?php endif; ?>
             </p>
             <div class="font-xl"><?=$rating->total_count?></div>
             <div class="font-n margin-b10"><?=Str::GenerateNoun(['балл', 'балла', 'баллов'], $rating->total_count)?></div>
@@ -49,10 +65,12 @@ $topColors = ['yellow', 'blue', 'green'];
                             <span class="display-b font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
                             <p class="color-brown-dark margin-b5">
                                 <span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span>
-                                <span class="pediator-ico--roze pediator-ico--size-s margin-r2 verticalalign-m"></span>
-                                <span class="pediator-ico--roze pediator-ico--size-s margin-r2 verticalalign-m"></span>
-                                <span class="pediator-ico--roze pediator-ico--size-s margin-r5 verticalalign-m"></span>
-                                <span class="margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>
+                                <?php if ($rating->votes_count > 0): ?>
+                                    <?php for ($i = 0; $i < $flowersCount($rating->votes_count); $i++): ?>
+                                        <span class="pediator-ico--roze pediator-ico--size-s margin-r2 verticalalign-m"></span>
+                                    <?php endfor; ?>
+                                    <span class="margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -67,7 +85,7 @@ $topColors = ['yellow', 'blue', 'green'];
             <?php endforeach; ?>
         </div>
     </div>
-    <?php if ($this->showButton()): ?>
-        <div class="textalign-c"><span class="btn btn-ml green-btn" onclick="$('#specialistsRating').load('<?=$this->getNextUrl()?> #specialistsRating');">Показать еще</span></div>
+    <?php if ($nextUrl): ?>
+        <div class="textalign-c"><span class="btn btn-ml green-btn" onclick="$('#specialistsRating').load('<?=$nextUrl?> #specialistsRating');">Показать еще</span></div>
     <?php endif; ?>
 </div>

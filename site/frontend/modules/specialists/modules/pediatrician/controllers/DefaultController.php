@@ -20,7 +20,7 @@ class DefaultController extends \LiteController
 {
     public $layout = '/layouts/main';
     public $litePackage = 'pediatrician';
-    
+
     /**
      * {@inheritDoc}
      * @see LiteController::filters()
@@ -29,7 +29,7 @@ class DefaultController extends \LiteController
     {
         return ['accessControl'];
     }
-    
+
     /**
      * {@inheritDoc}
      * @see CController::accessRules()
@@ -61,7 +61,12 @@ class DefaultController extends \LiteController
     public function getSpecialistJSON() 
     {   
         $user = \Yii::app()->user->getModel();
-        
+
+        if (!$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS))//хз где искать Enum, спросить у Никиты
+        {
+            throw new \CHttpException(403);
+        }
+
         /*@var $specialistProfile SpecialistProfile */
         $specialistProfile = $user->specialistProfile;
         
@@ -69,13 +74,11 @@ class DefaultController extends \LiteController
         
         if (!is_null($specialistProfile))
         {
-            $uploadPhotoTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(1, AuthorizationTypeEnum::UPLOAD_PHOTO); //@todo Hardcode
-            $pactTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(1, AuthorizationTypeEnum::APPROVE_PACT); //@todo Hardcode
-        
-            
             $response['authorizationIsDone'] = $specialistProfile->authorizationIsDone();
-        
-            
+
+            $uploadPhotoTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(SpecialistGroup::DOCTORS, AuthorizationTypeEnum::UPLOAD_PHOTO);
+            $pactTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(SpecialistGroup::DOCTORS, AuthorizationTypeEnum::APPROVE_PACT);
+
             $specialistPhotoUploadTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $uploadPhotoTaskReletion->id);
             
             $response['photoUploadIsDone'] = is_null($specialistPhotoUploadTask) ? true : $specialistPhotoUploadTask->status == ProfileTasksStatusEnum::DONE;
@@ -132,7 +135,7 @@ class DefaultController extends \LiteController
 
     public function actionRegister()
     {
-        $specs = SpecialistsManager::getSpecializations(SpecialistGroup::PEDIATRICIAN);
+        $specs = SpecialistsManager::getSpecializations(SpecialistGroup::DOCTORS);
         $this->layout = '/layouts/register';
         $this->render('register', compact('specs'));
     }

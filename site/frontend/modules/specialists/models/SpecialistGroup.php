@@ -14,7 +14,7 @@ namespace site\frontend\modules\specialists\models;
  */
 class SpecialistGroup extends \CActiveRecord
 {
-    const PEDIATRICIAN = 1;
+    const DOCTORS = 1;
 
 	/**
 	 * @return string the associated database table name

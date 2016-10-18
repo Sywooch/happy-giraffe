@@ -105,7 +105,7 @@ class NotificationBehavior extends BaseBehavior
             return $type;
         }
 
-        if ($answer->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN)) {
+        if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS)) {
             $type = self::ANSWER_BY_PEDIATRICIAN;
         }
 

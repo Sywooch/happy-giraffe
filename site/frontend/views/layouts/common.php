@@ -50,6 +50,24 @@
         <![endif]-->
     </head>
     <body class="body-gray theme theme__adfox body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
+        <script>
+            $(document).ready(function () {
+                /*Мобильное меню*/
+                $('.mobile-menu, .js-overlay-menu').on('click', function () {
+                    $('.header__menu, .js-overlay-menu').toggleClass('header__menu_open');
+                    if ($('.user-widget-block').hasClass('user-widget-block_open')) {
+                        $('.user-widget-block, .js-overlay-user').removeClass('user-widget-block_open');
+                    }
+                });
+                /*меню юзера*/
+                $('.js-ava__link, .js-overlay-user').on('click', function () {
+                    $('.user-widget-block, .js-overlay-user').toggleClass('user-widget-block_open');
+                    if ($('.header__menu').hasClass('header__menu_open')) {
+                        $('.header__menu, .js-overlay-menu').removeClass('header__menu_open');
+                    }
+                });
+            });
+        </script>
         <div class="js-overlay-menu overlay-menu"></div>
         <div class="js-overlay-user overlay-user"></div>
 

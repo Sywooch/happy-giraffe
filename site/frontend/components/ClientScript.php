@@ -594,9 +594,13 @@ class ClientScript extends CClientScript
 
     protected function getUserModule()
     {
+        $userModel = Yii::app()->user->getModel();
+            
+        $isPediatrician = !is_null($userModel) ? $userModel->isSpecialistOfGroup(SpecialistGroup::DOCTORS) : false;
+        $isPediatrician = CJSON::encode($isPediatrician);
+        
         $id = CJavaScript::encode(Yii::app()->user->id);
         $isGuest = CJSON::encode(Yii::app()->user->isGuest);
-        $isPediatrician = CJSON::encode(Yii::app()->user->getModel()->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN));
         $isModer = CJSON::encode(Yii::app()->user->checkAccess('moderator'));
         $mod = <<<JS
 define("user-config", function () {

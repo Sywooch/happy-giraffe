@@ -30,7 +30,8 @@ class RatingWidget extends \CWidget
         $rating = $this->getRating();
         $top = array_slice($rating, 0, self::TOP_COUNT);
         $others = array_slice($rating, self::TOP_COUNT);
-        $this->render('rating', compact('top', 'others'));
+        $nextUrl = ($this->showButton()) ? $this->getNextUrl() : null;
+        $this->render('rating', compact('top', 'others', 'nextUrl'));
     }
 
     public function showButton()

@@ -37,6 +37,7 @@ class User extends \User implements \IHToJSON
             'id' => (int) $this->id,
             'firstName' => $this->first_name,
             'lastName' => $this->last_name,
+            'fullName' => $this->getFullName(),
             'birthday' => $this->birthday,
             'avatarId' => (int) $this->avatar_id,
             'gender' => (int) $this->gender,

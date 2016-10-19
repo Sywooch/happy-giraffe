@@ -1,7 +1,8 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 
-use site\frontend\modules\specialists\models\SpecialistProfile;
+use site\frontend\modules\specialists\models\SpecialistGroup;
+use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 /**
  * This is the model class for table "qa__questions".
  *
@@ -34,6 +35,11 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
 class QaQuestion extends \HActiveRecord implements \IHToJSON
 {
 	public $sendNotifications = true;
+
+	/**
+	 * @var boolean
+	 */
+	private $_hasAnswerForSpecialist;
 
 	/**
 	 * @return string the associated database table name
@@ -323,5 +329,23 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 			'title' => $this->title,
 			'url' => $this->url,
 		];
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function hasAnswerForSpecialist()
+	{
+	    if (!is_null($this->_hasAnswerForSpecialist))
+	    {
+            return $this->_hasAnswerForSpecialist;
+	    }
+
+	    $helper = new AnswersTree();
+	    $helper->init($this->answers);
+
+        $this->_hasAnswerForSpecialist = !is_null($helper->getCurrentAnswerForSpecialist());
+
+        return $this->_hasAnswerForSpecialist;
 	}
 }

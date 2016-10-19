@@ -40,6 +40,16 @@ class QaManager
         ]) > 0;
     }
 
+    public static function getAnswerCountAndVotes($userId)
+    {
+         return \Yii::app()->db->createCommand()
+            ->select('COUNT(*) AS count, SUM(votesCount) AS sumVotes')
+            ->from(QaAnswer::model()->tableName())
+            ->where('authorId=' . $userId)
+            ->queryRow()
+        ;
+    }
+
     /**
      * @param $questionId
      * @param $userId

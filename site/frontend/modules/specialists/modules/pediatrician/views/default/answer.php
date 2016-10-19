@@ -1,4 +1,5 @@
 <?php
+
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 /**
@@ -7,10 +8,10 @@ use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
  */
 
 $this->pageTitle = $question->title;
-Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'specialists/pediatrician/reply', 'ko' => 'knockout'], 'ko.applyBindings(new ReplyForm(' . $question->id . '), document.getElementById("pediatrician-reply"));');
-// var_dump((new AnswersTree())->render($question->answers));exit;
+
 ?>
 
+<!-- ko stopBinding: true -->
 <div class="landing-question pediator pediator-top padding-b50" id="pediatrician-reply" style="display: none" data-bind="visible: true">
     <div class="b-contest-winner__container">
         <div class="question">
@@ -42,7 +43,7 @@ Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'spe
             <div class="float-l"><span class="btn btn-xl btn-secondary" data-bind="click: skip">Пропустить</span></div>
             <div class="float-r"><span class="btn btn-xl green-btn" data-bind="click: openForm">Ответить</span></div>
         </div>
-        <form class="answer-form" data-bind="visible: replyMode">
+        <form class="answer-form" data-bind="visible: replyMode()">
             <div class="answer-form__header clearfix">
                 <?php $this->widget('Avatar', [
                     'user' => Yii::app()->user->model,
@@ -69,4 +70,30 @@ Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'spe
         </form>
     </div>
 </div>
+<!-- /ko -->
+
+<?php 
+
+/**
+ * @var CClientScript $cs
+ */
+$cs = Yii::app()->clientScript;
+
+$js = <<<JS
+    setTimeout(function() {
+        ko.applyBindings(new ReplyForm(' . $question->id . '), document.getElementById("pediatrician-reply"));
+    }, 100);
+JS;
+
+$cs->registerAMD(
+    'pediatrician-reply', 
+    [
+        'ReplyForm' => 'specialists/pediatrician/reply',
+        'ko'        => 'knockout'
+    ], 
+    $js
+);
+
+?>
+
 <?php //$this->widget('site\frontend\modules\specialists\modules\pediatrician\answers\AnswersWidget', array('question' => $question)); ?>

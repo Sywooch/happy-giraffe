@@ -7,8 +7,14 @@ use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
  */
 
 $this->pageTitle = $question->title;
-Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'specialists/pediatrician/reply', 'ko' => 'knockout'], 'ko.applyBindings(new ReplyForm(' . $question->id . '), document.getElementById("pediatrician-reply"));');
-// var_dump((new AnswersTree())->render($question->answers));exit;
+
+$answerTreeHelper = new AnswersTree();
+$answerTreeHelper->init($question->answers);
+
+$currentAnswerId = $answerTreeHelper->getCurrentAnswerForSpecialist();
+$replyArgument = is_null($currentAnswerId) ? $question->id : $question->id . ', ' . $currentAnswerId->id;
+
+Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'specialists/pediatrician/reply', 'ko' => 'knockout'], 'ko.applyBindings(new ReplyForm(' . $replyArgument . '), document.getElementById("pediatrician-reply"));');
 ?>
 
 <div class="landing-question pediator pediator-top padding-b50" id="pediatrician-reply" style="display: none" data-bind="visible: true">
@@ -29,7 +35,7 @@ Yii::app()->clientScript->registerAMD('pediatrician-reply', ['ReplyForm' => 'spe
                 <?=$question->text?>
             </div>
             <ul class="all-answers float-l margin-t15">
-            	<?=(new AnswersTree())->render($question->answers)?>
+            	<?=$answerTreeHelper->render()?>
         	</ul>
         </div>
             <?php /**

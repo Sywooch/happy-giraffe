@@ -11,6 +11,7 @@ use site\frontend\modules\specialists\models\SpecialistsProfileAuthorizationTask
 use site\frontend\modules\specialists\models\specialistsAuthorizationTasks\AuthorizationTypeEnum;
 use site\frontend\modules\specialists\models\specialistsProfileAuthorizationTasks\ProfileTasksStatusEnum;
 use site\frontend\modules\specialists\models\SpecialistGroupTaskRelation;
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
 
 /**
  * @author Никита

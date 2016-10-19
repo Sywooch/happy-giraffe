@@ -76,6 +76,26 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
+	 */
+	public function getChilds()
+	{
+		$matchedAnswers = $this->children;
+
+		foreach ($matchedAnswers as $answer)
+		{
+			if (!empty($answer->children))
+			{
+				$matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
+			}
+
+		}
+
+		return $matchedAnswers;
+
+	}
+
+	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
 	public function attributeLabels()

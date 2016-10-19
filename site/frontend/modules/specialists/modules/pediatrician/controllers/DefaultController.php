@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\specialists\modules\pediatrician\controllers;
+
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\specialists\components\SpecialistsManager;
 use site\frontend\modules\specialists\models\ProfileForm;
@@ -11,7 +12,6 @@ use site\frontend\modules\specialists\models\SpecialistsProfileAuthorizationTask
 use site\frontend\modules\specialists\models\specialistsAuthorizationTasks\AuthorizationTypeEnum;
 use site\frontend\modules\specialists\models\specialistsProfileAuthorizationTasks\ProfileTasksStatusEnum;
 use site\frontend\modules\specialists\models\SpecialistGroupTaskRelation;
-use site\frontend\modules\som\modules\qa\models\QaAnswer;
 
 /**
  * @author Никита
@@ -117,8 +117,18 @@ class DefaultController extends \LiteController
 
     public function actionProfile()
     {
-        $form = new ProfileForm();
+        $form = new \ProfileForm();
         $form->initialize(\Yii::app()->user->id);
         $this->render('profile', compact('form'));
+    }
+
+    public function actionStats()
+    {
+        $this->render('stats');
+    }
+
+    public function actionRating($page = 1)
+    {
+        $this->render('rating', compact('page'));
     }
 }

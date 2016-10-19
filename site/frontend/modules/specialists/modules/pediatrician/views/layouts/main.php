@@ -89,15 +89,23 @@ $this->beginContent('//layouts/lite/common');
 
 <?php
 
+/**
+ * @var CClientScript $cs
+ */
+$cs = Yii::app()->clientScript;
+
 $specialistJSON = $this->getSpecialistJSON();
 
-Yii::app()->clientScript->registerAMD(
+$cs->registerAMD(
     'specialist', 
     [
         'Specialist'    => 'specialists/pediatrician/specialist',
         'ko'            => 'knockout'
     ], 
-    'ko.cleanNode(document.getElementById("js-pediatrician")); ko.applyBindings(new Specialist(' . $specialistJSON . '), document.getElementById("js-pediatrician"));'
+    '
+        ko.cleanNode(document.getElementById("js-pediatrician"));
+        ko.applyBindings(new Specialist(' . $specialistJSON . '), document.getElementById("js-pediatrician"));
+    '
 );
 
 ?>

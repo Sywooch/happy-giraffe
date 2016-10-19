@@ -34,7 +34,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         $user = \Yii::app()->user->getModel();
         
-        if (!$user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN))
+        if (!$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS))
         {
             throw new \CHttpException(403);
         }
@@ -46,7 +46,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         
         if (!is_null($specialistProfile))
         {
-            $pactPhotoUploadReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(SpecialistGroup::PEDIATRICIAN, AuthorizationTypeEnum::UPLOAD_PHOTO);
+            $pactPhotoUploadReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(SpecialistGroup::DOCTORS, AuthorizationTypeEnum::UPLOAD_PHOTO);
             $specialistApprovePhotoUploadTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $pactPhotoUploadReletion->id);
         
             $this->success = $specialistApprovePhotoUploadTask->setStatusDone();
@@ -58,7 +58,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         $user = \Yii::app()->user->getModel();
 
-        if (!$user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN))
+        if (!$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS))
         {
             throw new \CHttpException(403);
         }
@@ -70,7 +70,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         if (!is_null($specialistProfile))
         {
-            $pactTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(SpecialistGroup::PEDIATRICIAN, AuthorizationTypeEnum::APPROVE_PACT);
+            $pactTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(SpecialistGroup::DOCTORS, AuthorizationTypeEnum::APPROVE_PACT);
             $specialistApprovePactTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $pactTaskReletion->id);
 
             $this->success = $specialistApprovePactTask->setStatusDone();

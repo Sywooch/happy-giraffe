@@ -42,7 +42,7 @@ $this->pageTitle = 'Жираф педиатр - Вопросы';
 </div>
 </script>
 
-<div class="landing-question pediator pediator-top">
+<div class="landing-question pediator pediator-top" data-bind="css: {'pediator--opacity': !authorizationIsDone()}">
 
 <?php
 

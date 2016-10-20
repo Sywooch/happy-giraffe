@@ -76,6 +76,26 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
+	 */
+	public function getChilds()
+	{
+		$matchedAnswers = $this->children;
+
+		foreach ($matchedAnswers as $answer)
+		{
+			if (!empty($answer->children))
+			{
+				$matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
+			}
+
+		}
+
+		return $matchedAnswers;
+
+	}
+
+	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
 	public function attributeLabels()
@@ -240,13 +260,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	public function canBeAnsweredBy($user)
 	{
 		// уточняющий вопрос
-		if ($this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id == null) {
-			return $user->id == $this->question->id && !$user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN);
+		if ($this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id == null && !$this->children) {
+			return $user->id == $this->question->authorId && !$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
 		}
 
 		// ответ на уточняющий вопрос
-		if (!$this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null) {
-			return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN);
+		if (!$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && count($this->root->children) == 1) {
+			return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
 		}
 
 		return false;
@@ -257,7 +277,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	 */
 	public function isAdditional()
 	{
-		return !$this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null;
+		return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
 	}
 
 	/**
@@ -265,7 +285,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	 */
 	public function isAnswerToAdditional()
 	{
-		return $this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null;
+		return $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
 	}
 
 	/**

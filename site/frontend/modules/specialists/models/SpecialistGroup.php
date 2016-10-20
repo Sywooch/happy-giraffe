@@ -14,8 +14,8 @@ namespace site\frontend\modules\specialists\models;
  */
 class SpecialistGroup extends \CActiveRecord
 {
-    const PEDIATRICIAN = 1;
-    
+    const DOCTORS = 1;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -45,6 +45,8 @@ class SpecialistGroup extends \CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'specializations' => array(self::HAS_MANY, 'site\frontend\modules\specialists\models\SpecialistSpecialization', 'groupId'),
+		    'authorization_tasks' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistsAuthorizationTasks', 'specialists__group_type_relation(group_id, task_id)'),
+		    'authorization_tasks_relations' => array(self::HAS_MANY, 'site\frontend\modules\specialists\models\SpecialistGroupTaskRelation', 'group_id'),
 		);
 	}
 

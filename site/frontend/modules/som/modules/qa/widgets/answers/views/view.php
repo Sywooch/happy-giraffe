@@ -18,17 +18,17 @@
 {
     ?>
     <div class="answers">
-    
+
     	<?php if (count($bestAnswers)): ?>
-    	
+
             <ul class="answers-list best-answer">
                 <?php foreach ($bestAnswers as $data): ?>
                     <?php $this->controller->renderPartial('/_answer', array('data' => $data)); ?>
         		<?php endforeach; ?>
             </ul>
-        
+
         <?php endif; ?>
-        
+
         <div class="answers_heading">Ответы:<span><?= count($otherAnswers) ?></span></div>
         <ul class="answers-list all-answers">
             <?php foreach ($otherAnswers as $data): ?>

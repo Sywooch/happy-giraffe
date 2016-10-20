@@ -49,7 +49,7 @@ return array(
             'goog' => '/new/javascript/plugins/goog',
             'propertyParser' => '/new/javascript/plugins/propertyParser',
             'kow' => '/new/javascript/modules/kow',
-            'routesCalc' => 'routes',
+            'routesCalc' => 'routes'
         ),
         /* 'eval' => '
           ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -685,7 +685,7 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/pediator.css',
-            ),
+            )
         ),
     )
 );

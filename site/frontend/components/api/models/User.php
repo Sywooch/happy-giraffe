@@ -21,11 +21,6 @@ class User extends ApiModel
 {
 
     public $api = 'users';
-
-    public function getFullName()
-    {
-        return $this->firstName . ' ' . $this->lastName;
-    }   
     
     /**
      * Формат имени для анонимного юзера
@@ -64,7 +59,9 @@ class User extends ApiModel
         return array(
             'id',
             'firstName',
+            'middleName',
             'lastName',
+            'fullName',
             'birthday',
             'avatarId',
             'gender',

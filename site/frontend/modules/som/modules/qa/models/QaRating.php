@@ -48,7 +48,7 @@ class QaRating extends \CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'category' => array(self::BELONGS_TO, get_class(QaCategory::model()), 'category_id'),
-            'user' => array(self::BELONGS_TO, get_class(\User::model()), 'user_id'),
+            'user' => array(self::BELONGS_TO, 'site\frontend\modules\users\models\User', 'user_id'),
         );
     }
 

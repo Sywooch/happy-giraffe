@@ -5,6 +5,7 @@
  */
 
 namespace site\frontend\modules\som\modules\qa\behaviors;
+
 use site\frontend\modules\analytics\models\PageView;
 use site\frontend\modules\notifications\behaviors\BaseBehavior;
 use site\frontend\modules\notifications\models\Entity;
@@ -15,7 +16,17 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class NotificationBehavior extends BaseBehavior
 {
+    /** @var QaAnswer */
+    public $owner;
+
+    /** Ответ на вопрос от специалиста */
     const PEDIATRICIAN_TYPE = 15;
+
+    /**
+     * Ответ на вопрос ???
+     *
+     * @see Notification::TYPE_ANSWER
+     */
     const TYPE = 10;
 
     public function afterSave($event)

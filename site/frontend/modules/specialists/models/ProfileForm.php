@@ -201,7 +201,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
     protected function getSpecializationsList()
     {
-        return SpecialistsManager::getSpecializations(SpecialistGroup::PEDIATRICIAN);
+        return SpecialistsManager::getSpecializations(SpecialistGroup::DOCTORS);
     }
 
     protected function createModels(array $data, $modelName)

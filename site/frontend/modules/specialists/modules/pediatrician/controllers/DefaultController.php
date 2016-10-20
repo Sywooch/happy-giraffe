@@ -143,7 +143,7 @@ class DefaultController extends \LiteController
 
     public function actionProfile()
     {
-        $form = new \ProfileForm();
+        $form = new ProfileForm();
         $form->initialize(\Yii::app()->user->id);
         $this->render('profile', compact('form'));
     }

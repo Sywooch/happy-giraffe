@@ -157,4 +157,10 @@ class DefaultController extends \LiteController
     {
         $this->render('rating', compact('page'));
     }
+
+    public function actionPulse()
+    {
+        $dp = QaManager::getAnswersDp();
+        $this->render('answers', compact('dp'));
+    }
 }

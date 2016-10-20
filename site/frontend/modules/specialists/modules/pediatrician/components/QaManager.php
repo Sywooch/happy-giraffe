@@ -25,7 +25,7 @@ class QaManager
         return QaQuestion::model()->count(self::getQuestionsCriteria($userId));
     }
 
-    public static function getAnswersDp($userId)
+    public static function getAnswersDp($userId = null)
     {
         return new \CActiveDataProvider(QaAnswer::model()->orderDesc()->apiWith('user'), [
             'criteria' => self::getAnswersCriteria($userId),
@@ -52,12 +52,14 @@ class QaManager
         return QaQuestion::model()->find($criteria);
     }
     
-    public static function getAnswersCriteria($userId)
+    public static function getAnswersCriteria($userId = null)
     {
         $criteria = new \CDbCriteria();
-        $criteria->scopes = ['category' => [self::getCategoryId(), 'checkQuestionExiststance']];
+        $criteria->scopes = ['category' => [self::getCategoryId()], 'checkQuestionExiststance'];
         $criteria->with = 'question';
-        $criteria->compare('t.authorId', $userId);
+        if ($userId) {
+            $criteria->compare('t.authorId', $userId);
+        }
         return $criteria;
     }
     
@@ -77,7 +79,6 @@ class QaManager
 
     protected static function getCategoryId()
     {
-        return 1;
         return QaCategory::PEDIATRICIAN_ID;
     }
 }

@@ -33,7 +33,7 @@ $this->beginContent('//layouts/lite/common');
                     <li class="pediator-nav__list<?php if ($this->action->id == 'rating'): ?> pediator-nav__list-active<?php endif; ?>">
                     	<a href="<?=$this->createUrl('/specialists/pediatrician/default/rating')?>" class="pediator-nav__link">Рейтинг</a>
                     </li>
-                    <li class="pediator-nav__list display-n">
+                   	<li class="pediator-nav__list" style="display: none;" data-bind="visible: pactIsDone(), click: openServiceRulesPopup">
                     	<a href="#" class="pediator-nav__link pediator-nav__link--answer">?</a>
                     </li>
                 </ul>

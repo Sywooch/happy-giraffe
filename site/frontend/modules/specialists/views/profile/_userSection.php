@@ -18,7 +18,7 @@ if ($profile->category && \site\frontend\modules\specialists\models\SpecialistPr
 <section class="userSection pediator">
     <div class="userSection_hold clearfix">
         <div class="userSection_left">
-            <h2 class="userSection_name"><?=$user->getFullName()?></h2>
+            <h2 class="userSection_name"><?=implode(' ', array_filter([$user->last_name, $user->first_name, $user->middle_name]))?></h2>
             <?php if ($profile->placeOfWork): ?>
                 <div class="location locationsmall clearfix"><span class="location_tx"><?=$profile->placeOfWork?></span></div>
             <?php endif; ?>

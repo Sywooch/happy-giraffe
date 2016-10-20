@@ -87,7 +87,8 @@ class StatsWidget extends \CWidget
 
     protected function getAnswers()
     {
-        $criteria = QaAnswer::model()->user($this->userId)->getDbCriteria();
+        $criteria = clone QaAnswer::model()->user($this->userId)->getDbCriteria();
+        QaAnswer::model()->resetScope(false);
         $criteria->select = new \CDbExpression('FROM_UNIXTIME(t.dtimeCreate, \'%Y-%m-%d\') date, COUNT(*) c');
         $criteria->group = 'date';
         $criteria->order = 'date DESC';
@@ -96,7 +97,8 @@ class StatsWidget extends \CWidget
 
     protected function getLikes()
     {
-        $criteria = QaAnswer::model()->user($this->userId)->getDbCriteria();
+        $criteria = clone QaAnswer::model()->user($this->userId)->getDbCriteria();
+        QaAnswer::model()->resetScope(false);
         $criteria->select = new \CDbExpression('FROM_UNIXTIME(v.dtimeCreate, \'%Y-%m-%d\') date, COUNT(*) c');
         $criteria->join = 'JOIN qa__answers_votes v ON t.id = v.answerId';
         $criteria->group = 'date';

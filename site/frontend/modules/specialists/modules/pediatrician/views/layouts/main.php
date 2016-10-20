@@ -22,8 +22,8 @@ $this->beginContent('//layouts/lite/common');
                 <li class="pediator-nav__list<?php if ($this->action->id == 'questions'): ?> pediator-nav__list-active<?php endif; ?>">
                     <a href="<?=$this->createUrl('/specialists/pediatrician/default/questions')?>" class="pediator-nav__link">Вопросы</a>
                 </li>
-                <li class="pediator-nav__list">
-                	<a href="#" class="pediator-nav__link">Пульс</a>
+                <li class="pediator-nav__list<?php if ($this->action->id == 'pulse'): ?> pediator-nav__list-active<?php endif; ?>">
+                	<a href="<?=$this->createUrl('/specialists/pediatrician/default/pulse')?>" class="pediator-nav__link">Пульс</a>
                 </li>
                 <li class="pediator-nav__list<?php if ($this->action->id == 'answers'): ?> pediator-nav__list-active<?php endif; ?>">
                     <a href="<?=$this->createUrl('/specialists/pediatrician/default/answers')?>" class="pediator-nav__link">Мои ответы</a>

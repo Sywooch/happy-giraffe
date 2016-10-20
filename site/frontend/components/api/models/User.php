@@ -8,6 +8,8 @@ namespace site\frontend\components\api\models;
  * @property-read int $id Id пользователя
  * @property-read string $firstName Имя
  * @property-read string $lastName Фамилия
+ * @property-read string $middleName Отчество
+ * @property-read string $fullName Полное имя
  * @property-read int $avatarId Id аватара
  * @property-read int $gender Пол (0 - Ж, 1 - М)
  * @property-read bool $isOnline true, если пользователь online, иначе - false
@@ -24,10 +26,10 @@ class User extends ApiModel
 
     public function getFullName()
     {
-        return $this->firstName . ' ' . $this->lastName;
+        return $this->fullName;
     }
 
-    /**
+/**
      * Формат имени для анонимного юзера
      *
      * @author Sergey Gubarev
@@ -64,7 +66,9 @@ class User extends ApiModel
         return array(
             'id',
             'firstName',
+            'middleName',
             'lastName',
+            'fullName',
             'birthday',
             'avatarId',
             'gender',

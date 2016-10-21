@@ -5,7 +5,8 @@
  * @var string $content
  */
 $this->beginContent('//layouts/lite/common');
-
+$fullName = Yii::app()->user->model->getFullName();
+$formattedName = substr_replace($fullName, '<br>', strpos($fullName, ' '), 1);
 ?>
 
 <div id="js-pediatrician">

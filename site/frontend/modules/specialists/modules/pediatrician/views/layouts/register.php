@@ -15,7 +15,7 @@ $this->beginContent('//layouts/lite/common');
                 </div>
             </div>
             <div class="pediator-step__header-descr">
-                <h1 class="font__title-xxl font__bold">Здесь тысячи мам и пап задают вопросы о здоровье своего ребенка</h1>
+                <h1 class="font__title-xl font__bold">Здесь тысячи мам и пап задают вопросы о здоровье своего ребенка</h1>
             </div>
         </div>
     </header>

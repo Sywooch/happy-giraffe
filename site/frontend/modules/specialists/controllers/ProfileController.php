@@ -19,12 +19,8 @@ class ProfileController extends \LiteController
     public function actionIndex($userId)
     {
         $this->loadUser($userId);
-        $dp = new \CActiveDataProvider(QaAnswer::model(), [
-            'criteria' => QaManager::getAnswersCriteria($userId),
-            'pagination' => [
-                'pageVar' => 'page',
-            ],
-        ]);
+        $dp = QaManager::getAnswersDp($userId);
+        $dp->pagination->pageVar = 'page';
         $this->render('index', compact('dp'));
     }
     

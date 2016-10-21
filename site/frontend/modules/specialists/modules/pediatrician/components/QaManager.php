@@ -57,6 +57,7 @@ class QaManager
         $criteria = new \CDbCriteria();
         $criteria->scopes = ['category' => [self::getCategoryId()], 'checkQuestionExiststance'];
         $criteria->with = 'question';
+        $criteria->addCondition('t.authorId IN (SELECT id FROM specialists__profiles)');
         if ($userId) {
             $criteria->compare('t.authorId', $userId);
         }

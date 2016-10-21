@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\specialists\modules\pediatrician\controllers;
+
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\specialists\components\SpecialistsManager;
 use site\frontend\modules\specialists\models\ProfileForm;
@@ -145,5 +146,21 @@ class DefaultController extends \LiteController
         $form = new ProfileForm();
         $form->initialize(\Yii::app()->user->id);
         $this->render('profile', compact('form'));
+    }
+
+    public function actionStats()
+    {
+        $this->render('stats');
+    }
+
+    public function actionRating($page = 1)
+    {
+        $this->render('rating', compact('page'));
+    }
+
+    public function actionPulse()
+    {
+        $dp = QaManager::getAnswersDp();
+        $this->render('answers', compact('dp'));
     }
 }

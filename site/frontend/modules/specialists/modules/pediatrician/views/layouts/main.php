@@ -21,19 +21,19 @@ $this->beginContent('//layouts/lite/common');
                     <li class="pediator-nav__list<?php if ($this->action->id == 'questions'): ?> pediator-nav__list-active<?php endif; ?>">
                         <a href="<?=$this->createUrl('/specialists/pediatrician/default/questions')?>" class="pediator-nav__link">Вопросы</a>
                     </li>
-                    <li class="pediator-nav__list">
-                    	<a href="#" class="pediator-nav__link">Пульс</a>
+                    <li class="pediator-nav__list<?php if ($this->action->id == 'pulse'): ?> pediator-nav__list-active<?php endif; ?>">
+                    	<a href="<?=$this->createUrl('/specialists/pediatrician/default/pulse')?>" class="pediator-nav__link">Пульс</a>
                     </li>
                     <li class="pediator-nav__list<?php if ($this->action->id == 'answers'): ?> pediator-nav__list-active<?php endif; ?>">
                         <a href="<?=$this->createUrl('/specialists/pediatrician/default/answers')?>" class="pediator-nav__link">Мои ответы</a>
                     </li>
-                    <li class="pediator-nav__list">
-                    	<a href="#" class="pediator-nav__link">Статистика</a>
+                    <li class="pediator-nav__list<?php if ($this->action->id == 'stats'): ?> pediator-nav__list-active<?php endif; ?>">
+                    	<a href="<?=$this->createUrl('/specialists/pediatrician/default/stats')?>" class="pediator-nav__link">Статистика</a>
                     </li>
-                    <li class="pediator-nav__list">
-                    	<a href="#" class="pediator-nav__link">Рейтинг</a>
-                    </li>              
-                    <li class="pediator-nav__list" style="display: none;" data-bind="visible: pactIsDone(), click: openServiceRulesPopup">
+                    <li class="pediator-nav__list<?php if ($this->action->id == 'rating'): ?> pediator-nav__list-active<?php endif; ?>">
+                    	<a href="<?=$this->createUrl('/specialists/pediatrician/default/rating')?>" class="pediator-nav__link">Рейтинг</a>
+                    </li>
+                   	<li class="pediator-nav__list" style="display: none;" data-bind="visible: pactIsDone(), click: openServiceRulesPopup">
                     	<a href="#" class="pediator-nav__link pediator-nav__link--answer">?</a>
                     </li>
                 </ul>
@@ -97,11 +97,11 @@ $cs = Yii::app()->clientScript;
 $specialistJSON = $this->getSpecialistJSON();
 
 $cs->registerAMD(
-    'specialist', 
+    'specialist',
     [
         'Specialist'    => 'specialists/pediatrician/specialist',
         'ko'            => 'knockout'
-    ], 
+    ],
     '
         ko.cleanNode(document.getElementById("js-pediatrician"));
         ko.applyBindings(new Specialist(' . $specialistJSON . '), document.getElementById("js-pediatrician"));

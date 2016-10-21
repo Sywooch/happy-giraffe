@@ -8,7 +8,7 @@
  * @var boolean $pactIsDone
  */
 $this->pageTitle = 'Жираф педиатр - Вопросы';
- 
+
 ?>
 
 <div data-bind="template: {name: 'js-tpl-requirements'}, visible: !authorizationIsDone()"></div>
@@ -22,8 +22,8 @@ $this->pageTitle = 'Жираф педиатр - Вопросы';
         		<p class="font-m font__color--grey">
         			<span class="statistik__num margin-r15">1</span>
         			<span class="margin-r15">Ваше фото для анкеты специалиста</span>
-        			<span 
-        				class="statistik__upload font__color--blue" 
+        			<span
+        				class="statistik__upload font__color--blue"
         				data-bind="avatarUpload: {data: {multiple: false, view: 'specialist'}}"
         			>
         				Загрузить фото
@@ -46,13 +46,17 @@ $this->pageTitle = 'Жираф педиатр - Вопросы';
 
 <?php
 
-$this->widget('LiteListView', array(
-    'htmlOptions'   => ['class' => 'questions questions-modification'],
-    'dataProvider'  => $dp,
-    'itemView'      => '_question',
-    'itemsTagName'  => 'ul',
-    'template'      => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
-    'pager'         => [
+$this->widget('\site\frontend\modules\specialists\modules\pediatrician\widgets\SpecialistStatistic', [
+    'viewName' => 'statistic'
+]);
+
+$this->widget('\site\frontend\modules\specialists\modules\pediatrician\widgets\ListView', [
+    'htmlOptions' => ['class' => 'questions questions-modification'],
+    'dataProvider' => $dp,
+    'itemView' => '_question',
+    'itemsTagName' => 'ul',
+    'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
+    'pager' => [
         'class'           => 'LitePagerDots',
         'prevPageLabel'   => '&nbsp;',
         'nextPageLabel'   => '&nbsp;',
@@ -60,8 +64,8 @@ $this->widget('LiteListView', array(
         'showButtonCount' => 5,
         'dotsLabel'       => '<li class="page-points">...</li>'
     ]
-));
-
+]);
+    
 ?>
 
 </div>

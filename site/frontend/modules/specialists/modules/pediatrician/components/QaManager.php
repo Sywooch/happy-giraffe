@@ -25,7 +25,7 @@ class QaManager
         return QaQuestion::model()->count(self::getQuestionsCriteria($userId));
     }
 
-    public static function getAnswersDp($userId)
+    public static function getAnswersDp($userId = null)
     {
         return new \CActiveDataProvider(QaAnswer::model()->orderDesc()->apiWith('user'), [
             'criteria' => self::getAnswersCriteria($userId),
@@ -40,6 +40,16 @@ class QaManager
         ]) > 0;
     }
 
+    public static function getAnswerCountAndVotes($userId)
+    {
+         return \Yii::app()->db->createCommand()
+            ->select('COUNT(*) AS count, SUM(votesCount) AS sumVotes')
+            ->from(QaAnswer::model()->tableName())
+            ->where('authorId=' . $userId)
+            ->queryRow()
+        ;
+    }
+
     /**
      * @param $questionId
      * @param $userId
@@ -52,12 +62,15 @@ class QaManager
         return QaQuestion::model()->find($criteria);
     }
 
-    public static function getAnswersCriteria($userId)
+    public static function getAnswersCriteria($userId = null)
     {
         $criteria = new \CDbCriteria();
-        $criteria->scopes = ['category' => [self::getCategoryId(), 'checkQuestionExiststance']];
+        $criteria->scopes = ['category' => [self::getCategoryId()], 'checkQuestionExiststance'];
         $criteria->with = 'question';
-        $criteria->compare('t.authorId', $userId);
+        $criteria->addCondition('t.authorId IN (SELECT id FROM specialists__profiles)');
+        if ($userId) {
+            $criteria->compare('t.authorId', $userId);
+        }
         return $criteria;
     }
 

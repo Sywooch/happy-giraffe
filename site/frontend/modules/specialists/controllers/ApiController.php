@@ -48,7 +48,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             'errors' => $form->getErrors(),
         );
     }
-    
+
     public function actionUpdateProfile($profileId, array $data)
     {
         $form = new ProfileForm();
@@ -60,7 +60,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = $form->validate() && $form->save();
         $this->data = [
             'form' => $form,
-            'errors' => $form->errors,    
+            'errors' => $form->errors,
         ];
     }
 
@@ -74,12 +74,13 @@ class ApiController extends \site\frontend\components\api\ApiController
             'errors' => $form->getErrors(),
         );
     }
-    
+
     public function actionMakeSpecialist($userId = null, array $specializations = [])
     {
         if ($userId === null) {
             $userId = \Yii::app()->user->id;
         }
+
         $this->success = SpecialistsManager::makeSpecialist($userId, $specializations);
     }
 }

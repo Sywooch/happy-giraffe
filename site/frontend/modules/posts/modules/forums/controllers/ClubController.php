@@ -19,7 +19,7 @@ class ClubController extends \LiteController
      * @var \CommunityClub
      */
     public $club;
-    
+
     /**
      * @var \Community
      */
@@ -28,15 +28,15 @@ class ClubController extends \LiteController
     public function actionIndex($club, $feedForumId = null, $feedTab = null, $page = 1)
     {
         $this->club = \CommunityClub::model()->findByAttributes(['slug' => $club]);
-        if (! $this->club) {
+        if (!$this->club) {
             throw new \CHttpException(404);
         }
         if ($feedForumId !== null) {
             $feedForum = \Community::model()->findByPk($feedForumId);
-            
+
             $this->forum = $feedForum;
-            
-            if (! $feedForum) {
+
+            if (!$feedForum) {
                 throw new \CHttpException(404);
             }
         } else {
@@ -49,23 +49,34 @@ class ClubController extends \LiteController
     {
         $rubric = \CommunityRubric::model()->findByPk($rubricId); // @todo нарушаем SOA
         $this->club = $rubric->community->club;
-        if (! $rubric) {
+
+        if (!$rubric) {
             throw new \CHttpException(404);
         }
+
         $dp = new \CActiveDataProvider(Content::model(), [
             'criteria' => [
-                'scopes' => ['byLabels' => [[
-                    Label::LABEL_FORUMS,
-                    $rubric->community->club->section->toLabel(),
-                    $rubric->community->club->toLabel(),
-                    $rubric->community->toLabel(),
-                    $rubric->toLabel(),
-                ]]],
+                'scopes' => [
+                    'byLabels' => [[
+                        Label::LABEL_FORUMS,
+                        $rubric->community->club->section->toLabel(),
+                        $rubric->community->club->toLabel(),
+                        $rubric->community->toLabel(),
+                        $rubric->toLabel(),
+                    ]],
+                    'orderDesc'
+                ],
             ],
             'pagination' => [
-                'pageVar' => 'page',    
+                'pageVar' => 'page',
             ],
+            'sort' => [
+                'attributes' => [
+                    'dtimeUpdate' => SORT_DESC
+                ]
+            ]
         ]);
+
         $this->render('rubric', compact('rubric', 'dp'));
     }
 }

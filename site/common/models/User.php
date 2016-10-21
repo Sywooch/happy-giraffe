@@ -160,7 +160,7 @@ class User extends HActiveRecord
     );
 
     private $_avatarObject;
-    
+
     public function getAccessLabel()
     {
         return $this->accessLabels[$this->access];
@@ -361,7 +361,7 @@ class User extends HActiveRecord
             'clubSubscriptionsCount' => array(self::STAT, 'UserClubSubscription', 'user_id'),
 
             'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
-            'specializations' => array(self::MANY_MANY, 'Specialization', 'user__specializations(user_id,specialization_id)'),
+//             'specializations' => array(self::MANY_MANY, 'Specialization', 'user__specializations(user_id,specialization_id)'),
             'communityPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id'),
 
             'spamStatus' => array(self::HAS_ONE, 'AntispamStatus', 'user_id'),
@@ -463,42 +463,42 @@ class User extends HActiveRecord
         {
             UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
         }
-        
+
         foreach ($this->social_services as $service)
         {
             $service->user_id = $this->id;
             $service->save();
         }
-        
+
         /*Yii::app()->mc->saveUser($this);*/
 
         if (! $this->isNewRecord)
         {
             self::clearCache($this->id);
         }
-        
+
         if ($this->trackable->isChanged('online'))
         {
             $this->sendOnlineStatus();
         }
-        
+
         if ($this->trackable->isChanged('gender'))
         {
             /** @var \site\frontend\modules\family\models\Family $family */
             $family = Family::model()->with('members')->hasMember($this->id)->find();
-            
+
             if (! is_null($family))
             {
                 $arrAdult = $family->getMembers(FamilyMember::TYPE_ADULT);
-                 
+
                 foreach ($arrAdult as $member)
                 {
                     $member->gender = $member->userId == $this->id ? $this->gender : !$this->gender;
                     $member->save();
-                }   
+                }
             }
         }
-        
+
         parent::afterSave();
     }
 
@@ -1622,13 +1622,13 @@ class User extends HActiveRecord
         return CommunityContent::model()->resetScope()->active()->count($criteria);
     }
 
-    public function getSpecialist($forumId)
-    {
-        foreach ($this->specializations as $spec)
-            if ($spec->forum_id == $forumId)
-                return $spec;
-        return null;
-    }
+//     public function getSpecialist($forumId)
+//     {
+//         foreach ($this->specializations as $spec)
+//             if ($spec->forum_id == $forumId)
+//                 return $spec;
+//         return null;
+//     }
 
 	/**
 	 *

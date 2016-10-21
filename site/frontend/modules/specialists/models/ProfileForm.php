@@ -110,13 +110,11 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->profile->placeOfWork = $this->placeOfWork;
         $this->profile->specialization = $this->text;
 
-        SpecialistsManager::assignSpecializations($this->specializations, $this->profileId, true);
-
         $this->profile->careerObject->models = $this->career;
         $this->profile->educationObject->models = $this->education;
         $this->profile->coursesObject->models = $this->courses;
         
-        return $this->user->save() && $this->profile->save();
+        return $this->user->save() && $this->profile->save() && SpecialistsManager::assignSpecializations($this->specializations, $this->profileId, true);
     }
 
     public function toJSON()
@@ -139,6 +137,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
             'specializationsList' => $this->getSpecializationsList(),
             'specializations' => $this->specializations,
+            'specString' => $this->profile->getSpecsString(),
 
             'categoriesList' => SpecialistProfile::getCategoriesList(),
             'experienceList' => SpecialistProfile::getExperienceList(),

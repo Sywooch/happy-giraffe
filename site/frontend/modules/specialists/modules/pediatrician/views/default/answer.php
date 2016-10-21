@@ -1,6 +1,5 @@
 <?php
 
-use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 /**
  * @var \site\frontend\modules\som\modules\qa\controllers\DefaultController $this
@@ -8,6 +7,12 @@ use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
  */
 
 $this->pageTitle = $question->title;
+
+$answerTreeHelper = new AnswersTree();
+$answerTreeHelper->init($question->answers);
+
+$currentAnswerId = $answerTreeHelper->getCurrentAnswerForSpecialist();
+$replyArgument = is_null($currentAnswerId) ? $question->id : $question->id . ', ' . $currentAnswerId->id;
 
 ?>
 
@@ -30,7 +35,7 @@ $this->pageTitle = $question->title;
                 <?=$question->text?>
             </div>
             <ul class="all-answers float-l margin-t15">
-            	<?=(new AnswersTree())->render($question->answers)?>
+            	<?=$answerTreeHelper->render()?>
         	</ul>
         </div>
             <?php /**
@@ -52,7 +57,7 @@ $this->pageTitle = $question->title;
                 ]); ?>
 
                 <div class="redactor-control">
-                    <div class="redactor-control_toolbar"></div>
+                    <div class="redactor-control_toolbar clearfix margin-b15" style="padding-left: 30px;"></div>
                     <div class="redactor-control_hold">
                         <textarea placeholder="Введите ваш ответ" class="answer-form_textarea" data-bind="wswgHG: { config : editorConfig, attr : answerText }"></textarea>
                     </div>
@@ -72,7 +77,7 @@ $this->pageTitle = $question->title;
 </div>
 <!-- /ko -->
 
-<?php 
+<?php
 
 /**
  * @var CClientScript $cs
@@ -81,16 +86,16 @@ $cs = Yii::app()->clientScript;
 
 $js = <<<JS
     setTimeout(function() {
-        ko.applyBindings(new ReplyForm(' . $question->id . '), document.getElementById("pediatrician-reply"));
+        ko.applyBindings(new ReplyForm($replyArgument), document.getElementById("pediatrician-reply"));
     }, 100);
 JS;
 
 $cs->registerAMD(
-    'pediatrician-reply', 
+    'pediatrician-reply',
     [
         'ReplyForm' => 'specialists/pediatrician/reply',
         'ko'        => 'knockout'
-    ], 
+    ],
     $js
 );
 

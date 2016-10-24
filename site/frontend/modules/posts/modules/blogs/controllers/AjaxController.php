@@ -77,5 +77,19 @@ class AjaxController extends \HController
             'status' => $addResult
         ]);            
     }
+
+    /**
+     * Отписка
+     */
+    public function actionRemoveSubscribe()
+    {
+        $userId = (int)\Yii::app()->request->getPost('userId');
+
+        $removeResult = \UserBlogSubscription::unSubscribe(\Yii::app()->user->id, $userId);
+
+        echo \CJSON::encode([
+            'status' => $removeResult
+        ]);
+    }
     
 }

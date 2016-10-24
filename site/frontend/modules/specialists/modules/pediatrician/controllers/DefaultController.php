@@ -161,6 +161,6 @@ class DefaultController extends \LiteController
     public function actionPulse()
     {
         $dp = QaManager::getAnswersDp();
-        $this->render('answers', compact('dp'));
+        $this->render('pulse', compact('dp'));
     }
 }

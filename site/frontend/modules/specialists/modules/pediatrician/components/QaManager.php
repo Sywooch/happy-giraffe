@@ -46,6 +46,7 @@ class QaManager
             ->select('COUNT(*) AS count, SUM(votesCount) AS sumVotes')
             ->from(QaAnswer::model()->tableName())
             ->where('authorId=' . $userId)
+            ->andWhere('isRemoved=0')
             ->queryRow()
         ;
     }

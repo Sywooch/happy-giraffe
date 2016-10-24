@@ -21,15 +21,18 @@ $answers = \site\frontend\modules\som\modules\qa\components\AnswerManagementData
             </ul>
             <div class="yiipagination yiipagination__center">
                 <div class="pager">
-                    <?php
+                <?php
+                
                     $this->widget('LitePagerDots', [
                         'prevPageLabel'   => '&nbsp;',
                         'nextPageLabel'   => '&nbsp;',
                         'showPrevNext'    => TRUE,
                         'showButtonCount' => 5,
                         'dotsLabel'       => '<li class="page-points">...</li>',
-                        'pages' => $dp->pagination,
-                    ]); ?>
+                        'pages'           => $dp->pagination,
+                    ]);
+                
+                ?>
                 </div>
             </div>
         </div>

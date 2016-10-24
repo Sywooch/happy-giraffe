@@ -9,11 +9,19 @@ namespace site\frontend\modules\specialists\models;
 
 class RegisterForm extends \site\frontend\modules\signup\models\RegisterForm
 {
+    public $middleName;
+    
+    public function save()
+    {
+        $this->user->middle_name = $this->middleName;
+        return parent::save();
+    }
+
     public function rules()
     {
         return [
-            ['firstName, lastName, email, password, gender', 'required'],
-            ['firstName, lastName', 'length', 'max' => 50],
+            ['firstName, middleName, lastName, email, password, gender', 'required'],
+            ['firstName, middleName, lastName', 'length', 'max' => 50],
             ['email', 'email'],
             ['email', 'unique', 'className' => 'User', 'caseSensitive' => false, 'criteria' => ['scopes' => ['active']]],
             ['password', 'length', 'min' => 6, 'max' => 15],

@@ -12,7 +12,7 @@
             <?=HHtml::timeTag($data, ['class' => 'box-wrapper__date'])?>
         </div>
         <div class="box-wrapper__header box-header">
-            <a href="<?=$this->createUrl('/specialists/pediatrician/default/answer', ['questionId' => $data->id])?>" class="box-header__link"><?=$data->title?></a>
+            <a href="<?=$this->createUrl('/specialists/pediatrician/default/answer', ['questionId' => $data->id])?>" class="box-header__link font-l"><?=$data->title?></a>
             <p class="box-header__text"><?=\site\common\helpers\HStr::truncate(strip_tags($data->text), 150)?></p>
         </div>
         <div class="box-wrapper__footer box-footer">

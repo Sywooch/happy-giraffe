@@ -18,10 +18,24 @@ class AjaxController extends \HController
     public function filters()
     {
         return [
-            'ajaxOnly'
-        ]; 
+            'ajaxOnly',
+            'accessControl'
+        ];
     }
-    
+
+    public function accessRules()
+    {
+        return [
+            [
+                'deny',
+                'actions' => ['addsubscribe', 'removesubscribe'],
+                'users' => ['?']
+            ]
+        ];
+    }
+
+
+
     /**
      * Данные для виджета "Блогоэфир"
      * 

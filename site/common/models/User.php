@@ -397,6 +397,7 @@ class User extends HActiveRecord
     {
         return array(
             'first_name' => 'Имя',
+            'middle_name' => 'Отчество',
             'email' => 'E-mail',
             'password' => 'Пароль',
             'gender' => 'Пол',

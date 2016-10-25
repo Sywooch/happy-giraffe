@@ -5,7 +5,7 @@
  * @var string $content
  */
 $this->beginContent('//layouts/lite/common');
-
+$formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middle_name;
 ?>
 
 <div id="js-pediatrician">
@@ -41,7 +41,7 @@ $this->beginContent('//layouts/lite/common');
             <div class="float-r">
                 <div class="pediator-header__log margin-t22">
                     <div class="user-on">
-                        <a href="<?=$this->createUrl('/specialists/pediatrician/default/profile')?>" class="pediator-header__name"><?=Yii::app()->user->model->getFullName()?></a>
+                        <a href="<?=$this->createUrl('/specialists/pediatrician/default/profile')?>" class="pediator-header__name"><?php echo $formattedName; ?></a>
                         <div class="ava ava-pediator"><a href="<?=$this->createUrl('/specialists/pediatrician/default/profile')?>" class="js-ava__link ava__link"><img src="<?=Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_SMALL)?>"></a></div>
                     </div>
                 </div>

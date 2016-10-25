@@ -16,7 +16,7 @@ $answers = \site\frontend\modules\som\modules\qa\components\AnswerManagementData
         <div class="questions margin-t0">
             <ul class="items">
                 <?php foreach ($answers as $answer): ?>
-                    <single-answer params='answer: <?=HJSON::encode($answer)?>, hideLinks: true'></single-answer>
+                    <single-answer params='answer: <?=HJSON::encode($answer)?>, hideLinks: true, showButtons: true'></single-answer>
                 <?php endforeach; ?>
             </ul>
             <div class="yiipagination yiipagination__center">

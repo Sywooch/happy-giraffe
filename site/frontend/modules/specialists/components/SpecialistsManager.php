@@ -38,6 +38,7 @@ class SpecialistsManager
             $transaction->commit();
             return true;
         } catch (\Exception $e) {
+            echo $e->getMessage(); die;
             $transaction->rollback();
             return false;
         }
@@ -50,7 +51,7 @@ class SpecialistsManager
 
     public static function assignSpecializations($specializations, $userId, $deleteOld = false)
     {
-        $transaction = \Yii::app()->db->beginTransaction();
+        $transaction = \Yii::app()->db->getCurrentTransaction() === null ? \Yii::app()->db->beginTransaction() : null;
         try {
             if ($deleteOld) {
                 \Yii::app()->db->createCommand()->delete('specialists__profiles_specializations', 'profileId = :userId', [':userId' => $userId]);
@@ -69,11 +70,16 @@ class SpecialistsManager
                     $user->save();
                 }
             }
-            $transaction->commit();
+            if ($transaction) {
+                $transaction->commit();
+            }
             return true;
         } catch (\Exception $e) {
-            $transaction->rollback();
-            return false;
+            if ($transaction) {
+                $transaction->rollback();
+                return false;
+            }
+            throw $e;
         }
     }
 

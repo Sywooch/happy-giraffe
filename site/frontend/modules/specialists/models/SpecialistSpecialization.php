@@ -101,7 +101,7 @@ class SpecialistSpecialization extends \CActiveRecord
 	
 	public function sorted()
 	{
-		$this->getDbCriteria()->order = 'sort DESC';
+		$this->getDbCriteria()->order = 'sort DESC, title ASC';
 		return $this;
 	}
 

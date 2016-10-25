@@ -28,16 +28,16 @@ class RatingManager
     protected function getCriteria()
     {
         $criteria = new \CDbCriteria();
-//        $criteria->with = [
-//            'user' => [
-//                'with' => [
-//                    'specialistProfile' => [
-//                        'joinType' => 'INNER JOIN',
-//                    ],
-//                ],
-//            ],
-//        ];
-//        $criteria->compare('category_id', QaCategory::PEDIATRICIAN_ID);
+        $criteria->with = [
+            'user' => [
+                'with' => [
+                    'specialistProfile' => [
+                        'joinType' => 'INNER JOIN',
+                    ],
+                ],
+            ],
+        ];
+        $criteria->compare('category_id', QaCategory::PEDIATRICIAN_ID);
         $criteria->order = 'total_count DESC';
         return $criteria;
     }

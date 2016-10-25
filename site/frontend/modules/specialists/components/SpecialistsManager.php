@@ -7,7 +7,6 @@
 namespace site\frontend\modules\specialists\components;
 
 
-use Aws\CloudFront\Exception\Exception;
 use site\frontend\components\AuthManager;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 use site\frontend\modules\specialists\models\SpecialistSpecialization;
@@ -38,7 +37,8 @@ class SpecialistsManager
 
             $transaction->commit();
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+            echo $e->getMessage(); die;
             $transaction->rollback();
             return false;
         }
@@ -51,22 +51,35 @@ class SpecialistsManager
 
     public static function assignSpecializations($specializations, $userId, $deleteOld = false)
     {
-        if ($deleteOld) {
-            \Yii::app()->db->createCommand()->delete('specialists__profiles_specializations', 'profileId = :userId', [':userId' => $userId]);
-        }
-        if (count($specializations) > 0) {
-            $rows = array_map(function ($specId) use ($userId) {
-                return [
-                    'profileId' => $userId,
-                    'specializationId' => $specId];
-            }, $specializations);
-            $success = \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand('specialists__profiles_specializations', $rows)->execute() > 0;
-            if ($success) {
-                $user = User::model()->findByPk($userId);
-                $profile = SpecialistProfile::model()->findByPk($userId);
-                $user->specialistInfoObject->title = $profile->getSpecsString();
-                $user->save();
+        $transaction = \Yii::app()->db->getCurrentTransaction() === null ? \Yii::app()->db->beginTransaction() : null;
+        try {
+            if ($deleteOld) {
+                \Yii::app()->db->createCommand()->delete('specialists__profiles_specializations', 'profileId = :userId', [':userId' => $userId]);
             }
+            if (count($specializations) > 0) {
+                $rows = array_map(function ($specId) use ($userId) {
+                    return [
+                        'profileId' => $userId,
+                        'specializationId' => $specId];
+                }, $specializations);
+                $success = \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand('specialists__profiles_specializations', $rows)->execute() > 0;
+                if ($success) {
+                    $user = User::model()->findByPk($userId);
+                    $profile = SpecialistProfile::model()->findByPk($userId);
+                    $user->specialistInfoObject->title = $profile->getSpecsString();
+                    $user->save();
+                }
+            }
+            if ($transaction) {
+                $transaction->commit();
+            }
+            return true;
+        } catch (\Exception $e) {
+            if ($transaction) {
+                $transaction->rollback();
+                return false;
+            }
+            throw $e;
         }
     }
 

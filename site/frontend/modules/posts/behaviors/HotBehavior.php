@@ -15,7 +15,8 @@ class HotBehavior extends \CActiveRecordBehavior
 
     public function orderHotRate()
     {
-        $this->owner->getDbCriteria()->order = 'hotRate DESC';
+        $this->owner->getDbCriteria()->mergeWith(['order' => 'hotRate DESC']);
+
         return $this->owner;
     }
     

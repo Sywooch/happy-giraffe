@@ -1,6 +1,8 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 
+use site\common\behaviors\UrlBehavior;
+
 /**
  * This is the model class for table "qa__questions".
  *
@@ -33,6 +35,19 @@ namespace site\frontend\modules\som\modules\qa\models;
 class QaQuestion extends \HActiveRecord implements \IHToJSON
 {
 	public $sendNotifications = true;
+
+    protected function afterFind()
+    {
+        // Автогенерация url при её отсутствии #HAG-208
+        if (empty($this->url)) {
+            /** @var UrlBehavior $urlBehavior */
+            $urlBehavior = $this->asa('UrlBehavior');
+            $this->url = $urlBehavior->getUrl(true);
+            $this->save();
+        }
+
+        parent::afterFind();
+    }
 
 	/**
 	 * @return string the associated database table name
@@ -138,7 +153,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 				'updateAttribute' => 'dtimeUpdate',
 			),
 			'UrlBehavior' => array(
-				'class' => 'site\common\behaviors\UrlBehavior',
+				'class' => \site\common\behaviors\UrlBehavior::class,
 				'route' => 'som/qa/default/view',
 				'params' => function($model) {
 					return array(

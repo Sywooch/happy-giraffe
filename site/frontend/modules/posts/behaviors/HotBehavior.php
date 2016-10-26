@@ -19,12 +19,19 @@ class HotBehavior extends \CActiveRecordBehavior
 
         return $this->owner;
     }
-    
+
+    public function orderHot()
+    {
+        $this->owner->getDbCriteria()->mergeWith(['order' => 'hotStatus = 1 DESC']);
+
+        return $this->owner;
+    }
+
     public function getIsHot()
     {
         return $this->owner->hotStatus == self::STATUS_HOT;
     }
-    
+
     public function getWasHot()
     {
         return $this->owner->hotStatus == self::STATUS_WAS_HOT;

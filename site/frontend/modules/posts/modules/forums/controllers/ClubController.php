@@ -64,8 +64,9 @@ class ClubController extends \LiteController
                         $rubric->community->toLabel(),
                         $rubric->toLabel(),
                     ]],
-                    'orderDesc'
-                ],
+                    'orderDesc',
+                    'orderHotRate'
+                ]
             ],
             'pagination' => [
                 'pageVar' => 'page',

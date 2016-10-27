@@ -101,7 +101,6 @@ class QaManager
 
     protected static function getCategoryId()
     {
-        return 1;
         return QaCategory::PEDIATRICIAN_ID;
     }
 }

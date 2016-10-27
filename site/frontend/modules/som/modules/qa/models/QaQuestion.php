@@ -3,6 +3,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 /**
  * This is the model class for table "qa__questions".
  *
@@ -40,7 +41,18 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 	 * @var boolean
 	 */
 	private $_hasAnswerForSpecialist;
-
+	  
+	
+	public function __get($name)
+	{	   
+	   if ($name == 'answersCount' && !is_null($this->category) && $this->category->isPediatrician()) 
+	   {
+	       return QaManager::getAnswersCountPediatorQuestion($this->id);
+	   }
+	   
+	   return parent::__get($name);
+	}
+	
 	/**
 	 * @return string the associated database table name
 	 */

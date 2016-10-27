@@ -63,7 +63,7 @@ class DefaultController extends \LiteController
     {   
         $user = \Yii::app()->user->getModel();
 
-        if (!$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS))//хз где искать Enum, спросить у Никиты
+        if (!$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS))
         {
             throw new \CHttpException(403);
         }

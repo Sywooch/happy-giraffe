@@ -14,6 +14,7 @@ use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaUserRating;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
@@ -78,8 +79,11 @@ class ApiController extends \site\frontend\components\api\ApiController
     }
 
     public function actionGetAnswers($questionId)
-    {
-        $answers = QaAnswer::model()->question($questionId)->apiWith('user')->findAll();
+    {   
+        $question = QaQuestion::model()->findByPk($questionId);
+        
+        $answers = QaManager::getAnswers($question);
+        
         $votes = QaAnswerVote::model()->answers($answers)->user(\Yii::app()->user->id)->findAll(array('index' => 'answerId'));
         $_answers = array();
         foreach ($answers as $answer) {

@@ -46,6 +46,7 @@ class QaManager
             ->select('COUNT(*) AS count, SUM(votesCount) AS sumVotes')
             ->from(QaAnswer::model()->tableName())
             ->where('authorId=' . $userId)
+            ->andWhere('isRemoved=0')
             ->queryRow()
         ;
     }
@@ -68,9 +69,16 @@ class QaManager
         $criteria->scopes = ['category' => [self::getCategoryId()], 'checkQuestionExiststance'];
         $criteria->with = 'question';
         $criteria->addCondition('t.authorId IN (SELECT id FROM specialists__profiles)');
+        
         if ($userId) {
-            $criteria->compare('t.authorId', $userId);
+             $criteria->compare('t.authorId', $userId);
         }
+        else {
+            $time = time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
+            
+            $criteria->addCondition('t.dtimeCreate <= '. $time);
+        }
+        
         return $criteria;
     }
 

@@ -5,7 +5,7 @@
  * @var string $content
  */
 $this->beginContent('//layouts/lite/common');
-$formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->last_name;
+$formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middle_name;
 ?>
 
 <div id="js-pediatrician">

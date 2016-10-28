@@ -47,6 +47,11 @@ class AnswersTree
      */
     public function init($arrAnswers)
     {
+        if(is_null($arrAnswers))
+        {
+            return;
+        }
+
         if (!is_array($arrAnswers))
         {
             throw new Exception('$arrAnswers must by array');
@@ -61,7 +66,6 @@ class AnswersTree
             {
                 throw new Exception('$arrAnswers must by array of QaAnswer!');
             }
-
 
             if (is_null($answer->root_id))
             {
@@ -80,12 +84,15 @@ class AnswersTree
 
         foreach ($this->_answers as /*@var $answer QaAnswer */ $answer)
         {
-            if ($answer->isAnswerToAdditional() || $answer->authorId == $userId)
-            {
-                continue;
-            }
+//             if ($answer->isAnswerToAdditional() || $answer->authorId == $userId)
+//             {
+//                 continue;
+//             }
 
-            $additionalAnswers[$answer->dtimeCreate] = $answer;
+            if ($answer->isAdditional())
+            {
+                $additionalAnswers[$answer->dtimeCreate] = $answer;
+            }
         }
 
         if (empty($additionalAnswers))

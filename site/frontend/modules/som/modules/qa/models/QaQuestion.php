@@ -342,10 +342,30 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 	    }
 
 	    $helper = new AnswersTree();
-	    $helper->init($this->answers);
+	    $helper->init($this->getSpecialistDialog());
 
+// 	    if ($this->id == 1410)
+// 	    {
+// 	       var_dump($helper->getCurrentAnswerForSpecialist());
+// 	    };
         $this->_hasAnswerForSpecialist = !is_null($helper->getCurrentAnswerForSpecialist());
 
         return $this->_hasAnswerForSpecialist;
+	}
+
+	/**
+	 * @return QaAnswer[]
+	 */
+	public function getSpecialistDialog()
+	{
+        foreach ($this->answers as /*@var $answer QaAnswer */$answer)
+        {
+            if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id))
+            {
+                $result = $answer->getChilds();
+                array_push($result, $answer);
+                return $result;
+            }
+        }
 	}
 }

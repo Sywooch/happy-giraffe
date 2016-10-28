@@ -74,6 +74,27 @@ class QaManager
         return $criteria;
     }
 
+    /**
+     * Emil Vililyaev: пока не используется
+     * @param integer $userID
+     * @return \CDbCriteria
+     */
+    public static function getPersonalQuestions($userID)
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->select = 't.*';
+        $criteria->join = 'LEFT JOIN qa__answers AS t2 ON t2.root_id = t.id AND t2.isRemoved = 0';
+        $criteria->join .= ' LEFT JOIN qa__answers AS t3 ON t3.root_id = t2.id AND t3.isRemoved = 0';
+        $criteria->addCondition('t2.id IS NOT NULL');
+        $criteria->addCondition('t.authorId = :userId');
+        $criteria->addCondition('t3.id IS NULL AND t.isRemoved = 0');
+        $criteria->params[':userId'] = $userID;
+
+        $rows = \Yii::app()->db->getCommandBuilder()->createFindCommand('qa__answers', $criteria)->queryAll();
+
+        return $criteria;
+    }
+
     public static function getQuestionsCriteria($userId)
     {
         $criteria = new \CDbCriteria();
@@ -83,10 +104,12 @@ class QaManager
         $criteria->scopes = ['category' => [self::getCategoryId()]];
         $criteria->with = 'category';
         $criteria->addCondition('t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)');
-        $criteria->addCondition('(answers.id IS NULL) OR (answers.id IN(SELECT t1.id FROM qa__answers AS `t1`
-        	LEFT JOIN qa__answers AS t2 ON t2.root_id = t1.id AND t2.isRemoved = 0
-         	LEFT JOIN qa__answers AS t3 ON t3.root_id = t2.id AND t3.isRemoved = 0
-        WHERE t2.id IS NOT NULL AND t1.authorId = :userId AND t3.id IS NULL AND t1.isRemoved = 0))');
+        $criteria->addCondition('(answers.id IS NULL) OR (t.id NOT IN(SELECT a1.questionId FROM qa__answers a1
+            LEFT JOIN qa__answers a2 ON a2.root_id = a1.id
+            LEFT JOIN qa__answers a3 ON a3.root_id = a2.id
+            WHERE ((a1.authorId IN (SELECT specialists__profiles.id FROM specialists__profiles)
+            AND (a3.authorId IN (SELECT specialists__profiles.id FROM specialists__profiles)
+            OR (a3.authorId IS NULL AND a2.authorId IS NULL))))))');
         $criteria->params[':userId'] = $userId;
         return $criteria;
     }

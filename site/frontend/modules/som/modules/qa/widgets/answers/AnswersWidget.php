@@ -3,6 +3,7 @@ namespace site\frontend\modules\som\modules\qa\widgets\answers;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
+use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 
 /**
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $answers
@@ -53,8 +54,9 @@ class AnswersWidget extends \CWidget
         $paramsParts = array_map(function($value, $key) {
             return $key . ': ' . \CJSON::encode($value);
         }, $params, array_keys($params));
+
         $paramsStr = implode(', ', $paramsParts);
-        echo \CHtml::tag('answers-widget', array('params' => $paramsStr));
+        echo \CHtml::tag('answers', array('params' => $paramsStr));
     }
 
     public static function getChannelIdByQuestion($question)

@@ -81,7 +81,7 @@ if ($openLogin == 'login') {
             </header>
             <style>
                 body #ya-site-form0 .ya-site-suggest-list {
-                    background-color: #fff;                                    	        
+                    background-color: #fff;
                 }
             </style>
             <!-- header-->

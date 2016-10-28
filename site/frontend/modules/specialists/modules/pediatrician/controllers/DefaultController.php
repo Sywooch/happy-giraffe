@@ -53,14 +53,14 @@ class DefaultController extends \LiteController
             ]
         ];
     }
-    
+
     /**
      * Специальные данные специалиста по сервису
      * @return string JSON
      * @author Sergey Gubarev
      */
-    public function getSpecialistJSON() 
-    {   
+    public function getSpecialistJSON()
+    {
         $user = \Yii::app()->user->getModel();
 
         if (!$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS))//хз где искать Enum, спросить у Никиты
@@ -70,9 +70,9 @@ class DefaultController extends \LiteController
 
         /*@var $specialistProfile SpecialistProfile */
         $specialistProfile = $user->specialistProfile;
-        
+
         $response = [];
-        
+
         if (!is_null($specialistProfile))
         {
             $response['authorizationIsDone'] = $specialistProfile->authorizationIsDone();
@@ -81,23 +81,23 @@ class DefaultController extends \LiteController
             $pactTaskReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(SpecialistGroup::DOCTORS, AuthorizationTypeEnum::APPROVE_PACT);
 
             $specialistPhotoUploadTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $uploadPhotoTaskReletion->id);
-            
+
             $response['photoUploadIsDone'] = is_null($specialistPhotoUploadTask) ? true : $specialistPhotoUploadTask->status == ProfileTasksStatusEnum::DONE;
-        
-            
+
+
             $specialistApprovePactTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $pactTaskReletion->id);
-            
+
             $pactIsDone = $specialistApprovePactTask->status == ProfileTasksStatusEnum::DONE;
-            
+
             $response['pactIsDone'] = is_null($specialistApprovePactTask) ? true : $pactIsDone;
-            
-            
+
+
             $response['dateOfPactIsDone'] = $pactIsDone ? \Yii::app()->dateFormatter->format('dd MMMM yyyy', $specialistApprovePactTask->updated) : null;
         }
-        
+
         return json_encode($response);
     }
-    
+
     public function actionQuestions()
     {
         $user = \Yii::app()->user->getModel();
@@ -108,7 +108,8 @@ class DefaultController extends \LiteController
         }
 
         $dp = QaManager::getQuestionsDp(\Yii::app()->user->id);
-        
+//         QaManager::getPersonalQuestions(\Yii::app()->user->id);
+
         $this->render('questions', compact('dp'));
     }
 

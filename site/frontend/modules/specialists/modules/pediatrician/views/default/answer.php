@@ -9,7 +9,7 @@ use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 $this->pageTitle = $question->title;
 
 $answerTreeHelper = new AnswersTree();
-$answerTreeHelper->init($question->answers);
+$answerTreeHelper->init($question->getSpecialistDialog());
 
 $currentAnswerId = $answerTreeHelper->getCurrentAnswerForSpecialist();
 $replyArgument = is_null($currentAnswerId) ? $question->id : $question->id . ', ' . $currentAnswerId->id;

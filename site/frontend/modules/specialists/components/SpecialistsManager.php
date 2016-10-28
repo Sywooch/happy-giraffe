@@ -19,7 +19,13 @@ class SpecialistsManager
 {
     public static function makeSpecialist($userId, $specializations = [])
     {
-        $transaction = \Yii::app()->db->beginTransaction();
+        $transaction = \Yii::app()->db->getCurrentTransaction();
+
+        if (is_null($transaction))
+        {
+            $transaction = \Yii::app()->db->beginTransaction();
+        }
+
         try {
             $profile = new SpecialistProfile();
             $profile->id = $userId;

@@ -41,18 +41,18 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 	 * @var boolean
 	 */
 	private $_hasAnswerForSpecialist;
-	  
-	
+
+
 	public function __get($name)
-	{	   
-	   if ($name == 'answersCount' && !is_null($this->category) && $this->category->isPediatrician()) 
+	{
+	   if ($name == 'answersCount' && !is_null($this->category) && $this->category->isPediatrician())
 	   {
 	       return QaManager::getAnswersCountPediatorQuestion($this->id);
 	   }
-	   
+
 	   return parent::__get($name);
 	}
-	
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -354,10 +354,26 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 	    }
 
 	    $helper = new AnswersTree();
-	    $helper->init($this->answers);
+	    $helper->init($this->getSpecialistDialog());
 
         $this->_hasAnswerForSpecialist = !is_null($helper->getCurrentAnswerForSpecialist());
 
         return $this->_hasAnswerForSpecialist;
+	}
+
+	/**
+	 * @return QaAnswer[]
+	 */
+	public function getSpecialistDialog()
+	{
+        foreach ($this->answers as /*@var $answer QaAnswer */$answer)
+        {
+            if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id))
+            {
+                $result = $answer->getChilds();
+                array_push($result, $answer);
+                return $result;
+            }
+        }
 	}
 }

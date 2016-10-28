@@ -41,6 +41,7 @@ return array(
         '<_v>/api/questions' => 'api/<_v>/api/questions',
         '<_v>/api/questions/<id:\d+>' => 'api/<_v>/api/questions',
         '<_v>/api/answers' => 'api/<_v>/api/answers',
+        '<_v>/api/answers/<action:(additional)>' => 'api/<_v>/api/answers',
         '<_v>/api/answers/<id:\d+>' => 'api/<_v>/api/answers',
         '<_v>/api/qa-categories' => 'api/<_v>/api/qaCategories',
         '<_v>/api/qa-categories/<id:\d+>' => 'api/<_v>/api/qaCategories',

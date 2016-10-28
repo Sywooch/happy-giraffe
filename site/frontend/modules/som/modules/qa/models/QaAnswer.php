@@ -81,7 +81,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'category' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', array('categoryId' => 'id'), 'through' => 'question'),
 			'tag' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', array('tag_id' => 'id'), 'through' => 'question'),
 			'votes' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'),
-			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
+			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
 			'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
 		);
 	}
@@ -318,6 +318,21 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		}
 
 		$this->getDbCriteria()->compare('tag.id', $tagId);
+
+		return $this;
+	}
+
+	/**
+	 * @param int $userId
+	 *
+	 * @return QaAnswer
+	 */
+	public function additionalToSpecialist($userId)
+	{
+		if (!isset($this->getDbCriteria()->with['root'])) {
+			$this->getDbCriteria()->with[] = 'root';
+		}
+		$this->getDbCriteria()->compare('root.authorId', $userId);
 
 		return $this;
 	}

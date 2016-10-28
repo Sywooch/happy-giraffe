@@ -23,20 +23,20 @@ class AnswersWidget extends \CWidget
             $this->runForUser();
         }
     }
-    
+
     public function getAnswers()
-    {   
+    {
         $condition = null;
-        
+
         if ($this->question->category->isPediatrician())
-        {   
+        {
             $time = time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
-            
+
             $condition = [
                 'condition' => "dtimeCreate <= $time"
             ];
         }
-        
+
         return QaAnswer::model()
                     ->question($this->question->id)
                     ->apiWith('user')
@@ -48,10 +48,10 @@ class AnswersWidget extends \CWidget
     protected function runForGuest()
     {
         $answers = QaManager::getAnswers($this->question);
-        
+
         $bestAnswers = array();
         $otherAnswers = array();
-        
+
         foreach ($answers as $answer)
         {
             if ($answer->isBest) {
@@ -74,6 +74,7 @@ class AnswersWidget extends \CWidget
         $paramsParts = array_map(function($value, $key) {
             return $key . ': ' . \CJSON::encode($value);
         }, $params, array_keys($params));
+
         $paramsStr = implode(', ', $paramsParts);
         echo \CHtml::tag('answers-widget', array('params' => $paramsStr));
     }

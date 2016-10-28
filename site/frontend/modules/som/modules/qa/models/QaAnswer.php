@@ -1,6 +1,7 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 use site\frontend\modules\specialists\models\SpecialistGroup;
+use site\frontend\modules\specialists\models\SpecialistProfile;
 
 /**
  * This is the model class for table "qa__answers".
@@ -352,7 +353,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'dtimeCreate' => (int) $this->dtimeCreate,
 			'text' => $this->purified->text,
 			'votesCount' => (int) $this->votesCount,
-			'user' => $this->user,
+			'user' => $this->user->formatedForJson(),
 			'isRemoved' => (bool) $this->isRemoved,
 		);
 	}
@@ -366,5 +367,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function authorIsSpecialist()
+	{
+	    return !empty(SpecialistProfile::model()->findAllByPk($this->authorId));
 	}
 }

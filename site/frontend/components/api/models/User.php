@@ -32,23 +32,36 @@ class User extends ApiModel
 /**
      * Формат имени для анонимного юзера
      *
-     * @author Sergey Gubarev
      * @return string
      */
     public function getAnonName()
     {
-        $model = \UserAddress::model()->find('user_id=:user_id', [':user_id' => $this->id]);
+        $strCity = $this->_getCity();
 
-        $stringData = [];
+        $result = $this->firstName;
 
-        $stringData[] = $this->firstName;
-
-        if ($model->city)
+        if (!is_null($strCity))
         {
-            $stringData[] = $model->city->name;
+            $result = $result . ', ' . $strCity;
         }
 
-        return implode(', ', $stringData);
+        return $result;
+    }
+
+    /**
+     * @return void|string
+     */
+    private function _getCity()
+    {
+        $model = \UserAddress::model()->find('user_id=:user_id', [':user_id' => $this->id]);
+
+        if (is_null($model->city))
+        {
+            return;
+        }
+
+        return $model->city->name;
+
     }
 
     /**
@@ -59,6 +72,29 @@ class User extends ApiModel
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    /**
+     * @return array
+     */
+    public function formatedForJson()
+    {
+        return [
+            'id'            => $this->id,
+            'firstName'     => $this->firstName,
+            'lastName'      => $this->lastName,
+            'middleName'    => $this->middleName,
+            'fullName'      => $this->fullName,
+            'avatarId'      => $this->avatarId,
+            'gender'        => $this->gender,
+            'isOnline'      => $this->isOnline,
+            'profileUrl'    => $this->profileUrl,
+            'avatarUrl'     => $this->avatarUrl,
+            'avatarInfo'    => $this->avatarInfo,
+            'publicChannel' => $this->publicChannel,
+            'city'          => $this->_getCity(),
+            'specialistInfo' => $this->specialistInfo,
+        ];
     }
 
     public function attributeNames()

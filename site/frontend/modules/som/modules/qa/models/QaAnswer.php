@@ -1,6 +1,7 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 use site\frontend\modules\specialists\models\SpecialistGroup;
+use site\frontend\modules\specialists\models\SpecialistProfile;
 
 /**
  * This is the model class for table "qa__answers".
@@ -29,6 +30,23 @@ use site\frontend\modules\specialists\models\SpecialistGroup;
  */
 class QaAnswer extends \HActiveRecord implements \IHToJSON
 {
+    /**
+     * Диапазон времени (минут), в течени которого специалист может редактировать свой ответ
+     * 
+     * @var integer
+     * @author Sergey Gubarev
+     */
+    const MINUTES_FOR_EDITING = 5;
+        
+    /**
+     * Время (минут) задержки публикации ответа специалистом на сайте и в сервисе "Мой педиатр"
+     * 
+     * @var integer
+     * @author Sergey Gubarev
+     */
+    const MINUTES_AWAITING_PUBLISHED = 5;
+    
+    
 	/**
 	 * @return string the associated database table name
 	 */
@@ -303,7 +321,22 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
 		return $this;
 	}
+    
+	/**
+	 * Доступен ли вопрос для редактирования авторизованному специалисту
+	 * 
+	 * @return boolean
+	 * @author Sergey Gubarev
+	 */
+	public function isAvailableForEditing()
+	{
+	    $time = $this->dtimeUpdate ? $this->dtimeUpdate : $this->dtimeCreate;
+    
+	    $diffMins = floor((time() - $time) / 60); 
 
+	    return $diffMins < self::MINUTES_FOR_EDITING ? true : false;
+	}
+	
 	public function defaultScope()
 	{
 		$t = $this->getTableAlias(false, false);
@@ -320,7 +353,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'dtimeCreate' => (int) $this->dtimeCreate,
 			'text' => $this->purified->text,
 			'votesCount' => (int) $this->votesCount,
-			'user' => $this->user,
+			'user' => $this->user->formatedForJson(),
 			'isRemoved' => (bool) $this->isRemoved,
 		);
 	}
@@ -334,5 +367,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function authorIsSpecialist()
+	{
+	    return !empty(SpecialistProfile::model()->findAllByPk($this->authorId));
 	}
 }

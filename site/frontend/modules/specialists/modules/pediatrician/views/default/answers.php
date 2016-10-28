@@ -12,6 +12,14 @@ $answers = \site\frontend\modules\som\modules\qa\components\AnswerManagementData
 
 <?php if (count($answers)): ?>
 
+    <?php 
+    
+    $this->widget('\site\frontend\modules\specialists\modules\pediatrician\widgets\SpecialistStatistic', [
+        'viewName' => 'statistic'
+    ]);
+    
+    ?>
+
     <div class="landing-question pediator pediator-top"">
         <div class="questions margin-t0">
             <ul class="items">

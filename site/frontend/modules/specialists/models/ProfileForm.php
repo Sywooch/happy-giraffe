@@ -39,6 +39,10 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         return [
             ['placeOfWork, specializations, text', 'safe'],
 
+            ['text', 'filter', 'filter' => function($text) {
+                return strip_tags($text, '<p>');
+            }],
+
             ['firstName, lastName, middleName, gender', 'required'],
             ['firstName, lastName, middleName', 'length', 'max' => 50],
             ['category', 'in', 'range' => array_keys(SpecialistProfile::getCategoriesList())],

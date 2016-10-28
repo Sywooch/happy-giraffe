@@ -14,6 +14,7 @@ use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaUserRating;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
@@ -78,22 +79,36 @@ class ApiController extends \site\frontend\components\api\ApiController
     }
 
     public function actionGetAnswers($questionId)
-    {
-        $answers = QaAnswer::model()->question($questionId)->apiWith('user')->findAll();
+    {   
+        $question = QaQuestion::model()->findByPk($questionId);
+        
+        $answers = QaManager::getAnswers($question);
+        
         $votes = QaAnswerVote::model()->answers($answers)->user(\Yii::app()->user->id)->findAll(array('index' => 'answerId'));
         $_answers = array();
-        foreach ($answers as $answer) {
+        foreach ($answers as /*@var $answer QaAnswer */$answer) {
             $_answer = $answer->toJSON();
             $_answer['canEdit'] = \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $answer));
             $_answer['canRemove'] = \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $answer));
             $_answer['canVote'] = \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answer));
             $_answer['isVoted'] = isset($votes[$answer->id]);
+            $_answer['isAdditional'] = $answer->isAdditional();
+            $_answer['isAnswerToAdditional'] = $answer->isAnswerToAdditional();
+            $_answer['isSpecialistAnswer'] = $answer->authorIsSpecialist();
+            $_answer['root_id'] = $answer->root_id;
             $_answers[] = $_answer;
         }
+
         $this->data = array(
             'answers' => $_answers,
             'canAnswer' => \Yii::app()->user->checkAccess('createQaAnswer', array('question' => $this->getModel(self::$questionModel, $questionId))),
         );
+        $this->success = true;
+    }
+
+    public function actionGetChildAnswer($answerId)
+    {
+        $this->data = QaAnswer::model()->apiWith('user')->findAll('root_id=' . $answerId);
         $this->success = true;
     }
 

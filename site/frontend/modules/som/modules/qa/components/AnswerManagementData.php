@@ -20,8 +20,11 @@ class AnswerManagementData
         foreach ($answers as $answer) 
         {
             $_answer = $answer->toJSON();
-
-            $_answer['isAvailableForEditing']   = $answer->isAvailableForEditing();
+            
+            $respAvalaibleForEditing = $answer->availableForEditing();
+            
+            $_answer['isAvailableForEditing']   = $respAvalaibleForEditing['status'];
+            $_answer['minsFromEditing']         = $respAvalaibleForEditing['diffMins'];
             $_answer['canEdit']                 = \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $answer));
             $_answer['canRemove']               = \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $answer));
             $_answer['canVote']                 = \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answer));

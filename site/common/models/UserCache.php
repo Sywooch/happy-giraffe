@@ -98,9 +98,9 @@ class UserCache extends HActiveRecord
      */
     public static function GetCurrentUserCache()
     {
-        if (Yii::app()->user->isGuest)
+        if (Yii::app()->user->getIsGuest())
             return null;
-        return self::GetUserCache(Yii::app()->user->id);
+        return self::GetUserCache(Yii::app()->user->getId());
     }
 
     /**

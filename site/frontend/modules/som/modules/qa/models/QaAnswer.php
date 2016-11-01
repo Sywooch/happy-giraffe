@@ -340,16 +340,18 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	/**
 	 * Доступен ли вопрос для редактирования авторизованному специалисту
 	 * 
-	 * @return boolean
+	 * @return array
 	 * @author Sergey Gubarev
 	 */
-	public function isAvailableForEditing()
+	public function availableForEditing()
 	{
 	    $time = $this->dtimeUpdate ? $this->dtimeUpdate : $this->dtimeCreate;
-    
-	    $diffMins = floor((time() - $time) / 60); 
-
-	    return $diffMins < self::MINUTES_FOR_EDITING ? true : false;
+	
+	    $diffMins = floor((time() - $time) / 60);
+	
+	    $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
+	  
+	    return compact('status', 'diffMins');
 	}
 	
 	public function defaultScope()
@@ -389,6 +391,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	 */
 	public function authorIsSpecialist()
 	{
-	    return !empty(SpecialistProfile::model()->findAllByPk($this->authorId));
+	    return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 
 use site\frontend\modules\specialists\models\SpecialistGroup;
+
 /**
  * Created by JetBrains PhpStorm.
  * User: mikita
@@ -602,13 +603,16 @@ class ClientScript extends CClientScript
         $id = CJavaScript::encode(Yii::app()->user->id);
         $isGuest = CJSON::encode(Yii::app()->user->isGuest);
         $isModer = CJSON::encode(Yii::app()->user->checkAccess('moderator'));
+        $minsToEditAnswerPediatrician = \site\frontend\modules\som\modules\qa\models\QaAnswer::MINUTES_FOR_EDITING;
+        
         $mod = <<<JS
 define("user-config", function () {
     var userConfig = {
         userId: {$id},
         isGuest: {$isGuest},
         isModer: {$isModer},
-        isPediatrician: {$isPediatrician}
+        isPediatrician: {$isPediatrician},
+        minsToEditAnswerPediatrician: {$minsToEditAnswerPediatrician}
     };
 
     return userConfig;

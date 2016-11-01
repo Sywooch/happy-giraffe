@@ -37,7 +37,7 @@ $flowersCount = function($votesCount) {
                     <?php for ($j = 0; $j < $flowersCount($rating->votes_count); $j++): ?>
                     <span class="pediator-ico--roze pediator-ico--size-s margin-r2 verticalalign-m"></span>
                     <?php endfor; ?>
-                    <span class="margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>
+                    <span class="margin-r10 display-ib verticalalign-m">Спасибо <?=$rating->votes_count?></span>
                 <?php endif; ?>
             </p>
             <div class="font-xl"><?=$rating->total_count?></div>
@@ -69,7 +69,7 @@ $flowersCount = function($votesCount) {
                                     <?php for ($j = 0; $j < $flowersCount($rating->votes_count); $j++): ?>
                                         <span class="pediator-ico--roze pediator-ico--size-s margin-r2 verticalalign-m"></span>
                                     <?php endfor; ?>
-                                    <span class="margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>
+                                    <span class="margin-r10 display-ib verticalalign-m">Спасибо <?=$rating->votes_count?></span>
                                 <?php endif; ?>
                             </p>
                         </div>

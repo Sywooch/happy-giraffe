@@ -391,6 +391,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	 */
 	public function authorIsSpecialist()
 	{
-	    return !empty(SpecialistProfile::model()->findAllByPk($this->authorId));
+	    return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
 	}
 }

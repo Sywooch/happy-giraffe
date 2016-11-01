@@ -113,9 +113,9 @@ class QaManager
         $criteria->with = 'category';
         $criteria->addCondition('t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)');
         $criteria->addCondition('(answers.id IS NULL) OR (t.id NOT IN(SELECT a1.questionId FROM qa__answers a1
-            LEFT JOIN qa__answers a2 ON a2.root_id = a1.id
-            LEFT JOIN qa__answers a3 ON a3.root_id = a2.id
-            WHERE (
+            LEFT JOIN qa__answers a2 ON a2.root_id = a1.id AND a2.isRemoved = 0
+            LEFT JOIN qa__answers a3 ON a3.root_id = a2.id AND a3.isRemoved = 0
+            WHERE a1.isRemoved = 0 AND (
             (a1.authorId IN (SELECT specialists__profiles.id FROM specialists__profiles)
                 AND (a3.authorId IN (SELECT specialists__profiles.id FROM specialists__profiles) OR (a3.authorId IS NULL AND a2.authorId IS NULL))
             ) OR (

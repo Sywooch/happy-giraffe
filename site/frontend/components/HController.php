@@ -279,22 +279,6 @@ class HController extends CController
         return compact('newNotificationsCount', 'newMessagesCount', 'newFriendsCount', 'newPostsCount', 'newScoreCount', 'activeModule');
     }
 
-    public function render($view, $data = null, $return = false, $options = null)
-    {
-        $output = parent::render($view, $data, true);
-
-        $compactor = Yii::app()->contentCompactor;
-        if($compactor == null)
-            throw new CHttpException(500, Yii::t('messages', 'Missing component ContentCompactor in configuration.'));
-
-        $output = $compactor->compact($output, $options);
-
-        if($return)
-            return $output;
-        else
-            echo $output;
-    }
-
     public function addView($action)
     {
         //\Yii::log("checkView", 'info', 'hcontroller');

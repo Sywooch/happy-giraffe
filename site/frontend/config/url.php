@@ -41,6 +41,7 @@ return array(
         '<_v>/api/questions' => 'api/<_v>/api/questions',
         '<_v>/api/questions/<id:\d+>' => 'api/<_v>/api/questions',
         '<_v>/api/answers' => 'api/<_v>/api/answers',
+        '<_v>/api/answers/<action:(additional)>' => 'api/<_v>/api/answers',
         '<_v>/api/answers/<id:\d+>' => 'api/<_v>/api/answers',
         '<_v>/api/qa-categories' => 'api/<_v>/api/qaCategories',
         '<_v>/api/qa-categories/<id:\d+>' => 'api/<_v>/api/qaCategories',
@@ -69,6 +70,10 @@ return array(
         '<_v>/api/users/<action:(profile)>' => 'api/<_v>/api/users',
         '<_v>/api/questions/<action:(search)>' => 'api/<_v>/api/questions',
         '<_v>/api/users/<action:(social)>' => 'api/<_v>/api/users',
+        '<_v>/api/clinics' => 'api/<_v>/api/clinics',
+        '<_v>/api/specialists' => 'api/<_v>/api/specialists',
+        '<_v>/api/specialists/<action:(categories|experience)>' => 'api/<_v>/api/specialists',
+        '<_v>/api/specialists/specializations' => 'api/<_v>/api/specializations',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

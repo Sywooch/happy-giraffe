@@ -81,7 +81,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'category' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', array('categoryId' => 'id'), 'through' => 'question'),
 			'tag' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', array('tag_id' => 'id'), 'through' => 'question'),
 			'votes' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'),
-			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
+			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
 			'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
 		);
 	}
@@ -321,20 +321,37 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
 		return $this;
 	}
+
+	/**
+	 * @param int $userId
+	 *
+	 * @return QaAnswer
+	 */
+	public function additionalToSpecialist($userId)
+	{
+		if (!isset($this->getDbCriteria()->with['root'])) {
+			$this->getDbCriteria()->with[] = 'root';
+		}
+		$this->getDbCriteria()->compare('root.authorId', $userId);
+
+		return $this;
+	}
     
 	/**
 	 * Доступен ли вопрос для редактирования авторизованному специалисту
 	 * 
-	 * @return boolean
+	 * @return array
 	 * @author Sergey Gubarev
 	 */
-	public function isAvailableForEditing()
+	public function availableForEditing()
 	{
 	    $time = $this->dtimeUpdate ? $this->dtimeUpdate : $this->dtimeCreate;
-    
-	    $diffMins = floor((time() - $time) / 60); 
-
-	    return $diffMins < self::MINUTES_FOR_EDITING ? true : false;
+	
+	    $diffMins = floor((time() - $time) / 60);
+	
+	    $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
+	  
+	    return compact('status', 'diffMins');
 	}
 	
 	public function defaultScope()
@@ -374,6 +391,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	 */
 	public function authorIsSpecialist()
 	{
-	    return !empty(SpecialistProfile::model()->findAllByPk($this->authorId));
+	    return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
 	}
 }

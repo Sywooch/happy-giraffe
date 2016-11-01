@@ -42,11 +42,14 @@ class QaManager
 
     public static function getAnswerCountAndVotes($userId)
     {
+        $answerTableName = QaAnswer::model()->tableName();
+        $questionsTableName = QaQuestion::model()->tableName();
          return \Yii::app()->db->createCommand()
-            ->select('COUNT(*) AS count, SUM(votesCount) AS sumVotes')
-            ->from(QaAnswer::model()->tableName())
-            ->where('authorId=' . $userId)
-            ->andWhere('isRemoved=0')
+            ->select('COUNT(DISTINCT ' . $questionsTableName . '.authorId) AS count, SUM(votesCount) AS sumVotes')
+            ->from($answerTableName)
+            ->leftJoin($questionsTableName, $answerTableName . '.questionId = ' . $questionsTableName . '.id AND ' . $questionsTableName . '.isRemoved = 0')
+            ->where($answerTableName . '.authorId=' . $userId)
+            ->andWhere($answerTableName . '.isRemoved=0')
             ->queryRow()
         ;
     }

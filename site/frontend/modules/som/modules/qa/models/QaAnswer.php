@@ -332,7 +332,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		if (!isset($this->getDbCriteria()->with['root'])) {
 			$this->getDbCriteria()->with[] = 'root';
 		}
+
 		$this->getDbCriteria()->compare('root.authorId', $userId);
+		$this->getDbCriteria()->addCondition("not exists(select * from qa__answers as children where children.root_id = {$this->tableAlias}.id and children.isRemoved = 0)");
 
 		return $this;
 	}

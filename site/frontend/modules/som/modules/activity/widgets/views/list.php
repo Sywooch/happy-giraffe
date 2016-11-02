@@ -13,7 +13,9 @@
     <?php if ($this->ownerId == Yii::app()->user->id): ?>
         <div class="heading-sm">Моя активность</div>
         <div class="profile-cap_hold profile-cap_hold__article">
-            <div class="profile-cap_tx">У вас пока нет активности на сайте, поделитесь чем-нибудь интересным с пользователями Веселого Жирафа.<br><a href="<?= Yii::app()->createUrl('blog/default/form', array('type' => CommunityContent::TYPE_POST, 'useAMD' => true)) ?>" class="fancy">Добавить запись</a></div>
+            <div class="profile-cap_tx">У вас пока нет активности на сайте, поделитесь чем-нибудь интересным с пользователями Веселого Жирафа.<br>
+                <a style="display: none;" href="<?= Yii::app()->createUrl('blog/default/form', array('type' => CommunityContent::TYPE_POST, 'useAMD' => true)) ?>" class="fancy">Добавить запись</a>
+            </div>
         </div>
     <?php else: ?>
         <div class="cap-empty cap-empty__user-profile">

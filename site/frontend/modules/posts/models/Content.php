@@ -36,14 +36,16 @@ use site\frontend\modules\quests\models\Quest;
  * @property integer $isRemoved
  * @property integer $views
  * @property string $meta
- * @property site\frontentd\modules\posts\models\MetaInfo $metaObject
+ * @property \site\frontend\modules\posts\models\MetaInfo $metaObject
  * @property string $social
- * @property site\frontentd\modules\posts\models\SocialInfo $socialObject
+ * @property \site\frontend\modules\posts\models\SocialInfo $socialObject
  * @property string $template
- * @property site\frontentd\modules\posts\models\TemplateInfo $templateObject
+ * @property \site\frontend\modules\posts\models\TemplateInfo $templateObject
+ *
+ * @property-read bool $isHot
  *
  * The followings are the available model relations:
- * @property PostLabels[] $labelModels
+ * @property \PostLabels[] $labelModels
  * @property \User $author
  * @property int $comments_count
  * @property Quest $quest
@@ -166,7 +168,7 @@ class Content extends \HActiveRecord implements \IHToJSON
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
                 'removeAttribute' => 'isRemoved',
             ),
-            'site\frontend\modules\posts\behaviors\HotBehavior',
+            \site\frontend\modules\posts\behaviors\HotBehavior::class,
             [
                 'class' => 'site\frontend\modules\comments\behaviors\CommentableBehavior',
                 'fk' => 'new_entity_id',
@@ -462,7 +464,7 @@ class Content extends \HActiveRecord implements \IHToJSON
     /**
      * 
      * @param int $authorId
-     * @return site\frontend\modules\posts\models\Content
+     * @return \site\frontend\modules\posts\models\Content
      */
     public function byAuthor($authorId)
     {
@@ -477,7 +479,7 @@ class Content extends \HActiveRecord implements \IHToJSON
      * 
      * @param string $entity
      * @param string $entityId
-     * @return site\frontend\modules\posts\models\Content
+     * @return \site\frontend\modules\posts\models\Content
      */
     public function byEntity($entity, $entityId)
     {
@@ -527,7 +529,7 @@ class Content extends \HActiveRecord implements \IHToJSON
      */
     public function orderDesc()
     {
-        $this->getDbCriteria()->order = $this->tableAlias . '.dtimePublication DESC';
+        $this->getDbCriteria()->mergeWith(['order' => $this->tableAlias . '.dtimePublication DESC']);
 
         return $this;
     }
@@ -756,8 +758,8 @@ class Content extends \HActiveRecord implements \IHToJSON
      * Создаёт критерй для выбора поста, стоящего с "лева" от переданого поста.
      * Из за некой специфики выборки, критерий представляет из себя 
      * выборку требуемого поста по id
-     * @param site\frontend\modules\posts\models\Content $post
-     * @return site\frontend\modules\posts\models\Content
+     * @param \site\frontend\modules\posts\models\Content $post
+     * @return \site\frontend\modules\posts\models\Content
      */
     public function leftFor($post)
     {
@@ -812,8 +814,8 @@ class Content extends \HActiveRecord implements \IHToJSON
 
     /**
      * 
-     * @param site\frontend\modules\posts\models\Content $post
-     * @return site\frontend\modules\posts\models\Content
+     * @param \site\frontend\modules\posts\models\Content $post
+     * @return \site\frontend\modules\posts\models\Content
      */
     public function rightFor($post)
     {

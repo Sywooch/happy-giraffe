@@ -98,4 +98,22 @@ class SpecialistSpecialization extends \CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	public function sorted()
+	{
+		$this->getDbCriteria()->order = 'sort DESC, title ASC';
+		return $this;
+	}
+
+	/**
+	 * @param int $groupId
+	 *
+	 * @return SpecialistSpecialization
+	 */
+	public function byGroup($groupId)
+	{
+		$this->getDbCriteria()->compare($this->getTableAlias() . '.groupId', $groupId);
+
+		return $this;
+	}
 }

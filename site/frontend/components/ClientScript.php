@@ -1,5 +1,7 @@
 <?php
 
+use site\frontend\modules\specialists\models\SpecialistGroup;
+
 /**
  * Created by JetBrains PhpStorm.
  * User: mikita
@@ -593,15 +595,24 @@ class ClientScript extends CClientScript
 
     protected function getUserModule()
     {
+        $userModel = Yii::app()->user->getModel();
+            
+        $isPediatrician = !is_null($userModel) ? $userModel->isSpecialistOfGroup(SpecialistGroup::DOCTORS) : false;
+        $isPediatrician = CJSON::encode($isPediatrician);
+        
         $id = CJavaScript::encode(Yii::app()->user->id);
         $isGuest = CJSON::encode(Yii::app()->user->isGuest);
         $isModer = CJSON::encode(Yii::app()->user->checkAccess('moderator'));
+        $minsToEditAnswerPediatrician = \site\frontend\modules\som\modules\qa\models\QaAnswer::MINUTES_FOR_EDITING;
+        
         $mod = <<<JS
 define("user-config", function () {
     var userConfig = {
         userId: {$id},
         isGuest: {$isGuest},
-        isModer: {$isModer}
+        isModer: {$isModer},
+        isPediatrician: {$isPediatrician},
+        minsToEditAnswerPediatrician: {$minsToEditAnswerPediatrician}
     };
 
     return userConfig;

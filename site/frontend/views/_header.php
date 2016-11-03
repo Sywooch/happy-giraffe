@@ -11,7 +11,7 @@ $("[href=#js-madal-search-box]").magnificPopup({
               closeBtnInside: false,
               mainClass: "b-modal-search"
             });');
-    $cs->registerAMD('headerMobileMenu', ['$' => 'jquery'], '$("body").on("click", function() {$("header .header__menu").removeClass("header__menu_open")})');
+//    $cs->registerAMD('headerMobileMenu', ['$' => 'jquery'], '$("body").on("click", function() {$("header .header__menu").removeClass("header__menu_open")})');
 } else {
     $cs->registerScript('headerSearch', '$("[href=#js-madal-search-box]").magnificPopup({
               type: "inline",
@@ -20,7 +20,7 @@ $("[href=#js-madal-search-box]").magnificPopup({
               closeBtnInside: false,
               mainClass: "b-modal-search"
             });');
-    $cs->registerScript('headerSearch', '$("body").on("click", function() {$("header .header__menu").removeClass("header__menu_open")})');
+//    $cs->registerScript('headerSearch', '$("body").on("click", function() {$("header .header__menu").removeClass("header__menu_open")})');
 }
 
 if (! Yii::app()->user->isGuest) {
@@ -36,7 +36,8 @@ if (! Yii::app()->user->isGuest) {
     }
 }
 ?>
-<a class="mobile-menu" onclick="$('.js-overlay-menu').toggleClass('header__menu_open'); $(this).toggleClass('on'); $('header .header__menu').toggleClass('header__menu_open'); event.stopPropagation()"><span></span></a>
+
+<a class="mobile-menu"><span></span></a>
 <a href="/" class="logo"></a><a class="header__search popup-a" href="#js-madal-search-box"></a>
 <nav class="header__nav">
     <ul class="header__menu">
@@ -53,7 +54,7 @@ if (! Yii::app()->user->isGuest) {
         </div>
     <?php else: ?>
         <div class="user-on"><a href="<?=$this->createUrl('/notifications/default/index')?>" class="signal active" data-bind="css: { active: newNotificationsCount() > 0 && activeModule() != 'notifications' }"></a>
-            <div class="ava"><a class="ava__link" href="#" data-bind="click: function(data, event) {menuExtended(! menuExtended()); event.stopPropagation(); return true;}"><img src="<?=Yii::app()->user->model->getAvatarUrl(40)?>"></a></div>
+            <div class="ava"><a class="js-ava__link ava__link" href="#" data-bind="click: function(data, event) {menuExtended(! menuExtended()); event.stopPropagation(); return true;}"><img src="<?=Yii::app()->user->model->getAvatarUrl(40)?>"></a></div>
         </div>
     <?php endif; ?>
 </nav>
@@ -67,8 +68,8 @@ if (! Yii::app()->user->isGuest) {
             <li class="user-widget-block__li"><a href="<?=$this->createUrl('/messaging/default/index')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_dialog"></span><span class="user-widget-block__text">Диалоги</span></a></li>
             <li class="user-widget-block__li"><a href="<?=$this->createUrl('/friends/default/index')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_friend"></span><span class="user-widget-block__text">Друзья</span></a></li>
             <li class="user-widget-block__li"><a href="<?=$this->createUrl('/photo/default/index', array('userId' => Yii::app()->user->id))?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_photo"></span><span class="user-widget-block__text">Фото</span></a></li>
-            <li class="user-widget-block__li"><a href="<?=$this->createUrl('/users/default/settings')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_setting"></span><span class="user-widget-block__text">Настройки</span></a></li>
             <li class="user-widget-block__li"><a href="<?=$this->createUrl('/som/qa/my/questions')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_answers"></span><span class="user-widget-block__text">Вопросы</span></a></li>
+            <li class="user-widget-block__li"><a href="<?=$this->createUrl('/users/default/settings')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_setting"></span><span class="user-widget-block__text">Настройки</span></a></li>
             <li class="user-widget-block__li"><a href="<?=$this->createUrl('/site/logout')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_exit"></span><span class="user-widget-block__text">Выход</span></a></li>
         </ul>
     </div>

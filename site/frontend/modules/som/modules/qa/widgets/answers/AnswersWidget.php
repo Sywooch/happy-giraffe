@@ -3,6 +3,7 @@ namespace site\frontend\modules\som\modules\qa\widgets\answers;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 
 /**
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $answers
@@ -25,14 +26,34 @@ class AnswersWidget extends \CWidget
 
     public function getAnswers()
     {
-        return QaAnswer::model()->question($this->question->id)->apiWith('user')->orderDesc()->findAll();
+        $condition = null;
+
+        if ($this->question->category->isPediatrician())
+        {
+            $time = time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
+
+            $condition = [
+                'condition' => "dtimeCreate <= $time"
+            ];
+        }
+
+        return QaAnswer::model()
+                    ->question($this->question->id)
+                    ->apiWith('user')
+                    ->orderDesc()
+                    ->findAll($condition)
+                ;
     }
 
     protected function runForGuest()
     {
+        $answers = QaManager::getAnswers($this->question);
+
         $bestAnswers = array();
         $otherAnswers = array();
-        foreach ($this->getAnswers() as $answer) {
+
+        foreach ($answers as $answer)
+        {
             if ($answer->isBest) {
                 $bestAnswers[] = $answer;
             } else {
@@ -53,6 +74,7 @@ class AnswersWidget extends \CWidget
         $paramsParts = array_map(function($value, $key) {
             return $key . ': ' . \CJSON::encode($value);
         }, $params, array_keys($params));
+
         $paramsStr = implode(', ', $paramsParts);
         echo \CHtml::tag('answers-widget', array('params' => $paramsStr));
     }

@@ -199,9 +199,9 @@ class Content extends \HActiveRecord implements \IHToJSON
         return Content::$entityAliases[$entity];
     }
 
-    public static function getClass()
+    public function getClass()
     {
-        return Content::$entityAliases[$this->originEntity];
+        return self::$entityAliases[$this->originEntity];
     }
 
     public function setEntityClass($class)
@@ -433,7 +433,7 @@ class Content extends \HActiveRecord implements \IHToJSON
     }
 
     /**
-     * 
+     *
      * @return string blog|community|other
      */
     public function getPostType()
@@ -462,7 +462,7 @@ class Content extends \HActiveRecord implements \IHToJSON
     /* scopes */
 
     /**
-     * 
+     *
      * @param int $authorId
      * @return \site\frontend\modules\posts\models\Content
      */
@@ -476,7 +476,7 @@ class Content extends \HActiveRecord implements \IHToJSON
     }
 
     /**
-     * 
+     *
      * @param string $entity
      * @param string $entityId
      * @return \site\frontend\modules\posts\models\Content
@@ -548,7 +548,7 @@ class Content extends \HActiveRecord implements \IHToJSON
 
     /**
      * Поиск по id тегов
-     * 
+     *
      * @param type $tags
      * @return \site\frontend\modules\posts\models\Content
      */
@@ -567,7 +567,7 @@ class Content extends \HActiveRecord implements \IHToJSON
 
     /**
      * Поиск по текстовым "ярлыкам"
-     * 
+     *
      * @param type $labels
      * @return \site\frontend\modules\posts\models\Content
      */
@@ -756,7 +756,7 @@ class Content extends \HActiveRecord implements \IHToJSON
 
     /**
      * Создаёт критерй для выбора поста, стоящего с "лева" от переданого поста.
-     * Из за некой специфики выборки, критерий представляет из себя 
+     * Из за некой специфики выборки, критерий представляет из себя
      * выборку требуемого поста по id
      * @param \site\frontend\modules\posts\models\Content $post
      * @return \site\frontend\modules\posts\models\Content
@@ -813,9 +813,8 @@ class Content extends \HActiveRecord implements \IHToJSON
     }
 
     /**
-     * 
-     * @param \site\frontend\modules\posts\models\Content $post
-     * @return \site\frontend\modules\posts\models\Content
+     * @param site\frontend\modules\posts\models\Content $post
+     * @return site\frontend\modules\posts\models\Content
      */
     public function rightFor($post)
     {

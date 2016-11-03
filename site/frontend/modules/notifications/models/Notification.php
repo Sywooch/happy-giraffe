@@ -327,13 +327,23 @@ class Notification extends \EMongoDocument implements \IHToJSON
     }
 
     /**
-     *
      * @param int $type
      * @return \site\frontend\modules\notifications\models\Notification
      */
     public function byType($type)
     {
         $this->dbCriteria->addCond('type', '==', (int) $type);
+
+        return $this;
+    }
+
+    /**
+     * @param array $types
+     * @return \site\frontend\modules\notifications\models\Notification
+     */
+    public function byTypes($types)
+    {
+        $this->getDbCriteria()->addCond('type', 'in', $types);
 
         return $this;
     }

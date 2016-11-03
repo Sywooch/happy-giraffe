@@ -300,6 +300,23 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
+	 * @param int $userId
+	 *
+	 * @return QaQuestion
+	 */
+	public function withoutUserAnswers($userId)
+	{
+		$this->getDbCriteria()->addCondition("not exists(select * from qa__answers a where a.questionId={$this->tableAlias}.id and a.authorId={$userId})");
+
+		return $this;
+	}
+
+	public function withoutSpecialistsAnswers($groupId)
+	{
+
+	}
+
+	/**
 	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
 	 */
 	public function next()

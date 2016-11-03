@@ -2,6 +2,9 @@
 
 namespace site\frontend\modules\specialists\models;
 use site\frontend\modules\specialists\models\sub\MultipleRowsModel;
+use site\frontend\modules\specialists\components\SpecialistsManager;
+use site\frontend\modules\specialists\models\specialistsAuthorizationTasks\AuthorizationTypeEnum;
+use site\frontend\modules\specialists\models\specialistProfile\AuthorizationEnum;
 
 /**
  * This is the model class for table "specialists__profiles".
@@ -15,6 +18,7 @@ use site\frontend\modules\specialists\models\sub\MultipleRowsModel;
  * @property string $experience
  * @property string $category
  * @property string $placeOfWork
+ * @property integer $authorization_status
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\users\models\User $user
@@ -73,7 +77,7 @@ class SpecialistProfile extends \CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'site\frontend\modules\users\models\User', 'id'),
-			'specializations' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistSpecialization', 'specialists__profiles_specializations(profileId, specializationId)'),
+			'specializations' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistSpecialization', 'specialists__profiles_specializations(profileId, specializationId)', 'scopes' => ['sorted']),
 		);
 	}
 
@@ -137,6 +141,34 @@ class SpecialistProfile extends \CActiveRecord
 		return parent::model($className);
 	}
 
+	/**
+	 * @return boolean
+	 */
+	public function authorizationIsDone()
+	{
+	    return $this->authorization_status == AuthorizationEnum::ACTIVE;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function setAuthorizationStatusActive()
+	{
+	    $this->authorization_status = AuthorizationEnum::ACTIVE;
+
+	    return $this->save();
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function setAuthorizationStatusNotActive()
+	{
+	    $this->authorization_status = AuthorizationEnum::NOT_ACTIVE;
+
+	    return $this->save();
+	}
+
     public function getCareerObject()
     {
         if (!isset($this->_relatedModels['career']))
@@ -160,7 +192,7 @@ class SpecialistProfile extends \CActiveRecord
 
         return $this->_relatedModels['courses'];
     }
-	
+
 	public function getSpecsString()
 	{
 		return $this->specializations ? implode(', ', array_map(function($spec) {

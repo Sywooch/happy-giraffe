@@ -1,6 +1,7 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 use site\frontend\modules\specialists\models\SpecialistGroup;
+use site\frontend\modules\specialists\models\SpecialistProfile;
 
 /**
  * This is the model class for table "qa__answers".
@@ -29,6 +30,23 @@ use site\frontend\modules\specialists\models\SpecialistGroup;
  */
 class QaAnswer extends \HActiveRecord implements \IHToJSON
 {
+    /**
+     * Диапазон времени (минут), в течени которого специалист может редактировать свой ответ
+     * 
+     * @var integer
+     * @author Sergey Gubarev
+     */
+    const MINUTES_FOR_EDITING = 5;
+        
+    /**
+     * Время (минут) задержки публикации ответа специалистом на сайте и в сервисе "Мой педиатр"
+     * 
+     * @var integer
+     * @author Sergey Gubarev
+     */
+    const MINUTES_AWAITING_PUBLISHED = 5;
+    
+    
 	/**
 	 * @return string the associated database table name
 	 */
@@ -63,7 +81,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'category' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', array('categoryId' => 'id'), 'through' => 'question'),
 			'tag' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', array('tag_id' => 'id'), 'through' => 'question'),
 			'votes' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'),
-			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
+			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
 			'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
 		);
 	}
@@ -73,6 +91,26 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		return array(
 			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
 		);
+	}
+
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
+	 */
+	public function getChilds()
+	{
+		$matchedAnswers = $this->children;
+
+		foreach ($matchedAnswers as $answer)
+		{
+			if (!empty($answer->children))
+			{
+				$matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
+			}
+
+		}
+
+		return $matchedAnswers;
+
 	}
 
 	/**
@@ -125,7 +163,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'RatingBehavior' => array(
 				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
 			),
-		    'site\frontend\modules\som\modules\qa\behaviors\QaBehavior',
+		    \site\frontend\modules\som\modules\qa\behaviors\QaBehavior::class,
 		);
 	}
 
@@ -240,13 +278,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	public function canBeAnsweredBy($user)
 	{
 		// уточняющий вопрос
-		if ($this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id == null) {
-			return $user->id == $this->question->id && !$user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN);
+		if ($this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id == null && !$this->children) {
+			return $user->id == $this->question->authorId && !$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
 		}
 
 		// ответ на уточняющий вопрос
-		if (!$this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null) {
-			return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN);
+		if (!$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && count($this->root->children) == 1) {
+			return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
 		}
 
 		return false;
@@ -257,7 +295,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	 */
 	public function isAdditional()
 	{
-		return !$this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null;
+		return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
 	}
 
 	/**
@@ -265,7 +303,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	 */
 	public function isAnswerToAdditional()
 	{
-		return $this->author->isSpecialistOfGroup(SpecialistGroup::PEDIATRICIAN) && $this->root_id != null;
+		return $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
 	}
 
 	/**
@@ -284,6 +322,38 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		return $this;
 	}
 
+	/**
+	 * @param int $userId
+	 *
+	 * @return QaAnswer
+	 */
+	public function additionalToSpecialist($userId)
+	{
+		if (!isset($this->getDbCriteria()->with['root'])) {
+			$this->getDbCriteria()->with[] = 'root';
+		}
+		$this->getDbCriteria()->compare('root.authorId', $userId);
+
+		return $this;
+	}
+    
+	/**
+	 * Доступен ли вопрос для редактирования авторизованному специалисту
+	 * 
+	 * @return array
+	 * @author Sergey Gubarev
+	 */
+	public function availableForEditing()
+	{
+	    $time = $this->dtimeUpdate ? $this->dtimeUpdate : $this->dtimeCreate;
+	
+	    $diffMins = floor((time() - $time) / 60);
+	
+	    $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
+	  
+	    return compact('status', 'diffMins');
+	}
+	
 	public function defaultScope()
 	{
 		$t = $this->getTableAlias(false, false);
@@ -300,7 +370,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'dtimeCreate' => (int) $this->dtimeCreate,
 			'text' => $this->purified->text,
 			'votesCount' => (int) $this->votesCount,
-			'user' => $this->user,
+			'user' => $this->user->formatedForJson(),
 			'isRemoved' => (bool) $this->isRemoved,
 		);
 	}
@@ -314,5 +384,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function authorIsSpecialist()
+	{
+	    return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
 	}
 }

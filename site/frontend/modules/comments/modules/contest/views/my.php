@@ -22,7 +22,7 @@ $cs->registerAMD('contestCommentsIndex', array('kow'));
         <?php if(!$this->checkSocialService('ok', $social)): ?>
         <article class="b-article b-article__list clearfix b-article-qa">
             <div class="b-konkurs-social">
-                <div class="b-contest-task__link verticalalign-m margin-r15 ico-odnoklasniki"></div>
+                <div class="b-contest-task__link verticalalign-m margin-r15 ico-social__medium ico-social__medium--ondnoklasniki"></div>
                 <div class="b-konkurs-social__text">Спасибо за приглашение друзей из «Одноклассников»!</div><span class="b-konkurs-social__ico"></span>
             </div>
         </article>
@@ -30,7 +30,7 @@ $cs->registerAMD('contestCommentsIndex', array('kow'));
         <?php if(!$this->checkSocialService('vk', $social)): ?>
         <article class="b-article b-article__list clearfix b-article-qa">
             <div class="b-konkurs-social">
-                <div class="b-contest-task__link verticalalign-m margin-r15 ico-vk"></div>
+                <div class="b-contest-task__link verticalalign-m margin-r15 ico-social__medium ico-social__medium--vk"></div>
                 <div class="b-konkurs-social__text">Спасибо за приглашение друзей из «ВКонтакте»!</div><span class="b-konkurs-social__ico"></span>
             </div>
         </article>
@@ -38,7 +38,7 @@ $cs->registerAMD('contestCommentsIndex', array('kow'));
         <?php if(!$this->checkSocialService('fb', $social)): ?>
         <article class="b-article b-article__list clearfix b-article-qa">
             <div class="b-konkurs-social">
-                <div class="b-contest-task__link verticalalign-m margin-r15 ico-fb"></div>
+                <div class="b-contest-task__link verticalalign-m margin-r15 ico-social__medium ico-social__medium--fb"></div>
                 <div class="b-konkurs-social__text">Спасибо за приглашение друзей из «Facebook»!</div><span class="b-konkurs-social__ico"></span>
             </div>
         </article>

@@ -4,7 +4,7 @@
  */
 ?>
 <div class="pediator-answer__left pediator-answer__left--style">
-<!-- ava--><span href="<?=$answer->user->profileUrl?>" class="ava ava__middle ava__female ava__b-pink"><img alt="" src="<?=$answer->user->avatarUrl?>" class="ava_img"></span>
+<!-- ava--><span class="ava ava__middle ava__female ava__b-pink"><img alt="" src="<?=$answer->user->avatarUrl?>" class="ava_img"></span>
 </div>
 <div class="pediator-answer__right_550 margin-b5 pediator-answer__right-active">
     <div class="box-wrapper__user"><a href="<?=$answer->user->profileUrl?>" class="box-wrapper__link"><?=$answer->user->getFullName()?></a>

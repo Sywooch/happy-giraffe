@@ -18,10 +18,24 @@ class AjaxController extends \HController
     public function filters()
     {
         return [
-            'ajaxOnly'
-        ]; 
+            'ajaxOnly',
+            'accessControl'
+        ];
     }
-    
+
+    public function accessRules()
+    {
+        return [
+            [
+                'deny',
+                'actions' => ['addsubscribe', 'removesubscribe'],
+                'users' => ['?']
+            ]
+        ];
+    }
+
+
+
     /**
      * Данные для виджета "Блогоэфир"
      * 
@@ -76,6 +90,20 @@ class AjaxController extends \HController
         echo \CJSON::encode([
             'status' => $addResult
         ]);            
+    }
+
+    /**
+     * Отписка
+     */
+    public function actionRemoveSubscribe()
+    {
+        $userId = (int)\Yii::app()->request->getPost('userId');
+
+        $removeResult = \UserBlogSubscription::unSubscribe(\Yii::app()->user->id, $userId);
+
+        echo \CJSON::encode([
+            'status' => $removeResult
+        ]);
     }
     
 }

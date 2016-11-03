@@ -4,8 +4,8 @@
  * This is the model class for table "user__blog_subscriptions".
  *
  * The followings are the available columns in table 'user__blog_subscriptions':
- * @property string $user_id
- * @property string $user2_id
+ * @property string $user_id *Кто* подписан
+ * @property string $user2_id *На кого* подписан
  *
  * The followings are the available model relations:
  * @property User $user2
@@ -128,7 +128,7 @@ class UserBlogSubscription extends HActiveRecord
             ':user_id' => $user_id,
             ':user2_id' => $user2_id,
         ));
-        return $model !== null ? true : $model->delete();
+        return $model === null ? true : $model->delete();
     }
 
     /**

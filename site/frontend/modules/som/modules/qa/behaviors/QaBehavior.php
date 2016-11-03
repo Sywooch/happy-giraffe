@@ -4,16 +4,18 @@ namespace site\frontend\modules\som\modules\qa\behaviors;
 
 use site\frontend\modules\som\modules\activity\behaviors\ActivityBehavior;
 use site\frontend\modules\som\modules\activity\models\api\Activity;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use Aws\CloudFront\Exception\Exception;
 
 /**
+ * @property QaAnswer|QaQuestion $owner
+ *
  * @author Emil Vililyaev
  */
 class QaBehavior extends ActivityBehavior
 {
-
     /**
      * Метод, возвращающий уникальный идентификатор сущности,
      * которой соответствует активность.
@@ -35,8 +37,7 @@ class QaBehavior extends ActivityBehavior
         $activity->dtimeCreate = (int) $this->owner->dtimeCreate;
         $activity->userId = (int) $this->owner->authorId;
 
-        switch (TRUE)
-        {
+        switch (TRUE) {
             case $this->owner instanceof QaQuestion :
                 $activity->data = [
                     'title' => $this->owner->title,
@@ -50,14 +51,20 @@ class QaBehavior extends ActivityBehavior
                     'url' => $this->owner->question->url,
                     'text' => $this->owner->text,
                     'content' => [
-                        'title'         => $this->owner->question->title,
-                        'url'           => $this->owner->question->url,
-                        'authorId'      => $this->owner->question->authorId,
-                        'dtimeCreate'   => $this->owner->question->dtimeCreate,
-                        'cover'         => false,
+                        'title' => $this->owner->question->title,
+                        'url' => $this->owner->question->url,
+                        'authorId' => $this->owner->question->authorId,
+                        'dtimeCreate' => $this->owner->question->dtimeCreate,
+                        'cover' => false,
                     ],
                 ];
-                $activity->typeId = 'comment';
+
+                // Незнаю почему QaAnswer->category не находится
+                if ($this->owner->question->categoryId == QaCategory::PEDIATRICIAN_ID) {
+                    $activity->typeId = \site\frontend\modules\som\modules\activity\models\Activity::TYPE_ANSWER_PEDIATRICIAN;
+                } else {
+                    $activity->typeId = \site\frontend\modules\som\modules\activity\models\Activity::TYPE_COMMENT;
+                }
                 break;
             default:
                 $activity->typeId = 'post';

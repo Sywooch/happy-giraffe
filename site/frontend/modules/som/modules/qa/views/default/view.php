@@ -1,8 +1,13 @@
 <?php
+
+use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
+
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
+
 $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $question->categoryId), 'rating');
 
 $this->pageTitle = CHtml::encode($question->title);
@@ -32,6 +37,9 @@ else
 {
     $isAnonQuestion = FALSE;
 }
+
+$helper = new AnswersTree();
+$helper->init($question->answers);
 
 ?>
 
@@ -117,9 +125,8 @@ $this->widget('zii.widgets.CBreadcrumbs', [
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
         <question-settings params="questionId: <?=$question->id?>"></question-settings>
     <?php endif; ?>
-    
+
     <div class="clearfix"></div>
 </div>
-
 
 <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget', array('question' => $question)); ?>

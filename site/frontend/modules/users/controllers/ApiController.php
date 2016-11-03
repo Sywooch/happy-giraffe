@@ -36,6 +36,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(404, 'Пользователь ' . $id . ' не найден');
         $this->success = true;
         $this->data = $user->toJSON();
+        $this->data['city'] = $user->address->getCityTitle();
         if ($avatarSize)
             $this->data['avatarUrl'] = $user->getAvatarUrl($avatarSize);
     }

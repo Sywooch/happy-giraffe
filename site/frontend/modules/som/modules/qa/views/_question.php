@@ -19,17 +19,17 @@ else
 
 
 <li class="questions_item clearfix <?php echo $isAnonQuestion ? 'questions_item-no-avatar' : ''; ?>">
-	
+
 	<?php if ($data->user->avatarUrl && ! $isAnonQuestion): ?>
-	
-		<div class="questions-modification__avatar awatar-wrapper">	
-			<a href="<?=$data->user->profileUrl?>" class="awatar-wrapper__link">			
+
+		<div class="questions-modification__avatar awatar-wrapper">
+			<a href="<?=$data->user->profileUrl?>" class="awatar-wrapper__link">
 				<img src="<?=$data->user->avatarUrl?>" class="awatar-wrapper__img">
 			</a>
-		</div>	
-		
+		</div>
+
 	<?php endif; ?>
-	
+
 
 	<div class="questions-modification__box box-wrapper">
       <div class="box-wrapper__user">

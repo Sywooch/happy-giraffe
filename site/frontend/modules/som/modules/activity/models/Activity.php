@@ -19,6 +19,8 @@ namespace site\frontend\modules\som\modules\activity\models;
  */
 class Activity extends \CActiveRecord implements \IHToJSON
 {
+    const TYPE_ANSWER_PEDIATRICIAN = 'answer_pediatrician';
+    const TYPE_COMMENT = 'comment';
 
     /**
      * @return string the associated database table name
@@ -48,7 +50,7 @@ class Activity extends \CActiveRecord implements \IHToJSON
     public function behaviors()
     {
         return array(
-            'HTimestampBehavior' => array(
+            \HTimestampBehavior::class => array(
                 'class' => 'HTimestampBehavior',
                 'createAttribute' => 'dtimeCreate',
                 'updateAttribute' => null,
@@ -168,7 +170,7 @@ class Activity extends \CActiveRecord implements \IHToJSON
 
     public function onlyComments()
     {
-        $this->getDbCriteria()->compare('typeId', 'comment');
+        $this->getDbCriteria()->compare('typeId', static::TYPE_COMMENT);
         return $this;
     }
 

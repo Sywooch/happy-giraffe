@@ -102,13 +102,12 @@ class DefaultController extends \LiteController
     {
         $user = \Yii::app()->user->getModel();
 
-        if (!$user->isSpecialistOfGroup(1))//хз где искать Enum, спросить у Никиты
+        if (!$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS))
         {
             throw new \CHttpException(403);
         }
 
         $dp = QaManager::getQuestionsDp(\Yii::app()->user->id);
-//         QaManager::getPersonalQuestions(\Yii::app()->user->id);
 
         $this->render('questions', compact('dp'));
     }

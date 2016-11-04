@@ -42,7 +42,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="redactor-control_toolbar_526" class="redactor-control_toolbar"></div>
+				<div id="redactor-control_toolbar_526" class="redactor-control_toolbar clearfix"></div>
 				<div class="redactor-control_control">
 					<div class="redactor-control_key">
 						<input type="checkbox" name="" class="redactor-control_key-checkbox"/>

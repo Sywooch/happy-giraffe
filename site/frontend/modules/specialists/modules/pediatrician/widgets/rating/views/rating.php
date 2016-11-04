@@ -68,7 +68,7 @@ $flowersCount = function($votesCount) {
             <div class="b-raiting__left float-l">
                 <div class="b-raiting-wrapper clearfix">
                     <div class="b-raiting__item float-l">
-                        <div class="b-raiting__num b-raiting__num--grey margin-r15 w-35 font-lm"><?=($i + $this::TOP_COUNT + 1)?></div>
+                        <div class="b-raiting__num b-raiting__num--grey margin-r10 w-35 font-lm"><?=($i + $this::TOP_COUNT + 1)?></div>
                         <a href="<?=$rating->user->getUrl()?>" class="contest-commentator-rating_user-a">
                             <?php $this->widget('Avatar', [
                                 'user' => $rating->user,

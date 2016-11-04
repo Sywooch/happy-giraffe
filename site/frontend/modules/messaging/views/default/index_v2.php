@@ -381,7 +381,7 @@
                                 <div class="redactor-control_hold">
                                     <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="redactorHG: { config : editorConfig, attr : editor }"></textarea>
                                 </div>
-                                <div class="redactor-control_toolbar"></div>
+                                <div class="redactor-control_toolbar clearfix"></div>
                                 <div class="redactor-control_control">
                                     <div class="redactor-control_key">
                                         <input type="checkbox" class="redactor-control_key-checkbox" data-bind="checked: $root.settings.messaging__enter(), click: function() {$root.settings.toggle('messaging__enter')}"/>

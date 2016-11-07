@@ -17,7 +17,7 @@
  * @property User $user
  * @property User $moderator
  */
-class AntispamReport extends CActiveRecord
+class AntispamReport extends HActiveRecord
 {
     const STATUS_PENDING = 0;
     const STATUS_CONSIDERED = 1;

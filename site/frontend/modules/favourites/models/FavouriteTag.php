@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property Favourites[] $favourites
  */
-class FavouriteTag extends CActiveRecord
+class FavouriteTag extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

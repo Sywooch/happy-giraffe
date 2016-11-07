@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property Site[] $sites
  */
-class SitesGroup extends CActiveRecord
+class SitesGroup extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

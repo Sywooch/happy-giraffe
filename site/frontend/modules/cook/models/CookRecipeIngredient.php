@@ -16,7 +16,7 @@
  * @property CookIngredient $ingredient
  * @property CookUnit $unit
  */
-class CookRecipeIngredient extends CActiveRecord
+class CookRecipeIngredient extends HActiveRecord
 {
     public $title;
     const EMPTY_INGREDIENT_UNIT = 1;

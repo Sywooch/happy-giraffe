@@ -11,6 +11,27 @@ class HActiveRecord extends CActiveRecord
     const OP_DELETE = 0x04;
     const OP_ALL = 0x07;
 
+    // Зачем это?
+    private $_attributes;
+    private $_related;
+
+    private $_apiWith = array();
+    private $_apiRelated;
+    private static $_apiMd = array();
+
+    private $_entities = array(
+        'post' => 'Пост',
+        'video' => 'Видео',
+        'photo' => 'Фото',
+    );
+
+    /**
+     * [
+     *  'scenario' => OP_INSERT | OP_UPDATE
+     * ]
+     *
+     * @return array
+     */
     public function transactions()
     {
         return [];
@@ -50,35 +71,7 @@ class HActiveRecord extends CActiveRecord
 
     protected function insertInternal($attributes)
     {
-        if (!$this->getIsNewRecord())
-            throw new CDbException(Yii::t('yii', 'The active record cannot be inserted to database because it is not new.'));
-        if ($this->beforeSave()) {
-            Yii::trace(get_class($this) . '.insert()', 'system.db.ar.CActiveRecord');
-            $builder = $this->getCommandBuilder();
-            $table = $this->getTableSchema();
-            $command = $builder->createInsertCommand($table, $this->getAttributes($attributes));
-            if ($command->execute()) {
-                $primaryKey = $table->primaryKey;
-                if ($table->sequenceName !== null) {
-                    if (is_string($primaryKey) && $this->$primaryKey === null)
-                        $this->$primaryKey = $builder->getLastInsertID($table);
-                    elseif (is_array($primaryKey)) {
-                        foreach ($primaryKey as $pk) {
-                            if ($this->$pk === null) {
-                                $this->$pk = $builder->getLastInsertID($table);
-                                break;
-                            }
-                        }
-                    }
-                }
-                $this->setOldPrimaryKey($this->getPrimaryKey());
-                $this->afterSave();
-                $this->setIsNewRecord(false);
-                $this->setScenario('update');
-                return true;
-            }
-        }
-        return false;
+        return parent::insert($attributes);
     }
 
     /**
@@ -107,16 +100,7 @@ class HActiveRecord extends CActiveRecord
 
     protected function updateInternal($attributes = null)
     {
-        if ($this->beforeSave()) {
-            Yii::trace(get_class($this) . '.update()', 'system.db.ar.CActiveRecord');
-            if ($this->getOldPrimaryKey() === null)
-                $this->setOldPrimaryKey($this->getPrimaryKey());
-            $this->updateByPk($this->getOldPrimaryKey(), $this->getAttributes($attributes));
-            $this->setOldPrimaryKey($this->getPrimaryKey());
-            $this->afterSave();
-            return true;
-        } else
-            return false;
+        return parent::update($attributes);
     }
 
     /**
@@ -145,31 +129,8 @@ class HActiveRecord extends CActiveRecord
 
     protected function deleteInternal()
     {
-        if (!$this->getIsNewRecord()) {
-            Yii::trace(get_class($this) . '.delete()', 'system.db.ar.CActiveRecord');
-            if ($this->beforeDelete()) {
-                $result = $this->deleteByPk($this->getPrimaryKey()) > 0;
-                $this->afterDelete();
-                return $result;
-            } else
-                return false;
-        } else
-            throw new CDbException(Yii::t('yii', 'The active record cannot be deleted because it is new.'));
+        return parent::delete();
     }
-
-    // Зачем это?
-    private $_attributes;
-    private $_related;
-
-    private $_apiWith = array();
-    private $_apiRelated;
-    private static $_apiMd = array();
-
-    private $_entities = array(
-        'post' => 'Пост',
-        'video' => 'Видео',
-        'photo' => 'Фото',
-    );
 
     public function getPhotoCollection($key = 'default')
     {
@@ -358,7 +319,7 @@ class HActiveRecord extends CActiveRecord
             $md = $this->getApiMd();
             /** @var site\frontend\components\api\ApiRelation $relation */
             $relation = $md[$name];
-            /** @var HActiveRecord $className*/
+            /** @var HActiveRecord $className */
             $className = $relation->className;
             $params = array_merge($relation->params, $params);
             $params['id'] = $this->{$relation->foreignKey};

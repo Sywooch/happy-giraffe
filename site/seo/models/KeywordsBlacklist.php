@@ -11,7 +11,7 @@
  * @property Keyword $keyword
  * @property User $user
  */
-class KeywordsBlacklist extends CActiveRecord
+class KeywordsBlacklist extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

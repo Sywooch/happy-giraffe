@@ -11,7 +11,7 @@
  * @property string $page
  * @property string $site
  */
-class ParsedEmails extends CActiveRecord
+class ParsedEmails extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

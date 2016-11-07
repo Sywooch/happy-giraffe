@@ -27,6 +27,7 @@ class ActivityWidget extends \CWidget
         'question' => array('article', 'article', array('добавила запись', 'добавил запись')),
         'status' => array('status', 'status', array('добавила статус', 'добавил статус')),
         'videoPost' => array('video', 'article', array('добавила видео', 'добавил видео')),
+        Activity::TYPE_ANSWER_PEDIATRICIAN => ['comment', 'comment', ['ответила', 'ответил']]
     );
     protected $_users = array();
 

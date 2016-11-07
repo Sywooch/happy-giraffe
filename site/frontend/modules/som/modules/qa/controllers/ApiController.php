@@ -79,11 +79,11 @@ class ApiController extends \site\frontend\components\api\ApiController
     }
 
     public function actionGetAnswers($questionId)
-    {   
+    {
         $question = QaQuestion::model()->findByPk($questionId);
-        
+
         $answers = QaManager::getAnswers($question);
-        
+
         $votes = QaAnswerVote::model()->answers($answers)->user(\Yii::app()->user->id)->findAll(array('index' => 'answerId'));
         $_answers = array();
         foreach ($answers as /*@var $answer QaAnswer */$answer) {
@@ -101,6 +101,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         $this->data = array(
             'answers' => $_answers,
+            'question' => $question->toJSON(),
             'canAnswer' => \Yii::app()->user->checkAccess('createQaAnswer', array('question' => $this->getModel(self::$questionModel, $questionId))),
         );
         $this->success = true;

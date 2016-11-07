@@ -29,30 +29,30 @@ class ApiController extends \site\frontend\components\api\ApiController
             'href' => $goTo,
         ];
     }
-    
+
     public function actionApprovePhotoUpload()
     {
         $user = \Yii::app()->user->getModel();
-        
+
         if (!$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS))
         {
             throw new \CHttpException(403);
         }
-        
+
         /*@var $specialistProfile SpecialistProfile */
         $specialistProfile = $user->specialistProfile;
-        
+
         $this->success = false;
-        
+
         if (!is_null($specialistProfile))
         {
             $pactPhotoUploadReletion = SpecialistGroupTaskRelation::model()->getByGroupAndTask(SpecialistGroup::DOCTORS, AuthorizationTypeEnum::UPLOAD_PHOTO);
             $specialistApprovePhotoUploadTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $pactPhotoUploadReletion->id);
-        
+
             $this->success = $specialistApprovePhotoUploadTask->setStatusDone();
         }
     }
-    
+
     public function actionApprovePact()
     {
 
@@ -74,7 +74,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             $specialistApprovePactTask = SpecialistsProfileAuthorizationTasks::getByUserAndType($specialistProfile->id, $pactTaskReletion->id);
 
             $this->success = $specialistApprovePactTask->setStatusDone();
-            
+
             $this->data['date'] = \Yii::app()->dateFormatter->format('dd MMMM yyyy', time());
         }
     }

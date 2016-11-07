@@ -357,6 +357,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 			'id' => $this->id,
 			'title' => $this->title,
 			'url' => $this->url,
+		    'authorId' => $this->authorId,
 		];
 	}
 

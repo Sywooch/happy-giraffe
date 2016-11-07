@@ -62,9 +62,11 @@ class ApiController extends \site\frontend\components\api\ApiController
         ));
     }
 
-    public function actionCreateAnswer($questionId, $text)
+    public function actionCreateAnswer($questionId, $text, $parrentId = NULL)
     {
-        if (! \Yii::app()->user->checkAccess('createQaAnswer', array('question' => $this->getModel(self::$questionModel, $questionId)))) {
+        $user = \Yii::app()->user;
+
+        if (! $user->checkAccess('createQaAnswer', array('question' => $this->getModel(self::$questionModel, $questionId)))) {
             throw new \CHttpException(403);
         }
 
@@ -74,6 +76,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             'questionId' => $questionId,
             'text' => $text,
         );
+
         $this->success = $answer->save();
         $this->data = $answer;
     }

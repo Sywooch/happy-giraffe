@@ -55,7 +55,6 @@ class ApiController extends \site\frontend\components\api\ApiController
     
     public function actionApprovePact()
     {
-
         $user = \Yii::app()->user->getModel();
 
         if (!$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS))

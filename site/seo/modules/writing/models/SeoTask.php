@@ -24,7 +24,7 @@
  * @property Page $article
  * @property TaskUrl[] $urls
  */
-class SeoTask extends CActiveRecord
+class SeoTask extends HActiveRecord
 {
     const STATUS_NEW = 0;
     const STATUS_READY = 1;

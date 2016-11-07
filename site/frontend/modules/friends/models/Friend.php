@@ -15,7 +15,7 @@
  * @property User $user
  * @property User $friend
  */
-class Friend extends CActiveRecord
+class Friend extends HActiveRecord
 {
     public $pCount;
     public $bCount;

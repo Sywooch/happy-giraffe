@@ -19,7 +19,7 @@ use site\frontend\modules\photo\helpers\FsNameHelper;
  * @property \site\frontend\modules\photo\models\Photo $photo
  */
 
-class PhotoCrop extends \CActiveRecord implements \IHToJSON
+class PhotoCrop extends \HActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name

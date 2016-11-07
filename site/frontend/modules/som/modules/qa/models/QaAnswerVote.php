@@ -14,7 +14,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $answer
  * @property \User $user
  */
-class QaAnswerVote extends \CActiveRecord
+class QaAnswerVote extends \HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

@@ -10,7 +10,7 @@
  * @property string $subject
  * @property string $body
  */
-class MailTemplate extends CActiveRecord
+class MailTemplate extends HActiveRecord
 {
     public static $replace_model;
 

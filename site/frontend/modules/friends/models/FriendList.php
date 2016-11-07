@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property Friends[] $friends
  */
-class FriendList extends CActiveRecord
+class FriendList extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

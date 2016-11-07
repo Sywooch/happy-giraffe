@@ -16,7 +16,7 @@
  * @property TempKeyword $tempKeyword
  * @property GiraffeLastMonthTraffic $traffic
  */
-class Keyword extends CActiveRecord
+class Keyword extends HActiveRecord
 {
     const STATUS_UNDEFINED = 0;
     const STATUS_GOOD = 1;

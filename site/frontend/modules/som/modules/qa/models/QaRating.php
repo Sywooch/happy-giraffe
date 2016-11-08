@@ -119,4 +119,18 @@ class QaRating extends \CActiveRecord
 
         return $this;
     }
+
+    /**
+     * @return QaRating
+     */
+    public function forSpecialists()
+    {
+        if (!isset($this->getDbCriteria()->with['user'])) {
+            $this->getDbCriteria()->with[] = 'user';
+        }
+
+        $this->getDbCriteria()->addCondition('user.specialistInfo is not null and user.specialistInfo != \'\'');
+
+        return $this;
+    }
 }

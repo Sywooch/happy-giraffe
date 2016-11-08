@@ -54,10 +54,10 @@ if (! Yii::app()->user->isGuest)
                 }
             });
             /*меню юзера*/
-            $('.js-ava__link, .js-overlay-user').on('click', function () {
-                $('.user-widget-block, .js-overlay-user').toggleClass('user-widget-block_open');
+            $('.js-ava__link').on('click', function () {
+                $('.user-widget-block').toggleClass('user-widget-block_open');
                 if ($('.header__menu').hasClass('header__menu_open')) {
-                    $('.header__menu, .js-overlay-menu').removeClass('header__menu_open');
+                    $('.header__menu').removeClass('header__menu_open');
                 }
             });
         });

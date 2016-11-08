@@ -64,7 +64,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
             </div>
             <input type="text" name="site_frontend_modules_som_modules_qa_models_QaQuestion[categoryId]" class="hidden" value="<?=$category->id?>">
             <input type="text" id="category_tag_id" name="site_frontend_modules_som_modules_qa_models_QaQuestion[tag_id]" class="hidden" value="7">
-            <div class="redactor-control_toolbar margin-b5"></div>
+            <div class="redactor-control_toolbar clearfix margin-b5"></div>
             <div class="add-post__textarea-body inp-valid inp-valid__abs">
 				<?=
                 $form->textArea($model, 'text', array(

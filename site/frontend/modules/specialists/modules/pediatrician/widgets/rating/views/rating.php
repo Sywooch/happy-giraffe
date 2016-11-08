@@ -36,8 +36,9 @@ $flowersCount = function($votesCount) {
                         'user' => $rating->user,
                         'size' => Avatar::SIZE_LARGE,
                         'largeAdvanced' => false,
+                        'tag' => 'span',
                     ]); ?>
-                    <a href="<?=$rating->user->getUrl()?>" class="font__color--blue display-b margin-t5"><?=$rating->user->getFullName()?></a>
+                    <span class="font__color--blue display-b margin-t5"><?=$rating->user->getFullName()?></span>
                     <span class="display-b font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
                     <span class="margin-b5 display-b">
                         <p class="color-brown-dark display-ib verticalalign-m"><span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span></p>
@@ -69,15 +70,15 @@ $flowersCount = function($votesCount) {
                 <div class="b-raiting-wrapper clearfix">
                     <div class="b-raiting__item float-l">
                         <div class="b-raiting__num b-raiting__num--grey margin-r10 w-35 font-lm"><?=($i + $this::TOP_COUNT + 1)?></div>
-                        <a href="<?=$rating->user->getUrl()?>" class="contest-commentator-rating_user-a">
+                        <span class="contest-commentator-rating_user-a">
                             <?php $this->widget('Avatar', [
                                 'user' => $rating->user,
                                 'size' => Avatar::SIZE_MEDIUM,
                                 'tag' => 'span',
                             ]); ?>
-                        </a>
+                        </span>
                         <div class="contest-footer__ball textalign-l">
-                            <a href="<?=$rating->user->getUrl()?>" class="font__color--blue display-b"><?=$rating->user->getFullName()?></a>
+                            <span class="font__color--blue display-b"><?=$rating->user->getFullName()?></span>
                             <span class="display-b font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
                             <p class="color-brown-dark display-ib verticalalign-m"><span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span></p>
                             <?php if ($rating->votes_count > 0): $flCount = $flowersCount($rating->votes_count); ?>

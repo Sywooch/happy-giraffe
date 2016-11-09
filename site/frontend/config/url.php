@@ -72,8 +72,9 @@ return array(
         '<_v>/api/users/<action:(social)>' => 'api/<_v>/api/users',
         '<_v>/api/clinics' => 'api/<_v>/api/clinics',
         '<_v>/api/specialists' => 'api/<_v>/api/specialists',
-        '<_v>/api/specialists/<action:(categories|experience)>' => 'api/<_v>/api/specialists',
+        '<_v>/api/specialists/<action:(categories|experience|terms|check-terms)>' => 'api/<_v>/api/specialists',
         '<_v>/api/specialists/specializations' => 'api/<_v>/api/specializations',
+        '<_v>/api/specialists/register/social' => 'api/<_v>/api/specialist-register',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

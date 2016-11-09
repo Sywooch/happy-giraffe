@@ -62,18 +62,31 @@ class ApiController extends \site\frontend\components\api\ApiController
         ));
     }
 
-    public function actionCreateAnswer($questionId, $text)
+    public function actionCreateAnswer($questionId, $text, $answerId = NULL)
     {
-        if (! \Yii::app()->user->checkAccess('createQaAnswer', array('question' => $this->getModel(self::$questionModel, $questionId)))) {
-            throw new \CHttpException(403);
+        /*@var $user \WebUser */
+        $user = \Yii::app()->user;
+
+        /*@var $question QaQuestion  */
+        $question = QaQuestion::model()->findByPk($questionId);
+
+        if (is_null($question) || !$question->checkCustomAccessByAnswered($user->getId()))
+        {
+            throw new \CHttpException(403, 'Access Denied');
         }
 
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
         $answer = new self::$answerModel();
-        $answer->attributes = array(
+        $answer->attributes = [
             'questionId' => $questionId,
             'text' => $text,
-        );
+        ];
+
+        if (!is_null($answerId) && QaAnswer::model()->exists('id=' . $answerId))
+        {
+            $answer->setAttribute('root_id', $answerId);
+        }
+
         $this->success = $answer->save();
         $this->data = $answer;
     }

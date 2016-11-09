@@ -70,7 +70,7 @@ class SpecialistsProfileAuthorizationTasks extends \CActiveRecord
 
     /**
      * @param integer $userId
-     * @param integer $typeId
+     * @param integer $relationId
      * @return self
      */
     public static function getByUserAndType($userId, $relationId)

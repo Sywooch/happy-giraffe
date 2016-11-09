@@ -24,27 +24,6 @@ class AnswersWidget extends \CWidget
         }
     }
 
-    public function getAnswers()
-    {
-        $condition = null;
-
-        if ($this->question->category->isPediatrician())
-        {
-            $time = time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
-
-            $condition = [
-                'condition' => "dtimeCreate <= $time"
-            ];
-        }
-
-        return QaAnswer::model()
-                    ->question($this->question->id)
-                    ->apiWith('user')
-                    ->orderDesc()
-                    ->findAll($condition)
-                ;
-    }
-
     protected function runForGuest()
     {
         $answers = QaManager::getAnswers($this->question);

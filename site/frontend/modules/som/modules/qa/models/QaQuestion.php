@@ -280,6 +280,68 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
+	 * @param integer $userId
+	 * @return boolean
+	 */
+	public function checkCustomAccessByAnswered($userId)
+	{
+        $profile = \Yii::app()->user->getModel()->specialistProfile;
+
+        $dialog = $this->getSpecialistDialog();
+
+        if ($this->authorId != $userId)
+        {
+            if (is_null($profile) || is_null($dialog))
+            {
+                return TRUE;
+            }
+
+            foreach ($dialog as $answer)
+            {
+                if ($answer->authorId == $profile->id)
+                {
+                    return is_null($this->getAnswersToAdditional()) && !is_null($this->getAdditionalAnswers());
+                }
+            }
+
+            return FALSE;
+        }
+
+        return is_null($this->getAnswersToAdditional()) && is_null($this->getAdditionalAnswers());
+	}
+
+	/**
+	 * @param integer $userId
+	 * @return boolean
+	 */
+	public function checkAccessByViewQuestion($userId)
+	{
+        $profile = \Yii::app()->user->getModel()->specialistProfile;
+
+        $dialog = $this->getSpecialistDialog();
+
+	    if (is_null($dialog) && !is_null($profile))
+        {
+            return TRUE;
+        }
+
+	    if (is_null($profile) || !is_null($this->getAnswersToAdditional()))
+        {
+            return FALSE;
+        }
+
+        foreach ($dialog as $answer)
+        {
+            if ($answer->authorId == $profile->id)
+            {
+                return !is_null($this->getAdditionalAnswers());
+            }
+        }
+
+        return FALSE;
+	}
+
+	/**
 	 * @return boolean
 	 */
 	public function checkAccessForSpecialist()
@@ -400,8 +462,59 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
             {
                 $result = $answer->getChilds();
                 array_push($result, $answer);
+
                 return $result;
             }
         }
+	}
+
+	/**
+	 * @return NULL|\site\frontend\modules\som\modules\qa\models\QaAnswer[]
+	 */
+	public function getAdditionalAnswers()
+	{
+        $dialog = $this->getSpecialistDialog();
+
+        if (is_null($dialog))
+        {
+            return NULL;
+        }
+
+        $additionalAnswers = [];
+
+        foreach ($dialog as /*@var $answer QaAnswer */$answer)
+        {
+            if ($answer->isAdditional())
+            {
+                $additionalAnswers[] = $answer;
+            }
+        }
+
+        return empty($additionalAnswers) ? NULL : $additionalAnswers;
+	}
+
+	/**
+	 * @return NULL|\site\frontend\modules\som\modules\qa\models\QaAnswer[]
+	 */
+	public function getAnswersToAdditional()
+	{
+	    $dialog = $this->getSpecialistDialog();
+
+	    if (is_null($dialog))
+	    {
+	        return NULL;
+	    }
+
+	    $answersToAdditional = [];
+
+	    foreach ($dialog as /*@var $answer QaAnswer */$answer)
+	    {
+	        if ($answer->isAnswerToAdditional())
+	        {
+	            $answersToAdditional[] = $answer;
+	        }
+	    }
+
+	    return empty($answersToAdditional) ? NULL : $answersToAdditional;
 	}
 }

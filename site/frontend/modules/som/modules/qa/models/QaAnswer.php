@@ -32,21 +32,21 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 {
     /**
      * Диапазон времени (минут), в течени которого специалист может редактировать свой ответ
-     * 
+     *
      * @var integer
      * @author Sergey Gubarev
      */
     const MINUTES_FOR_EDITING = 5;
-        
+
     /**
      * Время (минут) задержки публикации ответа специалистом на сайте и в сервисе "Мой педиатр"
-     * 
+     *
      * @var integer
      * @author Sergey Gubarev
      */
     const MINUTES_AWAITING_PUBLISHED = 5;
-    
-    
+
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -182,6 +182,20 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			return false;
 		}
 		return $success;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see CActiveRecord::beforeSave()
+	 */
+	protected function beforeSave()
+	{
+        if ($this->isAdditional())
+        {
+            return $this->authorId == $this->question->authorId;
+        }
+
+        return parent::beforeSave();
 	}
 
 	public function softDelete()
@@ -338,24 +352,24 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
 		return $this;
 	}
-    
+
 	/**
 	 * Доступен ли вопрос для редактирования авторизованному специалисту
-	 * 
+	 *
 	 * @return array
 	 * @author Sergey Gubarev
 	 */
 	public function availableForEditing()
 	{
 	    $time = $this->dtimeUpdate ? $this->dtimeUpdate : $this->dtimeCreate;
-	
+
 	    $diffMins = floor((time() - $time) / 60);
-	
+
 	    $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
-	  
+
 	    return compact('status', 'diffMins');
 	}
-	
+
 	public function defaultScope()
 	{
 		$t = $this->getTableAlias(false, false);

@@ -84,11 +84,6 @@ class AnswersTree
 
         foreach ($this->_answers as /*@var $answer QaAnswer */ $answer)
         {
-//             if ($answer->isAnswerToAdditional() || $answer->authorId == $userId)
-//             {
-//                 continue;
-//             }
-
             if ($answer->isAdditional())
             {
                 $additionalAnswers[$answer->dtimeCreate] = $answer;

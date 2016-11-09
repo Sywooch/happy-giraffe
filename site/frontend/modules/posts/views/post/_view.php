@@ -74,7 +74,7 @@ else
                 <?php
             }
             ?>
-            <? if ($this->post->templateObject->getAttr('extraLikes', false)): ?>
+            <?php if ($this->post->templateObject->getAttr('extraLikes', false)): ?>
                 <div class="b-article_header-likes">
                     <share-buttons params="url: '<?= $this->post->url ?>'"></share-buttons>
                 </div>

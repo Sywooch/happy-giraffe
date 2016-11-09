@@ -64,15 +64,15 @@ $formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middl
         	<div class="popup-add__content">
           		<div class="margin-b20 clearfix">
             		<div class="popup-add__content-num">1</div>
-            		<div class="popup-add__content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+            		<div class="popup-add__content-text">Ответы не должны содержать явную или скрытую рекламу лекарственных средств и медицинских клиник.</div>
           		</div>
           		<div class="margin-b20 clearfix">
             		<div class="popup-add__content-num">2</div>
-            		<div class="popup-add__content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+            		<div class="popup-add__content-text">Ответы должны быть развернутыми и популярно раскрывать вопросы лечения и профилактики заболеваний, здорового образа жизни.</div>
           		</div>
           		<div class="margin-b20 clearfix">
             		<div class="popup-add__content-num">3</div>
-           	 		<div class="popup-add__content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+           	 		<div class="popup-add__content-text">Ответы должны быть оригинальными/уникальным, только на основании собственного опыта и приобретенных знаний, и не являться плагиатом с других ресурсов.</div>
           		</div>
         		</div>
         		<div class="popup-add__footer-big">

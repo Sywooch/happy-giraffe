@@ -238,6 +238,16 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 		return $this;
 	}
 
+	/**
+	 * @return QaQuestion
+	 */
+	public function withoutAnswers()
+	{
+		$this->getDbCriteria()->addCondition("(select count(*) from qa__answers a where a.questionId = {$this->tableAlias}.id and a.isRemoved = 0 and a.root_id is null) = 0");
+
+		return $this;
+	}
+
 	public function defaultScope()
 	{
 		$t = $this->getTableAlias(false, false);
@@ -362,6 +372,23 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
+	 * @param int $userId
+	 *
+	 * @return QaQuestion
+	 */
+	public function withoutUserAnswers($userId)
+	{
+		$this->getDbCriteria()->addCondition("not exists(select * from qa__answers a where a.questionId={$this->tableAlias}.id and a.authorId={$userId})");
+
+		return $this;
+	}
+
+	public function withoutSpecialistsAnswers($groupId)
+	{
+
+	}
+
+	/**
 	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
 	 */
 	public function next()
@@ -402,7 +429,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 			'id' => $this->id,
 			'title' => $this->title,
 			'url' => $this->url,
-		    'authorId' => $this->authorId,
+			'authorId' => $this->authorId,
 		];
 	}
 

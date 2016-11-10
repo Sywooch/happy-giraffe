@@ -48,6 +48,7 @@ class DefaultController extends \HController
             ->limit(self::PAGE_SIZE)
             ->findAll();
         $unreadCount = \site\frontend\modules\notifications\models\Notification::getUnreadCount();
+
         if (\Yii::app()->request->isAjaxRequest)
         {
             echo \HJSON::encode(array('list' => $list, 'read' => $read));

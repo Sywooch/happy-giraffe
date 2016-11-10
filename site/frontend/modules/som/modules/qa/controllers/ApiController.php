@@ -18,8 +18,8 @@ use site\frontend\modules\som\modules\qa\components\QaManager;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    public static $answerModel = '\site\frontend\modules\som\modules\qa\models\QaAnswer';
-    public static $questionModel = '\site\frontend\modules\som\modules\qa\models\QaQuestion';
+    public static $answerModel = QaAnswer::class;
+    public static $questionModel = QaQuestion::class;
 
     protected function beforeAction($action)
     {
@@ -64,7 +64,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionCreateAnswer($questionId, $text, $answerId = NULL)
     {
-        /*@var $user \WebUser */
+        /** @var $user \WebUser */
         $user = \Yii::app()->user;
 
         /*@var $question QaQuestion  */
@@ -150,7 +150,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             'editAnswer' => \CometModel::QA_EDIT_ANSWER,
         );
 
-        if ($this->success == true && in_array($action->id, array_keys($types)))
+        if ($this->success == true && in_array($action->id, array_keys($types))) // @fixme isset, array_key_exists?
         {
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
             $this->send(AnswersWidget::getChannelIdByQuestion($this->data->questionId), $data, $types[$action->id]);

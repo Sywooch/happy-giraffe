@@ -323,11 +323,9 @@ class CookRecipe extends CActiveRecord implements IPreview
     protected function afterSave()
     {
         if ($this->isNewRecord) {
-            //$this->sendEvent();
             $this->book();
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
-            FriendEventManager::add(FriendEvent::TYPE_RECIPE_ADDED, array('model' => $this));
         }
 
         parent::afterSave();

@@ -25,6 +25,8 @@ class HActiveRecord extends CActiveRecord
         'photo' => 'Фото',
     );
 
+    const REVERSE_TRANSACTION_CONDITIONS = true;
+
     /**
      * [
      *  'scenario' => OP_INSERT | OP_UPDATE
@@ -37,12 +39,18 @@ class HActiveRecord extends CActiveRecord
         return [];
     }
 
+    /**
+     * @param $operation
+     * @return bool
+     */
     public function isTransactional($operation)
     {
         $scenario = $this->getScenario();
         $transactions = $this->transactions();
 
-        return isset($transactions[$scenario]) && ($transactions[$scenario] & $operation);
+        $result = isset($transactions[$scenario]) && ($transactions[$scenario] & $operation);
+
+        return static::REVERSE_TRANSACTION_CONDITIONS ? !$result : $result;
     }
 
     /**
@@ -50,13 +58,14 @@ class HActiveRecord extends CActiveRecord
      */
     public function insert($attributes = null)
     {
-        if (!$this->isTransactional(self::OP_INSERT)) {
-            return $this->insertInternal($attributes);
+        if (!$this->isTransactional(self::OP_INSERT) || $this->getDbConnection()->currentTransaction !== null) {
+            return parent::insert(($attributes));
         }
 
         $transaction = $this->getDbConnection()->beginTransaction();
+
         try {
-            $result = $this->insertInternal($attributes);
+            $result = parent::insert($attributes);
             if ($result === false) {
                 $transaction->rollback();
             } else {
@@ -67,11 +76,6 @@ class HActiveRecord extends CActiveRecord
             $transaction->rollback();
             throw $e;
         }
-    }
-
-    protected function insertInternal($attributes)
-    {
-        return parent::insert($attributes);
     }
 
     /**
@@ -79,13 +83,14 @@ class HActiveRecord extends CActiveRecord
      */
     public function update($attributes = null)
     {
-        if (!$this->isTransactional(self::OP_UPDATE)) {
-            return $this->updateInternal($attributes);
+        if (!$this->isTransactional(self::OP_UPDATE) || $this->getDbConnection()->currentTransaction !== null) {
+            return parent::update($attributes);
         }
 
         $transaction = $this->getDbConnection()->beginTransaction();
+
         try {
-            $result = $this->updateInternal($attributes);
+            $result = parent::update($attributes);
             if ($result === false) {
                 $transaction->rollback();
             } else {
@@ -96,11 +101,6 @@ class HActiveRecord extends CActiveRecord
             $transaction->rollback();
             throw $e;
         }
-    }
-
-    protected function updateInternal($attributes = null)
-    {
-        return parent::update($attributes);
     }
 
     /**
@@ -108,13 +108,14 @@ class HActiveRecord extends CActiveRecord
      */
     public function delete()
     {
-        if (!$this->isTransactional(self::OP_DELETE)) {
-            return $this->deleteInternal();
+        if (!$this->isTransactional(self::OP_DELETE) || $this->getDbConnection()->currentTransaction !== null) {
+            return parent::delete();
         }
 
         $transaction = $this->getDbConnection()->beginTransaction();
+
         try {
-            $result = $this->deleteInternal();
+            $result = parent::delete();
             if ($result === false) {
                 $transaction->rollback();
             } else {
@@ -125,11 +126,6 @@ class HActiveRecord extends CActiveRecord
             $transaction->rollback();
             throw $e;
         }
-    }
-
-    protected function deleteInternal()
-    {
-        return parent::delete();
     }
 
     public function getPhotoCollection($key = 'default')

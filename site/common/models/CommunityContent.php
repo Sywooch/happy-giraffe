@@ -304,7 +304,6 @@ class CommunityContent extends HActiveRecord implements IPreview
     /************************************************* Event handlers *************************************************/
     public function beforeDelete()
     {
-        FriendEvent::postDeleted(($this->isFromBlog ? 'BlogContent' : 'CommunityContent'), $this->id);
         self::model()->deleteAll('source_id=:removed_id', array(':removed_id' => $this->id));
         Scoring::contentRemoved($this);
 

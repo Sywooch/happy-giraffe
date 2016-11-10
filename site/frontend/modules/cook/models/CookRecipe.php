@@ -333,7 +333,6 @@ class CookRecipe extends CActiveRecord implements IPreview
 
     public function beforeDelete()
     {
-        FriendEvent::postDeleted('CookRecipe', $this->id);
         Yii::app()->db->createCommand()->update($this->tableName(), array('removed' => 1), 'id=:id', array(':id' => $this->id));
 
         //удаляем из кулинарной книги автора, но у других рецепт остается

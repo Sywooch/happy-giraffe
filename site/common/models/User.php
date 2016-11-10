@@ -48,8 +48,6 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property ClubPost[] $clubPosts
  * @property Comment[] $comments
  * @property UserCache[] $UserCaches
- * @property Message[] $Messages
- * @property DialogUser[] $DialogUsers
  * @property Name[] $names
  * @property RecipeBookRecipe[] $recipeBookRecipes
  * @property RecipeBookRecipeVote[] $recipeBookRecipeVotes
@@ -309,8 +307,6 @@ class User extends HActiveRecord
             'comments' => array(self::HAS_MANY, 'Comment', 'author_id'),
             'menstrualUserCycles' => array(self::HAS_MANY, 'MenstrualUserCycle', 'user_id'),
             'UserCaches' => array(self::HAS_MANY, 'UserCache', 'user_id'),
-            'Messages' => array(self::HAS_MANY, 'Message', 'user_id'),
-            'dialogUsers' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
             'names' => array(self::MANY_MANY, 'Name', 'name_likes(user_id, name_id)'),
             'recipeBookRecipes' => array(self::HAS_MANY, 'RecipeBookRecipe', 'author_id'),
             'userPointsHistories' => array(self::HAS_MANY, 'UserPointsHistory', 'user_id'),
@@ -337,8 +333,6 @@ class User extends HActiveRecord
             'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0 AND type = 0'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
-            'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
-            'userDialog' => array(self::HAS_ONE, 'DialogUser', 'user_id'),
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'address' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
             'priority' => array(self::HAS_ONE, 'UserPriority', 'user_id'),

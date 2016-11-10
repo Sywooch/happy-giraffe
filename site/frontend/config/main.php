@@ -93,7 +93,6 @@ return array(
     ),
     'modules' => array(
         'contest',
-        'im',
         'geo',
         'signal',
         'scores',

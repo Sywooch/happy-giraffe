@@ -699,7 +699,6 @@ return array(
         'user/<userId:\d+>/family/photo<photoId:\d+>' => 'photo/singlePhoto/family',
         'user/<userId:\d+>/family' => 'family/default/index',
         'user/<userId:\d+>/family/edit' => 'family/default/fill',
-        'user/<userId:\d+>/familyOld' => 'familyOld/default/index',
 
         'contest/<cssClass:\w+>' => 'community/contest/index',
 

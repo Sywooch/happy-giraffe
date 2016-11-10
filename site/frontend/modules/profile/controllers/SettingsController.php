@@ -122,7 +122,6 @@ class SettingsController extends HController
 
     public function actionRemove()
     {
-        FriendEvent::userDeleted($this->user);
         $this->user->deleted = 1;
         $this->user->update(array('deleted'));
         User::clearCache();

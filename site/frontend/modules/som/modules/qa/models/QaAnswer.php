@@ -190,12 +190,14 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	 */
 	protected function beforeSave()
 	{
+	    $parentResult = parent::beforeSave();
+
         if ($this->isAdditional())
         {
             return $this->authorId == $this->question->authorId;
         }
 
-        return parent::beforeSave();
+        return $parentResult;
 	}
 
 	public function softDelete()

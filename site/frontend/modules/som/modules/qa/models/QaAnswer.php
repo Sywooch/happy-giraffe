@@ -157,13 +157,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 					'AutoFormat.Linkify' => true,
 				),
 			),
-			'notificationBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
-			),
 			'RatingBehavior' => array(
 				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
 			),
-		    \site\frontend\modules\som\modules\qa\behaviors\QaBehavior::class,
+			'notificationBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
+			),
+		    'site\frontend\modules\som\modules\qa\behaviors\QaBehavior',
 		);
 	}
 
@@ -348,7 +348,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		if (!isset($this->getDbCriteria()->with['root'])) {
 			$this->getDbCriteria()->with[] = 'root';
 		}
+
 		$this->getDbCriteria()->compare('root.authorId', $userId);
+		$this->getDbCriteria()->addCondition("not exists(select * from qa__answers as children where children.root_id = {$this->tableAlias}.id and children.isRemoved = 0)");
 
 		return $this;
 	}

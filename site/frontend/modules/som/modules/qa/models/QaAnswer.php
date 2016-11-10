@@ -1,5 +1,6 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
+use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
@@ -158,7 +159,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 				),
 			),
 			'notificationBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
+				'class' => NotificationBehavior::class,
 			),
 			'RatingBehavior' => array(
 				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',

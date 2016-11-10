@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\notifications\models;
 
+use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
+
 /**
  * Description of Notification
  *
@@ -44,6 +46,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
     const TYPE_NEW_FAVOURITE = 6;
 
     /**
+     * @see NotificationBehavior
      *
      * @var int Тип оповещения (см константы TYPE_*)
      */

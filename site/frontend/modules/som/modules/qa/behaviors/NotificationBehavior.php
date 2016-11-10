@@ -15,15 +15,15 @@ use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 
+/**
+ * @property QaAnswer $owner
+ */
 class NotificationBehavior extends BaseBehavior
 {
-    /** @var QaAnswer */
-    public $owner;
-
     /** Ответ на вопрос от специалиста */
+
     /**@var int PEDIATRICIAN_TYPE Обычный ответ*/
     const PEDIATRICIAN_TYPE = 15;
-
     /**@var int ANSWER_BY_PEDIATRICIAN Ответ педиатра*/
     const ANSWER_BY_PEDIATRICIAN = 17;
     /**@var int ANSWER_TO_ADDITIONAL Ответ на уточняющий вопрос*/
@@ -40,10 +40,8 @@ class NotificationBehavior extends BaseBehavior
 
     public function afterSave($event)
     {
-        /** @var QaAnswer $answer */
         $answer = $this->owner;
-        /** @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question */
-        $question =  $answer->question;
+        $question = $answer->question;
 
         if ($answer->isNewRecord && $question->sendNotifications) {
             $this->addNotification($answer, $question);
@@ -106,6 +104,8 @@ class NotificationBehavior extends BaseBehavior
      * @param QaQuestion $question
      *
      * @return int
+     *
+     * @fixme думаю надо разобраться с типами в целом, а так же исключить PEDIATRICIAN_TYPE (10), т.к. он разбит на несколько других типов
      */
     private function getType(QaAnswer $answer, QaQuestion $question) {
         $type = $question->categoryId == QaCategory::PEDIATRICIAN_ID ? self::PEDIATRICIAN_TYPE : self::TYPE;

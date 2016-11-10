@@ -383,59 +383,6 @@ class CommunityContent extends HActiveRecord implements IPreview
         parent::afterSave();
     }
 
-    /**
-     * Возращает событие о новом посте
-     * @return EventPost
-     */
-    public function getEvent()
-    {
-        $row = array(
-            'id' => $this->id,
-            'last_updated' => time(),
-            'type' => Event::EVENT_POST,
-        );
-
-        $event = Event::factory(Event::EVENT_POST);
-        $event->attributes = $row;
-        return $event;
-    }
-
-    /**
-     * Посылает событие в что нового
-     */
-    public function sendEvent()
-    {
-        if (isset($this->rubric) && $this->rubric->community_id != Community::COMMUNITY_NEWS) {
-            $event = $this->event;
-            $params = array(
-                'blockId' => $event->blockId,
-                'code' => $event->code,
-            );
-
-            $comet = new CometModel;
-            $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
-            if ($this->isFromBlog) {
-                $comet->send('whatsNewBlogs', $params, CometModel::WHATS_NEW_UPDATE);
-
-                $friends = $this->author->getFriendsModels();
-
-                foreach ($friends as $f)
-                    $comet->send('whatsNewBlogsUser' . $f->id, $params, CometModel::WHATS_NEW_UPDATE);
-            } else {
-                $comet->send('whatsNewClubs', $params, CometModel::WHATS_NEW_UPDATE);
-
-                $sql = 'SELECT user_id FROM user__users_communities WHERE community_id = :community_id';
-                $command = Yii::app()->db->createCommand($sql);
-                $command->bindValue(':community_id', $this->rubric->community_id);
-                $ids = $command->queryColumn();
-
-                foreach ($ids as $id)
-                    $comet->send('whatsNewClubsUser' . $id, $params, CometModel::WHATS_NEW_UPDATE);
-            }
-        }
-    }
-
-
     /****************************************************** Url ******************************************************/
     /**
      * Возвращает параметры для создания url поста

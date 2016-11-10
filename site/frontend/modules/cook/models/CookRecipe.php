@@ -538,31 +538,6 @@ class CookRecipe extends CActiveRecord implements IPreview
         return ($this->mainPhoto !== null) ? $this->mainPhoto : null;
     }
 
-    public function getEvent()
-    {
-        $row = array(
-            'id' => $this->id,
-            'last_updated' => time(),
-            'type' => Event::EVENT_RECIPE,
-        );
-
-        $event = Event::factory(Event::EVENT_RECIPE);
-        $event->attributes = $row;
-        return $event;
-    }
-
-    public function sendEvent()
-    {
-        $event = $this->event;
-        $params = array(
-            'blockId' => $event->blockId,
-            'code' => $event->code,
-        );
-
-        $comet = new CometModel;
-        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
-    }
-
     public function getUnknownClassCommentsCount()
     {
         return $this->commentsCount;

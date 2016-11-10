@@ -482,11 +482,10 @@ return array(
 
         //global
         '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|profile|rss|community|happyBirthdayMira)>' => '<_c>/index',
+        '<_c:(settings|profile|rss|happyBirthdayMira)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/default/contacts',
-        'news/about/authors' => 'community/authors',
         array('class' => 'site.frontend.extensions.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 
         /*************************

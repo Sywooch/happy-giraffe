@@ -105,7 +105,10 @@ return array(
         ),
         'pushWorker' => [
             'class' => \site\frontend\modules\api\ApiModule::PUSH_WORKER,
-        ]
+        ],
+        'fixRatingByHistory' => [
+            'class' => 'site\frontend\modules\som\modules\qa\commands\FixRatingByHistoryCommand',
+        ],
     ),
     'import' => array(
         'site.common.components.*',

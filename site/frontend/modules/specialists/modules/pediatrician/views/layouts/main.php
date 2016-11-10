@@ -6,6 +6,7 @@
  */
 $this->beginContent('//layouts/lite/common');
 $formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middle_name;
+
 ?>
 
 <div id="js-pediatrician">
@@ -40,7 +41,7 @@ $formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middl
             </nav>
             <div class="float-r">
                 <div class="pediator-header__log margin-t22">
-                    <div class="user-on">
+                    <div class="user-on <?php if ($this->action->id == 'profile'): ?> pediator-nav__list-active<?php endif; ?>">
                         <a href="<?=$this->createUrl('/specialists/pediatrician/default/profile')?>" class="pediator-header__name"><?php echo $formattedName; ?></a>
                         <div class="ava ava-pediator"><a href="<?=$this->createUrl('/specialists/pediatrician/default/profile')?>" class="js-ava__link ava__link"><img src="<?=Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_SMALL)?>"></a></div>
                     </div>
@@ -64,15 +65,15 @@ $formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middl
         	<div class="popup-add__content">
           		<div class="margin-b20 clearfix">
             		<div class="popup-add__content-num">1</div>
-            		<div class="popup-add__content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+            		<div class="popup-add__content-text">Ответы не должны содержать явную или скрытую рекламу лекарственных средств и медицинских клиник.</div>
           		</div>
           		<div class="margin-b20 clearfix">
             		<div class="popup-add__content-num">2</div>
-            		<div class="popup-add__content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+            		<div class="popup-add__content-text">Ответы должны быть развернутыми и популярно раскрывать вопросы лечения и профилактики заболеваний, здорового образа жизни.</div>
           		</div>
           		<div class="margin-b20 clearfix">
             		<div class="popup-add__content-num">3</div>
-           	 		<div class="popup-add__content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+           	 		<div class="popup-add__content-text">Ответы должны быть оригинальными/уникальным, только на основании собственного опыта и приобретенных знаний, и не являться плагиатом с других ресурсов.</div>
           		</div>
         		</div>
         		<div class="popup-add__footer-big">

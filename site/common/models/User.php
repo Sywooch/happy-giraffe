@@ -1303,31 +1303,6 @@ class User extends HActiveRecord
         return Baby::model()->find($criteria);
     }
 
-    public function getEvent()
-    {
-        $row = array(
-            'id' => $this->id,
-            'last_updated' => time(),
-            'type' => Event::EVENT_USER,
-        );
-
-        $event = Event::factory(Event::EVENT_USER);
-        $event->attributes = $row;
-        return $event;
-    }
-
-    public function sendEvent()
-    {
-        $event = $this->event;
-        $params = array(
-            'blockId' => $event->blockId,
-            'code' => $event->code,
-        );
-
-        $comet = new CometModel;
-        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
-    }
-
     public function hasRssContent()
     {
         if (CommunityContent::model()->exists('author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0

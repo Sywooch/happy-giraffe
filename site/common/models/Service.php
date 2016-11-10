@@ -121,7 +121,6 @@ class Service extends HActiveRecord
         $this->incCount();
         if (!Yii::app()->user->isGuest) {
             ServiceUser::addCurrentUser($this->id);
-            FriendEventManager::add(FriendEvent::TYPE_SERVICE_USED, array('service_id' => $this->id, 'user_id' => Yii::app()->user->id));
         }
     }
 

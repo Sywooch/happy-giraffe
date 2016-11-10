@@ -630,6 +630,7 @@ return array(
         'lite_member_user' => array(
             'baseUrl' => '/',
             'css' => array(
+                'lite/css/min/member-photo.css',
                 'lite/css/min/member-user.css'
             ),
         ),

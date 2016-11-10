@@ -8,7 +8,6 @@
     <div id="redactor-popup_b-smile" class="display-n">
         <div class="redactor-popup redactor-popup_b-smile">
             <div class="redactor-popup_tale"></div>
-            <div class="redactor-popup_t">Вставить смайл</div>
             <table class="redactor-popup_smiles">
                 <tbody>
                     <tr>

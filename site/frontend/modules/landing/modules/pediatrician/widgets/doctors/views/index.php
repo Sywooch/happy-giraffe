@@ -10,7 +10,8 @@
     <div class="font__title-xm font__bold">Здесь отвечают<br>сотни педиатров и 300 000 опытных мам</div>
     <ul class="landing-doctors__list">
         <?php foreach ($profiles as $profile): ?>
-        <li class="landing-doctors__li"><span href="#" class="landing-doctors__link">
+        <li class="landing-doctors__li">
+            <a href="/user/<?=$profile->id?>" class="landing-doctors__link">
                 <div class="b-ava-large b-ava-large__nohover margin-b0 margin-t0">
                     <div class="b-ava-large_ava-hold">
                         <span class="ava ava__large ava__<?=($profile->user->gender == '1') ? 'male' : 'female'?>  ava__base-xs">
@@ -19,7 +20,8 @@
                     </div>
                 </div>
                 <div class="landing-doctors__title font__title-sx"><?=$profile->user->getFullName()?></div>
-                <div class="landing-doctors__descr font__title-sx"><?=$profile->user->specialistInfoObject->title?></div></a>
+                <div class="landing-doctors__descr font__title-sx"><?=$profile->user->specialistInfoObject->title?></div>
+            </a>
         </li>
         <?php endforeach; ?>
     </ul>

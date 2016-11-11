@@ -39,19 +39,19 @@ $flowersCount = function($votesCount) {
                         'tag' => 'span',
                     ]); ?>
                     <span class="font__color--blue display-b margin-t5"><?=$rating->user->getFullName()?></span>
-                    <span class="display-b font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
+                    <span class="pediator-rating__position font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
                     <span class="margin-b5 display-b">
                         <p class="color-brown-dark display-ib verticalalign-m"><span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span></p>
                         <?php if ($rating->votes_count > 0): $flCount = $flowersCount($rating->votes_count); ?>
                             <?php if ($flCount > 0): ?>
-                                <p class="margin-r5 display-ib verticalalign-m">
+                                <p class="pediator-rating__roze margin-r5 display-ib verticalalign-m">
                                     <?php for ($j = 0; $j < $flCount; $j++): ?>
-                                        <span class="pediator-ico--roze pediator-ico--size-s <?php if (($j + 1) != $flCount): ?> margin-r2 <?php endif; ?> verticalalign-m"></span>
+                                        <span class="pediator-ico--roze pediator-ico--size-s verticalalign-m"></span>
                                     <?php endfor; ?>
                                 </p>
                                 <span class="color-brown-dark margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>
                             <?php else: ?>
-                                <span class="color-brown-dark margin-r10 display-ib verticalalign-m font-sx">Спасибо<span class="margin-l5"><?=$rating->votes_count?></span></span>
+                                <span class="color-brown-dark margin-r10 display-ib verticalalign-m">Спасибо<span class="margin-l5"><?=$rating->votes_count?></span></span>
                             <?php endif; ?>
                         <?php endif; ?>
                     </span>
@@ -90,7 +90,7 @@ $flowersCount = function($votesCount) {
                                 </p>
                                 <span class="color-brown-dark margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>
                                 <?php else: ?>
-                                    <span class="color-brown-dark margin-r10 display-ib verticalalign-m font-sx">Спасибо<span class="margin-l5"><?=$rating->votes_count?></span></span>
+                                    <span class="color-brown-dark margin-r10 display-ib verticalalign-m">Спасибо<span class="margin-l5"><?=$rating->votes_count?></span></span>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>

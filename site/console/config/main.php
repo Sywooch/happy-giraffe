@@ -103,9 +103,9 @@ return array(
         'clearContestScore' => array(
             'class' => 'site\frontend\modules\comments\modules\contest\commands\ClearScoreCommand',
         ),
-//        'pushWorker' => [
-//            'class' => \site\frontend\modules\api\ApiModule::PUSH_WORKER,
-//        ]
+        'pushWorker' => [
+            'class' => \site\frontend\modules\api\ApiModule::PUSH_WORKER,
+        ]
     ),
     'import' => array(
         'site.common.components.*',

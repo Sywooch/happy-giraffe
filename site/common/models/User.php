@@ -314,8 +314,7 @@ class User extends HActiveRecord
 
             'commentsCount' => array(self::STAT, 'Comment', 'author_id'),
             'activeCommentsCount' => array(self::STAT, 'Comment', 'author_id', 'condition' => 'removed = 0'),
-
-            'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
+            
             'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active', 'permission')),
             'privateAlbum' => array(self::HAS_ONE, 'Album', 'author_id'),
             'simpleAlbums' => array(self::HAS_MANY, 'Album', 'author_id', 'condition' => 'type=0'),

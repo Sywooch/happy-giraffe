@@ -476,7 +476,7 @@ return array(
         'community/clubPhotoPosts/<clubId:\d+>' => 'community/default/clubPhotoPosts',
 
         //global
-        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|features|blog)>/<_a>' => '<_c>/<_a>',
         '<_c:(settings|profile|rss|happyBirthdayMira)>' => '<_c>/index',
 
         //others

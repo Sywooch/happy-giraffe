@@ -4,7 +4,6 @@ namespace site\frontend\modules\notifications\controllers;
 
 class DefaultController extends \HController
 {
-
     public $layout = '//layouts/new/main';
     public $bodyClass = 'body__bg-base';
     public $notifyClass = '\site\frontend\modules\notifications\models\Notification';
@@ -48,7 +47,7 @@ class DefaultController extends \HController
             ->limit(self::PAGE_SIZE)
             ->findAll();
         $unreadCount = \site\frontend\modules\notifications\models\Notification::getUnreadCount();
-
+// var_dump($list); die;
         if (\Yii::app()->request->isAjaxRequest)
         {
             echo \HJSON::encode(array('list' => $list, 'read' => $read));

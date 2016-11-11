@@ -251,11 +251,6 @@ return array(
         //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
         'ajaxSimple/<_a>' => 'ajaxSimple/<_a>',
 
-        // signup controller
-        'signup' => 'signup/index',
-        'signup/<_a:(showForm|finish)>' => 'signup/<_a>',
-        'signup/validate/step/<step:\d+>' => 'signup/validate',
-
         // friendRequests controller
         'friendRequests/update/request_id/<request_id:\d+>/action/<action:(accept|decline|retry|cancel)>' => 'friendRequests/update',
 

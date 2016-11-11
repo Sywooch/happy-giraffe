@@ -3,6 +3,7 @@
 namespace site\frontend\modules\notifications\models;
 
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\VoteNotificationBehavior;
 
 /**
  * Description of Notification
@@ -47,6 +48,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
 
     /**
      * @see NotificationBehavior
+     * @see VoteNotificationBehavior
      *
      * @var int Тип оповещения (см константы TYPE_*)
      */

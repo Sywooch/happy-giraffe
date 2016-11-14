@@ -103,11 +103,13 @@ return array(
         'clearContestScore' => array(
             'class' => 'site\frontend\modules\comments\modules\contest\commands\ClearScoreCommand',
         ),
+        /*
         'pushWorker' => [
             'class' => \site\frontend\modules\api\ApiModule::PUSH_WORKER,
-        ]
+        ]*/
     ),
     'import' => array(
+        'site.common.models.User',
         'site.common.components.*',
         'site.common.behaviors.*',
         'site.common.models.*',
@@ -117,15 +119,15 @@ return array(
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
         'site.frontend.extensions.directmongosuite.*',
-        'site.frontend.extensions.YiiMongoDbSuite.*',
         'site.frontend.modules.antispam.models.*',
         'site.frontend.modules.antispam.components.*',
         'site.frontend.modules.onlineManager.widgets.*',
         'site.frontend.modules.onlineManager.components.*',
         'site.frontend.modules.geo.models.*',
         'site.frontend.modules.geo.components.*',
-        'site.frontend.extensions.YiiMongoDbSuite.*',
         'site.frontend.widgets.userAvatarWidget.*',
+        'site.common.extensions.YiiMongoDbSuite.*',
+        'site.common.extensions.YiiMongoDbSuite.extra.*'
     ),
     'behaviors' => array(
         'edms' => array(

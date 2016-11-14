@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\notifications\controllers;
 
+use site\frontend\modules\notifications\models\Notification;
+
 class DefaultController extends \HController
 {
     public $layout = '//layouts/new/main';
@@ -39,15 +41,15 @@ class DefaultController extends \HController
     public function actionIndex($read = 0, $lastNotificationUpdate = false)
     {
         $this->pageTitle = !$read ? 'Новые сигналы' : 'Архив';
-        $list = \site\frontend\modules\notifications\models\Notification::model()
+        $list = Notification::model()
             ->byUser(\Yii::app()->user->id)
             ->byRead($read)
             ->earlier($lastNotificationUpdate)
             ->orderByDate()
             ->limit(self::PAGE_SIZE)
             ->findAll();
-        $unreadCount = \site\frontend\modules\notifications\models\Notification::getUnreadCount();
-// var_dump($list); die;
+        $unreadCount = Notification::getUnreadCount();
+
         if (\Yii::app()->request->isAjaxRequest)
         {
             echo \HJSON::encode(array('list' => $list, 'read' => $read));
@@ -63,7 +65,7 @@ class DefaultController extends \HController
             {
                 return new \MongoId($event);
             }, $events);
-        $notifications = \site\frontend\modules\notifications\models\Notification::model()->byUser(\Yii::app()->user->id)->findAllByPk($events);
+        $notifications = Notification::model()->byUser(\Yii::app()->user->id)->findAllByPk($events);
         foreach ($notifications as $notification)
         {
             $notification->readAll();

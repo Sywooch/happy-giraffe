@@ -108,7 +108,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
 			'answers' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'),
 			'lastAnswer' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'),
             'tag' => array(self::BELONGS_TO, get_class(QaTag::model()), 'tag_id'),
-            'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
+            'author' => array(self::BELONGS_TO, \User::class, 'authorId'),
 		);
 	}
 

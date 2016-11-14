@@ -87,23 +87,13 @@ class HActiveRecord extends CActiveRecord
     private function _process($transactionsType, $parentMethod, $attributes = NULL)
     {
         if (!$this->isTransactional($transactionsType) || $this->getDbConnection()->currentTransaction !== null) {
-            if ($parentMethod == 'delete')
-            {
-                return parent::$parentMethod();
-            }
-
             return parent::$parentMethod($attributes);
         }
 
         $transaction = $this->getDbConnection()->beginTransaction();
 
         try {
-            if ($parentMethod == 'delete')
-            {
-                $result = parent::$parentMethod();
-            } else {
-                $result = parent::$parentMethod($attributes);
-            }
+            $result = parent::$parentMethod($attributes);
             if ($result === false) {
                 $transaction->rollback();
             } else {

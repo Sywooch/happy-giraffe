@@ -17,7 +17,7 @@ class QaManager
      * Для ответов специалистов, используется специальное условие с задержкой во времени публикации
      *
      * @param QaQuestion $question
-     * @return static[]
+     * @return QaAnswer[]
      */
     public static function getAnswers(QaQuestion $question)
     {
@@ -56,7 +56,9 @@ class QaManager
                 )
         ";
 
-        return QaAnswer::model()->findAllBySql($sql);
+        $answers = QaAnswer::model()->findAllBySql($sql);
+
+        return $answers;
     }
 
     /**

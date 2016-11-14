@@ -18,7 +18,6 @@ class Notification extends \EMongoDocument implements \IHToJSON
     /**
      * Новый комментарий
      */
-
     const TYPE_USER_CONTENT_COMMENT = 0;
 
     /**
@@ -133,12 +132,14 @@ class Notification extends \EMongoDocument implements \IHToJSON
                 'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
             ],
             'embededUnreadEntities' => [
-                'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
+                'class' => \EEmbeddedArraysBehavior::class,
+                // 'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'unreadEntities',
                 'arrayDocClassName' => 'site\frontend\modules\notifications\models\Entity'
             ],
             'embededReadEntities' => [
-                'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
+                'class' => \EEmbeddedArraysBehavior::class,
+                // 'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'readEntities',
                 'arrayDocClassName' => 'site\frontend\modules\notifications\models\Entity'
             ],

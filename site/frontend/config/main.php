@@ -81,6 +81,8 @@ return array(
         'application.modules.onlineManager.widgets.*',
         'application.modules.onlineManager.components.*',
         'site.frontend.widgets.photopostAdWidget.PhotopostAdWidget',
+        'site.common.extensions.YiiMongoDbSuite.*',
+        'site.common.extensions.YiiMongoDbSuite.extra.*'
     ),
     'sourceLanguage' => 'en',
     'language' => 'ru',

@@ -58,24 +58,7 @@ class HActiveRecord extends CActiveRecord
      */
     public function insert($attributes = null)
     {
-        if (!$this->isTransactional(self::OP_INSERT) || $this->getDbConnection()->currentTransaction !== null) {
-            return parent::insert(($attributes));
-        }
-
-        $transaction = $this->getDbConnection()->beginTransaction();
-
-        try {
-            $result = parent::insert($attributes);
-            if ($result === false) {
-                $transaction->rollback();
-            } else {
-                $transaction->commit();
-            }
-            return $result;
-        } catch (\Exception $e) {
-            $transaction->rollback();
-            throw $e;
-        }
+        return $this->_process(self::OP_INSERT, 'insert', $attributes);
     }
 
     /**
@@ -83,24 +66,7 @@ class HActiveRecord extends CActiveRecord
      */
     public function update($attributes = null)
     {
-        if (!$this->isTransactional(self::OP_UPDATE) || $this->getDbConnection()->currentTransaction !== null) {
-            return parent::update($attributes);
-        }
-
-        $transaction = $this->getDbConnection()->beginTransaction();
-
-        try {
-            $result = parent::update($attributes);
-            if ($result === false) {
-                $transaction->rollback();
-            } else {
-                $transaction->commit();
-            }
-            return $result;
-        } catch (\Exception $e) {
-            $transaction->rollback();
-            throw $e;
-        }
+        return $this->_process(self::OP_UPDATE, 'update', $attributes);
     }
 
     /**
@@ -108,14 +74,36 @@ class HActiveRecord extends CActiveRecord
      */
     public function delete()
     {
-        if (!$this->isTransactional(self::OP_DELETE) || $this->getDbConnection()->currentTransaction !== null) {
-            return parent::delete();
+        return $this->_process(self::OP_DELETE, 'delete');
+    }
+
+    /**
+     * @param integer $transactionsType
+     * @param string $parentMethod
+     * @param array $attributes
+     * @throws Exception
+     * @return boolean
+     */
+    private function _process($transactionsType, $parentMethod, $attributes = NULL)
+    {
+        if (!$this->isTransactional($transactionsType) || $this->getDbConnection()->currentTransaction !== null) {
+            if ($parentMethod == 'delete')
+            {
+                return parent::$parentMethod();
+            }
+
+            return parent::$parentMethod($attributes);
         }
 
         $transaction = $this->getDbConnection()->beginTransaction();
 
         try {
-            $result = parent::delete();
+            if ($parentMethod == 'delete')
+            {
+                $result = parent::$parentMethod();
+            } else {
+                $result = parent::$parentMethod($attributes);
+            }
             if ($result === false) {
                 $transaction->rollback();
             } else {

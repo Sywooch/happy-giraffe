@@ -302,23 +302,9 @@ return array(
 
         'user/blog/photopost/create' => 'posts/form/photopost',
         'user/blog/status/create' => 'posts/form/status',
-        /*array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'condition' => 'Yii::app()->user->isGuest',
-            'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
-            'trueRoute' => 'posts/post/view',
-            'falseRoute' => 'blog/default/view',
-        ),*/
 
         //'user/<user_id:\d+>/blog' => 'blog/default/index',
         'user/<user_id:\d+>/blog' => 'posts/list/index',
-        /*array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'condition' => 'Yii::app()->user->isGuest',
-            'pattern' => 'user/<user_id:\d+>/blog',
-            'trueRoute' => 'posts/list/index',
-            'falseRoute' => 'blog/default/index',
-        ),*/
 
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
         'fakeBlogView' => array(
@@ -355,10 +341,7 @@ return array(
         'user/<userId:\d+>/rss' => 'rss/default/user',
         'user/<userId:\d+>/comments/rss/page<page:\d+>' => 'rss/default/comments',
         'user/<userId:\d+>/comments/rss' => 'rss/default/comments',
-
-        'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
-        'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
-        'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
+            
         //blog
         'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
         'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',

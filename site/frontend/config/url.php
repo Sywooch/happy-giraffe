@@ -227,7 +227,7 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'moderation' => 'site/moderationRules',
-        'site/<_a:(send|stats|cookie|confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
+        'site/<_a:(send|stats|out|vacancySend)>' => 'site/<_a>',
         '<view:(abuse)>' => array('site/page'),
         'developer' => 'site/vacancy',
 
@@ -670,10 +670,6 @@ return array(
         'user/<userId:\d+>/family/edit' => 'family/default/fill',
 
         'contest/<cssClass:\w+>' => 'community/contest/index',
-
-        'site/seo' => 'site/seo',
-        'site/seo2' => 'site/seo2',
-        'site/seo3' => 'site/seo3',
 
         '<_c>/captcha' => '<_c>/captcha',
 

@@ -102,7 +102,8 @@ class NotificationBehavior extends BaseBehavior
         $entity = new Entity($model);
         $entity->userId = $model->authorId;
         $entity->title = $model->text;
-        $entity->url = $question->url;
+        $entity->tooltip = $question->title;
+
         $notification->unreadEntities[] = $entity;
         $notification->save();
     }

@@ -1,5 +1,7 @@
 <?php
 
+require_once(dirname(__FILE__) . '/../../frontend/modules/api/ApiModule.php');
+
 date_default_timezone_set('Europe/Moscow');
 return array(
     'id' => 'happy-giraffe',

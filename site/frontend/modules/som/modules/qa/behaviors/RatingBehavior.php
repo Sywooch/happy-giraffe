@@ -18,9 +18,12 @@ class RatingBehavior extends \CActiveRecordBehavior
     private $categoryId;
     private $fieldName;
 
+    private $isSoftAction = false;
+    private $isDelete = false;
+
     public function afterSave($event)
     {
-        if ($this->owner->isNewRecord) {
+        if ($this->owner->isNewRecord || ($this->isSoftAction && !$this->isDelete)) {
             $this->setProperties();
             $rating = QaRating::model()
                 ->byCategory($this->getCategoryId())
@@ -41,8 +44,6 @@ class RatingBehavior extends \CActiveRecordBehavior
             $rating->{$this->getFieldName()} += 1;
             $rating->save();
 
-            //$rating->saveCounters(array($this->getFieldName() => 1, 'total_count' => 1));
-
             $history = new QaRatingHistory();
 
             $history->user_id = $this->getUserId();
@@ -53,6 +54,18 @@ class RatingBehavior extends \CActiveRecordBehavior
             if (!$history->save()) {
                 throw new \CException('History is not saved');
             }
+        } else if ($this->isSoftAction && $this->isDelete) { //soft delete
+            $this->handleDelete();
+        } else {
+            $history = QaRatingHistory::model()
+                ->byUser($this->getUserId())
+                ->byCategory($this->getCategoryId())
+                ->byOwner((new \ReflectionClass($this->owner))->getShortName(), $this->owner->id)
+                ->find();
+
+            if (!$history) {
+                $this->isSoftAction = true; //soft restore first after save
+            }
         }
 
         return parent::afterSave($event);
@@ -61,23 +74,29 @@ class RatingBehavior extends \CActiveRecordBehavior
     public function beforeDelete($event)
     {
         $this->setProperties();
+        $this->isSoftAction = true;
+        $this->isDelete = true;
         return parent::beforeDelete($event);
     }
 
     public function afterDelete($event)
     {
+        $this->handleDelete();
+
+        return parent::afterDelete($event);
+    }
+
+    private function handleDelete()
+    {
+        /**
+         * @var QaRating $rating
+         */
         $rating = QaRating::model()
             ->byCategory($this->getCategoryId())
             ->byUser($this->getUserId())
             ->find();
 
         if ($rating) {
-            $rating->total_count -= 1;
-            $rating->{$this->getFieldName()} -= 1;
-
-            $rating->save();
-            //$rating->saveCounters(array($this->getFieldName() => -1, 'total_count' => -1));
-
             $history = QaRatingHistory::model()
                 ->byUser($this->getUserId())
                 ->byCategory($this->getCategoryId())
@@ -85,11 +104,24 @@ class RatingBehavior extends \CActiveRecordBehavior
                 ->find();
 
             if ($history) {
+//            if ($this->owner instanceof QaAnswer) {
+//                foreach ($this->owner->votes as $vote) {
+//                    $voteInHistory = QaRatingHistory::model()
+//                        ->byUser($this->getUserId())
+//                        ->byCategory($this->getCategoryId())
+//                        ->byOwner((new \ReflectionClass($vote))->getShortName(), $vote->id)
+//                        ->find();
+//                }
+//            }
+
+                $rating->total_count -= 1;
+                $rating->{$this->getFieldName()} -= 1;
+
+                $rating->save();
+
                 $history->delete();
             }
         }
-
-        return parent::afterDelete($event);
     }
 
     private function getUserId()

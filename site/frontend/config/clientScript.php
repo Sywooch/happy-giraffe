@@ -214,6 +214,13 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
+        'DOMPurify' => [
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => [
+                'javascripts/purify.min.js',
+            ]
+        ],
         'jcrop' => array(
             'baseUrl' => '/',
             'amd' => true,

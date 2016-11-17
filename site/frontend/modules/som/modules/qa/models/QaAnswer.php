@@ -85,7 +85,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
 		);
 	}
-
+	
 	public function apiRelations()
 	{
 		return array(
@@ -154,7 +154,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 				'class' => 'site.common.behaviors.PurifiedBehavior',
 				'attributes' => array('text'),
 				'options' => array(
-					'AutoFormat.Linkify' => true,
+					'AutoFormat.Linkify'        => true,
+				    'AutoFormat.RemoveEmpty'    => true,
+				    'HTML.ForbiddenElements'    => ['br', 'script']
 				),
 			),
 			'RatingBehavior' => array(
@@ -386,7 +388,8 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'id' => (int) $this->id,
 			'authorId' => (int) $this->authorId,
 			'dtimeCreate' => (int) $this->dtimeCreate,
-			'text' => $this->purified->text,
+			'text'       => $this->purified->text,
+		    'textOrigin' => $this->text,
 			'votesCount' => (int) $this->votesCount,
 			'user' => $this->user->formatedForJson(),
 			'isRemoved' => (bool) $this->isRemoved,

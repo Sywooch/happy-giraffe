@@ -85,7 +85,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
 		);
 	}
-
+	
 	public function apiRelations()
 	{
 		return array(
@@ -154,16 +154,18 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 				'class' => 'site.common.behaviors.PurifiedBehavior',
 				'attributes' => array('text'),
 				'options' => array(
-					'AutoFormat.Linkify' => true,
+					'AutoFormat.Linkify'        => true,
+				    'AutoFormat.RemoveEmpty'    => true,
+				    'HTML.ForbiddenElements'    => ['br', 'script']
 				),
-			),
-			'notificationBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
 			),
 			'RatingBehavior' => array(
 				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
 			),
-		    \site\frontend\modules\som\modules\qa\behaviors\QaBehavior::class,
+			'notificationBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
+			),
+		    'site\frontend\modules\som\modules\qa\behaviors\QaBehavior',
 		);
 	}
 
@@ -190,12 +192,14 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	 */
 	protected function beforeSave()
 	{
+	    $parentResult = parent::beforeSave();
+
         if ($this->isAdditional())
         {
             return $this->authorId == $this->question->authorId;
         }
 
-        return parent::beforeSave();
+        return $parentResult;
 	}
 
 	public function softDelete()
@@ -384,7 +388,8 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			'id' => (int) $this->id,
 			'authorId' => (int) $this->authorId,
 			'dtimeCreate' => (int) $this->dtimeCreate,
-			'text' => $this->purified->text,
+			'text'       => $this->purified->text,
+		    'textOrigin' => $this->text,
 			'votesCount' => (int) $this->votesCount,
 			'user' => $this->user->formatedForJson(),
 			'isRemoved' => (bool) $this->isRemoved,

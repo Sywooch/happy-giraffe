@@ -142,4 +142,32 @@ class QaRatingHistory extends \CActiveRecord
         $this->getDbCriteria()->addBetweenCondition($this->tableAlias . '.created_at', $start, $end);
         return $this;
     }
+
+    /**
+     * @return QaRatingHistory
+     */
+    public function notSpecialist()
+    {
+        if (!isset($this->getDbCriteria()->with['user'])) {
+            $this->getDbCriteria()->with[] = 'user';
+        }
+
+        $this->getDbCriteria()->addCondition('user.specialistInfo is null or user.specialistInfo = \'\'');
+
+        return $this;
+    }
+
+    /**
+     * @return QaRatingHistory
+     */
+    public function forSpecialists()
+    {
+        if (!isset($this->getDbCriteria()->with['user'])) {
+            $this->getDbCriteria()->with[] = 'user';
+        }
+
+        $this->getDbCriteria()->addCondition('user.specialistInfo is not null and user.specialistInfo != \'\'');
+
+        return $this;
+    }
 }

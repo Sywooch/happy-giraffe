@@ -12,6 +12,7 @@ $formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middl
 <div id="js-pediatrician">
     <div class="layout-header">
         <header class="header header__redesign pediator-header clearfix">
+            <a class="js-pediator-menu pediator-menu"><span></span></a>
             <div class="float-l">
                 <div class="pediator-header__left">
                     <div class="pediator-header__ico"></div>
@@ -34,8 +35,14 @@ $formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middl
                     <li class="pediator-nav__list<?php if ($this->action->id == 'rating'): ?> pediator-nav__list-active<?php endif; ?>">
                     	<a href="<?=$this->createUrl('/specialists/pediatrician/default/rating')?>" class="pediator-nav__link">Рейтинг</a>
                     </li>
-                   	<li class="pediator-nav__list pediator-nav__list--answer">
+                   	<li class="pediator-nav__list pediator-nav__list--answer visibles-lg">
                     	<a href="#" class="pediator-nav__link pediator-nav__link--answer" style="display: none;" data-bind="visible: pactIsDone(), click: openServiceRulesPopup">?</a>
+                    </li>
+                    <li class="pediator-nav__list hidden-desktop">
+                        <a href="#" class="pediator-nav__link">Правила</a>
+                    </li>
+                    <li class="pediator-nav__list hidden-desktop">
+                        <a href="#" class="pediator-nav__link">Выход</a>
                     </li>
                 </ul>
             </nav>

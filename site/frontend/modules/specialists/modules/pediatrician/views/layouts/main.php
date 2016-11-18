@@ -6,6 +6,7 @@
  */
 $this->beginContent('//layouts/lite/common');
 $formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middle_name;
+
 ?>
 
 <div id="js-pediatrician">
@@ -33,14 +34,14 @@ $formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middl
                     <li class="pediator-nav__list<?php if ($this->action->id == 'rating'): ?> pediator-nav__list-active<?php endif; ?>">
                     	<a href="<?=$this->createUrl('/specialists/pediatrician/default/rating')?>" class="pediator-nav__link">Рейтинг</a>
                     </li>
-                   	<li class="pediator-nav__list" style="display: none;" data-bind="visible: pactIsDone(), click: openServiceRulesPopup">
-                    	<a href="#" class="pediator-nav__link pediator-nav__link--answer">?</a>
+                   	<li class="pediator-nav__list pediator-nav__list--answer">
+                    	<a href="#" class="pediator-nav__link pediator-nav__link--answer" style="display: none;" data-bind="visible: pactIsDone(), click: openServiceRulesPopup">?</a>
                     </li>
                 </ul>
             </nav>
             <div class="float-r">
                 <div class="pediator-header__log margin-t22">
-                    <div class="user-on">
+                    <div class="user-on <?php if ($this->action->id == 'profile'): ?> pediator-nav__list-active<?php endif; ?>">
                         <a href="<?=$this->createUrl('/specialists/pediatrician/default/profile')?>" class="pediator-header__name"><?php echo $formattedName; ?></a>
                         <div class="ava ava-pediator"><a href="<?=$this->createUrl('/specialists/pediatrician/default/profile')?>" class="js-ava__link ava__link"><img src="<?=Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_SMALL)?>"></a></div>
                     </div>

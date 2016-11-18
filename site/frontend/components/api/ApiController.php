@@ -158,12 +158,14 @@ class ApiController extends \CController
     public function onError(\CEvent $event)
     {
         $event->handled = true;
+        /** @var \CErrorEvent|\CException $exception */
         if ($event instanceof \CExceptionEvent)
             $exception = $event->exception;
         else // CErrorEvent
             $exception = $event;
 
         http_response_code($exception->statusCode);
+
         $this->success = false;
         $this->errorCode = method_exists($exception, 'getCode') ? $exception->getCode() : $exception->code;
         $this->errorMessage = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;

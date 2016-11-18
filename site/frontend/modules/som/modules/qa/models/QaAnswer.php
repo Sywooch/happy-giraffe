@@ -1,5 +1,9 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
+
+use site\common\behaviors\AuthorBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
@@ -14,9 +18,14 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  * @property int $dtimeCreate
  * @property int $dtimeUpdate
  * @property bool $isRemoved
+ * @property bool $isPublished
  * @property int $votesCount
  * @property bool $isBest
  * @property int $root_id
+ *
+ * @property-read bool $isTimeoutExpired
+ *
+ * @property-read NotificationBehavior $notificationBehavior
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion $question
@@ -46,6 +55,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     const MINUTES_AWAITING_PUBLISHED = 5;
 
+    /**
+     * @return bool
+     */
+    public function getIsTimeoutExpired()
+    {
+        return $this->dtimeCreate <= time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
+    }
 
 	/**
 	 * @return string the associated database table name

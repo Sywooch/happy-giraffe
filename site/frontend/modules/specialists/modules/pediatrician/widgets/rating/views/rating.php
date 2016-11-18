@@ -63,7 +63,7 @@ $flowersCount = function($votesCount) {
     </div>
 
     <div class="clearfix margin-b30">
-        <div class="b-raiting clearfix">
+        <div class="b-raiting js-b-rating clearfix">
             <?php foreach ($others as $i => $rating): ?>
             <div class="b-raiting__left float-l">
                 <div class="b-raiting-wrapper clearfix">
@@ -76,9 +76,9 @@ $flowersCount = function($votesCount) {
                                 'tag' => 'span',
                             ]); ?>
                         </a>
-                        <div class="contest-footer__ball textalign-l">
+                        <div class="contest-footer__ball textalign-l js-item">
                             <a href="<?=$rating->user->getUrl()?>" class="font__color--blue display-b"><?=$rating->user->getFullName()?></a>
-                            <span class="display-b font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
+                            <span class="display-b font__color--crimson margin-b3 js-title"><?=$rating->user->specialistInfoObject->title?></span>
                             <p class="color-brown-dark display-ib verticalalign-m"><span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span></p>
                             <?php if ($rating->votes_count > 0): $flCount = $flowersCount($rating->votes_count); ?>
                                 <?php if ($flCount > 0): ?>

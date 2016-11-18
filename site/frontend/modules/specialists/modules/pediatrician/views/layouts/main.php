@@ -39,10 +39,10 @@ $formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middl
                     	<a href="#" class="pediator-nav__link pediator-nav__link--answer" style="display: none;" data-bind="visible: pactIsDone(), click: openServiceRulesPopup">?</a>
                     </li>
                     <li class="pediator-nav__list hidden-desktop">
-                        <a href="#" class="pediator-nav__link">Правила</a>
+                        <a href="#" class="pediator-nav__link" data-bind="visible: pactIsDone(), click: openServiceRulesPopup">Правила</a>
                     </li>
                     <li class="pediator-nav__list hidden-desktop">
-                        <a href="#" class="pediator-nav__link">Выход</a>
+                        <a href="<?=$this->createUrl('/site/logout')?>" class="pediator-nav__link">Выход</a>
                     </li>
                 </ul>
             </nav>

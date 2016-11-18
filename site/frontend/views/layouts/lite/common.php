@@ -12,7 +12,7 @@
     <title><?=$this->pageTitle?></title>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
-<body class="body body__lite theme body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?> <?php if (Yii::app()->user->isGuest): ?> body__guest <?php endif; ?>">
+<body class="body body__lite theme body__bg2 body_competition<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?> <?php if (Yii::app()->user->isGuest): ?> body__guest <?php endif; ?>">
     <script>
 
         $(function () {
@@ -44,6 +44,14 @@
                 if ($('.user-widget-block').hasClass('user-widget-block_open')) {
                     $('.user-widget-block, .js-overlay-user').removeClass('user-widget-block_open');
                 }
+            });
+
+            /*Мобильное меню*/
+            $('.js-pediator-menu').on('click', function () {
+                console.log( 'done' );
+                //$('.js-overlay-menu').toggleClass('header__menu_open');
+                $('.pediator-nav__wrapper').toggleClass('pediator-nav__wrapper--active');
+                $('body').toggleClass('overflow-y');
             });
         });
     </script>

@@ -116,13 +116,6 @@ return array(
                 'javascripts/ko_userSettings.js',
             ),
         ),
-        'ko_settings' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_settings.js',
-            ),
-            'depends' => array('knockout', 'userSettings'),
-        ),
         'touchPunch' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -383,13 +376,6 @@ return array(
             ),
             'depends' => array('knockout', 'history', 'ko_library'),
         ),
-        'ko_family' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_family.js',
-            ),
-            'depends' => array('knockout', 'jquery.ui', 'ko_library'),
-        ),
         'jquery.ui' => array(
             'baseUrl' => '/',
             'amd' => true,
@@ -430,13 +416,6 @@ return array(
                 'javascripts/ko_menu.js',
             ),
             'depends' => array('knockout', 'ko_library', 'comet'),
-        ),
-        'ko_recipes_search' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_recipes_search.js',
-            ),
-            'depends' => array('knockout', 'ko_library'),
         ),
         'ko_antispam' => array(
             'baseUrl' => '/',

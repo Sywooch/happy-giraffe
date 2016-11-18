@@ -45,23 +45,32 @@
                     $('.user-widget-block, .js-overlay-user').removeClass('user-widget-block_open');
                 }
             });
-
-            /*Мобильное меню*/
-            $('.js-pediator-menu').on('click', function () {
-                console.log( 'done' );
-                //$('.js-overlay-menu').toggleClass('header__menu_open');
-                $('.pediator-nav__wrapper').toggleClass('pediator-nav__wrapper--active');
-                $('body').toggleClass('overflow-y');
-            });
         });
+
+        function PediatorMenu() {
+            /*Мобильное меню педиатора*/
+            if ($('.pediator-menu').hasClass('js-pediator-menu')){
+
+                $('.overlay-menu').removeClass('js-overlay-menu ');
+
+                $('.js-pediator-menu, .js-overlay-pediator').on('click', function () {
+                    $('.js-overlay-pediator').toggleClass('header__menu_open');
+                    $('.pediator-nav__wrapper').toggleClass('pediator-nav__wrapper--active');
+                    $('body').toggleClass('overflow-y');
+                });
+            }
+        }
+
+        setTimeout(PediatorMenu, 2000);
+
     </script>
-    <div class="js-overlay-menu overlay-menu"></div>
+    <div class="js-overlay-menu overlay-menu js-overlay-pediator"></div>
     <div class="js-overlay-user overlay-user"></div>
 <?php Yii::app()->ads->showCounters(); ?>
 <?php if (Yii::app()->user->checkAccess('editMeta')):?>
     <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
 <?php endif ?>
-<div class="layout-container">
+<div class="layout-container pediator">
 
 	<div id="js-alerts" class="alerts" data-bind="template: { name: 'alert', foreach: alertsList }"></div>
         

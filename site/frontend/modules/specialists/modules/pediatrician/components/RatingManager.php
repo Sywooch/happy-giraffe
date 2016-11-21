@@ -6,7 +6,6 @@
 
 namespace site\frontend\modules\specialists\modules\pediatrician\components;
 
-
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaRating;
 

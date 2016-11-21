@@ -23,13 +23,13 @@ class ProfileController extends \LiteController
         $dp->pagination->pageVar = 'page';
         $this->render('index', compact('dp'));
     }
-    
+
     public function actionInfo($userId)
     {
         $this->loadUser($userId);
         $this->render('info');
     }
-    
+
     protected function loadUser($userId)
     {
         $this->user = User::model()->findByPk($userId);

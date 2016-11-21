@@ -15,7 +15,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaConsultation $consultation
  */
-class QaConsultant extends \CActiveRecord
+class QaConsultant extends \HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

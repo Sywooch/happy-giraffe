@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property Page $page
  */
-class CommentatorTask extends CActiveRecord
+class CommentatorTask extends HActiveRecord
 {
     const STATUS_OPEN = 1;
     const STATUS_PAUSE = 2;

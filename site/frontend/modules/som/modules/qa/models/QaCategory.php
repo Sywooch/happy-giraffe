@@ -13,7 +13,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property int $questionsCount
  * @property \site\frontend\modules\som\modules\qa\models\QaTag[] $tags
  */
-class QaCategory extends \CActiveRecord
+class QaCategory extends \HActiveRecord
 {
 
     /**

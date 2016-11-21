@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class MailToken extends CActiveRecord
+class MailToken extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

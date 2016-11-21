@@ -16,7 +16,7 @@ use site\frontend\modules\referals\components\ReferalsManager;
  * The followings are the available model relations:
  * @property \User $user
  */
-class UserRefLink extends \CActiveRecord
+class UserRefLink extends \HActiveRecord
 {
     /**
      * @return string the associated database table name

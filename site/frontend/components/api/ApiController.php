@@ -171,7 +171,9 @@ class ApiController extends \CController
         $this->errorMessage = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;
         $this->data = null;
 
-        $this->printResult();
+        if(YII_DEBUG) {
+            $this->printResult();
+        }
     }
 
     public function getActionParams()

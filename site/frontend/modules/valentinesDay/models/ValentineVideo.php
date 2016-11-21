@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property AlbumPhotos $photo
  */
-class ValentineVideo extends CActiveRecord
+class ValentineVideo extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

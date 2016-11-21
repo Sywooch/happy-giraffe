@@ -12,9 +12,32 @@
     <title><?=$this->pageTitle?></title>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
-<body class="body body__lite theme body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?> <?php if (Yii::app()->user->isGuest): ?> body__guest <?php endif; ?>">
+<body class="body body__lite theme body__bg2 body_competition<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?> <?php if (Yii::app()->user->isGuest): ?> body__guest <?php endif; ?>">
     <script>
-        $(document).ready(function () {
+
+        $(function () {
+            /*меню юзера*/
+            var $window = $(window);
+            $window.resize(function resize(){
+                if ($window.width() < 1025) {
+                    $('.js-ava__link').off('click');
+                    $('.js-ava__link,.js-overlay-user').on('click', function () {
+                        $('.user-widget-block,.js-overlay-user').toggleClass('user-widget-block_open');
+                        if ($('.header__menu').hasClass('header__menu_open')) {
+                            $('.header__menu, .js-overlay-menu').removeClass('header__menu_open');
+                        }
+                    });
+                }else{
+                    $('.js-ava__link').off('click');
+                    $('.js-ava__link').on('click', function () {
+                        $('.user-widget-block').toggleClass('user-widget-block_open');
+                        if ($('.header__menu').hasClass('header__menu_open')) {
+                            $('.header__menu').removeClass('header__menu_open');
+                        }
+                    });
+                }
+            }).trigger('resize');
+
             /*Мобильное меню*/
             $('.mobile-menu, .js-overlay-menu').on('click', function () {
                 $('.header__menu, .js-overlay-menu').toggleClass('header__menu_open');
@@ -22,22 +45,32 @@
                     $('.user-widget-block, .js-overlay-user').removeClass('user-widget-block_open');
                 }
             });
-            /*меню юзера*/
-            $('.js-ava__link, .js-overlay-user').on('click', function () {
-                $('.user-widget-block, .js-overlay-user').toggleClass('user-widget-block_open');
-                if ($('.header__menu').hasClass('header__menu_open')) {
-                    $('.header__menu, .js-overlay-menu').removeClass('header__menu_open');
-                }
-            });
         });
+
+        function PediatorMenu() {
+            /*Мобильное меню педиатора*/
+            if ($('.pediator-menu').hasClass('js-pediator-menu')){
+
+                $('.overlay-menu').removeClass('js-overlay-menu ');
+
+                $('.js-pediator-menu, .js-overlay-pediator').on('click', function () {
+                    $('.js-overlay-pediator').toggleClass('header__menu_open');
+                    $('.pediator-nav__wrapper').toggleClass('pediator-nav__wrapper--active');
+                    $('body').toggleClass('overflow-y');
+                });
+            }
+        }
+
+        setTimeout(PediatorMenu, 2000);
+
     </script>
-    <div class="js-overlay-menu overlay-menu"></div>
+    <div class="js-overlay-menu overlay-menu js-overlay-pediator"></div>
     <div class="js-overlay-user overlay-user"></div>
 <?php Yii::app()->ads->showCounters(); ?>
 <?php if (Yii::app()->user->checkAccess('editMeta')):?>
     <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
 <?php endif ?>
-<div class="layout-container">
+<div class="layout-container pediator">
 
 	<div id="js-alerts" class="alerts" data-bind="template: { name: 'alert', foreach: alertsList }"></div>
         

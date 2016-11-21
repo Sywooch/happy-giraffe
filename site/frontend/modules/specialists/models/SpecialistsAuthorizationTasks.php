@@ -8,7 +8,7 @@ namespace site\frontend\modules\specialists\models;
  * @property integer $id
  * @property integer $task_type
  */
-class SpecialistsAuthorizationTasks extends \CActiveRecord
+class SpecialistsAuthorizationTasks extends \HActiveRecord
 {
 
     /**

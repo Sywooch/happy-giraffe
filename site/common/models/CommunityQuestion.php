@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property CommunityContents $content
  */
-class CommunityQuestion extends CActiveRecord
+class CommunityQuestion extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

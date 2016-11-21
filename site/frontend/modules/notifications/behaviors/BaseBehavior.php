@@ -71,6 +71,7 @@ class BaseBehavior extends \CBehavior
             ->byUser((int) $userId)
             ->byEntity(array('entity' => $modelClass, 'entityId' => (int) $modelId))
             ->find();
+
         if (is_null($notification))
         {
             $entity = \CActiveRecord::model($modelClass)->findByPk($modelId);

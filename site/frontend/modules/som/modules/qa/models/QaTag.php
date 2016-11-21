@@ -15,7 +15,7 @@ use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
  * @property int $questionsCount
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
-class QaTag extends \CActiveRecord
+class QaTag extends \HActiveRecord
 {
     /**
      * @return string the associated database table name

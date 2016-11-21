@@ -214,6 +214,13 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
+        'DOMPurify' => [
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => [
+                'javascripts/purify.min.js',
+            ]
+        ],
         'jcrop' => array(
             'baseUrl' => '/',
             'amd' => true,
@@ -630,6 +637,7 @@ return array(
         'lite_member_user' => array(
             'baseUrl' => '/',
             'css' => array(
+                'lite/css/min/member-photo.css',
                 'lite/css/min/member-user.css'
             ),
         ),

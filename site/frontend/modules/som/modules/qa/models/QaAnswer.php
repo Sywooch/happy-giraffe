@@ -356,6 +356,20 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
+	 * @return QaAnswer
+	 */
+	public function specialists()
+	{
+		if (!isset($this->getDbCriteria()->with['author'])) {
+			$this->getDbCriteria()->with[] = 'author';
+		}
+
+		$this->getDbCriteria()->addCondition("author.specialistInfo is not null and author.specialistInfo != ''");
+
+		return $this;
+	}
+
+	/**
 	 * Доступен ли вопрос для редактирования авторизованному специалисту
 	 *
 	 * @return array

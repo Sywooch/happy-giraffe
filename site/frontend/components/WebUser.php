@@ -93,4 +93,5 @@ class WebUser extends CWebUser
         }
         return parent::login($identity, $duration);
     }
+
 }

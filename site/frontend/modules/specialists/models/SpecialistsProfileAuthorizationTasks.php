@@ -16,7 +16,7 @@ use site\frontend\modules\specialists\models\specialistsAuthorizationTasks\Autho
  * @property integer $created
  * @property integer $updated
  */
-class SpecialistsProfileAuthorizationTasks extends \CActiveRecord
+class SpecialistsProfileAuthorizationTasks extends \HActiveRecord
 {
 
     /**
@@ -64,7 +64,6 @@ class SpecialistsProfileAuthorizationTasks extends \CActiveRecord
                 'createAttribute'=>'created',
                 'updateAttribute'=>'updated',
             ],
-
         ];
     }
 
@@ -121,4 +120,10 @@ class SpecialistsProfileAuthorizationTasks extends \CActiveRecord
         ];
     }
 
+    public function transactions()
+    {
+        return [
+            'update' => self::OP_UPDATE
+        ];
+    }
 }

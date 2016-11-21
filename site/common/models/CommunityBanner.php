@@ -14,7 +14,7 @@
  * @property AlbumPhoto $photo
  * @property CommunityContent $content
  */
-class CommunityBanner extends CActiveRecord
+class CommunityBanner extends HActiveRecord
 {
     public $colors = array(
         'green' => 'Зеленый',

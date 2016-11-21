@@ -16,7 +16,7 @@ class RatingWidget extends \CWidget
     public $perPage;
     public $page;
     
-    /** @var  RatingManager */
+    /** @var RatingManager */
     protected $ratingManager;
     
     public function init()

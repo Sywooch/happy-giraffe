@@ -10,7 +10,6 @@ namespace site\frontend\modules\notifications\models;
  */
 class Entity extends \EMongoEmbeddedDocument implements \IHToJSON
 {
-
     public $id;
     public $class;
     public $tooltip;

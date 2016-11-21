@@ -14,7 +14,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class MailDelivery extends CActiveRecord
+class MailDelivery extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

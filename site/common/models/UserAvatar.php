@@ -15,7 +15,7 @@
  * @property AlbumPhoto $source
  * @property AlbumPhoto $avatar
  */
-class UserAvatar extends CActiveRecord
+class UserAvatar extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

@@ -17,7 +17,7 @@
  * @property User $user
  * @property FavouriteTag[] $favouritesTags
  */
-class Favourite extends CActiveRecord
+class Favourite extends HActiveRecord
 {
     public $relatedModel;
 

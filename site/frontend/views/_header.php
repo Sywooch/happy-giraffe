@@ -50,7 +50,10 @@ if (! Yii::app()->user->isGuest) {
     </ul>
     <?php if (Yii::app()->user->isGuest): ?>
         <div class="user-unloged">
-            <a href="#" class="user-unloged__link login-button" data-bind="follow: {}"><img src="/images/icons/avatar.png" class="user-unloged__img"><span>ВОЙТИ</span></a>
+            <span class="user-unloged__link login-button" data-bind="follow: {}">
+                <span class="user-unloged__img"></span>
+                <span class="user-unloged__text">ВОЙТИ</span>
+            </span>
         </div>
     <?php else: ?>
         <div class="user-on"><a href="<?=$this->createUrl('/notifications/default/index')?>" class="signal active" data-bind="css: { active: newNotificationsCount() > 0 && activeModule() != 'notifications' }"></a>

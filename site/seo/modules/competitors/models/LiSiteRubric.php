@@ -8,7 +8,7 @@
  * @property string $title
  * @property string $url
  */
-class LiSiteRubric extends CActiveRecord
+class LiSiteRubric extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

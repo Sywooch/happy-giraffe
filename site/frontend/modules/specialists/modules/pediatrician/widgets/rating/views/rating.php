@@ -76,7 +76,7 @@ $flowersCount = function($votesCount) {
                                 'size' => Avatar::SIZE_MEDIUM,
                                 'tag' => 'span',
                             ]); ?>
-                        </a>
+                        </span>
                         <div class="contest-footer__ball textalign-l js-item">
                             <a href="<?=$rating->user->getUrl()?>" class="font__color--blue display-b"><?=$rating->user->getFullName()?></a>
                             <span class="display-b font__color--crimson margin-b3 js-title"><?=$rating->user->specialistInfoObject->title?></span>

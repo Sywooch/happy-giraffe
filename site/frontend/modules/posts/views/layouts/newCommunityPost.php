@@ -106,7 +106,7 @@ $this->beginContent('//layouts/lite/community');
             
             <?php $this->endWidget(); ?>
 
-            <? if ($this instanceof site\frontend\modules\posts\controllers\PostController && $this->post->templateObject->getAttr('hideRubrics', false)): ?>
+            <?php if ($this instanceof site\frontend\modules\posts\controllers\PostController && $this->post->templateObject->getAttr('hideRubrics', false)): ?>
                 <div class="side-block onair-min">
                     <div class="side-block_tx">Прямой эфир</div>
 
@@ -120,7 +120,7 @@ $this->beginContent('//layouts/lite/community');
                 </div>
 
             <?php else: ?>
-                <? if (!($this instanceof site\frontend\modules\posts\controllers\PostController) || (!$this->post->templateObject->getAttr('hideRubrics', false))): ?>
+                <?php if (!($this instanceof site\frontend\modules\posts\controllers\PostController) || (!$this->post->templateObject->getAttr('hideRubrics', false))): ?>
                     <div class="side-block rubrics">
                         <div class="side-block_tx">Рубрики клуба</div>
                         <ul>

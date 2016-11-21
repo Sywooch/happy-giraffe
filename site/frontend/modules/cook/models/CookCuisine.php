@@ -12,7 +12,7 @@
  * @property CookRecipe[] $recipes
  * @property GeoCountry $country
  */
-class CookCuisine extends CActiveRecord
+class CookCuisine extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

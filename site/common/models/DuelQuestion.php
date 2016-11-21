@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property DuelAnswer[] $duelAnswers
  */
-class DuelQuestion extends CActiveRecord
+class DuelQuestion extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

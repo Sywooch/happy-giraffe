@@ -13,7 +13,7 @@
  * @property int $newTaskCount
  * @property int $taskCount
  */
-class KeywordGroup extends CActiveRecord
+class KeywordGroup extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

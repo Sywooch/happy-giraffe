@@ -5,7 +5,9 @@
  */
 ?>
 <li class="pediator-answer__item margin-b15">
-	<?=$rootAnswerContent?>
+	<div class="clearfix">
+		<?=$rootAnswerContent?>
+	</div>
 	<ul class="comments-ul__pediator clearfix">
 		<?=$childAnswerContent?>
 	</ul>

@@ -8,7 +8,7 @@
  * @property string $work_id
  * @property integer $place
  */
-class CommunityContestWinner extends CActiveRecord
+class CommunityContestWinner extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

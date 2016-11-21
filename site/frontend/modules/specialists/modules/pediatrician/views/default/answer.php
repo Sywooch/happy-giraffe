@@ -21,7 +21,7 @@ $replyArgument = is_null($currentAnswerId) ? $question->id : $question->id . ', 
     <div class="b-contest-winner__container">
         <div class="question">
             <div class="live-user position-rel">
-                <div class="username"><a href="#"><?=$question->user->firstName?></a>
+                <div class="username"><span class="font__color--blue"><?=$question->user->firstName?></span>
                     <?=HHtml::timeTag($question, ['class' => 'tx-date'])?>
                 </div>
             </div>

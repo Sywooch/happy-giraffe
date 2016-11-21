@@ -8,7 +8,7 @@
 <li class="questions_item clearfix">
     <div class="questions-modification__box questions-modification__box-w480 box-wrapper">
         <div class="box-wrapper__user box-wrapper__user-mod">
-            <a href="<?=$this->createUrl('/specialists/pediatrician/default/answer', ['questionId' => $data->id])?>" class="box-wrapper__link"><?=$data->user->firstName?></a>
+            <span class="box-wrapper__link"><?=$data->user->firstName?></span>
             <?=HHtml::timeTag($data, ['class' => 'box-wrapper__date'])?>
         </div>
         <div class="box-wrapper__header box-header">

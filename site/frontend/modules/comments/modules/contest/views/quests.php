@@ -489,23 +489,23 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
 </div>
 <div class="b-contest-task b-contest__block textalign-c">
     <?php if(/*false &&*/ $socialQuestsCount > 0): ?>
-    <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
-    <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
-    <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>
+        <div class="b-contest__title">Получи море баллов. Расскажи друзьям</div>
+        <p class="b-contest__p margin-t10 margin-b55">Нажми на значок социальной сети и заработай баллы.
+            <input type="hidden" id="referal_link" value="<?= $link->getLink() ?>"/>
         <ul class="b-contest-task__list">
-        <li class="b-contest-task__li b-contest-task__li_onnoklasniki <?php if (!$this->checkSocialService('ok', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-odnoklasniki" <?php if (!$this->checkSocialService('ok', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('ok', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
-        <li class="b-contest-task__li b-contest-task__li_fb <?php if (!$this->checkSocialService('fb', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-fb" <?php if (!$this->checkSocialService('fb', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('fb', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
-        <li class="b-contest-task__li b-contest-task__li_vk <?php if (!$this->checkSocialService('vk', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-vk" <?php if (!$this->checkSocialService('vk', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('vk', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
-    </ul>
+            <li class="b-contest-task__li b-contest-task__li_onnoklasniki <?php if (!$this->checkSocialService('ok', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-odnoklasniki" <?php if (!$this->checkSocialService('ok', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('ok', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
+            <li class="b-contest-task__li b-contest-task__li_fb <?php if (!$this->checkSocialService('fb', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-fb" <?php if (!$this->checkSocialService('fb', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('fb', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
+            <li class="b-contest-task__li b-contest-task__li_vk <?php if (!$this->checkSocialService('vk', $social)): ?>completed<?php endif; ?>"><a href="#" class="b-contest-task__link ico-vk" <?php if (!$this->checkSocialService('vk', $social)): ?>style="margin-bottom: 36px; opacity: 0.3;"<?php endif; ?>><?php if ($this->checkSocialService('vk', $social)): ?><span class="b-contest-task__mark"></span></a><a href="#" class="btn btn-ms green-btn margin-t18">Получить баллы<? endif; ?></a></li>
+        </ul>
     <?php endif; ?>
     <div class="b-contest-winner__container">
         <div class="b-contest__title">Комментируй и получай баллы</div>
         <p class="b-contest__p margin-t10 margin-b20">Выбрано <span class="popup_clubs_count"><?= $clubsCount ?></span> <?= ContestHelper::getWord($clubsCount, ContestHelper::$themeWords) ?> &nbsp;<span class="hidden-xss">для комментирования &nbsp;</span><a href="#js-b-popup-theme" class="js-b-contest-task__choose b-contest-task__choose">Выбрать</a></p>
         <div class="b-contest-winner__menu">
-        <ul class="textalign-c margin-b30">
-            <li class="contest-header__li"><a href="<?= \Yii::app()->createUrl('/comments/contest/default/quests', array('type' => 'blog')) ?>" class="b-contest-winner__link <?= $type == 'blog' ? 'b-contest-winner__link-active' : ''?>">Блоги</a></li>
-            <li class="contest-header__li"><a href="<?= \Yii::app()->createUrl('/comments/contest/default/quests', array('type' => 'community')) ?>" class="b-contest-winner__link <?= $type == 'community' ? 'b-contest-winner__link-active' : ''?>">Форумы</a></li>
-        </ul>
+            <ul class="textalign-c margin-b30">
+                <li class="contest-header__li"><a href="<?= \Yii::app()->createUrl('/comments/contest/default/quests', array('type' => 'blog')) ?>" class="b-contest-winner__link <?= $type == 'blog' ? 'b-contest-winner__link-active' : ''?>">Блоги</a></li>
+                <li class="contest-header__li"><a href="<?= \Yii::app()->createUrl('/comments/contest/default/quests', array('type' => 'community')) ?>" class="b-contest-winner__link <?= $type == 'community' ? 'b-contest-winner__link-active' : ''?>">Форумы</a></li>
+            </ul>
         </div>
         <div class="textalign-l">
             <?php foreach ($posts as $post): ?>
@@ -534,11 +534,11 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                                 </div>
                                 <div class="float-l position-rel w-300"><a href="<?= /*$post->author->getUrl()*/ '#' ?>" class="ava ava__female ava__middle-xs ava__middle-sm-mid"><span class="ico-status <?php if($post->author->online): ?>ico-status__online <?php endif; ?>"></span><img src="<?= $post->author->getAvatarUrl() ?>" class="ava_img"></a><a href="<?= /*$post->author->getUrl()*/'#' ?>" class="b-article_author"><?= $post->author->getFullName() ?></a>
                                     <time pubdate="1957-10-04" class="tx-date" id="time<?= $post->id ?>"><?= HHtml::timeTag($post, array('class' => 'tx-date'), null); ?></time>
-<!--                                    <div style="display: none" class="b-subscribe">-->
-<!--                                        <div class="btn btn-tiny green">Подписаться</div>-->
-<!--                                        <div class="b-subscribe_tx">23</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="b-subscribe"><span class="b-subscribe__done"></span><span class="b-subscribe_tx">23</span></div>-->
+                                    <!--                                    <div style="display: none" class="b-subscribe">-->
+                                    <!--                                        <div class="btn btn-tiny green">Подписаться</div>-->
+                                    <!--                                        <div class="b-subscribe_tx">23</div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="b-subscribe"><span class="b-subscribe__done"></span><span class="b-subscribe_tx">23</span></div>-->
                                 </div>
                             </div>
                             <div class="b-article_t-list article_t-feed"><a href="<?= /*ContestHelper::getValidPostUrl($post->url)*/'#' ?>" class="b-article_t-a"><?= $post->title ?></a></div>
@@ -568,10 +568,10 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
                     <div class="username"><a></a>
                         <time class="tx-date"></time>
                     </div>
-<!--                    <div class="b-subscribe">-->
-<!--                        <div class="btn btn-tiny green">Подписаться</div>-->
-<!--                        <div class="b-subscribe_tx"></div>-->
-<!--                    </div>-->
+                    <!--                    <div class="b-subscribe">-->
+                    <!--                        <div class="btn btn-tiny green">Подписаться</div>-->
+                    <!--                        <div class="b-subscribe_tx"></div>-->
+                    <!--                    </div>-->
                 </div>
                 <div class="icons-meta">
                     <div class="c-list_item_btn"><span class="c-list_item_btn__view"></span><a href="#" class="c-list_item_btn__comment margin-r0"></a></div>
@@ -611,15 +611,15 @@ Yii::app()->clientScript->registerAMD('kow', array('kow'))
         <div class="b-contest-popup-theme textalign-c padding-t20">
             <div class="homepage-clubs_hold margin-l0">
                 <?php foreach ($clubs as $club): ?>
-                <div class="homepage-theme_li"><a href="#" class="homepage-clubs_a">
-                        <div class="homepage-clubs_ico-hold homepage__color-<?= $club->section_id ?>">
-                            <div class="ico-club ico-club__<?= $club->id ?>"></div>
-                        </div>
-                        <div class="homepage-check__box">
-                            <input type="checkbox" <?= $this->isCheckedClub($club->id) ? 'checked' : '' ?> id="c<?= $club->id ?>" data-value="<?= $club->id ?>" class="homepage-check__input">
-                            <label for="c<?= $club->id ?>" class="homepage-check__label"><span class="homepage-check__cap"></span></label>
-                        </div>
-                        <div class="homepage-clubs_tx"><?= $club->title ?></div></a></div>
+                    <div class="homepage-theme_li"><a href="#" class="homepage-clubs_a">
+                            <div class="homepage-clubs_ico-hold homepage__color-<?= $club->section_id ?>">
+                                <div class="ico-club ico-club__<?= $club->id ?>"></div>
+                            </div>
+                            <div class="homepage-check__box">
+                                <input type="checkbox" <?= $this->isCheckedClub($club->id) ? 'checked' : '' ?> id="c<?= $club->id ?>" data-value="<?= $club->id ?>" class="homepage-check__input">
+                                <label for="c<?= $club->id ?>" class="homepage-check__label"><span class="homepage-check__cap"></span></label>
+                            </div>
+                            <div class="homepage-clubs_tx"><?= $club->title ?></div></a></div>
                 <?php endforeach; ?>
             </div>
         </div>

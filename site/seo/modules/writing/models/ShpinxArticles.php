@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property Keywords.keywords $keyword
  */
-class ShpinxArticles extends CActiveRecord
+class ShpinxArticles extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

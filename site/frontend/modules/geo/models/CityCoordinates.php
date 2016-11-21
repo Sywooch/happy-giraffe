@@ -15,7 +15,7 @@
  * The followings are the available model relations:
  * @property GeoCity $city
  */
-class CityCoordinates extends CActiveRecord
+class CityCoordinates extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

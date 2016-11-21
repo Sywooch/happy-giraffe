@@ -6,6 +6,12 @@
  */
 class HActiveRecord extends CActiveRecord
 {
+    const OP_INSERT = 0x01;
+    const OP_UPDATE = 0x02;
+    const OP_DELETE = 0x04;
+    const OP_ALL = 0x07;
+
+    // Зачем это?
     private $_attributes;
     private $_related;
 
@@ -18,6 +24,87 @@ class HActiveRecord extends CActiveRecord
         'video' => 'Видео',
         'photo' => 'Фото',
     );
+
+    const REVERSE_TRANSACTION_CONDITIONS = true;
+
+    /**
+     * [
+     *  'scenario' => OP_INSERT | OP_UPDATE
+     * ]
+     *
+     * @return array
+     */
+    public function transactions()
+    {
+        return [];
+    }
+
+    /**
+     * @param $operation
+     * @return bool
+     */
+    public function isTransactional($operation)
+    {
+        $scenario = $this->getScenario();
+        $transactions = $this->transactions();
+
+        $result = isset($transactions[$scenario]) && ($transactions[$scenario] & $operation);
+
+        return static::REVERSE_TRANSACTION_CONDITIONS ? !$result : $result;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function insert($attributes = null)
+    {
+        return $this->_process(self::OP_INSERT, 'insert', $attributes);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update($attributes = null)
+    {
+        return $this->_process(self::OP_UPDATE, 'update', $attributes);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete()
+    {
+        return $this->_process(self::OP_DELETE, 'delete');
+    }
+
+    /**
+     * @param integer $transactionsType
+     * @param string $parentMethod
+     * @param array $attributes
+     * @throws Exception
+     * @return boolean
+     */
+    private function _process($transactionsType, $parentMethod, $attributes = NULL)
+    {
+        if (!$this->isTransactional($transactionsType) || $this->getDbConnection()->currentTransaction !== null) {
+            return parent::$parentMethod($attributes);
+        }
+
+        $transaction = $this->getDbConnection()->beginTransaction();
+
+        try {
+            $result = parent::$parentMethod($attributes);
+            if ($result === false) {
+                $transaction->rollback();
+            } else {
+                $transaction->commit();
+            }
+            return $result;
+        } catch (\Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+    }
 
     public function getPhotoCollection($key = 'default')
     {
@@ -64,6 +151,8 @@ class HActiveRecord extends CActiveRecord
             case 'odnoklassniki':
                 $url = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments={description}&st._surl={url}';
                 break;
+            default:
+                $url = '';
         }
 
         return strtr($url, array(
@@ -168,6 +257,9 @@ class HActiveRecord extends CActiveRecord
         return $this;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function query($criteria, $all = false)
     {
         $result = parent::query($criteria, $all);
@@ -201,6 +293,7 @@ class HActiveRecord extends CActiveRecord
             $md = $this->getApiMd();
             /** @var site\frontend\components\api\ApiRelation $relation */
             $relation = $md[$name];
+            /** @var HActiveRecord $className */
             $className = $relation->className;
             $params = array_merge($relation->params, $params);
             $params['id'] = $this->{$relation->foreignKey};

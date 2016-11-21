@@ -13,7 +13,7 @@ namespace site\frontend\modules\som\modules\activity\models;
  * The followings are the available model relations:
  * @property SomActivity[] $somActivities
  */
-class Type extends \CActiveRecord
+class Type extends \HActiveRecord
 {
 
     /**

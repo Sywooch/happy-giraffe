@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property Product $product
  */
-class ProductItem extends CActiveRecord
+class ProductItem extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

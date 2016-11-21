@@ -1,4 +1,7 @@
 <?php
+
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
+
 /**
  * insert Description
  *
@@ -34,5 +37,28 @@ class NotificationCommand extends CConsoleCommand
     public function actionRemove()
     {
         Notification::model()->removeOldReadNotifications();
+    }
+
+    public function actionSendNotifications()
+    {
+        $models = QaAnswer::model()->findAll([
+            'condition' => 'isPublished = 0'
+        ]);
+
+        $cnt = 0;
+
+        foreach ($models as $model) {
+            if ($model->isTimeoutExpired) {
+                $model->isPublished = 1;
+
+                if ($model->save()) {
+                    $model->notificationBehavior->sendNotification();
+
+                    $cnt++;
+                }
+            }
+        }
+
+        echo "{$cnt}\n";
     }
 }

@@ -24,7 +24,7 @@ use site\frontend\modules\specialists\models\specialistProfile\AuthorizationEnum
  * @property \site\frontend\modules\users\models\User $user
  * @property SpecialistSpecialization[] $specializations
  */
-class SpecialistProfile extends \CActiveRecord
+class SpecialistProfile extends \HActiveRecord
 {
 	public static function getCategoriesList()
 	{

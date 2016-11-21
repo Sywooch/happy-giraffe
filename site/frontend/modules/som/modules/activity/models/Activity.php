@@ -17,7 +17,7 @@ namespace site\frontend\modules\som\modules\activity\models;
  * @property ActivityType $type
  * @property Users $user
  */
-class Activity extends \CActiveRecord implements \IHToJSON
+class Activity extends \HActiveRecord implements \IHToJSON
 {
     const TYPE_ANSWER_PEDIATRICIAN = 'answer_pediatrician';
     const TYPE_COMMENT = 'comment';

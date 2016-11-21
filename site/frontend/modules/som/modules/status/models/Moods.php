@@ -12,7 +12,7 @@ namespace site\frontend\modules\som\modules\status\models;
  * The followings are the available model relations:
  * @property SomStatus[] $somStatuses
  */
-class Moods extends \CActiveRecord
+class Moods extends \HActiveRecord
 {
 
     /**

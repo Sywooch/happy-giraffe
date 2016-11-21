@@ -20,7 +20,7 @@ namespace site\frontend\modules\quests\models;
  * The followings are the available model relations:
  * @property \User $user
  */
-class Quest extends \CActiveRecord
+class Quest extends \HActiveRecord
 {
     /**
      * @return string the associated database table name

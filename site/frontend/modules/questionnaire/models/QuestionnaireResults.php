@@ -12,7 +12,7 @@ namespace site\frontend\modules\questionnaire\models;
  * @index questionnaire_result -> $questionnaire_id
  */
 
-class QuestionnaireResults extends \CActiveRecord
+class QuestionnaireResults extends \HActiveRecord
 {
     public $photo = null;
 

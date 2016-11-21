@@ -22,6 +22,9 @@ class RegisterForm extends \CFormModel
     public $password;
     public $avatarSrc;
 
+    /**
+     * @var \User
+     */
     public $user;
     
     public function init()

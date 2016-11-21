@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property User $author
  */
-class MailCampaign extends CActiveRecord
+class MailCampaign extends HActiveRecord
 {
 	public static function model($className=__CLASS__)
 	{

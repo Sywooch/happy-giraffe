@@ -109,12 +109,6 @@ return array(
                 'new/javascript/bootstrap/tab.js',
             ),
         ),
-        'userSettings' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_userSettings.js',
-            ),
-        ),
         'touchPunch' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -336,21 +330,6 @@ return array(
                 'javascripts/ko_photoWidget.js',
             ),
             'depends' => array('ko_blog', 'ko_upload', 'ko_library'),
-        ),
-        'ko_profile' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_user_profile.js',
-                'javascripts/ko_blog.js',
-            ),
-            'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments', 'ko_upload', 'ko_library'),
-        ),
-        'ko_search' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_search.js',
-            ),
-            'depends' => array('knockout', 'ko_library'),
         ),
         'ko_friends' => array(
             'baseUrl' => '/',

@@ -164,9 +164,5 @@ if (! Yii::app()->user->isGuest)
     else
         $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_HEAD);
 ?>
-
-<?php if (Yii::app()->user->isGuest): ?>
-    <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
-<?php endif; ?>
 </body>
 </html>

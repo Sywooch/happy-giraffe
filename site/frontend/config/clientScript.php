@@ -32,7 +32,6 @@ return array(
             'ko_post' => '/javascripts/ko_post',
             'ko_menu' => '/javascripts/ko_menu',
             'ko_favourites' => '/javascripts/ko_favourites',
-            'ko_registerWidget' => '/javascripts/ko_registerWidget',
             'ko_community' => '/javascripts/ko_community',
             'ko_photoWidget' => '/javascripts/ko_photoWidget',
             'ko_comments' => '/javascripts/comments',
@@ -440,13 +439,6 @@ return array(
                 'redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
             ),
             'depends' => array('jquery', 'ko_upload'),
-        ),
-        'ko_registerWidget' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_registerWidget.js',
-            ),
-            'depends' => array('jquery', 'knockout', 'common', 'jcrop', 'ko_upload', 'ko_library'),
         ),
         'favouriteWidget' => array(
             'baseUrl' => '/',

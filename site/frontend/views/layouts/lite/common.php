@@ -64,9 +64,6 @@
 <script type="text/javascript">
     require(['lite']);
 </script>
-<?php if (Yii::app()->user->isGuest): ?>
-    <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
-<?php endif; ?>
 
 <?php if (false): ?>
 <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>

@@ -70,6 +70,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
     public function addTaskToConvert()
     {
+        return;
         if (!\site\frontend\modules\posts\commands\ConvertCommand::addConvertTask($this->owner))
             $this->convertToNewPost();
     }

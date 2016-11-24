@@ -9,9 +9,9 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class QuestionsRatingManager extends \CComponent
 {
-    const VIEWS_DIVIDER = 1000;
+    const VIEWS_DIVIDER = 10;
     const ANSWERS_DIVIDER = 1;
-    const TIME_DIVIDER = 45000;
+    const TIME_DIVIDER = 1000000;
 
     public static function updateAll()
     {
@@ -43,6 +43,7 @@ class QuestionsRatingManager extends \CComponent
         $viewsMember = $viewsCount / self::VIEWS_DIVIDER;
         $answersMember = log10($answersCount) / self::ANSWERS_DIVIDER;
         $timeMember = (time() - $dtimeCreate) / self::TIME_DIVIDER;
-        return $viewsMember + $answersMember + $timeMember;
+
+        return ($viewsMember + $answersMember) / $timeMember;
     }
 }

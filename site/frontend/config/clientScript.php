@@ -192,14 +192,6 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
-        'jquery.flydiv' => array(
-            'baseUrl' => '/',
-            'amd' => true,
-            'js' => array(
-                'javascripts/jquery.flydiv.js'
-            ),
-            'depends' => array('jquery'),
-        ),
         'jcrop' => array(
             'baseUrl' => '/',
             'amd' => true,

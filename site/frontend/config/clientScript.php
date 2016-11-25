@@ -354,14 +354,6 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
-        'jquery.ui.widget' => array(
-            'baseUrl' => '/',
-            'amd' => true,
-            'js' => array(
-                'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
-            ),
-            'depends' => array('jquery'),
-        ),
         'ko_upload' => array(
             'baseUrl' => '/',
             'amd' => true,
@@ -370,15 +362,6 @@ return array(
 
             ),
             'depends' => array('knockout', 'jquery_file_upload'),
-        ),
-        'jquery_file_upload' => array(
-            'baseUrl' => '/',
-            'amd' => true,
-            'js' => array(
-                'jQuery-File-Upload/js/jquery.iframe-transport.js',
-                'jQuery-File-Upload/js/jquery.fileupload.js',
-            ),
-            'depends' => array('jquery', 'jquery.ui.widget'),
         ),
         'ko_menu' => array(
             'baseUrl' => '/',

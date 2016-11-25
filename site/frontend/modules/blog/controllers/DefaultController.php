@@ -141,6 +141,10 @@ class DefaultController extends HController
     {
         $id = Yii::app()->request->getPost('id');
         $post = BlogContent::model()->findByPk($id);
+        if (is_null($post))
+        {
+            throw new CHttpException(404);
+        }
         if (! $post->canEdit())
             throw new CHttpException(403);
 
@@ -153,7 +157,12 @@ class DefaultController extends HController
     public function actionRestore()
     {
         $id = Yii::app()->request->getPost('id');
-        $success = BlogContent::model()->resetScope()->findByPk($id)->restore();
+        $post = BlogContent::model()->resetScope()->findByPk($id);
+        if (is_null($post))
+        {
+            throw new CHttpException(404);
+        }
+        $success = $post->restore();
         $response = compact('success');
         echo CJSON::encode($response);
     }

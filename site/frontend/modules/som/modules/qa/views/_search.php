@@ -13,7 +13,6 @@ Yii::app()->clientScript->registerAMD('qa-search', array('ko' => 'knockout', 'Qa
           <span class="js-b-main-search__close b-main-search__close">&times;</span>
         </form>
     </div>
-</div>
 
 <script type="text/javascript">
   $(function () {

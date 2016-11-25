@@ -20,7 +20,6 @@ $this->renderSidebarClip();
                 <div class="heading-link-xxl"><?php echo $this->pageTitle; ?></div>
 
             <?php endif; ?>
-
             <div class="b-main_col-article position-rel clearfix">
                 <?=$content?>
             </div>

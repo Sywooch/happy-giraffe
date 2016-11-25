@@ -21,15 +21,6 @@ class QaManager
      */
     public static function getAnswers(QaQuestion $question)
     {
-        $timeCondition = null;
-
-        if ($question->category->isPediatrician())
-        {
-            $time = time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
-
-            $timeCondition = 'qa__answers.dtimeCreate >= ' . $time . ' AND ';
-        }
-
         $sql = "
             SELECT
                 *
@@ -40,20 +31,7 @@ class QaManager
                 AND
                 qa__answers.isRemoved = 0
                 AND
-                qa__answers.id NOT IN(
-    			    SELECT
-                        qa__answers.id
-                      FROM
-                        qa__answers
-                      WHERE
-                        $timeCondition
-                        qa__answers.authorId IN(
-                            SELECT
-                                specialists__profiles.id
-                            FROM
-                                specialists__profiles
-                        )
-                )
+                qa__answers.isPublished = 1
         ";
 
         $answers = QaAnswer::model()->findAllBySql($sql);
@@ -69,8 +47,6 @@ class QaManager
      */
     public static function getAnswersCountPediatorQuestion($questionId)
     {
-       $time = time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
-
        $sql = "
             SELECT
                 COUNT(qa__answers.id)
@@ -81,21 +57,7 @@ class QaManager
                 AND
                 qa__answers.isRemoved = 0
                 AND
-                qa__answers.id NOT IN(
-    			    SELECT
-                        qa__answers.id
-                      FROM
-                        qa__answers
-                      WHERE
-                        qa__answers.dtimeCreate >= $time
-                        AND
-                        qa__answers.authorId IN(
-                            SELECT
-                                specialists__profiles.id
-                            FROM
-                                specialists__profiles
-                        )
-                )
+                qa__answers.isPublished = 1
        ";
 
         return \Yii::app()->db->createCommand($sql)->queryColumn()[0];

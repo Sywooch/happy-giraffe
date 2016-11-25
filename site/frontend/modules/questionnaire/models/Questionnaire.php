@@ -13,7 +13,7 @@ use site\frontend\modules\photo\models\Photo;
  * @index user_id -> $user_id
  */
 
-class Questionnaire extends \CActiveRecord
+class Questionnaire extends \HActiveRecord
 {
     public static function model($className = __CLASS__)
     {

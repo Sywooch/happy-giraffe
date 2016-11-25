@@ -90,6 +90,16 @@ class CommentLogger
         }
     }
 
+    /**
+     * set timer and set start handler
+     */
+    private function _startTimer()
+    {
+        $this->_startTime = $this->_getCurrentTime();
+        $this->_lastTime = $this->_startTime;
+        $this->addToLog('Start log', '--------------------------------');
+    }
+
     //-----------------------------------------------------------------------------------------------------------
 
     /**
@@ -107,24 +117,16 @@ class CommentLogger
     //-----------------------------------------------------------------------------------------------------------
 
     /**
-     * set timer and set start handler
-     */
-    public function startTimer()
-    {
-        $this->_startTime = $this->_getCurrentTime();
-        $this->_lastTime = $this->_startTime;
-        $this->addToLog('Start log', '--------------------------------');
-    }
-
-    /**
      * @param string $title
      * @param string $message
+     *
+     * @return self
      */
     public function addToLog($title, $message, $level = null)
     {
         if (is_null($this->_startTime))
         {
-            $this->startTimer();
+            $this->_startTimer();
         }
 
         $arrTime = $this->_getTime();
@@ -136,6 +138,8 @@ class CommentLogger
 
         $prefix = is_null($level) ? '' : "\t";
         $this->_log[] = $prefix . $arrTime['date'] . ' [+' . $arrTime['difference'] . ']' . ' [' . $title . '] -> ' . $message;
+
+        return $this;
     }
 
     /**

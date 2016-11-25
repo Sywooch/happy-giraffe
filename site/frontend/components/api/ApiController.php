@@ -6,7 +6,7 @@ namespace site\frontend\components\api;
  * Description of ApiController
  *
  * @author Кирилл
- * 
+ *
  * @property-read \CometModel $comet Экземпляр CometModel для работы с comet-сервером
  * @property-read array $result Данные, возвращаемые в ответе на запрос
  */
@@ -14,7 +14,7 @@ class ApiController extends \CController
 {
 
     /**
-     * @var array Объект, который будет возвращаться в ответ на запрос 
+     * @var array Объект, который будет возвращаться в ответ на запрос
      */
     public $data = null;
 
@@ -35,12 +35,12 @@ class ApiController extends \CController
 
     /**
      *
-     * @var bool true - используется пакетная обработка, иначе - false 
+     * @var bool true - используется пакетная обработка, иначе - false
      */
     public $isPack = false;
 
     /**
-     * @var CometModel 
+     * @var CometModel
      */
     protected $_cometModel = null;
 
@@ -129,7 +129,7 @@ class ApiController extends \CController
 
     /**
      * Метод, отсылающий сообщение через comet-сервер
-     * 
+     *
      * @param string $channel Id канала, или id пользователя, при отправке в его публичный канал
      * @param array $data Данные для отправки
      * @param type $type Тип сообщения, смотри константы из CometModel
@@ -158,17 +158,22 @@ class ApiController extends \CController
     public function onError(\CEvent $event)
     {
         $event->handled = true;
+        /** @var \CErrorEvent|\CException $exception */
         if ($event instanceof \CExceptionEvent)
             $exception = $event->exception;
         else // CErrorEvent
             $exception = $event;
 
+        http_response_code($exception->statusCode);
+
         $this->success = false;
         $this->errorCode = method_exists($exception, 'getCode') ? $exception->getCode() : $exception->code;
         $this->errorMessage = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;
         $this->data = null;
-        
-        // $this->printResult();
+
+        if(YII_DEBUG) {
+            $this->printResult();
+        }
     }
 
     public function getActionParams()

@@ -8,14 +8,14 @@ use site\frontend\modules\som\modules\activity\models\api\Activity;
  * Description of PostBehavior
  *
  * @property \site\frontend\modules\posts\models\Content $owner Owner
- * 
+ *
  * @author Кирилл
  */
 class PostBehavior extends ActivityBehavior
 {
     protected $oldEntityId;
 
-    public function afterFind()
+    public function afterFind($event)
     {
         $this->oldEntityId = $this->owner->originEntityId;
     }

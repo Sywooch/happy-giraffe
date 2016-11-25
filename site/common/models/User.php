@@ -1,5 +1,7 @@
 <?php
 
+use site\frontend\modules\family\models\Family;
+use site\frontend\modules\family\models\FamilyMember;
 /**
  * This is the model class for table "user".
  *
@@ -9,6 +11,7 @@
  * @property string $phone
  * @property string $password
  * @property string $first_name
+ * @property string $middle_name
  * @property string $last_name
  * @property int $deleted
  * @property integer $gender
@@ -68,6 +71,7 @@
  * @property int $albumsCount
  * @property CommunityClub[] $clubSubscriptions
  * @property string $publicChannel Имя публичного канала пользователя (в который отправляются события online/offline)
+ * @property site\frontend\modules\specialists\models\SpecialistProfile $specialistProfile
  *
  * @method User active()
  */
@@ -357,11 +361,11 @@ class User extends HActiveRecord
             'clubSubscriptionsCount' => array(self::STAT, 'UserClubSubscription', 'user_id'),
 
             'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
-            'specializations' => array(self::MANY_MANY, 'Specialization', 'user__specializations(user_id,specialization_id)'),
+//             'specializations' => array(self::MANY_MANY, 'Specialization', 'user__specializations(user_id,specialization_id)'),
             'communityPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id'),
 
             'spamStatus' => array(self::HAS_ONE, 'AntispamStatus', 'user_id'),
-            
+
             'specialistProfile' => array(self::BELONGS_TO, 'site\frontend\modules\specialists\models\SpecialistProfile', 'id'),
         );
     }
@@ -393,6 +397,7 @@ class User extends HActiveRecord
     {
         return array(
             'first_name' => 'Имя',
+            'middle_name' => 'Отчество',
             'email' => 'E-mail',
             'password' => 'Пароль',
             'gender' => 'Пол',
@@ -456,9 +461,12 @@ class User extends HActiveRecord
     protected function afterSave()
     {
         if ($this->trackable->isChanged('mood_id'))
+        {
             UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
+        }
 
-        foreach ($this->social_services as $service) {
+        foreach ($this->social_services as $service)
+        {
             $service->user_id = $this->id;
             $service->save();
         }
@@ -466,10 +474,31 @@ class User extends HActiveRecord
         /*Yii::app()->mc->saveUser($this);*/
 
         if (! $this->isNewRecord)
+        {
             self::clearCache($this->id);
+        }
 
         if ($this->trackable->isChanged('online'))
+        {
             $this->sendOnlineStatus();
+        }
+
+        if ($this->trackable->isChanged('gender'))
+        {
+            /** @var \site\frontend\modules\family\models\Family $family */
+            $family = Family::model()->with('members')->hasMember($this->id)->find();
+
+            if (! is_null($family))
+            {
+                $arrAdult = $family->getMembers(FamilyMember::TYPE_ADULT);
+
+                foreach ($arrAdult as $member)
+                {
+                    $member->gender = $member->userId == $this->id ? $this->gender : !$this->gender;
+                    $member->save();
+                }
+            }
+        }
 
         parent::afterSave();
     }
@@ -541,7 +570,7 @@ class User extends HActiveRecord
             ),
             'trackable' => array(
                 'class' => 'site.common.behaviors.TrackableBehavior',
-                'attributes' => array('mood_id', 'online', 'registration_finished'),
+                'attributes' => array('mood_id', 'online', 'registration_finished', 'gender'),
             ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
@@ -575,10 +604,12 @@ class User extends HActiveRecord
      */
     public function getFullName()
     {
-        $fullName = $this->first_name;
-        if (! empty($this->last_name))
-            $fullName .= ' ' . $this->last_name;
-        return $fullName;
+        if ($this->specialistInfo) {
+            $parts = [$this->first_name, $this->middle_name, mb_substr($this->last_name, 0, 1, 'UTF-8') . '.'];
+        } else {
+            $parts = [$this->first_name, $this->last_name];
+        }
+        return implode(' ', array_filter($parts));
     }
 
     /**
@@ -1592,16 +1623,16 @@ class User extends HActiveRecord
         return CommunityContent::model()->resetScope()->active()->count($criteria);
     }
 
-    public function getSpecialist($forumId)
-    {
-        foreach ($this->specializations as $spec)
-            if ($spec->forum_id == $forumId)
-                return $spec;
-        return null;
-    }
-	
+//     public function getSpecialist($forumId)
+//     {
+//         foreach ($this->specializations as $spec)
+//             if ($spec->forum_id == $forumId)
+//                 return $spec;
+//         return null;
+//     }
+
 	/**
-	 * 
+	 *
 	 * @return string Имя публичного канала пользователя (в который отправляются события online/offline)
 	 */
 	public function getPublicChannel()
@@ -1628,5 +1659,25 @@ class User extends HActiveRecord
         }
 
         return $this->_avatarObject;
+    }
+
+    /**
+     * @param int $groupId
+     *
+     * @return bool
+     */
+    public function isSpecialistOfGroup($groupId)
+    {
+        if (!isset($this->specialistProfile)) {
+            return false;
+        }
+
+        foreach ($this->specialistProfile->specializations as $specialization) {
+            if ($specialization->groupId == $groupId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

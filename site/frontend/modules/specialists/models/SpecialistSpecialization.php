@@ -14,7 +14,7 @@ namespace site\frontend\modules\specialists\models;
  * @property SpecialistProfile[] $specialistsProfiles
  * @property SpecialistGroup[] $group
  */
-class SpecialistSpecialization extends \CActiveRecord
+class SpecialistSpecialization extends \HActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -97,5 +97,23 @@ class SpecialistSpecialization extends \CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	
+	public function sorted()
+	{
+		$this->getDbCriteria()->order = 'sort DESC, title ASC';
+		return $this;
+	}
+
+	/**
+	 * @param int $groupId
+	 *
+	 * @return SpecialistSpecialization
+	 */
+	public function byGroup($groupId)
+	{
+		$this->getDbCriteria()->compare($this->getTableAlias() . '.groupId', $groupId);
+
+		return $this;
 	}
 }

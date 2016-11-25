@@ -22,7 +22,16 @@ class RegisterForm extends \CFormModel
     public $password;
     public $avatarSrc;
 
+    /**
+     * @var \User
+     */
     public $user;
+    
+    public function init()
+    {
+        $this->user = new \User();
+        parent::init();
+    }
 
     public function rules()
     {
@@ -57,16 +66,16 @@ class RegisterForm extends \CFormModel
 
     public function save()
     {
+        $this->user->first_name = $this->firstName;
+        $this->user->last_name = $this->lastName;
+        $this->user->birthday = $this->birthday;
+        $this->user->gender = $this->gender;
+        $this->user->email = $this->email;
+        $this->user->password = \User::hashPassword($this->password);
+        $this->user->status = \User::STATUS_ACTIVE;
+        
         $transaction = \Yii::app()->db->beginTransaction();
         try {
-            $this->user = new \User();
-            $this->user->first_name = $this->firstName;
-            $this->user->last_name = $this->lastName;
-            $this->user->birthday = $this->birthday;
-            $this->user->gender = $this->gender;
-            $this->user->email = $this->email;
-            $this->user->password = \User::hashPassword($this->password);
-            $this->user->status = \User::STATUS_ACTIVE;
             if ($this->user->save()) {
                 $this->afterSave();
                 $transaction->commit();

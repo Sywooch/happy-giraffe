@@ -1,4 +1,6 @@
 <?php
+use Aws\CloudFront\Exception\Exception;
+
 class WebUser extends CWebUser
 {
     /**
@@ -74,12 +76,7 @@ class WebUser extends CWebUser
 
         if ($referrer !== null && $referrer != $loginUrl) {
             /** @todo: fix 'Creating default object from empty value'*/
-            try {
-                if (isset(Yii::app()->user))
-                {
-                    Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
-                }
-            } catch (Exception $e) {}
+            $this->setReturnUrl($referrer);
         }
         return parent::beforeLogin($id, $states, $fromCookie);
     }
@@ -96,4 +93,5 @@ class WebUser extends CWebUser
         }
         return parent::login($identity, $duration);
     }
+
 }

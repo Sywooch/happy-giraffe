@@ -6,6 +6,7 @@ use site\frontend\modules\comments\modules\contest\components\ContestHelper;
  * @var site\frontend\modules\comments\modules\contest\models\CommentatorsContestParticipant $participant
  * @var int $commentsCount
  * @var int $count
+ * @var site\frontend\modules\quests\models\Quest[] $social
  */
 $this->pageTitle = $this->contest->name . ' - Мои баллы';
 $cs = Yii::app()->clientScript;
@@ -18,6 +19,30 @@ $cs->registerAMD('contestCommentsIndex', array('kow'));
 <div class="b-contest-task b-contest__block textalign-c">
     <div class="b-contest__title">Мои баллы</div>
     <div class="b-contest-winner__container textalign-l">
+        <?php if(!$this->checkSocialService('ok', $social)): ?>
+        <article class="b-article b-article__list clearfix b-article-qa">
+            <div class="b-konkurs-social">
+                <div class="b-contest-task__link verticalalign-m margin-r15 ico-social__medium ico-social__medium--ondnoklasniki"></div>
+                <div class="b-konkurs-social__text">Спасибо за приглашение друзей из «Одноклассников»!</div><span class="b-konkurs-social__ico"></span>
+            </div>
+        </article>
+        <?php endif; ?>
+        <?php if(!$this->checkSocialService('vk', $social)): ?>
+        <article class="b-article b-article__list clearfix b-article-qa">
+            <div class="b-konkurs-social">
+                <div class="b-contest-task__link verticalalign-m margin-r15 ico-social__medium ico-social__medium--vk"></div>
+                <div class="b-konkurs-social__text">Спасибо за приглашение друзей из «ВКонтакте»!</div><span class="b-konkurs-social__ico"></span>
+            </div>
+        </article>
+        <?php endif; ?>
+        <?php if(!$this->checkSocialService('fb', $social)): ?>
+        <article class="b-article b-article__list clearfix b-article-qa">
+            <div class="b-konkurs-social">
+                <div class="b-contest-task__link verticalalign-m margin-r15 ico-social__medium ico-social__medium--fb"></div>
+                <div class="b-konkurs-social__text">Спасибо за приглашение друзей из «Facebook»!</div><span class="b-konkurs-social__ico"></span>
+            </div>
+        </article>
+        <?php endif; ?>
         <?php foreach ($comments as $comment): ?>
         <article class="b-article b-article__list clearfix b-article-qa">
             <div class="b-article_cont clearfix">
@@ -27,7 +52,7 @@ $cs->registerAMD('contestCommentsIndex', array('kow'));
                         <time pubdate="1957-10-04" class="tx-date"><?= HHtml::timeTag($comment->comment, array('class' => 'tx-date'), null); ?></time>
                     </div>
                     <div class="float-r">
-                        <div class="<?=$comment->points > 1 ? 'b-article__num' : 'b-article__num_mod' ?>"><span>+<?= $comment->points ?></span></div>
+                        <div class="<?=$comment->points > 1 ? 'b-article__num_mod' : 'b-article__num' ?>"><span>+<?= $comment->points ?></span></div>
                     </div>
                 </div>
                 <div class="b-article_in clearfix">

@@ -9,7 +9,7 @@ namespace site\frontend\modules\questionnaire\models;
   * @property string $text
   * @property int $result_id
   */
-class QuestionnaireAnswers extends \CActiveRecord
+class QuestionnaireAnswers extends \HActiveRecord
 {
     public static function model($className = __CLASS__)
     {

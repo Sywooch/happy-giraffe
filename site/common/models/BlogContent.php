@@ -18,8 +18,4 @@ class BlogContent extends CommunityContent
         );
     }
 
-    public function beforeDelete()
-    {
-        return parent::beforeDelete();
-    }
 }

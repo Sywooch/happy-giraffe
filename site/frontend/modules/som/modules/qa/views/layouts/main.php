@@ -38,6 +38,7 @@ $this->renderSidebarClip();
                  **/ ?>
                 <?php $this->renderPartial('/_sidebar/hot', array());?>
             </aside>
+
         </div>
     </div>
 <?php $this->endContent(); ?>

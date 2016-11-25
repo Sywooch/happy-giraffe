@@ -16,20 +16,20 @@ abstract class ThumbsManager extends \CApplicationComponent
     {
         $thumb = new Thumb($photo, $filter, $path, $animated);
 
-        if (! \Yii::app()->fs->has($path) || $replace) 
+        if (! \Yii::app()->fs->has($path) || $replace)
         {
-            try 
+            try
             {
                 \Yii::app()->fs->write($path, $thumb->get(), TRUE);
             }
             catch (\Exception $e)
             {
-                \Yii::log(PHP_EOL . $e->getMessage() . PHP_EOL . 'See: ' . $_SERVER['REQUEST_URI'] . PHP_EOL, \CLogger::LEVEL_INFO, 'post attachment');
-                
+                \Yii::log(PHP_EOL . $e->getMessage() . PHP_EOL . 'See: ' . isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'REQUEST_URI not passed' . PHP_EOL, \CLogger::LEVEL_INFO, 'post attachment');
+
                 $thumb = NULL;
-            }            
+            }
         }
-        
+
         return $thumb;
     }
 }

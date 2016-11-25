@@ -148,8 +148,7 @@ class DefaultController extends HController
         if (! $post->canEdit())
             throw new CHttpException(403);
 
-        $post->delete();
-        $success = true;
+        $success = $post->delete();
         $response = compact('success');
         echo CJSON::encode($response);
     }

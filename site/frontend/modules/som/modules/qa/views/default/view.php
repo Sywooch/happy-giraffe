@@ -1,8 +1,14 @@
 <?php
+
+use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
+use site\frontend\modules\som\modules\qa\components\QaManager;
+
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
  */
+
 $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $question->categoryId), 'rating');
 
 $this->pageTitle = CHtml::encode($question->title);
@@ -33,11 +39,12 @@ else
     $isAnonQuestion = FALSE;
 }
 
+$answersCount = QaManager::getAnswersCountPediatorQuestion($question->id);
 ?>
 
 <div class="b-breadcrumbs" style="margin-left: 0">
-  		
-<?php 
+
+<?php
 
 $this->widget('zii.widgets.CBreadcrumbs', [
     'links'                => $breadcrumbs,
@@ -46,7 +53,7 @@ $this->widget('zii.widgets.CBreadcrumbs', [
     'separator'            => '',
     'activeLinkTemplate'   => '<li><a href="{url}">{label}</a></li>',
     'inactiveLinkTemplate' => '<li>{label}</li>',
-]); 
+]);
 
 ?>
 
@@ -101,7 +108,7 @@ $this->widget('zii.widgets.CBreadcrumbs', [
                 </div>
             <?php endif; ?>
         	<a href="#" class="box-footer__answer box-footer__answer_blue box-footer__answer_mod">
-        		<span class="box-footer__num"><?=$question->answersCount?></span>
+        		<span class="box-footer__num"><?=$answersCount?></span>
         		<span class="box-footer__descr">ответов</span>
     		</a>
         <?php endif; ?>
@@ -117,9 +124,8 @@ $this->widget('zii.widgets.CBreadcrumbs', [
     <?php if (Yii::app()->user->checkAccess('manageQaQuestion', array('entity' => $question))): ?>
         <question-settings params="questionId: <?=$question->id?>"></question-settings>
     <?php endif; ?>
-    
+
     <div class="clearfix"></div>
 </div>
-
 
 <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget', array('question' => $question)); ?>

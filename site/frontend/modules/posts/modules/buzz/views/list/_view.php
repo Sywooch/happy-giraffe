@@ -6,7 +6,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
     'entity_id' => $data->originEntityId,
 )));
 ?>
-<article class="b-article clearfix b-article__list<?= $data->templateObject->getAttr('type') == 'status' ? ' b-article__user-status' : '' ?>">
+<article class="b-article clearfix b-article__list margin-t0<?= $data->templateObject->getAttr('type') == 'status' ? ' b-article__user-status' : '' ?>">
     <div class="b-article_cont clearfix">
         <div class="b-article_header clearfix">
             <div class="float-l">

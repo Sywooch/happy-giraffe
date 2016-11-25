@@ -21,14 +21,14 @@ $this->renderSidebarClip();
 
             <?php endif; ?>
 
-            <div class="b-main_col-article margin-b25 position-rel clearfix visibles-lg">
-
-            </div>
+<!--           <div class="b-main_col-article margin-b25 position-rel clearfix visibles-lg">-->
+<!--           </div>-->
             <div class="b-main-wrapper">
+
               	<div class="b-main_col-article position-rel clearfix">
                 	<?=$content?>
             	</div>
-                <aside class="b-main_col-sidebar visible-md margin-t60">
+                <aside style="margin-top: 35px" class="b-main_col-sidebar visible-md">
                     <div class="sidebar-widget sidebar-widget__padding">
                     	<?php $this->renderPartial('/_sidebar/ask', array());?>
                         <?php //$this->renderPartial('/_sidebar/personal', array());?>

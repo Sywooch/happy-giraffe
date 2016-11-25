@@ -4,7 +4,7 @@
  */
 ?>
 
-<div class="comments_i">
+<div class="comments_i clearfix">
     <div class="comments_meta clearfix">
         <span class="comments_time"><?=HDate::GetFormattedTime($data->created, ', ')?></span>
         <span class="comments_num"><?=$data->position?></span>

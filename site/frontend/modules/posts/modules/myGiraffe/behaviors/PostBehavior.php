@@ -9,7 +9,7 @@ use site\frontend\modules\posts\modules\myGiraffe\components\FeedManager;
 
 class PostBehavior extends \CActiveRecordBehavior
 {
-    public function afterSave()
+    public function afterSave($event)
     {
         if ($this->owner->isNewRecord) {
             \Yii::app()->gearman->client()->doBackground('myGiraffeHandlePost', $this->owner->id);

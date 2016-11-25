@@ -15,7 +15,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property \User $user
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
-class QaRating extends \CActiveRecord
+class QaRating extends \HActiveRecord
 {
     /**
      * @return string the associated database table name
@@ -48,7 +48,7 @@ class QaRating extends \CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'category' => array(self::BELONGS_TO, get_class(QaCategory::model()), 'category_id'),
-            'user' => array(self::BELONGS_TO, get_class(\User::model()), 'user_id'),
+            'user' => array(self::BELONGS_TO, 'site\frontend\modules\users\models\User', 'user_id'),
         );
     }
 
@@ -115,7 +115,21 @@ class QaRating extends \CActiveRecord
             $this->getDbCriteria()->with[] = 'user';
         }
 
-        $this->getDbCriteria()->addCondition('user.specialistInfo is null');
+        $this->getDbCriteria()->addCondition('user.specialistInfo is null or user.specialistInfo = \'\'');
+
+        return $this;
+    }
+
+    /**
+     * @return QaRating
+     */
+    public function forSpecialists()
+    {
+        if (!isset($this->getDbCriteria()->with['user'])) {
+            $this->getDbCriteria()->with[] = 'user';
+        }
+
+        $this->getDbCriteria()->addCondition('user.specialistInfo is not null and user.specialistInfo != \'\'');
 
         return $this;
     }

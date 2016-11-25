@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class UserPriority extends CActiveRecord
+class UserPriority extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property Users $user
  */
-class Visit extends CActiveRecord
+class Visit extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

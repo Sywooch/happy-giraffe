@@ -68,7 +68,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                         <?php
                         foreach ($categories as $category) {
                             if (count($category->tags) > 0) {
-                                echo $form->dropDownList($model, "tag_id", CHtml::listData($category->tags, 'id', 'name'), array(
+                                echo $form->dropDownList($model, "tag_id", $category->getTagTitles(), array(
                                     'class' => 'select-cus select-cus__search-off select-cus__gray tags ' . ($category->id == $model->categoryId ? ' ' : 'hidden'),
                                     'empty' => 'Выберите возраст ребенка',
                                     'id' => "tags{$category->id}",
@@ -81,7 +81,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
                 </div>
             <?php endif; ?>
             <div class="redactor-control">
-                <div class="redactor-control_toolbar"></div>
+                <div class="redactor-control_toolbar clearfix"></div>
                 <div class="redactor-control_hold">
                     <div class="inp-valid inp-valid__abs"  >
                         <?=

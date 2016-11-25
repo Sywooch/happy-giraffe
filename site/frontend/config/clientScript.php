@@ -49,7 +49,7 @@ return array(
             'goog' => '/new/javascript/plugins/goog',
             'propertyParser' => '/new/javascript/plugins/propertyParser',
             'kow' => '/new/javascript/modules/kow',
-            'routesCalc' => 'routes',
+            'routesCalc' => 'routes'
         ),
         /* 'eval' => '
           ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -214,6 +214,13 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
+        'DOMPurify' => [
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => [
+                'javascripts/purify.min.js',
+            ]
+        ],
         'jcrop' => array(
             'baseUrl' => '/',
             'amd' => true,
@@ -630,6 +637,7 @@ return array(
         'lite_member_user' => array(
             'baseUrl' => '/',
             'css' => array(
+                'lite/css/min/member-photo.css',
                 'lite/css/min/member-user.css'
             ),
         ),
@@ -679,13 +687,13 @@ return array(
             'depends' => array('lite_posts_user'),
         ),
         'lite_qa' => array(
-            'depends' => array('lite_services', 'lite_posts'),
+            'depends' => array('lite_services', 'lite_posts', 'lite_pediatrician'),
         ),
         'lite_pediatrician' => array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/pediator.css',
-            ),
+            )
         ),
     )
 );

@@ -19,7 +19,7 @@ if (!is_null($categoryId))
 {
     $breadcrumbs['Ответы'] = ['/som/qa/default/index'];
     $breadcrumbs[] = $category->title;
-    
+
 }
 else {
     $breadcrumbs[] = 'Ответы';
@@ -28,8 +28,8 @@ else {
 ?>
 
 <div class="b-breadcrumbs" style="margin-left: 0">
-  		
-<?php 
+
+<?php
 
 $this->widget('zii.widgets.CBreadcrumbs', [
     'links'                => $breadcrumbs,
@@ -38,7 +38,7 @@ $this->widget('zii.widgets.CBreadcrumbs', [
     'separator'            => '',
     'activeLinkTemplate'   => '<li><a href="{url}">{label}</a></li>',
     'inactiveLinkTemplate' => '<li>{label}</li>',
-]); 
+]);
 
 ?>
 
@@ -53,7 +53,7 @@ $this->widget('site\frontend\modules\som\modules\qa\widgets\QuestionsFilterWidge
     'htmlOptions' => ['class' => 'filter-menu filter-menu_mod visibles-lg'],
 ));
 ?>
-
+</div>
 <div class="clearfix"></div>
 
 <?php
@@ -71,7 +71,6 @@ if (! is_null($categoryId))
 $this->widget('LiteListView', array(
     'dataProvider'  => $dp,
     'itemView'      => '/_question',
-    'tab'           => $tab,
     'category'      => $categoryId,
     'htmlOptions'   => array(
         'class' => $class

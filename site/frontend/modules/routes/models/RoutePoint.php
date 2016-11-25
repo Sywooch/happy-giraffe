@@ -17,7 +17,7 @@
  * @property GeoCity $city
  * @property GeoRegion $region
  */
-class RoutePoint extends CActiveRecord
+class RoutePoint extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -38,6 +38,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                     $value = $this->setWidgets($value);
                     $value = $this->fixUrls($value);
                     $value = $this->fixh1($value);
+                    $value = $this->_trimApostrophe($value);
                     $value = $this->clean($value);
                     Yii::app()->cache->set($cacheId, $value);
                 }
@@ -88,6 +89,13 @@ class PurifiedBehavior extends CActiveRecordBehavior
         }
 
         return $doc->save();
+    }
+
+    private function _trimApostrophe($text)
+    {
+        $text = str_replace("'", '&#39;', $text);
+
+        return $text;
     }
 
     private function fixUrls($text)

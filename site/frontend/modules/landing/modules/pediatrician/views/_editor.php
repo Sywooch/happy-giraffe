@@ -5,14 +5,14 @@
  * @var site\frontend\components\requirejsHelpers\ActiveForm $form
  */
 Yii::app()->clientScript->registerAMD('qa-redactor', array('hgwswg' => 'care-wysiwyg'), 'var wysiwyg = new hgwswg($("#question-form textarea").get(0), {
-            minHeight: 200,
-            buttons: ["bold", "italic", "underline"],
-            plugins: ["imageCustom"],
-            callbacks: {
-                init: [
-                ]
-            }
+            minHeight       : 200,
+            plugins         : ["text", "imageCustom", "smilesModal"],
+            toolbarExternal : "#editor-toolbar",
+            placeholder     : "Опишите вопрос подробнее",
+            callbacks       : {},
+            attr            : qText
         }); wysiwyg.run();');
+
 Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 ?>
 
@@ -26,7 +26,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
         'enableClientValidation' => true,
         'focus' => array($model, 'title'),
         'htmlOptions' => array(
-            'class' => 'popup-widget_cont',
+            'class' => 'add-post__form',
         )
     ));
     ?>
@@ -52,32 +52,31 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
 			<?=
             $form->textField($model, 'title', array(
                 'placeholder' => 'Введите заголовок вопроса',
-                'class' => 'popup-widget_cont_input-text login-button',
+                'class' => 'itx-gray_big login-button',
                 'id' => 'qTtitle'
             ))
             ?>
             <div class="inp-valid_error" id="qTtitleE" data-bind="validationMessage: qTtitle">Это обязательное поле</div>
         </div>
         <div class="add-post__body-panel margin-b10">
-            <div class="add-post__textarea-header">
-            	<div id="add-post-toolbar"></div>
+        	<div class="answer-form__footer--style clearfix">
+                <div class="answer-form__footer-panel">
+                	<div id="editor-toolbar"></div>
+                </div>
             </div>
             <input type="text" name="site_frontend_modules_som_modules_qa_models_QaQuestion[categoryId]" class="hidden" value="<?=$category->id?>">
             <input type="text" id="category_tag_id" name="site_frontend_modules_som_modules_qa_models_QaQuestion[tag_id]" class="hidden" value="7">
-            <div class="redactor-control_toolbar margin-b5"></div>
             <div class="add-post__textarea-body inp-valid inp-valid__abs">
 				<?=
                 $form->textArea($model, 'text', array(
-                    'placeholder' => 'Введите сам вопрос',
-                    'class' => 'popup-widget_cont_textarea',
-                    'data-bind' => "value: qText",
-                    'id' => 'qText'
+                    'class'         => 'popup-widget_cont_textarea',
+                    'id'            => 'qText'
                 ))
                 ?>
                 <div class="inp-valid_error" id="qTextE" data-bind="validationMessage: qText">Это обязательное поле</div>
             </div>
         </div>
-        <div class="textalign-c">
+      	<div class="textalign-c">
         	<button class="btn btn-forum btn-success login-button" data-bind="follow: {}">Задать вопрос</button>
         </div>
     </div>

@@ -13,7 +13,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property int $questionsCount
  * @property \site\frontend\modules\som\modules\qa\models\QaTag[] $tags
  */
-class QaCategory extends \CActiveRecord
+class QaCategory extends \HActiveRecord
 {
 
     /**
@@ -29,6 +29,23 @@ class QaCategory extends \CActiveRecord
 	public function tableName()
 	{
 		return 'qa__categories';
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getTagTitles()
+	{
+	    $titles = [];
+
+	    foreach ($this->tags as $objTag)
+	    {
+            $titles[$objTag->id] = $objTag->getTitle();
+	    }
+
+	    asort($titles);
+
+	    return $titles;
 	}
 
 	/**

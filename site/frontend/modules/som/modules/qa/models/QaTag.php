@@ -1,6 +1,8 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 
+use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
+
 /**
  * This is the model class for table "qa__tags".
  *
@@ -13,7 +15,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property int $questionsCount
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
-class QaTag extends \CActiveRecord
+class QaTag extends \HActiveRecord
 {
     /**
      * @return string the associated database table name
@@ -21,6 +23,14 @@ class QaTag extends \CActiveRecord
     public function tableName()
     {
         return 'qa__tags';
+    }
+
+    /**
+     * @return string|NULL
+     */
+    public function getTitle()
+    {
+        return (new Enum())->getTitleForWeb($this->name);
     }
 
     /**

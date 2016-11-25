@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var site\frontend\modules\posts\modules\forums\controllers\DefaultController $this
  */
@@ -8,7 +9,6 @@ $breadcrumbs = [
     'Форумы',
 ];
 ?>
-
 
 <?php $this->beginClip('home'); ?>
 <?php if (Yii::app()->user->isGuest): ?>
@@ -42,11 +42,11 @@ $breadcrumbs = [
                 <div class="item__img item__img_margin"></div>
                 <p>самые актуальные темы для мам и пап</p>
                 <?php if (Yii::app()->user->isGuest): ?>
-                    <a class="btn btn-xl green registration-button" data-bind="follow: {}">Присоеденяйтесь!</a>
+                    <a class="btn btn-xl green registration-button" data-bind="follow: {}">Присоединяйтесь!</a>
                 <?php endif; ?>
             </li>
             <li class="item statistik sidebar-widget_item">
-                <?php if ($this->beginCache('UsersTopWidget', array('duration' => 300))) { $this->widget('\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget', [
+                <?php if ($this->beginCache('UsersTopWidget', array('duration' => 300))) { $this->widget(\site\frontend\modules\posts\modules\forums\widgets\usersTop\UsersTopWidget::class, [
                     'labels' => [
                         \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
                     ],

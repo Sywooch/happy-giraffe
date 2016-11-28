@@ -16,13 +16,13 @@ $this->breadcrumbs = array(
 <?php if (empty($query) || $dp->totalItemCount == 0): ?>
     <p>Ничего не найдено</p>
 <?php else: ?>
-</div>
+
 <div class="search-heading">
     <div class="hash-tag-big"></div>
     <div class="heading-link-xxl"> <?=$query?>&nbsp;<span><?=$dp->totalItemCount?></span></div>
     <div class="clearfix"></div>
 </div>
-
+</div>
 <?php
 $this->widget('LiteListView', array(
     'dataProvider' => $dp,

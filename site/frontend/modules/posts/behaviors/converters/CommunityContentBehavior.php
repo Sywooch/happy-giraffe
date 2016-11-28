@@ -40,6 +40,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         }
 
         $postContent->delete();
+
+        \Yii::app()->user->setState('newPost' . $this->owner->id, FALSE);
         $postContent->save();
     }
 

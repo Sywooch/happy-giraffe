@@ -17,6 +17,45 @@ use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelp
 class CommunityContentBehavior extends \CActiveRecordBehavior
 {
 
+    /**
+     * @return NULL|Content
+     */
+    private function _getRelation()
+    {
+        if (!($this->owner instanceof \CommunityContent))
+        {
+            return;
+        }
+
+        return $this->owner->getPostContentObject();
+    }
+
+    private function _deleteRelation()
+    {
+        $postContent = $this->_getRelation();
+
+        if (is_null($postContent))
+        {
+            return;
+        }
+
+        $postContent->delete();
+        $postContent->save();
+    }
+
+    private function _restoreRelation()
+    {
+       $postContent = $this->_getRelation();
+
+       if (is_null($postContent))
+       {
+           return;
+       }
+
+       $postContent->restore();
+       $postContent->save();
+    }
+
     public function events()
     {
         return array_merge(parent::events(), array(
@@ -61,11 +100,13 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     public function afterSoftDelete($event)
     {
         $this->addTaskToConvert();
+        $this->_deleteRelation();
     }
 
     public function afterSoftRestore($event)
     {
         $this->addTaskToConvert();
+        $this->_restoreRelation();
     }
 
     public function addTaskToConvert()

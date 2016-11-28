@@ -152,7 +152,7 @@ class DefaultController extends HController
         $content = $this->loadContent($content_id, $content_type_slug);
         if ($content->type_id == 1)
             $content
-                            ->getContent()
+                    ->getContent()
                     ->forEdit
                     ->text;
         NoindexHelper::setNoIndex($content);
@@ -222,11 +222,11 @@ class DefaultController extends HController
     public function actionSave($id = null)
     {
         $formSendControl = \site\frontend\components\FormDepartmentModelsControl::getInstance();
-        
+
         if (isset($_POST['formKey']) && !empty($_POST['formKey']))
         {
             $formKey = $_POST['formKey'];
-            
+
             if (($en = $formSendControl->getEntity($formKey)) != null)
             {
                 $model = CommunityContent::model()->findByPk($en['entityId']);
@@ -236,7 +236,7 @@ class DefaultController extends HController
                     $this->redirect($model->url);
             }
         }
-        
+
         $contest_id = Yii::app()->request->getPost('contest_id');
         $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
         $new = $model->isNewRecord;
@@ -281,9 +281,14 @@ class DefaultController extends HController
 
         if ($success)
         {
+            if (!\site\frontend\modules\posts\commands\ConvertCommand::addConvertTask($model))
+            {
+                $model->convertToNewPost->convertToNewPost();
+            }
+
             if (isset($_POST['formKey']) && !empty($_POST['formKey']))
                 $formSendControl->setEntity($_POST['formKey'], $model->entity, $model->id);
-            
+
             if (isset($_POST['redirect']))
                 $this->redirect($_POST['redirect']);
             else

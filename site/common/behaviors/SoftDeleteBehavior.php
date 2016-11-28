@@ -33,18 +33,14 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
 
     public function softDelete()
     {
-        \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'start softDelete()');
         if ($this->beforeSoftDelete()) {
             if (Yii::app() instanceof CWebApplication && Yii::app()->user->id) {
                 $model = new SoftDelete();
                 $model->entity = get_class($this->owner);
                 $model->entity_id = $this->owner->id;
                 $model->user_id = Yii::app()->user->id;
-                \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'softDelete obj filled, before save');
                 $model->save();
-                \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'softDelete obj saved! before save owner data');
             }
-            \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'Owner data saved! Owner class name: ' . get_class($this->owner));
             $this->owner->{$this->removeAttribute} = 1;
             try {
                 $result = $this->owner->save(false, $this->owner->{$this->removeAttribute});
@@ -52,14 +48,12 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
             catch (\Exception $e)
             {
                 $result = false;
-                \CommentLogger::model()->addToLog('SoftDeleteBehavior', 'Exception message: ' . $e->getMessage());
             }
             if ($result) {
                 $this->owner->afterSoftDelete();
             }
         }
 
-        \CommentLogger::model()->push();
         return $result;
     }
 
@@ -68,7 +62,7 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
         $result = false;
         if ($this->beforeSoftRestore()) {
             $this->owner->{$this->removeAttribute} = 0;
-            $result = $this->owner->save(false, $this->owner->{$this->removeAttribute});
+            $result = $this->owner->save(true, $this->owner->{$this->removeAttribute});
             if ($result) {
                 $this->owner->afterSoftRestore();
             }

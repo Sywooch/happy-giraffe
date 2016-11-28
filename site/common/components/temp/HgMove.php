@@ -10,7 +10,8 @@ use site\frontend\modules\posts\models\Content;
 class HgMove
 {
     public static function move($rubricId, $userId)
-    {
+    {   
+        \CommentLogger::model()->addToLog('HgMove', 'move()');
         $rubric = \CommunityRubric::model()->findByPk($rubricId);
         foreach ($rubric->contents as $oldPost) {
             if ($oldPost->by_happy_giraffe || $oldPost->author_id == 1) {
@@ -31,6 +32,7 @@ class HgMove
 
     public static function restore($postId, $userId)
     {
+        \CommentLogger::model()->addToLog('HgMove', 'restore()');
         $oldPost = \CommunityContent::model()->findByPk($postId);
         $newPost = Content::model()->byEntity('CommunityContent', $oldPost->id)->find();
         $oldPost->author_id = $userId;
@@ -40,4 +42,4 @@ class HgMove
         $newPost->delActivity();
         $newPost->addActivity();
     }
-}
+} 

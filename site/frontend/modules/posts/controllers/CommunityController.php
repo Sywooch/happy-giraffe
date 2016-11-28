@@ -36,7 +36,7 @@ class CommunityController extends PostController
                 'label_id' => \site\frontend\modules\posts\models\Label::getIdsByLabels($this->getTags()),
             ));
         }
-        
+
         return $this->_rubric;
     }
 

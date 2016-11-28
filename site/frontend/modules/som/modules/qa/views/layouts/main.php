@@ -23,7 +23,6 @@ $this->renderSidebarClip();
             <div class="b-main_col-article position-rel clearfix">
                 <?=$content?>
             </div>
-            </div>
 
             <aside style="margin-top: 35px" class="b-main_col-sidebar visible-md">
                 <div class="sidebar-widget sidebar-widget__padding">

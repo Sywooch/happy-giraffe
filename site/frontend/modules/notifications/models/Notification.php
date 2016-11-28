@@ -319,7 +319,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
     /**
      * Фильтр по событиям на определённую сущность
      * @param mixed $entity Модель с int атрибутом id или массив array('entity' => class, 'entityId' => id)
-     * @return \site\frontend\modules\notifications\models\DiscussSubscription
+     * @return $this
      */
     public function byEntity($entity)
     {

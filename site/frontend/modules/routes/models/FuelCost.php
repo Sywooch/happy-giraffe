@@ -8,7 +8,7 @@
  * @property string $currency_name
  * @property double $cost
  */
-class FuelCost extends CActiveRecord
+class FuelCost extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

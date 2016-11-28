@@ -273,7 +273,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->post->text)));
 
-        $newPost->articleSchemaData = ArticleHelper::getJsonLd($newPost);
+        // $newPost->articleSchemaData = ArticleHelper::getJsonLd($newPost);
         return $newPost->save();
     }
 

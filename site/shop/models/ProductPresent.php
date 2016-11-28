@@ -14,7 +14,7 @@
  * @property Product $present
  * @property Product $product
  */
-class ProductPresent extends CActiveRecord
+class ProductPresent extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -1,10 +1,17 @@
 <?php
+
 /**
  * Author: choo
  * Date: 25.04.2012
  */
 class HActiveRecord extends CActiveRecord
 {
+    const OP_INSERT = 0x01;
+    const OP_UPDATE = 0x02;
+    const OP_DELETE = 0x04;
+    const OP_ALL = 0x07;
+
+    // Зачем это?
     private $_attributes;
     private $_related;
 
@@ -17,6 +24,92 @@ class HActiveRecord extends CActiveRecord
         'video' => 'Видео',
         'photo' => 'Фото',
     );
+
+    const REVERSE_TRANSACTION_CONDITIONS = true;
+
+    /**
+     * [
+     *  'scenario' => OP_INSERT | OP_UPDATE
+     * ]
+     *
+     * @return array
+     */
+    public function transactions()
+    {
+        return [];
+    }
+
+    /**
+     * @param $operation
+     * @return bool
+     */
+    public function isTransactional($operation)
+    {
+        $scenario = $this->getScenario();
+        $transactions = $this->transactions();
+
+        $result = isset($transactions[$scenario]) && ($transactions[$scenario] & $operation);
+
+        return static::REVERSE_TRANSACTION_CONDITIONS ? !$result : $result;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function insert($attributes = null)
+    {
+        return $this->_process(self::OP_INSERT, 'insert', $attributes);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update($attributes = null)
+    {
+        return $this->_process(self::OP_UPDATE, 'update', $attributes);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete()
+    {
+        return $this->_process(self::OP_DELETE, 'delete');
+    }
+
+    /**
+     * @param integer $transactionsType
+     * @param string $parentMethod
+     * @param array $attributes
+     * @throws Exception
+     * @return boolean
+     */
+    private function _process($transactionsType, $parentMethod, $attributes = NULL)
+    {
+        if (!$this->isTransactional($transactionsType) || $this->getDbConnection()->currentTransaction !== null) {
+            return parent::$parentMethod($attributes);
+        }
+
+        $transaction = $this->getDbConnection()->beginTransaction();
+
+        try {
+            $result = parent::$parentMethod($attributes);
+            if ($result === false) {
+                if($parentMethod == 'delete' && isset($this->softDelete)){
+                    $transaction->commit();
+                    return true;
+                }else {
+                    $transaction->rollback();
+                }
+            } else {
+                $transaction->commit();
+            }
+            return $result;
+        } catch (\Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+    }
 
     public function getPhotoCollection($key = 'default')
     {
@@ -37,7 +130,7 @@ class HActiveRecord extends CActiveRecord
         ";
 
         return array(
-            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'class' => 'system.caching.dependencies.CDbCacheDependency',
             'sql' => $sql,
             'params' => array(':entity' => get_class($this), ':entity_id' => $this->id),
         );
@@ -47,8 +140,8 @@ class HActiveRecord extends CActiveRecord
     {
         $errorText = '';
         foreach ($this->getErrors() as $error) {
-            foreach($error as $errorPart)
-                $errorText.= $errorPart.' ';
+            foreach ($error as $errorPart)
+                $errorText .= $errorPart . ' ';
         }
 
         return $errorText;
@@ -63,6 +156,8 @@ class HActiveRecord extends CActiveRecord
             case 'odnoklassniki':
                 $url = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments={description}&st._surl={url}';
                 break;
+            default:
+                $url = '';
         }
 
         return strtr($url, array(
@@ -125,13 +220,13 @@ class HActiveRecord extends CActiveRecord
     {
         $likes = HGLike::model()->findAllByEntity($this);
 
-        $usersIds = array_map(function($like) {
+        $usersIds = array_map(function ($like) {
             return $like['user_id'];
         }, $likes);
 
         $criteria = new CDbCriteria();
         $criteria->limit = $limit;
-        if (! Yii::app()->user->isGuest)
+        if (!Yii::app()->user->isGuest)
             $criteria->compare('t.id', '<>' . Yii::app()->user->id);
         $criteria->addInCondition('t.id', $usersIds);
         $users = User::model()->findAll($criteria);
@@ -142,7 +237,7 @@ class HActiveRecord extends CActiveRecord
     public function getFavouritedUsers($limit)
     {
         $favourites = Favourite::model()->getAllByModel($this, $limit);
-        $users = array_map(function($favourite) {
+        $users = array_map(function ($favourite) {
             return $favourite->user;
         }, $favourites);
         return $users;
@@ -167,6 +262,9 @@ class HActiveRecord extends CActiveRecord
         return $this;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function query($criteria, $all = false)
     {
         $result = parent::query($criteria, $all);
@@ -175,7 +273,7 @@ class HActiveRecord extends CActiveRecord
         foreach ($this->_apiWith as $relationName) {
             $relation = $md[$relationName];
             $className = $relation->className;
-            $pks = array_map(function($model) use ($relation) {
+            $pks = array_map(function ($model) use ($relation) {
                 return $model->{$relation->foreignKey};
             }, $result);
             Yii::beginProfile('getUserPack');
@@ -196,10 +294,11 @@ class HActiveRecord extends CActiveRecord
 
     public function getApiRelated($name, $refresh = false, $params = array())
     {
-        if (! isset($this->_apiRelated[$name]) || $refresh) {
+        if (!isset($this->_apiRelated[$name]) || $refresh) {
             $md = $this->getApiMd();
             /** @var site\frontend\components\api\ApiRelation $relation */
             $relation = $md[$name];
+            /** @var HActiveRecord $className */
             $className = $relation->className;
             $params = array_merge($relation->params, $params);
             $params['id'] = $this->{$relation->foreignKey};
@@ -213,12 +312,11 @@ class HActiveRecord extends CActiveRecord
     public function getApiMd()
     {
         $className = get_class($this);
-        if(! array_key_exists($className, self::$_apiMd))
-        {
+        if (!array_key_exists($className, self::$_apiMd)) {
             self::$_apiMd[$className] = array();
             foreach ($this->apiRelations() as $name => $config) {
                 if (isset($config[0], $config[1], $config[2])) {
-                    self::$_apiMd[$className][$name] = new site\frontend\components\api\ApiRelation($config[0], $config[1], $config[2], array_slice($config,3));
+                    self::$_apiMd[$className][$name] = new site\frontend\components\api\ApiRelation($config[0], $config[1], $config[2], array_slice($config, 3));
                 } else {
                     throw new CException('Неверное описание API-отношеня');
                 }
@@ -234,5 +332,18 @@ class HActiveRecord extends CActiveRecord
         } else {
             return parent::__get($name);
         }
+    }
+
+    /**
+     * @param string $className
+     * @return static
+     */
+    public static function model($className = null)
+    {
+        if($className === null){
+            $className = get_called_class();
+        }
+
+        return parent::model($className);
     }
 }

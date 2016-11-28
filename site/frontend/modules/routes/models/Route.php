@@ -24,7 +24,7 @@
  * @property $intermediatePoints
  */
 
-class Route extends CActiveRecord
+class Route extends HActiveRecord
 {
     private $_texts;
     private $_intermediatePoints;

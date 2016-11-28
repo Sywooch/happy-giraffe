@@ -10,9 +10,8 @@
 
 <div class="wysiwyg-related">
     <div class="redactor-popup redactor-popup__vert-old redactor-popup_b-smile display-n">
-        <a href="javascript:void(0)" class="redactor-popup_close ico-close3 powertip" title="Закрыть" onclick="$(this).parents('.redactor-popup').addClass('display-n');"></a>
+<!--        <a href="javascript:void(0)" class="redactor-popup_close ico-close3 powertip" title="Закрыть" onclick="$(this).parents('.redactor-popup').addClass('display-n');"></a>-->
         <div class="redactor-popup_tale"></div>
-        <div class="redactor-popup_t">Вставить смайл</div>
         <table class="redactor-popup_smiles">
             <tbody>
                 <tr>

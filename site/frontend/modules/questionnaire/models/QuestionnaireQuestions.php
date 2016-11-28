@@ -17,7 +17,7 @@ use site\frontend\modules\questionnaire\models\QuestionnaireAnswers;
  * @index questionnaire_question_result -> $result_id
  */
 
-class QuestionnaireQuestions extends \CActiveRecord
+class QuestionnaireQuestions extends \HActiveRecord
 {
    // public $answers;
 

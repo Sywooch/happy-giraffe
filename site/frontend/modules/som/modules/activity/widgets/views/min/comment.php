@@ -10,7 +10,7 @@ $contentAuthor = $this->getUserInfo($data->dataArray['content']['authorId']);
         <div class="comments_hold">
             <div class="comments_li comments_li__lilac">
                 <div class="comments_i clearfix">
-                    <div class="comments_frame">
+                    <div class="comments_frame float-n">
                         <div onclick="location.href='<?=$data->dataArray['url']?>'" class="comments_link">
                             <div class="comments_cont">
                                 <div class="wysiwyg-content">

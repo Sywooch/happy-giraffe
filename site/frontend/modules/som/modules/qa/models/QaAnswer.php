@@ -2,6 +2,7 @@
 namespace site\frontend\modules\som\modules\qa\models;
 
 use site\common\behaviors\AuthorBehavior;
+use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\specialists\models\SpecialistGroup;
@@ -176,6 +177,10 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'RatingBehavior' => array(
                 'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
             ),
+            [
+                'class' => ContentBehavior::class,
+                'entityClass' => static::class,
+            ],
             QaBehavior::class,
         );
     }

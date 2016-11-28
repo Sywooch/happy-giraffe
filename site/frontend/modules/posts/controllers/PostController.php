@@ -27,7 +27,7 @@ class PostController extends \LiteController
      * @sitemap dataSource=sitemapView
      */
     public function actionView($content_id, $content_type_slug)
-    {   
+    {
         \Yii::log("checkView", 'info', 'postview');
         // Включим прочтение сигналов
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
@@ -39,9 +39,8 @@ class PostController extends \LiteController
         if ($this->post && $this->post->id == 689739) {
             $this->strictCheck = false;
         }
-        
-        // Результат обращения к свойствам преобразован в нижний регистр для правильной обработки, т.к. URL должен быть регистронезависим.
-        if (!$this->post || ($this->strictCheck && strtolower($this->post->parsedUrl) !== strtolower(\Yii::app()->request->requestUri))) {
+
+        if (!$this->post) {
             // Временная заглушка, если пост ещё не сконвертировался
             if (\Yii::app()->user->getState('newPost' . $content_id)) {
                 $this->layout = '//layouts/lite/main';
@@ -50,9 +49,24 @@ class PostController extends \LiteController
                 throw new \CHttpException(404);
             }
         } else {
+            // Результат обращения к свойствам преобразован в нижний регистр для правильной обработки, т.к. URL должен быть регистронезависим.
+            if ($this->strictCheck && strtolower($this->post->parsedUrl) !== strtolower(\Yii::app()->request->requestUri))
+            {
+                $communityContent = $this->post->communityContent;
+
+                if (is_null($communityContent->forum_id))
+                {
+                    throw new \CHttpException(404);
+                }
+
+                $url = '/community/' . $communityContent->forum_id . '/forum/' . $content_type_slug . '/' . $communityContent->id . '/';
+                $this->redirect($url, TRUE, 302);
+            }
+
             if($this->setCanonical) {
                 $this->metaCanonical = $this->post->url;
             }
+
             $this->render('view');
         }
     }

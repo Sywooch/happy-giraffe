@@ -14,7 +14,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $answer
  * @property \User $user
  */
-class QaAnswerVote extends \CActiveRecord
+class QaAnswerVote extends \HActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -45,7 +45,7 @@ class QaAnswerVote extends \CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'answer' => array(self::BELONGS_TO, '\site\frontend\modules\som\modules\qa\models\QaAnswer', 'answerId'),
-			'user' => array(self::BELONGS_TO, get_class(\User::model()), 'userId'),
+			'user' => array(self::BELONGS_TO, \User::class, 'userId'),
 		);
 	}
 

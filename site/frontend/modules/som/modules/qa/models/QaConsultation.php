@@ -13,7 +13,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property \site\frontend\modules\som\modules\qa\models\QaConsultant[] $qaConsultationsConsultants
  * @property int $questionsCount
  */
-class QaConsultation extends \CActiveRecord
+class QaConsultation extends \HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

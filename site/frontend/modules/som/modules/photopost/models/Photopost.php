@@ -16,7 +16,7 @@ namespace site\frontend\modules\som\modules\photopost\models;
  * @property string $labels
  * @property integer $forumId
  */
-class Photopost extends \CActiveRecord implements \IHToJSON
+class Photopost extends \HActiveRecord implements \IHToJSON
 {
 
     /**

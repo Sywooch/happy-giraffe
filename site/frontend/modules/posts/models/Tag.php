@@ -9,7 +9,7 @@ namespace site\frontend\modules\posts\models;
  * @property string $contentId
  * @property string $labelId
  */
-class Tag extends \CActiveRecord
+class Tag extends \HActiveRecord
 {
 
     /**

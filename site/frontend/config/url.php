@@ -460,6 +460,7 @@ return array(
         'community/<_a:(subscribe)>/' => 'community/default/<_a>',
 
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'posts/community/view',
+        'forum/<content_type_slug:\w+>/<content_id:\d+>' => 'posts/community/view',
         array(
             'class' => 'UrlRule',
             'pattern' => 'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>',

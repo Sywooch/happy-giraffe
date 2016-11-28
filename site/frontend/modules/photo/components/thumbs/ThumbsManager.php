@@ -24,7 +24,7 @@ abstract class ThumbsManager extends \CApplicationComponent
             }
             catch (\Exception $e)
             {
-                \Yii::log(PHP_EOL . $e->getMessage() . PHP_EOL . 'See: ' . isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'REQUEST_URI not passed' . PHP_EOL, \CLogger::LEVEL_INFO, 'post attachment');
+//                 \Yii::log(PHP_EOL . $e->getMessage() . PHP_EOL . 'See: ' . isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'REQUEST_URI not passed' . PHP_EOL, \CLogger::LEVEL_INFO, 'post attachment');
 
                 $thumb = NULL;
             }

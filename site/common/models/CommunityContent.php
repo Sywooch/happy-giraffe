@@ -1,5 +1,7 @@
 <?php
 
+use site\frontend\modules\posts\models\Content;
+
 /**
  * This is the model class for table "{{community__contents}}".
  *
@@ -379,7 +381,6 @@ class CommunityContent extends HActiveRecord implements IPreview
                 FriendEventManager::add(FriendEvent::TYPE_POST_ADDED, array('model' => $this));
             }
         }
-
         parent::afterSave();
     }
 
@@ -1299,5 +1300,13 @@ HTML;
     public function getPreviewPhoto()
     {
         return $this->getPhoto();
+    }
+
+    /**
+     * @return Content
+     */
+    public function getPostContentObject()
+    {
+        return Content::model()->resetScope()->find(['condition' => 'originEntity = :entity AND originEntityId = :entityId', 'params' => ['entity' => self::class, 'entityId' => $this->id]]);
     }
 }

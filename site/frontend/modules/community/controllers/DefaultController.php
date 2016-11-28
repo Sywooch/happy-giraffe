@@ -152,7 +152,7 @@ class DefaultController extends HController
         $content = $this->loadContent($content_id, $content_type_slug);
         if ($content->type_id == 1)
             $content
-                            ->getContent()
+                    ->getContent()
                     ->forEdit
                     ->text;
         NoindexHelper::setNoIndex($content);

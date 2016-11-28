@@ -379,7 +379,6 @@ class CommunityContent extends HActiveRecord implements IPreview
                 FriendEventManager::add(FriendEvent::TYPE_POST_ADDED, array('model' => $this));
             }
         }
-
         parent::afterSave();
     }
 

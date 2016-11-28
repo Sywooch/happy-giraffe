@@ -9,7 +9,7 @@ class CommentLogger
     /**
      * @var self
      */
-    static $obj;
+    private static $obj;
 
     /**
      * @var mixed

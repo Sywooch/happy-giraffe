@@ -115,7 +115,6 @@ class ConvertCommand extends \CConsoleCommand
         {
             $data = self::unserialize($job->workload());
             \Yii::app()->db->setActive(true);
-            //usleep(100000); // на всякий случай поспим 0.1 сек, что бы быть уверенным, что реплика прошла
             $this->printLogStr("entyti_id: {$data['entityId']}; entity: {$data['entity']}");
             $startTime = microtime(true);
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
@@ -124,7 +123,7 @@ class ConvertCommand extends \CConsoleCommand
                 /**
                  * данные еще не попали в базу
                  */
-                $this->printLogStr("entyti not found in bd");
+                $this->printLogStr("entity not found in db");
                 return false;
                 //throw new \Exception('no model');
             }

@@ -136,14 +136,4 @@
 <?php $this->endWidget(); ?>
 <?php endif; ?>
 
-<?php if (Yii::app()->vm->getVersion() == VersionManager::VERSION_MOBILE): ?>
-    <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'mailru')); ?>
-    <script type="text/javascript">
-        mailru_ad_client = "ad-46399";
-        mailru_ad_slot = 46399;
-    </script>
-    <script type="text/javascript" src="//rs.mail.ru/static/ads-min.js"></script>
-    <?php $this->endWidget(); ?>
-<?php endif; ?>
-
 </body></html>

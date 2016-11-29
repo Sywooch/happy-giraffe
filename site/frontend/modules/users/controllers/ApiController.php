@@ -64,12 +64,12 @@ class ApiController extends \site\frontend\components\api\ApiController
         $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
         foreach($attributes AS $attr => &$at)
         {
-            $at = htmlentities($at, ENT_QUOTES, 'UTF-8');
-
             if ($attr == 'first_name' || $attr == 'last_name' || $attr == 'middle_name')
             {
                 $at = \Filters::unicodeToString($at);
             }
+
+            $at = htmlentities($at, ENT_QUOTES, 'UTF-8');
         }
 
         $user->attributes = $attributes;

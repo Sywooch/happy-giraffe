@@ -7,6 +7,7 @@
 namespace site\frontend\modules\som\modules\qa\controllers;
 
 
+use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\components\VotesManager;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
@@ -101,7 +102,11 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         $question = QaQuestion::model()->findByPk($questionId);
 
+        ContentBehavior::$active = true;
+
         $answers = QaManager::getAnswers($question);
+
+        ContentBehavior::$active = false;
 
         $votes = QaAnswerVote::model()->answers($answers)->user(\Yii::app()->user->id)->findAll(array('index' => 'answerId'));
 

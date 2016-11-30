@@ -23,4 +23,16 @@ class Filters
 
 		return $doc;
 	}
+
+    /**
+     * Пеобразует строку с unicode символами в UTF-8
+     *
+     * @param   $value
+     * @return  string
+     * @author Serget Gubarev
+     */
+	public static function unicodeToString($value)
+    {
+        return trim(json_encode($value), '"');
+    }
 }

@@ -5,7 +5,7 @@
  * @var string $content
  */
 $this->beginContent('//layouts/lite/common');
-$formattedName = Yii::app()->user->first_name . '<br>' . Yii::app()->user->middle_name;
+$formattedName = Yii::app()->user->getModel()->first_name . '<br>' . Yii::app()->user->getModel()->middle_name;
 
 ?>
 

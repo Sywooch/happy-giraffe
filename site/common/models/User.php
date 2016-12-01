@@ -169,7 +169,7 @@ class User extends HActiveRecord
      */
     public function __get($attr)
     {
-         $value = parent::__get($attr);
+        $value = parent::__get($attr);
 
         if (
             $attr == 'first_name'
@@ -179,7 +179,7 @@ class User extends HActiveRecord
             $attr == 'middle_name'
         )
         {
-            if (mb_detect_encoding($value, 'ASCII', true))
+            if (preg_match('/([^\x00-\x7F]|\w)+/', $value))
             {
                 return json_decode('"' . $value . '"');
             }

@@ -29,10 +29,26 @@ class Filters
      *
      * @param   $value
      * @return  string
-     * @author Serget Gubarev
+     * @author Sergey Gubarev
      */
 	public static function unicodeToString($value)
     {
-        return trim(json_encode($value), '"');
+        $str = '';
+
+        for ($i = 0; $i < mb_strlen($value); $i++)
+        {
+            $char = mb_substr($value, $i, 1);
+
+            if (preg_match("#^[aA-zZаА-яЯ0-9-_\\s]+$#", $char))
+            {
+                $str .= $char;
+            }
+            else
+            {
+                $str .= trim(json_encode($char), '"');
+            }
+        }
+
+        return $str;
     }
 }

@@ -14,7 +14,7 @@ namespace site\frontend\modules\specialists\models;
  * @property SpecialistProfile[] $specialistsProfiles
  * @property SpecialistGroup[] $group
  */
-class SpecialistSpecialization extends \CActiveRecord
+class SpecialistSpecialization extends \HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

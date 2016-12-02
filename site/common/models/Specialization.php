@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property CommunityForums $forum
  */
-class Specialization extends CActiveRecord
+class Specialization extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

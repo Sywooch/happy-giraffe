@@ -20,7 +20,7 @@
  * @property int $inputLinksCount
  * @property SearchEngineVisits[] $visits
  */
-class Page extends CActiveRecord
+class Page extends HActiveRecord
 {
     public $keywords;
 

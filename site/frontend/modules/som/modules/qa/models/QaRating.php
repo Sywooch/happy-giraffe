@@ -15,7 +15,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property \User $user
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
-class QaRating extends \CActiveRecord
+class QaRating extends \HActiveRecord
 {
     /**
      * @return string the associated database table name

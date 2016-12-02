@@ -12,7 +12,7 @@ namespace site\frontend\modules\specialists\models;
  * The followings are the available model relations:
  * @property SpecialistSpecialization[] $specialistsSpecializations
  */
-class SpecialistGroup extends \CActiveRecord
+class SpecialistGroup extends \HActiveRecord
 {
     const DOCTORS = 1;
 

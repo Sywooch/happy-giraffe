@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property SeoTask $task
  */
-class TaskUrl extends CActiveRecord
+class TaskUrl extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

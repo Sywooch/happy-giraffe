@@ -16,7 +16,7 @@
  * @property CommunityContentGallery $gallery
  * @property CommunityContentGalleryItems $item
  */
-class CommunityContentGalleryWidget extends CActiveRecord
+class CommunityContentGalleryWidget extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

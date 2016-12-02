@@ -13,7 +13,7 @@
  * @property AlbumPhoto $photo
  * @property CommunityContentGallery $gallery
  */
-class CommunityContentGalleryItem extends CActiveRecord implements IPreview
+class CommunityContentGalleryItem extends HActiveRecord implements IPreview
 {
 	public static function model($className=__CLASS__)
 	{

@@ -9,7 +9,7 @@ namespace site\frontend\modules\specialists\models;
  * @property integer $group_id
  * @property integer $task_id
  */
-class SpecialistGroupTaskRelation extends \CActiveRecord
+class SpecialistGroupTaskRelation extends \HActiveRecord
 {
 
     /**

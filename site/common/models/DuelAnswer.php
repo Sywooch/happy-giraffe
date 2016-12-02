@@ -14,7 +14,7 @@
  * @property DuelQuestion $question
  * @property DuelAnswerVotes[] $duelAnswerVotes
  */
-class DuelAnswer extends CActiveRecord
+class DuelAnswer extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

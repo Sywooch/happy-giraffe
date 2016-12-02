@@ -15,7 +15,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property \User $user
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
-class QaRatingHistory extends \CActiveRecord
+class QaRatingHistory extends \HActiveRecord
 {
     public $points;
 

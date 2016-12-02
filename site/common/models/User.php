@@ -264,7 +264,7 @@ class User extends HActiveRecord
             array('remember_code', 'numerical'),
 
             array('first_name, last_name', 'filter', 'filter'=>'trim'),
-            ['first_name', 'filter', 'filter' => 'Filters::unicodeToString'],
+            ['first_name, last_name', 'filter', 'filter' => 'Filters::unicodeToString'],
 
             //login
 //            array('email, password', 'required', 'on' => 'login'),

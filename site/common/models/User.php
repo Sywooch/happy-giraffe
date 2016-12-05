@@ -161,6 +161,33 @@ class User extends HActiveRecord
 
     private $_avatarObject;
 
+    /**
+     * @inheritdoc
+     * @param   mixed   $attr Аттрибут модели
+     * @return  string
+     * @author  Sergey Gubarev
+     */
+    public function __get($attr)
+    {
+        $value = parent::__get($attr);
+
+        if (
+            $attr == 'first_name'
+            ||
+            $attr == 'last_name'
+            ||
+            $attr == 'middle_name'
+        )
+        {
+            if (preg_match('/([^\x00-\x7F]|\w)+/', $value))
+            {
+                return json_decode('"' . $value . '"');
+            }
+        }
+
+        return $value;
+    }
+
     public function getAccessLabel()
     {
         return $this->accessLabels[$this->access];
@@ -235,7 +262,9 @@ class User extends HActiveRecord
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
             array('avatar_id', 'numerical', 'allowEmpty' => true),
             array('remember_code', 'numerical'),
+
             array('first_name, last_name', 'filter', 'filter'=>'trim'),
+            ['first_name, last_name', 'filter', 'filter' => 'Filters::unicodeToString'],
 
             //login
 //            array('email, password', 'required', 'on' => 'login'),
@@ -446,7 +475,6 @@ class User extends HActiveRecord
         return parent::beforeValidate();
     }
 
-
     protected function beforeSave()
     {
         if (parent::beforeSave()) {
@@ -499,7 +527,6 @@ class User extends HActiveRecord
                 }
             }
         }
-
         parent::afterSave();
     }
 

@@ -37,7 +37,7 @@ if (! Yii::app()->user->isGuest) {
 }
 ?>
 
-<a class="mobile-menu"><span></span></a>
+<a class="js-mobile-menu mobile-menu"><span></span></a>
 <a href="/" class="logo"></a><a class="header__search popup-a" href="#js-madal-search-box"></a>
 <nav class="header__nav">
     <ul class="header__menu">

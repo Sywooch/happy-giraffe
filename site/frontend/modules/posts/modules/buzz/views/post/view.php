@@ -1,8 +1,5 @@
 <?php
 $cs = Yii::app()->clientScript;
-if (Yii::app()->vm->version != VersionManager::VERSION_MOBILE) {
-    $cs->registerAMD('photoAd', array('popup' => 'photo-ad/photo-popup'));
-}
 /** @todo перенести обработку $this->post->metaObject в контроллер */
 $this->pageTitle = $this->post->title;
 $this->metaDescription = $this->post->metaObject->description;

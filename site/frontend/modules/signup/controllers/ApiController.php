@@ -29,6 +29,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             $form->scenario = 'social';
         }
         $form->attributes = $attributes;
+
         $this->success = $form->validate() && $form->save();
         if ($this->success) {
             $identity = new UserIdentity($form->email, $form->password);

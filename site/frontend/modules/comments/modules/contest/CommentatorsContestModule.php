@@ -9,4 +9,13 @@ namespace site\frontend\modules\comments\modules\contest;
 class CommentatorsContestModule extends \CWebModule
 {
     public $controllerNamespace = 'site\frontend\modules\comments\modules\contest\controllers';
+
+    public function beforeControllerAction($controller, $action)
+    {
+        if (\Yii::app()->serviceStatus->isActive('commentatorsContest')) {
+            return parent::beforeControllerAction($controller, $action);
+        }
+
+        \Yii::app()->controller->redirect('/');
+    }
 }

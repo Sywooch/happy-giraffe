@@ -12,10 +12,10 @@ class CommentatorsContestModule extends \CWebModule
 
     public function beforeControllerAction($controller, $action)
     {
-        if (\Yii::app()->serviceStatus->isActive('commentatorsContest')) {
-            return parent::beforeControllerAction($controller, $action);
+        if (! \Yii::app()->serviceStatus->isActive('commentatorsContest')) {
+            \Yii::app()->controller->redirect('/');
         }
 
-        \Yii::app()->controller->redirect('/');
+        return parent::beforeControllerAction($controller, $action);
     }
 }

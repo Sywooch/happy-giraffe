@@ -7,6 +7,7 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 /**
  * @author Sergey Gubarev
+ * @deprecated {{@see BaseAnswerManager}}
  */
 class QaManager
 {

@@ -6,5 +6,5 @@ interface ISubject
     /**
      * @return int
      */
-    public function subjectId();
+    public function getSubjectId();
 }

@@ -30,7 +30,7 @@ class QaManager
         }
 
         $sql = <<<SQL
-          SELECT COUNT(1) FROM qa__answers
+          SELECT * FROM qa__answers
             WHERE
             qa__answers.questionId = {$question->id}
               AND

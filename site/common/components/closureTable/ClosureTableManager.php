@@ -2,6 +2,8 @@
 
 namespace site\common\components\closureTable;
 
+use site\frontend\modules\som\modules\qa\components\ISubject;
+
 class ClosureTableManager
 {
     /***
@@ -23,8 +25,59 @@ class ClosureTableManager
         return $this->provider->createNode($params);
     }
     
-    public function applyTo()
+    /**
+     * @param INode $node
+     * @param $subjectId
+     * @param INode|null $ancestorNode
+     * @return ITreeNode|ITreeNode[]
+     */
+    public function attach(INode $node, $subjectId, INode $ancestorNode = null)
     {
+        if ($ancestorNode === null) { // Вяжем первым уровнем к subject
+            return $this->provider->createNodeTree($node->getId(), $node->getId(), 0, $subjectId, 0);
+        } else {
+            
+        }
+    }
+    
+    /**
+     * @param $subjectId
+     * @return INode[]
+     */
+    public function getNodeTree($subjectId)
+    {
+        $collection = new NodeCollection();
+        $collection->rows = $this->provider->fetchTree($subjectId);
         
+        $ids = [];
+        
+        foreach ($collection->rows as $row) {
+            if (!in_array($row['id'], $ids)) {
+                $ids[] = $row['id'];
+            }
+        }
+        // var_dump($collection->rows); die;
+        $collection->nodes = $this->provider->fetchNodes($ids);
+        
+        return $this->buildNode($collection);
+    }
+    
+    protected function buildNode(NodeCollection $collection, $level = 0, $ancestorId = null)
+    {
+        return array_map(function ($row) use ($collection, $level) {
+            $node = $collection->fetchNode($row['id']);
+            
+            foreach ($this->buildNode($collection, $level + 1, $node->getId()) as $item) {
+                $node->appendChild($item);
+            }
+            
+            return $node;
+        }, array_filter($collection->rows, function ($row) use ($level, $ancestorId) {
+            if ($row['level'] == $level && ($ancestorId === null || $ancestorId == $row['id_ancestor'])) {
+                return true;
+            }
+            
+            return false;
+        }));
     }
 }

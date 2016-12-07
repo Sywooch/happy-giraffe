@@ -3,14 +3,13 @@
 namespace site\frontend\modules\som\modules\qa\components;
 
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
-use site\frontend\modules\som\modules\qa\tests\QaQuestionTest;
 
 abstract class BaseAnswerManager
 {
     /**
      * @var null|QaQuestion
      */
-    private $question;
+    protected $question;
     
     /**
      * @param QaQuestion $question
@@ -20,8 +19,21 @@ abstract class BaseAnswerManager
         $this->question = $question;
     }
     
-    public function createAnswer($authorId, $content, ISubject $subject)
-    {
-        
-    }
+    /**
+     * @param $authorId
+     * @param $content
+     * @param $subject
+     * @return mixed
+     */
+    abstract public function createAnswer($authorId, $content, $subject);
+    
+    /**
+     * @return mixed
+     */
+    abstract public function getAnswers();
+    
+    /**
+     * @return int
+     */
+    abstract public function getAnswersCount();
 }

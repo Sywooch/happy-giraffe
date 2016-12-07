@@ -1,9 +1,6 @@
 <?php
 
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
-use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
-use site\frontend\modules\som\modules\qa\models\QaCategory;
-use site\frontend\modules\som\modules\qa\components\QaManager;
 
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
@@ -33,7 +30,8 @@ if (!is_null($question->category)) {
     $isAnonQuestion = false;
 }
 
-$answersCount = QaManager::getAnswersCountPediatorQuestion($question->id);
+$answersCount = $question->answerManager->getAnswersCount();
+// $answersCount = QaManager::getAnswersCountPediatorQuestion($question->id);
 ?>
 
     <div class="b-breadcrumbs" style="margin-left: 0">

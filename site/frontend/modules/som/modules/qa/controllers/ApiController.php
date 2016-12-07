@@ -7,14 +7,13 @@
 namespace site\frontend\modules\som\modules\qa\controllers;
 
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
+use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
 use site\frontend\modules\som\modules\qa\components\VotesManager;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
-use site\frontend\modules\som\modules\qa\models\QaConsultation;
+use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
-use site\frontend\modules\som\modules\qa\models\QaUserRating;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
-use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 
 class ApiController extends \site\frontend\components\api\ApiController
@@ -76,8 +75,10 @@ class ApiController extends \site\frontend\components\api\ApiController
         }
         
         $answerManager = $question->answerManager;
-        $answerManager->createAnswer($user->id, $text, $question);
         
+        $this->success = (bool) ($this->data = $answerManager->createAnswer($user->id, $text, $question));
+        
+        return;
         die;
         
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
@@ -108,26 +109,43 @@ class ApiController extends \site\frontend\components\api\ApiController
         
         ContentBehavior::$active = true;
         
-        $answers = QaManager::getAnswers($question);
+        // $answers = QaManager::getAnswers($question);
+        
+        $answers = $question->getAnswerManager()->getAnswers();
         
         ContentBehavior::$active = false;
         
-        $votes = QaAnswerVote::model()->answers($answers)->user(\Yii::app()->user->id)->findAll(['index' => 'answerId']);
-        
         $_answers = [];
         
-        foreach ($answers as $answer) {
-            /** @var $answer QaAnswer */
-            $_answer = $answer->toJSON();
-            $_answer['canEdit'] = \Yii::app()->user->checkAccess('updateQaAnswer', ['entity' => $answer]);
-            $_answer['canRemove'] = \Yii::app()->user->checkAccess('removeQaAnswer', ['entity' => $answer]);
-            $_answer['canVote'] = \Yii::app()->user->checkAccess('voteAnswer', ['entity' => $answer]);
-            $_answer['isVoted'] = isset($votes[$answer->id]);
-            $_answer['isAdditional'] = $answer->isAdditional();
-            $_answer['isAnswerToAdditional'] = $answer->isAnswerToAdditional();
-            $_answer['isSpecialistAnswer'] = $answer->authorIsSpecialist();
-            $_answer['root_id'] = $answer->root_id;
-            $_answers[] = $_answer;
+        if ($question->getAnswerManager() instanceof CTAnswerManager) {
+            $_answers = array_map(function (QaCTAnswer $answer) {
+                return [
+                    'canEdit' => false,
+                    'canRemove' => false,
+                    'canVote' => false,
+                    'isVoted' => false,
+                    'isAdditional' => false,
+                    'isAnswerToAdditional' => false,
+                    'isSpecialistAnswer' => false,
+                    'root_id' => null,
+                ];
+            }, $answers);
+        } else {
+            $votes = QaAnswerVote::model()->answers($answers)->user(\Yii::app()->user->id)->findAll(['index' => 'answerId']);
+            
+            foreach ($answers as $answer) {
+                /** @var $answer QaAnswer */
+                $_answer = $answer->toJSON();
+                $_answer['canEdit'] = \Yii::app()->user->checkAccess('updateQaAnswer', ['entity' => $answer]);
+                $_answer['canRemove'] = \Yii::app()->user->checkAccess('removeQaAnswer', ['entity' => $answer]);
+                $_answer['canVote'] = \Yii::app()->user->checkAccess('voteAnswer', ['entity' => $answer]);
+                $_answer['isVoted'] = isset($votes[$answer->id]);
+                $_answer['isAdditional'] = $answer->isAdditional();
+                $_answer['isAnswerToAdditional'] = $answer->isAnswerToAdditional();
+                $_answer['isSpecialistAnswer'] = $answer->authorIsSpecialist();
+                $_answer['root_id'] = $answer->root_id;
+                $_answers[] = $_answer;
+            }
         }
         
         $this->data = [
@@ -171,7 +189,12 @@ class ApiController extends \site\frontend\components\api\ApiController
         if ($this->success == true && in_array($action->id, array_keys($types))) // @fixme isset, array_key_exists?
         {
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
-            $this->send(AnswersWidget::getChannelIdByQuestion($this->data->questionId), $data, $types[$action->id]);
+            
+            if ($this->data instanceof QaAnswer) {
+                $this->send(AnswersWidget::getChannelIdByQuestion($this->data->questionId), $data, $types[$action->id]);
+            }/* else if ($this->data instanceof QaCTAnswer) {
+                $this->send(AnswersWidget::getChannelIdByQuestion(CTAnswerManager::findSubject($this->data)), $data, $types[$action->id]);
+            }*/
         }
         
         parent::afterAction($action);

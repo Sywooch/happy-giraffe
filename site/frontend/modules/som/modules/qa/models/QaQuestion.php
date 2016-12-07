@@ -53,7 +53,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     /**
      * @inheritdoc
      */
-    public function subjectId()
+    public function getSubjectId()
     {
         return $this->id;
     }
@@ -534,6 +534,8 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     {
         if ($this->category->isPediatrician()) {
             return new CTAnswerManager($this);
+        } else {
+            return new DefaultAnswerManager($this);
         }
     }
 }

@@ -40,21 +40,6 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  */
 class QaAnswer extends \HActiveRecord implements \IHToJSON
 {
-    /**
-     * Диапазон времени (минут), в течени которого специалист может редактировать свой ответ
-     *
-     * @var integer
-     * @author Sergey Gubarev
-     */
-    const MINUTES_FOR_EDITING = 5;
-
-    /**
-     * Время (минут) задержки публикации ответа специалистом на сайте и в сервисе "Мой педиатр"
-     *
-     * @var integer
-     * @author Sergey Gubarev
-     */
-    const MINUTES_AWAITING_PUBLISHED = 5;
 
     /**
      * @return bool

@@ -50,6 +50,17 @@ class Enum
      *
      * @var array
      */
+    private $_titlesForWebMenu = [
+        self::LESS_THAN_YEAR    => 'От 0 до 1 года',
+        self::MORE_THAN_YEAR    => 'От 1 года до 3 лет',
+        self::PRESCHOOL         => 'От 3 до 6 лет',
+        self::SCHOOLKID         => 'От 6 до 12 года',
+    ];
+
+    /**
+     *
+     * @var array
+     */
     private $_titlesForMobileApi = [
         self::LESS_THAN_YEAR    => 'Дети до года',
         self::MORE_THAN_YEAR    => 'Дети старше года',
@@ -90,6 +101,15 @@ class Enum
     public function getTitleForWeb($value, $validate = FALSE)
     {
         return $this->_getTitle($this->_titlesForWeb, $value, $validate);
+    }
+
+    /**
+     * @param mixed $value
+     * @return NULL|string
+     */
+    public function getTitleForWebMenu($value, $validate = FALSE)
+    {
+        return $this->_getTitle($this->_titlesForWebMenu, $value, $validate);
     }
 
     /**

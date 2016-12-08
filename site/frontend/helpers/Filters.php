@@ -23,4 +23,32 @@ class Filters
 
 		return $doc;
 	}
+
+    /**
+     * Пеобразует строку с unicode символами в UTF-8
+     *
+     * @param   $value
+     * @return  string
+     * @author Sergey Gubarev
+     */
+	public static function unicodeToString($value)
+    {
+        $str = '';
+
+        for ($i = 0; $i < mb_strlen($value, 'UTF-8'); $i++)
+        {
+            $char = mb_substr($value, $i, 1, 'UTF-8');
+
+            if (preg_match("#^[aA-zZаА-яЯ0-9-_\\s]+$#", $char))
+            {
+                $str .= $char;
+            }
+            else
+            {
+                $str .= trim(json_encode($char), '"');
+            }
+        }
+
+        return $str;
+    }
 }

@@ -3,6 +3,9 @@ namespace site\frontend\modules\som\modules\qa\models;
 
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
+use site\frontend\modules\som\modules\qa\components\BaseAnswerManager;
+use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
+use site\frontend\modules\som\modules\qa\components\ISubject;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 use site\frontend\modules\som\modules\qa\components\QaManager;
@@ -35,26 +38,35 @@ use site\frontend\modules\som\modules\qa\components\QaManager;
  * @property \site\frontend\modules\som\modules\qa\models\QaTag $tag
  *
  * @property \site\frontend\components\api\models\User $user
+ *
+ * @property-read BaseAnswerManager $answerManager
  */
-class QaQuestion extends \HActiveRecord implements \IHToJSON
+class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
 {
     public $sendNotifications = true;
-
+    
     /**
      * @var boolean
      */
     private $_hasAnswerForSpecialist;
-
-
+    
+    /**
+     * @inheritdoc
+     */
+    public function getSubjectId()
+    {
+        return $this->id;
+    }
+    
     public function __get($name)
     {
         if ($name == 'answersCount' && !is_null($this->category) && $this->category->isPediatrician()) {
             return QaManager::getAnswersCountPediatorQuestion($this->id);
         }
-
+        
         return parent::__get($name);
     }
-
+    
     /**
      * @return string the associated database table name
      */
@@ -62,7 +74,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     {
         return 'qa__questions';
     }
-
+    
     /**
      * @return array validation rules for model attributes.
      */
@@ -70,33 +82,33 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('title', 'required'),
-            array('title', 'length', 'max' => 150),
-            array('text', 'length', 'max' => 1000),
-            array('sendNotifications', 'boolean'),
-
+        return [
+            ['title', 'required'],
+            ['title', 'length', 'max' => 150],
+            ['text', 'length', 'max' => 1000],
+            ['sendNotifications', 'boolean'],
+            
             // категория
-            array('categoryId', 'default', 'value' => null),
-            array('categoryId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaCategory', 'except' => 'consultation'),
-
+            ['categoryId', 'default', 'value' => null],
+            ['categoryId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaCategory', 'except' => 'consultation'],
+            
             // консультация
-            array('consultationId', 'required', 'on' => 'consultation'),
-            array('consultationId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'on' => 'consultation'),
-
+            ['consultationId', 'required', 'on' => 'consultation'],
+            ['consultationId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'on' => 'consultation'],
+            
             // теги
-            array('tag_id', 'required', 'on' => 'tag'),
-            array('tag_id', 'tagValidator', 'on' => 'tag'),
-        );
+            ['tag_id', 'required', 'on' => 'tag'],
+            ['tag_id', 'tagValidator', 'on' => 'tag'],
+        ];
     }
-
+    
     public function tagValidator($attribute, $params)
     {
         if ($this->$attribute && !QaTag::model()->byCategory($this->categoryId)->findByPk($this->$attribute)) {
             $this->addError($attribute, "Tag belongs to other category");
         }
     }
-
+    
     /**
      * @return array relational rules.
      */
@@ -104,29 +116,29 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'consultation' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'consultationId'),
-            'category' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'),
-            'answers' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'),
-            'lastAnswer' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'),
-            'tag' => array(self::BELONGS_TO, get_class(QaTag::model()), 'tag_id'),
-            'author' => array(self::BELONGS_TO, \User::class, 'authorId'),
-        );
+        return [
+            'consultation' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'consultationId'],
+            'category' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'],
+            'answers' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'],
+            'lastAnswer' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'],
+            'tag' => [self::BELONGS_TO, get_class(QaTag::model()), 'tag_id'],
+            'author' => [self::BELONGS_TO, \User::class, 'authorId'],
+        ];
     }
-
+    
     public function apiRelations()
     {
-        return array(
-            'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 72)),
-        );
+        return [
+            'user' => ['site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => ['avatarSize' => 72]],
+        ];
     }
-
+    
     /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => 'ID',
             'title' => 'Title',
             'text' => 'Text',
@@ -137,127 +149,137 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
             'dtimeUpdate' => 'Dtime Update',
             'url' => 'Url',
             'tag_id' => 'Тэг',
-        );
+        ];
     }
-
+    
     public function behaviors()
     {
-        return array(
-            'CacheDelete' => array(
+        return [
+            'CacheDelete' => [
                 'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
-            ),
-            'PushStream' => array(
+            ],
+            'PushStream' => [
                 'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
-            ),
-            'softDelete' => array(
+            ],
+            'softDelete' => [
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
                 'removeAttribute' => 'isRemoved',
-            ),
-            'HTimestampBehavior' => array(
+            ],
+            'HTimestampBehavior' => [
                 'class' => 'HTimestampBehavior',
                 'createAttribute' => 'dtimeCreate',
                 'updateAttribute' => 'dtimeUpdate',
-            ),
-            'UrlBehavior' => array(
+            ],
+            'UrlBehavior' => [
                 'class' => 'site\common\behaviors\UrlBehavior',
                 'route' => 'som/qa/default/view',
                 'params' => function ($model) {
-                    return array(
+                    return [
                         'id' => $model->id,
-                    );
-                }
-            ),
-            'AuthorBehavior' => array(
+                    ];
+                },
+            ],
+            'AuthorBehavior' => [
                 'class' => 'site\common\behaviors\AuthorBehavior',
                 'attr' => 'authorId',
-            ),
-            'purified' => array(
+            ],
+            'purified' => [
                 'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => array('text'),
-                'options' => array(
+                'attributes' => ['text'],
+                'options' => [
                     'AutoFormat.Linkify' => true,
-                ),
-            ),
-            'notificationContentBehavior' => array(
+                ],
+            ],
+            'notificationContentBehavior' => [
                 'class' => ContentBehavior::class,
                 'entityClass' => QaQuestion::class,
-            ),
+            ],
             QaBehavior::class,
-        );
+        ];
     }
-
+    
     public function unanswered()
     {
         $this->getDbCriteria()->addCondition($this->tableAlias . '.answersCount = 0');
+        
         return $this;
     }
-
+    
     public function orderRating()
     {
         $this->getDbCriteria()->order = $this->tableAlias . '.rating DESC, dtimeCreate DESC';
+        
         return $this;
     }
-
+    
     public function orderDesc()
     {
         $this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
+        
         return $this;
     }
-
+    
     public function orderAsc()
     {
         $this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate ASC';
+        
         return $this;
     }
-
+    
     public function category($categoryId)
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.categoryId', $categoryId);
+        
         return $this;
     }
-
+    
     public function byTag($tagId)
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.tag_id', $tagId);
+        
         return $this;
     }
-
+    
     public function consultation($consultationId)
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.consultationId', $consultationId);
+        
         return $this;
     }
-
+    
     public function notConsultation()
     {
         $this->getDbCriteria()->addCondition($this->tableAlias . '.consultationId IS NULL');
+        
         return $this;
     }
-
+    
     public function user($userId)
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.authorId', $userId);
+        
         return $this;
     }
-
+    
     /**
      * @return QaQuestion
      */
     public function withoutAnswers()
     {
         $this->getDbCriteria()->addCondition("(select count(*) from qa__answers a where a.questionId = {$this->tableAlias}.id and a.isRemoved = 0 and a.root_id is null) = 0");
-
+        
         return $this;
     }
-
+    
     public function defaultScope()
     {
         $t = $this->getTableAlias(false, false);
-        return array(
+        
+        return [
             'condition' => $t . '.isRemoved = 0',
-        );
+        ];
     }
-
+    
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -268,19 +290,19 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     {
         return parent::model($className);
     }
-
+    
     public function canBeAnsweredBy($userId)
     {
         if (!$this->isFromConsultation()) {
             return $this->authorId != $userId && $this->checkAccessForSpecialist();
         } else {
-            return QaConsultant::model()->exists('userId = :userId AND consultationId = :consultationId', array(
+            return QaConsultant::model()->exists('userId = :userId AND consultationId = :consultationId', [
                 ':userId' => $userId,
                 ':consultationId' => $this->consultationId,
-            ));
+            ]);
         }
     }
-
+    
     /**
      * @param integer $userId
      * @return boolean
@@ -288,26 +310,26 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     public function checkCustomAccessByAnswered($userId)
     {
         $profile = \Yii::app()->user->getModel()->specialistProfile;
-
+        
         $dialog = $this->getSpecialistDialog();
-
+        
         if ($this->authorId != $userId) {
             if (is_null($profile) || is_null($dialog)) {
-                return TRUE;
+                return true;
             }
-
+            
             foreach ($dialog as $answer) {
                 if ($answer->authorId == $profile->id) {
                     return is_null($this->getAnswersToAdditional()) && !is_null($this->getAdditionalAnswers());
                 }
             }
-
-            return FALSE;
+            
+            return false;
         }
-
+        
         return is_null($this->getAnswersToAdditional()) && is_null($this->getAdditionalAnswers());
     }
-
+    
     /**
      * @param integer $userId
      * @return boolean
@@ -315,45 +337,45 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     public function checkAccessByViewQuestion($userId)
     {
         $profile = \Yii::app()->user->getModel()->specialistProfile;
-
+        
         $dialog = $this->getSpecialistDialog();
-
+        
         if (is_null($dialog) && !is_null($profile)) {
-            return TRUE;
+            return true;
         }
-
+        
         if (is_null($profile) || !is_null($this->getAnswersToAdditional())) {
-            return FALSE;
+            return false;
         }
-
+        
         foreach ($dialog as $answer) {
             if ($answer->authorId == $profile->id) {
                 return !is_null($this->getAdditionalAnswers());
             }
         }
-
-        return FALSE;
+        
+        return false;
     }
-
+    
     /**
      * @return boolean
      */
     public function checkAccessForSpecialist()
     {
         $profile = \Yii::app()->user->getModel()->specialistProfile;
-
+        
         if (is_null($profile)) {
             return true;
         }
-
+        
         return $profile->authorizationIsDone();
     }
-
+    
     public function isFromConsultation()
     {
         return $this->consultationId !== null;
     }
-
+    
     /**
      * @return integer
      */
@@ -363,7 +385,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
             return $value->authorId;
         }, $this->answers)));
     }
-
+    
     /**
      * @param int $userId
      *
@@ -372,15 +394,15 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     public function withoutUserAnswers($userId)
     {
         $this->getDbCriteria()->addCondition("not exists(select * from qa__answers a where a.questionId={$this->tableAlias}.id and a.authorId={$userId})");
-
+        
         return $this;
     }
-
+    
     public function withoutSpecialistsAnswers($groupId)
     {
-
+        
     }
-
+    
     /**
      * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
      */
@@ -389,10 +411,10 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
         $this->getDbCriteria()->compare('dtimeCreate', '>' . $this->dtimeCreate);
         $this->orderAsc();
         $this->getDbCriteria()->limit = 1;
-
+        
         return $this;
     }
-
+    
     /**
      * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
      */
@@ -401,10 +423,10 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
         $this->getDbCriteria()->compare('dtimeCreate', '<' . $this->dtimeCreate);
         $this->orderDesc();
         $this->getDbCriteria()->limit = 1;
-
+        
         return $this;
     }
-
+    
     /**
      * {@inheritDoc}
      * @see CActiveRecord::save()
@@ -412,10 +434,10 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     public function save($runValidation = true, $attributes = null)
     {
         $this->title = \CHtml::encode($this->title);
-
+        
         return parent::save($runValidation, $attributes);
     }
-
+    
     public function toJSON()
     {
         return [
@@ -425,7 +447,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
             'authorId' => $this->authorId,
         ];
     }
-
+    
     /**
      * @return boolean
      */
@@ -434,15 +456,15 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
         if (!is_null($this->_hasAnswerForSpecialist)) {
             return $this->_hasAnswerForSpecialist;
         }
-
+        
         $helper = new AnswersTree();
         $helper->init($this->getSpecialistDialog());
-
+        
         $this->_hasAnswerForSpecialist = !is_null($helper->getCurrentAnswerForSpecialist());
-
+        
         return $this->_hasAnswerForSpecialist;
     }
-
+    
     /**
      * @return QaAnswer[]
      */
@@ -453,55 +475,67 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
             if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id)) {
                 $result = $answer->getChilds();
                 array_push($result, $answer);
-
+                
                 return $result;
             }
         }
     }
-
+    
     /**
      * @return NULL|\site\frontend\modules\som\modules\qa\models\QaAnswer[]
      */
     public function getAdditionalAnswers()
     {
         $dialog = $this->getSpecialistDialog();
-
+        
         if (is_null($dialog)) {
-            return NULL;
+            return null;
         }
-
+        
         $additionalAnswers = [];
-
+        
         foreach ($dialog as /*@var $answer QaAnswer */
                  $answer) {
             if ($answer->isAdditional()) {
                 $additionalAnswers[] = $answer;
             }
         }
-
-        return empty($additionalAnswers) ? NULL : $additionalAnswers;
+        
+        return empty($additionalAnswers) ? null : $additionalAnswers;
     }
-
+    
     /**
      * @return NULL|\site\frontend\modules\som\modules\qa\models\QaAnswer[]
      */
     public function getAnswersToAdditional()
     {
         $dialog = $this->getSpecialistDialog();
-
+        
         if (is_null($dialog)) {
-            return NULL;
+            return null;
         }
-
+        
         $answersToAdditional = [];
-
+        
         foreach ($dialog as /*@var $answer QaAnswer */
                  $answer) {
             if ($answer->isAnswerToAdditional()) {
                 $answersToAdditional[] = $answer;
             }
         }
-
-        return empty($answersToAdditional) ? NULL : $answersToAdditional;
+        
+        return empty($answersToAdditional) ? null : $answersToAdditional;
+    }
+    
+    /**
+     * @return BaseAnswerManager
+     */
+    public function getAnswerManager()
+    {
+        if ($this->category->isPediatrician()) {
+            return new CTAnswerManager($this);
+        } else {
+            return new DefaultAnswerManager($this);
+        }
     }
 }

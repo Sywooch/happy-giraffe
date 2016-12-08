@@ -5,6 +5,6 @@
  */
 ?>
 <?php $this->widget(\site\frontend\modules\specialists\modules\pediatrician\widgets\rating\RatingWidget::class, [
-    'perPage' => 6,
+    'perPage' => 12,
     'page' => $page,
 ]); ?>

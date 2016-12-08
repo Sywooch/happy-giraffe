@@ -9,6 +9,7 @@ use site\frontend\modules\som\modules\qa\components\ISubject;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 use site\frontend\modules\som\modules\qa\components\QaManager;
+use site\frontend\modules\som\modules\qa\components\QaQuestionsList;
 
 /**
  * This is the model class for table "qa__questions".
@@ -537,5 +538,15 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         } else {
             return new DefaultAnswerManager($this);
         }
+    }
+
+    /**
+     * @param string $condition
+     * @param array $params
+     * @return \site\frontend\modules\som\modules\qa\components\QaQuestionsList
+     */
+    public function getList($condition='',$params=[])
+    {
+        return new QaQuestionsList($this->findAll($condition, $params));
     }
 }

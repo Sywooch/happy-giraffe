@@ -199,4 +199,12 @@ class SpecialistProfile extends \HActiveRecord
 			return $spec->title;
 		}, $this->specializations)) : '';
 	}
+
+	public function getTotalAnswersCount()
+	{
+	}
+
+	public function getTotalVotesCount()
+	{
+	}
 }

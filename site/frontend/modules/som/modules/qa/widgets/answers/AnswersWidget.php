@@ -27,7 +27,7 @@ class AnswersWidget extends \CWidget
     
     protected function runForGuest()
     {
-        $answers = QaManager::getAnswers($this->question);
+        // $answers = QaManager::getAnswers($this->question);
         
         $answers = $this->question->answerManager->getAnswers();
         

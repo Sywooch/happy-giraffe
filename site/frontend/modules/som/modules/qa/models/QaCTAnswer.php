@@ -13,7 +13,9 @@ use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
  * @property int $id_author
  * @property int $is_removed
  * @property int $votes_count
+ * @property int $dtimeCreate
  * @property-read int $votesCount алиас
+ * @property-read User $user
  */
 class QaCTAnswer extends \HActiveRecord implements INode
 {

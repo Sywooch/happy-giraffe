@@ -118,8 +118,12 @@ class ApiController extends \site\frontend\components\api\ApiController
         $_answers = [];
         
         if ($question->getAnswerManager() instanceof CTAnswerManager) {
-            $_answers = array_map(function (QaCTAnswer $answer) {
+            $_answers = array_map(function (QaCTAnswer $answer) use($question) {
                 return [
+                    'user' => $answer->user->toJSON(),
+                    'dtimeCreate' => $answer->dtimeCreate,
+                    'text' => $answer->purified->text,
+                    'votesCount' => $answer->votes_count,
                     'canEdit' => false,
                     'canRemove' => false,
                     'canVote' => false,
@@ -128,6 +132,7 @@ class ApiController extends \site\frontend\components\api\ApiController
                     'isAnswerToAdditional' => false,
                     'isSpecialistAnswer' => false,
                     'root_id' => null,
+                    'can_answer' => $question->answerManager->canAnswer($answer, \Yii::app()->user->getModel())
                 ];
             }, $answers);
         } else {

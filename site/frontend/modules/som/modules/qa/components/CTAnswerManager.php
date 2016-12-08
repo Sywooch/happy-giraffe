@@ -23,9 +23,9 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
     }
     
     /**
-     * @param $authorId
-     * @param $content
-     * @param QaQuestion|INode $subject
+     * @param int $authorId
+     * @param string $content
+     * @param ISubject|INode $subject
      * @throws \Exception
      * @return INode|null
      */
@@ -49,6 +49,16 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
             $transaction->rollback();
             throw $ex;
         }
+    }
+    
+    /**
+     * @param QaCTAnswer $answer
+     * @param \User $user
+     * @return mixed
+     */
+    public function canAnswer($answer, \User $user)
+    {
+        return $answer->id_author != $user->id;
     }
     
     public function getAnswers()

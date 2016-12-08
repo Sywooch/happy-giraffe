@@ -19,17 +19,17 @@ namespace site\frontend\components\api\models;
  * @property-read string $publicChannel Публичный канал пользователя
  * @author Кирилл
  */
-class User extends ApiModel
+class User extends ApiModel implements \IHToJSON
 {
-
+    
     public $api = 'users';
-
+    
     public function getFullName()
     {
         return $this->fullName;
     }
-
-/**
+    
+    /**
      * Формат имени для анонимного юзера
      *
      * @return string
@@ -37,33 +37,30 @@ class User extends ApiModel
     public function getAnonName()
     {
         $strCity = $this->_getCity();
-
+        
         $result = $this->firstName;
-
-        if (!is_null($strCity))
-        {
+        
+        if (!is_null($strCity)) {
             $result = $result . ', ' . $strCity;
         }
-
+        
         return $result;
     }
-
+    
     /**
      * @return void|string
      */
     private function _getCity()
     {
         $model = \UserAddress::model()->find('user_id=:user_id', [':user_id' => $this->id]);
-
-        if (is_null($model->city))
-        {
+        
+        if (is_null($model->city)) {
             return;
         }
-
+        
         return $model->city->name;
-
     }
-
+    
     /**
      *
      * @param string $className
@@ -73,33 +70,38 @@ class User extends ApiModel
     {
         return parent::model($className);
     }
-
+    
     /**
      * @return array
      */
     public function formatedForJson()
     {
         return [
-            'id'            => $this->id,
-            'firstName'     => $this->firstName,
-            'lastName'      => $this->lastName,
-            'middleName'    => $this->middleName,
-            'fullName'      => $this->fullName,
-            'avatarId'      => $this->avatarId,
-            'gender'        => $this->gender,
-            'isOnline'      => $this->isOnline,
-            'profileUrl'    => $this->profileUrl,
-            'avatarUrl'     => $this->avatarUrl,
-            'avatarInfo'    => $this->avatarInfo,
+            'id' => $this->id,
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'middleName' => $this->middleName,
+            'fullName' => $this->fullName,
+            'avatarId' => $this->avatarId,
+            'gender' => $this->gender,
+            'isOnline' => $this->isOnline,
+            'profileUrl' => $this->profileUrl,
+            'avatarUrl' => $this->avatarUrl,
+            'avatarInfo' => $this->avatarInfo,
             'publicChannel' => $this->publicChannel,
-            'city'          => $this->_getCity(),
+            'city' => $this->_getCity(),
             'specialistInfo' => $this->specialistInfo,
         ];
     }
-
+    
+    public function toJSON()
+    {
+        return $this->formatedForJson();
+    }
+    
     public function attributeNames()
     {
-        return array(
+        return [
             'id',
             'firstName',
             'middleName',
@@ -115,19 +117,19 @@ class User extends ApiModel
             'publicChannel',
             'specInfo',
             'specialistInfo',
-        );
+        ];
     }
-
+    
     public function actionAttributes()
     {
-        return array(
+        return [
             'insert' => false,
             'update' => false,
             'remove' => false,
             'restore' => false,
-        );
+        ];
     }
-
+    
 }
 
 ?>

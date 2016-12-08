@@ -7,6 +7,7 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 /**
  * @author Sergey Gubarev
+ * @deprecated {{@see BaseAnswerManager}}
  */
 class QaManager
 {
@@ -30,7 +31,7 @@ class QaManager
         }
 
         $sql = <<<SQL
-          SELECT COUNT(1) FROM qa__answers
+          SELECT * FROM qa__answers
             WHERE
             qa__answers.questionId = {$question->id}
               AND

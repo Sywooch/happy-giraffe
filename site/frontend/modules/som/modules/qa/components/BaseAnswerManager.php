@@ -36,4 +36,11 @@ abstract class BaseAnswerManager
      * @return int
      */
     abstract public function getAnswersCount();
+    
+    /**
+     * @param mixed $answer
+     * @param \User $user
+     * @return bool
+     */
+    abstract public function canAnswer($answer, \User $user);
 }

@@ -20,12 +20,17 @@ interface IClosureTableProvider
     public function createNodeTree($idAncestor, $idDescendant, $level, $idSubject, $idNearestAncestor);
     
     /**
+     * Дерево в формате:
+     * [[node.id, node.content, tree.id_ancestor, tree.id_descendant, tree.id_nearest_ancestor, tree.level]]
+     *
      * @param $subjectId
      * @return object[]
      */
     public function fetchTree($subjectId);
     
     /**
+     * Все ноды по айдишникам
+     *
      * @param array $id
      * @return INode[]
      */

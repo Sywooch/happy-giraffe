@@ -2,8 +2,6 @@
 
 namespace site\common\components\closureTable;
 
-use site\frontend\modules\som\modules\qa\components\ISubject;
-
 class ClosureTableManager
 {
     /***
@@ -56,7 +54,7 @@ class ClosureTableManager
                 $ids[] = $row['id'];
             }
         }
-        // var_dump($collection->rows); die;
+
         $collection->nodes = $this->provider->fetchNodes($ids);
         
         return $this->buildNode($collection);

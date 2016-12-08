@@ -35,9 +35,9 @@ class Filters
     {
         $str = '';
 
-        for ($i = 0; $i < mb_strlen($value); $i++)
+        for ($i = 0; $i < mb_strlen($value, 'UTF-8'); $i++)
         {
-            $char = mb_substr($value, $i, 1);
+            $char = mb_substr($value, $i, 1, 'UTF-8');
 
             if (preg_match("#^[aA-zZаА-яЯ0-9-_\\s]+$#", $char))
             {

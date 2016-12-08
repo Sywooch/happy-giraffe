@@ -59,7 +59,6 @@ class User extends ApiModel implements \IHToJSON
         }
         
         return $model->city->name;
-        
     }
     
     /**

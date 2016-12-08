@@ -1,6 +1,7 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\widgets\answers;
 
+use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
@@ -18,6 +19,14 @@ class AnswersWidget extends \CWidget
     
     public function run()
     {
+        if ($this->question->answerManager instanceof CTAnswerManager) {
+            $this->render('view-new', [
+                'question' => $this->question,
+            ]);
+        
+            return;
+        }
+        
         if (\Yii::app()->user->isGuest) {
             $this->runForGuest();
         } else {
@@ -30,13 +39,11 @@ class AnswersWidget extends \CWidget
         // $answers = QaManager::getAnswers($this->question);
         
         $answers = $this->question->answerManager->getAnswers();
-        
+                
         $bestAnswers = [];
         $otherAnswers = [];
-
+        
         foreach ($answers as $answer) {
-            $otherAnswers[] = $answer;
-            continue;
             if ($answer->isBest) {
                 $bestAnswers[] = $answer;
             } else {

@@ -111,14 +111,14 @@ class ApiController extends \site\frontend\components\api\ApiController
         
         // $answers = QaManager::getAnswers($question);
         
-        $answers = $question->getAnswerManager()->getAnswers();
+        $answers = $question->answerManager->getAnswers();
         
         ContentBehavior::$active = false;
         
         $_answers = [];
         
-        if ($question->getAnswerManager() instanceof CTAnswerManager) {
-            $_answers = array_map(function (QaCTAnswer $answer) use($question) {
+        if ($question->answerManager instanceof CTAnswerManager) {
+            $_answers = array_map(function (QaCTAnswer $answer) use ($question) {
                 return [
                     'user' => $answer->user->toJSON(),
                     'dtimeCreate' => $answer->dtimeCreate,
@@ -132,7 +132,7 @@ class ApiController extends \site\frontend\components\api\ApiController
                     'isAnswerToAdditional' => false,
                     'isSpecialistAnswer' => false,
                     'root_id' => null,
-                    'can_answer' => $question->answerManager->canAnswer($answer, \Yii::app()->user->getModel())
+                    'can_answer' => $question->answerManager->canAnswer($answer, \Yii::app()->user->getModel()),
                 ];
             }, $answers);
         } else {

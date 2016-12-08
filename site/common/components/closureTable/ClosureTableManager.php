@@ -54,7 +54,7 @@ class ClosureTableManager
                 $ids[] = $row['id'];
             }
         }
-
+        
         $collection->nodes = $this->provider->fetchNodes($ids);
         
         return $this->buildNode($collection);

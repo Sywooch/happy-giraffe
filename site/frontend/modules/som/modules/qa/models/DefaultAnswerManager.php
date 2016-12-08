@@ -31,6 +31,11 @@ class DefaultAnswerManager extends BaseAnswerManager
         //}
     }
     
+    public function canAnswer($answer, \User $user)
+    {
+        return false;
+    }
+    
     public function getAnswers()
     {
         $sql = <<<SQL

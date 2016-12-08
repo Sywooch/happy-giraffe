@@ -2,6 +2,9 @@
 
 namespace site\common\components\closureTable;
 
+/**
+ * Список нод и элементов дерева. Вспомогательный класс
+ */
 class NodeCollection
 {
     /**

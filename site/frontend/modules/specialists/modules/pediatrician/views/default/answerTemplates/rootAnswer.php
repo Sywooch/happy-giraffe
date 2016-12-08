@@ -10,7 +10,7 @@
     <div class="box-wrapper__user"><span class="box-wrapper__link"><?=$answer->user->getFullName()?></span>
       <?=HHtml::timeTag($answer, ['class' => 'box-wrapper__date margin-r15'])?>
     </div>
-    <div class="answers-list_item_text-block_text-mod margin-b5"><?=\site\common\helpers\HStr::truncate($answer->text, 150)?></div>
+    <div class="answers-list_item_text-block_text-mod margin-b5"><?=$answer->text?></div>
 </div>
 <div class="answers-list_item_like-block answers-list_item_like-block-active answers-list_item_like-block_mobile"><a href="#" class="answers-list_item_like-block_like"></a>
 	<div class="like_counter">Спасибо<span><?=$answer->votesCount?></span></div>

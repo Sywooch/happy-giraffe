@@ -2,6 +2,7 @@
 namespace site\frontend\modules\som\modules\qa\models;
 
 use site\common\behaviors\AuthorBehavior;
+use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\specialists\models\SpecialistGroup;
@@ -63,149 +64,153 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return $this->dtimeCreate <= time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
     }
 
-    /**
-     * @return string the associated database table name
-     */
-    public function tableName()
-    {
-        return 'qa__answers';
-    }
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return 'qa__answers';
+	}
 
-    /**
-     * @return array validation rules for model attributes.
-     */
-    public function rules()
-    {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
-        return array(
-            array('questionId', 'safe'),
-            array('text', 'required'),
-        );
-    }
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+			array('questionId', 'safe'),
+			array('text', 'required'),
+		);
+	}
 
-    /**
-     * @return array relational rules.
-     */
-    public function relations()
-    {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-            'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'),
-            'author' => array(self::BELONGS_TO, \User::class, 'authorId'),
-            'category' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', array('categoryId' => 'id'), 'through' => 'question'),
-            'tag' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', array('tag_id' => 'id'), 'through' => 'question'),
-            'votes' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'),
-            'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
-            'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
-        );
-    }
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'),
+			'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
+			'category' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', array('categoryId' => 'id'), 'through' => 'question'),
+			'tag' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', array('tag_id' => 'id'), 'through' => 'question'),
+			'votes' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'),
+			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
+			'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
+		);
+	}
 
-    public function apiRelations()
-    {
-        return array(
-            'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
-        );
-    }
+	public function apiRelations()
+	{
+		return array(
+			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
+		);
+	}
 
-    /**
-     * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
-     */
-    public function getChilds()
-    {
-        $matchedAnswers = $this->children;
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
+	 */
+	public function getChilds()
+	{
+		$matchedAnswers = $this->children;
 
-        foreach ($matchedAnswers as $answer) {
-            if (!empty($answer->children)) {
-                $matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
-            }
-        }
+		foreach ($matchedAnswers as $answer)
+		{
+			if (!empty($answer->children))
+			{
+				$matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
+			}
 
-        return $matchedAnswers;
+		}
 
-    }
+		return $matchedAnswers;
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'id' => 'ID',
-            'text' => 'Text',
-            'questionId' => 'Question',
-            'authorId' => 'Author',
-            'dtimeCreate' => 'Dtime Create',
-            'dtimeUpdate' => 'Dtime Update',
-        );
-    }
+	}
 
-    public function behaviors()
-    {
-        return array(
-            'CacheDelete' => array(
-                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
-            ),
-            'PushStream' => array(
-                'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
-            ),
-            'softDelete' => array(
-                'class' => 'site.common.behaviors.SoftDeleteBehavior',
-                'removeAttribute' => 'isRemoved',
-            ),
-            'HTimestampBehavior' => array(
-                'class' => 'HTimestampBehavior',
-                'createAttribute' => 'dtimeCreate',
-                'updateAttribute' => 'dtimeUpdate',
-            ),
-            'AuthorBehavior' => array(
-                'class' => AuthorBehavior::class,
-                'attr' => 'authorId',
-            ),
-            'purified' => array(
-                'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => array('text'),
-                'options' => array(
-                    'AutoFormat.Linkify' => true,
-                ),
-            ),
-            'notificationBehavior' => array(
-                'class' => NotificationBehavior::class,
-            ),
-            'RatingBehavior' => array(
-                'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
-            ),
-            QaBehavior::class,
-        );
-    }
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'id' => 'ID',
+			'text' => 'Text',
+			'questionId' => 'Question',
+			'authorId' => 'Author',
+			'dtimeCreate' => 'Dtime Create',
+			'dtimeUpdate' => 'Dtime Update',
+		);
+	}
 
-    public function save($runValidation = true, $attributes = null)
-    {
-        if (\Yii::app()->db->getCurrentTransaction() !== null) {
-            return parent::save($runValidation, $attributes);
-        }
+	public function behaviors()
+	{
+		return array(
+			'CacheDelete' => array(
+				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+			),
+ 			'PushStream' => array(
+ 				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
+ 			),
+			'softDelete' => array(
+				'class' => 'site.common.behaviors.SoftDeleteBehavior',
+				'removeAttribute' => 'isRemoved',
+			),
+			'HTimestampBehavior' => array(
+				'class' => 'HTimestampBehavior',
+				'createAttribute' => 'dtimeCreate',
+				'updateAttribute' => 'dtimeUpdate',
+			),
+			'AuthorBehavior' => array(
+				'class' => 'site\common\behaviors\AuthorBehavior',
+				'attr' => 'authorId',
+			),
+			'purified' => array(
+				'class' => 'site.common.behaviors.PurifiedBehavior',
+				'attributes' => array('text'),
+				'options' => array(
+					'AutoFormat.Linkify' => true,
+				),
+			),
+			'RatingBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
+			),
+			'notificationBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
+			),
+		    'site\frontend\modules\som\modules\qa\behaviors\QaBehavior',
+		);
+	}
 
-        $transaction = $this->dbConnection->beginTransaction();
-        try {
-            $success = parent::save($runValidation, $attributes);
-            $transaction->commit();
-        } catch (\Exception $e) {
-            $transaction->rollback();
-            return false;
-        }
-        return $success;
-    }
+	public function save($runValidation = true, $attributes = null)
+	{
+		if (\Yii::app()->db->getCurrentTransaction() !== null) {
+			return parent::save($runValidation, $attributes);
+		}
 
-    /**
-     * {@inheritDoc}
-     * @see CActiveRecord::beforeSave()
-     */
-    protected function beforeSave()
-    {
-        $parentResult = parent::beforeSave();
+		$transaction = $this->dbConnection->beginTransaction();
+		try {
+			$success = parent::save($runValidation, $attributes);
+			$transaction->commit();
+		} catch (\Exception $e) {
+			$transaction->rollback();
+			return false;
+		}
+		return $success;
+	}
 
-        if ($this->isAdditional()) {
+	/**
+	 * {@inheritDoc}
+	 * @see CActiveRecord::beforeSave()
+	 */
+	protected function beforeSave()
+	{
+	    $parentResult = parent::beforeSave();
+
+        if ($this->isAdditional())
+        {
             return $this->authorId == $this->question->authorId;
         }
 

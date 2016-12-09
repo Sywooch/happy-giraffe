@@ -71,7 +71,7 @@ class DefaultController extends QaController
         ContentBehavior::$active = true;
         $question = $this->getModel($id);
         ContentBehavior::$active = false;
-        
+
         $this->render('view', compact('question', 'tab', 'category'));
     }
     

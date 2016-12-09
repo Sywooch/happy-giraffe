@@ -28,28 +28,28 @@ class QaCTAnswer extends \HActiveRecord implements INode
     {
         return 'qa__answers_new';
     }
-    
+
     public function rules()
     {
         return [
             ['content', 'required'],
         ];
     }
-    
+
     public function relations()
     {
         return [
             'author' => [static::BELONGS_TO, \User::class, 'id_author'],
         ];
     }
-    
+
     public function apiRelations()
     {
         return [
             'user' => [ApiRelation::class, User::class, 'id_author', 'params' => ['avatarSize' => 40]],
         ];
     }
-    
+
     public function behaviors()
     {
         return [
@@ -67,7 +67,7 @@ class QaCTAnswer extends \HActiveRecord implements INode
             ],
         ];
     }
-    
+
     /**
      * @return QaQuestion
      */
@@ -75,38 +75,51 @@ class QaCTAnswer extends \HActiveRecord implements INode
     {
         return QaQuestion::model()->findByPk(CTAnswerManager::findSubject($this));
     }
-    
-#region QaAnswer BC
-    /**
-     * @return bool
-     */
-    public function authorIsSpecialist()
-    {
-        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->id_author]);
-    }
-    
+
     public function getVotesCount()
     {
         return $this->votes_count;
     }
-    
+
     public function getText()
     {
         return $this->content;
     }
-    
+
     public function getId()
     {
         return $this->id;
     }
 #endregion
 
+    public function orderDesc()
+    {
+        $this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
+        return $this;
+    }
+
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+        return array(
+            'condition' => $t . '.is_removed = 0',
+        );
+    }
+
+    /**
+     * @return boolean
+     */
+    public function authorIsSpecialist()
+    {
+        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->id_author]);
+    }
+
 #region INode
     /**
      * @var INode[]
      */
     protected $_childes = [];
-    
+
     /**
      * @inheritdoc
      */

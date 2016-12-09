@@ -119,6 +119,18 @@ $this->renderSidebarClip();
                 </ul>
             </div>
         </div>
+        <?php
+        $title       = isset($title) ? $title : null;
+        $titlePrefix = isset($titlePrefix) ? $titlePrefix : null;
+        $viewFileName = isset($viewFileName) ? $viewFileName : 'view';
+
+        $this->widget('site\frontend\modules\som\modules\qa\widgets\usersTop\NewUsersTopWidget', [
+//             'authorId'      => \Yii::app()->user->id,
+            'titlePrefix'   => 'Знаток',
+            'viewFileName'  => 'view_pediatrician',
+        ]);
+        ?>
+        <?php /**
         <div class="b-text--left b-margin--bottom_40">
             <div class="b-sidebar-widget">
                 <div class="b-sidebar-widget__header b-sidebar-widget-header b-sidebar-widget-header--green">
@@ -223,6 +235,7 @@ $this->renderSidebarClip();
                 </ul>
             </div>
         </div>
+        **/?>
     </aside>
 </div>
 <?php $this->endContent(); ?>

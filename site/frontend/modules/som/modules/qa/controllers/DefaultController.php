@@ -14,6 +14,7 @@ use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 
 class DefaultController extends QaController
 {
@@ -71,7 +72,7 @@ class DefaultController extends QaController
 
         if ($tab == self::TAB_All)
         {
-            $dp = new \CActiveDataProvider(QaAnswer::model()->orderDesc(), array(
+            $dp = new \CActiveDataProvider(QaCTAnswer::model()->orderDesc(), array(
                 'pagination' => array(
                     'pageVar' => 'page',
                 ),

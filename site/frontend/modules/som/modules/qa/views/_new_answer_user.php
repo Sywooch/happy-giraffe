@@ -1,33 +1,43 @@
+<?php
+
+use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
+
+/**
+ * @var \site\frontend\modules\som\modules\qa\models\QaCTAnswer $data
+ */
+if (is_null($data->question))
+{
+    var_dump($data->id);exit;
+}
+?>
 <li class="b-answer__item">
     <div class="b-pediator-answer">
         <div class="b-pediator-answer__left">
             <div class="b-pediator-answer__ava b-pediator-answer__ava--theme-pink">
-                <a href="javascript:void(0)" class="ava ava--style ava--medium ava--medium_male">
-                    <img src="http://gravitsapa.com/wp-content/images2_1/sasha_grej_pokazala_novogo_bojfrenda.jpg" class="ava__img" />
+                <a href="<?=$data->author->getUrl()?>" class="ava ava--theme-pedaitor ava--medium ava--medium_male">
+                    <img src="<?=$data->author->getAvatarUrl(40)?>" class="ava__img" />
                 </a>
             </div>
         </div>
         <div class="b-pediator-answer__right">
-            <div class="b-answer__header b-answer-header"><a href="javascript:voit(0);" class="b-answer-header__link">Мария, Москва</a>
-                <time class="b-answer-header__time">5 минут назад</time>
-                <div class="b-answer-header__spezialisation">педиатр, детский хирург
-                    <div class="b-answer-header__box b-answer-header-box">
-                        <div class="b-answer-header-box__item"><span class="b-text-color--grey b-text--size-12">Ответы 562</span>
-                        </div>
-                        <div class="b-answer-header-box__item"><span class="b-answer-header-box__roze"><span class="b-answer-header-box__ico"></span><span class="b-answer-header-box__ico"></span><span class="b-answer-header-box__ico"></span></span><span class="b-text-color--grey b-text--size-12">869</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="b-answer__header b-answer-header">
+                <a href="<?=$data->author->getUrl()?>" class="b-answer-header__link"><?=$data->user->getAnonName()?></a>
+                <?=HHtml::timeTag($data, array('class' => 'b-answer-header__time'))?>
+            	<?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswerHeaderWidget', [
+                    'userId' => $data->author->id,
+                ]);?>
             </div>
             <div class="b-answer__body b-answer-body">
-                <p class="b-pediator-answer__text">Незадолго до издания указа, министр обороны России Сергей Шойгу заявил о начале совместной с властями САР масштабной гуманитарной операции в Алеппо</p><a href="javascript:voit(0);" class="b-text--link-color b-title--bold b-title--h9">Зеленые сопли у грудничка</a>
+                <p class="b-pediator-answer__text"><?=strip_tags($data->text)?></p>
+                <a href="<?=$data->question->url?>" class="b-text--link-color b-title--bold b-title--h9"><?=strip_tags($data->question->title)?></a>
             </div>
         </div>
         <div class="b-pedaitor-answer__footer b-answer-footer b-answer-footer--pink">
-            <div class="b-pedaitor-answer__footer__item"><a href="javascript:voit(0);" class="b-answer-footer__age b-text--link-color">1 - 12</a>
+            <div class="b-pedaitor-answer__footer__item">
+            	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tagId' => $data->question->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=(new Enum())->getTitleForWeb($data->question->tag->name)?></a>
             </div>
-            <div class="b-pedaitor-answer__footer__item"><a href="javascript:voit(0);" class="b-answer-footer__comment">10</a>
-                <button type="button" class="btn-answer btn-answer--theme-green"><span class="btn-answer__num btn-answer__num--theme-green">Спасибо 98</span>
+            <div class="b-pedaitor-answer__footer__item"><a href="javascript:void(0);" class="b-answer-footer__comment"><?=$data->getQuestion()->getAnswerManager()->getAnswersCount()?></a>
+                <button type="button" class="btn-answer btn-answer--theme-green btn-answer--active"><span class="btn-answer__num btn-answer__num--theme-green">Спасибо 98</span>
                 </button>
             </div>
         </div>

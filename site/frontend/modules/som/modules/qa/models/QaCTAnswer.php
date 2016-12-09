@@ -6,6 +6,7 @@ use site\common\components\closureTable\INode;
 use site\frontend\components\api\ApiRelation;
 use site\frontend\components\api\models\User;
 use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
+use site\frontend\modules\specialists\models\SpecialistProfile;
 
 /**
  * @property int $id
@@ -14,8 +15,12 @@ use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
  * @property int $is_removed
  * @property int $votes_count
  * @property int $dtimeCreate
+ *
  * @property-read int $votesCount алиас
+ * @property string $text алиас
+ *
  * @property-read User $user
+ * @property-read QaQuestion $question
  */
 class QaCTAnswer extends \HActiveRecord implements INode
 {
@@ -34,7 +39,7 @@ class QaCTAnswer extends \HActiveRecord implements INode
     public function relations()
     {
         return [
-            // 'user' => [static::BELONGS_TO, User::class, 'id_author'],
+            'author' => [static::BELONGS_TO, \User::class, 'id_author'],
         ];
     }
     
@@ -71,6 +76,15 @@ class QaCTAnswer extends \HActiveRecord implements INode
         return QaQuestion::model()->findByPk(CTAnswerManager::findSubject($this));
     }
     
+#region QaAnswer BC
+    /**
+     * @return bool
+     */
+    public function authorIsSpecialist()
+    {
+        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->id_author]);
+    }
+    
     public function getVotesCount()
     {
         return $this->votes_count;
@@ -85,6 +99,7 @@ class QaCTAnswer extends \HActiveRecord implements INode
     {
         return $this->id;
     }
+#endregion
 
 #region INode
     /**

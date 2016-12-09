@@ -6,7 +6,6 @@
 
 namespace site\frontend\modules\som\modules\qa\components;
 
-
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 
 class AnswerManagementData

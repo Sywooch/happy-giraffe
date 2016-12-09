@@ -39,7 +39,7 @@ class QaCTAnswer extends \HActiveRecord implements INode
     public function relations()
     {
         return [
-            // 'user' => [static::BELONGS_TO, User::class, 'id_author'],
+            'author' => [static::BELONGS_TO, \User::class, 'id_author'],
         ];
     }
     
@@ -77,6 +77,9 @@ class QaCTAnswer extends \HActiveRecord implements INode
     }
     
 #region QaAnswer BC
+    /**
+     * @return bool
+     */
     public function authorIsSpecialist()
     {
         return SpecialistProfile::model()->exists('id = :id', [':id' => $this->id_author]);

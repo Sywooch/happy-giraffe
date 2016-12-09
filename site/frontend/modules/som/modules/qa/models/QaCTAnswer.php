@@ -19,6 +19,7 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  * @property-read int $votesCount алиас
  * @property string $text алиас
  *
+ * @property-read \User $author
  * @property-read User $user
  * @property-read QaQuestion $question
  */

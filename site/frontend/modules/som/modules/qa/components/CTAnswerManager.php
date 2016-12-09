@@ -5,6 +5,7 @@ namespace site\frontend\modules\som\modules\qa\components;
 use site\common\components\closureTable\ClosureTableManager;
 use site\common\components\closureTable\IClosureTableProvider;
 use site\common\components\closureTable\INode;
+use site\common\components\closureTable\ITreeNode;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswerTreeNode;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
@@ -77,9 +78,10 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
      */
     public static function findSubject(QaCTAnswer $answer)
     {
+        /** @var ITreeNode $treeNode */
         $treeNode = QaCTAnswerTreeNode::model()->byAncestorId($answer->getId())->byDescendantId($answer->getId())->find();
         
-        return $treeNode ? $treeNode->id_subject : null;
+        return $treeNode ? $treeNode->getSubjectId() : null;
     }
 
 #region IClosureTableProvider

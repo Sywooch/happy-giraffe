@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\som\modules\qa\models;
 
+use site\common\components\closureTable\ITreeNode;
+
 /**
  * @property int $id_ancestor
  * @property int $id_descendant
@@ -9,7 +11,7 @@ namespace site\frontend\modules\som\modules\qa\models;
  * @property int $level
  * @property int $id_subject
  */
-class QaCTAnswerTreeNode extends \HActiveRecord
+class QaCTAnswerTreeNode extends \HActiveRecord implements ITreeNode
 {
     public function tableName()
     {
@@ -29,4 +31,56 @@ class QaCTAnswerTreeNode extends \HActiveRecord
         
         return $this;
     }
+    
+#region ITreeNode
+    public function getAncestorId()
+    {
+        return $this->id_ancestor;
+    }
+    
+    public function setAncestorId($id)
+    {
+        $this->id_ancestor = $id;
+    }
+    
+    public function getDescendantId()
+    {
+        return $this->id_descendant;
+    }
+    
+    public function setDescendantId($id)
+    {
+        $this->id_descendant = $id;
+    }
+    
+    public function getNearestAncestor()
+    {
+        return $this->id_nearest_ancestor;
+    }
+    
+    public function setNearestAncestor($id)
+    {
+        $this->id_nearest_ancestor = $id;
+    }
+    
+    public function getLevel()
+    {
+        return $this->level;
+    }
+    
+    public function setLevel($level)
+    {
+        $this->level = $level;
+    }
+    
+    public function getSubjectId()
+    {
+        return $this->id_subject;
+    }
+    
+    public function setSubjectId($id)
+    {
+        $this->id_subject = $id;
+    }
+#endregion
 }

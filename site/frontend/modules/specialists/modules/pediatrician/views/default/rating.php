@@ -4,7 +4,7 @@
  * @var integer $page
  */
 ?>
-<?php $this->widget('site\frontend\modules\specialists\modules\pediatrician\widgets\rating\RatingWidget', [
-    'perPage' => 6,
+<?php $this->widget(\site\frontend\modules\specialists\modules\pediatrician\widgets\rating\RatingWidget::class, [
+    'perPage' => 12,
     'page' => $page,
 ]); ?>

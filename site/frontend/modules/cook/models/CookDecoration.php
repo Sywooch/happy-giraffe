@@ -14,7 +14,7 @@
  * @property CookDecorationCategory $category
  * @property AlbumPhoto $photo
  */
-class CookDecoration extends CActiveRecord
+class CookDecoration extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

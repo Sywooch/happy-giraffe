@@ -2,6 +2,7 @@
 
 use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
@@ -38,9 +39,7 @@ else
     $isAnonQuestion = FALSE;
 }
 
-$helper = new AnswersTree();
-$helper->init($question->answers);
-
+$answersCount = QaManager::getAnswersCountPediatorQuestion($question->id);
 ?>
 
 <div class="b-breadcrumbs" style="margin-left: 0">
@@ -109,7 +108,7 @@ $this->widget('zii.widgets.CBreadcrumbs', [
                 </div>
             <?php endif; ?>
         	<a href="#" class="box-footer__answer box-footer__answer_blue box-footer__answer_mod">
-        		<span class="box-footer__num"><?=$question->answersCount?></span>
+        		<span class="box-footer__num"><?=$answersCount?></span>
         		<span class="box-footer__descr">ответов</span>
     		</a>
         <?php endif; ?>

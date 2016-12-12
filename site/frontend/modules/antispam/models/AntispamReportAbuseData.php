@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property AntispamReport $report
  */
-class AntispamReportAbuseData extends CActiveRecord
+class AntispamReportAbuseData extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

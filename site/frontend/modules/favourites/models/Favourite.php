@@ -17,7 +17,7 @@
  * @property User $user
  * @property FavouriteTag[] $favouritesTags
  */
-class Favourite extends CActiveRecord
+class Favourite extends HActiveRecord
 {
     public $relatedModel;
 
@@ -180,7 +180,7 @@ class Favourite extends CActiveRecord
         return parent::afterDelete();
     }
 
-    protected function getRelatedModel()
+    public function getRelatedModel()
     {
         return CActiveRecord::model($this->model_name)->resetScope()->findByPk($this->model_id);
     }

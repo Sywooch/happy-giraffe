@@ -36,21 +36,22 @@ $flowersCount = function($votesCount) {
                         'user' => $rating->user,
                         'size' => Avatar::SIZE_LARGE,
                         'largeAdvanced' => false,
+                        'tag' => 'span',
                     ]); ?>
-                    <a href="<?=$rating->user->getUrl()?>" class="font__color--blue display-b margin-t5"><?=$rating->user->getFullName()?></a>
-                    <span class="display-b font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
+                    <span class="font__color--blue display-b margin-t5"><?=$rating->user->getFullName()?></span>
+                    <span class="pediator-rating__position font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
                     <span class="margin-b5 display-b">
                         <p class="color-brown-dark display-ib verticalalign-m"><span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span></p>
                         <?php if ($rating->votes_count > 0): $flCount = $flowersCount($rating->votes_count); ?>
                             <?php if ($flCount > 0): ?>
-                                <p class="margin-r5 display-ib verticalalign-m">
+                                <p class="pediator-rating__roze margin-r5 display-ib verticalalign-m">
                                     <?php for ($j = 0; $j < $flCount; $j++): ?>
-                                        <span class="pediator-ico--roze pediator-ico--size-s <?php if (($j + 1) != $flCount): ?> margin-r2 <?php endif; ?> verticalalign-m"></span>
+                                        <span class="pediator-ico--roze pediator-ico--size-s verticalalign-m"></span>
                                     <?php endfor; ?>
                                 </p>
                                 <span class="color-brown-dark margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>
                             <?php else: ?>
-                                <span class="color-brown-dark margin-r10 display-ib verticalalign-m font-sx">Спасибо<span class="margin-l5"><?=$rating->votes_count?></span></span>
+                                <span class="color-brown-dark margin-r10 display-ib verticalalign-m">Спасибо<span class="margin-l5"><?=$rating->votes_count?></span></span>
                             <?php endif; ?>
                         <?php endif; ?>
                     </span>
@@ -63,22 +64,22 @@ $flowersCount = function($votesCount) {
     </div>
 
     <div class="clearfix margin-b30">
-        <div class="b-raiting clearfix">
+        <div class="b-raiting js-b-rating clearfix">
             <?php foreach ($others as $i => $rating): ?>
             <div class="b-raiting__left float-l">
                 <div class="b-raiting-wrapper clearfix">
                     <div class="b-raiting__item float-l">
                         <div class="b-raiting__num b-raiting__num--grey margin-r10 w-35 font-lm"><?=($i + $this::TOP_COUNT + 1)?></div>
-                        <a href="<?=$rating->user->getUrl()?>" class="contest-commentator-rating_user-a">
+                        <span class="contest-commentator-rating_user-a">
                             <?php $this->widget('Avatar', [
                                 'user' => $rating->user,
-                                'size' => Avatar::SIZE_MEDIUM,
+                                'size' => Avatar::SIZE_SMALL,
                                 'tag' => 'span',
                             ]); ?>
-                        </a>
-                        <div class="contest-footer__ball textalign-l">
-                            <a href="<?=$rating->user->getUrl()?>" class="font__color--blue display-b"><?=$rating->user->getFullName()?></a>
-                            <span class="display-b font__color--crimson margin-b3"><?=$rating->user->specialistInfoObject->title?></span>
+                        </span>
+                        <div class="contest-footer__ball textalign-l js-item">
+                            <span class="font__color--blue display-b"><?=$rating->user->getFullName()?></span>
+                            <span class="display-b font__color--crimson margin-b3 js-title"><?=$rating->user->specialistInfoObject->title?></span>
                             <p class="color-brown-dark display-ib verticalalign-m"><span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span></p>
                             <?php if ($rating->votes_count > 0): $flCount = $flowersCount($rating->votes_count); ?>
                                 <?php if ($flCount > 0): ?>
@@ -89,7 +90,7 @@ $flowersCount = function($votesCount) {
                                 </p>
                                 <span class="color-brown-dark margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>
                                 <?php else: ?>
-                                    <span class="color-brown-dark margin-r10 display-ib verticalalign-m font-sx">Спасибо<span class="margin-l5"><?=$rating->votes_count?></span></span>
+                                    <span class="color-brown-dark margin-r10 display-ib verticalalign-m">Спасибо<span class="margin-l5"><?=$rating->votes_count?></span></span>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>

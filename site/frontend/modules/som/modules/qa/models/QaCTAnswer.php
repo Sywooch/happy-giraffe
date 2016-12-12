@@ -126,14 +126,6 @@ class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
         );
     }
 
-    /**
-     * @return boolean
-     */
-    public function authorIsSpecialist()
-    {
-        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->id_author]);
-    }
-
 #region INode
     /**
      * @var INode[]

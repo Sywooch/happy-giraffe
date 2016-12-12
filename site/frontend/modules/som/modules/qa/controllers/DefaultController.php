@@ -89,7 +89,7 @@ class DefaultController extends QaController
      */
     protected function beforeAction($action)
     {
-        if ($action->id == 'pediatrician')
+        if ($action->id == 'pediatrician' || $action->id == 'view')
         {
             $this->litePackage = 'new_pediatrician';
         }
@@ -99,10 +99,14 @@ class DefaultController extends QaController
 
     public function actionView($id, $tab = null, $category = null)
     {
+        $this->layout       = '/layouts/pediatrician';
+
         $this->isQuestion = true;
 
         ContentBehavior::$active = true;
+
         $question = $this->getModel($id);
+
         ContentBehavior::$active = false;
         
         $this->render('view', compact('question', 'tab', 'category'));

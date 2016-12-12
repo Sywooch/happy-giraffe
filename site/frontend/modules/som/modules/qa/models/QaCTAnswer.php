@@ -83,7 +83,7 @@ class QaCTAnswer extends \HActiveRecord implements INode
      */
     public function authorIsSpecialist()
     {
-        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->id_author]);
+        return $this->author->isSpecialist;
     }
     
     public function getVotesCount()

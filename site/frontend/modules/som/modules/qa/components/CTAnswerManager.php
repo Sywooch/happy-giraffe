@@ -8,7 +8,6 @@ use site\common\components\closureTable\INode;
 use site\common\components\closureTable\ITreeNode;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswerTreeNode;
-use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
 {
@@ -17,10 +16,7 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
      */
     protected function getManager()
     {
-        $closureTableManager = new ClosureTableManager();
-        $closureTableManager->setProvider($this);
-        
-        return $closureTableManager;
+        return new ClosureTableManager($this);
     }
     
     /**

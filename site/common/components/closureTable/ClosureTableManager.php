@@ -9,7 +9,7 @@ class ClosureTableManager
      */
     protected $provider;
     
-    public function setProvider(IClosureTableProvider $provider)
+    public function __construct(IClosureTableProvider $provider)
     {
         $this->provider = $provider;
     }

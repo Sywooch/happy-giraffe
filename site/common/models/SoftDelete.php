@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property Users $user
  */
-class SoftDelete extends CActiveRecord
+class SoftDelete extends HActiveRecord
 {
 
 	/**

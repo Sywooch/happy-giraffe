@@ -19,7 +19,7 @@ use \site\frontend\modules\som\modules\community\models\api\Label;
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\status\models\Moods $moodModel
  */
-class Status extends \CActiveRecord implements \IHToJSON
+class Status extends \HActiveRecord implements \IHToJSON
 {
 
     protected $_author = null;

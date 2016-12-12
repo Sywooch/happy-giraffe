@@ -7,6 +7,7 @@
 namespace site\frontend\modules\som\modules\qa\controllers;
 
 
+use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\components\VotesManager;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
@@ -15,11 +16,12 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaUserRating;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 use site\frontend\modules\som\modules\qa\components\QaManager;
+use site\frontend\modules\specialists\models\SpecialistGroup;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    public static $answerModel = '\site\frontend\modules\som\modules\qa\models\QaAnswer';
-    public static $questionModel = '\site\frontend\modules\som\modules\qa\models\QaQuestion';
+    public static $answerModel = QaAnswer::class;
+    public static $questionModel = QaQuestion::class;
 
     protected function beforeAction($action)
     {
@@ -62,18 +64,36 @@ class ApiController extends \site\frontend\components\api\ApiController
         ));
     }
 
-    public function actionCreateAnswer($questionId, $text)
+    public function actionCreateAnswer($questionId, $text, $answerId = NULL)
     {
-        if (! \Yii::app()->user->checkAccess('createQaAnswer', array('question' => $this->getModel(self::$questionModel, $questionId)))) {
-            throw new \CHttpException(403);
+        /** @var $user \WebUser */
+        $user = \Yii::app()->user;
+
+        /** @var $question QaQuestion */
+        $question = QaQuestion::model()->findByPk($questionId);
+
+        if (is_null($question) || !$question->checkCustomAccessByAnswered($user->getId())) {
+            throw new \CHttpException(403, 'Access Denied');
         }
 
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
         $answer = new self::$answerModel();
-        $answer->attributes = array(
+        $answer->attributes = [
             'questionId' => $questionId,
             'text' => $text,
-        );
+        ];
+
+        if ($answer->validate()) {
+            // Если ответил специалист то не нужно сразу отсылать оповещение и показывать ответ, т.к. на этой дело висит таймаут
+            if ($question->category->isPediatrician() && $answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS)) {
+                $answer->isPublished = false;
+            }
+        }
+
+        if (!is_null($answerId) && QaAnswer::model()->exists('id=' . $answerId)) {
+            $answer->setAttribute('root_id', $answerId);
+        }
+
         $this->success = $answer->save();
         $this->data = $answer;
     }
@@ -82,11 +102,18 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         $question = QaQuestion::model()->findByPk($questionId);
 
+        ContentBehavior::$active = true;
+
         $answers = QaManager::getAnswers($question);
 
+        ContentBehavior::$active = false;
+
         $votes = QaAnswerVote::model()->answers($answers)->user(\Yii::app()->user->id)->findAll(array('index' => 'answerId'));
+
         $_answers = array();
-        foreach ($answers as /*@var $answer QaAnswer */$answer) {
+
+        foreach ($answers as $answer) {
+            /** @var $answer QaAnswer */
             $_answer = $answer->toJSON();
             $_answer['canEdit'] = \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $answer));
             $_answer['canRemove'] = \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $answer));
@@ -116,7 +143,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionVote($answerId)
     {
         $answer = $this->getModel(self::$answerModel, $answerId);
-        if (! \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answer))) {
+        if (!\Yii::app()->user->checkAccess('voteAnswer', array('entity' => $answer))) {
             throw new \CHttpException(403);
         }
         $this->data = VotesManager::changeVote(\Yii::app()->user->id, $answerId);
@@ -137,7 +164,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             'editAnswer' => \CometModel::QA_EDIT_ANSWER,
         );
 
-        if ($this->success == true && in_array($action->id, array_keys($types)))
+        if ($this->success == true && in_array($action->id, array_keys($types))) // @fixme isset, array_key_exists?
         {
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
             $this->send(AnswersWidget::getChannelIdByQuestion($this->data->questionId), $data, $types[$action->id]);

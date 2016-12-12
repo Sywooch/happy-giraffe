@@ -15,11 +15,14 @@ $this->breadcrumbs = array(
 <div class="only-mobile"><a class="consult-specialist_btn btn btn-success btn-xl popup-a login-button" href="<?=$this->createUrl('/som/qa/default/questionAddForm/')?>" data-bind="follow: {}">Задать вопрос</a></div>
 <?php if (empty($query) || $dp->totalItemCount == 0): ?>
     <p>Ничего не найдено</p>
+</div>
 <?php else: ?>
+
 <div class="search-heading">
     <div class="hash-tag-big"></div>
     <div class="heading-link-xxl"> <?=$query?>&nbsp;<span><?=$dp->totalItemCount?></span></div>
     <div class="clearfix"></div>
+</div>
 </div>
 <?php
 $this->widget('LiteListView', array(

@@ -1,5 +1,10 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
+
+use site\common\behaviors\AuthorBehavior;
+use site\frontend\modules\notifications\behaviors\ContentBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
@@ -14,9 +19,14 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  * @property int $dtimeCreate
  * @property int $dtimeUpdate
  * @property bool $isRemoved
+ * @property bool $isPublished
  * @property int $votesCount
  * @property bool $isBest
  * @property int $root_id
+ *
+ * @property-read bool $isTimeoutExpired
+ *
+ * @property-read NotificationBehavior $notificationBehavior
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaQuestion $question
@@ -32,21 +42,28 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 {
     /**
      * Диапазон времени (минут), в течени которого специалист может редактировать свой ответ
-     * 
+     *
      * @var integer
      * @author Sergey Gubarev
      */
     const MINUTES_FOR_EDITING = 5;
-        
+
     /**
      * Время (минут) задержки публикации ответа специалистом на сайте и в сервисе "Мой педиатр"
-     * 
+     *
      * @var integer
      * @author Sergey Gubarev
      */
     const MINUTES_AWAITING_PUBLISHED = 5;
-    
-    
+
+    /**
+     * @return bool
+     */
+    public function getIsTimeoutExpired()
+    {
+        return $this->dtimeCreate <= time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
+    }
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -157,13 +174,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 					'AutoFormat.Linkify' => true,
 				),
 			),
-			'notificationBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
-			),
 			'RatingBehavior' => array(
 				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
 			),
-		    \site\frontend\modules\som\modules\qa\behaviors\QaBehavior::class,
+			'notificationBehavior' => array(
+				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
+			),
+		    'site\frontend\modules\som\modules\qa\behaviors\QaBehavior',
 		);
 	}
 
@@ -182,6 +199,22 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			return false;
 		}
 		return $success;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see CActiveRecord::beforeSave()
+	 */
+	protected function beforeSave()
+	{
+	    $parentResult = parent::beforeSave();
+
+        if ($this->isAdditional())
+        {
+            return $this->authorId == $this->question->authorId;
+        }
+
+        return $parentResult;
 	}
 
 	public function softDelete()
@@ -338,24 +371,24 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
 		return $this;
 	}
-    
+
 	/**
 	 * Доступен ли вопрос для редактирования авторизованному специалисту
-	 * 
+	 *
 	 * @return array
 	 * @author Sergey Gubarev
 	 */
 	public function availableForEditing()
 	{
 	    $time = $this->dtimeUpdate ? $this->dtimeUpdate : $this->dtimeCreate;
-	
+
 	    $diffMins = floor((time() - $time) / 60);
-	
+
 	    $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
-	  
+
 	    return compact('status', 'diffMins');
 	}
-	
+
 	public function defaultScope()
 	{
 		$t = $this->getTableAlias(false, false);

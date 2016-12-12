@@ -8,7 +8,7 @@
  * @property string $type
  * @property string $timestamp
  */
-class MailSendersHistory extends CActiveRecord
+class MailSendersHistory extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

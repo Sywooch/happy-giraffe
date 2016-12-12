@@ -12,7 +12,7 @@
  * @property Keyword $keyword
  * @property SeoUser $owner
  */
-class TempKeyword extends CActiveRecord
+class TempKeyword extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -22,6 +22,9 @@ class RegisterForm extends \CFormModel
     public $password;
     public $avatarSrc;
 
+    /**
+     * @var \User
+     */
     public $user;
     
     public function init()
@@ -70,7 +73,7 @@ class RegisterForm extends \CFormModel
         $this->user->email = $this->email;
         $this->user->password = \User::hashPassword($this->password);
         $this->user->status = \User::STATUS_ACTIVE;
-        
+
         $transaction = \Yii::app()->db->beginTransaction();
         try {
             if ($this->user->save()) {

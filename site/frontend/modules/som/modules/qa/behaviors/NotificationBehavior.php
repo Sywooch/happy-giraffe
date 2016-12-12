@@ -5,6 +5,7 @@
  */
 
 namespace site\frontend\modules\som\modules\qa\behaviors;
+
 use site\frontend\modules\analytics\models\PageView;
 use site\frontend\modules\notifications\behaviors\BaseBehavior;
 use site\frontend\modules\notifications\models\Entity;
@@ -14,28 +15,39 @@ use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 
+/**
+ * @property QaAnswer $owner
+ */
 class NotificationBehavior extends BaseBehavior
 {
-    /**@var int PEDIATRICIAN_TYPE Обычный ответ*/
+    /** Ответ на вопрос от специалиста */
+
+    /**@var int PEDIATRICIAN_TYPE Обычный ответ */
     const PEDIATRICIAN_TYPE = 15;
-    /**@var int ANSWER_BY_PEDIATRICIAN Ответ педиатра*/
+    /**@var int ANSWER_BY_PEDIATRICIAN Ответ педиатра */
     const ANSWER_BY_PEDIATRICIAN = 17;
-    /**@var int ANSWER_TO_ADDITIONAL Ответ на уточняющий вопрос*/
+    /**@var int ANSWER_TO_ADDITIONAL Ответ на уточняющий вопрос */
     const ANSWER_TO_ADDITIONAL = 18;
-    /**@var int ADDITIONAL Утвочняющий вопрос*/
+    /**@var int ADDITIONAL Утвочняющий вопрос */
     const ADDITIONAL = 19;
 
+    /**
+     * Ответ на вопрос ???
+     *
+     * @see Notification::TYPE_ANSWER
+     */
     const TYPE = 10;
 
     public function afterSave($event)
     {
-        /** @var QaAnswer $answer */
         $answer = $this->owner;
-        /** @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question */
-        $question =  $answer->question;
+        $question = $answer->question;
 
-        if ($answer->isNewRecord && $question->sendNotifications) {
-            $this->addNotification($answer, $question);
+        if ($answer->isNewRecord && $question->sendNotifications && !$answer->isAdditional()) {
+            // Если паблишед, отправяем сигнал сразу. Иначе этим будет заниматься отдельный воркер
+            if ($answer->isPublished) {
+                $this->addNotification($answer, $question);
+            }
         }
 
         if ($answer->isRemoved == 1) {
@@ -71,23 +83,27 @@ class NotificationBehavior extends BaseBehavior
         return false;
     }
 
+    public function sendNotification()
+    {
+        return $this->addNotification($this->owner, $this->owner->question);
+    }
+
     /**
      * @param QaAnswer $model
      * @param QaQuestion $question
      */
     protected function addNotification(QaAnswer $model, QaQuestion $question)
     {
-        \CommentLogger::model()->addToLog('NotificationBehavior:addNotification', 'before find data');
         $type = $this->getType($model, $question);
         $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, $type, array($model->authorId, $model->user->avatarUrl));
-        \CommentLogger::model()->addToLog('NotificationBehavior:addNotification', 'after find data');
 
         $notification->entity->tooltip = $question->title;
 
         $entity = new Entity($model);
         $entity->userId = $model->authorId;
         $entity->title = $model->text;
-        $entity->url = $question->url;
+        $entity->tooltip = $question->title;
+
         $notification->unreadEntities[] = $entity;
         $notification->save();
     }
@@ -97,8 +113,11 @@ class NotificationBehavior extends BaseBehavior
      * @param QaQuestion $question
      *
      * @return int
+     *
+     * @fixme думаю надо разобраться с типами в целом, а так же исключить PEDIATRICIAN_TYPE (10), т.к. он разбит на несколько других типов
      */
-    private function getType(QaAnswer $answer, QaQuestion $question) {
+    private function getType(QaAnswer $answer, QaQuestion $question)
+    {
         $type = $question->categoryId == QaCategory::PEDIATRICIAN_ID ? self::PEDIATRICIAN_TYPE : self::TYPE;
 
         if ($type == self::TYPE) {

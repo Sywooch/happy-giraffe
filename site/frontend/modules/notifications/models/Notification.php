@@ -2,6 +2,9 @@
 
 namespace site\frontend\modules\notifications\models;
 
+use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\VoteNotificationBehavior;
+
 /**
  * Description of Notification
  *
@@ -15,7 +18,6 @@ class Notification extends \EMongoDocument implements \IHToJSON
     /**
      * Новый комментарий
      */
-
     const TYPE_USER_CONTENT_COMMENT = 0;
 
     /**
@@ -44,6 +46,8 @@ class Notification extends \EMongoDocument implements \IHToJSON
     const TYPE_NEW_FAVOURITE = 6;
 
     /**
+     * @see NotificationBehavior
+     * @see VoteNotificationBehavior
      *
      * @var int Тип оповещения (см константы TYPE_*)
      */
@@ -128,12 +132,14 @@ class Notification extends \EMongoDocument implements \IHToJSON
                 'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
             ],
             'embededUnreadEntities' => [
-                'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
+                'class' => \EEmbeddedArraysBehavior::class,
+                // 'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'unreadEntities',
                 'arrayDocClassName' => 'site\frontend\modules\notifications\models\Entity'
             ],
             'embededReadEntities' => [
-                'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
+                'class' => \EEmbeddedArraysBehavior::class,
+                // 'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'readEntities',
                 'arrayDocClassName' => 'site\frontend\modules\notifications\models\Entity'
             ],
@@ -313,7 +319,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
     /**
      * Фильтр по событиям на определённую сущность
      * @param mixed $entity Модель с int атрибутом id или массив array('entity' => class, 'entityId' => id)
-     * @return \site\frontend\modules\notifications\models\DiscussSubscription
+     * @return $this
      */
     public function byEntity($entity)
     {

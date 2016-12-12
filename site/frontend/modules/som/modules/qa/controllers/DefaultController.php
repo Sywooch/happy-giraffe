@@ -13,6 +13,7 @@ use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
 
 class DefaultController extends QaController
 {

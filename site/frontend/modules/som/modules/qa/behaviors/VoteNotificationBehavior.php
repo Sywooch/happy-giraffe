@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\som\modules\qa\behaviors;
+
 use site\frontend\modules\notifications\behaviors\BaseBehavior;
 use site\frontend\modules\notifications\models\Entity;
 use site\frontend\modules\notifications\models\Notification;
@@ -64,8 +65,9 @@ class VoteNotificationBehavior extends BaseBehavior
         $notification = $this->findOrCreateNotification(get_class($answer), $answer->id, $answer->authorId, $type, array($vote->userId, $vote->user->avatarUrl));
         $entity = new Entity($vote);
         $entity->userId = $vote->userId;
-
         $entity->title = $answer->text;
+        $entity->url = $answer->question->url;
+        $entity->tooltip = $answer->question->title;
 
         $notification->unreadEntities[] = $entity;
         $notification->save();

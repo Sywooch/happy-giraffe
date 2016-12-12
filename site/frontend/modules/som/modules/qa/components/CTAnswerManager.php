@@ -32,7 +32,7 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
         
         try {
             /** @var QaCTAnswer $node */
-            if (!$node = $this->getManager()->createNode([$content, $authorId])) {
+            if (!$node = $this->getManager()->createNode([$content, $authorId, $subject->getSubjectId()])) {
                 throw new \Exception('fail create');
             }
             if (!$this->getManager()->attach($node, $subject->getSubjectId(), $subject instanceof INode ? $subject : null)) {
@@ -67,7 +67,7 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
     {
         return count($this->getAnswers());
     }
-    
+
     /**
      * @param QaCTAnswer $answer
      * @return int|null
@@ -135,6 +135,11 @@ SQL;
     public function fetchNodes(array $id)
     {
         return QaCTAnswer::model()->findAllByPk($id, ['index' => 'id']);
+    }
+
+    public function getAncestors($subjectId, $ancestorId)
+    {
+        return QaCTAnswerTreeNode::model()->find()->byDescendantId($ancestorId)->bySubjectId($subjectId)->findAll();
     }
 #endregion
 }

@@ -15,7 +15,7 @@ interface IClosureTableProvider
      * @param $level
      * @param $idSubject
      * @param $idNearestAncestor
-     * @return mixed
+     * @return ITreeNode
      */
     public function createNodeTree($idAncestor, $idDescendant, $level, $idSubject, $idNearestAncestor);
     
@@ -24,7 +24,7 @@ interface IClosureTableProvider
      * [[node.id, node.content, tree.id_ancestor, tree.id_descendant, tree.id_nearest_ancestor, tree.level]]
      *
      * @param $subjectId
-     * @return object[]
+     * @return array[]
      */
     public function fetchTree($subjectId);
     
@@ -35,4 +35,11 @@ interface IClosureTableProvider
      * @return INode[]
      */
     public function fetchNodes(array $id);
+
+    /**
+     * @param $subjectId
+     * @param $ancestorId
+     * @return ITreeNode[]
+     */
+    public function getAncestors($subjectId, $ancestorId);
 }

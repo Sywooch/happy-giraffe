@@ -5,6 +5,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 use site\common\components\closureTable\INode;
 use site\frontend\components\api\ApiRelation;
 use site\frontend\components\api\models\User;
+use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
@@ -18,39 +19,42 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  *
  * @property-read int $votesCount алиас
  * @property string $text алиас
+ * @property-read $authorId алиас
  *
  * @property-read \User $author
  * @property-read User $user
  * @property-read QaQuestion $question
+ *
+ * @property-read \PurifiedBehavior $purified
  */
-class QaCTAnswer extends \HActiveRecord implements INode
+class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
 {
     public function tableName()
     {
         return 'qa__answers_new';
     }
-    
+
     public function rules()
     {
         return [
             ['content', 'required'],
         ];
     }
-    
+
     public function relations()
     {
         return [
             'author' => [static::BELONGS_TO, \User::class, 'id_author'],
         ];
     }
-    
+
     public function apiRelations()
     {
         return [
             'user' => [ApiRelation::class, User::class, 'id_author', 'params' => ['avatarSize' => 40]],
         ];
     }
-    
+
     public function behaviors()
     {
         return [
@@ -66,9 +70,10 @@ class QaCTAnswer extends \HActiveRecord implements INode
                     'AutoFormat.Linkify' => true,
                 ],
             ],
+            QaBehavior::class,
         ];
     }
-    
+
     /**
      * @return QaQuestion
      */
@@ -76,7 +81,7 @@ class QaCTAnswer extends \HActiveRecord implements INode
     {
         return QaQuestion::model()->findByPk(CTAnswerManager::findSubject($this));
     }
-    
+
 #region QaAnswer BC
     /**
      * @return bool
@@ -85,20 +90,25 @@ class QaCTAnswer extends \HActiveRecord implements INode
     {
         return $this->author->isSpecialist;
     }
-    
+
     public function getVotesCount()
     {
         return $this->votes_count;
     }
-    
+
     public function getText()
     {
         return $this->content;
     }
-    
+
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getAuthorId()
+    {
+        return $this->id_author;
     }
 #endregion
 
@@ -107,7 +117,7 @@ class QaCTAnswer extends \HActiveRecord implements INode
      * @var INode[]
      */
     protected $_childes = [];
-    
+
     /**
      * @inheritdoc
      */
@@ -115,5 +125,25 @@ class QaCTAnswer extends \HActiveRecord implements INode
     {
         $this->_childes[] = $node;
     }
+
 #endregion
+
+    public function toJSON()
+    {
+        return [
+            'user' => $this->user->toJSON(),
+            'dtimeCreate' => $this->dtimeCreate,
+            'text' => $this->purified->text,
+            'votesCount' => $this->votes_count,
+            'canEdit' => false,
+            'canRemove' => false,
+            'canVote' => false,
+            'isVoted' => false,
+            'isAdditional' => false,
+            'isAnswerToAdditional' => false,
+            'isSpecialistAnswer' => false,
+            'root_id' => null,
+            'can_answer' => $this->question->answerManager->canAnswer($this, \Yii::app()->user->getModel()),
+        ];
+    }
 }

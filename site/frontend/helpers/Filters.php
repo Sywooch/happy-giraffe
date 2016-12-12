@@ -39,7 +39,7 @@ class Filters
         {
             $char = mb_substr($value, $i, 1, 'UTF-8');
 
-            if (preg_match("#^[aA-zZаА-яЯ0-9-_\\s]+$#", $char))
+            if (preg_match('/^[а-яА-Яa-zA-Z0-9-_\\s]+/', $char))
             {
                 $str .= $char;
             }
@@ -50,5 +50,22 @@ class Filters
         }
 
         return $str;
+    }
+
+    /**
+     * Преобразует строку с unicode кодами в строку с символами
+     *
+     * @param   string $value Значение
+     * @return  string
+     * @author Sergey Gubarev
+     */
+    public static function decodeUnicodeToString($value)
+    {
+        if (preg_match('/[^\w$\x{0080}-\x{FFFF}]+/u', $value))
+        {
+            return json_decode('"' . $value . '"');
+        }
+
+        return $value;
     }
 }

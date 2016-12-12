@@ -42,6 +42,7 @@ use site\frontend\modules\som\modules\qa\components\QaQuestionsList;
  * @property \site\frontend\components\api\models\User $user
  *
  * @property-read BaseAnswerManager $answerManager
+ * @property-read \PurifiedBehavior $purified
  */
 class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
 {
@@ -63,6 +64,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function __get($name)
     {
         if ($name == 'answersCount' && !is_null($this->category) && $this->category->isPediatrician()) {
+            return $this->answerManager->getAnswersCount();
             return QaManager::getAnswersCountPediatorQuestion($this->id);
         }
         

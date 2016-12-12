@@ -29,10 +29,12 @@ if (! Yii::app()->user->isGuest) {
     }
     else {
         $cs->registerPackage('ko_menu');
-        ?><script type="text/javascript">
+        ?>
+        <script type="text/javascript">
             menuVm = new MenuViewModel(<?=CJSON::encode($this->menuData)?>);
             ko.applyBindings(menuVm, $('.layout-header')[0]);
-        </script><?php
+        </script>
+        <?php
     }
 }
 ?>

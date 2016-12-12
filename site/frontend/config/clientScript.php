@@ -670,6 +670,18 @@ return array(
         'lite_faq' => array(
             'depends' => array('lite_services'),
         ),
+        'lite_new_pediatrician' => array(
+//             'depends' => array('lite_services'),
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'app/builds/static/css/main.min.css',
+            ),
+            'js' => array(
+                'app/builds/static/js/main.min.js',
+            ),
+
+        ),
         'lite_faq_user' => array(
             'depends' => array('lite_services_user'),
         ),

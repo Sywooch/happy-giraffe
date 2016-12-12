@@ -95,12 +95,12 @@ class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
     {
         return $this->votes_count;
     }
-
+    
     public function getText()
     {
         return $this->content;
     }
-
+    
     public function getId()
     {
         return $this->id;
@@ -111,6 +111,28 @@ class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
         return $this->id_author;
     }
 #endregion
+
+    public function orderDesc()
+    {
+        $this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
+        return $this;
+    }
+
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+        return array(
+            'condition' => $t . '.is_removed = 0',
+        );
+    }
+
+    /**
+     * @return boolean
+     */
+    public function authorIsSpecialist()
+    {
+        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->id_author]);
+    }
 
 #region INode
     /**

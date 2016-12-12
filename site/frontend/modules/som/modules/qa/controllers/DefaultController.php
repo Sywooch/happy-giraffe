@@ -14,29 +14,31 @@ use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 
 class DefaultController extends QaController
 {
     const TAB_NEW = 'new';
     const TAB_POPULAR = 'popular';
     const TAB_UNANSWERED = 'unanswered';
-    
+    const TAB_All = 'all';
+
     /**
      * Открыт ли отдельный вопрос
      *
      * @var bool isQuestion
      */
     public $isQuestion = false;
-    
+
     public $litePackage = 'qa';
-    
+
     public function filters()
     {
         return [
             'accessControl',
         ];
     }
-    
+
     public function accessRules()
     {
         return [
@@ -46,11 +48,11 @@ class DefaultController extends QaController
             ],
         ];
     }
-    
+
     public function actionIndex($tab, $categoryId = null, $tagId = null)
     {
         $dp = $this->getDataProvider($tab, $categoryId, $tagId);
-        
+
         if ($categoryId === null) {
             $category = null;
         } else {
@@ -59,22 +61,53 @@ class DefaultController extends QaController
                 throw new \CHttpException(404);
             }
         }
-        
+
         $this->render('index', compact('dp', 'tab', 'categoryId', 'category'));
     }
-    
+
+    public function actionPediatrician($tab, $tagId = null)
+    {
+        $this->layout       = '/layouts/pediatrician';
+
+        if ($tab == self::TAB_All)
+        {
+            $dp = new \CActiveDataProvider(QaCTAnswer::model()->orderDesc(), array(
+                'pagination' => array(
+                    'pageVar' => 'page',
+                ),
+            ));
+        } else {
+            $dp = $this->getDataProvider($tab, QaCategory::PEDIATRICIAN_ID, $tagId);
+        }
+
+        $this->render('pediatrician', compact('dp', 'tab'));
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see LiteController::beforeAction()
+     */
+    protected function beforeAction($action)
+    {
+        if ($action->id == 'pediatrician')
+        {
+            $this->litePackage = 'new_pediatrician';
+        }
+
+        return parent::beforeAction($action);
+    }
+
     public function actionView($id, $tab = null, $category = null)
     {
-        \Yii::app()->clientScript->registerCssFile('/lite/css/min/main.min.css');
         $this->isQuestion = true;
-        
+
         ContentBehavior::$active = true;
         $question = $this->getModel($id);
         ContentBehavior::$active = false;
-
+        
         $this->render('view', compact('question', 'tab', 'category'));
     }
-    
+
     public function actionSearch($query = '', $categoryId = null)
     {
         $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category'), [
@@ -88,25 +121,25 @@ class DefaultController extends QaController
                 'pageVar' => 'page',
             ],
         ]);
-        
+
         $this->render('search', compact('dp', 'query', 'categoryId'));
     }
-    
+
     protected function getDataProvider($tab, $categoryId, $tagId = null)
     {
         $model = $this->_sortByTabAndCategory($tab, $categoryId, $tagId);
-        
+
         return new \CActiveDataProvider($model, [
             'pagination' => [
                 'pageVar' => 'page',
             ],
         ]);
     }
-    
+
     public function actionQuestionAddForm($consultationId = null, $redirectUrl = null)
     {
         $this->layout = '//layouts/lite/common';
-        
+
         $question = new QaQuestion();
         $this->performAjaxValidation($question);
         if ($consultationId !== null) {
@@ -117,12 +150,12 @@ class DefaultController extends QaController
             $question->consultationId = $consultationId;
             $question->scenario = 'consultation';
         }
-        
+
         if (isset($_POST[\CHtml::modelName($question)])) {
             $params = $_POST[\CHtml::modelName($question)];
-            
+
             $question->attributes = $params;
-            
+
             if ($question->category && count($question->category->tags) > 0) {
                 $question->setScenario('tag');
                 $question->tag_id = isset($params['tag_id']) ? $params['tag_id'] : null;
@@ -135,51 +168,51 @@ class DefaultController extends QaController
                 $this->redirect($url);
             }
         }
-        
+
         $this->render('form', [
             'model' => $question,
             'categories' => QaCategory::model()->sorted()->with('tags')->findAll(),
         ]);
     }
-    
+
     public function actionQuestionEditForm($questionId)
     {
         $question = $this->getModel($questionId);
         if (!\Yii::app()->user->checkAccess('manageQaQuestion', ['entity' => $question])) {
             throw new \CHttpException(403);
         }
-        
+
         $this->layout = '//layouts/lite/common';
         $this->performAjaxValidation($question);
-        
+
         if ($question->consultationId !== null) {
             $question->scenario = 'consultation';
         }
-        
+
         if (isset($_POST[\CHtml::modelName($question)])) {
             $params = $_POST[\CHtml::modelName($question)];
-            
+
             $question->attributes = $params;
             $category = QaCategory::model()->with('tags')->findByPk($question->categoryId);
-            
+
             if ($category && count($category->tags) > 0) {
                 $question->setScenario('tag');
                 $question->tag_id = isset($params['tag_id']) ? $params['tag_id'] : null;
             } else {
                 $question->tag_id = null;
             }
-            
+
             if ($question->save()) {
                 $this->redirect($question->url);
             }
         }
-        
+
         $this->render('form', [
             'model' => $question,
             'categories' => QaCategory::model()->sorted()->with('tags')->findAll(),
         ]);
     }
-    
+
     /**
      * @param QaQuestion $question
      * @return QaQuestion|null
@@ -188,7 +221,7 @@ class DefaultController extends QaController
     {
         return $question->previous()->category($question->categoryId)->find();
     }
-    
+
     /**
      * @param QaQuestion $question
      * @return QaQuestion|null
@@ -197,7 +230,7 @@ class DefaultController extends QaController
     {
         return $question->next()->category($question->categoryId)->find();
     }
-    
+
     /**
      * @param string $tab
      * @param integer $categoryId
@@ -207,19 +240,19 @@ class DefaultController extends QaController
     private function _sortByTabAndCategory($tab, $categoryId, $tagId = null)
     {
         $model = clone QaQuestion::model();
-        
+
         $model->apiWith('user')->with('category');
-        
+
         if ($categoryId !== null) {
             $model->category($categoryId);
-            
+
             if (!is_null($tagId)) {
                 $model->byTag($tagId);
             }
         } else {
             $model->notConsultation();
         }
-        
+
         switch ($tab) {
             case self::TAB_NEW:
                 $model->orderDesc();
@@ -233,10 +266,10 @@ class DefaultController extends QaController
                     ->orderDesc();
                 break;
         }
-        
+
         return $model;
     }
-    
+
     /**
      * @param integer $pk
      * @throws \CHttpException
@@ -249,11 +282,11 @@ class DefaultController extends QaController
         if ($question === null) {
             throw new \CHttpException(404);
         }
-        
+
         return $question;
     }
-    
-    
+
+
     protected function performAjaxValidation($model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'question-form') {
@@ -261,5 +294,5 @@ class DefaultController extends QaController
             \Yii::app()->end();
         }
     }
-    
+
 }

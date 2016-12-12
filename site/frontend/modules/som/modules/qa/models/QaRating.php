@@ -1,5 +1,8 @@
 <?php
+
 namespace site\frontend\modules\som\modules\qa\models;
+
+use site\frontend\modules\api\ApiModule;
 
 /**
  * This is the model class for table "qa__rating".
@@ -70,7 +73,7 @@ class QaRating extends \HActiveRecord
     {
         return array(
             'CacheDelete' => array(
-                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+                'class' => ApiModule::CACHE_DELETE,
             ),
         );
     }

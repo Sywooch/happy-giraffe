@@ -127,7 +127,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 		}
 
 		return $matchedAnswers;
-
 	}
 
 	/**

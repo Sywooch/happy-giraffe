@@ -4,6 +4,9 @@ namespace site\frontend\modules\som\modules\qa\components;
 
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
+/**
+ * Класс, отвечающий на связь Question -> Answers
+ */
 abstract class BaseAnswerManager
 {
     /**

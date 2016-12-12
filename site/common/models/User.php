@@ -2,6 +2,7 @@
 
 use site\frontend\modules\family\models\Family;
 use site\frontend\modules\family\models\FamilyMember;
+
 /**
  * This is the model class for table "user".
  *
@@ -73,6 +74,7 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property string $publicChannel Имя публичного канала пользователя (в который отправляются события online/offline)
  * @property site\frontend\modules\specialists\models\SpecialistProfile $specialistProfile
  * @property-read bool $isSpecialist
+ * @property-read string $fullName
  *
  * @method User active()
  */

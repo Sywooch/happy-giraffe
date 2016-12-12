@@ -109,7 +109,7 @@ class DefaultController extends QaController
 
         ContentBehavior::$active = false;
         
-        $this->render('view', compact('question', 'tab', 'category'));
+        $this->render('_view', compact('question', 'tab', 'category'));
     }
 
     public function actionSearch($query = '', $categoryId = null)

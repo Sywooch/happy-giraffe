@@ -8,6 +8,7 @@ use site\common\components\closureTable\INode;
 use site\common\components\closureTable\ITreeNode;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswerTreeNode;
+use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
 {
@@ -18,7 +19,7 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
     {
         return new ClosureTableManager($this);
     }
-    
+
     /**
      * @param int $authorId
      * @param string $content
@@ -29,7 +30,7 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
     public function createAnswer($authorId, $content, $subject)
     {
         $transaction = \Yii::app()->db->beginTransaction();
-        
+
         try {
             /** @var QaCTAnswer $node */
             if (!$node = $this->getManager()->createNode([$content, $authorId, $subject->getSubjectId()])) {
@@ -38,16 +39,16 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
             if (!$this->getManager()->attach($node, $subject->getSubjectId(), $subject instanceof INode ? $subject : null)) {
                 throw new \Exception('fail attach');
             }
-            
+
             $transaction->commit();
-            
+
             return $node;
         } catch (\Exception $ex) {
             $transaction->rollback();
             throw $ex;
         }
     }
-    
+
     /**
      * @param QaCTAnswer $answer
      * @param \User $user
@@ -57,12 +58,12 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
     {
         return $answer->id_author != $user->id;
     }
-    
+
     public function getAnswers()
     {
         return $this->getManager()->getNodeTree($this->question->getSubjectId());
     }
-    
+
     public function getAnswersCount()
     {
         return count($this->getAnswers());
@@ -76,7 +77,7 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
     {
         /** @var ITreeNode $treeNode */
         $treeNode = QaCTAnswerTreeNode::model()->byAncestorId($answer->getId())->byDescendantId($answer->getId())->find();
-        
+
         return $treeNode ? $treeNode->getSubjectId() : null;
     }
 
@@ -87,14 +88,14 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
     public function createNode(array $params = [])
     {
         list($content, $authorId) = $params;
-        
+
         $answer = new QaCTAnswer();
         $answer->content = $content;
         $answer->id_author = $authorId;
-        
+
         return $answer->save() ? $answer : null;
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -106,17 +107,17 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
         $treeNode->level = $level;
         $treeNode->id_subject = $idSubject;
         $treeNode->id_nearest_ancestor = $idNearestAncestor;
-        
+
         return $treeNode->save() ? $treeNode : null;
     }
-    
+
     /**
      * @inheritdoc
      */
     public function fetchTree($subjectId)
     {
         $sql = <<<SQL
-        SELECT 
+        SELECT
           nodes.id, nodes.content, tree.id_ancestor, tree.id_descendant, tree.id_nearest_ancestor, tree.level
         FROM
           qa__answers_new AS nodes
@@ -125,10 +126,10 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
         WHERE
           tree.id_subject = {$subjectId}
 SQL;
-        
+
         return \Yii::app()->db->createCommand($sql)->queryAll(true);
     }
-    
+
     /**
      * @inheritdoc
      */

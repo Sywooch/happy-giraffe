@@ -20,7 +20,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
 <div class="answers">
 
-    <div class="answers_heading">Ответы:<span><?= $question->answerManager->getAnswersCount() ?></span></div>
+    <div class="answers_heading">Ответы: <span><?= $question->answerManager->getAnswersCount() ?></span></div>
     <ul class="questions margin-t40">
         <? foreach ($question->answerManager->getAnswers() as $answer): ?>
             <?= $this->render('_answer', ['answer' => $answer]) ?>

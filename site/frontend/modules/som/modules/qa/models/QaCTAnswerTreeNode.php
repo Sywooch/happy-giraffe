@@ -31,6 +31,13 @@ class QaCTAnswerTreeNode extends \HActiveRecord implements ITreeNode
         
         return $this;
     }
+
+    public function bySubjectId($subjectId)
+    {
+        $this->getDbCriteria()->addColumnCondition(['id_subject' => $subjectId]);
+
+        return $this;
+    }
     
 #region ITreeNode
     public function getAncestorId()

@@ -17,7 +17,6 @@ use site\frontend\modules\som\modules\qa\models\QaAnswer;
 
 class DefaultController extends QaController
 {
-    
     const TAB_NEW = 'new';
     const TAB_POPULAR = 'popular';
     const TAB_UNANSWERED = 'unanswered';
@@ -66,6 +65,7 @@ class DefaultController extends QaController
     
     public function actionView($id, $tab = null, $category = null)
     {
+        \Yii::app()->clientScript->registerCssFile('/lite/css/min/main.min.css');
         $this->isQuestion = true;
         
         ContentBehavior::$active = true;
@@ -129,7 +129,7 @@ class DefaultController extends QaController
             } else {
                 $question->tag_id = null;
             }
-            
+
             if ($question->save()) {
                 $url = $redirectUrl ?: $question->url;
                 $this->redirect($url);
@@ -245,6 +245,7 @@ class DefaultController extends QaController
     protected function getModel($pk)
     {
         $question = QaQuestion::model()->with('category')->findByPk($pk);
+
         if ($question === null) {
             throw new \CHttpException(404);
         }

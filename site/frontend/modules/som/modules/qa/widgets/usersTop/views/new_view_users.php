@@ -37,7 +37,7 @@ function getColorClassViewUsers($position)
                         </a>
                     </div>
                     <div class="b-sidebar-content__box">
-                    	<a href="<?=$row['user']->profileUrl?>" class="b-sidebar-content__link b-sidebar-content__link--white"><?=$row['user']->fullName?></a>
+                    	<a href="<?=$row['user']->profileUrl?>" class="b-sidebar-content__link b-sidebar-content__link--white"><?=$this->formattedName($row['user']->fullName)?></a>
                     	<span class="b-sidebar-content__answer b-sidebar-content__answer--white"> Ответы <?=$row['answers']?></span>
                         <span class="b-sidebar-content__thank b-sidebar-content__thank--white"><?=$row['votes']?></span>
                     </div>

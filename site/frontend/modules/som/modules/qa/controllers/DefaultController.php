@@ -15,6 +15,8 @@ use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
+use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
+use site\frontend\modules\som\modules\qa\components\QaObjectList;
 
 class DefaultController extends QaController
 {
@@ -68,20 +70,21 @@ class DefaultController extends QaController
 
     public function actionPediatrician($tab, $tagId = null)
     {
-        $this->layout       = '/layouts/pediatrician';
-
         if ($tab == self::TAB_All)
         {
-            $dp = new \CActiveDataProvider(QaCTAnswer::model()->orderDesc(), array(
-                'pagination' => array(
+            $dp = new \CActiveDataProvider(QaCTAnswer::model()->orderDesc(), [
+                'pagination' => [
                     'pageVar' => 'page',
-                ),
-            ));
+                ]
+            ]);
+
+            $votesList = new QaObjectList(QaAnswerVote::model()->user(\Yii::app()->user->id)->findAll());
+
         } else {
             $dp = $this->getDataProvider($tab, QaCategory::PEDIATRICIAN_ID, $tagId);
         }
 
-        $this->render('pediatrician', compact('dp', 'tab'));
+        $this->render('pediatrician', compact('dp', 'tab', 'votesList'));
     }
 
     /**
@@ -90,8 +93,14 @@ class DefaultController extends QaController
      */
     protected function beforeAction($action)
     {
-        if ($action->id == 'pediatrician')
+        $newDesigneActions = [
+            'pediatrician',
+            'search',
+        ];
+
+        if (in_array($action->id, $newDesigneActions))
         {
+            $this->layout       = '/layouts/pediatrician';
             $this->litePackage = 'new_pediatrician';
         }
 
@@ -111,6 +120,8 @@ class DefaultController extends QaController
 
     public function actionSearch($query = '', $categoryId = null)
     {
+        $this->layout       = '/layouts/search_pediatrician';
+
         $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category'), [
             'sphinxCriteria' => [
                 'select' => '*',
@@ -123,7 +134,7 @@ class DefaultController extends QaController
             ],
         ]);
 
-        $this->render('search', compact('dp', 'query', 'categoryId'));
+        $this->render('new_search', compact('dp', 'query', 'categoryId'));
     }
 
     protected function getDataProvider($tab, $categoryId, $tagId = null)

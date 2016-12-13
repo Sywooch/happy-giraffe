@@ -5,7 +5,7 @@
     <nav class="header__menu header__menu--style">
         <ul class="header__list">
             <li class="header__li"><a href="<?=$this->createUrl('/posts/forums/default/index')?>" class="header__link header__link--forum">Форумы</a></li>
-            <li class="header__li"><a href="<?=$this->createUrl('/som/qa/default/index')?>" class="header__link header__link--answer">Педиатр</a></li>
+            <li class="header__li"><a href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="header__link header__link--answer">Педиатр</a></li>
             <li class="header__li"><a href="<?=$this->createUrl('/posts/blogs/default/index')?>" class="header__link header__link--blog">Блоги</a></li>
             <li class="header__li"><a href="<?=$this->createUrl('/posts/buzz/list/index')?>" class="header__link header__link--life">Жизнь</a></li>
         </ul>

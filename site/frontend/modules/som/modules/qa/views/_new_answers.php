@@ -4,8 +4,19 @@ use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
 
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
- * @var \site\frontend\modules\som\modules\qa\models\QaCTAnswer $data
+ * @var site\frontend\modules\som\modules\qa\models\QaCTAnswer $data
+ * @var site\frontend\modules\som\modules\qa\components\QaObjectList $additionalData
  */
+
+$hasVote = FALSE;
+
+if (!is_null($additionalData))
+{
+    $voteList = $additionalData->sortedByField('answerId', $data->id);
+    $hasVote = !$voteList->isEmpty();
+}
+
+var_dump($hasVote);
 ?>
 <li class="b-answer__item">
     <div class="b-pediator-answer">
@@ -27,11 +38,11 @@ use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
             </div>
             <div class="b-pedaitor-answer__footer__item"><a href="javascript:void(0);" class="b-answer-footer__comment"><?=$data->getQuestion()->getAnswerManager()->getAnswersCount()?></a>
                 <?php if (\Yii::app()->user->isGuest) { ?>
-            		<button type="button" class="btn-answer btn-answer--theme-green btn-answer--active login-button" data-bind="follow: {}">
+            		<button type="button" class="btn-answer btn-answer--theme-green login-button <?=$hasVote ? 'btn-answer--active' : ''?>" data-bind="follow: {}">
                     	<span class="btn-answer__num btn-answer__num--theme-green">Спасибо <?=$data->votes_count?></span>
                     </button>
     			<?php } else { ?>
-    				<pediatrician-vote params="count: <?=$data->votes_count?>, answerId:<?=$data->id?>"></pediatrician-vote>
+    				<pediatrician-vote params="count: <?=$data->votes_count?>, answerId:<?=$data->id?>, hasVote:<?=$hasVote ? 1:0?>"></pediatrician-vote>
     			<?php } ?>
             </div>
         </div>

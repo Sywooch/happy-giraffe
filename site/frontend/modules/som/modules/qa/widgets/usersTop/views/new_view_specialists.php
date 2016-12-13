@@ -36,7 +36,7 @@ function getColorClassViewSpecialists($position)
                         </a>
                     </div>
                     <div class="b-sidebar-content__box">
-                    	<a href="<?=$row['user']->profileUrl?>" class="b-sidebar-content__link"><?=$row['user']->fullName?></a>
+                    	<a href="<?=$row['user']->profileUrl?>" class="b-sidebar-content__link"><?=$this->formattedName($row['user']->fullName)?></a>
                     	<span class="b-sidebar-content__answer b-sidebar-content__answer--grey"> Ответы <?=$row['answers']?></span>
                     	<span class="b-sidebar-content__thank b-sidebar-content__thank--grey"><?=$row['votes']?></span>
                     </div>

@@ -17,6 +17,12 @@ $tagEnum = new Enum();
  <div class="b-text--left b-margin--bottom_40">
     <div class="b-filter-year">
         <ul class="b-filter-year__list">
+        	<li class="b-filter-year__li">
+        		<a href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="b-filter-year__link">
+        			Все
+        			<span><?=$questions->getCount()?></span>
+        		</a>
+			</li>
         	<?php foreach ($tags as $tag) {?>
             	<li class="b-filter-year__li">
             		<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id])?>" class="b-filter-year__link">

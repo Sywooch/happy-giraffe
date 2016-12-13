@@ -11,10 +11,8 @@ $this->pageTitle = 'Мой педиатр';
 
 $breadcrumbs = [
     'Главная' => ['/site/index'],
+    'Мой педиатр',
 ];
-
-$breadcrumbs[] = 'Мой педиатр';
-
 ?>
 <div class="b-col b-col--6 b-hidden-md">
 	<div class="b-breadcrumbs b-breadcrumbs--theme-default">
@@ -56,9 +54,6 @@ $breadcrumbs[] = 'Мой педиатр';
 </div>
 
 <?php
-
-$class = 'b-col b-col--6 b-col-sm--10 b-col-xs';
-
 $mobileBlock =
 '<div class="b-mobile-nav">
     <div class="b-mobile-nav__title">Мой педиатор</div>
@@ -73,16 +68,17 @@ if ($tab == $this::TAB_All)
     $itemView = '/_new_answers';
 }
 
-$this->widget('LiteListView', array(
-    'dataProvider'  => $dp,
-    'itemView'      => $itemView,
-    'htmlOptions'   => array(
-        'class' => $class
-    ),
-    'itemsTagName' => 'ul',
-    'itemsCssClass' => 'b-answer b-answer--theme-pediator',
-    'template' => $mobileBlock . '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
-    'pager' => [
+$this->widget('LiteListView', [
+    'dataProvider'      => $dp,
+    'itemView'          => $itemView,
+    'additionalData'    => isset($votesList) ? $votesList : NULL,
+    'htmlOptions'       => [
+        'class' => 'b-col b-col--6 b-col-sm--10 b-col-xs',
+    ],
+    'itemsTagName'      => 'ul',
+    'itemsCssClass'     => 'b-answer b-answer--theme-pediator',
+    'template'          => $mobileBlock . '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
+    'pager'             => [
         'class'           => 'LitePagerDots',
         'prevPageLabel'   => '&nbsp;',
         'nextPageLabel'   => '&nbsp;',
@@ -90,5 +86,5 @@ $this->widget('LiteListView', array(
         'showButtonCount' => 5,
         'dotsLabel'       => '<li class="page-points">...</li>'
     ]
-));
+]);
 ?>

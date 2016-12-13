@@ -48,7 +48,7 @@ class NotificationCommand extends CConsoleCommand
         $cnt = 0;
 
         foreach ($models as $model) {
-            if (!$model->question || !$model->category) { // ебал в рот целостность БД
+            if (!$model->question || !$model->category) { // целостность БД
                 continue;
             }
 

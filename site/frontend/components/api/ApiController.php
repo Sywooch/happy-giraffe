@@ -167,7 +167,7 @@ class ApiController extends \CController
         $code = method_exists($exception, 'getCode') ? $exception->getCode() : $exception->code;
         $message = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;
 
-        http_response_code($code);
+        http_response_code(isset($exception->statusCode) && $exception->statusCode ? $exception->statusCode : $code);
 
         $this->success = false;
         $this->errorCode = $code;

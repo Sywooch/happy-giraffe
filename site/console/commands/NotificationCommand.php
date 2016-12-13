@@ -42,12 +42,16 @@ class NotificationCommand extends CConsoleCommand
     public function actionSendNotifications()
     {
         $models = QaAnswer::model()->findAll([
-            'condition' => 'isPublished = 0'
+            'condition' => 'isPublished = 0',
         ]);
 
         $cnt = 0;
 
         foreach ($models as $model) {
+            if (!$model->question || !$model->category) { // ебал в рот целостность БД
+                continue;
+            }
+
             if ($model->isTimeoutExpired) {
                 $model->isPublished = 1;
 

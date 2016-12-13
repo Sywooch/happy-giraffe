@@ -76,6 +76,7 @@ return array(
         '<_v>/api/specialists/<action:(categories|experience|terms|check-terms|specialization|education|courses|career)>' => 'api/<_v>/api/specialists',
         '<_v>/api/specialists/specializations' => 'api/<_v>/api/specializations',
         '<_v>/api/specialists/register/social' => 'api/<_v>/api/specialists-register',
+        '<_v>/api/geo/<action:(countries|cities)>' => 'api/<_v>/api/geo',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

@@ -46,6 +46,7 @@ class NotificationCommand extends CConsoleCommand
         ]);
 
         $cnt = 0;
+
         $count = new stdClass();
         $count->updated = 0;
         $count->broken = 0;

@@ -12,19 +12,6 @@ $this->renderSidebarClip();
         <?php $this->renderPartial('/_sidebar/new_ask');?>
        	<?php $this->renderPartial('/_sidebar/new_menu');?>
         <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\Statistic\CommonStatistic'); ?>
-        <?php
-            $this->widget('site\frontend\modules\som\modules\qa\widgets\usersTop\NewUsersTopWidget', [
-                'titlePrefix'   => 'Педиатр',
-                'onlyUsers'     => FALSE,
-                'viewFileName'  => 'new_view_specialists',
-            ]);
-         ?>
-        <?php
-            $this->widget('site\frontend\modules\som\modules\qa\widgets\usersTop\NewUsersTopWidget', [
-                'titlePrefix'   => 'Знаток',
-                'viewFileName'  => 'new_view_users',
-            ]);
-        ?>
     </aside>
 </div>
 <?php $this->endContent(); ?>

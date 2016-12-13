@@ -14,10 +14,29 @@ class NewUsersTopWidget extends UsersTopWidget
 {
 
     /**
+     * @var integer
+     */
+    const nameLengthLimit = 17;
+
+    /**
      * @var boolean
      * in list only users or ONLY specialists, all users need implement
      */
     public $onlyUsers = TRUE;
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function formattedName($name)
+    {
+        if (!is_string($name) || mb_strlen($name, 'UTF-8') < self::nameLengthLimit)
+        {
+            return $name;
+        }
+
+        return mb_substr($name, 0, self::nameLengthLimit - 1, 'UTF-8') . '&#8230';
+    }
 
     /**
      * {@inheritDoc}

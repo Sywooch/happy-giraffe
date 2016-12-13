@@ -46,9 +46,15 @@ class NotificationCommand extends CConsoleCommand
         ]);
 
         $cnt = 0;
+        $count = new stdClass();
+        $count->updated = 0;
+        $count->broken = 0;
+        $count->expired = 0;
 
         foreach ($models as $model) {
             if (!$model->question || !$model->category) { // целостность БД
+                $count->broken++;
+
                 continue;
             }
 
@@ -57,12 +63,16 @@ class NotificationCommand extends CConsoleCommand
 
                 if ($model->save()) {
                     $model->notificationBehavior->sendNotification();
-
+                    $count->updated++;
                     $cnt++;
                 }
+            } else {
+                $count->expired++;
             }
         }
 
-        echo "{$cnt}\n";
+        echo "updated: {$count->updated}\n";
+        echo "broken: {$count->broken}\n";
+        echo "expired: {$count->expired}\n";
     }
 }

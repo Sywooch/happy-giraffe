@@ -11,12 +11,23 @@ class CommonStatistic extends \CWidget
 {
 
     /**
+     * @var integer
+     */
+    public $userId;
+
+    /**
      * {@inheritDoc}
      * @see CWidget::run()
      */
     public function run()
     {
         $rating = QaRating::model()->byCategory(QaCategory::PEDIATRICIAN_ID);
+
+        if (!is_null($this->userId))
+        {
+            $rating->byUser($this->userId);
+        }
+
         $criteria = clone $rating->getDbCriteria();
         $criteria->select = 'SUM(votes_count) AS vc, SUM(answers_count) AS ac';
 

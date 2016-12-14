@@ -57,7 +57,8 @@ $breadcrumbs = [
 $mobileBlock =
 '<div class="b-mobile-nav">
     <div class="b-mobile-nav__title">Мой педиатор</div>
-    <div class="b-mobile-nav__right"><a href="javascript:voit(0);" class="b-mobile-nav__btn btn btn--default">Задать вопрос</a>
+    <div class="b-mobile-nav__right">
+        <a href="<?=$this->createUrl("/som/qa/default/questionAddForm/")?>" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
     </div>
 </div>';
 
@@ -71,7 +72,7 @@ if ($tab == $this::TAB_All)
 $this->widget('LiteListView', [
     'dataProvider'      => $dp,
     'itemView'          => $itemView,
-    'additionalData'    => isset($votesList) ? $votesList : NULL,
+    'additionalData'    => isset($votesList) ? ['votesList' => $votesList] : NULL,
     'htmlOptions'       => [
         'class' => 'b-col b-col--6 b-col-sm--10 b-col-xs',
     ],

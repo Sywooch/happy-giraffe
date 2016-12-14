@@ -98,6 +98,12 @@ class QaCTAnswer extends \HActiveRecord implements INode
         return $this;
     }
 
+    public function user($userId)
+    {
+        $this->getDbCriteria()->compare($this->tableAlias . '.id_author', $userId);
+        return $this;
+    }
+
     public function defaultScope()
     {
         $t = $this->getTableAlias(false, false);

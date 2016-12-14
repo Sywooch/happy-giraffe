@@ -110,5 +110,11 @@ return array(
             'host' => 'stream.happy-giraffe.ru',
             'port' => '80',
         ),
+        'serviceStatus' => [
+            'class' => '\site\common\components\ServiceStatusManager',
+            'statuses' => [
+                'commentatorsContest' => false,
+            ],
+        ],
     ),
 );

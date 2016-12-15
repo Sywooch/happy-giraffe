@@ -3,6 +3,7 @@
 use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
 
 $user = $this->getUserInfo($data->userId);
+
 ?>
 <article class="b-article b-article__list clearfix">
     <div class="b-article_cont clearfix">

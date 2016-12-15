@@ -34,10 +34,23 @@ class ActivityWidget extends \CWidget
     public function getDataProvider()
     {
         $model = Activity::model();
-        if ($this->ownerId != false) {
-            $model->byUser($this->ownerId);
+
+        if (! $this->ownerId)
+        {
+            $model
+                ->excludePediatricianQuestions()
+                ->excludePediatricianAnswers()
+            ;
         }
-        return new \CActiveDataProvider(Activity::model(), array(
+        else
+        {
+            $model
+                ->forUser($this->ownerId)
+                ->excludePediatricianQuestions($this->ownerId)
+            ;
+        }
+
+        return new \CActiveDataProvider($model, array(
             //'criteria' => ($this->criteria) ? $this->criteria : new \CDbCriteria(),
             'pagination' => array(
                 'pageSize' => $this->pageSize,
@@ -48,10 +61,14 @@ class ActivityWidget extends \CWidget
 
     public function run()
     {
-        if ($this->setNoindexIfPage && isset($_GET[$this->getDataProvider()->pagination->pageVar])) {
+        $dp = $this->getDataProvider();
+
+        if ($this->setNoindexIfPage && isset($_GET[$dp->pagination->pageVar]))
+        {
             $this->owner->metaNoindex = true;
         };
-        $this->render($this->view);
+
+        $this->render($this->view, compact('dp'));
     }
 
     public function getUserInfo($id)

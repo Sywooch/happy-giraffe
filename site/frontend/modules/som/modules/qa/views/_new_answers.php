@@ -1,7 +1,4 @@
 <?php
-
-use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
-
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var site\frontend\modules\som\modules\qa\models\QaCTAnswer $data
@@ -9,14 +6,12 @@ use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
  */
 
 $hasVote = FALSE;
-
-if (!is_null($additionalData))
+if (isset($additionalData['votesList']))
 {
-    $voteList = $additionalData->sortedByField('answerId', $data->id);
+    $voteList = $additionalData['votesList']->sortedByField('answerId', $data->id);
     $hasVote = !$voteList->isEmpty();
 }
 
-var_dump($hasVote);
 ?>
 <li class="b-answer__item">
     <div class="b-pediator-answer">
@@ -32,19 +27,10 @@ var_dump($hasVote);
         } else {
             $this->renderPartial('/_new_answer_user', ['data' => $data]);
         } ?>
-         <div class="b-pedaitor-answer__footer b-answer-footer b-answer-footer--pink">
-            <div class="b-pedaitor-answer__footer__item">
-            	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tagId' => $data->question->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=(new Enum())->getTitleForWeb($data->question->tag->name)?></a>
-            </div>
-            <div class="b-pedaitor-answer__footer__item"><a href="javascript:void(0);" class="b-answer-footer__comment"><?=$data->getQuestion()->getAnswerManager()->getAnswersCount()?></a>
-                <?php if (\Yii::app()->user->isGuest) { ?>
-            		<button type="button" class="btn-answer btn-answer--theme-green login-button <?=$hasVote ? 'btn-answer--active' : ''?>" data-bind="follow: {}">
-                    	<span class="btn-answer__num btn-answer__num--theme-green">Спасибо <?=$data->votes_count?></span>
-                    </button>
-    			<?php } else { ?>
-    				<pediatrician-vote params="count: <?=$data->votes_count?>, answerId:<?=$data->id?>, hasVote:<?=$hasVote ? 1:0?>"></pediatrician-vote>
-    			<?php } ?>
-            </div>
-        </div>
+        <?php $this->renderPartial('/_new_answers_footer', [
+            'data' => $data,
+            'hasVote' => $hasVote,
+            'myAnswersPage' => isset($additionalData['myAnswersPage']) ? $additionalData['myAnswersPage'] : FALSE,
+        ]) ?>
 	</div>
 </li>

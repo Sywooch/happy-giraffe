@@ -278,14 +278,16 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
         $sqlAuthorCondition = ! is_null($userId) ? "authorId = $userId AND" : '';
 
-        $sqlForQuestions = sprintf(
-            'SELECT MD5(id) FROM %s WHERE %s categoryId = %d AND isRemoved = %d',
-
-            QaQuestion::model()->tableName(),
-            $sqlAuthorCondition,
-            QaCategory::PEDIATRICIAN_ID,
-            QaQuestion::NOT_REMOVED
-        );
+        $sqlForQuestions =
+            '
+              SELECT MD5(id) 
+              FROM ' . QaQuestion::model()->tableName() . '
+              WHERE 
+                ' . $sqlAuthorCondition . ' 
+                categoryId = ' . QaCategory::PEDIATRICIAN_ID . ' 
+                AND 
+                isRemoved = ' . QaQuestion::NOT_REMOVED
+        ;
 
         $cmdForQuestions = \Yii::app()->getDb()->createCommand($sqlForQuestions);
         $questionsHashList = $cmdForQuestions->queryColumn();

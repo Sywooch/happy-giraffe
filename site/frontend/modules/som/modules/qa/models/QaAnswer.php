@@ -41,6 +41,12 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
 class QaAnswer extends \HActiveRecord implements \IHToJSON
 {
     /**
+     * @var integer PUBLISHED Статус опубликованного ответа
+     * @author Sergey Gubarev
+     */
+    const PUBLISHED = 1;
+
+    /**
      * Диапазон времени (минут), в течени которого специалист может редактировать свой ответ
      *
      * @var integer

@@ -38,6 +38,13 @@ use site\frontend\modules\som\modules\qa\components\QaManager;
  */
 class QaQuestion extends \HActiveRecord implements \IHToJSON
 {
+
+    /**
+     * @var integer NOT_REMOVED Статус неудаленного вопроса
+     * @author Sergey Gubarev
+     */
+    const NOT_REMOVED = 0;
+
     public $sendNotifications = true;
 
     /**

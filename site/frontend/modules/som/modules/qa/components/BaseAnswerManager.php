@@ -10,19 +10,6 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 abstract class BaseAnswerManager
 {
     /**
-     * @var null|QaQuestion
-     */
-    protected $question;
-    
-    /**
-     * @param QaQuestion $question
-     */
-    public function __construct(QaQuestion $question)
-    {
-        $this->question = $question;
-    }
-    
-    /**
      * @param $authorId
      * @param $content
      * @param $subject
@@ -31,14 +18,16 @@ abstract class BaseAnswerManager
     abstract public function createAnswer($authorId, $content, $subject);
     
     /**
+     * @param QaQuestion $question
      * @return mixed
      */
-    abstract public function getAnswers();
+    abstract public function getAnswers(QaQuestion $question);
     
     /**
+     * @param QaQuestion $question
      * @return int
      */
-    abstract public function getAnswersCount();
+    abstract public function getAnswersCount(QaQuestion $question);
     
     /**
      * @param mixed $answer

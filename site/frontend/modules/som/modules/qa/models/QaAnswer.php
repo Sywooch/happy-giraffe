@@ -64,366 +64,381 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return $this->dtimeCreate <= time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
     }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'qa__answers';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'qa__answers';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('questionId', 'safe'),
-			array('text', 'required'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return [
+            ['questionId', 'safe'],
+            ['text', 'required'],
+        ];
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'),
-			'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
-			'category' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', array('categoryId' => 'id'), 'through' => 'question'),
-			'tag' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', array('tag_id' => 'id'), 'through' => 'question'),
-			'votes' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'),
-			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
-			'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return [
+            'question' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'],
+            'author' => [self::BELONGS_TO, get_class(\User::model()), 'authorId'],
+            'category' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', ['categoryId' => 'id'], 'through' => 'question'],
+            'tag' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', ['tag_id' => 'id'], 'through' => 'question'],
+            'votes' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'],
+            'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
+            'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
+        ];
+    }
 
-	public function apiRelations()
-	{
-		return array(
-			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
-		);
-	}
+    public function apiRelations()
+    {
+        return [
+            'user' => ['site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => ['avatarSize' => 40]],
+        ];
+    }
 
-	/**
-	 * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
-	 */
-	public function getChilds()
-	{
-		$matchedAnswers = $this->children;
+    /**
+     * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
+     */
+    public function getChilds()
+    {
+        $matchedAnswers = $this->children;
 
-		foreach ($matchedAnswers as $answer)
-		{
-			if (!empty($answer->children))
-			{
-				$matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
-			}
-		}
+        foreach ($matchedAnswers as $answer) {
+            if (!empty($answer->children)) {
+                $matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
+            }
+        }
 
-		return $matchedAnswers;
-	}
+        return $matchedAnswers;
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'text' => 'Text',
-			'questionId' => 'Question',
-			'authorId' => 'Author',
-			'dtimeCreate' => 'Dtime Create',
-			'dtimeUpdate' => 'Dtime Update',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'text' => 'Text',
+            'questionId' => 'Question',
+            'authorId' => 'Author',
+            'dtimeCreate' => 'Dtime Create',
+            'dtimeUpdate' => 'Dtime Update',
+        ];
+    }
 
-	public function behaviors()
-	{
-		return array(
-			'CacheDelete' => array(
-				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
-			),
- 			'PushStream' => array(
- 				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
- 			),
-			'softDelete' => array(
-				'class' => 'site.common.behaviors.SoftDeleteBehavior',
-				'removeAttribute' => 'isRemoved',
-			),
-			'HTimestampBehavior' => array(
-				'class' => 'HTimestampBehavior',
-				'createAttribute' => 'dtimeCreate',
-				'updateAttribute' => 'dtimeUpdate',
-			),
-			'AuthorBehavior' => array(
-				'class' => 'site\common\behaviors\AuthorBehavior',
-				'attr' => 'authorId',
-			),
-			'purified' => array(
-				'class' => 'site.common.behaviors.PurifiedBehavior',
-				'attributes' => array('text'),
-				'options' => array(
-					'AutoFormat.Linkify' => true,
-				),
-			),
-			'RatingBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
-			),
-			'notificationBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
-			),
-		    QaBehavior::class
-		);
-	}
+    public function behaviors()
+    {
+        return [
+            'CacheDelete' => [
+                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+            ],
+            'PushStream' => [
+                'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
+            ],
+            'softDelete' => [
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+                'removeAttribute' => 'isRemoved',
+            ],
+            'HTimestampBehavior' => [
+                'class' => 'HTimestampBehavior',
+                'createAttribute' => 'dtimeCreate',
+                'updateAttribute' => 'dtimeUpdate',
+            ],
+            'AuthorBehavior' => [
+                'class' => 'site\common\behaviors\AuthorBehavior',
+                'attr' => 'authorId',
+            ],
+            'purified' => [
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => ['text'],
+                'options' => [
+                    'AutoFormat.Linkify' => true,
+                ],
+            ],
+            'RatingBehavior' => [
+                'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
+            ],
+            'notificationBehavior' => [
+                'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
+            ],
+            QaBehavior::class,
+        ];
+    }
 
-	public function save($runValidation = true, $attributes = null)
-	{
-		if (\Yii::app()->db->getCurrentTransaction() !== null) {
-			return parent::save($runValidation, $attributes);
-		}
+    public function save($runValidation = true, $attributes = null)
+    {
+        if (\Yii::app()->db->getCurrentTransaction() !== null) {
+            return parent::save($runValidation, $attributes);
+        }
 
-		$transaction = $this->dbConnection->beginTransaction();
-		try {
-			$success = parent::save($runValidation, $attributes);
-			$transaction->commit();
-		} catch (\Exception $e) {
-			$transaction->rollback();
-			return false;
-		}
-		return $success;
-	}
+        $transaction = $this->dbConnection->beginTransaction();
+        try {
+            $success = parent::save($runValidation, $attributes);
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollback();
 
-	/**
-	 * {@inheritDoc}
-	 * @see CActiveRecord::beforeSave()
-	 */
-	protected function beforeSave()
-	{
-	    $parentResult = parent::beforeSave();
+            return false;
+        }
 
-        if ($this->isAdditional())
-        {
+        return $success;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see CActiveRecord::beforeSave()
+     */
+    protected function beforeSave()
+    {
+        $parentResult = parent::beforeSave();
+
+        if ($this->isAdditional()) {
             return $this->authorId == $this->question->authorId;
         }
 
         return $parentResult;
-	}
+    }
 
-	public function softDelete()
-	{
-		$transaction = $this->dbConnection->beginTransaction();
-		try {
-			$success = $this->softDelete->softDelete();
-			$transaction->commit();
-		} catch (\Exception $e) {
-			$transaction->rollback();
-			return false;
-		}
-		return $success;
-	}
+    public function softDelete()
+    {
+        $transaction = $this->dbConnection->beginTransaction();
+        try {
+            $success = $this->softDelete->softDelete();
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollback();
 
-	public function afterSave()
-	{
-		if ($this->isNewRecord) {
-			$this->updateAnswersCount(1);
-		}
-		parent::afterSave();
-	}
+            return false;
+        }
 
-	public function afterSoftDelete()
-	{
-		$this->updateAnswersCount(-1);
-		$this->softDelete->afterSoftDelete();
-	}
+        return $success;
+    }
 
-	public function afterSoftRestore()
-	{
-		$this->updateAnswersCount(1);
-		$this->softDelete->afterSoftRestore();
-	}
+    public function afterSave()
+    {
+        if ($this->isNewRecord) {
+            $this->updateAnswersCount(1);
+        }
+        parent::afterSave();
+    }
 
-	protected function updateAnswersCount($n)
-	{
-		$this->question->saveCounters(array('answersCount' => $n));
-	}
+    public function afterSoftDelete()
+    {
+        $this->updateAnswersCount(-1);
+        $this->softDelete->afterSoftDelete();
+    }
 
-	public function user($userId)
-	{
-		$this->getDbCriteria()->compare($this->tableAlias . '.authorId', $userId);
-		return $this;
-	}
+    public function afterSoftRestore()
+    {
+        $this->updateAnswersCount(1);
+        $this->softDelete->afterSoftRestore();
+    }
 
-	public function question($questionId)
-	{
-		$this->getDbCriteria()->compare($this->tableAlias . '.questionId', $questionId);
-		return $this;
-	}
+    protected function updateAnswersCount($n)
+    {
+        $this->question->saveCounters(['answersCount' => $n]);
+    }
 
-	public function orderDesc()
-	{
-		$this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
-		return $this;
-	}
+    public function user($userId)
+    {
+        $this->getDbCriteria()->compare($this->tableAlias . '.authorId', $userId);
 
-	public function category($categoryId)
-	{
-		$this->getDbCriteria()->mergeWith(array('with'=>array(
-			'question' => array(
-				'joinType' => 'INNER JOIN',
-				'scopes' => array('category' => array($categoryId)),
-			),
-		)));
-		return $this;
-	}
+        return $this;
+    }
 
-	public function notConsultation()
-	{
-		$qTable = QaQuestion::model()->tableName();
-		$t = $this->tableAlias;
-		$criteria = $this->getDbCriteria();
-		$criteria->join = " JOIN $qTable q ON q.id = $t.questionId";
-		$criteria->addCondition('q.consultationId IS NULL');
-		return $this;
-	}
+    public function question($questionId)
+    {
+        $this->getDbCriteria()->compare($this->tableAlias . '.questionId', $questionId);
 
-	public function checkQuestionExiststance()
-	{
-		$criteria = new \CDbCriteria();
-		$criteria->with = array('question');
-		$criteria->addCondition('question.isRemoved = 0');
-		$this->getDbCriteria()->mergeWith($criteria);
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param \User $user
-	 *
-	 * @return bool
-	 */
-	public function canBeAnsweredBy($user)
-	{
-		// уточняющий вопрос
-		if ($this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id == null && !$this->children) {
-			return $user->id == $this->question->authorId && !$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
-		}
+    public function orderDesc()
+    {
+        $this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
 
-		// ответ на уточняющий вопрос
-		if (!$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && count($this->root->children) == 1) {
-			return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
-		}
+        return $this;
+    }
 
-		return false;
-	}
+    public function category($categoryId)
+    {
+        $this->getDbCriteria()->mergeWith(['with' => [
+            'question' => [
+                'joinType' => 'INNER JOIN',
+                'scopes' => ['category' => [$categoryId]],
+            ],
+        ]]);
 
-	/**
-	 * @return bool
-	 */
-	public function isAdditional()
-	{
-		return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function isAnswerToAdditional()
-	{
-		return $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
-	}
+    public function byRootId($rootId)
+    {
+        $this->getDbCriteria()->addColumnCondition(['root_id' => $rootId]);
 
-	/**
-	 * @param int $tagId
-	 *
-	 * @return QaAnswer
-	 */
-	public function byTag($tagId)
-	{
-		if (!isset($this->getDbCriteria()->with['tag'])) {
-			$this->getDbCriteria()->with[] = 'tag';
-		}
+        return $this;
+    }
 
-		$this->getDbCriteria()->compare('tag.id', $tagId);
+    public function notConsultation()
+    {
+        $qTable = QaQuestion::model()->tableName();
+        $t = $this->tableAlias;
+        $criteria = $this->getDbCriteria();
+        $criteria->join = " JOIN $qTable q ON q.id = $t.questionId";
+        $criteria->addCondition('q.consultationId IS NULL');
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param int $userId
-	 *
-	 * @return QaAnswer
-	 */
-	public function additionalToSpecialist($userId)
-	{
-		if (!isset($this->getDbCriteria()->with['root'])) {
-			$this->getDbCriteria()->with[] = 'root';
-		}
+    public function checkQuestionExiststance()
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->with = ['question'];
+        $criteria->addCondition('question.isRemoved = 0');
+        $this->getDbCriteria()->mergeWith($criteria);
 
-		$this->getDbCriteria()->compare('root.authorId', $userId);
-		$this->getDbCriteria()->addCondition("not exists(select * from qa__answers as children where children.root_id = {$this->tableAlias}.id and children.isRemoved = 0)");
+        return $this;
+    }
 
-		return $this;
-	}
+    /**
+     * @param \User $user
+     *
+     * @return bool
+     */
+    public function canBeAnsweredBy($user)
+    {
+        // уточняющий вопрос
+        if ($this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id == null && !$this->children) {
+            return $user->id == $this->question->authorId && !$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        }
 
-	/**
-	 * Доступен ли вопрос для редактирования авторизованному специалисту
-	 *
-	 * @return array
-	 * @author Sergey Gubarev
-	 */
-	public function availableForEditing()
-	{
-	    $time = $this->dtimeUpdate ? $this->dtimeUpdate : $this->dtimeCreate;
+        // ответ на уточняющий вопрос
+        if (!$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && count($this->root->children) == 1) {
+            return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        }
 
-	    $diffMins = floor((time() - $time) / 60);
+        return false;
+    }
 
-	    $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
+    /**
+     * @return bool
+     */
+    public function isAdditional()
+    {
+        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
+    }
 
-	    return compact('status', 'diffMins');
-	}
+    /**
+     * @return bool
+     */
+    public function isAnswerToAdditional()
+    {
+        return $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
+    }
 
-	public function defaultScope()
-	{
-		$t = $this->getTableAlias(false, false);
-		return array(
-			'condition' => $t . '.isRemoved = 0',
-		);
-	}
+    /**
+     * @param int $tagId
+     *
+     * @return QaAnswer
+     */
+    public function byTag($tagId)
+    {
+        if (!isset($this->getDbCriteria()->with['tag'])) {
+            $this->getDbCriteria()->with[] = 'tag';
+        }
 
-	public function toJSON()
-	{
-		return array(
-			'id' => (int) $this->id,
-			'authorId' => (int) $this->authorId,
-			'dtimeCreate' => (int) $this->dtimeCreate,
-			'text' => $this->purified->text,
-			'votesCount' => (int) $this->votesCount,
-			'user' => $this->user->formatedForJson(),
-			'isRemoved' => (bool) $this->isRemoved,
-		);
-	}
+        $this->getDbCriteria()->compare('tag.id', $tagId);
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return QaAnswer the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+        return $this;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function authorIsSpecialist()
-	{
-	    return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
-	}
+    /**
+     * @param int $userId
+     *
+     * @return QaAnswer
+     */
+    public function additionalToSpecialist($userId)
+    {
+        if (!isset($this->getDbCriteria()->with['root'])) {
+            $this->getDbCriteria()->with[] = 'root';
+        }
+
+        $this->getDbCriteria()->compare('root.authorId', $userId);
+        $this->getDbCriteria()->addCondition("not exists(select * from qa__answers as children where children.root_id = {$this->tableAlias}.id and children.isRemoved = 0)");
+
+        return $this;
+    }
+
+    /**
+     * Доступен ли вопрос для редактирования авторизованному специалисту
+     *
+     * @return array
+     * @author Sergey Gubarev
+     */
+    public function availableForEditing()
+    {
+        $time = $this->dtimeUpdate ? $this->dtimeUpdate : $this->dtimeCreate;
+
+        $diffMins = floor((time() - $time) / 60);
+
+        $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
+
+        return compact('status', 'diffMins');
+    }
+
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+
+        return [
+            'condition' => $t . '.isRemoved = 0',
+        ];
+    }
+
+    public function toJSON()
+    {
+        return [
+            'id' => (int) $this->id,
+            'authorId' => (int) $this->authorId,
+            'dtimeCreate' => (int) $this->dtimeCreate,
+            'text' => $this->purified->text,
+            'votesCount' => (int) $this->votesCount,
+            'user' => $this->user->formatedForJson(),
+            'isRemoved' => (bool) $this->isRemoved,
+        ];
+    }
+
+    /**
+     * Returns the static model of the specified AR class.
+     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * @param string $className active record class name.
+     * @return QaAnswer the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
+    /**
+     * @return boolean
+     */
+    public function authorIsSpecialist()
+    {
+        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
+    }
 }

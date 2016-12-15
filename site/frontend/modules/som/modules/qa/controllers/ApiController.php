@@ -13,6 +13,7 @@ use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaRating;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 
@@ -20,14 +21,14 @@ class ApiController extends \site\frontend\components\api\ApiController
 {
     public static $answerModel = QaAnswer::class;
     public static $questionModel = QaQuestion::class;
-    
+
     protected function beforeAction($action)
     {
         \TimeLogger::model()->startTimer(date('j D в H:i:s') . ' [ACTION] ' . $action->id);
-        
+
         return parent::beforeAction($action);
     }
-    
+
     public function actions()
     {
         return \CMap::mergeArray(parent::actions(), [
@@ -47,7 +48,7 @@ class ApiController extends \site\frontend\components\api\ApiController
                 'modelName' => self::$answerModel,
                 'checkAccess' => 'restoreQaAnswer',
             ],
-            
+
             // QaQuestion
             'removeQuestion' => [
                 'class' => 'site\frontend\components\api\SoftDeleteAction',
@@ -61,74 +62,80 @@ class ApiController extends \site\frontend\components\api\ApiController
             ],
         ]);
     }
-    
+
     public function actionCreateAnswer($questionId, $text, $answerId = null)
     {
-        die;
         /** @var $user \WebUser */
         $user = \Yii::app()->user;
-        
+
         /** @var $question QaQuestion */
         $question = QaQuestion::model()->findByPk($questionId);
-        
+
         if (is_null($question) || !$question->checkCustomAccessByAnswered($user->getId())) {
             throw new \CHttpException(403, 'Access Denied');
         }
-        
+
         $answerManager = $question->answerManager;
-        
+
         $this->success = (bool) ($this->data = $answerManager->createAnswer($user->id, $text, $question));
-        
+
         return;
         die;
-        
+
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
         $answer = new self::$answerModel();
         $answer->attributes = [
             'questionId' => $questionId,
             'text' => $text,
         ];
-        
+
         if ($answer->validate()) {
             // Если ответил специалист то не нужно сразу отсылать оповещение и показывать ответ, т.к. на этой дело висит таймаут
             if ($question->category->isPediatrician() && $answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS)) {
                 $answer->isPublished = false;
             }
         }
-        
+
         if (!is_null($answerId) && QaAnswer::model()->exists('id=' . $answerId)) {
             $answer->setAttribute('root_id', $answerId);
         }
-        
+
         $this->success = $answer->save();
         $this->data = $answer;
     }
-    
+
     public function actionGetAnswers($questionId)
     {
         $question = QaQuestion::model()->findByPk($questionId);
-        
+
         ContentBehavior::$active = true;
-        
+
         // $answers = QaManager::getAnswers($question);
-        
-        $answers = $question->answerManager->getAnswers();
-        
+
+        $answers = $question->answerManager->getAnswers($question);
+
         ContentBehavior::$active = false;
-        
+
         $_answers = [];
-        
+
         if ($question->answerManager instanceof CTAnswerManager) {
-            $_answers = array_map(function (QaCTAnswer $answer) use ($question) {
+            $voteManager = QaCTAnswer::createVoteManager();
+
+            $voteManager->loadAnswerData($answers, \Yii::app()->user->id);
+
+            $_answers = array_map(function (QaCTAnswer $answer) use ($question, $voteManager) {
                 return [
-                    'user' => $answer->user->toJSON(),
+                    'user' => \CMap::mergeArray($answer->user->toJSON(), [
+                        'answersCount' => QaRating::model()->byUser($answer->user->id)->find()->answers_count,
+                        'votesCount' => QaRating::model()->byUser($answer->user->id)->find()->votes_count,
+                    ]),
                     'dtimeCreate' => $answer->dtimeCreate,
                     'text' => $answer->purified->text,
                     'votesCount' => $answer->votes_count,
                     'canEdit' => false,
                     'canRemove' => false,
                     'canVote' => false,
-                    'isVoted' => false,
+                    'isVoted' => $voteManager->isVoted($answer->id, \Yii::app()->user->id),
                     'isAdditional' => false,
                     'isAnswerToAdditional' => false,
                     'isSpecialistAnswer' => false,
@@ -138,7 +145,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             }, $answers);
         } else {
             $votes = QaAnswerVote::model()->answers($answers)->user(\Yii::app()->user->id)->findAll(['index' => 'answerId']);
-            
+
             foreach ($answers as $answer) {
                 /** @var $answer QaAnswer */
                 $_answer = $answer->toJSON();
@@ -153,7 +160,7 @@ class ApiController extends \site\frontend\components\api\ApiController
                 $_answers[] = $_answer;
             }
         }
-        
+
         $this->data = [
             'answers' => $_answers,
             'question' => $question->toJSON(),
@@ -161,13 +168,13 @@ class ApiController extends \site\frontend\components\api\ApiController
         ];
         $this->success = true;
     }
-    
+
     public function actionGetChildAnswer($answerId)
     {
         $this->data = QaAnswer::model()->apiWith('user')->findAll('root_id=' . $answerId);
         $this->success = true;
     }
-    
+
     public function actionVote($answerId)
     {
         $answer = $this->getModel(self::$answerModel, $answerId);
@@ -177,7 +184,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = VotesManager::changeVote(\Yii::app()->user->id, $answerId);
         $this->success = $this->data !== false;
     }
-    
+
     /**
      * @param \CAction $action
      * @todo переделать в поведение
@@ -191,18 +198,18 @@ class ApiController extends \site\frontend\components\api\ApiController
             'restoreAnswer' => \CometModel::QA_RESTORE_ANSWER,
             'editAnswer' => \CometModel::QA_EDIT_ANSWER,
         ];
-        
+
         if ($this->success == true && in_array($action->id, array_keys($types))) // @fixme isset, array_key_exists?
         {
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
-            
+
             if ($this->data instanceof QaAnswer) {
                 $this->send(AnswersWidget::getChannelIdByQuestion($this->data->questionId), $data, $types[$action->id]);
             }/* else if ($this->data instanceof QaCTAnswer) {
                 $this->send(AnswersWidget::getChannelIdByQuestion(CTAnswerManager::findSubject($this->data)), $data, $types[$action->id]);
             }*/
         }
-        
+
         parent::afterAction($action);
     }
 }

@@ -64,7 +64,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function __get($name)
     {
         if ($name == 'answersCount' && !is_null($this->category) && $this->category->isPediatrician()) {
-            return $this->answerManager->getAnswersCount();
+            return $this->answerManager->getAnswersCount($this);
             return QaManager::getAnswersCountPediatorQuestion($this->id);
         }
         

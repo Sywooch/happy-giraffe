@@ -31,7 +31,7 @@ if (!is_null($question->category)) {
     $isAnonQuestion = false;
 }
 
-$answersCount = $question->answerManager->getAnswersCount();
+$answersCount = $question->answerManager->getAnswersCount($question);
 // $answersCount = QaManager::getAnswersCountPediatorQuestion($question->id);
 ?>
 

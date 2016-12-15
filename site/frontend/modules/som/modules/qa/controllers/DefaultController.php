@@ -99,8 +99,6 @@ class DefaultController extends QaController
 
     public function actionView($id, $tab = null, $category = null)
     {
-        $this->layout       = '/layouts/pediatrician';
-
         $this->isQuestion = true;
 
         ContentBehavior::$active = true;
@@ -108,8 +106,13 @@ class DefaultController extends QaController
         $question = $this->getModel($id);
 
         ContentBehavior::$active = false;
-        
-        $this->render('_view', compact('question', 'tab', 'category'));
+
+        if($question->category->isPediatrician()) {
+            $this->layout = '/layouts/pediatrician';
+            $this->render('_view', compact('question', 'tab', 'category'));
+        }else{
+            $this->render('view', compact('question', 'tab', 'category'));
+        }
     }
 
     public function actionSearch($query = '', $categoryId = null)

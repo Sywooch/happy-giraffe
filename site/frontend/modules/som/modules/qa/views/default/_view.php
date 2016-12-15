@@ -65,6 +65,33 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
                         </div>
                     <? endif; ?>
                 </div>
+                <? if(!\Yii::app()->user->isGuest && $question->canBeAnsweredBy(\Yii::app()->user->id)):?>
+                    <form id="createAnswer" action="/api/qa/createAnswer" method="post">
+                        <input type="hidden" name="questionId" value="<?= $question->id?>">
+                        <div class="b-redactor">
+                            <div class="b-redactor__action">
+                                <textarea id="js--redactor__textarea" placeholder="Введите ваш ответ" class="b-redactor__textarea" name="text"></textarea>
+                            </div>
+                            <div class="b-redactor__footer b-redactor-footer b-redactor-footer--theme-small">
+                                <div class="b-redactor-footer__item">
+                                    <div id="redactor-post-toolbar"></div>
+                                </div>
+                                <div class="b-redactor-footer__item">
+                                    <button type="submit" class="btn btn--blue btn--sm">Ответить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <script>
+                        $(function(){
+                            $("#createAnswer").bind("submit", function() {
+                                $.post("/api/qa/createAnswer");
+
+                                return false;
+                            });
+                        });
+                    </script>
+                <? endif;?>
             </div>
         </div>
         <!-- /вопрос-->

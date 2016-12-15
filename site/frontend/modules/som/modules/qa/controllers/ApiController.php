@@ -64,6 +64,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     
     public function actionCreateAnswer($questionId, $text, $answerId = null)
     {
+        die;
         /** @var $user \WebUser */
         $user = \Yii::app()->user;
         

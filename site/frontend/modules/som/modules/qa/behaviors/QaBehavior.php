@@ -5,12 +5,13 @@ namespace site\frontend\modules\som\modules\qa\behaviors;
 use site\frontend\modules\som\modules\activity\behaviors\ActivityBehavior;
 use site\frontend\modules\som\modules\activity\models\api\Activity;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
+use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use Aws\CloudFront\Exception\Exception;
 
 /**
- * @property QaAnswer|QaQuestion $owner
+ * @property QaAnswer|QaCTAnswer|QaQuestion $owner
  *
  * @author Emil Vililyaev
  */
@@ -48,7 +49,7 @@ class QaBehavior extends ActivityBehavior
         $activity->dtimeCreate = (int) $this->owner->dtimeCreate;
         $activity->userId = (int) $this->owner->authorId;
 
-        switch (TRUE) {
+        switch (true) {
             case $this->owner instanceof QaQuestion :
                 $activity->data = [
                     'title' => $this->owner->title,

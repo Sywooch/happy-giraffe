@@ -25,10 +25,16 @@ use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
   			<?php endif; ?>
         </div>
         <div class="b-answer__right">
-        	<a href="<?=$data->url?>" class="b-answer-footer__box b-answer-footer__box--blue">
-        		<span class="b-answer-footer__num"><?=$data->answersCount?></span>
-        		<span class="b-answer-footer__text b-answer-footer__text--grey">ответа</span>
-    		</a>
+        	<?php if ($data->answersCount > 0):?>
+            	<a href="<?=$data->url?>" class="b-answer-footer__box b-answer-footer__box--blue">
+            		<span class="b-answer-footer__num"><?=$data->answersCount?></span>
+            		<span class="b-answer-footer__text b-answer-footer__text--grey">ответа</span>
+        		</a>
+    		<?php else: ?>
+            	<a href="<?=$data->url?>" class="b-answer-footer__box b-answer-footer__box--green">
+            		<span class="b-answer-footer__text b-answer-footer__text--white">ответить</span>
+        		</a>
+        	<?php endif; ?>
         </div>
     </div>
 </li>

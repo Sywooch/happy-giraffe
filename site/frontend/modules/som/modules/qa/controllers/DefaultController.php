@@ -96,6 +96,7 @@ class DefaultController extends QaController
         $newDesigneActions = [
             'pediatrician',
             'search',
+            'questionAddForm',
         ];
 
         if (in_array($action->id, $newDesigneActions))
@@ -150,7 +151,7 @@ class DefaultController extends QaController
 
     public function actionQuestionAddForm($consultationId = null, $redirectUrl = null)
     {
-        $this->layout = '//layouts/lite/common';
+        $this->layout = '//layouts/lite/new_common';
 
         $question = new QaQuestion();
         $this->performAjaxValidation($question);
@@ -181,7 +182,7 @@ class DefaultController extends QaController
             }
         }
 
-        $this->render('form', [
+        $this->render('new_form', [
             'model' => $question,
             'categories' => QaCategory::model()->sorted()->with('tags')->findAll(),
         ]);

@@ -6,7 +6,10 @@ use site\common\components\closureTable\INode;
 use site\frontend\components\api\ApiRelation;
 use site\frontend\components\api\models\User;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
+use site\frontend\modules\som\modules\qa\components\BaseVoteManager;
 use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
+use site\frontend\modules\som\modules\qa\components\ISubject;
+use site\frontend\modules\som\modules\qa\components\QaCTVoteManager;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
 /**
@@ -16,6 +19,7 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  * @property int $is_removed
  * @property int $votes_count
  * @property int $dtimeCreate
+ * @property int $dtimeUpdate
  *
  * @property-read int $votesCount алиас
  * @property string $text алиас
@@ -29,6 +33,14 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  */
 class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
 {
+    /**
+     * @return BaseVoteManager
+     */
+    public static function createVoteManager()
+    {
+        return new QaCTVoteManager();
+    }
+
     public function tableName()
     {
         return 'qa__answers_new';
@@ -95,12 +107,12 @@ class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
     {
         return $this->votes_count;
     }
-    
+
     public function getText()
     {
         return $this->content;
     }
-    
+
     public function getId()
     {
         return $this->id;
@@ -110,20 +122,23 @@ class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
     {
         return $this->id_author;
     }
+
 #endregion
 
     public function orderDesc()
     {
         $this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
+
         return $this;
     }
 
     public function defaultScope()
     {
         $t = $this->getTableAlias(false, false);
-        return array(
+
+        return [
             'condition' => $t . '.is_removed = 0',
-        );
+        ];
     }
 
 #region INode

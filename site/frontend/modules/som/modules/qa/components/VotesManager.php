@@ -12,7 +12,7 @@ use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 class VotesManager
 {
     const MIN_BEST = 5;
-    
+
     public static function changeVote($userId, $answerId)
     {
         $vote = QaAnswerVote::model()

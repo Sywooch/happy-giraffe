@@ -36,7 +36,7 @@ class ClosureTableManager
         } else { // Вложенность
             $ancestors = $this->provider->getAncestors($subjectId, $ancestorNode->getId());
 
-            $level = $ancestors[0]->getLevel();
+            $level = $ancestors[0]->getLevel() + 1;
             $nearestAncestorId = 0;
 
             foreach ($ancestors as $ancestor) {
@@ -76,6 +76,15 @@ class ClosureTableManager
         $collection->nodes = $this->provider->fetchNodes($ids);
 
         return $this->buildNode($collection);
+    }
+
+    /**
+     * @param $nodeId
+     * @return INode
+     */
+    public function getNode($nodeId)
+    {
+        $this->provider->fetchNode($nodeId);
     }
 
     protected function buildNode(NodeCollection $collection, $level = 0, $ancestorId = null)

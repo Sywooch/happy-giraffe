@@ -27,7 +27,9 @@ interface IClosureTableProvider
      * @return array[]
      */
     public function fetchTree($subjectId);
-    
+
+    public function fetchNode($id);
+
     /**
      * Все ноды по айдишникам
      *

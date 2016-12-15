@@ -1,5 +1,6 @@
 <?php
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
 /**
  * @var QaQuestion $question
@@ -18,83 +19,74 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 <div class="b-col b-col--6 b-col-sm--10 b-col-xs">
     <div class="b-mobile-nav">
         <div class="b-mobile-nav__title">Мой педиатор</div>
-        <div class="b-mobile-nav__right"><a href="javascript:voit(0);" class="b-mobile-nav__btn btn btn--default">Задать вопрос</a>
+        <div class="b-mobile-nav__right"><a href="javascript:voit(0);" class="b-mobile-nav__btn btn btn--default">Задать
+                вопрос</a>
         </div>
     </div>
     <div class="b-open-question">
         <!-- вопрос -->
         <div class="b-open-question-box">
             <div class="b-open-question__header b-open-header">
-                <div class="b-open-header__item"><a href="javascript:voit(0);" class="b-answer-header__link"><?= CHtml::encode($question->author->fullName) ?></a>
+                <div class="b-open-header__item"><a href="javascript:voit(0);"
+                                                    class="b-answer-header__link"><?= CHtml::encode($question->author->fullName) ?></a>
                     <?= HHtml::timeTag($question, ['class' => 'b-answer-header__time']); ?>
                 </div>
                 <div class="b-open-header__item">
-                    <span class="b-open-header__review b-open-header__review--ico-grey"><?= Yii::app()->getModule('analytics')->visitsManager->getVisits()?></span>
+                    <span class="b-open-header__review b-open-header__review--ico-grey"><?= Yii::app()->getModule('analytics')->visitsManager->getVisits() ?></span>
                 </div>
             </div>
-            <div class="b-open-question__body"><span class="b-title--h1 b-title--bold b-text-color--blue-link"><?= CHtml::encode($question->title) ?></span>
+            <div class="b-open-question__body"><span
+                        class="b-title--h1 b-title--bold b-text-color--blue-link"><?= CHtml::encode($question->title) ?></span>
                 <div class="b-open-question__wrapper b-question-wrapper">
                     <?php if (!is_null($question->tag)): ?>
                     <div class="b-question-wrapper__item">
-                        <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id]) ?>" class="b-answer-footer__age b-text--link-color">
+                        <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id]) ?>"
+                           class="b-answer-footer__age b-text--link-color">
                             <?= $question->tag->name ?>
                         </a>
-                    <?php endif; ?>
+                        <?php endif; ?>
                     </div>
                     <div class="b-question-wrapper__item">
-                        <div class="b-open-question__quant b-open-quant"><span class="b-open-quant__num"><?= $question->answersCount?></span><span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount)?></span>
+                        <div class="b-open-question__quant b-open-quant"><span
+                                    class="b-open-quant__num"><?= $question->answersCount ?></span><span
+                                    class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount) ?></span>
                         </div>
                     </div>
                 </div>
                 <p class="b-text--size-14 b-text--black">
                     <?= $question->purified->text ?>
                 </p>
-                <div class="b-answer__footer b-answer-footer--theme-user"><span class="b-pediator-answer-quest__control">Редактировать</span><span class="b-pediator-answer-quest__control">Удалить</span>
+                <div class="b-answer__footer b-answer-footer--theme-user"><span
+                            class="b-pediator-answer-quest__control">Редактировать</span><span
+                            class="b-pediator-answer-quest__control">Удалить</span>
                 </div>
                 <div class="b-open-question__nav b-open-nav">
                     <!-- TODO длинные названия? -->
-                    <? if($previousQuestion = QaQuestion::getPreviousQuestion($question)): ?>
+                    <? if ($previousQuestion = QaQuestion::getPreviousQuestion($question)): ?>
                         <div class="b-open-nav__item">
-                            <a href="javascript:voit(0);" class="b-open-nav__link b-open-nav__link--left-ico"><?= CHtml::encode($previousQuestion->title) ?></a>
+                            <a href="javascript:voit(0);"
+                               class="b-open-nav__link b-open-nav__link--left-ico"><?= CHtml::encode($previousQuestion->title) ?></a>
                         </div>
                     <? endif; ?>
 
-                    <? if($nextQuestion = QaQuestion::getNextQuestion($question)): ?>
+                    <? if ($nextQuestion = QaQuestion::getNextQuestion($question)): ?>
                         <div class="b-open-nav__item">
-                            <a href="javascript:voit(0);" class="b-open-nav__link b-open-nav__link--right-ico"><?= CHtml::encode($nextQuestion->title) ?></a>
+                            <a href="javascript:voit(0);"
+                               class="b-open-nav__link b-open-nav__link--right-ico"><?= CHtml::encode($nextQuestion->title) ?></a>
                         </div>
                     <? endif; ?>
                 </div>
-                <? if(!\Yii::app()->user->isGuest && $question->canBeAnsweredBy(\Yii::app()->user->id)):?>
-                    <form id="createAnswer" action="/api/qa/createAnswer" method="post">
-                        <input type="hidden" name="questionId" value="<?= $question->id?>">
-                        <div class="b-redactor">
-                            <div class="b-redactor__action">
-                                <textarea id="js--redactor__textarea" placeholder="Введите ваш ответ" class="b-redactor__textarea" name="text"></textarea>
-                            </div>
-                            <div class="b-redactor__footer b-redactor-footer b-redactor-footer--theme-small">
-                                <div class="b-redactor-footer__item">
-                                    <div id="redactor-post-toolbar"></div>
-                                </div>
-                                <div class="b-redactor-footer__item">
-                                    <button type="submit" class="btn btn--blue btn--sm">Ответить</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <script>
-                        $(function(){
-                            $("#createAnswer").bind("submit", function() {
-                                $.post("/api/qa/createAnswer");
-
-                                return false;
-                            });
-                        });
-                    </script>
-                <? endif;?>
+                <? if (!\Yii::app()->user->isGuest && $question->canBeAnsweredBy(\Yii::app()->user->id)): ?>
+                    <?= \CHtml::tag('answer-form-widget', ['params' => join(",", array_map(function ($value, $key) {
+                        return $key . ': ' . \CJSON::encode($value);
+                    }, [$question->id], array_keys(['questionId' => $question->id])))]); ?>
+                    <answer-form-widget></answer-form-widget>
+                <? endif; ?>
             </div>
         </div>
+        <? $this->widget(AnswersWidget::class, ['question' => $question]); ?>
         <!-- /вопрос-->
+        <!--
         <div class="b-open-question__title">Ответы</div>
         <div class="b-margin--bottom_60">
             <ul class="b-answer">
@@ -295,5 +287,6 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
                 </li>
             </ul>
         </div>
+        -->
     </div>
 </div>

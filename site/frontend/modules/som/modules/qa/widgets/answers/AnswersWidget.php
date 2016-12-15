@@ -30,7 +30,7 @@ class AnswersWidget extends \CWidget
     {
         // $answers = QaManager::getAnswers($this->question);
 
-        $answers = $this->question->answerManager->getAnswers();
+        $answers = $this->question->answerManager->getAnswers($this->question);
 
         $bestAnswers = [];
         $otherAnswers = [];
@@ -60,7 +60,13 @@ class AnswersWidget extends \CWidget
         }, $params, array_keys($params));
 
         $paramsStr = implode(', ', $paramsParts);
-        echo \CHtml::tag('answers-widget', ['params' => $paramsStr]);
+
+        if ($this->question->category->isPediatrician()) {
+            echo \CHtml::tag('my-pediatrician-answers-widget', ['params' => $paramsStr]);
+            echo \CHtml::closeTag('my-pediatrician-answers-widget');
+        } else {
+            echo \CHtml::tag('answers-widget', ['params' => $paramsStr]);
+        }
     }
 
     public static function getChannelIdByQuestion($question)

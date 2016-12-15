@@ -72,6 +72,7 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property CommunityClub[] $clubSubscriptions
  * @property string $publicChannel Имя публичного канала пользователя (в который отправляются события online/offline)
  * @property site\frontend\modules\specialists\models\SpecialistProfile $specialistProfile
+ * @property-read bool $isSpecialist
  *
  * @method User active()
  */
@@ -1703,5 +1704,13 @@ class User extends HActiveRecord
         }
 
         return false;
+    }
+    
+    /**
+     * @return bool
+     */
+    public function getIsSpecialist()
+    {
+        return $this->specialistProfile !== null;
     }
 }

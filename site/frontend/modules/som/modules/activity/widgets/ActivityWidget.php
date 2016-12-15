@@ -31,6 +31,9 @@ class ActivityWidget extends \CWidget
     );
     protected $_users = array();
 
+    /**
+     * @return \CActiveDataProvider
+     */
     public function getDataProvider()
     {
         $model = Activity::model();
@@ -61,14 +64,12 @@ class ActivityWidget extends \CWidget
 
     public function run()
     {
-        $dp = $this->getDataProvider();
-
-        if ($this->setNoindexIfPage && isset($_GET[$dp->pagination->pageVar]))
+        if ($this->setNoindexIfPage && isset($_GET[$this->getDataProvider()->pagination->pageVar]))
         {
             $this->owner->metaNoindex = true;
         };
 
-        $this->render($this->view, compact('dp'));
+        $this->render($this->view);
     }
 
     public function getUserInfo($id)

@@ -5,7 +5,11 @@ namespace site\frontend\modules\som\modules\qa\models;
 use site\common\components\closureTable\INode;
 use site\frontend\components\api\ApiRelation;
 use site\frontend\components\api\models\User;
+use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
+use site\frontend\modules\som\modules\qa\components\BaseVoteManager;
 use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
+use site\frontend\modules\som\modules\qa\components\ISubject;
+use site\frontend\modules\som\modules\qa\components\QaCTVoteManager;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
 /**
@@ -15,16 +19,28 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  * @property int $is_removed
  * @property int $votes_count
  * @property int $dtimeCreate
+ * @property int $dtimeUpdate
  *
  * @property-read int $votesCount алиас
  * @property string $text алиас
+ * @property-read $authorId алиас
  *
  * @property-read \User $author
  * @property-read User $user
  * @property-read QaQuestion $question
+ *
+ * @property-read \PurifiedBehavior $purified
  */
-class QaCTAnswer extends \HActiveRecord implements INode
+class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
 {
+    /**
+     * @return BaseVoteManager
+     */
+    public static function createVoteManager()
+    {
+        return new QaCTVoteManager();
+    }
+
     public function tableName()
     {
         return 'qa__answers_new';
@@ -66,6 +82,7 @@ class QaCTAnswer extends \HActiveRecord implements INode
                     'AutoFormat.Linkify' => true,
                 ],
             ],
+            QaBehavior::class,
         ];
     }
 
@@ -75,6 +92,15 @@ class QaCTAnswer extends \HActiveRecord implements INode
     public function getQuestion()
     {
         return QaQuestion::model()->findByPk(CTAnswerManager::findSubject($this));
+    }
+
+#region QaAnswer BC
+    /**
+     * @return bool
+     */
+    public function authorIsSpecialist()
+    {
+        return $this->author->isSpecialist;
     }
 
     public function getVotesCount()
@@ -91,11 +117,18 @@ class QaCTAnswer extends \HActiveRecord implements INode
     {
         return $this->id;
     }
+
+    public function getAuthorId()
+    {
+        return $this->id_author;
+    }
+
 #endregion
 
     public function orderDesc()
     {
         $this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
+
         return $this;
     }
 
@@ -108,17 +141,10 @@ class QaCTAnswer extends \HActiveRecord implements INode
     public function defaultScope()
     {
         $t = $this->getTableAlias(false, false);
-        return array(
-            'condition' => $t . '.is_removed = 0',
-        );
-    }
 
-    /**
-     * @return boolean
-     */
-    public function authorIsSpecialist()
-    {
-        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->id_author]);
+        return [
+            'condition' => $t . '.is_removed = 0',
+        ];
     }
 
 #region INode
@@ -134,5 +160,25 @@ class QaCTAnswer extends \HActiveRecord implements INode
     {
         $this->_childes[] = $node;
     }
+
 #endregion
+
+    public function toJSON()
+    {
+        return [
+            'user' => $this->user->toJSON(),
+            'dtimeCreate' => $this->dtimeCreate,
+            'text' => $this->purified->text,
+            'votesCount' => $this->votes_count,
+            'canEdit' => false,
+            'canRemove' => false,
+            'canVote' => false,
+            'isVoted' => false,
+            'isAdditional' => false,
+            'isAnswerToAdditional' => false,
+            'isSpecialistAnswer' => false,
+            'root_id' => null,
+            'can_answer' => $this->question->answerManager->canAnswer($this, \Yii::app()->user->getModel()),
+        ];
+    }
 }

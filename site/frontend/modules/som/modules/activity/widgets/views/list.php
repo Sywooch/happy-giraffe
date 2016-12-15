@@ -1,10 +1,10 @@
 <?php
 
-if ($dp->totalItemCount > 0): ?>
+if ($this->getDataProvider()->totalItemCount > 0): ?>
     <div class="heading-sm">Моя активность</div>
     <?php
-    $this->widget('LiteListView', array(
-        'dataProvider' => $dp,
+    $this->widget(LiteListView::class, array(
+        'dataProvider' => $this->getDataProvider(),
         'itemView' => 'site.frontend.modules.som.modules.activity.widgets.views._view',
         'tagName' => 'div',
         'itemsTagName' => false,

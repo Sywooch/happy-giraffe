@@ -20,7 +20,6 @@ use site\frontend\modules\som\modules\qa\components\QaObjectList;
 
 class DefaultController extends QaController
 {
-
     const TAB_NEW = 'new';
     const TAB_POPULAR = 'popular';
     const TAB_UNANSWERED = 'unanswered';
@@ -93,13 +92,7 @@ class DefaultController extends QaController
      */
     protected function beforeAction($action)
     {
-        $newDesigneActions = [
-            'pediatrician',
-            'search',
-            'questionAddForm',
-        ];
-
-        if (in_array($action->id, $newDesigneActions))
+        if ($action->id == 'pediatrician' || $action->id == 'view')
         {
             $this->layout       = '/layouts/pediatrician';
             $this->litePackage = 'new_pediatrician';
@@ -113,10 +106,17 @@ class DefaultController extends QaController
         $this->isQuestion = true;
 
         ContentBehavior::$active = true;
+
         $question = $this->getModel($id);
+
         ContentBehavior::$active = false;
 
-        $this->render('view', compact('question', 'tab', 'category'));
+        if($question->category->isPediatrician()) {
+            $this->layout = '/layouts/pediatrician';
+            $this->render('_view', compact('question', 'tab', 'category'));
+        }else{
+            $this->render('view', compact('question', 'tab', 'category'));
+        }
     }
 
     public function actionSearch($query = '', $categoryId = null)
@@ -291,6 +291,7 @@ class DefaultController extends QaController
     protected function getModel($pk)
     {
         $question = QaQuestion::model()->with('category')->findByPk($pk);
+
         if ($question === null) {
             throw new \CHttpException(404);
         }

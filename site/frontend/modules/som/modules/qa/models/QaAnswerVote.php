@@ -1,6 +1,9 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 
+use site\frontend\modules\api\ApiModule;
+use site\frontend\modules\som\modules\qa\behaviors\RatingBehavior;
+
 /**
  * This is the model class for table "qa__answers_votes".
  *
@@ -65,10 +68,10 @@ class QaAnswerVote extends \HActiveRecord
 	{
 		return array(
 			'CacheDelete' => array(
-				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+				'class' => ApiModule::CACHE_DELETE,
 			),
 			'PushStream' => array(
-				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
+				'class' => ApiModule::PUSH_STREAM,
 			),
 			'HTimestampBehavior' => array(
 				'class' => 'HTimestampBehavior',
@@ -78,7 +81,7 @@ class QaAnswerVote extends \HActiveRecord
 				'class' => 'site\frontend\modules\som\modules\qa\behaviors\VoteNotificationBehavior',
 			),
 			'RatingBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
+				'class' => RatingBehavior::class,
 			),
 		);
 	}

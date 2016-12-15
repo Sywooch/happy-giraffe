@@ -24,7 +24,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     public function __get($name)
     {
-        if (in_array($name, $this->attributes)) {
+        if (in_array($name, (array)$this->attributes)) {
             $cacheId = $this->getCacheId($name);
             $value = Yii::app()->cache->get($cacheId);
             if ($value === false) {

@@ -123,7 +123,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 			{
 				$matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
 			}
-
 		}
 
 		return $matchedAnswers;

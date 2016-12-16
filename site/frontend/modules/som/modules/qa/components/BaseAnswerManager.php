@@ -16,7 +16,13 @@ abstract class BaseAnswerManager
      * @return mixed
      */
     abstract public function createAnswer($authorId, $content, $subject);
-    
+
+    /**
+     * @param $answerId
+     * @return mixed
+     */
+    abstract public function getAnswer($answerId);
+
     /**
      * @param QaQuestion $question
      * @return mixed

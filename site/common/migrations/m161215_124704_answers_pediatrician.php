@@ -34,7 +34,6 @@ CREATE TABLE `qa__answers_new_tree` (
   `id_subject` INT(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Дерево для новых комментариев'
 SQL;
-
         $this->execute($sql);
 
         $answers = QaAnswer::model()
@@ -47,9 +46,9 @@ SQL;
             if ($answer->root != null) {
                 $a = f($answer->root, $manager);
 
-                $newAnswer = $manager->createAnswer($answer->authorId, $answer->text, $a);
+                $newAnswer = ($ans = $manager->getAnswer($answer->id)) ? $ans : $manager->createAnswer($answer->authorId, $answer->text, $a, $answer->id);
             } else {
-                $newAnswer = $manager->createAnswer($answer->authorId, $answer->text, $answer->question);
+                $newAnswer = ($ans = $manager->getAnswer($answer->id)) ? $ans : $manager->createAnswer($answer->authorId, $answer->text, $answer->question, $answer->id);
             }
 
             /** @var QaCTAnswer $newAnswer */

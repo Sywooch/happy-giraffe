@@ -27,7 +27,7 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
      * @throws \Exception
      * @return INode|null
      */
-    public function createAnswer($authorId, $content, $subject)
+    public function createAnswer($authorId, $content, $subject, $id = null)
     {
         $transaction = \Yii::app()->db->currentTransaction === null ? \Yii::app()->db->beginTransaction() : \Yii::app()->db->currentTransaction;
 
@@ -37,6 +37,11 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
             /** @var QaCTAnswer $node */
             if (!$node = $this->getManager()->createNode([$content, $authorId, $subjectId])) {
                 throw new \Exception('fail create');
+            }
+
+            if($id){
+                $node->setId($id);
+                $node->save();
             }
 
             if (!$this->getManager()->attach($node, $subjectId, $subject instanceof INode ? $subject : null)) {
@@ -59,12 +64,12 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
      */
     public function canAnswer($answer, \User $user)
     {
-        return $answer->id_author != $user->id;
+        return $answer->id_author != $user->id && $answer->question->authorId == $user->id;
     }
 
     public function getAnswer($answerId)
     {
-        return $this->getManager()->getNodeTree($answerId);
+        return $this->getManager()->getNode($answerId);
     }
 
     public function getAnswers(QaQuestion $question)
@@ -124,7 +129,7 @@ class CTAnswerManager extends BaseAnswerManager implements IClosureTableProvider
      */
     public function fetchNode($id)
     {
-        return QaCTAnswer::model()->find(['condition' => ['id' => $id]]);
+        return QaCTAnswer::model()->findByPk($id);
     }
 
     /**

@@ -84,7 +84,7 @@ class ClosureTableManager
      */
     public function getNode($nodeId)
     {
-        $this->provider->fetchNode($nodeId);
+        return $this->provider->fetchNode($nodeId);
     }
 
     protected function buildNode(NodeCollection $collection, $level = 0, $ancestorId = null)

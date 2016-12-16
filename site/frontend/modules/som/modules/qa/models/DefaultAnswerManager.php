@@ -35,7 +35,12 @@ class DefaultAnswerManager extends BaseAnswerManager
     {
         return false;
     }
-    
+
+    public function getAnswer($answerId)
+    {
+        return QaAnswer::model()->findByPk($answerId);
+    }
+
     public function getAnswers(QaQuestion $question)
     {
         $sql = <<<SQL

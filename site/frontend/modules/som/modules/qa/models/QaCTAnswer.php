@@ -142,6 +142,11 @@ class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
     }
 
 #region INode
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     /**
      * @var INode[]
      */
@@ -153,6 +158,14 @@ class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
     public function appendChild(INode $node)
     {
         $this->_childes[] = $node;
+    }
+
+    /**
+     * @return INode[]
+     */
+    public function getChildes()
+    {
+        return $this->_childes;
     }
 
 #endregion

@@ -96,7 +96,7 @@ class DefaultController extends QaController
         $newDesigneActions = [
             'pediatrician',
             'search',
-            'questionAddForm',
+            'pediatricianAddForm',
         ];
 
         if (in_array($action->id, $newDesigneActions))
@@ -150,6 +150,45 @@ class DefaultController extends QaController
     }
 
     public function actionQuestionAddForm($consultationId = null, $redirectUrl = null)
+    {
+        $this->layout = '//layouts/lite/common';
+
+        $question = new QaQuestion();
+        $this->performAjaxValidation($question);
+        if ($consultationId !== null) {
+            $consultation = QaConsultation::model()->findByPk($consultationId);
+            if ($consultation === null) {
+                throw new \CHttpException(404);
+            }
+            $question->consultationId = $consultationId;
+            $question->scenario = 'consultation';
+        }
+
+        if (isset($_POST[\CHtml::modelName($question)])) {
+            $params = $_POST[\CHtml::modelName($question)];
+
+            $question->attributes = $params;
+
+            if ($question->category && count($question->category->tags) > 0) {
+                $question->setScenario('tag');
+                $question->tag_id = isset($params['tag_id']) ? $params['tag_id'] : null;
+            } else {
+                $question->tag_id = null;
+            }
+
+            if ($question->save()) {
+                $url = $redirectUrl ?: $question->url;
+                $this->redirect($url);
+            }
+        }
+
+        $this->render('form', [
+            'model' => $question,
+            'categories' => QaCategory::model()->sorted()->with('tags')->findAll(),
+        ]);
+    }
+
+    public function actionPediatricianAddForm($consultationId = null, $redirectUrl = null)
     {
         $this->layout = '//layouts/lite/new_common';
 

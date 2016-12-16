@@ -33,14 +33,14 @@ $breadcrumbs = [
         <div class="b-nav-panel__left">
             <div class="b-filter-menu b-filter-menu--theme-default">
                 <ul class="b-filter-menu__list">
-                    <li class="b-filter-menu__item <?=$tab == $this::TAB_NEW ? 'b-filter-menu__item--active' : ''?>">
-                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="b-filter-menu__link">Новые</a>
+                    <li class="b-filter-menu__item">
+                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="b-filter-menu__link <?=$tab == $this::TAB_NEW ? 'b-filter-menu__link--active' : ''?>">Новые</a>
                 	</li>
-                    <li class="b-filter-menu__item <?=$tab == $this::TAB_UNANSWERED ? 'b-filter-menu__item--active' : ''?>">
-                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => $this::TAB_UNANSWERED])?>" class="b-filter-menu__link">Без ответа</a>
+                    <li class="b-filter-menu__item">
+                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => $this::TAB_UNANSWERED])?>" class="b-filter-menu__link <?=$tab == $this::TAB_UNANSWERED ? 'b-filter-menu__item--active' : ''?>">Без ответа</a>
                     </li>
-                    <li class="b-filter-menu__item <?=$tab == $this::TAB_All ? 'b-filter-menu__item--active' : ''?>">
-                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => $this::TAB_All])?>" class="b-filter-menu__link">Все ответы</a>
+                    <li class="b-filter-menu__item">
+                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => $this::TAB_All])?>" class="b-filter-menu__link <?=$tab == $this::TAB_All ? 'b-filter-menu__item--active' : ''?>">Все ответы</a>
                     </li>
                 </ul>
             </div>

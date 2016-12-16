@@ -227,7 +227,7 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'moderation' => 'site/moderationRules',
-        'site/<_a:(send|stats|out|vacancySend)>' => 'site/<_a>',
+        'site/<_a:(send|stats|out|vacancySend|logout)>' => 'site/<_a>',
         '<view:(abuse)>' => array('site/page'),
         'developer' => 'site/vacancy',
 

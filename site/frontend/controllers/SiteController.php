@@ -107,6 +107,12 @@ class SiteController extends LiteController
         $this->render('//system/maintenance');
     }
 
+    public function actionLogout()
+    {
+        Yii::app()->user->logout();
+        $this->redirect(array('site/index'));
+    }
+
     public function actionModerationRules(){
         $this->layout = 'common';
         $this->pageTitle = 'Правила модерации на Веселом Жирафе';

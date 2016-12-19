@@ -1,6 +1,18 @@
+<?php
+
+Yii::app()->clientScript->registerAMD('headerSearch', ['common'], '
+$("#js-madal-search-box").magnificPopup({
+              type: "inline",
+              preloader: false,
+              closeOnBgClick: false,
+              closeBtnInside: false,
+              mainClass: "b-modal-search"
+            });');
+
+?>
 <div class="header__container">
     <div class="b-col b-col--1 b-fl">
-        <a href="/" class="header__logo header__logo--style"></a><span class="header__search header__search--style"></span><a class="js-mobile-menu mobile-menu"><span></span></a>
+        <a href="/" class="header__logo header__logo--style"></a><span id="js-madal-search-box" class="header__search header__search--style"></span><a class="js-mobile-menu mobile-menu"><span></span></a>
     </div>
     <nav class="header__menu header__menu--style">
         <ul class="header__list">

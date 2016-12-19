@@ -58,7 +58,7 @@ $mobileBlock =
 '<div class="b-mobile-nav">
     <div class="b-mobile-nav__title">Мой педиатор</div>
     <div class="b-mobile-nav__right">
-        <a href="<?=$this->createUrl("/som/qa/default/questionAddForm/")?>" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
+        <a href="' . $this->createUrl("/som/qa/default/questionAddForm/") . '" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
     </div>
 </div>';
 

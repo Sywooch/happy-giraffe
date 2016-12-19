@@ -30,13 +30,50 @@
     <body class="page--bg add-question">
         <div class="js-overlay-menu overlay-menu"></div>
         <div class="js-overlay-user overlay-user"></div>
+		<?php /**
+		<div class="alerts">
+            <div class="alerts__inner">
+                <div class="alert alert-in alert-yellow">
+                    <div class="pos-rel">
+                        <div class="alert__container">
+                            <div class="alert__ico alert__ico-yellow"></div>
+                            <div class="alert__text alert__text-yellow">Спасибо, теперь для получения баллов необходимо еще раз нажать на кнопку</div>
+                        </div><span class="alert__close alert__close-yellow"></span>
+                    </div>
+                </div>
+                <div class="alert alert-in alert-red">
+                    <div class="pos-rel">
+                        <div class="alert__container">
+                            <div class="alert__ico alert__ico-red"></div>
+                            <div class="alert__text alert__text-red">Спасибо, теперь для получения баллов необходимо еще раз нажать на кнопку</div>
+                        </div><span class="alert__close alert__close-red"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        **/?>
+        <div id="js-alerts" class="alerts" data-bind="template: { name: 'alert', foreach: alertsList }"></div>
+
+		<script type="text/html" id="alert">
+			<div class="alerts__inner">
+			   <div class="alert alert-in" data-bind="css: 'alert-' + color">
+		            <div class="pos-rel">
+		                <div class="alert__container">
+		                    <div class="alert__ico" data-bind="css: 'alert__ico-' + color"></div>
+		                    <div class="alert__text" data-bind="css: 'alert__text-' + color, text: message"></div>
+		                </div>
+		                <span class="alert__close" data-bind="click: $parent.closeAlert, css: 'alert__close-' + color"></span>
+		            </div>
+		        </div>
+			</div>
+	    </script>
         <div class="b-layout b-container b-container--white b-container--style">
             <header class="header header-question header--question">
                 <div class="header-question__item">
                     <div class="header-question__title">Задать вопрос</div>
                 </div>
                 <div class="header-question__item header-question__item--close">
-                    <button type="button" class="header-question__close"></button>
+                    <a href="<?= $this->createUrl('/som/qa/default/pediatrician') ?>" type="button" class="header-question__close"></a>
                 </div>
             </header>
             <main class="b-main">

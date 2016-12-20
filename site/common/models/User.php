@@ -179,10 +179,7 @@ class User extends HActiveRecord
             $attr == 'middle_name'
         )
         {
-            if (preg_match('/([^\x00-\x7F]|\w)+/', $value))
-            {
-                return json_decode('"' . $value . '"');
-            }
+            $value = Filters::decodeUnicodeToString($value);
         }
 
         return $value;

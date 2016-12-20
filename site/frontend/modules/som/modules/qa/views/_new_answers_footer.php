@@ -1,7 +1,5 @@
 <?php
 
-use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
-
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var site\frontend\modules\som\modules\qa\models\QaCTAnswer $data
@@ -12,7 +10,7 @@ use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
 <div class="b-pedaitor-answer__footer b-answer-footer b-answer-footer--pink">
 <?php if ($myAnswersPage):?>
     <div class="b-pedaitor-answer__footer__item">
-    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->question->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=(new Enum())->getTitleForWeb($data->question->tag->name)?></a>
+    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->question->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->question->tag->getTitle()?></a>
     </div>
     <div class="b-pedaitor-answer__footer__item"><a href="javascript:void(0);" class="b-answer-footer__comment">10</a>
         <button type="button" class="btn-answer btn-answer--theme-grey">
@@ -22,7 +20,7 @@ use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
     </div>
 <?php else:?>
     <div class="b-pedaitor-answer__footer__item">
-    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->question->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=(new Enum())->getTitleForWeb($data->question->tag->name)?></a>
+    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->question->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->question->tag->getTitle()?></a>
     </div>
     <div class="b-pedaitor-answer__footer__item"><a href="javascript:void(0);" class="b-answer-footer__comment"><?=$data->getQuestion()->getAnswerManager()->getAnswersCount()?></a>
         <?php if (\Yii::app()->user->isGuest) { ?>

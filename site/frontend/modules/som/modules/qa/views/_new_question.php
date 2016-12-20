@@ -1,7 +1,5 @@
 <?php
 
-use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
-
 /**
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $data
  */
@@ -20,7 +18,7 @@ use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
             </div>
             <?php if (!is_null($data->tag)): ?>
                 <div class="b-answer__footer b-answer-footer">
-                	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=(new Enum())->getTitleForWeb($data->tag->name)?></a>
+                	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->tag->getTitle()?></a>
                 </div>
   			<?php endif; ?>
         </div>

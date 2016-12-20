@@ -15,6 +15,8 @@ use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 use site\frontend\modules\specialists\models\SpecialistGroup;
+use site\frontend\modules\som\modules\qa\models\QaTag;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
@@ -103,21 +105,45 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = $answer;
     }
 
+    public function actionGetTags()
+    {
+        $tags = QaTag::model()->byCategory(QaCategory::PEDIATRICIAN_ID)->findAll();
+
+        if (is_null($tags))
+        {
+            $this->success = FALSE;
+            return;
+        }
+
+        $result = [];
+        foreach ($tags as $tag)
+        {
+            $result[] = [
+                'id' => $tag->id,
+                'name' => $tag->name,
+                'title' => $tag->getTitle(),
+
+            ];
+        }
+
+        $this->success = !empty($result);
+        $this->data = $result;
+    }
+
     public function actionCreateQuestion($title, $text, $tagId = NULL, $childId = NULL, $category = 124)
     {
-        if (!\Yii::app()->user->checkAccess('voteAnswer', ['entity' => $answer])) {
+        if (!\Yii::app()->user->checkAccess('createQaQuestion')) {
             throw new \CHttpException(403);
         }
 
         var_dump($title);exit;
 
         $question = new QaQuestion();
-        $params = $_POST[\CHtml::modelName($question)];
-
-        $question->attributes = $params;
+        $question->setScenario('tag');
+        $question->title = $title;
+        $question->text = $text;
 
         if ($question->category && count($question->category->tags) > 0) {
-            $question->setScenario('tag');
             $question->tag_id = isset($params['tag_id']) ? $params['tag_id'] : null;
         } else {
             $question->tag_id = null;

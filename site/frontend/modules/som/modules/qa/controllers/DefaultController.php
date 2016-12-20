@@ -190,7 +190,7 @@ class DefaultController extends QaController
 
     public function actionPediatricianAddForm($consultationId = null, $redirectUrl = null)
     {
-        $this->layout = '//layouts/lite/new_common';
+        $this->layout = '//layouts/lite/new_form';
 
         $question = new QaQuestion();
         $this->performAjaxValidation($question);

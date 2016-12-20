@@ -212,7 +212,6 @@ return array(
             'js' => array(
                 'javascripts/jquery.flydiv.js'
             ),
-            'depends' => array('jquery'),
         ),
         'DOMPurify' => [
             'baseUrl' => '/',
@@ -680,6 +679,7 @@ return array(
             'js' => array(
                 'app/builds/static/js/main.min.js',
             ),
+            'depends' => array('jquery'),
 
         ),
         'lite_faq_user' => array(

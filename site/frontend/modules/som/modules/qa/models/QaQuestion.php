@@ -399,11 +399,6 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         return $this;
     }
 
-    public function withoutSpecialistsAnswers($groupId)
-    {
-
-    }
-
     /**
      * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
      */
@@ -428,12 +423,22 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see CActiveRecord::save()
-     */
-    public function save($runValidation = true, $attributes = null)
-    {
+	/**
+	 * @return QaQuestion
+	 */
+	public function withoutSpecialistsAnswers()
+	{
+		$this->getDbCriteria()->addCondition("not exists(select * from qa__answers a where a.questionId={$this->tableAlias}.id and a.isRemoved = 0 and exists(select * from users u where u.id = a.authorId and u.specialistInfo is not null and u.specialistInfo != ''))");
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see CActiveRecord::save()
+	 */
+	public function save($runValidation=true,$attributes=null)
+	{
         $this->title = \CHtml::encode($this->title);
 
         return parent::save($runValidation, $attributes);

@@ -517,8 +517,8 @@ class ContactsManager
 
         return array(
 			'id' => (int) $row['uId'],
-			'firstName' => $row['first_name'],
-			'lastName' => $row['last_name'],
+			'firstName' => Filters::decodeUnicodeToString($row['first_name']),
+			'lastName'  => Filters::decodeUnicodeToString($row['last_name']),
 			'gender' => (int) $row['gender'],
 			'avatar' => $user->getAvatarUrl(Avatar::SIZE_MEDIUM),
 			'channel' => $user->publicChannel,

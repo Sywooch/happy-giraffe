@@ -156,7 +156,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
     public function defaultScope()
     {
         return array(
-            'condition' => 'typeId != "status"',
+            'condition' => 'typeId NOT IN("status", "' . static::TYPE_ANSWER_PEDIATRICIAN . '")',
             'order' => $this->getTableAlias(false, false) . '.`dtimeCreate` DESC',
         );
     }
@@ -176,7 +176,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     public function onlyPosts()
     {
-        $this->getDbCriteria()->compare('typeId', '<>comment');
+        $this->getDbCriteria()->addInCondition('typeId', ['advPost', 'photoPost', 'post', 'question', 'videoPost']);
         return $this;
     }
 }

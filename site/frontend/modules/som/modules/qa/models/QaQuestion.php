@@ -333,84 +333,91 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
         }
 
         return FALSE;
-    }
+	}
 
-    /**
-     * @return boolean
-     */
-    public function checkAccessForSpecialist()
-    {
-        $profile = \Yii::app()->user->getModel()->specialistProfile;
+	/**
+	 * @return boolean
+	 */
+	public function checkAccessForSpecialist()
+	{
+	    $profile = \Yii::app()->user->getModel()->specialistProfile;
 
-        if (is_null($profile)) {
-            return true;
-        }
+	    if (is_null($profile))
+	    {
+	        return true;
+	    }
 
-        return $profile->authorizationIsDone();
-    }
+	    return $profile->authorizationIsDone();
+	}
 
-    public function isFromConsultation()
-    {
-        return $this->consultationId !== null;
-    }
+	public function isFromConsultation()
+	{
+		return $this->consultationId !== null;
+	}
 
-    /**
-     * @return integer
-     */
-    public function answersUsersCount()
-    {
-        return count(array_unique(array_map(function ($value) {
-            return $value->authorId;
-        }, $this->answers)));
-    }
+	/**
+	 * @return integer
+	 */
+	public function answersUsersCount()
+	{
+	    return count(array_unique(array_map(function ($value){
+	        return $value->authorId;
+	    }, $this->answers)));
+	}
 
-    /**
-     * @param int $userId
-     *
-     * @return QaQuestion
-     */
-    public function withoutUserAnswers($userId)
-    {
-        $this->getDbCriteria()->addCondition("not exists(select * from qa__answers a where a.questionId={$this->tableAlias}.id and a.authorId={$userId})");
+	/**
+	 * @param int $userId
+	 *
+	 * @return QaQuestion
+	 */
+	public function withoutUserAnswers($userId)
+	{
+		$this->getDbCriteria()->addCondition("not exists(select * from qa__answers a where a.questionId={$this->tableAlias}.id and a.authorId={$userId})");
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function withoutSpecialistsAnswers($groupId)
-    {
 
-    }
+	/**
+	 * @return QaQuestion
+	 */
+	public function withoutSpecialistsAnswers()
+	{
+		$this->getDbCriteria()->addCondition("not exists(select * from qa__answers a where a.questionId={$this->tableAlias}.id and a.isRemoved = 0 and exists(select * from users u where u.id = a.authorId and u.specialistInfo is not null and u.specialistInfo != ''))");
 
-    /**
-     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
-     */
-    public function next()
-    {
-        $this->getDbCriteria()->compare('dtimeCreate', '>' . $this->dtimeCreate);
-        $this->orderAsc();
-        $this->getDbCriteria()->limit = 1;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+	 */
+	public function next()
+	{
+	    $this->getDbCriteria()->compare('dtimeCreate', '>' . $this->dtimeCreate);
+	    $this->orderAsc();
+	    $this->getDbCriteria()->limit = 1;
 
-    /**
-     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
-     */
-    public function previous()
-    {
-        $this->getDbCriteria()->compare('dtimeCreate', '<' . $this->dtimeCreate);
-        $this->orderDesc();
-        $this->getDbCriteria()->limit = 1;
+	    return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+	 */
+	public function previous()
+	{
+	    $this->getDbCriteria()->compare('dtimeCreate', '<' . $this->dtimeCreate);
+	    $this->orderDesc();
+	    $this->getDbCriteria()->limit = 1;
 
-    /**
-     * {@inheritDoc}
-     * @see CActiveRecord::save()
-     */
-    public function save($runValidation = true, $attributes = null)
-    {
+	    return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see CActiveRecord::save()
+	 */
+	public function save($runValidation=true,$attributes=null)
+	{
         $this->title = \CHtml::encode($this->title);
 
         return parent::save($runValidation, $attributes);

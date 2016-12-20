@@ -20,7 +20,7 @@ $this->pageTitle = 'Прямой эфир';
                     'htmlOptions' => array('class' => 'onair-filter', 'style' => 'margin-top: 20px;'),
                     'itemCssClass' => 'onair-filter_i',
                     'items'=>array(
-                        array('label' => 'Все', 'url' => array('/som/activity/onAir/index', 'filter' => 'all'), 'active' => $filter === null),
+                        array('label' => 'Все', 'url' => array('/som/activity/onAir/index'), 'active' => $filter === null),
                         array('label' => 'Записи', 'url' => array('/som/activity/onAir/index', 'filter' => 'posts')),
                         array('label' => 'Комментарии', 'url' => array('/som/activity/onAir/index', 'filter' => 'comments')),
                     ),

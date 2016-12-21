@@ -47,6 +47,12 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     const PUBLISHED = 1;
 
     /**
+     * @var integer NOT_REMOVED Статус неудаленного ответа
+     * @author Sergey Gubarev
+     */
+    const NOT_REMOVED = 0;
+
+    /**
      * Диапазон времени (минут), в течени которого специалист может редактировать свой ответ
      *
      * @var integer
@@ -182,7 +188,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'notificationBehavior' => [
                 'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
             ],
-            QaBehavior::class,
+            'QaBehavior' => [
+                'class' => QaBehavior::class
+            ]
         ];
     }
 
@@ -447,4 +455,27 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     {
         return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
     }
+
+    /**
+     * Количество "спасибо"
+     *
+     * @return integer
+     * @author Sergey Gubarev
+     */
+    public function getVotesCount()
+    {
+        return $this->votesCount;
+    }
+
+    /**
+     * Получить вопрос к ответу
+     *
+     * @return QaQuestion
+     * @author Sergey Gubarev
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
 }

@@ -82,7 +82,9 @@ class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
                     'AutoFormat.Linkify' => true,
                 ],
             ],
-            QaBehavior::class,
+            'QaBehavior' => [
+                'class' => QaBehavior::class
+            ]
         ];
     }
 

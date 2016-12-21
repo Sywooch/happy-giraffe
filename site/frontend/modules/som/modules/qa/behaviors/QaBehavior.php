@@ -85,7 +85,7 @@ class QaBehavior extends ActivityBehavior
 
         return $activity;
     }
-
+    
     /**
      *
      * @return boolean true - модель удалена и надо удалить активность, false - модель есть и при необходимости, надо создать активность.

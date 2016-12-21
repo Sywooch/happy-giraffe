@@ -1,25 +1,55 @@
 <?php
 
-use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
+use site\frontend\modules\som\modules\activity\models\Activity;
 
 $user = $this->getUserInfo($data->userId);
+
+if (! $this->ownerId)
+{
+    $renderData = [
+        'data'          => $data,
+        'user'          => $user,
+        'widget'        => $this
+    ];
+
+    $template = 'site.frontend.modules.som.modules.activity.widgets.views.other';
+}
+else
+{
+    switch ($data->typeId) {
+        case Activity::TYPE_ANSWER_PEDIATRICIAN:
+        case Activity::TYPE_COMMENT:
+            $answerModel = unserialize($data->data);
+            
+            if ($answerModel) {
+                $renderData = [
+                    'data' => $answerModel
+                ];
+
+                $template = 'site.frontend.modules.som.modules.qa.views._new_answers';
+            } else {
+                $renderData = [
+                    'data' => $data,
+                    'user' => $user,
+                    'widget' => $this
+                ];
+
+                $template = 'site.frontend.modules.som.modules.activity.widgets.views.other';
+            }
+            break;
+
+        default:
+            $renderData = [
+                'data' => $data,
+                'user' => $user,
+                'widget' => $this
+            ];
+
+            $template = 'site.frontend.modules.som.modules.activity.widgets.views.other';
+            break;
+    }
+}
+
+$this->controller->renderPartial($template, $renderData);
+
 ?>
-<article class="b-article b-article__list clearfix">
-    <div class="b-article_cont clearfix">
-        <div class="b-article_header clearfix">
-            <div class="float-l">
-                <!-- ava-->
-                <a href="<?= $user->profileUrl ?>" class="ava ava__<?= $user->gender ? '' : 'fe' ?>male ava__middle-xs ava__middle-sm-mid ">
-                    <span class="ico-status ico-status__online"></span>
-                    <img alt="" src="<?= $user->avatarUrl ?>" class="ava_img">
-                </a>
-                <a href="<?= $user->profileUrl ?>" class="b-article_author"><?= $user->fullName ?></a>
-                <?= HHtml::timeTag($data, array('class' => 'tx-date'), null); ?>
-                <?php if ($user->specInfo !== null): ?>
-                    <div class="b-article_authorpos"><?=$user->specInfo['title']?></div>
-                <?php endif; ?>
-            </div>
-        </div>
-        <?php $this->render(ActivityWidget::$types[$data->typeId][1], array('data' => $data)); ?>
-    </div>
-</article>

@@ -13,7 +13,7 @@ if (isset($additionalData['votesList']))
 }
 
 ?>
-<li class="b-answer__item">
+<article class="b-answer__item">
     <div class="b-pediator-answer">
     	<div class="b-pediator-answer__left">
             <div class="b-pediator-answer__ava b-pediator-answer__ava--theme-pink">
@@ -23,14 +23,14 @@ if (isset($additionalData['votesList']))
             </div>
         </div>
         <?php if ($data->authorIsSpecialist()) {
-            $this->renderPartial('/_new_answer_pediator', ['data' => $data]);
+            $this->renderPartial('site.frontend.modules.som.modules.qa.views._new_answer_pediator', ['data' => $data]);
         } else {
-            $this->renderPartial('/_new_answer_user', ['data' => $data]);
+            $this->renderPartial('site.frontend.modules.som.modules.qa.views._new_answer_user', ['data' => $data]);
         } ?>
-        <?php $this->renderPartial('/_new_answers_footer', [
-            'data' => $data,
-            'hasVote' => $hasVote,
+        <?php $this->renderPartial('site.frontend.modules.som.modules.qa.views._new_answers_footer', [
+            'data'          => $data,
+            'hasVote'       => $hasVote,
             'myAnswersPage' => isset($additionalData['myAnswersPage']) ? $additionalData['myAnswersPage'] : FALSE,
         ]) ?>
 	</div>
-</li>
+</article>

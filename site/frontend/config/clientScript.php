@@ -540,6 +540,7 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/member.css',
+                'lite/css/min/member-new.css'
             ),
         ),
         'lite_member_user' => array(
@@ -637,6 +638,7 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/member-photo.css',
+                'lite/css/min/member-new.css',
                 'lite/css/min/member-user.css'
             ),
         ),

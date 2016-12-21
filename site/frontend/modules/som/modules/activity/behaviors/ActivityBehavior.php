@@ -21,7 +21,7 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
     }
 
     public function afterSave($event)
-    {   
+    {
         \CommentLogger::model()->addToLog('ActivityBehavior', 'afterSave()');
         
         \Yii::log('called from: ' . get_class($event->sender), 'info', 'som.modules.activity.behaviors.PostBehavior');
@@ -48,8 +48,12 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
     {
         try {
             $activity = $this->getActivityModel();
-            $activity->hash = $this->getActivityId();
-            $activity->save();
+
+            if ($activity)
+            {
+                $activity->hash = $this->getActivityId();
+                $activity->save();
+            }
         } catch (\Exception $ex) {
             \Yii::log('message: ' . $ex->getMessage(), 'info', 'som.modules.activity.behaviors.PostBehavior');
         }

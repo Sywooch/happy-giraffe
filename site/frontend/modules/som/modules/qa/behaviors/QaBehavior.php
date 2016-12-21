@@ -5,12 +5,13 @@ namespace site\frontend\modules\som\modules\qa\behaviors;
 use site\frontend\modules\som\modules\activity\behaviors\ActivityBehavior;
 use site\frontend\modules\som\modules\activity\models\api\Activity;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
+use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use Aws\CloudFront\Exception\Exception;
 
 /**
- * @property QaAnswer|QaQuestion $owner
+ * @property QaAnswer|QaCTAnswer|QaQuestion $owner
  *
  * @author Emil Vililyaev
  */
@@ -29,15 +30,26 @@ class QaBehavior extends ActivityBehavior
 
     /**
      *
-     * @return \site\frontend\modules\som\modules\activity\models\api\Activity Модель активности, заполненная данными
+     * @return bool|\site\frontend\modules\som\modules\activity\models\api\Activity Модель активности, заполненная данными
      */
     public function getActivityModel()
     {
+        if (
+            $this->owner instanceof QaQuestion
+            &&
+            !is_null($this->owner->category)
+            &&
+            $this->owner->category->isPediatrician()
+        )
+        {
+            return false;
+        }
+
         $activity = new Activity();
         $activity->dtimeCreate = (int) $this->owner->dtimeCreate;
         $activity->userId = (int) $this->owner->authorId;
 
-        switch (TRUE) {
+        switch (true) {
             case $this->owner instanceof QaQuestion :
                 $activity->data = [
                     'title' => $this->owner->title,
@@ -73,7 +85,7 @@ class QaBehavior extends ActivityBehavior
 
         return $activity;
     }
-
+    
     /**
      *
      * @return boolean true - модель удалена и надо удалить активность, false - модель есть и при необходимости, надо создать активность.

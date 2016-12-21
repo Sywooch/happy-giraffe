@@ -236,7 +236,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             $transaction->commit();
         } catch (\Exception $e) {
             $transaction->rollback();
-
             return false;
         }
 
@@ -395,6 +394,18 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         $this->getDbCriteria()->compare('root.authorId', $userId);
         $this->getDbCriteria()->addCondition("not exists(select * from qa__answers as children where children.root_id = {$this->tableAlias}.id and children.isRemoved = 0)");
 
+        return $this;
+    }
+
+    /**
+     * @return QaAnswer
+     */
+    public function specialists()
+    {
+        if (!isset($this->getDbCriteria()->with['author'])) {
+            $this->getDbCriteria()->with[] = 'author';
+        }
+        $this->getDbCriteria()->addCondition("author.specialistInfo is not null and author.specialistInfo != ''");
         return $this;
     }
 

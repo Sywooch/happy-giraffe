@@ -16,6 +16,8 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaRating;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 use site\frontend\modules\specialists\models\SpecialistGroup;
+use site\frontend\modules\som\modules\qa\models\QaTag;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
@@ -102,6 +104,75 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         $this->success = $answer->save();
         $this->data = $answer;
+    }
+
+    public function actionGetTags()
+    {
+        $tags = QaTag::model()->byCategory(QaCategory::PEDIATRICIAN_ID)->findAll();
+
+        if (is_null($tags))
+        {
+            $this->success = FALSE;
+            return;
+        }
+
+        $result = [];
+        foreach ($tags as $tag)
+        {
+            $result[] = [
+                'id' => $tag->id,
+                'name' => $tag->name,
+                'title' => $tag->getTitle(),
+
+            ];
+        }
+
+        $this->success = !empty($result);
+        $this->data = $result;
+    }
+
+    /**
+     * @param string $title
+     * @param string $text
+     * @param integer $tagId
+     * @param integer $childId
+     * @param integer $categoryId
+     * @throws \CHttpException
+     */
+    public function actionCreateQuestion($title, $text, $tagId = NULL, $childId = NULL, $categoryId = NULL)
+    {
+        if (!\Yii::app()->user->checkAccess('createQaQuestion')) {
+            throw new \CHttpException(403);
+        }
+
+        if (is_null($tagId) && is_null($childId))
+        {
+            throw new \CHttpException(400, 'tagId or childId must be passed');
+        }
+
+        $question = new QaQuestion();
+
+        if (!is_null($tagId))
+        {
+            $question->setScenario('tag');
+            $question->tag_id = $tagId;
+        }
+
+        if (!is_null($childId))
+        {
+            $question->setScenario('attachedChild');
+            $question->attachedChild = $childId;
+        }
+
+        $question->title                = $title;
+        $question->text                 = $text;
+        $question->attachedChild        = $childId;
+        $question->sendNotifications    = 1;//@todo Emil Vililyaev: hardCode! хз по какому условию ставить значение
+        $question->categoryId           = is_null($categoryId) ? QaCategory::PEDIATRICIAN_ID : $categoryId;
+
+        $this->success = $question->save();
+        $this->data = $question;
+
     }
 
     public function actionGetAnswers($questionId)

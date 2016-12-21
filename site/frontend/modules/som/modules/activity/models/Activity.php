@@ -195,7 +195,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
                 SELECT id FROM (
                     SELECT * FROM ' . Activity::model()->tableName() . ' WHERE typeId <> "' . static::TYPE_STATUS . '"
                 ) t2
-                WHERE 
+                WHERE
                     t2.userId = ' . $userId . '
                     OR
                     (
@@ -212,8 +212,8 @@ class Activity extends \HActiveRecord implements \IHToJSON
                                         qa__q.isRemoved = ' . QaQuestion::NOT_REMOVED . '
                                         AND
                                         qa__a.isPublished = ' . QaAnswer::PUBLISHED . '
-                        )    
-                        AND 
+                        )
+                        AND
                         t2.typeId = "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
                     )
             )
@@ -233,15 +233,15 @@ class Activity extends \HActiveRecord implements \IHToJSON
     {
         $sqlForAnswers = sprintf(
             'SELECT MD5(qa__a.id)
-                FROM %s qa__a 
-                JOIN %s qa__q 
-                ON 
-                  qa__q.id = qa__a.questionId 
-                WHERE 
+                FROM %s qa__a
+                JOIN %s qa__q
+                ON
+                  qa__q.id = qa__a.questionId
+                WHERE
                     qa__a.isPublished = %d
                     AND
                     qa__q.categoryId = %d
-                    AND 
+                    AND
                     qa__q.isRemoved = %d
             ',
 
@@ -278,12 +278,12 @@ class Activity extends \HActiveRecord implements \IHToJSON
         $sqlAuthorCondition = ! is_null($userId) ? "authorId = $userId AND" : '';
 
         $sqlForQuestions = '
-              SELECT MD5(id) 
+              SELECT MD5(id)
               FROM ' . QaQuestion::model()->tableName() . '
-              WHERE 
-                  ' . $sqlAuthorCondition . ' 
-                  categoryId = ' . QaCategory::PEDIATRICIAN_ID . ' 
-                  AND 
+              WHERE
+                  ' . $sqlAuthorCondition . '
+                  categoryId = ' . QaCategory::PEDIATRICIAN_ID . '
+                  AND
                   isRemoved = ' . QaQuestion::NOT_REMOVED
         ;
 
@@ -306,7 +306,11 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     public function onlyPosts()
     {
+<<<<<<< HEAD
+        $this->getDbCriteria()->addInCondition('typeId', ['advPost', 'photoPost', 'post', 'question', 'videoPost']);
+=======
         $this->getDbCriteria()->compare('typeId', '<>' . static::TYPE_COMMENT);
+>>>>>>> HAG-426
         return $this;
     }
 

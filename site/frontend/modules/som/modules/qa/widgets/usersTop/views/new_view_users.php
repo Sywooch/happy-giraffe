@@ -28,24 +28,26 @@ function getColorClassViewUsers($position)
         <ul class="b-sidebar-widget__body b-sidebar b-sidebar-widget__body--green">
         	<?php foreach ($rows as $i => $row): ?>
             <li class="b-sidebar__item">
-                <div class="b-sidebar__place"><span class="<?=getColorClassViewUsers($i+1)?>"><?=$i > 2 ? $i+1 : ''?></span>
-                </div>
-                <div class="b-sidebar__content b-sidebar-content b-sidebar-content--mod">
-                    <div class="b-sidebar-content__box">
-                        <a href="<?=$row['user']->profileUrl?>" class="ava ava--style ava--medium ava--default">
-                            <img src="<?=$row['user']->avatarUrl?>" class="ava__img" />
-                        </a>
+                <a href="<?=$row['user']->profileUrl?>" class="b-sidebar-widget__table">
+                    <div class="b-sidebar__place"><span class="<?=getColorClassViewUsers($i+1)?>"><?=$i > 2 ? $i+1 : ''?></span>
                     </div>
-                    <div class="b-sidebar-content__box">
-                    	<a href="<?=$row['user']->profileUrl?>" class="b-sidebar-content__link b-sidebar-content__link--white"><?=$this->formattedName($row['user']->fullName)?></a>
-                    	<span class="b-sidebar-content__answer b-sidebar-content__answer--white"> Ответы <?=$row['answers']?></span>
-                        <span class="b-sidebar-content__thank b-sidebar-content__thank--white"><?=$row['votes']?></span>
+                    <div class="b-sidebar__content b-sidebar-content b-sidebar-content--mod">
+                        <div class="b-sidebar-content__box">
+                            <span class="ava ava--style ava--medium ava--default">
+                                <img src="<?=$row['user']->avatarUrl?>" class="ava__img" />
+                            </span>
+                        </div>
+                        <div class="b-sidebar-content__box">
+                            <span class="b-sidebar-content__link b-sidebar-content__link--white"><?=$this->formattedName($row['user']->fullName)?></span>
+                            <span class="b-sidebar-content__answer b-sidebar-content__answer--white"> Ответы <?=$row['answers']?></span>
+                            <span class="b-sidebar-content__thank b-sidebar-content__thank--white"><?=$row['votes']?></span>
+                        </div>
                     </div>
-                </div>
-                <div class="b-sidebar__right b-text--right">
-                    <div class="b-sidebar__num b-sidebar__num--white"><?=intval($row['score'])?></div>
-                    <div class="b-sidebar__balls b-sidebar__balls--white">баллов</div>
-                </div>
+                    <div class="b-sidebar__right b-text--right">
+                        <div class="b-sidebar__num b-sidebar__num--white"><?=intval($row['score'])?></div>
+                        <div class="b-sidebar__balls b-sidebar__balls--white">баллов</div>
+                    </div>
+                </a>
             </li>
         	<?php endforeach; ?>
         </ul>

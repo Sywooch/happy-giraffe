@@ -672,7 +672,6 @@ return array(
             'depends' => array('lite_services'),
         ),
         'lite_new_pediatrician' => array(
-//             'depends' => array('lite_services'),
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(

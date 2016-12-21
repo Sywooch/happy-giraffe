@@ -41,6 +41,18 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
 class QaAnswer extends \HActiveRecord implements \IHToJSON
 {
     /**
+     * @var integer PUBLISHED Статус опубликованного ответа
+     * @author Sergey Gubarev
+     */
+    const PUBLISHED = 1;
+
+    /**
+     * @var integer NOT_REMOVED Статус неудаленного ответа
+     * @author Sergey Gubarev
+     */
+    const NOT_REMOVED = 0;
+
+    /**
      * Диапазон времени (минут), в течени которого специалист может редактировать свой ответ
      *
      * @var integer
@@ -64,153 +76,152 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return $this->dtimeCreate <= time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
     }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'qa__answers';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'qa__answers';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('questionId', 'safe'),
-			array('text', 'required'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return [
+            ['questionId', 'safe'],
+            ['text', 'required'],
+        ];
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'),
-			'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
-			'category' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', array('categoryId' => 'id'), 'through' => 'question'),
-			'tag' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', array('tag_id' => 'id'), 'through' => 'question'),
-			'votes' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'),
-			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
-			'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return [
+            'question' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'],
+            'author' => [self::BELONGS_TO, get_class(\User::model()), 'authorId'],
+            'category' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', ['categoryId' => 'id'], 'through' => 'question'],
+            'tag' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', ['tag_id' => 'id'], 'through' => 'question'],
+            'votes' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'],
+            'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
+            'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
+        ];
+    }
 
-	public function apiRelations()
-	{
-		return array(
-			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
-		);
-	}
+    public function apiRelations()
+    {
+        return [
+            'user' => ['site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => ['avatarSize' => 40]],
+        ];
+    }
 
-	/**
-	 * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
-	 */
-	public function getChilds()
-	{
-		$matchedAnswers = $this->children;
+    /**
+     * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
+     */
+    public function getChilds()
+    {
+        $matchedAnswers = $this->children;
 
-		foreach ($matchedAnswers as $answer)
-		{
-			if (!empty($answer->children))
-			{
-				$matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
-			}
+        foreach ($matchedAnswers as $answer) {
+            if (!empty($answer->children)) {
+                $matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
+            }
+        }
 
-		}
+        return $matchedAnswers;
+    }
 
-		return $matchedAnswers;
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'text' => 'Text',
+            'questionId' => 'Question',
+            'authorId' => 'Author',
+            'dtimeCreate' => 'Dtime Create',
+            'dtimeUpdate' => 'Dtime Update',
+        ];
+    }
 
-	}
+    public function behaviors()
+    {
+        return [
+            'CacheDelete' => [
+                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+            ],
+            'PushStream' => [
+                'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
+            ],
+            'softDelete' => [
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+                'removeAttribute' => 'isRemoved',
+            ],
+            'HTimestampBehavior' => [
+                'class' => 'HTimestampBehavior',
+                'createAttribute' => 'dtimeCreate',
+                'updateAttribute' => 'dtimeUpdate',
+            ],
+            'AuthorBehavior' => [
+                'class' => 'site\common\behaviors\AuthorBehavior',
+                'attr' => 'authorId',
+            ],
+            'purified' => [
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => ['text'],
+                'options' => [
+                    'AutoFormat.Linkify' => true,
+                ],
+            ],
+            'RatingBehavior' => [
+                'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
+            ],
+            'notificationBehavior' => [
+                'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
+            ],
+            'QaBehavior' => [
+                'class' => QaBehavior::class
+            ]
+        ];
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'text' => 'Text',
-			'questionId' => 'Question',
-			'authorId' => 'Author',
-			'dtimeCreate' => 'Dtime Create',
-			'dtimeUpdate' => 'Dtime Update',
-		);
-	}
+    public function save($runValidation = true, $attributes = null)
+    {
+        if (\Yii::app()->db->getCurrentTransaction() !== null) {
+            return parent::save($runValidation, $attributes);
+        }
 
-	public function behaviors()
-	{
-		return array(
-			'CacheDelete' => array(
-				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
-			),
- 			'PushStream' => array(
- 				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
- 			),
-			'softDelete' => array(
-				'class' => 'site.common.behaviors.SoftDeleteBehavior',
-				'removeAttribute' => 'isRemoved',
-			),
-			'HTimestampBehavior' => array(
-				'class' => 'HTimestampBehavior',
-				'createAttribute' => 'dtimeCreate',
-				'updateAttribute' => 'dtimeUpdate',
-			),
-			'AuthorBehavior' => array(
-				'class' => 'site\common\behaviors\AuthorBehavior',
-				'attr' => 'authorId',
-			),
-			'purified' => array(
-				'class' => 'site.common.behaviors.PurifiedBehavior',
-				'attributes' => array('text'),
-				'options' => array(
-					'AutoFormat.Linkify' => true,
-				),
-			),
-			'RatingBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
-			),
-			'notificationBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
-			),
-		    'site\frontend\modules\som\modules\qa\behaviors\QaBehavior',
-		);
-	}
+        $transaction = $this->dbConnection->beginTransaction();
+        try {
+            $success = parent::save($runValidation, $attributes);
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollback();
 
-	public function save($runValidation = true, $attributes = null)
-	{
-		if (\Yii::app()->db->getCurrentTransaction() !== null) {
-			return parent::save($runValidation, $attributes);
-		}
+            return false;
+        }
 
-		$transaction = $this->dbConnection->beginTransaction();
-		try {
-			$success = parent::save($runValidation, $attributes);
-			$transaction->commit();
-		} catch (\Exception $e) {
-			$transaction->rollback();
-			return false;
-		}
-		return $success;
-	}
+        return $success;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * @see CActiveRecord::beforeSave()
-	 */
-	protected function beforeSave()
-	{
-	    $parentResult = parent::beforeSave();
+    /**
+     * {@inheritDoc}
+     * @see CActiveRecord::beforeSave()
+     */
+    protected function beforeSave()
+    {
+        $parentResult = parent::beforeSave();
 
-        if ($this->isAdditional())
-        {
+        if ($this->isAdditional()) {
             return $this->authorId == $this->question->authorId;
         }
 
@@ -227,6 +238,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             $transaction->rollback();
             return false;
         }
+
         return $success;
     }
 
@@ -252,35 +264,46 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     protected function updateAnswersCount($n)
     {
-        $this->question->saveCounters(array('answersCount' => $n));
+        $this->question->saveCounters(['answersCount' => $n]);
     }
 
     public function user($userId)
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.authorId', $userId);
+
         return $this;
     }
 
     public function question($questionId)
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.questionId', $questionId);
+
         return $this;
     }
 
     public function orderDesc()
     {
         $this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
+
         return $this;
     }
 
     public function category($categoryId)
     {
-        $this->getDbCriteria()->mergeWith(array('with' => array(
-            'question' => array(
+        $this->getDbCriteria()->mergeWith(['with' => [
+            'question' => [
                 'joinType' => 'INNER JOIN',
-                'scopes' => array('category' => array($categoryId)),
-            ),
-        )));
+                'scopes' => ['category' => [$categoryId]],
+            ],
+        ]]);
+
+        return $this;
+    }
+
+    public function byRootId($rootId)
+    {
+        $this->getDbCriteria()->addColumnCondition(['root_id' => $rootId]);
+
         return $this;
     }
 
@@ -291,15 +314,17 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         $criteria = $this->getDbCriteria();
         $criteria->join = " JOIN $qTable q ON q.id = $t.questionId";
         $criteria->addCondition('q.consultationId IS NULL');
+
         return $this;
     }
 
     public function checkQuestionExiststance()
     {
         $criteria = new \CDbCriteria();
-        $criteria->with = array('question');
+        $criteria->with = ['question'];
         $criteria->addCondition('question.isRemoved = 0');
         $this->getDbCriteria()->mergeWith($criteria);
+
         return $this;
     }
 
@@ -404,14 +429,15 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     public function defaultScope()
     {
         $t = $this->getTableAlias(false, false);
-        return array(
+
+        return [
             'condition' => $t . '.isRemoved = 0',
-        );
+        ];
     }
 
     public function toJSON()
     {
-        return array(
+        return [
             'id' => (int) $this->id,
             'authorId' => (int) $this->authorId,
             'dtimeCreate' => (int) $this->dtimeCreate,
@@ -419,7 +445,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'votesCount' => (int) $this->votesCount,
             'user' => $this->user->formatedForJson(),
             'isRemoved' => (bool) $this->isRemoved,
-        );
+        ];
     }
 
     /**
@@ -440,4 +466,27 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     {
         return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
     }
+
+    /**
+     * Количество "спасибо"
+     *
+     * @return integer
+     * @author Sergey Gubarev
+     */
+    public function getVotesCount()
+    {
+        return $this->votesCount;
+    }
+
+    /**
+     * Получить вопрос к ответу
+     *
+     * @return QaQuestion
+     * @author Sergey Gubarev
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
 }

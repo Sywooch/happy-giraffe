@@ -1,7 +1,7 @@
 <?php
 
 Yii::app()->clientScript->registerAMD('headerSearch', ['common'], '
-$("#js-madal-search-box").magnificPopup({
+$("[href=#js-madal-search-box]").magnificPopup({
               type: "inline",
               preloader: false,
               closeOnBgClick: false,
@@ -12,7 +12,7 @@ $("#js-madal-search-box").magnificPopup({
 ?>
 <div class="header__container">
     <div class="b-col b-col--1 b-fl">
-        <a href="/" class="header__logo header__logo--style"></a><span id="js-madal-search-box" class="header__search header__search--style"></span><a class="js-mobile-menu mobile-menu"><span></span></a>
+        <a href="/" class="header__logo header__logo--style"></a><a href="#js-madal-search-box" class="header__search header__search--style"></a><a class="js-mobile-menu mobile-menu"><span></span></a>
     </div>
     <nav class="header__menu header__menu--style">
         <ul class="header__list">
@@ -53,4 +53,17 @@ $("#js-madal-search-box").magnificPopup({
             </ul>
         </div>
     <?php endif; ?>
+</div>
+
+<div id="js-madal-search-box" class="madal-search-box mfp-hide">
+    <div class="modal-search-block">
+        <form class="modal-search-block__form" action="<?=$this->createUrl('/search/default/index')?>">
+            <div class="modal-search-block__panel">
+                <input type="hidden" name="searchid" value="1883818">
+                <input type="hidden" name="web" value="0">
+                <input type="text" name="text" placeholder="Поиск" class="modal-search-block__input">
+                <button class="modal-search-block__btn"></button>
+            </div>
+        </form>
+    </div>
 </div>

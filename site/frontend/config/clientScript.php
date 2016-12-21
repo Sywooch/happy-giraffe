@@ -680,6 +680,7 @@ return array(
             'js' => array(
                 'app/builds/static/js/main.min.js',
             ),
+            'depends' => array('jquery'),
 
         ),
         'lite_faq_user' => array(

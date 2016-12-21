@@ -306,11 +306,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     public function onlyPosts()
     {
-<<<<<<< HEAD
-        $this->getDbCriteria()->addInCondition('typeId', ['advPost', 'photoPost', 'post', 'question', 'videoPost']);
-=======
         $this->getDbCriteria()->compare('typeId', '<>' . static::TYPE_COMMENT);
->>>>>>> HAG-426
         return $this;
     }
 

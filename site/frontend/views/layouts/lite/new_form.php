@@ -21,7 +21,7 @@
         <meta property="og:image:height" content="300" />
         <meta property="twitter:description" content="" />
         <link rel="image_src" href="" />
-        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
         <script>
             (function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)
         </script>

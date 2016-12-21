@@ -169,8 +169,6 @@ class DefaultController extends QaController
 
             $question->attributes = $params;
 
-            var_dump($params);exit;
-
             if ($question->category && count($question->category->tags) > 0) {
                 $question->setScenario('tag');
                 $question->tag_id = isset($params['tag_id']) ? $params['tag_id'] : null;

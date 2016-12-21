@@ -13,9 +13,15 @@ $breadcrumbs = [
     'Главная' => ['/site/index'],
     'Мой педиатр',
 ];
+
+$tabTitle = [
+    $this::TAB_NEW          => 'Новые',
+    $this::TAB_UNANSWERED   => 'Без ответа',
+    $this::TAB_All          => 'Все ответы',
+];
 ?>
 <div class="b-col b-col--6 b-hidden-md">
-	<div class="b-breadcrumbs b-breadcrumbs--theme-default">
+    <div class="b-breadcrumbs b-breadcrumbs--theme-default">
         <?php
         $this->widget('zii.widgets.CBreadcrumbs', [
             'links'                => $breadcrumbs,
@@ -28,19 +34,28 @@ $breadcrumbs = [
         ]);
         ?>
     </div>
+</div>
+<div class="b-col b-col--6 b-col-sm--10 b-col-xs">
+    <div class="b-mobile-nav">
+        <div class="b-mobile-nav__title">Мой педиатор</div>
+        <div class="b-mobile-nav__right">
+            <a href="<?=$this->createUrl("/som/qa/default/questionAddForm/")?>" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
+        </div>
+    </div>
     <div class="b-nav-panel">
         <?php /* -------------- TABS -------------- */?>
         <div class="b-nav-panel__left">
             <div class="b-filter-menu b-filter-menu--theme-default">
+                <p class="js-mobile-dropdown mobile-dropdown-button"><?=array_key_exists($tab, $tabTitle) ? $tabTitle[$tab] : 'Все ответы'?></p>
                 <ul class="b-filter-menu__list">
                     <li class="b-filter-menu__item">
-                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="b-filter-menu__link <?=$tab == $this::TAB_NEW ? 'b-filter-menu__link--active' : ''?>">Новые</a>
+                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="b-filter-menu__link <?=$tab == $this::TAB_NEW ? 'b-filter-menu__link--active' : ''?>"><?=$tabTitle[$this::TAB_NEW]?></a>
                 	</li>
                     <li class="b-filter-menu__item">
-                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => $this::TAB_UNANSWERED])?>" class="b-filter-menu__link <?=$tab == $this::TAB_UNANSWERED ? 'b-filter-menu__item--active' : ''?>">Без ответа</a>
+                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => $this::TAB_UNANSWERED])?>" class="b-filter-menu__link <?=$tab == $this::TAB_UNANSWERED ? 'b-filter-menu__link--active' : ''?>"><?=$tabTitle[$this::TAB_UNANSWERED]?></a>
                     </li>
                     <li class="b-filter-menu__item">
-                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => $this::TAB_All])?>" class="b-filter-menu__link <?=$tab == $this::TAB_All ? 'b-filter-menu__item--active' : ''?>">Все ответы</a>
+                    	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => $this::TAB_All])?>" class="b-filter-menu__link <?=$tab == $this::TAB_All ? 'b-filter-menu__link--active' : ''?>"><?=$tabTitle[$this::TAB_All]?></a>
                     </li>
                 </ul>
             </div>
@@ -54,14 +69,6 @@ $breadcrumbs = [
 </div>
 
 <?php
-$mobileBlock =
-'<div class="b-mobile-nav">
-    <div class="b-mobile-nav__title">Мой педиатор</div>
-    <div class="b-mobile-nav__right">
-        <a href="' . $this->createUrl("/som/qa/default/questionAddForm/") . '" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
-    </div>
-</div>';
-
 $itemView = '/_new_question';
 
 if ($tab == $this::TAB_All)
@@ -78,7 +85,7 @@ $this->widget('LiteListView', [
     ],
     'itemsTagName'      => 'ul',
     'itemsCssClass'     => 'b-answer b-answer--theme-pediator',
-    'template'          => $mobileBlock . '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
+    'template'          => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
     'pager'             => [
         'class'           => 'LitePagerDots',
         'prevPageLabel'   => '&nbsp;',

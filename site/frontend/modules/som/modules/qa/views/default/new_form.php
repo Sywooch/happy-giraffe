@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
+ */
+
+$this->pageTitle = 'Задать вопрос';
+?>
 <add-question>
 	<div class="preloader">
         <div class="preloader__inner">

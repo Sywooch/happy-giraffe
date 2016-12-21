@@ -29,6 +29,7 @@ use site\frontend\modules\som\modules\qa\components\QaObjectList;
  * @property double $rating
  * @property int $answersCount
  * @property int $tag_id
+ * @property int $attachedChild
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\som\modules\qa\models\QaConsultation $consultation
@@ -100,6 +101,9 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
             // теги
             ['tag_id', 'required', 'on' => 'tag'],
             ['tag_id', 'tagValidator', 'on' => 'tag'],
+
+            ['attachedChild', 'required', 'on' => 'attachedChild'],
+            ['attachedChild', 'default', 'value' => null, 'on' => 'attachedChild'],
         ];
     }
 

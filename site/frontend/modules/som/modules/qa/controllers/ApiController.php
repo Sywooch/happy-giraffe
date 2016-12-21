@@ -130,24 +130,44 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = $result;
     }
 
-    public function actionCreateQuestion($title, $text, $tagId = NULL, $childId = NULL, $category = 124)
+    /**
+     * @param string $title
+     * @param string $text
+     * @param integer $tagId
+     * @param integer $childId
+     * @param integer $categoryId
+     * @throws \CHttpException
+     */
+    public function actionCreateQuestion($title, $text, $tagId = NULL, $childId = NULL, $categoryId = NULL)
     {
         if (!\Yii::app()->user->checkAccess('createQaQuestion')) {
             throw new \CHttpException(403);
         }
 
-        var_dump($title);exit;
+        if (is_null($tagId) && is_null($childId))
+        {
+            throw new \CHttpException(400, 'tagId or childId must be passed');
+        }
 
         $question = new QaQuestion();
-        $question->setScenario('tag');
-        $question->title = $title;
-        $question->text = $text;
 
-        if ($question->category && count($question->category->tags) > 0) {
-            $question->tag_id = isset($params['tag_id']) ? $params['tag_id'] : null;
-        } else {
-            $question->tag_id = null;
+        if (!is_null($tagId))
+        {
+            $question->setScenario('tag');
+            $question->tag_id = $tagId;
         }
+
+        if (!is_null($childId))
+        {
+            $question->setScenario('attachedChild');
+            $question->attachedChild = $childId;
+        }
+
+        $question->title                = $title;
+        $question->text                 = $text;
+        $question->attachedChild        = $childId;
+        $question->sendNotifications    = 1;//@todo Emil Vililyaev: hardCode! хз по какому условию ставить значение
+        $question->categoryId           = is_null($categoryId) ? QaCategory::PEDIATRICIAN_ID : $categoryId;
 
         $this->success = $question->save();
         $this->data = $question;

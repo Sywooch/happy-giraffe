@@ -2,7 +2,8 @@
 
 use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
 
-$user = $this->getUserInfo($data->userId);
+// $user = $this->getUserInfo($data->userId);
+
 ?>
 <div class="user-activity-post">
     <div class="user-activity-post_hold clearfix">

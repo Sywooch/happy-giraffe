@@ -54,6 +54,9 @@ return array(
         'activityRenew' => array(
             'class' => 'site\frontend\modules\som\modules\activity\commands\RenewActivity',
         ),
+        'activityAnswers' => array(
+            'class' => 'site\frontend\modules\som\modules\activity\commands\ActivityAnswers',
+        ),
         'family' => array(
             'class' => 'site\frontend\modules\family\commands\DefaultCommand',
         ),

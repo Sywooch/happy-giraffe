@@ -2,9 +2,14 @@
 
 use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
 
-$user = $this->getUserInfo($data->userId);
-$contentAuthor = $this->getUserInfo($data->dataArray['content']['authorId']);
+// @todo Sergey Gubarev: Нужна обертка для получения данных из Activity модели
+
+// $contentAuthor = $widget->getUserInfo($data->dataArray['content']['authorId']);
+
+$dataArray = $data->getActivityData(true);
+
 ?>
+
 <div class="b-article_in clearfix">
     <div class="comments comments__buble comments__anonce">
         <div class="comments_hold">

@@ -25,6 +25,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
 {
     /**
      * @var string TYPE_STATUS Тип записи "статус"
+     * @author Sergey Gubarev
      */
     const TYPE_STATUS = 'status';
 
@@ -33,7 +34,6 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     /**
      * @return string the associated database table name
-     * @author Sergey Gubarev
      */
     public function tableName()
     {
@@ -166,7 +166,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
     public function defaultScope()
     {
         return array(
-            'condition' => 'typeId != "status"',
+            // 'condition' => 'typeId != "status"',
             'order' => $this->getTableAlias(false, false) . '.`dtimeCreate` DESC',
         );
     }
@@ -275,18 +275,16 @@ class Activity extends \HActiveRecord implements \IHToJSON
      */
     public function excludePediatricianQuestions($userId = null)
     {
-
         $sqlAuthorCondition = ! is_null($userId) ? "authorId = $userId AND" : '';
 
-        $sqlForQuestions =
-            '
+        $sqlForQuestions = '
               SELECT MD5(id) 
               FROM ' . QaQuestion::model()->tableName() . '
               WHERE 
-                ' . $sqlAuthorCondition . ' 
-                categoryId = ' . QaCategory::PEDIATRICIAN_ID . ' 
-                AND 
-                isRemoved = ' . QaQuestion::NOT_REMOVED
+                  ' . $sqlAuthorCondition . ' 
+                  categoryId = ' . QaCategory::PEDIATRICIAN_ID . ' 
+                  AND 
+                  isRemoved = ' . QaQuestion::NOT_REMOVED
         ;
 
         $cmdForQuestions = \Yii::app()->getDb()->createCommand($sqlForQuestions);
@@ -311,4 +309,24 @@ class Activity extends \HActiveRecord implements \IHToJSON
         $this->getDbCriteria()->compare('typeId', '<>' . static::TYPE_COMMENT);
         return $this;
     }
+
+    public function getActivityData($jsonFormat = false)
+    {
+        $model = unserialize($this->data);
+
+        if (! $model)
+        {
+            return $this->dataArray;
+        }
+
+        switch ($this->typeId)
+        {
+            case static::TYPE_COMMENT:
+                /*var_dump(get_class($model));
+                var_dump($model->behaviors());
+                var_dump($model->QaBehavior);*/
+                break;
+        }
+    }
+
 }

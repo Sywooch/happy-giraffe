@@ -1,6 +1,7 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 
+use site\frontend\modules\api\ApiModule;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\BaseAnswerManager;
@@ -42,9 +43,17 @@ use site\frontend\modules\som\modules\qa\components\QaObjectList;
  * @property \site\frontend\components\api\models\User $user
  *
  * @property-read BaseAnswerManager $answerManager
+ * @property-read \PurifiedBehavior $purified
  */
 class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
 {
+
+    /**
+     * @var integer NOT_REMOVED Статус неудаленного вопроса
+     * @author Sergey Gubarev
+     */
+    const NOT_REMOVED = 0;
+
     public $sendNotifications = true;
 
     /**
@@ -63,6 +72,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function __get($name)
     {
         if ($name == 'answersCount' && !is_null($this->category) && $this->category->isPediatrician()) {
+            return $this->answerManager->getAnswersCount($this);
             return QaManager::getAnswersCountPediatorQuestion($this->id);
         }
 
@@ -161,10 +171,10 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     {
         return [
             'CacheDelete' => [
-                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+                'class' => ApiModule::CACHE_DELETE,
             ],
             'PushStream' => [
-                'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
+                'class' => ApiModule::PUSH_STREAM,
             ],
             'softDelete' => [
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
@@ -535,6 +545,32 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         }
 
         return empty($answersToAdditional) ? null : $answersToAdditional;
+    }
+
+    /**
+     * @param QaQuestion $question
+     * @return static
+     */
+    public static function getNextQuestion(QaQuestion $question)
+    {
+        return static::model()->find([
+            'condition' => 'dtimeCreate > :time',
+            'order' => 'dtimeCreate ASC',
+            'params' => [':time' => $question->dtimeCreate]
+        ]);
+    }
+
+    /**
+     * @param QaQuestion $question
+     * @return static
+     */
+    public static function getPreviousQuestion(QaQuestion $question)
+    {
+        return static::model()->find([
+            'condition' => 'dtimeCreate < :time',
+            'order' => 'dtimeCreate DESC',
+            'params' => [':time' => $question->dtimeCreate]
+        ]);
     }
 
     /**

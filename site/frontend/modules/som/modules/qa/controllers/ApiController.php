@@ -13,6 +13,7 @@ use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaRating;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\som\modules\qa\models\QaTag;
@@ -182,23 +183,30 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         // $answers = QaManager::getAnswers($question);
 
-        $answers = $question->answerManager->getAnswers();
+        $answers = $question->answerManager->getAnswers($question);
 
         ContentBehavior::$active = false;
 
         $_answers = [];
 
         if ($question->answerManager instanceof CTAnswerManager) {
-            $_answers = array_map(function (QaCTAnswer $answer) use ($question) {
+            $voteManager = QaCTAnswer::createVoteManager();
+
+            $voteManager->loadAnswerData($answers, \Yii::app()->user->id);
+
+            $_answers = array_map(function (QaCTAnswer $answer) use ($question, $voteManager) {
                 return [
-                    'user' => $answer->user->toJSON(),
+                    'user' => \CMap::mergeArray($answer->user->toJSON(), [
+                        'answersCount' => QaRating::model()->byUser($answer->user->id)->find()->answers_count,
+                        'votesCount' => QaRating::model()->byUser($answer->user->id)->find()->votes_count,
+                    ]),
                     'dtimeCreate' => $answer->dtimeCreate,
                     'text' => $answer->purified->text,
                     'votesCount' => $answer->votes_count,
                     'canEdit' => false,
                     'canRemove' => false,
                     'canVote' => false,
-                    'isVoted' => false,
+                    'isVoted' => $voteManager->isVoted($answer->id, \Yii::app()->user->id),
                     'isAdditional' => false,
                     'isAnswerToAdditional' => false,
                     'isSpecialistAnswer' => false,

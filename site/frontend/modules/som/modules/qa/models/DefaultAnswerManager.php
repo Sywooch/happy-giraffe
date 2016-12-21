@@ -36,12 +36,12 @@ class DefaultAnswerManager extends BaseAnswerManager
         return false;
     }
     
-    public function getAnswers()
+    public function getAnswers(QaQuestion $question)
     {
         $sql = <<<SQL
           SELECT * FROM qa__answers
             WHERE
-            qa__answers.questionId = {$this->question->id}
+            qa__answers.questionId = {$question->id}
               AND
             qa__answers.isRemoved = 0
               AND
@@ -51,12 +51,12 @@ SQL;
         return QaAnswer::model()->findAllBySql($sql);
     }
     
-    public function getAnswersCount()
+    public function getAnswersCount(QaQuestion $question)
     {
         $sql = <<<SQL
           SELECT COUNT(1) FROM qa__answers
             WHERE
-            qa__answers.questionId = {$this->question->id}
+            qa__answers.questionId = {$question->id}
               AND
             qa__answers.isRemoved = 0
               AND

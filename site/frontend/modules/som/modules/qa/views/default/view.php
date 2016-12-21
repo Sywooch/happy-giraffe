@@ -1,5 +1,6 @@
 <?php
 
+use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
 /**
@@ -30,14 +31,14 @@ if (!is_null($question->category)) {
     $isAnonQuestion = false;
 }
 
-$answersCount = $question->answerManager->getAnswersCount();
+$answersCount = $question->answerManager->getAnswersCount($question);
 // $answersCount = QaManager::getAnswersCountPediatorQuestion($question->id);
 ?>
 
     <div class="b-breadcrumbs" style="margin-left: 0">
-        
+
         <?php
-        
+
         $this->widget('zii.widgets.CBreadcrumbs', [
             'links' => $breadcrumbs,
             'tagName' => 'ul',
@@ -46,14 +47,14 @@ $answersCount = $question->answerManager->getAnswersCount();
             'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>',
             'inactiveLinkTemplate' => '<li>{label}</li>',
         ]);
-        
+
         ?>
 
     </div>
 
     <div class="question">
         <div class="live-user">
-            
+
             <?php if (!$isAnonQuestion): ?>
 
                 <a href="<?= $question->user->profileUrl ?>"
@@ -65,19 +66,19 @@ $answersCount = $question->answerManager->getAnswersCount();
                         <img alt="" src="<?= $question->user->avatarUrl ?>" class="ava_img">
                     <?php endif; ?>
                 </a>
-            
+
             <?php endif; ?>
 
             <div class="username">
-                
+
                 <?php if ($isAnonQuestion): ?>
                     <span class="anon-name"><?php echo $question->user->getAnonName(); ?></span>
                 <?php else: ?>
 
                     <a href="<?= $question->user->profileUrl ?>"><?= $question->user->fullName ?></a>
-                
+
                 <?php endif; ?>
-                
+
                 <?= HHtml::timeTag($question, ['class' => 'tx-date']); ?>
 
             </div>
@@ -116,14 +117,22 @@ $answersCount = $question->answerManager->getAnswersCount();
         <div class="question_text">
             <?= $question->purified->text ?>
         </div>
-        
+
         <?php $this->renderPartial('/default/navigation_arrow', ['left' => $this->getLeftQuestion($question), 'right' => $this->getRightQuestion($question)]); ?>
-        
         <?php if (Yii::app()->user->checkAccess('manageQaQuestion', ['entity' => $question])): ?>
             <question-settings params="questionId: <?= $question->id ?>"></question-settings>
         <?php endif; ?>
 
         <div class="clearfix"></div>
+
+        <? if ($previousQuestion = QaQuestion::getPreviousQuestion($question)): ?>
+            пред <?= CHtml::encode($previousQuestion->title) ?>
+        <? endif; ?>
+
+        <? if ($nextQuestion = QaQuestion::getNextQuestion($question)): ?>
+            след <?= CHtml::encode($nextQuestion->title) ?>
+        <? endif; ?>
+
     </div>
 
 <?php $this->widget(AnswersWidget::class, ['question' => $question]); ?>

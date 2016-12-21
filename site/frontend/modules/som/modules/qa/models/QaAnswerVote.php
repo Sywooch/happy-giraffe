@@ -117,6 +117,36 @@ class QaAnswerVote extends \HActiveRecord
 	}
 
 	/**
+	 * @param int $userId
+	 *
+	 * @return QaAnswerVote
+	 */
+	public function byTargetUser($userId)
+	{
+		if (!isset($this->getDbCriteria()->with['answer'])) {
+			$this->getDbCriteria()->with[] = 'answer';
+		}
+
+		$this->getDbCriteria()->addCondition("answer.authorId = {$userId}");
+
+		return $this;
+	}
+
+	/**
+	 * @return QaAnswerVote
+	 */
+	public function targetUserIsSpecialist()
+	{
+		if (!isset($this->getDbCriteria()->with['answer'])) {
+			$this->getDbCriteria()->with[] = 'answer';
+		}
+
+		$this->getDbCriteria()->addCondition("exists(select * from users u where u.id = answer.authorId and u.specialistInfo is not null and u.specialistInfo != '')");
+
+		return $this;
+	}
+
+	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.

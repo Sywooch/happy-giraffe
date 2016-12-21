@@ -72,9 +72,11 @@ return array(
         '<_v>/api/users/<action:(social)>' => 'api/<_v>/api/users',
         '<_v>/api/clinics' => 'api/<_v>/api/clinics',
         '<_v>/api/specialists' => 'api/<_v>/api/specialists',
-        '<_v>/api/specialists/<action:(categories|experience|terms|check-terms)>' => 'api/<_v>/api/specialists',
+        '<_v>/api/specialists/<id:\d+>' => 'api/<_v>/api/specialists',
+        '<_v>/api/specialists/<action:(categories|experience|terms|check-terms|specialization|education|courses|career)>' => 'api/<_v>/api/specialists',
         '<_v>/api/specialists/specializations' => 'api/<_v>/api/specializations',
-        '<_v>/api/specialists/register/social' => 'api/<_v>/api/specialist-register',
+        '<_v>/api/specialists/register/social' => 'api/<_v>/api/specialists-register',
+        '<_v>/api/geo/<action:(countries|cities)>' => 'api/<_v>/api/geo',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 
@@ -149,6 +151,7 @@ return array(
         'mypediatrician/<tab:(all|new|unanswered)>/<tagId:\d+>' => 'som/qa/default/pediatrician',
         'mypediatrician/<tab:(all|new|unanswered)>' => 'som/qa/default/pediatrician',
         'mypediatrician' => array('som/qa/default/pediatrician', 'defaultParams' => array('tab' => 'new')),
+        'mypediatrician/add' => 'som/qa/default/pediatricianAddForm',
         'questions/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions/<tab:(popular|unanswered)>/<categoryId:\d+>/page<page:\d+>' => 'som/qa/default/index',

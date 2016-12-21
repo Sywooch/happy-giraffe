@@ -92,7 +92,14 @@ class DefaultController extends QaController
      */
     protected function beforeAction($action)
     {
-        if ($action->id == 'pediatrician' || $action->id == 'view')
+        $newDesigneActions = [
+            'pediatrician',
+            'search',
+            'pediatricianAddForm',
+            'view',
+        ];
+
+        if (in_array($action->id, $newDesigneActions))
         {
             $this->layout       = '/layouts/pediatrician';
             $this->litePackage = 'new_pediatrician';
@@ -151,7 +158,7 @@ class DefaultController extends QaController
 
     public function actionQuestionAddForm($consultationId = null, $redirectUrl = null)
     {
-        $this->layout = '//layouts/lite/new_common';
+        $this->layout = '//layouts/lite/common';
 
         $question = new QaQuestion();
         $this->performAjaxValidation($question);
@@ -182,10 +189,17 @@ class DefaultController extends QaController
             }
         }
 
-        $this->render('new_form', [
+        $this->render('form', [
             'model' => $question,
             'categories' => QaCategory::model()->sorted()->with('tags')->findAll(),
         ]);
+    }
+
+    public function actionPediatricianAddForm()
+    {
+        $this->layout = '//layouts/lite/new_form';
+
+        $this->render('new_form');
     }
 
     public function actionQuestionEditForm($questionId)

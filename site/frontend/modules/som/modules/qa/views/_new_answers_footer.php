@@ -1,7 +1,5 @@
 <?php
 
-use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
-
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var site\frontend\modules\som\modules\qa\models\QaCTAnswer $data

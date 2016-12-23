@@ -456,13 +456,14 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     public function toJSON()
     {
         return [
-            'id' => (int) $this->id,
-            'authorId' => (int) $this->authorId,
-            'dtimeCreate' => (int) $this->dtimeCreate,
-            'text' => $this->purified->text,
-            'votesCount' => (int) $this->votesCount,
-            'user' => $this->user->formatedForJson(),
-            'isRemoved' => (bool) $this->isRemoved,
+            'id'            => (int) $this->id,
+            'authorId'      => (int) $this->authorId,
+            'dtimeCreate'   => (int) $this->dtimeCreate,
+            'text'          => $this->purified->text,
+            'votesCount'    => (int) $this->votesCount,
+            'user'          => $this->user->formatedForJson(),
+            'isRemoved'     => (bool) $this->isRemoved,
+            'bySpecialist'  => $this->authorIsSpecialist()
         ];
     }
 

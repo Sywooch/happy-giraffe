@@ -70,13 +70,11 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         return $this->id;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function __get($name)
     {
-        if ($name == 'answersCount' && !is_null($this->category) && $this->category->isPediatrician()) {
-            return $this->answerManager->getAnswersCount($this);
-            return QaManager::getAnswersCountPediatorQuestion($this->id);
-        }
-
         return parent::__get($name);
     }
 
@@ -492,7 +490,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      */
     public function getSpecialistDialog()
     {
-        foreach ($this->answers as /*@var $answer QaAnswer */ $answer) {
+        foreach ($this->answers as /*@var $answer QaAnswer */$answer) {
             if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id))
             {
                 $result = $answer->getChilds();

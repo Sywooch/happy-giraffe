@@ -140,7 +140,7 @@ $breadcrumbs[] = CHtml::encode($question->title);
                             <div class="redactor-post-toolbar"></div>
                         </div>
                         <div class="b-redactor-footer__item">
-                            <button type="button" class="btn btn--blue btn--sm">Ответить</button>
+                            <button type="button" class="btn btn--blue btn--sm" data-bind="click: addReply">Ответить</button>
                         </div>
                     </div>
                 </div>
@@ -154,7 +154,10 @@ $breadcrumbs[] = CHtml::encode($question->title);
                             'QuestionReplyForm' => 'mypediatrician/question-reply-form',
                             'ko_library'        => 'ko_library'
                         ],
-                        'ko.applyBindings(new QuestionReplyForm(), document.getElementById("js-question-reply-form"));'
+                        '
+                            ko.applyBindings(new QuestionReplyForm(' . CJSON::encode(['questionId' => $question->id]) . '),
+                            document.getElementById("js-question-reply-form"));
+                        '
                     );
 
                 ?>

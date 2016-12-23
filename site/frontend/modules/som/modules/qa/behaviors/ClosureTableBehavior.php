@@ -1,4 +1,7 @@
 <?php
+
+namespace site\frontend\modules\som\modules\qa\behaviors;
+
 /**
  * ClosureTableBehavior class file.
  * Provides tree set functionality for a model.
@@ -7,7 +10,7 @@
  * @link https://github.com/AidasK/yii-closure-table-behavior/
  * @version 1.1.0
  */
-class ClosureTableBehavior extends CActiveRecordBehavior
+class ClosureTableBehavior extends \CActiveRecordBehavior
 {
     public $closureTableName;
     public $childAttribute = 'child';

@@ -21,6 +21,34 @@
                 	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->tag->getTitle()?></a>
                 </div>
   			<?php endif; ?>
+  			<?php
+        	   $imgUrl = '';
+        	   $childName = 'Без имени';
+  			   if (!is_null($data->attChild)) {
+            	   //@todo Emil Vililyaev: пока что както так...
+            	   try {
+                	   $fmember = $data->attChild;
+                	   $childName = $fmember->name;
+                	   $imgUrl = $fmember->photoCollection->attaches[0]->photo->getPreviewPhoto();
+        	           $tag = $fmember->getAgeTag();
+            	   } catch (\Exception $e)
+            	   {}
+	           ?>
+        	   <?php if (!\Yii::app()->user->isGuest && $data->author->id == \Yii::app()->user->id) { ?>
+    			<div class="b-answer__footer b-answer-footer">
+    				<a href="javascript:void(0);" class="ava-pediator">
+    					<span class="ava ava--style ava--small ava--medium_male">
+    						<img src="<?=$imgUrl?>" class="ava__img-box">
+    					</span>
+    					<span class="ava-pediator__sub"><?=$childName?></span>
+    				</a>
+    			</div>
+    		   <?php } elseif (!is_null($tag)) { ?>
+    			<div class="b-answer__footer b-answer-footer">
+                	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$tag->getTitle()?></a>
+                </div>
+    		   <?php }?>
+		   <?php }?>
         </div>
         <div class="b-answer__right">
         	<?php if ($data->answersCount > 0):?>

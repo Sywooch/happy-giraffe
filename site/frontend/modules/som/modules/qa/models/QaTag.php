@@ -102,4 +102,34 @@ class QaTag extends \HActiveRecord
         $this->getDbCriteria()->compare($this->tableAlias . '.name', $name);
         return $this;
     }
+
+    /**
+     * @param integer $intAge
+     * @return NULL|self
+     */
+    public static function getByAge($intAge)
+    {
+        $map = [
+            1 => '0-1',
+            3 => '1-3',
+            6 => '3-6',
+            12 => '6-12',
+        ];
+
+        $result = 0;
+
+        foreach ($map as $age => $name) {
+            if ($intAge < $age && $intAge > $result)
+            {
+                $result = $age;
+            }
+        }
+
+        if ($result == 0)
+        {
+            return;
+        }
+
+        return self::model()->byName($map[$result])->find();
+    }
 }

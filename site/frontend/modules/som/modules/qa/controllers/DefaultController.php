@@ -118,10 +118,20 @@ class DefaultController extends QaController
 
         ContentBehavior::$active = false;
 
-        if($question->category->isPediatrician()) {
+        if ($question->category->isPediatrician())
+        {
+            if (false !== mb_strpos(\Yii::app()->request->getPathInfo(), 'questions', 0, 'UTF-8'))
+            {
+                $redirectUrl = "/mypediatrician/question{$id}";
+                $this->redirect($redirectUrl, true, 301);
+            }
+
             $this->layout = '/layouts/pediatrician';
+
             $this->render('_view', compact('question', 'tab', 'category'));
-        }else{
+        }
+        else
+        {
             $this->render('view', compact('question', 'tab', 'category'));
         }
     }

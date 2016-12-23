@@ -190,6 +190,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             ],
             'QaBehavior' => [
                 'class' => QaBehavior::class
+            ],
+            'CTBehavior' => [
+                'class' => \ClosureTableBehavior::class
             ]
         ];
     }

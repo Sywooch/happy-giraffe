@@ -7,7 +7,6 @@ use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 /**
  * @author Sergey Gubarev
- * @deprecated {{@see BaseAnswerManager}}
  */
 class QaManager
 {
@@ -56,6 +55,45 @@ SQL;
 SQL;
 
         return \Yii::app()->db->createCommand($sql)->queryColumn()[0];
+    }
+
+    /**
+     * Получить дерево ответов к вопросу
+     *
+     * @param integer $questionId ID вопроса
+     * @return array|null
+     */
+    public static function getAnswersByQuestion($questionId)
+    {
+        $sql = 'SELECT 
+                    * 
+                    FROM ' . QaAnswer::model()->tableName() . '
+                    WHERE 
+                        isRemoved = ' . QaAnswer::NOT_REMOVED . '
+                        AND
+                        isPublished = ' . QaAnswer::PUBLISHED . '
+                        AND
+                        questionId = ' . $questionId . '
+                        AND
+                        root_id IS NULL
+                    ORDER BY id DESC
+              ';
+
+        $rootAnswers = QaAnswer::model()->findAllBySql($sql);
+
+        if (! count($rootAnswers))
+        {
+            return null;
+        }
+
+        $answersData = [];
+
+        foreach ($rootAnswers as $answerModel)
+        {
+            $answersData[] = $answerModel->toJSON();
+        }
+
+        return $answersData;
     }
 
 }

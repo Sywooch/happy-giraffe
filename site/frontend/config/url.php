@@ -114,6 +114,7 @@ return array(
 
         //страница вопроса
         'questions/question<id:\d+>' => 'som/qa/default/view',
+        'mypediatrician/question<id:\d+>' => 'som/qa/default/view',
 
         // поиск
         'questions/search/page<page:\d+>' => 'som/qa/default/search',

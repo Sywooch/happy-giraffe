@@ -14,7 +14,7 @@
     <?php if (! is_null($data->question->tag)): ?>
 
         <div class="b-pedaitor-answer__footer__item">
-            <a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->question->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=(new Enum())->getTitleForWeb($data->question->tag->name)?></a>
+            <a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->question->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->question->tag->getTitle()?></a>
         </div>
 
     <?php endif; ?>
@@ -36,7 +36,7 @@
                     <span class="btn-answer__num btn-answer__num--theme-green">Спасибо <?= $data->getVotesCount(); ?></span>
                 </button>
             <?php } else { ?>
-                <pediatrician-vote params="count: <?= $data->getVotesCount(); ?>; answerId: <?= $data->id; ?>; hasVote: <?= $hasVote ? 1:0; ?>"></pediatrician-vote>
+                <pediatrician-vote params="count: <?=$data->getVotesCount()?>, answerId: <?=$data->id?>, hasVote: <?=$hasVote ? 1:0?>"></pediatrician-vote>
             <?php } ?>
         </div>
 

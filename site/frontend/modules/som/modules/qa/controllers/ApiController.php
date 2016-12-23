@@ -77,12 +77,9 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(403, 'Access Denied');
         }
 
-        $answerManager = $question->answerManager;
+        // $answerManager = $question->answerManager;
 
-        $this->success = (bool) ($this->data = $answerManager->createAnswer($user->id, $text, $question));
-
-        return;
-        die;
+        // $this->success = (bool) ($this->data = $answerManager->createAnswer($user->id, $text, $question));
 
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
         $answer = new self::$answerModel();
@@ -91,14 +88,16 @@ class ApiController extends \site\frontend\components\api\ApiController
             'text' => $text,
         ];
 
-        if ($answer->validate()) {
+        if ($answer->validate())
+        {
             // Если ответил специалист то не нужно сразу отсылать оповещение и показывать ответ, т.к. на этой дело висит таймаут
             if ($question->category->isPediatrician() && $answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS)) {
                 $answer->isPublished = false;
             }
         }
 
-        if (!is_null($answerId) && QaAnswer::model()->exists('id=' . $answerId)) {
+        if (! is_null($answerId))
+        {
             $answer->setAttribute('root_id', $answerId);
         }
 

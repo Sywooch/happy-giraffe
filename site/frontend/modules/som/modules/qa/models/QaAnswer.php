@@ -3,6 +3,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 
 use site\common\behaviors\AuthorBehavior;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\specialists\models\SpecialistGroup;
@@ -192,7 +193,10 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'class' => QaBehavior::class
             ],
             'CTBehavior' => [
-                'class' => \ClosureTableBehavior::class
+                'class'             => ClosureTableBehavior::class,
+                'closureTableName'  => 'qa__answers_tree',
+                'childAttribute'    => 'descendant_id',
+                'parentAttribute'   => 'ancestor_id'
             ]
         ];
     }
@@ -249,7 +253,18 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     {
         if ($this->isNewRecord) {
             $this->updateAnswersCount(1);
+
+            if (! is_null($this->root_id))
+            {
+                $targetModel = self::model()->findByPk($this->root_id);
+                $targetModel->append($this);
+            }
+            else
+            {
+                $this->markAsRoot($this->id);
+            }
         }
+
         parent::afterSave();
     }
 

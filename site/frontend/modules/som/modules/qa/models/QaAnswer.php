@@ -463,7 +463,8 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'votesCount'    => (int) $this->votesCount,
             'user'          => $this->user->formatedForJson(),
             'isRemoved'     => (bool) $this->isRemoved,
-            'bySpecialist'  => $this->authorIsSpecialist()
+            'bySpecialist'  => $this->authorIsSpecialist(),
+            'countAllAnswers' => 123
         ];
     }
 

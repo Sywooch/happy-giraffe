@@ -139,11 +139,12 @@ class DefaultController extends QaController
     {
         $this->layout       = '/layouts/search_pediatrician';
 
-        $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category'), [
+        $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category')->orderDesc(), [
             'sphinxCriteria' => [
                 'select' => '*',
                 'query' => $query,
                 'from' => 'qa',
+                'orders' => 'dtimecreate DESC',
                 'filters' => ['categoryid' => $categoryId],
             ],
             'pagination' => [

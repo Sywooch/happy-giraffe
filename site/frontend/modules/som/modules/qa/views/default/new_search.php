@@ -29,6 +29,7 @@ $breadcrumbs = [
         <div class="b-search-result">
             <form class="b-search-result__form">
                 <input value="<?=$query?>" name="query" type="search" class="b-search-result__input" />
+                <input name="categoryId" type="hidden" value="124">
             </form>
         </div>
     </div>

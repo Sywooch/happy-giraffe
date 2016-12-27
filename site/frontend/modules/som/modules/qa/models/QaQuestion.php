@@ -12,6 +12,7 @@ use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\som\modules\qa\components\QaObjectList;
+use site\frontend\modules\family\models\FamilyMember;
 
 /**
  * This is the model class for table "qa__questions".
@@ -137,6 +138,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
             'lastAnswer' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'],
             'tag' => [self::BELONGS_TO, get_class(QaTag::model()), 'tag_id'],
             'author' => [self::BELONGS_TO, \User::class, 'authorId'],
+            'attChild' => [self::BELONGS_TO, FamilyMember::class, 'attachedChild'],
         ];
     }
 
@@ -490,7 +492,8 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function getSpecialistDialog()
     {
         foreach ($this->answers as /*@var $answer QaAnswer */$answer) {
-            if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id)) {
+            if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id))
+            {
                 $result = $answer->getChilds();
                 array_push($result, $answer);
 

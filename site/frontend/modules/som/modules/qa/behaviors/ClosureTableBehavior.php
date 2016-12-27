@@ -335,7 +335,7 @@ class ClosureTableBehavior extends \CActiveRecordBehavior
             if (isset($transaction)) {
                 $transaction->commit();
             }
-        } catch (CDbException $e) {
+        } catch (\CDbException $e) {
             if (isset($transaction)) {
                 $transaction->rollback();
             }
@@ -378,7 +378,7 @@ class ClosureTableBehavior extends \CActiveRecordBehavior
         $owner = $this->getOwner();
         $db = $owner->getDbConnection();
         $closureTable = $db->quoteTableName($this->closureTableName);
-        if ($target instanceof CActiveRecord) {
+        if ($target instanceof \CActiveRecord) {
             $primaryKey = $target->primaryKey;
         } else {
             $primaryKey = $target;
@@ -386,7 +386,7 @@ class ClosureTableBehavior extends \CActiveRecordBehavior
         if ($node === null) {
             $node = $owner;
         }
-        if ($node instanceof CActiveRecord) {
+        if ($node instanceof \CActiveRecord) {
             $nodeId = $node->primaryKey;
         } else {
             $nodeId = $node;
@@ -412,7 +412,7 @@ class ClosureTableBehavior extends \CActiveRecordBehavior
      * @param CActiveRecord $target the target.
      * @return boolean whether the appending succeeds.
      */
-    public function append(CActiveRecord $target)
+    public function append(\CActiveRecord $target)
     {
         return $target->appendTo($this->getOwner());
     }
@@ -429,7 +429,7 @@ class ClosureTableBehavior extends \CActiveRecordBehavior
         $owner = $this->getOwner();
         $db = $owner->getDbConnection();
         $closureTable = $db->quoteTableName($this->closureTableName);
-        if ($target instanceof CActiveRecord) {
+        if ($target instanceof \CActiveRecord) {
             $targetId = $target->primaryKey;
         } else {
             $targetId = $target;
@@ -437,7 +437,7 @@ class ClosureTableBehavior extends \CActiveRecordBehavior
         if ($node === null) {
             $node = $owner;
         }
-        if ($node instanceof CActiveRecord) {
+        if ($node instanceof \CActiveRecord) {
             $nodeId = $node->primaryKey;
         } else {
             $nodeId = $node;
@@ -457,7 +457,7 @@ class ClosureTableBehavior extends \CActiveRecordBehavior
                 . 'WHERE d.' . $parentAttribute . '=? AND x.' . $parentAttribute . ' IS NULL'
             );
             if (!$cmd->execute(array($nodeId))) {
-                throw new CDbException('Node had no records in closure table', 200);
+                throw new \CDbException('Node had no records in closure table', 200);
             }
             $cmd = $db->createCommand(
                 'INSERT INTO ' . $closureTable . '(' . $parentAttribute . ',' . $childAttribute . ',' . $depthAttribute . ')'
@@ -467,12 +467,12 @@ class ClosureTableBehavior extends \CActiveRecordBehavior
                 . 'WHERE b.' . $parentAttribute . '=? AND u.' . $childAttribute . '=?'
             );
             if (!$cmd->execute(array($nodeId, $targetId))) {
-                throw new CDbException('Target node does not exist', 201);
+                throw new \CDbException('Target node does not exist', 201);
             }
             if (isset($transaction)) {
                 $transaction->commit();
             }
-        } catch (CDbException $e) {
+        } catch (\CDbException $e) {
             if (isset($transaction)) {
                 $transaction->rollback();
             }

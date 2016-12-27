@@ -3,6 +3,7 @@
 namespace site\frontend\modules\som\modules\qa\components;
 
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 /**
@@ -63,37 +64,53 @@ SQL;
      * @param integer $questionId ID вопроса
      * @return array|null
      */
+    // @todo Sergey Gubarev: убрать
     public static function getAnswersByQuestion($questionId)
     {
-        $sql = 'SELECT 
-                    * 
-                    FROM ' . QaAnswer::model()->tableName() . '
-                    WHERE 
-                        isRemoved = ' . QaAnswer::NOT_REMOVED . '
-                        AND
-                        isPublished = ' . QaAnswer::PUBLISHED . '
-                        AND
-                        questionId = ' . $questionId . '
-                        AND
-                        root_id IS NULL
-                    ORDER BY id DESC
-              ';
+        $rootAnswers = QaAnswer::model()
+                            ->roots()
+                            ->orderDesc()
+                            ->findAll(
+                                'isRemoved = :isRemoved AND isPublished = :isPublished AND questionId = :questionId',
+                                [
+                                    ':isRemoved'    => QaAnswer::NOT_REMOVED,
+                                    ':isPublished'  => QaAnswer::PUBLISHED,
+                                    ':questionId'   => $questionId
+                                ]
+                            )
+                        ;
 
-        $rootAnswers = QaAnswer::model()->findAllBySql($sql);
+        $answersList = [];
 
-        if (! count($rootAnswers))
+        foreach ($rootAnswers as $rootAnswerModel)
         {
-            return null;
+            $answersList['answers'] = QaAnswer::model()->descendantsOf($rootAnswerModel->id)->findAll();
+
+            // $answersList[] = $rootAnswerModel;
         }
 
-        $answersData = [];
+        return $answersList;
+    }
 
-        foreach ($rootAnswers as $answerModel)
-        {
-            $answersData[] = $answerModel->toJSON();
-        }
-
-        return $answersData;
+    /**
+     * Получить кол-во всех ответов по сервису "Педиатр" у пользователя
+     *
+     * @param integer $userId ID пользователя
+     * @return \CDbDataReader|mixed|string
+     */
+    public static function getCountAnswersByUser($userId)
+    {
+        return QaAnswer::model()
+                    ->with('question')
+                    ->count(
+                        'question.categoryId = :categoryId AND t.authorId = :authorId AND t.isRemoved = :isRemoved',
+                        [
+                            ':categoryId'   => QaCategory::PEDIATRICIAN_ID,
+                            ':authorId'     => $userId,
+                            ':isRemoved'    => QaAnswer::NOT_REMOVED
+                        ]
+                    )
+                ;
     }
 
 }

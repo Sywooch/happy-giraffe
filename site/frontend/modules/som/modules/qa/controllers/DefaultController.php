@@ -126,9 +126,10 @@ class DefaultController extends QaController
                 $this->redirect($redirectUrl, true, 301);
             }
 
-            $this->layout = '/layouts/pediatrician';
+            $answersTreeList = $question->getAnswersTreeList();
 
-            $this->render('_view', compact('question', 'tab', 'category'));
+            $this->layout = '/layouts/pediatrician';
+            $this->render('_view', compact('question', 'tab', 'category', 'answersTreeList'));
         }
         else
         {

@@ -10,7 +10,6 @@ use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
 use site\frontend\modules\som\modules\qa\components\ISubject;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
-use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\som\modules\qa\components\QaObjectList;
 use site\frontend\modules\family\models\FamilyMember;
 
@@ -491,10 +490,11 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      */
     public function getSpecialistDialog()
     {
-        foreach ($this->answers as /*@var $answer QaAnswer */$answer) {
+        foreach ($this->answers as /*@var $answer QaAnswer */$answer)
+        {
             if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id))
             {
-                $result = $answer->getChilds();
+                $result = $answer->descendants()->findAll();
                 array_push($result, $answer);
 
                 return $result;

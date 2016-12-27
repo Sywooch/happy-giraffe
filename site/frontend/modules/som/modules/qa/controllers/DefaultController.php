@@ -96,6 +96,7 @@ class DefaultController extends QaController
             'pediatrician',
             'search',
             'pediatricianAddForm',
+            'view'
         ];
 
         if (in_array($action->id, $newDesigneActions))

@@ -59,44 +59,10 @@ SQL;
     }
 
     /**
-     * Получить дерево ответов к вопросу
-     *
-     * @param integer $questionId ID вопроса
-     * @return array|null
-     */
-    // @todo Sergey Gubarev: убрать
-    public static function getAnswersByQuestion($questionId)
-    {
-        $rootAnswers = QaAnswer::model()
-                            ->roots()
-                            ->orderDesc()
-                            ->findAll(
-                                'isRemoved = :isRemoved AND isPublished = :isPublished AND questionId = :questionId',
-                                [
-                                    ':isRemoved'    => QaAnswer::NOT_REMOVED,
-                                    ':isPublished'  => QaAnswer::PUBLISHED,
-                                    ':questionId'   => $questionId
-                                ]
-                            )
-                        ;
-
-        $answersList = [];
-
-        foreach ($rootAnswers as $rootAnswerModel)
-        {
-            $answersList['answers'] = QaAnswer::model()->descendantsOf($rootAnswerModel->id)->findAll();
-
-            // $answersList[] = $rootAnswerModel;
-        }
-
-        return $answersList;
-    }
-
-    /**
      * Получить кол-во всех ответов по сервису "Педиатр" у пользователя
      *
      * @param integer $userId ID пользователя
-     * @return \CDbDataReader|mixed|string
+     * @return integer
      */
     public static function getCountAnswersByUser($userId)
     {

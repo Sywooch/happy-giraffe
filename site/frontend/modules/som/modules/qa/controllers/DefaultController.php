@@ -71,7 +71,7 @@ class DefaultController extends QaController
     {
         if ($tab == self::TAB_All)
         {
-            $dp = new \CActiveDataProvider(QaCTAnswer::model()->orderDesc(), [
+            $dp = new \CActiveDataProvider(QaAnswer::model()->roots()->orderDesc(), [
                 'pagination' => [
                     'pageVar' => 'page',
                 ]

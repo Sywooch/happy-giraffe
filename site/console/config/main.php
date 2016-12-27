@@ -114,6 +114,9 @@ return array(
         'fixRatingByHistory' => [
             'class' => 'site\frontend\modules\som\modules\qa\commands\FixRatingByHistoryCommand',
         ],
+        'convertAnswers' => [
+            'class' => 'site\frontend\modules\som\modules\qa\commands\ConvertAnswersCommand',
+        ],
     ),
     'import' => array(
         'site.common.models.User',

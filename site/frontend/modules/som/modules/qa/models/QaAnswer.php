@@ -37,6 +37,7 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswerVote[] $votes
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $root
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $children
+ * @property \site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior $CTBehavior
  *
  * @property \site\frontend\components\api\models\User $user
  */
@@ -126,6 +127,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     /**
      * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
+     * @deprecated use descendants scope ($answer->descendants()->findAll())
      */
     public function getChilds()
     {

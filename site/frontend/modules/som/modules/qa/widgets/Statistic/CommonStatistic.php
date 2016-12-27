@@ -31,7 +31,8 @@ class CommonStatistic extends \CWidget
         $criteria = clone $rating->getDbCriteria();
         $criteria->select = 'SUM(votes_count) AS vc, SUM(answers_count) AS ac';
 
-        $data = array_shift(\Yii::app()->db->getCommandBuilder()->createFindCommand($rating->tableName(), $criteria)->queryAll());
+        $list = \Yii::app()->db->getCommandBuilder()->createFindCommand($rating->tableName(), $criteria)->queryAll();
+        $data = array_shift($list);
 
         $this->render('common_statistic', ['votes' => intval($data['vc']), 'answers' => intval($data['ac'])]);
     }

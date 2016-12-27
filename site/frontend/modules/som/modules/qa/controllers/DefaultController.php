@@ -96,7 +96,6 @@ class DefaultController extends QaController
             'pediatrician',
             'search',
             'pediatricianAddForm',
-            'view',
         ];
 
         if (in_array($action->id, $newDesigneActions))
@@ -208,6 +207,10 @@ class DefaultController extends QaController
 
     public function actionPediatricianAddForm()
     {
+        if (!\Yii::app()->user->checkAccess('createQaQuestion')) {
+            $this->redirect($this->createUrl('/site/index'));
+        }
+
         $this->layout = '//layouts/lite/new_form';
 
         $this->render('new_form');

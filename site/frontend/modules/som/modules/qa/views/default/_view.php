@@ -170,7 +170,7 @@ $breadcrumbs[] = CHtml::encode($question->title);
         <div class="b-open-question__title">Ответы</div>
         <div class="b-margin--bottom_60">
 
-            <mp-answers-widget params='questionData: <?= CJSON::encode($question->toJSON()); ?>'>
+            <mp-answers-widget params='questionData: <?= CJSON::encode($question->toJSON()); ?>, answersList: <?= CJSON::encode($answersTreeList); ?>'>
 
                 <div class="preloader-answer">
                     <div class="preloader__inner">

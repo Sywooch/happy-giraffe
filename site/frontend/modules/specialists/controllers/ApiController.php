@@ -86,6 +86,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = SpecialistsManager::makeSpecialist($userId, $specializations);
     }
 
+    // @todo Sergey Gubarev: убрать
     public function actionGetAnswers($questionId)
     {
         $answersData = QaManager::getAnswersByQuestion($questionId);

@@ -3,6 +3,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 
 use site\frontend\modules\api\ApiModule;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
+use site\frontend\modules\som\modules\qa\helpers\AnswersTreeListHelper;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\BaseAnswerManager;
 use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
@@ -590,5 +591,55 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function getList($condition='',$params=[])
     {
         return new QaObjectList($this->findAll($condition, $params));
+    }
+
+    public function getAnswersTreeList()
+    {
+        $rootAnswers = QaAnswer::model()
+                            ->roots()
+                            ->orderDesc()
+                            ->findAll(
+                                'isRemoved = :isRemoved AND isPublished = :isPublished AND questionId = :questionId',
+                                [
+                                    ':isRemoved'    => QaAnswer::NOT_REMOVED,
+                                    ':isPublished'  => QaAnswer::PUBLISHED,
+                                    ':questionId'   => $this->id
+                                ]
+                            )
+                        ;
+
+        $answersList = [];
+
+        foreach ($rootAnswers as $rootAnswerModel)
+        {
+            $answerData = $rootAnswerModel->toJSON();
+            $answerData['answers'] = [];
+
+            $childAnswers = QaAnswer::model()
+                                ->descendantsOf($rootAnswerModel->id)
+                                ->findAll()
+                            ;
+
+            $countChildAnswers = count($childAnswers);
+
+            $answerData['countChildAnswers'] = $countChildAnswers;
+
+            if ($countChildAnswers)
+            {
+                $answerData['answers'] = array_map(
+                    function ($answerModel)
+                    {
+                        return $answerModel->toJSON();
+                    },
+                    $childAnswers
+                );
+            }
+
+            $answersList[] = $answerData;
+        }
+
+        $formattedAnswersList = AnswersTreeListHelper::getFormattedList($answersList);
+
+        return $formattedAnswersList;
     }
 }

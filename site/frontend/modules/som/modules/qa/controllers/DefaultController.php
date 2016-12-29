@@ -17,6 +17,7 @@ use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\components\QaObjectList;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 
 class DefaultController extends QaController
 {
@@ -77,7 +78,10 @@ class DefaultController extends QaController
                 ]
             ]);
 
-            $votesList = new QaObjectList(QaAnswerVote::model()->user(\Yii::app()->user->id)->findAll());
+            if (!\Yii::app()->user->isGuest)
+            {
+                $votesList = new QaObjectList(QaAnswerVote::model()->user(\Yii::app()->user->id)->findAll());
+            }
 
         } else {
             $dp = $this->getDataProvider($tab, QaCategory::PEDIATRICIAN_ID, $tagId);
@@ -139,11 +143,12 @@ class DefaultController extends QaController
     {
         $this->layout       = '/layouts/search_pediatrician';
 
-        $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category'), [
+        $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category')->orderDesc(), [
             'sphinxCriteria' => [
                 'select' => '*',
                 'query' => $query,
                 'from' => 'qa',
+                'orders' => 'dtimecreate DESC',
                 'filters' => ['categoryid' => $categoryId],
             ],
             'pagination' => [

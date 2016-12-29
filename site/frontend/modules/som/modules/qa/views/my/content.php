@@ -23,11 +23,11 @@ if ($isAnswer)
                     <div class="b-filter-menu b-filter-menu--theme-default">
                         <p class="js-mobile-dropdown mobile-dropdown-button">Все ответы</p>
                         <ul class="b-filter-menu__list">
-                            <li class="b-filter-menu__item <?=$this->action->id == 'questions' ? 'b-filter-menu__item--active' : ''?>">
-                            	<a href="<?=$this->createUrl('/som/qa/my/questions')?>" class="b-filter-menu__link b-filter-menu__link--active">Мои вопросы</a>
+                            <li class="b-filter-menu__item">
+                            	<a href="<?=$this->createUrl('/som/qa/my/questions')?>" class="b-filter-menu__link <?=$this->action->id == 'questions' ? 'b-filter-menu__link--active' : ''?>">Мои вопросы</a>
                             </li>
-                            <li class="b-filter-menu__item <?=$this->action->id == 'answers' ? 'b-filter-menu__item--active' : ''?>">
-                            	<a href="<?=$this->createUrl('/som/qa/my/answers')?>" class="b-filter-menu__link">Мои ответы</a>
+                            <li class="b-filter-menu__item">
+                            	<a href="<?=$this->createUrl('/som/qa/my/answers')?>" class="b-filter-menu__link <?=$this->action->id == 'answers' ? 'b-filter-menu__link--active' : ''?>">Мои ответы</a>
                             </li>
                         </ul>
                     </div>
@@ -46,7 +46,6 @@ if ($isAnswer)
         $this->widget('LiteListView', [
             'dataProvider'      => $dp,
             'itemView'          => $itemView,
-            'additionalData'    => ['myAnswersPage' => TRUE],
             'htmlOptions'       => [
                 'class' => 'b-col b-col--6 b-col-sm--10 b-col-xs',
             ],

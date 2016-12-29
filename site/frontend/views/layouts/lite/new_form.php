@@ -30,28 +30,6 @@
     <body class="page--bg add-question">
         <div class="js-overlay-menu overlay-menu"></div>
         <div class="js-overlay-user overlay-user"></div>
-		<?php /**
-		<div class="alerts">
-            <div class="alerts__inner">
-                <div class="alert alert-in alert-yellow">
-                    <div class="pos-rel">
-                        <div class="alert__container">
-                            <div class="alert__ico alert__ico-yellow"></div>
-                            <div class="alert__text alert__text-yellow">Спасибо, теперь для получения баллов необходимо еще раз нажать на кнопку</div>
-                        </div><span class="alert__close alert__close-yellow"></span>
-                    </div>
-                </div>
-                <div class="alert alert-in alert-red">
-                    <div class="pos-rel">
-                        <div class="alert__container">
-                            <div class="alert__ico alert__ico-red"></div>
-                            <div class="alert__text alert__text-red">Спасибо, теперь для получения баллов необходимо еще раз нажать на кнопку</div>
-                        </div><span class="alert__close alert__close-red"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        **/?>
         <div id="js-alerts" class="alerts" data-bind="template: { name: 'alert', foreach: alertsList }"></div>
 
 		<script type="text/html" id="alert">

@@ -325,15 +325,24 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     {
         $profile = \Yii::app()->user->getModel()->specialistProfile;
 
-        $dialog = $this->getSpecialistDialog();
+        $dialog = new QaObjectList($this->getSpecialistDialog());
 
-        if ($this->authorId != $userId) {
-            if (is_null($profile) || is_null($dialog)) {
-                return true;
+        if ($this->authorId != $userId)
+        {
+            if (is_null($profile))
+            {
+                return FALSE;
             }
 
-            foreach ($dialog as $answer) {
-                if ($answer->authorId == $profile->id) {
+            if ($dialog->isEmpty())
+            {
+                return TRUE;
+            }
+
+            foreach ($dialog->getObjects() as $answer)
+            {
+                if ($answer->authorId == $profile->id)
+                {
                     return is_null($this->getAnswersToAdditional()) && !is_null($this->getAdditionalAnswers());
                 }
             }
@@ -508,15 +517,17 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     {
         $dialog = $this->getSpecialistDialog();
 
-        if (is_null($dialog)) {
-            return null;
+        if (is_null($dialog))
+        {
+            return;
         }
 
         $additionalAnswers = [];
 
-        foreach ($dialog as /*@var $answer QaAnswer */
-                 $answer) {
-            if ($answer->isAdditional()) {
+        foreach ($dialog as /*@var $answer QaAnswer */ $answer)
+        {
+            if ($answer->isAdditional())
+            {
                 $additionalAnswers[] = $answer;
             }
         }
@@ -531,15 +542,17 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     {
         $dialog = $this->getSpecialistDialog();
 
-        if (is_null($dialog)) {
-            return null;
+        if (is_null($dialog))
+        {
+            return;
         }
 
         $answersToAdditional = [];
 
-        foreach ($dialog as /*@var $answer QaAnswer */
-                 $answer) {
-            if ($answer->isAnswerToAdditional()) {
+        foreach ($dialog as /*@var $answer QaAnswer */ $answer)
+        {
+            if ($answer->isAnswerToAdditional())
+            {
                 $answersToAdditional[] = $answer;
             }
         }

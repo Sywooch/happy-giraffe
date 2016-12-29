@@ -9,6 +9,21 @@ $("[href=#js-madal-search-box]").magnificPopup({
               mainClass: "b-modal-search"
             });');
 
+/** в случае нобходимости разбить стекло и раскомментировать
+function activeClass($linkName)
+{
+    $action = \Yii::app()->controller->action->id;
+    $class = 'header__li--active';
+
+    switch ($linkName)
+    {
+        case 'pediatrician':
+            return $action == 'pediatrician' ? $class : '';
+        default:
+            return;
+    }
+}
+**/
 ?>
 <div class="header__container">
     <div class="b-col b-col--1 b-fl">
@@ -17,7 +32,7 @@ $("[href=#js-madal-search-box]").magnificPopup({
     <nav class="header__menu header__menu--style">
         <ul class="header__list">
             <li class="header__li"><a href="<?=$this->createUrl('/posts/forums/default/index')?>" class="header__link header__link--forum">Форумы</a></li>
-            <li class="header__li"><a href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="header__link header__link--answer">Педиатр</a></li>
+            <li class="header__li header__li--active"><a href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="header__link header__link--answer">Педиатр</a></li>
             <li class="header__li"><a href="<?=$this->createUrl('/posts/blogs/default/index')?>" class="header__link header__link--blog">Блоги</a></li>
             <li class="header__li"><a href="<?=$this->createUrl('/posts/buzz/list/index')?>" class="header__link header__link--life">Жизнь</a></li>
         </ul>

@@ -3,10 +3,8 @@
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var site\frontend\modules\som\modules\qa\models\QaCTAnswer $data
- * @var boolean $myAnswersPage
  * @var boolean $hasVote
  */
-
 ?>
 
 <div class="b-pedaitor-answer__footer b-answer-footer b-answer-footer--pink">
@@ -17,7 +15,7 @@
         <?php endif; ?>
     </div>
 
-    <?php if ($myAnswersPage): ?>
+    <?php if ($data->authorId == \Yii::app()->user->id): ?>
 
         <div class="b-pedaitor-answer__footer__item"><a href="javascript:void(0);" class="b-answer-footer__comment">10</a>
             <button type="button" class="btn-answer btn-answer--theme-grey">

@@ -467,7 +467,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'user'              => $this->user->formatedForJson(),
             'isRemoved'         => (bool) $this->isRemoved,
             'bySpecialist'      => $this->authorIsSpecialist(),
-            'countAllAnswers'   => QaManager::getCountAnswersByUser($this->authorId),
+            'countUserAnswersByPediatrician'   => QaManager::getCountAnswersByUser($this->authorId),
             'rootId'            => $this->root_id
         ];
     }

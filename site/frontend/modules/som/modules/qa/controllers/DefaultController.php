@@ -10,6 +10,7 @@ namespace site\frontend\modules\som\modules\qa\controllers;
 use site\common\components\SphinxDataProvider;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\components\QaController;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
@@ -126,7 +127,7 @@ class DefaultController extends QaController
                 $this->redirect($redirectUrl, true, 301);
             }
 
-            $answersTreeList = $question->getAnswersTreeList();
+            $answersTreeList = QaManager::getAnswersTreeByQuestion($question->id);
 
             $this->layout = '/layouts/pediatrician';
             $this->render('_view', compact('question', 'tab', 'category', 'answersTreeList'));

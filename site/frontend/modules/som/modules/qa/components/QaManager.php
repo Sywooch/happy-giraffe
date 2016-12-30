@@ -69,14 +69,60 @@ SQL;
         return QaAnswer::model()
                     ->with('question')
                     ->count(
-                        'question.categoryId = :categoryId AND t.authorId = :authorId AND t.isRemoved = :isRemoved',
+                        'question.categoryId = :categoryId AND t.authorId = :authorId AND t.isRemoved = :isRemoved AND t.isPublished = :isPublished',
                         [
                             ':categoryId'   => QaCategory::PEDIATRICIAN_ID,
                             ':authorId'     => $userId,
-                            ':isRemoved'    => QaAnswer::NOT_REMOVED
+                            ':isRemoved'    => QaAnswer::NOT_REMOVED,
+                            ':isPublished'  => QaAnswer::PUBLISHED
                         ]
                     )
                 ;
+    }
+
+    /**
+     * Получить дерево ответов к вопросу
+     *
+     * @param integer $questionId ID вопроса
+     * @return array
+     */
+    public static function getAnswersTreeByQuestion($questionId)
+    {
+        $rootAnswers = QaAnswer::model()
+                                    ->roots()
+                                    ->orderDesc()
+                                    ->findAll(
+                                        'isRemoved = :isRemoved AND isPublished = :isPublished AND questionId = :questionId',
+                                        [
+                                            ':isRemoved'    => QaAnswer::NOT_REMOVED,
+                                            ':isPublished'  => QaAnswer::PUBLISHED,
+                                            ':questionId'   => $questionId
+                                        ]
+                                    )
+                        ;
+
+        $rootAnswersList = AnswerManagementData::process($rootAnswers);
+
+        foreach ($rootAnswersList as &$rootAnswerData)
+        {
+            $rootAnswerData['answers'] = [];
+
+            $childAnswers = QaAnswer::model()
+                                ->descendantsOf($rootAnswerData['id'])
+                                ->findAll()
+                            ;
+
+            $countChildAnswers = count($childAnswers);
+
+            $rootAnswerData['countChildAnswers'] = $countChildAnswers;
+
+            if ($countChildAnswers)
+            {
+                $rootAnswerData['answers'] = AnswerManagementData::process($childAnswers);
+            }
+        }
+
+        return $rootAnswersList;
     }
 
 }

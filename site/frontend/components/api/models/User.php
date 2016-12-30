@@ -91,6 +91,7 @@ class User extends ApiModel implements \IHToJSON
             'publicChannel' => $this->publicChannel,
             'city' => $this->_getCity(),
             'specialistInfo' => $this->specialistInfo,
+            'anonName' => $this->getAnonName()
         ];
     }
     

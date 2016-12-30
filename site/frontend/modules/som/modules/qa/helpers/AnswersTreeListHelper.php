@@ -50,11 +50,6 @@ class AnswersTreeListHelper
             $formattedList[] = $data;
         }
 
-//        echo '<pre>';
-//        print_r($formattedList);
-//        echo '</pre>';
-//        exit;
-
         return $formattedList;
     }
 

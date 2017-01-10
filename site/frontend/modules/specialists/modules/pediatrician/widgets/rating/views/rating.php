@@ -77,7 +77,7 @@ $flowersCount = function($votesCount) {
                                 'tag' => 'span',
                             ]); ?>
                         </span>
-                        <div class="contest-footer__ball textalign-l js-item">
+                        <div class="contest-footer__ball contest-footer__ball--center textalign-l js-item">
                             <span class="font__color--blue display-b"><?=$rating->user->getFullName()?></span>
                             <span class="display-b font__color--crimson margin-b3 js-title"><?=$rating->user->specialistInfoObject->title?></span>
                             <p class="color-brown-dark display-ib verticalalign-m"><span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span></p>
@@ -85,7 +85,7 @@ $flowersCount = function($votesCount) {
                                 <?php if ($flCount > 0): ?>
                                 <p class="margin-r5 display-ib verticalalign-m">
                                     <?php for ($j = 0; $j < $flCount; $j++): ?>
-                                    <span class="pediator-ico--roze pediator-ico--size-s <?php if (($j + 1) != $flCount): ?> margin-r2 <?php endif; ?> verticalalign-m"></span>
+                                    <span class="pediator-ico--roze pediator-ico--size-s <?php if (($j + 1) != $flCount): ?> <?php endif; ?> verticalalign-m"></span>
                                     <?php endfor; ?>
                                 </p>
                                 <span class="color-brown-dark margin-r10 display-ib verticalalign-m"><?=$rating->votes_count?></span>

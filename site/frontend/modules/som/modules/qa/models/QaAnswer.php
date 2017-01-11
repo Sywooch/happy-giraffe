@@ -310,14 +310,27 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function canBeAnsweredBy($user)
     {
+        $isDoctor = $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        $isAnswerFromDoctor = $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+
         // уточняющий вопрос
-        if ($this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id == null && !$this->children) {
-            return $user->id == $this->question->authorId && !$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        if ($isAnswerFromDoctor && $this->root_id == null && !$this->children) {
+            return $user->id == $this->question->authorId && !$isDoctor;
         }
 
         // ответ на уточняющий вопрос
-        if (!$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && count($this->root->children) == 1) {
-            return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->root->children) == 1) {
+            return $user->id == $this->root->authorId && $isDoctor;
+        }
+
+        //комментарий от автора вопроса
+        if (!$isAnswerFromDoctor && $this->root_id == null && count($this->children) == 0) {
+            return $user->id == $this->question->authorId;
+        }
+
+        //ответ в ветку комментариев
+        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->children) == 0) {
+            return $this->authorId != $user->id && !$isDoctor;
         }
 
         return false;
@@ -328,7 +341,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function isAdditional()
     {
-        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
+        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && $this->root->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
     }
 
     /**

@@ -312,6 +312,11 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     {
         $isDoctor = $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
         $isAnswerFromDoctor = $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        $isRootFromDoctor = $isAnswerFromDoctor;
+
+        if ($this->root_id != null) {
+            $isRootFromDoctor = $this->root->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        }
 
         // уточняющий вопрос
         if ($isAnswerFromDoctor && $this->root_id == null && !$this->children) {
@@ -319,7 +324,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         }
 
         // ответ на уточняющий вопрос
-        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->root->children) == 1) {
+        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->root->children) == 1 && $isRootFromDoctor) {
             return $user->id == $this->root->authorId && $isDoctor;
         }
 
@@ -329,7 +334,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         }
 
         //ответ в ветку комментариев
-        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->children) == 0) {
+        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->children) == 0 && !$isRootFromDoctor) {
             return $this->authorId != $user->id && !$isDoctor;
         }
 

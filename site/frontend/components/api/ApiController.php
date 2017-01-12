@@ -164,11 +164,14 @@ class ApiController extends \CController
         else // CErrorEvent
             $exception = $event;
 
-        http_response_code($exception->statusCode);
+        $code = method_exists($exception, 'getCode') ? $exception->getCode() : $exception->code;
+        $message = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;
+
+        http_response_code(isset($exception->statusCode) ? $exception->statusCode : $code);
 
         $this->success = false;
-        $this->errorCode = method_exists($exception, 'getCode') ? $exception->getCode() : $exception->code;
-        $this->errorMessage = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;
+        $this->errorCode = $code;
+        $this->errorMessage = $message;
         $this->data = null;
 
         if(YII_DEBUG) {

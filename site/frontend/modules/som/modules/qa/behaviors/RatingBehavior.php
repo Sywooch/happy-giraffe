@@ -139,9 +139,9 @@ class RatingBehavior extends \CActiveRecordBehavior
     {
         if (!$this->categoryId) {
             if ($this->owner instanceof QaAnswer) {
-                $this->categoryId = $this->owner->category->id;
+                $this->categoryId = $this->owner->question->category->id;
             } else if ($this->owner instanceof QaAnswerVote) {
-                $this->categoryId = $this->owner->answer->category->id;
+                $this->categoryId = $this->owner->answer->question->category->id;
             }
         }
 

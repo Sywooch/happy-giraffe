@@ -101,6 +101,15 @@ class ApiController extends \site\frontend\components\api\ApiController
             $answer->setAttribute('root_id', $answerId);
         }
 
+//        if ($this->success = $answer->save())
+//        {
+//            $comet = new \CometModel;
+//
+//            $comet->send(\Yii::app()->user->id, ['foo' => 'bar'], \CometModel::MP_QUESTION_NEW_ANSWER);
+//        }
+
+        $this->send(\Yii::app()->user->id, ['foo' => 'bar'], \CometModel::MP_QUESTION_NEW_ANSWER);
+
         $this->success = $answer->save();
         $this->data = $answer;
     }

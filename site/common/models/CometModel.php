@@ -78,7 +78,9 @@ class CometModel extends CComponent
     const QA_EDIT_ANSWER = 6005;
     
     const BLOGS_EFIR_NEW_POST = 228;
-    
+
+    const MP_QUESTION_NEW_ANSWER = 7000;
+
     public $attributes = array();
     public $type;
 
@@ -103,7 +105,7 @@ class CometModel extends CComponent
         try {
             Yii::app()->comet->send($channel_id, $this->attributes);
         } catch (Exception $err) {
-
+            echo $err->getMessage();
         }
     }
 

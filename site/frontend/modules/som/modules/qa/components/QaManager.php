@@ -101,16 +101,19 @@ SQL;
                                     )
                         ;
 
-        $rootAnswersList = AnswerManagementData::process($rootAnswers);
+        $rootAnswersList = array_map(
+                                function($answerObj)
+                                {
+                                    return $answerObj->toJSON();
+                                },
+                                $rootAnswers
+                            );
 
         foreach ($rootAnswersList as &$rootAnswerData)
         {
             $rootAnswerData['answers'] = [];
 
-            $childAnswers = QaAnswer::model()
-                                ->descendantsOf($rootAnswerData['id'])
-                                ->findAll()
-                            ;
+            $childAnswers = self::getChildAnswers($rootAnswerData['id']);
 
             $countChildAnswers = count($childAnswers);
 
@@ -118,11 +121,28 @@ SQL;
 
             if ($countChildAnswers)
             {
-                $rootAnswerData['answers'] = AnswerManagementData::process($childAnswers);
+                // $rootAnswerData['answers'] = AnswerManagementData::process($childAnswers);
+                foreach ($childAnswers as $childAnswer)
+                {
+                    $rootAnswerData['answers'][] = $childAnswer->toJSON();
+                }
             }
         }
 
         return $rootAnswersList;
+    }
+
+    public static function getChildAnswers($id)
+    {
+        return QaAnswer::model()
+                    ->descendantsOf($id)
+                    ->findAll()
+                ;
+    }
+
+    public static function getCountChildAnswers($id)
+    {
+        return count(self::getChildAnswers($id));
     }
 
 }

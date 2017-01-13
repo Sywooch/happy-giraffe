@@ -79,7 +79,17 @@ class CometModel extends CComponent
     
     const BLOGS_EFIR_NEW_POST = 228;
 
+    /**
+     * @var integer MP_QUESTION_NEW_ANSWER Статус-код: Новый ответ к вопросу
+     * @author Sergey Gubarev
+     */
     const MP_QUESTION_NEW_ANSWER = 7000;
+
+    /**
+     * @var string MP_QUESTION_CHANEL_ID ID канала для открытого вопроса сервиса "ПЕДИАТР"
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_CHANEL_ID = 'MyPediatricianQuestion';
 
     public $attributes = array();
     public $type;

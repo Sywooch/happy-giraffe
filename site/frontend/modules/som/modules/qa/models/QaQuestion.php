@@ -327,6 +327,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
 
         $dialog = new QaObjectList($this->getSpecialistDialog());
 
+
         if ($this->authorId != $userId)
         {
             if (is_null($profile))

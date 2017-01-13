@@ -459,16 +459,23 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     public function toJSON()
     {
         return [
-            'id'                => (int) $this->id,
-            'authorId'          => (int) $this->authorId,
-            'dtimeCreate'       => (int) $this->dtimeCreate,
-            'text'              => $this->purified->text,
-            'votesCount'        => (int) $this->votesCount,
-            'user'              => $this->user->formatedForJson(),
-            'isRemoved'         => (bool) $this->isRemoved,
-            'bySpecialist'      => $this->authorIsSpecialist(),
-            'countUserAnswersByPediatrician'   => QaManager::getCountAnswersByUser($this->authorId),
-            'rootId'            => $this->root_id
+            'id'                                => (int) $this->id,
+            'authorId'                          => (int) $this->authorId,
+            'dtimeCreate'                       => (int) $this->dtimeCreate,
+            'text'                              => $this->purified->text,
+            'votesCount'                        => (int) $this->votesCount,
+            'user'                              => $this->user->formatedForJson(),
+            'isRemoved'                         => (bool) $this->isRemoved,
+            'bySpecialist'                      => $this->authorIsSpecialist(),
+            'rootId'                            => $this->root_id,
+            'canEdit'                           => \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $this)),
+            'canRemove'                         => \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $this)),
+            'canVote'                           => \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $this)),
+            'isVoted'                           => (bool) count($this->votes),
+            'question'                          => $this->question->toJSON(),
+            'countUserAnswersByPediatrician'    => QaManager::getCountAnswersByUser($this->authorId),
+            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id),
+            'answers'                           => []
         ];
     }
 

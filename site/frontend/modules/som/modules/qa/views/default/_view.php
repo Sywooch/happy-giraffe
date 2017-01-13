@@ -191,4 +191,3 @@ $breadcrumbs[] = CHtml::encode($question->title);
 </div>
 
 
-

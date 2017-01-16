@@ -144,5 +144,55 @@ SQL;
     {
         return count(self::getChildAnswers($id));
     }
+    
+    /**
+     * @param QaQuestion $question
+     * @param integer $answerId
+     * @return boolean
+     */
+    public static function canCreateAnswer(QaQuestion $question, $answerId = NULL)
+    {
+        /*@var $user \WebUser */
+        $user = \Yii::app()->user;
+
+        if ($user->isGuest)
+        {
+            return FALSE;
+        }
+
+        if ($user->getModel()->isSpecialist)
+        {
+            return $question->checkCustomAccessByAnswered($user->id);
+        }
+
+        /*@var $answer QaAnswer */
+        $answer = QaAnswer::model()->findByPk($answerId);
+
+        if (is_object($answer) && $question->id != $answer->questionId)
+        {
+            return FALSE;
+        }
+
+        if ($question->authorId == $user->id)
+        {
+            if (is_null($answer))
+            {
+                return FALSE;
+            } elseif (!$answer->authorIsSpecialist())
+            {
+                return $answer->authorId != $user->id;
+            }
+        }
+
+        if (is_null($answer) || $answer->authorIsSpecialist())
+        {
+            return $question->checkCustomAccessByAnswered($user->id);
+        }
+
+        $answersList = new QaObjectList($answer->ancestors()->findAll());
+        $userAnswers = $answersList->sortedByField('authorId', $user->id);
+
+        return !$userAnswers->isEmpty();
+    }
 
 }

@@ -18,7 +18,6 @@ use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\components\QaObjectList;
-use site\frontend\modules\som\modules\qa\components\QaManager;
 
 class DefaultController extends QaController
 {

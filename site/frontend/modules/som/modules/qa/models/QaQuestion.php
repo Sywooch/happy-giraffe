@@ -333,7 +333,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         {
             if (is_null($profile))
             {
-                return FALSE;
+                return TRUE;
             }
 
             if ($dialog->isEmpty())

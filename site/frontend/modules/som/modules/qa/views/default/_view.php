@@ -140,7 +140,7 @@ $breadcrumbs[] = CHtml::encode($question->title);
                             <div class="redactor-post-toolbar"></div>
                         </div>
                         <div class="b-redactor-footer__item">
-                            <button type="button" class="btn btn--blue btn--sm" data-bind="click: addReply">Ответить</button>
+                            <button type="button" class="btn btn--blue btn--sm" data-bind="click: addAnswerToQuestion">Ответить</button>
                         </div>
                     </div>
                 </div>

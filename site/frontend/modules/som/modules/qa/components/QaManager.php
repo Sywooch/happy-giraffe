@@ -144,7 +144,7 @@ SQL;
     {
         return count(self::getChildAnswers($id));
     }
-    
+
     /**
      * @param QaQuestion $question
      * @param integer $answerId

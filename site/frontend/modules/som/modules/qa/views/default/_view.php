@@ -140,7 +140,7 @@ $breadcrumbs[] = CHtml::encode($question->title);
                             <div class="redactor-post-toolbar"></div>
                         </div>
                         <div class="b-redactor-footer__item">
-                            <button type="button" class="btn btn--blue btn--sm" data-bind="click: addReply">Ответить</button>
+                            <button type="button" class="btn btn--blue btn--sm" data-bind="click: addAnswerToQuestion">Ответить</button>
                         </div>
                     </div>
                 </div>
@@ -169,13 +169,25 @@ $breadcrumbs[] = CHtml::encode($question->title);
 
         <div class="b-open-question__title">Ответы</div>
         <div class="b-margin--bottom_60">
-            <mp-answers-widget params='questionData: <?= CJSON::encode($question->toJSON()); ?>'></mp-answers-widget>
+
+            <mp-answers-widget params='questionData: <?= CJSON::encode($question->toJSON()); ?>, answersList: <?= CJSON::encode($answersTreeList); ?>'>
+
+                <div class="preloader-answer">
+                    <div class="preloader__inner">
+                        <div class="preloader__box">
+                            <span class="preloader__ico preloader__ico--md"></span>
+                        </div>
+                        <span class="preloader__text">Загрузка</span>
+                    </div>
+                </div>
+
+            </mp-answers-widget>
+
         </div>
 
         <?php // $this->widget(AnswersWidget::class, ['question' => $question]); ?>
 
     </div>
 </div>
-
 
 

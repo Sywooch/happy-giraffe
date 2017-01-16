@@ -3,6 +3,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 
 use site\frontend\modules\api\ApiModule;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
+use site\frontend\modules\som\modules\qa\helpers\AnswersTreeListHelper;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\BaseAnswerManager;
 use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
@@ -332,7 +333,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         {
             if (is_null($profile))
             {
-                return FALSE;
+                return TRUE;
             }
 
             if ($dialog->isEmpty())
@@ -608,4 +609,5 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     {
         return new QaObjectList($this->findAll($condition, $params));
     }
+
 }

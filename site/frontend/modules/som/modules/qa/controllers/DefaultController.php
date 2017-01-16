@@ -10,6 +10,7 @@ namespace site\frontend\modules\som\modules\qa\controllers;
 use site\common\components\SphinxDataProvider;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\components\QaController;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
@@ -17,7 +18,6 @@ use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\components\QaObjectList;
-use site\frontend\modules\som\modules\qa\components\QaManager;
 
 class DefaultController extends QaController
 {
@@ -100,6 +100,7 @@ class DefaultController extends QaController
             'pediatrician',
             'search',
             'pediatricianAddForm',
+            'view'
         ];
 
         if (in_array($action->id, $newDesigneActions))
@@ -129,9 +130,10 @@ class DefaultController extends QaController
                 $this->redirect($redirectUrl, true, 301);
             }
 
-            $this->layout = '/layouts/pediatrician';
+            $answersTreeList = QaManager::getAnswersTreeByQuestion($question->id);
 
-            $this->render('_view', compact('question', 'tab', 'category'));
+            $this->layout = '/layouts/pediatrician';
+            $this->render('_view', compact('question', 'tab', 'category', 'answersTreeList'));
         }
         else
         {

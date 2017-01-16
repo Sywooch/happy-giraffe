@@ -85,8 +85,8 @@ class ApiController extends \site\frontend\components\api\ApiController
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
         $answer = new self::$answerModel();
         $answer->attributes = [
-            'questionId' => $questionId,
-            'text' => $text,
+            'questionId'    => $questionId,
+            'text'          => $text,
         ];
 
         if ($answer->validate())
@@ -102,7 +102,15 @@ class ApiController extends \site\frontend\components\api\ApiController
             $answer->setAttribute('root_id', $answerId);
         }
 
-        $this->success = $answer->save();
+        if ($this->success = $answer->save())
+        {
+            $response = [
+                'answer' => $answer->toJSON()
+            ];
+
+            $this->send('mpTest', $response, \CometModel::MP_QUESTION_NEW_ANSWER);
+        }
+
         $this->data = $answer;
     }
 

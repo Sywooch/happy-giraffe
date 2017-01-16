@@ -30,7 +30,6 @@ if (isset($additionalData['votesList']))
         <?php $this->renderPartial('site.frontend.modules.som.modules.qa.views._new_answers_footer', [
             'data'          => $data,
             'hasVote'       => $hasVote,
-            'myAnswersPage' => isset($additionalData['myAnswersPage']) ? $additionalData['myAnswersPage'] : FALSE,
         ]) ?>
 	</div>
 </article>

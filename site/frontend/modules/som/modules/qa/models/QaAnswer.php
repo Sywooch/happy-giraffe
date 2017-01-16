@@ -391,6 +391,22 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     }
 
     /**
+     * @param int $userId
+     *
+     * @return QaAnswer
+     */
+    public function excludeByQuestionsAuthor($userId)
+    {
+        if (!isset($this->getDbCriteria()->with['question'])) {
+            $this->getDbCriteria()->with[] = 'question';
+        }
+
+        $this->getDbCriteria()->addCondition("question.authorId != {$userId}");
+
+        return $this;
+    }
+
+    /**
      * @return QaAnswer
      */
     public function specialists()

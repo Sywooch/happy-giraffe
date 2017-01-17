@@ -66,14 +66,18 @@ $breadcrumbs[] = CHtml::encode($question->title);
             <div class="b-open-question__body">
                 <span class="b-title--h1 b-title--bold b-text-color--blue-link"><?= CHtml::encode($question->title) ?></span>
                 <div class="b-open-question__wrapper b-question-wrapper">
+
                     <?php if (!is_null($question->tag)): ?>
-                    <div class="b-question-wrapper__item">
-                        <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id]) ?>"
-                           class="b-answer-footer__age b-text--link-color">
-                            <?= $question->tag->name ?>
-                        </a>
-                        <?php endif; ?>
-                    </div>
+
+                        <div class="b-question-wrapper__item">
+                            <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id]) ?>"
+                               class="b-answer-footer__age b-text--link-color">
+                                <?= $question->tag->name ?>
+                            </a>
+                        </div>
+
+                    <?php endif; ?>
+
                     <div class="b-question-wrapper__item">
                         <div class="b-open-question__quant b-open-quant">
                             <span class="b-open-quant__num"><?= $question->answersCount ?></span>
@@ -87,10 +91,10 @@ $breadcrumbs[] = CHtml::encode($question->title);
 
                 <?php if (! \Yii::app()->user->isGuest && \Yii::app()->user->id == $question->authorId): ?>
 
-                <div class="b-answer__footer b-answer-footer--theme-user">
-                    <span class="b-pediator-answer-quest__control">Редактировать</span>
-                    <span class="b-pediator-answer-quest__control">Удалить</span>
-                </div>
+                    <div class="b-answer__footer b-answer-footer--theme-user">
+                        <span class="b-pediator-answer-quest__control">Редактировать</span>
+                        <span class="b-pediator-answer-quest__control">Удалить</span>
+                    </div>
 
                 <?php endif; ?>
 

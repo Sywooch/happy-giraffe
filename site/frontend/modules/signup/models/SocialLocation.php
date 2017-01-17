@@ -17,4 +17,11 @@ class SocialLocation extends \EMongoDocument
     {
         return 'social_location';
     }
+    
+    public function rules()
+    {
+        return [
+            ['service, serviceId, data', 'safe'], 
+        ];
+    }
 }

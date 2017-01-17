@@ -474,8 +474,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'isVoted'                           => (bool) count($this->votes),
             'question'                          => $this->question->toJSON(),
             'countUserAnswersByPediatrician'    => QaManager::getCountAnswersByUser($this->authorId),
-            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id),
-            'answers'                           => []
+            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id)
         ];
     }
 

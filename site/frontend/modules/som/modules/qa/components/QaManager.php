@@ -168,19 +168,19 @@ SQL;
         //если коментирует специалист
         if ($isSpecialist)
         {
-            return $this->_canCreateAnswerSpecialist($question, $user);
+            return $this->_canCreateAnswerSpecialist($question, $user, $answer);
         }
 
         //если коментирует автор вопроса
         if ($question->authorId == $user->id)
         {
-            return $this->_canCreateAnswerAuthor($user);
+            return $this->_canCreateAnswerAuthor($user, $answer);
         }
 
         //если коментирует другой пользователь
         if ($question->authorId != $user->id && !$isSpecialist)
         {
-            return $this->_canCreateAnswerUser($question, $user);
+            return $this->_canCreateAnswerUser($question, $user, $answer);
         }
 
         return FALSE;

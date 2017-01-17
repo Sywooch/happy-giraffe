@@ -150,7 +150,7 @@ SQL;
      * @param integer $answerId
      * @return boolean
      */
-    public static function canCreateAnswer(QaQuestion $question, $answerId = NULL)
+    public function canCreateAnswer(QaQuestion $question, $answerId = NULL)
     {
         /*@var $user \WebUser */
         $user = \Yii::app()->user;
@@ -160,39 +160,106 @@ SQL;
             return FALSE;
         }
 
-        if ($user->getModel()->isSpecialist)
-        {
-            return $question->checkCustomAccessByAnswered($user->id);
-        }
+        $isSpecialist = $user->getModel()->isSpecialist;
 
         /*@var $answer QaAnswer */
         $answer = QaAnswer::model()->findByPk($answerId);
 
-        if (is_object($answer) && $question->id != $answer->questionId)
+        //если коментирует специалист
+        if ($isSpecialist)
+        {
+            return $this->_canCreateAnswerSpecialist($question, $user);
+        }
+
+        //если коментирует автор вопроса
+        if ($question->authorId == $user->id)
+        {
+            return $this->_canCreateAnswerAuthor($user);
+        }
+
+        //если коментирует другой пользователь
+        if ($question->authorId != $user->id && !$isSpecialist)
+        {
+            return $this->_canCreateAnswerUser($question, $user);
+        }
+
+        return FALSE;
+    }
+
+    /**
+     * @param QaQuestion $question
+     * @param \WebUser $user
+     * @param QaAnswer|NULL $answer
+     * @return boolean
+     */
+    private function _canCreateAnswerUser(QaQuestion $question, \WebUser $user, $answer = NULL)
+    {
+        /*@var $answer QaAnswer */
+        if (is_null($answer)) //если не дискусия
+        {
+            return $question->authorId != $user->id;
+        }
+
+        $dialog = $answer->ancestors()->findAll();
+
+        if (empty($dialog))
         {
             return FALSE;
         }
 
-        if ($question->authorId == $user->id)
+        /*@var $rootItem QaAnswer */
+        $rootItem = $dialog[0];
+
+        return $rootItem->authorId == $user->id;
+    }
+
+    /**
+     * @param \WebUser $user
+     * @param QaAnswer|NULL $answer
+     * @return boolean
+     */
+    private function _canCreateAnswerAuthor(\WebUser $user, $answer = NULL)
+    {
+        /*@var $answer QaAnswer */
+        if (is_null($answer)) //если не дискусия
         {
-            if (is_null($answer))
-            {
-                return FALSE;
-            } elseif (!$answer->authorIsSpecialist())
-            {
-                return $answer->authorId != $user->id;
-            }
+            return FALSE;
         }
 
-        if (is_null($answer) || $answer->authorIsSpecialist())
+        $answerAuthor = $answer->author;
+
+        return ($answerAuthor->id != $user->id && !$answerAuthor->isSpecialist) || ($answerAuthor->isSpecialist && !$answer->isAnswerToAdditional());
+    }
+
+    /**
+     * @param QaQuestion $question
+     * @param \WebUser $user
+     * @param QaAnswer|NULL $answer
+     * @return boolean
+     */
+    private function _canCreateAnswerSpecialist(QaQuestion $question, \WebUser $user, $answer = NULL)
+    {
+        /*@var $answer QaAnswer */
+
+        $dialog = $question->getSpecialistDialog();
+
+        if (is_null($answer)) //если не дискусия
         {
-            return $question->checkCustomAccessByAnswered($user->id);
+            return is_null($dialog);
         }
 
-        $answersList = new QaObjectList($answer->ancestors()->findAll());
-        $userAnswers = $answersList->sortedByField('authorId', $user->id);
+        $answerAuthor = $answer->author;
+        $ancestors    = $answer->ancestors()->findAll();
 
-        return !$userAnswers->isEmpty();
+        /*@var $rootItem QaAnswer */
+        $rootItem = $dialog[0];
+
+        if (empty($ancestors))
+        {
+            return FALSE;
+        }
+
+        return $rootItem->authorId == $user->id && $answer->isAdditional();
     }
 
 }

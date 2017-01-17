@@ -74,7 +74,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         /** @var $question QaQuestion */
         $question = QaQuestion::model()->findByPk($questionId);
 
-        if (is_null($question) || !QaManager::canCreateAnswer($question, $answerId)) {
+        if (is_null($question) || !(new QaManager)->canCreateAnswer($question, $answerId)) {
             throw new \CHttpException(403, 'Access Denied');
         }
 

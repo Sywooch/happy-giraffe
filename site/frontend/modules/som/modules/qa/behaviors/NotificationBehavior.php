@@ -30,9 +30,11 @@ class NotificationBehavior extends BaseBehavior
     const ANSWER_TO_ADDITIONAL = 18;
     /**@var int ADDITIONAL Утвочняющий вопрос */
     const ADDITIONAL = 19;
+    /**@var int ANSWER_COMMENT Комментарий в ветку */
+    const ANSWER_COMMENT = 20;
 
     /**
-     * Ответ на вопрос ???
+     * Ответ на вопрос ??? - это в те категории, которые не мой педиатр.
      *
      * @see Notification::TYPE_ANSWER
      */
@@ -95,7 +97,12 @@ class NotificationBehavior extends BaseBehavior
     protected function addNotification(QaAnswer $model, QaQuestion $question)
     {
         $type = $this->getType($model, $question);
-        $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, $type, array($model->authorId, $model->user->avatarUrl));
+
+        if ($type != self::ANSWER_COMMENT) {
+            $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, $type, array($model->authorId, $model->user->avatarUrl));
+        } else {
+            $notification = $this->findOrCreateNotification(get_class($question), $question->id, $model->root->authorId, $type, array($model->authorId, $model->user->avatarUrl));
+        }
 
         $notification->entity->tooltip = $question->title;
 
@@ -134,6 +141,10 @@ class NotificationBehavior extends BaseBehavior
 
         if ($answer->isAdditional()) {
             $type = self::ADDITIONAL;
+        }
+
+        if ($answer->isCommentToBranch()) {
+            $type = self::ANSWER_COMMENT;
         }
 
         return $type;

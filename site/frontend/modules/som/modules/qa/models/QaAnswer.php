@@ -358,6 +358,14 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     }
 
     /**
+     * @return bool
+     */
+    public function isCommentToBranch()
+    {
+        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && !$this->root->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+    }
+
+    /**
      * @param int $tagId
      *
      * @return QaAnswer

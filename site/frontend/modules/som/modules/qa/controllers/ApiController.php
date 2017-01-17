@@ -97,7 +97,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             }
         }
 
-        if (! is_null($answerId))
+        if (!is_null($answerId))
         {
             $answer->setAttribute('root_id', $answerId);
         }
@@ -270,8 +270,13 @@ class ApiController extends \site\frontend\components\api\ApiController
             'editAnswer'    => \CometModel::QA_EDIT_ANSWER,
         ];
 
+
         if ($this->success == true && array_key_exists($action->id, $types))
         {
+            if ($action->id == 'createAnswer' && $this->data->author->isSpecialist)
+            {
+                return parent::afterAction($action);
+            }
 
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
 

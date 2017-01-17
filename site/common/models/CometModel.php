@@ -53,7 +53,7 @@ class CometModel extends CComponent
 	// Обновление счётчиков
     const MESSAGING_UPDATE_COUNTERS = 2080;
     const MESSAGING_COUNT_CONTACT = 2083;
-    
+
     const COMMENTS_NEW = 2510;
     const COMMENTS_UPDATE = 2520;
     const COMMENTS_DELETE = 2530;
@@ -67,7 +67,7 @@ class CometModel extends CComponent
     const FRIEND_REQUEST_SENT = 4000;
     const FRIEND_REQUEST_DECLINED = 4001;
     const FRIEND_ADDED = 4010;
-    
+
     const NOTIFY_ADDED = 5001;
     const NOTIFY_UPDATED = 5003;
 
@@ -76,7 +76,7 @@ class CometModel extends CComponent
     const QA_REMOVE_ANSWER = 6003;
     const QA_RESTORE_ANSWER = 6004;
     const QA_EDIT_ANSWER = 6005;
-    
+
     const BLOGS_EFIR_NEW_POST = 228;
 
     /**

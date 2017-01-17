@@ -204,24 +204,24 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         ];
     }
 
-    public function save($runValidation = true, $attributes = null)
-    {
-        if (\Yii::app()->db->getCurrentTransaction() !== null) {
-            return parent::save($runValidation, $attributes);
-        }
+//     public function save($runValidation = true, $attributes = null)
+//     {
+//         if (\Yii::app()->db->getCurrentTransaction() !== null) {
+//             return parent::save($runValidation, $attributes);
+//         }
 
-        $transaction = $this->dbConnection->beginTransaction();
-        try {
-            $success = parent::save($runValidation, $attributes);
-            $transaction->commit();
-        } catch (\Exception $e) {
-            $transaction->rollback();
+//         $transaction = $this->dbConnection->beginTransaction();
+//         try {
+//             $success = parent::save($runValidation, $attributes);
+//             $transaction->commit();
+//         } catch (\Exception $e) {
+//             $transaction->rollback();
 
-            return false;
-        }
+//             return false;
+//         }
 
-        return $success;
-    }
+//         return $success;
+//     }
 
     /**
      * {@inheritDoc}
@@ -257,7 +257,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         if ($this->isNewRecord) {
             $this->updateAnswersCount(1);
 
-            if (! is_null($this->root_id))
+            if (!is_null($this->root_id))
             {
                 $targetModel = self::model()->findByPk($this->root_id);
                 $targetModel->append($this);

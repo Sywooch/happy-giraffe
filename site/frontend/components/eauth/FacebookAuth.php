@@ -47,6 +47,7 @@ class FacebookAuth extends FacebookOAuthService
     protected function setLocationAttributes($info)
     {
         $location = $info->location->location;
+        $this->saveLocation($location);
         $countryModel = GeoCountry::model()->findByAttributes(array('iso_code' => $location->country_code));
         if ($countryModel !== null) {
             $this->attributes['country_id'] = $countryModel->id;
@@ -81,5 +82,16 @@ class FacebookAuth extends FacebookOAuthService
                 }
             }
         }
+    }
+    
+    protected function saveLocation($data)
+    {
+        $socialLocation = (new \site\frontend\modules\signup\models\SocialLocation());
+        $socialLocation->setAttributes([
+            'service' => $this->getServiceName(),
+            'serviceId' => $this->getAttribute('uid'),
+            'data' => $data,
+        ]);
+        $socialLocation->save();
     }
 }

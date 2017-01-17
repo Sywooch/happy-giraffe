@@ -202,13 +202,16 @@ SQL;
 
         $dialog = $answer->ancestors()->findAll();
 
-        if (empty($dialog))
+        if (empty($dialog) && $answer->isLeaf())
         {
-            return FALSE;
+            /*@var $rootItem QaAnswer */
+            $rootItem = $answer;
+        }
+        else
+        {
+            $rootItem = $dialog[0];
         }
 
-        /*@var $rootItem QaAnswer */
-        $rootItem = $dialog[0];
 
         return $rootItem->authorId == $user->id;
     }

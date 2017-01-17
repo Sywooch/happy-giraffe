@@ -43,7 +43,7 @@ class NotificationBehavior extends BaseBehavior
         $answer = $this->owner;
         $question = $answer->question;
 
-        if ($answer->isNewRecord && $question->sendNotifications && !$answer->isAdditional()) {
+        if ($answer->isNewRecord && (bool)$question->sendNotifications && !$answer->isAdditional()) {
             // Если паблишед, отправяем сигнал сразу. Иначе этим будет заниматься отдельный воркер
             if ($answer->isPublished) {
                 $this->addNotification($answer, $question);
@@ -95,7 +95,15 @@ class NotificationBehavior extends BaseBehavior
     protected function addNotification(QaAnswer $model, QaQuestion $question)
     {
         $type = $this->getType($model, $question);
-        $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, $type, array($model->authorId, $model->user->avatarUrl));
+        if ($type == Notification::TYPE_REPLY_COMMENT)
+        {
+            $userId = $model->root->authorId;
+        }
+        else
+        {
+            $userId = $question->authorId;
+        }
+        $notification = $this->findOrCreateNotification(get_class($question), $question->id, $userId, $type, array($model->authorId, $model->user->avatarUrl));
 
         $notification->entity->tooltip = $question->title;
 
@@ -134,6 +142,10 @@ class NotificationBehavior extends BaseBehavior
 
         if ($answer->isAdditional()) {
             $type = self::ADDITIONAL;
+        }
+
+        if (!$answer->isLeaf() && !$answer->isAdditional() && !$answer->isAnswerToAdditional()) {
+            $type = Notification::TYPE_REPLY_COMMENT;
         }
 
         return $type;

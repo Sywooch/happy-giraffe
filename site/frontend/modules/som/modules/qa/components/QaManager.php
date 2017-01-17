@@ -228,6 +228,7 @@ SQL;
 
         $answerAuthor = $answer->author;
 
+
         return ($answerAuthor->id != $user->id && !$answerAuthor->isSpecialist) || ($answerAuthor->isSpecialist && !$answer->isAnswerToAdditional());
     }
 
@@ -252,7 +253,7 @@ SQL;
         $ancestors    = $answer->ancestors()->findAll();
 
         /*@var $rootItem QaAnswer */
-        $rootItem = $dialog[0];
+        $rootItem = $ancestors[0];
 
         if (empty($ancestors))
         {

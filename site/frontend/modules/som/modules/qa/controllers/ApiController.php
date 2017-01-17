@@ -102,16 +102,8 @@ class ApiController extends \site\frontend\components\api\ApiController
             $answer->setAttribute('root_id', $answerId);
         }
 
-        if ($this->success = $answer->save())
-        {
-            $response = [
-                'answer' => $answer->toJSON()
-            ];
-
-            $this->send('mpTest', $response, \CometModel::MP_QUESTION_NEW_ANSWER);
-        }
-
-        $this->data = $answer;
+        $this->success  = $answer->save();
+        $this->data     = $answer;
     }
 
     public function actionGetTags()
@@ -271,22 +263,32 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function afterAction($action)
     {
         $types = [
-            'vote' => \CometModel::QA_VOTE,
-            'createAnswer' => \CometModel::QA_NEW_ANSWER,
-            'removeAnswer' => \CometModel::QA_REMOVE_ANSWER,
+            'vote'          => \CometModel::QA_VOTE,
+            'createAnswer'  => \CometModel::QA_NEW_ANSWER,
+            'removeAnswer'  => \CometModel::QA_REMOVE_ANSWER,
             'restoreAnswer' => \CometModel::QA_RESTORE_ANSWER,
-            'editAnswer' => \CometModel::QA_EDIT_ANSWER,
+            'editAnswer'    => \CometModel::QA_EDIT_ANSWER,
         ];
 
-        if ($this->success == true && in_array($action->id, array_keys($types))) // @fixme isset, array_key_exists?
+        if ($this->success == true && array_key_exists($action->id, $types))
         {
+
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
 
-            if ($this->data instanceof QaAnswer) {
-                $this->send(AnswersWidget::getChannelIdByQuestion($this->data->questionId), $data, $types[$action->id]);
-            }/* else if ($this->data instanceof QaCTAnswer) {
-                $this->send(AnswersWidget::getChannelIdByQuestion(CTAnswerManager::findSubject($this->data)), $data, $types[$action->id]);
-            }*/
+            if ($this->data instanceof QaAnswer)
+            {
+                if ($this->data->question->category->isPediatrician())
+                {
+                    $chanelId = \CometModel::MP_QUESTION_CHANEL_ID;
+
+                }
+                else
+                {
+                    $chanelId = AnswersWidget::getChannelIdByQuestion($this->data->questionId);
+                }
+
+                $this->send($chanelId, $data, $types[$action->id]);
+            }
         }
 
         parent::afterAction($action);

@@ -78,12 +78,17 @@ $breadcrumbs[] = CHtml::encode($question->title);
 
                     <?php endif; ?>
 
-                    <div class="b-question-wrapper__item">
-                        <div class="b-open-question__quant b-open-quant">
-                            <span class="b-open-quant__num"><?= $question->answersCount ?></span>
-                            <span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount) ?></span>
+                    <mp-answers-count-widget params="count: <?= $question->answersCount ?>, countText: '<?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount); ?>'">
+
+                        <div class="b-question-wrapper__item">
+                            <div class="b-open-question__quant b-open-quant">
+                                <span class="b-open-quant__num"><?= $question->answersCount ?></span>
+                                <span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount) ?></span>
+                            </div>
                         </div>
-                    </div>
+
+                    </mp-answers-count-widget>
+
                 </div>
                 <p class="b-text--size-14 b-text--black">
                     <?= $question->purified->text; ?>

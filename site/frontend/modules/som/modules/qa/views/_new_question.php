@@ -22,30 +22,22 @@
                 </div>
   			<?php endif; ?>
   			<?php
-        	   $imgUrl = '';
-        	   $childName = 'Без имени';
   			   if (!is_null($data->attChild)) {
-            	   //@todo Emil Vililyaev: пока что както так...
-            	   try {
-                	   $fmember = $data->attChild;
-                	   $childName = $fmember->name;
-                	   $imgUrl = $fmember->photoCollection->attaches[0]->photo->getPreviewPhoto();
-        	           $tag = $fmember->getAgeTag();
-            	   } catch (\Exception $e)
-            	   {}
+            	   $fmember = $data->attChild;
+            	   $arrFooterData = $fmember->getAnswerFooterData();
 	           ?>
         	   <?php if (!\Yii::app()->user->isGuest && $data->author->id == \Yii::app()->user->id) { ?>
     			<div class="b-answer__footer b-answer-footer">
     				<a href="javascript:void(0);" class="ava-pediator">
     					<span class="ava ava--style ava--small ava--medium_male">
-    						<img src="<?=$imgUrl?>" class="ava__img-box">
+    						<img src="<?=$arrFooterData['imgUrl']?>" class="ava__img-box">
     					</span>
-    					<span class="ava-pediator__sub"><?=$childName?></span>
+    					<span class="ava-pediator__sub"><?=$arrFooterData['childName']?></span>
     				</a>
     			</div>
-    		   <?php } elseif (!is_null($tag)) { ?>
+    		   <?php } elseif (!is_null($arrFooterData['tag'])) { ?>
     			<div class="b-answer__footer b-answer-footer">
-                	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$tag->getTitle()?></a>
+                	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $arrFooterData['tag']->id])?>" class="b-answer-footer__age b-text--link-color"><?=$arrFooterData['tag']->getTitle()?></a>
                 </div>
     		   <?php }?>
 		   <?php }?>

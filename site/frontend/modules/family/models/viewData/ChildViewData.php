@@ -64,7 +64,8 @@ class ChildViewData extends FamilyMemberViewData
         $age = AgeHelper::getAge($this->model->birthday);
         $tag = QaTag::getByAge($age);
 
-        if (is_null($tag)) {
+        if (is_null($tag))
+        {
             return;
         }
 
@@ -73,13 +74,16 @@ class ChildViewData extends FamilyMemberViewData
 
     protected function getAgeSign()
     {
-        if ($this->model->birthday === null) {
+        if ($this->model->birthday === null)
+        {
             return $this->ageMap[6];
         }
 
         $age = AgeHelper::getAge($this->model->birthday);
-        foreach ($this->ageMap as $threshold => $string) {
-            if ($age >= $threshold) {
+        foreach ($this->ageMap as $threshold => $string)
+        {
+            if ($age >= $threshold)
+            {
                 return $string;
             }
         }

@@ -10,7 +10,6 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 ?>
 
 <?php
-
 $breadcrumbs = [
     'Главная' => ['/site/index'],
     'Педиатр' => ['/som/qa/default/pediatrician'],
@@ -66,17 +65,22 @@ $breadcrumbs[] = CHtml::encode($question->title);
             <div class="b-open-question__body">
                 <span class="b-title--h1 b-title--bold b-text-color--blue-link"><?= CHtml::encode($question->title) ?></span>
                 <div class="b-open-question__wrapper b-question-wrapper">
+                    <?php
+      			       $tag = $question->tag;
 
-                    <?php if (!is_null($question->tag)): ?>
-
-                        <div class="b-question-wrapper__item">
-                            <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id]) ?>"
-                               class="b-answer-footer__age b-text--link-color">
-                                <?= $question->tag->name ?>
-                            </a>
-                        </div>
-
-                    <?php endif; ?>
+          			   if (!is_null($question->attachedChild)) {
+                    	   $arrFooterData = $question->attChild->getAnswerFooterData();
+                    	   $tag = $arrFooterData['tag'];
+          			   }
+      			   ?>
+                    <?php if (!is_null($tag)) { ?>
+                    <div class="b-question-wrapper__item">
+                        <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>"
+                           class="b-answer-footer__age b-text--link-color">
+                            <?= $tag->getTitle() ?>
+                        </a>
+                    </div>
+                    <?php } ?>
 
                     <mp-answers-count-widget params="count: <?= $question->answersCount ?>, countText: '<?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount); ?>'">
 

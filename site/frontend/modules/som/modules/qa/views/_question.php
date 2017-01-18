@@ -5,7 +5,6 @@
 ?>
 
 <?php
-
 if (!is_null($data->category)) {
     $isAnonQuestion = $data->category->isPediatrician();
 } else {
@@ -14,7 +13,7 @@ if (!is_null($data->category)) {
 ?>
 
 <li class="questions_item clearfix <?php echo $isAnonQuestion ? 'questions_item-no-avatar' : ''; ?>">
-    
+
     <?php if ($data->user->avatarUrl && !$isAnonQuestion): ?>
 
         <div class="questions-modification__avatar awatar-wrapper">
@@ -22,7 +21,7 @@ if (!is_null($data->category)) {
                 <img src="<?= $data->user->avatarUrl ?>" class="awatar-wrapper__img">
             </a>
         </div>
-    
+
     <?php endif; ?>
 
 

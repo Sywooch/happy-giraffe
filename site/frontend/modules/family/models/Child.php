@@ -32,6 +32,24 @@ class Child extends FamilyMemberAbstract
         return $this->getViewDataInternal()->getAgeTag();
     }
 
+    public function getAnswerFooterData()
+    {
+         $data = [
+             'childName' => 'Без имени',
+             'imgUrl' => '#',
+             'tag' => NULL,
+         ];
+
+        try {
+            $data['childName']  = $this->name;
+            $data['imgUrl']     = $this->photoCollection->attaches[0]->photo->getPreviewPhoto();
+            $data['tag']        = $this->getViewDataInternal()->getAgeTag();
+        } catch (\Exception $e)
+        {}
+
+        return $data;
+    }
+
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
@@ -62,4 +80,5 @@ class Child extends FamilyMemberAbstract
             'photoCollection' => $this->photoCollection,
         ));
     }
+
 }

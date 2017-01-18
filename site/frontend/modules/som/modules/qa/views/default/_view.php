@@ -10,7 +10,6 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 ?>
 
 <?php
-
 $breadcrumbs = [
     'Главная' => ['/site/index'],
     'Педиатр' => ['/som/qa/default/pediatrician'],
@@ -66,14 +65,24 @@ $breadcrumbs[] = CHtml::encode($question->title);
             <div class="b-open-question__body">
                 <span class="b-title--h1 b-title--bold b-text-color--blue-link"><?= CHtml::encode($question->title) ?></span>
                 <div class="b-open-question__wrapper b-question-wrapper">
-                    <?php if (!is_null($question->tag)): ?>
+                	<?php //-----------------------------------------------------------------------------------------------------------?>
+                    <?php
+      			       $tag = $question->tag;
+
+          			   if (!is_null($question->attachedChild)) {
+                    	   $arrFooterData = $question->attChild->getAnswerFooterData();
+                    	   $tag = $arrFooterData['tag'];
+          			   }
+      			   ?>
+                    <?php if (!is_null($tag)) { ?>
                     <div class="b-question-wrapper__item">
-                        <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $question->tag->id]) ?>"
+                        <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>"
                            class="b-answer-footer__age b-text--link-color">
-                            <?= $question->tag->name ?>
+                            <?= $tag->getTitle() ?>
                         </a>
-                        <?php endif; ?>
                     </div>
+                    <?php } ?>
+                    <?php //-----------------------------------------------------------------------------------------------------------?>
                     <div class="b-question-wrapper__item">
                         <div class="b-open-question__quant b-open-quant">
                             <span class="b-open-quant__num"><?= $question->answersCount ?></span>

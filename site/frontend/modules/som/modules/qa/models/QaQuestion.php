@@ -321,6 +321,8 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     /**
      * @param integer $userId
      * @return boolean
+     *
+     * @depricated! use QaManager->canCreateAnswer()
      */
     public function checkCustomAccessByAnswered($userId)
     {

@@ -19,8 +19,16 @@
             <p class="box-header__text"><?=\site\common\helpers\HStr::truncate(strip_tags($data->text), 150)?></p>
         </div>
         <div class="box-wrapper__footer box-footer">
-            <?php if ($data->tag): ?>
-                <a href="<?=$this->createUrl('/specialists/pediatrician/default/answer', ['questionId' => $data->id])?>" class="box-footer__cat"><?=$data->tag->name?></a>
+        	<?php
+		       $tag = $data->tag;
+
+  			   if (!is_null($data->attachedChild)) {
+            	   $arrFooterData = $data->attChild->getAnswerFooterData();
+            	   $tag = $arrFooterData['tag'];
+  			   }
+		   ?>
+            <?php if ($tag): ?>
+                <a href="<?=$this->createUrl('/specialists/pediatrician/default/answer', ['questionId' => $data->id])?>" class="box-footer__cat"><?=$tag->getTitle()?></a>
             <?php endif; ?>
             <a href="<?=$this->createUrl('/specialists/pediatrician/default/answer', ['questionId' => $data->id])?>" class="box-footer__answer box-footer__answer_green"><span class="box-footer__descr">Ответить</span></a>
         </div>

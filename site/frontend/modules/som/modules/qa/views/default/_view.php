@@ -69,7 +69,7 @@ $breadcrumbs[] = CHtml::encode($question->title);
                     <?php
       			       $tag = $question->tag;
 
-          			   if (!is_null($question->attChild)) {
+          			   if (!is_null($question->attachedChild)) {
                     	   $arrFooterData = $question->attChild->getAnswerFooterData();
                     	   $tag = $arrFooterData['tag'];
           			   }

@@ -204,25 +204,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         ];
     }
 
-    public function save($runValidation = true, $attributes = null)
-    {
-        if (\Yii::app()->db->getCurrentTransaction() !== null) {
-            return parent::save($runValidation, $attributes);
-        }
-
-        $transaction = $this->dbConnection->beginTransaction();
-        try {
-            $success = parent::save($runValidation, $attributes);
-            $transaction->commit();
-        } catch (\Exception $e) {
-            $transaction->rollback();
-
-            return false;
-        }
-
-        return $success;
-    }
-
     /**
      * {@inheritDoc}
      * @see CActiveRecord::beforeSave()
@@ -257,7 +238,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         if ($this->isNewRecord) {
             $this->updateAnswersCount(1);
 
-            if (! is_null($this->root_id))
+            if (!is_null($this->root_id))
             {
                 $targetModel = self::model()->findByPk($this->root_id);
                 $targetModel->append($this);
@@ -374,7 +355,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function isAdditional()
     {
-        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
+        return !$this->authorIsSpecialist() && !$this->isLeaf() && $this->root->author->isSpecialist;
     }
 
     /**
@@ -382,7 +363,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function isAnswerToAdditional()
     {
-        return $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
+        return $this->authorIsSpecialist() && !$this->isLeaf();
     }
 
     /**
@@ -474,8 +455,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'isVoted'                           => (bool) count($this->votes),
             'question'                          => $this->question->toJSON(),
             'countUserAnswersByPediatrician'    => QaManager::getCountAnswersByUser($this->authorId),
-            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id),
-            'answers'                           => []
+            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id)
         ];
     }
 
@@ -495,7 +475,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function authorIsSpecialist()
     {
-        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
+        return $this->author->isSpecialist;
     }
 
     /**
@@ -518,6 +498,11 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     public function getQuestion()
     {
         return $this->question;
+    }
+
+    public function getLeaf()
+    {
+        return $this->root_id == NULL;
     }
 
 }

@@ -204,25 +204,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         ];
     }
 
-//     public function save($runValidation = true, $attributes = null)
-//     {
-//         if (\Yii::app()->db->getCurrentTransaction() !== null) {
-//             return parent::save($runValidation, $attributes);
-//         }
-
-//         $transaction = $this->dbConnection->beginTransaction();
-//         try {
-//             $success = parent::save($runValidation, $attributes);
-//             $transaction->commit();
-//         } catch (\Exception $e) {
-//             $transaction->rollback();
-
-//             return false;
-//         }
-
-//         return $success;
-//     }
-
     /**
      * {@inheritDoc}
      * @see CActiveRecord::beforeSave()

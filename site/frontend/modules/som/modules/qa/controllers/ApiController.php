@@ -282,6 +282,18 @@ class ApiController extends \site\frontend\components\api\ApiController
 
             if ($this->data instanceof QaAnswer)
             {
+                if ($action->id == 'createAnswer' || $action->id == 'removeAnswer' || $action->id == 'restoreAnswer')
+                {
+                    $count = $this->data->question->answersCount;
+
+                    $response = [
+                        'count'     => $count,
+                        'countText' => \Yii::t('app', 'ответ|ответа|ответов|ответа', $count)
+                    ];
+
+                    $this->send(\CometModel::MP_QUESTION_CHANEL_ID, $response, \CometModel::MP_QUESTION_UPDATE_ANSWERS_COUNT);
+                }
+
                 if ($this->data->question->category->isPediatrician())
                 {
                     $chanelId = \CometModel::MP_QUESTION_CHANEL_ID;

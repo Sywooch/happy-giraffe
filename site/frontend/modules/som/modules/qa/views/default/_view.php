@@ -65,7 +65,6 @@ $breadcrumbs[] = CHtml::encode($question->title);
             <div class="b-open-question__body">
                 <span class="b-title--h1 b-title--bold b-text-color--blue-link"><?= CHtml::encode($question->title) ?></span>
                 <div class="b-open-question__wrapper b-question-wrapper">
-                	<?php //-----------------------------------------------------------------------------------------------------------?>
                     <?php
       			       $tag = $question->tag;
 
@@ -82,13 +81,18 @@ $breadcrumbs[] = CHtml::encode($question->title);
                         </a>
                     </div>
                     <?php } ?>
-                    <?php //-----------------------------------------------------------------------------------------------------------?>
-                    <div class="b-question-wrapper__item">
-                        <div class="b-open-question__quant b-open-quant">
-                            <span class="b-open-quant__num"><?= $question->answersCount ?></span>
-                            <span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount) ?></span>
+
+                    <mp-answers-count-widget params="count: <?= $question->answersCount ?>, countText: '<?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount); ?>'">
+
+                        <div class="b-question-wrapper__item">
+                            <div class="b-open-question__quant b-open-quant">
+                                <span class="b-open-quant__num"><?= $question->answersCount ?></span>
+                                <span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount) ?></span>
+                            </div>
                         </div>
-                    </div>
+
+                    </mp-answers-count-widget>
+
                 </div>
                 <p class="b-text--size-14 b-text--black">
                     <?= $question->purified->text; ?>
@@ -96,10 +100,10 @@ $breadcrumbs[] = CHtml::encode($question->title);
 
                 <?php if (! \Yii::app()->user->isGuest && \Yii::app()->user->id == $question->authorId): ?>
 
-                <div class="b-answer__footer b-answer-footer--theme-user">
-                    <span class="b-pediator-answer-quest__control">Редактировать</span>
-                    <span class="b-pediator-answer-quest__control">Удалить</span>
-                </div>
+                    <div class="b-answer__footer b-answer-footer--theme-user">
+                        <span class="b-pediator-answer-quest__control">Редактировать</span>
+                        <span class="b-pediator-answer-quest__control">Удалить</span>
+                    </div>
 
                 <?php endif; ?>
 

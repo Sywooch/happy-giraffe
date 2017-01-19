@@ -270,7 +270,6 @@ class ApiController extends \site\frontend\components\api\ApiController
             'editAnswer'    => \CometModel::QA_EDIT_ANSWER,
         ];
 
-
         if ($this->success == true && array_key_exists($action->id, $types))
         {
             if ($action->id == 'createAnswer' && $this->data->author->isSpecialist)

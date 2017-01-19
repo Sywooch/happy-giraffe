@@ -98,14 +98,11 @@ $breadcrumbs[] = CHtml::encode($question->title);
                     <?= $question->purified->text; ?>
                 </p>
 
-                <?php if (! \Yii::app()->user->isGuest && \Yii::app()->user->id == $question->authorId): ?>
+                <?php
+                    $isOwner = !\Yii::app()->user->isGuest && \Yii::app()->user->id == $question->authorId;
+                ?>
 
-                    <div class="b-answer__footer b-answer-footer--theme-user">
-                        <span class="b-pediator-answer-quest__control">Редактировать</span>
-                        <span class="b-pediator-answer-quest__control">Удалить</span>
-                    </div>
-
-                <?php endif; ?>
+                <mp-question-actions-widget params="isOwner: <?= $isOwner; ?>, id: <?= $question->id; ?>, redirectUrl: <?= $this->createUrl('/som/qa/default/pediatrician'); ?>"></mp-question-actions-widget>
 
                 <div class="b-open-question__nav b-open-nav">
 
@@ -130,6 +127,7 @@ $breadcrumbs[] = CHtml::encode($question->title);
                 <?php if (\Yii::app()->user->isGuest || $question->canBeAnsweredBy(\Yii::app()->user->id)): ?>
 
                 <div id="js-question-reply-form" class="b-redactor">
+                    <!-- ko if: isFormEnabled() -->
                     <div class="b-redactor__action">
                         <textarea
                             id="js--redactor__textarea"
@@ -153,9 +151,10 @@ $breadcrumbs[] = CHtml::encode($question->title);
                             <div class="redactor-post-toolbar"></div>
                         </div>
                         <div class="b-redactor-footer__item">
-                            <button type="button" class="btn btn--blue btn--sm" data-bind="click: addAnswerToQuestion">Ответить</button>
+                            <button type="button" class="btn btn--blue btn--sm" data-bind="css: {'disabled': isSubmitDisabled()},click: addAnswerToQuestion">Ответить</button>
                         </div>
                     </div>
+                    <!-- /ko -->
                 </div>
 
                 <?php

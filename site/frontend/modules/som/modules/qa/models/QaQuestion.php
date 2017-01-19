@@ -612,4 +612,15 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         return new QaObjectList($this->findAll($condition, $params));
     }
 
+    /**
+     * Отправляем ответ на comet-канал для уведовления подписчиков об удалении вопроса
+     *
+     * @author Sergey Gubarev
+     */
+    public function afterSoftDelete()
+    {
+        $comet = new \CometModel();
+        $comet->send(\CometModel::MP_QUESTION_CHANEL_ID, ['foo' => 'bar'], \CometModel::MP_QUESTION_REMOVED_BY_OWNER);
+    }
+
 }

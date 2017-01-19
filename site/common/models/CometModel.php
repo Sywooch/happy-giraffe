@@ -97,6 +97,13 @@ class CometModel extends CComponent
      */
     const MP_QUESTION_UPDATE_ANSWERS_COUNT = 7002;
 
+    /**
+     * @var integer MP_QUESTION_QUESTION_REMOVED_BY_OWNER Статус-код: Автор удаляет свой вопрос
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_REMOVED_BY_OWNER = 7003;
+
+
     public $attributes = array();
     public $type;
 

@@ -28,19 +28,17 @@ class VoteNotificationBehavior extends BaseBehavior
 
     public function beforeDelete($event)
     {
-        /**
-         * @var Notification[] $signals
-         */
-        $signals = Notification::model()->byEntity($this->owner->answer)->findAll();
+        /*@var $notifications Notification[] */
+        $notifications = Notification::model()->byEntity($this->owner->answer)->findAll();
 
-        foreach ($signals as &$signal) {
-            $readEntityDeleted = $signal->readEntities && $this->removeEntity($signal->readEntities, $this->owner);
-            $unreadEntityDeleted = $signal->unreadEntities && $this->removeEntity($signal->unreadEntities, $this->owner);
+        foreach ($notifications as &$notification) {
+            $readEntityDeleted = $notification->readEntities && $this->removeEntity($notification->readEntities, $this->owner);
+            $unreadEntityDeleted = $notification->unreadEntities && $this->removeEntity($notification->unreadEntities, $this->owner);
             if ($readEntityDeleted || $unreadEntityDeleted) {
-                if ((count($signal->readEntities) + count($signal->unreadEntities)) == 0) {
-                    $signal->delete();
+                if ((count($notification->readEntities) + count($notification->unreadEntities)) == 0) {
+                    $notification->delete();
                 } else {
-                    $signal->save();
+                    $notification->save();
                 }
             }
         }

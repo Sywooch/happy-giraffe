@@ -245,7 +245,7 @@ SQL;
     {
         /*@var $answer QaAnswer */
 
-        $dialog = $question->getSpecialistDialog();
+        $dialog = $question->getSpecialistDialog($user->id);
 
         if (is_null($answer)) //если не дискусия
         {

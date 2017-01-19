@@ -78,10 +78,6 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(403, 'Access Denied');
         }
 
-        // $answerManager = $question->answerManager;
-
-        // $this->success = (bool) ($this->data = $answerManager->createAnswer($user->id, $text, $question));
-
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
         $answer = new self::$answerModel();
         $answer->attributes = [

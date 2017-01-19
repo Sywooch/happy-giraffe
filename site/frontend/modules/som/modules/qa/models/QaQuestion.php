@@ -500,12 +500,17 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     /**
      * @return QaAnswer[]
      */
-    public function getSpecialistDialog()
+    public function getSpecialistDialog($userId = NULL)
     {
         foreach ($this->answers as /*@var $answer QaAnswer */$answer)
         {
-            if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id))
+            if ($answer->authorIsSpecialist() && $answer->isLeaf())
             {
+                if (!is_null($userId) && $answer->authorId != $userId)
+                {
+                    continue;
+                }
+
                 $result = $answer->descendants()->findAll();
                 array_push($result, $answer);
 

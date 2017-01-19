@@ -70,6 +70,7 @@ class CometModel extends CComponent
 
     const NOTIFY_ADDED = 5001;
     const NOTIFY_UPDATED = 5003;
+    const NOTIFY_DELETED = 5004;
 
     const QA_VOTE = 6001;
     const QA_NEW_ANSWER = 6002;

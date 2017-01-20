@@ -4,6 +4,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 use site\common\behaviors\AuthorBehavior;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\CometBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\QaManager;
@@ -200,6 +201,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'closureTableName'  => 'qa__answers_tree',
                 'childAttribute'    => 'descendant_id',
                 'parentAttribute'   => 'ancestor_id'
+            ],
+            'CometBehavior' => [
+                'class' => CometBehavior::class
             ]
         ];
     }
@@ -455,7 +459,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'isVoted'                           => (bool) count($this->votes),
             'question'                          => $this->question->toJSON(),
             'countUserAnswersByPediatrician'    => QaManager::getCountAnswersByUser($this->authorId),
-            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id)
+            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id),
+            'isAdditional'                      => $this->isAdditional(),
+            'isAnswerToAdditional'              => $this->isAnswerToAdditional()
         ];
     }
 

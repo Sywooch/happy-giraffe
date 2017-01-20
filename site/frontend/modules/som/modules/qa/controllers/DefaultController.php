@@ -100,13 +100,14 @@ class DefaultController extends QaController
             'pediatrician',
             'search',
             'pediatricianAddForm',
+            'pediatricianEditForm',
             'view'
         ];
 
         if (in_array($action->id, $newDesigneActions))
         {
             $this->layout       = '/layouts/pediatrician';
-            $this->litePackage = 'new_pediatrician';
+            $this->litePackage  = 'new_pediatrician';
         }
 
         return parent::beforeAction($action);
@@ -213,13 +214,33 @@ class DefaultController extends QaController
 
     public function actionPediatricianAddForm()
     {
-        if (!\Yii::app()->user->checkAccess('createQaQuestion')) {
+        if (\Yii::app()->user->isGuest || !\Yii::app()->user->checkAccess('createQaQuestion')) {
             $this->redirect($this->createUrl('/site/index'));
         }
 
         $this->layout = '//layouts/lite/new_form';
 
         $this->render('new_form');
+    }
+
+    public function actionPediatricianEditForm($questionId)
+    {
+        if (
+            \Yii::app()->user->isGuest
+            ||
+            ! \Yii::app()->user->checkAccess('createQaQuestion')
+            ||
+            ! $question = QaManager::getQuestion($questionId)
+        )
+        {
+            $this->redirect($this->createUrl('/site/index'));
+        }
+
+        $this->layout = '//layouts/lite/new_form';
+
+        $this->render('edit_form', [
+            'question' => $question
+        ]);
     }
 
     public function actionQuestionEditForm($questionId)

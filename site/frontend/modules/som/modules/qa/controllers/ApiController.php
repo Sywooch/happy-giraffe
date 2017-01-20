@@ -281,6 +281,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 
             if ($this->data instanceof QaAnswer)
             {
+                $questionChannelId = QaManager::getQuestionChannelId($this->data->question->id);
+
                 if ($action->id == 'createAnswer' || $action->id == 'removeAnswer' || $action->id == 'restoreAnswer')
                 {
                     $count = $this->data->question->answersCount;
@@ -290,12 +292,12 @@ class ApiController extends \site\frontend\components\api\ApiController
                         'countText' => \Yii::t('app', 'ответ|ответа|ответов|ответа', $count)
                     ];
 
-                    $this->send(\CometModel::MP_QUESTION_CHANEL_ID, $response, \CometModel::MP_QUESTION_UPDATE_ANSWERS_COUNT);
+                    $this->send($questionChannelId, $response, \CometModel::MP_QUESTION_UPDATE_ANSWERS_COUNT);
                 }
 
                 if ($this->data->question->category->isPediatrician())
                 {
-                    $chanelId = \CometModel::MP_QUESTION_CHANEL_ID;
+                    $chanelId = $questionChannelId;
 
                 }
                 else

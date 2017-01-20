@@ -13,6 +13,22 @@ class QaManager
 {
 
     /**
+     * Получить ID comet-канала для вопроса
+     *
+     * @param $questionId ID вопроса
+     * @return string
+     */
+    public static function getQuestionChannelId($questionId)
+    {
+        return 'mypediatrician_question' . md5($questionId);
+    }
+
+    public static function getQuestion($questionId)
+    {
+        return QaQuestion::model()->findByPk($questionId);
+    }
+
+    /**
      * Получить ответы к вопросу на сайте
      *
      * Для ответов специалистов, используется специальное условие с задержкой во времени публикации

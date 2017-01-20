@@ -1,5 +1,6 @@
 <?php
 
+use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
@@ -10,6 +11,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 ?>
 
 <?php
+
 $breadcrumbs = [
     'Главная' => ['/site/index'],
     'Педиатр' => ['/som/qa/default/pediatrician'],
@@ -17,6 +19,15 @@ $breadcrumbs = [
 
 $breadcrumbs[$question->tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $question->tag->id]);
 $breadcrumbs[] = CHtml::encode($question->title);
+
+\Yii::app()->clientScript->registerAMD(
+    'Realplexor-reg',
+    [
+        'common',
+        'comet'
+    ],
+    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . QaManager::getQuestionChannelId($question->id) . '\');'
+);
 
 ?>
 

@@ -473,10 +473,12 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function toJSON()
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'url' => $this->url,
-            'authorId' => $this->authorId,
+            'id'        => (int) $this->id,
+            'title'     => $this->title,
+            'url'       => $this->url,
+            'text'      => $this->text,
+            'authorId'  => $this->authorId,
+            'tagId'     => (int) $this->tag_id
         ];
     }
 

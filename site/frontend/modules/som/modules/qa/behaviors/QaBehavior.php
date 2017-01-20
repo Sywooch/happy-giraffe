@@ -95,5 +95,4 @@ class QaBehavior extends ActivityBehavior
         return isset($this->owner->isRemoved) ? $this->owner->isRemoved : 0;
     }
 
-
 }

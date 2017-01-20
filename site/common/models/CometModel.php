@@ -83,7 +83,7 @@ class CometModel extends CComponent
      * @var string MP_QUESTION_CHANEL_ID ID канала для открытого вопроса сервиса "ПЕДИАТР"
      * @author Sergey Gubarev
      */
-    const MP_QUESTION_CHANEL_ID = 'MyPediatricianQuestion';
+    // const MP_QUESTION_CHANEL_ID = 'MyPediatricianQuestion';
 
     /**
      * @var integer MP_QUESTION_ANSWER_EDITED Статус-код: Редактируется ответ

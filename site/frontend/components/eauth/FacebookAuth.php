@@ -46,6 +46,9 @@ class FacebookAuth extends FacebookOAuthService
 
     protected function setLocationAttributes($info)
     {
+        if (! isset($info->location)) {
+            return;
+        }
         $location = $info->location->location;
         $this->saveLocation($location);
         $countryModel = GeoCountry::model()->findByAttributes(array('iso_code' => $location->country_code));

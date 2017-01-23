@@ -17,10 +17,14 @@ class VkontakteAuth extends VKontakteOAuthService
                 'uids' => $this->uid,
                 //'fields' => '', // uid, first_name and last_name is always available
                 'fields' => 'sex, bdate, city, country, photo_max_orig, photo_max, photo_400_orig, photo_200, photo_200_orig, photo_100, photo_50',
+                'v' => '5.62',
             ),
         ));
 
         $info = $info['response'][0];
+
+
+        //echo '<pre>'; var_dump($info); echo '</pre>'; die;
 
         $this->attributes['uid'] = $info->uid;
         $this->attributes['firstName'] = $info->first_name;
@@ -71,24 +75,37 @@ class VkontakteAuth extends VKontakteOAuthService
 
     protected function setLocationAttributes($info)
     {
-        if ($info->country != 0) {
-            $countryInfo = $this->makeSignedRequest('https://api.vk.com/method/places.getCountryById.json', array(
-                'query' => array(
-                    'cids' => $info->country,
-                ),
-            ));
-            $countryModel = GeoCountry::model()->findByAttributes(array('name' => $countryInfo->response[0]->name));
-            $this->attributes['country_id'] = ($countryModel === null) ? null : $countryModel->id;
-            if ($info->city != 0) {
-                $cityInfo = $this->makeSignedRequest('https://api.vk.com/method/places.getCityById.json', array(
+        if ($info->country) {
+            $countryModel = GeoCountry::model()->findByAttributes(array('name' => $info->country->title));
+            if ($countryModel) {
+                $this->attributes['country_id'] = $countryModel->id;
+            }
+
+            if ($info->city && $countryModel) {
+                $cities = $this->makeSignedRequest('https://api.vk.com/method/places.getCities.json', array(
                     'query' => array(
-                        'cids' => $info->city,
+                        'country_id' => $info->country->id,
+                        'q' => $info->city->title,
+                        'fields' => 'region',
+                        'need_all' => 1,
+                        'count' => 1000,
                     ),
                 ));
-                $citiesCount = GeoCity::model()->countByAttributes(array('country_id' => $countryModel->id, 'name' => $cityInfo->response[0]->name));
-                if ($citiesCount == 1) {
-                    $cityModel = GeoCity::model()->findByAttributes(array('country_id' => $countryModel->id, 'name' => $cityInfo->response[0]->name));
-                    $this->attributes['city_id'] = $cityModel->id;
+
+                $city = null;
+                foreach ($cities->response as $_city) {
+                    if ($_city->cid == $info->city->id) {
+                        $city = $_city;
+                        break;
+                    }
+                }
+
+                if ($city) {
+                    $citiesModels = GeoCity::model()->with('region')->findAllByAttributes(array('country_id' => $countryModel->id, 'name' => $info->city->title));
+                    $cityModel = \site\frontend\modules\geo\helpers\GeoHelper::chooseCityByRegion($citiesModels, $city->region);
+                    if ($cityModel) {
+                        $this->attributes['city_id'] = $cityModel->id;
+                    }
                 }
             }
         }

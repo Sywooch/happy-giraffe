@@ -289,10 +289,12 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     {
         $profile = \Yii::app()->user->getModel()->specialistProfile;
 
-        $dialog = $this->getSpecialistDialog();
+        $dialog = $this->getSpecialistDialog($userId);
 
-        if ($this->authorId != $userId) {
-            if (is_null($profile) || is_null($dialog)) {
+        if ($this->authorId != $userId)
+        {
+            if (is_null($profile) || is_null($dialog))
+            {
                 return TRUE;
             }
 
@@ -316,7 +318,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     {
         $profile = \Yii::app()->user->getModel()->specialistProfile;
 
-        $dialog = $this->getSpecialistDialog();
+        $dialog = $this->getSpecialistDialog($userId);
 
         if (is_null($dialog) && !is_null($profile)) {
             return TRUE;
@@ -436,14 +438,14 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     /**
      * @return boolean
      */
-    public function hasAnswerForSpecialist()
+    public function hasAnswerForSpecialist($userId = NULL)
     {
         if (!is_null($this->_hasAnswerForSpecialist)) {
             return $this->_hasAnswerForSpecialist;
         }
 
         $helper = new AnswersTree();
-        $helper->init($this->getSpecialistDialog());
+        $helper->init($this->getSpecialistDialog($userId));
 
         $this->_hasAnswerForSpecialist = !is_null($helper->getCurrentAnswerForSpecialist());
 
@@ -453,11 +455,17 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON
     /**
      * @return QaAnswer[]
      */
-    public function getSpecialistDialog()
+    public function getSpecialistDialog($userId = NULL)
     {
-        foreach ($this->answers as /*@var $answer QaAnswer */
-                 $answer) {
-            if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id)) {
+        foreach ($this->answers as /*@var $answer QaAnswer */ $answer)
+        {
+            if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id))
+            {
+                if (!is_null($userId) && $answer->authorId != $userId)
+                {
+                    continue;
+                }
+
                 $result = $answer->getChilds();
                 array_push($result, $answer);
 

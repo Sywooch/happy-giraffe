@@ -8,8 +8,7 @@ use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
 use site\frontend\modules\som\modules\qa\models\QaTag;
 
-
-$questions = QaQuestion::model()->category(QaCategory::PEDIATRICIAN_ID)->getList();
+$question = QaQuestion::model()->category(QaCategory::PEDIATRICIAN_ID);
 $tags = QaTag::model()->byCategory(QaCategory::PEDIATRICIAN_ID)->findAll();
 $tagEnum = new Enum();
 $currentTagId = \Yii::app()->request->getParam('tagId');
@@ -21,14 +20,14 @@ $currentTagId = \Yii::app()->request->getParam('tagId');
         	<li class="b-filter-year__li <?=is_null($currentTagId) ? 'b-filter-year__li--active' : ''?>">
         		<a href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="b-filter-year__link">
         			Все
-        			<span><?=$questions->getCount()?></span>
+        			<span><?=$question->count()?></span>
         		</a>
 			</li>
         	<?php foreach ($tags as $tag) {?>
             	<li class="b-filter-year__li <?=$currentTagId == $tag->id ? 'b-filter-year__li--active' : ''?>">
             		<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id])?>" class="b-filter-year__link">
             			<?=$tagEnum->getTitleForWebMenu($tag->name)?>
-            			<span><?=$questions->sortedByField('tag_id', $tag->id)->getCount()?></span>
+            			<span><?=$question->byTag($tag->id)->count()?></span>
         			</a>
     			</li>
             <?php }?>

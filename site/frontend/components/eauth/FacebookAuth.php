@@ -49,41 +49,30 @@ class FacebookAuth extends FacebookOAuthService
         if (! isset($info->location)) {
             return;
         }
+        
         $location = $info->location->location;
         $this->saveLocation($location);
         $countryModel = GeoCountry::model()->findByAttributes(array('iso_code' => $location->country_code));
-        if ($countryModel !== null) {
-            $this->attributes['country_id'] = $countryModel->id;
-            $pieces = explode(', ', $info->location->name);
-            if (count($pieces) == 1) {
-                $cityName = $pieces;
-                $regionName = null;
-            } elseif (count($pieces) == 2) {
-                $cityName = $pieces[0];
-                $regionName = $pieces[1];
-            } else {
-                return;
-            }
-            $cityName = str_replace('г. ', '', $cityName);
-            $cityModels = GeoCity::model()->findAllByAttributes(array('country_id' => $countryModel->id, 'name' => $cityName));
-            if (count($cityModels) == 1) {
-                $this->attributes['city_id'] = $cityModels[0]->id;
-            } else {
-                if ($regionName) {
-                    $cityModel = null;
-                    $maxSimilarity = 0;
-                    foreach ($cityModels as $city) {
-                        similar_text($regionName, $city->region->name, $similarity);
-                        if ($similarity > $maxSimilarity) {
-                            $cityModel = $city;
-                            $maxSimilarity = $similarity;
-                        }
-                    }
-                    if ($maxSimilarity >= self::REGION_SIMILAR_THRESHOLD) {
-                        $this->attributes['city_id'] = $cityModel->id;
-                    }
-                }
-            }
+        if ($countryModel === null) {
+            return;
+        }
+        $this->attributes['country_id'] = $countryModel->id;
+         
+        $pieces = explode(', ', $info->location->name);
+        if (count($pieces) == 1) {
+            $cityName = $pieces;
+            $regionName = null;
+        } elseif (count($pieces) == 2) {
+            $cityName = $pieces[0];
+            $regionName = $pieces[1];
+        } else {
+            return;
+        }
+        $cityName = str_replace('г. ', '', $cityName);
+        $citiesModels = GeoCity::model()->findAllByAttributes(array('country_id' => $countryModel->id, 'name' => $cityName));
+        $cityModel = \site\frontend\modules\geo\helpers\GeoHelper::chooseCityByRegion($citiesModels, $regionName);
+        if ($cityModel) {
+            $this->attributes['city_id'] = $cityModel->id;
         }
     }
     

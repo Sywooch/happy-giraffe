@@ -67,6 +67,8 @@ class VoteNotificationBehavior extends BaseBehavior
         $entity->url = $answer->question->url;
         $entity->tooltip = $answer->question->title;
 
+        $notification->entity->title = $entity->title;
+        $notification->entity->tooltip = $entity->tooltip;
         $notification->unreadEntities[] = $entity;
         $notification->save();
     }

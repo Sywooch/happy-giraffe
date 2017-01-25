@@ -337,14 +337,32 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function canBeAnsweredBy($user)
     {
+        $isDoctor = $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        $isAnswerFromDoctor = $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        $isRootFromDoctor = $isAnswerFromDoctor;
+
+        if ($this->root_id != null) {
+            $isRootFromDoctor = $this->root->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        }
+
         // уточняющий вопрос
-        if ($this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id == null && !$this->children) {
-            return $user->id == $this->question->authorId && !$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        if ($isAnswerFromDoctor && $this->root_id == null && !$this->children) {
+            return $user->id == $this->question->authorId && !$isDoctor;
         }
 
         // ответ на уточняющий вопрос
-        if (!$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && count($this->root->children) == 1) {
-            return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->root->children) == 1 && $isRootFromDoctor) {
+            return $user->id == $this->root->authorId && $isDoctor;
+        }
+
+        //комментарий от автора вопроса
+        if (!$isAnswerFromDoctor && $this->root_id == null && count($this->children) == 0) {
+            return $user->id == $this->question->authorId;
+        }
+
+        //ответ в ветку комментариев
+        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->children) == 0 && !$isRootFromDoctor) {
+            return $this->authorId != $user->id && !$isDoctor;
         }
 
         return false;
@@ -364,6 +382,14 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     public function isAnswerToAdditional()
     {
         return $this->authorIsSpecialist() && !$this->isLeaf();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCommentToBranch()
+    {
+        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && !$this->root->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
     }
 
     /**
@@ -395,6 +421,22 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
         $this->getDbCriteria()->compare('root.authorId', $userId);
         $this->getDbCriteria()->addCondition("not exists(select * from qa__answers as children where children.root_id = {$this->tableAlias}.id and children.isRemoved = 0)");
+
+        return $this;
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return QaAnswer
+     */
+    public function excludeByQuestionsAuthor($userId)
+    {
+        if (!isset($this->getDbCriteria()->with['question'])) {
+            $this->getDbCriteria()->with[] = 'question';
+        }
+
+        $this->getDbCriteria()->addCondition("question.authorId != {$userId}");
 
         return $this;
     }

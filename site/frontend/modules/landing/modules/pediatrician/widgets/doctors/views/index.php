@@ -10,7 +10,7 @@
     <ul class="landing-doctors__list">
         <?php foreach ($users as $user): ?>
         <li class="landing-doctors__li">
-            <a href="/user/<?=$profile->id?>" class="landing-doctors__link">
+            <a href="/user/<?=$user->id?>" class="landing-doctors__link">
                 <div class="b-ava-large b-ava-large__nohover margin-b0 margin-t0">
                     <div class="b-ava-large_ava-hold">
                         <span class="ava ava__large ava__<?=($user->gender == '1') ? 'male' : 'female'?>  ava__base-xs">

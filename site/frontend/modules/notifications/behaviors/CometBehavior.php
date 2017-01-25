@@ -54,10 +54,6 @@ class CometBehavior extends \CActiveRecordBehavior
         self::getComet()->send($this->owner->userId, array('notification' => $this->owner->toJSON()), \CometModel::NOTIFY_DELETED);
         $this->comet->send($this->owner->userId, array('unreadSum' => $this->owner->unreadCount, 'unreadCount' => -1), \CometModel::TYPE_UPDATE_NOTIFICATIONS);
 
-//         $diff = $this->owner->unreadCount - $this->_oldUnreadCount;
-//         $count = ($this->_oldUnreadCount == 0 ? +1 : ($this->owner->unreadCount == 0 ? -1 : 0));
-//         if ($diff !== 0)
-
         return parent::afterSave($event);
     }
 

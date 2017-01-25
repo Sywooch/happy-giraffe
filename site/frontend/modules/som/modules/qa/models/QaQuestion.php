@@ -365,7 +365,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     {
         $profile = \Yii::app()->user->getModel()->specialistProfile;
 
-        $dialog = $this->getSpecialistDialog();
+        $dialog = $this->getSpecialistDialog($userId);
 
         if (is_null($dialog) && !is_null($profile)) {
             return true;
@@ -483,14 +483,14 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     /**
      * @return boolean
      */
-    public function hasAnswerForSpecialist()
+    public function hasAnswerForSpecialist($userId = NULL)
     {
         if (!is_null($this->_hasAnswerForSpecialist)) {
             return $this->_hasAnswerForSpecialist;
         }
 
         $helper = new AnswersTree();
-        $helper->init($this->getSpecialistDialog());
+        $helper->init($this->getSpecialistDialog($userId));
 
         $this->_hasAnswerForSpecialist = !is_null($helper->getCurrentAnswerForSpecialist());
 

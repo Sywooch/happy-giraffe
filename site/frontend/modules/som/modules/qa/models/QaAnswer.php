@@ -430,6 +430,18 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      *
      * @return QaAnswer
      */
+    public function excludeAdditionalRoots($userId)
+    {
+        $this->getDbCriteria()->addCondition("(select count(*) from qa__answers as a where a.questionId = {$this->tableAlias}.questionId and a.authorId = {$userId} and a.isRemoved = 0) < 2");
+
+        return $this;
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return QaAnswer
+     */
     public function excludeByQuestionsAuthor($userId)
     {
         if (!isset($this->getDbCriteria()->with['question'])) {

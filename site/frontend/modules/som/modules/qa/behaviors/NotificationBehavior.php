@@ -30,6 +30,8 @@ class NotificationBehavior extends BaseBehavior
     const ANSWER_TO_ADDITIONAL = 18;
     /**@var int ADDITIONAL Утвочняющий вопрос */
     const ADDITIONAL = 19;
+    /**@var int ANSWER_IN_BRANCH Комментарий в ветку овтетов*/
+    const ANSWER_IN_BRANCH = 20;
 
     /**
      * Ответ на вопрос ??? - это в те категории, которые не мой педиатр.
@@ -96,7 +98,7 @@ class NotificationBehavior extends BaseBehavior
     {
         $type = $this->getType($model, $question);
 
-        if ($type == Notification::TYPE_REPLY_COMMENT) {
+        if ($type == self::ANSWER_IN_BRANCH) {
             $userId = $model->root->authorId;
         } else {
             $userId = $question->authorId;
@@ -106,7 +108,7 @@ class NotificationBehavior extends BaseBehavior
 
         $notification->entity->tooltip = $question->title;
 
-        if ($type == Notification::TYPE_REPLY_COMMENT) {
+        if ($type == self::ANSWER_IN_BRANCH) {
             $notification->entity->userId = $question->authorId;
         }
 
@@ -148,7 +150,7 @@ class NotificationBehavior extends BaseBehavior
         }
 
         if ($answer->isCommentToBranch()) {
-            $type = Notification::TYPE_REPLY_COMMENT;
+            $type = self::ANSWER_IN_BRANCH;
         }
 
         return $type;

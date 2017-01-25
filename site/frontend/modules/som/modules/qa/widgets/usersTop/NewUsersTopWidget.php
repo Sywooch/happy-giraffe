@@ -97,7 +97,7 @@ class NewUsersTopWidget extends UsersTopWidget
             $rating->forSpecialists();
         }
 
-        $arrRating = $rating->findAll(['order' => 'total_count DESC']);
+        $arrRating = $rating->findAll(['order' => 'total_count DESC', 'limit' => $this->getLimit()]);
 
         foreach ($arrRating as $rating)
         {

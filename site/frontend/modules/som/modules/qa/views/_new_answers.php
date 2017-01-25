@@ -1,7 +1,7 @@
 <?php
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
- * @var site\frontend\modules\som\modules\qa\models\QaCTAnswer $data
+ * @var site\frontend\modules\som\modules\qa\models\QaAnswer $data
  * @var site\frontend\modules\som\modules\qa\components\QaObjectList $additionalData
  */
 

@@ -15,61 +15,111 @@ use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 class ActivityAnswers extends \CConsoleCommand
 {
 
+    /**
+     * @var integer
+     */
+    private $_limit = 100;
+
     public function actionIndex()
     {
         try
         {
             echo 'Выборка всех ответов к вопросам..' . PHP_EOL;
 
-            $cmd = \Yii::app()->getDb()->createCommand()
-                ->select('MD5(id)')
-                ->from(QaAnswer::model()->tableName())
-            ;
+            $answersCount = $this->_getActivityAnswers(TRUE);
+            $itaration = (int)($answersCount/$this->_limit);
 
-            $answersHashList = $cmd->queryColumn();
+            $isOk = 0;
+            $hasError = 0;
 
-            $criteria = new \CDbCriteria();
-            $criteria->addInCondition('typeId', [Activity::TYPE_COMMENT, Activity::TYPE_ANSWER_PEDIATRICIAN]);
-            $criteria->addInCondition('hash', $answersHashList);
-
-            $activityAnswers = Activity::model()->findAll($criteria);
-
-            echo 'Выбрано: ' . count($activityAnswers) . PHP_EOL;
-
-            $count = 0;
-
-            foreach ($activityAnswers as $activityAnswerModel)
+            if ($answersCount%$this->_limit > 0)
             {
-                $answerModel = $this->_getAnswerModel($activityAnswerModel->hash);
-
-                if (is_null($answerModel))
-                {
-                    echo "{$activityAnswerModel->id} ($activityAnswerModel->hash) не найдена" . PHP_EOL;
-                    continue;
-                }
-                else
-                {
-                    if ($activityAnswerModel->typeId != Activity::TYPE_ANSWER_PEDIATRICIAN && $answerModel->authorIsSpecialist())
-                    {
-                        $activityAnswerModel->typeId = Activity::TYPE_ANSWER_PEDIATRICIAN;
-                    }
-
-                    $activityAnswerModel->data = serialize($answerModel);
-                    $activityAnswerModel->save();
-
-                    $count++;
-
-                    echo "\033[12D";
-                    echo $count;
-                }
+                $itaration++;
             }
 
-            echo PHP_EOL . 'ВСЕ!' . PHP_EOL;
+            echo 'Выбрано: ' . $answersCount . PHP_EOL;
+            echo 'Количество итераций: ' . $itaration . PHP_EOL;
+
+            for ($i=0; $i < $itaration; $i++)
+            {
+                $scope = $i+1;
+                echo PHP_EOL;
+                echo "Scope № " . $scope . PHP_EOL;
+
+                $activityAnswers = $this->_getActivityAnswers(FALSE, $this->_limit * $i);
+                $count = 0;
+
+                foreach ($activityAnswers as $activityAnswerModel)
+                {
+                    $answerModel = $this->_getAnswerModel($activityAnswerModel->hash);
+
+                    if (is_null($answerModel))
+                    {
+                        echo "{$activityAnswerModel->id} ($activityAnswerModel->hash) не найдена" . PHP_EOL;
+                        $hasError++;
+                        continue;
+                    }
+                    else
+                    {
+                        if ($activityAnswerModel->typeId != Activity::TYPE_ANSWER_PEDIATRICIAN && $answerModel->authorIsSpecialist())
+                        {
+                            $activityAnswerModel->typeId = Activity::TYPE_ANSWER_PEDIATRICIAN;
+                        }
+
+                        $activityAnswerModel->data = serialize($answerModel);
+                        $activityAnswerModel->save();
+
+                        $count++;
+
+                        echo $count . " rows is OK";
+                        echo "\033[13D";
+//                         sleep(1);
+                    }
+                }
+                $isOk += $count;
+            }
+
+            echo PHP_EOL;
+            echo "---------------------------" . PHP_EOL;
+            echo "is OK: " . $isOk . " rows" . PHP_EOL;
+            echo "has error: " . $hasError . " rows" . PHP_EOL;
+            $total = $hasError + $isOk;
+            echo "Total converted: " . $total . " rows";
+            echo PHP_EOL;
         }
         catch (\CDbException $e)
         {
             echo PHP_EOL . $e->getMessage() . PHP_EOL;
         }
+    }
+
+    private function _getActivityAnswers($returnCount = FALSE, $offset = NULL)
+    {
+        $cmd = \Yii::app()->getDb()->createCommand()
+            ->select('MD5(id)')
+            ->from(QaAnswer::model()->tableName())
+        ;
+
+        $answersHashList = $cmd->queryColumn();
+
+        $criteria = new \CDbCriteria();
+        $criteria->addInCondition('typeId', [Activity::TYPE_COMMENT, Activity::TYPE_ANSWER_PEDIATRICIAN]);
+        $criteria->addInCondition('hash', $answersHashList);
+
+        if (!$returnCount)
+        {
+            $criteria->limit = $this->_limit;
+
+            if (!is_null($offset))
+            {
+                $criteria->offset = $offset;
+            }
+
+            return Activity::model()->findAll($criteria);
+        }
+
+        return Activity::model()->count($criteria);
+
     }
 
     private function _getAnswerModel($hash)
@@ -79,11 +129,6 @@ class ActivityAnswers extends \CConsoleCommand
         $criteria->params[':hashId'] = $hash;
 
         $model = QaAnswer::model()->find($criteria);
-
-        if ($model->category->isPediatrician())
-        {
-            return QaCTAnswer::model()->find($criteria);
-        }
 
         return $model;
     }

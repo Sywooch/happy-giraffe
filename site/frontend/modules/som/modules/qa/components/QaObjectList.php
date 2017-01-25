@@ -54,7 +54,7 @@ class QaObjectList
     {
         if (empty($this->_arrObjects))
         {
-            return;
+            return new self([]);
         }
 
         $result = [];
@@ -86,18 +86,13 @@ class QaObjectList
     {
         if (empty($this->_arrObjects))
         {
-            return;
+            return new self([]);
         }
 
         $object = $this;
 
         foreach ($arrFields as $name => $value)
         {
-            if (!is_object($object))
-            {
-                return;
-            }
-
             $object = $object->sortedByField($name, $value);
         }
 

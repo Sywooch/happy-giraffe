@@ -71,7 +71,7 @@ class VkontakteAuth extends VKontakteOAuthService
 
     protected function setLocationAttributes($info)
     {
-        if (! $info->country) {
+        if (! isset($info->country)) {
             return;
         }
 
@@ -81,7 +81,7 @@ class VkontakteAuth extends VKontakteOAuthService
         }
         $this->attributes['country_id'] = $countryModel->id;
 
-        if (! $info->city) {
+        if (! isset($info->city)) {
             return;
         }
 

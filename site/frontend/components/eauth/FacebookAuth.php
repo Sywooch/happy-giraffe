@@ -79,8 +79,6 @@ class FacebookAuth extends FacebookOAuthService
         if ($cityModel) {
             $this->attributes['city_id'] = $cityModel->id;
         }
-
-        var_dump($this->attributes); die;
     }
     
     protected function saveLocation($data)

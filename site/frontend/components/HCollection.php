@@ -17,7 +17,7 @@ class HCollection
     private $_arrObjects;
 
     /**
-     * @param array $arrQuestions Массив объектов
+     * @param QaQuestion[] $arrQuestions
      */
     public function __construct($arrObjects)
     {
@@ -57,7 +57,7 @@ class HCollection
     {
         if (empty($this->_arrObjects))
         {
-            return;
+            return new self([]);
         }
 
         $result = [];
@@ -89,18 +89,13 @@ class HCollection
     {
         if (empty($this->_arrObjects))
         {
-            return;
+            return new self([]);
         }
 
         $object = $this;
 
         foreach ($arrFields as $name => $value)
         {
-            if (!is_object($object))
-            {
-                return;
-            }
-
             $object = $object->sortedByField($name, $value);
         }
 

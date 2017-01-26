@@ -75,7 +75,8 @@ class VkontakteAuth extends VKontakteOAuthService
             return;
         }
 
-        $countryModel = GeoCountry::model()->findByAttributes(array('name' => $info->country->title));
+        $countryTitle = strtr($info->country->title, ['Беларусь' => 'Белоруссия']);
+        $countryModel = GeoCountry::model()->findByAttributes(array('name' => $countryTitle));
         if ($countryModel === null) {
             return;
         }

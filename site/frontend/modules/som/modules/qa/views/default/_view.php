@@ -17,7 +17,14 @@ $breadcrumbs = [
     'Педиатр' => ['/som/qa/default/pediatrician'],
 ];
 
-$breadcrumbs[$question->tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $question->tag->id]);
+$tag = $question->tag;
+
+if (!is_null($question->attachedChild)) {
+    $arrFooterData = $question->attChild->getAnswerFooterData();
+    $tag = $arrFooterData['tag'];
+}
+
+$breadcrumbs[$tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id]);
 $breadcrumbs[] = CHtml::encode($question->title);
 
 \Yii::app()->clientScript->registerAMD(
@@ -75,23 +82,18 @@ $breadcrumbs[] = CHtml::encode($question->title);
             </div>
             <div class="b-open-question__body">
                 <div id="js-question-data">
-                    <span class="b-title--h1 b-title--bold b-text-color--blue-link" data-bind="text: title()"><?= CHtml::encode($question->title) ?></span>
+                    <span class="b-title--h1 b-title--bold b-text-color--blue-link"><?= CHtml::encode($question->title) ?></span>
                     <div class="b-open-question__wrapper b-question-wrapper">
-                        <?php
-                           $tag = $question->tag;
 
-                           if (!is_null($question->attachedChild)) {
-                               $arrFooterData = $question->attChild->getAnswerFooterData();
-                               $tag = $arrFooterData['tag'];
-                           }
-                       ?>
                         <?php if (!is_null($tag)) { ?>
+
                         <div class="b-question-wrapper__item">
                             <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>"
                                class="b-answer-footer__age b-text--link-color">
                                 <?= $tag->getTitle() ?>
                             </a>
                         </div>
+
                         <?php } ?>
 
                         <!-- ko stopBinding: true -->

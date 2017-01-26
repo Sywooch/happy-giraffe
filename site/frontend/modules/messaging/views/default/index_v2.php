@@ -2,6 +2,12 @@
 
 <div class="layout-wrapper_hold clearfix">
     <div class="im" style="display: none" data-bind="attr: { 'style': '' }" id="<?=$this->id?>_messaging_module">
+        <div class="notice-header clearfix notice-header--dialog">
+            <div class="notice-header__item notice-header__item--left">
+                <div class="notice-header__title">Диалоги</div>
+            </div>
+            <div class="notice-header__item notice-header__item--right"><a href="javascript:history.back();" class="notice-header__ico-close i-close i-close--sm"></a></div>
+        </div>
         <!-- js для расчетов положения почты -->
         <script type="text/javascript">
             var im = new function() {

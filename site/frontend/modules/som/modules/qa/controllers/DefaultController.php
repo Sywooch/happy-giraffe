@@ -8,6 +8,9 @@
 namespace site\frontend\modules\som\modules\qa\controllers;
 
 use site\common\components\SphinxDataProvider;
+use site\frontend\components\HCollection;
+use site\frontend\modules\family\components\FamilyManager;
+use site\frontend\modules\family\models\FamilyMember;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\components\QaManager;
@@ -18,6 +21,9 @@ use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\components\QaObjectList;
+use site\frontend\modules\som\modules\qa\models\QaQuestionEditing;
+use site\frontend\modules\som\modules\qa\models\QaTag;
+use site\frontend\modules\som\modules\qa\models\qaTag\QaTagManager;
 
 class DefaultController extends QaController
 {
@@ -91,7 +97,33 @@ class DefaultController extends QaController
     }
 
     /**
+     * @inheritdoc
+     * @param \CAction $action
+     */
+    protected function afterAction($action)
+    {
+        if ($action->id == 'pediatricianEditForm')
+        {
+            $questionId = (int) \Yii::app()->request->getParam('questionId');
+
+            (new \CometModel())->send(QaManager::getQuestionChannelId($questionId), null, \CometModel::MP_QUESTION_EDITED_BY_OWNER);
+
+            $findObject = QaManager::isQuestionEditing($questionId);
+
+            if (!$findObject)
+            {
+                $object = new QaQuestionEditing();
+                $object->questionId = $questionId;
+                $object->save();
+            }
+        }
+
+        parent::afterAction($action);
+    }
+
+    /**
      * {@inheritDoc}
+     * @param \CAction $action
      * @see LiteController::beforeAction()
      */
     protected function beforeAction($action)
@@ -100,13 +132,14 @@ class DefaultController extends QaController
             'pediatrician',
             'search',
             'pediatricianAddForm',
+            'pediatricianEditForm',
             'view'
         ];
 
         if (in_array($action->id, $newDesigneActions))
         {
             $this->layout       = '/layouts/pediatrician';
-            $this->litePackage = 'new_pediatrician';
+            $this->litePackage  = 'new_pediatrician';
         }
 
         return parent::beforeAction($action);
@@ -132,8 +165,10 @@ class DefaultController extends QaController
 
             $answersTreeList = QaManager::getAnswersTreeByQuestion($question->id);
 
+            $isEditing = QaManager::isQuestionEditing($id);
+
             $this->layout = '/layouts/pediatrician';
-            $this->render('_view', compact('question', 'tab', 'category', 'answersTreeList'));
+            $this->render('_view', compact('question', 'tab', 'category', 'answersTreeList', 'isEditing'));
         }
         else
         {
@@ -217,9 +252,34 @@ class DefaultController extends QaController
             $this->redirect($this->createUrl('/site/index'));
         }
 
-        $this->layout = '//layouts/lite/new_form';
+        $tagsData = (new HCollection(QaTagManager::getAllTags()))->toArray();
 
-        $this->render('new_form');
+        $this->layout = '//layouts/lite/new_form';
+        $this->render('new_form', [
+            'tagsData' => $tagsData
+        ]);
+    }
+
+    /**
+     * Страница редактирования вопроса
+     *
+     * @param string $questionId ID вопроса
+     * @author Sergey Gubarev
+     */
+    public function actionPediatricianEditForm($questionId)
+    {
+        if (!\Yii::app()->user->checkAccess('createQaQuestion') || !$question = QaManager::getQuestion($questionId))
+        {
+            $this->redirect($this->createUrl('/site/index'));
+        }
+
+        $tagsData = (new HCollection(QaTagManager::getAllTags()))->toArray();
+
+        $this->layout = '//layouts/lite/new_form';
+        $this->render('edit_form', [
+            'question' => $question,
+            'tagsData' => $tagsData
+        ]);
     }
 
     public function actionQuestionEditForm($questionId)

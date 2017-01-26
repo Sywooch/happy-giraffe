@@ -128,14 +128,17 @@ class ApiController extends \site\frontend\components\api\ApiController
     }
 
     /**
-     * @param string $title
-     * @param string $text
-     * @param integer $tagId
-     * @param integer $childId
-     * @param integer $categoryId
+     * Опубликовать/обновить вопрос
+     *
+     * @param integer|null  $id         ID вопроса (если нужно обновить)
+     * @param string        $title      Заголовок
+     * @param string        $text       Текст
+     * @param integer|null  $tagId      ID тэга
+     * @param integer|null  $childId    ID ребенка
+     * @param integer|null  $categoryId ID категории
      * @throws \CHttpException
      */
-    public function actionCreateQuestion($title, $text, $tagId = NULL, $childId = NULL, $categoryId = NULL)
+    public function actionCreateQuestion($id = null, $title, $text, $tagId = NULL, $childId = NULL, $categoryId = NULL)
     {
         if (!\Yii::app()->user->checkAccess('createQaQuestion')) {
             throw new \CHttpException(403);
@@ -146,7 +149,14 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(400, 'tagId or childId must be passed');
         }
 
-        $question = new QaQuestion();
+        if (is_null($id))
+        {
+            $question = new QaQuestion();
+        }
+        else
+        {
+            $question = QaManager::getQuestion($id);
+        }
 
         if (!is_null($tagId))
         {
@@ -168,7 +178,6 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         $this->success = $question->save();
         $this->data = $question;
-
     }
 
     public function actionGetAnswers($questionId)
@@ -266,7 +275,6 @@ class ApiController extends \site\frontend\components\api\ApiController
             'editAnswer'    => \CometModel::QA_EDIT_ANSWER,
         ];
 
-
         if ($this->success == true && array_key_exists($action->id, $types))
         {
             if ($action->id == 'createAnswer' && $this->data->author->isSpecialist)
@@ -278,6 +286,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 
             if ($this->data instanceof QaAnswer)
             {
+                $questionChannelId = QaManager::getQuestionChannelId($this->data->question->id);
+
                 if ($action->id == 'createAnswer' || $action->id == 'removeAnswer' || $action->id == 'restoreAnswer')
                 {
                     $count = $this->data->question->answersCount;
@@ -287,12 +297,12 @@ class ApiController extends \site\frontend\components\api\ApiController
                         'countText' => \Yii::t('app', 'ответ|ответа|ответов|ответа', $count)
                     ];
 
-                    $this->send(\CometModel::MP_QUESTION_CHANEL_ID, $response, \CometModel::MP_QUESTION_UPDATE_ANSWERS_COUNT);
+                    $this->send($questionChannelId, $response, \CometModel::MP_QUESTION_UPDATE_ANSWERS_COUNT);
                 }
 
                 if ($this->data->question->category->isPediatrician())
                 {
-                    $chanelId = \CometModel::MP_QUESTION_CHANEL_ID;
+                    $chanelId = $questionChannelId;
 
                 }
                 else

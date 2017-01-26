@@ -3,6 +3,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 
 use site\frontend\modules\api\ApiModule;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\som\modules\qa\helpers\AnswersTreeListHelper;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\BaseAnswerManager;
@@ -54,6 +55,18 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      * @author Sergey Gubarev
      */
     const NOT_REMOVED = 0;
+
+    /**
+     * @var string COMET_CHANNEL_ID_PREFIX Префикс ID канала вопроса
+     * @author Sergey Gubarev
+     */
+    const COMET_CHANNEL_ID_PREFIX = 'mypediatrician_question';
+
+    /**
+     * @var string COMET_CHANNEL_ID_EDITED_PREFIX Оконочание ID канала вопроса на редактировании
+     * @author Sergey Gubarev
+     */
+    const COMET_CHANNEL_ID_EDITED_PREFIX = '_edited';
 
     public $sendNotifications = true;
 
@@ -478,7 +491,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
             'url'       => $this->url,
             'text'      => $this->text,
             'authorId'  => $this->authorId,
-            'tagId'     => (int) $this->tag_id
+            'tagId'     => $this->tag_id
         ];
     }
 
@@ -619,10 +632,27 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      *
      * @author Sergey Gubarev
      */
-    public function afterSoftDelete()
+    protected function afterSoftDelete()
     {
-        $comet = new \CometModel();
-        $comet->send(\CometModel::MP_QUESTION_CHANEL_ID, ['foo' => 'bar'], \CometModel::MP_QUESTION_REMOVED_BY_OWNER);
+        $channelId = QaManager::getQuestionChannelId($this->id);
+
+        (new \CometModel())->send($channelId, null, \CometModel::MP_QUESTION_REMOVED_BY_OWNER);
+    }
+
+    /**
+     * @inheritdoc
+     * @param $event \CEvent
+     */
+    protected function afterSave($event)
+    {
+        if (! $this->isNewRecord)
+        {
+            $channelId = QaManager::getQuestionChannelId($this->id);
+
+            QaManager::deleteQuestionObjectFromCollection($this->id);
+        }
+
+        parent::afterSave($event);
     }
 
 }

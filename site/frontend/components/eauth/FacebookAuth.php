@@ -50,7 +50,7 @@ class FacebookAuth extends FacebookOAuthService
             return;
         }
         
-        $location = $info->location->location;
+        $location = $info->location;
         $this->saveLocation($location);
         $countryModel = GeoCountry::model()->findByAttributes(array('iso_code' => $location->country_code));
         if ($countryModel === null) {

@@ -14,7 +14,7 @@ class VkontakteAuth extends VKontakteOAuthService
     protected function fetchAttributes() {
         $info = (array)$this->makeSignedRequest('https://api.vk.com/method/users.get.json', array(
             'query' => array(
-                'uids' => $this->uid,
+                'user_ids' => $this->uid,
                 //'fields' => '', // uid, first_name and last_name is always available
                 'fields' => 'sex, bdate, city, country, photo_max_orig, photo_max, photo_400_orig, photo_200, photo_200_orig, photo_100, photo_50',
                 'v' => '5.62',
@@ -22,11 +22,7 @@ class VkontakteAuth extends VKontakteOAuthService
         ));
 
         $info = $info['response'][0];
-
-
-        //echo '<pre>'; var_dump($info); echo '</pre>'; die;
-
-        $this->attributes['uid'] = $info->uid;
+        $this->attributes['uid'] = $info->id;
         $this->attributes['firstName'] = $info->first_name;
         $this->attributes['lastName'] = $info->last_name;
         $this->setBirthdayAttributes($info);

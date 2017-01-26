@@ -52,9 +52,13 @@ class CometBehavior extends \CActiveRecordBehavior
     public function afterDelete($event)
     {
         self::getComet()->send($this->owner->userId, array('notification' => $this->owner->toJSON()), \CometModel::NOTIFY_DELETED);
-        $this->comet->send($this->owner->userId, array('unreadSum' => $this->owner->unreadCount, 'unreadCount' => -1), \CometModel::TYPE_UPDATE_NOTIFICATIONS);
 
-        return parent::afterSave($event);
+        $diff = $this->owner->unreadCount - $this->_oldUnreadCount;
+        $count = ($this->_oldUnreadCount == 0 ? +1 : ($this->owner->unreadCount == 0 ? -1 : 0));
+        if ($diff !== 0)
+            $this->comet->send($this->owner->userId, array('unreadSum' => $diff, 'unreadCount' => $count), \CometModel::TYPE_UPDATE_NOTIFICATIONS);
+
+        return parent::afterDelete($event);
     }
 
 }

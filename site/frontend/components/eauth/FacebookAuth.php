@@ -58,7 +58,7 @@ class FacebookAuth extends FacebookOAuthService
         }
         $this->attributes['country_id'] = $countryModel->id;
 
-        if (preg_match('#^[а-яА-Я ]+$#', $location->name)) {
+        if (preg_match('#^[а-яА-Я -]+$#u', $location->name)) {
             $pieces = explode(', ', $location->name);
             if (count($pieces) == 1) {
                 $cityName = $pieces;

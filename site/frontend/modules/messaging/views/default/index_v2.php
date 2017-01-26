@@ -6,7 +6,7 @@
             <div class="notice-header__item notice-header__item--left">
                 <div class="notice-header__title">Диалоги</div>
             </div>
-            <div class="notice-header__item notice-header__item--right"><a href="javascript:history.back();" class="notice-header__ico-close i-close i-close--sm"></a></div>
+            <div class="notice-header__item notice-header__item--right"><a href="javascript:history.go(-2);" class="notice-header__ico-close i-close i-close--sm"></a></div>
         </div>
         <!-- js для расчетов положения почты -->
         <script type="text/javascript">

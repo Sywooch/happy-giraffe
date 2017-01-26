@@ -60,7 +60,7 @@ if (! Yii::app()->user->isGuest) {
             </span>
         </div>
     <?php else: ?>
-        <div class="user-on"><a href="<?=$this->createUrl('/notifications/default/index')?>" class="signal active" data-bind="css: { active: newNotificationsCount() > 0 && activeModule() != 'notifications' }"></a>
+        <div class="user-on"><a href="<?=$this->createUrl('/notifications/default/index')?>" class="signal" data-bind="css: { active: newNotificationsCount() > 0 && activeModule() != 'notifications' }"></a>
             <div class="ava"><a class="js-ava__link ava__link" href="#" data-bind="click: function(data, event) {menuExtended(! menuExtended()); event.stopPropagation(); return true;}"><img src="<?=Yii::app()->user->model->getAvatarUrl(40)?>"></a></div>
         </div>
     <?php endif; ?>

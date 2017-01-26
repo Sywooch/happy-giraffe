@@ -1,5 +1,6 @@
 <?php
 
+use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
@@ -10,6 +11,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 ?>
 
 <?php
+
 $breadcrumbs = [
     'Главная' => ['/site/index'],
     'Педиатр' => ['/som/qa/default/pediatrician'],
@@ -24,6 +26,15 @@ if (!is_null($question->attachedChild)) {
 
 $breadcrumbs[$tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id]);
 $breadcrumbs[] = CHtml::encode($question->title);
+
+\Yii::app()->clientScript->registerAMD(
+    'Realplexor-reg',
+    [
+        'common',
+        'comet'
+    ],
+    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . QaManager::getQuestionChannelId($question->id) . '\');'
+);
 
 ?>
 
@@ -70,39 +81,64 @@ $breadcrumbs[] = CHtml::encode($question->title);
                 </div>
             </div>
             <div class="b-open-question__body">
-                <span class="b-title--h1 b-title--bold b-text-color--blue-link"><?= CHtml::encode($question->title) ?></span>
-                <div class="b-open-question__wrapper b-question-wrapper">
-                    <?php if (!is_null($tag)) { ?>
-                    <div class="b-question-wrapper__item">
-                        <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>"
-                           class="b-answer-footer__age b-text--link-color">
-                            <?= $tag->getTitle() ?>
-                        </a>
-                    </div>
-                    <?php } ?>
+                <div id="js-question-data">
+                    <span class="b-title--h1 b-title--bold b-text-color--blue-link"><?= CHtml::encode($question->title) ?></span>
+                    <div class="b-open-question__wrapper b-question-wrapper">
 
-                    <mp-answers-count-widget params="count: <?= $question->answersCount ?>, countText: '<?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount); ?>'">
+                        <?php if (!is_null($tag)) { ?>
 
                         <div class="b-question-wrapper__item">
-                            <div class="b-open-question__quant b-open-quant">
-                                <span class="b-open-quant__num"><?= $question->answersCount ?></span>
-                                <span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount) ?></span>
-                            </div>
+                            <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>"
+                               class="b-answer-footer__age b-text--link-color">
+                                <?= $tag->getTitle() ?>
+                            </a>
                         </div>
 
-                    </mp-answers-count-widget>
+                        <?php } ?>
 
-                </div>
-                <p class="b-text--size-14 b-text--black">
-                    <?= $question->purified->text; ?>
-                </p>
+                        <!-- ko stopBinding: true -->
 
-                <?php if (! \Yii::app()->user->isGuest && \Yii::app()->user->id == $question->authorId): ?>
+                        <mp-answers-count-widget params="count: <?= $question->answersCount ?>, countText: '<?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount); ?>'">
 
-                    <div class="b-answer__footer b-answer-footer--theme-user">
-                        <span class="b-pediator-answer-quest__control">Редактировать</span>
-                        <span class="b-pediator-answer-quest__control">Удалить</span>
+                            <div class="b-question-wrapper__item">
+                                <div class="b-open-question__quant b-open-quant">
+                                    <span class="b-open-quant__num"><?= $question->answersCount ?></span>
+                                    <span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount) ?></span>
+                                </div>
+                            </div>
+
+                        </mp-answers-count-widget>
+
+                        <!-- /ko -->
+
                     </div>
+                    <div class="b-text--size-14 b-text--black" data-bind="html: text()">
+                        <p ><?= $question->purified->text; ?></p>
+                    </div>
+                </div>
+
+                <?php
+                    \Yii::app()->clientScript->registerAMD(
+                        'questionData',
+                        [
+                            'ko'                => 'knockout',
+                            'QuestionData'      => 'mypediatrician/question-data',
+                            'ko_library'        => 'ko_library'
+                        ],
+                        '
+                            ko.applyBindings(new QuestionData(' . CJSON::encode($question->toJSON()) . '),
+                            document.getElementById("js-question-data"));
+                        '
+                    );
+                ?>
+
+                <?php
+                    $isOwner = !\Yii::app()->user->isGuest && \Yii::app()->user->id == $question->authorId;
+
+                    if ($isOwner):
+                ?>
+
+                    <mp-question-actions-widget params="id: <?= $question->id; ?>, answersCount: <?= $question->answersCount; ?>, redirectUrl: <?= $this->createUrl('/som/qa/default/pediatrician'); ?>, editUrl: '<?= $this->createUrl('/som/qa/default/pediatricianEditForm', ['questionId' => $question->id]); ?>'"></mp-question-actions-widget>
 
                 <?php endif; ?>
 
@@ -129,6 +165,7 @@ $breadcrumbs[] = CHtml::encode($question->title);
                 <?php if (\Yii::app()->user->isGuest || $question->canBeAnsweredBy(\Yii::app()->user->id)): ?>
 
                 <div id="js-question-reply-form" class="b-redactor">
+                    <!-- ko if: isFormEnabled() -->
                     <div class="b-redactor__action">
                         <textarea
                             id="js--redactor__textarea"
@@ -152,12 +189,17 @@ $breadcrumbs[] = CHtml::encode($question->title);
                             <div class="redactor-post-toolbar"></div>
                         </div>
                         <div class="b-redactor-footer__item">
-                            <button type="button" class="btn btn--blue btn--sm" data-bind="click: addAnswerToQuestion">Ответить</button>
+                            <button type="button" class="btn btn--blue btn--sm" data-bind="css: {'disabled': isSubmitDisabled()},click: addAnswerToQuestion">Ответить</button>
                         </div>
                     </div>
+                    <!-- /ko -->
                 </div>
 
                 <?php
+                    $params = [
+                        'questionId'    => $question->id,
+                        'isEditing'     => $isEditing
+                    ];
 
                     \Yii::app()->clientScript->registerAMD(
                         'questionReplyForm',
@@ -167,7 +209,7 @@ $breadcrumbs[] = CHtml::encode($question->title);
                             'ko_library'        => 'ko_library'
                         ],
                         '
-                            ko.applyBindings(new QuestionReplyForm(' . CJSON::encode(['questionId' => $question->id]) . '),
+                            ko.applyBindings(new QuestionReplyForm(' . CJSON::encode($params) . '),
                             document.getElementById("js-question-reply-form"));
                         '
                     );
@@ -182,7 +224,7 @@ $breadcrumbs[] = CHtml::encode($question->title);
         <div class="b-open-question__title">Ответы</div>
         <div class="b-margin--bottom_60">
 
-            <mp-answers-widget params='questionData: <?= CJSON::encode($question->toJSON()); ?>, answersList: <?= CJSON::encode($answersTreeList); ?>'>
+            <mp-answers-widget params='questionData: <?= CJSON::encode($question->toJSON()); ?>, answersList: <?= CJSON::encode($answersTreeList); ?>, isEditing: <?= $isEditing; ?>'>
 
                 <div class="preloader-answer">
                     <div class="preloader__inner">
@@ -196,9 +238,6 @@ $breadcrumbs[] = CHtml::encode($question->title);
             </mp-answers-widget>
 
         </div>
-
-        <?php // $this->widget(AnswersWidget::class, ['question' => $question]); ?>
-
     </div>
 </div>
 

@@ -103,7 +103,7 @@ class VkontakteAuth extends VKontakteOAuthService
         }
         if ($city) {
             $citiesModels = GeoCity::model()->with('region')->findAllByAttributes(array('country_id' => $countryModel->id, 'name' => $info->city->title));
-            $cityModel = \site\frontend\modules\geo\helpers\GeoHelper::chooseCityByRegion($citiesModels, $city->region);
+            $cityModel = \site\frontend\modules\geo\helpers\GeoHelper::chooseCityByRegion($citiesModels, isset($city->region) ? $city->region : $info->city->title);
             if ($cityModel) {
                 $this->attributes['city_id'] = $cityModel->id;
             }

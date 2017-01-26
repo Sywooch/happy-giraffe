@@ -15,7 +15,7 @@ use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
  * @property int $questionsCount
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
-class QaTag extends \HActiveRecord
+class QaTag extends \HActiveRecord implements \IHToJSON
 {
     /**
      * @return string the associated database table name
@@ -79,6 +79,19 @@ class QaTag extends \HActiveRecord
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
+    }
+
+    /**
+     * @return array
+     * @author Sergey Gubarev
+     */
+    public function toJSON()
+    {
+        return [
+            'id'    => $this->id,
+            'name'  => $this->name,
+            'title' => $this->getTitle()
+        ];
     }
 
     /**

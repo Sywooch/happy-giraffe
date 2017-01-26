@@ -4,6 +4,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 use site\common\behaviors\AuthorBehavior;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\CometBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\QaManager;
@@ -200,6 +201,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'closureTableName'  => 'qa__answers_tree',
                 'childAttribute'    => 'descendant_id',
                 'parentAttribute'   => 'ancestor_id'
+            ],
+            'CometBehavior' => [
+                'class' => CometBehavior::class
             ]
         ];
     }
@@ -233,9 +237,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return $success;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function afterSave()
     {
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord)
+        {
             $this->updateAnswersCount(1);
 
             if (!is_null($this->root_id))
@@ -246,6 +254,23 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             else
             {
                 $this->markAsRoot($this->id);
+            }
+        }
+        else
+        {
+            if ($this->question->category->isPediatrician())
+            {
+                $channelId = QaManager::getQuestionChannelId($this->question->id);
+
+                $this->refresh();
+
+                $resp = [
+                    'status'    => true,
+                    'answerId'  => $this->id,
+                    'text'      => $this->text
+                ];
+
+                (new \CometModel())->send($channelId, $resp, \CometModel::MP_QUESTION_ANSWER_FINISH_EDITED);
             }
         }
 
@@ -337,14 +362,32 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function canBeAnsweredBy($user)
     {
+        $isDoctor = $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        $isAnswerFromDoctor = $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        $isRootFromDoctor = $isAnswerFromDoctor;
+
+        if ($this->root_id != null) {
+            $isRootFromDoctor = $this->root->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        }
+
         // уточняющий вопрос
-        if ($this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id == null && !$this->children) {
-            return $user->id == $this->question->authorId && !$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        if ($isAnswerFromDoctor && $this->root_id == null && !$this->children) {
+            return $user->id == $this->question->authorId && !$isDoctor;
         }
 
         // ответ на уточняющий вопрос
-        if (!$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && count($this->root->children) == 1) {
-            return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->root->children) == 1 && $isRootFromDoctor) {
+            return $user->id == $this->root->authorId && $isDoctor;
+        }
+
+        //комментарий от автора вопроса
+        if (!$isAnswerFromDoctor && $this->root_id == null && count($this->children) == 0) {
+            return $user->id == $this->question->authorId;
+        }
+
+        //ответ в ветку комментариев
+        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->children) == 0 && !$isRootFromDoctor) {
+            return $this->authorId != $user->id && !$isDoctor;
         }
 
         return false;
@@ -364,6 +407,14 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     public function isAnswerToAdditional()
     {
         return $this->authorIsSpecialist() && !$this->isLeaf();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCommentToBranch()
+    {
+        return !$this->authorIsSpecialist() && !$this->isLeaf() && !$this->root->author->isSpecialist;
     }
 
     /**
@@ -395,6 +446,34 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
         $this->getDbCriteria()->compare('root.authorId', $userId);
         $this->getDbCriteria()->addCondition("not exists(select * from qa__answers as children where children.root_id = {$this->tableAlias}.id and children.isRemoved = 0)");
+
+        return $this;
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return QaAnswer
+     */
+    public function excludeAdditionalRoots($userId)
+    {
+        $this->getDbCriteria()->addCondition("(select count(*) from qa__answers as a where a.questionId = {$this->tableAlias}.questionId and a.authorId = {$userId} and a.isRemoved = 0) < 2");
+
+        return $this;
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return QaAnswer
+     */
+    public function excludeByQuestionsAuthor($userId)
+    {
+        if (!isset($this->getDbCriteria()->with['question'])) {
+            $this->getDbCriteria()->with[] = 'question';
+        }
+
+        $this->getDbCriteria()->addCondition("question.authorId != {$userId}");
 
         return $this;
     }
@@ -455,7 +534,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'isVoted'                           => (bool) count($this->votes),
             'question'                          => $this->question->toJSON(),
             'countUserAnswersByPediatrician'    => QaManager::getCountAnswersByUser($this->authorId),
-            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id)
+            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id),
+            'isAdditional'                      => $this->isAdditional(),
+            'isAnswerToAdditional'              => $this->isAnswerToAdditional()
         ];
     }
 

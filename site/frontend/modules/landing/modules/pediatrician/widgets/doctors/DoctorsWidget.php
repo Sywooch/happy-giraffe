@@ -45,14 +45,6 @@ class DoctorsWidget extends \CWidget
         return array_map(function (QaRating $r) {
             return $r->user;
         }, $rating);
-
-        /*
-        // Случайные доктора
-        return SpecialistProfile::model()->with('user', 'specializations')->findAll([
-            'limit' => $this->nDoctors,
-            'order' => 'RAND()',
-        ]);
-        */
     }
 
     public function getSpecs(SpecialistProfile $profile)

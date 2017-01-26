@@ -70,6 +70,7 @@ class CometModel extends CComponent
 
     const NOTIFY_ADDED = 5001;
     const NOTIFY_UPDATED = 5003;
+    const NOTIFY_DELETED = 5004;
 
     const QA_VOTE = 6001;
     const QA_NEW_ANSWER = 6002;
@@ -80,22 +81,40 @@ class CometModel extends CComponent
     const BLOGS_EFIR_NEW_POST = 228;
 
     /**
-     * @var string MP_QUESTION_CHANEL_ID ID канала для открытого вопроса сервиса "ПЕДИАТР"
-     * @author Sergey Gubarev
-     */
-    const MP_QUESTION_CHANEL_ID = 'MyPediatricianQuestion';
-
-    /**
      * @var integer MP_QUESTION_ANSWER_EDITED Статус-код: Редактируется ответ
      * @author Sergey Gubarev
      */
     const MP_QUESTION_ANSWER_EDITED = 7001;
 
     /**
+     * @var integer MP_QUESTION_ANSWER_FINISH_EDITED Статус-код: Редактируется ответ завершено/отменено
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_ANSWER_FINISH_EDITED = 7000;
+
+    /**
      * @var integer MP_QUESTION_UPDATE_ANSWERS_COUNT Статус-код: Обновить общее кол-во ответов
      * @author Sergey Gubarev
      */
     const MP_QUESTION_UPDATE_ANSWERS_COUNT = 7002;
+
+    /**
+     * @var integer MP_QUESTION_QUESTION_REMOVED_BY_OWNER Статус-код: Автор удаляет свой вопрос
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_REMOVED_BY_OWNER = 7003;
+
+    /**
+     * @var integer MP_QUESTION_QUESTION_REMOVED_BY_OWNER Статус-код: Автор редактирует свой вопрос
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_EDITED_BY_OWNER = 7004;
+    /**
+     * @var integer MP_QUESTION_FINISH_EDITED_BY_OWNER Статус-код: Автор закончил редактировать свой вопрос
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_FINISH_EDITED_BY_OWNER = 7005;
+
 
     public $attributes = array();
     public $type;

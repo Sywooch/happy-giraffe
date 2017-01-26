@@ -5,12 +5,76 @@ namespace site\frontend\modules\som\modules\qa\components;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaQuestionEditing;
 
 /**
  * @author Sergey Gubarev
  */
 class QaManager
 {
+
+    /**
+     * Получить ID comet-канала для вопроса
+     *
+     * @param $questionId ID вопроса
+     * @return string
+     */
+    public static function getQuestionChannelId($questionId)
+    {
+        return QaQuestion::COMET_CHANNEL_ID_PREFIX . $questionId;
+    }
+
+    /**
+     * Получить ID comet-канала для редактируемого вопроса
+     *
+     * @param $questionId ID вопроса
+     * @return string
+     */
+    public static function getEditedQuestionChannelId($questionId)
+    {
+        return self::getQuestionChannelId($questionId) . QaQuestion::COMET_CHANNEL_ID_EDITED_PREFIX;
+    }
+
+    /**
+     * Получить вопрос
+     *
+     * @param integer $questionId ID вопроса
+     * @return \CActiveRecord|null
+     */
+    public static function getQuestion($questionId)
+    {
+        return QaQuestion::model()->findByPk($questionId);
+    }
+
+    /**
+     * Находится ли вопрос под редактированием
+     *
+     * @param integer $questionId ID вопроса
+     * @return bool
+     */
+    public static function isQuestionEditing($questionId)
+    {
+        $findObject = QaQuestionEditing::model()->find([
+            'questionId' => $questionId
+        ]);
+
+        return is_null($findObject) ? false : true;
+    }
+
+    /**
+     * Удалить объект вопроса их коллекции редактируемых в Mongo
+     *
+     * @param integer $questionId ID вопроса
+     * @return bool
+     */
+    public static function deleteQuestionObjectFromCollection($questionId)
+    {
+        $findObject = QaQuestionEditing::model()->find([
+            'questionId' => $questionId
+        ]);
+
+        return $findObject ? $findObject->delete() : false;
+    }
 
     /**
      * Получить ответы к вопросу на сайте
@@ -245,7 +309,7 @@ SQL;
     {
         /*@var $answer QaAnswer */
 
-        $dialog = $question->getSpecialistDialog();
+        $dialog = $question->getSpecialistDialog($user->id);
 
         if (is_null($answer)) //если не дискусия
         {

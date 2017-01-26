@@ -3,6 +3,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 
 use site\frontend\modules\api\ApiModule;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\som\modules\qa\helpers\AnswersTreeListHelper;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\BaseAnswerManager;
@@ -54,6 +55,18 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      * @author Sergey Gubarev
      */
     const NOT_REMOVED = 0;
+
+    /**
+     * @var string COMET_CHANNEL_ID_PREFIX Префикс ID канала вопроса
+     * @author Sergey Gubarev
+     */
+    const COMET_CHANNEL_ID_PREFIX = 'mypediatrician_question';
+
+    /**
+     * @var string COMET_CHANNEL_ID_EDITED_PREFIX Оконочание ID канала вопроса на редактировании
+     * @author Sergey Gubarev
+     */
+    const COMET_CHANNEL_ID_EDITED_PREFIX = '_edited';
 
     public $sendNotifications = true;
 
@@ -365,7 +378,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     {
         $profile = \Yii::app()->user->getModel()->specialistProfile;
 
-        $dialog = $this->getSpecialistDialog();
+        $dialog = $this->getSpecialistDialog($userId);
 
         if (is_null($dialog) && !is_null($profile)) {
             return true;
@@ -473,24 +486,26 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function toJSON()
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'url' => $this->url,
-            'authorId' => $this->authorId,
+            'id'        => (int) $this->id,
+            'title'     => $this->title,
+            'url'       => $this->url,
+            'text'      => $this->text,
+            'authorId'  => $this->authorId,
+            'tagId'     => $this->tag_id
         ];
     }
 
     /**
      * @return boolean
      */
-    public function hasAnswerForSpecialist()
+    public function hasAnswerForSpecialist($userId = NULL)
     {
         if (!is_null($this->_hasAnswerForSpecialist)) {
             return $this->_hasAnswerForSpecialist;
         }
 
         $helper = new AnswersTree();
-        $helper->init($this->getSpecialistDialog());
+        $helper->init($this->getSpecialistDialog($userId));
 
         $this->_hasAnswerForSpecialist = !is_null($helper->getCurrentAnswerForSpecialist());
 
@@ -500,12 +515,17 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     /**
      * @return QaAnswer[]
      */
-    public function getSpecialistDialog()
+    public function getSpecialistDialog($userId = NULL)
     {
         foreach ($this->answers as /*@var $answer QaAnswer */$answer)
         {
-            if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id))
+            if ($answer->authorIsSpecialist() && $answer->isLeaf())
             {
+                if (!is_null($userId) && $answer->authorId != $userId)
+                {
+                    continue;
+                }
+
                 $result = $answer->descendants()->findAll();
                 array_push($result, $answer);
 
@@ -610,6 +630,34 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function getList($condition='',$params=[])
     {
         return new QaObjectList($this->findAll($condition, $params));
+    }
+
+    /**
+     * Отправляем ответ на comet-канал для уведовления подписчиков об удалении вопроса
+     *
+     * @author Sergey Gubarev
+     */
+    protected function afterSoftDelete()
+    {
+        $channelId = QaManager::getQuestionChannelId($this->id);
+
+        (new \CometModel())->send($channelId, null, \CometModel::MP_QUESTION_REMOVED_BY_OWNER);
+    }
+
+    /**
+     * @inheritdoc
+     * @param $event \CEvent
+     */
+    protected function afterSave($event)
+    {
+        if (! $this->isNewRecord)
+        {
+            $channelId = QaManager::getQuestionChannelId($this->id);
+
+            QaManager::deleteQuestionObjectFromCollection($this->id);
+        }
+
+        parent::afterSave($event);
     }
 
 }

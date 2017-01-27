@@ -398,7 +398,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function isAdditional()
     {
-        return !$this->authorIsSpecialist() && !$this->isLeaf() && $this->root->author->isSpecialist;
+        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
     }
 
     /**
@@ -406,7 +406,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function isAnswerToAdditional()
     {
-        return $this->authorIsSpecialist() && !$this->isLeaf();
+        return $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
     }
 
     /**
@@ -414,7 +414,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function isCommentToBranch()
     {
-        return !$this->authorIsSpecialist() && !$this->isLeaf() && !$this->root->author->isSpecialist;
+        return !$this->authorIsSpecialist() && $this->root_id != null && !$this->root->author->isSpecialist;
     }
 
     /**
@@ -583,7 +583,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     public function getLeaf()
     {
-        return $this->root_id == NULL;
+        return empty($this->children);
     }
 
 }

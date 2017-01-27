@@ -18,7 +18,7 @@ use site\frontend\modules\api\ApiModule;
  * @property \User $user
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
-class QaRating extends \HActiveRecord
+class QaRating extends \HActiveRecord implements \IHToJSON
 {
     /**
      * @return string the associated database table name
@@ -135,5 +135,20 @@ class QaRating extends \HActiveRecord
         $this->getDbCriteria()->addCondition('user.specialistInfo is not null and user.specialistInfo != \'\'');
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see IHToJSON::toJSON()
+     */
+    public function toJSON()
+    {
+        return [
+            'user_id'       => $this->user_id,
+            'category_id'   => $this->category_id,
+            'answers_count' => $this->answers_count,
+            'votes_count'   => $this->votes_count,
+            'total_count'   => $this->total_count,
+        ];
     }
 }

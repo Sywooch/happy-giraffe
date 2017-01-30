@@ -6,6 +6,9 @@ use site\frontend\components\TopWidgetAbstract;
 use site\frontend\modules\som\modules\qa\models\QaRating;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\components\api\models\User;
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 
 /**
  * @author Emil Vililyaev
@@ -65,9 +68,9 @@ class NewUsersTopWidget extends UsersTopWidget
         {
             $rows[] = [
                 'user' => $users[$uId],
-                'score' => $score->total_count,
-                'votes' => $score->votes_count,
-                'answers' => $score->answers_count,
+                'score' => $score['total_count'],
+                'votes' => $score['votes_count'],
+                'answers' => $score['answers_count'],
             ];
         }
 
@@ -88,21 +91,113 @@ class NewUsersTopWidget extends UsersTopWidget
      */
     protected function _process($onlyUsers = TRUE)
     {
-        $rating = QaRating::model()->byCategory(QaCategory::PEDIATRICIAN_ID);
+        $answerCount = $this->_getAnswersCount($onlyUsers);
+        $votesCount = $this->_getVotesCount($onlyUsers);
+        $result = array_merge($answerCount, $votesCount);
+
+        foreach ($result as $item)
+        {
+            $this->scores[$item['userId']]['answers_count'] += 0;
+            $this->scores[$item['userId']]['votes_count'] += 0;
+
+            if ($item['type'] == 'answer')
+            {
+                $this->scores[$item['userId']]['answers_count'] += $item['count'];
+            }
+
+            if ($item['type'] == 'votes')
+            {
+                $this->scores[$item['userId']]['votes_count'] += $item['count'];
+            }
+
+            if (array_key_exists($item['userId'], $this->scores))
+            {
+                $this->scores[$item['userId']]['total_count'] += $item['count'];
+                continue;
+            }
+
+            $this->scores[$item['userId']]['total_count'] = (int)$item['count'];
+        }
+
+
+        uasort($this->scores, function($a, $b){
+            if ($a['total_count'] < $b['total_count'])
+            {
+                return 1;
+            }
+
+            return 0;
+        });
+    }
+
+    private function _getAnswersCount($onlyUsers = TRUE)
+    {
+        $answerTableName = QaAnswer::model()->tableName();
+        $questionsTableName = QaQuestion::model()->tableName();
+        $cmd = \Yii::app()->db->createCommand()
+            ->select($answerTableName . '.authorId, COUNT(*) AS `count`')
+            ->from($answerTableName)
+            ->leftJoin($questionsTableName, $answerTableName . '.questionId = ' . $questionsTableName . '.id AND ' . $questionsTableName . '.isRemoved = 0')
+            ->where($answerTableName . '.isRemoved=0')
+            ->andWhere($answerTableName . '.dtimeCreate > ' . $this->_getTimeFrom())
+            ->andWhere($answerTableName . '.dtimeCreate < ' . $this->_getTimeTo())
+            ->andWhere($questionsTableName . '.categoryId=' . QaCategory::PEDIATRICIAN_ID)
+        ;
 
         if ($onlyUsers)
         {
-             $rating->notSpecialist();
+            $cmd->andWhere($answerTableName . '.authorId NOT IN (SELECT id FROM specialists__profiles)');
         } else {
-            $rating->forSpecialists();
+            $cmd->andWhere($answerTableName . '.authorId IN (SELECT id FROM specialists__profiles)');
         }
 
-        $arrRating = $rating->findAll(['order' => 'total_count DESC', 'limit' => $this->getLimit()]);
+        $list = $cmd
+            ->group($answerTableName . '.authorId')
+            ->order('count DESC')
+            ->queryAll()
+        ;
 
-        foreach ($arrRating as $rating)
+        $answers = [];
+
+        foreach ($list as $item)
         {
-            $this->scores[$rating->user_id] = $rating;
+            $answers[] = ['userId' => $item['authorId'], 'count' => $item['count'], 'type' => 'answer'];
         }
+
+        return $answers;
+    }
+
+    private function _getVotesCount($onlyUsers = TRUE)
+    {
+        $votesTableName = QaAnswerVote::model()->tableName();
+        $cmd = \Yii::app()->db->createCommand()
+            ->select($votesTableName . '.userId, COUNT(*) AS `count`')
+            ->andWhere($votesTableName . '.dtimeCreate > ' . $this->_getTimeFrom())
+            ->andWhere($votesTableName . '.dtimeCreate < ' . $this->_getTimeTo())
+            ->from($votesTableName)
+        ;
+
+        if ($onlyUsers)
+        {
+            $cmd->andWhere($votesTableName . '.userId NOT IN (SELECT id FROM specialists__profiles)');
+        } else {
+            $cmd->andWhere($votesTableName . '.userId IN (SELECT id FROM specialists__profiles)');
+        }
+
+        $list = $cmd
+            ->group($votesTableName . '.userId')
+            ->order('count DESC')
+            ->queryAll()
+        ;
+
+        $votes = [];
+
+        foreach ($list as $item)
+        {
+            $votes[] = ['userId' => $item['userId'], 'count' => $item['count'], 'type' => 'votes'];
+        }
+
+        return $votes;
     }
 
 }

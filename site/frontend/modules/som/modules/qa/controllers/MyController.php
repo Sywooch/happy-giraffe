@@ -55,8 +55,7 @@ class MyController extends QaController
 
     public function actionAnswers($categoryId = null)
     {
-//         $model = clone QaAnswer::model();
-        $model = clone QaCTAnswer::model();
+        $model = clone QaAnswer::model();
         $model->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
 
         $dp = new \CActiveDataProvider($model, array(

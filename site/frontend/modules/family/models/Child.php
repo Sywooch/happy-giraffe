@@ -42,7 +42,17 @@ class Child extends FamilyMemberAbstract
 
         try {
             $data['childName']  = $this->name;
-            $data['imgUrl']     = $this->photoCollection->attaches[0]->photo->getPreviewPhoto();
+
+            $photoCollection = $this->photoCollection;
+            if (is_object($photoCollection))
+            {
+                $photo = $photoCollection->attaches[0];
+
+                if (is_object($photo))
+                {
+                    $data['imgUrl'] = $photo->getPreviewPhoto();
+                }
+            }
             $data['tag']        = $this->getViewDataInternal()->getAgeTag();
         } catch (\Exception $e)
         {}

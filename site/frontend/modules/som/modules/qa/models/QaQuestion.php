@@ -378,7 +378,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     {
         $profile = \Yii::app()->user->getModel()->specialistProfile;
 
-        $dialog = $this->getSpecialistDialog();
+        $dialog = $this->getSpecialistDialog($userId);
 
         if (is_null($dialog) && !is_null($profile)) {
             return true;
@@ -485,27 +485,44 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
 
     public function toJSON()
     {
+        if (! is_null($this->attachedChild))
+        {
+            $fmember = $this->attChild;
+
+            $data = $fmember->getAnswerFooterData();
+
+            // @todo: Неопределенная ситуация с поведением, если возраст ребенка больше диапазона тегов
+            $tag = !is_null($data['tag']) ? $data['tag'] : new QaTag();
+        }
+        else
+        {
+            $tag = $this->tag;
+        }
+
         return [
             'id'        => (int) $this->id,
             'title'     => $this->title,
             'url'       => $this->url,
             'text'      => $this->text,
             'authorId'  => $this->authorId,
-            'tagId'     => $this->tag_id
+            'tagId'     => $this->tag_id,
+            'tagUrl'    => $tag->getUrl(),
+            'tagTitle'  => $tag->getTitle(),
+            'attachedChildId' => $this->attachedChild
         ];
     }
 
     /**
      * @return boolean
      */
-    public function hasAnswerForSpecialist()
+    public function hasAnswerForSpecialist($userId = NULL)
     {
         if (!is_null($this->_hasAnswerForSpecialist)) {
             return $this->_hasAnswerForSpecialist;
         }
 
         $helper = new AnswersTree();
-        $helper->init($this->getSpecialistDialog());
+        $helper->init($this->getSpecialistDialog($userId));
 
         $this->_hasAnswerForSpecialist = !is_null($helper->getCurrentAnswerForSpecialist());
 
@@ -515,12 +532,17 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     /**
      * @return QaAnswer[]
      */
-    public function getSpecialistDialog()
+    public function getSpecialistDialog($userId = NULL)
     {
         foreach ($this->answers as /*@var $answer QaAnswer */$answer)
         {
-            if ($answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && is_null($answer->root_id))
+            if ($answer->authorIsSpecialist() && is_null($answer->root_id))
             {
+                if (!is_null($userId) && $answer->authorId != $userId)
+                {
+                    continue;
+                }
+
                 $result = $answer->descendants()->findAll();
                 array_push($result, $answer);
 
@@ -632,7 +654,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      *
      * @author Sergey Gubarev
      */
-    protected function afterSoftDelete()
+    public function afterSoftDelete()
     {
         $channelId = QaManager::getQuestionChannelId($this->id);
 
@@ -643,16 +665,17 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      * @inheritdoc
      * @param $event \CEvent
      */
-    protected function afterSave($event)
+    protected function afterSave()
     {
         if (! $this->isNewRecord)
         {
-            $channelId = QaManager::getQuestionChannelId($this->id);
-
-            QaManager::deleteQuestionObjectFromCollection($this->id);
+            if ($this->category->isPediatrician())
+            {
+                QaManager::deleteQuestionObjectFromCollection($this->id);
+            }
         }
 
-        parent::afterSave($event);
+        return parent::afterSave();
     }
 
 }

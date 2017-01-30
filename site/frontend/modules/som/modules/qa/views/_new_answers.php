@@ -11,7 +11,6 @@ if (isset($additionalData['votesList']))
     $voteList = $additionalData['votesList']->sortedByField('answerId', $data->id);
     $hasVote = !$voteList->isEmpty();
 }
-
 ?>
 <article class="b-answer__item">
     <div class="b-pediator-answer">

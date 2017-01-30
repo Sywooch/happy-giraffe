@@ -398,7 +398,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function isAdditional()
     {
-        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
+        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && $this->root->author->isSpecialist;
     }
 
     /**

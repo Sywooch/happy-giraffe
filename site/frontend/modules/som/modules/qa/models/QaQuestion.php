@@ -485,13 +485,30 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
 
     public function toJSON()
     {
+        if (! is_null($this->attachedChild))
+        {
+            $fmember = $this->attChild;
+
+            $data = $fmember->getAnswerFooterData();
+
+            // @todo: Неопределенная ситуация с поведением, если возраст ребенка больше диапазона тегов
+            $tag = !is_null($data['tag']) ? $data['tag'] : new QaTag();
+        }
+        else
+        {
+            $tag = $this->tag;
+        }
+
         return [
             'id'        => (int) $this->id,
             'title'     => $this->title,
             'url'       => $this->url,
             'text'      => $this->text,
             'authorId'  => $this->authorId,
-            'tagId'     => $this->tag_id
+            'tagId'     => $this->tag_id,
+            'tagUrl'    => $tag->getUrl(),
+            'tagTitle'  => $tag->getTitle(),
+            'attachedChildId' => $this->attachedChild
         ];
     }
 
@@ -637,7 +654,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      *
      * @author Sergey Gubarev
      */
-    protected function afterSoftDelete()
+    public function afterSoftDelete()
     {
         $channelId = QaManager::getQuestionChannelId($this->id);
 
@@ -648,16 +665,17 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      * @inheritdoc
      * @param $event \CEvent
      */
-    protected function afterSave($event)
+    protected function afterSave()
     {
         if (! $this->isNewRecord)
         {
-            $channelId = QaManager::getQuestionChannelId($this->id);
-
-            QaManager::deleteQuestionObjectFromCollection($this->id);
+            if ($this->category->isPediatrician())
+            {
+                QaManager::deleteQuestionObjectFromCollection($this->id);
+            }
         }
 
-        parent::afterSave($event);
+        return parent::afterSave();
     }
 
 }

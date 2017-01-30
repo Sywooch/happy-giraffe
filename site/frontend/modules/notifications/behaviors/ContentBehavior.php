@@ -3,6 +3,10 @@
 namespace site\frontend\modules\notifications\behaviors;
 
 use site\frontend\modules\notifications\models\Notification;
+use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\components\QaObjectList;
+use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
 
 /**
  * Поведение, отмечающее сигналы прочитанными для (get_class($this->owner),$this->owner->id,Yii::app()->user->id)
@@ -60,12 +64,45 @@ class ContentBehavior extends \CActiveRecordBehavior
     {
         $notifications = Notification::model()
             ->byUser((int) $userId)
-            ->byEntity(array('entity' => $class, 'entityId' => (int) $entityId))
+            ->byEntity(['entity' => $class, 'entityId' => (int)$entityId])
             ->byRead(0)
-            ->findAll();
+            ->findAll()
+        ;
 
-        return $notifications;
+        if ($class != QaQuestion::class)
+        {
+            return $notifications;
+        }
+
+        $answersIds = array_map(function($item){
+            if ($item->votesCount > 0)
+            {
+                return (int)$item->id;
+            }
+        }, $this->getOwner()->answers);
+
+        if (empty($answersIds))
+        {
+            return $notifications;
+        }
+
+        $notification = Notification::model()
+            ->byUser((int) $userId)
+            ->byRead(0);
+
+        $notification->dbCriteria->addCond('entity.class', '==', QaAnswer::class);
+        $notification->dbCriteria->addCond('entity.id', 'in', $answersIds);
+        $answerNotifications = $notification->findAll();
+
+        if (empty($answerNotifications))
+        {
+            return $notifications;
+        }
+
+        return array_merge($answerNotifications, $notifications);
+
     }
+
 }
 
 ?>

@@ -54,10 +54,11 @@ class ListView extends \LiteListView
     private function _filteredData()
     {
         $questionsList = $this->dataProvider->getData();
+        $userId = \Yii::app()->user->id;
 
         foreach($questionsList as /*@var $question QaQuestion */$index => $question)
         {
-            if ($question->hasAnswerForSpecialist())
+            if ($question->hasAnswerForSpecialist($userId))
             {
                 $this->_personalQuetions[] = $question;
                 unset($questionsList[$index]);

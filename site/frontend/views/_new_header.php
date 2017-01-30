@@ -1,6 +1,7 @@
 <?php
+$cs = Yii::app()->clientScript;
 
-Yii::app()->clientScript->registerAMD('headerSearch', ['common'], '
+$cs->registerAMD('headerSearch', ['common'], '
 $("[href=#js-madal-search-box]").magnificPopup({
               type: "inline",
               preloader: false,
@@ -24,6 +25,21 @@ function activeClass($linkName)
     }
 }
 **/
+
+if (! Yii::app()->user->isGuest) {
+    if ($cs->useAMD) {
+        $cs->registerAMD('menuVM', array('ko' => 'knockout', 'MenuViewModel' => 'ko_menu'), "menuVm = new MenuViewModel(" . CJSON::encode($this->menuData) . "); ko.applyBindings(menuVm, $('.layout-header')[0]);");
+    }
+    else {
+        $cs->registerPackage('ko_menu');
+        ?>
+        <script type="text/javascript">
+            menuVm = new MenuViewModel(<?=CJSON::encode($this->menuData)?>);
+            ko.applyBindings(menuVm, $('.layout-header')[0]);
+        </script>
+        <?php
+    }
+}
 ?>
 <div class="header__container">
     <div class="b-col b-col--1 b-fl">

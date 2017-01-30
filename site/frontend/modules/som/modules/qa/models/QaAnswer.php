@@ -518,6 +518,8 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     public function toJSON()
     {
+        $isVoted = QaAnswerVote::model()->byAnswer($this->id)->user(\Yii::app()->user->id)->findAll();
+
         return [
             'id'                                => (int) $this->id,
             'authorId'                          => (int) $this->authorId,
@@ -531,7 +533,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'canEdit'                           => \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $this)),
             'canRemove'                         => \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $this)),
             'canVote'                           => \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $this)),
-            'isVoted'                           => (bool) count($this->votes),
+            'isVoted'                           => !empty($isVoted),
             'question'                          => $this->question->toJSON(),
             'countUserAnswersByPediatrician'    => QaManager::getCountAnswersByUser($this->authorId),
             'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id),

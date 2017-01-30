@@ -162,12 +162,14 @@ class ApiController extends \site\frontend\components\api\ApiController
         {
             $question->setScenario('tag');
             $question->tag_id = $tagId;
+            $question->attachedChild = null;
         }
 
         if (!is_null($childId))
         {
             $question->setScenario('attachedChild');
             $question->attachedChild = $childId;
+            $question->tag_id = null;
         }
 
         $question->title                = $title;

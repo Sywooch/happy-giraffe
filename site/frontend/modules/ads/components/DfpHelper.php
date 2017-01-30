@@ -3,8 +3,8 @@ namespace site\frontend\modules\ads\components;
 \Yii::import('site.common.vendor.Google.src.*');
 require_once 'Google/Api/Ads/Dfp/Lib/DfpUser.php';
 require_once 'Google/Api/Ads/Common/Util/MediaUtils.php';
-require_once 'Google/Api/Ads/Dfp/Util/v201602/DateTimeUtils.php';
-require_once 'Google/Api/Ads/Dfp/Util/v201602/StatementBuilder.php';
+require_once 'Google/Api/Ads/Dfp/Util/v201611/DateTimeUtils.php';
+require_once 'Google/Api/Ads/Dfp/Util/v201611/StatementBuilder.php';
 require_once 'Google/Api/Ads/Common/Util/Logger.php';
 
 /**

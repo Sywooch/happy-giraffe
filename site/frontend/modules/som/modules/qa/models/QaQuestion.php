@@ -213,7 +213,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
             ],
             'purified' => [
                 'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => ['text'],
+                'attributes' => ['text', 'title'],
                 'options' => [
                     'AutoFormat.Linkify' => true,
                 ],

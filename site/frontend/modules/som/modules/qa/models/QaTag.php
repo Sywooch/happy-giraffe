@@ -146,10 +146,12 @@ class QaTag extends \HActiveRecord implements \IHToJSON
 
         $result = 0;
 
-        foreach ($map as $age => $name) {
-            if ($intAge < $age && $intAge > $result)
+        foreach (array_keys($map) as $age)
+        {
+            if ($intAge < $age)
             {
                 $result = $age;
+                break;
             }
         }
 

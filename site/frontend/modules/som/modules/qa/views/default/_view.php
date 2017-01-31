@@ -12,29 +12,29 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
 <?php
 
-$breadcrumbs = [
-    'Главная' => ['/site/index'],
-    'Педиатр' => ['/som/qa/default/pediatrician'],
-];
+    $breadcrumbs = [
+        'Главная' => ['/site/index'],
+        'Педиатр' => ['/som/qa/default/pediatrician'],
+    ];
 
-$tag = $question->tag;
+    $tag = $question->tag;
 
-if (!is_null($question->attachedChild)) {
-    $arrFooterData = $question->attChild->getAnswerFooterData();
-    $tag = $arrFooterData['tag'];
-}
+    if (!is_null($question->attachedChild)) {
+        $arrFooterData = $question->attChild->getAnswerFooterData();
+        $tag = $arrFooterData['tag'];
+    }
 
-$breadcrumbs[$tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id]);
-$breadcrumbs[] = CHtml::encode($question->title);
+    $breadcrumbs[$tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id]);
+    $breadcrumbs[] = CHtml::encode($question->title);
 
-\Yii::app()->clientScript->registerAMD(
-    'Realplexor-reg',
-    [
-        'common',
-        'comet'
-    ],
-    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . QaManager::getQuestionChannelId($question->id) . '\');'
-);
+    \Yii::app()->clientScript->registerAMD(
+        'Realplexor-reg',
+        [
+            'common',
+            'comet'
+        ],
+        'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . QaManager::getQuestionChannelId($question->id) . '\');'
+    );
 
 ?>
 
@@ -71,7 +71,7 @@ $breadcrumbs[] = CHtml::encode($question->title);
         <div class="b-open-question-box">
             <div class="b-open-question__header b-open-header">
                 <div class="b-open-header__item">
-                    <a href="javascript:void(0);" class="b-answer-header__link"><?= CHtml::encode($question->author->fullName); ?></a>
+                    <a href="javascript:void(0);" class="b-answer-header__link"><?= $question->user->getAnonName(); ?></a>
                     <?= HHtml::timeTag($question, ['class' => 'b-answer-header__time']); ?>
                 </div>
                 <div class="b-open-header__item">
@@ -82,14 +82,17 @@ $breadcrumbs[] = CHtml::encode($question->title);
             </div>
             <div class="b-open-question__body">
                 <div id="js-question-data">
-                    <span class="b-title--h1 b-title--bold b-text-color--blue-link"><?= CHtml::encode($question->title) ?></span>
+                    <span class="b-title--h1 b-title--bold b-text-color--blue-link" data-bind="text: title()"><?= CHtml::encode($question->title) ?></span>
                     <div class="b-open-question__wrapper b-question-wrapper">
 
                         <?php if (!is_null($tag)) { ?>
 
                         <div class="b-question-wrapper__item">
-                            <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>"
-                               class="b-answer-footer__age b-text--link-color">
+                            <a
+                                href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>"
+                                class="b-answer-footer__age b-text--link-color"
+                                data-bind="attr: {href: tagUrl()}, text: tagTitle()"
+                            >
                                 <?= $tag->getTitle() ?>
                             </a>
                         </div>
@@ -98,12 +101,12 @@ $breadcrumbs[] = CHtml::encode($question->title);
 
                         <!-- ko stopBinding: true -->
 
-                        <mp-answers-count-widget params="count: <?= $question->answersCount ?>, countText: '<?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount); ?>'">
+                        <mp-answers-count-widget params="count: <?= $answersCount ?>, countText: '<?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $answersCount); ?>'">
 
                             <div class="b-question-wrapper__item">
                                 <div class="b-open-question__quant b-open-quant">
-                                    <span class="b-open-quant__num"><?= $question->answersCount ?></span>
-                                    <span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount) ?></span>
+                                    <span class="b-open-quant__num"><?= $answersCount ?></span>
+                                    <span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $answersCount) ?></span>
                                 </div>
                             </div>
 

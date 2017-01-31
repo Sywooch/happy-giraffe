@@ -54,9 +54,7 @@ class QaManager
      */
     public static function isQuestionEditing($questionId)
     {
-        $findObject = QaQuestionEditing::model()->find([
-            'questionId' => $questionId
-        ]);
+        $findObject = QaQuestionEditing::model()->findByAttributes(['questionId' => $questionId]);
 
         return is_null($findObject) ? false : true;
     }

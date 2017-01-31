@@ -162,12 +162,14 @@ class ApiController extends \site\frontend\components\api\ApiController
         {
             $question->setScenario('tag');
             $question->tag_id = $tagId;
+            $question->attachedChild = null;
         }
 
         if (!is_null($childId))
         {
             $question->setScenario('attachedChild');
             $question->attachedChild = $childId;
+            $question->tag_id = null;
         }
 
         $question->title                = $title;
@@ -290,7 +292,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
                 if ($action->id == 'createAnswer' || $action->id == 'removeAnswer' || $action->id == 'restoreAnswer')
                 {
-                    $count = $this->data->question->answersCount;
+                    $count = $this->data->question->getAnswersCount();
 
                     $response = [
                         'count'     => $count,

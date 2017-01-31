@@ -14,19 +14,20 @@ class VkontakteAuth extends VKontakteOAuthService
     protected function fetchAttributes() {
         $info = (array)$this->makeSignedRequest('https://api.vk.com/method/users.get.json', array(
             'query' => array(
-                'uids' => $this->uid,
+                'user_ids' => $this->uid,
                 //'fields' => '', // uid, first_name and last_name is always available
                 'fields' => 'sex, bdate, city, country, photo_max_orig, photo_max, photo_400_orig, photo_200, photo_200_orig, photo_100, photo_50',
+                'v' => '5.62',
             ),
         ));
 
         $info = $info['response'][0];
-
-        $this->attributes['uid'] = $info->uid;
+        $this->attributes['uid'] = $info->id;
         $this->attributes['firstName'] = $info->first_name;
         $this->attributes['lastName'] = $info->last_name;
         $this->setBirthdayAttributes($info);
         $this->attributes['gender'] = $info->sex == 0 ? null : (($info->sex == 1 ? '0' : '1'));
+        $this->setLocationAttributes($info);
         $this->setAvatarAttribute($info);
     }
 
@@ -66,5 +67,47 @@ class VkontakteAuth extends VKontakteOAuthService
             $this->attributes['email'] = $token->email;
         }
         parent::saveAccessToken($token);
+    }
+
+    protected function setLocationAttributes($info)
+    {
+        if (! isset($info->country)) {
+            return;
+        }
+
+        $countryTitle = strtr($info->country->title, ['Беларусь' => 'Белоруссия']);
+        $countryModel = GeoCountry::model()->findByAttributes(array('name' => $countryTitle));
+        if ($countryModel === null) {
+            return;
+        }
+        $this->attributes['country_id'] = $countryModel->id;
+
+        if (! isset($info->city)) {
+            return;
+        }
+
+        $cities = $this->makeSignedRequest('https://api.vk.com/method/places.getCities.json', array(
+            'query' => array(
+                'country_id' => $info->country->id,
+                'q' => $info->city->title,
+                'fields' => 'region',
+                'need_all' => 1,
+                'count' => 1000,
+            ),
+        ));
+        $city = null;
+        foreach ($cities->response as $_city) {
+            if ($_city->cid == $info->city->id) {
+                $city = $_city;
+                break;
+            }
+        }
+        if ($city) {
+            $citiesModels = GeoCity::model()->with('region')->findAllByAttributes(array('country_id' => $countryModel->id, 'name' => $info->city->title));
+            $cityModel = \site\frontend\modules\geo\helpers\GeoHelper::chooseCityByRegion($citiesModels, isset($city->region) ? $city->region : $info->city->title);
+            if ($cityModel) {
+                $this->attributes['city_id'] = $cityModel->id;
+            }
+        }
     }
 }

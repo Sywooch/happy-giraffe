@@ -292,7 +292,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
                 if ($action->id == 'createAnswer' || $action->id == 'removeAnswer' || $action->id == 'restoreAnswer')
                 {
-                    $count = $this->data->question->answersCount;
+                    $count = $this->data->question->getAnswersCount();
 
                     $response = [
                         'count'     => $count,

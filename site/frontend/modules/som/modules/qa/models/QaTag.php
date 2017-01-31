@@ -1,6 +1,7 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 
+use site\frontend\modules\som\modules\qa\controllers\DefaultController;
 use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
 
 /**
@@ -31,6 +32,20 @@ class QaTag extends \HActiveRecord implements \IHToJSON
     public function getTitle()
     {
         return (new Enum())->getTitleForWeb($this->name);
+    }
+
+    public function getUrl()
+    {
+        return \Yii::app()
+                    ->getUrlManager()
+                    ->createUrl(
+                        'som/qa/default/pediatrician',
+                        [
+                            'tab'   => DefaultController::TAB_NEW,
+                            'tagId' => $this->id
+                        ]
+                    )
+                ;
     }
 
     /**
@@ -131,10 +146,12 @@ class QaTag extends \HActiveRecord implements \IHToJSON
 
         $result = 0;
 
-        foreach ($map as $age => $name) {
-            if ($intAge < $age && $intAge > $result)
+        foreach (array_keys($map) as $age)
+        {
+            if ($intAge < $age)
             {
                 $result = $age;
+                break;
             }
         }
 

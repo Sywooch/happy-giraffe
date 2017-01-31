@@ -40,22 +40,25 @@ class Child extends FamilyMemberAbstract
              'tag' => NULL,
          ];
 
-        try {
+        try
+        {
             $data['childName']  = $this->name;
 
             $photoCollection = $this->photoCollection;
+
             if (is_object($photoCollection))
             {
                 $photo = $photoCollection->attaches[0];
 
                 if (is_object($photo))
                 {
-                    $data['imgUrl'] = $photo->getPreviewPhoto();
+                    $data['imgUrl'] = $photo->photo->getPreviewPhoto();
                 }
             }
-            $data['tag']        = $this->getViewDataInternal()->getAgeTag();
-        } catch (\Exception $e)
-        {}
+        }
+        catch (\Exception $e) {}
+
+        $data['tag'] = $this->getViewDataInternal()->getAgeTag();
 
         return $data;
     }

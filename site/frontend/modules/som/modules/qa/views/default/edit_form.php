@@ -11,7 +11,7 @@ $this->pageTitle = 'Редактировать вопрос';
 
 ?>
 
-<mp-question-form params='question: <?= CJSON::encode($question->toJSON()); ?>, tags: <?= CJSON::encode($tagsData); ?>, chieldId: <?= $question->attachedChild; ?>'>
+<mp-question-form params='question: <?= CJSON::encode($question->toJSON()); ?>, tags: <?= CJSON::encode($tagsData); ?>'>
 
 	<div class="preloader">
         <div class="preloader__inner">

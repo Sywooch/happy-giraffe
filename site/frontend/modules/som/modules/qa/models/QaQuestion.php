@@ -501,9 +501,9 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
 
         return [
             'id'        => (int) $this->id,
-            'title'     => $this->title,
+            'title'     => $this->purified->title,
             'url'       => $this->url,
-            'text'      => $this->text,
+            'text'      => $this->purified->text,
             'authorId'  => $this->authorId,
             'tagId'     => $this->tag_id,
             'tagUrl'    => $tag->getUrl(),

@@ -136,6 +136,12 @@ class DefaultController extends QaController
             'view'
         ];
 
+        /* костыль для старой верстки */
+        if (false !== mb_strpos(\Yii::app()->request->getPathInfo(), 'questions', 0, 'UTF-8'))
+        {
+            return parent::beforeAction($action);
+        }
+
         if (in_array($action->id, $newDesigneActions))
         {
             $this->layout       = '/layouts/pediatrician';

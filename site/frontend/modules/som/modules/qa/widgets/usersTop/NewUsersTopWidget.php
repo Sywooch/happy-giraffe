@@ -95,6 +95,11 @@ class NewUsersTopWidget extends UsersTopWidget
         $votesCount = $this->_getVotesCount($onlyUsers);
         $result = array_merge($answerCount, $votesCount);
 
+        if (empty($result))
+        {
+            return;
+        }
+
         foreach ($result as $item)
         {
             $this->scores[$item['userId']]['answers_count'] += 0;

@@ -167,8 +167,10 @@ class DefaultController extends QaController
 
             $isEditing = QaManager::isQuestionEditing($id);
 
+            $answersCount = $question->getAnswersCount();
+
             $this->layout = '/layouts/pediatrician';
-            $this->render('_view', compact('question', 'tab', 'category', 'answersTreeList', 'isEditing'));
+            $this->render('_view', compact('question', 'tab', 'category', 'answersTreeList', 'isEditing', 'answersCount'));
         }
         else
         {

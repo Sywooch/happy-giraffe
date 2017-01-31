@@ -12,29 +12,29 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
 <?php
 
-$breadcrumbs = [
-    'Главная' => ['/site/index'],
-    'Педиатр' => ['/som/qa/default/pediatrician'],
-];
+    $breadcrumbs = [
+        'Главная' => ['/site/index'],
+        'Педиатр' => ['/som/qa/default/pediatrician'],
+    ];
 
-$tag = $question->tag;
+    $tag = $question->tag;
 
-if (!is_null($question->attachedChild)) {
-    $arrFooterData = $question->attChild->getAnswerFooterData();
-    $tag = $arrFooterData['tag'];
-}
+    if (!is_null($question->attachedChild)) {
+        $arrFooterData = $question->attChild->getAnswerFooterData();
+        $tag = $arrFooterData['tag'];
+    }
 
-$breadcrumbs[$tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id]);
-$breadcrumbs[] = CHtml::encode($question->title);
+    $breadcrumbs[$tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id]);
+    $breadcrumbs[] = CHtml::encode($question->title);
 
-\Yii::app()->clientScript->registerAMD(
-    'Realplexor-reg',
-    [
-        'common',
-        'comet'
-    ],
-    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . QaManager::getQuestionChannelId($question->id) . '\');'
-);
+    \Yii::app()->clientScript->registerAMD(
+        'Realplexor-reg',
+        [
+            'common',
+            'comet'
+        ],
+        'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . QaManager::getQuestionChannelId($question->id) . '\');'
+    );
 
 ?>
 
@@ -101,12 +101,12 @@ $breadcrumbs[] = CHtml::encode($question->title);
 
                         <!-- ko stopBinding: true -->
 
-                        <mp-answers-count-widget params="count: <?= $question->answersCount ?>, countText: '<?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount); ?>'">
+                        <mp-answers-count-widget params="count: <?= $answersCount ?>, countText: '<?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $answersCount); ?>'">
 
                             <div class="b-question-wrapper__item">
                                 <div class="b-open-question__quant b-open-quant">
-                                    <span class="b-open-quant__num"><?= $question->answersCount ?></span>
-                                    <span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $question->answersCount) ?></span>
+                                    <span class="b-open-quant__num"><?= $answersCount ?></span>
+                                    <span class="b-open-quant__sub"><?= Yii::t('app', 'ответ|ответа|ответов|ответа', $answersCount) ?></span>
                                 </div>
                             </div>
 

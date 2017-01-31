@@ -650,6 +650,25 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     }
 
     /**
+     * Кол-во ответов к вопросу в сервисе МП
+     *
+     * Исключаются все ответы и уточняющие вопросы врачу от автора вопроса
+     *
+     * @return integer
+     */
+    public function getAnswersCount()
+    {
+       return QaAnswer::model()->count(
+            'authorId != :authorId AND questionId = :questionId AND isRemoved = :isRemoved',
+            [
+                'authorId'      => $this->authorId,
+                'questionId'    => $this->id,
+                'isRemoved'     => QaQuestion::NOT_REMOVED
+            ]
+        );
+    }
+
+    /**
      * Отправляем ответ на comet-канал для уведовления подписчиков об удалении вопроса
      *
      * @author Sergey Gubarev

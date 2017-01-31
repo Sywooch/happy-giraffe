@@ -43,10 +43,10 @@
 		   <?php }?>
         </div>
         <div class="b-answer__right">
-        	<?php if ($data->answersCount > 0):?>
+        	<?php if ($data->getAnswersCount() > 0):?>
             	<a href="<?=$data->url?>" class="b-answer-footer__box b-answer-footer__box--blue">
-            		<span class="b-answer-footer__num"><?=$data->answersCount?></span>
-            		<span class="b-answer-footer__text b-answer-footer__text--grey"><?=\Yii::t('app', 'ответ|ответа|ответов|ответа', $data->answersCount)?></span>
+            		<span class="b-answer-footer__num"><?= $data->getAnswersCount(); ?></span>
+            		<span class="b-answer-footer__text b-answer-footer__text--grey"><?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $data->getAnswersCount()); ?></span>
         		</a>
     		<?php else: ?>
             	<a href="<?=$data->url?>" class="b-answer-footer__box b-answer-footer__box--green">

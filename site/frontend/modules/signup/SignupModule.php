@@ -14,7 +14,6 @@ class SignupModule extends CWebModule
 			'signup.models.*',
 			'signup.components.*',
             'signup.widgets.*',
-            'signup.widgets.RegisterWidget',
 		));
 	}
 

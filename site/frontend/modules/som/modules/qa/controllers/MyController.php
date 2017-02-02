@@ -61,7 +61,7 @@ class MyController extends QaController
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',
-                'pageSize' => 4,
+                'pageSize' => 10,
             ),
         ));
         $this->render('content', compact('dp', 'categoryId'));

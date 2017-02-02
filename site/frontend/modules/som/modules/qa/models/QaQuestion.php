@@ -71,11 +71,6 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     /**
      * @var boolean
      */
-    public $usePurifiedCache = TRUE;
-
-    /**
-     * @var boolean
-     */
     public $sendNotifications = true;
 
     /**
@@ -506,6 +501,8 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         {
             $tag = $this->tag;
         }
+
+        $this->purified->useCache = FALSE;
 
         return [
             'id'        => (int) $this->id,

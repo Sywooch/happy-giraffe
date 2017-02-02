@@ -48,7 +48,7 @@ class Child extends FamilyMemberAbstract
 
             if (is_object($photoCollection))
             {
-                $photo = $photoCollection->attaches[0];
+                $photo = isset($photoCollection->attaches[0]) ? $photoCollection->attaches[0] : NULL;
 
                 if (is_object($photo))
                 {

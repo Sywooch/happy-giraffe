@@ -68,6 +68,14 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      */
     const COMET_CHANNEL_ID_EDITED_PREFIX = '_edited';
 
+    /**
+     * @var boolean
+     */
+    public $usePurifiedCache = TRUE;
+
+    /**
+     * @var boolean
+     */
     public $sendNotifications = true;
 
     /**
@@ -659,11 +667,12 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function getAnswersCount()
     {
        return QaAnswer::model()->count(
-            'authorId != :authorId AND questionId = :questionId AND isRemoved = :isRemoved',
+            'authorId != :authorId AND questionId = :questionId AND isRemoved = :isRemoved AND isPublished = :isPublished',
             [
                 'authorId'      => $this->authorId,
                 'questionId'    => $this->id,
-                'isRemoved'     => QaQuestion::NOT_REMOVED
+                'isRemoved'     => QaQuestion::NOT_REMOVED,
+                'isPublished'   => QaAnswer::PUBLISHED
             ]
         );
     }

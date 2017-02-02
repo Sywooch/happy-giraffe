@@ -16,7 +16,7 @@
             	<a href="<?=$data->url?>" class="b-answer-body__link b-title--h7 b-text--link-color b-title--bold"><?=strip_tags($data->title)?></a>
                 <p class="b-answer-body__text"><?=strip_tags($data->text)?></p>
             </div>
-            <?php if (!is_null($data->tag)): ?>
+            <?php if (!is_null($data->tag) && is_null($data->attachedChild)): ?>
                 <div class="b-answer__footer b-answer-footer">
                 	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->tag->getTitle()?></a>
                 </div>

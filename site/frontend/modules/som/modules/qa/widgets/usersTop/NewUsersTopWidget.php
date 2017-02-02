@@ -95,10 +95,24 @@ class NewUsersTopWidget extends UsersTopWidget
         $votesCount = $this->_getVotesCount($onlyUsers);
         $result = array_merge($answerCount, $votesCount);
 
+        if (empty($result))
+        {
+            return;
+        }
+
         foreach ($result as $item)
         {
-            $this->scores[$item['userId']]['answers_count'] += 0;
-            $this->scores[$item['userId']]['votes_count'] += 0;
+            if (array_key_exists($item['userId'], $this->scores))
+            {
+                $this->scores[$item['userId']]['total_count'] += $item['count'];
+            }
+            else
+            {
+                $this->scores[$item['userId']]['total_count'] = (int)$item['count'];
+                $this->scores[$item['userId']]['answers_count'] = 0;
+                $this->scores[$item['userId']]['votes_count'] = 0;
+
+            }
 
             if ($item['type'] == 'answer')
             {
@@ -110,13 +124,6 @@ class NewUsersTopWidget extends UsersTopWidget
                 $this->scores[$item['userId']]['votes_count'] += $item['count'];
             }
 
-            if (array_key_exists($item['userId'], $this->scores))
-            {
-                $this->scores[$item['userId']]['total_count'] += $item['count'];
-                continue;
-            }
-
-            $this->scores[$item['userId']]['total_count'] = (int)$item['count'];
         }
 
 

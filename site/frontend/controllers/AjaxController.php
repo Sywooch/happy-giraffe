@@ -471,18 +471,6 @@ class AjaxController extends HController
         }
     }
 
-    public function actionDuelVote()
-    {
-        if (Yii::app()->request->isAjaxRequest && !Yii::app()->user->isGuest) {
-            $id = Yii::app()->request->getPost('id');
-            $model = DuelAnswer::model()->findByPk($id);
-            $model->vote(Yii::app()->user->id, 1);
-            echo true;
-        } else {
-            echo false;
-        }
-    }
-
     public function actionInterestsForm()
     {
         Yii::import('site.common.models.interest.*');
@@ -576,51 +564,6 @@ class AjaxController extends HController
                 break;
         }
         $this->renderPartial($view, $data);
-    }
-
-    public function actionDuelForm()
-    {
-        $questions = DuelQuestion::getAvailable(Yii::app()->user->id);
-        $answer = new DuelAnswer;
-        $answer->text = 'Блесните знаниями!';
-        $this->renderPartial('duel', compact('questions', 'answer'));
-    }
-
-    public function actionDuelSubmit()
-    {
-        if ($_POST['DuelAnswer']) {
-            $answer = new DuelAnswer;
-            $answer->attributes = $_POST['DuelAnswer'];
-            $answer->user_id = Yii::app()->user->id;
-            if ($answer->save()) {
-                $question = $answer->getRelated('question', false, array(
-                    'with' => 'answers.user',
-                ));
-                if (count($question->answers) == 2) {
-                    UserAction::model()->add($question->answers[0]->user_id, UserAction::USER_ACTION_DUEL, array('model' => $question));
-                    UserAction::model()->add($question->answers[1]->user_id, UserAction::USER_ACTION_DUEL, array('model' => $question));
-                    $question->ends = new CDbExpression('NOW() + INTERVAL 3 DAY');
-                    if ($question->save())
-                        Yii::app()->cache->set('activityLastUpdated', time());
-                }
-                $response = array(
-                    'status' => true,
-                    'html' => $this->renderPartial('duel_submit', compact('question'), true),
-                );
-            } else {
-                $response = array(
-                    'status' => false,
-                    'error' => $answer->errors,
-                );
-            }
-            echo CJSON::encode($response);
-        }
-    }
-
-    public function actionDuelShow($question_id)
-    {
-        $question = DuelQuestion::model()->with('answers.user')->findByPk($question_id);
-        $this->renderPartial('duel_show', compact('question'));
     }
 
     public function actionEditMeta($route = null, $params = null)

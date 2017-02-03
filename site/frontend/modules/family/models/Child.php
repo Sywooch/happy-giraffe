@@ -38,6 +38,7 @@ class Child extends FamilyMemberAbstract
              'childName' => 'Без имени',
              'imgUrl' => '#',
              'tag' => NULL,
+             'css' => $this->getViewDataInternal()->getCssClass(),
          ];
 
         try

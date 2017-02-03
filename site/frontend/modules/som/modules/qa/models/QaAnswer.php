@@ -478,6 +478,19 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    public function descendantsCount($forMe = FALSE)
+    {
+        $user = \Yii::app()->user;
+        $condition = '';
+
+        if (!$user->isGuest && $forMe)
+        {
+            $condition = 'authorId=' . \Yii::app()->user->id;
+        }
+
+        return $this->descendants()->count($condition);
+    }
+
     /**
      * @return QaAnswer
      */

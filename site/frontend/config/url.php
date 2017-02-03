@@ -121,6 +121,8 @@ return array(
         // поиск
         'questions/search/page<page:\d+>' => 'som/qa/default/search',
         'questions/search' => 'som/qa/default/search',
+        'mypediatrician/search/page<page:\d+>' => 'som/qa/default/pediatricianSearch',
+        'mypediatrician/search' => 'som/qa/default/pediatricianSearch',
 
         // мои вопросы-ответы
         'questions/my/answers/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/answers',

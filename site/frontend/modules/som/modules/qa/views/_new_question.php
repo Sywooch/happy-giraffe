@@ -29,8 +29,12 @@
         	   <?php if (!\Yii::app()->user->isGuest && $data->author->id == \Yii::app()->user->id) { ?>
     			<div class="b-answer__footer b-answer-footer">
     				<a href="javascript:void(0);" class="ava-pediator">
-    					<span class="ava ava--style ava--small ava--medium_male">
-    						<img src="<?=$arrFooterData['imgUrl']?>" class="ava__img-box">
+						<span class="ava ava--style ava--small ava--medium_male">
+        					<?php if ($arrFooterData['imgUrl'] == '#') {?>
+            					<span class="<?=$arrFooterData['css']?>"></span>
+        					<?php } else { ?>
+        						<img src="<?=$arrFooterData['imgUrl']?>" class="ava__img-box">
+        					<?php } ?>
     					</span>
     					<span class="ava-pediator__sub"><?=$arrFooterData['childName']?></span>
     				</a>
@@ -46,7 +50,7 @@
         	<?php if ($data->getAnswersCount() > 0):?>
             	<a href="<?=$data->url?>" class="b-answer-footer__box b-answer-footer__box--blue">
             		<span class="b-answer-footer__num"><?= $data->getAnswersCount(); ?></span>
-            		<span class="b-answer-footer__text b-answer-footer__text--grey"><?= \Yii::t('app', 'ответ|ответа|ответов|ответа', $data->getAnswersCount()); ?></span>
+            		<span class="b-answer-footer__text b-answer-footer__text--grey"><?=\Yii::t('app', 'ответ|ответа|ответов|ответа', $data->getAnswersCount())?></span>
         		</a>
     		<?php else: ?>
             	<a href="<?=$data->url?>" class="b-answer-footer__box b-answer-footer__box--green">

@@ -130,7 +130,7 @@ class DefaultController extends QaController
     {
         $newDesigneActions = [
             'pediatrician',
-            'search',
+            'pediatricianSearch',
             'pediatricianAddForm',
             'pediatricianEditForm',
             'view'
@@ -195,6 +195,26 @@ class DefaultController extends QaController
                 'from' => 'qa',
                 'orders' => 'dtimecreate DESC',
                 'filters' => ['categoryid' => $categoryId],
+            ],
+            'pagination' => [
+                'pageVar' => 'page',
+            ],
+        ]);
+
+        $this->render('_search', compact('dp', 'query', 'categoryId'));
+    }
+
+    public function actionPediatricianSearch($query = '')
+    {
+        $this->layout       = '/layouts/search_pediatrician';
+
+        $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category')->orderDesc(), [
+            'sphinxCriteria' => [
+                'select' => '*',
+                'query' => $query,
+                'from' => 'qa',
+                'orders' => 'dtimecreate DESC',
+                'filters' => ['categoryid' => QaCategory::PEDIATRICIAN_ID],
             ],
             'pagination' => [
                 'pageVar' => 'page',

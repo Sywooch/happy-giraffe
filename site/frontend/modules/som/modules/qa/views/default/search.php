@@ -6,10 +6,10 @@
 $this->sidebar = array('ask', 'personal');
 // $this->sidebar = array('ask', 'personal', 'menu_search' => compact('query', 'categoryId'));
 $this->pageTitle = 'Результаты поиска';
-$this->breadcrumbs = array(
+$this->breadcrumbs = [
     'Ответы' => array('/som/qa/default/index'),
     'Результаты поиска',
-);
+];
 ?>
 
 

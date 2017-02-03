@@ -7,6 +7,7 @@ $this->pageTitle = 'Результаты поиска';
 
 $breadcrumbs = [
     'Главная' => ['/site/index'],
+    'Мой педиатр' => [$this->createUrl('/mypediatrician')],
     'Результаты поиска'
 ];
 

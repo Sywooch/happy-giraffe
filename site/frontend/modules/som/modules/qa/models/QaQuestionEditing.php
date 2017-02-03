@@ -44,7 +44,6 @@ class QaQuestionEditing extends \EMongoDocument
         $channelId = QaManager::getQuestionChannelId($this->questionId);
 
         $question = QaManager::getQuestion($this->questionId);
-        $question->usePurifiedCache = FALSE;
 
         (new \CometModel())->send($channelId, $question->toJSON(), \CometModel::MP_QUESTION_FINISH_EDITED_BY_OWNER);
 

@@ -55,7 +55,15 @@
                     <div class="header-question__title"><?= $title; ?></div>
                 </div>
                 <div class="header-question__item header-question__item--close">
-                    <a href="<?= $this->createUrl('/som/qa/default/pediatrician') ?>" type="button" class="header-question__close"></a>
+                	<?php
+                	   $redirectUrl = \Yii::app()->request->urlReferrer;
+
+                	   if (is_null($redirectUrl))
+                	   {
+                	       $redirectUrl = $this->createUrl('/som/qa/default/pediatrician');
+                	   }
+                	?>
+                    <a href="<?=$redirectUrl?>" type="button" class="header-question__close"></a>
                 </div>
             </header>
             <main class="b-main">

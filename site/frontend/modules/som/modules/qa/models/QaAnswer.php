@@ -535,7 +535,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'canVote'                           => \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $this)),
             'isVoted'                           => !empty($isVoted),
             'question'                          => $this->question->toJSON(),
-            'countUserAnswersByPediatrician'    => QaManager::getCountAnswersByUser($this->authorId),
             'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id),
             'isAdditional'                      => $this->isAdditional(),
             'isAnswerToAdditional'              => $this->isAnswerToAdditional()

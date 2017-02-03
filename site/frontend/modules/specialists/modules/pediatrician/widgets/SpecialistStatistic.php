@@ -42,13 +42,13 @@ class SpecialistStatistic extends \CWidget
 
         $arrData = QaManager::getAnswerCountAndVotes($user->getId());
 
-        if (!is_array($arrData) || !array_key_exists('count', $arrData) || !array_key_exists('sumVotes', $arrData))
+        if (is_null($arrData))
         {
             return;
         }
 
-        $this->_answerCount = $arrData['count'];
-        $this->_votesCount  = $arrData['sumVotes'];
+        $this->_answerCount = $arrData['answers_count'];
+        $this->_votesCount  = $arrData['votes_count'];
     }
 
     /**

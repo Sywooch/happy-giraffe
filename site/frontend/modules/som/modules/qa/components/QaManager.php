@@ -126,7 +126,7 @@ SQL;
      * @param integer $userId ID пользователя
      * @return integer
      */
-    public static function getCountAnswersByUser($userId)
+    /*public static function getCountAnswersByUser($userId)
     {
         return QaAnswer::model()
                     ->with('question')
@@ -140,7 +140,7 @@ SQL;
                         ]
                     )
                 ;
-    }
+    }*/
 
     /**
      * Получить дерево ответов к вопросу

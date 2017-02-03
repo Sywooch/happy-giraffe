@@ -4,6 +4,7 @@ namespace site\frontend\modules\specialists\modules\pediatrician\components;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaRating;
 
 /**
  * @author Никита
@@ -40,18 +41,21 @@ class QaManager
         ]) > 0;
     }
 
+    /**
+     * Получить кол-во ответов и "спасибо" по юзеру
+     *
+     * @param $userId ID юзера
+     * @return array|null
+     */
     public static function getAnswerCountAndVotes($userId)
     {
-        $answerTableName = QaAnswer::model()->tableName();
-        $questionsTableName = QaQuestion::model()->tableName();
-         return \Yii::app()->db->createCommand()
-            ->select('COUNT(DISTINCT ' . $questionsTableName . '.authorId) AS count, SUM(votesCount) AS sumVotes')
-            ->from($answerTableName)
-            ->leftJoin($questionsTableName, $answerTableName . '.questionId = ' . $questionsTableName . '.id AND ' . $questionsTableName . '.isRemoved = 0')
-            ->where($answerTableName . '.authorId=' . $userId)
-            ->andWhere($answerTableName . '.isRemoved=0')
-            ->queryRow()
-        ;
+        $rating = QaRating::model()
+                    ->byCategory(QaCategory::PEDIATRICIAN_ID)
+                    ->byUser($userId)
+                    ->find()
+                ;
+
+        return !is_null($rating) ? $rating->toJSON() : null;
     }
 
     /**

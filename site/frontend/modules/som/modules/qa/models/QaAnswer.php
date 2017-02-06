@@ -517,6 +517,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
         $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
 
+        $user = \Yii::app()->user;
+
+        if ((!$user->isGuest && !$user->model->isSpecialist) || $this->isPublished)
+        {
+            $status = FALSE;
+        }
+
         return compact('status', 'diffMins');
     }
 

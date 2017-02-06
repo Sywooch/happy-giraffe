@@ -221,7 +221,7 @@ class DefaultController extends QaController
             ],
         ]);
 
-        $this->render('new_search', compact('dp', 'query', 'categoryId'));
+        $this->render('new_search', compact('dp', 'query'));
     }
 
     protected function getDataProvider($tab, $categoryId, $tagId = null)

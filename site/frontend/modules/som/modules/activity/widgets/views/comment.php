@@ -2,11 +2,10 @@
 
 use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
 
-// @todo Sergey Gubarev: Нужна обертка для получения данных из Activity модели
-
-// $contentAuthor = $widget->getUserInfo($data->dataArray['content']['authorId']);
-
 $dataArray = $data->getActivityData(true);
+
+// @todo Sergey Gubarev: Нужна обертка для получения данных из Activity модели
+$contentAuthor = $widget->getUserInfo($data->dataArray['content']['authorId']);
 
 ?>
 

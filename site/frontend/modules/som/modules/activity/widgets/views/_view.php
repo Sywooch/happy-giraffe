@@ -19,8 +19,8 @@ else
     switch ($data->typeId) {
         case Activity::TYPE_ANSWER_PEDIATRICIAN:
         case Activity::TYPE_COMMENT:
-            $answerModel = unserialize($data->data);
-            
+            $answerModel = @unserialize($data->data);
+
             if ($answerModel) {
                 $renderData = [
                     'data' => $answerModel

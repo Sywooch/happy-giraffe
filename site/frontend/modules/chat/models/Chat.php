@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\chat\models;
+use site\frontend\modules\chat\values\ChatTypes;
 
 /**
  * @property int $id
@@ -29,7 +30,7 @@ class Chat extends \HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-
+            ['type', 'in', 'range' => ChatTypes::$types],
         ];
     }
 
@@ -51,7 +52,6 @@ class Chat extends \HActiveRecord
             'HTimestampBehavior' => [
                 'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created_at',
-//                'updateAttribute' => 'dtimeUpdate',
             ],
         ];
     }

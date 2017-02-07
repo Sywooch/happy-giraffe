@@ -251,7 +251,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
                 WHERE
                     qa__a.isPublished = %d
                     AND
-                    qa__q.categoryId = %d
+                    qa__q.categoryId != %d
                     AND
                     qa__q.isRemoved = %d
             ',
@@ -263,13 +263,15 @@ class Activity extends \HActiveRecord implements \IHToJSON
             QaQuestion::NOT_REMOVED
         );
 
+
+
         $cmdForAnswers = \Yii::app()->getDb()->createCommand($sqlForAnswers);
         $answersHashList = $cmdForAnswers->queryColumn();
 
         $this
             ->getDbCriteria()
             ->compare('typeId', '<>' . static::TYPE_ANSWER_PEDIATRICIAN)
-            ->addNotInCondition('hash', $answersHashList)
+            ->addInCondition('hash', $answersHashList)
         ;
 
         return $this;
@@ -301,6 +303,11 @@ class Activity extends \HActiveRecord implements \IHToJSON
         $cmdForQuestions = \Yii::app()->getDb()->createCommand($sqlForQuestions);
         $questionsHashList = $cmdForQuestions->queryColumn();
 
+        if (count($questionsHashList) < 1)
+        {
+            return $this;
+        }
+
         $this
             ->getDbCriteria()
             ->addInCondition('hash', $questionsHashList)
@@ -323,7 +330,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     public function getActivityData($jsonFormat = false)
     {
-        $model = unserialize($this->data);
+        $model = @unserialize($this->data);
 
         if (! $model)
         {

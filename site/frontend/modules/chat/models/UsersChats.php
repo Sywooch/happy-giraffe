@@ -5,6 +5,9 @@ namespace site\frontend\modules\chat\models;
 /**
  * @property int $user_id
  * @property int $chat_id
+ *
+ * @property \User $user
+ * @property \site\frontend\modules\chat\models\Chat $chat
  */
 class UsersChats extends \HActiveRecord
 {
@@ -36,6 +39,8 @@ class UsersChats extends \HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return [
+            'user' => [self::HAS_ONE, 'User', 'user_id'],
+            'chat' => [self::HAS_ONE, 'site\frontend\modules\chat\models\Chat', 'chat_id'],
         ];
     }
 

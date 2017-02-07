@@ -8,6 +8,8 @@ namespace site\frontend\modules\chat\models;
  * @property int $expires_in
  * @property int $limit
  * @property int $type
+ *
+ * @property \User[] $users
  */
 class Chat extends \HActiveRecord
 {
@@ -96,7 +98,9 @@ class Chat extends \HActiveRecord
      */
     public function aliveOnly()
     {
-        $this->getDbCriteria()->addCondition("{$this->getTableAlias()}.expires_in < NOW()");
+        $alias = $this->getTableAlias();
+
+        $this->getDbCriteria()->addCondition("({$alias}.expires_in is not null and {$alias}.expires_in < NOW()) or ({$alias}.limit > 0)");
         
         return $this;
     }
@@ -106,7 +110,21 @@ class Chat extends \HActiveRecord
      */
     public function deadOnly()
     {
-        $this->getDbCriteria()->addCondition("{$this->getTableAlias()}.expires_in >= NOW()");
+        $alias = $this->getTableAlias();
+
+        $this->getDbCriteria()->addCondition("({$alias}.expires_in is not null and {$alias}.expires_in >= NOW()) or ({$alias}.limit = 0)");
+
+        return $this;
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return Chat
+     */
+    public function byUser($userId)
+    {
+        $this->getDbCriteria()->addCondition("exists(select user_id from users_chats as uc where uc.user_id = {$userId} limit 1)");
 
         return $this;
     }

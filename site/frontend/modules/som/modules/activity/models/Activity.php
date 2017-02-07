@@ -196,10 +196,10 @@ class Activity extends \HActiveRecord implements \IHToJSON
         $criteria = $this->getDbCriteria();
         $criteria->condition = '
             t.id IN (
-                    SELECT id 
+                    SELECT id
                     FROM (
-                        SELECT * 
-                        FROM ' . Activity::model()->tableName() . ' 
+                        SELECT *
+                        FROM ' . Activity::model()->tableName() . '
                         WHERE typeId <> "' . static::TYPE_STATUS . '"
                     ) t2
                     WHERE
@@ -293,7 +293,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
               FROM ' . QaQuestion::model()->tableName() . '
               WHERE
                   ' . $sqlAuthorCondition . '
-                  categoryId = ' . QaCategory::PEDIATRICIAN_ID . '
+                  categoryId != ' . QaCategory::PEDIATRICIAN_ID . '
                   AND
                   isRemoved = ' . QaQuestion::NOT_REMOVED
         ;
@@ -303,7 +303,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
         $this
             ->getDbCriteria()
-            ->addNotInCondition('hash', $questionsHashList)
+            ->addInCondition('hash', $questionsHashList)
         ;
 
         return $this;

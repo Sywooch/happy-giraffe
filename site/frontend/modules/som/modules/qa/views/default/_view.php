@@ -14,7 +14,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
     $breadcrumbs = [
         'Главная' => ['/site/index'],
-        'Педиатр' => ['/som/qa/default/pediatrician'],
+        'Мой педиатр' => ['/som/qa/default/pediatrician'],
     ];
 
     $tag = $question->tag;

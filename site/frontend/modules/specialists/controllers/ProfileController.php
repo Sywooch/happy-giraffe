@@ -19,7 +19,7 @@ class ProfileController extends \LiteController
     public function actionIndex($userId)
     {
         $this->loadUser($userId);
-        $dp = QaManager::getAnswersDp($userId);
+        $dp = QaManager::getAnswersDp($userId, TRUE);
         $dp->pagination->pageVar = 'page';
         $this->render('index', compact('dp'));
     }

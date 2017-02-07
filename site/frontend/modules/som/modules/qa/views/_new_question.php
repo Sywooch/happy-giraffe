@@ -29,9 +29,9 @@
         	   <?php if (!\Yii::app()->user->isGuest && $data->author->id == \Yii::app()->user->id) { ?>
     			<div class="b-answer__footer b-answer-footer">
     				<a href="javascript:void(0);" class="ava-pediator">
-						<span class="ava ava--style ava--small ava--medium_male">
+						<span class="ava--style ava--small ava--medium_male">
         					<?php if ($arrFooterData['imgUrl'] == '#') {?>
-            					<span class="<?=$arrFooterData['css']?>"></span>
+            					<span class="icon-family icon-family--small icon-family--<?=$arrFooterData['css']?>"></span>
         					<?php } else { ?>
         						<img src="<?=$arrFooterData['imgUrl']?>" class="ava__img-box">
         					<?php } ?>

@@ -26,10 +26,10 @@ class QaManager
         return QaQuestion::model()->count(self::getQuestionsCriteria($userId));
     }
 
-    public static function getAnswersDp($userId = null)
+    public static function getAnswersDp($userId = null, $onlyPublished = FALSE)
     {
         return new \CActiveDataProvider(QaAnswer::model()->orderDesc()->apiWith('user'), [
-            'criteria' => self::getAnswersCriteria($userId),
+            'criteria' => self::getAnswersCriteria($userId, $onlyPublished),
         ]);
     }
 
@@ -70,20 +70,21 @@ class QaManager
         return QaQuestion::model()->find($criteria);
     }
 
-    public static function getAnswersCriteria($userId = null)
+    public static function getAnswersCriteria($userId = null, $onlyPublished = FALSE)
     {
         $criteria = new \CDbCriteria();
         $criteria->scopes = ['category' => [self::getCategoryId()], 'checkQuestionExiststance'];
         $criteria->with = 'question';
         $criteria->addCondition('t.authorId IN (SELECT id FROM specialists__profiles)');
 
-        if ($userId) {
+        if ($userId)
+        {
              $criteria->compare('t.authorId', $userId);
         }
-        else {
-            $time = time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
 
-            $criteria->addCondition('t.dtimeCreate <= '. $time);
+        if (is_null($userId) || $onlyPublished)
+        {
+            $criteria->addCondition('t.isPublished=' . QaAnswer::PUBLISHED);
         }
 
         return $criteria;

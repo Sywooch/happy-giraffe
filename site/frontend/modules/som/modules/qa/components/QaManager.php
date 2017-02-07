@@ -198,7 +198,13 @@ SQL;
     {
         return QaAnswer::model()
                     ->descendantsOf($id)
-                    ->findAll()
+                    ->findAll(
+                        'isRemoved = :isRemoved AND isPublished = :isPublished',
+                        [
+                            ':isRemoved'    => QaAnswer::NOT_REMOVED,
+                            ':isPublished'  => QaAnswer::PUBLISHED
+                        ]
+                    )
                 ;
     }
 

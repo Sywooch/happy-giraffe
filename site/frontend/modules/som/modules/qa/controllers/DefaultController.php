@@ -201,7 +201,7 @@ class DefaultController extends QaController
             ],
         ]);
 
-        $this->render('_search', compact('dp', 'query', 'categoryId'));
+        $this->render('search', compact('dp', 'query', 'categoryId'));
     }
 
     public function actionPediatricianSearch($query = '')
@@ -214,7 +214,7 @@ class DefaultController extends QaController
                 'query' => $query,
                 'from' => 'qa',
                 'orders' => 'dtimecreate DESC',
-                'filters' => ['categoryid' => QaCategory::PEDIATRICIAN_ID],
+                'filters' => ['categoryid' => (string)QaCategory::PEDIATRICIAN_ID],
             ],
             'pagination' => [
                 'pageVar' => 'page',

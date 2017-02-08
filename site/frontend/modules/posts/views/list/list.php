@@ -10,6 +10,13 @@ $this->breadcrumbs = array(
 $this->adaptiveBreadcrumbs = true;
 ?>
 
+<div class="notice-header clearfix notice-header--dialog">
+    <div class="notice-header__item notice-header__item--left">
+        <div class="notice-header__title">Блог</div>
+    </div>
+    <div class="notice-header__item notice-header__item--right"><a href="javascript:history.back();" class="notice-header__ico-close i-close i-close--sm"></a></div>
+</div>
+
 <?php $this->widget('site\frontend\modules\userProfile\widgets\UserSectionWidget', array('user' => $this->owner)); ?>
 
 <div class="b-main_cont">

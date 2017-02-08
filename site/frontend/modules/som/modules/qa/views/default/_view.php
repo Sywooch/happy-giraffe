@@ -165,40 +165,51 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
                 </div>
 
-                <?php if (\Yii::app()->user->isGuest || $question->canBeAnsweredBy(\Yii::app()->user->id)): ?>
+                <?php if (\Yii::app()->user->isGuest): ?>
 
-                <div id="js-question-reply-form" class="b-redactor">
-                    <!-- ko if: isFormEnabled() -->
-                    <div class="b-redactor__action">
-                        <textarea
-                            id="js--redactor__textarea"
-                            placeholder="Введите ваш ответ"
-                            class="b-redactor__textarea"
-                            data-bind="wswgHG: { config: {
-                                    minHeight: 140,
-                                    plugins: ['text', 'imageCustom', 'smilesModal'],
-                                    toolbarExternal: '.redactor-post-toolbar',
-                                    placeholder: 'Введите ваш ответ',
-                                    focus: true,
-                                    callbacks: {
-
-                                    }
-                                }, attr: text }"
-                        >
-                        </textarea>
-                    </div>
-                    <div class="b-redactor__footer b-redactor-footer b-redactor-footer--theme-small">
-                        <div class="b-redactor-footer__item">
-                            <div class="redactor-post-toolbar"></div>
+                    <div class="comments_add">
+                        <div class="comments_add-hold"> Комментировать от
+                            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'comments')); ?>
+                            или
+                            <a href="#" class="comments_add-a login-button" data-bind="follow: {}">Войти</a>
                         </div>
-                        <div class="b-redactor-footer__item">
-                            <button type="button" class="btn btn--blue btn--sm" data-bind="css: {'disabled': isSubmitDisabled()},click: addAnswerToQuestion">Ответить</button>
-                        </div>
+                        <div class="comments_add-editor display-n"></div>
                     </div>
-                    <!-- /ko -->
-                </div>
 
-                <?php
+                <?php elseif ($question->canBeAnsweredBy(\Yii::app()->user->id)): ?>
+
+                    <div id="js-question-reply-form" class="b-redactor">
+                        <!-- ko if: isFormEnabled() -->
+                        <div class="b-redactor__action">
+                            <textarea
+                                id="js--redactor__textarea"
+                                placeholder="Введите ваш ответ"
+                                class="b-redactor__textarea"
+                                data-bind="wswgHG: { config: {
+                                        minHeight: 140,
+                                        plugins: ['text', 'imageCustom', 'smilesModal'],
+                                        toolbarExternal: '.redactor-post-toolbar',
+                                        placeholder: 'Введите ваш ответ',
+                                        focus: true,
+                                        callbacks: {
+
+                                        }
+                                    }, attr: text }"
+                            >
+                            </textarea>
+                        </div>
+                        <div class="b-redactor__footer b-redactor-footer b-redactor-footer--theme-small">
+                            <div class="b-redactor-footer__item">
+                                <div class="redactor-post-toolbar"></div>
+                            </div>
+                            <div class="b-redactor-footer__item">
+                                <button type="button" class="btn btn--blue btn--sm" data-bind="css: {'disabled': isSubmitDisabled()},click: addAnswerToQuestion">Ответить</button>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+
+                    <?php
                     $params = [
                         'questionId'    => $question->id,
                         'isEditing'     => $isEditing
@@ -212,12 +223,12 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
                             'ko_library'        => 'ko_library'
                         ],
                         '
-                            ko.applyBindings(new QuestionReplyForm(' . CJSON::encode($params) . '),
-                            document.getElementById("js-question-reply-form"));
-                        '
+                                ko.applyBindings(new QuestionReplyForm(' . CJSON::encode($params) . '),
+                                document.getElementById("js-question-reply-form"));
+                            '
                     );
 
-                ?>
+                    ?>
 
                 <?php endif; ?>
 

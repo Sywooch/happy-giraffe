@@ -112,7 +112,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         return [
             ['title', 'required'],
             ['title', 'length', 'max' => 150],
-            ['text', 'length', 'max' => 1000],
+            ['text', 'length', 'max' => 20000],
             ['sendNotifications', 'boolean'],
 
             // категория

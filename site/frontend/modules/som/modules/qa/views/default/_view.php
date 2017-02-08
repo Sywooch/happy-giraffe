@@ -167,14 +167,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
                 <?php if (\Yii::app()->user->isGuest): ?>
 
-                    <div class="comments_add">
-                        <div class="comments_add-hold"> Комментировать от
-                            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'comments')); ?>
-                            или
-                            <a href="#" class="comments_add-a login-button" data-bind="follow: {}">Войти</a>
-                        </div>
-                        <div class="comments_add-editor display-n"></div>
-                    </div>
+                    <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', ['view' => 'comments_new']); ?>
 
                 <?php elseif ($question->canBeAnsweredBy(\Yii::app()->user->id)): ?>
 

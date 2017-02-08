@@ -328,23 +328,16 @@ class Activity extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
-    public function getActivityData($jsonFormat = false)
+    public function getDataObject()
     {
         $model = @unserialize($this->data);
 
-        if (! $model)
+        if (!$model)
         {
-            return $this->dataArray;
+            return;
         }
 
-        switch ($this->typeId)
-        {
-            case static::TYPE_COMMENT:
-                /*var_dump(get_class($model));
-                var_dump($model->behaviors());
-                var_dump($model->QaBehavior);*/
-                break;
-        }
+        return $model;
     }
 
 }

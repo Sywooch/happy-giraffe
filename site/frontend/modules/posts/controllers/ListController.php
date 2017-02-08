@@ -13,8 +13,8 @@ use site\frontend\modules\rss\components\channels\UserRssChannel;
 class ListController extends \LiteController
 {
 
-    public $layout = '//layouts/lite/main';
     public $litePackage = 'posts';
+    public $layout = '//layouts/lite/mainLite';
     /**
      * @var null|\CActiveDataProvider
      */

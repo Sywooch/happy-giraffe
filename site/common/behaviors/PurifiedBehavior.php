@@ -8,6 +8,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
     public $attributes = array();
     public $options = array();
     public $show_video = true;
+    public $useCache = true;
 
     private $_defaultOptions = array(
         'URI.AllowedSchemes' => array(
@@ -25,8 +26,14 @@ class PurifiedBehavior extends CActiveRecordBehavior
     public function __get($name)
     {
         if (in_array($name, (array)$this->attributes)) {
-            $cacheId = $this->getCacheId($name);
-            $value = Yii::app()->cache->get($cacheId);
+            $value = FALSE;
+
+            if ($this->useCache)
+            {
+                $cacheId = $this->getCacheId($name);
+                $value = Yii::app()->cache->get($cacheId);
+            }
+
             if ($value === false)
             {
                 $value = $this->getOwner()->$name;
@@ -41,7 +48,11 @@ class PurifiedBehavior extends CActiveRecordBehavior
                     $value = $this->fixh1($value);
                     $value = $this->_trimApostrophe($value);
                     $value = $this->clean($value);
-                    Yii::app()->cache->set($cacheId, $value);
+
+                    if ($this->useCache)
+                    {
+                        Yii::app()->cache->set($cacheId, $value);
+                    }
                 }
             }
             return $value;

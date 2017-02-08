@@ -478,6 +478,19 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    public function descendantsCount($forMe = FALSE)
+    {
+        $user = \Yii::app()->user;
+        $condition = '';
+
+        if (!$user->isGuest && $forMe)
+        {
+            $condition = 'authorId=' . \Yii::app()->user->id;
+        }
+
+        return $this->descendants()->count($condition);
+    }
+
     /**
      * @return QaAnswer
      */
@@ -504,6 +517,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
         $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
 
+        $user = \Yii::app()->user;
+
+        if ((!$user->isGuest && !$user->model->isSpecialist) || $this->isPublished)
+        {
+            $status = FALSE;
+        }
+
         return compact('status', 'diffMins');
     }
 
@@ -518,7 +538,18 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     public function toJSON()
     {
-        $isVoted = QaAnswerVote::model()->byAnswer($this->id)->user(\Yii::app()->user->id)->findAll();
+        $isVoted    = [];
+        $canEdit    = FALSE;
+        $canRemove  = FALSE;
+        $canVote    = FALSE;
+
+        if (!(\Yii::app() instanceof \CConsoleApplication))
+        {
+            $isVoted    = QaAnswerVote::model()->byAnswer($this->id)->user(\Yii::app()->user->id)->findAll();
+            $canEdit    = \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $this));
+            $canRemove  = \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $this));
+            $canVote    = \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $this));
+        }
 
         return [
             'id'                                => (int) $this->id,
@@ -530,12 +561,11 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'isRemoved'                         => (bool) $this->isRemoved,
             'bySpecialist'                      => $this->authorIsSpecialist(),
             'rootId'                            => $this->root_id,
-            'canEdit'                           => \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $this)),
-            'canRemove'                         => \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $this)),
-            'canVote'                           => \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $this)),
+            'canEdit'                           => $canEdit,
+            'canRemove'                         => $canRemove,
+            'canVote'                           => $canVote,
             'isVoted'                           => !empty($isVoted),
             'question'                          => $this->question->toJSON(),
-            'countUserAnswersByPediatrician'    => QaManager::getCountAnswersByUser($this->authorId),
             'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id),
             'isAdditional'                      => $this->isAdditional(),
             'isAnswerToAdditional'              => $this->isAnswerToAdditional()

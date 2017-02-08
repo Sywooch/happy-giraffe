@@ -14,7 +14,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
     $breadcrumbs = [
         'Главная' => ['/site/index'],
-        'Педиатр' => ['/som/qa/default/pediatrician'],
+        'Мой педиатр' => ['/som/qa/default/pediatrician'],
     ];
 
     $tag = $question->tag;
@@ -71,7 +71,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
         <div class="b-open-question-box">
             <div class="b-open-question__header b-open-header">
                 <div class="b-open-header__item">
-                    <a href="javascript:void(0);" class="b-answer-header__link"><?= $question->user->getAnonName(); ?></a>
+                    <span class="b-answer-header__link"><?= $question->user->getAnonName(); ?></span>
                     <?= HHtml::timeTag($question, ['class' => 'b-answer-header__time']); ?>
                 </div>
                 <div class="b-open-header__item">

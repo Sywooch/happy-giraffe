@@ -181,7 +181,11 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
 
     /**
-     * Все данные по пользователю, включая ответы от врачей
+     * Данные по юзеру
+     *
+     * В выборку попадают
+     * - ответы юзера в сервисе МП, которые не относятся к его вопросам
+     * - события от других сервисов (Форумы, Блоги и т.д.)
      *
      * @param integer $userId ID пользователя
      * @return $this
@@ -192,30 +196,37 @@ class Activity extends \HActiveRecord implements \IHToJSON
         $criteria = $this->getDbCriteria();
         $criteria->condition = '
             t.id IN (
-                SELECT id FROM (
-                    SELECT * FROM ' . Activity::model()->tableName() . ' WHERE typeId <> "' . static::TYPE_STATUS . '"
-                ) t2
-                WHERE
-                    t2.userId = ' . $userId . '
-                    OR
-                    (
-                        t2.hash IN (
-                                    SELECT MD5(qa__a.id)
-                                    FROM ' . QaAnswer::model()->tableName() . ' qa__a
-                                    JOIN ' . QaQuestion::model()->tableName() . ' qa__q
-                                    ON qa__q.id = qa__a.questionId
-                                    WHERE
-                                        qa__q.authorId = ' . $userId . '
-                                        AND
-                                        qa__q.categoryId = ' . QaCategory::PEDIATRICIAN_ID . '
-                                        AND
-                                        qa__q.isRemoved = ' . QaQuestion::NOT_REMOVED . '
-                                        AND
-                                        qa__a.isPublished = ' . QaAnswer::PUBLISHED . '
+                    SELECT id
+                    FROM (
+                        SELECT *
+                        FROM ' . Activity::model()->tableName() . '
+                        WHERE typeId <> "' . static::TYPE_STATUS . '"
+                    ) t2
+                    WHERE
+                        (
+                            t2.userId = ' . $userId . '
+                            AND
+                            t2.typeId != "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
                         )
-                        AND
-                        t2.typeId = "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
-                    )
+                        OR
+                        (
+                            t2.hash IN (
+                                        SELECT MD5(qa__a.id)
+                                        FROM ' . QaAnswer::model()->tableName() . ' qa__a
+                                        JOIN ' . QaQuestion::model()->tableName() . ' qa__q
+                                        ON qa__q.id = qa__a.questionId
+                                        WHERE
+                                            qa__q.authorId != ' . $userId . '
+                                            AND
+                                            qa__a.authorId = ' . $userId . '
+                                            AND
+                                            qa__a.isRemoved = ' . QaAnswer::NOT_REMOVED . '
+                                            AND
+                                            qa__a.isPublished = ' . QaAnswer::PUBLISHED . '
+                            )
+                            AND
+                            t2.typeId = "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
+                        )
             )
         ';
         $criteria->order = 't.id DESC';
@@ -240,7 +251,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
                 WHERE
                     qa__a.isPublished = %d
                     AND
-                    qa__q.categoryId = %d
+                    qa__q.categoryId != %d
                     AND
                     qa__q.isRemoved = %d
             ',
@@ -252,13 +263,15 @@ class Activity extends \HActiveRecord implements \IHToJSON
             QaQuestion::NOT_REMOVED
         );
 
+
+
         $cmdForAnswers = \Yii::app()->getDb()->createCommand($sqlForAnswers);
         $answersHashList = $cmdForAnswers->queryColumn();
 
         $this
             ->getDbCriteria()
             ->compare('typeId', '<>' . static::TYPE_ANSWER_PEDIATRICIAN)
-            ->addNotInCondition('hash', $answersHashList)
+            ->addInCondition('hash', $answersHashList)
         ;
 
         return $this;
@@ -282,7 +295,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
               FROM ' . QaQuestion::model()->tableName() . '
               WHERE
                   ' . $sqlAuthorCondition . '
-                  categoryId = ' . QaCategory::PEDIATRICIAN_ID . '
+                  categoryId != ' . QaCategory::PEDIATRICIAN_ID . '
                   AND
                   isRemoved = ' . QaQuestion::NOT_REMOVED
         ;
@@ -290,9 +303,14 @@ class Activity extends \HActiveRecord implements \IHToJSON
         $cmdForQuestions = \Yii::app()->getDb()->createCommand($sqlForQuestions);
         $questionsHashList = $cmdForQuestions->queryColumn();
 
+        if (count($questionsHashList) < 1)
+        {
+            return $this;
+        }
+
         $this
             ->getDbCriteria()
-            ->addNotInCondition('hash', $questionsHashList)
+            ->addInCondition('hash', $questionsHashList)
         ;
 
         return $this;
@@ -312,7 +330,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     public function getActivityData($jsonFormat = false)
     {
-        $model = unserialize($this->data);
+        $model = @unserialize($this->data);
 
         if (! $model)
         {

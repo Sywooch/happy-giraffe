@@ -44,7 +44,7 @@ function getColorClassViewSpecialists($position)
                     </div>
                     <div class="b-sidebar__right b-text--right">
                         <div class="b-sidebar__num b-sidebar__num--grey"><?=intval($row['score'])?></div>
-                        <div class="b-sidebar__balls b-sidebar__balls--grey">баллов</div>
+                        <div class="b-sidebar__balls b-sidebar__balls--grey"><?=\Yii::t('app', 'балл|балла|баллов|балла', intval($row['score']))?></div>
                     </div>
                 </a>
             </li>

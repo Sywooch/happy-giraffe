@@ -35,6 +35,7 @@
      <body class="page--bg">
         <div class="js-overlay-menu overlay-menu"></div>
         <div class="js-overlay-user overlay-user"></div>
+        <?php Yii::app()->ads->showCounters(); ?>
         <div class="b-layout b-container b-container--white b-container--style">
         	<?php //Yii::app()->ads->showCounters(); ?>
         	<?php if (Yii::app()->user->checkAccess('editMeta')):?>

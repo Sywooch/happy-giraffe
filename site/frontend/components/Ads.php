@@ -41,4 +41,4 @@ class Ads extends CApplicationComponent
     {
         return $_SERVER['HTTP_HOST'] == 'www.happy-giraffe.ru';
     }
-} 
+}

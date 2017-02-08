@@ -2,7 +2,7 @@
 
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
- * @var site\frontend\modules\som\modules\qa\models\QaCTAnswer $data
+ * @var site\frontend\modules\som\modules\qa\models\QaAnswer $data
  * @var boolean $hasVote
  */
 ?>
@@ -27,7 +27,9 @@
     <?php else: ?>
 
         <div class="b-pedaitor-answer__footer__item">
-        	<a href="javascript:void(0);" class="b-answer-footer__comment"><?=$data->getQuestion()->answersCount; ?></a>
+        	<?php if ($data->descendantsCount() > 0) {?>
+        		<a href="javascript:void(0);" class="b-answer-footer__comment"><?=$data->descendantsCount()?></a>
+        	<?php } ?>
             <?php if (\Yii::app()->user->isGuest) { ?>
                 <button type="button" class="btn-answer btn-answer--theme-green login-button <?=$hasVote ? 'btn-answer--active' : ''?>" data-bind="follow: {}">
                     <span class="btn-answer__num btn-answer__num--theme-green">Спасибо <?= $data->getVotesCount(); ?></span>

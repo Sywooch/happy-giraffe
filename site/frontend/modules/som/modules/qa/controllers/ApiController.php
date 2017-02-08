@@ -88,7 +88,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         if ($answer->validate())
         {
             // Если ответил специалист то не нужно сразу отсылать оповещение и показывать ответ, т.к. на этой дело висит таймаут
-            if ($question->category->isPediatrician() && $answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS)) {
+            if ($question->category->isPediatrician() && $answer->author->isSpecialist) {
                 $answer->isPublished = false;
             }
         }

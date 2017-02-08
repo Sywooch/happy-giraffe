@@ -68,6 +68,9 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      */
     const COMET_CHANNEL_ID_EDITED_PREFIX = '_edited';
 
+    /**
+     * @var boolean
+     */
     public $sendNotifications = true;
 
     /**
@@ -109,7 +112,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         return [
             ['title', 'required'],
             ['title', 'length', 'max' => 150],
-            ['text', 'length', 'max' => 1000],
+            ['text', 'length', 'max' => 20000],
             ['sendNotifications', 'boolean'],
 
             // категория
@@ -213,7 +216,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
             ],
             'purified' => [
                 'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => ['text'],
+                'attributes' => ['text', 'title'],
                 'options' => [
                     'AutoFormat.Linkify' => true,
                 ],
@@ -499,6 +502,8 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
             $tag = $this->tag;
         }
 
+        $this->purified->useCache = FALSE;
+
         return [
             'id'        => (int) $this->id,
             'title'     => $this->purified->title,
@@ -659,11 +664,12 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function getAnswersCount()
     {
        return QaAnswer::model()->count(
-            'authorId != :authorId AND questionId = :questionId AND isRemoved = :isRemoved',
+            'authorId != :authorId AND questionId = :questionId AND isRemoved = :isRemoved AND isPublished = :isPublished',
             [
                 'authorId'      => $this->authorId,
                 'questionId'    => $this->id,
-                'isRemoved'     => QaQuestion::NOT_REMOVED
+                'isRemoved'     => QaQuestion::NOT_REMOVED,
+                'isPublished'   => QaAnswer::PUBLISHED
             ]
         );
     }

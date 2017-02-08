@@ -1,6 +1,7 @@
 <?php
 
 use site\frontend\modules\som\modules\qa\controllers\DefaultController;
+use site\frontend\modules\som\modules\qa\models\QaTag;
 
 /**
  * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
@@ -19,6 +20,21 @@ $tabTitle = [
     $this::TAB_UNANSWERED   => 'Без ответа',
     $this::TAB_All          => 'Все ответы',
 ];
+
+$currentTagId = \Yii::app()->request->getParam('tagId');
+
+if (!is_null($currentTagId))
+{
+    $tag = QaTag::model()->findByPk($currentTagId);
+    if (is_object($tag))
+    {
+        $breadcrumbs = [
+            'Главная' => ['/site/index'],
+            'Мой педиатр' => [$this->createUrl('/mypediatrician')],
+            $tag->name,
+        ];
+    }
+}
 ?>
 <div class="b-col b-col--6 b-hidden-md">
     <div class="b-breadcrumbs b-breadcrumbs--theme-default">

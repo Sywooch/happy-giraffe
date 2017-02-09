@@ -214,7 +214,7 @@ class DefaultController extends QaController
                 'query' => $query,
                 'from' => 'qa',
                 'orders' => 'dtimecreate DESC',
-//                 'filters' => ['categoryid' => (string)QaCategory::PEDIATRICIAN_ID],
+                'filters' => ['categoryid' => (string)QaCategory::PEDIATRICIAN_ID],
             ],
             'pagination' => [
                 'pageVar' => 'page',

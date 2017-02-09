@@ -31,6 +31,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     const TYPE_ANSWER_PEDIATRICIAN = 'answer_pediatrician';
     const TYPE_COMMENT = 'comment';
+    const TYPE_QUESTION = 'question';
 
     /**
      * @return string the associated database table name
@@ -268,11 +269,13 @@ class Activity extends \HActiveRecord implements \IHToJSON
         $cmdForAnswers = \Yii::app()->getDb()->createCommand($sqlForAnswers);
         $answersHashList = $cmdForAnswers->queryColumn();
 
-        $this
-            ->getDbCriteria()
-            ->compare('typeId', '<>' . static::TYPE_ANSWER_PEDIATRICIAN)
+        $criteria = new \CDbCriteria();
+        $criteria
+            ->compare('typeId', '=' . static::TYPE_COMMENT)
             ->addInCondition('hash', $answersHashList)
         ;
+
+        $this->getDbCriteria()->mergeWith($criteria, 'OR');
 
         return $this;
     }
@@ -308,10 +311,13 @@ class Activity extends \HActiveRecord implements \IHToJSON
             return $this;
         }
 
-        $this
-            ->getDbCriteria()
+        $criteria = new \CDbCriteria();
+        $criteria
+            ->compare('typeId', '=' . static::TYPE_QUESTION)
             ->addInCondition('hash', $questionsHashList)
         ;
+
+        $this->getDbCriteria()->mergeWith($criteria, 'OR');
 
         return $this;
     }
@@ -325,6 +331,18 @@ class Activity extends \HActiveRecord implements \IHToJSON
     public function onlyPosts()
     {
         $this->getDbCriteria()->compare('typeId', '<>' . static::TYPE_COMMENT);
+        return $this;
+    }
+
+    public function withoutAnswerPediatrician()
+    {
+        $this->getDbCriteria()->compare('typeId', '<>' . static::TYPE_ANSWER_PEDIATRICIAN);
+        return $this;
+    }
+
+    public function withoutQuestion()
+    {
+        $this->getDbCriteria()->compare('typeId', '<>' . static::TYPE_QUESTION);
         return $this;
     }
 

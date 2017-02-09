@@ -56,22 +56,31 @@ class QaBehavior extends ActivityBehavior
                     'url' => $this->owner->url,
                     'text' => $this->owner->text,
                 ];
+
                 $activity->typeId = 'question';
                 break;
             case $this->owner instanceof QaAnswer :
-                $activity->data = [
-                    'url' => $this->owner->question->url,
-                    'text' => $this->owner->text,
-                    'content' => [
-                        'title' => $this->owner->question->title,
-                        'url' => $this->owner->question->url,
-                        'authorId' => $this->owner->question->authorId,
-                        'dtimeCreate' => $this->owner->question->dtimeCreate,
-                        'cover' => false,
-                    ],
-                ];
+                $data = @serialize($this->owner);
 
-                // Незнаю почему QaAnswer->category не находится
+                if ($data)
+                {
+                    $activity->data = $data;
+                }
+                else
+                {
+                    $activity->data = [
+                        'url' => $this->owner->question->url,
+                        'text' => $this->owner->text,
+                        'content' => [
+                            'title' => $this->owner->question->title,
+                            'url' => $this->owner->question->url,
+                            'authorId' => $this->owner->question->authorId,
+                            'dtimeCreate' => $this->owner->question->dtimeCreate,
+                            'cover' => false,
+                        ],
+                    ];
+                }
+
                 if ($this->owner->question->categoryId == QaCategory::PEDIATRICIAN_ID) {
                     $activity->typeId = \site\frontend\modules\som\modules\activity\models\Activity::TYPE_ANSWER_PEDIATRICIAN;
                 } else {
@@ -85,7 +94,7 @@ class QaBehavior extends ActivityBehavior
 
         return $activity;
     }
-    
+
     /**
      *
      * @return boolean true - модель удалена и надо удалить активность, false - модель есть и при необходимости, надо создать активность.

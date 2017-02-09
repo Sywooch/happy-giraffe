@@ -45,7 +45,7 @@ class NotificationBehavior extends BaseBehavior
         $answer = $this->owner;
         $question = $answer->question;
 
-        if ($answer->isNewRecord && $question->sendNotifications && !$answer->isAdditional()) {
+        if ($answer->isNewRecord && (bool)$question->sendNotifications && !$answer->isAdditional()) {
             // Если паблишед, отправяем сигнал сразу. Иначе этим будет заниматься отдельный воркер
             if ($answer->isPublished) {
                 $this->addNotification($answer, $question);

@@ -1,7 +1,9 @@
 <?php
 
 namespace site\frontend\modules\specialists\controllers;
+
 use site\frontend\modules\signup\components\UserIdentity;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\specialists\components\SpecialistsManager;
 use site\frontend\modules\specialists\models\ProfileForm;
 use site\frontend\modules\specialists\models\RegisterForm;
@@ -82,5 +84,16 @@ class ApiController extends \site\frontend\components\api\ApiController
         }
 
         $this->success = SpecialistsManager::makeSpecialist($userId, $specializations);
+    }
+
+    // @todo Sergey Gubarev: убрать
+    public function actionGetAnswers($questionId)
+    {
+        $answersData = QaManager::getAnswersByQuestion($questionId);
+
+        $this->success  = true;
+        $this->data     = [
+            'answers' => $answersData
+        ];
     }
 }

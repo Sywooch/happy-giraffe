@@ -54,6 +54,9 @@ return array(
         'activityRenew' => array(
             'class' => 'site\frontend\modules\som\modules\activity\commands\RenewActivity',
         ),
+        'activityAnswers' => array(
+            'class' => 'site\frontend\modules\som\modules\activity\commands\ActivityAnswers',
+        ),
         'family' => array(
             'class' => 'site\frontend\modules\family\commands\DefaultCommand',
         ),
@@ -111,6 +114,12 @@ return array(
         'fixRatingByHistory' => [
             'class' => 'site\frontend\modules\som\modules\qa\commands\FixRatingByHistoryCommand',
         ],
+        'convertAnswers' => [
+            'class' => 'site\frontend\modules\som\modules\qa\commands\ConvertAnswersCommand',
+        ],
+        'mpQuestionsEdited' => [
+            'class' => \site\frontend\modules\som\modules\qa\commands\MpQuestionsEditedCommand::class
+        ]
     ),
     'import' => array(
         'site.common.models.User',

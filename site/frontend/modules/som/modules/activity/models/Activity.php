@@ -1,6 +1,10 @@
 <?php
 
 namespace site\frontend\modules\som\modules\activity\models;
+use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
+use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 /**
  * This is the model class for table "som__activity".
@@ -19,6 +23,12 @@ namespace site\frontend\modules\som\modules\activity\models;
  */
 class Activity extends \HActiveRecord implements \IHToJSON
 {
+    /**
+     * @var string TYPE_STATUS Тип записи "статус"
+     * @author Sergey Gubarev
+     */
+    const TYPE_STATUS = 'status';
+
     const TYPE_ANSWER_PEDIATRICIAN = 'answer_pediatrician';
     const TYPE_COMMENT = 'comment';
 
@@ -156,14 +166,152 @@ class Activity extends \HActiveRecord implements \IHToJSON
     public function defaultScope()
     {
         return array(
-            'condition' => 'typeId NOT IN("status", "' . static::TYPE_ANSWER_PEDIATRICIAN . '")',
+            // 'condition' => 'typeId != "status"',
             'order' => $this->getTableAlias(false, false) . '.`dtimeCreate` DESC',
         );
     }
 
     public function byUser($userId)
     {
-        $this->getDbCriteria()->addColumnCondition(array('userId' => $userId));
+         $this->getDbCriteria()->addCondition('userId = :userId');
+         $this->getDbCriteria()->params[':userId'] = $userId;
+
+        return $this;
+    }
+
+
+    /**
+     * Данные по юзеру
+     *
+     * В выборку попадают
+     * - ответы юзера в сервисе МП, которые не относятся к его вопросам
+     * - события от других сервисов (Форумы, Блоги и т.д.)
+     *
+     * @param integer $userId ID пользователя
+     * @return $this
+     * @author Sergey Gubarev
+     */
+    public function forUser($userId)
+    {
+        $criteria = $this->getDbCriteria();
+        $criteria->condition = '
+            t.id IN (
+                    SELECT id
+                    FROM (
+                        SELECT *
+                        FROM ' . Activity::model()->tableName() . '
+                        WHERE typeId <> "' . static::TYPE_STATUS . '"
+                    ) t2
+                    WHERE
+                        (
+                            t2.userId = ' . $userId . '
+                            AND
+                            t2.typeId != "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
+                        )
+                        OR
+                        (
+                            t2.hash IN (
+                                        SELECT MD5(qa__a.id)
+                                        FROM ' . QaAnswer::model()->tableName() . ' qa__a
+                                        JOIN ' . QaQuestion::model()->tableName() . ' qa__q
+                                        ON qa__q.id = qa__a.questionId
+                                        WHERE
+                                            qa__q.authorId != ' . $userId . '
+                                            AND
+                                            qa__a.authorId = ' . $userId . '
+                                            AND
+                                            qa__a.isRemoved = ' . QaAnswer::NOT_REMOVED . '
+                                            AND
+                                            qa__a.isPublished = ' . QaAnswer::PUBLISHED . '
+                            )
+                            AND
+                            t2.typeId = "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
+                        )
+            )
+        ';
+        $criteria->order = 't.id DESC';
+
+        return $this;
+    }
+
+    /**
+     * Исключить ответы к сервису "Мой педиатр"
+     *
+     * @return $this
+     * @author Sergey Gubarev
+     */
+    public function excludePediatricianAnswers()
+    {
+        $sqlForAnswers = sprintf(
+            'SELECT MD5(qa__a.id)
+                FROM %s qa__a
+                JOIN %s qa__q
+                ON
+                  qa__q.id = qa__a.questionId
+                WHERE
+                    qa__a.isPublished = %d
+                    AND
+                    qa__q.categoryId != %d
+                    AND
+                    qa__q.isRemoved = %d
+            ',
+
+            QaAnswer::model()->tableName(),
+            QaQuestion::model()->tableName(),
+            QaAnswer::PUBLISHED,
+            QaCategory::PEDIATRICIAN_ID,
+            QaQuestion::NOT_REMOVED
+        );
+
+
+
+        $cmdForAnswers = \Yii::app()->getDb()->createCommand($sqlForAnswers);
+        $answersHashList = $cmdForAnswers->queryColumn();
+
+        $this
+            ->getDbCriteria()
+            ->compare('typeId', '<>' . static::TYPE_ANSWER_PEDIATRICIAN)
+            ->addInCondition('hash', $answersHashList)
+        ;
+
+        return $this;
+    }
+
+    /**
+     * Исключить вопросы из сервиса "Мой педиатр"
+     *
+     * Так же, есть возможность сделать исключение для конкретного пользователя
+     *
+     * @param integer|null $userId ID пользователя
+     * @return $this
+     * @author Sergey Gubarev
+     */
+    public function excludePediatricianQuestions($userId = null)
+    {
+        $sqlAuthorCondition = ! is_null($userId) ? "authorId = $userId AND" : '';
+
+        $sqlForQuestions = '
+              SELECT MD5(id)
+              FROM ' . QaQuestion::model()->tableName() . '
+              WHERE
+                  ' . $sqlAuthorCondition . '
+                  categoryId != ' . QaCategory::PEDIATRICIAN_ID . '
+                  AND
+                  isRemoved = ' . QaQuestion::NOT_REMOVED
+        ;
+
+        $cmdForQuestions = \Yii::app()->getDb()->createCommand($sqlForQuestions);
+        $questionsHashList = $cmdForQuestions->queryColumn();
+
+        if (count($questionsHashList) < 1)
+        {
+            return $this;
+        }
+
+        $this
+            ->getDbCriteria()
+            ->addInCondition('hash', $questionsHashList)
+        ;
 
         return $this;
     }
@@ -176,7 +324,20 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     public function onlyPosts()
     {
-        $this->getDbCriteria()->addInCondition('typeId', ['advPost', 'photoPost', 'post', 'question', 'videoPost']);
+        $this->getDbCriteria()->compare('typeId', '<>' . static::TYPE_COMMENT);
         return $this;
     }
+
+    public function getDataObject()
+    {
+        $model = @unserialize($this->data);
+
+        if (!$model)
+        {
+            return;
+        }
+
+        return $model;
+    }
+
 }

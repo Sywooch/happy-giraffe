@@ -1,5 +1,4 @@
 <?php
-
 $this->widget('LiteListView', array(
     'dataProvider' => $dp,
     'itemView' => 'site.frontend.modules.som.modules.activity.widgets.views._view',

@@ -113,22 +113,22 @@ class Activity extends \HActiveRecord implements \IHToJSON
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
-    public function search()
-    {
+//     public function search()
+//     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
-        $criteria = new CDbCriteria;
+//         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('userId', $this->userId, true);
-        $criteria->compare('typeId', $this->typeId, true);
-        $criteria->compare('dtimeCreate', $this->dtimeCreate, true);
-        $criteria->compare('data', $this->data, true);
+//         $criteria->compare('id', $this->id, true);
+//         $criteria->compare('userId', $this->userId, true);
+//         $criteria->compare('typeId', $this->typeId, true);
+//         $criteria->compare('dtimeCreate', $this->dtimeCreate, true);
+//         $criteria->compare('data', $this->data, true);
 
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
+//         return new CActiveDataProvider($this, array(
+//             'criteria' => $criteria,
+//         ));
+//     }
 
     public function getDataArray()
     {
@@ -348,9 +348,20 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     public function getDataObject()
     {
-        $model = @unserialize($this->data);
+        $data = @json_decode($this->data);
 
-        if (!$model)
+        if (is_null($data))
+        {
+            return;
+        }
+
+        $model = new QaAnswer();
+        foreach ($data->attributes as $attrName => $attrValue)
+        {
+            $model->{$attrName} = $attrValue;
+        }
+
+        if (!$model->validate())
         {
             return;
         }

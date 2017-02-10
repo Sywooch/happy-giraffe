@@ -350,7 +350,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
     {
         $data = @json_decode($this->data);
 
-        if (is_null($data))
+        if (is_null($data) || !isset($data->attributes))
         {
             return;
         }

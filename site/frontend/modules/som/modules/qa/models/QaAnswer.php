@@ -205,9 +205,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'childAttribute'    => 'descendant_id',
                 'parentAttribute'   => 'ancestor_id'
             ],
-            'CometBehavior' => [
-                'class' => CometBehavior::class
-            ]
+//             'CometBehavior' => [
+//                 'class' => CometBehavior::class
+//             ]
         ];
     }
 

@@ -29,6 +29,44 @@ class QaBehavior extends ActivityBehavior
     }
 
     /**
+     * {@inheritDoc}
+     * @see \site\frontend\modules\som\modules\activity\behaviors\ActivityBehavior::afterSave()
+     */
+    public function afterSave($event)
+    {
+        $this->updateActivity();
+        return parent::afterSave($event);
+    }
+
+    /**
+     * Update Activity->data
+     */
+    public function updateActivity()
+    {
+        try
+        {
+            /*@var $activity Activity */
+            $activity = \site\frontend\modules\som\modules\activity\models\Activity::model()->find('hash = "' . $this->getActivityId() . '"');
+            if ($activity
+                && $this->owner instanceof QaAnswer
+                && $activity->typeId == \site\frontend\modules\som\modules\activity\models\Activity::TYPE_ANSWER_PEDIATRICIAN
+                )
+            {
+                $data = @json_encode(['attributes' => $this->owner->getAttributes()]);
+                $activity->data = is_null($data) ? $activity->data : $data;
+                $result = $activity->save();
+            }
+        }
+        catch (\Exception $ex)
+        {
+            \CommentLogger::model()->addToLog('activity update', $ex->getMessage());
+            return;
+        }
+
+
+    }
+
+    /**
      *
      * @return bool|\site\frontend\modules\som\modules\activity\models\api\Activity Модель активности, заполненная данными
      */
@@ -60,26 +98,9 @@ class QaBehavior extends ActivityBehavior
                 $activity->typeId = 'question';
                 break;
             case $this->owner instanceof QaAnswer :
-                $data = @serialize($this->owner);
-
-                if ($data)
-                {
-                    $activity->data = $data;
-                }
-                else
-                {
-                    $activity->data = [
-                        'url' => $this->owner->question->url,
-                        'text' => $this->owner->text,
-                        'content' => [
-                            'title' => $this->owner->question->title,
-                            'url' => $this->owner->question->url,
-                            'authorId' => $this->owner->question->authorId,
-                            'dtimeCreate' => $this->owner->question->dtimeCreate,
-                            'cover' => false,
-                        ],
-                    ];
-                }
+                $activity->data = [
+                    'attributes' => $this->owner->getAttributes(),
+                ];
 
                 if ($this->owner->question->categoryId == QaCategory::PEDIATRICIAN_ID) {
                     $activity->typeId = \site\frontend\modules\som\modules\activity\models\Activity::TYPE_ANSWER_PEDIATRICIAN;

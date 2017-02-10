@@ -20,7 +20,7 @@ else
     $renderData = [
         'data'      => $model,
         'user'      => $user,
-        'widget'    => $widget
+        'widget'    => $widget,
     ];
     $template = 'site.frontend.modules.som.modules.activity.widgets.views.comment_object';
 }

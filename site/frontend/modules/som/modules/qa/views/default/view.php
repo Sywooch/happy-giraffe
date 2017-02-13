@@ -12,6 +12,8 @@ use site\frontend\modules\som\modules\qa\components\QaManager;
 $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $question->categoryId), 'rating');
 
 $this->pageTitle = CHtml::encode($question->title);
+$this->metaDescription = \site\common\helpers\HStr::truncate($question->text, 160);
+$this->metaKeywords = str_replace(' ', ',', CHtml::encode($question->title));
 
 $breadcrumbs = [
     'Главная'   => ['/site/index'],

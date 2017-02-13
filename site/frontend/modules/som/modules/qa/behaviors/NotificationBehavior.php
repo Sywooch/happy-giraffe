@@ -46,7 +46,7 @@ class NotificationBehavior extends BaseBehavior
         $answer = $this->owner;
         $question = $answer->question;
 
-        if ($answer->isNewRecord && (bool)$question->sendNotifications && !$answer->isAdditional()) {
+        if ($answer->isNewRecord && (bool)$question->sendNotifications) {
             // Если паблишед, отправяем сигнал сразу. Иначе этим будет заниматься отдельный воркер
             if ($answer->isPublished) {
                 $this->sendNotification();
@@ -104,7 +104,7 @@ class NotificationBehavior extends BaseBehavior
 
             $comet = new \CometModel();
             $comet->send($questionChannelId, $model->toJSON(), NotificationBehavior::ANSWER_TO_ADDITIONAL);
-            return;
+            //return;
         }
 
         $type = $this->getType($model, $question);

@@ -10,6 +10,7 @@ use site\frontend\modules\som\modules\qa\models\QaCategory;
 $this->sidebar = array('ask', 'personal', 'menu' => array('categoryId' => $categoryId), 'rating');
 
 $this->pageTitle = 'Ответы';
+$this->metaNoindex = true;
 
 $breadcrumbs = [
     'Главная' => ['/site/index'],

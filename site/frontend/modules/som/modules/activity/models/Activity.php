@@ -221,6 +221,8 @@ class Activity extends \HActiveRecord implements \IHToJSON
                                             AND
                                             qa__a.authorId = ' . $userId . '
                                             AND
+                                            qa__a.root_id IS NULL ' . '
+                                            AND
                                             qa__a.isRemoved = ' . QaAnswer::NOT_REMOVED . '
                                             AND
                                             qa__a.isPublished = ' . QaAnswer::PUBLISHED . '

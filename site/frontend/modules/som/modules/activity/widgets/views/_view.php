@@ -1,6 +1,8 @@
 <?php
 
 use site\frontend\modules\som\modules\activity\models\Activity;
+use site\frontend\modules\som\modules\qa\components\QaObjectList;
+use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 
 /*@var $data Activity */
 
@@ -25,7 +27,15 @@ switch ($data->typeId) {
         $answerModel = $data->getDataObject();
 
         if ($answerModel) {
+
+            $currentUser = \Yii::app()->user;
             $renderData['data'] = $answerModel;
+
+            if (!$currentUser->isGuest)
+            {
+                $renderData['additionalData']['votesList'] = new QaObjectList(QaAnswerVote::model()->user($currentUser->id)->findAll());
+            }
+
             $template = 'site.frontend.modules.som.modules.qa.views._new_answers';
         } else {
             $template = 'site.frontend.modules.som.modules.activity.widgets.views.other';

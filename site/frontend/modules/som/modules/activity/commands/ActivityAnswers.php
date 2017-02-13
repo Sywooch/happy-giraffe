@@ -4,7 +4,7 @@ namespace site\frontend\modules\som\modules\activity\commands;
 
 use site\frontend\modules\som\modules\activity\models\Activity;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
-use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
+use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 /**
  * Class ModifiedAnswersRows
@@ -24,6 +24,10 @@ class ActivityAnswers extends \CConsoleCommand
     {
         try
         {
+            echo 'Удаляю вопросы..' . PHP_EOL;
+            $delCount = $this->_deleteQuestions();
+            echo 'Удалено ' . $delCount . ' вопросов' . PHP_EOL;
+
             echo 'Выборка всех ответов к вопросам..' . PHP_EOL;
 
             $answersCount = $this->_getActivityAnswers(TRUE);
@@ -96,6 +100,35 @@ class ActivityAnswers extends \CConsoleCommand
         }
     }
 
+    private function _deleteQuestions()
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->addCondition('typeId="' . Activity::TYPE_QUESTION . '"');
+
+        $activityList = Activity::model()->findAll($criteria);
+
+        $delCount = 0;
+
+        foreach ($activityList as $activity)
+        {
+            /*@var $question QaQuestion */
+            $question = $this->_getQuestionModel($activity->hash);
+
+            if (is_null($question) || is_null($question->categoryId))
+            {
+                continue;
+            }
+
+            if ($question->category->isPediatrician())
+            {
+                $activity->delete();
+                $delCount++;
+            }
+        }
+
+        return $delCount;
+    }
+
     private function _getActivityAnswers($returnCount = FALSE, $offset = NULL)
     {
         $cmd = \Yii::app()->getDb()->createCommand()
@@ -132,6 +165,17 @@ class ActivityAnswers extends \CConsoleCommand
         $criteria->params[':hashId'] = $hash;
 
         $model = QaAnswer::model()->find($criteria);
+
+        return $model;
+    }
+
+    private function _getQuestionModel($hash)
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->condition = 'MD5(t.id) = :hashId';
+        $criteria->params[':hashId'] = $hash;
+
+        $model = QaQuestion::model()->find($criteria);
 
         return $model;
     }

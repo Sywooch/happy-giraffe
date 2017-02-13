@@ -190,9 +190,11 @@ class Community extends HActiveRecord
      * @return string
      */
     public function getUrl()
-    {   
-        $url = $this->club->getUrl() . '?' . http_build_query([self::FORUM_QUERY_PARAM => $this->id]);
-        
+    {
+        $url = !empty($this->club)
+            ? $this->club->getUrl() . '?' . http_build_query([self::FORUM_QUERY_PARAM => $this->id])
+            : null;
+
         return $url;
     }
     

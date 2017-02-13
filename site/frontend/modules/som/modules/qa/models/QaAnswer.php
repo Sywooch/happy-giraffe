@@ -98,6 +98,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return [
             ['questionId', 'safe'],
             ['text', 'required'],
+            ['isRemoved', 'default', 'value' => 0],
+            ['votesCount', 'default', 'value' => 0],
+            ['isBest', 'default', 'value' => 0],
         ];
     }
 
@@ -202,9 +205,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'childAttribute'    => 'descendant_id',
                 'parentAttribute'   => 'ancestor_id'
             ],
-            'CometBehavior' => [
-                'class' => CometBehavior::class
-            ]
+//             'CometBehavior' => [
+//                 'class' => CometBehavior::class
+//             ]
         ];
     }
 
@@ -616,6 +619,22 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     public function getLeaf()
     {
         return empty($this->children);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see CActiveRecord::saveCounters()
+     */
+    public function saveCounters($counters)
+    {
+        $parentResult = parent::saveCounters($counters);
+
+        if ($parentResult && array_key_exists('votesCount', $counters))
+        {
+            $this->updateActivity();
+        }
+
+        return $parentResult;
     }
 
 }

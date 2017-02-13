@@ -66,7 +66,10 @@ class ActivityAnswers extends \CConsoleCommand
                             $activityAnswerModel->typeId = Activity::TYPE_ANSWER_PEDIATRICIAN;
                         }
 
-                        $activityAnswerModel->data = serialize($answerModel);
+//                         $data = serialize($answerModel);
+                        $data = json_encode(['attributes' => $answerModel->getAttributes()]);
+
+                        $activityAnswerModel->data = $data;
                         $activityAnswerModel->save();
 
                         $count++;

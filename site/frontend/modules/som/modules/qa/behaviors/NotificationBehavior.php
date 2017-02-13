@@ -14,6 +14,7 @@ use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\specialists\models\SpecialistGroup;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 
 /**
  * @property QaAnswer $owner
@@ -48,7 +49,7 @@ class NotificationBehavior extends BaseBehavior
         if ($answer->isNewRecord && (bool)$question->sendNotifications && !$answer->isAdditional()) {
             // Если паблишед, отправяем сигнал сразу. Иначе этим будет заниматься отдельный воркер
             if ($answer->isPublished) {
-                $this->addNotification($answer, $question);
+                $this->sendNotification();
             }
         }
 
@@ -96,6 +97,16 @@ class NotificationBehavior extends BaseBehavior
      */
     protected function addNotification(QaAnswer $model, QaQuestion $question)
     {
+        /*@todo импортированно с site\frontend\modules\som\modules\qa\behaviors\CometBehavior. Зачем отдельный седнер для ответов на доп вопрос спросить у Сергея  */
+        if ($model->isAnswerToAdditional())
+        {
+            $questionChannelId = QaManager::getQuestionChannelId($model->question->id);
+
+            $comet = new \CometModel();
+            $comet->send($questionChannelId, $model->toJSON(), NotificationBehavior::ANSWER_TO_ADDITIONAL);
+            return;
+        }
+
         $type = $this->getType($model, $question);
 
         if ($type == self::ANSWER_IN_BRANCH) {

@@ -17,7 +17,10 @@
 
     <?php if ($data->authorId == \Yii::app()->user->id): ?>
 
-        <div class="b-pedaitor-answer__footer__item"><a href="javascript:void(0);" class="b-answer-footer__comment">10</a>
+        <div class="b-pedaitor-answer__footer__item">
+        	<?php if ($data->descendantsCount() > 0) {?>
+        		<a href="javascript:void(0);" class="b-answer-footer__comment"><?=$data->descendantsCount()?></a>
+        	<?php } ?>
             <button type="button" class="btn-answer btn-answer--theme-grey">
                 <span class="btn-answer__num btn-answer__num--to">Вам сказали &nbsp;</span>
                 <span class="btn-answer__num btn-answer__num--theme-grey">Спасибо <?= $data->getVotesCount(); ?></span>

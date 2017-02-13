@@ -41,6 +41,8 @@ class ActivityWidget extends \CWidget
         if (! $this->ownerId)
         {
             $model
+                ->withoutAnswerPediatrician()
+                ->withoutQuestion()
                 ->excludePediatricianQuestions()
                 ->excludePediatricianAnswers()
             ;
@@ -54,7 +56,6 @@ class ActivityWidget extends \CWidget
         }
 
         return new \CActiveDataProvider($model, array(
-            //'criteria' => ($this->criteria) ? $this->criteria : new \CDbCriteria(),
             'pagination' => array(
                 'pageSize' => $this->pageSize,
                 'pageVar' => is_null($this->pageVar) ? $this->id : $this->pageVar,

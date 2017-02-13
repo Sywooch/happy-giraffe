@@ -35,7 +35,7 @@ $breadcrumbs = [
         </div>
     </div>
 </div>
-<?php if (true || empty($query) || $dp->totalItemCount == 0): ?>
+<?php if (empty($query) || $dp->totalItemCount == 0): ?>
     <div class="b-col b-col--6 b-col-sm--10 b-col-xs">
         <div class="b-search">
             <div class="b-search__ico"></div>

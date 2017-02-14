@@ -122,10 +122,8 @@ $this->beginContent('//layouts/lite/community');
             <?php else: ?>
                 <?php if (!($this instanceof site\frontend\modules\posts\controllers\PostController) || (!$this->post->templateObject->getAttr('hideRubrics', false))): ?>
                     <?php
-                    // Блокируется вывод блока
-                    // У community_id = 40 отутствуют клубы, что вызывает цепочку ошибок
-                    if(count($this->forum->rubrics) == 1
-                        and $this->forum->rubrics[0]->community_id != 40):?>
+                    // Скрываем блок если отсутствуют клубы
+                    if($this->club):?>
                         <div class="side-block rubrics">
                             <div class="side-block_tx">Рубрики клуба</div>
                             <ul>

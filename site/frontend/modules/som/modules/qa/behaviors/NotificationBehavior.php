@@ -6,7 +6,6 @@
 
 namespace site\frontend\modules\som\modules\qa\behaviors;
 
-use site\frontend\modules\analytics\models\PageView;
 use site\frontend\modules\notifications\behaviors\BaseBehavior;
 use site\frontend\modules\notifications\models\Entity;
 use site\frontend\modules\notifications\models\Notification;
@@ -14,7 +13,6 @@ use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\specialists\models\SpecialistGroup;
-use site\frontend\modules\som\modules\qa\components\QaManager;
 
 /**
  * @property QaAnswer $owner
@@ -46,7 +44,7 @@ class NotificationBehavior extends BaseBehavior
         $answer = $this->owner;
         $question = $answer->question;
 
-        if ($answer->isNewRecord && (bool)$question->sendNotifications && !$answer->isAdditional()) {
+        if ($answer->isNewRecord && (bool)$question->sendNotifications) {
             // Если паблишед, отправяем сигнал сразу. Иначе этим будет заниматься отдельный воркер
             if ($answer->isPublished) {
                 $this->sendNotification();

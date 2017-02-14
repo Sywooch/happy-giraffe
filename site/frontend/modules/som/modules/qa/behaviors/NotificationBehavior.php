@@ -97,16 +97,6 @@ class NotificationBehavior extends BaseBehavior
      */
     protected function addNotification(QaAnswer $model, QaQuestion $question)
     {
-        /*@todo импортированно с site\frontend\modules\som\modules\qa\behaviors\CometBehavior. Зачем отдельный седнер для ответов на доп вопрос спросить у Сергея  */
-        if ($model->isAnswerToAdditional())
-        {
-            $questionChannelId = QaManager::getQuestionChannelId($model->question->id);
-
-            $comet = new \CometModel();
-            $comet->send($questionChannelId, $model->toJSON(), NotificationBehavior::ANSWER_TO_ADDITIONAL);
-            return;
-        }
-
         $type = $this->getType($model, $question);
 
         if ($type == self::ANSWER_IN_BRANCH) {

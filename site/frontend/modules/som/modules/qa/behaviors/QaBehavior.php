@@ -34,6 +34,10 @@ class QaBehavior extends ActivityBehavior
      */
     public function afterSave($event)
     {
+        if ($this->getIsRemoved() == 1) {
+            return parent::afterSave($event);
+        }
+
         $this->updateActivity();
         return parent::afterSave($event);
     }
@@ -54,7 +58,7 @@ class QaBehavior extends ActivityBehavior
             {
                 $data = @json_encode(['attributes' => $this->owner->getAttributes()]);
                 $activity->data = is_null($data) ? $activity->data : $data;
-                $result = $activity->save();
+                $activity->save(false, $activity->data);
             }
         }
         catch (\Exception $ex)

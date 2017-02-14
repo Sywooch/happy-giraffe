@@ -1,24 +1,26 @@
 <?php
 
+namespace site\frontend\modules\paid\models;
 
 /**
  * @property int $user_id
- * @property int $service_id
+ * @property int $payment_id
  * @property int $paid_at
- * @property int $price
- * @property string $transaction_id
+ * @property int $sum
+ * @property int $service_id
  *
+ * @property \site\frontend\modules\paid\models\UserPayment $payment
+ * @property \site\frontend\modules\paid\models\PaidService $service
  * @property \User $user
- * @property \PaidService $service
  */
-class UserPayment extends \HActiveRecord
+class UserBalanceRecord extends \HActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'users_payment';
+        return 'users__balance_records';
     }
 
     /**
@@ -30,15 +32,22 @@ class UserPayment extends \HActiveRecord
         // will receive user inputs.
         return [
             ['user_id', 'exists', 'className' => 'User', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "deleted = 0 and status = :active and id != :id",
+                ['condition' => "deleted = 0 and status = :active and id = :id",
                     'params' => [
                         ':active' => \User::STATUS_ACTIVE,
                         ':id' => $this->user_id,
                     ]
                 ]
             ],
-            ['service_id', 'exists', 'className' => 'PaidService', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "id != :id",
+            ['payment_id', 'exists', 'className' => 'site\frontend\modules\paid\models\UserPayment', 'caseSensitive' => false, 'criteria' =>
+                ['condition' => "id = :id",
+                    'params' => [
+                        ':id' => $this->payment_id,
+                    ]
+                ]
+            ],
+            ['service_id', 'exists', 'className' => 'site\frontend\modules\paid\models\PaidService', 'caseSensitive' => false, 'criteria' =>
+                ['condition' => "id = :id",
                     'params' => [
                         ':id' => $this->service_id,
                     ]
@@ -56,7 +65,8 @@ class UserPayment extends \HActiveRecord
         // class name for the relations automatically generated below.
         return [
             'user' => [self::HAS_ONE, 'User', 'user_id'],
-            'service' => [self::HAS_ONE, 'PaidService', 'service_id'],
+            'payment' => [self::HAS_ONE, 'site\frontend\modules\paid\models\UserPayment', 'payment_id'],
+            'service' => [self::HAS_ONE, 'site\frontend\modules\paid\models\PaidService', 'service_id'],
         ];
     }
 
@@ -76,11 +86,11 @@ class UserPayment extends \HActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => 'User Id',
-            'service_id' => 'Service Id',
-            'paid_at' => 'Paid At Time',
-            'price' => 'Price',
-            'transaction_id' => 'Transaction Id'
+            'user_id' => 'User ID',
+            'payment_id' => 'Payment ID',
+            'paid_at' => 'Paid At',
+            'sum' => 'Sum',
+            'service_id' => 'Service ID',
         ];
     }
 
@@ -88,7 +98,7 @@ class UserPayment extends \HActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return UserPayment the static model class
+     * @return UserBalanceRecord the static model class
      */
     public static function model($className=__CLASS__)
     {
@@ -98,9 +108,9 @@ class UserPayment extends \HActiveRecord
     /**
      * @param int $userId
      *
-     * @return UserPayment
+     * @return \site\frontend\modules\paid\models\UserBalanceRecord
      */
-    public function byUser($userId)
+    public function byUserId($userId)
     {
         $this->getDbCriteria()->compare('user_id', $userId);
 
@@ -108,11 +118,23 @@ class UserPayment extends \HActiveRecord
     }
 
     /**
+     * @param int $paymentId
+     *
+     * @return \site\frontend\modules\paid\models\UserBalanceRecord
+     */
+    public function byPaymentId($paymentId)
+    {
+        $this->getDbCriteria()->compare('payment_id', $paymentId);
+
+        return $this;
+    }
+
+    /**
      * @param int $serviceId
      *
-     * @return UserPayment
+     * @return \site\frontend\modules\paid\models\UserBalanceRecord
      */
-    public function byService($serviceId)
+    public function byServiceId($serviceId)
     {
         $this->getDbCriteria()->compare('service_id', $serviceId);
 

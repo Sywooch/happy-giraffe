@@ -1,10 +1,13 @@
 <?php
 
+namespace site\frontend\modules\paid\models;
 
 /**
  * @property int $id
  * @property int $price
  * @property string $name
+ * @property int $type
+ * @property int $value
  */
 class PaidService extends \HActiveRecord
 {
@@ -49,6 +52,8 @@ class PaidService extends \HActiveRecord
             'id' => 'ID',
             'price' => 'Price',
             'name' => 'Name',
+            'type' => 'Type',
+            'value' => 'Value',
         ];
     }
 
@@ -61,5 +66,13 @@ class PaidService extends \HActiveRecord
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
+    }
+
+    /**
+     * @return int
+     */
+    public function getOutputPrice()
+    {
+        
     }
 }

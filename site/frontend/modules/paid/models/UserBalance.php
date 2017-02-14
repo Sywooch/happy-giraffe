@@ -1,22 +1,21 @@
 <?php
 
-namespace site\frontend\modules\chat\models;
+namespace site\frontend\modules\paid\models;
 
 /**
  * @property int $user_id
- * @property int $chat_id
+ * @property int sum
  *
  * @property \User $user
- * @property \site\frontend\modules\chat\models\Chat $chat
  */
-class UsersChats extends \HActiveRecord
+class UserBalance extends \HActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'users_chats';
+        return 'users_balance';
     }
 
     /**
@@ -35,13 +34,6 @@ class UsersChats extends \HActiveRecord
                     ]
                 ]
             ],
-            ['chat_id', 'exists', 'className' => 'site\frontend\modules\chat\models\Chat', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "id = :id",
-                    'params' => [
-                        ':id' => $this->chat_id,
-                    ]
-                ]
-            ],
         ];
     }
 
@@ -54,7 +46,6 @@ class UsersChats extends \HActiveRecord
         // class name for the relations automatically generated below.
         return [
             'user' => [self::HAS_ONE, 'User', 'user_id'],
-            'chat' => [self::HAS_ONE, 'site\frontend\modules\chat\models\Chat', 'chat_id'],
         ];
     }
 
@@ -64,8 +55,8 @@ class UsersChats extends \HActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => 'User Id',
-            'chat_id' => 'Chat Id',
+            'user_id' => 'User ID',
+            'sum' => 'Sum',
         ];
     }
 
@@ -73,10 +64,22 @@ class UsersChats extends \HActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return UsersChats the static model class
+     * @return UserBalance the static model class
      */
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return \site\frontend\modules\paid\models\UserBalance
+     */
+    public function byUserId($userId)
+    {
+        $this->getDbCriteria()->compare('user_id', $userId);
+
+        return $this;
     }
 }

@@ -30,7 +30,7 @@ class SpecialistChatRating extends \HActiveRecord
         return [
             ['rating', 'in', 'range' => [1,2,3,4,5], 'allowEmpty' => false],
             ['specialist_id', 'exists', 'className' => 'User', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "deleted = 0 and status = :active and id != :id and specialistInfo is not null and specialistInfo != ''",
+                ['condition' => "deleted = 0 and status = :active and id = :id and specialistInfo is not null and specialistInfo != ''",
                     'params' => [
                         ':active' => \User::STATUS_ACTIVE,
                         ':id' => $this->specialist_id,
@@ -38,7 +38,7 @@ class SpecialistChatRating extends \HActiveRecord
                 ]
             ],
             ['chat_id', 'exists', 'className' => 'site\frontend\modules\chat\models\Chat', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "id != :id",
+                ['condition' => "id = :id",
                     'params' => [
                         ':id' => $this->chat_id,
                     ]

@@ -176,6 +176,9 @@ return array(
         'chat' => [
             'class' => 'site\frontend\modules\chat\ChatModule',
         ],
+        'paid' => [
+            'class' => 'site\frontend\modules\paid\PaidModule',
+        ],
     ),
     // application components
     'components' => array(

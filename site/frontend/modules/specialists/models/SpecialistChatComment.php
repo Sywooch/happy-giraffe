@@ -1,22 +1,23 @@
 <?php
 
-namespace site\frontend\modules\chat\models;
+namespace site\frontend\modules\paid\models;
 
 /**
  * @property int $user_id
  * @property int $chat_id
+ * @property string $text
  *
  * @property \User $user
  * @property \site\frontend\modules\chat\models\Chat $chat
  */
-class UsersChats extends \HActiveRecord
+class SpecialistChatComment extends \HActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'users_chats';
+        return 'specialists__chats_comments';
     }
 
     /**
@@ -28,7 +29,7 @@ class UsersChats extends \HActiveRecord
         // will receive user inputs.
         return [
             ['user_id', 'exists', 'className' => 'User', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "deleted = 0 and status = :active and id = :id",
+                ['condition' => "deleted = 0 and status = :active and id = :id and specialistInfo is not null and specialistInfo != ''",
                     'params' => [
                         ':active' => \User::STATUS_ACTIVE,
                         ':id' => $this->user_id,
@@ -54,7 +55,7 @@ class UsersChats extends \HActiveRecord
         // class name for the relations automatically generated below.
         return [
             'user' => [self::HAS_ONE, 'User', 'user_id'],
-            'chat' => [self::HAS_ONE, 'site\frontend\modules\chat\models\Chat', 'chat_id'],
+            'chat' => [self::HAS_ONE, 'site\frontend\modules\chat\models\Chat', 'chat_id']
         ];
     }
 
@@ -64,8 +65,9 @@ class UsersChats extends \HActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => 'User Id',
-            'chat_id' => 'Chat Id',
+            'user_id' => 'User ID',
+            'chat_id' => 'Chat ID',
+            'text' => 'Text',
         ];
     }
 
@@ -73,10 +75,34 @@ class UsersChats extends \HActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return UsersChats the static model class
+     * @return SpecialistChatComment the static model class
      */
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return \site\frontend\modules\paid\models\UserBalance
+     */
+    public function byUserId($userId)
+    {
+        $this->getDbCriteria()->compare('user_id', $userId);
+
+        return $this;
+    }
+
+    /**
+     * @param int $chatId
+     *
+     * @return \site\frontend\modules\paid\models\UserBalance
+     */
+    public function byChatId($chatId)
+    {
+        $this->getDbCriteria()->compare('chat_id', $chatId);
+
+        return $this;
     }
 }

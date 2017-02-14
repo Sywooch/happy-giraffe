@@ -1,22 +1,23 @@
 <?php
 
-namespace site\frontend\modules\chat\models;
+namespace site\frontend\modules\paid\models;
 
 /**
  * @property int $user_id
- * @property int $chat_id
+ * @property int $conducted_chats_count
+ * @property int $skipped_chats_count
+ * @property int $failed_chats_count
  *
  * @property \User $user
- * @property \site\frontend\modules\chat\models\Chat $chat
  */
-class UsersChats extends \HActiveRecord
+class SpecialistsChatsStatic extends \HActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'users_chats';
+        return 'specialist__chats_statistics';
     }
 
     /**
@@ -28,20 +29,14 @@ class UsersChats extends \HActiveRecord
         // will receive user inputs.
         return [
             ['user_id', 'exists', 'className' => 'User', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "deleted = 0 and status = :active and id = :id",
+                ['condition' => "deleted = 0 and status = :active and id = :id and specialistInfo is not null and specialistInfo != ''",
                     'params' => [
                         ':active' => \User::STATUS_ACTIVE,
                         ':id' => $this->user_id,
                     ]
                 ]
             ],
-            ['chat_id', 'exists', 'className' => 'site\frontend\modules\chat\models\Chat', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "id = :id",
-                    'params' => [
-                        ':id' => $this->chat_id,
-                    ]
-                ]
-            ],
+            ['conducted_chats_count, skipped_chats_count, failed_chats_count', 'numerical', 'integerOnly' => true, 'min' => 0],
         ];
     }
 
@@ -54,7 +49,6 @@ class UsersChats extends \HActiveRecord
         // class name for the relations automatically generated below.
         return [
             'user' => [self::HAS_ONE, 'User', 'user_id'],
-            'chat' => [self::HAS_ONE, 'site\frontend\modules\chat\models\Chat', 'chat_id'],
         ];
     }
 
@@ -64,8 +58,10 @@ class UsersChats extends \HActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => 'User Id',
-            'chat_id' => 'Chat Id',
+            'user_id' => 'User ID',
+            'conducted_chats_count' => 'Conducted Chats Count',
+            'skipped_chats_count' => 'Skipped Chats Count',
+            'failed_chats_count' => 'Failed Chats Count',
         ];
     }
 
@@ -73,10 +69,22 @@ class UsersChats extends \HActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return UsersChats the static model class
+     * @return SpecialistsChatsStatic the static model class
      */
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return \site\frontend\modules\paid\models\UserBalance
+     */
+    public function byUserId($userId)
+    {
+        $this->getDbCriteria()->compare('user_id', $userId);
+
+        return $this;
     }
 }

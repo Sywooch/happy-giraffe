@@ -121,21 +121,24 @@ $this->beginContent('//layouts/lite/community');
 
             <?php else: ?>
                 <?php if (!($this instanceof site\frontend\modules\posts\controllers\PostController) || (!$this->post->templateObject->getAttr('hideRubrics', false))): ?>
-                    <div class="side-block rubrics">
-                        <div class="side-block_tx">Рубрики клуба</div>
-                        <ul>
-                            <?php foreach ($this->forum->rubrics as $rubric): ?>
-                                <?php if ($rubric->parent_id === null
-                                    // Пока блокируется вывод ссылки
-                                    // У community_id = 40 отутствуют клубы, что вызывает цепочку ошибок
-                                    and $rubric->community_id != 40): ?>
-                                    <li class="rubrics_li"><a class="rubrics_a" href="<?= $rubric->getUrl() ?>"><?= $rubric->title ?></a>
-                                        <div class="rubrics_count"><span class="rubrics_count_tx"><?= \site\frontend\modules\community\helpers\StatsHelper::getRubricCount($rubric->id) ?></span></div>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+                    <?php
+                    // Блокируется вывод блока
+                    // У community_id = 40 отутствуют клубы, что вызывает цепочку ошибок
+                    if(count($this->forum->rubrics) == 1
+                        and $this->forum->rubrics[0]->community_id != 40):?>
+                        <div class="side-block rubrics">
+                            <div class="side-block_tx">Рубрики клуба</div>
+                            <ul>
+                                <?php foreach ($this->forum->rubrics as $rubric): ?>
+                                    <?php if ($rubric->parent_id === null): ?>
+                                        <li class="rubrics_li"><a class="rubrics_a" href="<?= $rubric->getUrl() ?>"><?= $rubric->title ?></a>
+                                            <div class="rubrics_count"><span class="rubrics_count_tx"><?= \site\frontend\modules\community\helpers\StatsHelper::getRubricCount($rubric->id) ?></span></div>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
 
                 <?php if ($this->beginCache('HotPostsWidget', array('duration' => 300))): ?>

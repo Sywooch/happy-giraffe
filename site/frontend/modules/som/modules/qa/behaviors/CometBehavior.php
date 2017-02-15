@@ -21,7 +21,7 @@ class CometBehavior extends BaseBehavior
     {
         $answer = $this->owner;
 
-        if ($answer->isAnswerToAdditional())
+        if ($answer->isAnswerToAdditional() && $answer->isPublished)
         {
             $questionChannelId = QaManager::getQuestionChannelId($answer->question->id);
 

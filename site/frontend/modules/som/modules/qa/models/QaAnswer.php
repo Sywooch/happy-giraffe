@@ -4,7 +4,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 use site\common\behaviors\AuthorBehavior;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior;
-use site\frontend\modules\som\modules\qa\behaviors\CometBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\AnswerCometBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\QaManager;
@@ -205,8 +205,8 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'childAttribute'    => 'descendant_id',
                 'parentAttribute'   => 'ancestor_id'
             ],
-            'CometBehavior' => [
-                'class' => CometBehavior::class
+            'AnswerCometBehavior' => [
+                'class' => AnswerCometBehavior::class
             ]
         ];
     }
@@ -257,23 +257,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             else
             {
                 $this->markAsRoot($this->id);
-            }
-        }
-        else
-        {
-            if ($this->question->category->isPediatrician())
-            {
-                $channelId = QaManager::getQuestionChannelId($this->question->id);
-
-                $this->refresh();
-
-                $resp = [
-                    'status'    => true,
-                    'answerId'  => $this->id,
-                    'text'      => $this->text
-                ];
-
-                (new \CometModel())->send($channelId, $resp, \CometModel::MP_QUESTION_ANSWER_FINISH_EDITED);
             }
         }
 

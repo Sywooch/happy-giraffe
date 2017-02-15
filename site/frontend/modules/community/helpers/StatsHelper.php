@@ -76,7 +76,7 @@ class StatsHelper
     private static function getCommentCount($labelsList)
     {
         $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labelsList);
-        $sql = 'SELECT count(*) AS n
+        $sql = 'SELECT count(pc.`id`) AS n
 FROM post__contents AS pc 
 JOIN post__tags AS t ON (pc.id=t.contentId)
 JOIN comments AS c ON ( c.entity = pc.originEntity and c.entity_id = pc.originEntityId)
@@ -95,8 +95,11 @@ WHERE
         if ($value === false || $renew)
         {
             $rubric = \CommunityRubric::model()->with('community')->findByPk($rubricId);
-            $forum = $rubric->community;
-            $value = self::getCommentCount(array('Рубрика: ' . $rubric->title, 'Форум: ' . $forum->title));
+            //$forum = $rubric->community;
+            $value = self::getCommentCount(array(
+                'Рубрика: ' . $rubric->title,
+                //'Форум: ' . $forum->title
+            ));
 //            $rubric = \CommunityRubric::model()->with('community')->findByPk($rubricId);
 //            $forum = $rubric->community;
 //            $posts = Content::model()->byLabels(array('Рубрика: ' . $rubric->title, 'Форум: ' . $forum->title))->findAll();

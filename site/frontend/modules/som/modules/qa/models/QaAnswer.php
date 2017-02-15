@@ -205,9 +205,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'childAttribute'    => 'descendant_id',
                 'parentAttribute'   => 'ancestor_id'
             ],
-//             'CometBehavior' => [
-//                 'class' => CometBehavior::class
-//             ]
+            'CometBehavior' => [
+                'class' => CometBehavior::class
+            ]
         ];
     }
 
@@ -592,28 +592,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     public function authorIsSpecialist()
     {
         return $this->author->isSpecialist;
-    }
-
-    /**
-     * Количество "спасибо"
-     *
-     * @return integer
-     * @author Sergey Gubarev
-     */
-    public function getVotesCount()
-    {
-        return $this->votesCount;
-    }
-
-    /**
-     * Получить вопрос к ответу
-     *
-     * @return QaQuestion
-     * @author Sergey Gubarev
-     */
-    public function getQuestion()
-    {
-        return $this->question;
     }
 
     public function getLeaf()

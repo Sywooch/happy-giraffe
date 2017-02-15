@@ -130,7 +130,7 @@ $this->beginContent('//layouts/lite/community');
                                 <?php foreach ($this->forum->rubrics as $rubric): ?>
                                     <?php if ($rubric->parent_id === null): ?>
                                         <li class="rubrics_li"><a class="rubrics_a" href="<?= $rubric->getUrl() ?>"><?= $rubric->title ?></a>
-                                            <div class="rubrics_count"><span class="rubrics_count_tx"><?= \site\frontend\modules\community\helpers\StatsHelper::getRubricCount($rubric->id) ?></span></div>
+                                            <div class="rubrics_count"><span class="rubrics_count_tx"><?= \site\frontend\modules\community\helpers\StatsHelper::getRubricCount($rubric->id, true) ?></span></div>
                                         </li>
                                     <?php endif; ?>
                                 <?php endforeach; ?>

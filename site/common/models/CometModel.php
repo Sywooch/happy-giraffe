@@ -138,7 +138,9 @@ class CometModel extends CComponent
         $channel_id = is_numeric($receiver) ? UserCache::GetUserCache($receiver) : $receiver;
         $this->attributes['type'] = $this->type;
         try {
-            Yii::app()->comet->send($channel_id, $this->attributes);
+            /*@todo хз как решать, иначе не приходят все запросы в браузер */
+            usleep(100000);// 100ms
+            \Yii::app()->comet->send($channel_id, $this->attributes);
         } catch (Exception $err) {
             echo $err->getMessage();
         }

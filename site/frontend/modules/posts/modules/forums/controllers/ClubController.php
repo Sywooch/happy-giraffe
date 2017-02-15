@@ -58,10 +58,10 @@ class ClubController extends \LiteController
             'criteria' => [
                 'scopes' => [
                     'byLabels' => [[
-                        Label::LABEL_FORUMS,
-                        $rubric->community->club->section->toLabel(),
-                        $rubric->community->club->toLabel(),
-                        $rubric->community->toLabel(),
+//                        Label::LABEL_FORUMS,
+//                        $rubric->community->club->section->toLabel(),
+//                        $rubric->community->club->toLabel(),
+//                        $rubric->community->toLabel(),
                         $rubric->toLabel(),
                     ]],
                     'orderHotRate',

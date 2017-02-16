@@ -4,6 +4,8 @@ namespace site\frontend\modules\som\modules\qa\controllers;
 
 use site\frontend\components\api\ApiController;
 use site\frontend\modules\som\modules\qa\components\QaManager;
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaAnswerEditing;
 
 /**
  * Class CometProcessController
@@ -21,12 +23,29 @@ class CometProcessController extends ApiController
      *
      * @param integer $questionId   ID вопроса
      * @param integer $answerId     ID ответа
+     * @param boolean $isRoot       Рутовый ответ или нет (комментарий)
      */
-    public function actionAnswerEdited($questionId, $answerId)
+    public function actionAnswerEdited($questionId, $answerId, $isRoot)
     {
         $channelId = QaManager::getQuestionChannelId($questionId);
 
-        $this->send($channelId, compact('answerId'), \CometModel::MP_QUESTION_ANSWER_EDITED);
+        $this->send($channelId, compact('answerId', 'isRoot'), \CometModel::MP_QUESTION_ANSWER_EDITED);
+
+        $findObject = QaManager::isAnswerEditing($answerId);
+
+        if (!$findObject)
+        {
+            $object = new QaAnswerEditing();
+            $object->answerId   = $answerId;
+            $object->questionId = $questionId;
+            $object->save();
+        }
+
+        $answer = QaAnswer::model()->findByPk($answerId);
+
+        $this->data = [
+            'channelId' => $answer->channelId()
+        ];
     }
 
     /**
@@ -34,12 +53,22 @@ class CometProcessController extends ApiController
      *
      * @param integer $questionId   ID вопроса
      * @param integer $answerId     ID ответа
+     * @param boolean $isRoot       Рутовый ответ или нет (комментарий)
      */
-    public function actionAnswerCancelEdited($questionId, $answerId)
+    public function actionAnswerCancelEdited($questionId, $answerId, $isRoot)
     {
         $channelId = QaManager::getQuestionChannelId($questionId);
 
-        $this->send($channelId, ['status' => false, 'answerId' => $answerId], \CometModel::MP_QUESTION_ANSWER_FINISH_EDITED);
+        $this->send($channelId, ['status' => false, 'answerId' => $answerId, 'isRoot' => $isRoot], \CometModel::MP_QUESTION_ANSWER_FINISH_EDITED);
+
+        $findObject = QaAnswerEditing::model()->find([
+            'answerId' => $answerId
+        ]);
+
+        if ($findObject)
+        {
+            $findObject->delete();
+        }
     }
 
 }

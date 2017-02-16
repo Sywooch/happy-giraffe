@@ -4,7 +4,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 use site\common\behaviors\AuthorBehavior;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior;
-use site\frontend\modules\som\modules\qa\behaviors\CometBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\AnswerCometBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\QaManager;
@@ -222,8 +222,8 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'childAttribute'    => 'descendant_id',
                 'parentAttribute'   => 'ancestor_id'
             ],
-            'CometBehavior' => [
-                'class' => CometBehavior::class
+            'AnswerCometBehavior' => [
+                'class' => AnswerCometBehavior::class
             ]
         ];
     }

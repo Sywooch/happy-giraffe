@@ -271,20 +271,11 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function afterAction($action)
     {
         $types = [
-            'vote'          => \CometModel::QA_VOTE,
-            'createAnswer'  => \CometModel::QA_NEW_ANSWER,
-            'removeAnswer'  => \CometModel::QA_REMOVE_ANSWER,
-            'restoreAnswer' => \CometModel::QA_RESTORE_ANSWER,
-            'editAnswer'    => \CometModel::QA_EDIT_ANSWER,
+            'vote' => \CometModel::QA_VOTE,
         ];
 
         if ($this->success == true && array_key_exists($action->id, $types))
         {
-            if ($action->id == 'createAnswer' && $this->data->author->isSpecialist)
-            {
-                return parent::afterAction($action);
-            }
-
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
 
             if ($this->data instanceof QaAnswer)
@@ -305,7 +296,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
                 if ($this->data->question->category->isPediatrician())
                 {
-                    $chanelId = $questionChannelId;
+                    $chanelId = QaManager::getQuestionChannelId($this->data->question->id);
 
                     if ($this->data->isAdditional() && $action->id == 'restoreAnswer')
                     {

@@ -139,7 +139,7 @@ class CometModel extends CComponent
         $this->attributes['type'] = $this->type;
         try {
             /*@todo хз как решать, иначе не приходят все запросы в браузер */
-            usleep(100000);// 100ms
+            usleep(400000);// 100ms
             \Yii::app()->comet->send($channel_id, $this->attributes);
         } catch (Exception $err) {
             echo $err->getMessage();

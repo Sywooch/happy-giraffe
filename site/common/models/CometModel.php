@@ -109,11 +109,24 @@ class CometModel extends CComponent
      * @author Sergey Gubarev
      */
     const MP_QUESTION_EDITED_BY_OWNER = 7004;
+
     /**
      * @var integer MP_QUESTION_FINISH_EDITED_BY_OWNER Статус-код: Автор закончил редактировать свой вопрос
      * @author Sergey Gubarev
      */
     const MP_QUESTION_FINISH_EDITED_BY_OWNER = 7005;
+
+    /**
+     * @var integer MP_ANSWER_FINISH_EDITING_BY_OWNER Статус-код: Автор закончил редактировать свой ответ
+     * @author Sergey Gubarev
+     */
+    const MP_ANSWER_FINISH_EDITING_BY_OWNER = 7006;
+
+    /**
+     * @var integer MP_ANSWER_START_EDITING_BY_OWNER Статус-код: Автор начал редактировать свой ответ
+     * @author Sergey Gubarev
+     */
+    const MP_ANSWER_START_EDITING_BY_OWNER = 7007;
 
 
     public $attributes = array();

@@ -63,6 +63,12 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     const COMET_CHANNEL_ID_PREFIX = 'mypediatrician_question';
 
     /**
+     * @var string COMET_CHANNEL_ID_SPECIALIST_PREFIX Префикс ID канала вопроса в сервисе для врача
+     * @author Sergey Gubarev
+     */
+    const COMET_CHANNEL_ID_SPECIALIST_PREFIX = 'specialist_mypediatrician_question';
+
+    /**
      * @var string COMET_CHANNEL_ID_EDITED_PREFIX Оконочание ID канала вопроса на редактировании
      * @author Sergey Gubarev
      */

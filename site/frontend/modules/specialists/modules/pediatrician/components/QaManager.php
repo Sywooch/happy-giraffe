@@ -181,4 +181,10 @@ class QaManager
     {
         return QaCategory::PEDIATRICIAN_ID;
     }
+
+    public static function getQuestionChannelId($questionId)
+    {
+        return QaQuestion::COMET_CHANNEL_ID_SPECIALIST_PREFIX . $questionId;
+    }
+
 }

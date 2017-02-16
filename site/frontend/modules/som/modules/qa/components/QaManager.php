@@ -3,11 +3,13 @@
 namespace site\frontend\modules\som\modules\qa\components;
 
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
-use site\frontend\modules\som\modules\qa\models\QaCategory;
+use site\frontend\modules\som\modules\qa\models\QaAnswerEditing;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaQuestionEditing;
 
 /**
+ * @todo: Методы связанные с comet желательно вынести в саму модель
+ *
  * @author Sergey Gubarev
  */
 class QaManager
@@ -27,8 +29,8 @@ class QaManager
     /**
      * Получить ID comet-канала для редактируемого вопроса
      *
-     * @param $questionId ID вопроса
-     * @return string
+     * @param   $questionId ID вопроса
+     * @return  string
      */
     public static function getEditedQuestionChannelId($questionId)
     {
@@ -60,6 +62,21 @@ class QaManager
     }
 
     /**
+     * Находится ли ответ под редактированием
+     *
+     * @param integer $answerId ID ответа
+     * @return bool
+     */
+    public static function isAnswerEditing($answerId)
+    {
+        $findObject = QaAnswerEditing::model()->find([
+                            'answerId' => $answerId
+                        ]);
+
+        return is_null($findObject) ? false : true;
+    }
+
+    /**
      * Удалить объект вопроса их коллекции редактируемых в Mongo
      *
      * @param integer $questionId ID вопроса
@@ -70,6 +87,19 @@ class QaManager
         $findObject = QaQuestionEditing::model()->find([
             'questionId' => $questionId
         ]);
+
+        return $findObject ? $findObject->delete() : false;
+    }
+
+    /**
+     * Удалить объект ответа их коллекции редактируемых в Mongo
+     *
+     * @param integer $answerId ID ответа
+     * @return bool
+     */
+    public static function deleteAnswerObjectFromCollectionByAttr($attr)
+    {
+        $findObject = QaAnswerEditing::model()->find($attr);
 
         return $findObject ? $findObject->delete() : false;
     }
@@ -119,28 +149,6 @@ SQL;
 
         return \Yii::app()->db->createCommand($sql)->queryColumn()[0];
     }
-
-    /**
-     * Получить кол-во всех ответов по сервису "Педиатр" у пользователя
-     *
-     * @param integer $userId ID пользователя
-     * @return integer
-     */
-    /*public static function getCountAnswersByUser($userId)
-    {
-        return QaAnswer::model()
-                    ->with('question')
-                    ->count(
-                        'question.categoryId = :categoryId AND t.authorId = :authorId AND t.isRemoved = :isRemoved AND t.isPublished = :isPublished',
-                        [
-                            ':categoryId'   => QaCategory::PEDIATRICIAN_ID,
-                            ':authorId'     => $userId,
-                            ':isRemoved'    => QaAnswer::NOT_REMOVED,
-                            ':isPublished'  => QaAnswer::PUBLISHED
-                        ]
-                    )
-                ;
-    }*/
 
     /**
      * Получить дерево ответов к вопросу

@@ -14,6 +14,7 @@ use site\frontend\modules\family\models\FamilyMember;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\components\QaManager;
+use site\frontend\modules\som\modules\qa\models\QaAnswerEditing;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;

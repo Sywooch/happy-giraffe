@@ -291,7 +291,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             {
                 $questionChannelId = QaManager::getQuestionChannelId($this->data->question->id);
 
-                if ($action->id == 'createAnswer' || $action->id == 'removeAnswer' || $action->id == 'restoreAnswer')
+                if ( in_array($action->id, ['createAnswer', 'removeAnswer', 'restoreAnswer']) )
                 {
                     $count = $this->data->question->getAnswersCount();
 
@@ -307,6 +307,12 @@ class ApiController extends \site\frontend\components\api\ApiController
                 {
                     $chanelId = $questionChannelId;
 
+                    if ($this->data->isAdditional() && $action->id == 'restoreAnswer')
+                    {
+                        $specialistQuestionChannelId = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionChannelId($this->data->questionId);
+
+                        $this->send($specialistQuestionChannelId, null, \CometModel::QA_RESTORE_ANSWER);
+                    }
                 }
                 else
                 {

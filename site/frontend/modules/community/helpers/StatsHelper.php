@@ -126,6 +126,42 @@ WHERE
     }
 
     /**
+     * Счетчик специально для новостных тем
+     * @param $labels
+     * @param bool $renew
+     * @return mixed
+     */
+    public static function countCommentNewsTopicByLabels($labels, $renew = false)
+    {
+        $cacheId = 'StatsHelper.byLabels.' . serialize($labels);
+        $value = self::getCacheComponent()->get($cacheId);
+        if ($value === false || $renew)
+        {
+            $value = self::counterForNewsTopic($labels);
+            self::getCacheComponent()->set($cacheId, $value);
+        }
+        return $value;
+    }
+
+    private static function counterForNewsTopic($labelsList)
+    {
+        $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labelsList);
+        $sql = 'SELECT COUNT(pc.id) as n
+FROM post__contents AS pc
+JOIN comments AS c ON ( c.entity = pc.originEntity and c.entity_id = pc.originEntityId)
+WHERE
+	 pc.id IN (SELECT `contentId` 
+	            FROM `post__tags` 
+	            WHERE `labelId` IN (' . implode(', ', $tags) . ') 
+	            GROUP BY `contentId` 
+	            HAVING COUNT(`labelId`) = '.count($tags).') and
+	 pc.isRemoved=0 and
+	 c.removed=0';
+        $itm = \Yii::app()->db->createCommand($sql)->queryAll(true);
+        return $itm[0]['n'];
+    }
+
+    /**
      * "прогрев кеша коментариев", к сожалению реализовано не как прогрев, 
      * а как каждый раз пересчёт значения количества комментариев
      */

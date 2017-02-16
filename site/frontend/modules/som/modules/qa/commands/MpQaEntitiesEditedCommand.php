@@ -7,20 +7,13 @@ use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 /**
- * Class MpQuestionsEditedCommand
+ * Class MpQaEntitiesEditedCommand
  *
  * @author Sergey Gubarev
  */
-class MpQuestionsEditedCommand extends \CConsoleCommand
+class MpQaEntitiesEditedCommand extends \CConsoleCommand
 {
 
-    /**
-     * Demon
-     *
-     * Отслеживает события online/offline на comet-сервере
-     *
-     * @throws \Exception
-     */
     public function actionWatch()
     {
         $pos = 1;
@@ -66,9 +59,18 @@ class MpQuestionsEditedCommand extends \CConsoleCommand
      */
     private function _deleteObjectFromMongo($channelId)
     {
-        preg_match('/[0-9]+/', $channelId, $matches);
+        preg_match_all('/[0-9]+/', $channelId, $matches);
 
-        $questionId = (int) $matches[0];
+        $questionId = (int) $matches[0][0];
+
+        if (isset($matches[0][1]))
+        {
+            $answerId = $matches[0][1];
+
+            QaManager::deleteAnswerObjectFromCollectionByAttr([
+                'answerId' => $answerId
+            ]);
+        }
 
         QaManager::deleteQuestionObjectFromCollection($questionId);
     }

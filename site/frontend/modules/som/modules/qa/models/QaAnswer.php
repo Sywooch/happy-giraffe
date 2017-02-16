@@ -130,6 +130,23 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     }
 
     /**
+     * Получить ID comet-канала
+     *
+     * @return string
+     * @author Sergey Gubarev
+     */
+    public function channelId()
+    {
+        $idParts = [
+            QaManager::getQuestionChannelId($this->questionId),
+            'answer' . $this->id,
+            QaQuestion::COMET_CHANNEL_ID_EDITED_PREFIX
+        ];
+
+        return implode('_', $idParts);
+    }
+
+    /**
      * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
      * @deprecated use descendants scope ($answer->descendants()->findAll())
      */
@@ -270,10 +287,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 $resp = [
                     'status'    => true,
                     'answerId'  => $this->id,
-                    'text'      => $this->text
+                    'text'      => $this->text,
+                    'isRoot'    => is_null($this->root_id)
                 ];
 
                 (new \CometModel())->send($channelId, $resp, \CometModel::MP_QUESTION_ANSWER_FINISH_EDITED);
+
+                QaManager::deleteAnswerObjectFromCollectionByAttr(['answerId' => $this->id]);
             }
         }
 
@@ -282,6 +302,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     public function afterSoftDelete()
     {
+        if ($this->isAdditional())
+        {
+            $channelId = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionChannelId($this->questionId);
+
+            (new \CometModel())->send($channelId, null, \CometModel::QA_REMOVE_ANSWER);
+        }
+
         $this->updateAnswersCount(-1);
         $this->softDelete->afterSoftDelete();
     }
@@ -569,9 +596,10 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'canVote'                           => $canVote,
             'isVoted'                           => !empty($isVoted),
             'question'                          => $this->question->toJSON(),
-            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id),
+            'countChildAnswers'                 => (int) $this->descendantsCount(FALSE),
             'isAdditional'                      => $this->isAdditional(),
-            'isAnswerToAdditional'              => $this->isAnswerToAdditional()
+            'isAnswerToAdditional'              => $this->isAnswerToAdditional(),
+            'isEditing'                         => QaManager::isAnswerEditing((int) $this->id)
         ];
     }
 

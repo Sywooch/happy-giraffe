@@ -448,6 +448,16 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     }
 
     /**
+     * @return self
+     */
+    public function onlyPublished()
+    {
+        $this->getDbCriteria()->addColumnCondition(['isPublished' => self::PUBLISHED]);
+
+        return $this;
+    }
+
+    /**
      * @param int $tagId
      *
      * @return QaAnswer
@@ -510,12 +520,16 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     public function descendantsCount($forMe = FALSE)
     {
-        $user = \Yii::app()->user;
-        $condition = '';
+        $condition = 'isPublished=' . QaAnswer::PUBLISHED;
 
-        if (!$user->isGuest && $forMe)
+        if (\Yii::app() instanceof \CConsoleApplication)
         {
-            $condition = 'authorId=' . \Yii::app()->user->id;
+            $user = \Yii::app()->user;
+
+            if (!$user->isGuest && $forMe)
+            {
+                $condition = ' AND authorId=' . \Yii::app()->user->id;
+            }
         }
 
         return $this->descendants()->count($condition);

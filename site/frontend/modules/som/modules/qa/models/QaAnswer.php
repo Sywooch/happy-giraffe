@@ -520,12 +520,16 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     public function descendantsCount($forMe = FALSE)
     {
-        $user = \Yii::app()->user;
         $condition = 'isPublished=' . QaAnswer::PUBLISHED;
 
-        if (!$user->isGuest && $forMe)
+        if (\Yii::app() instanceof \CConsoleApplication)
         {
-            $condition = ' AND authorId=' . \Yii::app()->user->id;
+            $user = \Yii::app()->user;
+
+            if (!$user->isGuest && $forMe)
+            {
+                $condition = ' AND authorId=' . \Yii::app()->user->id;
+            }
         }
 
         return $this->descendants()->count($condition);

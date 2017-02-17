@@ -121,6 +121,8 @@ class AnswerCometBehavior extends BaseBehavior
             default:
                 if ($answer->question->category->isPediatrician())
                 {
+                    QaManager::deleteAnswerObjectFromCollectionByAttr(['answerId' => $answer->id]);
+
                     $data = [
                         'status'    => true,
                         'answerId'  => $answer->id,

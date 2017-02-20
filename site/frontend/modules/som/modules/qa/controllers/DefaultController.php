@@ -9,21 +9,16 @@ namespace site\frontend\modules\som\modules\qa\controllers;
 
 use site\common\components\SphinxDataProvider;
 use site\frontend\components\HCollection;
-use site\frontend\modules\family\components\FamilyManager;
-use site\frontend\modules\family\models\FamilyMember;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\components\QaManager;
-use site\frontend\modules\som\modules\qa\models\QaAnswerEditing;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
-use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\components\QaObjectList;
 use site\frontend\modules\som\modules\qa\models\QaQuestionEditing;
-use site\frontend\modules\som\modules\qa\models\QaTag;
 use site\frontend\modules\som\modules\qa\models\qaTag\QaTagManager;
 
 class DefaultController extends QaController

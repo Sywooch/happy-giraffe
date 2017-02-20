@@ -276,26 +276,6 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 $this->markAsRoot($this->id);
             }
         }
-        else
-        {
-            if ($this->question->category->isPediatrician())
-            {
-                $channelId = QaManager::getQuestionChannelId($this->question->id);
-
-                $this->refresh();
-
-                $resp = [
-                    'status'    => true,
-                    'answerId'  => $this->id,
-                    'text'      => $this->text,
-                    'isRoot'    => is_null($this->root_id)
-                ];
-
-                (new \CometModel())->send($channelId, $resp, \CometModel::MP_QUESTION_ANSWER_FINISH_EDITED);
-
-                QaManager::deleteAnswerObjectFromCollectionByAttr(['answerId' => $this->id]);
-            }
-        }
 
         parent::afterSave();
     }

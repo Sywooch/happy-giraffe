@@ -53,7 +53,7 @@ class CometModel extends CComponent
 	// Обновление счётчиков
     const MESSAGING_UPDATE_COUNTERS = 2080;
     const MESSAGING_COUNT_CONTACT = 2083;
-    
+
     const COMMENTS_NEW = 2510;
     const COMMENTS_UPDATE = 2520;
     const COMMENTS_DELETE = 2530;
@@ -67,18 +67,68 @@ class CometModel extends CComponent
     const FRIEND_REQUEST_SENT = 4000;
     const FRIEND_REQUEST_DECLINED = 4001;
     const FRIEND_ADDED = 4010;
-    
+
     const NOTIFY_ADDED = 5001;
     const NOTIFY_UPDATED = 5003;
+    const NOTIFY_DELETED = 5004;
 
     const QA_VOTE = 6001;
     const QA_NEW_ANSWER = 6002;
     const QA_REMOVE_ANSWER = 6003;
     const QA_RESTORE_ANSWER = 6004;
     const QA_EDIT_ANSWER = 6005;
-    
+
     const BLOGS_EFIR_NEW_POST = 228;
-    
+
+    /**
+     * @var integer MP_QUESTION_ANSWER_EDITED Статус-код: Редактируется ответ
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_ANSWER_EDITED = 7001;
+
+    /**
+     * @var integer MP_QUESTION_ANSWER_FINISH_EDITED Статус-код: Редактируется ответ завершено/отменено
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_ANSWER_FINISH_EDITED = 7000;
+
+    /**
+     * @var integer MP_QUESTION_UPDATE_ANSWERS_COUNT Статус-код: Обновить общее кол-во ответов
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_UPDATE_ANSWERS_COUNT = 7002;
+
+    /**
+     * @var integer MP_QUESTION_QUESTION_REMOVED_BY_OWNER Статус-код: Автор удаляет свой вопрос
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_REMOVED_BY_OWNER = 7003;
+
+    /**
+     * @var integer MP_QUESTION_QUESTION_REMOVED_BY_OWNER Статус-код: Автор редактирует свой вопрос
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_EDITED_BY_OWNER = 7004;
+
+    /**
+     * @var integer MP_QUESTION_FINISH_EDITED_BY_OWNER Статус-код: Автор закончил редактировать свой вопрос
+     * @author Sergey Gubarev
+     */
+    const MP_QUESTION_FINISH_EDITED_BY_OWNER = 7005;
+
+    /**
+     * @var integer MP_ANSWER_FINISH_EDITING_BY_OWNER Статус-код: Автор закончил редактировать свой ответ
+     * @author Sergey Gubarev
+     */
+    const MP_ANSWER_FINISH_EDITING_BY_OWNER = 7006;
+
+    /**
+     * @var integer MP_ANSWER_START_EDITING_BY_OWNER Статус-код: Автор начал редактировать свой ответ
+     * @author Sergey Gubarev
+     */
+    const MP_ANSWER_START_EDITING_BY_OWNER = 7007;
+
+
     public $attributes = array();
     public $type;
 
@@ -101,9 +151,11 @@ class CometModel extends CComponent
         $channel_id = is_numeric($receiver) ? UserCache::GetUserCache($receiver) : $receiver;
         $this->attributes['type'] = $this->type;
         try {
-            Yii::app()->comet->send($channel_id, $this->attributes);
+            /*@todo хз как решать, иначе не приходят все запросы в браузер */
+            usleep(400000);// 100ms
+            \Yii::app()->comet->send($channel_id, $this->attributes);
         } catch (Exception $err) {
-
+            echo $err->getMessage();
         }
     }
 

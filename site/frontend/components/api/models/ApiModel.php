@@ -301,13 +301,14 @@ abstract class ApiModel extends \CModel
     {
         if (!$pack)
             $args = array($args);
-        $kyes = array();
+        $keys = array();
         foreach ($args as $i => $a)
             $keys[] = $this->caheKey($action, $a);
 
         $result = array_values($this->cache->mget($keys));
         if (!$pack)
             $result = $result[0];
+
         return $result;
     }
 

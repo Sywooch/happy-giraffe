@@ -6,7 +6,6 @@
 
 namespace site\frontend\modules\som\modules\qa\behaviors;
 
-use site\frontend\modules\analytics\models\PageView;
 use site\frontend\modules\notifications\behaviors\BaseBehavior;
 use site\frontend\modules\notifications\models\Entity;
 use site\frontend\modules\notifications\models\Notification;
@@ -45,10 +44,10 @@ class NotificationBehavior extends BaseBehavior
         $answer = $this->owner;
         $question = $answer->question;
 
-        if ($answer->isNewRecord && $question->sendNotifications && !$answer->isAdditional()) {
+        if ($answer->isNewRecord && (bool)$question->sendNotifications) {
             // Если паблишед, отправяем сигнал сразу. Иначе этим будет заниматься отдельный воркер
-            if ($answer->isPublished) {
-                $this->addNotification($answer, $question);
+            if ($answer->isPublished && !$answer->isAdditional()) {
+                $this->sendNotification();
             }
         }
 

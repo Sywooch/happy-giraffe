@@ -323,11 +323,9 @@ class CookRecipe extends HActiveRecord implements IPreview
     protected function afterSave()
     {
         if ($this->isNewRecord) {
-            //$this->sendEvent();
             $this->book();
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
-            FriendEventManager::add(FriendEvent::TYPE_RECIPE_ADDED, array('model' => $this));
         }
 
         parent::afterSave();
@@ -335,7 +333,6 @@ class CookRecipe extends HActiveRecord implements IPreview
 
     public function beforeDelete()
     {
-        FriendEvent::postDeleted('CookRecipe', $this->id);
         Yii::app()->db->createCommand()->update($this->tableName(), array('removed' => 1), 'id=:id', array(':id' => $this->id));
 
         //удаляем из кулинарной книги автора, но у других рецепт остается
@@ -536,31 +533,6 @@ class CookRecipe extends HActiveRecord implements IPreview
 
     public function getPhoto(){
         return ($this->mainPhoto !== null) ? $this->mainPhoto : null;
-    }
-
-    public function getEvent()
-    {
-        $row = array(
-            'id' => $this->id,
-            'last_updated' => time(),
-            'type' => Event::EVENT_RECIPE,
-        );
-
-        $event = Event::factory(Event::EVENT_RECIPE);
-        $event->attributes = $row;
-        return $event;
-    }
-
-    public function sendEvent()
-    {
-        $event = $this->event;
-        $params = array(
-            'blockId' => $event->blockId,
-            'code' => $event->code,
-        );
-
-        $comet = new CometModel;
-        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
     }
 
     public function getUnknownClassCommentsCount()

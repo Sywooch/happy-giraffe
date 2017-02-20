@@ -98,6 +98,17 @@ class UsersTopWidget extends TopWidgetAbstract
         arsort($this->scores);
     }
 
+    /**
+     * set default title
+     */
+    protected function _setTitle()
+    {
+        if (is_null($this->title))
+        {
+            $this->title = $this->titlePrefix . ' ' . \Yii::app()->dateFormatter->format('MMMM', $this->_getTimeFrom());
+        }
+    }
+
     //-----------------------------------------------------------------------------------------------------------
 
     /**
@@ -115,17 +126,6 @@ class UsersTopWidget extends TopWidgetAbstract
         $result = $cmd->queryAll();
 
         $this->_rating = (int)$result[0]['count'];
-    }
-
-    /**
-     * set default title
-     */
-    private function _setTitle()
-    {
-        if (is_null($this->title))
-        {
-            $this->title = $this->titlePrefix . ' ' . \Yii::app()->dateFormatter->format('MMMM', $this->_getTimeFrom());
-        }
     }
 
     /**

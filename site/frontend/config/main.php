@@ -171,7 +171,7 @@ return array(
             'class' => 'site\frontend\modules\landing\LandingModule'
         ],
         'specialists' => [
-            'class' => 'site\frontend\modules\specialists\SpecialistsModule',    
+            'class' => 'site\frontend\modules\specialists\SpecialistsModule',
         ],
     ),
     // application components

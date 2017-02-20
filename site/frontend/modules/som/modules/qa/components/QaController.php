@@ -28,4 +28,13 @@ class QaController extends \LiteController
         }
         $this->endClip();
     }
+
+    /**
+     * @inheritdoc
+     * @param $action \CAction
+     */
+    protected function afterAction($action)
+    {
+        parent::afterAction($action);
+    }
 }

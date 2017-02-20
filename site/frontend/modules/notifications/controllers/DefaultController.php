@@ -77,7 +77,7 @@ class DefaultController extends \HController
 
     public function actionReadAll()
     {
-        
+
     }
 
 }

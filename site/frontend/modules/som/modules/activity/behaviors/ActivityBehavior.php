@@ -21,10 +21,7 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
     }
 
     public function afterSave($event)
-    {   
-        \CommentLogger::model()->addToLog('ActivityBehavior', 'afterSave()');
-        
-        \Yii::log('called from: ' . get_class($event->sender), 'info', 'som.modules.activity.behaviors.PostBehavior');
+    {
         if ($this->isRemoved === $this->getIsRemoved()) {
             // Ничего не изменилось
             return;
@@ -37,8 +34,6 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
         if ($this->getIsRemoved() == 1) {
             $this->delActivity();
         }
-        
-        \CommentLogger::model()->addToLog('ActivityBehavior', 'afterSave() -> getIsRemoved: ' . $this->getIsRemoved());
     }
 
     /**
@@ -48,8 +43,12 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
     {
         try {
             $activity = $this->getActivityModel();
-            $activity->hash = $this->getActivityId();
-            $activity->save();
+
+            if ($activity)
+            {
+                $activity->hash = $this->getActivityId();
+                $activity->save();
+            }
         } catch (\Exception $ex) {
             \Yii::log('message: ' . $ex->getMessage(), 'info', 'som.modules.activity.behaviors.PostBehavior');
         }

@@ -74,7 +74,7 @@ class Entity extends \EMongoEmbeddedDocument implements \IHToJSON
 
         return $result;
     }
-    
+
     public function toJSON()
     {
         return array(
@@ -82,6 +82,7 @@ class Entity extends \EMongoEmbeddedDocument implements \IHToJSON
             'title' => $this->title,
             'url' => $this->url,
             'type' => $this->type,
+            'userId' => $this->userId,
         );
     }
 

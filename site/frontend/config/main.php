@@ -42,9 +42,6 @@ return array(
         'application.modules.calendar.models.*',
         'application.modules.cook.models.*',
         'application.modules.contest.models.*',
-        'application.modules.whatsNew.models.*',
-        'application.modules.whatsNew.components.*',
-        'application.modules.whatsNew.widgets.whatsNewWidget.WhatsNewWidget',
         'application.modules.messaging.components.*',
         'application.modules.messaging.models.*',
         'application.modules.friends.models.*',
@@ -98,14 +95,12 @@ return array(
     ),
     'modules' => array(
         'contest',
-        'im',
         'geo',
         'signal',
         'scores',
         'services',
         'cook',
         'calendar',
-        'whatsNew',
         'valentinesDay',
         'routes',
         'messaging',
@@ -139,7 +134,6 @@ return array(
         'family' => array(
             'class' => 'site\frontend\modules\family\FamilyModule',
         ),
-        'familyOld',
         'antispam',
         'signup',
         'mail',
@@ -177,7 +171,7 @@ return array(
             'class' => 'site\frontend\modules\landing\LandingModule'
         ],
         'specialists' => [
-            'class' => 'site\frontend\modules\specialists\SpecialistsModule',    
+            'class' => 'site\frontend\modules\specialists\SpecialistsModule',
         ],
     ),
     // application components

@@ -18,65 +18,19 @@ class RatingBehavior extends \CActiveRecordBehavior
     private $categoryId;
     private $fieldName;
 
-    private $isSoftAction = false;
-    private $isDelete = false;
-
     public function afterSave($event)
     {
-        if ($this->owner->isNewRecord || ($this->isSoftAction && !$this->isDelete)) {
-            $this->setProperties();
-            $rating = QaRating::model()
-                ->byCategory($this->getCategoryId())
-                ->byUser($this->getUserId())
-                ->find();
-
-            if (!$rating) {
-                $rating = new QaRating();
-                $rating->user_id = $this->getUserId();
-                $rating->category_id = $this->getCategoryId();
-
-                if (!$rating->save()) {
-                    throw new \CException('Rating is not saved');
-                }
+        if ($this->owner instanceof QaAnswer) {
+            if ($this->owner->isRemoved) {
+                $this->handleDelete();
+            } else {
+                $this->handleSave();
             }
 
-            $rating->total_count += 1;
-            $rating->{$this->getFieldName()} += 1;
-            $rating->save();
-
-            $history = new QaRatingHistory();
-
-            $history->user_id = $this->getUserId();
-            $history->category_id = $this->getCategoryId();
-            $history->owner_model = (new \ReflectionClass($this->owner))->getShortName();
-            $history->owner_id = $this->owner->id;
-
-            if (!$history->save()) {
-                throw new \CException('History is not saved');
-            }
-        } else if ($this->isSoftAction && $this->isDelete) { //soft delete
-            $this->handleDelete();
-        } else {
-            $history = QaRatingHistory::model()
-                ->byUser($this->getUserId())
-                ->byCategory($this->getCategoryId())
-                ->byOwner((new \ReflectionClass($this->owner))->getShortName(), $this->owner->id)
-                ->find();
-
-            if (!$history) {
-                $this->isSoftAction = true; //soft restore first after save
-            }
+            return;
         }
 
-        return parent::afterSave($event);
-    }
-
-    public function beforeDelete($event)
-    {
-        $this->setProperties();
-        $this->isSoftAction = true;
-        $this->isDelete = true;
-        return parent::beforeDelete($event);
+        $this->handleSave();
     }
 
     public function afterDelete($event)
@@ -84,6 +38,50 @@ class RatingBehavior extends \CActiveRecordBehavior
         $this->handleDelete();
 
         return parent::afterDelete($event);
+    }
+
+    private function handleSave()
+    {
+        $this->setProperties();
+        $rating = QaRating::model()
+            ->byCategory($this->getCategoryId())
+            ->byUser($this->getUserId())
+            ->find();
+
+        if (!$rating) {
+            $rating = new QaRating();
+            $rating->user_id = $this->getUserId();
+            $rating->category_id = $this->getCategoryId();
+
+            if (!$rating->save()) {
+                throw new \CException('Rating is not saved');
+            }
+        }
+
+        $history = QaRatingHistory::model()
+            ->byUser($this->getUserId())
+            ->byCategory($this->getCategoryId())
+            ->byOwner((new \ReflectionClass($this->owner))->getShortName(), $this->owner->id)
+            ->find();
+
+        if ($history) {
+            return;
+        }
+
+        $rating->total_count += 1;
+        $rating->{$this->getFieldName()} += 1;
+        $rating->save();
+
+        $history = new QaRatingHistory();
+
+        $history->user_id = $this->getUserId();
+        $history->category_id = $this->getCategoryId();
+        $history->owner_model = (new \ReflectionClass($this->owner))->getShortName();
+        $history->owner_id = $this->owner->id;
+
+        if (!$history->save()) {
+            throw new \CException('History is not saved');
+        }
     }
 
     private function handleDelete()

@@ -46,7 +46,9 @@ class SphinxDataProvider extends \CActiveDataProvider
                 $this->model->setDbCriteria($c);
             }
             else
+            {
                 $this->model->setDbCriteria($criteria);
+            }
             $sort->applyOrder($criteria);
         }
 

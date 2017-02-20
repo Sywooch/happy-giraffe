@@ -1,6 +1,9 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 
+use site\frontend\modules\api\ApiModule;
+use site\frontend\modules\som\modules\qa\behaviors\RatingBehavior;
+
 /**
  * This is the model class for table "qa__answers_votes".
  *
@@ -65,10 +68,10 @@ class QaAnswerVote extends \HActiveRecord
 	{
 		return array(
 			'CacheDelete' => array(
-				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+				'class' => ApiModule::CACHE_DELETE,
 			),
 			'PushStream' => array(
-				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
+				'class' => ApiModule::PUSH_STREAM,
 			),
 			'HTimestampBehavior' => array(
 				'class' => 'HTimestampBehavior',
@@ -78,7 +81,7 @@ class QaAnswerVote extends \HActiveRecord
 				'class' => 'site\frontend\modules\som\modules\qa\behaviors\VoteNotificationBehavior',
 			),
 			'RatingBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
+				'class' => RatingBehavior::class,
 			),
 		);
 	}
@@ -110,6 +113,36 @@ class QaAnswerVote extends \HActiveRecord
 	public function byAnswer($answerId)
 	{
 		$this->getDbCriteria()->compare($this->tableAlias . '.answerId', $answerId);
+		return $this;
+	}
+
+	/**
+	 * @param int $userId
+	 *
+	 * @return QaAnswerVote
+	 */
+	public function byTargetUser($userId)
+	{
+		if (!isset($this->getDbCriteria()->with['answer'])) {
+			$this->getDbCriteria()->with[] = 'answer';
+		}
+
+		$this->getDbCriteria()->addCondition("answer.authorId = {$userId}");
+
+		return $this;
+	}
+
+	/**
+	 * @return QaAnswerVote
+	 */
+	public function targetUserIsSpecialist()
+	{
+		if (!isset($this->getDbCriteria()->with['answer'])) {
+			$this->getDbCriteria()->with[] = 'answer';
+		}
+
+		$this->getDbCriteria()->addCondition("exists(select * from users u where u.id = answer.authorId and u.specialistInfo is not null and u.specialistInfo != '')");
+
 		return $this;
 	}
 

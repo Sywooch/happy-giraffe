@@ -33,6 +33,7 @@ class OnAirController extends \LiteController
     public function actionIndex($filter = null)
     {
         $criteria = $this->getCriteria($filter);
+
         $this->render('index', compact('criteria', 'filter'));
     }
 

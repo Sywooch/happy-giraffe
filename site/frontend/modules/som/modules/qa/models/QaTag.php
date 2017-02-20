@@ -1,6 +1,7 @@
 <?php
 namespace site\frontend\modules\som\modules\qa\models;
 
+use site\frontend\modules\som\modules\qa\controllers\DefaultController;
 use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
 
 /**
@@ -15,7 +16,7 @@ use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
  * @property int $questionsCount
  * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
-class QaTag extends \HActiveRecord
+class QaTag extends \HActiveRecord implements \IHToJSON
 {
     /**
      * @return string the associated database table name
@@ -31,6 +32,20 @@ class QaTag extends \HActiveRecord
     public function getTitle()
     {
         return (new Enum())->getTitleForWeb($this->name);
+    }
+
+    public function getUrl()
+    {
+        return \Yii::app()
+                    ->getUrlManager()
+                    ->createUrl(
+                        'som/qa/default/pediatrician',
+                        [
+                            'tab'   => DefaultController::TAB_NEW,
+                            'tagId' => $this->id
+                        ]
+                    )
+                ;
     }
 
     /**
@@ -82,6 +97,19 @@ class QaTag extends \HActiveRecord
     }
 
     /**
+     * @return array
+     * @author Sergey Gubarev
+     */
+    public function toJSON()
+    {
+        return [
+            'id'    => $this->id,
+            'name'  => $this->name,
+            'title' => $this->getTitle()
+        ];
+    }
+
+    /**
      * @param int $categoryId
      *
      * @return QaTag
@@ -101,5 +129,37 @@ class QaTag extends \HActiveRecord
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.name', $name);
         return $this;
+    }
+
+    /**
+     * @param integer $intAge
+     * @return NULL|self
+     */
+    public static function getByAge($intAge)
+    {
+        $map = [
+            1 => '0-1',
+            3 => '1-3',
+            6 => '3-6',
+            12 => '6-12',
+        ];
+
+        $result = 0;
+
+        foreach (array_keys($map) as $age)
+        {
+            if ($intAge < $age)
+            {
+                $result = $age;
+                break;
+            }
+        }
+
+        if ($result == 0)
+        {
+            return;
+        }
+
+        return self::model()->byName($map[$result])->find();
     }
 }

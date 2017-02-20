@@ -25,7 +25,6 @@
  * @copyright  2014, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Ray Tsang
  */
 require_once dirname(__FILE__) . '/init.php';
 
@@ -61,7 +60,7 @@ try {
   );
 
   // See AdWordsUser constructor
-  $user = new AdWordsUser(NULL, DEVELOPER_TOKEN, NULL, USER_AGENT, NULL, NULL,
+  $user = new AdWordsUser(null, DEVELOPER_TOKEN, USER_AGENT, null, null,
       $oauth2Info);
 
   $user->LogAll();

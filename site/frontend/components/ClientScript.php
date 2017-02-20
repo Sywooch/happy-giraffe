@@ -38,12 +38,12 @@ class ClientScript extends CClientScript
     public $amdFilePos = false;
 
     /**
-     * @var bool Если true, то используется AMD, обычное использование методов registerScript и подобных приведёт к генерации исключения 
+     * @var bool Если true, то используется AMD, обычное использование методов registerScript и подобных приведёт к генерации исключения
      */
     public $useAMD = false;
 
     /**
-     * @var array Конфигурация стилей для lite-версии 
+     * @var array Конфигурация стилей для lite-версии
      */
     public $litePackages = array();
 
@@ -194,7 +194,7 @@ class ClientScript extends CClientScript
 
     /**
      * Метод предназначен для преобразования путей из оригинального через scriptMap в путь, пригодный для requireJS
-     * 
+     *
      * @param string $baseUrl BaseURL
      * @param string $script Оригинальный адрес скрипта
      * @return string Преобразованный путь
@@ -212,7 +212,7 @@ class ClientScript extends CClientScript
     /**
      * Метод для подключения AMD скрипта, генерирующий в итоге скрипт:
      * $(document).ready(function() { require(<Зависимости>, function( <Аргументы функции> ) { <Скрипт> }); });
-     * 
+     *
      * @param string $id Уникальный идентификатор скрипта (исключает повторное подключение)
      * @param array $depends Массив с зависимостями, если ассоциативный, то ключи будут использоваться в качесте аргументов функции
      * @param string $script Тело скрипта
@@ -232,7 +232,7 @@ class ClientScript extends CClientScript
 
     /**
      * Метод, подключающий скрипт из файла, предварительно загрузив зависимости
-     * 
+     *
      * @param array $depends Массив зависимостей
      * @param string $file URL до файла
      * @return ClientScript
@@ -244,7 +244,7 @@ class ClientScript extends CClientScript
 
     /**
      * Метод, добавляющий в конфиг amd скрипт, описанный в corePackages.
-     * 
+     *
      * @param string $name
      * @return ClientScript
      */
@@ -302,7 +302,7 @@ class ClientScript extends CClientScript
 
     /**
      * Метод, генерирующий исключение
-     * 
+     *
      * @throws Exception
      */
     protected function exception()
@@ -312,7 +312,7 @@ class ClientScript extends CClientScript
 
     /**
      * Смотри CClientScript::registerScript.
-     * 
+     *
      * @throws Exception В случае, если метод используется с вклученным флагом ClientScript::useAMD
      * @param type $id
      * @param type $script
@@ -327,7 +327,7 @@ class ClientScript extends CClientScript
 
     /**
      * Смотри CClientScript::registerCoreScript.
-     * 
+     *
      * @throws Exception В случае, если метод используется с вклученным флагом ClientScript::useAMD
      * @param type $name
      * @return ClientScript
@@ -342,7 +342,7 @@ class ClientScript extends CClientScript
 
     /**
      * Смотри CClientScript::registerPackage.
-     * 
+     *
      * @throws Exception В случае, если метод используется с вклученным флагом ClientScript::useAMD
      * @param type $name
      * @return ClientScript
@@ -357,7 +357,7 @@ class ClientScript extends CClientScript
 
     /**
      * Смотри CClientScript::registerScriptFile.
-     * 
+     *
      * @throws Exception В случае, если метод используется с вклученным флагом ClientScript::useAMD
      * @param type $url
      * @param type $position
@@ -551,7 +551,7 @@ class ClientScript extends CClientScript
 
     /**
      * Метод для подключения стилей из litePackages
-     * 
+     *
      * @param string $name Имя пакета
      * @return ClientScript
      */
@@ -596,15 +596,15 @@ class ClientScript extends CClientScript
     protected function getUserModule()
     {
         $userModel = Yii::app()->user->getModel();
-            
+
         $isPediatrician = !is_null($userModel) ? $userModel->isSpecialistOfGroup(SpecialistGroup::DOCTORS) : false;
         $isPediatrician = CJSON::encode($isPediatrician);
-        
+
         $id = CJavaScript::encode(Yii::app()->user->id);
         $isGuest = CJSON::encode(Yii::app()->user->isGuest);
         $isModer = CJSON::encode(Yii::app()->user->checkAccess('moderator'));
         $minsToEditAnswerPediatrician = \site\frontend\modules\som\modules\qa\models\QaAnswer::MINUTES_FOR_EDITING;
-        
+
         $mod = <<<JS
 define("user-config", function () {
     var userConfig = {

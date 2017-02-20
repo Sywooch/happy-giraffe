@@ -24,6 +24,46 @@ class Child extends FamilyMemberAbstract
         return new ChildViewData($this);
     }
 
+    /**
+     * @return NULL|\site\frontend\modules\som\modules\qa\models\NULL|\site\frontend\modules\som\modules\qa\models\QaTag
+     */
+    public function getAgeTag()
+    {
+        return $this->getViewDataInternal()->getAgeTag();
+    }
+
+    public function getAnswerFooterData()
+    {
+         $data = [
+             'childName' => 'Без имени',
+             'imgUrl' => '#',
+             'tag' => NULL,
+             'css' => $this->getViewDataInternal()->getCssClass(),
+         ];
+
+        try
+        {
+            $data['childName']  = $this->name;
+
+            $photoCollection = $this->photoCollection;
+
+            if (is_object($photoCollection))
+            {
+                $photo = isset($photoCollection->attaches[0]) ? $photoCollection->attaches[0] : NULL;
+
+                if (is_object($photo))
+                {
+                    $data['imgUrl'] = $photo->photo->getPreviewPhoto();
+                }
+            }
+        }
+        catch (\Exception $e) {}
+
+        $data['tag'] = $this->getViewDataInternal()->getAgeTag();
+
+        return $data;
+    }
+
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
@@ -54,4 +94,5 @@ class Child extends FamilyMemberAbstract
             'photoCollection' => $this->photoCollection,
         ));
     }
-} 
+
+}

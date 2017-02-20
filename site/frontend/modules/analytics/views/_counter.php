@@ -1,3 +1,3 @@
 <script>
-    $.post('/api/analytics/processHit/');
+     $.post('/api/analytics/processHit/');
 </script>

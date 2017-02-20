@@ -2,6 +2,7 @@
 
 namespace site\frontend\components\api\models;
 
+use site\frontend\modules\som\modules\qa\components\QaRatingManager;
 /**
  * Модель, реализующая доступ к API, согласно описанию https://happygiraffe.atlassian.net/wiki/pages/viewpage.action?pageId=2195460
  *
@@ -19,7 +20,7 @@ namespace site\frontend\components\api\models;
  * @property-read string $publicChannel Публичный канал пользователя
  * @author Кирилл
  */
-class User extends ApiModel
+class User extends ApiModel implements \IHToJSON
 {
 
     public $api = 'users';
@@ -29,7 +30,7 @@ class User extends ApiModel
         return $this->fullName;
     }
 
-/**
+    /**
      * Формат имени для анонимного юзера
      *
      * @return string
@@ -40,8 +41,7 @@ class User extends ApiModel
 
         $result = $this->firstName;
 
-        if (!is_null($strCity))
-        {
+        if (!is_null($strCity)) {
             $result = $result . ', ' . $strCity;
         }
 
@@ -55,13 +55,11 @@ class User extends ApiModel
     {
         $model = \UserAddress::model()->find('user_id=:user_id', [':user_id' => $this->id]);
 
-        if (is_null($model->city))
-        {
+        if (is_null($model->city)) {
             return;
         }
 
         return $model->city->name;
-
     }
 
     /**
@@ -80,26 +78,33 @@ class User extends ApiModel
     public function formatedForJson()
     {
         return [
-            'id'            => $this->id,
-            'firstName'     => $this->firstName,
-            'lastName'      => $this->lastName,
-            'middleName'    => $this->middleName,
-            'fullName'      => $this->fullName,
-            'avatarId'      => $this->avatarId,
-            'gender'        => $this->gender,
-            'isOnline'      => $this->isOnline,
-            'profileUrl'    => $this->profileUrl,
-            'avatarUrl'     => $this->avatarUrl,
-            'avatarInfo'    => $this->avatarInfo,
+            'id' => $this->id,
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'middleName' => $this->middleName,
+            'fullName' => $this->fullName,
+            'avatarId' => $this->avatarId,
+            'gender' => $this->gender,
+            'isOnline' => $this->isOnline,
+            'profileUrl' => $this->profileUrl,
+            'avatarUrl' => $this->avatarUrl,
+            'avatarInfo' => $this->avatarInfo,
             'publicChannel' => $this->publicChannel,
-            'city'          => $this->_getCity(),
+            'city' => $this->_getCity(),
             'specialistInfo' => $this->specialistInfo,
+            'anonName' => $this->getAnonName(),
+            'rating' => (new QaRatingManager())->getViewCounters($this->id),
         ];
+    }
+
+    public function toJSON()
+    {
+        return $this->formatedForJson();
     }
 
     public function attributeNames()
     {
-        return array(
+        return [
             'id',
             'firstName',
             'middleName',
@@ -115,17 +120,17 @@ class User extends ApiModel
             'publicChannel',
             'specInfo',
             'specialistInfo',
-        );
+        ];
     }
 
     public function actionAttributes()
     {
-        return array(
+        return [
             'insert' => false,
             'update' => false,
             'remove' => false,
             'restore' => false,
-        );
+        ];
     }
 
 }

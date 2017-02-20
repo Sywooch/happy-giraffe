@@ -198,7 +198,6 @@ return array(
             'js' => array(
                 'javascripts/jquery.flydiv.js'
             ),
-            'depends' => array('jquery'),
         ),
         'DOMPurify' => [
             'baseUrl' => '/',
@@ -491,6 +490,7 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/member.css',
+                'lite/css/min/member-new.css'
             ),
         ),
         'lite_member_user' => array(
@@ -588,6 +588,7 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/member-photo.css',
+                'lite/css/min/member-new.css',
                 'lite/css/min/member-user.css'
             ),
         ),
@@ -619,6 +620,18 @@ return array(
         ),
         'lite_faq' => array(
             'depends' => array('lite_services'),
+        ),
+        'lite_new_pediatrician' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'app/builds/static/css/main.min.css',
+            ),
+            'js' => array(
+                'app/builds/static/js/main.min.js',
+            ),
+            'depends' => array('jquery'),
+
         ),
         'lite_faq_user' => array(
             'depends' => array('lite_services_user'),

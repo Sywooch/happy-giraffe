@@ -522,7 +522,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     {
         $condition = 'isPublished=' . QaAnswer::PUBLISHED;
 
-        if (\Yii::app() instanceof \CConsoleApplication)
+        if (!(\Yii::app() instanceof \CConsoleApplication))
         {
             $user = \Yii::app()->user;
 

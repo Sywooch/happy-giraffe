@@ -2,6 +2,12 @@
 
 namespace site\frontend\modules\notifications\behaviors;
 
+use site\frontend\modules\notifications\models\Notification;
+use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\components\QaObjectList;
+use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
+use site\frontend\modules\som\modules\qa\models\QaAnswer;
+
 /**
  * Поведение, отмечающее сигналы прочитанными для (get_class($this->owner),$this->owner->id,Yii::app()->user->id)
  *
@@ -9,7 +15,6 @@ namespace site\frontend\modules\notifications\behaviors;
  */
 class ContentBehavior extends \CActiveRecordBehavior
 {
-
     public $pkAttribute = 'id';
     public $entityClass = null;
 
@@ -42,6 +47,7 @@ class ContentBehavior extends \CActiveRecordBehavior
     protected function readNotifications($class, $entityId, $userId)
     {
         $notifications = $this->findNotifications($class, $entityId, $userId);
+
         foreach ($notifications as $notification) {
             $notification->readAll();
             $notification->save();
@@ -49,21 +55,52 @@ class ContentBehavior extends \CActiveRecordBehavior
     }
 
     /**
-     * 
      * @param string $class
      * @param int $entityId
      * @param int $userId
-     * @return \site\frontend\modules\notifications\models\Notification
+     * @return \site\frontend\modules\notifications\models\Notification[]
      */
     protected function findNotifications($class, $entityId, $userId)
     {
-        $notifications = \site\frontend\modules\notifications\models\Notification::model()
-                ->byUser((int) $userId)
-                ->byEntity(array('entity' => $class, 'entityId' => (int) $entityId))
-                ->byRead(0)
-                ->findAll();
+        $notifications = Notification::model()
+            ->byUser((int) $userId)
+            ->byEntity(['entity' => $class, 'entityId' => (int)$entityId])
+            ->byRead(0)
+            ->findAll()
+        ;
 
-        return $notifications;
+        if ($class != QaQuestion::class)
+        {
+            return $notifications;
+        }
+
+        $answersIds = array_map(function($item){
+            if ($item->votesCount > 0)
+            {
+                return (int)$item->id;
+            }
+        }, $this->getOwner()->answers);
+
+        if (empty($answersIds))
+        {
+            return $notifications;
+        }
+
+        $notification = Notification::model()
+            ->byUser((int) $userId)
+            ->byRead(0);
+
+        $notification->dbCriteria->addCond('entity.class', '==', QaAnswer::class);
+        $notification->dbCriteria->addCond('entity.id', 'in', $answersIds);
+        $answerNotifications = $notification->findAll();
+
+        if (empty($answerNotifications))
+        {
+            return $notifications;
+        }
+
+        return array_merge($answerNotifications, $notifications);
+
     }
 
 }

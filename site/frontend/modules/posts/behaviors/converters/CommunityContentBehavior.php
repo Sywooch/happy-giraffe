@@ -17,6 +17,47 @@ use site\frontend\modules\posts\modules\contractubex\components\ContractubexHelp
 class CommunityContentBehavior extends \CActiveRecordBehavior
 {
 
+    /**
+     * @return NULL|Content
+     */
+    private function _getRelation()
+    {
+        if (!($this->owner instanceof \CommunityContent))
+        {
+            return;
+        }
+
+        return $this->owner->getPostContentObject();
+    }
+
+    private function _deleteRelation()
+    {
+        $postContent = $this->_getRelation();
+
+        if (is_null($postContent))
+        {
+            return;
+        }
+
+        $postContent->delete();
+
+        \Yii::app()->user->setState('newPost' . $this->owner->id, FALSE);
+        $postContent->save();
+    }
+
+    private function _restoreRelation()
+    {
+       $postContent = $this->_getRelation();
+
+       if (is_null($postContent))
+       {
+           return;
+       }
+
+       $postContent->restore();
+       $postContent->save();
+    }
+
     public function events()
     {
         return array_merge(parent::events(), array(
@@ -61,15 +102,18 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     public function afterSoftDelete($event)
     {
         $this->addTaskToConvert();
+        $this->_deleteRelation();
     }
 
     public function afterSoftRestore($event)
     {
         $this->addTaskToConvert();
+        $this->_restoreRelation();
     }
 
     public function addTaskToConvert()
     {
+        return;
         if (!\site\frontend\modules\posts\commands\ConvertCommand::addConvertTask($this->owner))
             $this->convertToNewPost();
     }
@@ -272,7 +316,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->post->text)));
 
-        $newPost->articleSchemaData = ArticleHelper::getJsonLd($newPost);
+        // $newPost->articleSchemaData = ArticleHelper::getJsonLd($newPost);
         return $newPost->save();
     }
 

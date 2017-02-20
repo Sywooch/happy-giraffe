@@ -11,11 +11,12 @@ use site\frontend\modules\som\modules\qa\components\QaController;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 
 class MyController extends QaController
 {
 
-    public $litePackage = 'qa';
+    public $litePackage = 'new_pediatrician';
 
     public function filters()
     {
@@ -33,7 +34,7 @@ class MyController extends QaController
         );
     }
 
-    public $layout = '/layouts/my';
+    public $layout = '/layouts/new_my';
 
     public function actionQuestions($categoryId = null)
     {
@@ -45,25 +46,24 @@ class MyController extends QaController
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',
+                'pageSize' => 4,
             ),
         ));
-        $this->render('questions', compact('dp', 'categoryId'));
+
+        $this->render('content', compact('dp', 'categoryId'));
     }
 
     public function actionAnswers($categoryId = null)
     {
         $model = clone QaAnswer::model();
         $model->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
-        if ($categoryId !== null) {
-            $model->category($categoryId);
-        } else {
-            $model->with('question');
-        }
+
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',
+                'pageSize' => 10,
             ),
         ));
-        $this->render('answers', compact('dp', 'categoryId'));
+        $this->render('content', compact('dp', 'categoryId'));
     }
 }

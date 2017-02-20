@@ -123,6 +123,7 @@ class DefaultController extends \LiteController
         /*@var $user \WebUser */
         $user = \Yii::app()->user;
 
+        /*@var $question QaQuestion */
         $question = QaQuestion::model()->findByPk($questionId);
 
         if (!$question || !$user) {

@@ -95,7 +95,12 @@ class HActiveRecord extends CActiveRecord
         try {
             $result = parent::$parentMethod($attributes);
             if ($result === false) {
-                $transaction->rollback();
+                if($parentMethod == 'delete' && isset($this->softDelete)){
+                    $transaction->commit();
+                    return true;
+                }else {
+                    $transaction->rollback();
+                }
             } else {
                 $transaction->commit();
             }

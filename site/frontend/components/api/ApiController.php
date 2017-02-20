@@ -33,6 +33,8 @@ class ApiController extends \CController
      */
     public $errorMessage = null;
 
+    public $errorTrace = [];
+
     /**
      *
      * @var bool true - используется пакетная обработка, иначе - false
@@ -48,7 +50,7 @@ class ApiController extends \CController
      *
      * @var array Массив запомненных моделей
      */
-    protected $_models = array();
+    protected $_models = [];
 
     /**
      * Метод, устанавливающий стандартные значения ответа, перед использованием пакетной обработки
@@ -64,7 +66,7 @@ class ApiController extends \CController
 
     public function filters()
     {
-        return array(
+        return [
             /** @todo Тут будет проверка токена для приложений */
             /** @todo Сделать проверку на дос (ограничить количество запросов с одного ip/браузера) */
             /** @todo Сделать проверку referrer/ip для определения наших запросов */
@@ -72,13 +74,12 @@ class ApiController extends \CController
             /** @todo Придумать защиту от скачивания */
             // Всё API работает только через post-запросы
             'postOnly',
-        );
+        ];
     }
 
     public function getComet()
     {
-        if (is_null($this->_cometModel))
-        {
+        if (is_null($this->_cometModel)) {
             $this->_cometModel = new \CometModel();
         }
 
@@ -87,7 +88,7 @@ class ApiController extends \CController
 
     public function getResult()
     {
-        $result = array('success' => (bool) $this->success);
+        $result = ['success' => (bool) $this->success];
         if (!is_null($this->errorCode))
             $result['errorCode'] = $this->errorCode;
         if (!is_null($this->errorMessage))
@@ -96,19 +97,21 @@ class ApiController extends \CController
             $result['isPack'] = true;
         if (!is_null($this->data))
             $result['data'] = $this->data;
+        if (!empty($this->errorTrace)) {
+            $result['errorTrace'] = $this->errorTrace;
+        }
 
         return $result;
     }
 
     protected function beforeAction($action)
     {
-        foreach (\Yii::app()->log->routes as $route)
-        {
-            if ($route instanceof \CProfileLogRoute)
-            {
+        foreach (\Yii::app()->log->routes as $route) {
+            if ($route instanceof \CProfileLogRoute) {
                 $route->enabled = false;
             }
         }
+
         return true;
     }
 
@@ -148,15 +151,17 @@ class ApiController extends \CController
     // Вешаем обработку ошибок
     public function run($action)
     {
-        header('Content-Type: application/json');
-       \Yii::app()->attachEventHandler('onError', array($this, 'onError'));
-       \Yii::app()->attachEventHandler('onException', array($this, 'onError'));
+        \Yii::app()->attachEventHandler('onError', [$this, 'onError']);
+        \Yii::app()->attachEventHandler('onException', [$this, 'onError']);
+
         parent::run($action);
     }
 
     // Обработчик ошибок
     public function onError(\CEvent $event)
     {
+        header('Content-Type: application/json', true);
+
         $event->handled = true;
         /** @var \CErrorEvent|\CException $exception */
         if ($event instanceof \CExceptionEvent)
@@ -164,14 +169,18 @@ class ApiController extends \CController
         else // CErrorEvent
             $exception = $event;
 
-        http_response_code($exception->statusCode);
+        $code = method_exists($exception, 'getCode') ? $exception->getCode() : $exception->code;
+        $message = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;
 
         $this->success = false;
-        $this->errorCode = method_exists($exception, 'getCode') ? $exception->getCode() : $exception->code;
-        $this->errorMessage = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;
+        $this->errorCode = $code;
+        $this->errorMessage = $message;
         $this->data = null;
+        $this->errorTrace = method_exists($exception, 'getTrace') ? $exception->getTrace() : [];
 
-        if(YII_DEBUG) {
+        http_response_code(isset($exception->statusCode) ? $exception->statusCode : 500);
+
+        if (YII_DEBUG) {
             $this->printResult();
         }
     }
@@ -183,8 +192,7 @@ class ApiController extends \CController
 
     public function getModel($class, $id, $checkAccess = false, $resetScope = false)
     {
-        if (!isset($this->_models[$class][$id][(int) $resetScope]))
-        {
+        if (!isset($this->_models[$class][$id][(int) $resetScope])) {
             if ($resetScope)
                 $this->_models[$class][$id][(int) $resetScope] = $class::model()->resetScope(true)->findByPk($id);
             else
@@ -193,7 +201,7 @@ class ApiController extends \CController
 
         if ($checkAccess && !$this->_models[$class][$id][(int) $resetScope])
             throw new \CHttpException(404, 'Модель не найдена');
-        if ($checkAccess !== true && $checkAccess !==false && !\Yii::app()->user->checkAccess($checkAccess, array('entity' => $this->_models[$class][$id][(int) $resetScope])))
+        if ($checkAccess !== true && $checkAccess !== false && !\Yii::app()->user->checkAccess($checkAccess, ['entity' => $this->_models[$class][$id][(int) $resetScope]]))
             throw new \CHttpException(403, 'Недостаточно прав');
 
 

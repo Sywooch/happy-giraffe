@@ -135,4 +135,4 @@ class ApiController extends \site\frontend\components\api\ApiController
             $this->data = array('errors' => $model->getErrors());
         }
     }
-} 
+}

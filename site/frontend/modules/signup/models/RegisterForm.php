@@ -22,6 +22,9 @@ class RegisterForm extends \CFormModel
     public $password;
     public $avatarSrc;
 
+    public $country_id;
+    public $city_id;
+
     /**
      * @var \User
      */
@@ -46,6 +49,11 @@ class RegisterForm extends \CFormModel
             array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE)),
             array('password', 'length', 'min' => 6, 'max' => 15),
             array('avatarSrc', 'safe'),
+
+            array('country_id', 'exist', 'className' => 'GeoCountry', 'attributeName' => 'id'),
+            array('city_id', 'exist', 'className' => 'GeoCity', 'attributeName' => 'id'),
+            array('country_id', 'default', 'value' => null),
+            array('city_id', 'default', 'value' => null),
         );
     }
 
@@ -73,7 +81,7 @@ class RegisterForm extends \CFormModel
         $this->user->email = $this->email;
         $this->user->password = \User::hashPassword($this->password);
         $this->user->status = \User::STATUS_ACTIVE;
-        
+
         $transaction = \Yii::app()->db->beginTransaction();
         try {
             if ($this->user->save()) {
@@ -128,6 +136,10 @@ class RegisterForm extends \CFormModel
     protected function createUserAddress()
     {
         $userAddress = new \UserAddress();
+        $userAddress->attributes = $this->attributes;
+        if ($userAddress->city !== null) {
+            $userAddress->region_id = $userAddress->city->region_id;
+        }
         $userAddress->user_id = $this->user->id;
         $userAddress->save();
     }

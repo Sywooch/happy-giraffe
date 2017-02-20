@@ -32,7 +32,6 @@ return array(
             'ko_post' => '/javascripts/ko_post',
             'ko_menu' => '/javascripts/ko_menu',
             'ko_favourites' => '/javascripts/ko_favourites',
-            'ko_registerWidget' => '/javascripts/ko_registerWidget',
             'ko_community' => '/javascripts/ko_community',
             'ko_photoWidget' => '/javascripts/ko_photoWidget',
             'ko_comments' => '/javascripts/comments',
@@ -109,19 +108,6 @@ return array(
                 'new/javascript/bootstrap/dropdown.js',
                 'new/javascript/bootstrap/tab.js',
             ),
-        ),
-        'userSettings' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_userSettings.js',
-            ),
-        ),
-        'ko_settings' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_settings.js',
-            ),
-            'depends' => array('knockout', 'userSettings'),
         ),
         'touchPunch' => array(
             'baseUrl' => '/',
@@ -212,7 +198,6 @@ return array(
             'js' => array(
                 'javascripts/jquery.flydiv.js'
             ),
-            'depends' => array('jquery'),
         ),
         'DOMPurify' => [
             'baseUrl' => '/',
@@ -352,21 +337,6 @@ return array(
             ),
             'depends' => array('ko_blog', 'ko_upload', 'ko_library'),
         ),
-        'ko_profile' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_user_profile.js',
-                'javascripts/ko_blog.js',
-            ),
-            'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments', 'ko_upload', 'ko_library'),
-        ),
-        'ko_search' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_search.js',
-            ),
-            'depends' => array('knockout', 'ko_library'),
-        ),
         'ko_friends' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -389,13 +359,6 @@ return array(
                 'javascripts/ko_favourites.js',
             ),
             'depends' => array('knockout', 'history', 'ko_library'),
-        ),
-        'ko_family' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_family.js',
-            ),
-            'depends' => array('knockout', 'jquery.ui', 'ko_library'),
         ),
         'jquery.ui' => array(
             'baseUrl' => '/',
@@ -438,13 +401,6 @@ return array(
             ),
             'depends' => array('knockout', 'ko_library', 'comet'),
         ),
-        'ko_recipes_search' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_recipes_search.js',
-            ),
-            'depends' => array('knockout', 'ko_library'),
-        ),
         'ko_antispam' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -468,13 +424,6 @@ return array(
                 'redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
             ),
             'depends' => array('jquery', 'ko_upload'),
-        ),
-        'ko_registerWidget' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_registerWidget.js',
-            ),
-            'depends' => array('jquery', 'knockout', 'common', 'jcrop', 'ko_upload', 'ko_library'),
         ),
         'favouriteWidget' => array(
             'baseUrl' => '/',
@@ -541,6 +490,7 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/member.css',
+                'lite/css/min/member-new.css'
             ),
         ),
         'lite_member_user' => array(
@@ -638,6 +588,7 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/member-photo.css',
+                'lite/css/min/member-new.css',
                 'lite/css/min/member-user.css'
             ),
         ),
@@ -669,6 +620,18 @@ return array(
         ),
         'lite_faq' => array(
             'depends' => array('lite_services'),
+        ),
+        'lite_new_pediatrician' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'app/builds/static/css/main.min.css',
+            ),
+            'js' => array(
+                'app/builds/static/js/main.min.js',
+            ),
+            'depends' => array('jquery'),
+
         ),
         'lite_faq_user' => array(
             'depends' => array('lite_services_user'),

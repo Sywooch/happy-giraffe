@@ -24,7 +24,6 @@
  * @copyright  2011, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Adam Rogal
  * @see        AdsSoapClient
  */
 require_once dirname(__FILE__) . '/../../Common/Lib/AdsSoapClient.php';
@@ -38,7 +37,7 @@ class AdWordsSoapClient extends AdsSoapClient {
 
   /**
    * Constructor for the AdWords API SOAP client.
-   * @param string $wsdl URI of the WSDL file or <var>NULL</var> if working in
+   * @param string $wsdl URI of the WSDL file or <var>null</var> if working in
    *     non-WSDL mode
    * @param array $options the SOAP client options
    * @param AdsUser $user the user which is responsible for this client
@@ -53,14 +52,7 @@ class AdWordsSoapClient extends AdsSoapClient {
   }
 
   /**
-   * Overrides the method __doRequest(). When OAuth2 authentication is used the
-   * URL parameters added.
-   * @param string $request the request XML
-   * @param string $location the URL to request
-   * @param string $action the SOAP action
-   * @param string $version the SOAP version
-   * @param int $one_way if set to 1, this method returns nothing
-   * @return string the XML SOAP response
+   * @see SoapClient::__doRequest
    */
   function __doRequest($request , $location , $action , $version,
       $one_way = 0) {
@@ -81,9 +73,23 @@ class AdWordsSoapClient extends AdsSoapClient {
   }
 
   /**
+   * @see SoapClient::__soapCall
+   */
+  function __soapCall($function_name, $arguments, $options = null,
+      $input_headers = null, &$output_headers = null) {
+    $this->GetAdsUser()->updateClientLibraryUserAgent(
+        $this->GetAdsUser()->GetUserAgent());
+    // Copy the updated user agent to the header of this SOAP client, as it
+    // is not copied from AdsUser automatically.
+    $this->SetHeaderValue($this->GetAdsUser()->GetUserAgentHeaderName(),
+        $this->GetAdsUser()->GetClientLibraryUserAgent());
+    return parent::__soapCall($function_name, $arguments);
+  }
+
+  /**
    * Generates the SOAP header for the client.
+   *
    * @return SoapHeader the instantiated SoapHeader ready to set
-   * @access protected
    */
   protected function GenerateSoapHeader() {
     $soapHeaderClassName = 'SoapHeader';
@@ -95,19 +101,15 @@ class AdWordsSoapClient extends AdsSoapClient {
       $headerObject->$var = $this->GetHeaderValue($var);
     }
     return new SoapHeader($this->serviceNamespace, 'RequestHeader',
-        $headerObject, FALSE);
+        $headerObject, false);
   }
 
   /**
-   * Removes the authentication token from the request before being logged.
-   * @param string $request the request with sensitive data to remove
-   * @return string the request with the authentication token removed
-   * @access protected
+   * @see AdsSoapClient::RemoveSensitiveInfo()
    */
   protected function RemoveSensitiveInfo($request) {
-    $result = preg_replace(
-        '/(.*authToken>)(.*)(<\/.*authToken>.*)/sU', '\1*****\3', $request);
-    return isset($result) ? $result : $request;
+    // No-op, there is no sensitive information to remove from AdWords requests.
+    return $request;
   }
 
   /**
@@ -202,8 +204,8 @@ class AdWordsSoapClient extends AdsSoapClient {
    * <li>isFault</li>
    * <li>faultMessage</li>
    * </ul>
+   *
    * @return string the request info message to log
-   * @access protected
    */
   protected function GenerateRequestInfoMessage() {
     return 'effectiveUser=' . $this->GetEffectiveUser()

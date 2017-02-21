@@ -12,6 +12,8 @@
     </div>
     <div class="answers-list_item_text-block_text-mod margin-b5"><?=$answer->text?></div>
 </div>
-<div class="answers-list_item_like-block answers-list_item_like-block-active answers-list_item_like-block_mobile"><a href="#" class="answers-list_item_like-block_like"></a>
+<div class="answers-list_item_like-block answers-list_item_like-block-active answers-list_item_like-block_mobile">
+	<span class="like_counter margin-r9"> Вам сказали</span>
+	<div class="answers-list_item_like-block_like"></div>
 	<div class="like_counter">Спасибо<span><?=$answer->votesCount?></span></div>
 </div>

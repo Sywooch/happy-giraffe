@@ -63,7 +63,7 @@ $replyArgument = is_null($currentAnswerId) ? $question->id : $question->id . ', 
                     </div>
                 </div>
             </div>
-            <div class="answer-form__footer clearfix">
+            <div class="answer-form__footer--style clearfix">
                 <div class="answer-form__footer-panel">
                     <div id="add-post-toolbar"></div>
                 </div>

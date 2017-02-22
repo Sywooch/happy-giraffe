@@ -109,11 +109,24 @@ class CometModel extends CComponent
      * @author Sergey Gubarev
      */
     const MP_QUESTION_EDITED_BY_OWNER = 7004;
+
     /**
      * @var integer MP_QUESTION_FINISH_EDITED_BY_OWNER Статус-код: Автор закончил редактировать свой вопрос
      * @author Sergey Gubarev
      */
     const MP_QUESTION_FINISH_EDITED_BY_OWNER = 7005;
+
+    /**
+     * @var integer MP_ANSWER_FINISH_EDITING_BY_OWNER Статус-код: Автор закончил редактировать свой ответ
+     * @author Sergey Gubarev
+     */
+    const MP_ANSWER_FINISH_EDITING_BY_OWNER = 7006;
+
+    /**
+     * @var integer MP_ANSWER_START_EDITING_BY_OWNER Статус-код: Автор начал редактировать свой ответ
+     * @author Sergey Gubarev
+     */
+    const MP_ANSWER_START_EDITING_BY_OWNER = 7007;
 
 
     public $attributes = array();
@@ -138,7 +151,9 @@ class CometModel extends CComponent
         $channel_id = is_numeric($receiver) ? UserCache::GetUserCache($receiver) : $receiver;
         $this->attributes['type'] = $this->type;
         try {
-            Yii::app()->comet->send($channel_id, $this->attributes);
+            /*@todo хз как решать, иначе не приходят все запросы в браузер */
+            usleep(400000);// 100ms
+            \Yii::app()->comet->send($channel_id, $this->attributes);
         } catch (Exception $err) {
             echo $err->getMessage();
         }

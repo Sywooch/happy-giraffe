@@ -4,7 +4,7 @@ namespace site\frontend\modules\som\modules\activity\commands;
 
 use site\frontend\modules\som\modules\activity\models\Activity;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
-use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
+use site\frontend\modules\som\modules\qa\models\QaQuestion;
 
 /**
  * Class ModifiedAnswersRows
@@ -24,6 +24,10 @@ class ActivityAnswers extends \CConsoleCommand
     {
         try
         {
+            echo 'Удаляю вопросы..' . PHP_EOL;
+            $delCount = $this->_deleteQuestions();
+            echo 'Удалено ' . $delCount . ' вопросов' . PHP_EOL;
+
             echo 'Выборка всех ответов к вопросам..' . PHP_EOL;
 
             $answersCount = $this->_getActivityAnswers(TRUE);
@@ -66,7 +70,10 @@ class ActivityAnswers extends \CConsoleCommand
                             $activityAnswerModel->typeId = Activity::TYPE_ANSWER_PEDIATRICIAN;
                         }
 
-                        $activityAnswerModel->data = serialize($answerModel);
+//                         $data = serialize($answerModel);
+                        $data = json_encode(['attributes' => $answerModel->getAttributes()]);
+
+                        $activityAnswerModel->data = $data;
                         $activityAnswerModel->save();
 
                         $count++;
@@ -91,6 +98,58 @@ class ActivityAnswers extends \CConsoleCommand
         {
             echo PHP_EOL . $e->getMessage() . PHP_EOL;
         }
+    }
+
+    private function _deleteQuestions()
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->addCondition('typeId="' . Activity::TYPE_QUESTION . '"');
+
+        $activityCount = Activity::model()->count($criteria);
+
+        if ($activityCount == 0)
+        {
+            return $activityCount;
+        }
+
+        $itaration = (int)($activityCount / $this->_limit);
+
+        if ($activityCount % $this->_limit > 0)
+        {
+            $itaration++;
+        }
+
+        echo 'Выбрано: ' . $activityCount . PHP_EOL;
+        echo 'Количество итераций: ' . $itaration . PHP_EOL;
+
+        for ($i=0; $i < $itaration; $i++)
+        {
+            $criteria->limit = $this->_limit;
+            $criteria->offset = $this->_limit * $i;
+
+            $activityList = Activity::model()->findAll($criteria);
+
+            $delCount = 0;
+
+            foreach ($activityList as $activity)
+            {
+                /*@var $question QaQuestion */
+                $question = $this->_getQuestionModel($activity->hash);
+
+                if (is_null($question) || is_null($question->categoryId))
+                {
+                    continue;
+                }
+
+                if ($question->category->isPediatrician())
+                {
+                    $activity->delete();
+                    $delCount++;
+                }
+            }
+        }
+
+        return $delCount;
     }
 
     private function _getActivityAnswers($returnCount = FALSE, $offset = NULL)
@@ -129,6 +188,17 @@ class ActivityAnswers extends \CConsoleCommand
         $criteria->params[':hashId'] = $hash;
 
         $model = QaAnswer::model()->find($criteria);
+
+        return $model;
+    }
+
+    private function _getQuestionModel($hash)
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->condition = 'MD5(t.id) = :hashId';
+        $criteria->params[':hashId'] = $hash;
+
+        $model = QaQuestion::model()->find($criteria);
 
         return $model;
     }

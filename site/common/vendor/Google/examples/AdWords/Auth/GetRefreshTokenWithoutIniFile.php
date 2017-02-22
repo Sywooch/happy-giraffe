@@ -25,7 +25,6 @@
  * @copyright  2014, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Ray Tsang
  */
 require_once dirname(__FILE__) . '/init.php';
 
@@ -35,8 +34,8 @@ require_once dirname(__FILE__) . '/init.php';
  * @return array the user's OAuth 2 credentials
  */
 function GetOAuth2Credential(AdWordsUser $user) {
-  $redirectUri = NULL;
-  $offline = TRUE;
+  $redirectUri = null;
+  $offline = true;
   // Get the authorization URL for the OAuth2 token.
   // No redirect URL is being used since this is an installed application. A web
   // application would pass in a redirect URL back to the application,
@@ -92,7 +91,7 @@ try {
   );
 
   // See AdWordsUser constructor
-  $user = new AdWordsUser(NULL, NULL, NULL, NULL, NULL, NULL, $oauth2Info);
+  $user = new AdWordsUser(null, null, null, null, null, $oauth2Info);
 
   $user->LogAll();
 

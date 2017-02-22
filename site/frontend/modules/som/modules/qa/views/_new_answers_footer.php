@@ -17,10 +17,13 @@
 
     <?php if ($data->authorId == \Yii::app()->user->id): ?>
 
-        <div class="b-pedaitor-answer__footer__item"><a href="javascript:void(0);" class="b-answer-footer__comment">10</a>
+        <div class="b-pedaitor-answer__footer__item">
+        	<?php if ($data->descendantsCount() > 0) {?>
+        		<a href="javascript:void(0);" class="b-answer-footer__comment"><?=$data->descendantsCount()?></a>
+        	<?php } ?>
             <button type="button" class="btn-answer btn-answer--theme-grey">
                 <span class="btn-answer__num btn-answer__num--to">Вам сказали &nbsp;</span>
-                <span class="btn-answer__num btn-answer__num--theme-grey">Спасибо <?= $data->getVotesCount(); ?></span>
+                <span class="btn-answer__num btn-answer__num--theme-grey">Спасибо <?= $data->votesCount?></span>
             </button>
         </div>
 
@@ -32,10 +35,10 @@
         	<?php } ?>
             <?php if (\Yii::app()->user->isGuest) { ?>
                 <button type="button" class="btn-answer btn-answer--theme-green login-button <?=$hasVote ? 'btn-answer--active' : ''?>" data-bind="follow: {}">
-                    <span class="btn-answer__num btn-answer__num--theme-green">Спасибо <?= $data->getVotesCount(); ?></span>
+                    <span class="btn-answer__num btn-answer__num--theme-green">Спасибо <?= $data->votesCount?></span>
                 </button>
             <?php } else { ?>
-                <pediatrician-vote params="count: <?=$data->getVotesCount()?>, answerId: <?=$data->id?>, hasVote: <?=$hasVote ? 1:0?>"></pediatrician-vote>
+                <pediatrician-vote params="count: <?=$data->votesCount?>, answerId: <?=$data->id?>, hasVote: <?=$hasVote ? 1:0?>"></pediatrician-vote>
             <?php } ?>
         </div>
 

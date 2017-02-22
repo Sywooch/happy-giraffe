@@ -165,40 +165,44 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
                 </div>
 
-                <?php if (\Yii::app()->user->isGuest || $question->canBeAnsweredBy(\Yii::app()->user->id)): ?>
+                <?php if (\Yii::app()->user->isGuest): ?>
 
-                <div id="js-question-reply-form" class="b-redactor">
-                    <!-- ko if: isFormEnabled() -->
-                    <div class="b-redactor__action">
-                        <textarea
-                            id="js--redactor__textarea"
-                            placeholder="Введите ваш ответ"
-                            class="b-redactor__textarea"
-                            data-bind="wswgHG: { config: {
-                                    minHeight: 140,
-                                    plugins: ['text', 'imageCustom', 'smilesModal'],
-                                    toolbarExternal: '.redactor-post-toolbar',
-                                    placeholder: 'Введите ваш ответ',
-                                    focus: true,
-                                    callbacks: {
+                    <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', ['view' => 'comments_new']); ?>
 
-                                    }
-                                }, attr: text }"
-                        >
-                        </textarea>
-                    </div>
-                    <div class="b-redactor__footer b-redactor-footer b-redactor-footer--theme-small">
-                        <div class="b-redactor-footer__item">
-                            <div class="redactor-post-toolbar"></div>
+                <?php elseif ($question->canBeAnsweredBy(\Yii::app()->user->id)): ?>
+
+                    <div id="js-question-reply-form" class="b-redactor">
+                        <!-- ko if: isFormEnabled() -->
+                        <div class="b-redactor__action">
+                            <textarea
+                                id="js--redactor__textarea"
+                                placeholder="Введите ваш ответ"
+                                class="b-redactor__textarea"
+                                data-bind="wswgHG: { config: {
+                                        minHeight: 140,
+                                        plugins: ['text', 'imageCustom', 'smilesModal'],
+                                        toolbarExternal: '.redactor-post-toolbar',
+                                        placeholder: 'Введите ваш ответ',
+                                        focus: true,
+                                        callbacks: {
+
+                                        }
+                                    }, attr: text }"
+                            >
+                            </textarea>
                         </div>
-                        <div class="b-redactor-footer__item">
-                            <button type="button" class="btn btn--blue btn--sm" data-bind="css: {'disabled': isSubmitDisabled()},click: addAnswerToQuestion">Ответить</button>
+                        <div class="b-redactor__footer b-redactor-footer b-redactor-footer--theme-small">
+                            <div class="b-redactor-footer__item">
+                                <div class="redactor-post-toolbar"></div>
+                            </div>
+                            <div class="b-redactor-footer__item">
+                                <button type="button" class="btn btn--blue btn--sm" data-bind="css: {'disabled': isSubmitDisabled()},click: addAnswerToQuestion">Ответить</button>
+                            </div>
                         </div>
+                        <!-- /ko -->
                     </div>
-                    <!-- /ko -->
-                </div>
 
-                <?php
+                    <?php
                     $params = [
                         'questionId'    => $question->id,
                         'isEditing'     => $isEditing
@@ -212,12 +216,12 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
                             'ko_library'        => 'ko_library'
                         ],
                         '
-                            ko.applyBindings(new QuestionReplyForm(' . CJSON::encode($params) . '),
-                            document.getElementById("js-question-reply-form"));
-                        '
+                                ko.applyBindings(new QuestionReplyForm(' . CJSON::encode($params) . '),
+                                document.getElementById("js-question-reply-form"));
+                            '
                     );
 
-                ?>
+                    ?>
 
                 <?php endif; ?>
 

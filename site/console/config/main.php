@@ -117,9 +117,9 @@ return array(
         'convertAnswers' => [
             'class' => 'site\frontend\modules\som\modules\qa\commands\ConvertAnswersCommand',
         ],
-        'mpQuestionsEdited' => [
-            'class' => \site\frontend\modules\som\modules\qa\commands\MpQuestionsEditedCommand::class
-        ]
+        'mpQaEntitiesEdited' => [
+            'class' => \site\frontend\modules\som\modules\qa\commands\MpQaEntitiesEditedCommand::class
+        ],
     ),
     'import' => array(
         'site.common.models.User',

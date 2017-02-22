@@ -4,7 +4,7 @@ namespace site\frontend\modules\som\modules\qa\models;
 use site\common\behaviors\AuthorBehavior;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior;
-use site\frontend\modules\som\modules\qa\behaviors\CometBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\AnswerCometBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
 use site\frontend\modules\som\modules\qa\components\QaManager;
@@ -98,6 +98,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return [
             ['questionId', 'safe'],
             ['text', 'required'],
+            ['isRemoved', 'default', 'value' => 0],
+            ['votesCount', 'default', 'value' => 0],
+            ['isBest', 'default', 'value' => 0],
         ];
     }
 
@@ -124,6 +127,23 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return [
             'user' => ['site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => ['avatarSize' => 40]],
         ];
+    }
+
+    /**
+     * Получить ID comet-канала
+     *
+     * @return string
+     * @author Sergey Gubarev
+     */
+    public function channelId()
+    {
+        $idParts = [
+            QaManager::getQuestionChannelId($this->questionId),
+            'answer' . $this->id,
+            QaQuestion::COMET_CHANNEL_ID_EDITED_PREFIX
+        ];
+
+        return implode('_', $idParts);
     }
 
     /**
@@ -202,8 +222,8 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'childAttribute'    => 'descendant_id',
                 'parentAttribute'   => 'ancestor_id'
             ],
-            'CometBehavior' => [
-                'class' => CometBehavior::class
+            'AnswerCometBehavior' => [
+                'class' => AnswerCometBehavior::class
             ]
         ];
     }
@@ -256,29 +276,19 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 $this->markAsRoot($this->id);
             }
         }
-        else
-        {
-            if ($this->question->category->isPediatrician())
-            {
-                $channelId = QaManager::getQuestionChannelId($this->question->id);
-
-                $this->refresh();
-
-                $resp = [
-                    'status'    => true,
-                    'answerId'  => $this->id,
-                    'text'      => $this->text
-                ];
-
-                (new \CometModel())->send($channelId, $resp, \CometModel::MP_QUESTION_ANSWER_FINISH_EDITED);
-            }
-        }
 
         parent::afterSave();
     }
 
     public function afterSoftDelete()
     {
+        if ($this->isAdditional())
+        {
+            $channelId = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionChannelId($this->questionId);
+
+            (new \CometModel())->send($channelId, null, \CometModel::QA_REMOVE_ANSWER);
+        }
+
         $this->updateAnswersCount(-1);
         $this->softDelete->afterSoftDelete();
     }
@@ -418,6 +428,16 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     }
 
     /**
+     * @return self
+     */
+    public function onlyPublished()
+    {
+        $this->getDbCriteria()->addColumnCondition(['isPublished' => self::PUBLISHED]);
+
+        return $this;
+    }
+
+    /**
      * @param int $tagId
      *
      * @return QaAnswer
@@ -480,12 +500,16 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     public function descendantsCount($forMe = FALSE)
     {
-        $user = \Yii::app()->user;
-        $condition = '';
+        $condition = 'isPublished=' . QaAnswer::PUBLISHED;
 
-        if (!$user->isGuest && $forMe)
+        if (!(\Yii::app() instanceof \CConsoleApplication))
         {
-            $condition = 'authorId=' . \Yii::app()->user->id;
+            $user = \Yii::app()->user;
+
+            if (!$user->isGuest && $forMe)
+            {
+                $condition = ' AND authorId=' . \Yii::app()->user->id;
+            }
         }
 
         return $this->descendants()->count($condition);
@@ -566,9 +590,10 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'canVote'                           => $canVote,
             'isVoted'                           => !empty($isVoted),
             'question'                          => $this->question->toJSON(),
-            'countChildAnswers'                 => QaManager::getCountChildAnswers($this->id),
+            'countChildAnswers'                 => (int) $this->descendantsCount(FALSE),
             'isAdditional'                      => $this->isAdditional(),
-            'isAnswerToAdditional'              => $this->isAnswerToAdditional()
+            'isAnswerToAdditional'              => $this->isAnswerToAdditional(),
+            'isEditing'                         => QaManager::isAnswerEditing((int) $this->id)
         ];
     }
 
@@ -591,31 +616,25 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return $this->author->isSpecialist;
     }
 
-    /**
-     * Количество "спасибо"
-     *
-     * @return integer
-     * @author Sergey Gubarev
-     */
-    public function getVotesCount()
-    {
-        return $this->votesCount;
-    }
-
-    /**
-     * Получить вопрос к ответу
-     *
-     * @return QaQuestion
-     * @author Sergey Gubarev
-     */
-    public function getQuestion()
-    {
-        return $this->question;
-    }
-
     public function getLeaf()
     {
         return empty($this->children);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see CActiveRecord::saveCounters()
+     */
+    public function saveCounters($counters)
+    {
+        $parentResult = parent::saveCounters($counters);
+
+        if ($parentResult && array_key_exists('votesCount', $counters))
+        {
+            $this->updateActivity();
+        }
+
+        return $parentResult;
     }
 
 }

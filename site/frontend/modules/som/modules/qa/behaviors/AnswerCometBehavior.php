@@ -126,7 +126,7 @@ class AnswerCometBehavior extends BaseBehavior
                     $data = [
                         'status'    => true,
                         'answerId'  => $answer->id,
-                        'text'      => $answer->text,
+                        'text'      => $answer->purified->text,
                         'isRoot'    => is_null($answer->root_id)
                     ];
 
@@ -145,6 +145,13 @@ class AnswerCometBehavior extends BaseBehavior
     private function _restore(QaAnswer $answer)
     {
         $this->_updateCounter($answer);
+
+        if ($answer->isAdditional())
+        {
+            $specialistQuestionChannelId = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionChannelId($this->data->questionId);
+
+            $this->_sendData(NULL, \CometModel::QA_RESTORE_ANSWER, $specialistQuestionChannelId);
+        }
 
         return \CometModel::QA_RESTORE_ANSWER;
     }

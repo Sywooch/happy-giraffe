@@ -199,4 +199,56 @@ class SpecialistProfile extends \HActiveRecord
 			return $spec->title;
 		}, $this->specializations)) : '';
 	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function isOnline()
+	{
+		if (!isset($this->getDbCriteria()->with['user'])) {
+			$this->getDbCriteria()->with[] = 'user';
+		}
+
+		$this->getDbCriteria()->compare('user.online', 1);
+
+		return $this;
+	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function isOffline()
+	{
+		if (!isset($this->getDbCriteria()->with['user'])) {
+			$this->getDbCriteria()->with[] = 'user';
+		}
+
+		$this->getDbCriteria()->compare('user.online', 0);
+
+		return $this;
+	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function inChat()
+	{
+		if (!isset($this->getDbCriteria()->with['user'])) {
+			$this->getDbCriteria()->with[] = 'user';
+		}
+
+		$this->getDbCriteria()->compare('user.is_in_chat', 1);
+
+		return $this;
+	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function authorized()
+	{
+		$this->getDbCriteria()->compare('authorization_status', AuthorizationEnum::ACTIVE);
+
+		return $this;
+	}
 }

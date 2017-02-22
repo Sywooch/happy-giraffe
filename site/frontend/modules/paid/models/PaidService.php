@@ -69,6 +69,8 @@ class PaidService extends \HActiveRecord
     }
 
     /**
+     * Return modified price value.
+     *
      * @return int
      */
     public function getOutputPrice()

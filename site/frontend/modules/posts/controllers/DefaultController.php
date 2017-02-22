@@ -10,6 +10,7 @@ namespace site\frontend\modules\posts\controllers;
 class DefaultController extends \LiteController
 {
     public $litePackage = 'posts';
+    public $layout = '//layouts/new/mainFamily';
 
     public function actionIndex()
     {

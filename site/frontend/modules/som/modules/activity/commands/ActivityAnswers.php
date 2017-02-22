@@ -105,24 +105,47 @@ class ActivityAnswers extends \CConsoleCommand
         $criteria = new \CDbCriteria();
         $criteria->addCondition('typeId="' . Activity::TYPE_QUESTION . '"');
 
-        $activityList = Activity::model()->findAll($criteria);
+        $activityCount = Activity::model()->count($criteria);
 
-        $delCount = 0;
-
-        foreach ($activityList as $activity)
+        if ($activityCount == 0)
         {
-            /*@var $question QaQuestion */
-            $question = $this->_getQuestionModel($activity->hash);
+            return $activityCount;
+        }
 
-            if (is_null($question) || is_null($question->categoryId))
-            {
-                continue;
-            }
+        $itaration = (int)($activityCount / $this->_limit);
 
-            if ($question->category->isPediatrician())
+        if ($activityCount % $this->_limit > 0)
+        {
+            $itaration++;
+        }
+
+        echo 'Выбрано: ' . $activityCount . PHP_EOL;
+        echo 'Количество итераций: ' . $itaration . PHP_EOL;
+
+        for ($i=0; $i < $itaration; $i++)
+        {
+            $criteria->limit = $this->_limit;
+            $criteria->offset = $this->_limit * $i;
+
+            $activityList = Activity::model()->findAll($criteria);
+
+            $delCount = 0;
+
+            foreach ($activityList as $activity)
             {
-                $activity->delete();
-                $delCount++;
+                /*@var $question QaQuestion */
+                $question = $this->_getQuestionModel($activity->hash);
+
+                if (is_null($question) || is_null($question->categoryId))
+                {
+                    continue;
+                }
+
+                if ($question->category->isPediatrician())
+                {
+                    $activity->delete();
+                    $delCount++;
+                }
             }
         }
 

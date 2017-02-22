@@ -42,6 +42,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                     $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                     if ($this->show_video)
                         $value = $this->linkifyVideos($value);
+                    $value = $this->_replaceSomeSpace($value);
                     $value = $purifier->purify($value);
                     $value = $this->setWidgets($value);
                     $value = $this->fixUrls($value);
@@ -105,9 +106,14 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     private function _trimApostrophe($text)
     {
-        $text = str_replace("'", '&#39;', $text);
+        return str_replace("'", '&#39;', $text);
+    }
 
-        return $text;
+    private function _replaceSomeSpace($text)
+    {
+        $text = str_replace("&nbsp;", " ", $text);
+
+        return preg_replace('| +|', ' ', $text);
     }
 
     private function fixUrls($text)

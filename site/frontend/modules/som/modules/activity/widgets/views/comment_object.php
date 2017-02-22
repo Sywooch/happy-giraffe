@@ -1,8 +1,7 @@
 <?php
-
-use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
-
 /*@var $data \site\frontend\modules\som\modules\qa\models\QaAnswer */
+
+$author = $data->question->user;
 
 ?>
 
@@ -27,11 +26,11 @@ use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
     <div class="b-post-anonce-s">
         <div class="b-post-anonce-s_hold">
             <div class="b-post-anonce-s_header clearfix">
-                <a href="<?= $user->profileUrl ?>" class="ava ava__<?= $user->gender ? '' : 'fe' ?>male ava__small">
+                <a href="<?= $author->profileUrl ?>" class="ava ava__<?= $author->gender ? '' : 'fe' ?>male ava__small">
                     <span class="ico-status ico-status__online"></span>
-                    <img alt="" src="<?= $user->avatarUrl ?>" class="ava_img">
+                    <img alt="" src="<?= $author->avatarUrl ?>" class="ava_img">
                 </a>
-                <a href="<?= $user->profileUrl ?>" class="b-post-anonce-s_author"><?= $user->fullName ?></a>
+                <a href="<?= $author->profileUrl ?>" class="b-post-anonce-s_author"><?= $author->fullName ?></a>
                 <?= HHtml::timeTagByOptions($data->dtimeCreate, array('id' => 'activityCommentTime' . $data->id, 'class' => 'tx-date')) ?>
             </div>
             <a href="<?=$data->question->url?>" class="b-post-anonce-s_t"><?=$data->question->title?></a>

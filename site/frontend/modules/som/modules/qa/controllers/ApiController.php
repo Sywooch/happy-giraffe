@@ -271,49 +271,18 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function afterAction($action)
     {
         $types = [
-            'vote'          => \CometModel::QA_VOTE,
-            'createAnswer'  => \CometModel::QA_NEW_ANSWER,
-            'removeAnswer'  => \CometModel::QA_REMOVE_ANSWER,
-            'restoreAnswer' => \CometModel::QA_RESTORE_ANSWER,
-            'editAnswer'    => \CometModel::QA_EDIT_ANSWER,
+            'vote' => \CometModel::QA_VOTE,
         ];
 
         if ($this->success == true && array_key_exists($action->id, $types))
         {
-            if ($action->id == 'createAnswer' && $this->data->author->isSpecialist)
-            {
-                return parent::afterAction($action);
-            }
-
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
 
             if ($this->data instanceof QaAnswer)
             {
                 $questionChannelId = QaManager::getQuestionChannelId($this->data->question->id);
 
-                if ($action->id == 'createAnswer' || $action->id == 'removeAnswer' || $action->id == 'restoreAnswer')
-                {
-                    $count = $this->data->question->getAnswersCount();
-
-                    $response = [
-                        'count'     => $count,
-                        'countText' => \Yii::t('app', 'ответ|ответа|ответов|ответа', $count)
-                    ];
-
-                    $this->send($questionChannelId, $response, \CometModel::MP_QUESTION_UPDATE_ANSWERS_COUNT);
-                }
-
-                if ($this->data->question->category->isPediatrician())
-                {
-                    $chanelId = $questionChannelId;
-
-                }
-                else
-                {
-                    $chanelId = AnswersWidget::getChannelIdByQuestion($this->data->questionId);
-                }
-
-                $this->send($chanelId, $data, $types[$action->id]);
+                $this->send($questionChannelId, $data, $types[$action->id]);
             }
         }
 

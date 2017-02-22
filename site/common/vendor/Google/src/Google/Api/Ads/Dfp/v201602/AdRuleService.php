@@ -2812,14 +2812,9 @@ if (!class_exists("Statement", false)) {
    * <p>
    * An example of such a query might be {@code "WHERE name LIKE 'startswith%'"}.
    * </p>
-   * If using an API version newer than V201010, the value for the variable
-   * idValue must then be set with an object of type {@link Value} and is one of
-   * {@link NumberValue}, {@link TextValue} or {@link BooleanValue}.
-   * <p>
-   * If using an API version older than or equal to V201010, the value for the
-   * variable idValue must then be set with an object of type {@link Param} and is
-   * one of {@link DoubleParam}, {@link LongParam} or {@link StringParam}.
-   * </p>
+   * The value for the variable idValue must then be set with an object of type
+   * {@link Value}, e.g., {@link NumberValue}, {@link TextValue} or
+   * {@link BooleanValue}.
    * @package GoogleApiAdsDfp
    * @subpackage v201602
    */
@@ -4999,8 +4994,8 @@ if (!class_exists("CreateAdRulesResponse", false)) {
 
 if (!class_exists("GetAdRulesByStatement", false)) {
   /**
-   * Gets an {@link AdRulePage} of {@link AdRule} objects that satisfy the given
-   * {@link Statement#query}. The following fields are supported for filtering:
+   * Gets an {@link AdRulePage} of {@link AdRule} objects that satisfy the given {@link
+   * Statement#query}. The following fields are supported for filtering:
    * 
    * <table>
    * <tr>
@@ -5008,7 +5003,7 @@ if (!class_exists("GetAdRulesByStatement", false)) {
    * </tr>
    * <tr>
    * <td>{@code id}</td>
-   * <td>{@link AdRule#id}</td>
+   * <td>{@link AdRule#id} ({@link AdRule#adRuleId} beginning in v201702)</td>
    * </tr>
    * <tr>
    * <td>{@code name}</td>
@@ -5023,11 +5018,9 @@ if (!class_exists("GetAdRulesByStatement", false)) {
    * <td>{@link AdRule#status}</td>
    * </table>
    * 
-   * @param filterStatement a Publisher Query Language statement used to filter
-   * a set of ad rules
+   * @param filterStatement a Publisher Query Language statement used to filter a set of ad rules
    * @return the ad rules that match the given filter
-   * @throws ApiException if the ID of the active network does not exist or
-   * there is a backend error
+   * @throws ApiException if the ID of the active network does not exist or there is a backend error
    * @package GoogleApiAdsDfp
    * @subpackage v201602
    */
@@ -6753,8 +6746,8 @@ if (!class_exists("AdRuleService", false)) {
       return $result->rval;
     }
     /**
-     * Gets an {@link AdRulePage} of {@link AdRule} objects that satisfy the given
-     * {@link Statement#query}. The following fields are supported for filtering:
+     * Gets an {@link AdRulePage} of {@link AdRule} objects that satisfy the given {@link
+     * Statement#query}. The following fields are supported for filtering:
      * 
      * <table>
      * <tr>
@@ -6762,7 +6755,7 @@ if (!class_exists("AdRuleService", false)) {
      * </tr>
      * <tr>
      * <td>{@code id}</td>
-     * <td>{@link AdRule#id}</td>
+     * <td>{@link AdRule#id} ({@link AdRule#adRuleId} beginning in v201702)</td>
      * </tr>
      * <tr>
      * <td>{@code name}</td>
@@ -6777,11 +6770,9 @@ if (!class_exists("AdRuleService", false)) {
      * <td>{@link AdRule#status}</td>
      * </table>
      * 
-     * @param filterStatement a Publisher Query Language statement used to filter
-     * a set of ad rules
+     * @param filterStatement a Publisher Query Language statement used to filter a set of ad rules
      * @return the ad rules that match the given filter
-     * @throws ApiException if the ID of the active network does not exist or
-     * there is a backend error
+     * @throws ApiException if the ID of the active network does not exist or there is a backend error
      */
     public function getAdRulesByStatement($statement) {
       $args = new GetAdRulesByStatement($statement);

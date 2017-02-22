@@ -25,7 +25,6 @@
  * @copyright  2013, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Vincent Tsao
  */
 error_reporting(E_STRICT | E_ALL);
 
@@ -44,8 +43,8 @@ require_once dirname(__FILE__) . '/../../Common/ExampleUtils.php';
  * @return array the user's OAuth 2 credentials
  */
 function GetOAuth2Credential($user) {
-  $redirectUri = NULL;
-  $offline = TRUE;
+  $redirectUri = null;
+  $offline = true;
   // Get the authorization URL for the OAuth2 token.
   // No redirect URL is being used since this is an installed application. A web
   // application would pass in a redirect URL back to the application,
@@ -100,8 +99,7 @@ try {
     'client_secret' => $clientSecret
   );
 
-  // See DfpUser constructor
-  $user = new DfpUser(NULL, NULL, NULL, NULL, NULL, NULL, NULL, $oauth2Info);
+  $user = new DfpUser(null, null, null, null, $oauth2Info);
   $user->LogDefault();
 
   // Get the OAuth2 credential.

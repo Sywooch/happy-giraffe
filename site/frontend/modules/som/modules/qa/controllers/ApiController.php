@@ -282,35 +282,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             {
                 $questionChannelId = QaManager::getQuestionChannelId($this->data->question->id);
 
-                if ( in_array($action->id, ['createAnswer', 'removeAnswer', 'restoreAnswer']) )
-                {
-                    $count = $this->data->question->getAnswersCount();
-
-                    $response = [
-                        'count'     => $count,
-                        'countText' => \Yii::t('app', 'ответ|ответа|ответов|ответа', $count)
-                    ];
-
-                    $this->send($questionChannelId, $response, \CometModel::MP_QUESTION_UPDATE_ANSWERS_COUNT);
-                }
-
-                if ($this->data->question->category->isPediatrician())
-                {
-                    $chanelId = QaManager::getQuestionChannelId($this->data->question->id);
-
-                    if ($this->data->isAdditional() && $action->id == 'restoreAnswer')
-                    {
-                        $specialistQuestionChannelId = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionChannelId($this->data->questionId);
-
-                        $this->send($specialistQuestionChannelId, null, \CometModel::QA_RESTORE_ANSWER);
-                    }
-                }
-                else
-                {
-                    $chanelId = AnswersWidget::getChannelIdByQuestion($this->data->questionId);
-                }
-
-                $this->send($chanelId, $data, $types[$action->id]);
+                $this->send($questionChannelId, $data, $types[$action->id]);
             }
         }
 

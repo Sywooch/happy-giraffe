@@ -6,7 +6,6 @@
 
 namespace site\frontend\modules\som\modules\qa\behaviors;
 
-use site\frontend\modules\analytics\models\PageView;
 use site\frontend\modules\notifications\behaviors\BaseBehavior;
 use site\frontend\modules\notifications\models\Entity;
 use site\frontend\modules\notifications\models\Notification;
@@ -30,9 +29,11 @@ class NotificationBehavior extends BaseBehavior
     const ANSWER_TO_ADDITIONAL = 18;
     /**@var int ADDITIONAL Утвочняющий вопрос */
     const ADDITIONAL = 19;
+    /**@var int ANSWER_IN_BRANCH Комментарий в ветку овтетов*/
+    const ANSWER_IN_BRANCH = 20;
 
     /**
-     * Ответ на вопрос ???
+     * Ответ на вопрос ??? - это в те категории, которые не мой педиатр.
      *
      * @see Notification::TYPE_ANSWER
      */
@@ -43,10 +44,10 @@ class NotificationBehavior extends BaseBehavior
         $answer = $this->owner;
         $question = $answer->question;
 
-        if ($answer->isNewRecord && $question->sendNotifications && !$answer->isAdditional()) {
+        if ($answer->isNewRecord && (bool)$question->sendNotifications) {
             // Если паблишед, отправяем сигнал сразу. Иначе этим будет заниматься отдельный воркер
-            if ($answer->isPublished) {
-                $this->addNotification($answer, $question);
+            if ($answer->isPublished && !$answer->isAdditional()) {
+                $this->sendNotification();
             }
         }
 
@@ -95,9 +96,20 @@ class NotificationBehavior extends BaseBehavior
     protected function addNotification(QaAnswer $model, QaQuestion $question)
     {
         $type = $this->getType($model, $question);
-        $notification = $this->findOrCreateNotification(get_class($question), $question->id, $question->authorId, $type, array($model->authorId, $model->user->avatarUrl));
+
+        if ($type == self::ANSWER_IN_BRANCH) {
+            $userId = $model->root->authorId;
+        } else {
+            $userId = $question->authorId;
+        }
+
+        $notification = $this->findOrCreateNotification(get_class($question), $question->id, $userId, $type, array($model->authorId, $model->user->avatarUrl));
 
         $notification->entity->tooltip = $question->title;
+
+        if ($type == self::ANSWER_IN_BRANCH) {
+            $notification->entity->userId = $question->authorId;
+        }
 
         $entity = new Entity($model);
         $entity->userId = $model->authorId;
@@ -134,6 +146,10 @@ class NotificationBehavior extends BaseBehavior
 
         if ($answer->isAdditional()) {
             $type = self::ADDITIONAL;
+        }
+
+        if ($answer->isCommentToBranch()) {
+            $type = self::ANSWER_IN_BRANCH;
         }
 
         return $type;

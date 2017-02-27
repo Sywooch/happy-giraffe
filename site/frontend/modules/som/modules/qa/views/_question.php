@@ -5,7 +5,6 @@
 ?>
 
 <?php
-
 if (!is_null($data->category)) {
     $isAnonQuestion = $data->category->isPediatrician();
 } else {
@@ -14,7 +13,7 @@ if (!is_null($data->category)) {
 ?>
 
 <li class="questions_item clearfix <?php echo $isAnonQuestion ? 'questions_item-no-avatar' : ''; ?>">
-    
+
     <?php if ($data->user->avatarUrl && !$isAnonQuestion): ?>
 
         <div class="questions-modification__avatar awatar-wrapper">
@@ -22,7 +21,7 @@ if (!is_null($data->category)) {
                 <img src="<?= $data->user->avatarUrl ?>" class="awatar-wrapper__img">
             </a>
         </div>
-    
+
     <?php endif; ?>
 
 
@@ -56,16 +55,16 @@ if (!is_null($data->category)) {
             <?php endif; ?>
             <span class="box-footer__review"><?= Yii::app()->getModule('analytics')->visitsManager->getVisits($data->url) ?></span>
             <a class="box-footer__answer box-footer__answer_blue" href="<?= $data->url ?>">
-                <span class="box-footer__num"><?= $data->answerManager->getAnswersCount($data) ?></span>
+                <span class="box-footer__num"><?= $data->answersCount ?></span>
                 <span class="box-footer__descr">ответов</span>
             </a>
         </div>
     </div>
     <div class="box-wrapper__answer answer-wrapper">
-        <?php if ($data->answerManager->getAnswersCount($data) == 0): ?>
+        <?php if ($data->answersCount == 0): ?>
             <?php if (Yii::app()->user->isGuest || Yii::app()->user->checkAccess('createQaAnswer', ['question' => $data])): ?>
                 <a href="<?= $data->url ?>" class="answer-wrapper__box answer-wrapper__box_green">
-                    <span class="answer-wrapper__num"><?= $data->answerManager->getAnswersCount($data) ?></span>
+                    <span class="answer-wrapper__num"><?= $data->answersCount ?></span>
                     <span class="answer-wrapper__descr">ответить</span>
                 </a>
             <?php endif; ?>
@@ -84,7 +83,7 @@ if (!is_null($data->category)) {
                  **/ ?>
             <?php else: ?>
                 <a href="<?= $data->url ?>" class="answer-wrapper__box answer-wrapper__box_blue">
-                    <span class="answer-wrapper__num"><?= $data->answerManager->getAnswersCount($data) ?></span>
+                    <span class="answer-wrapper__num"><?= $data->answersCount ?></span>
                     <span class="answer-wrapper__descr">ответа</span>
                 </a>
             <?php endif; ?>

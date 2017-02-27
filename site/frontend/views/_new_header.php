@@ -1,6 +1,7 @@
 <?php
+$cs = Yii::app()->clientScript;
 
-Yii::app()->clientScript->registerAMD('headerSearch', ['common'], '
+$cs->registerAMD('headerSearch', ['common'], '
 $("[href=#js-madal-search-box]").magnificPopup({
               type: "inline",
               preloader: false,
@@ -24,6 +25,21 @@ function activeClass($linkName)
     }
 }
 **/
+
+if (! Yii::app()->user->isGuest) {
+    if ($cs->useAMD) {
+        $cs->registerAMD('menuVM', array('ko' => 'knockout', 'MenuViewModel' => 'ko_menu'), "menuVm = new MenuViewModel(" . CJSON::encode($this->menuData) . "); ko.applyBindings(menuVm, $('.layout-header')[0]);");
+    }
+    else {
+        $cs->registerPackage('ko_menu');
+        ?>
+        <script type="text/javascript">
+            menuVm = new MenuViewModel(<?=CJSON::encode($this->menuData)?>);
+            ko.applyBindings(menuVm, $('.layout-header')[0]);
+        </script>
+        <?php
+    }
+}
 ?>
 <div class="header__container">
     <div class="b-col b-col--1 b-fl">
@@ -62,7 +78,7 @@ function activeClass($linkName)
                 <li class="user-widget-block__li"><a href="<?=$this->createUrl('/messaging/default/index')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_dialog"></span><span class="user-widget-block__text">Диалоги</span></a></li>
                 <li class="user-widget-block__li"><a href="<?=$this->createUrl('/friends/default/index')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_friend"></span><span class="user-widget-block__text">Друзья</span></a></li>
                 <li class="user-widget-block__li"><a href="<?=$this->createUrl('/photo/default/index', array('userId' => Yii::app()->user->id))?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_photo"></span><span class="user-widget-block__text">Фото</span></a></li>
-                <li class="user-widget-block__li"><a href="<?=$this->createUrl('/som/qa/my/questions')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_answers"></span><span class="user-widget-block__text">Ответы</span></a></li>
+                <li class="user-widget-block__li"><a href="<?=$this->createUrl('/som/qa/my/questions')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_answers"></span><span class="user-widget-block__text">Вопросы</span></a></li>
                 <li class="user-widget-block__li"><a href="<?=$this->createUrl('/users/default/settings')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_setting"></span><span class="user-widget-block__text">Настройки</span></a></li>
                 <li class="user-widget-block__li"><a href="<?=$this->createUrl('/site/logout')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_exit"></span><span class="user-widget-block__text">Выход</span></a></li>
             </ul>

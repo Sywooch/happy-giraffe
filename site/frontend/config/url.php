@@ -114,11 +114,15 @@ return array(
 
         //страница вопроса
         'questions/question<id:\d+>' => 'som/qa/default/view',
-        'mypediatrician/question<id:\d+>' => 'som/qa/default/view',
+
+        'mypediatrician/question<id:\d+>'   => 'som/qa/default/view',
+        'mypediatrician/comet/<_a>'         => 'som/qa/cometProcess/<_a>',
 
         // поиск
         'questions/search/page<page:\d+>' => 'som/qa/default/search',
         'questions/search' => 'som/qa/default/search',
+        'mypediatrician/search/page<page:\d+>' => 'som/qa/default/pediatricianSearch',
+        'mypediatrician/search' => 'som/qa/default/pediatricianSearch',
 
         // мои вопросы-ответы
         'questions/my/answers/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/answers',
@@ -153,6 +157,7 @@ return array(
         'mypediatrician/<tab:(all|new|unanswered)>' => 'som/qa/default/pediatrician',
         'mypediatrician' => array('som/qa/default/pediatrician', 'defaultParams' => array('tab' => 'new')),
         'mypediatrician/add' => 'som/qa/default/pediatricianAddForm',
+        'mypediatrician/edit/<questionId:\d+>' => 'som/qa/default/pediatricianEditForm',
         'questions/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions/<tab:(popular|unanswered)>/<categoryId:\d+>/page<page:\d+>' => 'som/qa/default/index',
@@ -234,7 +239,7 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'moderation' => 'site/moderationRules',
-        'site/<_a:(send|stats|cookie|confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
+        'site/<_a:(send|stats|out|vacancySend|logout)>' => 'site/<_a>',
         '<view:(abuse)>' => array('site/page'),
         'developer' => 'site/vacancy',
 
@@ -257,11 +262,6 @@ return array(
         // ajax controller
         //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
         'ajaxSimple/<_a>' => 'ajaxSimple/<_a>',
-
-        // signup controller
-        'signup' => 'signup/index',
-        'signup/<_a:(showForm|finish)>' => 'signup/<_a>',
-        'signup/validate/step/<step:\d+>' => 'signup/validate',
 
         // friendRequests controller
         'friendRequests/update/request_id/<request_id:\d+>/action/<action:(accept|decline|retry|cancel)>' => 'friendRequests/update',
@@ -289,21 +289,6 @@ return array(
         'morning' => array('som/community/morning/index', 'parseOnly' => true),
         'morning/<content_id:\d+>' => array('som/community/morningView/view', 'parseOnly' => true),
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 404,
-        array(
-            'class' => 'UrlRule',
-            'pattern' => 'morning',
-            'route' => 'morning/index',
-        ),
-        array(
-            'class' => 'UrlRule',
-            'pattern' => 'morning/<id:\d+>',
-            'route' => 'morning/view',
-        ),
-        array(
-            'class' => 'UrlRule',
-            'pattern' => 'morning/<date:[\d\d\d\d-\d\d-\d\d]*>',
-            'route' => 'morning/index',
-        ),
 
         // albums controller
         'albums/addPhoto/a/<a:\d+>/text/<text:\w+>/u/<u:\d+>' => 'albums/addPhoto',
@@ -329,23 +314,9 @@ return array(
 
         'user/blog/photopost/create' => 'posts/form/photopost',
         'user/blog/status/create' => 'posts/form/status',
-        /*array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'condition' => 'Yii::app()->user->isGuest',
-            'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
-            'trueRoute' => 'posts/post/view',
-            'falseRoute' => 'blog/default/view',
-        ),*/
 
         //'user/<user_id:\d+>/blog' => 'blog/default/index',
         'user/<user_id:\d+>/blog' => 'posts/list/index',
-        /*array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'condition' => 'Yii::app()->user->isGuest',
-            'pattern' => 'user/<user_id:\d+>/blog',
-            'trueRoute' => 'posts/list/index',
-            'falseRoute' => 'blog/default/index',
-        ),*/
 
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
         'fakeBlogView' => array(
@@ -382,10 +353,7 @@ return array(
         'user/<userId:\d+>/rss' => 'rss/default/user',
         'user/<userId:\d+>/comments/rss/page<page:\d+>' => 'rss/default/comments',
         'user/<userId:\d+>/comments/rss' => 'rss/default/comments',
-
-        'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
-        'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
-        'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
+            
         //blog
         'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
         'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',
@@ -488,12 +456,11 @@ return array(
         'community/clubPhotoPosts/<clubId:\d+>' => 'community/default/clubPhotoPosts',
 
         //global
-        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|profile|rss|community|happyBirthdayMira)>' => '<_c>/index',
+        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|blog)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|profile|rss|happyBirthdayMira)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/default/contacts',
-        'news/about/authors' => 'community/authors',
         array('class' => 'site.frontend.extensions.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 
         /*************************
@@ -501,17 +468,6 @@ return array(
          *************************/
 
         'gallery/default/<_a>' => 'gallery/default/<_a>',
-
-        // live
-//        'whatsNew/clubs' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'all')),
-//        'whatsNew/clubs/my' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'my')),
-//        'whatsNew/blogs' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'all')),
-//        'whatsNew/blogs/my' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'my')),
-//        'whatsNew/page<page:\d+>' => 'whatsNew/default/index',
-//        'whatsNew' => 'whatsNew/default/index',
-//        'whatsNew/friends' => 'whatsNew/friends/index',
-//        'whatsNew/friends/page<page:\d+>' => 'whatsNew/friends/index',
-//        'whatsNew/<_a:(ajax|moreItems)>' => 'whatsNew/default/<_a>',
 
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',
@@ -707,13 +663,8 @@ return array(
         'user/<userId:\d+>/family/photo<photoId:\d+>' => 'photo/singlePhoto/family',
         'user/<userId:\d+>/family' => 'family/default/index',
         'user/<userId:\d+>/family/edit' => 'family/default/fill',
-        'user/<userId:\d+>/familyOld' => 'familyOld/default/index',
 
         'contest/<cssClass:\w+>' => 'community/contest/index',
-
-        'site/seo' => 'site/seo',
-        'site/seo2' => 'site/seo2',
-        'site/seo3' => 'site/seo3',
 
         '<_c>/captcha' => '<_c>/captcha',
 

@@ -74,36 +74,32 @@ class ApiController extends \site\frontend\components\api\ApiController
         /** @var $question QaQuestion */
         $question = QaQuestion::model()->findByPk($questionId);
 
-        if (is_null($question) || QaManager::canCreateAnswer($question, $answerId)) {
+        if (is_null($question) || !(new QaManager)->canCreateAnswer($question, $answerId)) {
             throw new \CHttpException(403, 'Access Denied');
         }
-
-        // $answerManager = $question->answerManager;
-
-        // $this->success = (bool) ($this->data = $answerManager->createAnswer($user->id, $text, $question));
 
         /** @var \site\frontend\modules\som\modules\qa\models\QaAnswer $answer */
         $answer = new self::$answerModel();
         $answer->attributes = [
-            'questionId' => $questionId,
-            'text' => $text,
+            'questionId'    => $questionId,
+            'text'          => $text,
         ];
 
         if ($answer->validate())
         {
             // Если ответил специалист то не нужно сразу отсылать оповещение и показывать ответ, т.к. на этой дело висит таймаут
-            if ($question->category->isPediatrician() && $answer->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS)) {
+            if ($question->category->isPediatrician() && $answer->author->isSpecialist) {
                 $answer->isPublished = false;
             }
         }
 
-        if (! is_null($answerId))
+        if (!is_null($answerId))
         {
             $answer->setAttribute('root_id', $answerId);
         }
 
-        $this->success = $answer->save();
-        $this->data = $answer;
+        $this->success  = $answer->save();
+        $this->data     = $answer;
     }
 
     public function actionGetTags()
@@ -132,14 +128,17 @@ class ApiController extends \site\frontend\components\api\ApiController
     }
 
     /**
-     * @param string $title
-     * @param string $text
-     * @param integer $tagId
-     * @param integer $childId
-     * @param integer $categoryId
+     * Опубликовать/обновить вопрос
+     *
+     * @param integer|null  $id         ID вопроса (если нужно обновить)
+     * @param string        $title      Заголовок
+     * @param string        $text       Текст
+     * @param integer|null  $tagId      ID тэга
+     * @param integer|null  $childId    ID ребенка
+     * @param integer|null  $categoryId ID категории
      * @throws \CHttpException
      */
-    public function actionCreateQuestion($title, $text, $tagId = NULL, $childId = NULL, $categoryId = NULL)
+    public function actionCreateQuestion($id = null, $title, $text, $tagId = NULL, $childId = NULL, $categoryId = NULL)
     {
         if (!\Yii::app()->user->checkAccess('createQaQuestion')) {
             throw new \CHttpException(403);
@@ -150,18 +149,28 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(400, 'tagId or childId must be passed');
         }
 
-        $question = new QaQuestion();
+        if (is_null($id))
+        {
+            $question = new QaQuestion();
+        }
+        else
+        {
+            $question = QaManager::getQuestion($id);
+        }
 
         if (!is_null($tagId))
         {
             $question->setScenario('tag');
             $question->tag_id = $tagId;
+            $question->attachedChild = null;
         }
 
         if (!is_null($childId))
         {
             $question->setScenario('attachedChild');
             $question->attachedChild = $childId;
+            $tag = $question->attChild->getAgeTag();
+            $question->tag_id = is_null($tag) ? NULL : $tag->id;
         }
 
         $question->title                = $title;
@@ -172,7 +181,6 @@ class ApiController extends \site\frontend\components\api\ApiController
 
         $this->success = $question->save();
         $this->data = $question;
-
     }
 
     public function actionGetAnswers($questionId)
@@ -264,21 +272,18 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         $types = [
             'vote' => \CometModel::QA_VOTE,
-            'createAnswer' => \CometModel::QA_NEW_ANSWER,
-            'removeAnswer' => \CometModel::QA_REMOVE_ANSWER,
-            'restoreAnswer' => \CometModel::QA_RESTORE_ANSWER,
-            'editAnswer' => \CometModel::QA_EDIT_ANSWER,
         ];
 
-        if ($this->success == true && in_array($action->id, array_keys($types))) // @fixme isset, array_key_exists?
+        if ($this->success == true && array_key_exists($action->id, $types))
         {
             $data = ($this->data instanceof \IHToJSON) ? $this->data->toJSON() : $this->data;
 
-            if ($this->data instanceof QaAnswer) {
-                $this->send(AnswersWidget::getChannelIdByQuestion($this->data->questionId), $data, $types[$action->id]);
-            }/* else if ($this->data instanceof QaCTAnswer) {
-                $this->send(AnswersWidget::getChannelIdByQuestion(CTAnswerManager::findSubject($this->data)), $data, $types[$action->id]);
-            }*/
+            if ($this->data instanceof QaAnswer)
+            {
+                $questionChannelId = QaManager::getQuestionChannelId($this->data->question->id);
+
+                $this->send($questionChannelId, $data, $types[$action->id]);
+            }
         }
 
         parent::afterAction($action);

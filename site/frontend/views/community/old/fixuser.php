@@ -1,1 +1,0 @@
-<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $user)); ?>

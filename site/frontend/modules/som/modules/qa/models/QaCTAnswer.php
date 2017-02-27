@@ -41,6 +41,11 @@ class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
         return new QaCTVoteManager();
     }
 
+    public function __construct()
+    {
+        throw new \Exception("depricated!");
+    }
+
     public function tableName()
     {
         return 'qa__answers_new';

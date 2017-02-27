@@ -56,7 +56,7 @@ class MyController extends QaController
     public function actionAnswers($categoryId = null)
     {
         $model = clone QaAnswer::model();
-        $model->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
+        $model->checkQuestionExiststance()->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
 
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(

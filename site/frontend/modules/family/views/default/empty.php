@@ -9,11 +9,15 @@ $this->breadcrumbs = array(
 );
 ?>
 
+<div class="notice-header clearfix notice-header--dialog">
+    <div class="notice-header__item notice-header__item--left">
+        <div class="notice-header__title">Семья</div>
+    </div>
+    <div class="notice-header__item notice-header__item--right"><a href="javascript:history.back();" class="notice-header__ico-close i-close i-close--sm"></a></div>
+</div>
+
 <div class="b-main_cont b-main_cont__wide">
     <div class="family-user family-user__think">
-        <div class="textalign-c">
-            <div class="ico-myfamily ico-myfamily__l"></div>
-        </div>
         <!-- cap-empty-->
         <div class="cap-empty cap-empty__profile-family">
             <div class="cap-empty_hold">

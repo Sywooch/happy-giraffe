@@ -48,10 +48,22 @@
         <div class="b-layout b-container b-container--white b-container--style">
             <header class="header header-question header--question">
                 <div class="header-question__item">
-                    <div class="header-question__title">Задать вопрос</div>
+                    <?php
+                        $title = $this->action->id == 'pediatricianAddForm' ? 'Задать вопрос' : 'Редактировать вопрос';
+                    ?>
+
+                    <div class="header-question__title"><?= $title; ?></div>
                 </div>
                 <div class="header-question__item header-question__item--close">
-                    <a href="<?= $this->createUrl('/som/qa/default/pediatrician') ?>" type="button" class="header-question__close"></a>
+                	<?php
+                	   $redirectUrl = \Yii::app()->request->urlReferrer;
+
+                	   if (is_null($redirectUrl))
+                	   {
+                	       $redirectUrl = $this->createUrl('/som/qa/default/pediatrician');
+                	   }
+                	?>
+                    <a href="<?=$redirectUrl?>" type="button" class="header-question__close"></a>
                 </div>
             </header>
             <main class="b-main">

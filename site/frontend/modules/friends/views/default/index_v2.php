@@ -1,6 +1,12 @@
 <?php $this->pageTitle = 'Мои друзья'; ?>
 <?php $this->bodyClass = 'body__bg-base';?>
 <div class="layout-wrapper_frame clearfix" id="friendsBindings">
+    <div class="notice-header clearfix notice-header--dialog">
+        <div class="notice-header__item notice-header__item--left">
+            <div class="notice-header__title">Друзья</div>
+        </div>
+        <div class="notice-header__item notice-header__item--right"><a href="javascript:history.back();" class="notice-header__ico-close i-close i-close--sm"></a></div>
+    </div>
     <?php $this->renderPartial('friends.views._menu'); ?>
     <div class="page-col page-col__friend">
         <div class="page-col_hold">

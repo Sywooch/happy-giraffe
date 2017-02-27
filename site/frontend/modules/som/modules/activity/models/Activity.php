@@ -31,6 +31,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     const TYPE_ANSWER_PEDIATRICIAN = 'answer_pediatrician';
     const TYPE_COMMENT = 'comment';
+    const TYPE_QUESTION = 'question';
 
     /**
      * @return string the associated database table name
@@ -112,22 +113,22 @@ class Activity extends \HActiveRecord implements \IHToJSON
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
-    public function search()
-    {
+//     public function search()
+//     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
-        $criteria = new CDbCriteria;
+//         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('userId', $this->userId, true);
-        $criteria->compare('typeId', $this->typeId, true);
-        $criteria->compare('dtimeCreate', $this->dtimeCreate, true);
-        $criteria->compare('data', $this->data, true);
+//         $criteria->compare('id', $this->id, true);
+//         $criteria->compare('userId', $this->userId, true);
+//         $criteria->compare('typeId', $this->typeId, true);
+//         $criteria->compare('dtimeCreate', $this->dtimeCreate, true);
+//         $criteria->compare('data', $this->data, true);
 
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
+//         return new CActiveDataProvider($this, array(
+//             'criteria' => $criteria,
+//         ));
+//     }
 
     public function getDataArray()
     {
@@ -181,7 +182,11 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
 
     /**
-     * Все данные по пользователю, включая ответы от врачей
+     * Данные по юзеру
+     *
+     * В выборку попадают
+     * - ответы юзера в сервисе МП, которые не относятся к его вопросам
+     * - события от других сервисов (Форумы, Блоги и т.д.)
      *
      * @param integer $userId ID пользователя
      * @return $this
@@ -192,30 +197,39 @@ class Activity extends \HActiveRecord implements \IHToJSON
         $criteria = $this->getDbCriteria();
         $criteria->condition = '
             t.id IN (
-                SELECT id FROM (
-                    SELECT * FROM ' . Activity::model()->tableName() . ' WHERE typeId <> "' . static::TYPE_STATUS . '"
-                ) t2
-                WHERE
-                    t2.userId = ' . $userId . '
-                    OR
-                    (
-                        t2.hash IN (
-                                    SELECT MD5(qa__a.id)
-                                    FROM ' . QaAnswer::model()->tableName() . ' qa__a
-                                    JOIN ' . QaQuestion::model()->tableName() . ' qa__q
-                                    ON qa__q.id = qa__a.questionId
-                                    WHERE
-                                        qa__q.authorId = ' . $userId . '
-                                        AND
-                                        qa__q.categoryId = ' . QaCategory::PEDIATRICIAN_ID . '
-                                        AND
-                                        qa__q.isRemoved = ' . QaQuestion::NOT_REMOVED . '
-                                        AND
-                                        qa__a.isPublished = ' . QaAnswer::PUBLISHED . '
+                    SELECT id
+                    FROM (
+                        SELECT *
+                        FROM ' . Activity::model()->tableName() . '
+                        WHERE typeId <> "' . static::TYPE_STATUS . '"
+                    ) t2
+                    WHERE
+                        (
+                            t2.userId = ' . $userId . '
+                            AND
+                            t2.typeId != "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
                         )
-                        AND
-                        t2.typeId = "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
-                    )
+                        OR
+                        (
+                            t2.hash IN (
+                                        SELECT MD5(qa__a.id)
+                                        FROM ' . QaAnswer::model()->tableName() . ' qa__a
+                                        JOIN ' . QaQuestion::model()->tableName() . ' qa__q
+                                        ON qa__q.id = qa__a.questionId
+                                        WHERE
+                                            qa__q.authorId != ' . $userId . '
+                                            AND
+                                            qa__a.authorId = ' . $userId . '
+                                            AND
+                                            qa__a.root_id IS NULL ' . '
+                                            AND
+                                            qa__a.isRemoved = ' . QaAnswer::NOT_REMOVED . '
+                                            AND
+                                            qa__a.isPublished = ' . QaAnswer::PUBLISHED . '
+                            )
+                            AND
+                            t2.typeId = "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
+                        )
             )
         ';
         $criteria->order = 't.id DESC';
@@ -240,7 +254,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
                 WHERE
                     qa__a.isPublished = %d
                     AND
-                    qa__q.categoryId = %d
+                    qa__q.categoryId != %d
                     AND
                     qa__q.isRemoved = %d
             ',
@@ -252,14 +266,18 @@ class Activity extends \HActiveRecord implements \IHToJSON
             QaQuestion::NOT_REMOVED
         );
 
+
+
         $cmdForAnswers = \Yii::app()->getDb()->createCommand($sqlForAnswers);
         $answersHashList = $cmdForAnswers->queryColumn();
 
-        $this
-            ->getDbCriteria()
-            ->compare('typeId', '<>' . static::TYPE_ANSWER_PEDIATRICIAN)
-            ->addNotInCondition('hash', $answersHashList)
+        $criteria = new \CDbCriteria();
+        $criteria
+            ->compare('typeId', '=' . static::TYPE_COMMENT)
+            ->addInCondition('hash', $answersHashList)
         ;
+
+        $this->getDbCriteria()->mergeWith($criteria, 'OR');
 
         return $this;
     }
@@ -282,7 +300,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
               FROM ' . QaQuestion::model()->tableName() . '
               WHERE
                   ' . $sqlAuthorCondition . '
-                  categoryId = ' . QaCategory::PEDIATRICIAN_ID . '
+                  categoryId != ' . QaCategory::PEDIATRICIAN_ID . '
                   AND
                   isRemoved = ' . QaQuestion::NOT_REMOVED
         ;
@@ -290,10 +308,18 @@ class Activity extends \HActiveRecord implements \IHToJSON
         $cmdForQuestions = \Yii::app()->getDb()->createCommand($sqlForQuestions);
         $questionsHashList = $cmdForQuestions->queryColumn();
 
-        $this
-            ->getDbCriteria()
-            ->addNotInCondition('hash', $questionsHashList)
+        if (count($questionsHashList) < 1)
+        {
+            return $this;
+        }
+
+        $criteria = new \CDbCriteria();
+        $criteria
+            ->compare('typeId', '=' . static::TYPE_QUESTION)
+            ->addInCondition('hash', $questionsHashList)
         ;
+
+        $this->getDbCriteria()->mergeWith($criteria, 'OR');
 
         return $this;
     }
@@ -310,23 +336,39 @@ class Activity extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
-    public function getActivityData($jsonFormat = false)
+    public function withoutAnswerPediatrician()
     {
-        $model = unserialize($this->data);
+        $this->getDbCriteria()->compare('typeId', '<>' . static::TYPE_ANSWER_PEDIATRICIAN);
+        return $this;
+    }
 
-        if (! $model)
+    public function withoutQuestion()
+    {
+        $this->getDbCriteria()->compare('typeId', '<>' . static::TYPE_QUESTION);
+        return $this;
+    }
+
+    public function getDataObject()
+    {
+        $data = @json_decode($this->data);
+
+        if (is_null($data) || !isset($data->attributes))
         {
-            return $this->dataArray;
+            return;
         }
 
-        switch ($this->typeId)
+        $model = new QaAnswer();
+        foreach ($data->attributes as $attrName => $attrValue)
         {
-            case static::TYPE_COMMENT:
-                /*var_dump(get_class($model));
-                var_dump($model->behaviors());
-                var_dump($model->QaBehavior);*/
-                break;
+            $model->{$attrName} = $attrValue;
         }
+
+        if (!$model->validate())
+        {
+            return;
+        }
+
+        return $model;
     }
 
 }

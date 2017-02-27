@@ -45,7 +45,7 @@ function getColorClassViewUsers($position)
                     </div>
                     <div class="b-sidebar__right b-text--right">
                         <div class="b-sidebar__num b-sidebar__num--white"><?=intval($row['score'])?></div>
-                        <div class="b-sidebar__balls b-sidebar__balls--white">баллов</div>
+                        <div class="b-sidebar__balls b-sidebar__balls--white"><?=\Yii::t('app', 'балл|балла|баллов|балла', intval($row['score']))?></div>
                     </div>
                 </a>
             </li>

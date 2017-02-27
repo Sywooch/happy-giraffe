@@ -20,8 +20,6 @@
  * @copyright  2012, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Eric Koleda
- * @author     Vincent Tsao
  */
 error_reporting(E_STRICT | E_ALL);
 
@@ -125,7 +123,7 @@ class UrlUtilsTest extends PHPUnit_Framework_TestCase {
     // Empty params.
     $data[] = array('http://www.foo.com', array(), 'http://www.foo.com');
     // Null params.
-    $data[] = array('http://www.foo.com', NULL, 'http://www.foo.com');
+    $data[] = array('http://www.foo.com', null, 'http://www.foo.com');
 
     return $data;
   }

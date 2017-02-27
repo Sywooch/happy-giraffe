@@ -67,7 +67,7 @@ if ($isAnswer)
                 $this->widget('site\frontend\modules\som\modules\qa\widgets\Statistic\CommonStatistic', ['userId' => \Yii::app()->user->id]);
             } else { ?>
                 <div class="b-text--center">
-                    <a id="addNewQuestionBtn" class="disabled btn btn--xl btn--default login-button" href="<?=$this->createUrl('/som/qa/default/questionAddForm/')?>" data-bind="follow: {}">Задать вопрос</a>
+                    <a id="addNewQuestionBtn" class="disabled btn btn--xl btn--default login-button" href="<?=$this->createUrl('/som/qa/default/pediatricianAddForm/')?>" data-bind="follow: {}">Задать вопрос</a>
                 </div>
             <?php } ?>
         </aside>

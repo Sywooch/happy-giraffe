@@ -4,8 +4,10 @@ namespace site\frontend\modules\som\modules\qa\models;
 use site\common\behaviors\AuthorBehavior;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\AnswerCometBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
@@ -96,6 +98,9 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return [
             ['questionId', 'safe'],
             ['text', 'required'],
+            ['isRemoved', 'default', 'value' => 0],
+            ['votesCount', 'default', 'value' => 0],
+            ['isBest', 'default', 'value' => 0],
         ];
     }
 
@@ -113,7 +118,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             'tag' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', ['tag_id' => 'id'], 'through' => 'question'],
             'votes' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'],
             'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
-            'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
+            'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id']
         ];
     }
 
@@ -122,6 +127,23 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return [
             'user' => ['site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => ['avatarSize' => 40]],
         ];
+    }
+
+    /**
+     * Получить ID comet-канала
+     *
+     * @return string
+     * @author Sergey Gubarev
+     */
+    public function channelId()
+    {
+        $idParts = [
+            QaManager::getQuestionChannelId($this->questionId),
+            'answer' . $this->id,
+            QaQuestion::COMET_CHANNEL_ID_EDITED_PREFIX
+        ];
+
+        return implode('_', $idParts);
     }
 
     /**
@@ -199,27 +221,11 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'closureTableName'  => 'qa__answers_tree',
                 'childAttribute'    => 'descendant_id',
                 'parentAttribute'   => 'ancestor_id'
+            ],
+            'AnswerCometBehavior' => [
+                'class' => AnswerCometBehavior::class
             ]
         ];
-    }
-
-    public function save($runValidation = true, $attributes = null)
-    {
-        if (\Yii::app()->db->getCurrentTransaction() !== null) {
-            return parent::save($runValidation, $attributes);
-        }
-
-        $transaction = $this->dbConnection->beginTransaction();
-        try {
-            $success = parent::save($runValidation, $attributes);
-            $transaction->commit();
-        } catch (\Exception $e) {
-            $transaction->rollback();
-
-            return false;
-        }
-
-        return $success;
     }
 
     /**
@@ -251,12 +257,16 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return $success;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function afterSave()
     {
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord)
+        {
             $this->updateAnswersCount(1);
 
-            if (! is_null($this->root_id))
+            if (!is_null($this->root_id))
             {
                 $targetModel = self::model()->findByPk($this->root_id);
                 $targetModel->append($this);
@@ -272,6 +282,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     public function afterSoftDelete()
     {
+        if ($this->isAdditional())
+        {
+            $channelId = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionChannelId($this->questionId);
+
+            (new \CometModel())->send($channelId, null, \CometModel::QA_REMOVE_ANSWER);
+        }
+
         $this->updateAnswersCount(-1);
         $this->softDelete->afterSoftDelete();
     }
@@ -355,14 +372,32 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function canBeAnsweredBy($user)
     {
+        $isDoctor = $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        $isAnswerFromDoctor = $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        $isRootFromDoctor = $isAnswerFromDoctor;
+
+        if ($this->root_id != null) {
+            $isRootFromDoctor = $this->root->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        }
+
         // уточняющий вопрос
-        if ($this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id == null && !$this->children) {
-            return $user->id == $this->question->authorId && !$user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        if ($isAnswerFromDoctor && $this->root_id == null && !$this->children) {
+            return $user->id == $this->question->authorId && !$isDoctor;
         }
 
         // ответ на уточняющий вопрос
-        if (!$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && count($this->root->children) == 1) {
-            return $user->id == $this->root->authorId && $user->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->root->children) == 1 && $isRootFromDoctor) {
+            return $user->id == $this->root->authorId && $isDoctor;
+        }
+
+        //комментарий от автора вопроса
+        if (!$isAnswerFromDoctor && $this->root_id == null && count($this->children) == 0) {
+            return $user->id == $this->question->authorId;
+        }
+
+        //ответ в ветку комментариев
+        if (!$isAnswerFromDoctor && $this->root_id != null && count($this->children) == 0 && !$isRootFromDoctor) {
+            return $this->authorId != $user->id && !$isDoctor;
         }
 
         return false;
@@ -373,7 +408,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function isAdditional()
     {
-        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
+        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && $this->root->author->isSpecialist;
     }
 
     /**
@@ -382,6 +417,24 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     public function isAnswerToAdditional()
     {
         return $this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCommentToBranch()
+    {
+        return !$this->authorIsSpecialist() && $this->root_id != null && !$this->root->author->isSpecialist;
+    }
+
+    /**
+     * @return self
+     */
+    public function onlyPublished()
+    {
+        $this->getDbCriteria()->addColumnCondition(['isPublished' => self::PUBLISHED]);
+
+        return $this;
     }
 
     /**
@@ -418,6 +471,51 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     }
 
     /**
+     * @param int $userId
+     *
+     * @return QaAnswer
+     */
+    public function excludeAdditionalRoots($userId)
+    {
+        $this->getDbCriteria()->addCondition("(select count(*) from qa__answers as a where a.questionId = {$this->tableAlias}.questionId and a.authorId = {$userId} and a.isRemoved = 0) < 2");
+
+        return $this;
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return QaAnswer
+     */
+    public function excludeByQuestionsAuthor($userId)
+    {
+        if (!isset($this->getDbCriteria()->with['question'])) {
+            $this->getDbCriteria()->with[] = 'question';
+        }
+
+        $this->getDbCriteria()->addCondition("question.authorId != {$userId}");
+
+        return $this;
+    }
+
+    public function descendantsCount($forMe = FALSE)
+    {
+        $condition = 'isPublished=' . QaAnswer::PUBLISHED;
+
+        if (!(\Yii::app() instanceof \CConsoleApplication))
+        {
+            $user = \Yii::app()->user;
+
+            if (!$user->isGuest && $forMe)
+            {
+                $condition = ' AND authorId=' . \Yii::app()->user->id;
+            }
+        }
+
+        return $this->descendants()->count($condition);
+    }
+
+    /**
      * @return QaAnswer
      */
     public function specialists()
@@ -443,6 +541,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
         $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
 
+        $user = \Yii::app()->user;
+
+        if ((!$user->isGuest && !$user->model->isSpecialist) || $this->isPublished)
+        {
+            $status = FALSE;
+        }
+
         return compact('status', 'diffMins');
     }
 
@@ -451,20 +556,44 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         $t = $this->getTableAlias(false, false);
 
         return [
-            'condition' => $t . '.isRemoved = 0 AND ' . $t . '.isPublished = 1',
+            'condition' => $t . '.isRemoved = 0',
         ];
     }
 
     public function toJSON()
     {
+        $isVoted    = [];
+        $canEdit    = FALSE;
+        $canRemove  = FALSE;
+        $canVote    = FALSE;
+
+        if (!(\Yii::app() instanceof \CConsoleApplication))
+        {
+            $isVoted    = QaAnswerVote::model()->byAnswer($this->id)->user(\Yii::app()->user->id)->findAll();
+            $canEdit    = \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $this));
+            $canRemove  = \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $this));
+            $canVote    = \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $this));
+        }
+
         return [
-            'id' => (int) $this->id,
-            'authorId' => (int) $this->authorId,
-            'dtimeCreate' => (int) $this->dtimeCreate,
-            'text' => $this->purified->text,
-            'votesCount' => (int) $this->votesCount,
-            'user' => $this->user->formatedForJson(),
-            'isRemoved' => (bool) $this->isRemoved,
+            'id'                                => (int) $this->id,
+            'authorId'                          => (int) $this->authorId,
+            'dtimeCreate'                       => (int) $this->dtimeCreate,
+            'text'                              => $this->purified->text,
+            'votesCount'                        => (int) $this->votesCount,
+            'user'                              => $this->user->formatedForJson(),
+            'isRemoved'                         => (bool) $this->isRemoved,
+            'bySpecialist'                      => $this->authorIsSpecialist(),
+            'rootId'                            => $this->root_id,
+            'canEdit'                           => $canEdit,
+            'canRemove'                         => $canRemove,
+            'canVote'                           => $canVote,
+            'isVoted'                           => !empty($isVoted),
+            'question'                          => $this->question->toJSON(),
+            'countChildAnswers'                 => (int) $this->descendantsCount(FALSE),
+            'isAdditional'                      => $this->isAdditional(),
+            'isAnswerToAdditional'              => $this->isAnswerToAdditional(),
+            'isEditing'                         => QaManager::isAnswerEditing((int) $this->id)
         ];
     }
 
@@ -484,29 +613,28 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function authorIsSpecialist()
     {
-        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
+        return $this->author->isSpecialist;
+    }
+
+    public function getLeaf()
+    {
+        return empty($this->children);
     }
 
     /**
-     * Количество "спасибо"
-     *
-     * @return integer
-     * @author Sergey Gubarev
+     * {@inheritDoc}
+     * @see CActiveRecord::saveCounters()
      */
-    public function getVotesCount()
+    public function saveCounters($counters)
     {
-        return $this->votesCount;
-    }
+        $parentResult = parent::saveCounters($counters);
 
-    /**
-     * Получить вопрос к ответу
-     *
-     * @return QaQuestion
-     * @author Sergey Gubarev
-     */
-    public function getQuestion()
-    {
-        return $this->question;
+        if ($parentResult && array_key_exists('votesCount', $counters))
+        {
+            $this->updateActivity();
+        }
+
+        return $parentResult;
     }
 
 }

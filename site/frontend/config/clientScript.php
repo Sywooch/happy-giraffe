@@ -41,7 +41,7 @@ return array(
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
             'ko_photoUpload' => 'ko_photo',
-            'AdFox' => '/javascripts/fox',
+            'AdFox' => 'https://yastatic.net/pcode/adfox/loader',
             'wysiwyg_old' => '/javascripts/wysiwyg',
             'upload' => '/javascripts/upload',
             'async' => '/new/javascript/plugins/async',

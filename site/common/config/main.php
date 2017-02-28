@@ -29,6 +29,9 @@ return array(
         'api' => array(
             'class' => 'site\frontend\modules\api\ApiModule',
         ),
+        'geo2' => [
+            'class' => 'site\frontend\modules\geo2\Geo2Module',
+        ],
     ),
     'components' => array(
         'dbBackup' => array(

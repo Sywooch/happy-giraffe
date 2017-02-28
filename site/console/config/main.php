@@ -111,6 +111,9 @@ return array(
         'fixRatingByHistory' => [
             'class' => 'site\frontend\modules\som\modules\qa\commands\FixRatingByHistoryCommand',
         ],
+        'geo2' => [
+            'class' => 'site\frontend\modules\geo2\commands\DefaultCommand',
+        ],
     ),
     'import' => array(
         'site.common.models.User',

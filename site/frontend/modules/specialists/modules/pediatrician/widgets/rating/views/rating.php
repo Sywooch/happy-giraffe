@@ -79,7 +79,7 @@ $flowersCount = function($votesCount) {
                         </span>
                         <div class="contest-footer__ball contest-footer__ball--center textalign-l js-item">
                             <span class="font__color--blue display-b"><?=$rating->user->getFullName()?></span>
-                            <span class="display-b font__color--crimson margin-b3 js-title"><?=$rating->user->specialistInfoObject->title?></span>
+                            <span class="b-rating__spezial display-b font__color--crimson margin-b3 js-title"><?=$rating->user->specialistInfoObject->title?></span>
                             <p class="color-brown-dark display-ib verticalalign-m"><span class="margin-r10 display-ib verticalalign-m">Ответы <?=$rating->answers_count?></span></p>
                             <?php if ($rating->votes_count > 0): $flCount = $flowersCount($rating->votes_count); ?>
                                 <?php if ($flCount > 0): ?>

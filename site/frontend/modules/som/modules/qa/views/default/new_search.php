@@ -7,6 +7,7 @@ $this->pageTitle = 'Результаты поиска';
 
 $breadcrumbs = [
     'Главная' => ['/site/index'],
+    'Мой педиатр' => [$this->createUrl('/mypediatrician')],
     'Результаты поиска'
 ];
 
@@ -28,8 +29,8 @@ $breadcrumbs = [
     <div class="b-search-panel">
         <div class="b-search-result">
             <form class="b-search-result__form">
+                <span class="b-search-result__close"></span>
                 <input value="<?=$query?>" name="query" type="search" class="b-search-result__input" />
-                <input name="categoryId" type="hidden" value="124">
             </form>
         </div>
     </div>

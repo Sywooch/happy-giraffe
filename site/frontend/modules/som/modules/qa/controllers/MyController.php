@@ -55,14 +55,13 @@ class MyController extends QaController
 
     public function actionAnswers($categoryId = null)
     {
-//         $model = clone QaAnswer::model();
-        $model = clone QaCTAnswer::model();
-        $model->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
+        $model = clone QaAnswer::model();
+        $model->checkQuestionExiststance()->user(\Yii::app()->user->id)->orderDesc()->apiWith('user');
 
         $dp = new \CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageVar' => 'page',
-                'pageSize' => 4,
+                'pageSize' => 10,
             ),
         ));
         $this->render('content', compact('dp', 'categoryId'));

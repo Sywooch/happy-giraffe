@@ -8,16 +8,18 @@
 namespace site\frontend\modules\som\modules\qa\controllers;
 
 use site\common\components\SphinxDataProvider;
+use site\frontend\components\HCollection;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\som\modules\qa\components\QaController;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaConsultation;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
-use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\components\QaObjectList;
-use site\frontend\modules\som\modules\qa\components\QaManager;
+use site\frontend\modules\som\modules\qa\models\QaQuestionEditing;
+use site\frontend\modules\som\modules\qa\models\qaTag\QaTagManager;
 
 class DefaultController extends QaController
 {
@@ -72,7 +74,7 @@ class DefaultController extends QaController
     {
         if ($tab == self::TAB_All)
         {
-            $dp = new \CActiveDataProvider(QaAnswer::model()->roots()->orderDesc(), [
+            $dp = new \CActiveDataProvider(QaAnswer::model()->onlyPublished()->roots()->orderDesc(), [
                 'pagination' => [
                     'pageVar' => 'page',
                 ]
@@ -91,21 +93,55 @@ class DefaultController extends QaController
     }
 
     /**
+     * @inheritdoc
+     * @param \CAction $action
+     */
+    protected function afterAction($action)
+    {
+        if ($action->id == 'pediatricianEditForm')
+        {
+            $questionId = (int) \Yii::app()->request->getParam('questionId');
+
+            (new \CometModel())->send(QaManager::getQuestionChannelId($questionId), null, \CometModel::MP_QUESTION_EDITED_BY_OWNER);
+
+            $findObject = QaManager::isQuestionEditing($questionId);
+
+            if (!$findObject)
+            {
+                $object = new QaQuestionEditing();
+                $object->questionId = $questionId;
+                $object->save();
+            }
+        }
+
+        parent::afterAction($action);
+    }
+
+    /**
      * {@inheritDoc}
+     * @param \CAction $action
      * @see LiteController::beforeAction()
      */
     protected function beforeAction($action)
     {
         $newDesigneActions = [
             'pediatrician',
-            'search',
+            'pediatricianSearch',
             'pediatricianAddForm',
+            'pediatricianEditForm',
+            'view'
         ];
+
+        /* костыль для старой верстки */
+        if (false !== mb_strpos(\Yii::app()->request->getPathInfo(), 'questions', 0, 'UTF-8'))
+        {
+            return parent::beforeAction($action);
+        }
 
         if (in_array($action->id, $newDesigneActions))
         {
             $this->layout       = '/layouts/pediatrician';
-            $this->litePackage = 'new_pediatrician';
+            $this->litePackage  = 'new_pediatrician';
         }
 
         return parent::beforeAction($action);
@@ -129,9 +165,14 @@ class DefaultController extends QaController
                 $this->redirect($redirectUrl, true, 301);
             }
 
-            $this->layout = '/layouts/pediatrician';
+            $answersTreeList = QaManager::getAnswersTreeByQuestion($question->id);
 
-            $this->render('_view', compact('question', 'tab', 'category'));
+            $isEditing = QaManager::isQuestionEditing((int) $id);
+
+            $answersCount = $question->getAnswersCount();
+
+            $this->layout = '/layouts/pediatrician';
+            $this->render('_view', compact('question', 'tab', 'category', 'answersTreeList', 'isEditing', 'answersCount'));
         }
         else
         {
@@ -156,7 +197,27 @@ class DefaultController extends QaController
             ],
         ]);
 
-        $this->render('new_search', compact('dp', 'query', 'categoryId'));
+        $this->render('search', compact('dp', 'query', 'categoryId'));
+    }
+
+    public function actionPediatricianSearch($query = '')
+    {
+        $this->layout       = '/layouts/search_pediatrician';
+
+        $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category')->orderDesc(), [
+            'sphinxCriteria' => [
+                'select' => '*',
+                'query' => $query,
+                'from' => 'qa',
+                'orders' => 'dtimecreate DESC',
+                'filters' => ['categoryid' => (string)QaCategory::PEDIATRICIAN_ID],
+            ],
+            'pagination' => [
+                'pageVar' => 'page',
+            ],
+        ]);
+
+        $this->render('new_search', compact('dp', 'query'));
     }
 
     protected function getDataProvider($tab, $categoryId, $tagId = null)
@@ -215,9 +276,34 @@ class DefaultController extends QaController
             $this->redirect($this->createUrl('/site/index'));
         }
 
-        $this->layout = '//layouts/lite/new_form';
+        $tagsData = (new HCollection(QaTagManager::getAllTags()))->toArray();
 
-        $this->render('new_form');
+        $this->layout = '//layouts/lite/new_form';
+        $this->render('new_form', [
+            'tagsData' => $tagsData
+        ]);
+    }
+
+    /**
+     * Страница редактирования вопроса
+     *
+     * @param string $questionId ID вопроса
+     * @author Sergey Gubarev
+     */
+    public function actionPediatricianEditForm($questionId)
+    {
+        if (!\Yii::app()->user->checkAccess('createQaQuestion') || !$question = QaManager::getQuestion($questionId))
+        {
+            $this->redirect($this->createUrl('/site/index'));
+        }
+
+        $tagsData = (new HCollection(QaTagManager::getAllTags()))->toArray();
+
+        $this->layout = '//layouts/lite/new_form';
+        $this->render('edit_form', [
+            'question' => $question,
+            'tagsData' => $tagsData
+        ]);
     }
 
     public function actionQuestionEditForm($questionId)

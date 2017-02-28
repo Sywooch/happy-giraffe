@@ -9,7 +9,6 @@ $this->beginContent('//layouts/lite/main');
         ?>
         <aside class="b-main_col-sidebar visible-md">
             
-            <?php if (false): ?>
             <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
             <!--AdFox START-->
             <!--giraffe-->
@@ -43,7 +42,6 @@ $this->beginContent('//layouts/lite/main');
                 // -->
             </script>
             <?php $this->endWidget(); ?>
-            <?php endif; ?>
 
             <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
             <div class="bnr-base">

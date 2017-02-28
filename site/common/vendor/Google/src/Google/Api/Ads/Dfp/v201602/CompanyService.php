@@ -1149,6 +1149,50 @@ if (!class_exists("LabelEntityAssociationError", false)) {
   }
 }
 
+if (!class_exists("NetworkError", false)) {
+  /**
+   * An error for a network.
+   * @package GoogleApiAdsDfp
+   * @subpackage v201602
+   */
+  class NetworkError extends ApiError {
+
+    const WSDL_NAMESPACE = "https://www.google.com/apis/ads/publisher/v201602";
+    const XSI_TYPE = "NetworkError";
+
+    /**
+     * @access public
+     * @var tnsNetworkErrorReason
+     */
+    public $reason;
+
+    /**
+     * Gets the namesapce of this class
+     * @return string the namespace of this class
+     */
+    public function getNamespace() {
+      return self::WSDL_NAMESPACE;
+    }
+
+    /**
+     * Gets the xsi:type name of this class
+     * @return string the xsi:type name of this class
+     */
+    public function getXsiTypeName() {
+      return self::XSI_TYPE;
+    }
+
+    public function __construct($reason = null, $fieldPath = null, $trigger = null, $errorString = null) {
+      parent::__construct();
+      $this->reason = $reason;
+      $this->fieldPath = $fieldPath;
+      $this->trigger = $trigger;
+      $this->errorString = $errorString;
+    }
+
+  }
+}
+
 if (!class_exists("NotNullError", false)) {
   /**
    * Caused by supplying a null value for an attribute that cannot be null.
@@ -1754,14 +1798,9 @@ if (!class_exists("Statement", false)) {
    * <p>
    * An example of such a query might be {@code "WHERE name LIKE 'startswith%'"}.
    * </p>
-   * If using an API version newer than V201010, the value for the variable
-   * idValue must then be set with an object of type {@link Value} and is one of
-   * {@link NumberValue}, {@link TextValue} or {@link BooleanValue}.
-   * <p>
-   * If using an API version older than or equal to V201010, the value for the
-   * variable idValue must then be set with an object of type {@link Param} and is
-   * one of {@link DoubleParam}, {@link LongParam} or {@link StringParam}.
-   * </p>
+   * The value for the variable idValue must then be set with an object of type
+   * {@link Value}, e.g., {@link NumberValue}, {@link TextValue} or
+   * {@link BooleanValue}.
    * @package GoogleApiAdsDfp
    * @subpackage v201602
    */
@@ -2682,6 +2721,39 @@ if (!class_exists("LabelEntityAssociationErrorReason", false)) {
 
     const WSDL_NAMESPACE = "https://www.google.com/apis/ads/publisher/v201602";
     const XSI_TYPE = "LabelEntityAssociationError.Reason";
+
+    /**
+     * Gets the namesapce of this class
+     * @return string the namespace of this class
+     */
+    public function getNamespace() {
+      return self::WSDL_NAMESPACE;
+    }
+
+    /**
+     * Gets the xsi:type name of this class
+     * @return string the xsi:type name of this class
+     */
+    public function getXsiTypeName() {
+      return self::XSI_TYPE;
+    }
+
+    public function __construct() {
+    }
+
+  }
+}
+
+if (!class_exists("NetworkErrorReason", false)) {
+  /**
+   * Possible reasons for {@link NetworkError}
+   * @package GoogleApiAdsDfp
+   * @subpackage v201602
+   */
+  class NetworkErrorReason {
+
+    const WSDL_NAMESPACE = "https://www.google.com/apis/ads/publisher/v201602";
+    const XSI_TYPE = "NetworkError.Reason";
 
     /**
      * Gets the namesapce of this class
@@ -3829,6 +3901,7 @@ if (!class_exists("CompanyService", false)) {
       "InternalApiError" => "InternalApiError",
       "InvalidEmailError" => "InvalidEmailError",
       "LabelEntityAssociationError" => "LabelEntityAssociationError",
+      "NetworkError" => "NetworkError",
       "NotNullError" => "NotNullError",
       "NullError" => "NullError",
       "NumberValue" => "NumberValue",
@@ -3871,6 +3944,7 @@ if (!class_exists("CompanyService", false)) {
       "InternalApiError.Reason" => "InternalApiErrorReason",
       "InvalidEmailError.Reason" => "InvalidEmailErrorReason",
       "LabelEntityAssociationError.Reason" => "LabelEntityAssociationErrorReason",
+      "NetworkError.Reason" => "NetworkErrorReason",
       "NotNullError.Reason" => "NotNullErrorReason",
       "NullError.Reason" => "NullErrorReason",
       "ParseError.Reason" => "ParseErrorReason",

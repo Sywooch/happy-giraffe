@@ -2,6 +2,7 @@
 
 namespace site\frontend\components\api\models;
 
+use site\frontend\modules\som\modules\qa\components\QaRatingManager;
 /**
  * Модель, реализующая доступ к API, согласно описанию https://happygiraffe.atlassian.net/wiki/pages/viewpage.action?pageId=2195460
  *
@@ -21,14 +22,14 @@ namespace site\frontend\components\api\models;
  */
 class User extends ApiModel implements \IHToJSON
 {
-    
+
     public $api = 'users';
-    
+
     public function getFullName()
     {
         return $this->fullName;
     }
-    
+
     /**
      * Формат имени для анонимного юзера
      *
@@ -37,30 +38,30 @@ class User extends ApiModel implements \IHToJSON
     public function getAnonName()
     {
         $strCity = $this->_getCity();
-        
+
         $result = $this->firstName;
-        
+
         if (!is_null($strCity)) {
             $result = $result . ', ' . $strCity;
         }
-        
+
         return $result;
     }
-    
+
     /**
      * @return void|string
      */
     private function _getCity()
     {
         $model = \UserAddress::model()->find('user_id=:user_id', [':user_id' => $this->id]);
-        
+
         if (is_null($model->city)) {
             return;
         }
-        
+
         return $model->city->name;
     }
-    
+
     /**
      *
      * @param string $className
@@ -70,7 +71,7 @@ class User extends ApiModel implements \IHToJSON
     {
         return parent::model($className);
     }
-    
+
     /**
      * @return array
      */
@@ -91,14 +92,16 @@ class User extends ApiModel implements \IHToJSON
             'publicChannel' => $this->publicChannel,
             'city' => $this->_getCity(),
             'specialistInfo' => $this->specialistInfo,
+            'anonName' => $this->getAnonName(),
+            'rating' => (new QaRatingManager())->getViewCounters($this->id),
         ];
     }
-    
+
     public function toJSON()
     {
         return $this->formatedForJson();
     }
-    
+
     public function attributeNames()
     {
         return [
@@ -119,7 +122,7 @@ class User extends ApiModel implements \IHToJSON
             'specialistInfo',
         ];
     }
-    
+
     public function actionAttributes()
     {
         return [
@@ -129,7 +132,7 @@ class User extends ApiModel implements \IHToJSON
             'restore' => false,
         ];
     }
-    
+
 }
 
 ?>

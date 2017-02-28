@@ -35,6 +35,7 @@
      <body class="page--bg">
         <div class="js-overlay-menu overlay-menu"></div>
         <div class="js-overlay-user overlay-user"></div>
+        <?php Yii::app()->ads->showCounters(); ?>
         <div class="b-layout b-container b-container--white b-container--style">
         	<?php //Yii::app()->ads->showCounters(); ?>
         	<?php if (Yii::app()->user->checkAccess('editMeta')):?>
@@ -58,9 +59,6 @@
             <div class="popup-container display-n">
             </div>
             <!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
-            <?php if (Yii::app()->user->isGuest): ?>
-                <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
-            <?php endif; ?>
         </div>
     </body>
 </html>

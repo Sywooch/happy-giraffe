@@ -8,6 +8,7 @@ use site\frontend\modules\som\modules\qa\models\QaCategory;
  * @var site\frontend\modules\som\modules\qa\models\QaCategory $category
  */
 $this->pageTitle = 'Ответы';
+$this->metaNoindex = true;
 
 $breadcrumbs = [
     'Главная' => ['/site/index'],

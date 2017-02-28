@@ -2,7 +2,7 @@
 
 use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
 
-// $user = $this->getUserInfo($data->userId);
+$user = $widget->getUserInfo($data->userId);
 
 ?>
 <div class="user-activity-post">

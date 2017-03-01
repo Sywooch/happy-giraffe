@@ -12,7 +12,6 @@ $this->beginContent('//layouts/lite/main');
                 <div id="adfox_1488276558162881"></div>
                 <script type="text/javascript">
                     require(['AdFox'], function() {
-                        console.log(window.Ya.adfoxCode);
                         window.Ya.adfoxCode.create({
                             ownerId: 211012,
                             containerId: 'adfox_1488276558162881',

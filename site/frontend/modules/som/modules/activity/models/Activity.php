@@ -201,14 +201,13 @@ class Activity extends \HActiveRecord implements \IHToJSON
                     FROM (
                         SELECT *
                         FROM ' . Activity::model()->tableName() . '
-                        WHERE typeId <> "' . static::TYPE_STATUS . '"
+                        WHERE 
+                            typeId <> "' . static::TYPE_STATUS . '"
+                            AND
+                            userId  = ' . $userId . '
                     ) t2
                     WHERE
-                        (
-                            t2.userId = ' . $userId . '
-                            AND
-                            t2.typeId != "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
-                        )
+                        t2.typeId != "' . static::TYPE_ANSWER_PEDIATRICIAN . '"
                         OR
                         (
                             t2.hash IN (

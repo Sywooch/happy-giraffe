@@ -155,4 +155,21 @@ class Str
     {
         return mb_strlen(trim(strip_tags($html, '<p>')),'UTF-8');
     }
+
+    /**
+     * Преобразует первый символ строки в верхний регистр
+     *
+     * Подходит для мультибайтовых строк
+     *
+     * @param   string $str Строка
+     * @return  string
+     */
+    public static function ucFirst($str)
+    {
+        $firstUpperCase = mb_strtoupper(mb_substr($str, 0, 1));
+
+        $outputStr = $firstUpperCase . mb_substr($str, 1);
+
+        return  $outputStr;
+    }
 }

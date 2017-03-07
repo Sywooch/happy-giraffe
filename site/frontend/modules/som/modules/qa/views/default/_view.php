@@ -231,6 +231,28 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
         <div class="b-open-question__title">Ответы</div>
         <div class="b-margin--bottom_60">
 
+            <?php
+
+            CommentLogger::model()->addToLog(\Yii::app()->request->url, '');
+
+            if (!json_encode($answersTreeList))
+            {
+                CommentLogger::model()->addToLog('Error', 'JSON encode $question->toJSON()');
+            }
+
+            CommentLogger::model()->addToLog( 'questionData', print_r($question->toJSON(), true) );
+            CommentLogger::model()->addToLog( 'questionData to JSON', CJSON::encode($question->toJSON()) );
+
+            if (!json_encode($answersTreeList))
+            {
+                CommentLogger::model()->addToLog('Error', 'JSON encode $answersTreeList');
+            }
+
+            CommentLogger::model()->addToLog( 'answersList', print_r($answersTreeList, true) );
+            CommentLogger::model()->addToLog( 'answersList to JSON', CJSON::encode($answersTreeList) );
+
+            ?>
+
             <mp-answers-widget params='questionData: <?= CJSON::encode($question->toJSON()); ?>, answersList: <?= CJSON::encode($answersTreeList); ?>, isEditing: <?= $isEditing; ?>'>
 
                 <div class="preloader-answer">

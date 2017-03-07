@@ -206,8 +206,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 'options' => [
                     // 'AutoFormat.Linkify'    => true, @todo Sergey Gubarev: User warning: Cannot enable Linkify injector because a is not allowed
                     'HTML.AllowedElements'  => ['h2', 'h3', 'h4', 'p', 'strike', 'b', 'em', 'i', 'img', 'br']
-                ],
-                'useCache' => false
+                ]
             ],
             'RatingBehavior' => [
                 'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
@@ -576,6 +575,8 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             $canRemove  = \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $this));
             $canVote    = \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $this));
         }
+
+        $this->purified->useCache = FALSE;
 
         return [
             'id'                                => (int) $this->id,

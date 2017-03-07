@@ -30,7 +30,14 @@ class Manager
     {
         $map = $this->mapFiles();
 
+        $matched = false;
         foreach ($map as $tableName => $files) {
+            if ($tableName != 'NORMDOC' && ! $matched) {
+                continue;
+            } else {
+                $matched = true;
+            }
+
             $schemaParser = new SchemaParser($files['schema']);
             $schema = $schemaParser->parse();
             $table = new Table($schema['comment'], $schema['fields']);

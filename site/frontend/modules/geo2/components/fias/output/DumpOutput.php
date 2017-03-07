@@ -16,8 +16,7 @@ class DumpOutput extends Output
 
     protected $buffer = '';
 
-    private $_bytesWritten = 0;
-    private $_fileN = 1;
+    private $_bytesWritten = [];
     private $_channel;
 
     public function __construct($destination)
@@ -33,11 +32,6 @@ class DumpOutput extends Output
         if ($bufferLength > self::PER_WRITE) {
             $this->write();
         }
-
-        if ($this->_bytesWritten > self::PER_FILE) {
-            $this->_fileN += 1;
-            $this->_bytesWritten = 0;
-        }
     }
     
     public function finish()
@@ -52,6 +46,9 @@ class DumpOutput extends Output
         if ($this->_channel != $channel) {
             $this->finish();
         }
+        if (! isset($this->_bytesWritten[$channel])) {
+            $this->_bytesWritten[$channel] = 0;
+        }
         $this->_channel = $channel;
     }
 
@@ -62,12 +59,13 @@ class DumpOutput extends Output
 
     protected function write()
     {
-        $this->_bytesWritten += file_put_contents($this->getDestination(), $this->buffer, FILE_APPEND);
+        $this->_bytesWritten[$this->_channel] += file_put_contents($this->getDestination(), $this->buffer, FILE_APPEND);
         $this->buffer = '';
     }
 
     protected function getDestination()
     {
-        return $this->destination . DIRECTORY_SEPARATOR . $this->channel . (($this->_fileN > 1) ? '_' . $this->_fileN : '') . '.sql';
+        $fileN = floor($this->_bytesWritten[$this->_channel] / self::PER_FILE) + 1;
+        return $this->destination . DIRECTORY_SEPARATOR . $this->channel . (($fileN > 1) ? '_' . $fileN : '') . '.sql';
     }
 }

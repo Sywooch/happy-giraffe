@@ -35,7 +35,7 @@ class SchemaParser
             
             $restrictionNode = $xpath->query('xs:simpleType/xs:restriction', $attribute)[0];
             $type = ($attribute->getAttribute('type')) ? $attribute->getAttribute('type') : $restrictionNode->getAttribute('base');
-            
+
             $field = new Field();
             $field->name = $name;
             $field->comment = $comment;
@@ -50,8 +50,19 @@ class SchemaParser
                     $field->type = Field::TYPE_STRING;
                     if ($xpath->query('xs:maxLength', $restrictionNode)->length > 0) {
                         $field->length = $xpath->query('xs:maxLength', $restrictionNode)[0]->getAttribute('value');
-                    } else {
+                    } elseif ($xpath->query('xs:length', $restrictionNode)->length > 0) {
                         $field->length = $xpath->query('xs:length', $restrictionNode)[0]->getAttribute('value');
+                    } else {
+                        switch ($name) {
+                            case 'REGIONCODE':
+                                $field->length = 2;
+                                break;
+                            case 'DOCNAME':
+                                $field->length = 100;
+                                break;
+                            default:
+                                throw new \CException(\Yii::t('geo2', 'Undefined length in {field}', ['{field}' => $name]));
+                        }
                     }
                     break;
                 case 'xs:byte':

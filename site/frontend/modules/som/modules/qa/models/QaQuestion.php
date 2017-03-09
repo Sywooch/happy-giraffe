@@ -517,8 +517,8 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
             'text'      => $this->purified->text,
             'authorId'  => $this->authorId,
             'tagId'     => $this->tag_id,
-            'tagUrl'    => $tag->getUrl(),
-            'tagTitle'  => $tag->getTitle(),
+            'tagUrl'    => !is_null($tag) ? $tag->getUrl() : null,
+            'tagTitle'  => !is_null($tag) ? $tag->getTitle() : null,
             'attachedChildId' => $this->attachedChild
         ];
     }

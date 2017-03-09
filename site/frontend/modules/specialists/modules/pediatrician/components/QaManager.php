@@ -128,7 +128,7 @@ class QaManager
         $criteria->scopes = ['category' => [self::getCategoryId()]];
         $criteria->with = 'category';
         $criteria->addCondition('
-        t.id NOT IN (SELECT questionId FROM qa__answers WHERE authorId IN (SELECT specialists__profiles.id FROM specialists__profiles))
+        t.id NOT IN (SELECT questionId FROM qa__answers WHERE authorId IN (SELECT specialists__profiles.id FROM specialists__profiles) 
         AND root_id IS NOT NULL) 
         AND t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)
         ');

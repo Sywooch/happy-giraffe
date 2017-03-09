@@ -21,7 +21,7 @@ return array(
             ),
         ),
         'paths' => array(
-            'facebook' => '//connect.facebook.net/ru_RU/all',
+            'facebook' => 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.8&appId=1648409175470149',
             'ok' => '//connect.ok.ru/connect',
             'vk' => '//vk.com/js/api/share',
             'knockout-amd-helpers' => 'knockout-amd-helpers.min',

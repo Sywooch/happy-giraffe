@@ -24,7 +24,11 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
         $tag = $arrFooterData['tag'];
     }
 
-    $breadcrumbs[$tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id]);
+    if (!is_null($tag))
+    {
+        $breadcrumbs[$tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id]);
+    }
+
     $breadcrumbs[] = CHtml::encode($question->title);
 
     \Yii::app()->clientScript->registerAMD(

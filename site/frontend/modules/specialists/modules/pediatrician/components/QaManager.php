@@ -128,10 +128,10 @@ class QaManager
         $criteria->scopes = ['category' => [self::getCategoryId()]];
         $criteria->with = 'category';
         $criteria->join = '
-        JOIN  ' . QaAnswer::model()->tableName() . ' as answers ON (answers.questionId = t.id and answers.isRemoved = 0 and answers.root_id is null)
+        LEFT OUTER JOIN  ' . QaAnswer::model()->tableName() . ' as answers ON (answers.questionId = t.id)
         ';
         $criteria->addCondition('
-        t.id NOT IN (SELECT questionId FROM qa__answers WHERE authorId IN (SELECT specialists__profiles.id FROM specialists__profiles))
+        t.id IN (SELECT questionId FROM qa__answers WHERE authorId NOT IN (SELECT specialists__profiles.id FROM specialists__profiles)  and isRemoved = 0 and root_id IS NOT NULL)
         AND t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)
         ');
         $criteria->order = 't.id IN (SELECT a1.questionId FROM qa__answers a1

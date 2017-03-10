@@ -129,7 +129,7 @@ class QaManager
         $criteria->with = 'category';
         $criteria->addCondition('
         t.id NOT IN (SELECT questionId FROM qa__answers WHERE authorId IN (SELECT specialists__profiles.id FROM specialists__profiles) 
-        AND root_id IS NOT NULL) 
+        AND root_id IS NOT NULL AND isRemoved = 0) 
         AND t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)
         ');
         $criteria->order = 't.id IN (SELECT a1.questionId FROM qa__answers a1

@@ -4,6 +4,7 @@ namespace site\frontend\modules\specialists\modules\pediatrician\components;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaRating;
 
 /**
  * @author Никита
@@ -25,10 +26,10 @@ class QaManager
         return QaQuestion::model()->count(self::getQuestionsCriteria($userId));
     }
 
-    public static function getAnswersDp($userId = null)
+    public static function getAnswersDp($userId = null, $onlyPublished = FALSE)
     {
         return new \CActiveDataProvider(QaAnswer::model()->orderDesc()->apiWith('user'), [
-            'criteria' => self::getAnswersCriteria($userId),
+            'criteria' => self::getAnswersCriteria($userId, $onlyPublished),
         ]);
     }
 
@@ -40,18 +41,21 @@ class QaManager
         ]) > 0;
     }
 
+    /**
+     * Получить кол-во ответов и "спасибо" по юзеру
+     *
+     * @param $userId ID юзера
+     * @return array|null
+     */
     public static function getAnswerCountAndVotes($userId)
     {
-        $answerTableName = QaAnswer::model()->tableName();
-        $questionsTableName = QaQuestion::model()->tableName();
-         return \Yii::app()->db->createCommand()
-            ->select('COUNT(DISTINCT ' . $questionsTableName . '.authorId) AS count, SUM(votesCount) AS sumVotes')
-            ->from($answerTableName)
-            ->leftJoin($questionsTableName, $answerTableName . '.questionId = ' . $questionsTableName . '.id AND ' . $questionsTableName . '.isRemoved = 0')
-            ->where($answerTableName . '.authorId=' . $userId)
-            ->andWhere($answerTableName . '.isRemoved=0')
-            ->queryRow()
-        ;
+        $rating = QaRating::model()
+                    ->byCategory(QaCategory::PEDIATRICIAN_ID)
+                    ->byUser($userId)
+                    ->find()
+                ;
+
+        return !is_null($rating) ? $rating->toJSON() : null;
     }
 
     /**
@@ -66,20 +70,21 @@ class QaManager
         return QaQuestion::model()->find($criteria);
     }
 
-    public static function getAnswersCriteria($userId = null)
+    public static function getAnswersCriteria($userId = null, $onlyPublished = FALSE)
     {
         $criteria = new \CDbCriteria();
         $criteria->scopes = ['category' => [self::getCategoryId()], 'checkQuestionExiststance'];
         $criteria->with = 'question';
         $criteria->addCondition('t.authorId IN (SELECT id FROM specialists__profiles)');
 
-        if ($userId) {
+        if ($userId)
+        {
              $criteria->compare('t.authorId', $userId);
         }
-        else {
-            $time = time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
 
-            $criteria->addCondition('t.dtimeCreate <= '. $time);
+        if (is_null($userId) || $onlyPublished)
+        {
+            $criteria->addCondition('t.isPublished=' . QaAnswer::PUBLISHED);
         }
 
         return $criteria;
@@ -153,8 +158,8 @@ class QaManager
 			)
             ))');
         $criteria->order = 't.id IN (SELECT a1.questionId FROM qa__answers a1
-            LEFT JOIN qa__answers a2 ON a2.root_id = a1.id
-            LEFT JOIN qa__answers a3 ON a3.root_id = a2.id
+            LEFT JOIN qa__answers a2 FORCE INDEX FOR JOIN(`root_id_isRemoved`) ON a2.root_id = a1.id AND a2.isRemoved=0
+            LEFT JOIN qa__answers a3 FORCE INDEX FOR JOIN(`root_id_isRemoved`) ON a3.root_id = a2.id AND a3.isRemoved=0
             WHERE a1.authorId = :userId AND a2.authorId NOT IN (SELECT specialists__profiles.id FROM specialists__profiles) AND a3.authorId IS NULL) DESC,
             t.dtimeCreate >= (SELECT r1.dtimeCreate
             FROM qa__questions AS r1
@@ -176,4 +181,10 @@ class QaManager
     {
         return QaCategory::PEDIATRICIAN_ID;
     }
+
+    public static function getQuestionChannelId($questionId)
+    {
+        return QaQuestion::COMET_CHANNEL_ID_SPECIALIST_PREFIX . $questionId;
+    }
+
 }

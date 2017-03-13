@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\notifications\models;
 
+use site\frontend\modules\notifications\behaviors\CometBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\VoteNotificationBehavior;
 
@@ -144,7 +145,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
                 'arrayDocClassName' => 'site\frontend\modules\notifications\models\Entity'
             ],
             'cometBehavior' => [
-                'class' => 'site\frontend\modules\notifications\behaviors\CometBehavior',
+                'class' => CometBehavior::class,
             ],
         ];
     }

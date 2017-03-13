@@ -14,7 +14,6 @@ namespace site\frontend\modules\som\modules\activity\models\api;
  */
 class Activity extends \site\frontend\components\api\models\ApiModel
 {
-
     public $api = 'activity';
 
     /**

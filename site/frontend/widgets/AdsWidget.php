@@ -88,4 +88,4 @@ class AdsWidget extends CWidget
         $contents = str_replace('</script>', '</script> -->', $contents);
         return $contents;
     }
-} 
+}

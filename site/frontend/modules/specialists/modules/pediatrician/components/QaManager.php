@@ -136,11 +136,11 @@ class QaManager
         answers.authorId = :userId AND
         answers2.authorId  IS NOT NULL AND
         answers3.id IS NULL AND
-        answers.root_id IS NULL OR
+        answers.root_id IS NULL AND 
+        t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId) OR
         answers.id IS NULL OR
         t.id NOT IN (SELECT questionId FROM qa__answers WHERE authorId IN (SELECT specialists__profiles.id FROM specialists__profiles))
         
-        AND t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)
         ');
         $criteria->order = 't.id IN (SELECT a1.questionId FROM qa__answers a1
             LEFT JOIN qa__answers a2 FORCE INDEX FOR JOIN(`root_id_isRemoved`) ON a2.root_id = a1.id AND a2.isRemoved=0

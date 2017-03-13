@@ -166,9 +166,9 @@ class Str
      */
     public static function ucFirst($str)
     {
-        $firstUpperCase = mb_strtoupper(mb_substr($str, 0, 1));
+        $firstUpperCase = mb_strtoupper(mb_substr($str, 0, 1, 'UTF-8'), 'UTF-8');
 
-        $outputStr = $firstUpperCase . mb_substr($str, 1);
+        $outputStr = $firstUpperCase . mb_substr($str, 1, null, 'UTF-8');
 
         return  $outputStr;
     }

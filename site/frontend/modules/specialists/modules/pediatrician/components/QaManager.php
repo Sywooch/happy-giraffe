@@ -139,6 +139,7 @@ class QaManager
         answers.root_id IS NULL AND 
         t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId) OR
         answers.id IS NULL OR
+        
         t.id NOT IN (SELECT questionId FROM qa__answers WHERE authorId IN (SELECT specialists__profiles.id FROM specialists__profiles))
         
         ');

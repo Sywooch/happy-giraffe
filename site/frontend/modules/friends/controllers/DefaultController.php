@@ -8,7 +8,7 @@
  */
 class DefaultController extends HController
 {
-    public $layout = '//layouts/new/main';
+    public $layout = '//layouts/new/mainLite';
     public function filters()
     {
         return array(

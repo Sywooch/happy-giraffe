@@ -115,9 +115,14 @@ return array(
         //страница вопроса
         'questions/question<id:\d+>' => 'som/qa/default/view',
 
+        'mypediatrician/question<id:\d+>'   => 'som/qa/default/view',
+        'mypediatrician/comet/<_a>'         => 'som/qa/cometProcess/<_a>',
+
         // поиск
         'questions/search/page<page:\d+>' => 'som/qa/default/search',
         'questions/search' => 'som/qa/default/search',
+        'mypediatrician/search/page<page:\d+>' => 'som/qa/default/pediatricianSearch',
+        'mypediatrician/search' => 'som/qa/default/pediatricianSearch',
 
         // мои вопросы-ответы
         'questions/my/answers/<categoryId:\d+>/page<page:\d+>' => 'som/qa/my/answers',
@@ -148,6 +153,11 @@ return array(
         'questions/<categoryId:\d+>/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions/<categoryId:\d+>/<tagId:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions/<categoryId:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
+        'mypediatrician/<tab:(all|new|unanswered)>/<tagId:\d+>' => 'som/qa/default/pediatrician',
+        'mypediatrician/<tab:(all|new|unanswered)>' => 'som/qa/default/pediatrician',
+        'mypediatrician' => array('som/qa/default/pediatrician', 'defaultParams' => array('tab' => 'new')),
+        'mypediatrician/add' => 'som/qa/default/pediatricianAddForm',
+        'mypediatrician/edit/<questionId:\d+>' => 'som/qa/default/pediatricianEditForm',
         'questions/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
         'questions/<tab:(popular|unanswered)>/<categoryId:\d+>/page<page:\d+>' => 'som/qa/default/index',

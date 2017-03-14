@@ -4,6 +4,7 @@ namespace site\frontend\modules\geo2\components\combined;
 use site\frontend\modules\geo2\components\combined\models\Geo2City;
 use site\frontend\modules\geo2\components\combined\models\Geo2Country;
 use site\frontend\modules\geo2\components\combined\models\Geo2Region;
+use site\frontend\modules\geo2\components\combined\modifier\VkModifier;
 use site\frontend\modules\geo2\components\fias\models\FiasAddrobj;
 use site\frontend\modules\geo2\components\vk\models\VkCity;
 use site\frontend\modules\geo2\components\vk\models\VkCountry;
@@ -34,11 +35,7 @@ class CombinedManager
             ->order('id ASC')
         ;
 
-        $this->batchInsert($select, function($row) {
-            $row['vkId'] = $row['id'];
-            unset($row['id']);
-            return $row;
-        }, Geo2Country::model()->tableName());
+        $this->batchInsert($select, [VkModifier::instance(), 'convertCountry'], Geo2Country::model()->tableName());
     }
 
     protected function initRegions()
@@ -49,11 +46,11 @@ class CombinedManager
             $countries[$_country['vkId']] = $_country;
         }
 
-        $this->initVkRegions($countries);
+        $this->initVkRegions();
         $this->initFiasRegions($countries);
     }
 
-    protected function initVkRegions($countries)
+    protected function initVkRegions()
     {
         $select = \Yii::app()->db->createCommand()
             ->select()
@@ -61,12 +58,7 @@ class CombinedManager
             ->where('countryId != :russiaId', [':russiaId' => self::RUSSIA_VK_ID])
             ->order('id ASC')
         ;
-        $this->batchInsert($select, function($row) use ($countries) {
-            $row['vkId'] = $row['id'];
-            unset($row['id']);
-            $row['countryId'] = $countries[$row['countryId']]['id'];
-            return $row;
-        }, Geo2Region::model()->tableName());
+        $this->batchInsert($select, [VkModifier::instance(), 'convertRegion'], Geo2Region::model()->tableName());
     }
 
     protected function initFiasRegions($countries)
@@ -116,16 +108,7 @@ class CombinedManager
             ->where('countryId != :countryId', [':countryId' => self::RUSSIA_VK_ID])
             ->order('id ASC')
         ;
-        $this->batchInsert($select, function($row) use ($vkRegions) {
-            $region = $vkRegions[$row['regionId']];
-
-            return [
-                'countryId' => $region['countryId'],
-                'regionId' => $region['id'],
-                'title' => $row['title'],
-                'vkId' => $row['id'],
-            ];
-        }, Geo2City::model()->tableName());
+        $this->batchInsert($select, [VkModifier::instance(), 'convertCity'], Geo2City::model()->tableName());
     }
 
     protected function initFiasCities($fiasRegions)

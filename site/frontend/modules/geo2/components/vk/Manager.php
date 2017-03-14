@@ -7,6 +7,7 @@
 namespace site\frontend\modules\geo2\components\vk;
 
 
+use site\frontend\modules\geo2\components\combined\modifier\VkModifier;
 use site\frontend\modules\geo2\components\vk\models\City;
 use site\frontend\modules\geo2\components\vk\models\Country;
 use site\frontend\modules\geo2\components\vk\models\VkCity;
@@ -85,31 +86,24 @@ class Manager
 
     protected function performActions()
     {
-        $transaction = \Yii::app()->db->beginTransaction();
-        try {
-            foreach ($this->_syncActions as $table => $methods) {
-                foreach ($methods as $method => $rows) {
-                    foreach ($rows as $id => $row) {
-                        switch ($method) {
-                            case 'insert':
-                                \Yii::app()->db->createCommand()->insert($table, $row);
-                                break;
-                            case 'update':
-                                \Yii::app()->db->createCommand()->update($table, $row, 'id = :id', [':id' => $id]);
-                                break;
-                            case 'delete':
-                                \Yii::app()->db->createCommand()->delete($table, 'id = :id', [':id' => $id]);
-                                break;
-                            default:
-                                throw new \CException();
-                        }
+        foreach ($this->_syncActions as $table => $methods) {
+            foreach ($methods as $method => $rows) {
+                foreach ($rows as $id => $row) {
+                    switch ($method) {
+                        case 'insert':
+                            VkModifier::instance()->insert($table, $row);
+                            break;
+                        case 'update':
+                            VkModifier::instance()->update($table, $row, $id);
+                            break;
+                        case 'delete':
+                            VkModifier::instance()->delete($table, $id);
+                            break;
+                        default:
+                            throw new \CException();
                     }
                 }
             }
-            $transaction->commit();
-        } catch (\Exception $e) {
-            $transaction->rollback();
-            throw $e;
         }
     }
 

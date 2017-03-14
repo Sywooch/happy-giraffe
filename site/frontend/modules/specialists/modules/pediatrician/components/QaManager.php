@@ -132,16 +132,14 @@ class QaManager
         LEFT JOIN ' . QaAnswer::model()->tableName() . ' answers2 ON (answers2.root_id = answers.id AND answers2.isRemoved = 0)
         LEFT JOIN ' . QaAnswer::model()->tableName() . ' answers3 ON (answers3.root_id = answers2.id AND answers3.isRemoved = 0)
         ';
+        $criteria->addCondition('t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)');
         $criteria->addCondition('
         answers.authorId = :userId AND
         answers2.authorId  IS NOT NULL AND
         answers3.id IS NULL AND
-        answers.root_id IS NULL AND 
-        t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId) OR
+        answers.root_id IS NULL OR
         answers.id IS NULL OR
-        
         t.id NOT IN (SELECT questionId FROM qa__answers WHERE authorId IN (SELECT specialists__profiles.id FROM specialists__profiles))
-        
         ');
         $criteria->order = 't.id IN (SELECT a1.questionId FROM qa__answers a1
             LEFT JOIN qa__answers a2 FORCE INDEX FOR JOIN(`root_id_isRemoved`) ON a2.root_id = a1.id AND a2.isRemoved=0

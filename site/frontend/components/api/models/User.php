@@ -27,7 +27,15 @@ class User extends ApiModel implements \IHToJSON
 
     public function getFullName()
     {
-        return $this->fullName;
+        $fullNameArr = array_map(
+            function($value)
+            {
+                return \Str::ucFirst($value);
+            },
+            explode(' ', $this->fullName)
+        );
+
+        return implode(' ' , $fullNameArr);
     }
 
     /**

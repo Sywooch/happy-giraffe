@@ -63,21 +63,19 @@ $jsParamsStr = implode(',', $jsParams);
             <div class="float-l"><span class="btn btn-xl btn-secondary" data-bind="click: skip">Пропустить</span></div>
             <div class="float-r"><span class="btn btn-xl green-btn" data-bind="click: openForm">Ответить</span></div>
         </div>
+
         <form class="answer-form" data-bind="visible: replyMode()">
-            <div class="answer-form__header clearfix">
+            <div class="redactor-control">
                 <?php $this->widget('Avatar', [
                     'user' => Yii::app()->user->model,
                     'tag' => 'span',
                     'size' => Avatar::SIZE_SMALL,
                 ]); ?>
-
-                <div class="redactor-control">
-                    <div class="redactor-control_toolbar clearfix margin-b15" style="padding-left: 30px;"></div>
-                    <div class="redactor-control_hold">
-                        <textarea placeholder="Введите ваш ответ" class="answer-form_textarea" data-bind="wswgHG: { config : editorConfig, attr : answerText }"></textarea>
-                    </div>
+                <div class="redactor-control_hold" style="padding-left: 8%">
+                    <textarea placeholder="Введите ваш ответ" class="answer-form_textarea" data-bind="wswgHG: { config : editorConfig, attr : answerText  }"></textarea>
                 </div>
             </div>
+
             <div class="answer-form__footer clearfix">
                 <div class="answer-form__footer-panel">
                     <div id="add-post-toolbar"></div>
@@ -87,6 +85,7 @@ $jsParamsStr = implode(',', $jsParams);
                     <a class="btn btn-ms btn-secondary margin-t6 margin-r10" href="<?=$this->createUrl('/specialists/pediatrician/default/questions')?>">Отменить</a>
                 </div>
             </div>
+
         </form>
     </div>
 </div>

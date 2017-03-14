@@ -50,7 +50,7 @@ $this->beginContent('//layouts/lite/main');
                         <div class="rubrics_count"><span class="rubrics_count_tx"><?=\site\frontend\modules\community\helpers\StatsHelper::getByLabels(array(\site\frontend\modules\posts\models\Label::LABEL_NEWS))?></span></div>
                     </li>
                     <?php foreach (CommunityClub::model()->findAll() as $club): ?>
-                        <?php $count = \site\frontend\modules\community\helpers\StatsHelper::countCommentNewsTopicByLabels(array($club->toLabel(), \site\frontend\modules\posts\models\Label::LABEL_NEWS), true); ?>
+                        <?php $count = \site\frontend\modules\community\helpers\StatsHelper::countCommentNewsTopicByLabels(array($club->toLabel(), \site\frontend\modules\posts\models\Label::LABEL_NEWS)); ?>
                         <?php if ($count > 0): ?>
                         <li class="rubrics_li"><a class="rubrics_a" href="<?=$this->createUrl('/som/community/news/index', array('slug' => $club->slug))?>"><?=$club->title?></a>
                             <div class="rubrics_count"><span class="rubrics_count_tx"><?=$count?></span></div>

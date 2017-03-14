@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\geo2\commands;
+use site\frontend\modules\geo2\components\combined\CombinedManager;
 use site\frontend\modules\geo2\components\fias\handler\MySQLHandler;
 use site\frontend\modules\geo2\components\fias\Manager;
 use site\frontend\modules\geo2\components\fias\output\DumpOutput;
@@ -29,5 +30,10 @@ class DefaultCommand extends \CConsoleCommand
         echo sprintf('Текущая версия: %s', $updateManager->versionManager->getCurrentVersion()) . PHP_EOL;
         $updateManager->update();
         echo sprintf('%d записей создано, %d обновлено, %d удалено', $updateManager->created, $updateManager->updated, $updateManager->deleted) . PHP_EOL;
+    }
+    
+    public function actionInit()
+    {
+        (new CombinedManager())->init();
     }
 }

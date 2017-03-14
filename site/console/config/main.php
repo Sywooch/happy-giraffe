@@ -114,6 +114,9 @@ return array(
         'geo2' => [
             'class' => 'site\frontend\modules\geo2\commands\DefaultCommand',
         ],
+        'geoVk' => [
+            'class' => 'site\frontend\modules\geo2\commands\VkCommand',
+        ],
     ),
     'import' => array(
         'site.common.models.User',

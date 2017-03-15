@@ -24,7 +24,7 @@ class Parser
         $this->_codes = $this->getCountryCodes();
     }
 
-    public function getCities($countryId, $regionId)
+    public function getCities($countryId, $regionId = null)
     {
         return $this->getList('database.getCities', ['country_id' => $countryId, 'region_id' => $regionId, 'need_all' => 1]);
     }

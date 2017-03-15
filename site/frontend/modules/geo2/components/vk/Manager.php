@@ -23,7 +23,7 @@ class Manager
 
     private $_parser;
     private $_syncActions = [];
-    
+
     public function __construct()
     {
         $this->_parser = new Parser();
@@ -34,19 +34,24 @@ class Manager
         $this->clean();
 
         foreach ($this->_parser->getCountries() as $country) {
+            echo $country['id'] . PHP_EOL;
+
             \Yii::app()->db->createCommand()->insert(VkCountry::model()->tableName(), $this->countryRow($country));
 
-            foreach ($this->_parser->getRegions($country['id']) as $region) {
+            $regions = $this->_parser->getRegions($country['id']);
+            $regionsMap = [];
+            foreach ($regions as $region) {
                 \Yii::app()->db->createCommand()->insert(VkRegion::model()->tableName(), $this->regionRow($country, $region));
+                $regionsMap[$region['title']] = $region;
+            }
 
-                $cities = $this->_parser->getCities($country['id'], $region['id']);
-                $nCities = count($cities);
-                for ($i = 0; $i < ceil($nCities / self::INSERT_LIMIT); $i++) {
-                    $citiesRows = array_map(function($city) use ($region, $country) {
-                        return $this->cityRow($country, $region, $city);
-                    }, array_slice($cities, self::INSERT_LIMIT * $i, self::INSERT_LIMIT));
-                    \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(VkCity::model()->tableName(), $citiesRows)->execute();
-                }
+            $cities = $this->_parser->getCities($country['id']);
+            $nCities = count($cities);
+            for ($i = 0; $i < ceil($nCities / self::INSERT_LIMIT); $i++) {
+                $citiesRows = array_map(function($city) use ($regionsMap, $country) {
+                    return $this->cityRow($country, (isset($city['region']) && isset($regionsMap[$city['region']])) ? $regionsMap[$city['region']] : null, $city);
+                }, array_slice($cities, self::INSERT_LIMIT * $i, self::INSERT_LIMIT));
+                \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand(VkCity::model()->tableName(), $citiesRows)->execute();
             }
         }
     }
@@ -69,18 +74,22 @@ class Manager
         $countriesGenerator = $this->_parser->getCountries();
         $this->_collectSyncActions(VkCountry::model()->tableName(), $this->_parser->getCountries(), \Yii::app()->db->createCommand()->select()->from(VkCountry::model()->tableName())->queryAll(), [$this, 'countryRow']);
         foreach ($countriesGenerator as $i => $country) {
+            echo $country['id'] . ' - ' . count($this->_syncActions) . PHP_EOL;
+
             $regionsGenerator = $this->_parser->getRegions($country['id']);
             $dbRegions = \Yii::app()->db->createCommand()->select()->from(VkRegion::model()->tableName())->where('countryId = :countryId')->queryAll(true, [':countryId' => $country['id']]);
             $this->_collectSyncActions(VkRegion::model()->tableName(), $regionsGenerator, $dbRegions, function($region) use ($country) {
                 return $this->regionRow($country, $region);
             });
 
+            $regionsMap = [];
             foreach ($regionsGenerator as $region) {
-                $dbCities = \Yii::app()->db->createCommand()->select()->from(VkCity::model()->tableName())->where('regionId = :regionId')->queryAll(true, [':regionId' => $region['id']]);
-                $this->_collectSyncActions(VkCity::model()->tableName(), $this->_parser->getCities($country['id'], $region['id']), $dbCities, function($city) use ($country, $region) {
-                    return $this->cityRow($country, $region, $city);
-                });
+                $regionsMap[$region['title']] = $region;
             }
+            $dbCities = \Yii::app()->db->createCommand()->select()->from(VkCity::model()->tableName())->where('countryId = :countryId')->queryAll(true, [':countryId' => $country['id']]);
+            $this->_collectSyncActions(VkCity::model()->tableName(), $this->_parser->getCities($country['id']), $dbCities, function($city) use ($country, $regionsMap) {
+                return $this->cityRow($country, (isset($city['region']) && isset($regionsMap[$city['region']])) ? $regionsMap[$city['region']] : null, $city);
+            });
         }
     }
 
@@ -97,7 +106,7 @@ class Manager
                             VkModifier::instance()->update($table, $row, $id);
                             break;
                         case 'delete':
-                            VkModifier::instance()->delete($table, $id);
+                            VkModifier::instance()->delete($table, $row, $id);
                             break;
                         default:
                             throw new \CException();
@@ -176,7 +185,7 @@ class Manager
 
     protected function cityRow($country, $region, $city)
     {
-        return array_merge(array_intersect_key($city, array_flip(['id', 'title'])), ['countryId' => $country['id'], 'regionId' => $region['id']]);
+        return array_merge(array_intersect_key($city, array_flip(['id', 'title'])), ['countryId' => $country['id'], 'regionId' => ($region === null) ? null : $region['id']]);
     }
 
     protected function clean()

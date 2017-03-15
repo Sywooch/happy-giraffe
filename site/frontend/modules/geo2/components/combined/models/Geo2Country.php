@@ -63,4 +63,10 @@ class Geo2Country extends \CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	public function iso($value)
+	{
+		$this->getDbCriteria()->compare('iso', $value);
+		return $this;
+	}
 }

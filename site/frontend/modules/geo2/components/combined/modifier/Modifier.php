@@ -14,11 +14,11 @@ abstract class Modifier
     const TYPE_COUNTRY = 'country';
     const TYPE_REGION = 'region';
     const TYPE_CITY = 'city';
-
+    
+    abstract public function convertCountry($row);
     abstract public function convertRegion($row);
     abstract public function convertCity($row);
-    abstract public function convertCountry($row);
-    abstract protected function getType($table);
+    abstract protected function getType($table, $row);
     abstract protected function getFk();
 
     private static $_instance;
@@ -39,27 +39,33 @@ abstract class Modifier
     public function insert($table, $row)
     {
         $this->wrap(function() use ($table, $row) {
-            $type = $this->getType($table);
+            $type = $this->getType($table, $row);
             \Yii::app()->db->createCommand()->insert($table, $row);
-            \Yii::app()->db->createCommand()->insert($this->getDestinationTable($type), $this->process($type, $row));
+            if ($type) {
+                \Yii::app()->db->createCommand()->insert($this->getDestinationTable($type), $this->process($type, $row));
+            }
         });
     }
     
     public function update($table, $row, $pk)
     {
         $this->wrap(function() use ($table, $row, $pk) {
-            $type = $this->getType($table);
+            $type = $this->getType($table, $row);
             \Yii::app()->db->createCommand()->update($table, $row, 'id = :id', [':id' => $pk]);
-            \Yii::app()->db->createCommand()->update($this->getDestinationTable($type), $this->process($type, $row), "{$this->getFk()} = :fk", [':fk' => $pk]);
+            if ($type) {
+                \Yii::app()->db->createCommand()->update($this->getDestinationTable($type), $this->process($type, $row), "{$this->getFk()} = :fk", [':fk' => $pk]);
+            }
         });
     }
 
-    public function delete($table, $pk)
+    public function delete($table, $row, $pk)
     {
-        $this->wrap(function() use ($table, $pk) {
-            $type = $this->getType($table);
+        $this->wrap(function() use ($table, $row, $pk) {
+            $type = $this->getType($table, $row);
             \Yii::app()->db->createCommand()->delete($table, 'id = :id', [':id' => $pk]);
-            \Yii::app()->db->createCommand()->delete($this->getDestinationTable($type), "{$this->getFk()} = :fk", [':fk' => $pk]);
+            if ($type) {
+                \Yii::app()->db->createCommand()->delete($this->getDestinationTable($type), "{$this->getFk()} = :fk", [':fk' => $pk]);
+            }
         });
     }
 

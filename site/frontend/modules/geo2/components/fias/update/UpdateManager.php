@@ -7,6 +7,7 @@
 namespace site\frontend\modules\geo2\components\fias\update;
 
 
+use site\frontend\modules\geo2\components\combined\modifier\FiasModifier;
 use site\frontend\modules\geo2\components\fias\DataParser;
 use site\frontend\modules\geo2\components\fias\FileNameHelper;
 use site\frontend\modules\geo2\components\fias\update\DeltaGetter;
@@ -65,11 +66,13 @@ class UpdateManager
 
                 if ($exists) {
                     $pk = $row[$pkName];
-                    unset($row[$pkName]);
-                    \Yii::app()->db->createCommand()->update("$prefixedTableName", $row, $pkName . ' = :pk', [':pk' => $pk]);
+//                    unset($row[$pkName]);
+//                    \Yii::app()->db->createCommand()->update("$prefixedTableName", $row, $pkName . ' = :pk', [':pk' => $pk]);
+                    FiasModifier::instance()->update($prefixedTableName, $row, $pk);
                     $this->updated++;
                 } else {
-                    \Yii::app()->db->createCommand()->insert("$prefixedTableName", $row);
+//                    \Yii::app()->db->createCommand()->insert("$prefixedTableName", $row);
+                    FiasModifier::instance()->insert($prefixedTableName, $row);
                     $this->created++;
                 }
             }

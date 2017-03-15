@@ -18,13 +18,6 @@ class VkModifier extends Modifier
     private $_countries;
     private $_regions;
 
-    protected function __construct()
-    {
-        $this->_countries = $this->getCountries();
-        $this->_regions = $this->getRegions();
-        parent::__construct();
-    }
-
     public function convertCountry($row)
     {
         $row['vkId'] = $row['id'];
@@ -36,17 +29,15 @@ class VkModifier extends Modifier
     {
         $row['vkId'] = $row['id'];
         unset($row['id']);
-        $row['countryId'] = $this->_countries[$row['countryId']]['id'];
+        $row['countryId'] = $this->getCountries()[$row['countryId']]['id'];
         return $row;
     }
 
     public function convertCity($row)
     {
-        $region = $this->_regions[$row['regionId']];
-
         return [
-            'countryId' => $region['countryId'],
-            'regionId' => $region['id'],
+            'countryId' => $this->getCountries()[$row['countryId']]['id'],
+            'regionId' => ($row['regionId']) ? $this->getRegions()[$row['regionId']]['id'] : null,
             'title' => $row['title'],
             'vkId' => $row['id'],
         ];
@@ -57,7 +48,7 @@ class VkModifier extends Modifier
         return 'vkId';
     }
     
-    protected function getType($table)
+    protected function getType($table, $row)
     {
         return array_search($table, [
             self::TYPE_COUNTRY => VkCountry::model()->tableName(),
@@ -68,30 +59,32 @@ class VkModifier extends Modifier
 
     private function getCountries()
     {
-        $_countries = \Yii::app()->db->createCommand()
-            ->select()
-            ->from(Geo2Country::model()->tableName())
-            ->queryAll()
-        ;
-        $countries = [];
-        foreach ($_countries as $_country) {
-            $countries[$_country['vkId']] = $_country;
+        if (! $this->_countries) {
+            $_countries = \Yii::app()->db->createCommand()
+                ->select()
+                ->from(Geo2Country::model()->tableName())
+                ->queryAll();
+            $this->_countries = [];
+            foreach ($_countries as $_country) {
+                $this->_countries[$_country['vkId']] = $_country;
+            }
         }
-        return $countries;
+        return $this->_countries;
     }
 
     private function getRegions()
     {
-        $_regions = \Yii::app()->db->createCommand()
-            ->select()
-            ->from(Geo2Region::model()->tableName())
-            ->where('vkId IS NOT NULL')
-            ->queryAll()
-        ;
-        $regions = [];
-        foreach ($_regions as $_region) {
-            $regions[$_region['vkId']] = $_region;
+        if (! $this->_regions) {
+            $_regions = \Yii::app()->db->createCommand()
+                ->select()
+                ->from(Geo2Region::model()->tableName())
+                ->where('vkId IS NOT NULL')
+                ->queryAll();
+            $this->_regions = [];
+            foreach ($_regions as $_region) {
+                $this->_regions[$_region['vkId']] = $_region;
+            }
         }
-        return $regions;
+        return $this->_regions;
     }
 }

@@ -11,12 +11,14 @@ $breadcrumbs = [
 ];
 
 if (!is_null($this->forum))
-{   
-    $breadcrumbs[$this->club->title] = $this->club->getUrl();
-    
+{
+    if(!empty($this->club)){
+        $breadcrumbs[$this->club->title] = $this->club->getUrl();
+    }
+
     if (isset($this->post->title))
     {
-        if (count($this->club->communities) > 1)
+        if (!empty($this->club) and count($this->club->communities) > 1)
         {
             $breadcrumbs[$this->forum->title] = $this->forum->getUrl();
         }

@@ -624,10 +624,14 @@ class User extends HActiveRecord
      */
     public function getFullName()
     {
+        $firstName      = Str::ucFirst($this->first_name);
+        $middleName     = Str::ucFirst($this->middle_name);
+        $lastName       = Str::ucFirst($this->last_name);
+
         if ($this->specialistInfo) {
-            $parts = [$this->first_name, $this->middle_name, mb_substr($this->last_name, 0, 1, 'UTF-8') . '.'];
+            $parts = [$firstName, $middleName, mb_substr($lastName, 0, 1, 'UTF-8') . '.'];
         } else {
-            $parts = [$this->first_name, $this->last_name];
+            $parts = [$firstName, $middleName];
         }
         return implode(' ', array_filter($parts));
     }

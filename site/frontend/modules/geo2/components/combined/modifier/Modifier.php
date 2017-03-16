@@ -20,15 +20,17 @@ abstract class Modifier
     abstract public function convertCity($row);
     abstract protected function getType($table, $row);
     abstract protected function getFk();
+    abstract protected function getKey();
 
-    private static $_instance;
+    /** @var  Modifier */
+    protected static $_instance;
 
     public static function instance()
     {
-        if (! self::$_instance) {
-            self::$_instance = new static();
+        if (! static::$_instance) {
+            static::$_instance = new static();
         }
-        return self::$_instance;
+        return static::$_instance;
     }
 
     protected function __construct()
@@ -51,9 +53,10 @@ abstract class Modifier
     {
         $this->wrap(function() use ($table, $row, $pk) {
             $type = $this->getType($table, $row);
-            \Yii::app()->db->createCommand()->update($table, $row, 'id = :id', [':id' => $pk]);
+            \Yii::app()->db->createCommand()->update($table, $row, "{$this->getKey()} = :id", [':id' => $pk]);
             if ($type) {
-                \Yii::app()->db->createCommand()->update($this->getDestinationTable($type), $this->process($type, $row), "{$this->getFk()} = :fk", [':fk' => $pk]);
+                $processedRow = $this->process($type, $row);
+                \Yii::app()->db->createCommand()->update($this->getDestinationTable($type), $processedRow, "{$this->getFk()} = :fk", [':fk' => $processedRow[$this->getFk()]]);
             }
         });
     }
@@ -62,7 +65,7 @@ abstract class Modifier
     {
         $this->wrap(function() use ($table, $row, $pk) {
             $type = $this->getType($table, $row);
-            \Yii::app()->db->createCommand()->delete($table, 'id = :id', [':id' => $pk]);
+            \Yii::app()->db->createCommand()->delete($table, "{$this->getKey()} = :id", [':id' => $pk]);
             if ($type) {
                 \Yii::app()->db->createCommand()->delete($this->getDestinationTable($type), "{$this->getFk()} = :fk", [':fk' => $pk]);
             }

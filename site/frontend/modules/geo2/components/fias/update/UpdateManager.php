@@ -10,6 +10,7 @@ namespace site\frontend\modules\geo2\components\fias\update;
 use site\frontend\modules\geo2\components\combined\modifier\FiasModifier;
 use site\frontend\modules\geo2\components\fias\DataParser;
 use site\frontend\modules\geo2\components\fias\FileNameHelper;
+use site\frontend\modules\geo2\components\fias\models\FiasAddrobj;
 use site\frontend\modules\geo2\components\fias\update\DeltaGetter;
 use site\frontend\modules\geo2\components\fias\update\VersionManager;
 use site\frontend\modules\geo2\Geo2Module;
@@ -31,6 +32,15 @@ class UpdateManager
 
     public function update()
     {
+        foreach (new \DirectoryIterator('/home/giraffe/happy-giraffe.ru/site/frontend/modules/geo2/data/xml_delta') as $file) {
+            if ($file->isDot()) {
+                continue;
+            }
+
+            $this->processFile($file);
+        }
+        return;
+
         if (! $this->versionManager->isUpdateRequired()) {
             return;
         }

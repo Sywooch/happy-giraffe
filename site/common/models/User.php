@@ -631,7 +631,7 @@ class User extends HActiveRecord
         if ($this->specialistInfo) {
             $parts = [$firstName, $middleName, mb_substr($lastName, 0, 1, 'UTF-8') . '.'];
         } else {
-            $parts = [$firstName, $middleName];
+            $parts = [$firstName, $lastName];
         }
         return implode(' ', array_filter($parts));
     }

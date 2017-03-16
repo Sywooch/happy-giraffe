@@ -23,7 +23,7 @@ class CombinedManager
     public function init()
     {
         $this->clear();
-        $this->initCountries();
+        //$this->initCountries();
         $this->initRegions();
         $this->initCities();
     }
@@ -43,7 +43,7 @@ class CombinedManager
     protected function initRegions()
     {
         $this->initVkRegions();
-        //$this->initFiasRegions();
+        $this->initFiasRegions();
     }
 
     protected function initVkRegions()
@@ -59,7 +59,7 @@ class CombinedManager
     protected function initFiasRegions()
     {
         $select = \Yii::app()->db->createCommand()
-            ->select('AOID, FORMALNAME')
+            ->select()
             ->from(FiasAddrobj::model()->tableName())
             ->where('LIVESTATUS = 1 AND AOLEVEL = 1')
         ;
@@ -68,8 +68,8 @@ class CombinedManager
 
     protected function initCities()
     {
-        $this->initVkCities();
-        //$this->initFiasCities();
+        //$this->initVkCities();
+        $this->initFiasCities();
     }
 
     protected function initVkCities()
@@ -85,12 +85,18 @@ class CombinedManager
     protected function initFiasCities()
     {
         $cities = \Yii::app()->db->createCommand()
-            ->select()
+            ->select('FORMALNAME, AOGUID, AOID, AOLEVEL, SHORTNAME')
             ->from(FiasAddrobj::model()->tableName())
-            ->andWhere('LIVESTATUS = 1 AND AOLEVEL IN (4, 6)')
+            ->where('LIVESTATUS = 1 AND AOLEVEL IN (4, 6)')
         ;
-
         $this->batchInsert($cities, [FiasModifier::instance(), 'convertCity'], Geo2City::model()->tableName());
+
+        $bigCities = \Yii::app()->db->createCommand()
+            ->select('FORMALNAME, AOGUID, AOID, AOLEVEL, SHORTNAME')
+            ->from(FiasAddrobj::model()->tableName())
+            ->where('LIVESTATUS = 1 AND AOLEVEL = 1 AND SHORTNAME = "г"')
+        ;
+        $this->batchInsert($bigCities, [FiasModifier::instance(), 'convertCity'], Geo2City::model()->tableName());
     }
 
     protected function batchInsert(\CDbCommand $select, $callback, $destination)
@@ -102,52 +108,48 @@ class CombinedManager
         ;
 
         $pk = \Yii::app()->db->schema->getTable($select->getFrom())->primaryKey;
-        $lastPk = 0;
+        $lastPk = null;
         for ($i = 0; $i < ceil($count / self::BATCH_SIZE); $i++) {
             $_select = clone $select;
 
-            //$a = microtime(true);
+            $a = microtime(true);
 
-            $rows = $_select
+            $_select
                 ->limit(self::BATCH_SIZE)
                 ->order($pk . ' ASC')
-                ->andWhere("$pk > :lastPk", [':lastPk' => $lastPk])
-                ->queryAll()
             ;
 
+            if ($lastPk) {
+                $_select
+                    ->andWhere("$pk > :lastPk", [':lastPk' => $lastPk])
+                ;
+            }
+            $rows = $_select->queryAll();
+
+            echo 'selecting ' . $destination . ' ' . (microtime(true) - $a) . PHP_EOL;
+
+            $a = microtime(true);
+
             $lastPk = array_values(array_slice($rows, -1))[0][$pk];
-
-            //echo 'selecting ' . (microtime(true) - $a) . PHP_EOL;
-
-            //$a = microtime(true);
-
             $processedRows = array_map(function($row) use ($callback) {
                 return $callback($row);
             }, $rows);
 
-            //echo 'processing ' . (microtime(true) - $a) . PHP_EOL;
+            echo 'processing ' . $destination . ' ' . (microtime(true) - $a) . PHP_EOL;
 
-            //$a = microtime(true);
+            $a = microtime(true);
 
-            try {
-                \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand($destination, $processedRows)->execute();
-            } catch (\Exception $e) {
-                var_dump(count($rows));
-                var_dump(count($processedRows));
-                var_dump($lastPk);
-                var_dump($_select->getText());
-                throw $e;
-            }
+            \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand($destination, $processedRows)->execute();
 
-            //echo 'inserting ' . (microtime(true) - $a) . PHP_EOL;
+            echo 'inserting ' . $destination . ' ' . (microtime(true) - $a) . PHP_EOL;
         }
     }
 
     protected function clear()
     {
-        foreach ([Geo2Region::model()->tableName(), Geo2Country::model()->tableName(), Geo2City::model()->tableName()] as $table) {
-            \Yii::app()->db->createCommand()->delete($table);
-            \Yii::app()->db->createCommand("ALTER TABLE $table AUTO_INCREMENT = 1;")->execute();
+        foreach ([Geo2Region::model()->tableName(), /* Geo2Country::model()->tableName(), */Geo2City::model()->tableName()] as $table) {
+            \Yii::app()->db->createCommand()->delete($table, 'fiasId IS NOT NULL');
+            //\Yii::app()->db->createCommand("ALTER TABLE $table AUTO_INCREMENT = 1;")->execute();
         }
     }
 }

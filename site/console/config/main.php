@@ -117,6 +117,9 @@ return array(
         'geoVk' => [
             'class' => 'site\frontend\modules\geo2\commands\VkCommand',
         ],
+        'geoFias' => [
+            'class' => 'site\frontend\modules\geo2\commands\FiasCommand',
+        ],
     ),
     'import' => array(
         'site.common.models.User',

@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\geo2\commands;
 use site\frontend\modules\geo2\components\combined\CombinedManager;
+use site\frontend\modules\geo2\components\combined\modifier\FiasModifier;
 use site\frontend\modules\geo2\components\fias\handler\MySQLHandler;
 use site\frontend\modules\geo2\components\fias\Manager;
 use site\frontend\modules\geo2\components\fias\output\DumpOutput;

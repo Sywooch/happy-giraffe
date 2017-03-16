@@ -15,6 +15,8 @@ use site\frontend\modules\geo2\components\vk\models\VkRegion;
 
 class VkModifier extends Modifier
 {
+    protected static $_instance = null;
+    
     private $_countries;
     private $_regions;
 
@@ -43,6 +45,11 @@ class VkModifier extends Modifier
         ];
     }
     
+    protected function getKey()
+    {
+        return 'id';
+    }
+
     protected function getFk()
     {
         return 'vkId';

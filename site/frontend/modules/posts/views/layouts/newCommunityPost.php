@@ -25,7 +25,7 @@ $this->beginContent('//layouts/lite/community');
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
-            
+
             <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
             <!--AdFox START-->
             <!--giraffe-->
@@ -77,6 +77,7 @@ $this->beginContent('//layouts/lite/community');
                     });
                 </script>
             </div>
+
             <?php $this->endWidget(); ?>
 
             <?php if ($this instanceof site\frontend\modules\posts\controllers\PostController && $this->post->templateObject->getAttr('hideRubrics', false)): ?>
@@ -94,44 +95,48 @@ $this->beginContent('//layouts/lite/community');
 
             <?php else: ?>
                 <?php if (!($this instanceof site\frontend\modules\posts\controllers\PostController) || (!$this->post->templateObject->getAttr('hideRubrics', false))): ?>
-                    <div class="side-block rubrics">
-                        <div class="side-block_tx">Рубрики клуба</div>
-                        <ul>
-                            <?php foreach ($this->forum->rubrics as $rubric): ?>
-                                <?php if ($rubric->parent_id === null): ?>
-                                    <li class="rubrics_li"><a class="rubrics_a" href="<?= $rubric->getUrl() ?>"><?= $rubric->title ?></a>
-                                        <div class="rubrics_count"><span class="rubrics_count_tx"><?= \site\frontend\modules\community\helpers\StatsHelper::getRubricCount($rubric->id) ?></span></div>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+                    <?php
+                    // Скрываем блок если отсутствуют клубы
+                    if($this->club):?>
+                        <div class="side-block rubrics">
+                            <div class="side-block_tx">Рубрики клуба</div>
+                            <ul>
+                                <?php foreach ($this->forum->rubrics as $rubric): ?>
+                                    <?php if ($rubric->parent_id === null and $rubric->contentsCount > 0): ?>
+                                        <li class="rubrics_li"><a class="rubrics_a" href="<?= $rubric->getUrl() ?>"><?= $rubric->title ?></a>
+                                            <div class="rubrics_count"><span class="rubrics_count_tx"><?= \site\frontend\modules\community\helpers\StatsHelper::getRubricCount($rubric->id) ?></span></div>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
-                
+
                 <?php if ($this->beginCache('HotPostsWidget', array('duration' => 300))): ?>
-                
+
                     <div class="side-block">
-                    
-                    	<?php 
-                    	
+
+                    	<?php
+
                         $this->widget('site\frontend\modules\posts\modules\forums\widgets\hotPosts\HotPostsWidget', [
                             'labels' => [
                                 \site\frontend\modules\posts\models\Label::LABEL_FORUMS,
                             ],
                         ]);
-                        
+
                         ?>
-                        
+
                     </div>
-                
-                <?php  
-                
+
+                <?php
+
                 $this->endCache();
-                
+
                 endif;
-                
+
                 ?>
-                
+
             <?php endif; ?>
         </aside>
     </div>

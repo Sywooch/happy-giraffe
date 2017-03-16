@@ -22,11 +22,9 @@ $this->pageTitle = 'Жираф педиатр - Вопросы';
         		<p class="font-m font__color--grey">
         			<span class="statistik__num margin-r15">1</span>
         			<span class="margin-r15">Ваше фото для анкеты специалиста</span>
-        			<span
-        				class="statistik__upload font__color--blue"
-        				data-bind="avatarUpload: {data: {multiple: false, view: 'specialist'}}"
-        			>
-        				Загрузить фото
+        			<span class="statistik__upload font__color--blue" style="cursor: default">
+        				<span id="upload-link" style="cursor: pointer;">Загрузить фото</span>
+						<one-step-avatar-uploader></one-step-avatar-uploader>
         			</span>
         		</p>
       		</div>

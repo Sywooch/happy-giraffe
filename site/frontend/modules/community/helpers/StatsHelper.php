@@ -54,15 +54,16 @@ class StatsHelper
      */
     public static function getComments($clubId, $renew = false)
     {
+        // Время жизни значения счетчика в кеше, в секундах
+        $expire = 10;
         $cacheId = 'StatsHelper.comments.' . $clubId;
         $value = self::getCacheComponent()->get($cacheId);
-        if ($value === false || $renew)
+        if ($value === false OR ($value === false and $renew))
         {
             $club = \CommunityClub::model()->findByPk($clubId);
             $label = 'Клуб: ' . $club->title;
             $value = self::getCommentCount(array($label));
-
-            self::getCacheComponent()->set($cacheId, $value);
+            self::getCacheComponent()->set($cacheId, $value, $expire);
         }
         return $value;
     }
@@ -76,14 +77,13 @@ class StatsHelper
     private static function getCommentCount($labelsList)
     {
         $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labelsList);
-        $sql = 'SELECT count(*) AS n
-FROM post__contents AS pc 
-JOIN post__tags AS t ON (pc.id=t.contentId)
-JOIN comments AS c ON ( c.entity = pc.originEntity and c.entity_id = pc.originEntityId)
-WHERE
-	t.labelId in(' . implode(', ', $tags) . ') and
-	 pc.isRemoved=0 and
-	 c.removed=0 ';
+        $sql = 'SELECT count(*) AS n 
+FROM comments AS c 
+JOIN post__contents AS pc ON ( c.entity = pc.originEntity and c.entity_id = pc.originEntityId)
+WHERE 
+pc.id IN (SELECT `contentId` FROM `post__tags` WHERE `labelId` IN (' . implode(', ', $tags) . '))
+and pc.isRemoved=0
+and c.removed=0;';
         $itm = \Yii::app()->db->createCommand($sql)->queryAll(true);
         return $itm[0]['n'];
     }

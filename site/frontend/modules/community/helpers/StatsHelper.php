@@ -24,7 +24,7 @@ class StatsHelper
     public static function getSubscribers($clubId, $renew = false)
     {
         // Время жизни значения счетчика в кеше, в секундах
-        $expire = 30;
+        $expire = 240;
         $cacheId = 'StatsHelper.subscribers.' . $clubId;
         $staticCacheId = 'Static.' . $cacheId;
 
@@ -44,7 +44,7 @@ class StatsHelper
     public static function getPosts($clubId, $renew = false)
     {
          // Время жизни значения счетчика в кеше, в секундах
-        $expire = 30;
+        $expire = 240;
         $cacheId = 'StatsHelper.posts.' . $clubId;
         $staticCacheId = 'Static.' . $cacheId;
 
@@ -71,7 +71,7 @@ class StatsHelper
     public static function getComments($clubId, $renew = false)
     {
         // Время жизни значения счетчика в кеше, в секундах
-        $expire = 30;
+        $expire = 240;
         $cacheId = 'StatsHelper.comments.' . $clubId;
         $staticCacheId = 'Static.' . $cacheId;
 
@@ -113,7 +113,7 @@ and c.removed=0;';
     public static function getRubricCount($rubricId, $renew = false)
     {
         // Время жизни значения счетчика в кеше, в секундах
-        $expire = 30;
+        $expire = 240;
         $cacheId = 'StatsHelper.rubricCount.' . $rubricId;
         $staticCacheId = 'Static.' . $cacheId;
 

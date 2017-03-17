@@ -15,7 +15,7 @@ use site\frontend\modules\posts\models\Tag;
 /*
  * у класса не было документации, но в целом он считает колличество комментариев
  * в разделах, подразделах
- * @author crocodile 
+ * @author crocodile
  */
 
 class StatsHelper
@@ -57,30 +57,36 @@ class StatsHelper
         // Время жизни значения счетчика в кеше, в секундах
         $expire = 10;
         $cacheId = 'StatsHelper.comments.' . $clubId;
+        $staticCacheId = 'Static.' . $cacheId;
+
         $value = self::getCacheComponent()->get($cacheId);
-        if ($value === false OR ($value === false and $renew))
+        $staticValue = self::getCacheComponent()->get($staticCacheId);
+
+        if ($staticValue === false OR ($value === false and $renew))
         {
             $club = \CommunityClub::model()->findByPk($clubId);
             $label = 'Клуб: ' . $club->title;
             $value = self::getCommentCount(array($label));
+
             self::getCacheComponent()->set($cacheId, $value, $expire);
+            self::getCacheComponent()->set($staticCacheId, $value, 0);
         }
-        return $value;
+        return $value ?: $staticValue;
     }
 
     /**
      * подсчёт колличества комментариев в постах
-     * @param array $labelsList 
+     * @param array $labelsList
      * @return int
      * @author crocodile
      */
     private static function getCommentCount($labelsList)
     {
         $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labelsList);
-        $sql = 'SELECT count(*) AS n 
-FROM comments AS c 
-JOIN post__contents AS pc ON ( c.entity = pc.originEntity and c.entity_id = pc.originEntityId)
-WHERE 
+        $sql = 'SELECT count(*) AS n
+FROM post__contents AS pc
+JOIN comments AS c FORCE INDEX FOR JOIN(`entity_index`) ON ( c.entity = pc.originEntity and c.entity_id = pc.originEntityId)
+WHERE
 pc.id IN (SELECT `contentId` FROM `post__tags` WHERE `labelId` IN (' . implode(', ', $tags) . '))
 and pc.isRemoved=0
 and c.removed=0;';
@@ -126,7 +132,7 @@ and c.removed=0;';
     }
 
     /**
-     * "прогрев кеша коментариев", к сожалению реализовано не как прогрев, 
+     * "прогрев кеша коментариев", к сожалению реализовано не как прогрев,
      * а как каждый раз пересчёт значения количества комментариев
      */
     public static function warmCache()

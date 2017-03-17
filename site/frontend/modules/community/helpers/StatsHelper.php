@@ -23,26 +23,42 @@ class StatsHelper
 
     public static function getSubscribers($clubId, $renew = false)
     {
+        // Время жизни значения счетчика в кеше, в секундах
+        $expire = 30;
         $cacheId = 'StatsHelper.subscribers.' . $clubId;
+        $staticCacheId = 'Static.' . $cacheId;
+
         $value = self::getCacheComponent()->get($cacheId);
-        if ($value === false || $renew)
+        $staticValue = self::getCacheComponent()->get($staticCacheId);
+
+        if ($staticValue === false OR ($value === false and $renew))
         {
             $value = \UserClubSubscription::model()->count('club_id = :clubId', array(':clubId' => $clubId));
-            self::getCacheComponent()->set($cacheId, $value);
+            self::getCacheComponent()->set($cacheId, $value, $expire);
+            self::getCacheComponent()->set($staticCacheId, $value, 0);
         }
-        return $value;
+
+        return $value ?: $staticValue;
     }
 
     public static function getPosts($clubId, $renew = false)
     {
+         // Время жизни значения счетчика в кеше, в секундах
+        $expire = 30;
         $cacheId = 'StatsHelper.posts.' . $clubId;
+        $staticCacheId = 'Static.' . $cacheId;
+
         $value = self::getCacheComponent()->get($cacheId);
-        if ($value === false || $renew)
+        $staticValue = self::getCacheComponent()->get($staticCacheId);
+
+        if ($staticValue === false OR ($value === false and $renew))
         {
             $value = \CommunityContent::model()->with('rubric.community')->count('club_id = :clubId', array(':clubId' => $clubId));
-            self::getCacheComponent()->set($cacheId, $value);
+            self::getCacheComponent()->set($cacheId, $value, $expire);
+            self::getCacheComponent()->set($staticCacheId, $value, 0);
         }
-        return $value;
+
+        return $value ?: $staticValue;
     }
 
     /**
@@ -55,7 +71,7 @@ class StatsHelper
     public static function getComments($clubId, $renew = false)
     {
         // Время жизни значения счетчика в кеше, в секундах
-        $expire = 10;
+        $expire = 30;
         $cacheId = 'StatsHelper.comments.' . $clubId;
         $staticCacheId = 'Static.' . $cacheId;
 
@@ -96,27 +112,25 @@ and c.removed=0;';
 
     public static function getRubricCount($rubricId, $renew = false)
     {
+        // Время жизни значения счетчика в кеше, в секундах
+        $expire = 30;
         $cacheId = 'StatsHelper.rubricCount.' . $rubricId;
+        $staticCacheId = 'Static.' . $cacheId;
+
         $value = self::getCacheComponent()->get($cacheId);
-        if ($value === false || $renew)
+        $staticValue = self::getCacheComponent()->get($staticCacheId);
+
+        if ($staticValue === false OR ($value === false and $renew))
         {
             $rubric = \CommunityRubric::model()->with('community')->findByPk($rubricId);
-            $forum = $rubric->community;
-            $value = self::getCommentCount(array('Рубрика: ' . $rubric->title, 'Форум: ' . $forum->title));
-//            $rubric = \CommunityRubric::model()->with('community')->findByPk($rubricId);
-//            $forum = $rubric->community;
-//            $posts = Content::model()->byLabels(array('Рубрика: ' . $rubric->title, 'Форум: ' . $forum->title))->findAll();
-//            $postsIds = array_map(function($post)
-//            {
-//                return $post->originEntityId;
-//            }, $posts);
-//
-//            $criteria = new \CDbCriteria();
-//            $criteria->addInCondition('entity_id', $postsIds);
-//            $value = Comment::model()->count($criteria);
-            self::getCacheComponent()->set($cacheId, $value);
+            $value = self::getCommentCount(array(
+                'Рубрика: ' . $rubric->title,
+            ));
+
+            self::getCacheComponent()->set($cacheId, $value, $expire);
+            self::getCacheComponent()->set($staticCacheId, $value, 0);
         }
-        return $value;
+        return $value ?: $staticValue;
     }
 
     public static function getByLabels($labels, $renew = false)

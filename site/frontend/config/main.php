@@ -173,6 +173,7 @@ return array(
         'specialists' => [
             'class' => 'site\frontend\modules\specialists\SpecialistsModule',
         ],
+        'iframe',
     ),
     // application components
     'components' => array(

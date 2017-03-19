@@ -156,6 +156,7 @@ return array(
         'mypediatrician/<tab:(all|new|unanswered)>/<tagId:\d+>' => 'som/qa/default/pediatrician',
         'mypediatrician/<tab:(all|new|unanswered)>' => 'som/qa/default/pediatrician',
         'mypediatrician' => array('som/qa/default/pediatrician', 'defaultParams' => array('tab' => 'new')),
+        'iframe' => array('iframe/default/pediatrician', 'defaultParams' => array('tab' => 'new')),
         'mypediatrician/add' => 'som/qa/default/pediatricianAddForm',
         'mypediatrician/edit/<questionId:\d+>' => 'som/qa/default/pediatricianEditForm',
         'questions/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),

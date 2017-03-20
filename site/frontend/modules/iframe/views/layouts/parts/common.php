@@ -90,15 +90,184 @@
          }
          .b-main-iframe{
              padding-top: 35px;
+             padding-bottom: 130px;
          }
          .b-filter-search-iframe__submit{
+             position: absolute;
              opacity: 0.3;
+             right: 20px;
+             top: 0;
          }
          .b-filter-search-iframe__submit:after {
              -webkit-transform: scale(1);
              transform: scale(1);
          }
+         .b-filter-year-iframe__icon{
+             display: block;
+             width: 100%;
+             height: 2px;
+             background-color: rgba(0,0,0,1);
+             -webkit-transition: all .3s;
+             transition: all .3s;
+             -webkit-backface-visibility: hidden;
+             backface-visibility: hidden;
+             border-radius: 2px;
+             opacity: 0.3;
+         }
+         .b-filter-year-iframe__icon:before,
+         .b-filter-year-iframe__icon:after{
+             content: "";
+             display: block;
+             position: absolute;
+             width: 100%;
+             height: 2px;
+             background-color: rgba(0,0,0,1);
+             -webkit-transition: all .3s;
+             transition: all .3s;
+             -webkit-backface-visibility: hidden;
+             backface-visibility: hidden;
+             border-radius: 2px;
+         }
+         .b-filter-year-iframe__icon:before{
+             top: 5px;
+         }
+         .b-filter-year-iframe__icon:after{
+             top: 10px;
+         }
+         .b-filter-year-iframe {
+             position: relative;
+             display: inline-block;
+             width: 18px;
+             height: 12px;
+             right: 35px;
+             cursor: pointer;
+         }
+         .b-filter-year-iframe:hover .b-filter-year-iframe__icon,
+         .b-filter-year-iframe:focus .b-filter-year-iframe__icon{
+             opacity: 1;
+         }
+         .b-filter-search-iframe__form {
+             display: block;
+             min-width: 45px;
+         }
+         .b-filter-search-iframe__input{
+             display: none;
+         }
+         .b-filter-search-iframe__input.b-filter-search__input--active{
+             display: block;
+         }
+         .b-filter-year-iframe-menu{
+             position: absolute;
+             display: block;
+             top: 24px;
+             right: 0;
+             padding: 20px;
+             overflow: hidden;
+             visibility: hidden;
+             opacity: 0;
+             width: 240px;
+             height: 230px;
+             background-color: #ffffff;
+             cursor: default;
+             box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.09);
+             -webkit-transition: opacity 100ms,top 100ms linear,visibility 100ms linear;
+             transition: opacity 100ms,top 100ms linear,visibility 100ms linear;
+         }
+         .b-filter-year-iframe-menu_open {
+             visibility: visible;
+             opacity: 1;
+             z-index: 11;
+         }
+         .b-user-box-iframe{
+             padding: 28px 12px;
+             display: table;
+             height: auto;
+         }
+         .b-user-box-iframe .b-user-box__item{
+             display: table-row;
+         }
+         .b-user-box-iframe .b-user-box__num{
+             display: table-cell;
+             vertical-align: top;
+             font-size: 32px;
+             padding-left: 37px;
+             background-size: auto 36px;
+             background-repeat: no-repeat;
+             background-position: center left;
+         }
+         .b-user-box-iframe .b-user-box__num--green{
+             padding-top: 25px;
+             background-image: url("/app/builds/static/img/assets/user-box/flover.svg");
+             background-size: auto 30px;
+             background-position: bottom 5px left 9px;
+         }
+         .b-user-box-iframe .b-user-box__num--black{
+             background-image: url("/app/builds/static/img/pediatrician/mama.svg");
+         }
+         .b-user-box-iframe .b-user-box__text{
+             display: table-cell;
+             padding-left: 15px;
+         }
+         .b-user-box-iframe .b-user-box__item:last-child .b-user-box__text{
+             padding-top: 25px;
+         }
+         .footer-iframe.footer--style{
+             height: 90px;
+             padding: 34px 0;
+         }
+         .footer-iframe .footer__li{
+             font-size: 14px;
+             color: rgba(0,0,0,0.4);
+             margin-right: 70px;
+         }
+         .footer-iframe .footer__link{
+             color: rgba(0,0,0,0.4);
+             transition: all .4s ease-in-out;
+         }
+         .footer-iframe .footer__link:hover,
+         .footer-iframe .footer__link:focus{
+             color: rgba(0,0,0,1);
+         }
+         .footer-iframe .footer-app__li{
+             color: rgba(0,0,0,0.4);
+             font-size: 14px;
+             float: right;
+             margin-right: 0;
+         }
+         .footer-iframe .footer-app-links{
+             display: inline-block;
+         }
+         .footer-iframe .footer-app-links>a{
+             display: inline-block;
+             vertical-align: top;
+             width: 15px;
+             height: 18px;
+             background-repeat: no-repeat;
+             background-position: center;
+             background-size: contain;
+             opacity: 0.25;
+             margin-left: 16px;
+             transition: all .4s ease-in-out;
+         }
+         .footer-app-links__android{
+            background-image: url("/app/builds/static/img/pediatrician/apps/android.svg");
+         }
+         .footer-app-links__ios{
+             background-image: url("/app/builds/static/img/pediatrician/apps/apple.svg");
+         }
+         .footer-iframe .footer-app-links>a:hover,
+         .footer-iframe .footer-app-links>a:focus{
+             opacity: 1;
+         }
      </style>
+     <script>
+         $(document).ready(function () {
+             $('.b-filter-year-iframe').on('click',function(){
+                 $('.b-filter-year-iframe-menu')
+                     .toggleClass('b-filter-year-iframe-menu_open');
+             });
+         });
+     </script>
     </head>
 
      <body class="page--bg page-iframe--bg">

@@ -23,6 +23,15 @@ class ClientScript extends CClientScript
     const URLS_STYLE_FILENAME = 2;
 
     /**
+     * ClientScript constructor.
+     */
+    public function __construct()
+    {
+        $this->registerCoreScript('jquery');
+        $this->registerScriptFile('/new/javascript/jquery-migrate-1.2.1.js');
+    }
+
+    /**
      * @var array Настройки amd (requireJS)
      */
     public $amd = array('paths' => array(), 'shim' => array());
@@ -606,6 +615,7 @@ class ClientScript extends CClientScript
         $minsToEditAnswerPediatrician = \site\frontend\modules\som\modules\qa\models\QaAnswer::MINUTES_FOR_EDITING;
 
         $mod = <<<JS
+define( "jquery", [], function () { return jQuery; } );
 define("user-config", function () {
     var userConfig = {
         userId: {$id},

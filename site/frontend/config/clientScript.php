@@ -2,7 +2,7 @@
 
 return array(
     'class' => 'application.components.ClientScript',
-    'amdFile' => '/new/javascript/modules/require2.1.11-jquery1.10.2.js',
+    'amdFile' => '/new/javascript/modules/require.js',
     'amdFilePos' => CClientScript::POS_HEAD,
     'amd' => array(
         'baseUrl' => '/new/javascript/modules',
@@ -18,7 +18,7 @@ return array(
             ),
             'vk' => array(
                 'exports' => 'VK',
-            ),
+            )
         ),
         'paths' => array(
             'facebook' => 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.8&appId=1648409175470149',
@@ -48,7 +48,8 @@ return array(
             'goog' => '/new/javascript/plugins/goog',
             'propertyParser' => '/new/javascript/plugins/propertyParser',
             'kow' => '/new/javascript/modules/kow',
-            'routesCalc' => 'routes'
+            'routesCalc' => 'routes',
+            'materialize' => '/new/javascript/materialize.min'
         ),
         /* 'eval' => '
           ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -97,10 +98,17 @@ return array(
             'depends' => array('services'),
         ),
         'archive' => array(
-            'depends' => array('services'),
+
         ),
     ),
     'packages' => array(
+        'materialize' => [
+            'amd'       => true,
+            'baseUrl'   => '/',
+            'js'        => [
+                'new/javascript/materialize.min.js'
+            ],
+        ],
         'bootstrap' => array(
             'amd' => true,
             'baseUrl' => '/',
@@ -628,9 +636,9 @@ return array(
                 'app/builds/static/css/main.min.css',
             ),
             'js' => array(
-                'app/builds/static/js/main.min.js',
+                'app/builds/static/js/main.js',
             ),
-            'depends' => array('jquery'),
+            'depends' => array('jquery', 'materialize'),
 
         ),
         'lite_faq_user' => array(

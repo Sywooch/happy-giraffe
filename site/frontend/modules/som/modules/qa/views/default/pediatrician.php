@@ -78,7 +78,14 @@ if (!is_null($currentTagId))
         </div>
         <?php /* -------------- Search -------------- */?>
         <div class="b-nav-panel__right">
-            <?php $this->renderPartial('/_new_search', array('query' => '')); ?>
+            <?php
+
+            $this->renderPartial('/_new_search', [
+                'query' => '',
+                'tagId' => $tag->id
+            ]);
+
+            ?>
         </div>
         <?php /* ---------------------------- */?>
     </div>
@@ -111,4 +118,5 @@ $this->widget('LiteListView', [
         'dotsLabel'       => '<li class="page-points">...</li>'
     ]
 ]);
+
 ?>

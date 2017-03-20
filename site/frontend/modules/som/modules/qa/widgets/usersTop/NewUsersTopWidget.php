@@ -235,4 +235,12 @@ class NewUsersTopWidget extends UsersTopWidget
         return $votes;
     }
 
+    /**
+     *
+     * @return \CCache
+     */
+    protected function getCacheComponent()
+    {
+        return \Yii::app()->getComponent('dbCache');
+    }
 }

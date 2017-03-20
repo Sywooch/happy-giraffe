@@ -11,19 +11,40 @@ $this->renderSidebarClip();
     <?=$content?>
     <aside class="b-main__aside b-col b-col--3 b-hidden-md">
         <?php $this->widget('site\frontend\modules\iframe\widgets\Statistic\CommonStatistic'); ?>
-        <?php
-            $this->widget('site\frontend\modules\som\modules\qa\widgets\usersTop\NewUsersTopWidget', [
-                'titlePrefix'   => 'Педиатр',
-                'onlyUsers'     => FALSE,
-                'viewFileName'  => 'new_view_specialists',
-            ]);
-         ?>
-        <?php
-            $this->widget('site\frontend\modules\som\modules\qa\widgets\usersTop\NewUsersTopWidget', [
-                'titlePrefix'   => 'Знаток',
-                'viewFileName'  => 'new_view_users',
-            ]);
-        ?>
+
+        <div class="b-text--left b-margin--bottom_10">
+            <div class="b-sidebar-widget b-sidebar-widget-iframe--blue">
+                <div class="b-sidebar-widget__header b-sidebar-widget-header">
+                    <div class="b-sidebar-widget-header-title">Рейтинг педиатров</div>
+                </div>
+                <ul class="b-sidebar-widget-iframe-tab__menu">
+                    <li class="active-tab" data-tab="month-specialist">Март 2017</li>
+                    <li data-tab="allperiod-specialist">Все время</li>
+                </ul>
+                <div class="b-sidebar-widget-iframe-tab__content">
+                    <div id="month-specialist" class="active-tab">
+                        <?php
+                        $this->widget('site\frontend\modules\iframe\widgets\usersTop\NewUsersTopWidget', [
+                            'titlePrefix'   => 'Педиатр',
+                            'onlyUsers'     => FALSE,
+                            'allPeriod'     => FALSE,
+                            'viewFileName'  => 'iframe_view_specialists',
+                        ]);
+                        ?>
+                    </div>
+                    <div id="allperiod-specialist">
+                        <?php
+                        $this->widget('site\frontend\modules\iframe\widgets\usersTop\NewUsersTopWidget', [
+                            'titlePrefix'   => 'Педиатр',
+                            'onlyUsers'     => FALSE,
+                            'allPeriod'     => TRUE,
+                            'viewFileName'  => 'iframe_view_specialists',
+                        ]);
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
     </aside>
 </div>
 <?php $this->endContent(); ?>

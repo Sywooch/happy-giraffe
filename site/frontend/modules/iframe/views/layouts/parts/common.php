@@ -247,7 +247,7 @@
              background-size: contain;
              opacity: 0.25;
              margin-left: 16px;
-             transition: all .4s ease-in-out;
+             transition: all .3s ease-in-out;
          }
          .footer-app-links__android{
             background-image: url("/app/builds/static/img/pediatrician/apps/android.svg");
@@ -259,12 +259,47 @@
          .footer-iframe .footer-app-links>a:focus{
              opacity: 1;
          }
+        .b-sidebar-widget-iframe--blue{
+            background-color: #f3fcff;
+        }
+        .b-sidebar-widget-iframe-tab__menu{
+            padding: 0 20px;
+        }
+         .b-sidebar-widget-iframe-tab__menu>li{
+             display: inline-block;
+             font-size: 11px;
+             background-color: #f0f8fd;
+             padding: 4px 11px;
+             -webkit-border-radius: 15px;
+             -moz-border-radius: 15px;
+             border-radius: 15px;
+             cursor: pointer;
+             transition: all .3s ease-in-out;
+         }
+         .b-sidebar-widget-iframe-tab__menu>li.active-tab,
+         .b-sidebar-widget-iframe-tab__menu>li:hover{
+             color: #FFFFFF;
+             background-color: #64b9eb;
+         }
+        .b-sidebar-widget-iframe-tab__content>div{
+            display: none;
+            opacity: 0;
+        }
+         .b-sidebar-widget-iframe-tab__content>.active-tab{
+             opacity: 1;
+             display: block;
+         }
      </style>
      <script>
          $(document).ready(function () {
              $('.b-filter-year-iframe').on('click',function(){
-                 $('.b-filter-year-iframe-menu')
-                     .toggleClass('b-filter-year-iframe-menu_open');
+                 $('.b-filter-year-iframe-menu').toggleClass('b-filter-year-iframe-menu_open');
+             });
+             $('.b-sidebar-widget-iframe-tab__menu>li').on('click',function(){
+                 $('.b-sidebar-widget-iframe-tab__menu>li').removeClass('active-tab');
+                 $('.b-sidebar-widget-iframe-tab__content>div').removeClass('active-tab');
+                 $('#'+$(this).data('tab')).addClass('active-tab');
+                 $(this).addClass('active-tab');
              });
          });
      </script>

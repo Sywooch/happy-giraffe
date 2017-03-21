@@ -23,7 +23,7 @@ class CombinedManager
     public function init()
     {
         $this->clear();
-        //$this->initCountries();
+        $this->initCountries();
         $this->initRegions();
         $this->initCities();
     }
@@ -34,9 +34,6 @@ class CombinedManager
             ->select()
             ->from(VkCountry::model()->tableName())
         ;
-
-
-
         $this->batchInsert($select, [VkModifier::instance(), 'convertCountry'], Geo2Country::model()->tableName());
     }
 
@@ -68,7 +65,7 @@ class CombinedManager
 
     protected function initCities()
     {
-        //$this->initVkCities();
+        $this->initVkCities();
         $this->initFiasCities();
     }
 
@@ -85,14 +82,14 @@ class CombinedManager
     protected function initFiasCities()
     {
         $cities = \Yii::app()->db->createCommand()
-            ->select('FORMALNAME, AOGUID, AOID, AOLEVEL, SHORTNAME')
+            ->select('FORMALNAME, AOGUID, AOID, AOLEVEL, SHORTNAME, PARENTGUID')
             ->from(FiasAddrobj::model()->tableName())
             ->where('LIVESTATUS = 1 AND AOLEVEL IN (4, 6)')
         ;
         $this->batchInsert($cities, [FiasModifier::instance(), 'convertCity'], Geo2City::model()->tableName());
 
         $bigCities = \Yii::app()->db->createCommand()
-            ->select('FORMALNAME, AOGUID, AOID, AOLEVEL, SHORTNAME')
+            ->select('FORMALNAME, AOGUID, AOID, AOLEVEL, SHORTNAME, PARENTGUID')
             ->from(FiasAddrobj::model()->tableName())
             ->where('LIVESTATUS = 1 AND AOLEVEL = 1 AND SHORTNAME = "г"')
         ;
@@ -111,45 +108,31 @@ class CombinedManager
         $lastPk = null;
         for ($i = 0; $i < ceil($count / self::BATCH_SIZE); $i++) {
             $_select = clone $select;
-
-            $a = microtime(true);
-
             $_select
                 ->limit(self::BATCH_SIZE)
                 ->order($pk . ' ASC')
             ;
-
             if ($lastPk) {
                 $_select
                     ->andWhere("$pk > :lastPk", [':lastPk' => $lastPk])
                 ;
             }
+            
             $rows = $_select->queryAll();
-
-            echo 'selecting ' . $destination . ' ' . (microtime(true) - $a) . PHP_EOL;
-
-            $a = microtime(true);
-
             $lastPk = array_values(array_slice($rows, -1))[0][$pk];
             $processedRows = array_map(function($row) use ($callback) {
                 return $callback($row);
             }, $rows);
-
-            echo 'processing ' . $destination . ' ' . (microtime(true) - $a) . PHP_EOL;
-
-            $a = microtime(true);
-
+            
             \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand($destination, $processedRows)->execute();
-
-            echo 'inserting ' . $destination . ' ' . (microtime(true) - $a) . PHP_EOL;
         }
     }
 
     protected function clear()
     {
-        foreach ([Geo2Region::model()->tableName(), /* Geo2Country::model()->tableName(), */Geo2City::model()->tableName()] as $table) {
-            \Yii::app()->db->createCommand()->delete($table, 'fiasId IS NOT NULL');
-            //\Yii::app()->db->createCommand("ALTER TABLE $table AUTO_INCREMENT = 1;")->execute();
+        foreach ([Geo2Region::model()->tableName(), Geo2Country::model()->tableName(), Geo2City::model()->tableName()] as $table) {
+            \Yii::app()->db->createCommand()->delete($table);
+            \Yii::app()->db->createCommand("ALTER TABLE $table AUTO_INCREMENT = 1;")->execute();
         }
     }
 }

@@ -15,8 +15,9 @@ class FiasModifier extends Modifier
 {
     protected static $_instance = null;
 
-    private $_cityToRegion = [];
+    private $_regions;
     private $_countryId;
+    private $_possibleParents;
 
     public function convertCountry($row)
     {
@@ -34,11 +35,10 @@ class FiasModifier extends Modifier
 
     public function convertCity($row)
     {
-        //$regions = $this->getCityToRegion();
-
         return [
             'countryId' => $this->getCountryId(),
-            'regionId' => null, //isset($regions[$row['AOGUID']]) ? $regions[$row['AOGUID']] : null,
+            'regionId' => $this->getRegionId($row),
+            'area' => $this->getDistrictName($row),
             'title' => $row['FORMALNAME'],
             'fiasId' => $row['AOGUID'],
         ];
@@ -74,50 +74,76 @@ class FiasModifier extends Modifier
         return $this->_countryId;
     }
 
-    private function getCityToRegion()
+    private function getRegionId($city)
     {
-        if (! $this->_cityToRegion) {
-            foreach ($this->getRegions() as $fiasId => $region) {
-                $parents = [$fiasId];
-                do {
-                    $cities = \Yii::app()->db->createCommand()
-                        ->select('AOGUID')
-                        ->from(FiasAddrobj::model()->tableName())
-                        ->where(['in', 'PARENTGUID', $parents])
-                        ->andWhere('LIVESTATUS = 1 AND AOLEVEL IN (4, 6)')
-                        ->order('AOID ASC')
-                        ->queryAll();
-
-                    $parents = \Yii::app()->db->createCommand()
-                        ->select('AOGUID')
-                        ->from(FiasAddrobj::model()->tableName())
-                        ->where(['in', 'PARENTGUID', $parents])
-                        ->andWhere('LIVESTATUS = 1')
-                        ->queryColumn();
-
-                    foreach ($cities as $city) {
-                        $this->_cityToRegion[$city['AOGUID']] = $region;
-                    }
-                } while (!empty($parents));
-            }
-        }
-
-        return $this->_cityToRegion;
+        $parents = $this->getWithParents($city['PARENTGUID']);
+        $region = $this->getParentByAOLEVEL($parents, 1);
+        return $region ? $this->getRegions()[$region['AOGUID']] : null;
     }
 
-    public function getRegions()
+    private function getDistrictName($city)
     {
-        $_regions = \Yii::app()->db->createCommand()
-            ->select('AOGUID, g.id')
-            ->from(FiasAddrobj::model()->tableName() . ' a')
-            ->leftJoin(Geo2Region::model()->tableName() . ' g', 'g.fiasId = a.AOGUID')
-            ->where('LIVESTATUS = 1 AND AOLEVEL = 1')
-            ->queryAll()
-        ;
-        $regions = [];
-        foreach ($_regions as $_region) {
-            $regions[$_region['AOGUID']] = $_region['id'];
+        $parents = $this->getWithParents($city['PARENTGUID']);
+        $district = $this->getParentByAOLEVEL($parents, 3);
+        return ($district) ? $district['FORMALNAME'] . 'район' : '';
+    }
+
+    private function getParentByAOLEVEL($parents, $AOLEVEL)
+    {
+        foreach ($parents as $parent) {
+            if ($parent['AOLEVEL'] == $AOLEVEL) {
+                return $parent;
+            }
         }
-        return $regions;
+        return null;
+    }
+
+    private function getPossibleParents()
+    {
+        if (! $this->_possibleParents) {
+            $_parents = \Yii::app()->db->createCommand()
+                ->select()
+                ->from(FiasAddrobj::model()->tableName())
+                ->where('LIVESTATUS = 1 AND AOLEVEL IN (1, 3, 4, 5)')
+                ->queryAll();
+            $this->_possibleParents = [];
+            foreach ($_parents as $_parent) {
+                $this->_possibleParents[$_parent['AOGUID']] = $_parent;
+            }
+        }
+        return $this->_possibleParents;
+    }
+
+    private function getWithParents($AOGUID)
+    {
+        $possibleParents = $this->getPossibleParents();
+
+        $parents = [];
+        while (true) {
+            if (isset($possibleParents[$AOGUID])) {
+                $parents[] = $possibleParents[$AOGUID];
+                $AOGUID = $possibleParents[$AOGUID]['PARENTGUID'];
+            } else {
+                break;
+            }
+        }
+        return $parents;
+    }
+
+    private function getRegions()
+    {
+        if (! $this->_regions) {
+            $_regions = \Yii::app()->db->createCommand()
+                ->select('AOGUID, g.id')
+                ->from(FiasAddrobj::model()->tableName() . ' a')
+                ->leftJoin(Geo2Region::model()->tableName() . ' g', 'g.fiasId = a.AOGUID')
+                ->where('LIVESTATUS = 1 AND AOLEVEL = 1')
+                ->queryAll();
+            $this->_regions = [];
+            foreach ($_regions as $_region) {
+                $this->_regions[$_region['AOGUID']] = $_region['id'];
+            }
+        }
+        return $this->_regions;
     }
 }

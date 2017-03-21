@@ -42,6 +42,7 @@ class VkModifier extends Modifier
             'regionId' => ($row['regionId']) ? $this->getRegions()[$row['regionId']]['id'] : null,
             'title' => $row['title'],
             'vkId' => $row['id'],
+            'area' => $row['area'],
         ];
     }
     

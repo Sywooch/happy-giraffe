@@ -26,7 +26,11 @@ class Parser
 
     public function getCities($countryId, $regionId = null)
     {
-        return $this->getList('database.getCities', ['country_id' => $countryId, 'region_id' => $regionId, 'need_all' => 1]);
+        $params = ['country_id' => $countryId, 'need_all' => 1];
+        if ($regionId !== null) {
+            $params['region_id'] = $regionId;
+        }
+        return $this->getList('database.getCities', $params);
     }
 
     public function getRegions($countryId)
@@ -121,7 +125,7 @@ class Parser
 
     protected function makeRequest($method, $params = [])
     {
-        $params['v'] = '5.62';
+        $params['v'] = '5.63';
         do {
             $body = \CJSON::decode($this->_guzzle->get($method, null, ['query' => $params])->send()->getBody(true));
         } while (! isset($body['response']));

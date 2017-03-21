@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\chat\components;
 
+use site\frontend\modules\chat\models\Chat;
 use site\frontend\modules\chat\models\UsersChats;
 use site\frontend\modules\chat\values\ChatTypes;
 
@@ -22,7 +23,7 @@ class ChatManager
     public static function createChat($type, $participants)
     {
         if (!array_key_exists($type, self::$chats)) {
-            throw new \Exception('NotSupportedChatType');;
+            throw new \Exception('NotSupportedChatType');
         }
 
         /**
@@ -36,10 +37,30 @@ class ChatManager
     /**
      * @param int $chatId
      * @param string $message
+     * @param int $userId
+     *
+     * @throws \Exception
+     *
+     * @return \site\frontend\modules\chat\models\ChatMessage
      */
-    public static function addMessageToChat($chatId, $message)
+    public static function addMessageToChat($chatId, $message, $userId)
     {
+        $chat = Chat::model()->findByPk($chatId);
 
+        if (!$chat) {
+            throw new \Exception('ChatNotFound');
+        }
+
+        if (!array_key_exists($chat->type, self::$chats)) {
+            throw new \Exception('NotSupportedChatType');
+        }
+
+        /**
+         * @var IChat $handler
+         */
+        $handler = new self::$chats[$chat->type]();
+
+        return $handler->onMessage($chat, $message, $userId);
     }
 
     /**

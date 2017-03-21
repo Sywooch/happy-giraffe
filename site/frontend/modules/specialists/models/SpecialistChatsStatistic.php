@@ -1,6 +1,6 @@
 <?php
 
-namespace site\frontend\modules\paid\models;
+namespace site\frontend\modules\specialists\models;
 
 /**
  * @property int $user_id
@@ -10,7 +10,7 @@ namespace site\frontend\modules\paid\models;
  *
  * @property \User $user
  */
-class SpecialistsChatsStatic extends \HActiveRecord
+class SpecialistChatsStatistic extends \HActiveRecord
 {
     /**
      * @return string the associated database table name

@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\paid\models;
+use site\frontend\modules\paid\values\PaidType;
 
 /**
  * @property int $id
@@ -75,6 +76,13 @@ class PaidService extends \HActiveRecord
      */
     public function getOutputPrice()
     {
-        
+        switch ($this->type) {
+            case PaidType::FIXED:
+                return $this->value;
+            case PaidType::PERCENT:
+                return $this->price - ($this->price * $this->value);
+            case PaidType::PRICE_DIFF:
+                return $this->price - $this->value;
+        }
     }
 }

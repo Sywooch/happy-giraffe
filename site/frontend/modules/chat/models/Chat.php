@@ -128,4 +128,62 @@ class Chat extends \HActiveRecord
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function interrupt()
+    {
+        if (!in_array($this->type, ChatTypes::$dyingTypes)) {
+            return false;
+        }
+
+        if ($this->expires_in >= time()) {
+            return false;
+        }
+
+        if ($this->expires_in == null && $this->limit = 0) {
+            return false;
+        }
+
+        $this->limit = time() - $this->expires_in;
+        $this->expires_in = null;
+
+        return $this->save();
+    }
+
+    /**
+     * @return bool
+     */
+    public function resume()
+    {
+        if (!in_array($this->type, ChatTypes::$dyingTypes)) {
+            return false;
+        }
+
+        if ($this->limit == 0) {
+            return false;
+        }
+
+        $this->expires_in = time() + $this->limit;
+        $this->limit = 0;
+
+        return $this->save();
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function hasParticipant($userId)
+    {
+        foreach ($this->users as $user) {
+            if ($user->id == $userId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -5,6 +5,7 @@ namespace site\frontend\modules\chat\components\chats;
 use site\frontend\modules\chat\components\ChatManager;
 use site\frontend\modules\chat\components\IChat;
 use site\frontend\modules\chat\models\Chat;
+use site\frontend\modules\chat\models\ChatMessage;
 use site\frontend\modules\chat\values\ChatTypes;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 
@@ -70,8 +71,21 @@ class PrivateDoctorConsultationChat implements IChat
         }
     }
 
-    public function onMessage()
+    /**
+     * @param \site\frontend\modules\chat\models\Chat $chat
+     * @param string $message
+     * @param int $userId
+     *
+     * @return \site\frontend\modules\chat\models\ChatMessage
+     */
+    public function onMessage($chat, $message, $userId)
     {
-        // TODO: Implement onMessage() method.
+        if ($chat->limit <= 0 || $chat->expires_in >= time()) {
+            return false;
+        }
+
+        $chatMessage = ChatMessage::create($message, $chat->id, $userId);
+
+        return $chatMessage;
     }
 }

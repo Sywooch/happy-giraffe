@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\chat\models;
+use site\frontend\modules\chat\values\ChatMessageStatuses;
 
 /**
  * @property int $user_id
@@ -55,20 +56,55 @@ class ChatMessage extends \EMongoDocument
         ];
     }
 
-//    public function create($message, $level, $tag, $userId)
-//    {
-//        $model = new self;
-//
-//        $model->message = $message;
-//        $model->level = $level;
-//        $model->time = new \MongoDate(time());
-//        $model->tag = $tag;
-//        $model->userId = (int)$userId;
-//
-//        if ($model->save()) {
-//            return $model;
-//        } else {
-//            throw new ApiException($model->getErrors(), 500);
-//        }
-//    }
+    /**
+     * @param int $chatId
+     * @return ChatMessage
+     */
+    public function byChat($chatId)
+    {
+        $this->getDbCriteria()->addCond('chat_id', '==', $chatId);
+
+        return $this;
+    }
+
+    /**
+     * @param int $userId
+     * @return ChatMessage
+     */
+    public function byUser($userId)
+    {
+        $this->getDbCriteria()->addCond('user_id', '==', $userId);
+
+        return $this;
+    }
+
+    /**
+     * @param int $createdAt
+     * @return ChatMessage
+     */
+    public function byCreatedAt($createdAt)
+    {
+        $this->getDbCriteria()->addCond('created_at', '==', $createdAt);
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param int $chatId
+     * @param int $userId
+     *
+     * @return \site\frontend\modules\chat\models\ChatMessage
+     */
+    public static function create($message, $chatId, $userId)
+    {
+        $model = new self;
+
+        $model->message = $message;
+        $model->chat_id = $chatId;
+        $model->status = ChatMessageStatuses::UNREAD;
+        $model->user_id = $userId;
+
+        return $model;
+    }
 }

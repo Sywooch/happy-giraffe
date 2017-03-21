@@ -78,6 +78,11 @@ return array(
         '<_v>/api/specialists/register/social' => 'api/<_v>/api/specialists-register',
         '<_v>/api/geo/<action:(countries|cities)>' => 'api/<_v>/api/geo',
         '<_v>/api/chats' => 'api/<_v>/api/chats',
+        '<_v>/api/paid-services' => 'api/<_v>/api/paid-services',
+        '<_v>/api/chat-messages' => 'api/<_v>/api/chat-messages',
+        '<_v>/api/utils' => 'api/<_v>/api/utils',
+        '<_v>/api/utils/<action:(time)>' => 'api/<_v>/api/utils',
+        '<_v>/api/billing' => 'api/<_v>/api/billing',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

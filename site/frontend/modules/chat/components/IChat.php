@@ -8,5 +8,13 @@ interface IChat
      * @param array $participants
      */
     function onCreate($participants);
-    function onMessage();
+
+    /**
+     * @param \site\frontend\modules\chat'models\Chat $chat
+     * @param string $message
+     * @param int $userId
+     *
+     * @return \site\frontend\modules\chat\models\ChatMessage
+     */
+    function onMessage($chat, $message, $userId);
 }

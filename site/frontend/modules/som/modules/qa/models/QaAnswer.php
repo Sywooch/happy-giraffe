@@ -557,7 +557,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         $t = $this->getTableAlias(false, false);
 
         return [
-            'condition' => $t . '.isRemoved = 0',
+            'condition' => $t . '.isRemoved = ' . self::NOT_REMOVED . ' AND ' . $t. '.isPublished=' . self::PUBLISHED,
         ];
     }
 

@@ -57,6 +57,12 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     const NOT_REMOVED = 0;
 
     /**
+     * @var integer NOT_PUBLISHED Статус неопубликованного ответа
+     * @author Sergey Gubarev
+     */
+    const NOT_PUBLISHED = 0;
+
+    /**
      * Диапазон времени (минут), в течени которого специалист может редактировать свой ответ
      *
      * @var integer

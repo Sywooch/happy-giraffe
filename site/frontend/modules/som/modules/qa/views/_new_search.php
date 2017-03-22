@@ -34,7 +34,7 @@
             <!-- ko foreach: items -->
 
             <li class="b-filter-dropdown__item">
-                <input type="checkbox" data-bind="attr: { id: 'filled-in-' + $index(), checked: tagId == $root.selectedTagId }" class="material-theme filled-in" />
+                <input type="radio" data-bind="attr: { id: 'filled-in-' + $index(), checked: tagId == $root.selectedTagId }" name="ages" class="material-theme-radio filled-in" />
                 <label data-bind="attr: { for: 'filled-in-' + $index() }, click: $root.onSelected.bind(event)">
                     <span class="text--grey" data-bind="text: label, attr: { tagId: tagId }"></span>
                 </label>

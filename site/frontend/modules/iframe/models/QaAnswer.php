@@ -4,11 +4,11 @@ namespace site\frontend\modules\iframe\models;
 
 use site\common\behaviors\AuthorBehavior;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
-use site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior;
-use site\frontend\modules\som\modules\qa\behaviors\AnswerCometBehavior;
-use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
-use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
-use site\frontend\modules\som\modules\qa\components\QaManager;
+use site\frontend\modules\iframe\behaviors\ClosureTableBehavior;
+use site\frontend\modules\iframe\behaviors\AnswerCometBehavior;
+use site\frontend\modules\iframe\behaviors\NotificationBehavior;
+use site\frontend\modules\iframe\behaviors\QaBehavior;
+use site\frontend\modules\iframe\components\QaManager;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
@@ -33,13 +33,13 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  * @property-read NotificationBehavior $notificationBehavior
  *
  * The followings are the available model relations:
- * @property \site\frontend\modules\som\modules\qa\models\QaQuestion $question
+ * @property \site\frontend\modules\iframe\models\QaQuestion $question
  * @property \User $author
- * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
- * @property \site\frontend\modules\som\modules\qa\models\QaAnswerVote[] $votes
- * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $root
- * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $children
- * @property \site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior $CTBehavior
+ * @property \site\frontend\modules\iframe\models\QaCategory $category
+ * @property \site\frontend\modules\iframe\models\QaAnswerVote[] $votes
+ * @property \site\frontend\modules\iframe\models\QaAnswer $root
+ * @property \site\frontend\modules\iframe\models\QaAnswer[] $children
+ * @property \site\frontend\modules\iframe\behaviors\ClosureTableBehavior $CTBehavior
  *
  * @property \site\frontend\components\api\models\User $user
  */
@@ -113,13 +113,13 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return [
-            'question' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'],
+            'question' => [self::BELONGS_TO, 'site\frontend\modules\iframe\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'],
             'author' => [self::BELONGS_TO, get_class(\User::model()), 'authorId'],
-            'category' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', ['categoryId' => 'id'], 'through' => 'question'],
-            'tag' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', ['tag_id' => 'id'], 'through' => 'question'],
-            'votes' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'],
-            'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
-            'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id']
+            'category' => [self::HAS_ONE, 'site\frontend\modules\iframe\models\QaCategory', ['categoryId' => 'id'], 'through' => 'question'],
+            'tag' => [self::HAS_ONE, 'site\frontend\modules\iframe\models\QaTag', ['tag_id' => 'id'], 'through' => 'question'],
+            'votes' => [self::HAS_MANY, 'site\frontend\modules\iframe\models\QaAnswerVote', 'answerId'],
+            'root' => [self::BELONGS_TO, 'site\frontend\modules\iframe\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
+            'children' => [self::HAS_MANY, 'site\frontend\modules\iframe\models\QaAnswer', 'root_id']
         ];
     }
 
@@ -148,7 +148,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     }
 
     /**
-     * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
+     * @return \site\frontend\modules\iframe\models\QaAnswer[]
      * @deprecated use descendants scope ($answer->descendants()->findAll())
      */
     public function getChilds()
@@ -210,10 +210,10 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
                 ]
             ],
             'RatingBehavior' => [
-                'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
+                'class' => 'site\frontend\modules\iframe\behaviors\RatingBehavior',
             ],
             'notificationBehavior' => [
-                'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
+                'class' => 'site\frontend\modules\iframe\behaviors\NotificationBehavior',
             ],
             'QaBehavior' => [
                 'class' => QaBehavior::class

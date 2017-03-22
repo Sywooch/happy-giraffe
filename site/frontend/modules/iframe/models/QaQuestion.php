@@ -4,15 +4,15 @@ namespace site\frontend\modules\iframe\models;
 
 use site\frontend\modules\api\ApiModule;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
-use site\frontend\modules\som\modules\qa\components\QaManager;
-use site\frontend\modules\som\modules\qa\helpers\AnswersTreeListHelper;
-use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
-use site\frontend\modules\som\modules\qa\components\BaseAnswerManager;
-use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
-use site\frontend\modules\som\modules\qa\components\ISubject;
+use site\frontend\modules\iframe\components\QaManager;
+use site\frontend\modules\iframe\helpers\AnswersTreeListHelper;
+use site\frontend\modules\iframe\behaviors\QaBehavior;
+use site\frontend\modules\iframe\components\BaseAnswerManager;
+use site\frontend\modules\iframe\components\CTAnswerManager;
+use site\frontend\modules\iframe\components\ISubject;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
-use site\frontend\modules\som\modules\qa\components\QaObjectList;
+use site\frontend\modules\iframe\components\QaObjectList;
 use site\frontend\modules\family\models\FamilyMember;
 
 /**
@@ -36,12 +36,12 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property int $attachedChild
  *
  * The followings are the available model relations:
- * @property \site\frontend\modules\som\modules\qa\models\QaConsultation $consultation
- * @property \site\frontend\modules\som\modules\qa\models\QaCategory $category
- * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $answers
- * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $lastAnswer
+ * @property \site\frontend\modules\iframe\models\QaConsultation $consultation
+ * @property \site\frontend\modules\iframe\models\QaCategory $category
+ * @property \site\frontend\modules\iframe\models\QaAnswer[] $answers
+ * @property \site\frontend\modules\iframe\models\QaAnswer $lastAnswer
  * @property \User $author
- * @property \site\frontend\modules\som\modules\qa\models\QaTag $tag
+ * @property \site\frontend\modules\iframe\models\QaTag $tag
  *
  * @property \site\frontend\components\api\models\User $user
  *
@@ -124,11 +124,11 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
 
             // категория
             ['categoryId', 'default', 'value' => null],
-            ['categoryId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaCategory', 'except' => 'consultation'],
+            ['categoryId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\iframe\models\QaCategory', 'except' => 'consultation'],
 
             // консультация
             ['consultationId', 'required', 'on' => 'consultation'],
-            ['consultationId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'on' => 'consultation'],
+            ['consultationId', 'exist', 'attributeName' => 'id', 'className' => 'site\frontend\modules\iframe\models\QaConsultation', 'on' => 'consultation'],
 
             // теги
             ['tag_id', 'required', 'on' => 'tag'],
@@ -154,10 +154,10 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return [
-            'consultation' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaConsultation', 'consultationId'],
-            'category' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaCategory', 'categoryId'],
-            'answers' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId'],
-            'lastAnswer' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'],
+            'consultation' => [self::BELONGS_TO, 'site\frontend\modules\iframe\models\QaConsultation', 'consultationId'],
+            'category' => [self::BELONGS_TO, 'site\frontend\modules\iframe\models\QaCategory', 'categoryId'],
+            'answers' => [self::HAS_MANY, 'site\frontend\modules\iframe\models\QaAnswer', 'questionId'],
+            'lastAnswer' => [self::HAS_ONE, 'site\frontend\modules\iframe\models\QaAnswer', 'questionId', 'scopes' => 'orderDesc'],
             'tag' => [self::BELONGS_TO, get_class(QaTag::model()), 'tag_id'],
             'author' => [self::BELONGS_TO, \User::class, 'authorId'],
             'attChild' => [self::BELONGS_TO, FamilyMember::class, 'attachedChild'],
@@ -210,7 +210,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
             ],
             'UrlBehavior' => [
                 'class' => 'site\common\behaviors\UrlBehavior',
-                'route' => 'som/qa/default/view',
+                'route' => 'iframe/default/view',
                 'params' => function ($model) {
                     return [
                         'id' => $model->id,
@@ -450,7 +450,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     }
 
     /**
-     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     * @return \site\frontend\modules\iframe\models\QaQuestion
      */
     public function next()
     {
@@ -462,7 +462,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     }
 
     /**
-     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     * @return \site\frontend\modules\iframe\models\QaQuestion
      */
     public function previous()
     {
@@ -565,7 +565,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     }
 
     /**
-     * @return NULL|\site\frontend\modules\som\modules\qa\models\QaAnswer[]
+     * @return NULL|\site\frontend\modules\iframe\models\QaAnswer[]
      */
     public function getAdditionalAnswers()
     {
@@ -590,7 +590,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     }
 
     /**
-     * @return NULL|\site\frontend\modules\som\modules\qa\models\QaAnswer[]
+     * @return NULL|\site\frontend\modules\iframe\models\QaAnswer[]
      */
     public function getAnswersToAdditional()
     {
@@ -655,7 +655,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     /**
      * @param string $condition
      * @param array $params
-     * @return \site\frontend\modules\som\modules\qa\components\QaObjectList
+     * @return \site\frontend\modules\iframe\components\QaObjectList
      */
     public function getList($condition='',$params=[])
     {
@@ -709,6 +709,16 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
         }
 
         return parent::afterSave();
+    }
+
+    /**
+     * Изменение url для iframe модуля
+     * @inheritdoc
+     */
+    protected function afterFind()
+    {
+        parent::afterFind();
+        $this->url = \Yii::app()->createUrl('/iframe/default/view',['id'=>$this->id]);
     }
 
 }

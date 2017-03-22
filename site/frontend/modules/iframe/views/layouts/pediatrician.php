@@ -18,7 +18,7 @@ $this->renderSidebarClip();
                     <div class="b-sidebar-widget-header-title">Рейтинг педиатров</div>
                 </div>
                 <ul class="b-sidebar-widget-iframe-tab__menu">
-                    <li class="active-tab" data-tab="month-specialist">Март 2017</li>
+                    <li class="active-tab" data-tab="month-specialist"><?=\Yii::app()->dateFormatter->format('LLLL yyyy',time())?></li>
                     <li data-tab="allperiod-specialist">Все время</li>
                 </ul>
                 <div class="b-sidebar-widget-iframe-tab__content">

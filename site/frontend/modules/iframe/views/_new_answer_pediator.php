@@ -15,7 +15,7 @@
     	<a href="<?=$data->author->getUrl()?>" class="b-answer-header__link"><?=$data->user->getFullName()?></a>
         <?=HHtml::timeTag($data, array('class' => 'b-answer-header__time'))?>
         <div class="b-answer-header__spezialisation"><?=$data->author->specialistProfile->getSpecsString()?></div>
-        <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswerHeaderWidget', [
+        <?php $this->widget('site\frontend\modules\iframe\widgets\answers\AnswerHeaderWidget', [
             'userId' => $data->author->id,
         ]);?>
     </div>

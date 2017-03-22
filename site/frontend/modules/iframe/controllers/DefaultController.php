@@ -5,14 +5,14 @@ use site\frontend\components\HCollection;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
 use site\frontend\modules\iframe\components\QaController;
 use site\frontend\modules\iframe\components\QaManager;
-use site\frontend\modules\som\modules\qa\models\QaCategory;
-use site\frontend\modules\som\modules\qa\models\QaConsultation;
-use site\frontend\modules\som\modules\qa\models\QaQuestion;
-use site\frontend\modules\som\modules\qa\models\QaAnswer;
-use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
-use site\frontend\modules\som\modules\qa\components\QaObjectList;
-use site\frontend\modules\som\modules\qa\models\QaQuestionEditing;
-use site\frontend\modules\som\modules\qa\models\qaTag\QaTagManager;
+use site\frontend\modules\iframe\models\QaCategory;
+use site\frontend\modules\iframe\models\QaConsultation;
+use site\frontend\modules\iframe\models\QaQuestion;
+use site\frontend\modules\iframe\models\QaAnswer;
+use site\frontend\modules\iframe\models\QaAnswerVote;
+use site\frontend\modules\iframe\components\QaObjectList;
+use site\frontend\modules\iframe\models\QaQuestionEditing;
+use site\frontend\modules\iframe\models\qaTag\QaTagManager;
 
 class DefaultController extends QaController
 {
@@ -128,7 +128,7 @@ class DefaultController extends QaController
         /* костыль для старой верстки */
         if (false !== mb_strpos(\Yii::app()->request->getPathInfo(), 'questions', 0, 'UTF-8'))
         {
-            return parent::beforeAction($action);
+            // return parent::beforeAction($action);
         }
 
         if (in_array($action->id, $newDesigneActions))
@@ -154,8 +154,8 @@ class DefaultController extends QaController
         {
             if (false !== mb_strpos(\Yii::app()->request->getPathInfo(), 'questions', 0, 'UTF-8'))
             {
-                $redirectUrl = "/mypediatrician/question{$id}";
-                $this->redirect($redirectUrl, true, 301);
+                //$redirectUrl = "/mypediatrician/question{$id}";
+                //$this->redirect($redirectUrl, true, 301);
             }
 
             $answersTreeList = QaManager::getAnswersTreeByQuestion($question->id);
@@ -359,7 +359,7 @@ class DefaultController extends QaController
      * @param string $tab
      * @param integer $categoryId
      * @param integer $tagId
-     * @return \site\frontend\modules\som\modules\qa\models\QaQuestion
+     * @return \site\frontend\modules\iframe\models\QaQuestion
      */
     private function _sortByTabAndCategory($tab, $categoryId, $tagId = null)
     {

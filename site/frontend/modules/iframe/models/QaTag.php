@@ -40,7 +40,7 @@ class QaTag extends \HActiveRecord implements \IHToJSON
         return \Yii::app()
                     ->getUrlManager()
                     ->createUrl(
-                        'som/qa/default/pediatrician',
+                        'iframe/default/pediatrician',
                         [
                             'tab'   => DefaultController::TAB_NEW,
                             'tagId' => $this->id

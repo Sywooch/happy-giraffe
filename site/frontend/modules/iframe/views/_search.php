@@ -7,7 +7,7 @@ Yii::app()->clientScript->registerAMD('qa-search', array('ko' => 'knockout', 'Qa
 <div class="position-rel clearfix">
     <div class="b-main-search float-r visibles-lg">
         <div class="b-main-search__title">Найти вопрос</div>
-        <form class="b-main-search__form" action="<?=Yii::app()->createUrl('/som/qa/default/search/')?>" data-bind="submit: submit">
+        <form class="b-main-search__form" action="<?=Yii::app()->createUrl('/iframe/default/search/')?>" data-bind="submit: submit">
           <input name="query" type="search" placeholder="Найти вопрос" class="b-main-search__input" data-bind="textInput: query">
           <span class="js-b-main-search__submit b-main-search__submit"></span>
           <span class="js-b-main-search__close b-main-search__close">&times;</span>

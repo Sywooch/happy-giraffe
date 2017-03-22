@@ -1,8 +1,8 @@
 <?php
 
-use site\frontend\modules\som\modules\qa\components\QaManager;
-use site\frontend\modules\som\modules\qa\models\QaQuestion;
-use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
+use site\frontend\modules\iframe\components\QaManager;
+use site\frontend\modules\iframe\models\QaQuestion;
+use site\frontend\modules\iframe\widgets\answers\AnswersWidget;
 
 /**
  * @var QaQuestion $question
@@ -12,10 +12,6 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
 <?php
 
-    $breadcrumbs = [
-        'Главная' => ['/site/index'],
-        'Мой педиатр' => ['/som/qa/default/pediatrician'],
-    ];
 
     $tag = $question->tag;
 
@@ -24,12 +20,6 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
         $tag = $arrFooterData['tag'];
     }
 
-    if (!is_null($tag))
-    {
-        $breadcrumbs[$tag->name] = $this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id]);
-    }
-
-    $breadcrumbs[] = CHtml::encode($question->title);
 
     \Yii::app()->clientScript->registerAMD(
         'Realplexor-reg',
@@ -42,26 +32,6 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
 ?>
 
-<div class="b-col b-col--6 b-hidden-md">
-    <div class="b-breadcrumbs b-breadcrumbs--theme-default">
-        <ul class="b-breadcrumbs__list">
-
-            <?php
-
-                $this->widget('zii.widgets.CBreadcrumbs', [
-                    'links'                 => $breadcrumbs,
-                    'tagName'               => 'ul',
-                    'homeLink'              => false,
-                    'separator'             => '',
-                    'activeLinkTemplate'    => '<li class="b-breadcrumbs__item"><a href="{url}" class="b-breadcrumbs__link">{label}</a></li>',
-                    'inactiveLinkTemplate'  => '<li class="b-breadcrumbs__item">{label}</li>',
-                ]);
-
-            ?>
-
-        </ul>
-    </div>
-</div>
 
 <div class="b-col b-col--6 b-col-sm--10 b-col-xs">
     <div class="b-mobile-nav">
@@ -93,7 +63,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
                         <div class="b-question-wrapper__item">
                             <a
-                                href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>"
+                                href="<?= $this->createUrl('/iframe/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>"
                                 class="b-answer-footer__age b-text--link-color"
                                 data-bind="attr: {href: tagUrl()}, text: tagTitle()"
                             >
@@ -129,7 +99,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
                         'questionData',
                         [
                             'ko'                => 'knockout',
-                            'QuestionData'      => 'mypediatrician/question-data',
+                            'QuestionData'      => 'iframe/question-data',
                             'ko_library'        => 'ko_library'
                         ],
                         '
@@ -145,7 +115,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
                     if ($isOwner):
                 ?>
 
-                    <mp-question-actions-widget params="id: <?= $question->id; ?>, answersCount: <?= $question->answersCount; ?>, redirectUrl: <?= $this->createUrl('/som/qa/default/pediatrician'); ?>, editUrl: '<?= $this->createUrl('/som/qa/default/pediatricianEditForm', ['questionId' => $question->id]); ?>'"></mp-question-actions-widget>
+                    <mp-question-actions-widget params="id: <?= $question->id; ?>, answersCount: <?= $question->answersCount; ?>, redirectUrl: <?= $this->createUrl('/iframe/default/pediatrician'); ?>, editUrl: '<?= $this->createUrl('/iframe/default/pediatricianEditForm', ['questionId' => $question->id]); ?>'"></mp-question-actions-widget>
 
                 <?php endif; ?>
 

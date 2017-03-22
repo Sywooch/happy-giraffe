@@ -156,7 +156,6 @@ return array(
         'mypediatrician/<tab:(all|new|unanswered)>/<tagId:\d+>' => 'som/qa/default/pediatrician',
         'mypediatrician/<tab:(all|new|unanswered)>' => 'som/qa/default/pediatrician',
         'mypediatrician' => array('som/qa/default/pediatrician', 'defaultParams' => array('tab' => 'new')),
-        'iframe' => array('iframe/default/pediatrician', 'defaultParams' => array('tab' => 'new')),
         'mypediatrician/add' => 'som/qa/default/pediatricianAddForm',
         'mypediatrician/edit/<questionId:\d+>' => 'som/qa/default/pediatricianEditForm',
         'questions/page<page:\d+>' => array('som/qa/default/index', 'defaultParams' => array('tab' => 'new')),
@@ -168,6 +167,17 @@ return array(
 
         'contractubex' => 'posts/contractubex/default/index',
         'contractubex/<content_type_slug:[a-z]+><content_id:\d+>' => array('posts/contractubex/view/view'),
+
+        /* IFRAME */
+        'iframe/questions/question<id:\d+>' => 'iframe/default/view',
+        'iframe/<tab:(all|new|unanswered)>/<tagId:\d+>' => 'iframe/default/pediatrician',
+        'iframe/<tab:(all|new|unanswered)>' => 'iframe/default/pediatrician',
+        'iframe' => array('iframe/default/pediatrician', 'defaultParams' => array('tab' => 'new')),
+        'iframe/add' => 'iframe/default/pediatricianAddForm',
+        'iframe/edit/<questionId:\d+>' => 'iframe/default/pediatricianEditForm',
+        'iframe/questions/<categoryId:\d+>/page<page:\d+>' => array('iframe/default/index', 'defaultParams' => array('tab' => 'new')),
+        'iframe/questions/<categoryId:\d+>/<tagId:\d+>' => array('iframe/default/index', 'defaultParams' => array('tab' => 'new')),
+        'iframe/questions/<categoryId:\d+>' => array('iframe/default/index', 'defaultParams' => array('tab' => 'new')),
 
         /* SOM */
         'status' => 'som/status/default/index',

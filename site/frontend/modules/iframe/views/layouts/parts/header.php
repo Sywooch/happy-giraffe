@@ -48,7 +48,7 @@ if (! Yii::app()->user->isGuest) {
     </div>
     <nav class="header__menu header__menu--style header-iframe__menu--style">
         <ul class="header__list">
-            <li class="header__li header-iframe__li--active"><a href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="header__link header-iframe__link header__link--answer">Вопросы</a></li>
+            <li class="header__li header-iframe__li--active"><a href="<?=$this->createUrl('/iframe/default/pediatrician')?>" class="header__link header-iframe__link header__link--answer">Вопросы</a></li>
             <li class="header__li"><a href="#" class="header__link header-iframe__link header__link--doc">Врачи</a></li>
         </ul>
     </nav>
@@ -69,7 +69,7 @@ if (! Yii::app()->user->isGuest) {
                 </a>
             </span>
         </div>
-        <div class="user-widget-block user-widget-block_mod">
+        <div class="user-widget-block user-widget-block-iframe user-widget-block_mod">
             <ul class="user-widget-block__list">
                 <li class="user-widget-block__li"><a href="<?=Yii::app()->user->model->getUrl()?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_profile"><img src="<?=Yii::app()->user->model->getAvatarUrl(24)?>" class="user-widget-block__ava"/></span><span class="user-widget-block__text">Анкета</span></a></li>
                 <li class="user-widget-block__li"><a href="<?=Yii::app()->user->model->getFamilyUrl()?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_family"></span><span class="user-widget-block__text">Семья</span></a></li>

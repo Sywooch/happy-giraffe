@@ -10,9 +10,9 @@ namespace site\frontend\modules\iframe\models;
  * @property string $title
  *
  * The followings are the available model relations:
- * @property \site\frontend\modules\som\modules\qa\models\QaQuestion[] $questions
+ * @property \site\frontend\modules\iframe\models\QaQuestion[] $questions
  * @property int $questionsCount
- * @property \site\frontend\modules\som\modules\qa\models\QaTag[] $tags
+ * @property \site\frontend\modules\iframe\models\QaTag[] $tags
  */
 class QaCategory extends \HActiveRecord
 {
@@ -69,8 +69,8 @@ class QaCategory extends \HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'questions' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'categoryId'),
-			'questionsCount' => array(self::STAT, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'categoryId'),
+			'questions' => array(self::HAS_MANY, 'site\frontend\modules\iframe\models\QaQuestion', 'categoryId'),
+			'questionsCount' => array(self::STAT, 'site\frontend\modules\iframe\models\QaQuestion', 'categoryId'),
 			'tags' => array(self::HAS_MANY, get_class(QaTag::model()), 'category_id'),
 		);
 	}

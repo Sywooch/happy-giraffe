@@ -3,7 +3,7 @@
 namespace site\frontend\modules\iframe\models;
 
 use site\frontend\modules\api\ApiModule;
-use site\frontend\modules\som\modules\qa\behaviors\RatingBehavior;
+use site\frontend\modules\iframe\behaviors\RatingBehavior;
 
 /**
  * This is the model class for table "qa__answers_votes".
@@ -15,7 +15,7 @@ use site\frontend\modules\som\modules\qa\behaviors\RatingBehavior;
  * @property int $dtimeCreate
  *
  * The followings are the available model relations:
- * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $answer
+ * @property \site\frontend\modules\iframe\models\QaAnswer $answer
  * @property \User $user
  */
 class QaAnswerVote extends \HActiveRecord
@@ -48,7 +48,7 @@ class QaAnswerVote extends \HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'answer' => array(self::BELONGS_TO, '\site\frontend\modules\som\modules\qa\models\QaAnswer', 'answerId'),
+			'answer' => array(self::BELONGS_TO, '\site\frontend\modules\iframe\models\QaAnswer', 'answerId'),
 			'user' => array(self::BELONGS_TO, \User::class, 'userId'),
 		);
 	}
@@ -79,7 +79,7 @@ class QaAnswerVote extends \HActiveRecord
 				'createAttribute' => 'dtimeCreate',
 			),
 			'VoteNotificationBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\VoteNotificationBehavior',
+				'class' => 'site\frontend\modules\iframe\behaviors\VoteNotificationBehavior',
 			),
 			'RatingBehavior' => array(
 				'class' => RatingBehavior::class,

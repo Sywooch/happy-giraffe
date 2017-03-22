@@ -1,11 +1,11 @@
 <?php
 
-use site\frontend\modules\som\modules\qa\models\QaQuestion;
-use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
+use site\frontend\modules\iframe\models\QaQuestion;
+use site\frontend\modules\iframe\widgets\answers\AnswersWidget;
 
 /**
- * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
- * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
+ * @var site\frontend\modules\iframe\controllers\DefaultController $this
+ * @var \site\frontend\modules\iframe\models\QaQuestion $question
  */
 
 $this->sidebar = ['ask', 'personal', 'menu' => ['categoryId' => $question->categoryId], 'rating'];

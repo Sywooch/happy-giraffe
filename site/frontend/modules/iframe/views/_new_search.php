@@ -5,7 +5,7 @@
 Yii::app()->clientScript->registerAMD('qa-search', array('ko' => 'knockout', 'QaSearch' => 'qa/search'), 'ko.applyBindings(new QaSearch("' . $query . '"), $(".b-filter-search").get(0));')
 ?>
 <div class="b-filter-search">
-    <form class="b-filter-search__form b-filter-search-iframe__form" action="<?=Yii::app()->createUrl('/som/qa/default/pediatricianSearch')?>" data-bind="submit: submit">
+    <form class="b-filter-search__form b-filter-search-iframe__form" action="<?=Yii::app()->createUrl('/iframe/default/pediatricianSearch')?>" data-bind="submit: submit">
         <div class="b-filter-year-iframe">
             <span class="b-filter-year-iframe__icon"></span>
             <div class="b-filter-year-iframe-menu">

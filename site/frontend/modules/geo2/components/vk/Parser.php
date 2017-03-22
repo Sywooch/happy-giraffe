@@ -9,6 +9,7 @@ namespace site\frontend\modules\geo2\components\vk;
 class Parser
 {
     const PER_PAGE = 1000;
+    const PAGINATION_INTERSECTION = 1;
 
     /**
      * @var \Guzzle\Http\Client
@@ -110,17 +111,30 @@ class Parser
         $params['count'] = self::PER_PAGE;
         $result = [];
         do {
+            var_dump($params);
+            $oldItems = isset($items) ? $items : [];
             $response = $this->makeRequest($method, $params);
             $count = $response['response']['count'];
             $items = $response['response']['items'];
-            foreach ($items as $item) {
-                $result[] = $item;
-            }
-            $offset += self::PER_PAGE;
+            $items = $this->filterDuplicates($items, $oldItems);
+            $result = array_merge($result, $items);
+            $offset += self::PER_PAGE - self::PAGINATION_INTERSECTION;
             $params['offset'] = $offset;
         }
         while ($count > (count($items) + $offset - self::PER_PAGE));
         return $result;
+    }
+
+    protected function filterDuplicates($items, $oldItems)
+    {
+        $intersection = array_map('unserialize', array_intersect(array_map('serialize', $items), array_map('serialize', $oldItems)));
+        if ($intersection) {
+            $intersection = array_map('unserialize', array_intersect(array_map('serialize', $items), array_map('serialize', $oldItems)));
+            foreach (array_keys($intersection) as $key) {
+                unset($items[$key]);
+            }
+        }
+        return $items;
     }
 
     protected function makeRequest($method, $params = [])

@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\geo2\commands;
+use GeoIp2\Database\Reader;
 use site\frontend\modules\geo2\components\combined\CombinedManager;
 use site\frontend\modules\geo2\components\combined\modifier\FiasModifier;
 use site\frontend\modules\geo2\components\fias\handler\MySQLHandler;
@@ -36,5 +37,13 @@ class DefaultCommand extends \CConsoleCommand
     public function actionInit()
     {
         (new CombinedManager())->init();
+    }
+
+    public function actionTest()
+    {
+        $reader = new Reader(\Yii::getPathOfAlias('site.frontend.modules.geo2.components.geolite') . DIRECTORY_SEPARATOR . 'GeoLite2-City.mmdb', ['ru', 'en']);
+        $record = $reader->city('94.233.136.239');
+        print($record->city->name . "\n");
+        print($record->mostSpecificSubdivision->name . "\n");
     }
 }

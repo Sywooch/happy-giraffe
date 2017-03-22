@@ -70,16 +70,26 @@ if (! Yii::app()->user->isGuest) {
             </span>
         </div>
         <div class="user-widget-block user-widget-block-iframe user-widget-block_mod">
-            <ul class="user-widget-block__list">
-                <li class="user-widget-block__li"><a href="<?=Yii::app()->user->model->getUrl()?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_profile"><img src="<?=Yii::app()->user->model->getAvatarUrl(24)?>" class="user-widget-block__ava"/></span><span class="user-widget-block__text">Анкета</span></a></li>
-                <li class="user-widget-block__li"><a href="<?=Yii::app()->user->model->getFamilyUrl()?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_family"></span><span class="user-widget-block__text">Семья</span></a></li>
-                <li class="user-widget-block__li"><a href="<?=Yii::app()->user->model->getBlogUrl()?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_blog"></span><span class="user-widget-block__text">Блог</span></a></li>
-                <li class="user-widget-block__li"><a href="<?=$this->createUrl('/messaging/default/index')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_dialog"></span><span class="user-widget-block__text">Диалоги</span></a></li>
-                <li class="user-widget-block__li"><a href="<?=$this->createUrl('/friends/default/index')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_friend"></span><span class="user-widget-block__text">Друзья</span></a></li>
-                <li class="user-widget-block__li"><a href="<?=$this->createUrl('/photo/default/index', array('userId' => Yii::app()->user->id))?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_photo"></span><span class="user-widget-block__text">Фото</span></a></li>
-                <li class="user-widget-block__li"><a href="<?=$this->createUrl('/som/qa/my/questions')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_answers"></span><span class="user-widget-block__text">Вопросы</span></a></li>
-                <li class="user-widget-block__li"><a href="<?=$this->createUrl('/users/default/settings')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_setting"></span><span class="user-widget-block__text">Настройки</span></a></li>
-                <li class="user-widget-block__li"><a href="<?=$this->createUrl('/site/logout')?>" class="user-widget-block__link"><span class="user-widget-block__bg user-widget-block__bg_exit"></span><span class="user-widget-block__text">Выход</span></a></li>
+            <ul class="user-widget-block-iframe__list">
+                <li class="user-widget-block-iframe__li">
+                    <a class="user-widget-block-iframe__link" href="#"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-signal"></span>Сигналы</a>
+                    <span class="user-widget-block-iframe__notific">0</span>
+                </li>
+                <li class="user-widget-block-iframe__li user-widget-block-iframe__li-disabled">
+                    <a class="user-widget-block-iframe__link" href="#"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-kids"></span>Дети</a>
+                    <a class="user-widget-block-iframe__add-child" href="#">Добавить</a>
+                </li>
+                <li class="user-widget-block-iframe__li user-widget-block-iframe__li-disabled">
+                    <a class="user-widget-block-iframe__link" href="#"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-question"></span>Мои вопросы</a>
+                    <span class="user-widget-block-iframe__count">0</span>
+                </li>
+                <li class="user-widget-block-iframe__li">
+                    <a class="user-widget-block-iframe__link" href="#"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-comment"></span>Мои ответы</a>
+                    <span class="user-widget-block-iframe__count">0</span>
+                </li>
+                <li class="user-widget-block-iframe__li">
+                    <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/site/logout')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-exit"></span>Выход</a>
+                </li>
             </ul>
         </div>
     <?php endif; ?>

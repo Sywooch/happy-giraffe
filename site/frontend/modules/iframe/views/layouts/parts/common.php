@@ -289,6 +289,93 @@
              opacity: 1;
              display: block;
          }
+         .user-widget-block-iframe{
+             width: 300px;
+             height: 251px;
+             -webkit-border-radius: 5px;
+             -moz-border-radius: 5px;
+             border-radius: 5px;
+             top: 80px;
+             right: 32px;
+             padding: 10px 18px;
+             overflow: visible;
+         }
+         .user-widget-block-iframe:after{
+             content: '';
+             position: absolute;
+             right: 12px;
+             top: -19px;
+             border: 11px solid transparent;
+             border-bottom: 9px solid #FFFFFF;
+         }
+         .user-widget-block-iframe.user-widget-block_open{
+             top: 65px;
+         }
+         .user-widget-block-iframe__icon{
+             display: inline-block;
+             vertical-align: middle;
+             width: 24px;
+             height: 24px;
+             background-size: contain;
+             background-repeat: no-repeat;
+             background-position: center;
+             margin-right: 15px;
+         }
+         .user-widget-block-iframe__icon-signal{
+             background-image: url("/app/builds/static/img/pediatrician/user-menu/signal.svg");
+         }
+         .user-widget-block-iframe__icon-question{
+             background-image: url("/app/builds/static/img/pediatrician/user-menu/question.svg");
+         }
+         .user-widget-block-iframe__icon-kids{
+             background-image: url("/app/builds/static/img/pediatrician/user-menu/kids.svg");
+         }
+         .user-widget-block-iframe__icon-exit{
+             background-image: url("/app/builds/static/img/pediatrician/user-menu/exit.svg");
+         }
+         .user-widget-block-iframe__icon-comment{
+             background-image: url("/app/builds/static/img/pediatrician/user-menu/comment.svg");
+         }
+         .user-widget-block-iframe__list{
+
+         }
+         .user-widget-block-iframe__li{
+             padding: 10px 0;
+         }
+         .user-widget-block-iframe__li:last-child{
+             border-top: 1px solid rgba(0,0,0,0.04);
+             padding: 16px 0;
+         }
+         .user-widget-block-iframe__link{
+             font-size: 14px;
+             vertical-align: middle;
+             color: #333;
+         }
+         .user-widget-block-iframe__notific{
+             display: block;
+             float: right;
+             background-color: #ff8232;
+             color: #ffffff;
+             font-size: 12px;
+             padding: 5px 8px;
+             line-height: 1;
+             -webkit-border-radius: 20px;
+             -moz-border-radius: 20px;
+             border-radius: 20px;
+         }
+         .user-widget-block-iframe__add-child{
+             float: right;
+             color: #119cdd;
+             font-size: 12px;
+         }
+         .user-widget-block-iframe__count{
+             float: right;
+             font-size: 14px;
+         }
+         .user-widget-block-iframe__li-disabled .user-widget-block-iframe__link,
+         .user-widget-block-iframe__li-disabled .user-widget-block-iframe__count{
+            opacity: 0.2;
+         }
      </style>
      <script>
          $(document).ready(function () {

@@ -658,5 +658,17 @@ return array(
                 'lite/css/min/pediator.css',
             )
         ),
+        'iframe' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'app/builds/static/css/main.min.css',
+                'app/builds/static/css/iframe/main.css',
+            ),
+            'js' => array(
+                'app/builds/static/js/main.min.js',
+            ),
+            'depends' => array('jquery'),
+        ),
     )
 );

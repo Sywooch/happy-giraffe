@@ -271,7 +271,7 @@ class DefaultController extends QaController
 
         $tagsData = (new HCollection(QaTagManager::getAllTags()))->toArray();
 
-        $this->layout = '//layouts/lite/new_form';
+        $this->layout = '/layouts/form';
         $this->render('new_form', [
             'tagsData' => $tagsData
         ]);

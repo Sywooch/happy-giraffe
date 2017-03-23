@@ -11,5 +11,6 @@ class IframeModule extends \CWebModule
         \Yii::app()->setComponent('authManager', array(
             'class' => '\site\frontend\components\AuthManager',
         ));
+        \Yii::app()->clientScript->registerPackage('iframe');
     }
 }

@@ -36,10 +36,6 @@ class Manager
         foreach ($this->_parser->getCountries() as $country) {
             echo $country['id'] . PHP_EOL;
 
-            if ($country['id'] != 1) {
-                continue;
-            }
-
             \Yii::app()->db->createCommand()->insert(VkCountry::model()->tableName(), $this->countryRow($country));
 
             $regions = $this->_parser->getRegions($country['id']);

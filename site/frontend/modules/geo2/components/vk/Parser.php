@@ -111,7 +111,6 @@ class Parser
         $params['count'] = self::PER_PAGE;
         $result = [];
         do {
-            var_dump($params);
             $oldItems = isset($items) ? $items : [];
             $response = $this->makeRequest($method, $params);
             $count = $response['response']['count'];

@@ -65,8 +65,8 @@ class CombinedManager
 
     protected function initCities()
     {
-        $this->initVkCities();
         $this->initFiasCities();
+        $this->initVkCities();
     }
 
     protected function initVkCities()
@@ -84,7 +84,7 @@ class CombinedManager
         $cities = \Yii::app()->db->createCommand()
             ->select('FORMALNAME, AOGUID, AOID, AOLEVEL, SHORTNAME, PARENTGUID')
             ->from(FiasAddrobj::model()->tableName())
-            ->where('LIVESTATUS = 1 AND AOLEVEL IN (4, 6)')
+            ->where('AOLEVEL IN (4, 6) AND LIVESTATUS = 1')
         ;
         $this->batchInsert($cities, [FiasModifier::instance(), 'convertCity'], Geo2City::model()->tableName());
 
@@ -107,6 +107,7 @@ class CombinedManager
         $pk = \Yii::app()->db->schema->getTable($select->getFrom())->primaryKey;
         $lastPk = null;
         for ($i = 0; $i < ceil($count / self::BATCH_SIZE); $i++) {
+            $a = microtime(true);
             $_select = clone $select;
             $_select
                 ->limit(self::BATCH_SIZE)
@@ -117,22 +118,26 @@ class CombinedManager
                     ->andWhere("$pk > :lastPk", [':lastPk' => $lastPk])
                 ;
             }
-            
+            echo $_select->getText();
             $rows = $_select->queryAll();
+            echo 'selecting ' . (microtime(true) - $a) . PHP_EOL . memory_get_usage(true) . PHP_EOL; $a = microtime(true);
+
             $lastPk = array_values(array_slice($rows, -1))[0][$pk];
             $processedRows = array_map(function($row) use ($callback) {
                 return $callback($row);
             }, $rows);
+            echo 'processing ' . (microtime(true) - $a) . PHP_EOL . memory_get_usage(true) . PHP_EOL; $a = microtime(true);
             
             \Yii::app()->db->getCommandBuilder()->createMultipleInsertCommand($destination, $processedRows)->execute();
+            echo 'inserting ' . (microtime(true) - $a) . PHP_EOL . memory_get_usage(true) . PHP_EOL;
         }
     }
 
     protected function clear()
     {
         foreach ([Geo2Region::model()->tableName(), Geo2Country::model()->tableName(), Geo2City::model()->tableName()] as $table) {
-            \Yii::app()->db->createCommand()->delete($table);
-            \Yii::app()->db->createCommand("ALTER TABLE $table AUTO_INCREMENT = 1;")->execute();
+            \Yii::app()->db->createCommand()->truncateTable($table);
+            //\Yii::app()->db->createCommand("ALTER TABLE $table AUTO_INCREMENT = 1;")->execute();
         }
     }
 }

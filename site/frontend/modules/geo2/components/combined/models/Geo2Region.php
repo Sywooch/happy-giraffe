@@ -37,8 +37,9 @@ class Geo2Region extends \CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+		return [
+			'country' => array(self::BELONGS_TO, 'site\frontend\modules\geo2\components\combined\models\Geo2Country', 'countryId'),
+		];
 	}
 
 	/**

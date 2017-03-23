@@ -121,5 +121,10 @@ return array(
                 'commentatorsContest' => false,
             ],
         ],
+        'geoLite' => [
+            'class' => 'site\frontend\modules\geo2\components\geolite\Wrapper',
+            'filename' => dirname(__FILE__) . '/../../frontend/modules/geo2/components/geolite' . DIRECTORY_SEPARATOR . 'GeoLite2-City.mmdb',
+            'locales' => ['ru', 'en'],
+        ],
     ),
 );

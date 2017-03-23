@@ -652,6 +652,12 @@ return array(
         'lite_qa' => array(
             'depends' => array('lite_services', 'lite_posts', 'lite_pediatrician'),
         ),
+        'lite_qa_old' => [
+            'css' => [
+                'app/builds/static/css/main.min.css'
+            ],
+            'depends' => ['lite_qa']
+        ],
         'lite_pediatrician' => array(
             'baseUrl' => '/',
             'css' => array(

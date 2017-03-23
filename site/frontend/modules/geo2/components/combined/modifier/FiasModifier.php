@@ -28,7 +28,7 @@ class FiasModifier extends Modifier
     {
         return [
             'countryId' => $this->getCountryId(),
-            'title' => $row['FORMALNAME'],
+            'title' => $this->getRegionTitle($row),
             'fiasId' => $row['AOGUID'],
         ];
     }
@@ -64,6 +64,33 @@ class FiasModifier extends Modifier
     protected function getKey()
     {
         return 'AOID';
+    }
+
+    private function getRegionTitle($row)
+    {
+        $prefix = '';
+        $postfix = '';
+        switch ($row['SHORTNAME']) {
+            case 'край':
+                $postfix = $row['SHORTNAME'];
+                break;
+            case 'АО':
+                $postfix = 'автономный округ';
+                break;
+            case 'Аобл':
+                $postfix = 'автономная область';
+                break;
+            case 'г':
+                $prefix = 'г.';
+                break;
+            case 'обл':
+                $postfix = 'область';
+                break;
+            case 'Респ':
+                $prefix = 'Республика';
+                break;
+        }
+        return implode(' ', [$prefix, $row['FORMALNAME'], $postfix]);
     }
 
     private function getCountryId()

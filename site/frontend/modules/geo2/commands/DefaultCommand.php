@@ -10,6 +10,7 @@ use site\frontend\modules\geo2\components\fias\output\DumpOutput;
 use site\frontend\modules\geo2\components\fias\update\DeltaGetter;
 use site\frontend\modules\geo2\components\fias\update\VersionManager;
 use site\frontend\modules\geo2\components\fias\update\UpdateManager;
+use site\frontend\modules\geo2\components\LocationRecognizer;
 use site\frontend\modules\geo2\Geo2Module;
 
 /**
@@ -37,13 +38,5 @@ class DefaultCommand extends \CConsoleCommand
     public function actionInit()
     {
         (new CombinedManager())->init();
-    }
-
-    public function actionTest()
-    {
-        $reader = new Reader(\Yii::getPathOfAlias('site.frontend.modules.geo2.components.geolite') . DIRECTORY_SEPARATOR . 'GeoLite2-City.mmdb', ['ru', 'en']);
-        $record = $reader->city('94.233.136.239');
-        print($record->city->name . "\n");
-        print($record->mostSpecificSubdivision->name . "\n");
     }
 }

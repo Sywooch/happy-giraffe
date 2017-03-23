@@ -38,8 +38,10 @@ class Geo2City extends \CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+		return [
+			'country' => array(self::BELONGS_TO, 'site\frontend\modules\geo2\components\combined\models\Geo2Country', 'countryId'),
+			'region' => array(self::BELONGS_TO, 'site\frontend\modules\geo2\components\combined\models\Geo2Region', 'regionId'),
+		];
 	}
 
 	/**
@@ -47,14 +49,14 @@ class Geo2City extends \CActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
+		return [
 			'id' => 'ID',
 			'countryId' => 'Country',
 			'regionId' => 'Region',
 			'title' => 'Title',
 			'vkId' => 'Vk',
 			'fiasId' => 'Fias',
-		);
+		];
 	}
 
 	/**

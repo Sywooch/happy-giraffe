@@ -28,7 +28,7 @@ class QaManager
 
     public static function getAnswersDp($userId = null, $onlyPublished = FALSE)
     {
-        return new \CActiveDataProvider(QaAnswer::model()->orderDesc()->apiWith('user'), [
+        return new \CActiveDataProvider(QaAnswer::model()->resetScope()->orderDesc()->apiWith('user'), [
             'criteria' => self::getAnswersCriteria($userId, $onlyPublished),
         ]);
     }
@@ -86,6 +86,8 @@ class QaManager
         {
             $criteria->addCondition('t.isPublished=' . QaAnswer::PUBLISHED);
         }
+
+        $criteria->addCondition('t.isRemoved=' . QaAnswer::NOT_REMOVED);
 
         return $criteria;
     }

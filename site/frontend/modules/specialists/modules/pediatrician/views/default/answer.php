@@ -24,7 +24,7 @@ if (!is_null($currentAnswerId))
 {
     $jsParams[] = $currentAnswerId->id;
     $jsParams[] = CJSON::encode( \site\common\helpers\HStr::truncate($currentAnswerId->text, 150) );
-    $jsParams[] = (int) QaManager::isAnswerEditing($currentAnswerId->id);
+    $jsParams[] = (int) QaManager::isAnswerEditing((int) $currentAnswerId->id);
 }
 
 $jsParamsStr = implode(',', $jsParams);
@@ -119,9 +119,7 @@ $cs->registerAMD(
         'common',
         'comet'
     ],
-    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . MPQaManager::getQuestionChannelId($question->id) . '\');'
+    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . MPQaManager::getQuestionChannelId($currentAnswerId->id) . '\');'
 );
 
 ?>
-
-<?php //$this->widget('site\frontend\modules\specialists\modules\pediatrician\answers\AnswersWidget', array('question' => $question)); ?>

@@ -168,9 +168,15 @@ class QaManager
         return QaCategory::PEDIATRICIAN_ID;
     }
 
-    public static function getQuestionChannelId($questionId)
+    /**
+     * ID comet-канала для открытого вопроса врачом
+     *
+     * @param string $id Уникальный ID
+     * @return string
+     */
+    public static function getQuestionChannelId($id)
     {
-        return QaQuestion::COMET_CHANNEL_ID_SPECIALIST_PREFIX . $questionId;
+        return QaQuestion::COMET_CHANNEL_ID_SPECIALIST_PREFIX . $id;
     }
 
 }

@@ -13,9 +13,7 @@ $this->beginContent('//layouts/lite/new_common');
     </div>
 
 	<main class="b-main">
-        <div class="b-main__inner">
-        	<?= $content ?>
-        </div>
+        <?= $content ?>
     </main>
     <?php $this->renderPartial('//_new_footer'); ?>
 <?php $this->endContent(); ?>

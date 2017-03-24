@@ -6,7 +6,6 @@ $this->beginContent('//layouts/lite/new_common_menu');
 
 Yii::app()->clientScript->registerAMD('userAdd', array('common' => 'common', '$' => 'jquery'), "$('#userAdd').show();");
 ?>
-
 <div class="b-main_cont b-main_cont__broad visibles-lg">
     <?php if ($this->breadcrumbs): ?>
         <div style="margin-bottom: 30px" class="b-crumbs b-crumbs__s<?php if ($this->adaptiveBreadcrumbs): ?> visible-md visible-lg<?php endif; ?>">

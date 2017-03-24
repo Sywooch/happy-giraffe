@@ -10,6 +10,26 @@ class Enum
 {
 
     /**
+     * @var integer LESS_THAN_YEAR_ID ID диапазона "0-1"
+     */
+    const LESS_THAN_YEAR_ID     = 3;
+
+    /**
+     * @var integer MORE_THAN_YEAR_ID ID диапазона "1-3"
+     */
+    const MORE_THAN_YEAR_ID     = 7;
+
+    /**
+     * @var integer PRESCHOOL_ID ID диапазона "3-6"
+     */
+    const PRESCHOOL_ID          = 11;
+
+    /**
+     * @var integer SCHOOLKID_ID ID диапазона "6-12"
+     */
+    const SCHOOLKID_ID          = 15;
+
+    /**
      *
      * @var string
      */

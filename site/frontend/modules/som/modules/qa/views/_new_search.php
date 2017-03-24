@@ -1,5 +1,7 @@
 <?php
 
+use site\frontend\modules\som\modules\qa\models\qaTag\Enum;
+
 /**
  * @var string $query
  * @var string $tagId ID выбранного тега
@@ -14,13 +16,21 @@
     'ko.applyBindings(new QaSearch("' . $query . '"), $(".js-filter-search").get(0));'
 );
 
+
+$tagsIdList = [
+    Enum::LESS_THAN_YEAR_ID,
+    Enum::MORE_THAN_YEAR_ID,
+    Enum::PRESCHOOL_ID,
+    Enum::SCHOOLKID_ID
+];
+
 \Yii::app()->clientScript->registerAMD(
     'qa-age-dropdown',
     [
         'ko'            => 'knockout',
         'QaAgeDropdown' => 'qa/age-dropdown'
     ],
-    'ko.applyBindings(new QaAgeDropdown("' . $tagId . '"), $(".js-filter-dropdown").get(0));'
+    'ko.applyBindings(new QaAgeDropdown(' . CJSON::encode(['tagsIdList' => $tagsIdList, 'selectedTagId' => $tagId]) . '), $(".js-filter-dropdown").get(0));'
 );
 
 ?>

@@ -6,7 +6,7 @@
  */
 $this->pageTitle = 'Жираф педиатр - Ответы';
 
-$answers = \site\frontend\modules\som\modules\qa\components\AnswerManagementData::process($dp->data)
+$answers = \site\frontend\modules\som\modules\qa\components\AnswerManagementData::process($dp->data);
 
 ?>
 

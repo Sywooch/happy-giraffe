@@ -666,5 +666,11 @@ return array(
                 'lite/css/min/pediator.css',
             )
         ),
+        'lite_pediatrician_profile' => [
+            'baseUrl'   => '/',
+            'css'       => [
+                'app/builds/static/css/main.min.css'
+            ]
+        ]
     )
 );

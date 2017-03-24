@@ -13,7 +13,8 @@ use site\frontend\modules\users\models\User;
 
 class ProfileController extends \LiteController
 {
-    public $litePackage = 'pediatrician';
+    public $layout = '//layouts/lite/new_main';
+    public $litePackage = 'pediatrician_profile';
     public $user;
 
     public function actionIndex($userId)

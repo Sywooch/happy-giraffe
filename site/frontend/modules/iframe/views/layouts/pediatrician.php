@@ -4,7 +4,7 @@
  * @var string $content
  */
 
-$this->beginContent('/layouts/parts/main');
+$this->beginContent('application.modules.iframe.views._parts.main');
 $this->renderSidebarClip();
 ?>
 <div class="b-col__container">

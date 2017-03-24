@@ -12,5 +12,15 @@ class IframeModule extends \CWebModule
             'class' => '\site\frontend\components\AuthManager',
         ));
         \Yii::app()->clientScript->registerPackage('iframe');
+
+        // Cписок модулей
+        $this->setModules([
+            'userProfile' => [
+                'class' => 'site\frontend\modules\iframe\modules\userProfile\UserProfileModule',
+            ],
+            'specialists' => [
+                'class' => 'site\frontend\modules\iframe\modules\specialists\SpecialistsModule',
+            ],
+        ]);
     }
 }

@@ -61,7 +61,7 @@ if (! Yii::app()->user->isGuest) {
     <?php else: ?>
         <div class="header__loged b-fr b-col header-iframe_loged">
         	<!-- <span class="header__signal header__signal--style"></span> -->
-            <?php $this->renderPartial('/_sidebar/new_ask');?>
+            <?php $this->renderPartial('application.modules.iframe.views._sidebar.new_ask');?>
         	<span class="js-ava__link">
         		<a href="javascript:void(0)" class="ava ava--style ava--medium ava--medium_male">
         			<img src="<?=Yii::app()->user->model->getAvatarUrl(40)?>" class="ava__img">

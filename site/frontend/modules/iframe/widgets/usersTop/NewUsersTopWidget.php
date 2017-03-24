@@ -2,10 +2,8 @@
 
 namespace site\frontend\modules\iframe\widgets\usersTop;
 
-use site\frontend\components\TopWidgetAbstract;
-use site\frontend\modules\som\modules\qa\models\QaRating;
 use site\frontend\modules\iframe\models\QaCategory;
-use site\frontend\components\api\models\User;
+use site\frontend\modules\iframe\components\api\User;
 use site\frontend\modules\iframe\models\QaAnswer;
 use site\frontend\modules\iframe\models\QaQuestion;
 use site\frontend\modules\iframe\models\QaAnswerVote;

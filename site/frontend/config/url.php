@@ -178,6 +178,10 @@ return array(
         'iframe/questions/<categoryId:\d+>/page<page:\d+>' => array('iframe/default/index', 'defaultParams' => array('tab' => 'new')),
         'iframe/questions/<categoryId:\d+>/<tagId:\d+>' => array('iframe/default/index', 'defaultParams' => array('tab' => 'new')),
         'iframe/questions/<categoryId:\d+>' => array('iframe/default/index', 'defaultParams' => array('tab' => 'new')),
+        ['class' => 'site\frontend\modules\iframe\modules\specialists\components\SpecialistsUrlRule'],
+        'iframe/user/<userId:\d+>/info' => 'iframe/specialists/profile/info',
+        'iframe/specialists/editProfile' => 'iframe/specialists/default/index',
+        'iframe/user/<userId:\d+>' => 'iframe/userProfile/default/index',
 
         /* SOM */
         'status' => 'som/status/default/index',

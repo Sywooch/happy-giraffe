@@ -2,7 +2,7 @@
 
 namespace site\frontend\modules\iframe\widgets\usersTop;
 
-use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\iframe\models\QaAnswer;
 use site\frontend\components\TopWidgetAbstract;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 

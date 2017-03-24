@@ -658,11 +658,16 @@ return array(
                 'lite/css/min/pediator.css',
             )
         ),
+        'lite_pediatrician-iframe' => array(
+            'baseUrl' => '/',
+            'css' => array()
+        ),
         'iframe' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
                 'app/builds/static/css/main.min.css',
+                'app/builds/static/css/iframe/pediator.css',
                 'app/builds/static/css/iframe/main.css',
             ),
             'js' => array(

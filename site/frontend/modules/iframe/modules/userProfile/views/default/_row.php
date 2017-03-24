@@ -1,0 +1,1 @@
+<?php $this->renderPartial('site.frontend.modules.posts.views.list._view', compact('data')); ?>

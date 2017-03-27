@@ -2,7 +2,9 @@
 
 use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
 
+$model = $data->getDataObject();
 ?>
+<?php if (is_null($model)): ?>
 <article class="b-article b-article__list clearfix">
     <div class="b-article_cont clearfix">
         <div class="b-article_header clearfix">
@@ -32,3 +34,4 @@ use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
         ?>
     </div>
 </article>
+<?php endif;?>

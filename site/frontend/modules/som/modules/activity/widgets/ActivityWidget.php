@@ -43,7 +43,7 @@ class ActivityWidget extends \CWidget
             $model
                 ->withoutAnswerPediatrician()
                 ->withoutQuestion()
-                ->excludePediatricianQuestions()
+                //->excludePediatricianQuestions() // конфликтует со строкой 45, выводит вопросы из сервиса "ответы"
                 ->excludePediatricianAnswers()
             ;
         }

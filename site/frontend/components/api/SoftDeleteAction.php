@@ -22,7 +22,7 @@ class SoftDeleteAction extends ApiAction
 
         $this->controller->success = $model->softDelete();
         if ($model instanceof \IHToJSON)
-            $this->controller->data = $model;
+            $this->controller->data = $model->toJSON();
     }
 
 }

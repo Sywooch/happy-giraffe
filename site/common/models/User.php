@@ -620,19 +620,30 @@ class User extends HActiveRecord
     }
 
     /**
+     * @param boolean $asFio Выводить в формате ФИО
      * @return string
      */
-    public function getFullName()
+    public function getFullName($asFio = false)
     {
         $firstName      = Str::ucFirst($this->first_name);
         $middleName     = Str::ucFirst($this->middle_name);
         $lastName       = Str::ucFirst($this->last_name);
 
-        if ($this->specialistInfo) {
-            $parts = [$firstName, $middleName, mb_substr($lastName, 0, 1, 'UTF-8') . '.'];
-        } else {
-            $parts = [$firstName, $lastName];
+        if ($asFio)
+        {
+            $parts = [$lastName, $firstName, $middleName];
         }
+        else {
+            if ($this->specialistInfo)
+            {
+                $parts = [$firstName, $middleName, mb_substr($lastName, 0, 1, 'UTF-8') . '.'];
+            }
+            else
+            {
+                $parts = [$firstName, $lastName];
+            }
+        }
+
         return implode(' ', array_filter($parts));
     }
 

@@ -3,6 +3,7 @@
 /**
  * @var User $user
  * @var \site\frontend\modules\specialists\models\SpecialistProfile $profile
+ * @var array $stats Статистика врача
  */
 
 $profile = $user->specialistProfile;
@@ -21,8 +22,9 @@ $breadcrumbs = [
     'Главная'       => '/',
     'Мой педиатр'   => \Yii::app()->createUrl('som/qa/default/pediatrician'),
     $user->getFullName()
-
 ];
+
+$fullName = (new \site\frontend\modules\specialists\components\SpecialistProfileDecorator($user))->getFullName();
 
 ?>
 
@@ -41,8 +43,8 @@ $breadcrumbs = [
                 ],
                 'homeLink'             => FALSE,
                 'separator'            => '',
-                'activeLinkTemplate'    => '<li class="b-breadcrumbs__item"><a href="{url}" class="b-breadcrumbs__link">{label}</a></li>',
-                'inactiveLinkTemplate'  => '<li class="b-breadcrumbs__item">{label}</li>',
+                'activeLinkTemplate'   => '<li class="b-breadcrumbs__item"><a href="{url}" class="b-breadcrumbs__link">{label}</a></li>',
+                'inactiveLinkTemplate' => '<li class="b-breadcrumbs__item">{label}</li>',
             ]);
 
             ?>
@@ -63,17 +65,16 @@ $breadcrumbs = [
         </div>
     </div>
     <div class="user-section__columns user-section__columns--two b-text--left">
-        <div class="user-section__title b-text-color--white b-title--bold b-margin--bottom_10">Саша
-            <br/>Cпрей Владимировна</div>
-        <div class="user-section__special">педиатр, детский хирург</div>
+        <div class="user-section__title b-text-color--white b-title--bold b-margin--bottom_10"><?= $fullName; ?></div>
+        <div class="user-section__special"><?= $profile->getSpecsString(); ?></div>
         <div class="user-section__city b-margin--bottom_15">Нижний Новгород</div>
         <div class="user-section__box user-section-box">
             <div class="user-section-box__item user-section-box__item--white">
-                <div class="user-section-box__num">1256</div>
+                <div class="user-section-box__num"><?= $stats['answers_count']; ?></div>
                 <div class="user-section-box__text">Ответы</div>
             </div>
             <div class="user-section-box__item user-section-box__item--white">
-                <div class="user-section-box__num">234</div>
+                <div class="user-section-box__num"><?= $stats['votes_count']; ?></div>
                 <div class="user-section-box__static"><span class="user-section-box__roze"></span><span class="user-section-box__roze"></span><span class="user-section-box__roze"></span><span class="user-section-box__senks">Спасибо</span>
                 </div>
             </div>

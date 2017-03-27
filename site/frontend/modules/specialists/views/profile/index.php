@@ -2,12 +2,20 @@
 /**
  * @var LiteController $this
  * @var CActiveDataProvider $dp
+ * @var array $stats Статистика врача
  */
 
 $this->pageTitle = $this->user->getFullName() . ' на Веселом Жирафе';
 ?>
 
-<?php $this->renderPartial('_userSection', ['user' => $this->user]); ?>
+<?php
+
+$this->renderPartial('_userSection', [
+    'user'  => $this->user,
+    'stats' => $stats
+]);
+
+?>
 
 <div class="landing-question pediator margin-t50">
     <div class="questions margin-t0">

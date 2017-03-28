@@ -36,16 +36,10 @@ if ($profile->category && \site\frontend\modules\specialists\models\SpecialistPr
         </div>
         <div class="userSection_left">
             <h2 class="userSection_name userSection-iframe_name"><?=implode(' ', array_filter([Str::ucFirst($user->last_name), Str::ucFirst($user->first_name), Str::ucFirst($user->middle_name)]))?></h2>
-            <ul class="userSection-iframe-stat">
-                <li>
-                    <div class="userSection-iframe-stat_count">2056</div>
-                    <div class="userSection-iframe-stat_desc">Ответы</div>
-                </li>
-                <li>
-                    <div class="userSection-iframe-stat_count">256</div>
-                    <div class="userSection-iframe-stat_desc"><span class="userSection-iframe-stat_thanks"></span>Спасибо</div>
-                </li>
-            </ul>
+            <?php $this->widget('site\frontend\modules\iframe\widgets\answers\AnswerHeaderWidget', [
+                'userId' => $user->id,
+                'view' => 'stat-profile',
+            ]);?>
         </div>
         <div class="userSection-iframe_right">
             <?php if ($specs = $profile->getSpecsString()): ?>

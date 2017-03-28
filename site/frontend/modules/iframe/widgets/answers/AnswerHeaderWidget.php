@@ -15,6 +15,8 @@ class AnswerHeaderWidget extends \CWidget
      */
     public $userId;
 
+    public $view = 'answer_header';
+
     /**
      * {@inheritDoc}
      * @see CWidget::init()
@@ -40,7 +42,7 @@ class AnswerHeaderWidget extends \CWidget
             return;
         }
 
-        $this->render('answer_header', $arrCounters);
+        $this->render($this->view, $arrCounters);
     }
 
 }

@@ -1,8 +1,8 @@
 <?php
-use site\frontend\modules\som\modules\qa\models\QaCategory;
+use site\frontend\modules\iframe\models\QaCategory;
 
 /**
- * @var site\frontend\modules\som\modules\qa\models\QaAnswer $data
+ * @var site\frontend\modules\iframe\models\QaAnswer $data
  */
 ?>
 

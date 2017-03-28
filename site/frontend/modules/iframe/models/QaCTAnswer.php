@@ -4,12 +4,12 @@ namespace site\frontend\modules\iframe\models;
 
 use site\common\components\closureTable\INode;
 use site\frontend\components\api\ApiRelation;
-use site\frontend\components\api\models\User;
-use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
-use site\frontend\modules\som\modules\qa\components\BaseVoteManager;
-use site\frontend\modules\som\modules\qa\components\CTAnswerManager;
-use site\frontend\modules\som\modules\qa\components\ISubject;
-use site\frontend\modules\som\modules\qa\components\QaCTVoteManager;
+use site\frontend\modules\iframe\components\api\User;
+use site\frontend\modules\iframe\behaviors\QaBehavior;
+use site\frontend\modules\iframe\components\BaseVoteManager;
+use site\frontend\modules\iframe\components\CTAnswerManager;
+use site\frontend\modules\iframe\components\ISubject;
+use site\frontend\modules\iframe\components\QaCTVoteManager;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
 /**
@@ -61,7 +61,7 @@ class QaCTAnswer extends \HActiveRecord implements INode, \IHToJSON
     public function relations()
     {
         return [
-            'author' => [static::BELONGS_TO, \User::class, 'id_author'],
+            'author' => [static::BELONGS_TO, site\frontend\modules\iframe\models\User::class, 'id_author'],
         ];
     }
 

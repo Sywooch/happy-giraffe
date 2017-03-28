@@ -15,6 +15,7 @@ use site\frontend\modules\users\models\User;
 class ProfileController extends QaController
 {
     public $litePackage = 'pediatrician-iframe';
+    public $layout = '/../../../views/layouts/profile';
     public $user;
 
     public function actionIndex($userId)

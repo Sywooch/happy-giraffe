@@ -1,8 +1,8 @@
 <?php
 /**
- * @var site\frontend\modules\som\modules\qa\controllers\DefaultController $this
- * @var site\frontend\modules\som\modules\qa\models\QaAnswer $data
- * @var site\frontend\modules\som\modules\qa\components\QaObjectList $additionalData
+ * @var site\frontend\modules\iframe\controllers\DefaultController $this
+ * @var site\frontend\modules\iframe\models\QaAnswer $data
+ * @var site\frontend\modules\iframe\components\QaObjectList $additionalData
  */
 
 $hasVote = FALSE;

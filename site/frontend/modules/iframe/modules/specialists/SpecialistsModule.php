@@ -15,7 +15,7 @@ class SpecialistsModule extends \CWebModule
         \Yii::app()->setComponent('authManager', array(
             'class' => '\site\frontend\components\AuthManager',
         ));
-        //\Yii::app()->clientScript->registerPackage('pediatrician-iframe');
+        \Yii::app()->clientScript->registerPackage('pediatrician-iframe');
 //        $this->setModules([
 //            'pediatrician' => [
 //                'class' => 'site\frontend\modules\specialists\modules\pediatrician\PediatricianModule',

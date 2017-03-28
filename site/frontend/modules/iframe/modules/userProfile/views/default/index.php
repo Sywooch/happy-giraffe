@@ -4,7 +4,7 @@
  * @var \User $user
  */
 use site\frontend\modules\comments\modules\contest\widgets\ProfileWidget;
-use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
+use site\frontend\modules\iframe\widgets\activity\ActivityWidget;
 use site\frontend\modules\iframe\modules\userProfile\widgets\PhotoWidget;
 use site\frontend\modules\iframe\modules\userProfile\widgets\UserSectionWidget;
 
@@ -18,15 +18,11 @@ $this->adaptiveBreadcrumbs = true;
 ?>
 
 <?php $this->widget(UserSectionWidget::class, ['user' => $user, 'showToOwner' => true]); ?>
-
-<div class="b-main_cont b-main_cont__broad">
+<div class="b-pediator-iframe">
     <div class="b-main_col-hold clearfix">
         <!--/////     -->
         <!-- Основная колонка-->
         <div class="b-main_col-article">
-            <?php $contestWidget = $this->widget(ProfileWidget::class, [
-                'userId' => $user->id,
-            ]); ?>
             <?php
             $this->widget(ActivityWidget::class, [
                 'setNoindexIfEmpty' => true,
@@ -39,14 +35,14 @@ $this->adaptiveBreadcrumbs = true;
         <!--/////-->
         <!-- Сайд бар  -->
         <aside class="b-main_col-sidebar visible-md">
-            <?php $this->widget(PhotoWidget::class, compact('user')); ?>
-            <!-- виджет друзья-->
-            <friends-section params="userId: <?= $user->id ?>"></friends-section>
-            <!-- /виджет друзья-->
-            <!-- виджет клубы-->
-            <clubs-section params="userId: <?= $user->id ?>"></clubs-section>
-            <!-- /виджет клубы-->
-
+            <?php
+            $this->widget('site\frontend\modules\iframe\widgets\banners\BannersWidget', [
+                'banner'   => [
+                    'path' => '/app/builds/static/img/pediatrician/banner-test.png',
+                    'url' => '#',
+                ],
+            ]);
+            ?>
         </aside>
     </div>
 </div>

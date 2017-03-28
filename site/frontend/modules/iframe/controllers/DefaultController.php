@@ -134,7 +134,7 @@ class DefaultController extends QaController
         if (in_array($action->id, $newDesigneActions))
         {
             $this->layout       = '/layouts/pediatrician';
-            $this->litePackage  = 'new_pediatrician';
+            $this->litePackage  = 'pediatrician-iframe';
         }
 
         return parent::beforeAction($action);

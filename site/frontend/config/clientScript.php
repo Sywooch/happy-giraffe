@@ -660,18 +660,40 @@ return array(
         ),
         'lite_pediatrician-iframe' => array(
             'baseUrl' => '/',
-            'css' => array()
+            'css' => array(
+                'app/builds/static/css/iframe/main.css',
+            ),
+        ),
+        'lite_member-iframe' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/member.css',
+                'lite/css/min/member-new.css',
+                'app/builds/static/css/iframe/main.css',
+            ),
         ),
         'iframe' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
                 'app/builds/static/css/main.min.css',
-                'app/builds/static/css/iframe/pediator.css',
-                'app/builds/static/css/iframe/main.css',
             ),
             'js' => array(
                 'app/builds/static/js/main.min.js',
+                'app/builds/static/js/iframe/main.js',
+            ),
+            'depends' => array('jquery'),
+        ),
+        'pediatrician-iframe' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'app/builds/static/css/iframe/pediator.css',
+            ),
+            'js' => array(
+                'app/builds/static/js/main.min.js',
+                'app/builds/static/js/iframe/main.js',
             ),
             'depends' => array('jquery'),
         ),

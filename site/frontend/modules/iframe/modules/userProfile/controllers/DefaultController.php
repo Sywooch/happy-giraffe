@@ -3,15 +3,18 @@
 namespace site\frontend\modules\iframe\modules\userProfile\controllers;
 
 use site\frontend\modules\users\models\User;
+use site\frontend\modules\iframe\components\QaController;
 
 /**
  * @author Никита
  * @date 25/12/14
  */
-class DefaultController extends \LiteController
+class DefaultController extends QaController
 {
 
-    public $litePackage = 'member';
+    public $litePackage = 'member-iframe';
+
+    public $layout = '/../../../views/layouts/profile';
 
     public function getListDataProvider($authorId)
     {

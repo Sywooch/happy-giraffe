@@ -45,6 +45,14 @@ $this->renderSidebarClip();
                 </div>
             </div>
         </div>
+        <?php
+        $this->widget('site\frontend\modules\iframe\widgets\banners\BannersWidget', [
+            'banner'   => [
+                'path' => '/app/builds/static/img/pediatrician/banner-test.png',
+                'url' => '#',
+            ],
+        ]);
+        ?>
     </aside>
 </div>
 <?php $this->endContent(); ?>

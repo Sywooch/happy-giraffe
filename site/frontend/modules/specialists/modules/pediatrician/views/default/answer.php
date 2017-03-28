@@ -119,7 +119,7 @@ $cs->registerAMD(
         'common',
         'comet'
     ],
-    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . MPQaManager::getQuestionChannelId($currentAnswerId->id) . '\');'
+    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . MPQaManager::getQuestionChannelId(!is_null($currentAnswerId) ? $currentAnswerId->id : $question->id) . '\');'
 );
 
 ?>

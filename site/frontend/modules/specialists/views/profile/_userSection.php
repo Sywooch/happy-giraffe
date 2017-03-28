@@ -1,5 +1,7 @@
 <?php
 
+use site\frontend\modules\specialists\components\SpecialistProfileDecorator;
+
 /**
  * @var User $user
  * @var \site\frontend\modules\specialists\models\SpecialistProfile $profile
@@ -24,7 +26,7 @@ $breadcrumbs = [
     $user->getFullName()
 ];
 
-$fullName = (new \site\frontend\modules\specialists\components\SpecialistProfileDecorator($user))->getFullName();
+$fullName = (new SpecialistProfileDecorator($user))->getFullName();
 
 ?>
 

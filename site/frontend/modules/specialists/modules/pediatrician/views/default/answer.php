@@ -13,7 +13,6 @@ $this->pageTitle = $question->title;
 
 $answerTreeHelper = new AnswersTree();
 $answerTreeHelper->init($question->getSpecialistDialog(\Yii::app()->user->id));
-
 $currentAnswerId = $answerTreeHelper->getCurrentAnswerForSpecialist();
 
 $jsParams = [

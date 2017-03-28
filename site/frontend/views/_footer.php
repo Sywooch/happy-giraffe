@@ -9,6 +9,7 @@
             <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'advertising'))?>" class="footer-list_a footer-list__reklama">Реклама </a></li>
             <li class="footer-list_li"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'contacts'))?>" class="footer-list_a">Контакты </a></li>
         </ul>
+        <div class="layout-footer_tx margin-b5">ИП Гаврилина Елена Владимировна, ИНН 771471845300</div>
         <div class="layout-footer_tx">© 2012–<?php echo date('Y'); ?> Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
         <div class="layout-footer_privacy-hold"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'confidential'))?>" class="layout-footer_privacy">Политика конфиденциальности</a><?php if ($this->route != 'archive/default/map'): ?><a href="<?=$this->createUrl('/archive/default/map')?>" class="layout-footer_privacy">Карта сайта</a><?php endif; ?></div>
     </div>

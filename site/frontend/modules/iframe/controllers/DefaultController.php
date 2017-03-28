@@ -13,6 +13,7 @@ use site\frontend\modules\iframe\models\QaAnswerVote;
 use site\frontend\modules\iframe\components\QaObjectList;
 use site\frontend\modules\iframe\models\QaQuestionEditing;
 use site\frontend\modules\iframe\models\qaTag\QaTagManager;
+use site\frontend\modules\iframe\models\Pediatrician;
 
 class DefaultController extends QaController
 {
@@ -61,6 +62,23 @@ class DefaultController extends QaController
         }
 
         $this->render('index', compact('dp', 'tab', 'categoryId', 'category'));
+    }
+
+    /*
+     * Список педиатров
+     */
+    public function actionPediatricianList()
+    {
+        $data = Pediatrician::model()->getData();
+        $dp = new \CArrayDataProvider($data['rows'], array(
+            'id'=>'pediatrician-list',
+            'keyField' => false,
+            'pagination'=>array(
+                'pageSize'=>12,
+            ),
+        ));
+
+        $this->render('pediatrician-list',compact('dp'));
     }
 
     public function actionPediatrician($tab, $tagId = null)
@@ -134,6 +152,10 @@ class DefaultController extends QaController
         if (in_array($action->id, $newDesigneActions))
         {
             $this->layout       = '/layouts/pediatrician';
+            $this->litePackage  = 'pediatrician-iframe';
+        }
+        if ($action->id == 'pediatricianList'){
+            $this->layout       = '/layouts/profile';
             $this->litePackage  = 'pediatrician-iframe';
         }
 

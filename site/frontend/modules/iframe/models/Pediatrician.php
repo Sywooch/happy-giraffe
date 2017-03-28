@@ -1,31 +1,16 @@
 <?php
 
-namespace site\frontend\modules\iframe\widgets\usersTop;
+namespace site\frontend\modules\iframe\models;
 
-use site\frontend\modules\iframe\models\QaCategory;
 use site\frontend\modules\iframe\components\api\User;
-use site\frontend\modules\iframe\models\QaAnswer;
-use site\frontend\modules\iframe\models\QaQuestion;
-use site\frontend\modules\iframe\models\QaAnswerVote;
-
 /**
- * @author Emil Vililyaev
+ *
  */
-class NewUsersTopWidget extends UsersTopWidget
+class Pediatrician extends \HActiveRecord
 {
+    private $limit = 20;
 
-    /**
-     * @var integer
-     */
-    const nameLengthLimit = 17;
-
-    /**
-     * @var boolean
-     * in list only users or ONLY specialists, all users need implement
-     */
-    public $onlyUsers = TRUE;
-
-
+    protected $scores = [];
     /*
      * @var boolean
      * выборка по всему периоду
@@ -33,39 +18,14 @@ class NewUsersTopWidget extends UsersTopWidget
     public $allPeriod = FALSE;
 
     /**
-     * @param string $name
-     * @return string
-     */
-    public function formattedName($name)
-    {
-        if (!is_string($name) || mb_strlen($name, 'UTF-8') < self::nameLengthLimit)
-        {
-            return $name;
-        }
-
-        return mb_substr($name, 0, self::nameLengthLimit - 1, 'UTF-8') . '&#8230';
-    }
-
-    /**
-     * {@inheritDoc}
-     * @see \site\frontend\modules\som\modules\qa\widgets\usersTop\UsersTopWidget::init()
-     */
-    public function init()
-    {
-        $this->setViewName($this->viewFileName);
-        $this->_setTitle();
-    }
-
-    /**
      * {@inheritDoc}
      * @see \site\frontend\components\TopWidgetAbstract::getData()
      */
     public function getData()
     {
-        $this->_process($this->onlyUsers);
+        $this->process();
 
-        $top = array_slice($this->scores, 0, $this->getLimit(), true);
-
+        $top = array_slice($this->scores, 0, $this->limit, true);
         $users = User::model()->findAllByPk(array_keys($top), ['avatarSize' => 40]);
 
         $rows = [];
@@ -79,12 +39,6 @@ class NewUsersTopWidget extends UsersTopWidget
             ];
         }
 
-
-        if (empty($rows))
-        {
-            return; //@todo Emil Vililyaev: для того чтобы не проверять if (!empty($data['rows'])... нужно отрефакторить все зависимые view
-        }
-
         return ['rows' => $rows];
     }
 
@@ -94,10 +48,10 @@ class NewUsersTopWidget extends UsersTopWidget
      * {@inheritDoc}
      * @see \site\frontend\components\TopWidgetAbstract::_process()
      */
-    protected function _process($onlyUsers = TRUE)
+    protected function process()
     {
-        $answerCount = $this->_getAnswersCount($onlyUsers);
-        $votesCount = $this->_getVotesCount($onlyUsers);
+        $answerCount = $this->_getAnswersCount();
+        $votesCount = $this->_getVotesCount();
         $result = array_merge($answerCount, $votesCount);
 
         if (empty($result))
@@ -141,7 +95,7 @@ class NewUsersTopWidget extends UsersTopWidget
         });
     }
 
-    private function _getAnswersCount($onlyUsers = TRUE)
+    private function _getAnswersCount()
     {
         $answerTableName = QaAnswer::model()->tableName();
         $questionsTableName = QaQuestion::model()->tableName();
@@ -150,20 +104,8 @@ class NewUsersTopWidget extends UsersTopWidget
             ->from($answerTableName)
             ->leftJoin($questionsTableName, $answerTableName . '.questionId = ' . $questionsTableName . '.id AND ' . $questionsTableName . '.isRemoved = 0')
             ->where($answerTableName . '.isRemoved=0')
-            ->andWhere($questionsTableName . '.categoryId=' . QaCategory::PEDIATRICIAN_ID)
-        ;
-
-        if(!$this->allPeriod){
-            $cmd->andWhere($answerTableName . '.dtimeCreate > ' . $this->_getTimeFrom());
-            $cmd->andWhere($answerTableName . '.dtimeCreate < ' . $this->_getTimeTo());
-        }
-
-        if ($onlyUsers)
-        {
-            $cmd->andWhere($answerTableName . '.authorId NOT IN (SELECT id FROM specialists__profiles)');
-        } else {
-            $cmd->andWhere($answerTableName . '.authorId IN (SELECT id FROM specialists__profiles)');
-        }
+            ->andWhere($answerTableName . '.authorId IN (SELECT id FROM specialists__profiles)')
+            ->andWhere($questionsTableName . '.categoryId=' . QaCategory::PEDIATRICIAN_ID);
 
         $list = $cmd
             ->group($answerTableName . '.authorId')
@@ -181,7 +123,7 @@ class NewUsersTopWidget extends UsersTopWidget
         return $answers;
     }
 
-    private function _getVotesCount($onlyUsers = TRUE)
+    private function _getVotesCount()
     {
         $votesTableName = QaAnswerVote::model()->tableName();
         $answerTableName = QaAnswer::model()->tableName();
@@ -189,19 +131,7 @@ class NewUsersTopWidget extends UsersTopWidget
             ->select($answerTableName . '.authorId, COUNT(*) AS `count`')
             ->join($answerTableName, $answerTableName . '.id = ' . $votesTableName . '.answerId')
             ->from($votesTableName)
-        ;
-
-        if(!$this->allPeriod){
-            $cmd->andWhere($votesTableName . '.dtimeCreate > ' . $this->_getTimeFrom());
-            $cmd->andWhere($votesTableName . '.dtimeCreate < ' . $this->_getTimeTo());
-        }
-
-        if ($onlyUsers)
-        {
-            $cmd->andWhere($answerTableName . '.authorId NOT IN (SELECT id FROM specialists__profiles)');
-        } else {
-            $cmd->andWhere($answerTableName . '.authorId IN (SELECT id FROM specialists__profiles)');
-        }
+            ->andWhere($answerTableName . '.authorId IN (SELECT id FROM specialists__profiles)');
 
         $list = $cmd
             ->group($answerTableName . '.authorId')
@@ -218,5 +148,4 @@ class NewUsersTopWidget extends UsersTopWidget
 
         return $votes;
     }
-
 }

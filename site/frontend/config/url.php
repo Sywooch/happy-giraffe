@@ -174,6 +174,7 @@ return array(
         'iframe/<tab:(all|new|unanswered)>' => 'iframe/default/pediatrician',
         'iframe' => array('iframe/default/pediatrician', 'defaultParams' => array('tab' => 'new')),
         'iframe/add' => 'iframe/default/pediatricianAddForm',
+        'iframe/pediatricians' => 'iframe/default/pediatricianList',
         'iframe/edit/<questionId:\d+>' => 'iframe/default/pediatricianEditForm',
         'iframe/questions/<categoryId:\d+>/page<page:\d+>' => array('iframe/default/index', 'defaultParams' => array('tab' => 'new')),
         'iframe/questions/<categoryId:\d+>/<tagId:\d+>' => array('iframe/default/index', 'defaultParams' => array('tab' => 'new')),

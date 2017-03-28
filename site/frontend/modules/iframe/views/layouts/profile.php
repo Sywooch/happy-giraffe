@@ -85,8 +85,69 @@ $this->beginContent('application.modules.iframe.views._parts.main');
             font-size: 15px;
             text-align: center;
         }
+        .padding-iframe-container{
+            padding: 35px;
+            padding-bottom: 135px;
+        }
+        .b-pediatrician-list-item{
+            display: block;
+            float: left;
+            width: 33.33%;
+            height: 370px;
+            padding: 30px 50px;
+            padding-bottom: 0;
+        }
+        .b-pediatrician-list-item_ava{
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            border-radius: 200px;
+            height: 200px;
+            width: 200px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .b-pediatrician-list-item_link{
+            display: block;
+            text-align: center;
+        }
+        .b-pediatrician-list-item_name{
+            font-size: 12px;
+        }
+        .b-pediatrician-list-item_orange{
+            font-size: 12px;
+            color: #ee809b;
+        }
+        .b-pediatrician-list-item_city{
+            font-size: 12px;
+            color: rgba(0,0,0,0.42);
+        }
+        .b-pediatrician-list-item_box{
+            display: table;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .b-pediatrician-list-item_cell{
+            display: table-cell;
+        }
+        .b-pediatrician-list-item_count{
+            font-size: 24px;
+            color: #000000;
+            display: block;
+        }
+        .b-pediatrician-list-item_gray{
+            display: block;
+            font-size: 14px;
+            color: rgba(0,0,0,0.6);
+        }
+        .b-pediatrician-list-item_gray .b-answer-header-box__ico{
+            margin-right: -3px;
+        }
     </style>
     <div class="b-col__container">
-        <?=$content?>
+        <div class="padding-iframe-container">
+            <?=$content?>
+        </div>
     </div>
 <?php $this->endContent(); ?>

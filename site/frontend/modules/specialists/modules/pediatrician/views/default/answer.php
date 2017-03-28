@@ -43,7 +43,7 @@ $jsParamsStr = implode(',', $jsParams);
             <span class="questions_item_heading"><?=$question->title?></span>
             <?php if ($question->tag): ?>
                 <div class="pediator-answer__footer-box">
-                    <div class="box-wrapper__footer box-footer"><a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->categoryId, 'tagId' => $question->tag->id])?>" class="box-footer__cat"><?=$question->tag->name?></a></div>
+                    <div class="box-wrapper__footer box-footer"><a href="<?=UrlCreator::create('/pediatrician/questions/', ['filter' => ['tag' => $question->tag->id]]);?>" class="box-footer__cat"><?=$question->tag->name?></a></div>
                 </div>
             <?php endif; ?>
             <div class="question_text">

@@ -667,6 +667,12 @@ return array(
                 'app/builds/static/css/iframe/main.css',
             ),
         ),
+        'lite_notification-iframe' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                '/new/css/all1.css',
+            ),
+        ),
         'lite_member-iframe' => array(
             'amd' => true,
             'baseUrl' => '/',

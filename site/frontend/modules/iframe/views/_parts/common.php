@@ -31,6 +31,41 @@
         <script>
             (function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)
         </script>
+     <style>
+         .notice-header-kids__icon{
+             display: inline-block;
+             vertical-align: middle;
+             background-image: url("/app/builds/static/img/pediatrician/kids.svg");
+             background-repeat: no-repeat;
+             background-size: contain;
+             width: 24px;
+             height: 24px;
+             margin-right: 10px;
+         }
+         .notice-header-kids__icon-big{
+             display: block;
+             margin: 0 auto;
+             width: 192px;
+             height: 192px;
+             background-image: url("/app/builds/static/img/pediatrician/kids.svg");
+             background-repeat: no-repeat;
+             background-size: contain;
+             opacity: 0.1;
+             margin-top: 60px;
+         }
+         .cap-empty-iframe_t{
+             font-size: 14px;
+             color: rgba(0,0,0,0.4);
+         }
+         .cap-empty-ifram_tx-sub{
+             margin-top: 50px;
+         }
+         .cap-empty-ifram_tx-sub .btn{
+             font-size: 14px;
+             padding: 14px 70px;
+             border-radius: 50px;
+         }
+     </style>
     </head>
 
      <body class="page--bg page-iframe--bg">

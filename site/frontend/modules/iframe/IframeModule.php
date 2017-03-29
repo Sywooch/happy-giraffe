@@ -24,6 +24,9 @@ class IframeModule extends \CWebModule
             'family' => [
                 'class' => 'site\frontend\modules\iframe\modules\family\FamilyModule',
             ],
+            'notifications' => [
+                'class' => 'site\frontend\modules\iframe\modules\notifications\NotificationsModule',
+            ],
         ]);
     }
 }

@@ -22,7 +22,7 @@ Yii::app()->clientScript->registerAMD('photo-albums-create', array('kow'));
     <div class="popup-widget_heading">
         <div class="popup-widget_heading_icon"></div>
         <div class="popup-widget_heading_text">Задать вопрос</div>
-        <a href="<?= $this->createUrl('/som/qa/default/index') ?>" class="popup-widget_heading_close-btn"></a>
+        <a href="<?= $this->createUrl('/iframe/default/index') ?>" class="popup-widget_heading_close-btn"></a>
     </div>
     <div class="popup-widget_wrap">
         <?php

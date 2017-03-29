@@ -155,7 +155,7 @@ class DefaultController extends QaController
             $this->litePackage  = 'pediatrician-iframe';
         }
         if ($action->id == 'pediatricianList'){
-            $this->layout       = '/layouts/profile';
+            $this->layout       = '/layouts/only-top';
             $this->litePackage  = 'pediatrician-iframe';
         }
 
@@ -288,7 +288,7 @@ class DefaultController extends QaController
     public function actionPediatricianAddForm()
     {
         if (!\Yii::app()->user->checkAccess('createQaQuestion')) {
-            $this->redirect($this->createUrl('/site/index'));
+            $this->redirect($this->createUrl('/iframe/default/pediatrician'));
         }
 
         $tagsData = (new HCollection(QaTagManager::getAllTags()))->toArray();

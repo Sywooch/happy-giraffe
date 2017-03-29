@@ -43,13 +43,13 @@ if (! Yii::app()->user->isGuest) {
 ?>
 <div class="header__container">
     <div class="b-col b-col--1 b-fl">
-        <a href="/" class="header__logo header__logo--style header-iframe__logo"></a>
+        <a href="<?=$this->createUrl('/iframe/default/pediatrician')?>" class="header__logo header__logo--style header-iframe__logo"></a>
         <a class="js-mobile-menu mobile-menu"><span></span></a>
     </div>
     <nav class="header__menu header__menu--style header-iframe__menu--style">
         <ul class="header__list">
-            <li class="header__li header-iframe__li--active"><a href="<?=$this->createUrl('/iframe/default/pediatrician')?>" class="header__link header-iframe__link header__link--answer">Вопросы</a></li>
-            <li class="header__li"><a href="#" class="header__link header-iframe__link header__link--doc">Врачи</a></li>
+            <li class="header__li <?=$this->action->id=='pediatricianList'?'':'header-iframe__li--active';?>"><a href="<?=$this->createUrl('/iframe/default/pediatrician')?>" class="header__link header-iframe__link header__link--answer">Вопросы</a></li>
+            <li class="header__li <?=$this->action->id=='pediatricianList'?'header-iframe__li--active':'';?>"><a href="<?=$this->createUrl('/iframe/default/pediatricianList')?>" class="header__link header-iframe__link header__link--doc">Врачи</a></li>
         </ul>
     </nav>
     <?php if (Yii::app()->user->isGuest): ?>

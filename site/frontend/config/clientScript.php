@@ -658,6 +658,9 @@ return array(
                 'lite/css/min/pediator.css',
             )
         ),
+        'lite_family-iframe' => array(
+            'depends' => array('lite_member-iframe'),
+        ),
         'lite_pediatrician-iframe' => array(
             'baseUrl' => '/',
             'css' => array(

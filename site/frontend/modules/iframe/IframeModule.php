@@ -21,6 +21,9 @@ class IframeModule extends \CWebModule
             'specialists' => [
                 'class' => 'site\frontend\modules\iframe\modules\specialists\SpecialistsModule',
             ],
+            'family' => [
+                'class' => 'site\frontend\modules\iframe\modules\family\FamilyModule',
+            ],
         ]);
     }
 }

@@ -183,6 +183,9 @@ return array(
         'iframe/user/<userId:\d+>/info' => 'iframe/specialists/profile/info',
         'iframe/specialists/editProfile' => 'iframe/specialists/default/index',
         'iframe/user/<userId:\d+>' => 'iframe/userProfile/default/index',
+        'iframe/user/<userId:\d+>/family/photo<photoId:\d+>' => 'iframe/photo/singlePhoto/family',
+        'iframe/user/<userId:\d+>/family' => 'iframe/family/default/index',
+        'iframe/user/<userId:\d+>/family/edit' => 'iframe/family/default/fill',
 
         /* SOM */
         'status' => 'som/status/default/index',

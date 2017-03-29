@@ -77,6 +77,7 @@
                     </div>
                 </div>
             </main>
+            <?php $this->renderPartial('application.modules.iframe.views._parts.footer'); ?>
         </div>
     </body>
 </html>

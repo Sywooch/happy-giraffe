@@ -80,7 +80,7 @@ class PrivateDoctorConsultationChat implements IChat
      */
     public function onMessage($chat, $message, $userId)
     {
-        if ($chat->limit <= 0 || $chat->expires_in >= time()) {
+        if (($chat->expires_in == null && $chat->limit <= 0) || $chat->expires_in <= time()) {
             return false;
         }
 

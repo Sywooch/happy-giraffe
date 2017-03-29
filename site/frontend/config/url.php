@@ -83,6 +83,7 @@ return array(
         '<_v>/api/utils' => 'api/<_v>/api/utils',
         '<_v>/api/utils/<action:(time)>' => 'api/<_v>/api/utils',
         '<_v>/api/billing' => 'api/<_v>/api/billing',
+        '<_v>/api/doctor-search/<action:(start|stop|accept|decline|choose)>' => 'api/<_v>/api/doctor-search',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

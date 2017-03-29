@@ -42,10 +42,10 @@ class ChatMessage extends \EMongoDocument
     public function behaviors()
     {
         return [
-            'HTimestampBehavior' => [
-                'class' => 'HTimestampBehavior',
-                'createAttribute' => 'created_at',
-            ],
+//            'HTimestampBehavior' => [
+//                'class' => 'HTimestampBehavior',
+//                'createAttribute' => 'created_at',
+//            ],
         ];
     }
 
@@ -98,12 +98,15 @@ class ChatMessage extends \EMongoDocument
      */
     public static function create($message, $chatId, $userId)
     {
-        $model = new self;
+        $model = new ChatMessage();
 
         $model->message = $message;
         $model->chat_id = $chatId;
         $model->status = ChatMessageStatuses::UNREAD;
         $model->user_id = $userId;
+        $model->created_at = time();
+
+        $model->save();
 
         return $model;
     }

@@ -645,5 +645,11 @@ return array(
                 'lite/css/min/pediator.css',
             )
         ),
+        'register_form' => [
+            'baseUrl' => '/',
+            'css' => [
+                'app/builds/static/css/separate-css/separate-css-sample.css',
+            ],
+        ],
     )
 );

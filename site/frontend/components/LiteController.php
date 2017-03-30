@@ -34,6 +34,8 @@ class LiteController extends HController
         if (! Yii::app()->user->isGuest) {
             Yii::app()->clientScript->registerAMD('Realplexor-reg', array('common', 'comet'), 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
         }
+        Yii::app()->clientScript->registerPackage('register_form');
+        Yii::app()->clientScript->registerCssFile('https://fonts.googleapis.com/icon?family=Material+Icons');
         parent::init();
     }
 

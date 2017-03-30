@@ -49,6 +49,7 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
             {
                 $result = false;
             }
+
             if ($result) {
                 $this->owner->afterSoftDelete();
             }

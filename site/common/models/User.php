@@ -2,6 +2,7 @@
 
 use site\frontend\modules\family\models\Family;
 use site\frontend\modules\family\models\FamilyMember;
+
 /**
  * This is the model class for table "user".
  *
@@ -70,6 +71,8 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property CommunityClub[] $clubSubscriptions
  * @property string $publicChannel Имя публичного канала пользователя (в который отправляются события online/offline)
  * @property site\frontend\modules\specialists\models\SpecialistProfile $specialistProfile
+ * @property-read bool $isSpecialist
+ * @property-read string $fullName
  *
  * @method User active()
  */
@@ -621,10 +624,14 @@ class User extends HActiveRecord
      */
     public function getFullName()
     {
+        $firstName      = Str::ucFirst($this->first_name);
+        $middleName     = Str::ucFirst($this->middle_name);
+        $lastName       = Str::ucFirst($this->last_name);
+
         if ($this->specialistInfo) {
-            $parts = [$this->first_name, $this->middle_name, mb_substr($this->last_name, 0, 1, 'UTF-8') . '.'];
+            $parts = [$firstName, $middleName, mb_substr($lastName, 0, 1, 'UTF-8') . '.'];
         } else {
-            $parts = [$this->first_name, $this->last_name];
+            $parts = [$firstName, $lastName];
         }
         return implode(' ', array_filter($parts));
     }
@@ -1671,5 +1678,13 @@ class User extends HActiveRecord
         }
 
         return false;
+    }
+    
+    /**
+     * @return bool
+     */
+    public function getIsSpecialist()
+    {
+        return $this->specialistProfile !== null;
     }
 }

@@ -3,8 +3,11 @@ namespace site\frontend\modules\som\modules\qa\models;
 
 use site\common\behaviors\AuthorBehavior;
 use site\frontend\modules\notifications\behaviors\ContentBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior;
+use site\frontend\modules\som\modules\qa\behaviors\AnswerCometBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior;
 use site\frontend\modules\som\modules\qa\behaviors\QaBehavior;
+use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 
@@ -35,11 +38,24 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswerVote[] $votes
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer $root
  * @property \site\frontend\modules\som\modules\qa\models\QaAnswer[] $children
+ * @property \site\frontend\modules\som\modules\qa\behaviors\ClosureTableBehavior $CTBehavior
  *
  * @property \site\frontend\components\api\models\User $user
  */
 class QaAnswer extends \HActiveRecord implements \IHToJSON
 {
+    /**
+     * @var integer PUBLISHED Статус опубликованного ответа
+     * @author Sergey Gubarev
+     */
+    const PUBLISHED = 1;
+
+    /**
+     * @var integer NOT_REMOVED Статус неудаленного ответа
+     * @author Sergey Gubarev
+     */
+    const NOT_REMOVED = 0;
+
     /**
      * Диапазон времени (минут), в течени которого специалист может редактировать свой ответ
      *
@@ -64,153 +80,164 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return $this->dtimeCreate <= time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
     }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'qa__answers';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'qa__answers';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('questionId', 'safe'),
-			array('text', 'required'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return [
+            ['questionId', 'safe'],
+            ['text', 'required'],
+            ['isRemoved', 'default', 'value' => 0],
+            ['votesCount', 'default', 'value' => 0],
+            ['isBest', 'default', 'value' => 0],
+        ];
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'question' => array(self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'),
-			'author' => array(self::BELONGS_TO, get_class(\User::model()), 'authorId'),
-			'category' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', array('categoryId' => 'id'), 'through' => 'question'),
-			'tag' => array(self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', array('tag_id' => 'id'), 'through' => 'question'),
-			'votes' => array(self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'),
-			'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
-			'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id'],
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return [
+            'question' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaQuestion', 'questionId', 'joinType' => 'INNER JOIN'],
+            'author' => [self::BELONGS_TO, get_class(\User::model()), 'authorId'],
+            'category' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaCategory', ['categoryId' => 'id'], 'through' => 'question'],
+            'tag' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaTag', ['tag_id' => 'id'], 'through' => 'question'],
+            'votes' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswerVote', 'answerId'],
+            'root' => [self::BELONGS_TO, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id', 'joinType' => 'inner join'],
+            'children' => [self::HAS_MANY, 'site\frontend\modules\som\modules\qa\models\QaAnswer', 'root_id']
+        ];
+    }
 
-	public function apiRelations()
-	{
-		return array(
-			'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => array('avatarSize' => 40)),
-		);
-	}
+    public function apiRelations()
+    {
+        return [
+            'user' => ['site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => ['avatarSize' => 40]],
+        ];
+    }
 
-	/**
-	 * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
-	 */
-	public function getChilds()
-	{
-		$matchedAnswers = $this->children;
+    /**
+     * Получить ID comet-канала
+     *
+     * @return string
+     * @author Sergey Gubarev
+     */
+    public function channelId()
+    {
+        $idParts = [
+            QaManager::getQuestionChannelId($this->questionId),
+            'answer' . $this->id,
+            QaQuestion::COMET_CHANNEL_ID_EDITED_PREFIX
+        ];
 
-		foreach ($matchedAnswers as $answer)
-		{
-			if (!empty($answer->children))
-			{
-				$matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
-			}
+        return implode('_', $idParts);
+    }
 
-		}
+    /**
+     * @return \site\frontend\modules\som\modules\qa\models\QaAnswer[]
+     * @deprecated use descendants scope ($answer->descendants()->findAll())
+     */
+    public function getChilds()
+    {
+        $matchedAnswers = $this->children;
 
-		return $matchedAnswers;
+        foreach ($matchedAnswers as $answer) {
+            if (!empty($answer->children)) {
+                $matchedAnswers = array_merge($matchedAnswers, $answer->getChilds());
+            }
+        }
 
-	}
+        return $matchedAnswers;
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'text' => 'Text',
-			'questionId' => 'Question',
-			'authorId' => 'Author',
-			'dtimeCreate' => 'Dtime Create',
-			'dtimeUpdate' => 'Dtime Update',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'text' => 'Text',
+            'questionId' => 'Question',
+            'authorId' => 'Author',
+            'dtimeCreate' => 'Dtime Create',
+            'dtimeUpdate' => 'Dtime Update',
+        ];
+    }
 
-	public function behaviors()
-	{
-		return array(
-			'CacheDelete' => array(
-				'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
-			),
- 			'PushStream' => array(
- 				'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
- 			),
-			'softDelete' => array(
-				'class' => 'site.common.behaviors.SoftDeleteBehavior',
-				'removeAttribute' => 'isRemoved',
-			),
-			'HTimestampBehavior' => array(
-				'class' => 'HTimestampBehavior',
-				'createAttribute' => 'dtimeCreate',
-				'updateAttribute' => 'dtimeUpdate',
-			),
-			'AuthorBehavior' => array(
-				'class' => 'site\common\behaviors\AuthorBehavior',
-				'attr' => 'authorId',
-			),
-			'purified' => array(
-				'class' => 'site.common.behaviors.PurifiedBehavior',
-				'attributes' => array('text'),
-				'options' => array(
-					'AutoFormat.Linkify' => true,
-				),
-			),
-			'RatingBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
-			),
-			'notificationBehavior' => array(
-				'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
-			),
-		    'site\frontend\modules\som\modules\qa\behaviors\QaBehavior',
-		);
-	}
+    public function behaviors()
+    {
+        return [
+            'CacheDelete' => [
+                'class' => \site\frontend\modules\api\ApiModule::CACHE_DELETE,
+            ],
+            'PushStream' => [
+                'class' => \site\frontend\modules\api\ApiModule::PUSH_STREAM,
+            ],
+            'softDelete' => [
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+                'removeAttribute' => 'isRemoved',
+            ],
+            'HTimestampBehavior' => [
+                'class' => 'HTimestampBehavior',
+                'createAttribute' => 'dtimeCreate',
+                'updateAttribute' => 'dtimeUpdate',
+            ],
+            'AuthorBehavior' => [
+                'class' => 'site\common\behaviors\AuthorBehavior',
+                'attr' => 'authorId',
+            ],
+            'purified' => [
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => ['text'],
+                'options' => [
+                    // 'AutoFormat.Linkify'    => true, @todo Sergey Gubarev: User warning: Cannot enable Linkify injector because a is not allowed
+                    'HTML.AllowedElements'  => ['h2', 'h3', 'h4', 'p', 'strike', 'b', 'em', 'i', 'img', 'br']
+                ]
+            ],
+            'RatingBehavior' => [
+                'class' => 'site\frontend\modules\som\modules\qa\behaviors\RatingBehavior',
+            ],
+            'notificationBehavior' => [
+                'class' => 'site\frontend\modules\som\modules\qa\behaviors\NotificationBehavior',
+            ],
+            'QaBehavior' => [
+                'class' => QaBehavior::class
+            ],
+            'CTBehavior' => [
+                'class'             => ClosureTableBehavior::class,
+                'closureTableName'  => 'qa__answers_tree',
+                'childAttribute'    => 'descendant_id',
+                'parentAttribute'   => 'ancestor_id'
+            ],
+            'AnswerCometBehavior' => [
+                'class' => AnswerCometBehavior::class
+            ]
+        ];
+    }
 
-	public function save($runValidation = true, $attributes = null)
-	{
-		if (\Yii::app()->db->getCurrentTransaction() !== null) {
-			return parent::save($runValidation, $attributes);
-		}
+    /**
+     * {@inheritDoc}
+     * @see CActiveRecord::beforeSave()
+     */
+    protected function beforeSave()
+    {
+        $parentResult = parent::beforeSave();
 
-		$transaction = $this->dbConnection->beginTransaction();
-		try {
-			$success = parent::save($runValidation, $attributes);
-			$transaction->commit();
-		} catch (\Exception $e) {
-			$transaction->rollback();
-			return false;
-		}
-		return $success;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see CActiveRecord::beforeSave()
-	 */
-	protected function beforeSave()
-	{
-	    $parentResult = parent::beforeSave();
-
-        if ($this->isAdditional())
-        {
+        if ($this->isAdditional()) {
             return $this->authorId == $this->question->authorId;
         }
 
@@ -227,19 +254,42 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
             $transaction->rollback();
             return false;
         }
+
         return $success;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function afterSave()
     {
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord)
+        {
             $this->updateAnswersCount(1);
+
+            if (!is_null($this->root_id))
+            {
+                $targetModel = self::model()->findByPk($this->root_id);
+                $targetModel->append($this);
+            }
+            else
+            {
+                $this->markAsRoot($this->id);
+            }
         }
+
         parent::afterSave();
     }
 
     public function afterSoftDelete()
     {
+        if ($this->isAdditional())
+        {
+            $channelId = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionChannelId($this->questionId);
+
+            (new \CometModel())->send($channelId, null, \CometModel::QA_REMOVE_ANSWER);
+        }
+
         $this->updateAnswersCount(-1);
         $this->softDelete->afterSoftDelete();
     }
@@ -252,35 +302,46 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
     protected function updateAnswersCount($n)
     {
-        $this->question->saveCounters(array('answersCount' => $n));
+        $this->question->saveCounters(['answersCount' => $n]);
     }
 
     public function user($userId)
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.authorId', $userId);
+
         return $this;
     }
 
     public function question($questionId)
     {
         $this->getDbCriteria()->compare($this->tableAlias . '.questionId', $questionId);
+
         return $this;
     }
 
     public function orderDesc()
     {
         $this->getDbCriteria()->order = $this->tableAlias . '.dtimeCreate DESC';
+
         return $this;
     }
 
     public function category($categoryId)
     {
-        $this->getDbCriteria()->mergeWith(array('with' => array(
-            'question' => array(
+        $this->getDbCriteria()->mergeWith(['with' => [
+            'question' => [
                 'joinType' => 'INNER JOIN',
-                'scopes' => array('category' => array($categoryId)),
-            ),
-        )));
+                'scopes' => ['category' => [$categoryId]],
+            ],
+        ]]);
+
+        return $this;
+    }
+
+    public function byRootId($rootId)
+    {
+        $this->getDbCriteria()->addColumnCondition(['root_id' => $rootId]);
+
         return $this;
     }
 
@@ -291,15 +352,17 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         $criteria = $this->getDbCriteria();
         $criteria->join = " JOIN $qTable q ON q.id = $t.questionId";
         $criteria->addCondition('q.consultationId IS NULL');
+
         return $this;
     }
 
     public function checkQuestionExiststance()
     {
         $criteria = new \CDbCriteria();
-        $criteria->with = array('question');
+        $criteria->with = ['question'];
         $criteria->addCondition('question.isRemoved = 0');
         $this->getDbCriteria()->mergeWith($criteria);
+
         return $this;
     }
 
@@ -346,7 +409,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function isAdditional()
     {
-        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && $this->root->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && $this->root->author->isSpecialist;
     }
 
     /**
@@ -362,7 +425,17 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function isCommentToBranch()
     {
-        return !$this->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS) && $this->root_id != null && !$this->root->author->isSpecialistOfGroup(SpecialistGroup::DOCTORS);
+        return !$this->authorIsSpecialist() && $this->root_id != null && !$this->root->author->isSpecialist;
+    }
+
+    /**
+     * @return self
+     */
+    public function onlyPublished()
+    {
+        $this->getDbCriteria()->addColumnCondition(['isPublished' => self::PUBLISHED]);
+
+        return $this;
     }
 
     /**
@@ -426,6 +499,23 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    public function descendantsCount($forMe = FALSE)
+    {
+        $condition = 'isPublished=' . QaAnswer::PUBLISHED;
+
+        if (!(\Yii::app() instanceof \CConsoleApplication))
+        {
+            $user = \Yii::app()->user;
+
+            if (!$user->isGuest && $forMe)
+            {
+                $condition = ' AND authorId=' . \Yii::app()->user->id;
+            }
+        }
+
+        return $this->descendants()->count($condition);
+    }
+
     /**
      * @return QaAnswer
      */
@@ -452,28 +542,62 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
 
         $status = $diffMins < self::MINUTES_FOR_EDITING ? true : false;
 
+        $user = \Yii::app()->user;
+
+        if ((!$user->isGuest && !$user->model->isSpecialist) || $this->isPublished)
+        {
+            $status = FALSE;
+        }
+
         return compact('status', 'diffMins');
     }
 
     public function defaultScope()
     {
         $t = $this->getTableAlias(false, false);
-        return array(
+
+        return [
             'condition' => $t . '.isRemoved = 0',
-        );
+        ];
     }
 
     public function toJSON()
     {
-        return array(
-            'id' => (int) $this->id,
-            'authorId' => (int) $this->authorId,
-            'dtimeCreate' => (int) $this->dtimeCreate,
-            'text' => $this->purified->text,
-            'votesCount' => (int) $this->votesCount,
-            'user' => $this->user->formatedForJson(),
-            'isRemoved' => (bool) $this->isRemoved,
-        );
+        $isVoted    = [];
+        $canEdit    = FALSE;
+        $canRemove  = FALSE;
+        $canVote    = FALSE;
+
+        if (!(\Yii::app() instanceof \CConsoleApplication))
+        {
+            $isVoted    = QaAnswerVote::model()->byAnswer($this->id)->user(\Yii::app()->user->id)->findAll();
+            $canEdit    = \Yii::app()->user->checkAccess('updateQaAnswer', array('entity' => $this));
+            $canRemove  = \Yii::app()->user->checkAccess('removeQaAnswer', array('entity' => $this));
+            $canVote    = \Yii::app()->user->checkAccess('voteAnswer', array('entity' => $this));
+        }
+
+        $this->purified->useCache = FALSE;
+
+        return [
+            'id'                                => (int) $this->id,
+            'authorId'                          => (int) $this->authorId,
+            'dtimeCreate'                       => (int) $this->dtimeCreate,
+            'text'                              => $this->purified->text,
+            'votesCount'                        => (int) $this->votesCount,
+            'user'                              => $this->user->formatedForJson(),
+            'isRemoved'                         => (bool) $this->isRemoved,
+            'bySpecialist'                      => $this->authorIsSpecialist(),
+            'rootId'                            => $this->root_id,
+            'canEdit'                           => $canEdit,
+            'canRemove'                         => $canRemove,
+            'canVote'                           => $canVote,
+            'isVoted'                           => !empty($isVoted),
+            'question'                          => $this->question->toJSON(),
+            'countChildAnswers'                 => (int) $this->descendantsCount(FALSE),
+            'isAdditional'                      => $this->isAdditional(),
+            'isAnswerToAdditional'              => $this->isAnswerToAdditional(),
+            'isEditing'                         => QaManager::isAnswerEditing((int) $this->id)
+        ];
     }
 
     /**
@@ -492,6 +616,28 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
      */
     public function authorIsSpecialist()
     {
-        return SpecialistProfile::model()->exists('id = :id', [':id' => $this->authorId]);
+        return $this->author->isSpecialist;
     }
+
+    public function getLeaf()
+    {
+        return empty($this->children);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see CActiveRecord::saveCounters()
+     */
+    public function saveCounters($counters)
+    {
+        $parentResult = parent::saveCounters($counters);
+
+        if ($parentResult && array_key_exists('votesCount', $counters))
+        {
+            $this->updateActivity();
+        }
+
+        return $parentResult;
+    }
+
 }

@@ -50,12 +50,18 @@ return array(
                 86400
             )
         ),
-//                    'sitemapBlog2.xml' => array(
-//                        'aliases' => array(
-//                            'application.modules.blog.controllers.DefaultController'
-//                        ),
-//                        'param' => 2,
-//                    ),
+        'sitemapBlog2' => array(
+            'aliases' => array(
+                'application.modules.posts.controllers.PostController',
+            ),
+            'changefreq' => 'daily',
+            'param' => array('page' => 2, 'service' => 'oldBlog'),
+            'cache' => array(
+                'fileCache',
+                /* кешируем на сутки */
+                86400
+            )
+        ),
         'sitemapCook.xml' => array(
             'aliases' => array(
                 'application.modules.cook.controllers.SpicesController',

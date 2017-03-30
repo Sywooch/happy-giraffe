@@ -41,6 +41,19 @@ if ($openLogin == 'login') {
 <body class="body body__lite body__homepage <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>  ">
 <?php Yii::app()->ads->showCounters(); ?>
 <div class="layout-container <?= Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP ? 'homepage' : 'homepage-res' ?>">
+    <div id="js-alerts" class="alerts" data-bind="template: { name: 'alert', foreach: alertsList }"></div>
+    <script type="text/html" id="alert">
+        <div class="alert alert-in" data-bind="css: 'alert-' + color">
+            <div class="position-rel">
+                <div class="alert__container">
+                    <div class="alert__ico" data-bind="css: 'alert__ico-' + color"></div>
+                    <div class="alert__text" data-bind="css: 'alert__text-' + color, text: message"></div>
+                </div>
+                <span class="alert__close" data-bind="click: $parent.closeAlert, css: 'alert__close-' + color"></span>
+            </div>
+        </div>
+    </script>
+    
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
             <!-- header-->

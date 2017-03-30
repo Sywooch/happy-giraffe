@@ -65,7 +65,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
 <div class="b-col b-col--6 b-col-sm--10 b-col-xs">
     <div class="b-mobile-nav">
-        <div class="b-mobile-nav__title">Мой педиатор</div>
+        <div class="b-mobile-nav__title">Мой педиатр</div>
         <div class="b-mobile-nav__right">
             <a href="javascript:void(0);" class="b-mobile-nav__btn btn btn--default">Задать вопрос</a>
         </div>

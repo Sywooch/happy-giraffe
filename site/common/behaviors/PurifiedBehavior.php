@@ -23,6 +23,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         'HTML.SafeObject' => true,
     );
 
+    // @todo Sergey Gubarev: Для чего кэшировать фильтрованные данные? Данные не поддаются повторному форматированию, т.к. постоянно при наличии отдаются с кэша.
     public function __get($name)
     {
         if (in_array($name, (array)$this->attributes)) {

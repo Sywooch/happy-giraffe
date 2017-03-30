@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\specialists\components;
 
+use site\frontend\modules\specialists\models\SpecialistProfile;
+
 /**
  * SpecialistProfileDecorator class
  *
@@ -27,7 +29,7 @@ class SpecialistProfileDecorator
     }
 
     /**
-     * Получить ФИО
+     * ФИО
      *
      * @return string
      */
@@ -44,5 +46,36 @@ class SpecialistProfileDecorator
         });
 
         return implode(' ', $arr);
+    }
+
+    /**
+     * Строка - опыт врача + стаж
+     *
+     * @return mixed
+     */
+    public function getExperienceStr()
+    {
+        $profile    = $this->_user->specialistProfile;
+        $output     = [];
+
+        $nounDeclension = [
+            SpecialistProfile::I_CATEGORY       => 'первой',
+            SpecialistProfile::II_CATEGORY      => 'второй',
+            SpecialistProfile::HIGHEST_CATEGORY => 'высшей'
+        ];
+
+        if ($profile->category)
+        {
+            $output[] = 'Врач ' . $nounDeclension[$profile->category] . ' категории';
+        }
+
+        if ($profile->experience)
+        {
+            $output[] = 'стаж ' . $profile->getExperienceLabel();
+        }
+
+        if ($output) {
+            return implode(', ', $output);
+        }
     }
 }

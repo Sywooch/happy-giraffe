@@ -1,5 +1,6 @@
 <?php
 
+use site\frontend\modules\specialists\modules\pediatrician\components\QaManager;
 use site\frontend\modules\specialists\components\SpecialistProfileDecorator;
 
 /**
@@ -26,7 +27,9 @@ $breadcrumbs = [
     $user->getFullName()
 ];
 
-$fullName = (new SpecialistProfileDecorator($user))->getFullName();
+$decorator  = new SpecialistProfileDecorator($user);
+$fullName   = $decorator->getFullName();
+$stats      = QaManager::getAnswerCountAndVotes($user->id);
 
 ?>
 
@@ -77,14 +80,31 @@ $fullName = (new SpecialistProfileDecorator($user))->getFullName();
             </div>
             <div class="user-section-box__item user-section-box__item--white">
                 <div class="user-section-box__num"><?= $stats['votes_count']; ?></div>
-                <div class="user-section-box__static"><span class="user-section-box__roze"></span><span class="user-section-box__roze"></span><span class="user-section-box__roze"></span><span class="user-section-box__senks">Спасибо</span>
+                <div class="user-section-box__static"><span class="user-section-box__roze"></span>
+                    <span class="user-section-box__roze"></span>
+                    <span class="user-section-box__roze"></span>
+                    <span class="user-section-box__senks">Спасибо</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="user-section__columns user-section-three user-section__columns--three b-text--center">
-        <div class="user-section-three__clinic b-margin--bottom_10">Частная клиника «Альфа-Центр Здоровья»</div>
-        <div class="user-section-three__experience">Врач высшей категории стаж более 20 лет</div>
+
+        <?php if ($profile->placeOfWork): ?>
+
+            <div class="user-section-three__clinic b-margin--bottom_10"><?= $profile->placeOfWork; ?></div>
+
+        <?php endif; ?>
+
+        <?php
+            $experienceString = $decorator->getExperienceStr();
+
+            if ($experienceString):
+        ?>
+
+            <div class="user-section-three__experience"><?= $experienceString; ?></div>
+
+        <?php endif; ?>
     </div>
 </section>
 

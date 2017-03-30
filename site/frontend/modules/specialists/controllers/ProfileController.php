@@ -24,9 +24,7 @@ class ProfileController extends \LiteController
         $dp = QaManager::getAnswersDp($userId, TRUE);
         $dp->pagination->pageVar = 'page';
 
-        $stats = QaManager::getAnswerCountAndVotes($userId);
-
-        $this->render('index', compact('dp', 'stats'));
+        $this->render('index', compact('dp'));
     }
 
     public function actionInfo($userId)

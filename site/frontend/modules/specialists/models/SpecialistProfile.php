@@ -27,14 +27,45 @@ use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
  */
 class SpecialistProfile extends \HActiveRecord
 {
+    /**
+     * @var string I_CATEGORY Первая категория
+     */
+    const I_CATEGORY = 'first';
+
+    /**
+     * @var string II_CATEGORY Вторая категория
+     */
+    const II_CATEGORY = 'second';
+
+    /**
+     * @var string HIGHEST_CATEGORY Высшая категория
+     */
+    const HIGHEST_CATEGORY = 'top';
+
 	public static function getCategoriesList()
 	{
 		return [
-			'first' => 'Первая категория',
-			'second' => 'Вторая категория',
-			'top' => 'Высшая категория',
+			self::I_CATEGORY        => 'Первая категория',
+			self::II_CATEGORY       => 'Вторая категория',
+			self::HIGHEST_CATEGORY  => 'Высшая категория',
 		];
 	}
+
+    /**
+     * Получить название категории
+     *
+     * @return string|null
+     * @author Sergey Gubarev
+     */
+	public function getCategoryLabel()
+    {
+        if (array_key_exists($this->category, self::getCategoriesList()))
+        {
+            return self::getCategoriesList()[$this->category];
+        }
+
+        return null;
+    }
 
 	public static function getExperienceList()
 	{
@@ -44,6 +75,22 @@ class SpecialistProfile extends \HActiveRecord
 			'20+' => 'Более 20 лет',
 		]);
 	}
+
+    /**
+     * Get experience label
+     *
+     * @return string|null
+     * @author Sergey Gubareb
+     */
+	public function getExperienceLabel()
+    {
+        if ($this->experience)
+        {
+            return self::getExperienceList()[$this->experience];
+        }
+
+        return null;
+    }
 
 	protected $_relatedModels = [];
 

@@ -136,12 +136,20 @@ and c.removed=0;';
 
     public static function getByLabels($labels, $renew = false)
     {
+        // Время жизни значения счетчика в кеше, в секундах
+        $expire = 240;
         $cacheId = 'StatsHelper.byLabels.' . serialize($labels);
+        $staticCacheId = 'Static.' . $cacheId;
+
         $value = self::getCacheComponent()->get($cacheId);
-        if ($value === false || $renew)
+        $staticValue = self::getCacheComponent()->get($staticCacheId);
+
+        if ($staticValue === false OR ($value === false and $renew))
         {
             $value = self::getCommentCount($labels);
-            self::getCacheComponent()->set($cacheId, $value);
+
+            self::getCacheComponent()->set($cacheId, $value, $expire);
+            self::getCacheComponent()->set($staticCacheId, $value, 0);
         }
         return $value;
     }
@@ -154,12 +162,20 @@ and c.removed=0;';
      */
     public static function countCommentNewsTopicByLabels($labels, $renew = false)
     {
+        // Время жизни значения счетчика в кеше, в секундах
+        $expire = 240;
         $cacheId = 'StatsHelper.byLabels.' . serialize($labels);
+        $staticCacheId = 'Static.' . $cacheId;
+
         $value = self::getCacheComponent()->get($cacheId);
-        if ($value === false || $renew)
+        $staticValue = self::getCacheComponent()->get($staticCacheId);
+
+        if ($staticValue === false OR ($value === false and $renew))
         {
             $value = self::counterForNewsTopic($labels);
-            self::getCacheComponent()->set($cacheId, $value);
+
+            self::getCacheComponent()->set($cacheId, $value, $expire);
+            self::getCacheComponent()->set($staticCacheId, $value, 0);
         }
         return $value;
     }

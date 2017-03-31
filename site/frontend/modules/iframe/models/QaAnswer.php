@@ -11,6 +11,7 @@ use site\frontend\modules\iframe\behaviors\QaBehavior;
 use site\frontend\modules\iframe\components\QaManager;
 use site\frontend\modules\specialists\models\SpecialistGroup;
 use site\frontend\modules\specialists\models\SpecialistProfile;
+use site\frontend\modules\iframe\components\User;
 
 /**
  * This is the model class for table "qa__answers".
@@ -126,7 +127,7 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     public function apiRelations()
     {
         return [
-            'user' => ['site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'authorId', 'params' => ['avatarSize' => 40]],
+            'user' => ['site\frontend\components\api\ApiRelation', 'site\frontend\modules\iframe\components\api\User', 'authorId', 'params' => ['avatarSize' => 40]],
         ];
     }
 

@@ -1,4 +1,11 @@
 <?php
+use site\frontend\modules\iframe\components\QaRatingManager;
+use site\frontend\modules\iframe\modules\notifications\models\Notification;
+
+$rating = (new QaRatingManager())->getViewCounters(Yii::app()->user->id);
+$countNotification = Notification::getUnreadCount();
+
+
 $cs = Yii::app()->clientScript;
 
 $cs->registerAMD('headerSearch', ['common'], '
@@ -73,19 +80,27 @@ if (! Yii::app()->user->isGuest) {
             <ul class="user-widget-block-iframe__list">
                 <li class="user-widget-block-iframe__li">
                     <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/notifications/default/index')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-signal"></span>Сигналы</a>
-                    <span class="user-widget-block-iframe__notific">0</span>
+                    <span class="user-widget-block-iframe__notific"><?=$countNotification?></span>
                 </li>
-                <li class="user-widget-block-iframe__li user-widget-block-iframe__li-disabled">
-                    <a class="user-widget-block-iframe__link" href="#"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-kids"></span>Дети</a>
-                    <a class="user-widget-block-iframe__add-child" href="#">Добавить</a>
+<!--                <li class="user-widget-block-iframe__li user-widget-block-iframe__li-disabled">-->
+<!--                    <a class="user-widget-block-iframe__link" href="#"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-kids"></span>Дети</a>-->
+<!--                    <a class="user-widget-block-iframe__add-child" href="#">Добавить</a>-->
+<!--                </li>-->
+                <li class="user-widget-block-iframe__li <?=$rating['questions']?'':'user-widget-block-iframe__li-disabled'?>">
+                    <?php if($rating['questions']){ ?>
+                        <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/my/questions')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-question"></span>Мои вопросы</a>
+                    <?php } else {?>
+                        <span class="user-widget-block-iframe__link"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-question"></span>Мои вопросы</span>
+                    <?php } ?>
+                    <span class="user-widget-block-iframe__count"><?=$rating['questions']?></span>
                 </li>
-                <li class="user-widget-block-iframe__li user-widget-block-iframe__li-disabled">
-                    <a class="user-widget-block-iframe__link" href="#"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-question"></span>Мои вопросы</a>
-                    <span class="user-widget-block-iframe__count">0</span>
-                </li>
-                <li class="user-widget-block-iframe__li">
-                    <a class="user-widget-block-iframe__link" href="#"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-comment"></span>Мои ответы</a>
-                    <span class="user-widget-block-iframe__count">0</span>
+                <li class="user-widget-block-iframe__li <?=$rating['rating']['answers_count']?'':'user-widget-block-iframe__li-disabled'?>">
+                    <?php if($rating['rating']['answers_count']){ ?>
+                        <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/my/answers')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-comment"></span>Мои ответы</a>
+                    <?php } else {?>
+                        <span class="user-widget-block-iframe__link"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-comment"></span>Мои ответы</span>
+                    <?php } ?>
+                    <span class="user-widget-block-iframe__count"><?=$rating['rating']['answers_count']?></span>
                 </li>
                 <li class="user-widget-block-iframe__li">
                     <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/site/logout')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-exit"></span>Выход</a>

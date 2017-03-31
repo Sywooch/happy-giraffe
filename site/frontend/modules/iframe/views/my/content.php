@@ -1,6 +1,6 @@
 <?php
 /**
- * @var site\frontend\modules\som\modules\qa\controllers\MyController $this
+ * @var site\frontend\modules\iframe\controllers\MyController $this
  * @var \CActiveDataProvider $dp
  */
 
@@ -15,6 +15,7 @@ if ($isAnswer)
     $itemView = '/_new_question';
 }
 ?>
+
 <div class="b-main__inner">
     <div class="b-col__container">
         <div class="b-col b-col--6 b-col-sm--10 b-col-xs">
@@ -24,10 +25,10 @@ if ($isAnswer)
                         <p class="js-mobile-dropdown mobile-dropdown-button">Все ответы</p>
                         <ul class="b-filter-menu__list">
                             <li class="b-filter-menu__item">
-                            	<a href="<?=$this->createUrl('/som/qa/my/questions')?>" class="b-filter-menu__link <?=$this->action->id == 'questions' ? 'b-filter-menu__link--active' : ''?>">Мои вопросы</a>
+                            	<a href="<?=$this->createUrl('/iframe/my/questions')?>" class="b-filter-menu__link <?=$this->action->id == 'questions' ? 'b-filter-menu__link--active' : ''?>">Мои вопросы</a>
                             </li>
                             <li class="b-filter-menu__item">
-                            	<a href="<?=$this->createUrl('/som/qa/my/answers')?>" class="b-filter-menu__link <?=$this->action->id == 'answers' ? 'b-filter-menu__link--active' : ''?>">Мои ответы</a>
+                            	<a href="<?=$this->createUrl('/iframe/my/answers')?>" class="b-filter-menu__link <?=$this->action->id == 'answers' ? 'b-filter-menu__link--active' : ''?>">Мои ответы</a>
                             </li>
                         </ul>
                     </div>
@@ -37,9 +38,9 @@ if ($isAnswer)
         <?php
         $mobileBlock =
         '<div class="b-mobile-nav">
-            <div class="b-mobile-nav__title">Мой педиатор</div>
+            <div class="b-mobile-nav__title">Мой педиатр</div>
             <div class="b-mobile-nav__right">
-                <a href="<?=$this->createUrl("/som/qa/default/questionAddForm/")?>" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
+                <a href="'.$this->createUrl("/iframe/default/questionAddForm/").'" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
             </div>
         </div>';
 
@@ -64,10 +65,10 @@ if ($isAnswer)
         ?>
         <aside class="b-main__aside b-col b-col--3 b-hidden-md">
         	<?php if ($isAnswer) {
-                $this->widget('site\frontend\modules\som\modules\qa\widgets\Statistic\CommonStatistic', ['userId' => \Yii::app()->user->id]);
+                $this->widget('site\frontend\modules\iframe\widgets\Statistic\CommonStatistic', ['userId' => \Yii::app()->user->id,'my_statistic'=>true]);
             } else { ?>
                 <div class="b-text--center">
-                    <a id="addNewQuestionBtn" class="disabled btn btn--xl btn--default login-button" href="<?=$this->createUrl('/som/qa/default/pediatricianAddForm/')?>" data-bind="follow: {}">Задать вопрос</a>
+                    <a id="addNewQuestionBtn" class="disabled btn btn--xl btn--default login-button" href="<?=$this->createUrl('/iframe/default/pediatricianAddForm/')?>" data-bind="follow: {}">Задать вопрос</a>
                 </div>
             <?php } ?>
         </aside>

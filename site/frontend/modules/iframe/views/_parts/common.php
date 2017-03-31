@@ -65,6 +65,33 @@
              padding: 14px 70px;
              border-radius: 50px;
          }
+         .header-question-icon__title{
+             display: inline-block;
+             vertical-align: middle;
+             background-image: url("/app/builds/static/img/pediatrician/user-menu/question.svg");
+             background-repeat: no-repeat;
+             background-size: contain;
+             width: 24px;
+             height: 24px;
+             margin-right: 10px;
+         }
+         .b-user-box-iframe_title{
+             font-size: 15px;
+             text-transform: uppercase;
+             color: rgba(0,0,0,0.85);
+             font-weight: 600;
+             margin-top: -10px;
+             margin-left: 5px;
+             margin-bottom: 20px;
+         }
+         .user-widget-block-iframe {
+             width: 300px;
+             height: 200px;
+         }
+         .user-widget-block-iframe__count {
+             padding: 5px 8px;
+             line-height: 1;
+         }
      </style>
     </head>
 

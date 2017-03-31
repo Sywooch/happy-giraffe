@@ -6,6 +6,7 @@
 ?>
 <div class="b-text--left b-margin--bottom_40">
     <div class="b-user-box b-user-box--yellow b-user-box-iframe">
+        <?=$my_statistic?'<div class="b-user-box-iframe_title">Моя статистика</div>':'';?>
         <div class="b-user-box__item">
             <div class="b-user-box__num b-user-box__num--black"><?=$answers?></div>
             <div class="b-user-box__text">мам уже<br/>получили помощь</div>

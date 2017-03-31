@@ -188,6 +188,14 @@ return array(
         'iframe/user/<userId:\d+>/family/edit' => 'iframe/family/default/fill',
         'iframe/notifications' => 'iframe/notifications/default/index',
         'iframe/notifications/<_a>' => 'iframe/notifications/default/<_a>',
+        'iframe/questions/my/answers/<categoryId:\d+>/page<page:\d+>' => 'iframe/my/answers',
+        'iframe/questions/my/answers/<categoryId:\d+>' => 'iframe/my/answers',
+        'iframe/questions/my/answers/page<page:\d+>' => 'iframe/my/answers',
+        'iframe/questions/my/answers' => 'iframe/my/answers',
+        'iframe/questions/my/<categoryId:\d+>/page<page:\d+>' => 'iframe/my/questions',
+        'iframe/questions/my/<categoryId:\d+>' => 'iframe/my/questions',
+        'iframe/questions/my/page<page:\d+>' => 'iframe/my/questions',
+        'iframe/questions/my' => 'iframe/my/questions',
 
         /* SOM */
         'status' => 'som/status/default/index',

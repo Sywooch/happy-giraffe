@@ -10,6 +10,8 @@ use site\frontend\modules\iframe\models\QaCategory;
 class CommonStatistic extends \CWidget
 {
 
+    public $my_statistic = false;
+
     /**
      * @var integer
      */
@@ -34,7 +36,11 @@ class CommonStatistic extends \CWidget
         $list = \Yii::app()->db->getCommandBuilder()->createFindCommand($rating->tableName(), $criteria)->queryAll();
         $data = array_shift($list);
 
-        $this->render('common_statistic', ['votes' => intval($data['vc']), 'answers' => intval($data['ac'])]);
+        $this->render('common_statistic', [
+            'votes' => intval($data['vc']),
+            'answers' => intval($data['ac']),
+            'my_statistic' => $this->my_statistic,
+        ]);
     }
 
 }

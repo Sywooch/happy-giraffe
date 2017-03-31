@@ -4,6 +4,7 @@ namespace site\frontend\modules\iframe\components;
 
 use site\frontend\modules\iframe\models\QaRating;
 use site\frontend\modules\iframe\models\QaCategory;
+use site\frontend\modules\iframe\models\QaQuestion;
 
 /**
  * @author Emil Vililyaev
@@ -25,7 +26,13 @@ class QaRatingManager
 
         $flowerCount = $this->_getFlowersCount($ratingRow->votes_count);
 
-        return ['rating' => $ratingRow->toJSON(), 'flowerCount' => $flowerCount];
+        return ['rating' => $ratingRow->toJSON(), 'flowerCount' => $flowerCount,'questions' => $this->_getQuestionCount($userId)];
+    }
+
+    private function _getQuestionCount($userId)
+    {
+        $model = clone QaQuestion::model();
+        return $model->user($userId)->count();
     }
 
     /**

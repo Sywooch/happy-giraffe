@@ -2,7 +2,7 @@
 
 namespace site\frontend\modules\iframe\modules\notifications\controllers;
 
-use site\frontend\modules\notifications\models\Notification;
+use site\frontend\modules\iframe\modules\notifications\models\Notification;
 
 class DefaultController extends \HController
 {

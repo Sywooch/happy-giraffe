@@ -2,10 +2,10 @@
 
 namespace site\frontend\modules\iframe\components;
 
-use site\frontend\modules\som\modules\qa\models\QaAnswer;
-use site\frontend\modules\som\modules\qa\models\QaAnswerEditing;
-use site\frontend\modules\som\modules\qa\models\QaQuestion;
-use site\frontend\modules\som\modules\qa\models\QaQuestionEditing;
+use site\frontend\modules\iframe\models\QaAnswer;
+use site\frontend\modules\iframe\models\QaAnswerEditing;
+use site\frontend\modules\iframe\models\QaQuestion;
+use site\frontend\modules\iframe\models\QaQuestionEditing;
 
 /**
  * @todo: Методы связанные с comet желательно вынести в саму модель

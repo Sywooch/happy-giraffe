@@ -408,6 +408,20 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     }
 
     /**
+     * Проверка, является ли ветка ответов на вопрос закрытой
+     * @param  integer  $userId
+     * @return boolean
+     */
+    public function isAnswerBranchClose($userId)
+    {
+        $n = 0;
+        foreach ($this->answers as $answer) {
+            if($userId == $answer->authorId) ++$n;
+        }
+        return ($n >= 2);
+    }
+
+    /**
      * @return boolean
      */
     public function checkAccessForSpecialist()

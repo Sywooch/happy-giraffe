@@ -415,10 +415,15 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function isAnswerBranchClose($userId)
     {
         $n = 0;
+        $isAnswerSpecialist = false;
         foreach ($this->answers as $answer) {
-            if($userId == $answer->authorId) ++$n;
+            if($userId == $answer->authorId){
+                ++$n;
+            }elseif($answer->authorIsSpecialist()){
+                $isAnswerSpecialist = true;
+            }
         }
-        return ($n >= 2);
+        return ($n >= 2 or ($n == 0 and $isAnswerSpecialist));
     }
 
     /**

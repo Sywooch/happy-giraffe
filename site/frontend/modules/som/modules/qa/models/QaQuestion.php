@@ -416,19 +416,18 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     {
         $n = 0;
         $answerId = 0;
-        $isAdditionalQuestion = false;
         $isAnswerSpecialist = false;
         foreach ($this->answers as $answer) {
             if($userId == $answer->authorId){
                 $answerId = $answer->id;
                 ++$n;
             }elseif($answerId === $answer->root_id){
-                $isAdditionalQuestion = true;
+                ++$n;
             }elseif($answer->authorIsSpecialist()){
                 $isAnswerSpecialist = true;
             }
         }
-        return (($n >= 2 or !$isAdditionalQuestion) or ($n == 0 and $isAnswerSpecialist));
+        return ($n == 1 or $n >= 3 or ($n == 0 and $isAnswerSpecialist));
     }
 
     /**

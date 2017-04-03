@@ -414,10 +414,18 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      */
     public function isAnswerBranchClose($userId)
     {
+        $answers = QaAnswer::model()
+                    ->resetScope()
+                    ->findAll([
+                        'condition' => 'questionId = ' . $this->id .
+                        ' AND (isPublished = ' . QaAnswer::NOT_PUBLISHED .
+                        ' OR isPublished = ' . QaAnswer::PUBLISHED .
+                        ') AND isRemoved = ' . QaAnswer::NOT_REMOVED,
+                    ]);
         $n = 0;
         $answerId = 0;
         $isAnswerSpecialist = false;
-        foreach ($this->answers as $answer) {
+        foreach ($answers as $answer) {
             if($userId == $answer->authorId){
                 $answerId = $answer->id;
                 ++$n;

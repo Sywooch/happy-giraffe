@@ -19,6 +19,7 @@ use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
  * @property string $experience
  * @property string $category
  * @property string $placeOfWork
+ * @property string $greeting
  * @property integer $authorization_status
  *
  * The followings are the available model relations:

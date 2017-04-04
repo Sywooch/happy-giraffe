@@ -107,6 +107,10 @@ return array(
         ['class' => 'site\frontend\modules\specialists\components\SpecialistsUrlRule'],
         'user/<userId:\d+>/info' => 'specialists/profile/info',
         'specialists/editProfile' => 'specialists/default/index',
+
+        // Политика конфиденциальности
+        'pediatrician/<view:(privacypolicy)>' => 'pages/default/pediatrician',
+
         'pediatrician/answer<questionId:\d+>' => 'specialists/pediatrician/default/answer',
         'pediatrician/<_a>' => 'specialists/pediatrician/default/<_a>',
 
@@ -114,6 +118,9 @@ return array(
 
         //страница вопроса
         'questions/question<id:\d+>' => 'som/qa/default/view',
+
+        // Политика конфиденциальности
+        'mypediatrician/<view:(privacypolicy)>' => 'pages/default/mypediatrician',
 
         'mypediatrician/question<id:\d+>'   => 'som/qa/default/view',
         'mypediatrician/comet/<_a>'         => 'som/qa/cometProcess/<_a>',
@@ -353,7 +360,7 @@ return array(
         'user/<userId:\d+>/rss' => 'rss/default/user',
         'user/<userId:\d+>/comments/rss/page<page:\d+>' => 'rss/default/comments',
         'user/<userId:\d+>/comments/rss' => 'rss/default/comments',
-            
+
         //blog
         'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
         'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',

@@ -134,6 +134,7 @@ class QaManager
         LEFT JOIN ' . QaAnswer::model()->tableName() . ' answers2 ON (answers2.root_id = answers.id AND answers2.isRemoved = 0)
         LEFT JOIN ' . QaAnswer::model()->tableName() . ' answers3 ON (answers3.root_id = answers2.id AND answers3.isRemoved = 0)
         ';
+        $criteria->addCondition('t.authorId IN (SELECT id FROM users WHERE id = t.authorId AND deleted = 0 AND blocked = 0)');
         $criteria->addCondition('t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)');
         $criteria->addCondition('
         answers.authorId = :userId AND

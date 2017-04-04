@@ -414,6 +414,11 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
      */
     public function isAnswerBranchClose($userId)
     {
+        if($this->author->deleted == 1 or $this->author->blocked == 1){
+            // Запрещаем вывод ветки вопросов-ответов если пользователь
+            // задавший вопрос удален
+            return true;
+        }
         $n = 0;
         $answerId = 0;
         $isAnswerSpecialist = false;

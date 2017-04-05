@@ -183,7 +183,8 @@ return array(
         array('class' => 'site\frontend\modules\posts\modules\buzz\components\BuzzUrlRule'),
         'buzz/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/buzz/post/view',
         'buzz/<slug>' => 'posts/buzz/list/index',
-        'buzz' => 'posts/buzz/list/index',
+        'buzz/<tab:(new)>' => 'posts/buzz/list/index',
+        'buzz' => array('posts/buzz/list/index', 'defaultParams' => array('tab' => 'new')),
 
         'forums' => 'posts/forums/default/index',
 

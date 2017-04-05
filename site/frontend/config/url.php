@@ -349,7 +349,8 @@ return array(
         /* Временные страницы для управления постами */
         'blog/tmp/favourites' => 'blog/tmp/favourites',
 
-        'user/<userId:\d+>' => 'userProfile/default/index',
+        'user/<userId:\d+>/<tab:(new)>' => 'userProfile/default/index',
+        'user/<userId:\d+>' => array('userProfile/default/index', 'defaultParams' => array('tab' => 'new')),
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
         'user/<user_id:\d+>/award/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'award')),
         'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),

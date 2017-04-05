@@ -541,7 +541,8 @@ class Comment extends HActiveRecord
             'canEdit' => (!Yii::app()->user->isGuest && Yii::app()->user->group != UserGroup::USER && Yii::app()->user->model->checkAuthItem('editComment') || (Yii::app()->user->id == $comment->author_id && Yii::app()->user->id != 167771)),
             'photoUrl' => ($album_comments && $comment->entity == 'AlbumPhoto') ? $comment->getCommentEntity()->getPreviewUrl(170, 110, false, true) : false,
             'photoId' => ($album_comments && $comment->entity == 'AlbumPhoto') ? $comment->getCommentEntity()->id : false,
-            'specialistLabel' => ($comment->entity == 'CommunityContent' && $comment->getCommentEntity()->type_id == CommunityContentType::TYPE_QUESTION && ($specialist = $comment->author->getSpecialist($comment->getCommentEntity()->rubric->community_id)) !== null) ? mb_strtolower($specialist->title, 'UTF-8') : null,
+//            'specialistLabel' => ($comment->entity == 'CommunityContent' && $comment->getCommentEntity()->type_id == CommunityContentType::TYPE_QUESTION && ($specialist = $comment->author->getSpecialist($comment->getCommentEntity()->rubric->community_id)) !== null) ? mb_strtolower($specialist->title, 'UTF-8') : null,
+            'specialistLabel' => null
         );
         return $data;
     }

@@ -11,10 +11,25 @@
         <div class="footer__text">© 2012–<?php echo date('Y'); ?> Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские
             картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
         <ul class="footer__list footer__list--style-2">
-            <li class="footer__li footer__li--style-2"><a href="<?=$this->createUrl('/pages/default/page', array('view' => 'confidential'))?>" class="footer__link footer__link--color-2">Политика конфеденциальности</a></li>
+             <li class="footer__li footer__li--style-2" style="margin-right: 0; color: #ccc">
+                Политики конфиденциальности:
+            </li>
+            <li class="footer__li footer__li--style-2">
+                <a href="<?=$this->createUrl('/pages/default/page', array('view' => 'confidential'))?>" class="footer__link footer__link--color-2">Веселый Жираф</a>
+
+            </li>
+            <li class="footer__li footer__li--style-2">
+                <a href="<?=$this->createUrl('/pages/default/page', array('view' => 'mypediatrician/privacypolicy'))?>" class="footer__link footer__link--color-2">Мой педиатр</a>
+            </li>
+            <li class="footer__li footer__li--style-2">
+                <a href="<?=$this->createUrl('/pages/default/page', array('view' => 'pediatrician/privacypolicy'))?>" class="footer__link footer__link--color-2">Жираф.Педиатр</a>
+            </li>
+            <li class="footer__li footer__li--style-2" style="color: #ccc">
+                |
+            </li>
             <?php if ($this->route != 'archive/default/map'): ?>
-            	<li class="footer__li footer__li--style-2"><a href="<?=$this->createUrl('/archive/default/map')?>" class="footer__link footer__link--color-2">Карта сайта</a></li>
-        	<?php endif; ?>
+                <li class="footer__li footer__li--style-2"><a href="<?=$this->createUrl('/archive/default/map')?>" class="footer__link footer__link--color-2">Карта сайта</a></li>
+            <?php endif; ?>
         </ul>
     </div>
 </footer>

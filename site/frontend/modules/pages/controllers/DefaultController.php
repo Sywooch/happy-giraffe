@@ -19,6 +19,14 @@ class DefaultController extends \LiteController
                 'class' => 'CViewAction',
                 'basePath' => 'site.frontend.modules.pages.views',
             ),
+            'mypediatrician' => array(
+                'class'    => 'CViewAction',
+                'basePath' => 'site.frontend.modules.pages.views.mypediatrician',
+            ),
+            'pediatrician'   => array(
+                'class'    => 'CViewAction',
+                'basePath' => 'site.frontend.modules.pages.views.pediatrician',
+            ),
         );
     }
 

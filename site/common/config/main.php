@@ -1,7 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
+=======
+>>>>>>> develop
 return array(
     'aliases' => array(
         'League' => 'site.common.vendor.League',

@@ -53,7 +53,7 @@ if ($openLogin == 'login') {
             </div>
         </div>
     </script>
-    
+
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
             <!-- header-->
@@ -124,11 +124,11 @@ if ($openLogin == 'login') {
             <?php endif; ?>
 
             <?php
-//            $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
-//                'pageVar' => 'page',
-//                'view' => 'onair',
-//                'pageSize' => 5,
-//            ));
+            $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
+                'pageVar' => 'page',
+                'view' => 'onair',
+                'pageSize' => 5,
+            ));
             ?>
 
             <!-- Посетители-->

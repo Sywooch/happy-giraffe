@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -107,6 +107,10 @@ return array(
         ['class' => 'site\frontend\modules\specialists\components\SpecialistsUrlRule'],
         'user/<userId:\d+>/info' => 'specialists/profile/info',
         'specialists/editProfile' => 'specialists/default/index',
+
+        // Политика конфиденциальности
+        'pediatrician/<view:(privacypolicy)>' => 'pages/default/pediatrician',
+            
         'pediatrician/answer<questionId:\d+>' => 'specialists/pediatrician/default/answer',
         'pediatrician/<_a>' => 'specialists/pediatrician/default/<_a>',
 
@@ -114,7 +118,10 @@ return array(
 
         //страница вопроса
         'questions/question<id:\d+>' => 'som/qa/default/view',
-
+            
+        // Политика конфиденциальности
+        'mypediatrician/<view:(privacypolicy)>' => 'pages/default/mypediatrician',
+            
         'mypediatrician/question<id:\d+>'   => 'som/qa/default/view',
         'mypediatrician/comet/<_a>'         => 'som/qa/cometProcess/<_a>',
 
@@ -447,7 +454,7 @@ return array(
             'trueRoute' => 'posts/community/view',
             'falseRoute' => 'community/default/view',
         ),*/
-
+        
         'community/default/save' => 'community/default/save',
         'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
         'community/default/photoWidget' => 'community/default/photoWidget',

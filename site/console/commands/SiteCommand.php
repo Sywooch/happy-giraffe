@@ -223,10 +223,4 @@ class SiteCommand extends CConsoleCommand
         Yii::app()->db->createCommand("INSERT INTO `auth__assignments` (`itemname`, `userid`, `bizrule`, `data`) VALUES ('advEditor', $id, NULL, NULL);")->execute();
         Yii::app()->db->createCommand("INSERT INTO `newauth__assignments` (`itemname`, `userid`, `bizrule`, `data`) VALUES ('moderator', $id, NULL, NULL);")->execute();
     }
-
-    public function actionGeo()
-    {
-        $parser = new VkParser();
-        $parser->run();
-    }
 }

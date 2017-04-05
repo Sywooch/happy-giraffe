@@ -10,7 +10,7 @@
 <div class="b-pedaitor-answer__footer b-answer-footer b-answer-footer--pink">
 
     <div class="b-pedaitor-answer__footer__item">
-        <?php if (! is_null($data->question->tag)): ?>
+        <?php if($data->question && $data->question->tag): ?>
             <a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->question->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->question->tag->getTitle()?></a>
         <?php endif; ?>
     </div>

@@ -20,6 +20,8 @@
     </div>
     <div class="b-answer__body b-answer-body">
         <p class="b-pediator-answer__text"><?=strip_tags($data->text)?></p>
-        <a href="<?=$data->question->url?>" class="b-text--link-color b-title--bold b-title--h9"><?=strip_tags($data->question->title)?></a>
+        <?php if($data->question): ?>
+            <a href="<?=$data->question->url?>" class="b-text--link-color b-title--bold b-title--h9"><?=strip_tags($data->question->title)?></a>
+        <?php endif; ?>
     </div>
 </div>

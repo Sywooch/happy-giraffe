@@ -206,7 +206,6 @@ class Comment extends HActiveRecord
 
     public function afterSave()
     {
-
         if ($this->isNewRecord)
         {
             if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'AlbumPhoto')))

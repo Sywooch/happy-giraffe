@@ -17,7 +17,7 @@ class SoftRestoreAction extends ApiAction
 
         $this->controller->success = $model->restore();
         if ($model instanceof \IHToJSON)
-            $this->controller->data = $model;
+            $this->controller->data = $model->toJSON();
     }
 
 }

@@ -3,13 +3,106 @@
 namespace site\frontend\modules\som\modules\qa\components;
 
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaAnswerEditing;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
+use site\frontend\modules\som\modules\qa\models\QaQuestionEditing;
 
 /**
+ * @todo: Методы связанные с comet желательно вынести в саму модель
+ *
  * @author Sergey Gubarev
  */
 class QaManager
 {
+
+    /**
+     * Получить ID comet-канала для вопроса
+     *
+     * @param $questionId ID вопроса
+     * @return string
+     */
+    public static function getQuestionChannelId($questionId)
+    {
+        return QaQuestion::COMET_CHANNEL_ID_PREFIX . $questionId;
+    }
+
+    /**
+     * Получить ID comet-канала для редактируемого вопроса
+     *
+     * @param   $questionId ID вопроса
+     * @return  string
+     */
+    public static function getEditedQuestionChannelId($questionId)
+    {
+        return self::getQuestionChannelId($questionId) . QaQuestion::COMET_CHANNEL_ID_EDITED_PREFIX;
+    }
+
+    /**
+     * Получить вопрос
+     *
+     * @param integer $questionId ID вопроса
+     * @return \CActiveRecord|null
+     */
+    public static function getQuestion($questionId)
+    {
+        return QaQuestion::model()->findByPk($questionId);
+    }
+
+    /**
+     * Находится ли вопрос под редактированием
+     *
+     * @param integer $questionId ID вопроса
+     * @return bool
+     */
+    public static function isQuestionEditing($questionId)
+    {
+        $findObject = QaQuestionEditing::model()->findByAttributes(['questionId' => $questionId]);
+
+        return is_null($findObject) ? false : true;
+    }
+
+    /**
+     * Находится ли ответ под редактированием
+     *
+     * @param integer $answerId ID ответа
+     * @return bool
+     */
+    public static function isAnswerEditing($answerId)
+    {
+        $findObject = QaAnswerEditing::model()->find([
+                            'answerId' => $answerId
+                        ]);
+
+        return is_null($findObject) ? false : true;
+    }
+
+    /**
+     * Удалить объект вопроса их коллекции редактируемых в Mongo
+     *
+     * @param integer $questionId ID вопроса
+     * @return bool
+     */
+    public static function deleteQuestionObjectFromCollection($questionId)
+    {
+        $findObject = QaQuestionEditing::model()->find([
+            'questionId' => $questionId
+        ]);
+
+        return $findObject ? $findObject->delete() : false;
+    }
+
+    /**
+     * Удалить объект ответа их коллекции редактируемых в Mongo
+     *
+     * @param integer $answerId ID ответа
+     * @return bool
+     */
+    public static function deleteAnswerObjectFromCollectionByAttr($attr)
+    {
+        $findObject = QaAnswerEditing::model()->find($attr);
+
+        return $findObject ? $findObject->delete() : false;
+    }
 
     /**
      * Получить ответы к вопросу на сайте
@@ -21,14 +114,6 @@ class QaManager
      */
     public static function getAnswers(QaQuestion $question)
     {
-        $timeCondition = null;
-
-        if ($question->category->isPediatrician()) {
-            $time = time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
-
-            $timeCondition = 'qa__answers.dtimeCreate >= ' . $time . ' AND ';
-        }
-
         $sql = <<<SQL
           SELECT * FROM qa__answers
             WHERE
@@ -38,21 +123,6 @@ class QaManager
               AND
             qa__answers.isPublished = 1
 SQL;
-
-        /*
-        $sql = "
-            SELECT
-                *
-            FROM
-                qa__answers
-            WHERE
-                qa__answers.questionId = $question->id
-                AND
-                qa__answers.isRemoved = 0
-                AND
-                qa__answers.isPublished = 1
-        ";
-        */
 
         $answers = QaAnswer::model()->findAllBySql($sql);
 
@@ -67,8 +137,6 @@ SQL;
      */
     public static function getAnswersCountPediatorQuestion($questionId)
     {
-        $time = time() - 60 * QaAnswer::MINUTES_AWAITING_PUBLISHED;
-
         $sql = <<<SQL
           SELECT COUNT(1) FROM qa__answers
             WHERE
@@ -79,21 +147,199 @@ SQL;
             qa__answers.isPublished = 1
 SQL;
 
-        /*
-       $sql = "
-            SELECT
-                COUNT(qa__answers.id)
-            FROM
-                qa__answers
-            WHERE
-                qa__answers.questionId = $questionId
-                AND
-                qa__answers.isRemoved = 0
-                AND
-                qa__answers.isPublished = 1
-       ";
-*/
         return \Yii::app()->db->createCommand($sql)->queryColumn()[0];
+    }
+
+    /**
+     * Получить дерево ответов к вопросу
+     *
+     * @param integer $questionId ID вопроса
+     * @return array
+     */
+    public static function getAnswersTreeByQuestion($questionId)
+    {
+        $rootAnswers = QaAnswer::model()
+                                    ->roots()
+                                    ->orderDesc()
+                                    ->findAll(
+                                        'isRemoved = :isRemoved AND isPublished = :isPublished AND questionId = :questionId',
+                                        [
+                                            ':isRemoved'    => QaAnswer::NOT_REMOVED,
+                                            ':isPublished'  => QaAnswer::PUBLISHED,
+                                            ':questionId'   => $questionId
+                                        ]
+                                    )
+                        ;
+
+        $rootAnswersList = array_map(
+                                function($answerObj)
+                                {
+                                    return $answerObj->toJSON();
+                                },
+                                $rootAnswers
+                            );
+
+        foreach ($rootAnswersList as &$rootAnswerData)
+        {
+            $rootAnswerData['answers'] = [];
+
+            $childAnswers = self::getChildAnswers($rootAnswerData['id']);
+
+            $countChildAnswers = count($childAnswers);
+
+            $rootAnswerData['countChildAnswers'] = $countChildAnswers;
+
+            if ($countChildAnswers)
+            {
+                // $rootAnswerData['answers'] = AnswerManagementData::process($childAnswers);
+                foreach ($childAnswers as $childAnswer)
+                {
+                    $rootAnswerData['answers'][] = $childAnswer->toJSON();
+                }
+            }
+        }
+
+        return $rootAnswersList;
+    }
+
+    public static function getChildAnswers($id)
+    {
+        return QaAnswer::model()
+                    ->descendantsOf($id)
+                    ->findAll(
+                        'isRemoved = :isRemoved AND isPublished = :isPublished',
+                        [
+                            ':isRemoved'    => QaAnswer::NOT_REMOVED,
+                            ':isPublished'  => QaAnswer::PUBLISHED
+                        ]
+                    )
+                ;
+    }
+
+    public static function getCountChildAnswers($id)
+    {
+        return count(self::getChildAnswers($id));
+    }
+
+    /**
+     * @param QaQuestion $question
+     * @param integer $answerId
+     * @return boolean
+     */
+    public function canCreateAnswer(QaQuestion $question, $answerId = NULL)
+    {
+        /*@var $user \WebUser */
+        $user = \Yii::app()->user;
+
+        if ($user->isGuest)
+        {
+            return FALSE;
+        }
+
+        $isSpecialist = $user->getModel()->isSpecialist;
+
+        /*@var $answer QaAnswer */
+        $answer = QaAnswer::model()->findByPk($answerId);
+
+        //если коментирует специалист
+        if ($isSpecialist)
+        {
+            return $this->_canCreateAnswerSpecialist($question, $user, $answer);
+        }
+
+        //если коментирует автор вопроса
+        if ($question->authorId == $user->id)
+        {
+            return $this->_canCreateAnswerAuthor($user, $answer);
+        }
+
+        //если коментирует другой пользователь
+        if ($question->authorId != $user->id && !$isSpecialist)
+        {
+            return $this->_canCreateAnswerUser($question, $user, $answer);
+        }
+
+        return FALSE;
+    }
+
+    /**
+     * @param QaQuestion $question
+     * @param \WebUser $user
+     * @param QaAnswer|NULL $answer
+     * @return boolean
+     */
+    private function _canCreateAnswerUser(QaQuestion $question, \WebUser $user, $answer = NULL)
+    {
+        /*@var $answer QaAnswer */
+        if (is_null($answer)) //если не дискусия
+        {
+            return $question->authorId != $user->id;
+        }
+
+        $dialog = $answer->ancestors()->findAll();
+
+        if (empty($dialog) && $answer->isLeaf())
+        {
+            /*@var $rootItem QaAnswer */
+            $rootItem = $answer;
+        }
+        else
+        {
+            $rootItem = $dialog[0];
+        }
+
+
+        return $rootItem->authorId == $user->id;
+    }
+
+    /**
+     * @param \WebUser $user
+     * @param QaAnswer|NULL $answer
+     * @return boolean
+     */
+    private function _canCreateAnswerAuthor(\WebUser $user, $answer = NULL)
+    {
+        /*@var $answer QaAnswer */
+        if (is_null($answer)) //если не дискусия
+        {
+            return FALSE;
+        }
+
+        $answerAuthor = $answer->author;
+
+
+        return ($answerAuthor->id != $user->id && !$answerAuthor->isSpecialist) || ($answerAuthor->isSpecialist && !$answer->isAnswerToAdditional());
+    }
+
+    /**
+     * @param QaQuestion $question
+     * @param \WebUser $user
+     * @param QaAnswer|NULL $answer
+     * @return boolean
+     */
+    private function _canCreateAnswerSpecialist(QaQuestion $question, \WebUser $user, $answer = NULL)
+    {
+        /*@var $answer QaAnswer */
+
+        $dialog = $question->getSpecialistDialog($user->id);
+
+        if (is_null($answer)) //если не дискусия
+        {
+            return is_null($dialog);
+        }
+
+        $answerAuthor = $answer->author;
+        $ancestors    = $answer->ancestors()->findAll();
+
+        /*@var $rootItem QaAnswer */
+        $rootItem = $ancestors[0];
+
+        if (empty($ancestors))
+        {
+            return FALSE;
+        }
+
+        return $rootItem->authorId == $user->id && $answer->isAdditional();
     }
 
 }

@@ -8,6 +8,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
     public $attributes = array();
     public $options = array();
     public $show_video = true;
+    public $useCache = true;
 
     private $_defaultOptions = array(
         'URI.AllowedSchemes' => array(
@@ -22,25 +23,38 @@ class PurifiedBehavior extends CActiveRecordBehavior
         'HTML.SafeObject' => true,
     );
 
+    // @todo Sergey Gubarev: Для чего кэшировать фильтрованные данные? Данные не поддаются повторному форматированию, т.к. постоянно при наличии отдаются с кэша.
     public function __get($name)
     {
-        if (in_array($name, $this->attributes)) {
-            $cacheId = $this->getCacheId($name);
-            $value = Yii::app()->cache->get($cacheId);
-            if ($value === false) {
+        if (in_array($name, (array)$this->attributes)) {
+            $value = FALSE;
+
+            if ($this->useCache)
+            {
+                $cacheId = $this->getCacheId($name);
+                $value = Yii::app()->cache->get($cacheId);
+            }
+
+            if ($value === false)
+            {
                 $value = $this->getOwner()->$name;
                 if (! empty($value)) {
                     $purifier = new CHtmlPurifier;
                     $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                     if ($this->show_video)
                         $value = $this->linkifyVideos($value);
+                    $value = $this->_replaceSomeSpace($value);
                     $value = $purifier->purify($value);
                     $value = $this->setWidgets($value);
                     $value = $this->fixUrls($value);
                     $value = $this->fixh1($value);
                     $value = $this->_trimApostrophe($value);
                     $value = $this->clean($value);
-                    Yii::app()->cache->set($cacheId, $value);
+
+                    if ($this->useCache)
+                    {
+                        Yii::app()->cache->set($cacheId, $value);
+                    }
                 }
             }
             return $value;
@@ -93,9 +107,14 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     private function _trimApostrophe($text)
     {
-        $text = str_replace("'", '&#39;', $text);
+        return str_replace("'", '&#39;', $text);
+    }
 
-        return $text;
+    private function _replaceSomeSpace($text)
+    {
+        $text = str_replace("&nbsp;", " ", $text);
+
+        return preg_replace('| +|', ' ', $text);
     }
 
     private function fixUrls($text)

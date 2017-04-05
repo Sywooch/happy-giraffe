@@ -27,7 +27,7 @@ return array(
             ],
         ),
         'paths' => array(
-            'facebook' => '//connect.facebook.net/ru_RU/all',
+            'facebook' => 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.8&appId=1648409175470149',
             'ok' => '//connect.ok.ru/connect',
             'vk' => '//vk.com/js/api/share',
             'knockout-amd-helpers' => 'knockout-amd-helpers.min',
@@ -47,7 +47,7 @@ return array(
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
             'ko_photoUpload' => 'ko_photo',
-            'AdFox' => '/javascripts/fox',
+            'AdFox' => 'https://yastatic.net/pcode/adfox/loader',
             'wysiwyg_old' => '/javascripts/wysiwyg',
             'upload' => '/javascripts/upload',
             'async' => '/new/javascript/plugins/async',
@@ -204,7 +204,6 @@ return array(
             'js' => array(
                 'javascripts/jquery.flydiv.js'
             ),
-            'depends' => array('jquery'),
         ),
         'DOMPurify' => [
             'baseUrl' => '/',
@@ -497,6 +496,7 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/member.css',
+                'lite/css/min/member-new.css'
             ),
         ),
         'lite_member_user' => array(
@@ -594,6 +594,7 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/member-photo.css',
+                'lite/css/min/member-new.css',
                 'lite/css/min/member-user.css'
             ),
         ),
@@ -625,6 +626,18 @@ return array(
         ),
         'lite_faq' => array(
             'depends' => array('lite_services'),
+        ),
+        'lite_new_pediatrician' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'app/builds/static/css/main.min.css',
+            ),
+            'js' => array(
+                'app/builds/static/js/main.min.js',
+            ),
+            'depends' => array('jquery'),
+
         ),
         'lite_faq_user' => array(
             'depends' => array('lite_services_user'),

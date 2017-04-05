@@ -33,10 +33,12 @@ class DefaultController extends \LiteController
     {
         $user = User::model()->active()->findByPk($userId);
         if ($user === null) {
+            header("HTTP/1.0 404 Not Found");
             $this->render('deleted');
+        } else {
+            \NoindexHelper::setNoIndex($user);
+            $this->render('index', array('user' => $user));
         }
-        \NoindexHelper::setNoIndex($user);
-        $this->render('index', array('user' => $user));
     }
 
     public function sitemapView()

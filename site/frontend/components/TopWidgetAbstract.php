@@ -90,7 +90,7 @@ abstract class TopWidgetAbstract extends \CWidget
 
         $top = array_slice($this->scores, 0, $this->getLimit(), true);
 
-        $users = User::model()->findAllByPk(array_keys($top), array('avatarSize' => 40));
+        $users = User::model()->findAllByPk(array_keys($top), ['avatarSize' => 40]);
 
         $rows = [];
         foreach ($top as $uId => $score)
@@ -100,6 +100,7 @@ abstract class TopWidgetAbstract extends \CWidget
                 'score' => $score,
             ];
         }
+
 
         if (empty($rows))
         {

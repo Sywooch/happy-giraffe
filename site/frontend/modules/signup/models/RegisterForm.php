@@ -52,6 +52,8 @@ class RegisterForm extends \CFormModel
 
             array('country_id', 'exist', 'className' => 'GeoCountry', 'attributeName' => 'id'),
             array('city_id', 'exist', 'className' => 'GeoCity', 'attributeName' => 'id'),
+            array('country_id', 'default', 'value' => null),
+            array('city_id', 'default', 'value' => null),
         );
     }
 

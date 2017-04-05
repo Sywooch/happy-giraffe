@@ -23,4 +23,4 @@
 
 <?php //Yii::app()->controller->renderPartial('//counters/_ga'); ?>
 <?php //Yii::app()->controller->renderPartial('//counters/_top100'); ?>
-<?=Yii::app()->getModule('analytics')->visitsManager->getTrackingCode()?>
+<?php //Yii::app()->getModule('analytics')->visitsManager->getTrackingCode()?>

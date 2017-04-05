@@ -3,13 +3,15 @@
  * @var site\common\components\SphinxDataProvider $dp
  * @var string $query
  */
-$this->sidebar = array('ask', 'personal', 'menu_search' => compact('query', 'categoryId'));
+$this->sidebar = array('ask', 'personal');
+// $this->sidebar = array('ask', 'personal', 'menu_search' => compact('query', 'categoryId'));
 $this->pageTitle = 'Результаты поиска';
-$this->breadcrumbs = array(
+$this->breadcrumbs = [
     'Ответы' => array('/som/qa/default/index'),
     'Результаты поиска',
-);
+];
 ?>
+
 
 <?php $this->renderPartial('/_search', compact('query')); ?>
 <div class="only-mobile"><a class="consult-specialist_btn btn btn-success btn-xl popup-a login-button" href="<?=$this->createUrl('/som/qa/default/questionAddForm/')?>" data-bind="follow: {}">Задать вопрос</a></div>
@@ -36,4 +38,3 @@ $this->widget('LiteListView', array(
 ));
 ?>
 <?php endif; ?>
-

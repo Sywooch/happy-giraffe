@@ -19,6 +19,12 @@ return array(
             'vk' => array(
                 'exports' => 'VK',
             ),
+            'materialize' => [
+                'deps' => ['jquery', 'hammerjs'],
+            ],
+            'hammerjs' => [
+                'deps' => ['jquery'],
+            ],
         ),
         'paths' => array(
             'facebook' => '//connect.facebook.net/ru_RU/all',

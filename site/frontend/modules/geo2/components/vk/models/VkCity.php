@@ -26,7 +26,9 @@ class VkCity extends \CActiveRecord
 	 */
 	public function rules()
 	{
+		return [
 
+		];
 	}
 
 	/**

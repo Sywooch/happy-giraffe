@@ -112,7 +112,7 @@ class FiasModifier extends Modifier
     {
         $parents = $this->getWithParents($city['PARENTGUID']);
         $district = $this->getParentByAOLEVEL($parents, 3);
-        return ($district) ? $district['FORMALNAME'] . 'район' : '';
+        return ($district) ? $district['FORMALNAME'] . ' ' . 'район' : '';
     }
 
     private function getParentByAOLEVEL($parents, $AOLEVEL)

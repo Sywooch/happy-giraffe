@@ -60,7 +60,9 @@ class FiasAddrobj extends \CActiveRecord
 	 */
 	public function rules()
 	{
+		return [
 
+		];
 	}
 
 	/**

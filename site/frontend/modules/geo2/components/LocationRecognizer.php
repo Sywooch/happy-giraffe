@@ -9,9 +9,21 @@ use site\frontend\modules\geo2\components\combined\models\Geo2City;
  */
 class LocationRecognizer
 {
-    public static function recognizeCity($cityName, $regionName)
+    public static function recognizeCity($countryIsoCode, $cityName, $regionName)
     {
-        $cities = Geo2City::model()->with('region')->findAllByAttributes(['title' => $cityName]);
+        $cities = Geo2City::model()->title($cityName)->with([
+            'country' => [
+                'joinType' => 'INNER JOIN',
+                'scopes' => [
+                    'iso' => [$countryIsoCode],
+                ],
+            ],
+        ])->findAll();
+        return (empty($cities)) ? null : self::chooseCity($cities, $regionName);
+    }
+
+    protected static function chooseCity($cities, $regionName)
+    {
         if (count($cities) == 1) {
             return $cities[0];
         }

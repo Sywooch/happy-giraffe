@@ -25,7 +25,9 @@ class VkRegion extends \CActiveRecord
 	 */
 	public function rules()
 	{
+		return [
 
+		];
 	}
 
 	/**

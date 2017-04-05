@@ -25,7 +25,9 @@ class VkCountry extends \CActiveRecord
 	 */
 	public function rules()
 	{
+		return [
 
+		];
 	}
 
 	/**

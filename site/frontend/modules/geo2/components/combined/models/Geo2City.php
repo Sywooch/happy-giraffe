@@ -13,7 +13,7 @@ namespace site\frontend\modules\geo2\components\combined\models;
  * @property string $vkId
  * @property string $fiasId
  */
-class Geo2City extends \CActiveRecord
+class Geo2City extends \CActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name
@@ -68,5 +68,36 @@ class Geo2City extends \CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function toJSON()
+	{
+		return [
+			'id' => (int) $this->id,
+			'country' => $this->country,
+			'region' => $this->region,
+			'title' => $this->title,
+			'area' => $this->area,
+		];
+	}
+	
+	public function search($term)
+	{
+		if ($term) {
+			$this->getDbCriteria()->addSearchCondition('title', $term . '%', false);
+		}
+		return $this;
+	}
+	
+	public function country($countryId)
+	{
+		$this->getDbCriteria()->compare('countryId', $countryId);
+		return $this;
+	}
+	
+	public function title($title)
+	{
+		$this->getDbCriteria()->compare($this->tableAlias . '.title', $title);
+		return $this;
 	}
 }

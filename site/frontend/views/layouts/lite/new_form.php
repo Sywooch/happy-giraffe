@@ -77,7 +77,6 @@
                     </div>
                 </div>
             </main>
-            <?php $this->renderPartial('//_new_footer'); ?>
         </div>
     </body>
 </html>

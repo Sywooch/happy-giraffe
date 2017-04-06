@@ -17,6 +17,4 @@ $this->beginContent('//layouts/lite/new_common');
     <?=$content?>
 </main>
 
-
-<?php $this->renderPartial('//_new_footer'); ?>
 <?php $this->endContent(); ?>

@@ -47,7 +47,7 @@ class User extends ApiModel implements \IHToJSON
     {
         $strCity = $this->_getCity();
 
-        $result = $this->firstName;
+        $result = $this->firstName . ' ' . $this->lastName;
 
         if (!is_null($strCity)) {
             $result = $result . ', ' . $strCity;

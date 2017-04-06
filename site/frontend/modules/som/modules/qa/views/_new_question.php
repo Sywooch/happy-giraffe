@@ -22,7 +22,7 @@
                 </div>
   			<?php endif; ?>
   			<?php
-  			   if (!is_null($data->attachedChild)) {
+  			   if (!is_null($data->attachedChild) and !is_null($fmember = $data->attChild)) {
             	   $fmember = $data->attChild;
             	   $arrFooterData = $fmember->getAnswerFooterData();
 	           ?>

@@ -171,7 +171,7 @@ return array(
             'class' => 'site\frontend\modules\landing\LandingModule'
         ],
         'specialists' => [
-            'class' => 'site\frontend\modules\specialists\SpecialistsModule',    
+            'class' => 'site\frontend\modules\specialists\SpecialistsModule',
         ],
         'chat' => [
             'class' => 'site\frontend\modules\chat\ChatModule',
@@ -242,8 +242,8 @@ return array(
             'services' => array(// You can change the providers and their classes.
                 'facebook' => array(
                     'class' => 'application.components.eauth.FacebookAuth',
-                    'client_id' => '1648409175470149',
-                    'client_secret' => '5b205be5986475a0244bb4d44f4a2299',
+                    'client_id' => '1867419546832048',
+                    'client_secret' => '6a7192dee6a44f671cedb8526caf1856',
                     'title' => 'Facebook',
                 ),
 //                'mailru' => array(

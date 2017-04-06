@@ -3,7 +3,9 @@
 use site\frontend\modules\som\modules\activity\widgets\ActivityWidget;
 
 $user = $this->getUserInfo($data->userId);
+$model = $data->getDataObject();
 ?>
+<?php if (is_null($model)): ?>
 <article class="b-article b-article__list clearfix">
     <div class="b-article_cont clearfix">
         <div class="b-article_header clearfix">
@@ -23,3 +25,4 @@ $user = $this->getUserInfo($data->userId);
         <?php $this->render('min/' . ActivityWidget::$types[$data->typeId][1], array('data' => $data)); ?>
     </div>
 </article>
+<?php endif;?>

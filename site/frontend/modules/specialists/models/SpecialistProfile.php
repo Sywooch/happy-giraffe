@@ -6,6 +6,7 @@ use site\frontend\modules\specialists\models\sub\MultipleRowsModel;
 use site\frontend\modules\specialists\components\SpecialistsManager;
 use site\frontend\modules\specialists\models\specialistsAuthorizationTasks\AuthorizationTypeEnum;
 use site\frontend\modules\specialists\models\specialistProfile\AuthorizationEnum;
+use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
 
 /**
  * This is the model class for table "specialists__profiles".

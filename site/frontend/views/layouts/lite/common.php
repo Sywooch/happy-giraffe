@@ -2,7 +2,8 @@
 /**
  * @var PersonalAreaController $this
  */
-?><!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+?>
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
@@ -73,7 +74,7 @@
 <div class="layout-container pediator">
 
 	<div id="js-alerts" class="alerts" data-bind="template: { name: 'alert', foreach: alertsList }"></div>
-        
+
     <script type="text/html" id="alert">
 	   <div class="alert alert-in" data-bind="css: 'alert-' + color">
             <div class="position-rel">
@@ -85,7 +86,7 @@
             </div>
         </div>
     </script>
-    
+
     <div class="layout-loose layout-loose__white">
         <?= $content ?>
         <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>

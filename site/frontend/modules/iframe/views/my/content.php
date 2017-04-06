@@ -36,13 +36,6 @@ if ($isAnswer)
             </div>
         </div>
         <?php
-        $mobileBlock =
-        '<div class="b-mobile-nav">
-            <div class="b-mobile-nav__title">Мой педиатр</div>
-            <div class="b-mobile-nav__right">
-                <a href="'.$this->createUrl("/iframe/default/questionAddForm/").'" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
-            </div>
-        </div>';
 
         $this->widget('LiteListView', [
             'dataProvider'      => $dp,
@@ -52,7 +45,7 @@ if ($isAnswer)
             ],
             'itemsTagName'      => 'ul',
             'itemsCssClass'     => 'b-answer b-answer--theme-pediator',
-            'template'          => $mobileBlock . '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
+            'template'          => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
             'pager'             => [
                 'class'           => 'LitePagerDots',
                 'prevPageLabel'   => '&nbsp;',

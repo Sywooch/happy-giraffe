@@ -196,6 +196,9 @@ return array(
         'iframe/questions/my/<categoryId:\d+>' => 'iframe/my/questions',
         'iframe/questions/my/page<page:\d+>' => 'iframe/my/questions',
         'iframe/questions/my' => 'iframe/my/questions',
+        'iframe/search/page<page:\d+>' => 'iframe/default/pediatricianSearch',
+        'iframe/search' => 'iframe/default/pediatricianSearch',
+        'iframe/logout' => 'iframe/default/logout',
 
         /* SOM */
         'status' => 'som/status/default/index',

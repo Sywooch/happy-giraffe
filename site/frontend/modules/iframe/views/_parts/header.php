@@ -51,7 +51,6 @@ if (! Yii::app()->user->isGuest) {
 <div class="header__container">
     <div class="b-col b-col--1 b-fl">
         <a href="<?=$this->createUrl('/iframe/default/pediatrician')?>" class="header__logo header__logo--style header-iframe__logo"></a>
-        <a class="js-mobile-menu mobile-menu"><span></span></a>
     </div>
     <nav class="header__menu header__menu--style header-iframe__menu--style">
         <ul class="header__list">
@@ -103,7 +102,7 @@ if (! Yii::app()->user->isGuest) {
                     <span class="user-widget-block-iframe__count"><?=$rating['rating']['answers_count']?></span>
                 </li>
                 <li class="user-widget-block-iframe__li">
-                    <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/site/logout')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-exit"></span>Выход</a>
+                    <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/default/logout')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-exit"></span>Выход</a>
                 </li>
             </ul>
         </div>

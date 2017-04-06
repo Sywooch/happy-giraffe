@@ -377,6 +377,12 @@ class DefaultController extends QaController
         return $question->next()->category($question->categoryId)->find();
     }
 
+    public function actionLogout()
+    {
+        \Yii::app()->user->logout();
+        $this->redirect(array('/iframe/default/pediatrician'));
+    }
+
     /**
      * @param string $tab
      * @param integer $categoryId

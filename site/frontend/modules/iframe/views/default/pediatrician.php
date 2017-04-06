@@ -19,12 +19,6 @@ $tabTitle = [
 $currentTagId = \Yii::app()->request->getParam('tagId');
 ?>
 <div class="b-col b-col--6 b-col-sm--10 b-col-xs">
-    <div class="b-mobile-nav">
-        <div class="b-mobile-nav__title">Мой педиатор</div>
-        <div class="b-mobile-nav__right">
-            <a href="<?=$this->createUrl("/iframe/default/questionAddForm/")?>" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
-        </div>
-    </div>
     <div class="b-nav-panel">
         <?php /* -------------- TABS -------------- */?>
         <div class="b-nav-panel__left">

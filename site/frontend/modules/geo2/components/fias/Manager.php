@@ -18,10 +18,10 @@ class Manager
     public $handler;
     public $output;
 
-    public function __construct($schemaDestination, IHandler $handler, Output $output)
+    public function __construct(IHandler $handler, Output $output, $dataDestination = null)
     {
-        $this->schemaDestination = $schemaDestination;
-        $this->dataDestination = (new ArchiveGetter('http://fias.nalog.ru/Public/Downloads/Actual/fias_xml.rar'))->get();
+        $this->schemaDestination = \Yii::getPathOfAlias('site.frontend.modules.geo2.data.xsd') . DIRECTORY_SEPARATOR;
+        $this->dataDestination = $dataDestination ? $dataDestination : (new ArchiveGetter('http://fias.nalog.ru/Public/Downloads/Actual/fias_xml.rar'))->get();
         $this->handler = $handler;
         $this->output = $output;
     }
@@ -30,14 +30,7 @@ class Manager
     {
         $map = $this->mapFiles();
 
-        $matched = false;
         foreach ($map as $tableName => $files) {
-            if ($tableName != 'NORMDOC' && ! $matched) {
-                continue;
-            } else {
-                $matched = true;
-            }
-
             $schemaParser = new SchemaParser($files['schema']);
             $schema = $schemaParser->parse();
             $table = new Table($schema['comment'], $schema['fields']);

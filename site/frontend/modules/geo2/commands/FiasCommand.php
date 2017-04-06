@@ -15,11 +15,11 @@ use site\frontend\modules\geo2\Geo2Module;
 
 class FiasCommand extends \CConsoleCommand
 {
-    public function actionInit($schema, $data, $output)
+    public function actionInit($output, $dataDestination = null)
     {
         $handler = new MySQLHandler(Geo2Module::$fias['prefix']);
         $output = new DumpOutput($output);
-        $fiasManager = new Manager($schema, $data, $handler, $output);
+        $fiasManager = new Manager($handler, $output, $dataDestination);
         $fiasManager->import();
     }
 

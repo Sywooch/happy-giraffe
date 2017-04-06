@@ -8,6 +8,7 @@ namespace site\frontend\modules\geo2\components\fias\update;
 
 
 use site\frontend\modules\geo2\components\combined\modifier\FiasModifier;
+use site\frontend\modules\geo2\components\fias\ArchiveGetter;
 use site\frontend\modules\geo2\components\fias\DataParser;
 use site\frontend\modules\geo2\components\fias\FileNameHelper;
 use site\frontend\modules\geo2\components\fias\models\FiasAddrobj;
@@ -26,7 +27,7 @@ class UpdateManager
     
     public function __construct()
     {
-        $this->deltaGetter = new DeltaGetter();
+        $this->deltaGetter = new ArchiveGetter('http://fias.nalog.ru/Public/Downloads/Actual/fias_delta_xml.rar');
         $this->versionManager = new VersionManager();
     }
 
@@ -36,7 +37,7 @@ class UpdateManager
             return;
         }
         
-        $deltaDestination = $this->deltaGetter->getDelta();
+        $deltaDestination = $this->deltaGetter->get();
         foreach (new \DirectoryIterator($deltaDestination) as $file) {
             if ($file->isDot()) {
                 continue;

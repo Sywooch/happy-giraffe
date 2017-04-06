@@ -4,17 +4,21 @@
  * @date 02/03/17
  */
 
-namespace site\frontend\modules\geo2\components\fias\update;
+namespace site\frontend\modules\geo2\components\fias;
 
 
-class DeltaGetter
+class ArchiveGetter
 {
-    const DELTA_DESTIONATION = 'http://fias.nalog.ru/Public/Downloads/Actual/fias_delta_xml.rar';
-    const RUNTIME_PATH = 'fias_delta';
-
-    public function getDelta()
+    public $destination;
+    
+    public function __construct($destination)
     {
-        $archive = $this->download();
+        $this->destination = $destination;
+    }
+
+    public function get()
+    {
+        $archive = $this->download($this->destination);
         return $this->unrar($archive);
     }
 
@@ -24,7 +28,7 @@ class DeltaGetter
             throw new \CException('Unrar is not installed');
         }
 
-        $deltaPath = $this->getDeltaPath();
+        $deltaPath = $this->getPath();
         if (! is_dir($deltaPath)) {
             mkdir($deltaPath);
         } else {
@@ -40,16 +44,16 @@ class DeltaGetter
         return $deltaPath;
     }
 
-    protected function getDeltaPath()
+    protected function getPath()
     {
-        return \Yii::app()->getRuntimePath() . DIRECTORY_SEPARATOR . self::RUNTIME_PATH;
+        return \Yii::app()->getRuntimePath() . DIRECTORY_SEPARATOR . md5($this->destination);
     }
 
-    protected function download()
+    protected function download($url)
     {
-        $filename = substr(self::DELTA_DESTIONATION, strrpos(self::DELTA_DESTIONATION, '/'));
+        $filename = substr($url, strrpos($url, '/'));
         $path = \Yii::app()->getRuntimePath() . DIRECTORY_SEPARATOR . $filename;
-        file_put_contents($path, fopen(self::DELTA_DESTIONATION, 'r'));
+        file_put_contents($path, fopen($url, 'r'));
         return $path;
     }
 }

@@ -18,10 +18,10 @@ class Manager
     public $handler;
     public $output;
 
-    public function __construct($schemaDestination, $dataDestination, IHandler $handler, Output $output)
+    public function __construct($schemaDestination, IHandler $handler, Output $output)
     {
         $this->schemaDestination = $schemaDestination;
-        $this->dataDestination = $dataDestination;
+        $this->dataDestination = (new ArchiveGetter('http://fias.nalog.ru/Public/Downloads/Actual/fias_xml.rar'))->get();
         $this->handler = $handler;
         $this->output = $output;
     }

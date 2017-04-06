@@ -26,14 +26,14 @@ class SchemaParser
         $xpath = new \DOMXPath($doc);
         $attributes = $xpath->query('/xs:schema/xs:element[1]/xs:complexType[1]/xs:sequence[1]/xs:element[1]/xs:complexType[1]/xs:attribute');
         
-        $tableComment = $xpath->query('/xs:schema/xs:element[1]/xs:annotation[1]/xs:documentation')[0]->nodeValue;
+        $tableComment = $xpath->query('/xs:schema/xs:element[1]/xs:annotation[1]/xs:documentation')->item(0)->nodeValue;
         $fields = [];
         /** @var \DOMElement $attribute */
         foreach ($attributes as $attribute) {
             $name = $attribute->getAttribute('name');
-            $comment = $xpath->query('xs:annotation/xs:documentation', $attribute)[0]->nodeValue;
+            $comment = $xpath->query('xs:annotation/xs:documentation', $attribute)->item(0)->nodeValue;
             
-            $restrictionNode = $xpath->query('xs:simpleType/xs:restriction', $attribute)[0];
+            $restrictionNode = $xpath->query('xs:simpleType/xs:restriction', $attribute)->item(0);
             $type = ($attribute->getAttribute('type')) ? $attribute->getAttribute('type') : $restrictionNode->getAttribute('base');
 
             $field = new Field();
@@ -43,15 +43,15 @@ class SchemaParser
 
             switch ($type) {
                 case 'xs:integer':
-                    $field->length = $xpath->query('xs:totalDigits', $restrictionNode)[0]->getAttribute('value');
+                    $field->length = $xpath->query('xs:totalDigits', $restrictionNode)->item(0)->getAttribute('value');
                     $field->type = Field::TYPE_INTEGER;
                     break;
                 case 'xs:string':
                     $field->type = Field::TYPE_STRING;
                     if ($xpath->query('xs:maxLength', $restrictionNode)->length > 0) {
-                        $field->length = $xpath->query('xs:maxLength', $restrictionNode)[0]->getAttribute('value');
+                        $field->length = $xpath->query('xs:maxLength', $restrictionNode)->item(0)->getAttribute('value');
                     } elseif ($xpath->query('xs:length', $restrictionNode)->length > 0) {
-                        $field->length = $xpath->query('xs:length', $restrictionNode)[0]->getAttribute('value');
+                        $field->length = $xpath->query('xs:length', $restrictionNode)->item(0)->getAttribute('value');
                     } else {
                         switch ($name) {
                             case 'REGIONCODE':

@@ -9,8 +9,8 @@ namespace site\frontend\modules\geo2\components\fias\output;
 
 class DumpOutput extends Output
 {
-    const PER_WRITE = 100 * 1000000;
-    const PER_FILE = 2000 * 1000000;
+    const PER_WRITE = 100000000; // 100mb
+    const PER_FILE = 2000000000; // 2gb
 
     public $destination;
 

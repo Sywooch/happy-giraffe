@@ -32,15 +32,6 @@ class UpdateManager
 
     public function update()
     {
-        foreach (new \DirectoryIterator('/home/giraffe/happy-giraffe.ru/site/frontend/modules/geo2/data/xml_delta') as $file) {
-            if ($file->isDot()) {
-                continue;
-            }
-
-            $this->processFile($file);
-        }
-        return;
-
         if (! $this->versionManager->isUpdateRequired()) {
             return;
         }

@@ -39,7 +39,7 @@ class ArchiveGetter
                 unlink($file->getPathname());
             }
         }
-        shell_exec("unrar e -r $path $deltaPath");
+        shell_exec("unrar e $path $deltaPath");
         
         return $deltaPath;
     }

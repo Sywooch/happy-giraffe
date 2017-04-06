@@ -10,6 +10,7 @@ namespace site\frontend\modules\geo2\components\fias;
 use site\frontend\modules\geo2\components\fias\handler\IHandler;
 use site\frontend\modules\geo2\components\fias\handler\MySQLHandler;
 use site\frontend\modules\geo2\components\fias\output\Output;
+use site\frontend\modules\geo2\components\fias\update\VersionManager;
 
 class Manager
 {
@@ -48,6 +49,8 @@ class Manager
             }
         }
         $this->output->finish();
+        
+        (new VersionManager())->setCurrentVersion();
     }
 
     protected function mapFiles()

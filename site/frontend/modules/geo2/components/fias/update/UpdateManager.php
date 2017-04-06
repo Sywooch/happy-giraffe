@@ -18,6 +18,10 @@ use site\frontend\modules\geo2\Geo2Module;
 
 class UpdateManager
 {
+    const ACTIVE_TABLES = [
+        'ADDROBJ'
+    ];
+    
     public $created = 0;
     public $updated = 0;
     public $deleted = 0;
@@ -50,6 +54,10 @@ class UpdateManager
     protected function processFile(\DirectoryIterator $file)
     {
         $tableName = FileNameHelper::filenameToTable($file->getFilename());
+        if (! in_array($tableName, self::ACTIVE_TABLES)) {
+            return;
+        }
+        
         $prefixedTableName = Geo2Module::$fias['prefix'] . $tableName;
         $pkName = Geo2Module::$fias['pks'][$tableName];
         

@@ -81,11 +81,11 @@ class UserLocation extends \CActiveRecord implements \IHToJSON
 	{
 		return [
 			'id' => (int) $this->id,
-			'city' => [
+			'city' => $this->city ? [
 				'id' => (int) $this->city->id,
 				'title' => $this->city->title,
 				'area' => $this->city->area,
-			],
+			] : null,
 			'region' => $this->region,
 			'country' => $this->country,
 		];

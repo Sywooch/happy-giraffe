@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\geo2\controllers;
+use GeoIp2\Exception\AddressNotFoundException;
 use site\frontend\modules\geo2\components\combined\models\Geo2City;
 use site\frontend\modules\geo2\components\combined\models\Geo2Country;
 use site\frontend\modules\geo2\components\LocationRecognizer;
@@ -13,8 +14,12 @@ class ApiController extends \site\frontend\components\api\ApiController
 {
     public function actionLocateCity()
     {
-        $record = \Yii::app()->geoLite->city($_SERVER['REMOTE_ADDR']);
-        $city = LocationRecognizer::recognizeCity($record->country->isoCode, $record->city->name, $record->mostSpecificSubdivision->name);
+        try {
+            $record = \Yii::app()->geoLite->city($_SERVER['REMOTE_ADDR']);
+            $city = LocationRecognizer::recognizeCity($record->country->isoCode, $record->city->name, $record->mostSpecificSubdivision->name);
+        } catch (AddressNotFoundException $e) {
+            $city = null;
+        }
         $this->success = true;
         $this->data = [
             'city' => $city,

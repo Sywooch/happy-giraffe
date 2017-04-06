@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\specialists\models;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\specialists\models\sub\MultipleRowsModel;
 use site\frontend\modules\specialists\components\SpecialistsManager;
 use site\frontend\modules\specialists\models\specialistsAuthorizationTasks\AuthorizationTypeEnum;
@@ -79,6 +80,9 @@ class SpecialistProfile extends \HActiveRecord
 			'user' => array(self::BELONGS_TO, 'site\frontend\modules\users\models\User', 'id'),
 			'chat_statistics' => array(self::HAS_ONE, 'site\frontend\modules\specialists\models\SpecialistChatsStatistic', 'user_id'),
 			'specializations' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistSpecialization', 'specialists__profiles_specializations(profileId, specializationId)', 'scopes' => ['sorted']),
+			'rating' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaRating', 'user_id',
+				'on' => 'rating.category_id = :category_id',
+				'params' => [':category_id' => QaCategory::PEDIATRICIAN_ID]],
 		);
 	}
 

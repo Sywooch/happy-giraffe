@@ -19,7 +19,7 @@ return array(
         '<_v>/api/comments/<id:\d+>' => 'api/<_v>/api/comments',
         '<_v>/api/posts' => 'api/<_v>/api/posts',
         '<_v>/api/posts/<id:\d+>' => 'api/<_v>/api/posts',
-        '<_v>/api/posts/<action:(my)>' => 'api/<_v>/api/posts',
+        '<_v>/api/posts/<action:(my|forum)>' => 'api/<_v>/api/posts',
         //'<_v>/api/post-content' => 'api/<_v>api/postContent',
         //'<_v>/api/post-label' => 'api/<_v>/api/postLabel',
         //'<_v>/api/post-tag' => 'api/<_v>/api/postTag',

@@ -34,8 +34,6 @@ class LiteController extends HController
         if (! Yii::app()->user->isGuest) {
             Yii::app()->clientScript->registerAMD('Realplexor-reg', array('common', 'comet'), 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
         }
-        Yii::app()->clientScript->registerPackage('register_form');
-        Yii::app()->clientScript->registerCssFile('https://fonts.googleapis.com/icon?family=Material+Icons');
         parent::init();
     }
 
@@ -48,6 +46,10 @@ class LiteController extends HController
             // если не гость и если есть отдельный пакет для пользователя, то подключаем его, иначе - общий.
             $package = \Yii::app()->user->isGuest ? $guestPackage : (isset(\Yii::app()->clientScript->packages[$userPackage]) ? $userPackage : $guestPackage);
             \Yii::app()->clientScript->registerPackage($package);
+        }
+        Yii::app()->clientScript->registerPackage('register_form');
+        Yii::app()->clientScript->registerCssFile('https://fonts.googleapis.com/icon?family=Material+Icons');
+        if ($this->litePackage) {
             \Yii::app()->clientScript->useAMD = true;
         }
         return parent::beforeAction($action);

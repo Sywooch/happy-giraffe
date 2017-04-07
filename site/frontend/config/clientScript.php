@@ -667,7 +667,7 @@ return array(
         'register_form' => [
             'baseUrl' => '/',
             'css' => [
-                'app/builds/static/css/separate-css/separate-css-sample.css',
+                'app/builds/static/css/separate-css-sample.css',
             ],
         ],
     )

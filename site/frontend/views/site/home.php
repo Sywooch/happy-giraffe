@@ -135,5 +135,9 @@ if ($openLogin == 'login') {
         </div>
     </div>
 </div>
+<?php
+Yii::app()->clientScript->registerCssFile('/app/builds/static/css/separate-css-sample.css');
+Yii::app()->clientScript->registerCssFile('https://fonts.googleapis.com/icon?family=Material+Icons');
+?>
 </body>
 </html>

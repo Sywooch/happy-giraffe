@@ -113,11 +113,11 @@ if ($openLogin == 'login') {
             <?php endif; ?>
 
             <?php
-//            $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
-//                'pageVar' => 'page',
-//                'view' => 'onair',
-//                'pageSize' => 5,
-//            ));
+            $this->widget('site\frontend\modules\som\modules\activity\widgets\ActivityWidget', array(
+                'pageVar' => 'page',
+                'view' => 'onair',
+                'pageSize' => 5,
+            ));
             ?>
 
             <!-- Посетители-->

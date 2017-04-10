@@ -165,7 +165,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             $question->attachedChild = null;
         }
 
-        if (!is_null($childId))
+        if (!is_null($childId) and !is_null($question->attChild))
         {
             $question->setScenario('attachedChild');
             $question->attachedChild = $childId;

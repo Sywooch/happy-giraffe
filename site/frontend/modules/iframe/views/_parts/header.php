@@ -59,7 +59,8 @@ if (! Yii::app()->user->isGuest) {
         </ul>
     </nav>
     <?php if (Yii::app()->user->isGuest): ?>
-    <div class="header__unloged b-fr b-col b-col--2">
+    <div class="header__unloged b-fr b-col b-col--4">
+        <?php $this->renderPartial('application.modules.iframe.views._sidebar.new_ask');?>
     	<span class="header__user header__user--style login-button" data-bind="follow: {}">
     		<span class="header-user__text">Войти</span>
     	</span>

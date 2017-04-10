@@ -8,7 +8,7 @@ $this->pageTitle = 'Задать вопрос';
 
 ?>
 
-<mp-question-form params='tags: <?= CJSON::encode($tagsData); ?>'>
+<mp-question-form-iframe params='tags: <?= CJSON::encode($tagsData); ?>'>
 
 	<div class="preloader">
         <div class="preloader__inner">
@@ -17,4 +17,4 @@ $this->pageTitle = 'Задать вопрос';
         </div>
     </div>
 
-</mp-question-form>
+</mp-question-form-iframe>

@@ -199,7 +199,7 @@ use site\frontend\modules\iframe\widgets\answers\AnswersWidget;
         <div class="b-open-question__title">Ответы</div>
         <div class="b-margin--bottom_60">
 
-            <mp-answers-widget params='questionData: <?= CJSON::encode($question->toJSON()); ?>, answersList: <?= CJSON::encode($answersTreeList); ?>, isEditing: <?= $isEditing; ?>'>
+            <mp-answers-widget-iframe params='questionData: <?= CJSON::encode($question->toJSON()); ?>, answersList: <?= CJSON::encode($answersTreeList); ?>, isEditing: <?= $isEditing; ?>'>
 
                 <div class="preloader-answer">
                     <div class="preloader__inner">
@@ -210,7 +210,7 @@ use site\frontend\modules\iframe\widgets\answers\AnswersWidget;
                     </div>
                 </div>
 
-            </mp-answers-widget>
+            </mp-answers-widget-iframe>
 
         </div>
     </div>

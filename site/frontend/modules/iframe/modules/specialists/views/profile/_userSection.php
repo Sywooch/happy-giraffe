@@ -44,7 +44,9 @@ if ($profile->category && \site\frontend\modules\specialists\models\SpecialistPr
         <div class="userSection-iframe_right">
             <?php if ($specs = $profile->getSpecsString()): ?>
                 <div class="userSection-iframe-info">
-                    <div class="userSection-iframe-info_opacity">Тестовый город</div>
+                    <?php if(!empty($this->user->address->city)) {?>
+                        <div class="userSection-iframe-info_opacity"><?=$this->user->address->city->name?></div>
+                    <?php } ?>
                     <div class="userSection-iframe-info_orange"><?=$specs?></div>
                 </div>
             <?php endif; ?>

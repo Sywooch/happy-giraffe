@@ -199,6 +199,7 @@ return array(
         'iframe/search/page<page:\d+>' => 'iframe/default/pediatricianSearch',
         'iframe/search' => 'iframe/default/pediatricianSearch',
         'iframe/logout' => 'iframe/default/logout',
+        'iframe/api/<_a>' => 'iframe/api/<_a>',
 
         /* SOM */
         'status' => 'som/status/default/index',

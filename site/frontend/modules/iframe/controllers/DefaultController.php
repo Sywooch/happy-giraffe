@@ -197,8 +197,6 @@ class DefaultController extends QaController
 
     public function actionSearch($query = '', $categoryId = null)
     {
-        $this->layout       = '/layouts/search_pediatrician';
-
         $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category')->orderDesc(), [
             'sphinxCriteria' => [
                 'select' => '*',
@@ -217,8 +215,6 @@ class DefaultController extends QaController
 
     public function actionPediatricianSearch($query = '')
     {
-        $this->layout       = '/layouts/search_pediatrician';
-
         $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category')->orderDesc(), [
             'sphinxCriteria' => [
                 'select' => '*',

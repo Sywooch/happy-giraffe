@@ -36,6 +36,7 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property int registration_finished
  *
  * The followings are the available model relations:
+ * @property \site\frontend\modules\geo2\models\UserLocation $location
  * @property BagOffer[] $bagOffers
  * @property BagOfferVote[] $bagOfferVotes
  * @property CommunityContent[] $clubCommunityContents

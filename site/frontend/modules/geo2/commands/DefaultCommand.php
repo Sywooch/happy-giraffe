@@ -11,6 +11,7 @@ use site\frontend\modules\geo2\components\fias\update\DeltaGetter;
 use site\frontend\modules\geo2\components\fias\update\VersionManager;
 use site\frontend\modules\geo2\components\fias\update\UpdateManager;
 use site\frontend\modules\geo2\components\LocationRecognizer;
+use site\frontend\modules\geo2\components\MigrationManager;
 use site\frontend\modules\geo2\Geo2Module;
 
 /**
@@ -22,5 +23,10 @@ class DefaultCommand extends \CConsoleCommand
     public function actionInit()
     {
         (new CombinedManager())->init();
+    }
+    
+    public function actionMigrate($dryRun = true)
+    {
+        (new MigrationManager())->run($dryRun);
     }
 }

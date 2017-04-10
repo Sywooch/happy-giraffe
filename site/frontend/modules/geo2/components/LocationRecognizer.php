@@ -11,7 +11,13 @@ class LocationRecognizer
 {
     public static function recognizeCity($countryIsoCode, $cityName, $regionName)
     {
-        $cities = Geo2City::model()->title($cityName)->with([
+        $cities = self::getCities($countryIsoCode, $cityName);
+        return (empty($cities)) ? null : self::chooseCity($cities, $regionName);
+    }
+    
+    public static function getCities($countryIsoCode, $cityName)
+    {
+        return Geo2City::model()->title($cityName)->with([
             'country' => [
                 'joinType' => 'INNER JOIN',
                 'scopes' => [
@@ -19,10 +25,9 @@ class LocationRecognizer
                 ],
             ],
         ])->findAll();
-        return (empty($cities)) ? null : self::chooseCity($cities, $regionName);
     }
 
-    protected static function chooseCity($cities, $regionName)
+    public static function chooseCity($cities, $regionName)
     {
         if (count($cities) == 1) {
             return $cities[0];

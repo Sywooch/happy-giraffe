@@ -7,7 +7,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 /**
  * @var QaQuestion $question
  */
-
+$this->pageTitle = 'Мой педиатр - ' . $question->title;
 ?>
 
 <?php

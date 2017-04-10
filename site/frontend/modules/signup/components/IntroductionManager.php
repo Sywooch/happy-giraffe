@@ -7,6 +7,8 @@
 namespace site\frontend\modules\signup\components;
 
 
+use site\frontend\modules\users\models\User;
+
 class IntroductionManager
 {
     const ATTRIBUTE_KEY = 'introductionPassed';
@@ -31,6 +33,23 @@ class IntroductionManager
             return false;
         }
         
-        return ! \UserAttributes::get(\Yii::app()->user->id, self::ATTRIBUTE_KEY, false);
+        $passed = \UserAttributes::get(\Yii::app()->user->id, self::ATTRIBUTE_KEY, false);
+        if (! $passed) {
+            $isFilled = self::isFilled(\Yii::app()->user->model);
+            if ($isFilled) {
+                $passed = true;
+                \UserAttributes::set(\Yii::app()->user->id, self::ATTRIBUTE_KEY, $passed);
+            }
+        }
+        return ! $passed;
+    }
+
+    protected static function isFilled(\User $user)
+    {
+        return
+            ! empty($user->first_name)
+            && in_array($user->gender, [User::GENDER_MALE, User::GENDER_FEMALE])
+            && $user->location->country
+        ;
     }
 }

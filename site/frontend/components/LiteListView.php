@@ -20,6 +20,7 @@ class LiteListView extends CListView
     );
     public $emptyText = '';
     public $category;
+    public $additionalData;
 
     /**
      * Renders the data item list.
@@ -37,6 +38,7 @@ class LiteListView extends CListView
             foreach ($data as $i => $item) {
                 $viewData = $this->viewData;
                 $viewData['index'] = $i;
+                $viewData['additionalData'] = $this->additionalData;
                 $viewData['category'] = $this->category;
                 $viewData['data'] = $item;
                 $viewData['widget'] = $this;

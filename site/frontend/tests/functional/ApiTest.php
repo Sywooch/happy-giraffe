@@ -8,7 +8,6 @@
 
 namespace site\frontend\modules\photo\tests;
 
-
 use Guzzle\Http\Client;
 use Guzzle\Plugin\Cookie\CookieJar\FileCookieJar;
 use Guzzle\Plugin\Cookie\CookiePlugin;
@@ -50,8 +49,6 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'description' => 'Он даже с описанием',
         ));
         $this->assertTrue($r1->success);
-
-
 
         $r2 = $this->editAlbum($user1Client, array(
             'title' => 'Измененный Никитой тайтл',

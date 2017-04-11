@@ -9,6 +9,7 @@ namespace site\frontend\modules\users\controllers;
 
 class DefaultController extends \LiteController
 {
+    public $layout = '//layouts/lite/mainSetting';
     public function filters()
     {
         return array(

@@ -1,6 +1,9 @@
 <?php
 
 use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
+use site\frontend\modules\som\modules\qa\components\QaManager;
+use site\frontend\modules\specialists\modules\pediatrician\components\QaManager as MPQaManager;
+
 /**
  * @var \site\frontend\modules\som\modules\qa\controllers\DefaultController $this
  * @var \site\frontend\modules\som\modules\qa\models\QaQuestion $question
@@ -9,10 +12,22 @@ use site\frontend\modules\specialists\modules\pediatrician\helpers\AnswersTree;
 $this->pageTitle = $question->title;
 
 $answerTreeHelper = new AnswersTree();
-$answerTreeHelper->init($question->getSpecialistDialog());
+$answerTreeHelper->init($question->getSpecialistDialog(\Yii::app()->user->id));
 
 $currentAnswerId = $answerTreeHelper->getCurrentAnswerForSpecialist();
-$replyArgument = is_null($currentAnswerId) ? $question->id : $question->id . ', ' . $currentAnswerId->id;
+
+$jsParams = [
+    $question->id
+];
+
+if (!is_null($currentAnswerId))
+{
+    $jsParams[] = $currentAnswerId->id;
+    $jsParams[] = CJSON::encode( \site\common\helpers\HStr::truncate($currentAnswerId->text, 150) );
+    $jsParams[] = (int) QaManager::isAnswerEditing($currentAnswerId->id);
+}
+
+$jsParamsStr = implode(',', $jsParams);
 
 ?>
 
@@ -48,30 +63,29 @@ $replyArgument = is_null($currentAnswerId) ? $question->id : $question->id . ', 
             <div class="float-l"><span class="btn btn-xl btn-secondary" data-bind="click: skip">Пропустить</span></div>
             <div class="float-r"><span class="btn btn-xl green-btn" data-bind="click: openForm">Ответить</span></div>
         </div>
+
         <form class="answer-form" data-bind="visible: replyMode()">
-            <div class="answer-form__header clearfix">
+            <div class="redactor-control">
                 <?php $this->widget('Avatar', [
                     'user' => Yii::app()->user->model,
                     'tag' => 'span',
                     'size' => Avatar::SIZE_SMALL,
                 ]); ?>
-
-                <div class="redactor-control">
-                    <div class="redactor-control_toolbar clearfix margin-b15" style="padding-left: 30px;"></div>
-                    <div class="redactor-control_hold">
-                        <textarea placeholder="Введите ваш ответ" class="answer-form_textarea" data-bind="wswgHG: { config : editorConfig, attr : answerText }"></textarea>
-                    </div>
+                <div class="redactor-control_hold" style="padding-left: 8%">
+                    <textarea placeholder="Введите ваш ответ" class="answer-form_textarea" data-bind="wswgHG: { config : editorConfig, attr : answerText  }"></textarea>
                 </div>
             </div>
+
             <div class="answer-form__footer clearfix">
                 <div class="answer-form__footer-panel">
                     <div id="add-post-toolbar"></div>
                 </div>
                 <div class="textalign-r">
-                    <div class="answer-form_button btn btn-primary btn-s" data-bind="click: reply">Ответить</div>
+                    <div class="answer-form_button btn btn-primary btn-s" data-bind="click: reply, css: {'disabled': isAnswerEditing() || isAnswerRemoved()}">Ответить</div>
                     <a class="btn btn-ms btn-secondary margin-t6 margin-r10" href="<?=$this->createUrl('/specialists/pediatrician/default/questions')?>">Отменить</a>
                 </div>
             </div>
+
         </form>
     </div>
 </div>
@@ -86,7 +100,7 @@ $cs = Yii::app()->clientScript;
 
 $js = <<<JS
     setTimeout(function() {
-        ko.applyBindings(new ReplyForm($replyArgument), document.getElementById("pediatrician-reply"));
+        ko.applyBindings(new ReplyForm($jsParamsStr), document.getElementById("pediatrician-reply"));
     }, 100);
 JS;
 
@@ -97,6 +111,15 @@ $cs->registerAMD(
         'ko'        => 'knockout'
     ],
     $js
+);
+
+$cs->registerAMD(
+    'Realplexor-reg',
+    [
+        'common',
+        'comet'
+    ],
+    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . MPQaManager::getQuestionChannelId($question->id) . '\');'
 );
 
 ?>

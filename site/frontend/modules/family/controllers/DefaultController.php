@@ -9,6 +9,7 @@ use site\frontend\modules\notifications\models\User;
 class DefaultController extends \LiteController
 {
     public $litePackage = 'family';
+    public $layout = '//layouts/new/mainFamily';
 
     public function filters()
     {

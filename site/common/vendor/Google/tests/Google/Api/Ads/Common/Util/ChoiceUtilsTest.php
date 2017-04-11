@@ -20,8 +20,6 @@
  * @copyright  2011, Google Inc. All Rights Reserved.
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache License,
  *             Version 2.0
- * @author     Eric Koleda
- * @author     Vincent Tsao
  */
 error_reporting(E_STRICT | E_ALL);
 
@@ -53,12 +51,12 @@ class ChoiceUtilsTest extends PHPUnit_Framework_TestCase {
     $data = array();
 
     // Populated choice.
-    $choice = (object) array('first' => NULL, 'second' => 'value');
+    $choice = (object) array('first' => null, 'second' => 'value');
     $data[] = array($choice, 'value');
 
     // Empty choice.
-    $choice = (object) array('first' => NULL, 'second' => NULL);
-    $data[] = array($choice, NULL);
+    $choice = (object) array('first' => null, 'second' => null);
+    $data[] = array($choice, null);
 
     return $data;
   }

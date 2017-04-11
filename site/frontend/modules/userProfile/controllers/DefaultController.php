@@ -26,17 +26,20 @@ class DefaultController extends \LiteController
 
     /**
      * @param $userId
-     * @throws \CHttpException
+     * @param int $page
+     * @param string $tab
      * @sitemap dataSource=sitemapView
      */
-    public function actionIndex($userId, $page = 1)
+    public function actionIndex($userId, $page = 1, $tab = 'new')
     {
         $user = User::model()->active()->findByPk($userId);
         if ($user === null) {
+            header("HTTP/1.0 404 Not Found");
             $this->render('deleted');
+        } else {
+            \NoindexHelper::setNoIndex($user);
+            $this->render('index', array('user' => $user));
         }
-        \NoindexHelper::setNoIndex($user);
-        $this->render('index', array('user' => $user));
     }
 
     public function sitemapView()

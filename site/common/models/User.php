@@ -2,6 +2,7 @@
 
 use site\frontend\modules\family\models\Family;
 use site\frontend\modules\family\models\FamilyMember;
+
 /**
  * This is the model class for table "user".
  *
@@ -48,8 +49,6 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property ClubPost[] $clubPosts
  * @property Comment[] $comments
  * @property UserCache[] $UserCaches
- * @property Message[] $Messages
- * @property DialogUser[] $DialogUsers
  * @property Name[] $names
  * @property RecipeBookRecipe[] $recipeBookRecipes
  * @property RecipeBookRecipeVote[] $recipeBookRecipeVotes
@@ -72,6 +71,8 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property CommunityClub[] $clubSubscriptions
  * @property string $publicChannel Имя публичного канала пользователя (в который отправляются события online/offline)
  * @property site\frontend\modules\specialists\models\SpecialistProfile $specialistProfile
+ * @property-read bool $isSpecialist
+ * @property-read string $fullName
  *
  * @method User active()
  */
@@ -179,10 +180,7 @@ class User extends HActiveRecord
             $attr == 'middle_name'
         )
         {
-            if (preg_match('/([^\x00-\x7F]|\w)+/', $value))
-            {
-                return json_decode('"' . $value . '"');
-            }
+            $value = Filters::decodeUnicodeToString($value);
         }
 
         return $value;
@@ -338,8 +336,6 @@ class User extends HActiveRecord
             'comments' => array(self::HAS_MANY, 'Comment', 'author_id'),
             'menstrualUserCycles' => array(self::HAS_MANY, 'MenstrualUserCycle', 'user_id'),
             'UserCaches' => array(self::HAS_MANY, 'UserCache', 'user_id'),
-            'Messages' => array(self::HAS_MANY, 'Message', 'user_id'),
-            'dialogUsers' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
             'names' => array(self::MANY_MANY, 'Name', 'name_likes(user_id, name_id)'),
             'recipeBookRecipes' => array(self::HAS_MANY, 'RecipeBookRecipe', 'author_id'),
             'userPointsHistories' => array(self::HAS_MANY, 'UserPointsHistory', 'user_id'),
@@ -347,8 +343,7 @@ class User extends HActiveRecord
 
             'commentsCount' => array(self::STAT, 'Comment', 'author_id'),
             'activeCommentsCount' => array(self::STAT, 'Comment', 'author_id', 'condition' => 'removed = 0'),
-
-            'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
+            
             'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active', 'permission')),
             'privateAlbum' => array(self::HAS_ONE, 'Album', 'author_id'),
             'simpleAlbums' => array(self::HAS_MANY, 'Album', 'author_id', 'condition' => 'type=0'),
@@ -366,8 +361,6 @@ class User extends HActiveRecord
             'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0 AND type = 0'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
-            'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
-            'userDialog' => array(self::HAS_ONE, 'DialogUser', 'user_id'),
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'address' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
             'priority' => array(self::HAS_ONE, 'UserPriority', 'user_id'),
@@ -631,10 +624,14 @@ class User extends HActiveRecord
      */
     public function getFullName()
     {
+        $firstName      = Str::ucFirst($this->first_name);
+        $middleName     = Str::ucFirst($this->middle_name);
+        $lastName       = Str::ucFirst($this->last_name);
+
         if ($this->specialistInfo) {
-            $parts = [$this->first_name, $this->middle_name, mb_substr($this->last_name, 0, 1, 'UTF-8') . '.'];
+            $parts = [$firstName, $middleName, mb_substr($lastName, 0, 1, 'UTF-8') . '.'];
         } else {
-            $parts = [$this->first_name, $this->last_name];
+            $parts = [$firstName, $lastName];
         }
         return implode(' ', array_filter($parts));
     }
@@ -1330,31 +1327,6 @@ class User extends HActiveRecord
         return Baby::model()->find($criteria);
     }
 
-    public function getEvent()
-    {
-        $row = array(
-            'id' => $this->id,
-            'last_updated' => time(),
-            'type' => Event::EVENT_USER,
-        );
-
-        $event = Event::factory(Event::EVENT_USER);
-        $event->attributes = $row;
-        return $event;
-    }
-
-    public function sendEvent()
-    {
-        $event = $this->event;
-        $params = array(
-            'blockId' => $event->blockId,
-            'code' => $event->code,
-        );
-
-        $comet = new CometModel;
-        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
-    }
-
     public function hasRssContent()
     {
         if (CommunityContent::model()->exists('author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0
@@ -1706,5 +1678,13 @@ class User extends HActiveRecord
         }
 
         return false;
+    }
+    
+    /**
+     * @return bool
+     */
+    public function getIsSpecialist()
+    {
+        return $this->specialistProfile !== null;
     }
 }

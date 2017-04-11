@@ -42,9 +42,6 @@ return array(
         'application.modules.calendar.models.*',
         'application.modules.cook.models.*',
         'application.modules.contest.models.*',
-        'application.modules.whatsNew.models.*',
-        'application.modules.whatsNew.components.*',
-        'application.modules.whatsNew.widgets.whatsNewWidget.WhatsNewWidget',
         'application.modules.messaging.components.*',
         'application.modules.messaging.models.*',
         'application.modules.friends.models.*',
@@ -98,14 +95,12 @@ return array(
     ),
     'modules' => array(
         'contest',
-        'im',
         'geo',
         'signal',
         'scores',
         'services',
         'cook',
         'calendar',
-        'whatsNew',
         'valentinesDay',
         'routes',
         'messaging',
@@ -139,7 +134,6 @@ return array(
         'family' => array(
             'class' => 'site\frontend\modules\family\FamilyModule',
         ),
-        'familyOld',
         'antispam',
         'signup',
         'mail',
@@ -177,7 +171,7 @@ return array(
             'class' => 'site\frontend\modules\landing\LandingModule'
         ],
         'specialists' => [
-            'class' => 'site\frontend\modules\specialists\SpecialistsModule',    
+            'class' => 'site\frontend\modules\specialists\SpecialistsModule',
         ],
     ),
     // application components
@@ -242,8 +236,8 @@ return array(
             'services' => array(// You can change the providers and their classes.
                 'facebook' => array(
                     'class' => 'application.components.eauth.FacebookAuth',
-                    'client_id' => '1648409175470149',
-                    'client_secret' => '5b205be5986475a0244bb4d44f4a2299',
+                    'client_id' => '1867419546832048',
+                    'client_secret' => '6a7192dee6a44f671cedb8526caf1856',
                     'title' => 'Facebook',
                 ),
 //                'mailru' => array(

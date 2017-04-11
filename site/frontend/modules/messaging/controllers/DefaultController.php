@@ -9,7 +9,7 @@
 class DefaultController extends HController
 {
 
-    public $layout = '//layouts/new/main';
+    public $layout = '//layouts/new/mainLite';
     public $tempLayout = true;
     public $showAddBlock = false;
     public $bodyClass = 'body__im';
@@ -36,6 +36,7 @@ class DefaultController extends HController
 		$model = new DialogForm($interlocutorId);
 		//$this->renderText(CHtml::tag('pre', array(), var_export($model->toJSON(), true)));
         $this->pageTitle = 'Мои диалоги';
+
         $this->render('index_v2', array('data' => CJSON::encode($model->toJSON())));
     }
 

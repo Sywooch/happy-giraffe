@@ -9,6 +9,7 @@ namespace site\frontend\modules\family\models\viewData;
 
 use site\frontend\modules\family\components\AgeHelper;
 use site\frontend\modules\family\models\FamilyMember;
+use site\frontend\modules\som\modules\qa\models\QaTag;
 
 class ChildViewData extends FamilyMemberViewData
 {
@@ -55,18 +56,37 @@ class ChildViewData extends FamilyMemberViewData
         return $result;
     }
 
+    /**
+     * @return NULL|\site\frontend\modules\som\modules\qa\models\NULL|\site\frontend\modules\som\modules\qa\models\QaTag
+     */
+    public function getAgeTag()
+    {
+        $age = AgeHelper::getAge($this->model->birthday);
+        $tag = QaTag::getByAge($age);
+
+        if (is_null($tag))
+        {
+            return;
+        }
+
+        return $tag;
+    }
+
     protected function getAgeSign()
     {
-        if ($this->model->birthday === null) {
+        if ($this->model->birthday === null)
+        {
             return $this->ageMap[6];
         }
 
         $age = AgeHelper::getAge($this->model->birthday);
-        foreach ($this->ageMap as $threshold => $string) {
-            if ($age >= $threshold) {
+        foreach ($this->ageMap as $threshold => $string)
+        {
+            if ($age >= $threshold)
+            {
                 return $string;
             }
         }
         return 'small';
     }
-} 
+}

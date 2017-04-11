@@ -59,7 +59,7 @@ return array(
         'dfp' => array(
             'class' => 'site\frontend\modules\ads\components\DfpHelper',
             'advertiserId' => 52506489,
-            'version' => 'v201602',
+            'version' => 'v201611',
             'enableLogs' => false,
         ),
         'manager' => array(

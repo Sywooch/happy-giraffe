@@ -31,25 +31,6 @@
         <script>
             (function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)
         </script>
-     <style>
-         @media screen and (max-width: 1024px) {
-             .header__unloged {
-                 width: 321px;
-                 margin: 0;
-             }
-             .header__user--style {
-                 margin-top: 10px;
-             }
-             .b-pediatrician-list-item {
-                 width: 50%;
-             }
-         }
-         @media screen and (max-width: 641px){
-             .b-pediatrician-list-item {
-                 width: 100%;
-             }
-         }
-     </style>
     </head>
 
      <body class="page--bg page-iframe--bg">

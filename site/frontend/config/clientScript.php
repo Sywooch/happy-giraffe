@@ -656,6 +656,7 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/pediator.css',
+                'app/builds/static/css/main.min.css',
             )
         ),
     )

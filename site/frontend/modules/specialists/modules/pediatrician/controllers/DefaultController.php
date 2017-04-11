@@ -23,6 +23,11 @@ class DefaultController extends \LiteController
     public $litePackage = 'pediatrician';
 
     /**
+     * @var array
+     */
+    private $_newLayoutActions = ['profile'];
+
+    /**
      * {@inheritDoc}
      * @see LiteController::filters()
      */
@@ -52,6 +57,20 @@ class DefaultController extends \LiteController
                 'users' => ['*']
             ]
         ];
+    }
+
+    /**
+     * @param \CAction $action
+     * @return bool
+     */
+    protected function beforeAction($action)
+    {
+        if (in_array($action->id, $this->_newLayoutActions))
+        {
+            $this->layout = 'new_main';
+        }
+
+        return parent::beforeAction($action);
     }
 
     /**
@@ -156,7 +175,7 @@ class DefaultController extends \LiteController
     {
         $form = new ProfileForm();
         $form->initialize(\Yii::app()->user->id);
-        $this->render('profile', compact('form'));
+        $this->render('new_profile', compact('form'));
     }
 
     public function actionStats()

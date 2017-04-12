@@ -41,6 +41,9 @@ class ApiController extends \site\frontend\components\api\ApiController
             /* @todo Костыль для лендинга */
             $returnUrl = (strpos(\Yii::app()->request->urlReferrer, 'landing/pediatrician') === false) ? $returnUrl : \Yii::app()->request->urlReferrer;
 
+            /* @todo Костыль для iframe приложения */
+            $returnUrl = (strpos(\Yii::app()->request->urlReferrer, 'iframe') === false) ? $returnUrl : \Yii::app()->request->urlReferrer;
+
             $this->data = array(
                 'returnUrl' => $returnUrl,
             );

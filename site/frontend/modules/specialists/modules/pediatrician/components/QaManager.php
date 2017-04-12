@@ -14,9 +14,15 @@ class QaManager
 {
     const SKIPS_TABLE = 'specialists__pediatrician_skips';
 
-    public static function getQuestionsDp($userId)
+    public static function getQuestionsDp($userId, $filterTagId = null)
     {
-        return new \CActiveDataProvider(QaQuestion::model()->orderDesc()->apiWith('user'), [
+        $model = QaQuestion::model()
+            ->orderDesc()
+            ->apiWith('user');
+        if(!empty($filterTagId)){
+            $model = $model->byTag($filterTagId);
+        }
+        return new \CActiveDataProvider($model, [
             'criteria' => self::getQuestionsCriteria($userId),
         ]);
     }

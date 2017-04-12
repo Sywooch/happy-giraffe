@@ -107,7 +107,11 @@ class DefaultController extends \LiteController
             throw new \CHttpException(403);
         }
 
-        $dp = QaManager::getQuestionsDp(\Yii::app()->user->id);
+        $filter = \Yii::app()->getRequest()->getQuery('filter');
+
+        $tagId = (!empty($filter) and isset($filter['tag'])) ? $filter['tag'] : null;
+
+        $dp = QaManager::getQuestionsDp(\Yii::app()->user->id, $tagId);
 
         $this->render('questions', compact('dp'));
     }

@@ -22,7 +22,7 @@
         	<?php
 		       $tag = $data->tag;
 
-  			   if (!is_null($data->attachedChild)) {
+  			   if (!is_null($data->attachedChild) and !is_null($data->attChild)) {
             	   $arrFooterData = $data->attChild->getAnswerFooterData();
             	   $tag = $arrFooterData['tag'];
   			   }

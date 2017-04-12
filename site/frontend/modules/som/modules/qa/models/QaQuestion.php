@@ -495,7 +495,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
 
     public function toJSON()
     {
-        if (! is_null($this->attachedChild))
+        if (! is_null($this->attachedChild) and !is_null($this->attChild))
         {
             $fmember = $this->attChild;
 

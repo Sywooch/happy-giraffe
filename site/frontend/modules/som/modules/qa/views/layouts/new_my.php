@@ -13,7 +13,7 @@ $this->beginContent('//layouts/lite/new_common');
         <a type="button" href="<?=$this->createUrl('/som/qa/default/pediatrician')?>" class="header-question__close"></a>
     </div>
 </header>
-<main class="b-main">
+<main>
     <?=$content?>
 </main>
 

@@ -12,7 +12,7 @@
     </div>
     <div class="b-answer__container">
         <div class="b-answer__left">
-            <a href="<?=$data->url?>">
+            <a class="b-block" href="<?=$data->url?>">
                 <div class="b-answer__body b-answer-body">
                     <span class="b-answer-body__link b-title--h7 b-text--link-color b-title--bold"><?=strip_tags($data->title)?></span>
                     <p class="b-answer-body__text"><?=strip_tags($data->text)?></p>

@@ -11,7 +11,7 @@
     </div>
 </div>
 <div class="b-pediator-answer__right b-pediator-answer__right--pink">
-    <a href="<?=$data->author->getUrl()?>">
+    <a class="b-block b-block-head" href="<?=$data->author->getUrl()?>">
         <div class="b-answer__header b-answer-header">
             <span class="b-answer-header__link"><?=$data->user->getFullName()?></span>
             <?=HHtml::timeTag($data, array('class' => 'b-answer-header__time'))?>
@@ -21,7 +21,7 @@
             ]);?>
         </div>
     </a>
-    <a href="<?=$data->question->url?>">
+    <a class="b-block b-block-body" href="<?=$data->question->url?>">
         <div class="b-answer__body b-answer-body">
             <p class="b-pediator-answer__text"><?=strip_tags($data->text)?></p>
             <span class="b-text--link-color b-title--bold b-title--h9"><?=strip_tags($data->question->title)?></span>

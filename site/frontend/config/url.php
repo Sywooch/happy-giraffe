@@ -107,6 +107,10 @@ return array(
         ['class' => 'site\frontend\modules\specialists\components\SpecialistsUrlRule'],
         'user/<userId:\d+>/info' => 'specialists/profile/info',
         'specialists/editProfile' => 'specialists/default/index',
+
+        // Политика конфиденциальности
+        'pediatrician/<view:(privacypolicy)>' => 'pages/default/pediatrician',
+
         'pediatrician/answer<questionId:\d+>' => 'specialists/pediatrician/default/answer',
         'pediatrician/<_a>' => 'specialists/pediatrician/default/<_a>',
 
@@ -114,6 +118,9 @@ return array(
 
         //страница вопроса
         'questions/question<id:\d+>' => 'som/qa/default/view',
+
+        // Политика конфиденциальности
+        'mypediatrician/<view:(privacypolicy)>' => 'pages/default/mypediatrician',
 
         'mypediatrician/question<id:\d+>'   => 'som/qa/default/view',
         'mypediatrician/comet/<_a>'         => 'som/qa/cometProcess/<_a>',
@@ -176,7 +183,8 @@ return array(
         array('class' => 'site\frontend\modules\posts\modules\buzz\components\BuzzUrlRule'),
         'buzz/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/buzz/post/view',
         'buzz/<slug>' => 'posts/buzz/list/index',
-        'buzz' => 'posts/buzz/list/index',
+        'buzz/<tab:(new)>' => 'posts/buzz/list/index',
+        'buzz' => array('posts/buzz/list/index', 'defaultParams' => array('tab' => 'new')),
 
         'forums' => 'posts/forums/default/index',
 
@@ -342,7 +350,8 @@ return array(
         /* Временные страницы для управления постами */
         'blog/tmp/favourites' => 'blog/tmp/favourites',
 
-        'user/<userId:\d+>' => 'userProfile/default/index',
+        'user/<userId:\d+>/<tab:(new)>' => 'userProfile/default/index',
+        'user/<userId:\d+>' => array('userProfile/default/index', 'defaultParams' => array('tab' => 'new')),
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
         'user/<user_id:\d+>/award/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'award')),
         'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),
@@ -353,7 +362,7 @@ return array(
         'user/<userId:\d+>/rss' => 'rss/default/user',
         'user/<userId:\d+>/comments/rss/page<page:\d+>' => 'rss/default/comments',
         'user/<userId:\d+>/comments/rss' => 'rss/default/comments',
-            
+
         //blog
         'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
         'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',

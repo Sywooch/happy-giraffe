@@ -148,7 +148,7 @@ class AnswerCometBehavior extends BaseBehavior
 
         if ($answer->isAdditional())
         {
-            $specialistQuestionChannelId = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionChannelId($this->data->questionId);
+            $specialistQuestionChannelId = \site\frontend\modules\specialists\modules\pediatrician\components\QaManager::getQuestionChannelId($answer->questionId);
 
             $this->_sendData(NULL, \CometModel::QA_RESTORE_ANSWER, $specialistQuestionChannelId);
         }

@@ -28,6 +28,24 @@ class NewUsersTopWidget extends UsersTopWidget
     public $onlyUsers = TRUE;
 
     /**
+     * @see \site\frontend\components\TopWidgetAbstract
+     * @var integer
+     */
+    protected $_monthThreshold = 1;
+
+    /**
+     * Триггер поведения кеша
+     * @var boolean
+     */
+    protected $useCache = true;
+
+    /**
+     * Время жизни кеша
+     * @var integer
+     */
+    protected $cacheExpire = 600;
+
+    /**
      * @param string $name
      * @return string
      */
@@ -57,23 +75,32 @@ class NewUsersTopWidget extends UsersTopWidget
      */
     public function getData()
     {
-        $this->_process($this->onlyUsers);
+        $cacheId = 'NewUsersTopWidget.' . $this->getTitle();
+        $rows = $this->useCache ? $this->getCacheComponent()->get($cacheId) : null;
 
-        $top = array_slice($this->scores, 0, $this->getLimit(), true);
+        if(empty($rows)){
 
-        $users = User::model()->findAllByPk(array_keys($top), ['avatarSize' => 40]);
+            $this->_process($this->onlyUsers);
 
-        $rows = [];
-        foreach ($top as $uId => $score)
-        {
-            $rows[] = [
-                'user' => $users[$uId],
-                'score' => $score['total_count'],
-                'votes' => $score['votes_count'],
-                'answers' => $score['answers_count'],
-            ];
+            $top = array_slice($this->scores, 0, $this->getLimit(), true);
+
+            $users = User::model()->findAllByPk(array_keys($top), ['avatarSize' => 40]);
+
+            $rows = [];
+            foreach ($top as $uId => $score)
+            {
+                $rows[] = [
+                    'user' => $users[$uId],
+                    'score' => $score['total_count'],
+                    'votes' => $score['votes_count'],
+                    'answers' => $score['answers_count'],
+                ];
+            }
+
+            if($this->useCache){
+                $this->getCacheComponent()->set($cacheId, $rows, $this->cacheExpire);
+            }
         }
-
 
         if (empty($rows))
         {
@@ -208,4 +235,12 @@ class NewUsersTopWidget extends UsersTopWidget
         return $votes;
     }
 
+    /**
+     *
+     * @return \CCache
+     */
+    protected function getCacheComponent()
+    {
+        return \Yii::app()->getComponent('dbCache');
+    }
 }

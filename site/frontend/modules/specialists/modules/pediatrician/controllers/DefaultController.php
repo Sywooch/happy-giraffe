@@ -135,7 +135,7 @@ class DefaultController extends \LiteController
             $this->render('accessDenied', ['displayType' => "accessDenied"]);
         }
 
-        if (!$question->checkAccessByViewQuestion($user->getId()))
+        if ($question->isAnswerBranchClose($user->getId()))
         {
             $nextQuestion = QaManager::getNextQuestion($questionId, \Yii::app()->user->id);
             $goTo = ($nextQuestion) ? $this->createUrl('/specialists/pediatrician/default/answer', ['questionId' => $nextQuestion->id]) : $this->createUrl('/specialists/pediatrician/default/questions');

@@ -36,6 +36,7 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property int registration_finished
  *
  * The followings are the available model relations:
+ * @property \site\frontend\modules\geo2\models\UserLocation $location
  * @property BagOffer[] $bagOffers
  * @property BagOfferVote[] $bagOfferVotes
  * @property CommunityContent[] $clubCommunityContents
@@ -389,6 +390,8 @@ class User extends HActiveRecord
             'spamStatus' => array(self::HAS_ONE, 'AntispamStatus', 'user_id'),
 
             'specialistProfile' => array(self::BELONGS_TO, 'site\frontend\modules\specialists\models\SpecialistProfile', 'id'),
+
+            '_location' => array(self::HAS_ONE, \site\frontend\modules\geo2\models\UserLocation::class, 'id'),
         );
     }
 
@@ -1686,5 +1689,17 @@ class User extends HActiveRecord
     public function getIsSpecialist()
     {
         return $this->specialistProfile !== null;
+    }
+    
+    public function getLocation()
+    {
+        $location = $this->getRelated('_location');
+        if (! $location) {
+            $location = new \site\frontend\modules\geo2\models\UserLocation();
+            $location->id = $this->id;
+            $location->save();
+            $location = $this->getRelated('_location', true);
+        }
+        return $location;
     }
 }

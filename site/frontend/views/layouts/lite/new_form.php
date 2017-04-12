@@ -30,21 +30,7 @@
     <body class="page--bg add-question">
         <div class="js-overlay-menu overlay-menu"></div>
         <div class="js-overlay-user overlay-user"></div>
-        <div id="js-alerts" class="alerts" data-bind="template: { name: 'alert', foreach: alertsList }"></div>
-
-		<script type="text/html" id="alert">
-			<div class="alerts__inner">
-			   <div class="alert alert-in" data-bind="css: 'alert-' + color">
-		            <div class="pos-rel">
-		                <div class="alert__container">
-		                    <div class="alert__ico" data-bind="css: 'alert__ico-' + color"></div>
-		                    <div class="alert__text" data-bind="css: 'alert__text-' + color, text: message"></div>
-		                </div>
-		                <span class="alert__close" data-bind="click: $parent.closeAlert, css: 'alert__close-' + color"></span>
-		            </div>
-		        </div>
-			</div>
-	    </script>
+        <?php $this->renderPartial('//_alerts'); ?>
         <div class="b-layout b-container b-container--white b-container--style">
             <header class="header header-question header--question">
                 <div class="header-question__item">

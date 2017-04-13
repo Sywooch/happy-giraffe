@@ -65,12 +65,63 @@ $('.wysiwyg-redactor-v').promise().done(function()
 
 </script>
 
+<style>
+    .popup-user-add-record{
+        width: 720px;
+    }
+    .wysiwyg-v .wysiwyg-toolbar-btn{
+        padding-top: 0;
+    }
+    @media screen and (max-width: 767px){
+        .popup-user-add-record{
+            width: 450px;
+        }
+        .wysiwyg-v .redactor_editor{
+            width: 100%;
+            min-height: 200px !important;
+            margin-left: 0 !important;
+        }
+
+        .wysiwyg-v .wysiwyg-toolbar{
+            float: none;
+        }
+        .wysiwyg-v .redactor_toolbar{
+            width: 100%;
+            padding: 0 !important;
+        }
+        .wysiwyg-v .redactor_editor:focus{
+            margin-left: 0!important;
+        }
+        .wysiwyg-v .redactor_toolbar li{
+            float: none;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 15px;
+            padding: 0;
+        }
+        .b-settings-blue{
+            padding: 15px;
+        }
+        .b-settings-blue__article .b-settings-blue_head{
+            padding-left: 0;
+        }
+        .b-settings__header{
+            padding: 15px;
+        }
+    }
+    @media screen and (max-width: 480px){
+        .popup-user-add-record{
+            width: 315px;
+        }
+    }
+</style>
+
 <input type="hidden" name="formKey" value="<?php echo \site\frontend\components\FormDepartmentModelsControl::getInstance()->createNewFormKey(); ?>">
 
 <div id="popup-user-add-blog" class="popup-user-add-record" style="visibility: hidden">
 	<a onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть" class="popup-transparent-close popup-transparent-close_mod"></a>
  	<div class="clearfix">
-        <div class="w-720 float-r popup_mod">
+        <div class="popup_mod">
           	<div class="b-settings__header clearfix">
             	<div class="b-settings__title float-l">Добавить запись</div>
           	</div>

@@ -16,14 +16,13 @@
             	<a href="<?=$data->url?>" class="b-answer-body__link b-title--h7 b-text--link-color b-title--bold"><?=strip_tags($data->title)?></a>
                 <p class="b-answer-body__text"><?=strip_tags($data->text)?></p>
             </div>
-            <?php if (!is_null($data->tag) && is_null($data->attachedChild)): ?>
+            <?php if (!is_null($data->tag) && is_null($data->attChild)): ?>
                 <div class="b-answer__footer b-answer-footer">
                 	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->tag->getTitle()?></a>
                 </div>
   			<?php endif; ?>
   			<?php
-  			   if (!is_null($data->attachedChild)) {
-            	   $fmember = $data->attChild;
+  			   if (!is_null($data->attachedChild) and !is_null($fmember = $data->attChild)) {
             	   $arrFooterData = $fmember->getAnswerFooterData();
 	           ?>
         	   <?php if (!\Yii::app()->user->isGuest && $data->author->id == \Yii::app()->user->id) { ?>

@@ -14,9 +14,15 @@ class QaManager
 {
     const SKIPS_TABLE = 'specialists__pediatrician_skips';
 
-    public static function getQuestionsDp($userId)
+    public static function getQuestionsDp($userId, $filterTagId = null)
     {
-        return new \CActiveDataProvider(QaQuestion::model()->orderDesc()->apiWith('user'), [
+        $model = QaQuestion::model()
+            ->orderDesc()
+            ->apiWith('user');
+        if(!empty($filterTagId)){
+            $model = $model->byTag($filterTagId);
+        }
+        return new \CActiveDataProvider($model, [
             'criteria' => self::getQuestionsCriteria($userId),
         ]);
     }
@@ -28,7 +34,7 @@ class QaManager
 
     public static function getAnswersDp($userId = null, $onlyPublished = FALSE)
     {
-        return new \CActiveDataProvider(QaAnswer::model()->orderDesc()->apiWith('user'), [
+        return new \CActiveDataProvider(QaAnswer::model()->resetScope()->orderDesc()->apiWith('user'), [
             'criteria' => self::getAnswersCriteria($userId, $onlyPublished),
         ]);
     }
@@ -87,6 +93,8 @@ class QaManager
             $criteria->addCondition('t.isPublished=' . QaAnswer::PUBLISHED);
         }
 
+        $criteria->addCondition('t.isRemoved=' . QaAnswer::NOT_REMOVED);
+
         return $criteria;
     }
 
@@ -132,6 +140,7 @@ class QaManager
         LEFT JOIN ' . QaAnswer::model()->tableName() . ' answers2 ON (answers2.root_id = answers.id AND answers2.isRemoved = 0)
         LEFT JOIN ' . QaAnswer::model()->tableName() . ' answers3 ON (answers3.root_id = answers2.id AND answers3.isRemoved = 0)
         ';
+        $criteria->addCondition('t.authorId IN (SELECT id FROM users WHERE id = t.authorId AND deleted = 0 AND blocked = 0)');
         $criteria->addCondition('t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)');
         $criteria->addCondition('
         answers.authorId = :userId AND
@@ -166,9 +175,15 @@ class QaManager
         return QaCategory::PEDIATRICIAN_ID;
     }
 
-    public static function getQuestionChannelId($questionId)
+    /**
+     * ID comet-канала для открытого вопроса врачом
+     *
+     * @param string $id Уникальный ID
+     * @return string
+     */
+    public static function getQuestionChannelId($id)
     {
-        return QaQuestion::COMET_CHANNEL_ID_SPECIALIST_PREFIX . $questionId;
+        return QaQuestion::COMET_CHANNEL_ID_SPECIALIST_PREFIX . $id;
     }
 
 }

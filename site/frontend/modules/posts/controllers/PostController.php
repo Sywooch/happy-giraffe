@@ -32,6 +32,7 @@ class PostController extends \LiteController
         // Включим прочтение сигналов
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
         /** @todo добавить условие byService для полноценного использования индекса */
+
         $this->post = Content::model()->bySlug($content_type_slug, $content_id)->find();
         // Выключим прочтение сигналов
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = false;

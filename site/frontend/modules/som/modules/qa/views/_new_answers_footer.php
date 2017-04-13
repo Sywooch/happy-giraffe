@@ -11,7 +11,7 @@
 
     <div class="b-pedaitor-answer__footer__item">
         <?php if (! is_null($data->question->tag)): ?>
-            <a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->question->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->question->tag->getTitle()?></a>
+            <a href="<?=UrlCreator::create(UrlCreator::create(null)->getPath(), ['filter' => ['tag' => $data->question->tag->id]])?>" class="b-answer-footer__age b-text--link-color"><?=$data->question->tag->getTitle()?></a>
         <?php endif; ?>
     </div>
 

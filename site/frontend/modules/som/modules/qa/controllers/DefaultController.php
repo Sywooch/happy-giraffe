@@ -72,9 +72,21 @@ class DefaultController extends QaController
 
     public function actionPediatrician($tab, $tagId = null)
     {
+
+        $filter = \Yii::app()->getRequest()->getQuery('filter');
+
+        $tagId = (!empty($filter) and isset($filter['tag'])) ? $filter['tag'] : $tagId;
+
         if ($tab == self::TAB_All)
         {
-            $dp = new \CActiveDataProvider(QaAnswer::model()->onlyPublished()->roots()->orderDesc(), [
+
+            $model = QaAnswer::model()->onlyPublished()->roots()->orderDesc();
+
+            if (!is_null($tagId)) {
+                $model->byTag($tagId);
+            }
+
+            $dp = new \CActiveDataProvider($model, [
                 'pagination' => [
                     'pageVar' => 'page',
                 ]

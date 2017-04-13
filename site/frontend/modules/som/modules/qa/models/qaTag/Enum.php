@@ -54,7 +54,7 @@ class Enum
         self::LESS_THAN_YEAR    => 'От 0 до 1 года',
         self::MORE_THAN_YEAR    => 'От 1 года до 3 лет',
         self::PRESCHOOL         => 'От 3 до 6 лет',
-        self::SCHOOLKID         => 'От 6 до 12 года',
+        self::SCHOOLKID         => 'От 6 до 12 лет',
     ];
 
     /**

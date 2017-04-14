@@ -691,6 +691,8 @@ return array(
             'js' => array(
                 'app/builds/static/js/main.min.js',
                 'app/builds/static/js/iframe/main.js',
+                'for-iframe/js/postmessage.js',
+                'for-iframe/js/setting-iframe.js',
             ),
             'depends' => array('jquery'),
         ),

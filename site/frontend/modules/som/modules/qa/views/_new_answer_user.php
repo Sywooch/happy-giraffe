@@ -12,7 +12,7 @@
 </div>
 <div class="b-pediator-answer__right">
     <div class="b-answer__header b-answer-header">
-        <a href="<?=$data->author->getUrl()?>" class="b-answer-header__link"><?=$data->user->getAnonName()?></a>
+        <a href="<?=$data->author->getUrl()?>" class="b-answer-header__link"><?=$data->user->firstName?> <?=$data->user->lastName?></a>
         <?=HHtml::timeTag($data, array('class' => 'b-answer-header__time'))?>
     	<?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswerHeaderWidget', [
             'userId' => $data->author->id,

@@ -25,7 +25,7 @@ $currentTagId = \Yii::app()->request->getParam('tagId');
 			</li>
         	<?php foreach ($tags as $tag) {?>
             	<li class="b-filter-year__li <?=$currentTagId == $tag->id ? 'b-filter-year__li--active' : ''?>">
-            		<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id])?>" class="b-filter-year__link">
+            		<a href="<?=UrlCreator::create(UrlCreator::create(null)->getPath(), ['filter' => ['tag' => $tag->id]])?>" class="b-filter-year__link">
             			<?=$tagEnum->getTitleForWebMenu($tag->name)?>
             			<span><?=$question->byTag($tag->id)->count()?></span>
         			</a>

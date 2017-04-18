@@ -200,6 +200,8 @@ return array(
         'iframe/search' => 'iframe/default/pediatricianSearch',
         'iframe/logout' => 'iframe/default/logout',
         'iframe/api/<_a>' => 'iframe/api/<_a>',
+        'iframe/admin' => 'iframe/admin/default/index',
+        'iframe/admin/<_a>' => 'iframe/admin/default/<_a>',
 
         /* SOM */
         'status' => 'som/status/default/index',

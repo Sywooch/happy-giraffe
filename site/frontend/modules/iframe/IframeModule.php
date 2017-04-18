@@ -27,6 +27,9 @@ class IframeModule extends \CWebModule
             'notifications' => [
                 'class' => 'site\frontend\modules\iframe\modules\notifications\NotificationsModule',
             ],
+            'admin' => [
+                'class' => 'site\frontend\modules\iframe\modules\admin\AdminModule',
+            ],
         ]);
     }
 }

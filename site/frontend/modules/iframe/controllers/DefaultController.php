@@ -14,6 +14,7 @@ use site\frontend\modules\iframe\components\QaObjectList;
 use site\frontend\modules\iframe\models\QaQuestionEditing;
 use site\frontend\modules\iframe\models\qaTag\QaTagManager;
 use site\frontend\modules\iframe\models\Pediatrician;
+use site\frontend\modules\iframe\modules\admin\models\FramePartners;
 
 class DefaultController extends QaController
 {
@@ -83,6 +84,7 @@ class DefaultController extends QaController
 
     public function actionPediatrician($tab, $tagId = null)
     {
+        $this->initIframeKey(\Yii::app()->request->getQuery('key'));
         if ($tab == self::TAB_All)
         {
             $dp = new \CActiveDataProvider(QaAnswer::model()->onlyPublished()->roots()->orderDesc(), [
@@ -440,6 +442,22 @@ class DefaultController extends QaController
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'question-form') {
             echo \CActiveForm::validate($model);
             \Yii::app()->end();
+        }
+    }
+
+    protected function initIframeKey($key)
+    {
+        $session = new \CHttpSession;
+        $session->open();
+        if(isset($key)) {
+            $model = FramePartners::model()->findByAttributes(array('key' => $key));
+            if (count($model)) {
+                $session['partner'] = [
+                    'id' => $model->id,
+                    'description' => $model->description,
+                    'key' => $key,
+                ];
+            }
         }
     }
 

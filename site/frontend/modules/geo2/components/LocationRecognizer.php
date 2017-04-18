@@ -9,6 +9,8 @@ use site\frontend\modules\geo2\components\combined\models\Geo2City;
  */
 class LocationRecognizer
 {
+    const LEVENSHTEIN_THRESHOLD = 0.5;
+
     public static function recognizeCity($countryIsoCode, $cityName, $regionName)
     {
         $cities = self::getCities($countryIsoCode, $cityName);
@@ -33,20 +35,26 @@ class LocationRecognizer
             return $cities[0];
         }
 
-        $shortest = -1;
+        $shortest = PHP_INT_MAX;
         $closest = null;
         foreach ($cities as $city) {
-            $lev = levenshtein($city->region->title, $regionName);
+            if (! $city->region) {
+                continue;
+            }
+
+            $lev = levenshtein($regionName, $city->region->title);
 
             if ($lev == 0) {
                 return $city;
             }
 
-            if ($lev <= $shortest || $shortest < 0) {
+            if ($lev < $shortest) {
                 $closest = $city;
                 $shortest = $lev;
             }
         }
-        return $closest;
+        
+        $ratio = $shortest / strlen($regionName);
+        return ($ratio < self::LEVENSHTEIN_THRESHOLD) ? $closest : null;
     }
 }

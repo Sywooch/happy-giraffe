@@ -14,7 +14,15 @@ class LocationRecognizer
     public static function recognizeCity($countryIsoCode, $cityName, $regionName)
     {
         $cities = self::getCities($countryIsoCode, $cityName);
-        return (empty($cities)) ? null : self::chooseCity($cities, $regionName);
+        $nCities = count($cities);
+        switch ($nCities) {
+            case 0:
+                return null;
+            case 1:
+                return $cities[1];
+            default:
+                return self::chooseCity($cities, $regionName);
+        }
     }
     
     public static function getCities($countryIsoCode, $cityName)
@@ -29,12 +37,8 @@ class LocationRecognizer
         ])->findAll();
     }
 
-    public static function chooseCity($cities, $regionName)
+    protected static function chooseCity($cities, $regionName)
     {
-        if (count($cities) == 1) {
-            return $cities[0];
-        }
-
         $shortest = PHP_INT_MAX;
         $closest = null;
         foreach ($cities as $city) {

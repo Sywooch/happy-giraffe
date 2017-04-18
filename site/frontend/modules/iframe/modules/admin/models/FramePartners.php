@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\iframe\modules\admin\models;
 
+use site\frontend\modules\api\ApiModule;
+
 class FramePartners extends \HActiveRecord
 {
 
@@ -86,6 +88,9 @@ class FramePartners extends \HActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
+            'CacheDelete' => [
+                'class' => ApiModule::CACHE_DELETE,
+            ],
         );
     }
 }

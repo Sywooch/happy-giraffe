@@ -67,6 +67,7 @@ $('.wysiwyg-redactor-v').promise().done(function()
 
 <style>
     .popup-user-add-record{
+        position: relative;
         width: 720px;
     }
     .wysiwyg-v .wysiwyg-toolbar-btn{

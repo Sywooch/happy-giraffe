@@ -28,6 +28,7 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
 
     <style>
         .popup-user-add-record{
+            position: relative;
             width: 720px;
         }
         .wysiwyg-v .wysiwyg-toolbar-btn{

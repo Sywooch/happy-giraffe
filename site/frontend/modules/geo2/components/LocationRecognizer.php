@@ -19,7 +19,7 @@ class LocationRecognizer
             case 0:
                 return null;
             case 1:
-                return $cities[1];
+                return $cities[0];
             default:
                 return self::chooseCity($cities, $regionName);
         }

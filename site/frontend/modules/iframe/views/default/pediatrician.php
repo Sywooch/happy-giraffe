@@ -17,6 +17,7 @@ $tabTitle = [
 ];
 
 $currentTagId = \Yii::app()->request->getParam('tagId');
+$tagParams = !empty($currentTagId)?['tagId' => $currentTagId]:[];
 ?>
 <div class="b-col b-col--6 b-col-sm--10 b-col-xs">
     <div class="b-nav-panel">
@@ -26,13 +27,13 @@ $currentTagId = \Yii::app()->request->getParam('tagId');
                 <p class="js-mobile-dropdown mobile-dropdown-button"><?=array_key_exists($tab, $tabTitle) ? $tabTitle[$tab] : 'Все ответы'?></p>
                 <ul class="b-filter-menu__list">
                     <li class="b-filter-menu__item">
-                    	<a href="<?=$this->createUrl('/iframe/default/pediatrician')?>" class="b-filter-menu__link <?=$tab == $this::TAB_NEW ? 'b-filter-menu__link--active' : ''?>"><?=$tabTitle[$this::TAB_NEW]?></a>
+                    	<a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => $this::TAB_NEW]+$tagParams)?>" class="b-filter-menu__link <?=$tab == $this::TAB_NEW ? 'b-filter-menu__link--active' : ''?>"><?=$tabTitle[$this::TAB_NEW]?></a>
                 	</li>
                     <li class="b-filter-menu__item">
-                    	<a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => $this::TAB_UNANSWERED])?>" class="b-filter-menu__link <?=$tab == $this::TAB_UNANSWERED ? 'b-filter-menu__link--active' : ''?>"><?=$tabTitle[$this::TAB_UNANSWERED]?></a>
+                    	<a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => $this::TAB_UNANSWERED]+$tagParams)?>" class="b-filter-menu__link <?=$tab == $this::TAB_UNANSWERED ? 'b-filter-menu__link--active' : ''?>"><?=$tabTitle[$this::TAB_UNANSWERED]?></a>
                     </li>
                     <li class="b-filter-menu__item">
-                    	<a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => $this::TAB_All])?>" class="b-filter-menu__link <?=$tab == $this::TAB_All ? 'b-filter-menu__link--active' : ''?>"><?=$tabTitle[$this::TAB_All]?></a>
+                    	<a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => $this::TAB_All]+$tagParams)?>" class="b-filter-menu__link <?=$tab == $this::TAB_All ? 'b-filter-menu__link--active' : ''?>"><?=$tabTitle[$this::TAB_All]?></a>
                     </li>
                 </ul>
             </div>

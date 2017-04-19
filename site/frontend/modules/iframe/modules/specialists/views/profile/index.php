@@ -19,14 +19,14 @@ $this->pageTitle = $this->user->getFullName() . ' на Веселом Жираф
         ]);
         ?>
     </div>
-    <div class="b-main__aside b-col b-col--3 b-hidden-md">
-        <?php
-        $this->widget('site\frontend\modules\iframe\widgets\banners\BannersWidget', [
-            'banner'   => [
-                'path' => '/app/builds/static/img/pediatrician/banner-test.png',
-                'url' => '#',
-            ],
-        ]);
-        ?>
-    </div>
+<!--    <div class="b-main__aside b-col b-col--3 b-hidden-md">-->
+<!--        --><?php
+//        $this->widget('site\frontend\modules\iframe\widgets\banners\BannersWidget', [
+//            'banner'   => [
+//                'path' => '/app/builds/static/img/pediatrician/banner-test.png',
+//                'url' => '#',
+//            ],
+//        ]);
+//        ?>
+<!--    </div>-->
 </div>

@@ -8,7 +8,7 @@ use site\frontend\modules\iframe\components\api\User;
  */
 class Pediatrician extends \HActiveRecord
 {
-    private $limit = 40;
+    private $limit = 1000;
 
     protected $scores = [];
     /*

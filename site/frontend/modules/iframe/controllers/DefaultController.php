@@ -307,12 +307,12 @@ class DefaultController extends QaController
     {
         if (!\Yii::app()->user->checkAccess('createQaQuestion') || !$question = QaManager::getQuestion($questionId))
         {
-            $this->redirect($this->createUrl('/site/index'));
+            $this->redirect($this->createUrl('/iframe/default/pediatrician'));
         }
 
         $tagsData = (new HCollection(QaTagManager::getAllTags()))->toArray();
 
-        $this->layout = '//layouts/lite/new_form';
+        $this->layout = '/layouts/form';
         $this->render('edit_form', [
             'question' => $question,
             'tagsData' => $tagsData

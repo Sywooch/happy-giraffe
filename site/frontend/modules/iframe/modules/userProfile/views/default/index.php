@@ -34,15 +34,15 @@ $this->adaptiveBreadcrumbs = true;
         </div>
         <!--/////-->
         <!-- Сайд бар  -->
-        <aside class="b-main_col-sidebar visible-md">
-            <?php
-            $this->widget('site\frontend\modules\iframe\widgets\banners\BannersWidget', [
-                'banner'   => [
-                    'path' => '/app/builds/static/img/pediatrician/banner-test.png',
-                    'url' => '#',
-                ],
-            ]);
-            ?>
-        </aside>
+<!--        <aside class="b-main_col-sidebar visible-md">-->
+<!--            --><?php
+//            $this->widget('site\frontend\modules\iframe\widgets\banners\BannersWidget', [
+//                'banner'   => [
+//                    'path' => '/app/builds/static/img/pediatrician/banner-test.png',
+//                    'url' => '#',
+//                ],
+//            ]);
+//            ?>
+<!--        </aside>-->
     </div>
 </div>

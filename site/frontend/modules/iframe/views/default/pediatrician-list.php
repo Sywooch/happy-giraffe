@@ -5,9 +5,9 @@
                 <li class="b-filter-menu__item">
                     <a href="<?=$this->createUrl('/iframe/default/pediatricianList')?>" class="b-filter-menu__link b-filter-menu__link--active">Все</a>
                 </li>
-                <li class="b-filter-menu__item">
-                    <a href="#" class="b-filter-menu__link">Из Ниж.Новогорода</a>
-                </li>
+<!--                <li class="b-filter-menu__item">-->
+<!--                    <a href="#" class="b-filter-menu__link">Из Ниж.Новогорода</a>-->
+<!--                </li>-->
             </ul>
         </div>
     </div>

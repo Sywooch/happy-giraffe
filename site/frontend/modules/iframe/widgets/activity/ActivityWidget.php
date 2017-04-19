@@ -60,6 +60,7 @@ class ActivityWidget extends \CWidget
             'pagination' => array(
                 'pageSize' => $this->pageSize,
                 'pageVar' => is_null($this->pageVar) ? $this->id : $this->pageVar,
+                'route' => '/iframe/userProfile/default/index',
             )
         ));
     }

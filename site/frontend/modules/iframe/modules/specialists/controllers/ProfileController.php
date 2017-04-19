@@ -10,7 +10,7 @@ namespace site\frontend\modules\iframe\modules\specialists\controllers;
 use site\frontend\modules\iframe\components\QaController;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
 use site\frontend\modules\specialists\modules\pediatrician\components\QaManager;
-use site\frontend\modules\users\models\User;
+use site\frontend\modules\iframe\components\user\User;
 
 class ProfileController extends QaController
 {

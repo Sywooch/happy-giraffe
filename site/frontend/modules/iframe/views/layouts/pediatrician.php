@@ -43,17 +43,20 @@ $this->renderSidebarClip();
                         ]);
                         ?>
                     </div>
+                    <span class="b-sidebar-widget-link-b">
+                        <a class="b-sidebar-widget-link" href="<?=$this->createUrl('/iframe/default/pediatricianList')?>">Все врачи</a>
+                    </span>
                 </div>
             </div>
         </div>
-        <?php
-        $this->widget('site\frontend\modules\iframe\widgets\banners\BannersWidget', [
-            'banner'   => [
-                'path' => '/app/builds/static/img/pediatrician/banner-test.png',
-                'url' => '#',
-            ],
-        ]);
-        ?>
+<!--        --><?php
+//        $this->widget('site\frontend\modules\iframe\widgets\banners\BannersWidget', [
+//            'banner'   => [
+//                'path' => '/app/builds/static/img/pediatrician/banner-test.png',
+//                'url' => '#',
+//            ],
+//        ]);
+//        ?>
     </aside>
     </div>
 </div>

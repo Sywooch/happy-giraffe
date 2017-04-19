@@ -11,7 +11,7 @@ $this->pageTitle = 'Редактировать вопрос';
 
 ?>
 
-<mp-question-form params='question: <?= CJSON::encode($question->toJSON()); ?>, tags: <?= CJSON::encode($tagsData); ?>'>
+<mp-question-form-iframe params='question: <?= CJSON::encode($question->toJSON()); ?>, tags: <?= CJSON::encode($tagsData); ?>'>
 
 	<div class="preloader">
         <div class="preloader__inner">
@@ -20,7 +20,7 @@ $this->pageTitle = 'Редактировать вопрос';
         </div>
     </div>
 
-</mp-question-form>
+</mp-question-form-iframe>
 
 <?php
 

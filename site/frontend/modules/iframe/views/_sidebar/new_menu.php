@@ -12,6 +12,7 @@ $question = QaQuestion::model()->category(QaCategory::PEDIATRICIAN_ID);
 $tags = QaTag::model()->byCategory(QaCategory::PEDIATRICIAN_ID)->findAll();
 $tagEnum = new Enum();
 $currentTagId = \Yii::app()->request->getParam('tagId');
+$tab = \Yii::app()->request->getParam('tab');
 ?>
 
  <div class="b-text--left">
@@ -24,7 +25,7 @@ $currentTagId = \Yii::app()->request->getParam('tagId');
         </li>
         <?php foreach ($tags as $tag) {?>
             <li class="b-filter-year__li <?=$currentTagId == $tag->id ? 'b-filter-year__li--active' : ''?>">
-                <a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => 'new', 'tagId' => $tag->id])?>" class="b-filter-year__link">
+                <a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => $tab, 'tagId' => $tag->id])?>" class="b-filter-year__link">
                     <?=$tagEnum->getTitleForWebMenu($tag->name)?>
                     <span><?=$question->byTag($tag->id)->count()?></span>
                 </a>

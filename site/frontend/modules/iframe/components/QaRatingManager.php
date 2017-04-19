@@ -21,7 +21,7 @@ class QaRatingManager
 
         if (is_null($ratingRow))
         {
-            return ['rating' => QaRating::model()->toJSON(), 'flowerCount' => 0,'questions' =>0];
+            return ['rating' => QaRating::model()->toJSON(), 'flowerCount' => 0,'questions' => $this->_getQuestionCount($userId)];
         }
 
         $flowerCount = $this->_getFlowersCount($ratingRow->votes_count);

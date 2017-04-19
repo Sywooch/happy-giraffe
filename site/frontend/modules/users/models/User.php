@@ -35,24 +35,25 @@ class User extends \User implements \IHToJSON
     public function toJSON()
     {
         return array(
-            'id' => (int) $this->id,
-            'firstName' => $this->first_name,
-            'lastName' => $this->last_name,
-            'middleName' => $this->middle_name,
-            'fullName' => $this->getFullName(),
-            'birthday' => $this->birthday,
-            'avatarId' => (int) $this->avatar_id,
-            'gender' => (int) $this->gender,
-            'isOnline' => (bool) $this->online,
-            'profileUrl' => $this->getUrl(true),
-            'publicChannel' => $this->getPublicChannel(),
-            'specInfo' => empty($this->specInfo) ? null : $this->specInfoObject,
-            'avatarInfo' => \CJSON::decode($this->avatarInfo),
-            'specialistInfo' => $this->specialistInfoObject->attributes,
-            'location' => $this->location,
+            'id'                => (int) $this->id,
+            'firstName'         => $this->first_name,
+            'lastName'          => $this->last_name,
+            'middleName'        => $this->middle_name,
+            'fullName'          => $this->getFullName(),
+            'birthday'          => $this->birthday,
+            'avatarId'          => (int) $this->avatar_id,
+            'gender'            => (int) $this->gender,
+            'isOnline'          => (bool) $this->online,
+            'profileUrl'        => $this->getUrl(true),
+            'publicChannel'     => $this->getPublicChannel(),
+            'specInfo'          => empty($this->specInfo) ? null : $this->specInfoObject,
+            'avatarInfo'        => \CJSON::decode($this->avatarInfo),
+            'specialistInfo'    => $this->specialistInfoObject->attributes,
+            'location'          => $this->location,
         );
     }
 
+    // @todo Sergey Gubarev: Неиспользуемый функционал?!
     public function getSpecInfoObject()
     {
         if (! isset($this->_specInfo))

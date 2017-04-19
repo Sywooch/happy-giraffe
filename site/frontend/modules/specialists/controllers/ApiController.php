@@ -15,6 +15,22 @@ use site\frontend\modules\specialists\models\SpecialistProfile;
  */
 class ApiController extends \site\frontend\components\api\ApiController
 {
+    /**
+     * Получить профиль специалиста
+     *
+     * @author Sergey Gubarev
+     */
+    public function actionGetCurrent()
+    {
+        $form = new ProfileForm();
+        $form->initialize(\Yii::app()->user->id);
+
+        $this->data = [
+            'profile'   => $form,
+            'errors'    => $form->errors
+        ];
+    }
+
     public function actionRegister(array $attributes)
     {
         if (\Yii::app()->db instanceof \DbConnectionMan) {

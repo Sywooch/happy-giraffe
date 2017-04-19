@@ -145,6 +145,8 @@ class ProfileForm extends \CFormModel implements \IHToJSON
 
             'categoriesList' => SpecialistProfile::getCategoriesList(),
             'experienceList' => SpecialistProfile::getExperienceList(),
+
+            'geo' => $this->getUser()->location->toJSON()
         ];
     }
 

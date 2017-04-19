@@ -121,6 +121,8 @@ $cs->registerAMD(
     '
 );
 
+$cs->registerScriptFile('/app/builds/static/js/main.min.js', ClientScript::POS_READY);
+
 ?>
 
 <?php $this->endContent(); ?>

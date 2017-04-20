@@ -20,30 +20,29 @@ class PostBehavior extends ActivityBehavior
         $this->oldEntityId = $this->owner->originEntityId;
     }
 
-//    public function afterSave($event)
-//    {
-//        if ($this->owner->originEntityId) {
-//            return parent::afterSave($event);
-//        }
-//    }
+    public function afterSave($event)
+    {
+        $this->delActivity();
+        $this->addActivity();
+    }
 
     public function getActivityId()
     {
-        $originEntityId = (! $this->oldEntityId) ? $this->owner->originEntityId : $this->oldEntityId;
+        $originEntityId = (!$this->oldEntityId) ? $this->owner->originEntityId : $this->oldEntityId;
         return md5($this->owner->originService . '|' . $this->owner->originEntity . '|' . $originEntityId);
     }
 
     public function getActivityModel()
     {
-        $activity = new Activity();
+        $activity       = new Activity();
         $activity->data = array(
             'title' => $this->owner->title,
-            'url' => $this->owner->url,
-            'text' => $this->owner->preview,
+            'url'   => $this->owner->url,
+            'text'  => $this->owner->preview,
         );
         $activity->dtimeCreate = (int) $this->owner->dtimeCreate;
-        $activity->userId = (int) $this->owner->authorId;
-        $activity->typeId = isset($this->owner->templateObject->data['type']) ? $this->owner->templateObject->data['type'] : 'post';
+        $activity->userId      = (int) $this->owner->authorId;
+        $activity->typeId      = isset($this->owner->templateObject->data['type']) ? $this->owner->templateObject->data['type'] : 'post';
 
         return $activity;
     }

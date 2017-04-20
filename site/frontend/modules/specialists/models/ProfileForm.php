@@ -14,6 +14,11 @@ use site\frontend\modules\users\models\User;
  */
 class ProfileForm extends \CFormModel implements \IHToJSON
 {
+    /**
+     * @var string MAX_GREETING_LENGTH Макс. длина приветствия врача
+     */
+    const MAX_GREETING_LENGTH = 200;
+
     public $profileId;
 
     public $gender;
@@ -24,6 +29,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     public $category;
     public $placeOfWork;
     public $text;
+    public $greeting;
 
     public $specializations;
 
@@ -42,6 +48,11 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             ['text', 'filter', 'filter' => function($text) {
                 return strip_tags($text, '<p>');
             }],
+
+            ['greeting', 'filter', 'filter' => function($text) {
+                return strip_tags($text);
+            }],
+            ['greeting', 'length', 'max' => self::MAX_GREETING_LENGTH],
 
             ['firstName, lastName, middleName, gender', 'required'],
             ['firstName, lastName, middleName', 'length', 'max' => 50],
@@ -95,7 +106,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->category = $this->profile->category;
         $this->placeOfWork = $this->profile->placeOfWork;
         $this->text = $this->profile->specialization;
-
+        $this->greeting = $this->profile->greeting;
         $this->specializations = $this->getSpecializations();
 
         $this->career = $this->profile->careerObject->models;
@@ -113,6 +124,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->profile->category = $this->category;
         $this->profile->placeOfWork = $this->placeOfWork;
         $this->profile->specialization = $this->text;
+        $this->profile->greeting = $this->greeting;
 
         $this->profile->careerObject->models = $this->career;
         $this->profile->educationObject->models = $this->education;
@@ -142,6 +154,8 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             'specializationsList' => $this->getSpecializationsList(),
             'specializations' => $this->specializations,
             'specString' => $this->profile->getSpecsString(),
+
+            'greeting' => $this->profile->greeting,
 
             'categoriesList' => SpecialistProfile::getCategoriesList(),
             'experienceList' => SpecialistProfile::getExperienceList(),

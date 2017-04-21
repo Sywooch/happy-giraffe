@@ -22,4 +22,15 @@ class UserLocationFormatter
         }
         return implode(', ', $parts);
     }
+
+    static public function cityOrRegion(UserLocation $location)
+    {
+        if ($location->cityId) {
+            return $location->city->title;
+        }
+        if ($location->regionId) {
+            return $location->region->title;
+        }
+        return '';
+    }
 }

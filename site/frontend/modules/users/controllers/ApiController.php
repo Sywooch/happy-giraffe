@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\users\controllers;
 
+use site\frontend\modules\geo2\components\UserLocationFormatter;
 use site\frontend\modules\users\models\ChangeEmailForm;
 use site\frontend\modules\users\models\ChangePasswordForm;
 use site\frontend\modules\users\models\User;
@@ -36,7 +37,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(404, 'Пользователь ' . $id . ' не найден');
         $this->success = true;
         $this->data = $user->toJSON();
-        $this->data['city'] = $user->address->getCityTitle();
+        $this->data['city'] = UserLocationFormatter::cityOrRegion($user->location);
         if ($avatarSize)
             $this->data['avatarUrl'] = $user->getAvatarUrl($avatarSize);
     }

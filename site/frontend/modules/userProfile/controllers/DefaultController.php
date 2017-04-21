@@ -26,10 +26,11 @@ class DefaultController extends \LiteController
 
     /**
      * @param $userId
-     * @throws \CHttpException
+     * @param int $page
+     * @param string $tab
      * @sitemap dataSource=sitemapView
      */
-    public function actionIndex($userId, $page = 1)
+    public function actionIndex($userId, $page = 1, $tab = 'new')
     {
         $user = User::model()->active()->findByPk($userId);
         if ($user === null) {

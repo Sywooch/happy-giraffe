@@ -24,7 +24,7 @@ if (!is_null($currentAnswerId))
 {
     $jsParams[] = $currentAnswerId->id;
     $jsParams[] = CJSON::encode( \site\common\helpers\HStr::truncate($currentAnswerId->text, 150) );
-    $jsParams[] = (int) QaManager::isAnswerEditing($currentAnswerId->id);
+    $jsParams[] = (int) QaManager::isAnswerEditing((int) $currentAnswerId->id);
 }
 
 $jsParamsStr = implode(',', $jsParams);
@@ -43,7 +43,7 @@ $jsParamsStr = implode(',', $jsParams);
             <span class="questions_item_heading"><?=$question->title?></span>
             <?php if ($question->tag): ?>
                 <div class="pediator-answer__footer-box">
-                    <div class="box-wrapper__footer box-footer"><a href="<?=$this->createUrl('/som/qa/default/index/', ['categoryId' => $question->categoryId, 'tagId' => $question->tag->id])?>" class="box-footer__cat"><?=$question->tag->name?></a></div>
+                    <div class="box-wrapper__footer box-footer"><a href="<?=UrlCreator::create('/pediatrician/questions/', ['filter' => ['tag' => $question->tag->id]]);?>" class="box-footer__cat"><?=$question->tag->name?></a></div>
                 </div>
             <?php endif; ?>
             <div class="question_text">
@@ -119,9 +119,7 @@ $cs->registerAMD(
         'common',
         'comet'
     ],
-    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . MPQaManager::getQuestionChannelId($question->id) . '\');'
+    'comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . MPQaManager::getQuestionChannelId(!is_null($currentAnswerId) ? $currentAnswerId->id : $question->id) . '\');'
 );
 
 ?>
-
-<?php //$this->widget('site\frontend\modules\specialists\modules\pediatrician\answers\AnswersWidget', array('question' => $question)); ?>

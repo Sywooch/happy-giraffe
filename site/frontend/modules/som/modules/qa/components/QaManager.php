@@ -69,7 +69,7 @@ class QaManager
      */
     public static function isAnswerEditing($answerId)
     {
-        $findObject = QaAnswerEditing::model()->find([
+        $findObject = QaAnswerEditing::model()->findByAttributes([
                             'answerId' => $answerId
                         ]);
 

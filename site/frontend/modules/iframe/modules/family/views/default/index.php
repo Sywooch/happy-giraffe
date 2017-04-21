@@ -10,15 +10,15 @@ $this->breadcrumbs = array(
 );
 $this->adaptiveBreadcrumbs = true;
 if ($this->owner->id == Yii::app()->user->id) {
-    $this->pageTitle = 'Моя семья';
+    $this->pageTitle = 'Мои дети';
 } else {
-    $this->pageTitle = 'Семья - ' . $this->owner->fullName;
+    $this->pageTitle = 'Дети - ' . $this->owner->fullName;
 }
 ?>
 
 <div class="notice-header clearfix notice-header--dialog">
     <div class="notice-header__item notice-header__item--left">
-        <div class="notice-header__title">Семья</div>
+        <div class="notice-header__title">Мои дети</div>
     </div>
     <div class="notice-header__item notice-header__item--right"><a href="javascript:history.back();" class="notice-header__ico-close i-close i-close--sm"></a></div>
 </div>
@@ -28,7 +28,7 @@ if ($this->owner->id == Yii::app()->user->id) {
         
         <?php if ($this->owner->id == Yii::app()->user->id): ?>
             <div class="family-user_edit-hold"> 
-                <a href='<?=$this->createUrl('/family/default/fill', array('userId' => $userId))?>' class="btn btn-secondary btn-l"><div class="ico-edit ico-edit__s"></div>&nbsp;Редактировать</a>
+                <a href='<?=$this->createUrl('/iframe/family/default/fill', array('userId' => $userId))?>' class="btn btn-secondary btn-l"><div class="ico-edit ico-edit__s"></div>&nbsp;Редактировать</a>
             </div>
         <?php endif; ?>
 
@@ -41,7 +41,7 @@ if ($this->owner->id == Yii::app()->user->id) {
                     <div class="family-about_tx"><?= htmlentities($family->description, ENT_COMPAT, 'utf-8') ?></div>
                 </div>
             <?php endif; ?>
-            <?php $this->widget('site\frontend\modules\family\widgets\MembersListWidget\MembersListWidget', array(
+            <?php $this->widget('site\frontend\modules\iframe\modules\family\widgets\MembersListWidget\MembersListWidget', array(
                 'family' => $family,
                 'view' => 'short',
                 'me' => $userId,
@@ -50,7 +50,7 @@ if ($this->owner->id == Yii::app()->user->id) {
         <!-- /family-about-->
         <div class="visible-md">
             <!-- family-member-->
-            <?php $this->widget('site\frontend\modules\family\widgets\MembersListWidget\MembersListWidget', array(
+            <?php $this->widget('site\frontend\modules\iframe\modules\family\widgets\MembersListWidget\MembersListWidget', array(
                 'family' => $family,
                 'view' => 'full',
                 'me' => $userId,

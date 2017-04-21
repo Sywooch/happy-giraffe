@@ -3,6 +3,7 @@
 namespace site\frontend\modules\iframe\modules\family\controllers;
 
 use site\frontend\modules\iframe\modules\family\models\Family;
+use site\frontend\modules\iframe\modules\family\models\FamilyMember;
 
 class DefaultController extends \LiteController
 {
@@ -33,8 +34,13 @@ class DefaultController extends \LiteController
         }
         $this->owner = $user;
 
-        /** @var \site\frontend\modules\family\models\Family $family */
-        $family = Family::model()->with('members')->hasMember($userId)->find();
+        /** @var \site\frontend\modules\iframe\modules\family\models\Family $family */
+        $family = Family::model()->with([
+            'members'=>[
+                'joinType'=>'INNER JOIN',
+                'condition'=>'members.type="child"',
+            ]
+        ])->hasMember($userId)->find();
 
         if ($family !== null) {
             $this->render('index', compact('family',  'userId'));

@@ -65,7 +65,7 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'family' => array(self::BELONGS_TO, '\site\frontend\modules\family\models\Family', 'familyId'),
+			'family' => array(self::BELONGS_TO, '\site\frontend\modules\iframe\modules\family\models\Family', 'familyId'),
 		);
 	}
 
@@ -232,13 +232,13 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
     {
         switch ($type) {
             case 'adult':
-                return '\site\frontend\modules\family\models\Adult';
+                return '\site\frontend\modules\iframe\modules\family\models\Adult';
             case 'child':
-                return '\site\frontend\modules\family\models\Child';
+                return '\site\frontend\modules\iframe\modules\family\models\Child';
             case 'planning':
-                return '\site\frontend\modules\family\models\PlanningChild';
+                return '\site\frontend\modules\iframe\modules\family\models\PlanningChild';
             case 'waiting':
-                return '\site\frontend\modules\family\models\PregnancyChild';
+                return '\site\frontend\modules\iframe\modules\family\models\PregnancyChild';
             default:
                 throw new \CException('Invalid type value');
         }

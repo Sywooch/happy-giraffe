@@ -14,11 +14,11 @@ $cs->registerAMD('userSection', array('kow', 'extensions/avatarUpload'));
             <?php if ($user->birthday): ?>
                 <div class="margin-b5 clearfix"><?=$user->getNormalizedAge() ?>, <?=$user->birthdayString?></div>
             <?php endif; ?>
-            <?php if (!empty($user->address->country_id)): ?>
+            <?php if ($user->location->countryId): ?>
             <div class="location locationsmall clearfix">
-                <?=$user->address->getFlag(false, 'span')?>
-                <?php if (!empty($user->address->city_id) || !empty($user->address->region_id)): ?>
-                    <span class="location_tx"><?=$user->address->getUserFriendlyLocation()?></span>
+                <span class="flag flag-<?=$user->location->country->iso?>" title="<?=$user->location->country->title?>"></span>
+                <?php if ($cityAndRegion = \site\frontend\modules\geo2\components\UserLocationFormatter::cityAndRegion($user->location)): ?>
+                    <span class="location-tx"><?=$cityAndRegion?></span>
                 <?php endif; ?>
             </div>
             <?php endif; ?>

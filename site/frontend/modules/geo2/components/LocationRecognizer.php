@@ -13,6 +13,13 @@ class LocationRecognizer
 
     public static function recognizeCity($countryIsoCode, $cityName, $regionName)
     {
+        if ($cityName == $regionName) {
+            $cities = Geo2City::model()->title($cityName)->noRegion()->findAll();
+            if (count($cities) == 1) {
+                return $cities[0];
+            }
+        }
+
         $cities = self::getCities($countryIsoCode, $cityName);
         $nCities = count($cities);
         switch ($nCities) {

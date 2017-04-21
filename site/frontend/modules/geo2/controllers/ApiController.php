@@ -15,7 +15,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actionLocateCity()
     {
         try {
-            $record = \Yii::app()->geoLite->city('5.139.192.236');
+            $record = \Yii::app()->geoLite->city($_SERVER['REMOTE_ADDR']);
             $city = LocationRecognizer::recognizeCity($record->country->isoCode, $record->city->name, $record->mostSpecificSubdivision->name);
         } catch (AddressNotFoundException $e) {
             $city = null;

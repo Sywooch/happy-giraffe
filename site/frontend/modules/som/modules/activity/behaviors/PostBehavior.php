@@ -20,12 +20,6 @@ class PostBehavior extends ActivityBehavior
         $this->oldEntityId = $this->owner->originEntityId;
     }
 
-    public function afterSave($event)
-    {
-        $this->delActivity();
-        $this->addActivity();
-    }
-
     public function getActivityId()
     {
         $originEntityId = (!$this->oldEntityId) ? $this->owner->originEntityId : $this->oldEntityId;

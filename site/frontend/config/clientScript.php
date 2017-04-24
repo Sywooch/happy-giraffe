@@ -656,7 +656,7 @@ return array(
             )
         ),
         'lite_qa' => array(
-            'depends' => array('lite_services', 'lite_qa_old'),
+            'depends' => array('lite_qa_old', 'lite_services', 'lite_posts', 'lite_pediatrician'),
         ),
         'lite_pediatrician' => array(
             'baseUrl' => '/',

@@ -80,7 +80,7 @@ if (! Yii::app()->user->isGuest) {
             <ul class="user-widget-block-iframe__list">
                 <li class="user-widget-block-iframe__li">
                     <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/notifications/default/index')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-signal"></span>Сигналы</a>
-                    <span class="user-widget-block-iframe__notific"><?=$countNotification?></span>
+                    <span class="user-widget-block-iframe__notific <?=$countNotification?'active':'';?>"><?=$countNotification?></span>
                 </li>
 <!--                <li class="user-widget-block-iframe__li user-widget-block-iframe__li-disabled">-->
 <!--                    <a class="user-widget-block-iframe__link" href="#"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-kids"></span>Дети</a>-->

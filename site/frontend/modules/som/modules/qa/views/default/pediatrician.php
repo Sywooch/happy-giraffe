@@ -82,7 +82,7 @@ if (!is_null($currentTagId))
 
             $this->renderPartial('/_new_search', [
                 'query' => '',
-                'tagId' => $tag->id
+                'tagId' => isset($tag) ? $tag->id : null
             ]);
 
             ?>

@@ -24,8 +24,7 @@
                 </div>
   			<?php endif; ?>
   			<?php
-  			   if (!is_null($data->attachedChild)) {
-            	   $fmember = $data->attChild;
+  			   if (!is_null($data->attachedChild) and !is_null($fmember = $data->attChild)) {
             	   $arrFooterData = $fmember->getAnswerFooterData();
 	           ?>
         	   <?php if (!\Yii::app()->user->isGuest && $data->author->id == \Yii::app()->user->id) { ?>

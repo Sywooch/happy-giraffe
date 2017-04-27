@@ -41,9 +41,12 @@ class NotificationCommand extends CConsoleCommand
 
     public function actionSendNotifications()
     {
-        $models = QaAnswer::model()->findAll([
-            'condition' => 'isPublished = 0',
-        ]);
+        $models = QaAnswer::model()
+                    ->resetScope()
+                    ->findAll([
+                        'condition' => 'isPublished = ' . QaAnswer::NOT_PUBLISHED . ' AND isRemoved = ' . QaAnswer::NOT_REMOVED,
+                    ])
+                ;
 
         $cnt = 0;
 

@@ -29,7 +29,7 @@ class Uri implements UriInterface
     {
         $parts = parse_url($uri);
         if (false === $parts) {
-            throw new CriticalException('Неверный формат URL');
+            throw new \Exception('Неверный формат URL');
         }
         $this->scheme    = isset($parts['scheme'])   ? $this->filterScheme($parts['scheme']) : '';
         $this->userInfo = isset($parts['user'])     ? $parts['user']     : '';
@@ -124,7 +124,7 @@ class Uri implements UriInterface
         }
 
         if (! array_key_exists($scheme, $this->allowedSchemes)) {
-            throw new CriticalException(sprintf(
+            throw new \Exception(sprintf(
                 'Неподдерживаемая схема "%s"; необходимый формат (%s)',
                 $scheme,
                 implode(', ', array_keys($this->allowedSchemes))
@@ -259,7 +259,7 @@ class Uri implements UriInterface
         if (null !== $port) {
             $port = (int) $port;
             if (1 > $port || 0xffff < $port) {
-                throw new CriticalException(
+                throw new \Exception(
                     sprintf('Неверный порт: %d. Диапазон допустимых портов 1 - 65535', $port)
                 );
             }

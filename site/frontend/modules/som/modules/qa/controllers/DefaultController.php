@@ -194,7 +194,7 @@ class DefaultController extends QaController
 
     public function actionSearch($query = '', $categoryId = null)
     {
-        $this->layout       = '/layouts/search_pediatrician';
+        $this->layout       = '/layouts/main';
 
         $dp = new SphinxDataProvider(QaQuestion::model()->apiWith('user')->with('category')->orderDesc(), [
             'sphinxCriteria' => [

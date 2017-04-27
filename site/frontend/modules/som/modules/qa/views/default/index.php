@@ -26,6 +26,11 @@ else {
 
 ?>
 
+<style type="text/css">
+    .filter-menu .active:after {display: none;}
+    .filter-menu .active {position: static;}
+</style>
+
 <div class="b-breadcrumbs" style="margin-left: 0">
 
 <?php

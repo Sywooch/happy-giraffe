@@ -107,7 +107,11 @@ class DefaultController extends \LiteController
             throw new \CHttpException(403);
         }
 
-        $dp = QaManager::getQuestionsDp(\Yii::app()->user->id);
+        $filter = \Yii::app()->getRequest()->getQuery('filter');
+
+        $tagId = (!empty($filter) and isset($filter['tag'])) ? $filter['tag'] : null;
+
+        $dp = QaManager::getQuestionsDp(\Yii::app()->user->id, $tagId);
 
         $this->render('questions', compact('dp'));
     }
@@ -135,7 +139,7 @@ class DefaultController extends \LiteController
             $this->render('accessDenied', ['displayType' => "accessDenied"]);
         }
 
-        if (!$question->checkAccessByViewQuestion($user->getId()))
+        if ($question->isAnswerBranchClose($user->getId()))
         {
             $nextQuestion = QaManager::getNextQuestion($questionId, \Yii::app()->user->id);
             $goTo = ($nextQuestion) ? $this->createUrl('/specialists/pediatrician/default/answer', ['questionId' => $nextQuestion->id]) : $this->createUrl('/specialists/pediatrician/default/questions');

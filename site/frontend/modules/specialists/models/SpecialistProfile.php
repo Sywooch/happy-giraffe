@@ -15,7 +15,6 @@ use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
  * @property string $specialization
  * @property string $courses
  * @property string $education
- * @property string $career
  * @property string $experience
  * @property string $category
  * @property string $placeOfWork
@@ -25,6 +24,7 @@ use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
  * The followings are the available model relations:
  * @property \site\frontend\modules\users\models\User $user
  * @property SpecialistSpecialization[] $specializations
+ * @property SpecialistsCareer[] $career
  */
 class SpecialistProfile extends \HActiveRecord
 {
@@ -64,7 +64,6 @@ class SpecialistProfile extends \HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('career', 'filter', 'filter' => array($this->careerObject, 'serialize')),
 			array('education', 'filter', 'filter' => array($this->educationObject, 'serialize')),
 			array('courses', 'filter', 'filter' => array($this->coursesObject, 'serialize')),
 		);
@@ -80,6 +79,7 @@ class SpecialistProfile extends \HActiveRecord
 		return array(
 			'user' => array(self::BELONGS_TO, 'site\frontend\modules\users\models\User', 'id'),
 			'specializations' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistSpecialization', 'specialists__profiles_specializations(profileId, specializationId)', 'scopes' => ['sorted']),
+            'career' => [self::HAS_MANY, SpecialistsCareer::class, 'profile_id']
 		);
 	}
 

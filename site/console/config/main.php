@@ -129,6 +129,9 @@ return array(
         'mpQaEntitiesEdited' => [
             'class' => \site\frontend\modules\som\modules\qa\commands\MpQaEntitiesEditedCommand::class
         ],
+        'syncCareerSpecialists' => [
+            'class' => \site\frontend\modules\specialists\commands\SyncCareerCommand::class
+        ]
     ),
     'import' => array(
         'site.common.models.User',

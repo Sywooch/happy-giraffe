@@ -59,8 +59,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             ['category', 'in', 'range' => array_keys(SpecialistProfile::getCategoriesList())],
             ['experience', 'in', 'range' => array_keys(SpecialistProfile::getExperienceList())],
             ['gender', 'in', 'range' => [User::GENDER_MALE, User::GENDER_FEMALE]],
-
-            ['career', 'validateRelatedModels'],
+            
             ['education', 'validateRelatedModels'],
             ['courses', 'validateRelatedModels'],
         ];
@@ -109,7 +108,6 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->greeting = $this->profile->greeting;
         $this->specializations = $this->getSpecializations();
 
-        $this->career = $this->profile->careerObject->models;
         $this->education = $this->profile->educationObject->models;
         $this->courses = $this->profile->coursesObject->models;
     }
@@ -126,7 +124,6 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->profile->specialization = $this->text;
         $this->profile->greeting = $this->greeting;
 
-        $this->profile->careerObject->models = $this->career;
         $this->profile->educationObject->models = $this->education;
         $this->profile->coursesObject->models = $this->courses;
 
@@ -147,7 +144,8 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             'category' => $this->category,
             'text' => $this->text,
 
-            'career' => $this->career,
+            'career' => $this->profile->career,
+
             'education' => $this->education,
             'courses' => $this->courses,
 

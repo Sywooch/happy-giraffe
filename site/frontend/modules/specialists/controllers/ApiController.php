@@ -8,6 +8,7 @@ use site\frontend\modules\specialists\components\SpecialistsManager;
 use site\frontend\modules\specialists\models\ProfileForm;
 use site\frontend\modules\specialists\models\RegisterForm;
 use site\frontend\modules\specialists\models\SpecialistProfile;
+use site\frontend\modules\specialists\models\SpecialistsCareer;
 
 /**
  * @author Никита
@@ -80,6 +81,93 @@ class ApiController extends \site\frontend\components\api\ApiController
             'form' => $form,
             'errors' => $form->errors,
         ];
+    }
+
+    /**
+     * Обновить карьеру
+     *
+     * @param integer   $profileId  ID профиля
+     * @param array     $data       Данные
+     * @throws \CHttpException
+     * @author Sergey Gubarev
+     */
+    public function actionUpdateCareer($profileId, array $data)
+    {
+        $form = new ProfileForm();
+        $form->initialize($profileId);
+
+        if (! \Yii::app()->user->checkAccess('editSpecialistProfileData', ['entity' => $form->getProfile()]))
+        {
+            throw new \CHttpException(403);
+        }
+
+        if (!count($data))
+        {
+            throw new \CHttpException(400, 'Data is empty');
+        }
+
+        try
+        {
+            $resp = [];
+
+            foreach ($data as $attrs)
+            {
+                $attrs['profile_id'] = $profileId;
+
+                $isExists = !is_null($attrs['id']) && SpecialistsCareer::model()->exists('id = ' . $attrs['id']);
+
+                $model = !$isExists ? new SpecialistsCareer() : SpecialistsCareer::model()->findByPk($attrs['id']);
+                $model->setAttributes($attrs);
+
+                if ($model->save())
+                {
+                    $resp[] = $model->toJSON();
+                }
+            }
+
+            $this->success  = true;
+            $this->data     = [
+                'data' => $resp
+            ];
+        }
+        catch (\CDbException $e)
+        {
+            $this->data     = [
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * Удалить место работы
+     *
+     * @param $profileId    ID профиля
+     * @param $id           ID записи
+     * @throws \CHttpException
+     * @author Sergey Gubarev
+     */
+    public function actionRemoveCareer($profileId, $id)
+    {
+        $form = new ProfileForm();
+        $form->initialize($profileId);
+
+        if (! \Yii::app()->user->checkAccess('editSpecialistProfileData', ['entity' => $form->getProfile()]))
+        {
+            throw new \CHttpException(403);
+        }
+
+        try
+        {
+            SpecialistsCareer::model()->deleteByPk($id);
+
+            $this->success = true;
+        }
+        catch (\CDbException $e)
+        {
+            $this->data = [
+                'error' => $e->getMessage()
+            ];
+        }
     }
 
     public function actionValidate(array $data)

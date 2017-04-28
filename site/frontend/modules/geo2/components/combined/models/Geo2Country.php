@@ -11,7 +11,7 @@ namespace site\frontend\modules\geo2\components\combined\models;
  * @property string $iso
  * @property string $vkId
  */
-class Geo2Country extends \CActiveRecord
+class Geo2Country extends \CActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name
@@ -63,8 +63,16 @@ class Geo2Country extends \CActiveRecord
 	{
 		return parent::model($className);
 	}
-	
-	public function iso($value)
+
+    /**
+     * @return array
+     */
+	public function toJSON()
+    {
+        return $this->getAttributes();
+    }
+
+    public function iso($value)
 	{
 		$this->getDbCriteria()->compare('iso', $value);
 		return $this;

@@ -2,7 +2,7 @@
 /**
  * @var LiteController $this
  */
-$this->beginContent('//layouts/lite/mainLite');
+$this->beginContent('//layouts/lite/main');
 
 Yii::app()->clientScript->registerAMD('userAdd', array('common' => 'common', '$' => 'jquery'), "$('#userAdd').show();");
 ?>

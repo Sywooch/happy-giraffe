@@ -1,40 +1,48 @@
 <?php
-
 namespace site\frontend\modules\iframe\models\qaTag;
-
 /**
  *
  * @author Emil Vililyaev
  */
 class Enum
 {
-
+    /**
+     * @var integer LESS_THAN_YEAR_ID ID диапазона "0-1"
+     */
+    const LESS_THAN_YEAR_ID     = 3;
+    /**
+     * @var integer MORE_THAN_YEAR_ID ID диапазона "1-3"
+     */
+    const MORE_THAN_YEAR_ID     = 7;
+    /**
+     * @var integer PRESCHOOL_ID ID диапазона "3-6"
+     */
+    const PRESCHOOL_ID          = 11;
+    /**
+     * @var integer SCHOOLKID_ID ID диапазона "6-12"
+     */
+    const SCHOOLKID_ID          = 15;
     /**
      *
      * @var string
      */
     const LESS_THAN_YEAR    = '0-1';
-
     /**
      *
      * @var string
      */
     const MORE_THAN_YEAR    = '1-3';
-
     /**
      *
      * @var string
      */
     const PRESCHOOL         = '3-6';
-
     /**
      *
      * @var string
      */
     const SCHOOLKID         = '6-12';
-
     //-----------------------------------------------------------------------------------------------------------
-
     /**
      *
      * @var array
@@ -45,7 +53,6 @@ class Enum
         self::PRESCHOOL         => '3 - 6',
         self::SCHOOLKID         => '6 - 12',
     ];
-
     /**
      *
      * @var array
@@ -56,7 +63,6 @@ class Enum
         self::PRESCHOOL         => 'От 3 до 6 лет',
         self::SCHOOLKID         => 'От 6 до 12 года',
     ];
-
     /**
      *
      * @var array
@@ -67,9 +73,7 @@ class Enum
         self::PRESCHOOL         => 'Дошкольники',
         self::SCHOOLKID         => 'Школьники',
     ];
-
     //-----------------------------------------------------------------------------------------------------------
-
     /**
      * @param array $arrTitle
      * @param mixed $value
@@ -85,15 +89,11 @@ class Enum
             {
                 throw new \CException('Tag value not valid!');
             }
-
             return NULL;
         }
-
         return $arrTitle[$value];
     }
-
     //-----------------------------------------------------------------------------------------------------------
-
     /**
      * @param mixed $value
      * @return NULL|string
@@ -102,7 +102,6 @@ class Enum
     {
         return $this->_getTitle($this->_titlesForWeb, $value, $validate);
     }
-
     /**
      * @param mixed $value
      * @return NULL|string
@@ -111,7 +110,6 @@ class Enum
     {
         return $this->_getTitle($this->_titlesForWebMenu, $value, $validate);
     }
-
     /**
      * @param mixed $value
      * @return NULL|string

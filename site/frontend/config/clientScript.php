@@ -708,5 +708,16 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
+        'datepicker' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'js' => array(
+                'for-iframe/datepicker/datepicker.js',
+            ),
+            'css' => array(
+                'for-iframe/datepicker/datepicker.css',
+            ),
+            'depends' => array('jquery'),
+        ),
     )
 );

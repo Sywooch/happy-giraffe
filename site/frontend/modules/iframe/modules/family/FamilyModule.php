@@ -20,6 +20,7 @@ class FamilyModule extends \CWebModule
         \Yii::app()->setComponent('authManager', array(
             'class' => '\site\frontend\components\AuthManager',
         ));
+        \Yii::app()->clientScript->registerPackage('datepicker');
 	}
 
 	public function beforeControllerAction($controller, $action)

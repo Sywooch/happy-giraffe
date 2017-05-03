@@ -40,7 +40,6 @@ class SpecialistStatistic extends \CWidget
             return;
         }
 
-//        $arrData = QaManager::getAnswerCountAndVotes($user->getId());
 	    $arrData = QaManager::getCalculatedAnswerCountAndVotesByUserId($user->getId());
 
 

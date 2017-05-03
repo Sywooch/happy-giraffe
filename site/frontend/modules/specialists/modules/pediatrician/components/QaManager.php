@@ -74,10 +74,6 @@ class QaManager
 	 */
 	public static function getCalculatedAnswerCountAndVotesByUserId($userId)
 	{
-//		echo '<pre>'.print_r(array(
-//		                        '' => $userId
-//		                        ),true).'</pre>';
-//		die('x');
 
 		return array(
 			'answers_count' => QaAnswer::model()->user($userId)->with('question')->count([

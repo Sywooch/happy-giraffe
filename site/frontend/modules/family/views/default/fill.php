@@ -9,6 +9,6 @@ $user = \Yii::app()->user->getModel();
 ?>
 <div class="b-main_cont b-main_cont__wide">
     <!-- <div class="page-col_cont page-col_cont__in"> -->
-        <family-user-iframe params='{"gender":<?=$user->gender?>}'></family-user-iframe>
+        <family-user params='{"gender":<?=$user->gender?>}'></family-user>
     <!-- </div> -->
 </div>

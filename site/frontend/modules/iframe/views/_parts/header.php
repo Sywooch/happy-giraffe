@@ -6,13 +6,15 @@ use site\frontend\modules\iframe\modules\family\models\Family;
 $rating = (new QaRatingManager())->getViewCounters(Yii::app()->user->id);
 $countNotification = Notification::getUnreadCount();
 
-$children = (new Family())->getChild(Yii::app()->user->id);
-
-foreach ($children as $child){
-//    $childCollection = $child->family->getPhotoCollection('all');
-//    $attach = $childCollection->observer->getByAttach($child->photoCollection->observer->getSingle(0));
-//    var_dump($child);
+if (!Yii::app()->user->isGuest){
+    $children = (new Family())->getChild(Yii::app()->user->id);
 }
+
+//foreach ($children as $child){
+////    $childCollection = $child->family->getPhotoCollection('all');
+////    $attach = $childCollection->observer->getByAttach($child->photoCollection->observer->getSingle(0));
+////    var_dump($child);
+//}
 
 
 $cs = Yii::app()->clientScript;

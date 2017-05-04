@@ -5,10 +5,12 @@ use site\frontend\modules\iframe\modules\family\models\Family;
 
 $rating = (new QaRatingManager())->getViewCounters(Yii::app()->user->id);
 $countNotification = Notification::getUnreadCount();
+$countAllNotification = Notification::model()->byUser(\Yii::app()->user->id)->count();
 
 if (!Yii::app()->user->isGuest){
-    $children = (new Family())->getChild(Yii::app()->user->id);
+    $children = 0; //(new Family())->getChild(Yii::app()->user->id);
 }
+
 
 //foreach ($children as $child){
 ////    $childCollection = $child->family->getPhotoCollection('all');
@@ -91,7 +93,7 @@ if (! Yii::app()->user->isGuest) {
             <ul class="user-widget-block-iframe__list">
                 <li class="user-widget-block-iframe__li">
                     <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/notifications/default/index')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-signal"></span>Сигналы</a>
-                    <span class="user-widget-block-iframe__notific <?=$countNotification?'active':'';?>"><?=$countNotification?></span>
+                    <span class="user-widget-block-iframe__notific <?=$countNotification?'active':'';?>"><?=$countNotification?$countNotification:$countAllNotification ?></span>
                 </li>
                 <li class="user-widget-block-iframe__li <?=count($children)?'':'user-widget-block-iframe__li-disabled'?>">
                     <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/family/default/index',['userId'=>Yii::app()->user->id])?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-kids"></span>Дети</a>

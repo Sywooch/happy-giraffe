@@ -1,9 +1,18 @@
 <?php
 use site\frontend\modules\iframe\components\QaRatingManager;
 use site\frontend\modules\iframe\modules\notifications\models\Notification;
+use site\frontend\modules\iframe\modules\family\models\Family;
 
 $rating = (new QaRatingManager())->getViewCounters(Yii::app()->user->id);
 $countNotification = Notification::getUnreadCount();
+
+$children = (new Family())->getChild(Yii::app()->user->id);
+
+foreach ($children as $child){
+//    $childCollection = $child->family->getPhotoCollection('all');
+//    $attach = $childCollection->observer->getByAttach($child->photoCollection->observer->getSingle(0));
+//    var_dump($child);
+}
 
 
 $cs = Yii::app()->clientScript;
@@ -82,10 +91,12 @@ if (! Yii::app()->user->isGuest) {
                     <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/notifications/default/index')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-signal"></span>Сигналы</a>
                     <span class="user-widget-block-iframe__notific <?=$countNotification?'active':'';?>"><?=$countNotification?></span>
                 </li>
-<!--                <li class="user-widget-block-iframe__li user-widget-block-iframe__li-disabled">-->
-<!--                    <a class="user-widget-block-iframe__link" href="#"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-kids"></span>Дети</a>-->
-<!--                    <a class="user-widget-block-iframe__add-child" href="#">Добавить</a>-->
-<!--                </li>-->
+                <li class="user-widget-block-iframe__li <?=count($children)?'':'user-widget-block-iframe__li-disabled'?>">
+                    <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/family/default/index',['userId'=>Yii::app()->user->id])?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-kids"></span>Дети</a>
+                    <?php if(!count($children)){ ?>
+                        <a class="user-widget-block-iframe__add-child" href="<?=$this->createUrl('/iframe/family/default/index',['userId'=>Yii::app()->user->id])?>">Добавить</a>
+                    <?php } ?>
+                </li>
                 <li class="user-widget-block-iframe__li <?=$rating['questions']?'':'user-widget-block-iframe__li-disabled'?>">
                     <?php if($rating['questions']){ ?>
                         <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/my/questions')?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-question"></span>Мои вопросы</a>

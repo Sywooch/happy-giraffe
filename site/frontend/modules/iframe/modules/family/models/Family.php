@@ -202,4 +202,14 @@ class Family extends \HActiveRecord implements \IHToJSON
         $this->getDbCriteria()->mergeWith($criteria);
         return $this;
     }
+
+    public function getChild($userId){
+        $family = Family::model()->with([
+            'members'=>[
+                'joinType'=>'INNER JOIN',
+                'condition'=>'members.type="child"',
+            ]
+        ])->hasMember($userId)->find();
+        return $family->getMembers('child');
+    }
 }

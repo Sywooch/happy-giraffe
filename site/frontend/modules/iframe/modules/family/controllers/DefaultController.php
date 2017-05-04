@@ -43,7 +43,7 @@ class DefaultController extends \LiteController
         ])->hasMember($userId)->find();
 
         if ($family !== null) {
-            $this->render('index', compact('family',  'userId'));
+            $this->render('fill');
         } elseif (\Yii::app()->user->id == $userId) {
             $this->render('empty', compact('userId'));
         } else {

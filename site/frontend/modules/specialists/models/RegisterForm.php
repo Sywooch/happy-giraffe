@@ -26,6 +26,7 @@ class RegisterForm extends \site\frontend\modules\signup\models\RegisterForm
             ['email', 'unique', 'className' => 'User', 'caseSensitive' => false, 'criteria' => ['scopes' => ['active']]],
             ['password', 'length', 'min' => 6, 'max' => 15],
             ['gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE)],
+            ['firstName, lastName, middleName', 'filter', 'filter' => ['Str', 'ucFirst']],
         ];
     }
 }

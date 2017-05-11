@@ -251,7 +251,7 @@ class User extends HActiveRecord
             array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 16, 'on' => 'signup, change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 16 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
-            array('gender', 'boolean'),
+            //array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
             array('birthday, baby_birthday', 'date', 'format' => 'yyyy-M-d', 'message' => 'Неправильная дата'),

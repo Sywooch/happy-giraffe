@@ -64,6 +64,7 @@ class RegisterForm extends \CFormModel
         return array(
             'firstName' => 'Имя',
             'lastName' => 'Фамилия',
+            'middleName' => 'Отчество',
             'birthday' => 'Дата рождения',
             'birthdayD' => 'День',
             'birthdayM' => 'Месяц',

@@ -6,7 +6,7 @@ Yii::app()->clientScript->registerAMD('qa-search', array('ko' => 'knockout', 'Qa
 ?>
 <div class="b-filter-search">
     <form class="b-filter-search__form" action="<?=Yii::app()->createUrl('/som/qa/default/pediatricianSearch')?>" data-bind="submit: submit">
-        <span class="b-filter-search__submit">Найти вопрос</span>
+        <span class="b-filter-search__submit"></span>
         <span class="b-filter-search__close"></span>
         <input name="query" type="search" placeholder="Найти вопрос" class="b-filter-search__input" data-bind="textInput: query">
     </form>

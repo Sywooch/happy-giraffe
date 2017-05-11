@@ -100,6 +100,10 @@ class StatsHelper
     {
         $tags = \site\frontend\modules\posts\models\Label::getIdsByLabels($labelsList);
 
+        if (! $tags) {
+            return 0;
+        }
+
         $sql = 'SELECT count(*) AS n
 FROM post__contents AS pc
 JOIN comments AS c FORCE INDEX FOR JOIN(`entity_index`) ON ( c.entity = pc.originEntity and c.entity_id = pc.originEntityId)

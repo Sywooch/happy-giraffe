@@ -13,6 +13,7 @@ class RegisterForm extends \CFormModel
 {
     const GENDER_FEMALE = 0;
     const GENDER_MALE = 1;
+    const GENDER_UNDEFINED = 2;
 
     public $firstName;
     public $lastName;
@@ -39,7 +40,7 @@ class RegisterForm extends \CFormModel
     public function rules()
     {
         return array(
-            array('firstName, email', 'required'),
+            array('email', 'required'),
             array('password', 'required', 'except' => 'social'),
             array('firstName', 'length', 'max' => 50),
             array('lastName', 'length', 'max' => 50),
@@ -54,6 +55,7 @@ class RegisterForm extends \CFormModel
             array('city_id', 'exist', 'className' => 'GeoCity', 'attributeName' => 'id'),
             array('country_id', 'default', 'value' => null),
             array('city_id', 'default', 'value' => null),
+            array('gender', 'default', 'value' => self::GENDER_UNDEFINED),
         );
     }
 
@@ -62,6 +64,7 @@ class RegisterForm extends \CFormModel
         return array(
             'firstName' => 'Имя',
             'lastName' => 'Фамилия',
+            'middleName' => 'Отчество',
             'birthday' => 'Дата рождения',
             'birthdayD' => 'День',
             'birthdayM' => 'Месяц',

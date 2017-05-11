@@ -74,7 +74,11 @@ class Manager
         $countriesGenerator = $this->_parser->getCountries();
         $this->_collectSyncActions(VkCountry::model()->tableName(), $this->_parser->getCountries(), \Yii::app()->db->createCommand()->select()->from(VkCountry::model()->tableName())->queryAll(), [$this, 'countryRow']);
         foreach ($countriesGenerator as $i => $country) {
-            echo $country['id'] . ' - ' . count($this->_syncActions) . PHP_EOL;
+            if ($country['id'] == VkCountry::RUSSIA_ID) {
+                continue;
+            }
+
+            echo $country['id'] . ' - ' . $this->countActions() . PHP_EOL;
 
             $regionsGenerator = $this->_parser->getRegions($country['id']);
             $dbRegions = \Yii::app()->db->createCommand()->select()->from(VkRegion::model()->tableName())->where('countryId = :countryId')->queryAll(true, [':countryId' => $country['id']]);
@@ -91,6 +95,17 @@ class Manager
                 return $this->cityRow($country, (isset($city['region']) && isset($regionsMap[$city['region']])) ? $regionsMap[$city['region']] : null, $city);
             });
         }
+    }
+
+    protected function countActions()
+    {
+        $c = 0;
+        foreach ($this->_syncActions as $table => $methods) {
+            foreach ($methods as $method => $rows) {
+                $c += count($rows);
+            }
+        }
+        return $c;
     }
 
     protected function performActions()
@@ -120,6 +135,13 @@ class Manager
     {
         $_dbRows = [];
         foreach ($dbRows as $dbRow) {
+            if (empty($dbRow['area'])) {
+                unset($dbRow['area']);
+            }
+            if (empty($dbRow['region'])) {
+                unset($dbRow['region']);
+            }
+
             $_dbRows[$dbRow['id']] = $dbRow;
         }
 

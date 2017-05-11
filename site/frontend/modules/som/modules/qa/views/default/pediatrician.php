@@ -55,8 +55,13 @@ if (!is_null($currentTagId))
     <div class="b-mobile-nav">
         <div class="b-mobile-nav__title">Мой педиатр</div>
         <div class="b-mobile-nav__right">
-            <a href="<?=$this->createUrl("/som/qa/default/questionAddForm/")?>" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
+            <a id="addNewQuestionBtn" href="<?=$this->createUrl("/som/qa/default/pediatricianAddForm/")?>" class="disabled b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
         </div>
+        <script type="text/javascript">
+            $.followBindigsInit = function(){
+                $('#addNewQuestionBtn').removeClass('disabled');
+            };
+        </script>
     </div>
     <div class="b-nav-panel">
         <?php /* -------------- TABS -------------- */?>

@@ -39,24 +39,32 @@ class DefaultController extends \HController
         parent::init();
     }
 
-    public function actionIndex($read = 0, $lastNotificationUpdate = false)
+    public function actionIndex($lastNotificationUpdate = false)
     {
-        $this->pageTitle = !$read ? 'Новые сигналы' : 'Архив';
-        $list = Notification::model()
+        $this->pageTitle = 'Сигналы';
+        $readList = Notification::model()
             ->byUser(\Yii::app()->user->id)
-            ->byRead($read)
+            ->byRead(1)
             ->earlier($lastNotificationUpdate)
             ->orderByDate()
             ->limit(self::PAGE_SIZE)
             ->findAll();
-        $unreadCount = Notification::getUnreadCount();
+        $unreadList = Notification::model()
+            ->byUser(\Yii::app()->user->id)
+            ->byRead(0)
+            ->earlier($lastNotificationUpdate)
+            ->orderByDate()
+            ->limit(self::PAGE_SIZE)
+            ->findAll();
+        $readCount = Notification::getUnreadCount();
+        $unreadCount = Notification::getReadCount();
 
-        if (\Yii::app()->request->isAjaxRequest)
-        {
-            echo \HJSON::encode(array('list' => $list, 'read' => $read));
-        }
-        else
-            $this->render('index_v2', array('list' => $list, 'read' => $read, 'unreadCount' => $unreadCount));
+        $this->render('index_iframe', [
+            'readList' => $readList,
+            'unreadList' => $unreadList,
+            'unreadCount' => $unreadCount,
+            'readCount' => $readCount,
+        ]);
     }
 
     public function actionRead()

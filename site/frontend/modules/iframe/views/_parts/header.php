@@ -5,18 +5,20 @@ use site\frontend\modules\iframe\modules\family\models\Family;
 
 $rating = (new QaRatingManager())->getViewCounters(Yii::app()->user->id);
 $countNotification = Notification::getUnreadCount();
-$countAllNotification = Notification::model()->byUser(\Yii::app()->user->id)->count();
 
 if (!Yii::app()->user->isGuest){
-    $children = 0; //(new Family())->getChild(Yii::app()->user->id);
+    $countAllNotification = Notification::model()->byUser(\Yii::app()->user->id)->count();
+    $children = (new Family())->getChild(\Yii::app()->user->id);
+    foreach ($children as $child){
+//    $childCollection = $child->family->getPhotoCollection('all');
+//    $attach = $childCollection->observer->getByAttach($child->photoCollection->observer->getSingle(0));
+    }
+} else {
+    $countAllNotification = 0;
+    $children = 0;
 }
 
 
-//foreach ($children as $child){
-////    $childCollection = $child->family->getPhotoCollection('all');
-////    $attach = $childCollection->observer->getByAttach($child->photoCollection->observer->getSingle(0));
-////    var_dump($child);
-//}
 
 
 $cs = Yii::app()->clientScript;

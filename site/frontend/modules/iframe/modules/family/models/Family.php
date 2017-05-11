@@ -210,6 +210,9 @@ class Family extends \HActiveRecord implements \IHToJSON
                 'condition'=>'members.type="child"',
             ]
         ])->hasMember($userId)->find();
+        if(empty($family)){
+            return [];
+        }
         return $family->getMembers('child');
     }
 }

@@ -122,7 +122,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
     public function embeddedDocuments()
     {
         return [
-            'entity' => 'site\frontend\modules\notifications\models\Entity',
+            'entity' => 'site\frontend\modules\iframe\modules\notifications\models\Entity',
         ];
     }
 
@@ -136,13 +136,13 @@ class Notification extends \EMongoDocument implements \IHToJSON
                 'class' => \EEmbeddedArraysBehavior::class,
                 // 'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'unreadEntities',
-                'arrayDocClassName' => 'site\frontend\modules\notifications\models\Entity'
+                'arrayDocClassName' => 'site\frontend\modules\iframe\modules\notifications\models\Entity'
             ],
             'embededReadEntities' => [
                 'class' => \EEmbeddedArraysBehavior::class,
                 // 'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'readEntities',
-                'arrayDocClassName' => 'site\frontend\modules\notifications\models\Entity'
+                'arrayDocClassName' => 'site\frontend\modules\iframe\modules\notifications\models\Entity'
             ],
             'cometBehavior' => [
                 'class' => CometBehavior::class,
@@ -193,6 +193,15 @@ class Notification extends \EMongoDocument implements \IHToJSON
     public static function getUnreadCount()
     {
         return self::model()->byRead(0)->byUser(\Yii::app()->user->id)->count();
+    }
+
+    /**
+     *
+     * @return int Количество непрочитанных уведомлений текущего пользователя
+     */
+    public static function getReadCount()
+    {
+        return self::model()->byRead(1)->byUser(\Yii::app()->user->id)->count();
     }
 
     public function beforeSave()
@@ -419,6 +428,16 @@ class Notification extends \EMongoDocument implements \IHToJSON
         $this->dbCriteria->sort('dtimeUpdate', \EMongoCriteria::SORT_DESC);
 
         return $this;
+    }
+
+    public function getTemplate()
+    {
+        $tmpl = [
+            15 => 'answer',
+            20 => 'answer_1',
+            16 => 'answer_2',
+        ];
+        return $tmpl[$this->type];
     }
 
 }

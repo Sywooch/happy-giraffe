@@ -41,6 +41,8 @@ if ($openLogin == 'login') {
 <body class="body body__lite body__homepage <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>  ">
 <?php Yii::app()->ads->showCounters(); ?>
 <div class="layout-container <?= Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP ? 'homepage' : 'homepage-res' ?>">
+    <?php $this->renderPartial('//_alerts'); ?>
+    
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
             <!-- header-->
@@ -133,5 +135,9 @@ if ($openLogin == 'login') {
         </div>
     </div>
 </div>
+<?php
+Yii::app()->clientScript->registerCssFile('/app/builds/static/css/separate-css-sample.css');
+Yii::app()->clientScript->registerCssFile('https://fonts.googleapis.com/icon?family=Material+Icons');
+?>
 </body>
 </html>

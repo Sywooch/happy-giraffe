@@ -19,6 +19,12 @@ return array(
             'vk' => array(
                 'exports' => 'VK',
             ),
+//            'materialize' => [
+//                'deps' => ['jquery', 'hammerjs'],
+//            ],
+//            'hammerjs' => [
+//                'deps' => ['jquery'],
+//            ],
         ),
         'paths' => array(
             'facebook' => 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.8&appId=1648409175470149',
@@ -658,5 +664,11 @@ return array(
                 'lite/css/min/pediator.css',
             )
         ),
+        'register_form' => [
+            'baseUrl' => '/',
+            'css' => [
+                'app/builds/static/css/separate-css-sample.min.css',
+            ],
+        ],
     )
 );

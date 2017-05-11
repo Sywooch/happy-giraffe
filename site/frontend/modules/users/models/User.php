@@ -48,6 +48,7 @@ class User extends \User implements \IHToJSON
             'specInfo' => empty($this->specInfo) ? null : $this->specInfoObject,
             'avatarInfo' => \CJSON::decode($this->avatarInfo),
             'specialistInfo' => $this->specialistInfoObject->attributes,
+            'location' => $this->location,
         );
     }
 

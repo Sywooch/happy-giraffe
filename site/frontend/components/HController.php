@@ -69,6 +69,8 @@ class HController extends CController
         if (Yii::app()->db instanceof DbConnectionMan && Yii::app()->user->getFlash('redirected') !== null) {
             Yii::app()->db->enableSlave = false;
         }
+
+        \site\frontend\modules\signup\components\IntroductionManager::check();
     }
 
     protected function filterBySpamStatus()

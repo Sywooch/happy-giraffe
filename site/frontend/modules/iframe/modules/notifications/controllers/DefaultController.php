@@ -56,8 +56,8 @@ class DefaultController extends \HController
             ->orderByDate()
             ->limit(self::PAGE_SIZE)
             ->findAll();
-        $readCount = Notification::getUnreadCount();
-        $unreadCount = Notification::getReadCount();
+        $readCount = Notification::getReadCount();
+        $unreadCount = Notification::getUnreadCount();
 
         $this->render('index_iframe', [
             'readList' => $readList,

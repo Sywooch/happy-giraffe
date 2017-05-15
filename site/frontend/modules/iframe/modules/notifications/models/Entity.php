@@ -36,6 +36,11 @@ class Entity extends \EMongoEmbeddedDocument implements \IHToJSON
         parent::__construct($scenario);
     }
 
+    public function getUser()
+    {
+        return \User::model()->findByPk($this->userId);
+    }
+
     public function getType()
     {
         $result = 'post';

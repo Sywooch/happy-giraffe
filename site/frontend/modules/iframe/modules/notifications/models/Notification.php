@@ -197,7 +197,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
 
     /**
      *
-     * @return int Количество непрочитанных уведомлений текущего пользователя
+     * @return int Количество прочитанных уведомлений текущего пользователя
      */
     public static function getReadCount()
     {
@@ -428,16 +428,6 @@ class Notification extends \EMongoDocument implements \IHToJSON
         $this->dbCriteria->sort('dtimeUpdate', \EMongoCriteria::SORT_DESC);
 
         return $this;
-    }
-
-    public function getTemplate()
-    {
-        $tmpl = [
-            15 => 'answer',
-            20 => 'answer_1',
-            16 => 'answer_2',
-        ];
-        return $tmpl[$this->type];
     }
 
 }

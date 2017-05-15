@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\specialists\controllers;
 
+use site\frontend\components\HCollection;
 use site\frontend\modules\signup\components\UserIdentity;
 use site\frontend\modules\som\modules\qa\components\QaManager;
 use site\frontend\modules\specialists\components\SpecialistsManager;
@@ -9,6 +10,8 @@ use site\frontend\modules\specialists\models\ProfileForm;
 use site\frontend\modules\specialists\models\RegisterForm;
 use site\frontend\modules\specialists\models\SpecialistProfile;
 use site\frontend\modules\specialists\models\SpecialistsCareer;
+use site\frontend\modules\specialists\models\SpecialistsEducation;
+use site\frontend\modules\specialists\models\SpecialistsUniversities;
 
 /**
  * @author Никита
@@ -139,6 +142,53 @@ class ApiController extends \site\frontend\components\api\ApiController
     }
 
     /**
+     * Обновить образование
+     *
+     * @param $profileId
+     * @param array $data
+     * @throws \CHttpException
+     */
+    public function actionUpdateEducation($profileId, array $data)
+    {
+        $form = new ProfileForm();
+        $form->initialize($profileId);
+
+        if (! \Yii::app()->user->checkAccess('editSpecialistProfileData', ['entity' => $form->getProfile()]))
+        {
+            throw new \CHttpException(403);
+        }
+
+        try
+        {
+            $resp = [];
+
+            foreach ($data as $attrs)
+            {
+                $attrs['profile_id'] = $profileId;
+
+                $isExists = !is_null($attrs['id']) && SpecialistsEducation::model()->exists('id = ' . $attrs['id']);
+
+                $model = !$isExists ? new SpecialistsEducation() : SpecialistsEducation::model()->findByPk($attrs['id']);
+                $model->setAttributes($attrs);
+
+                if ($model->save())
+                {
+                    $resp[] = $model->toJSON();
+                }
+            }
+
+            $this->success  = true;
+            $this->data     = $resp;
+        }
+        catch (\CDbException $e)
+        {
+            $this->data     = [
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
      * Удалить место работы
      *
      * @param $profileId    ID профиля
@@ -167,6 +217,56 @@ class ApiController extends \site\frontend\components\api\ApiController
             $this->data = [
                 'error' => $e->getMessage()
             ];
+        }
+    }
+
+    public function actionRemoveEducation($profileId, $id)
+    {
+        $form = new ProfileForm();
+        $form->initialize($profileId);
+
+        if (! \Yii::app()->user->checkAccess('editSpecialistProfileData', ['entity' => $form->getProfile()]))
+        {
+            throw new \CHttpException(403);
+        }
+
+        try
+        {
+            SpecialistsEducation::model()->deleteByPk($id);
+
+            $this->success = true;
+        }
+        catch (\CDbException $e)
+        {
+            $this->data = [
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * Получить список мед. учереждений
+     *
+     * @return array
+     * @author Sergey Gubarev
+     */
+    public function actionGetUniversities()
+    {
+        $arr = (new HCollection(SpecialistsUniversities::model()->findAll()))->toArray();
+
+        $this->success  = true;
+        $this->data     = $arr;
+    }
+
+    public function actionSendUniversityEmail($name)
+    {
+        $to         = 'info@happy-giraffe.ru';
+        $subject    = 'Не нашли Ваш ВУЗ?';
+        $message    = strip_tags($name);
+
+        if (mail($to, $subject, $message))
+        {
+            $this->success = true;
         }
     }
 

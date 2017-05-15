@@ -34,6 +34,10 @@ class SpecialistsCareer extends \HActiveRecord implements \IHToJSON
         return 'specialists__profile_career';
     }
 
+    /**
+     * @inheritdoc
+     * @return array
+     */
     public function rules()
     {
         return [

@@ -16,8 +16,8 @@ class m170419_161754_create_specialists__universities_table extends CDbMigration
             'group_id'      => 'int(11) UNSIGNED NOT NULL',
             'country_id'    => 'int(11) UNSIGNED DEFAULT NULL',
             'city_id'       => 'int(11) UNSIGNED DEFAULT NULL',
-            'name'          => 'varchar(255) NOT NULL',
-            'site'          => 'varchar(50) DEFAULT NULL',
+            'name'          => 'TEXT NOT NULL',
+            'site'          => 'varchar(255) DEFAULT NULL',
             'address'       => 'varchar(255) NOT NULL',
             'PRIMARY KEY (id)'
         ], 'ENGINE=InnoDB DEFAULT CHARSET=utf8');

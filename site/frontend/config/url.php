@@ -78,12 +78,23 @@ return array(
         '<_v>/api/specialists/register/social' => 'api/<_v>/api/specialists-register',
         '<_v>/api/geo/<action:(countries|cities)>' => 'api/<_v>/api/geo',
         '<_v>/api/chats' => 'api/<_v>/api/chats',
+        '<_v>/api/chats/<action:(count)>' => 'api/<_v>/api/chats',
+        '<_v>/api/chats/<id:\d+>' => 'api/<_v>/api/chats',
         '<_v>/api/paid-services' => 'api/<_v>/api/paid-services',
         '<_v>/api/chat-messages' => 'api/<_v>/api/chat-messages',
+        '<_v>/api/chat-messages/<action:(page)>' => 'api/<_v>/api/chat-messages',
         '<_v>/api/utils' => 'api/<_v>/api/utils',
         '<_v>/api/utils/<action:(time)>' => 'api/<_v>/api/utils',
         '<_v>/api/billing' => 'api/<_v>/api/billing',
         '<_v>/api/doctor-search/<action:(start|stop|accept|decline|choose)>' => 'api/<_v>/api/doctor-search',
+        '<_v>/api/chat/comment' => 'api/<_v>/api/chat-comment',
+        '<_v>/api/chat/rating' => 'api/<_v>/api/chat-rating',
+        '<_v>/api/user/payments' => 'api/<_v>/api/user-payments',
+        '<_v>/api/user/balance' => 'api/<_v>/api/user-balance',
+        '<_v>/api/user/balance/records' => 'api/<_v>/api/balance-records',
+        '<_v>/api/user/balance/records/<action:(today)>' => 'api/<_v>/api/balance-records',
+        '<_v>/api/chat/statistic/<action:(conducted|skipped|failed|today)>' => 'api/<_v>/api/chat-statistic',
+        '<_v>/api/chat/statistic' => 'api/<_v>/api/chat-statistic',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

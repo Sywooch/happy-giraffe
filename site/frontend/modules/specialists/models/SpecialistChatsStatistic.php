@@ -36,7 +36,7 @@ class SpecialistChatsStatistic extends \HActiveRecord
                     ]
                 ]
             ],
-            ['conducted_chats_count, skipped_chats_count, failed_chats_count', 'numerical', 'integerOnly' => true, 'min' => 0],
+            [['conducted_chats_count', 'skipped_chats_count', 'failed_chats_count'], 'numerical', 'integerOnly' => true, 'min' => 0],
         ];
     }
 
@@ -69,7 +69,7 @@ class SpecialistChatsStatistic extends \HActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return SpecialistsChatsStatic the static model class
+     * @return SpecialistChatsStatistic the static model class
      */
     public static function model($className=__CLASS__)
     {
@@ -79,7 +79,7 @@ class SpecialistChatsStatistic extends \HActiveRecord
     /**
      * @param int $userId
      *
-     * @return \site\frontend\modules\paid\models\UserBalance
+     * @return SpecialistChatsStatistic
      */
     public function byUserId($userId)
     {

@@ -1,21 +1,30 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: JimmDiGriz
+ * Date: 03.05.2017
+ * Time: 10:43
+ */
 
-namespace site\frontend\modules\paid\models;
+namespace site\frontend\modules\specialists\models;
 
 /**
  * @property int $user_id
- * @property int sum
+ * @property int $conducted_chats_count
+ * @property int $skipped_chats_count
+ * @property int $failed_chats_count
+ * @property string $date
  *
  * @property \User $user
  */
-class UserBalance extends \HActiveRecord
+class ChatStatisticHistory extends \HActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'users_balance';
+        return 'chat__statistics_history';
     }
 
     /**
@@ -27,13 +36,14 @@ class UserBalance extends \HActiveRecord
         // will receive user inputs.
         return [
             ['user_id', 'exists', 'className' => 'User', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "deleted = 0 and status = :active and id = :id",
+                ['condition' => "deleted = 0 and status = :active and id = :id and specialistInfo is not null and specialistInfo != ''",
                     'params' => [
                         ':active' => \User::STATUS_ACTIVE,
                         ':id' => $this->user_id,
                     ]
                 ]
             ],
+            [['conducted_chats_count', 'skipped_chats_count', 'failed_chats_count'], 'numerical', 'integerOnly' => true, 'min' => 0],
         ];
     }
 
@@ -56,7 +66,10 @@ class UserBalance extends \HActiveRecord
     {
         return [
             'user_id' => 'User ID',
-            'sum' => 'Sum',
+            'conducted_chats_count' => 'Conducted Chats Count',
+            'skipped_chats_count' => 'Skipped Chats Count',
+            'failed_chats_count' => 'Failed Chats Count',
+            'date' => 'Date',
         ];
     }
 
@@ -64,7 +77,7 @@ class UserBalance extends \HActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return UserBalance the static model class
+     * @return ChatStatisticHistory the static model class
      */
     public static function model($className=__CLASS__)
     {
@@ -74,7 +87,7 @@ class UserBalance extends \HActiveRecord
     /**
      * @param int $userId
      *
-     * @return \site\frontend\modules\paid\models\UserBalance
+     * @return ChatStatisticHistory
      */
     public function byUserId($userId)
     {
@@ -84,34 +97,49 @@ class UserBalance extends \HActiveRecord
     }
 
     /**
-     * @param int $userId
-     * @param int $value
+     * @param string $date
      *
-     * @throws \Exception
+     * @return ChatStatisticHistory
+     */
+    public function byDate($date)
+    {
+        $this->getDbCriteria()->compare('date', $date);
+
+        return $this;
+    }
+
+    /**
+     * @return ChatStatisticHistory
+     */
+    public function today()
+    {
+        $this->getDbCriteria()->addCondition('date = CURDATE()');
+
+        return $this;
+    }
+
+    /**
+     * @param int $userId
+     * @param string $field
      *
      * @return bool
      */
-    public static function updateBalance($userId, $value)
+    public static function increment($userId, $field)
     {
-        if ($value < 0) {
-            return false;
+        $record = ChatStatisticHistory::model()
+            ->byUserId($userId)
+            ->today()
+            ->find();
+
+        if (!$record) {
+            $record = new ChatStatisticHistory();
+
+            $record->user_id = $userId;
+            $record->date = new \CDbExpression('CURDATE()');
         }
 
-        $balance = UserBalance::model()->byUserId($userId)->find();
+        $record->setAttribute($field, $record->getAttribute($field) + 1);
 
-        if (!$balance) {
-            $balance = new UserBalance();
-
-            $balance->user_id = $userId;
-            $balance->sum = $value;
-        } else {
-            $balance->sum += $value;
-        }
-
-        if (!$balance->save()) {
-            throw new \Exception(json_encode($balance->getErrors()));
-        }
-
-        return true;
+        return $record->save();
     }
 }

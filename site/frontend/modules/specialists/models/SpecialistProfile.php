@@ -25,6 +25,7 @@ use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
  * The followings are the available model relations:
  * @property \site\frontend\modules\users\models\User $user
  * @property SpecialistSpecialization[] $specializations
+ * @property \site\frontend\modules\specialists\models\SpecialistChatsStatistic $chat_statistics
  */
 class SpecialistProfile extends \HActiveRecord
 {
@@ -254,6 +255,30 @@ class SpecialistProfile extends \HActiveRecord
 	public function authorized()
 	{
 		$this->getDbCriteria()->compare('authorization_status', AuthorizationEnum::ACTIVE);
+
+		return $this;
+	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function notAuthorized()
+	{
+		$this->getDbCriteria()->compare('authorization_status', AuthorizationEnum::NOT_ACTIVE);
+
+		return $this;
+	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function hasRating()
+	{
+		if (!isset($this->getDbCriteria()->with['rating'])) {
+			$this->getDbCriteria()->with[] = 'rating';
+		}
+
+		$this->getDbCriteria()->compare('rating.total_count', '> 0');
 
 		return $this;
 	}

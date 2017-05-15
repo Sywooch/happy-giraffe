@@ -1,15 +1,15 @@
 <?php
 
-class m170322_080355_create_search_doctor_session extends CDbMigration
+class m170428_081259_create_action_tokens_table extends CDbMigration
 {
-	private $tableName = 'search_doctors_sessions';
+	private $tableName = 'action_tokens';
 
 	public function up()
 	{
 		$this->createTable($this->tableName, [
-			'id' => 'pk',
 			'user_id' => 'int(11) unsigned not null',
-			'expires_in' => 'int(10) unsigned default null',
+			'action' => 'int(11) unsigned not null',
+			'token' => 'varchar(255) not null',
 		], 'ENGINE=InnoDB CHARSET=utf8');
 	}
 

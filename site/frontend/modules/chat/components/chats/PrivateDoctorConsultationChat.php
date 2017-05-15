@@ -48,8 +48,6 @@ class PrivateDoctorConsultationChat implements IChat
             throw new \Exception('RequireOnlyOneDoctor');
         }
 
-        /**@var \CDbTransaction $transaction*/
-        $transaction = \Yii::app()->db->beginTransaction();
 
         try {
             $chat = new Chat();
@@ -62,11 +60,8 @@ class PrivateDoctorConsultationChat implements IChat
 
             ChatManager::attachParticipants($users, $chat);
 
-            $transaction->commit();
-
             return $chat;
         } catch (\Exception $e) {
-            $transaction->rollback();
             throw $e;
         }
     }

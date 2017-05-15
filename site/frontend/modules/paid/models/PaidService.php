@@ -80,7 +80,7 @@ class PaidService extends \HActiveRecord
             case PaidType::FIXED:
                 return $this->value;
             case PaidType::PERCENT:
-                return $this->price - ($this->price * $this->value);
+                return $this->price - (($this->price * $this->value) / 100);
             case PaidType::PRICE_DIFF:
                 return $this->price - $this->value;
         }

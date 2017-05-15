@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\chat\models;
 use site\frontend\modules\chat\values\ChatTypes;
+use site\frontend\modules\specialists\models\SpecialistGroup;
 
 /**
  * @property int $id
@@ -185,5 +186,39 @@ class Chat extends \HActiveRecord
         }
 
         return false;
+    }
+
+    /**
+     * @return \User
+     */
+    public function getDoctor()
+    {
+        if ($this->type != ChatTypes::DOCTOR_PRIVATE_CONSULTATION) {
+            return null;
+        }
+
+        foreach ($this->users as $user) {
+            if ($user->isSpecialistOfGroup(SpecialistGroup::DOCTORS)) {
+                return $user;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAlive()
+    {
+        return $this->limit == 0 && $this->expires_in > time();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPaused()
+    {
+        return $this->limit > 0 && $this->expires_in == null;
     }
 }

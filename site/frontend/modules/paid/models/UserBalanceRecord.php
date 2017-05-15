@@ -140,4 +140,15 @@ class UserBalanceRecord extends \HActiveRecord
 
         return $this;
     }
+
+    /**
+     * @return UserBalanceRecord
+     */
+    public function today()
+    {
+        $this->getDbCriteria()->addCondition('paid_at > ' . mktime(0, 0, 0, date('d'), date('m'), date('y')));
+        $this->getDbCriteria()->addCondition('paid_at < ' . time());
+
+        return $this;
+    }
 }

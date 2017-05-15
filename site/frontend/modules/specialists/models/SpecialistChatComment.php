@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\paid\models;
+use site\frontend\modules\chat\values\ChatTypes;
 
 /**
  * @property int $user_id
@@ -29,7 +30,7 @@ class SpecialistChatComment extends \HActiveRecord
         // will receive user inputs.
         return [
             ['user_id', 'exists', 'className' => 'User', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "deleted = 0 and status = :active and id = :id and specialistInfo is not null and specialistInfo != ''",
+                ['condition' => "deleted = 0 and status = :active and id = :id" /*and specialistInfo is not null and specialistInfo != ''"*/,
                     'params' => [
                         ':active' => \User::STATUS_ACTIVE,
                         ':id' => $this->user_id,
@@ -37,9 +38,10 @@ class SpecialistChatComment extends \HActiveRecord
                 ]
             ],
             ['chat_id', 'exists', 'className' => 'site\frontend\modules\chat\models\Chat', 'caseSensitive' => false, 'criteria' =>
-                ['condition' => "id = :id",
+                ['condition' => "id = :id and type = :type",
                     'params' => [
                         ':id' => $this->chat_id,
+                        ':type' => ChatTypes::DOCTOR_PRIVATE_CONSULTATION
                     ]
                 ]
             ],
@@ -85,7 +87,7 @@ class SpecialistChatComment extends \HActiveRecord
     /**
      * @param int $userId
      *
-     * @return \site\frontend\modules\paid\models\UserBalance
+     * @return SpecialistChatComment
      */
     public function byUserId($userId)
     {
@@ -97,7 +99,7 @@ class SpecialistChatComment extends \HActiveRecord
     /**
      * @param int $chatId
      *
-     * @return \site\frontend\modules\paid\models\UserBalance
+     * @return SpecialistChatComment
      */
     public function byChatId($chatId)
     {

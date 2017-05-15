@@ -84,6 +84,18 @@ class SpecialistChatRating extends \HActiveRecord
     }
 
     /**
+     * @param int $chatId
+     *
+     * @return SpecialistChatRating
+     */
+    public function byChat($chatId)
+    {
+        $this->getDbCriteria()->compare('chat_id', $chatId);
+
+        return $this;
+    }
+
+    /**
      * @param int $specialistId
      *
      * @return SpecialistChatRating

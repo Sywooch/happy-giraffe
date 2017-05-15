@@ -32,8 +32,6 @@ $this->renderSidebarClip();
             </div><!-- # Личный кабинет-->
         </div>
 
-        <?php $this->renderPartial('//_footer'); ?>
-
     </div>
 
 <?php $this->endContent(); ?>

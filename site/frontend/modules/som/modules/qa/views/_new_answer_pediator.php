@@ -11,16 +11,20 @@
     </div>
 </div>
 <div class="b-pediator-answer__right b-pediator-answer__right--pink">
-    <div class="b-answer__header b-answer-header">
-    	<a href="<?=$data->author->getUrl()?>" class="b-answer-header__link"><?=$data->user->getFullName()?></a>
-        <?=HHtml::timeTag($data, array('class' => 'b-answer-header__time'))?>
-        <div class="b-answer-header__spezialisation"><?=$data->author->specialistProfile->getSpecsString()?></div>
-        <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswerHeaderWidget', [
-            'userId' => $data->author->id,
-        ]);?>
-    </div>
-    <div class="b-answer__body b-answer-body">
-        <p class="b-pediator-answer__text"><?=strip_tags($data->text)?></p>
-        <a href="<?=$data->question->url?>" class="b-text--link-color b-title--bold b-title--h9"><?=strip_tags($data->question->title)?></a>
-    </div>
+    <a class="b-block b-block-head" href="<?=$data->author->getUrl()?>">
+        <div class="b-answer__header b-answer-header">
+            <span class="b-answer-header__link"><?=$data->user->getFullName()?></span>
+            <?=HHtml::timeTag($data, array('class' => 'b-answer-header__time'))?>
+            <div class="b-answer-header__spezialisation"><?=$data->author->specialistProfile->getSpecsString()?></div>
+            <?php $this->widget('site\frontend\modules\som\modules\qa\widgets\answers\AnswerHeaderWidget', [
+                'userId' => $data->author->id,
+            ]);?>
+        </div>
+    </a>
+    <a class="b-block b-block-body" href="<?=$data->question->url?>">
+        <div class="b-answer__body b-answer-body">
+            <p class="b-pediator-answer__text"><?=strip_tags($data->text)?></p>
+            <span class="b-text--link-color b-title--bold b-title--h9"><?=strip_tags($data->question->title)?></span>
+        </div>
+    </a>
 </div>

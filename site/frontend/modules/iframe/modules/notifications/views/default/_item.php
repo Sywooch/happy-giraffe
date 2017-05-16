@@ -52,7 +52,7 @@ if(!empty($data->user->specialistProfile)){
             <?php } ?>
             <span class="notification-list-item-text__black"><?=$tmpl[$model->type]['text']?></span>
         </div>
-        <div class="notification-list-item-own"><?=$data->title?></div>
+        <div class="notification-list-item-own"><?=$data->shortTitle?></div>
         <div class="notification-list-item__time"><?=HHtml::timeTagByOptions($model->dtimeUpdate, ['class' => 'tx-date','id'=>$data->id])?></div>
     </div>
 </a>

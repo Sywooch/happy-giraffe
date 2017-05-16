@@ -1,40 +1,64 @@
+<style type="text/css">
+    .b-breadcrumbs{margin-left: 0;}
+    .b-answer__body .b-text--link-color{font-size: 16px; line-height: 1.25;}
+    .b-answer__footer .ava-pediator{margin-left: 0 !important;}
+</style>
+
 <?php
 /**
  * @var site\common\components\SphinxDataProvider $dp
  * @var string $query
  */
-$this->sidebar = array('ask', 'personal');
-// $this->sidebar = array('ask', 'personal', 'menu_search' => compact('query', 'categoryId'));
 $this->pageTitle = 'Результаты поиска';
-$this->breadcrumbs = [
-    'Ответы' => array('/som/qa/default/index'),
-    'Результаты поиска',
+
+$breadcrumbs = [
+    'Главная' => ['/site/index'],
+    'Ответы' => [$this->createUrl('/questions')],
+    'Результаты поиска'
 ];
+
 ?>
-
-
-<?php $this->renderPartial('/_search', compact('query')); ?>
-<div class="only-mobile"><a class="consult-specialist_btn btn btn-success btn-xl popup-a login-button" href="<?=$this->createUrl('/som/qa/default/questionAddForm/')?>" data-bind="follow: {}">Задать вопрос</a></div>
+    <div class="b-col b-col--6 b-hidden-md">
+        <div class="b-breadcrumbs b-breadcrumbs--theme-default">
+            <?php
+            $this->widget('zii.widgets.CBreadcrumbs', [
+                'links'                => $breadcrumbs,
+                'tagName'              => 'ul',
+                'homeLink'             => FALSE,
+                'separator'            => '',
+                'htmlOptions'          => ['class' => 'b-breadcrumbs__list'],
+                'activeLinkTemplate'   => '<li class="b-breadcrumbs__item"><a href="{url}" class="b-breadcrumbs__link">{label}</a></li>',
+                'inactiveLinkTemplate' => '<li class="b-breadcrumbs__item">{label}</li>',
+            ]);
+            ?>
+        </div>
+        <div class="b-search-panel">
+            <div class="b-search-result">
+                <form class="b-search-result__form">
+                    <span class="b-search-result__close"></span>
+                    <input value="<?=$query?>" name="query" type="search" class="b-search-result__input" />
+                </form>
+            </div>
+        </div>
+    </div>
 <?php if (empty($query) || $dp->totalItemCount == 0): ?>
-    <p>Ничего не найдено</p>
-</div>
-<?php else: ?>
-
-<div class="search-heading">
-    <div class="hash-tag-big"></div>
-    <div class="heading-link-xxl"> <?=$query?>&nbsp;<span><?=$dp->totalItemCount?></span></div>
-    <div class="clearfix"></div>
-</div>
-</div>
-<?php
-$this->widget('LiteListView', array(
-    'dataProvider' => $dp,
-    'itemView' => '/_question',
-    'htmlOptions' => array(
-        'class' => 'questions'
-    ),
-    'itemsTagName' => 'ul',
-    'template' => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
-));
-?>
+    <div class="b-col b-col--6 b-col-sm--10 b-col-xs">
+        <div class="b-search">
+            <div class="b-search__ico"></div>
+            <div class="b-search__text">Вопросов не найдено</div>
+        </div>
+    </div>
+<?php else:?>
+    <?php
+    $this->widget('LiteListView', array(
+        'dataProvider'  => $dp,
+        'itemView'      => '/_new_question',
+        'htmlOptions'       => [
+            'class' => 'b-col b-col--6 b-col-sm--10 b-col-xs',
+        ],
+        'itemsTagName'  => 'ul',
+        'itemsCssClass' => 'b-answer b-answer--theme-pediator',
+        'template'      => '{items}<div class="yiipagination yiipagination__center">{pager}</div>',
+    ));
+    ?>
 <?php endif; ?>

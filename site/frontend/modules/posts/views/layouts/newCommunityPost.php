@@ -26,6 +26,7 @@ $this->beginContent('//layouts/lite/community');
                 </div>
             <?php endif; ?>
 
+            <?php if (false): ?>
             <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
             <!--AdFox START-->
             <!--giraffe-->
@@ -59,6 +60,7 @@ $this->beginContent('//layouts/lite/community');
                 // -->
             </script>
             <?php $this->endWidget(); ?>
+            <?php endif; ?>
 
             <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
             <div class="bnr-base">

@@ -29,7 +29,6 @@
 
     <body class="page--bg page-iframe--bg add-question">
         <div class="js-overlay-menu overlay-menu"></div>
-        <div class="js-overlay-user overlay-user"></div>
         <div id="js-alerts" class="alerts" data-bind="template: { name: 'alert', foreach: alertsList }"></div>
 
 		<script type="text/html" id="alert">

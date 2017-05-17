@@ -82,7 +82,7 @@ class Entity extends \EMongoEmbeddedDocument implements \IHToJSON
 
     public function getShortTitle($length = 90){
         $text=strip_tags($this->title);
-        
+
         if(mb_strlen($text, 'UTF-8')>$length)
         {
             $pos = mb_strpos($text, ' ', $length, 'UTF-8');

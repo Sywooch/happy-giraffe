@@ -9,14 +9,11 @@ $countNotification = Notification::getUnreadCount();
 if (!Yii::app()->user->isGuest){
     $countAllNotification = Notification::model()->byUser(\Yii::app()->user->id)->count();
     $children = (new Family())->getChild(\Yii::app()->user->id);
-    foreach ($children as $child){
-//    $childCollection = $child->family->getPhotoCollection('all');
-//    $attach = $childCollection->observer->getByAttach($child->photoCollection->observer->getSingle(0));
-    }
 } else {
     $countAllNotification = 0;
     $children = 0;
 }
+
 
 
 
@@ -98,7 +95,10 @@ if (! Yii::app()->user->isGuest) {
                     <span class="user-widget-block-iframe__notific <?=$countNotification?'active':'';?>"><?=$countNotification?$countNotification:$countAllNotification ?></span>
                 </li>
                 <li class="user-widget-block-iframe__li <?=count($children)?'':'user-widget-block-iframe__li-disabled'?>">
-                    <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/family/default/index',['userId'=>Yii::app()->user->id])?>"><span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-kids"></span>Дети</a>
+                    <a class="user-widget-block-iframe__link" href="<?=$this->createUrl('/iframe/family/default/index',['userId'=>Yii::app()->user->id])?>">
+                        <span class="user-widget-block-iframe__icon user-widget-block-iframe__icon-kids"></span>Дети
+                        <child-menu-iframe params="userId: <?= \Yii::app()->user->id ?>"></child-menu-iframe>
+                    </a>
                     <?php if(!count($children)){ ?>
                         <a class="user-widget-block-iframe__add-child" href="<?=$this->createUrl('/iframe/family/default/index',['userId'=>Yii::app()->user->id])?>">Добавить</a>
                     <?php } ?>

@@ -79,7 +79,6 @@ if (! Yii::app()->user->isGuest)
         });
     </script>
     <div class="js-overlay-menu overlay-menu"></div>
-    <div class="js-overlay-user overlay-user"></div>
 <?php Yii::app()->ads->showCounters(); ?>
 <div class="layout-container">
     <div class="error-serv display-n">

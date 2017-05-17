@@ -32,13 +32,19 @@ $tmpl = [
     ],
 
 ];
+in_array($model->type, array_keys($tmpl));
+
 $urlAva = $data->user->avatarUrl?$data->user->avatarUrl:'/app/builds/static/img/assets/ava/ava-default.svg';
 $spec = false;
 if(!empty($data->user->specialistProfile)){
     $spec = $data->user->specialistProfile->specialization;
 }
+$idQuestion = preg_replace("/[^0-9]/", '', $model->entity->url);
+
 ?>
-<a class="notification-list-item" href="<?=$model->entity->url?>">
+
+<?php if (in_array($model->type, array_keys($tmpl))) {?>
+<a class="notification-list-item" href="<?=\Yii::app()->createUrl("/iframe/default/view",['id'=>$idQuestion])?>">
     <div class="notification-list-item-col">
         <div class="notification-list-item-ava" style="background-image: url('<?=$urlAva?>')">
             <div class="notification-list-item-icon notification-list-item-icon__<?=$tmpl[$model->type]['type']?>"></div>
@@ -56,3 +62,4 @@ if(!empty($data->user->specialistProfile)){
         <div class="notification-list-item__time"><?=HHtml::timeTagByOptions($model->dtimeUpdate, ['class' => 'tx-date','id'=>$data->id])?></div>
     </div>
 </a>
+<?php } ?>

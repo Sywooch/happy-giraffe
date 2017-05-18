@@ -25,23 +25,25 @@ class UpdateManager
     public $created = 0;
     public $updated = 0;
     public $deleted = 0;
-    
-    public $deltaGetter;
+
     public $versionManager;
     
     public function __construct()
     {
-        $this->deltaGetter = new ArchiveGetter('http://fias.nalog.ru/Public/Downloads/Actual/fias_delta_xml.rar');
         $this->versionManager = new VersionManager();
     }
 
-    public function update()
+    public function update($version = null)
     {
         if (! $this->versionManager->isUpdateRequired()) {
             return;
         }
-        
-        $deltaDestination = $this->deltaGetter->get();
+
+        if ($version == null) {
+            $version = $this->versionManager->getActualVersion();
+        }
+
+        $deltaDestination = (new ArchiveGetter($this->getUrlByVersion($version)))->get();
         foreach (new \DirectoryIterator($deltaDestination) as $file) {
             if ($file->isDot()) {
                 continue;
@@ -49,6 +51,14 @@ class UpdateManager
 
             $this->processFile($file);
         }
+        
+        $this->versionManager->setCurrentVersion($version);
+    }
+
+    protected function getUrlByVersion($version)
+    {
+        list($d, $m, $y) = explode('.', $version);
+        return "http://fias.nalog.ru/Public/Downloads/$y$m$d/fias_delta_xml.rar";
     }
     
     protected function processFile(\DirectoryIterator $file)

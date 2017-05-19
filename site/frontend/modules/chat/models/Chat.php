@@ -44,6 +44,7 @@ class Chat extends \HActiveRecord
         // class name for the relations automatically generated below.
         return [
             'users' => [self::MANY_MANY, 'User', 'users_chats(chat_id, user_id)'],
+            'star' => [self::HAS_ONE, 'site\frontend\modules\specialists\models\SpecialistChatRating', 'chat_id'],
         ];
     }
 

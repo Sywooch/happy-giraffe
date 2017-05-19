@@ -35,10 +35,12 @@ if (!is_null($data->category)) {
 
             <span class="box-wrapper__date"><?= HHtml::timeTag($data, ['class' => 'tx-date']); ?></span>
         </div>
-        <div class="box-wrapper__header box-header">
-            <a href="<?= $data->url ?>" class="box-header__link"><?= strip_tags($data->title) ?></a>
-            <p class="box-header__text"><?= strip_tags($data->text) ?></p>
-        </div>
+        <a href="<?= $data->url ?>">
+            <div class="box-wrapper__header box-header">
+                <span class="box-header__link"><?= strip_tags($data->title) ?></span>
+                <p class="box-header__text"><?= strip_tags($data->text) ?></p>
+            </div>
+        </a>
         <div class="box-wrapper__footer box-footer">
             <?php if ($data->consultationId !== null || $data->categoryId !== null): ?>
                 <?php if ($data->consultationId !== null): ?>

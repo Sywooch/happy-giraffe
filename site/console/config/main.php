@@ -114,6 +114,15 @@ return array(
         'fixRatingByHistory' => [
             'class' => 'site\frontend\modules\som\modules\qa\commands\FixRatingByHistoryCommand',
         ],
+        'geo2' => [
+            'class' => 'site\frontend\modules\geo2\commands\DefaultCommand',
+        ],
+        'geoVk' => [
+            'class' => 'site\frontend\modules\geo2\commands\VkCommand',
+        ],
+        'geoFias' => [
+            'class' => 'site\frontend\modules\geo2\commands\FiasCommand',
+        ],
         'convertAnswers' => [
             'class' => 'site\frontend\modules\som\modules\qa\commands\ConvertAnswersCommand',
         ],

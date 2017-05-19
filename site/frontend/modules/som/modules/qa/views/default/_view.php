@@ -7,7 +7,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 /**
  * @var QaQuestion $question
  */
-
+$this->pageTitle = 'Мой педиатр - ' . $question->title;
 ?>
 
 <?php
@@ -19,7 +19,7 @@ use site\frontend\modules\som\modules\qa\widgets\answers\AnswersWidget;
 
     $tag = $question->tag;
 
-    if (!is_null($question->attachedChild)) {
+    if (!is_null($question->attachedChild) and !is_null($question->attChild)) {
         $arrFooterData = $question->attChild->getAnswerFooterData();
         $tag = $arrFooterData['tag'];
     }

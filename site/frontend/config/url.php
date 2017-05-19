@@ -201,7 +201,8 @@ return array(
         array('class' => 'site\frontend\modules\posts\modules\buzz\components\BuzzUrlRule'),
         'buzz/<content_type_slug:[a-z]+><content_id:\d+>' => 'posts/buzz/post/view',
         'buzz/<slug>' => 'posts/buzz/list/index',
-        'buzz' => 'posts/buzz/list/index',
+        'buzz/<tab:(new)>' => 'posts/buzz/list/index',
+        'buzz' => array('posts/buzz/list/index', 'defaultParams' => array('tab' => 'new')),
 
         'forums' => 'posts/forums/default/index',
 
@@ -367,7 +368,8 @@ return array(
         /* Временные страницы для управления постами */
         'blog/tmp/favourites' => 'blog/tmp/favourites',
 
-        'user/<userId:\d+>' => 'userProfile/default/index',
+        'user/<userId:\d+>/<tab:(new)>' => 'userProfile/default/index',
+        'user/<userId:\d+>' => array('userProfile/default/index', 'defaultParams' => array('tab' => 'new')),
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
         'user/<user_id:\d+>/award/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'award')),
         'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),

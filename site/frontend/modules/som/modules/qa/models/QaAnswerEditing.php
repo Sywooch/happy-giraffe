@@ -49,7 +49,7 @@ class QaAnswerEditing extends \EMongoDocument
      */
     protected function afterSave()
     {
-        $channelId = QaManager::getQuestionChannelId($this->questionId);
+        $channelId = QaManager::getQuestionChannelId($this->answerId);
 
         (new \CometModel())->send($channelId, null, \CometModel::MP_ANSWER_START_EDITING_BY_OWNER);
 
@@ -62,7 +62,7 @@ class QaAnswerEditing extends \EMongoDocument
     protected function afterDelete()
     {
         $channelId           = \site\frontend\modules\som\modules\qa\components\QaManager::getQuestionChannelId($this->questionId);
-        $specialistChannelId = QaManager::getQuestionChannelId($this->questionId);
+        $specialistChannelId = QaManager::getQuestionChannelId($this->answerId);
 
         $answer = QaAnswer::model()->findByPk($this->answerId);
 

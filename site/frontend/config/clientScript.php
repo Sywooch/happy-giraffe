@@ -19,6 +19,12 @@ return array(
             'vk' => array(
                 'exports' => 'VK',
             ),
+//            'materialize' => [
+//                'deps' => ['jquery', 'hammerjs'],
+//            ],
+//            'hammerjs' => [
+//                'deps' => ['jquery'],
+//            ],
         ),
         'paths' => array(
             'facebook' => 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.8&appId=1648409175470149',
@@ -649,8 +655,14 @@ return array(
             ),
             'depends' => array('lite_posts_user'),
         ),
+        'lite_qa_old' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                'app/builds/static/css/main.min.css',
+            )
+        ),
         'lite_qa' => array(
-            'depends' => array('lite_services', 'lite_posts', 'lite_pediatrician'),
+            'depends' => array('lite_qa_old', 'lite_services', 'lite_posts', 'lite_pediatrician'),
         ),
         'lite_pediatrician' => array(
             'baseUrl' => '/',
@@ -658,5 +670,11 @@ return array(
                 'lite/css/min/pediator.css',
             )
         ),
+        'register_form' => [
+            'baseUrl' => '/',
+            'css' => [
+                'app/builds/static/css/separate-css-sample.min.css',
+            ],
+        ],
     )
 );

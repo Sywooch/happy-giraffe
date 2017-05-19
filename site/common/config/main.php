@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 return array(
     'aliases' => array(
         'League' => 'site.common.vendor.League',
@@ -29,6 +31,9 @@ return array(
         'api' => array(
             'class' => 'site\frontend\modules\api\ApiModule',
         ),
+        'geo2' => [
+            'class' => 'site\frontend\modules\geo2\Geo2Module',
+        ],
     ),
     'components' => array(
         'dbBackup' => array(
@@ -115,6 +120,11 @@ return array(
             'statuses' => [
                 'commentatorsContest' => false,
             ],
+        ],
+        'geoLite' => [
+            'class' => 'site\frontend\modules\geo2\components\geolite\Wrapper',
+            'filename' => dirname(__FILE__) . '/../../frontend/modules/geo2/components/geolite' . DIRECTORY_SEPARATOR . 'GeoLite2-City.mmdb',
+            'locales' => ['ru', 'en'],
         ],
     ),
 );

@@ -74,7 +74,7 @@ class FramePartners extends \HActiveRecord
         $criteria->compare('type',$this->type,true);
         $criteria->compare('key',$this->key);
 
-        return new \CActiveDataProvider($this, array(
+        return new \CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
             'pagination' => array('pageSize' => 100),
         ));

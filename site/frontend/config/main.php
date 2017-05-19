@@ -340,7 +340,7 @@ return array(
             'assignmentTable' => 'auth__assignments',
             'defaultRoles' => array('user'),
         ),
-        'urlManager' => require_once(dirname(__FILE__) . '/url.php'),
+        'urlManager' => require_once(dirname(__FILE__) . '/url-iframe.php'),
         'db' => array(
             'schemaCachingDuration' => 300,
             'tablePrefix' => '',

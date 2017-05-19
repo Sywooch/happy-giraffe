@@ -14,7 +14,7 @@ class SpecialistsUrlRule extends \CBaseUrlRule
 {
     public function createUrl($manager, $route, $params, $ampersand)
     {
-        if ($route == 'iframe/specialists/profile/index') {
+        if ($route == 'specialists/profile/index') {
             $url = 'user/' . $params['userId'] . $manager->urlSuffix;
             unset($params['userId']);
             if (! empty($params)) {
@@ -22,20 +22,20 @@ class SpecialistsUrlRule extends \CBaseUrlRule
             }
             return $url;
         }
-        
+
         return false;
     }
-    
+
     public function parseUrl($manager, $request, $pathInfo, $rawPathInfo)
     {
-        if (preg_match('#^iframe\/user\/(\d+)$#', $pathInfo, $matches)) {
+        if (preg_match('#^iframe\/user\/(\d+)$#', $pathInfo, $matches) || preg_match('#^user\/(\d+)$#', $pathInfo, $matches)) {
             $id = $matches[1];
             if (SpecialistProfile::model()->exists('id = :id', [':id' => $id]) && User::model()->active()->exists('id = :id', [':id' => $id])) {
                 $_GET['userId'] = $id;
                 return 'iframe/specialists/profile/index';
             }
         }
-        
+
         return false;
     }
 }

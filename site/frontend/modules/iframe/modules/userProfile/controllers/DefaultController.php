@@ -2,7 +2,7 @@
 
 namespace site\frontend\modules\iframe\modules\userProfile\controllers;
 
-use site\frontend\modules\users\models\User;
+use site\frontend\modules\iframe\components\user\User;
 use site\frontend\modules\iframe\components\QaController;
 
 /**

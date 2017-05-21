@@ -116,9 +116,9 @@ return array(
 
         /* IFRAME */
         'questions/question<id:\d+>' => 'iframe/default/view',
-        '/<tab:(all|new|unanswered)>/<tagId:\d+>' => 'iframe/default/pediatrician',
-        '/<tab:(all|new|unanswered)>' => 'iframe/default/pediatrician',
-        '/' => array('iframe/default/pediatrician', 'defaultParams' => array('tab' => 'new')),
+        '/<tab:(all|new-q|unanswered)>/<tagId:\d+>' => 'iframe/default/pediatrician',
+        '/<tab:(all|new-q|unanswered)>' => 'iframe/default/pediatrician',
+        '/' => array('iframe/default/pediatrician', 'defaultParams' => array('tab' => 'new-q')),
         'add' => 'iframe/default/pediatricianAddForm',
         'pediatricians' => 'iframe/default/pediatricianList',
         'edit/<questionId:\d+>' => 'iframe/default/pediatricianEditForm',
@@ -311,11 +311,6 @@ return array(
             'class' => 'UrlRule',
             'pattern' => 'community/<forum_id:\d+>/forum/',
             'route' => 'community/default/forum',
-        ),
-        array(
-            'class' => 'site.frontend.components.ClubUrlRule',
-            'pattern' => '<club:[\w-]+>/<feedTab:(new|hot|discuss)>',
-            'route' => 'posts/forums/club/index',
         ),
         array(
             'class' => 'site.frontend.components.ClubUrlRule',

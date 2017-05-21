@@ -18,7 +18,7 @@ use site\frontend\modules\iframe\modules\admin\models\FramePartners;
 
 class DefaultController extends QaController
 {
-    const TAB_NEW = 'new';
+    const TAB_NEW = 'new-q';
     const TAB_POPULAR = 'popular';
     const TAB_UNANSWERED = 'unanswered';
     const TAB_All = 'all';
@@ -84,7 +84,6 @@ class DefaultController extends QaController
 
     public function actionPediatrician($tab, $tagId = null)
     {
-        $this->initIframeKey(\Yii::app()->request->getQuery('key'));
         if ($tab == self::TAB_All)
         {
             $dp = new \CActiveDataProvider(QaAnswer::model()->onlyPublished()->roots()->orderDesc(), [
@@ -444,21 +443,4 @@ class DefaultController extends QaController
             \Yii::app()->end();
         }
     }
-
-    protected function initIframeKey($key)
-    {
-        $session = new \CHttpSession;
-        $session->open();
-        if(isset($key)) {
-            $model = FramePartners::model()->findByAttributes(array('key' => $key));
-            if (count($model)) {
-                $session['partner'] = [
-                    'id' => $model->id,
-                    'description' => $model->description,
-                    'key' => $key,
-                ];
-            }
-        }
-    }
-
 }

@@ -7,11 +7,11 @@ use \CHtml;
 <?php echo CHtml::beginForm(['create'],'get'); ?>
 
 <div class="form-group">
-    <input type="text" name="type" placeholder="Тип" class="form-control">
+    <input type="text" name="type" placeholder="Тип: 'iframe','subdomain'" class="form-control">
 </div>
 
 <div class="form-group">
-    <input type="text" name="url" placeholder="Ссылка" class="form-control">
+    <input type="text" name="url" placeholder="Ссылка (iframe: www.site.ru/page, subdomain: www.sub.mypediatr.ru)" class="form-control">
 </div>
 
 <div class="form-group">

@@ -3,7 +3,7 @@
 namespace site\frontend\modules\iframe\modules\userProfile\widgets;
 
 use site\frontend\modules\posts\models\Content;
-use site\frontend\modules\family\models\Family;
+use site\frontend\modules\iframe\modules\family\models\Family;
 use site\frontend\modules\photo\models\PhotoAlbum;
 
 /**

@@ -7,7 +7,7 @@ $partner = \Yii::app()->session->get("partner");
             <li class="footer__li">&copy; 2017 ННмама</li>
             <?php if(!empty($partner)) {?>
                 <li class="footer__li">
-                    <?=$partner['description'];?>
+                    <?=$partner['type'].' - '.$partner['description'];?>
                 </li>
             <?php } ?>
 <!--            <li class="footer__li"><a href="--><?//=$this->createUrl('/pages/default/page', array('view' => 'advertising'))?><!--" class="footer__link">Реклама</a></li>-->

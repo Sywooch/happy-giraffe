@@ -18,7 +18,7 @@
             </div>
             <?php if (!is_null($data->tag) && is_null($data->attachedChild)): ?>
                 <div class="b-answer__footer b-answer-footer">
-                	<a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => 'new', 'tagId' => $data->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->tag->getTitle()?></a>
+                	<a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => 'new-q', 'tagId' => $data->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->tag->getTitle()?></a>
                 </div>
   			<?php endif; ?>
   			<?php
@@ -41,7 +41,7 @@
     			</div>
     		   <?php } elseif (!is_null($arrFooterData['tag'])) { ?>
     			<div class="b-answer__footer b-answer-footer">
-                	<a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => 'new', 'tagId' => $arrFooterData['tag']->id])?>" class="b-answer-footer__age b-text--link-color"><?=$arrFooterData['tag']->getTitle()?></a>
+                	<a href="<?=$this->createUrl('/iframe/default/pediatrician', ['tab' => 'new-q', 'tagId' => $arrFooterData['tag']->id])?>" class="b-answer-footer__age b-text--link-color"><?=$arrFooterData['tag']->getTitle()?></a>
                 </div>
     		   <?php }?>
 		   <?php }?>

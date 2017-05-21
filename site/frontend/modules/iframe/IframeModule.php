@@ -1,5 +1,7 @@
 <?php
 
+use site\frontend\modules\iframe\modules\admin\models\FramePartners;
+
 /*
  * Iframe приложение для партнеров
  */
@@ -12,6 +14,9 @@ class IframeModule extends \CWebModule
             'class' => '\site\frontend\components\AuthManager',
         ));
         \Yii::app()->clientScript->registerPackage('iframe');
+
+        $iframeKey = \Yii::app()->request->getQuery('iframe-key');
+        $this->initIframeKey($iframeKey);
 
         // Cписок модулей
         $this->setModules([
@@ -31,5 +36,26 @@ class IframeModule extends \CWebModule
                 'class' => 'site\frontend\modules\iframe\modules\admin\AdminModule',
             ],
         ]);
+    }
+
+    protected function initIframeKey($key)
+    {
+        $session = new \CHttpSession;
+        $session->open();
+        $partner = \Yii::app()->session->get("partner");
+        if(!isset($key) && empty($partner)) {
+          $key = md5($_SERVER['SERVER_NAME']);
+        }
+        $model = FramePartners::model()->findByAttributes(array('key' => $key));
+        if (count($model)) {
+            $session['partner'] = [
+                'id' => $model->id,
+                'type' => $model->type,
+                'description' => $model->description,
+                'key' => $key,
+            ];
+            return true;
+        }
+        return false;
     }
 }

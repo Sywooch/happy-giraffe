@@ -88,9 +88,6 @@ class FramePartners extends \HActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
-            'CacheDelete' => [
-                'class' => ApiModule::CACHE_DELETE,
-            ],
         );
     }
 }

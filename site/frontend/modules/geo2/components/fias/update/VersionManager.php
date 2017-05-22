@@ -26,8 +26,8 @@ class VersionManager
 
     public function getCurrentVersion()
     {
-        $model = UpdateLog::model()->orderDesc()->findAll(['limit' => 1])[0];
-        return $model->version;
+        $model = UpdateLog::model()->orderDesc()->findAll(['limit' => 1]);
+        return empty($model) ? null : $model[0]->version;
     }
     
     public function getActualVersion()

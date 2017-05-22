@@ -15,9 +15,9 @@ if (isset($additionalData['votesList']))
 <article class="b-answer__item">
     <div class="b-pediator-answer">
         <?php if ($data->authorIsSpecialist()) {
-            $this->renderPartial('site.frontend.modules.iframe.views._new_answer_pediator', ['data' => $data,'user'=>$user]);
+            $this->renderPartial('site.frontend.modules.iframe.views._new_answer_pediator', ['data' => $data]);
         } else {
-            $this->renderPartial('site.frontend.modules.iframe.views._new_answer_user', ['data' => $data,'user'=>$user]);
+            $this->renderPartial('site.frontend.modules.iframe.views._new_answer_user', ['data' => $data]);
         } ?>
         <?php $this->renderPartial('site.frontend.modules.iframe.views._new_answers_footer', [
             'data'          => $data,

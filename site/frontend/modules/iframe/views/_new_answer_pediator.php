@@ -2,17 +2,18 @@
 /**
  * @var \site\frontend\modules\iframe\models\QaCTAnswer $data
  */
+$urlUser = $this->createUrl('/iframe/userProfile/default/index',['userId'=>$data->author->id]);
  ?>
  <div class="b-pediator-answer__left">
     <div class="b-pediator-answer__ava b-pediator-answer__ava--theme-pink">
-        <a href="<?=$user->profileUrl?>" class="ava ava--theme-pedaitor ava--medium ava--medium_male">
+        <a href="<?=$urlUser?>" class="ava ava--theme-pedaitor ava--medium ava--medium_male">
             <img src="<?=$data->author->getAvatarUrl(40)?>" class="ava__img" />
         </a>
     </div>
 </div>
 <div class="b-pediator-answer__right">
     <div class="b-answer__header b-answer-header">
-    	<a href="<?=$user->profileUrl?>" class="b-answer-header__link"><?=$data->user->getFullName()?></a>
+    	<a href="<?=$urlUser?>" class="b-answer-header__link"><?=$data->user->getFullName()?></a>
         <?=HHtml::timeTag($data, array('class' => 'b-answer-header__time'))?>
         <div class="b-answer-header__spezialisation"><?=$data->author->specialistProfile->getSpecsString()?></div>
     </div>

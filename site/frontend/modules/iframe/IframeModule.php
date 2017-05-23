@@ -40,11 +40,32 @@ class IframeModule extends \CWebModule
 
     protected function initIframeKey($key)
     {
-        $session = new \CHttpSession;
+        $session=new \CHttpSession;
         $session->open();
-        $partner = \Yii::app()->session->get("partner");
-        if(!isset($key) && empty($partner)) {
-          $key = md5($_SERVER['SERVER_NAME']);
+        if(!empty($session->get("partner"))){
+            if($session['partner']['type'] == 'domain' || $session['partner']['type'] == 'subdomain'){
+                if($session['partner']['key'] != md5($_SERVER['SERVER_NAME'])){
+                    $session->remove('partner');
+                }
+            } else {
+                return true;
+            }
+        }
+        if(
+            substr_count(\Yii::app()->request->requestUri, '/iframe/admin/') ||
+            $this->setPartnersSession($key)
+        ) {
+            return true;
+        }
+        throw new \CHttpException(404);
+    }
+
+    protected function setPartnersSession($key)
+    {
+        $session=new \CHttpSession;
+        $session->open();
+        if(empty($key)){
+            $key = md5($_SERVER['SERVER_NAME']);
         }
         $model = FramePartners::model()->findByAttributes(array('key' => $key));
         if (count($model)) {

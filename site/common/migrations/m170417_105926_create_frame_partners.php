@@ -15,6 +15,7 @@ class m170417_105926_create_frame_partners extends CDbMigration
 	        'created' => 'TIMESTAMP NOT NULL',
             'PRIMARY KEY (`id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
+        $this->execute("INSERT INTO `frame_partners` (`type`,`description`,`key`) VALUES ('domain','pediatr.net','d29c2dfc32bd287e30894f32f5a59e2d')");
 	}
 
 	public function down()

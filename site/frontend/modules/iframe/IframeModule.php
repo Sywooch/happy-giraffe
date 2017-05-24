@@ -44,7 +44,7 @@ class IframeModule extends \CWebModule
         $session->open();
         if(!empty($session->get("partner"))){
             if($session['partner']['type'] == 'domain' || $session['partner']['type'] == 'subdomain'){
-                if($session['partner']['key'] != md5($_SERVER['SERVER_NAME'])){
+                if($session['partner']['key'] != md5($_SERVER['HTTP_HOST'])){
                     $session->remove('partner');
                 }
             } else {
@@ -65,7 +65,7 @@ class IframeModule extends \CWebModule
         $session=new \CHttpSession;
         $session->open();
         if(empty($key)){
-            $key = md5($_SERVER['SERVER_NAME']);
+            $key = md5($_SERVER['HTTP_HOST']);
         }
         $model = FramePartners::model()->findByAttributes(array('key' => $key));
         if (count($model)) {

@@ -54,6 +54,7 @@ class SignupSocialAction extends \SocialAction
             $eauth->component->setRedirectView('signup.views.redirect');
             $params = $socialManager->getData();
             $params['returnHost'] = $sessionUser->getState('returnHost') ?: '';
+            header("Access-Control-Allow-Origin: *");
             $eauth->redirect(null, $params);
         };
 

@@ -15,7 +15,9 @@ class RegisterController extends \HController
             'social' => array(
                 'class' => 'site\frontend\modules\signup\components\SignupSocialAction',
                 'fromLogin' => false,
+                // Родительский хост
+                'baseHostInfo' => 'http://ds1.localhosttt.dev'
             ),
         );
     }
-} 
+}

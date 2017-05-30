@@ -27,6 +27,7 @@ class SignupSocialAction extends \SocialAction
             $url = $this->baseHostInfo .
             '/' . $request->pathInfo .
             '/?' . http_build_query([
+                'service' => $request->getQuery('service'),
                 'return_host' => $request->hostInfo,
             ]);
             $request->redirect($url);

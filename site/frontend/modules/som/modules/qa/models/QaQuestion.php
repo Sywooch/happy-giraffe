@@ -47,7 +47,7 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property-read BaseAnswerManager $answerManager
  * @property-read \PurifiedBehavior $purified
  */
-class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
+class QaQuestion extends \CommonHActiveRecord implements \IHToJSON, ISubject
 {
 
     /**
@@ -90,14 +90,6 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function getSubjectId()
     {
         return $this->id;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function __get($name)
-    {
-        return parent::__get($name);
     }
 
     /**

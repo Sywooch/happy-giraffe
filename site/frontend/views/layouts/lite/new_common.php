@@ -44,7 +44,6 @@
                 <?php $this->renderPartial('//_alerts'); ?>
 
                     <?= $content ?>
-                    <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
             <div class="popup-container display-n">
             </div>
             <!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->

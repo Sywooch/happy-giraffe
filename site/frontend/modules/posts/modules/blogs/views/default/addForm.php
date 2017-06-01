@@ -4,10 +4,10 @@ $cs = Yii::app()->clientScript;
 
 $wysiwyg_js = <<<JS
     $('.wysiwyg-redactor-v').redactorHG({
-        plugins: ['toolbarVerticalFixed'],
+        plugins: ['text','toolbarVerticalFixed'],
         minHeight: 410,
         autoresize: true,
-        buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile']
+        buttons: ['unorderedlist', 'orderedlist', 'link_add', 'image', 'video', 'smile']
     });
 JS;
 
@@ -88,7 +88,7 @@ $('.wysiwyg-redactor-v').promise().done(function()
                 	
                     <?php echo $form->textArea($slaveModel, 'text', ['class' => 'wysiwyg-redactor-v']); ?>
                     
-                    <div class="margin-l59"><?php echo $form->error($slaveModel, 'text'); ?></div>
+                    <div class="clearfix"><?php echo $form->error($slaveModel, 'text'); ?></div>
                 </div>
                 <div class="clearfix">
                 	<button class="btn-blue btn-h46 float-r btn-inactive">Опубликовать</button>

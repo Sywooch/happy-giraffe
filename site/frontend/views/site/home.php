@@ -9,7 +9,7 @@ Yii::app()->ads->addVerificationTags();
 
 $cs = Yii::app()->clientScript;
 $cs
-    ->registerCssFile('/lite/css/min/homepage.css')
+    ->registerCssFile('/lite/css/dev/all.css')
     ->registerCssFile('http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin')
 ;
 

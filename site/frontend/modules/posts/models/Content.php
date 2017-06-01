@@ -50,7 +50,7 @@ use site\frontend\modules\quests\models\Quest;
  * @property int $comments_count
  * @property Quest $quest
  */
-class Content extends \CommonHActiveRecord implements \IHToJSON
+class Content extends \HActiveRecord implements \IHToJSON
 {
     const BLOG_SERVICE = 'oldBlog';
     const COMMUNITY_SERVICE = 'oldCommunity';

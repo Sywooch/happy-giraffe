@@ -7,6 +7,7 @@
 namespace site\frontend\modules\geo2\components\combined\modifier;
 
 
+use site\frontend\modules\geo2\components\combined\models\Geo2City;
 use site\frontend\modules\geo2\components\combined\models\Geo2Country;
 use site\frontend\modules\geo2\components\combined\models\Geo2Region;
 use site\frontend\modules\geo2\components\fias\models\FiasAddrobj;
@@ -42,6 +43,41 @@ class FiasModifier extends Modifier
             'title' => $row['FORMALNAME'],
             'fiasId' => $row['AOGUID'],
         ];
+    }
+
+    public function update($table, $row, $pk)
+    {
+        $this->wrap(function() use ($table, $row, $pk) {
+            $type = $this->getType($table, $row);
+            \Yii::app()->db->createCommand()->update($table, $row, "{$this->getKey()} = :id", [':id' => $pk]);
+            if ($type && $row['LIVESTATUS'] == 1) {
+                $processedRow = $this->process($type, $row);
+                \Yii::app()->db->createCommand()->update($this->getDestinationTable($type), $processedRow, "{$this->getFk()} = :fk", [':fk' => $processedRow[$this->getFk()]]);
+            }
+        });
+    }
+
+    public function insert($table, $row)
+    {
+        $this->wrap(function() use ($table, $row) {
+            $type = $this->getType($table, $row);
+            \Yii::app()->db->createCommand()->insert($table, $row);
+            if ($type) {
+                $cityRow = \Yii::app()->db->createCommand()
+                    ->select()
+                    ->from(Geo2City::model()->tableName())
+                    ->where('fiasId = :fiasId', [':fiasId' => $row['AOGUID']])
+                    ->queryRow()
+                ;
+
+                $processedRow = $this->process($type, $row);
+                if ($cityRow !== false) {
+                    \Yii::app()->db->createCommand()->update($this->getDestinationTable($type), $processedRow, "{$this->getFk()} = :fk", [':fk' => $processedRow[$this->getFk()]]);
+                } else {
+                    \Yii::app()->db->createCommand()->insert($this->getDestinationTable($type), $processedRow);
+                }
+            }
+        });
     }
 
     protected function getType($table, $row)

@@ -51,11 +51,15 @@ class SignupSocialAction extends \SocialAction
             ));
 
             $socialManager = new SocialManager($eauth);
-            $eauth->component->setRedirectView('signup.views.redirect');
+            //$eauth->component->setRedirectView('signup.views.redirect');
             $params = $socialManager->getData();
-            $params['returnHost'] = $sessionUser->getState('returnHost') ?: '';
-            header("Access-Control-Allow-Origin: *");
-            $eauth->redirect(null, $params);
+
+            $returnHost = $sessionUser->getState('returnHost') ?: '';
+            \Yii::app()->request->redirect($returnHost);
+            \Yii::app()->end();
+
+            // header("Access-Control-Allow-Origin: *");
+            // $eauth->redirect(null, $params);
         };
 
         parent::run();

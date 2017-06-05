@@ -255,6 +255,18 @@ class Comment extends \Comment implements \IHToJSON
 
         return $model['entity'] . '_' . $model['entityId'];
     }
+
+    /**
+     * @param int $id
+     *
+     * @return Comment
+     */
+    public function byNewEntity($id)
+    {
+        $this->getDbCriteria()->compare('new_entity_id', $id);
+
+        return $this;
+    }
 }
 
 ?>

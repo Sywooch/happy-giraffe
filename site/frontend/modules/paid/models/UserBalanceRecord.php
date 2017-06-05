@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\paid\models;
+use Carbon\Carbon;
 
 /**
  * @property int $user_id
@@ -146,8 +147,8 @@ class UserBalanceRecord extends \HActiveRecord
      */
     public function today()
     {
-        $this->getDbCriteria()->addCondition('paid_at > ' . mktime(0, 0, 0, date('d'), date('m'), date('y')));
-        $this->getDbCriteria()->addCondition('paid_at < ' . time());
+        $this->getDbCriteria()->addCondition('paid_at > ' . Carbon::today()->timestamp);
+        $this->getDbCriteria()->addCondition('paid_at < ' . Carbon::now()->timestamp);
 
         return $this;
     }

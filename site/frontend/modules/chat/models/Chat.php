@@ -126,7 +126,7 @@ class Chat extends \HActiveRecord
      */
     public function byUser($userId)
     {
-        $this->getDbCriteria()->addCondition("exists(select user_id from users_chats as uc where uc.user_id = {$userId} limit 1)");
+        $this->getDbCriteria()->addCondition("exists(select * from users_chats as uc where uc.user_id = {$userId} and chat_id = {$this->tableAlias}.id limit 1)");
 
         return $this;
     }

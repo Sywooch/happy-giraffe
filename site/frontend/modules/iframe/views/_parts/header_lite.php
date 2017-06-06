@@ -25,7 +25,7 @@ $("[href=#js-madal-search-box]").magnificPopup({
 
 if (! Yii::app()->user->isGuest) {
     if ($cs->useAMD) {
-        $cs->registerAMD('menuVM', array('ko' => 'knockout', 'MenuViewModel' => 'ko_menu'), "menuVm = new MenuViewModel(" . CJSON::encode($this->menuData) . "); ko.applyBindings(menuVm, $('.layout-header')[0]);");
+        $cs->registerAMD('menuVM', array('ko' => 'knockout', 'MenuViewModel' => 'ko_menu'), "menuVm = new MenuViewModel(" . CJSON::encode($this->menuData) . "); ko.cleanNode($('.layout-header')[0]); ko.applyBindings(menuVm, $('.layout-header')[0]);");
     }
     else {
         $cs->registerPackage('ko_menu');

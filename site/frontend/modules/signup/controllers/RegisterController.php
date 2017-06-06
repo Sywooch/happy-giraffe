@@ -9,6 +9,9 @@ namespace site\frontend\modules\signup\controllers;
 
 class RegisterController extends \HController
 {
+
+    public $params = [];
+
     public function actions()
     {
         return array(
@@ -17,6 +20,9 @@ class RegisterController extends \HController
                 'fromLogin' => false,
                 // Родительский хост
                 'baseHostInfo' => 'http://mypediatr.usr.happy-giraffe.ru'
+            ),
+            'partner' => array(
+                'class' => 'site\frontend\modules\signup\components\PartnerSignupSocialAction',
             ),
         );
     }

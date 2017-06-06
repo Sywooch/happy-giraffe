@@ -51,15 +51,19 @@ class SignupSocialAction extends \SocialAction
             ));
 
             $socialManager = new SocialManager($eauth);
-            //$eauth->component->setRedirectView('signup.views.redirect');
             $params = $socialManager->getData();
 
-            $returnHost = $sessionUser->getState('returnHost') ?: '';
-            \Yii::app()->request->redirect($returnHost);
-            \Yii::app()->end();
+            $returnHost = $sessionUser->getState('returnHost');
+            if(!empty($returnHost)){
+                $params['service'] = $eauth->getServiceName();
+                $paramsString = http_build_query($params);
+                $returlFullUrl = $returnHost . '/signup/register/partner/?' . $paramsString;
+                \Yii::app()->request->redirect($returlFullUrl);
+                \Yii::app()->end();
+            }
 
-            // header("Access-Control-Allow-Origin: *");
-            // $eauth->redirect(null, $params);
+            $eauth->component->setRedirectView('signup.views.redirect');
+            $eauth->redirect(null, $params);
         };
 
         parent::run();

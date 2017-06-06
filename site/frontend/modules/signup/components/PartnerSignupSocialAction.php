@@ -15,10 +15,7 @@ class PartnerSignupSocialAction extends \CAction
         $request     = \Yii::app()->request;
         $sessionUser = \Yii::app()->user;
 
-
-        $refUri = new \Uri(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null);
-        $hostUri = new \Uri($request->hostInfo);
-        if($refUri->getHost() == $hostUri->getHost()){
+        if($sessionUser->getState('initAuth')){
             $this->controller->params = $_GET;
             $user = $request->getQuery('user');
             $attributes = $request->getQuery('attributes');

@@ -24,6 +24,7 @@ class SignupSocialAction extends \SocialAction
         с указанием обратного адреса
          */
         if ($request->hostInfo != $this->baseHostInfo) {
+            $sessionUser->setState('initAuth', true);
             $url = $this->baseHostInfo .
             '/' . $request->pathInfo .
             '/?' . http_build_query([

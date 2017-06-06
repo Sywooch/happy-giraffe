@@ -40,6 +40,8 @@ class SignupSocialAction extends \SocialAction
         $returnHost = $request->getQuery('return_host');
         if (!empty($returnHost)) {
             $sessionUser->setState('returnHost', $returnHost);
+        }else{
+            $sessionUser->setState('returnHost', null);
         }
 
         $this->successCallback = function ($eauth) use ($action, $sessionUser) {

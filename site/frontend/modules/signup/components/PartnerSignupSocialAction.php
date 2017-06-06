@@ -10,7 +10,7 @@ class PartnerSignupSocialAction extends \CAction
 
     public $fromLogin = false;
 
-    function run()
+    public function run()
     {
         $request     = \Yii::app()->request;
         $sessionUser = \Yii::app()->user;
@@ -29,11 +29,14 @@ class PartnerSignupSocialAction extends \CAction
                     'name' => $service,
                     'id'   => $attributes['uid'],
                 ));
+                $this->controller->renderPartial('signup.views.redirect');
+
+                return;
             }
 
-            //var_dump($this->controller->params); exit;
-            $this->controller->renderPartial('signup.views.redirect');
+            throw new \CHttpException(400);
         }
 
+        throw new \CHttpException(403);
     }
 }

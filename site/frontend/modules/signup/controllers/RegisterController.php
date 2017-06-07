@@ -19,7 +19,7 @@ class RegisterController extends \HController
                 'class' => 'site\frontend\modules\signup\components\SignupSocialAction',
                 'fromLogin' => false,
                 // Родительский хост
-                'baseHostInfo' => 'http://mypediatr.usr.happy-giraffe.ru'
+                'baseHostInfo' => 'http://pediatr.net'
             ),
             'partner' => array(
                 'class' => 'site\frontend\modules\signup\components\PartnerSignupSocialAction',

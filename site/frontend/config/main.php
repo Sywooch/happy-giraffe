@@ -237,8 +237,8 @@ return array(
             'services' => array(// You can change the providers and their classes.
                 'facebook' => array(
                     'class' => 'application.components.eauth.FacebookAuth',
-                    'client_id' => '1867419546832048',
-                    'client_secret' => '6a7192dee6a44f671cedb8526caf1856',
+                    'client_id' => '1479627935431213',
+                    'client_secret' => 'f1f091b3b829320a4d09b8c197c89cd7',
                     'title' => 'Facebook',
                 ),
 //                'mailru' => array(
@@ -256,15 +256,15 @@ return array(
                 ),
                 'ok_api' => array(
                     'class' => 'application.components.eauth.OdnoklassnikiAuth',
-                    'client_id' => '1240432384',
-                    'client_secret' => 'B9C8F53C3949A06DD263AB6F',
-                    'client_public' => 'CBAQHQOKEBABABABA',
+                    'client_id' => '1251394304',
+                    'client_secret' => '9757B6CB253A67A1C897F663',
+                    'client_public' => 'CBAEMHJLEBABABABA',
                 ),
                 //true app
                 'vkontakte' => array(
                     'class' => 'application.components.eauth.VkontakteAuth',
-                    'client_id' => '5609049',
-                    'client_secret' => 'DEIkXbwnoMprdaEQJRs3',
+                    'client_id' => '6064484',
+                    'client_secret' => 'fNRYAeuUlLPLlFdYeMWn',
                     'title' => 'ВКонтакте',
                 ),
                 //test app

@@ -249,9 +249,9 @@ return array(
 //                ),
                 'odnoklassniki' => array(
                     'class' => 'application.components.eauth.OdnoklassnikiAuth',
-                    'client_id' => '93721600',
-                    'client_secret' => '4E774EFE678A1ECF3D4625F3',
-                    'client_public' => 'CBAFBHJGABABABABA',
+                    'client_id' => '1251394304',
+                    'client_secret' => '9757B6CB253A67A1C897F663',
+                    'client_public' => 'CBAEMHJLEBABABABA',
                     'title' => 'Одноклассники',
                 ),
                 'ok_api' => array(

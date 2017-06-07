@@ -10,24 +10,35 @@ class PartnerSignupSocialAction extends \CAction
 
     public $fromLogin = false;
 
-    public function run()
+    protected function getUserParams()
     {
         $request     = \Yii::app()->request;
+        $user = $request->getQuery('user');
+        $attributes = $request->getQuery('attributes');
+        $service = $request->getQuery('service');
+        return [
+            'attributes' => $attributes,
+            'user' => $user ?: null,
+            'service' => $service
+            ];
+    }
+
+    public function run()
+    {
+
         $sessionUser = \Yii::app()->user;
 
         if($sessionUser->getState('initAuth')){
-            $this->controller->params = $_GET;
-            $user = $request->getQuery('user');
-            $attributes = $request->getQuery('attributes');
-            $service = $request->getQuery('service');
+            $userParams = $this->getUserParams();
+            $this->controller->params = $userParams;
 
-            if(!empty($user) and isset($user['id'])
-                and !empty($attributes) and isset($attributes['uid'])
-                and !empty($service)){
-                $sessionUser->setState('possibleUserId', $user['id']);
+            if( isset($userParams['attributes']['uid']) and !empty($userParams['service'])){
+                if(!empty($userParams['user'])){
+                    $sessionUser->setState('possibleUserId', $userParams['user']['id']);
+                }
                 $sessionUser->setState('socialService', array(
-                    'name' => $service,
-                    'id'   => $attributes['uid'],
+                    'name' => $userParams['service'],
+                    'id'   => $userParams['attributes']['uid'],
                 ));
                 $this->controller->renderPartial('signup.views.redirect');
 

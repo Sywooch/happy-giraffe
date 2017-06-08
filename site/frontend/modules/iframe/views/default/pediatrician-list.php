@@ -1,3 +1,6 @@
+<?php
+$this->pageTitle = 'Врачи';
+?>
 <div class="b-nav-panel">
     <div class="b-nav-panel__left">
         <div class="b-filter-menu b-filter-menu--theme-default">

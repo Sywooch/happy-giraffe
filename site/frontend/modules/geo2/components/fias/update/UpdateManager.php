@@ -18,7 +18,7 @@ use site\frontend\modules\geo2\Geo2Module;
 
 class UpdateManager
 {
-    const ACTIVE_TABLES = [
+    public static $activeTables = [
         'ADDROBJ'
     ];
     
@@ -64,7 +64,7 @@ class UpdateManager
     protected function processFile(\DirectoryIterator $file)
     {
         $tableName = FileNameHelper::filenameToTable($file->getFilename());
-        if (! in_array($tableName, self::ACTIVE_TABLES)) {
+        if (! in_array($tableName, self::$activeTables)) {
             return;
         }
         
@@ -86,12 +86,9 @@ class UpdateManager
 
                 if ($exists) {
                     $pk = $row[$pkName];
-//                    unset($row[$pkName]);
-//                    \Yii::app()->db->createCommand()->update("$prefixedTableName", $row, $pkName . ' = :pk', [':pk' => $pk]);
                     FiasModifier::instance()->update($prefixedTableName, $row, $pk);
                     $this->updated++;
                 } else {
-//                    \Yii::app()->db->createCommand()->insert("$prefixedTableName", $row);
                     FiasModifier::instance()->insert($prefixedTableName, $row);
                     $this->created++;
                 }

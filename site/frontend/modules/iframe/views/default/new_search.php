@@ -10,7 +10,7 @@ $this->pageTitle = 'Результаты поиска';
     <div class="b-search-panel">
         <div class="b-search-result">
             <form class="b-search-result__form">
-                <span class="b-search-result__close"></span>
+                <span class="b-search-result__close" onclick="location.href = '/'"></span>
                 <input value="<?=$query?>" name="query" type="search" class="b-search-result__input" />
             </form>
         </div>

@@ -8,7 +8,7 @@ $user = $widget->getUserInfo($data->userId);
 <div class="user-activity-post">
     <div class="user-activity-post_hold clearfix">
         <span class="ico-post-type-s ico-post-type-s__<?= ActivityWidget::$types[$data->typeId][0] ?>"></span>
-        <span class="user-activity-post_tx"> <?= ActivityWidget::$types[$data->typeId][2][$user->gender] ?></span>
+        <span class="user-activity-post_tx"> <?= ActivityWidget::$types[$data->typeId][2][$user->gender == \site\frontend\modules\users\models\User::GENDER_UNDEFINED ? \site\frontend\modules\users\models\User::GENDER_MALE : $user->gender] ?></span>
     </div>
 </div>
 <!-- /блок активность пользователя внутри статьи-->

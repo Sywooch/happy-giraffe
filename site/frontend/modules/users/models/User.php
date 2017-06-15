@@ -18,13 +18,13 @@ class User extends \User implements \IHToJSON
 
     public function rules()
     {
-        return array(
+        return array_merge(parent::rules(), array(
             array('specInfo', 'filter', 'filter' => array($this->specInfoObject, 'serialize')),
             array('specialistInfo', 'filter', 'filter' => array($this->specialistInfoObject, 'serialize')),
             array('first_name, last_name', 'length', 'max' => 50),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
-            array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE)),
-        );
+            array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE))
+        ));
     }
 
     public static function model($className = __CLASS__)
@@ -39,6 +39,7 @@ class User extends \User implements \IHToJSON
             'firstName'         => $this->first_name,
             'lastName'          => $this->last_name,
             'middleName'        => $this->middle_name,
+            'email'             => $this->email,
             'fullName'          => $this->getFullName(),
             'birthday'          => $this->birthday,
             'avatarId'          => (int) $this->avatar_id,

@@ -135,6 +135,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         return [
             'profileId' => $this->profileId,
 
+            'avatarUrl' => $this->user->getAvatarUrl(),
             'gender' => $this->gender,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,

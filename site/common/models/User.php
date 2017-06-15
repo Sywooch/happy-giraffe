@@ -284,6 +284,10 @@ class User extends HActiveRecord
             //signupQuestion
             array('first_name, email', 'required', 'on' => 'signupQuestion'),
 
+            // lazy_change_password
+            ['password', 'required', 'on' => 'lazy_change_password'],
+            ['password', 'length', 'min' => 6, 'max' => 15, 'on' => 'lazy_change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'],
+
             //change_password
             array('current_password, new_password, new_password_repeat, verifyCode', 'required', 'on' => 'change_password'),
             array('current_password', 'validatePassword', 'on' => 'change_password'),
@@ -474,7 +478,7 @@ class User extends HActiveRecord
     protected function beforeSave()
     {
         if (parent::beforeSave()) {
-            if ($this->scenario == 'change_password' || $this->scenario == 'remember_password') {
+            if ($this->scenario == 'change_password' || $this->scenario == 'remember_password' || $this->scenario == 'lazy_change_password') {
                 $this->password = $this->hashPassword($this->password);
             }
             return true;

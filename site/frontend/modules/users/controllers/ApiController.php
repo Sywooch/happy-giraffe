@@ -60,8 +60,14 @@ class ApiController extends \site\frontend\components\api\ApiController
      */
     public function actionUpdate($id, array $attributes)
     {
+        // print_r($attributes); exit;
         /** @var \site\frontend\modules\users\models\User $user */
         $user = $this->getModel('\site\frontend\modules\users\models\User', $id, 'editSettings');
+
+        if (isset($attributes['password'])) {
+            $user->scenario = 'lazy_change_password';
+        }
+
         foreach($attributes AS $attr => &$at)
         {
             if ($attr == 'first_name' || $attr == 'last_name' || $attr == 'middle_name')

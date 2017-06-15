@@ -173,6 +173,12 @@ return array(
         'specialists' => [
             'class' => 'site\frontend\modules\specialists\SpecialistsModule',
         ],
+        'chat' => [
+            'class' => 'site\frontend\modules\chat\ChatModule',
+        ],
+        'paid' => [
+            'class' => 'site\frontend\modules\paid\PaidModule',
+        ],
     ),
     // application components
     'components' => array(

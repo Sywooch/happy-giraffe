@@ -129,6 +129,9 @@ return array(
         'mpQaEntitiesEdited' => [
             'class' => \site\frontend\modules\som\modules\qa\commands\MpQaEntitiesEditedCommand::class
         ],
+        'authStatusFix' => [
+            'class' => \site\frontend\modules\api\modules\v2_1\commands\AuthStatusFix::class
+        ],
     ),
     'import' => array(
         'site.common.models.User',

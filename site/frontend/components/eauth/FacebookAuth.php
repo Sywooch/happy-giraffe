@@ -32,10 +32,10 @@ class FacebookAuth extends FacebookOAuthService
     protected function processGender($fbGender)
     {
         switch ($fbGender) {
-            case 'male':
+            case 'мужской':
                 return 1;
                 break;
-            case 'female':
+            case 'женский':
                 return 0;
                 break;
             default:

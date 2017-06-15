@@ -15,6 +15,7 @@ class User extends \User implements \IHToJSON
 
     const GENDER_FEMALE = 0;
     const GENDER_MALE = 1;
+    const GENDER_UNDEFINED = 2;
 
     public function rules()
     {

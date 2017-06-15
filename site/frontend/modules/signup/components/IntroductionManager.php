@@ -60,6 +60,7 @@ class IntroductionManager
     {
         return
             ! empty($user->first_name)
+            && in_array($user->gender, [User::GENDER_MALE, User::GENDER_FEMALE])
             && $user->location->countryId
         ;
     }

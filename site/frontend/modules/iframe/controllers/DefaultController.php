@@ -80,6 +80,7 @@ class DefaultController extends QaController
         $criteria->addCondition('blocked=0');
         $criteria->addCondition('id IN (SELECT id FROM specialists__profiles)');
         $criteria->join = 'LEFT JOIN ' .QaRating::model()->tableName().' AS tr ON id = tr.user_id AND category_id = ' . QaCategory::PEDIATRICIAN_ID;
+        $criteria->addCondition('tr.total_count > 0');
 
         $sort = new \CSort();
         $sort->defaultOrder = 'total_count desc';

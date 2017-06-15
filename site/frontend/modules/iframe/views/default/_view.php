@@ -109,7 +109,7 @@ use site\frontend\modules\iframe\widgets\answers\AnswersWidget;
                     if ($isOwner):
                 ?>
 
-                    <mp-question-actions-widget-iframe params="id: <?= $question->id; ?>, answersCount: <?= $question->answersCount; ?>, redirectUrl: <?= $this->createUrl('/iframe/default/pediatrician'); ?>, editUrl: '<?= $this->createUrl('/iframe/default/pediatricianEditForm', ['questionId' => $question->id]); ?>'"></mp-question-actions-widget-iframe>
+                    <mp-question-actions-widget-iframe params="id: <?= $question->id; ?>, answersCount: <?= $question->answersCount; ?>, redirectUrl: '<?= $this->createUrl('/iframe/default/pediatrician'); ?>', editUrl: '<?= $this->createUrl('/iframe/default/pediatricianEditForm', ['questionId' => $question->id]); ?>'"></mp-question-actions-widget-iframe>
 
                 <?php endif; ?>
 

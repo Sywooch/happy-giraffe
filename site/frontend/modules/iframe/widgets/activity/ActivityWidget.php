@@ -4,6 +4,7 @@ namespace site\frontend\modules\iframe\widgets\activity;
 
 use site\frontend\modules\iframe\components\api\User;
 use site\frontend\modules\iframe\models\Activity;
+use site\frontend\modules\iframe\models\QaAnswer;
 
 /**
  * Description of ActivityWidget
@@ -37,24 +38,7 @@ class ActivityWidget extends \CWidget
      */
     public function getDataProvider()
     {
-        $model = Activity::model();
-
-        if (! $this->ownerId)
-        {
-            $model
-                ->withoutAnswerPediatrician()
-                ->withoutQuestion()
-                ->excludePediatricianQuestions()
-                ->excludePediatricianAnswers()
-            ;
-        }
-        else
-        {
-            $model
-                ->forUser($this->ownerId)
-                ->excludePediatricianQuestions($this->ownerId)
-            ;
-        }
+        $model = QaAnswer::model()->user($this->ownerId)->specialists();
 
         return new \CActiveDataProvider($model, array(
             'pagination' => array(
@@ -68,7 +52,6 @@ class ActivityWidget extends \CWidget
     public function run()
     {
         $dp = $this->getDataProvider();
-
         if ($this->setNoindexIfPage && isset($_GET[$dp->pagination->pageVar]))
         {
             $this->owner->metaNoindex = true;

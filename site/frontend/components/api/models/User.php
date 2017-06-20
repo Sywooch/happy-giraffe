@@ -85,6 +85,7 @@ class User extends ApiModel implements \IHToJSON
      */
     public function formatedForJson()
     {
+
         return [
             'id' => $this->id,
             'firstName' => $this->firstName,

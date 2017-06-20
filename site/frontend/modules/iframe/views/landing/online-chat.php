@@ -114,7 +114,6 @@
 <script src="https://code.jquery.com/jquery-2.0.1.min.js"></script>
 <script src="/app/builds/static/js/separate-js/slick.js"></script>
 <script src="/app/builds/static/js/main.min.js"></script>
-<script src="/app/builds/static/js/separate-js/navigation.js"></script>
 
 
 </body>

@@ -379,12 +379,6 @@ class DefaultController extends QaController
         \Yii::app()->user->logout();
         $this->redirect(array('/iframe/default/pediatrician'));
     }
-    
-    public function actionOnlineChat()
-    {
-        $this->layout = false;
-        $this->render('online-chat');
-    }
 
     /**
      * @param string $tab

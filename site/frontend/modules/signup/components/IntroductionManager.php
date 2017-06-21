@@ -21,8 +21,20 @@ class IntroductionManager
             ], 'IntroductionForm.viewModel.prototype.open();');
         }
     }
-
-    public static function update($userId, $status)
+    
+    public static function finish(\User $user)
+    {
+        $user->registration_finished = 1;
+        $user->update(['registration_finished']);
+        self::setStatus($user->id, true);
+    }
+    
+    protected static function getStatus($userId)
+    {
+        return \UserAttributes::get($userId, self::ATTRIBUTE_KEY, false);
+    }
+    
+    protected static function setStatus($userId, $status)
     {
         \UserAttributes::set($userId, self::ATTRIBUTE_KEY, $status);
     }
@@ -33,12 +45,12 @@ class IntroductionManager
             return false;
         }
         
-        $passed = \UserAttributes::get(\Yii::app()->user->id, self::ATTRIBUTE_KEY, false);
+        $passed = self::getStatus(\Yii::app()->user->id);
         if (! $passed) {
             $isFilled = self::isFilled(\Yii::app()->user->model);
             if ($isFilled) {
                 $passed = true;
-                \UserAttributes::set(\Yii::app()->user->id, self::ATTRIBUTE_KEY, $passed);
+                self::setStatus(\Yii::app()->user->id, $passed);
             }
         }
         return ! $passed;
@@ -48,8 +60,7 @@ class IntroductionManager
     {
         return
             ! empty($user->first_name)
-            && in_array($user->gender, [User::GENDER_MALE, User::GENDER_FEMALE])
-            && $user->location->country
+            && $user->location->countryId
         ;
     }
 }

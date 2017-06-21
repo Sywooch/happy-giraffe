@@ -19,12 +19,12 @@ return array(
             'vk' => array(
                 'exports' => 'VK',
             ),
-            'materialize' => [
-                'deps' => ['jquery', 'hammerjs'],
-            ],
-            'hammerjs' => [
-                'deps' => ['jquery'],
-            ],
+//            'materialize' => [
+//                'deps' => ['jquery', 'hammerjs'],
+//            ],
+//            'hammerjs' => [
+//                'deps' => ['jquery'],
+//            ],
         ),
         'paths' => array(
             'facebook' => 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.8&appId=1648409175470149',
@@ -135,14 +135,14 @@ return array(
                 'javascripts/base64.js',
             ),
         ),
-        'scrollTo' => array(
-            'baseUrl' => '/',
-            'amd' => true,
-            'js' => array(
-                'new/javascript/jquery.scrollTo.min.js',
-            ),
-            'depends' => array('jquery'),
-        ),
+//        'scrollTo' => array(
+//            'baseUrl' => '/',
+//            'amd' => true,
+//            'js' => array(
+//                'new/javascript/jquery.scrollTo.min.js',
+//            ),
+//            'depends' => array('jquery'),
+//        ),
         'scrollEvents' => array(
             'baseUrl' => '/',
             'amd' => true,
@@ -163,7 +163,7 @@ return array(
             ),
             'depends' => array(
                 'jquery',
-                'scrollTo',
+                //'scrollTo',
                 'scrollEvents',
                 'comet',
                 'base64',
@@ -481,29 +481,28 @@ return array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/services-na.css',
+                'lite/css/dev/all.css',
             ),
         ),
         'lite_services_user' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/services-user.css',
+                'lite/css/dev/all.css',
             ),
         ),
         'lite_member' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/member.css',
-                'lite/css/min/member-new.css'
+                'lite/css/dev/all.css'
             ),
         ),
         'lite_member_user' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/member-user.css',
+                'lite/css/dev/all.css',
             ),
         ),
         'lite_contest_commentator' => array(
@@ -581,21 +580,13 @@ return array(
         'lite_posts_user' => array(
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/blog-user.css'
+                'lite/css/dev/all.css'
             ),
         ),
         'lite_posts' => array(
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/blog.css'
-            ),
-        ),
-        'lite_member_user' => array(
-            'baseUrl' => '/',
-            'css' => array(
-                'lite/css/min/member-photo.css',
-                'lite/css/min/member-new.css',
-                'lite/css/min/member-user.css'
+                'lite/css/dev/all.css'
             ),
         ),
         'lite_recipe' => array(
@@ -655,14 +646,20 @@ return array(
             ),
             'depends' => array('lite_posts_user'),
         ),
+        'lite_qa_old' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                'app/builds/static/css/main.min.css',
+            )
+        ),
         'lite_qa' => array(
-            'depends' => array('lite_services', 'lite_posts', 'lite_pediatrician'),
+            'depends' => array('lite_qa_old', 'lite_services', 'lite_posts', 'lite_pediatrician'),
         ),
         'lite_pediatrician' => array(
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/pediator.css',
                 'app/builds/static/css/main.min.css',
+                'lite/css/dev/all.css'
             )
         ),
         'register_form' => [

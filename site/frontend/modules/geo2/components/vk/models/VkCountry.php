@@ -12,6 +12,8 @@ namespace site\frontend\modules\geo2\components\vk\models;
  */
 class VkCountry extends \CActiveRecord
 {
+	const RUSSIA_ID = 1;
+	
 	/**
 	 * @return string the associated database table name
 	 */

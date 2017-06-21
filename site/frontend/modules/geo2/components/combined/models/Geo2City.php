@@ -100,4 +100,10 @@ class Geo2City extends \CActiveRecord implements \IHToJSON
 		$this->getDbCriteria()->compare($this->tableAlias . '.title', $title);
 		return $this;
 	}
+
+	public function noRegion()
+	{
+		$this->getDbCriteria()->addCondition('regionId IS NULL');
+		return $this;
+	}
 }

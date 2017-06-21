@@ -48,7 +48,7 @@ class CombinedManager
         $select = \Yii::app()->db->createCommand()
             ->select()
             ->from(VkRegion::model()->tableName())
-            ->where('countryId != :russiaId', [':russiaId' => self::RUSSIA_VK_ID])
+            ->where('countryId != :russiaId', [':russiaId' => VkCountry::RUSSIA_ID])
         ;
         $this->batchInsert($select, [VkModifier::instance(), 'convertRegion'], Geo2Region::model()->tableName());
     }
@@ -74,7 +74,7 @@ class CombinedManager
         $select = \Yii::app()->db->createCommand()
             ->select()
             ->from(VkCity::model()->tableName())
-            ->where('countryId != :countryId', [':countryId' => self::RUSSIA_VK_ID])
+            ->where('countryId != :countryId', [':countryId' => VkCountry::RUSSIA_ID])
         ;
         $this->batchInsert($select, [VkModifier::instance(), 'convertCity'], Geo2City::model()->tableName());
     }

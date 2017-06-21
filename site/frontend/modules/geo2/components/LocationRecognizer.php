@@ -9,10 +9,27 @@ use site\frontend\modules\geo2\components\combined\models\Geo2City;
  */
 class LocationRecognizer
 {
+    const LEVENSHTEIN_THRESHOLD = 0.5;
+
     public static function recognizeCity($countryIsoCode, $cityName, $regionName)
     {
+        if ($cityName == $regionName) {
+            $cities = Geo2City::model()->title($cityName)->noRegion()->findAll();
+            if (count($cities) == 1) {
+                return $cities[0];
+            }
+        }
+
         $cities = self::getCities($countryIsoCode, $cityName);
-        return (empty($cities)) ? null : self::chooseCity($cities, $regionName);
+        $nCities = count($cities);
+        switch ($nCities) {
+            case 0:
+                return null;
+            case 1:
+                return $cities[0];
+            default:
+                return self::chooseCity($cities, $regionName);
+        }
     }
     
     public static function getCities($countryIsoCode, $cityName)
@@ -27,26 +44,28 @@ class LocationRecognizer
         ])->findAll();
     }
 
-    public static function chooseCity($cities, $regionName)
+    protected static function chooseCity($cities, $regionName)
     {
-        if (count($cities) == 1) {
-            return $cities[0];
-        }
-
-        $shortest = -1;
+        $shortest = PHP_INT_MAX;
         $closest = null;
         foreach ($cities as $city) {
-            $lev = levenshtein($city->region->title, $regionName);
+            if (! $city->region) {
+                continue;
+            }
+
+            $lev = levenshtein($regionName, $city->region->title);
 
             if ($lev == 0) {
                 return $city;
             }
 
-            if ($lev <= $shortest || $shortest < 0) {
+            if ($lev < $shortest) {
                 $closest = $city;
                 $shortest = $lev;
             }
         }
-        return $closest;
+        
+        $ratio = $shortest / strlen($regionName);
+        return ($ratio < self::LEVENSHTEIN_THRESHOLD) ? $closest : null;
     }
 }

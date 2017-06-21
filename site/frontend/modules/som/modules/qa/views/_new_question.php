@@ -12,18 +12,19 @@
     </div>
     <div class="b-answer__container">
         <div class="b-answer__left">
-            <div class="b-answer__body b-answer-body">
-            	<a href="<?=$data->url?>" class="b-answer-body__link b-title--h7 b-text--link-color b-title--bold"><?=strip_tags($data->title)?></a>
-                <p class="b-answer-body__text"><?=strip_tags($data->text)?></p>
-            </div>
+            <a class="b-block" href="<?=$data->url?>">
+                <div class="b-answer__body b-answer-body">
+                    <span class="b-answer-body__link b-title--h7 b-text--link-color b-title--bold"><?=strip_tags($data->title)?></span>
+                    <p class="b-answer-body__text"><?=strip_tags($data->text)?></p>
+                </div>
+            </a>
             <?php if (!is_null($data->tag) && is_null($data->attachedChild)): ?>
                 <div class="b-answer__footer b-answer-footer">
-                	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $data->tag->id])?>" class="b-answer-footer__age b-text--link-color"><?=$data->tag->getTitle()?></a>
+					<a href="<?=UrlCreator::create(UrlCreator::create(null)->getPath(), ['filter' => ['tag' => $data->tag->id]])?>" class="b-answer-footer__age b-text--link-color"><i aria-hidden="true" class="icon icon-tag"></i>&nbsp;&nbsp; <?=$data->tag->getTitle()?></a>
                 </div>
   			<?php endif; ?>
   			<?php
-  			   if (!is_null($data->attachedChild)) {
-            	   $fmember = $data->attChild;
+  			   if (!is_null($data->attachedChild) and !is_null($fmember = $data->attChild)) {
             	   $arrFooterData = $fmember->getAnswerFooterData();
 	           ?>
         	   <?php if (!\Yii::app()->user->isGuest && $data->author->id == \Yii::app()->user->id) { ?>
@@ -41,7 +42,7 @@
     			</div>
     		   <?php } elseif (!is_null($arrFooterData['tag'])) { ?>
     			<div class="b-answer__footer b-answer-footer">
-                	<a href="<?=$this->createUrl('/som/qa/default/pediatrician', ['tab' => 'new', 'tagId' => $arrFooterData['tag']->id])?>" class="b-answer-footer__age b-text--link-color"><?=$arrFooterData['tag']->getTitle()?></a>
+					<a href="<?=UrlCreator::create(UrlCreator::create(null)->getPath(), ['filter' => ['tag' => $data->tag->id]])?>" class="b-answer-footer__age b-text--link-color"><i aria-hidden="true" class="icon icon-tag"></i>&nbsp;&nbsp; <?=$arrFooterData['tag']->getTitle()?></a>
                 </div>
     		   <?php }?>
 		   <?php }?>

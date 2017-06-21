@@ -78,7 +78,7 @@
         <div class="promo-wrapper">
             <div class="section-landing-white section-landing-white--wrapper">
                 <div class="section-landing-white__item section-landing-white__item--left">
-                    <div class="section-landing-white__num"></div>
+                    <div class="section-landing-white__num">200&#8381;</div>
                 </div>
                 <div class="section-landing-white__item section-landing-white__item--right">
                     <div class="section-landing-white__descr">24 часа в сутки, из любой точки земного шара, Вы можете заказать онлайн-чат, консультация длится 30 минут</div>

@@ -1,17 +1,10 @@
-<?php
-/**
- * @var $this LandingController 
- */
-$this->pageTitle = 'Мой педиатр - онлайн чат';
-?>
-
 <!DOCTYPE html>
 <html lang="ru" class="no-js">
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Happy Girafe</title>
+    <title>Мой педиатр - онлайн чат</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
     <meta name="viewport" content="width=1024, initial-scale=1.0" />

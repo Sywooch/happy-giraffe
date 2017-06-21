@@ -37,8 +37,6 @@ class WebUser extends CWebUser
     {
         $model = $this->getModel();
 
-        OnlineManager::online($model, true);
-
         if (! $fromCookie) {
             Yii::import('site.frontend.modules.cook.models.*');
             CookRecipe::checkRecipeBookAfterLogin($model->id);

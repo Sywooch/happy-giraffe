@@ -148,6 +148,7 @@ return array(
         'iframe/api/<_a>' => 'iframe/api/<_a>',
         'iframe/admin' => 'iframe/admin/default/index',
         'iframe/admin/<_a>' => 'iframe/admin/default/<_a>',
+            'online-chat' => 'iframe/landing/index',
 
         /* SOM */
         'status' => 'som/status/default/index',

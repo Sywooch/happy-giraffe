@@ -658,8 +658,8 @@ return array(
         'lite_pediatrician' => array(
             'baseUrl' => '/',
             'css' => array(
-                'app/builds/static/css/main.min.css',
-                'lite/css/dev/all.css'
+                'lite/css/min/pediator.css',
+                'app/builds/static/css/main.min.css'
             )
         ),
         'register_form' => [

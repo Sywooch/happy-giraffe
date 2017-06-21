@@ -79,9 +79,6 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(403);
         }
         $form->attributes = $data;
-
-        // var_dump($form->getAttributes()); exit;
-
         $this->success = $form->validate() && $form->save();
         $this->data = [
             'form' => $form,

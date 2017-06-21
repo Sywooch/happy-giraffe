@@ -124,9 +124,9 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->profile->specialization = $this->text;
         $this->profile->greeting = $this->greeting;
 
-        $this->profile->educationObject->models = $this->education;
+        // $this->profile->educationObject->models = $this->education;
         $this->profile->coursesObject->models = $this->courses;
-
+        
         return $this->user->save() && $this->profile->save() && SpecialistsManager::assignSpecializations($this->specializations, $this->profileId, true);
     }
 

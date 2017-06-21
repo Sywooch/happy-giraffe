@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $this LandingController 
+ */
+$this->pageTitle = 'Мой педиатр - онлайн чат';
+?>
+
 <!DOCTYPE html>
 <html lang="ru" class="no-js">
 

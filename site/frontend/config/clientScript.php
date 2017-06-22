@@ -658,7 +658,7 @@ return array(
         'lite_pediatrician' => array(
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/pediator.css',
+                'lite/css/dev/all.css',
                 'app/builds/static/css/main.min.css'
             )
         ),

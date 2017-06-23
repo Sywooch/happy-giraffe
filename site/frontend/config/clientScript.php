@@ -398,7 +398,7 @@ return array(
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',
             ),
-            'depends' => array('jquery', 'jquery.ui.widget'),
+            'depends' => array('jquery', 'jquery.ui.widget', 'jcrop'),
         ),
         'ko_menu' => array(
             'baseUrl' => '/',

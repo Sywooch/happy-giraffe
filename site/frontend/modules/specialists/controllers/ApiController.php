@@ -117,7 +117,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             {
                 $attrs['profile_id'] = $profileId;
 
-                $isExists = !is_null($attrs['id']) && SpecialistsCareer::model()->exists('id = ' . $attrs['id']);
+                $isExists = isset($attrs['id']) && SpecialistsCareer::model()->exists('id = ' . $attrs['id']);
 
                 $model = !$isExists ? new SpecialistsCareer() : SpecialistsCareer::model()->findByPk($attrs['id']);
                 $model->setAttributes($attrs);
@@ -161,12 +161,12 @@ class ApiController extends \site\frontend\components\api\ApiController
         try
         {
             $resp = [];
-
+            
             foreach ($data as $attrs)
             {
                 $attrs['profile_id'] = $profileId;
 
-                $isExists = !is_null($attrs['id']) && SpecialistsEducation::model()->exists('id = ' . $attrs['id']);
+                $isExists = isset($attrs['id']) && SpecialistsEducation::model()->exists('id = ' . $attrs['id']);
 
                 $model = !$isExists ? new SpecialistsEducation() : SpecialistsEducation::model()->findByPk($attrs['id']);
                 $model->setAttributes($attrs);

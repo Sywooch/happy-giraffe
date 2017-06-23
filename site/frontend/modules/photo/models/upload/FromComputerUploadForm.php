@@ -27,7 +27,7 @@ class FromComputerUploadForm extends UploadForm
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
-            array('file', 'file', 'maxSize' => 1024 * 1024 * 8, 'tooLarge' => 'Файл больше 8мб'),
+            array('file', 'file', 'maxSize' => 1024 * 1024 * 8, 'tooLarge' => 'Файл больше 8м'),
         ));
     }
 

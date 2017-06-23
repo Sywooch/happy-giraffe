@@ -183,6 +183,11 @@ class DefaultController extends \LiteController
 
     public function actionProfile()
     {
+        \Yii::app()->request->cookies['avatar'] = new \CHttpCookie(
+            'avatar',
+            \Yii::app()->user->getModel()->getAvatarUrl(9999)
+        );
+        
         $form = new ProfileForm();
         $form->initialize(\Yii::app()->user->id);
         $this->render('new_profile', compact('form'));

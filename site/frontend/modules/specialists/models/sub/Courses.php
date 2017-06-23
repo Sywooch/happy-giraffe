@@ -27,6 +27,13 @@ class Courses extends Common
         ]);
     }
     
+    public function rules()
+    {
+        return array_merge(parent::rules(), [
+            ['spec, organization', 'safe']
+        ]);
+    }
+    
     /**
      * @inheritdoc
      * @return array

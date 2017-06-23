@@ -61,7 +61,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             ['gender', 'in', 'range' => [User::GENDER_MALE, User::GENDER_FEMALE]],
 
             // ['education', 'validateRelatedModels'],
-            ['courses', 'validateRelatedModels'],
+            ['courses', 'validateRelatedModels']
         ];
     }
 
@@ -96,7 +96,6 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     public function initialize($profileId)
     {
         $this->profileId = $profileId;
-
         $this->gender = $this->user->gender;
         $this->firstName = $this->user->first_name;
         $this->middleName = $this->user->middle_name;
@@ -107,7 +106,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->text = $this->profile->specialization;
         $this->greeting = $this->profile->greeting;
         $this->specializations = $this->getSpecializations();
-
+    
         // $this->education = $this->profile->educationObject->models;
         $this->courses = $this->profile->coursesObject->models;
     }
@@ -123,8 +122,6 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->profile->placeOfWork = $this->placeOfWork;
         $this->profile->specialization = $this->text;
         $this->profile->greeting = $this->greeting;
-
-        // $this->profile->educationObject->models = $this->education;
         $this->profile->coursesObject->models = $this->courses;
         
         return $this->user->save() && $this->profile->save() && SpecialistsManager::assignSpecializations($this->specializations, $this->profileId, true);
@@ -134,7 +131,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     {
         return [
             'profileId' => $this->profileId,
-
+            'email' => $this->user->email,
             'avatarUrl' => $this->user->getAvatarUrl(),
             'gender' => $this->gender,
             'firstName' => $this->firstName,

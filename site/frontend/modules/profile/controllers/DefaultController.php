@@ -50,7 +50,7 @@ class DefaultController extends HController
             $users = array_map(function ($friend) {
                 return array(
                     'id' => null,
-                    'user' => FriendsManager::userToJson($friend->friend),
+                    'user' => FriendsManager::userToJsonNoCalculation($friend->friend)
                 );
             }, $dataProvider->getData());
             $data = compact('users');

@@ -88,4 +88,27 @@ class FriendsManager
             'blogPostsCount' => (int)$user->blogPostsCount
         );
     }
+
+    /**
+     * @param User $user
+     * @param bool $isFriend
+     * @return array
+     */
+    public static function userToJsonNoCalculation($user, $isFriend = false)
+    {
+        return array(
+            'id' => $user->id,
+            'online' => (bool)$user->online,
+            'firstName' => $user->first_name,
+            'lastName' => $user->last_name,
+            'ava' => $user->getAvatarUrl(Avatar::SIZE_LARGE),
+            'age' => $user->normalizedAge,
+            'location' => null,
+            'family' => null,
+            'isFriend' => $isFriend,
+            'gender' => $user->gender,
+            'photoCount' => 0,
+            'blogPostsCount' => (int)$user->blogPostsCount
+        );
+    }
 }

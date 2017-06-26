@@ -1,12 +1,12 @@
 <?php
 
-use site\frontend\modules\iframe\models\Activity;
+use site\frontend\modules\iframe\models\QaAnswer;
 use site\frontend\modules\iframe\components\QaObjectList;
 use site\frontend\modules\iframe\models\QaAnswerVote;
 
-/*@var $data Activity */
+/*@var $data QaAnswer */
 
-$user = $this->getUserInfo($data->userId);
+$user = $this->getUserInfo($data->authorId);
 
 $renderData = [
     'data' => $data,
@@ -14,38 +14,16 @@ $renderData = [
     'widget' => $this
 ];
 
-if (!$this->ownerId)
+$currentUser = \Yii::app()->user;
+$renderData['data'] = $data;
+
+if (!$currentUser->isGuest)
 {
-    $template = 'site.frontend.modules.iframe.widgets.activity.views.other';
-    $this->controller->renderPartial($template, $renderData);
-    return;
+    $renderData['additionalData']['votesList'] = new QaObjectList(QaAnswerVote::model()->user($currentUser->id)->findAll());
 }
 
-switch ($data->typeId) {
-    case Activity::TYPE_ANSWER_PEDIATRICIAN:
-    case Activity::TYPE_COMMENT:
-        $answerModel = $data->getDataObject();
+$template = 'site.frontend.modules.iframe.views._new_answers';
 
-        if ($answerModel) {
-
-            $currentUser = \Yii::app()->user;
-            $renderData['data'] = $answerModel;
-
-            if (!$currentUser->isGuest)
-            {
-                $renderData['additionalData']['votesList'] = new QaObjectList(QaAnswerVote::model()->user($currentUser->id)->findAll());
-            }
-
-            $template = 'site.frontend.modules.iframe.views._new_answers';
-        } else {
-            $template = 'site.frontend.modules.iframe.widgets.activity.views.other';
-        }
-        break;
-
-    default:
-        $template = 'site.frontend.modules.iframe.widgets.activity.views.other';
-        break;
-}
 $this->controller->renderPartial($template, $renderData);
 
 ?>

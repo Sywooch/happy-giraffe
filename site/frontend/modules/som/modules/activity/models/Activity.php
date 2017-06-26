@@ -201,7 +201,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
                     FROM (
                         SELECT *
                         FROM ' . Activity::model()->tableName() . '
-                        WHERE 
+                        WHERE
                             typeId <> "' . static::TYPE_STATUS . '"
                             AND
                             userId  = ' . $userId . '
@@ -238,12 +238,23 @@ class Activity extends \HActiveRecord implements \IHToJSON
 
     /**
      * Исключить ответы к сервису "Мой педиатр"
-     *
+     * @param bool $limited Использовать лимитирование по времени
+     * @param int $sliceRange Диапазон времени выбираемых событий (в сутках)
      * @return $this
      * @author Sergey Gubarev
      */
-    public function excludePediatricianAnswers()
+    public function excludePediatricianAnswers($limited = true, $sliceRange = 30)
     {
+
+        $day = 60 * 60 * 24; // Количество секунд в сутках
+        $now = time(); // Текущее время
+        $limitSql = $limited
+        ? 'AND
+          qa__a.dtimeCreate > ' . ($now - ($day * $sliceRange)) . '
+          AND
+          qa__q.dtimeCreate > ' . ($now - ($day * $sliceRange))
+        : '';
+
         $sqlForAnswers = sprintf(
             'SELECT MD5(qa__a.id)
                 FROM %s qa__a
@@ -256,24 +267,21 @@ class Activity extends \HActiveRecord implements \IHToJSON
                     qa__q.categoryId != %d
                     AND
                     qa__q.isRemoved = %d
+                    %s
             ',
 
             QaAnswer::model()->tableName(),
             QaQuestion::model()->tableName(),
             QaAnswer::PUBLISHED,
             QaCategory::PEDIATRICIAN_ID,
-            QaQuestion::NOT_REMOVED
+            QaQuestion::NOT_REMOVED,
+            $limitSql
         );
-
-
-
-        $cmdForAnswers = \Yii::app()->getDb()->createCommand($sqlForAnswers);
-        $answersHashList = $cmdForAnswers->queryColumn();
 
         $criteria = new \CDbCriteria();
         $criteria
             ->compare('typeId', '=' . static::TYPE_COMMENT)
-            ->addInCondition('hash', $answersHashList)
+		    ->addCondition('hash in ('.$sqlForAnswers.')')
         ;
 
         $this->getDbCriteria()->mergeWith($criteria, 'OR');

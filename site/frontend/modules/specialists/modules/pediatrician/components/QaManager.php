@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\specialists\modules\pediatrician\components;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaRating;
@@ -63,6 +64,33 @@ class QaManager
 
         return !is_null($rating) ? $rating->toJSON() : null;
     }
+
+	/**
+	 * Получить кол-во ответов и "спасибо" по юзеру через пересчет реальных данных
+	 *
+	 * @param integer $userId
+	 *
+	 * @return array
+	 */
+	public static function getCalculatedAnswerCountAndVotesByUserId($userId)
+	{
+
+		return array(
+			'answers_count' => QaAnswer::model()->user($userId)->with('question')->count([
+				'select' => 'COUNT(DISTINCT question.authorId) AS c',
+			]),
+			'votes_count' => QaAnswerVote::model()->count([
+				'with' => [
+					'answer' => [
+						'scopes' => [
+							'user' => [$userId],
+						],
+						'joinType' => 'INNER JOIN',
+					],
+				]
+			])
+		);
+	}
 
     /**
      * @param $questionId

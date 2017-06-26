@@ -76,7 +76,6 @@
 
     <div class="layout-loose layout-loose__white">
         <?= $content ?>
-        <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
     </div>
 </div>
 <div class="popup-container display-n">

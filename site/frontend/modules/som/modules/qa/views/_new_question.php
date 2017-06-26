@@ -20,7 +20,7 @@
             </a>
             <?php if (!is_null($data->tag) && is_null($data->attachedChild)): ?>
                 <div class="b-answer__footer b-answer-footer">
-                	<a href="<?=UrlCreator::create(UrlCreator::create(null)->getPath(), ['filter' => ['tag' => $data->tag->id]])?>" class="b-answer-footer__age b-text--link-color"><?=$data->tag->getTitle()?></a>
+					<a href="<?=UrlCreator::create(UrlCreator::create(null)->getPath(), ['filter' => ['tag' => $data->tag->id]])?>" class="b-answer-footer__age b-text--link-color"><i aria-hidden="true" class="icon icon-tag"></i>&nbsp;&nbsp; <?=$data->tag->getTitle()?></a>
                 </div>
   			<?php endif; ?>
   			<?php
@@ -42,7 +42,7 @@
     			</div>
     		   <?php } elseif (!is_null($arrFooterData['tag'])) { ?>
     			<div class="b-answer__footer b-answer-footer">
-                	<a href="<?=UrlCreator::create(UrlCreator::create(null)->getPath(), ['filter' => ['tag' => $arrFooterData['tag']->id]])?>" class="b-answer-footer__age b-text--link-color"><?=$arrFooterData['tag']->getTitle()?></a>
+					<a href="<?=UrlCreator::create(UrlCreator::create(null)->getPath(), ['filter' => ['tag' => $data->tag->id]])?>" class="b-answer-footer__age b-text--link-color"><i aria-hidden="true" class="icon icon-tag"></i>&nbsp;&nbsp; <?=$arrFooterData['tag']->getTitle()?></a>
                 </div>
     		   <?php }?>
 		   <?php }?>

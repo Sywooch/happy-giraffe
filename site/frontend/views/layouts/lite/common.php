@@ -67,7 +67,9 @@
     </script>
     <div class="js-overlay-menu overlay-menu js-overlay-pediator"></div>
     <div class="js-overlay-user overlay-user"></div>
+
 <?php Yii::app()->ads->showCounters(); ?>
+
 <?php if (Yii::app()->user->checkAccess('editMeta')):?>
     <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
 <?php endif ?>
@@ -78,8 +80,10 @@
         <?= $content ?>
     </div>
 </div>
+
 <div class="popup-container display-n">
 </div>
+
 <!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
 <script type="text/javascript">
     require(['lite']);

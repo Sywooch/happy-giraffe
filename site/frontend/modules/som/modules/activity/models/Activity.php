@@ -201,7 +201,7 @@ class Activity extends \HActiveRecord implements \IHToJSON
                     FROM (
                         SELECT *
                         FROM ' . Activity::model()->tableName() . '
-                        WHERE 
+                        WHERE
                             typeId <> "' . static::TYPE_STATUS . '"
                             AND
                             userId  = ' . $userId . '
@@ -244,6 +244,10 @@ class Activity extends \HActiveRecord implements \IHToJSON
      */
     public function excludePediatricianAnswers()
     {
+
+        $day = 60 * 60 * 24; // Количество секунд в сутках
+        $now = time(); // Текущее время
+        $sliceRange = 30; // Диапазон времени выбираемых событий (в сутках)
         $sqlForAnswers = sprintf(
             'SELECT MD5(qa__a.id)
                 FROM %s qa__a
@@ -256,6 +260,10 @@ class Activity extends \HActiveRecord implements \IHToJSON
                     qa__q.categoryId != %d
                     AND
                     qa__q.isRemoved = %d
+                    AND
+                    qa__a.dtimeCreate > ' . ($now - ($day * $sliceRange)) . '
+                    AND
+                    qa__q.dtimeCreate > ' . ($now - ($day * $sliceRange)) . '
             ',
 
             QaAnswer::model()->tableName(),

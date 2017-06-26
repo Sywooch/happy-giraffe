@@ -177,7 +177,7 @@ class Comment extends \Comment implements \IHToJSON
         } elseif (!isset($entity['entity_id'])) {
             $entity['entity_id'] = $entity['entityId'];
         }
-        $dependency = new \CDbCacheDependency("SELECT COUNT(id) FROM " . Comment::model()->tableName() . " WHERE entity = :entity AND entity_id = :entity_id");
+        $dependency = new \CDbCacheDependency("SELECT MAX(updated) FROM " . Comment::model()->tableName() . " WHERE entity = :entity AND entity_id = :entity_id");
         $dependency->params = array(
             ':entity' => $entity['entity'],
             ':entity_id' => $entity['entity_id'],

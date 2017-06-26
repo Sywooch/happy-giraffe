@@ -23,8 +23,8 @@
         $cs
             ->registerCssFile('/redactor/redactor.css')
             ->registerCssFile('/stylesheets/common.css')
+            ->registerCssFile('/stylesheets/common-new.css')
             ->registerCssFile('/stylesheets/global.css')
-            ->registerCssFile('/lite/css/dev/all.css')
             ->registerCssFile('/app/builds/static/css/separate-css-sample.min.css');
             
         if(!$cs->useAMD)

@@ -265,15 +265,10 @@ class Activity extends \HActiveRecord implements \IHToJSON
             QaQuestion::NOT_REMOVED
         );
 
-
-
-        $cmdForAnswers = \Yii::app()->getDb()->createCommand($sqlForAnswers);
-        $answersHashList = $cmdForAnswers->queryColumn();
-
         $criteria = new \CDbCriteria();
         $criteria
             ->compare('typeId', '=' . static::TYPE_COMMENT)
-            ->addInCondition('hash', $answersHashList)
+		    ->addCondition('hash in ('.$sqlForAnswers.')')
         ;
 
         $this->getDbCriteria()->mergeWith($criteria, 'OR');

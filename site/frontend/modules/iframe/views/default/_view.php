@@ -8,6 +8,8 @@ use site\frontend\modules\iframe\widgets\answers\AnswersWidget;
  * @var QaQuestion $question
  */
 
+$this->pageTitle = 'Вопрос - ' . $question->title;
+
 ?>
 
 <?php

@@ -16,6 +16,11 @@ use site\frontend\modules\iframe\models\qaTag\QaTagManager;
 use site\frontend\modules\iframe\models\Pediatrician;
 use site\frontend\modules\iframe\modules\admin\models\FramePartners;
 
+use site\frontend\modules\iframe\models\UsersList;
+use site\frontend\modules\som\modules\qa\models\QaRating;
+
+
+
 class DefaultController extends QaController
 {
     const TAB_NEW = 'new-q';
@@ -70,13 +75,23 @@ class DefaultController extends QaController
      */
     public function actionPediatricianList()
     {
-        $data = Pediatrician::model()->getData();
-        $dp = new \CArrayDataProvider($data['rows'], array(
+        $criteria = new \CDbCriteria;
+        $criteria->addCondition('deleted=0');
+        $criteria->addCondition('blocked=0');
+        $criteria->addCondition('id IN (SELECT id FROM specialists__profiles)');
+        $criteria->join = 'LEFT JOIN ' .QaRating::model()->tableName().' AS tr ON id = tr.user_id AND category_id = ' . QaCategory::PEDIATRICIAN_ID;
+        $criteria->addCondition('tr.total_count > 0');
+
+        $sort = new \CSort();
+        $sort->defaultOrder = 'total_count desc';
+
+        $dp =  new \CActiveDataProvider(UsersList::model(), array(
             'id'=>'pediatrician-list',
-            'keyField' => false,
+            'criteria' => $criteria,
             'pagination'=>array(
                 'pageSize'=>12,
             ),
+            'sort' => $sort
         ));
 
         $this->render('pediatrician-list',compact('dp'));

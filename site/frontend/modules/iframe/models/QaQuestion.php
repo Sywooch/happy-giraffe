@@ -231,7 +231,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
             ],
             'notificationContentBehavior' => [
                 'class' => ContentBehavior::class,
-                'entityClass' => QaQuestion::class,
+                'entityClass' => \site\frontend\modules\som\modules\qa\models\QaQuestion::class,
             ],
             QaBehavior::class,
         ];

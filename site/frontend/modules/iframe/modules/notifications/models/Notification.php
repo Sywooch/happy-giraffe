@@ -166,10 +166,26 @@ class Notification extends \EMongoDocument implements \IHToJSON
     }
 
     /**
-     *
      * @return int Сумма всех непрочитанных уведомлений текущего пользователя
      */
     public static function getUnreadSum()
+    {
+        return self::getSum('$unreadCount');
+    }
+
+    /**
+     * @return int Сумма всех прочитанных уведомлений текущего пользователя
+     */
+    public static function getReadSum()
+    {
+        return self::getSum('$readCount');
+    }
+
+    /**
+     * @param $field
+     * @return int
+     */
+    protected static function getSum($field)
     {
         $res = self::model()->getCollection()->aggregate(
             [
@@ -177,7 +193,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
                     '$match' => ['userId' => (int) \Yii::app()->user->id],
                 ],
                 [
-                    '$group' => ['_id' => '$userId', 'count' => ['$sum' => '$unreadCount']]
+                    '$group' => ['_id' => '$userId', 'count' => ['$sum' => $field]]
                 ]
             ]
         );

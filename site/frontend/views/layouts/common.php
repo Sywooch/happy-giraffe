@@ -21,12 +21,13 @@
         <?php
         $cs = Yii::app()->clientScript;
         $cs
+            ->registerCssFile('/app/builds/static/css/separate-css-sample.min.css')
             ->registerCssFile('/redactor/redactor.css')
-            ->registerCssFile('/stylesheets/common.css')
-            ->registerCssFile('/stylesheets/global.css')
-            ->registerCssFile('/new/css/all1.css')
-            ->registerCssFile('/app/builds/static/css/separate-css-sample.min.css');
-            
+            ->registerCssFile('/stylesheets/src/global.dev.css')
+            ->registerCssFile('/stylesheets/src/common.dev.css');
+
+
+
         if(!$cs->useAMD)
             $cs
                 ->registerCoreScript('jquery')

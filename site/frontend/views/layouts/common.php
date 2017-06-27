@@ -23,8 +23,8 @@
         $cs
             ->registerCssFile('/app/builds/static/css/separate-css-sample.min.css')
             ->registerCssFile('/redactor/redactor.css')
-            ->registerCssFile('/stylesheets/src/global.dev.css')
-            ->registerCssFile('/stylesheets/src/common.dev.css');
+            ->registerCssFile('/stylesheets/src/global.css')
+            ->registerCssFile('/stylesheets/src/common.css');
 
 
 

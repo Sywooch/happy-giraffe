@@ -257,19 +257,22 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success  = true;
         $this->data     = $arr;
     }
-
+    
+    /**
+     * Отправить почту - ВУЗ не найден
+     *
+     * @param string $name Название ВУЗа
+     * @author Sergey Gubarev
+     */
     public function actionSendUniversityEmail($name)
     {
         $to         = 'info@happy-giraffe.ru';
         $subject    = 'Не нашли Ваш ВУЗ?';
         $message    = strip_tags($name);
 
-        if (mail($to, $subject, $message))
-        {
-            $this->success = true;
-        }
+        $this->success = mail($to, $subject, $message);
     }
-
+    
     public function actionValidate(array $data)
     {
         $form = new ProfileForm();

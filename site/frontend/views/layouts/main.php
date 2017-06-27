@@ -5,7 +5,7 @@ $cs = Yii::app()->clientScript;
 if(! $cs->useAMD) {
     Yii::app()->clientScript
         ->registerCoreScript('yiiactiveform')
-        ->registerPackage('ko_layout')
+        //->registerPackage('ko_layout')
         ->registerPackage('ko_post')
         ->registerPackage('ko_menu')
     ;

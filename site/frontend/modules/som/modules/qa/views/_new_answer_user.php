@@ -20,10 +20,12 @@
             ]);?>
         </div>
     </a>
+    <?php if($data->question): ?>
     <a class="b-block b-block-body" href="<?=$data->question->url?>">
         <div class="b-answer__body b-answer-body">
             <p class="b-pediator-answer__text"><?=strip_tags($data->text)?></p>
             <span class="b-text--link-color b-title--bold b-title--h9"><?=strip_tags($data->question->title)?></span>
         </div>
     </a>
+    <?php endif; ?>
 </div>

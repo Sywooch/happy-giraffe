@@ -26,11 +26,11 @@ class VersionManager
 
     public function getCurrentVersion()
     {
-        $model = UpdateLog::model()->orderDesc()->find();
-        return $model->version;
+        $model = UpdateLog::model()->orderDesc()->findAll(['limit' => 1]);
+        return empty($model) ? null : $model[0]->version;
     }
     
-    protected function getActualVersion()
+    public function getActualVersion()
     {
         return file_get_contents(self::VERSION_DESTINATION);
     }

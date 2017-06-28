@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\specialists\models;
+use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\specialists\models\sub\MultipleRowsModel;
 use site\frontend\modules\specialists\components\SpecialistsManager;
 use site\frontend\modules\specialists\models\specialistsAuthorizationTasks\AuthorizationTypeEnum;
@@ -25,6 +26,7 @@ use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
  * @property SpecialistSpecialization[] $specializations
  * @property SpecialistsCareer[] $career
  * @property SpecialistsEducation[] $educationTest
+ * @property \site\frontend\modules\specialists\models\SpecialistChatsStatistic $chat_statistics
  */
 class SpecialistProfile extends \HActiveRecord
 {
@@ -77,9 +79,14 @@ class SpecialistProfile extends \HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'site\frontend\modules\users\models\User', 'id'),
+			'chat_statistics' => array(self::HAS_ONE, 'site\frontend\modules\specialists\models\SpecialistChatsStatistic', 'user_id'),
 			'specializations' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistSpecialization', 'specialists__profiles_specializations(profileId, specializationId)', 'scopes' => ['sorted']),
             'career' => [self::HAS_MANY, SpecialistsCareer::class, 'profile_id'],
-            'educationTest' => [self::HAS_MANY, SpecialistsEducation::class, 'profile_id']
+            'educationTest' => [self::HAS_MANY, SpecialistsEducation::class, 'profile_id'],
+			'rating' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaRating', 'user_id',
+				'on'        => 'rating.category_id = :category_id',
+				'params'    => [':category_id' => QaCategory::PEDIATRICIAN_ID]
+            ],
 		);
 	}
 
@@ -201,4 +208,79 @@ class SpecialistProfile extends \HActiveRecord
 		}, $this->specializations)) : '';
 	}
 
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function isOnline()
+	{
+		if (!isset($this->getDbCriteria()->with['user'])) {
+			$this->getDbCriteria()->with[] = 'user';
+		}
+
+		$this->getDbCriteria()->compare('user.online', 1);
+
+		return $this;
+	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function isOffline()
+	{
+		if (!isset($this->getDbCriteria()->with['user'])) {
+			$this->getDbCriteria()->with[] = 'user';
+		}
+
+		$this->getDbCriteria()->compare('user.online', 0);
+
+		return $this;
+	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function inChat()
+	{
+		if (!isset($this->getDbCriteria()->with['user'])) {
+			$this->getDbCriteria()->with[] = 'user';
+		}
+
+		$this->getDbCriteria()->compare('user.is_in_chat', 1);
+
+		return $this;
+	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function authorized()
+	{
+		$this->getDbCriteria()->compare('authorization_status', AuthorizationEnum::ACTIVE);
+
+		return $this;
+	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function notAuthorized()
+	{
+		$this->getDbCriteria()->compare('authorization_status', AuthorizationEnum::NOT_ACTIVE);
+
+		return $this;
+	}
+
+	/**
+	 * @return SpecialistProfile
+	 */
+	public function hasRating()
+	{
+		if (!isset($this->getDbCriteria()->with['rating'])) {
+			$this->getDbCriteria()->with[] = 'rating';
+		}
+
+		$this->getDbCriteria()->compare('rating.total_count', '> 0');
+
+		return $this;
+	}
 }

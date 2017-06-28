@@ -276,7 +276,7 @@ return array(
                 'jquery',
                 'ko_upload',
                 'redactor',
-                'imagesloaded',
+                'imagesLoaded',
             ),
         ),
         'history' => array(

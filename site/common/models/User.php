@@ -34,6 +34,7 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property string $blog_description
  * @property int registration_source
  * @property int registration_finished
+ * @property int $is_in_chat
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\geo2\models\UserLocation $location

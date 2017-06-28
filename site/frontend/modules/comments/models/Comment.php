@@ -177,7 +177,7 @@ class Comment extends \Comment implements \IHToJSON
         } elseif (!isset($entity['entity_id'])) {
             $entity['entity_id'] = $entity['entityId'];
         }
-        $dependency = new \CDbCacheDependency("SELECT COUNT(id) FROM " . Comment::model()->tableName() . " WHERE entity = :entity AND entity_id = :entity_id");
+        $dependency = new \CDbCacheDependency("SELECT MAX(updated) FROM " . Comment::model()->tableName() . " WHERE entity = :entity AND entity_id = :entity_id");
         $dependency->params = array(
             ':entity' => $entity['entity'],
             ':entity_id' => $entity['entity_id'],
@@ -254,6 +254,18 @@ class Comment extends \Comment implements \IHToJSON
         }
 
         return $model['entity'] . '_' . $model['entityId'];
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Comment
+     */
+    public function byNewEntity($id)
+    {
+        $this->getDbCriteria()->compare('new_entity_id', $id);
+
+        return $this;
     }
 }
 

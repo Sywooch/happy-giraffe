@@ -131,7 +131,10 @@ return array(
         ],
         'syncCareerSpecialists' => [
             'class' => \site\frontend\modules\specialists\commands\SyncCareerCommand::class
-        ]
+        ],
+        'authStatusFix' => [
+            'class' => \site\frontend\modules\api\modules\v2_1\commands\AuthStatusFix::class
+        ],
     ),
     'import' => array(
         'site.common.models.User',

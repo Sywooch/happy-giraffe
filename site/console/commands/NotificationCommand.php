@@ -41,6 +41,9 @@ class NotificationCommand extends CConsoleCommand
 
     public function actionSendNotifications()
     {
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        
         $models = QaAnswer::model()
                     ->resetScope()
                     ->findAll([

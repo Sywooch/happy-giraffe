@@ -24,16 +24,21 @@ class FiasCommand extends \CConsoleCommand
         $fiasManager->import();
     }
 
-    public function actionUpdate()
+    public function actionUpdate($version = null)
     {
         $updateManager = new UpdateManager();
         echo sprintf('Текущая версия: %s', $updateManager->versionManager->getCurrentVersion()) . PHP_EOL;
-        $updateManager->update();
+        $updateManager->update($version);
         echo sprintf('%d записей создано, %d обновлено, %d удалено', $updateManager->created, $updateManager->updated, $updateManager->deleted) . PHP_EOL;
     }
     
     public function actionSetCurrentVerstion($version = false)
     {
         (new VersionManager())->setCurrentVersion($version);
+    }
+
+    public function actionGetCurrentVersion()
+    {
+        echo (new VersionManager())->getCurrentVersion() . "\n";
     }
 }

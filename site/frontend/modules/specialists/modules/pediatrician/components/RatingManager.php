@@ -8,6 +8,7 @@ namespace site\frontend\modules\specialists\modules\pediatrician\components;
 
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaRating;
+use User;
 
 class RatingManager
 {
@@ -37,6 +38,11 @@ class RatingManager
             ],
         ];
         $criteria->compare('category_id', QaCategory::PEDIATRICIAN_ID);
+	    // @ToDo: add condition for banned status
+	    //        (antispam__status.user_id = user_id
+	    //         and antispam__status.status in (AntispamStatusManager::STATUS_BLACK = 3, AntispamStatusManager::STATUS_BLOCKED = 4)
+
+	    $criteria->addCondition('user.deleted=0 and user.status='.\User::STATUS_ACTIVE);
         $criteria->order = 'total_count DESC';
         return $criteria;
     }

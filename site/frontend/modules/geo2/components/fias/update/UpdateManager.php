@@ -18,30 +18,32 @@ use site\frontend\modules\geo2\Geo2Module;
 
 class UpdateManager
 {
-    const ACTIVE_TABLES = [
+    public static $activeTables = [
         'ADDROBJ'
     ];
     
     public $created = 0;
     public $updated = 0;
     public $deleted = 0;
-    
-    public $deltaGetter;
+
     public $versionManager;
     
     public function __construct()
     {
-        $this->deltaGetter = new ArchiveGetter('http://fias.nalog.ru/Public/Downloads/Actual/fias_delta_xml.rar');
         $this->versionManager = new VersionManager();
     }
 
-    public function update()
+    public function update($version = null)
     {
         if (! $this->versionManager->isUpdateRequired()) {
             return;
         }
-        
-        $deltaDestination = $this->deltaGetter->get();
+
+        if ($version == null) {
+            $version = $this->versionManager->getActualVersion();
+        }
+
+        $deltaDestination = (new ArchiveGetter($this->getUrlByVersion($version)))->get();
         foreach (new \DirectoryIterator($deltaDestination) as $file) {
             if ($file->isDot()) {
                 continue;
@@ -49,12 +51,20 @@ class UpdateManager
 
             $this->processFile($file);
         }
+        
+        $this->versionManager->setCurrentVersion($version);
+    }
+
+    protected function getUrlByVersion($version)
+    {
+        list($d, $m, $y) = explode('.', $version);
+        return "http://fias.nalog.ru/Public/Downloads/$y$m$d/fias_delta_xml.rar";
     }
     
     protected function processFile(\DirectoryIterator $file)
     {
         $tableName = FileNameHelper::filenameToTable($file->getFilename());
-        if (! in_array($tableName, self::ACTIVE_TABLES)) {
+        if (! in_array($tableName, self::$activeTables)) {
             return;
         }
         
@@ -76,12 +86,9 @@ class UpdateManager
 
                 if ($exists) {
                     $pk = $row[$pkName];
-//                    unset($row[$pkName]);
-//                    \Yii::app()->db->createCommand()->update("$prefixedTableName", $row, $pkName . ' = :pk', [':pk' => $pk]);
                     FiasModifier::instance()->update($prefixedTableName, $row, $pk);
                     $this->updated++;
                 } else {
-//                    \Yii::app()->db->createCommand()->insert("$prefixedTableName", $row);
                     FiasModifier::instance()->insert($prefixedTableName, $row);
                     $this->created++;
                 }

@@ -4,6 +4,7 @@ class m170524_080548_seeding_speciliasts__universities extends CDbMigration
 {
 	public function up()
 	{
+	    $this->execute('SET FOREIGN_KEY_CHECKS=0;');
 	    $this->execute(
         'INSERT INTO specialists__universities (`group_id`, `country_id`, `city_id`, `name`, `site`, `address`) VALUES
                 (1, 1, 7125, "Северный государственный медицинский университет", "www.nsmu.ru", "просп. Троицкий, 51, Архангельск, Архангельская обл., 163000"),
@@ -121,11 +122,14 @@ class m170524_080548_seeding_speciliasts__universities extends CDbMigration
                 (1, 2, 180174, "Черноморский государственный университет имени Петра Могилы", "", "");
             '
         );
+        $this->execute('SET FOREIGN_KEY_CHECKS=1;');
 	}
 
 	public function down()
 	{
+        $this->execute('SET FOREIGN_KEY_CHECKS=0;');
 	    $this->truncateTable('specialists__universities');
+        $this->execute('SET FOREIGN_KEY_CHECKS=1;');
 	}
 
 }

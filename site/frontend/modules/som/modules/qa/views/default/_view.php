@@ -67,7 +67,7 @@ $this->pageTitle = 'Мой педиатр - ' . $question->title;
     <div class="b-mobile-nav">
         <div class="b-mobile-nav__title">Мой педиатр</div>
         <div class="b-mobile-nav__right">
-            <a href="javascript:void(0);" class="b-mobile-nav__btn btn btn--default">Задать вопрос</a>
+            <a href="<?=$this->createUrl('/som/qa/default/pediatricianAddForm/')?>" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
         </div>
     </div>
     <div class="b-open-question">

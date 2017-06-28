@@ -7,7 +7,7 @@ $this->pageTitle = 'Жираф педиатр - Пульс';
 ?>
 
 <div class="landing-question pediator pediator-top"">
-<div class="questions margin-t0">
+<div class="questions">
     <ul class="items">
         <?php foreach (\site\frontend\modules\som\modules\qa\components\AnswerManagementData::process($dp->data) as $answer): ?>
             <single-answer params='answer: <?=HJSON::encode($answer)?>, hideLinks: true, showButtons: false'></single-answer>

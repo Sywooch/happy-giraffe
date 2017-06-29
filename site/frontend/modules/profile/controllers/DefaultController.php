@@ -56,6 +56,7 @@ class DefaultController extends HController
             $data = compact('users');
             echo CJSON::encode($data);
         } else {
+            Yii::app()->clientScript->useAMD = true;
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
             $this->loadUser($user_id);

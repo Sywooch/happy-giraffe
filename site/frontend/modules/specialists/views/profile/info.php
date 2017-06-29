@@ -7,6 +7,7 @@
 $this->pageTitle = $this->user->getFullName() . ' на Веселом Жирафе';
 $this->metaNoindex = true;
 $profile = $this->user->specialistProfile;
+
 ?>
 
 <?php $this->renderPartial('_userSection', ['user' => $this->user]); ?>
@@ -19,9 +20,9 @@ $profile = $this->user->specialistProfile;
                 <div class="form-edit_tx"><?=$profile->specialization?></div>
             </div>
         <?php endif; ?>
-        <?php if ($profile->careerObject->models): ?>
+        <?php if ($profile->career): ?>
             <div class="user-settings_hold"><span class="heading-sm">Опыт работы</span></div>
-            <?php $this->renderPartial('_infoTable', ['models' => $profile->careerObject->models]); ?>
+            <?php $this->renderPartial('_infoTable', ['models' => $profile->career]); ?>
         <?php endif; ?>
         <?php if ($profile->educationObject->models): ?>
             <div class="user-settings_hold"><span class="heading-sm">Образование</span></div>

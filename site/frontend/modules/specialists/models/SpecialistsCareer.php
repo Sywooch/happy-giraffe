@@ -64,6 +64,16 @@ class SpecialistsCareer extends \HActiveRecord implements \IHToJSON
             'country'   => [self::BELONGS_TO, Geo2Country::class, 'country_id'],
         ];
     }
+    
+    /**
+     * Года
+     *
+     * @return string
+     */
+    public function getYears()
+    {
+        return implode(' - ', [$this->start_year, $this->end_year]);
+    }
 
     /**
      * @return array

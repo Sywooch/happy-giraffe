@@ -38,7 +38,7 @@ class ActivityWidget extends \CWidget
      */
     public function getDataProvider()
     {
-        $model = QaAnswer::model()->user($this->ownerId)->specialists();
+        $model = QaAnswer::model()->orderDesc()->user($this->ownerId)->specialists();
 
         return new \CActiveDataProvider($model, array(
             'pagination' => array(

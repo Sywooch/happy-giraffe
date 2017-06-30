@@ -2,8 +2,6 @@
 
 namespace site\frontend\modules\iframe\models;
 
-use site\frontend\modules\som\modules\qa\models\QaCategory;
-
 class UsersList extends \site\frontend\modules\users\models\User
 {
 

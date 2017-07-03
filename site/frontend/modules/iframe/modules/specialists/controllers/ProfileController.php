@@ -21,9 +21,7 @@ class ProfileController extends QaController
     public function actionIndex($userId)
     {
         $this->loadUser($userId);
-        $dp = QaManager::getAnswersDp($userId, TRUE);
-        $dp->pagination->pageVar = 'page';
-        $this->render('index', compact('dp'));
+        $this->render('index');
     }
 
     public function actionInfo($userId)

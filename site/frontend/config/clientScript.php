@@ -135,14 +135,14 @@ return array(
                 'javascripts/base64.js',
             ),
         ),
-        'scrollTo' => array(
-            'baseUrl' => '/',
-            'amd' => true,
-            'js' => array(
-                'new/javascript/jquery.scrollTo.min.js',
-            ),
-            'depends' => array('jquery'),
-        ),
+//        'scrollTo' => array(
+//            'baseUrl' => '/',
+//            'amd' => true,
+//            'js' => array(
+//                'new/javascript/jquery.scrollTo.min.js',
+//            ),
+//            'depends' => array('jquery'),
+//        ),
         'scrollEvents' => array(
             'baseUrl' => '/',
             'amd' => true,
@@ -163,7 +163,7 @@ return array(
             ),
             'depends' => array(
                 'jquery',
-                'scrollTo',
+                //'scrollTo',
                 'scrollEvents',
                 'comet',
                 'base64',
@@ -276,7 +276,7 @@ return array(
                 'jquery',
                 'ko_upload',
                 'redactor',
-                'imagesloaded',
+                'imagesLoaded',
             ),
         ),
         'history' => array(
@@ -481,29 +481,28 @@ return array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/services-na.css',
+                'lite/css/dev/all.css',
             ),
         ),
         'lite_services_user' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/services-user.css',
+                'lite/css/dev/all.css',
             ),
         ),
         'lite_member' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/member.css',
-                'lite/css/min/member-new.css'
+                'lite/css/dev/all.css'
             ),
         ),
         'lite_member_user' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/member-user.css',
+                'lite/css/dev/all.css',
             ),
         ),
         'lite_contest_commentator' => array(
@@ -581,21 +580,13 @@ return array(
         'lite_posts_user' => array(
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/blog-user.css'
+                'lite/css/dev/all.css'
             ),
         ),
         'lite_posts' => array(
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/blog.css'
-            ),
-        ),
-        'lite_member_user' => array(
-            'baseUrl' => '/',
-            'css' => array(
-                'lite/css/min/member-photo.css',
-                'lite/css/min/member-new.css',
-                'lite/css/min/member-user.css'
+                'lite/css/dev/all.css'
             ),
         ),
         'lite_recipe' => array(
@@ -667,7 +658,7 @@ return array(
         'lite_pediatrician' => array(
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/pediator.css',
+                'lite/css/dev/all.css'
             )
         ),
         'register_form' => [

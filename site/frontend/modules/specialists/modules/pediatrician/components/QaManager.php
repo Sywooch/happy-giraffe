@@ -2,6 +2,7 @@
 
 namespace site\frontend\modules\specialists\modules\pediatrician\components;
 use site\frontend\modules\som\modules\qa\models\QaAnswer;
+use site\frontend\modules\som\modules\qa\models\QaAnswerVote;
 use site\frontend\modules\som\modules\qa\models\QaCategory;
 use site\frontend\modules\som\modules\qa\models\QaQuestion;
 use site\frontend\modules\som\modules\qa\models\QaRating;
@@ -63,6 +64,33 @@ class QaManager
 
         return !is_null($rating) ? $rating->toJSON() : null;
     }
+
+	/**
+	 * Получить кол-во ответов и "спасибо" по юзеру через пересчет реальных данных
+	 *
+	 * @param integer $userId
+	 *
+	 * @return array
+	 */
+	public static function getCalculatedAnswerCountAndVotesByUserId($userId)
+	{
+
+		return array(
+			'answers_count' => QaAnswer::model()->user($userId)->with('question')->count([
+				'select' => 'COUNT(DISTINCT question.authorId) AS c',
+			]),
+			'votes_count' => QaAnswerVote::model()->count([
+				'with' => [
+					'answer' => [
+						'scopes' => [
+							'user' => [$userId],
+						],
+						'joinType' => 'INNER JOIN',
+					],
+				]
+			])
+		);
+	}
 
     /**
      * @param $questionId
@@ -140,8 +168,13 @@ class QaManager
         LEFT JOIN ' . QaAnswer::model()->tableName() . ' answers2 ON (answers2.root_id = answers.id AND answers2.isRemoved = 0)
         LEFT JOIN ' . QaAnswer::model()->tableName() . ' answers3 ON (answers3.root_id = answers2.id AND answers3.isRemoved = 0)
         ';
+        // Выборка вопросов автор которых не удален и не заблокирован
         $criteria->addCondition('t.authorId IN (SELECT id FROM users WHERE id = t.authorId AND deleted = 0 AND blocked = 0)');
+        // Выборка вопросов, которые врач не отклонил
         $criteria->addCondition('t.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId)');
+        // Выборка вопросов, на которые поступил доп. вопрос врачу
+        // или вопросы на которые не было ответа,
+        // или на которых не было ответа другого врача
         $criteria->addCondition('
         answers.authorId = :userId AND
         answers2.authorId  IS NOT NULL AND
@@ -150,22 +183,77 @@ class QaManager
         answers.id IS NULL OR
         t.id NOT IN (SELECT questionId FROM qa__answers WHERE authorId IN (SELECT specialists__profiles.id FROM specialists__profiles))
         ');
-        $criteria->order = 't.id IN (SELECT a1.questionId FROM qa__answers a1
+
+        $day = 60 * 60 * 24; // Количество секунд в сутках
+        $now = time(); // Текущее время
+        $sliceRange = 30; // Диапазон времени выбираемых вопросов (в сутках)
+        $excludeRange = 1; // Диапазон в котором исключаются вопросы не включенные в лимит (в сутках)
+        $includeLimit = 20; // Лимит вопросов включенных в выборку
+
+// Схема выборки
+//                         |----------------------------sliceRange---------------------|
+//                         |        |-------------------excludeRange-------------------|
+//                         |        |                               |---includeLimit---|
+//                         |________|   исключается из sliceRange   |__________________|
+//                                                                                     |
+//-----------------------------------------Total rows----------------------------------|
+
+        // Выборка sliceRange
+        $criteria->addCondition('t.dtimeCreate BETWEEN ' . ($now - ($day * $sliceRange)) . ' AND ' . $now);
+
+        // Исключение из выборки excludeRange
+        $criteria->addCondition(
+            't.id NOT IN (
+            SELECT dayTable.id FROM
+                (SELECT * FROM qa__questions WHERE dtimeCreate BETWEEN '. ($now - $day * $excludeRange) .' AND '.$now.' ) dayTable
+            WHERE
+                dayTable.id NOT IN (
+                    SELECT excludeTbl.id FROM (SELECT containsTbl.id FROM qa__questions containsTbl
+                    LEFT OUTER JOIN qa__answers AS answers ON (answers.questionId = containsTbl.id)
+                    LEFT JOIN qa__answers answers2 ON (answers2.root_id = answers.id
+                                                                     AND answers2.isRemoved = 0)
+                    LEFT JOIN qa__answers answers3 ON (answers3.root_id = answers2.id
+                                                                     AND answers3.isRemoved = 0)
+                    WHERE
+                    (containsTbl.id NOT IN (SELECT questionId FROM ' . self::SKIPS_TABLE . ' WHERE userId = :userId))
+                    AND
+                    (containsTbl.authorId IN (SELECT id FROM users WHERE id = containsTbl.authorId AND deleted = 0 AND blocked = 0))
+                    AND
+                    (
+                    answers.authorId = :userId AND
+                    answers2.authorId  IS NOT NULL AND
+                    answers3.id IS NULL AND
+                    answers.root_id IS NULL OR
+                    answers.id IS NULL OR
+                    containsTbl.id NOT IN (SELECT questionId FROM qa__answers WHERE authorId IN (SELECT specialists__profiles.id FROM specialists__profiles))
+                    )
+                    AND containsTbl.dtimeCreate BETWEEN '. ($now - $day * $excludeRange) .' AND '.$now.' GROUP BY containsTbl.id ORDER BY containsTbl.dtimeCreate DESC LIMIT '.$includeLimit.') excludeTbl
+                )
+            )'
+        );
+
+        $criteria->order = '
+            t.id IN (SELECT a1.questionId FROM qa__answers a1
             LEFT JOIN qa__answers a2 FORCE INDEX FOR JOIN(`root_id_isRemoved`) ON a2.root_id = a1.id AND a2.isRemoved=0
             LEFT JOIN qa__answers a3 FORCE INDEX FOR JOIN(`root_id_isRemoved`) ON a3.root_id = a2.id AND a3.isRemoved=0
             WHERE a1.authorId = :userId AND a2.authorId NOT IN (SELECT specialists__profiles.id FROM specialists__profiles) AND a3.authorId IS NULL) DESC,
-            t.dtimeCreate >= (SELECT r1.dtimeCreate
-            FROM qa__questions AS r1
-            JOIN (SELECT (RAND() * (SELECT MAX(id) FROM qa__questions
-            	WHERE
-            	qa__questions.categoryId = 124
-            	AND qa__questions.isRemoved=0
-            )) AS id) AS r2
-            WHERE
-            r1.id >= r2.id
-            AND r1.isRemoved=0
-            ORDER BY r1.id ASC
-            LIMIT 1) ASC';
+            t.dtimeCreate DESC
+            ';
+            //
+            // Рандомная сортировка
+            //
+            // t.dtimeCreate >= (SELECT r1.dtimeCreate
+            // FROM qa__questions AS r1
+            // JOIN (SELECT (RAND() * (SELECT MAX(id) FROM qa__questions
+            //     WHERE
+            //     qa__questions.categoryId = 124
+            //     AND qa__questions.isRemoved=0
+            // )) AS id) AS r2
+            // WHERE
+            // r1.id >= r2.id
+            // AND r1.isRemoved=0
+            // ORDER BY r1.id ASC
+            // LIMIT 1) ASC'
         $criteria->params[':userId'] = $userId;
         return $criteria;
     }

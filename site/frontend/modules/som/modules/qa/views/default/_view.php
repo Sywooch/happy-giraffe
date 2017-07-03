@@ -67,7 +67,7 @@ $this->pageTitle = 'Мой педиатр - ' . $question->title;
     <div class="b-mobile-nav">
         <div class="b-mobile-nav__title">Мой педиатр</div>
         <div class="b-mobile-nav__right">
-            <a href="javascript:void(0);" class="b-mobile-nav__btn btn btn--default">Задать вопрос</a>
+            <a href="<?=$this->createUrl('/som/qa/default/pediatricianAddForm/')?>" class="b-mobile-nav__btn btn btn--default login-button" data-bind="follow: {}">Задать вопрос</a>
         </div>
     </div>
     <div class="b-open-question">
@@ -92,12 +92,8 @@ $this->pageTitle = 'Мой педиатр - ' . $question->title;
                         <?php if (!is_null($tag)) { ?>
 
                         <div class="b-question-wrapper__item">
-                            <a
-                                href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>"
-                                class="b-answer-footer__age b-text--link-color"
-                                data-bind="attr: {href: tagUrl()}, text: tagTitle()"
-                            >
-                                <?= $tag->getTitle() ?>
+                            <a href="<?= $this->createUrl('/som/qa/default/index/', ['categoryId' => $question->category->id, 'tagId' => $tag->id]) ?>" class="b-answer-footer__age b-text--link-color" data-bind="attr: {href: tagUrl()}">
+                                <i aria-hidden="true" class="icon icon-tag"></i>&nbsp;&nbsp;<span data-bind="text: tagTitle()"><?= $tag->getTitle() ?></span>
                             </a>
                         </div>
 

@@ -11,40 +11,42 @@
             <table class="redactor-popup_smiles">
                 <tbody>
                     <tr>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_1.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_2.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_3.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_4.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_5.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_6.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_7.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_8.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_1.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_2.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_3.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_4.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_5.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_6.gif"></a></td>
                     </tr>
                     <tr>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_9.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_10.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_11.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_12.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_13.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_14.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_15.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_16.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_7.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_8.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_9.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_10.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_11.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_12.gif"></a></td>
                     </tr>
                     <tr>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_17.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_18.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_19.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_20.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_21.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_22.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_23.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_24.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_13.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_14.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_15.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_16.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_17.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_18.gif"></a></td>
                     </tr>
                     <tr>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_25.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_26.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_27.gif"></a></td>
-                        <td><a href=""><img src="/images/widget/smiles-new/emoji_28.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_22.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_23.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_24.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_25.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_26.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_27.gif"></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_28.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_19.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_20.gif"></a></td>
+                        <td><a href="javascript:void(0)"><img src="/images/widget/smiles-new/emoji_21.gif"></a></td>
                     </tr>
                 </tbody>
             </table>

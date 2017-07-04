@@ -142,7 +142,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             'category' => $this->category,
             'text' => $this->text,
             'career' => $this->profile->career,
-            'education' => $this->profile->educationTest,
+            'education' => $this->profile->education,
             'courses' => $this->courses,
             'specializationsList' => $this->getSpecializationsList(),
             'specializations' => $this->specializations,

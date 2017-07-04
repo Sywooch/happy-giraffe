@@ -25,7 +25,7 @@ use site\frontend\modules\som\modules\qa\models\QaCTAnswer;
  * @property \site\frontend\modules\users\models\User $user
  * @property SpecialistSpecialization[] $specializations
  * @property SpecialistsCareer[] $career
- * @property SpecialistsEducation[] $educationTest
+ * @property SpecialistsEducation[] $education
  * @property \site\frontend\modules\specialists\models\SpecialistChatsStatistic $chat_statistics
  */
 class SpecialistProfile extends \HActiveRecord
@@ -82,7 +82,7 @@ class SpecialistProfile extends \HActiveRecord
 			'chat_statistics' => array(self::HAS_ONE, 'site\frontend\modules\specialists\models\SpecialistChatsStatistic', 'user_id'),
 			'specializations' => array(self::MANY_MANY, 'site\frontend\modules\specialists\models\SpecialistSpecialization', 'specialists__profiles_specializations(profileId, specializationId)', 'scopes' => ['sorted']),
             'career' => [self::HAS_MANY, SpecialistsCareer::class, 'profile_id'],
-            'educationTest' => [self::HAS_MANY, SpecialistsEducation::class, 'profile_id'],
+            'education' => [self::HAS_MANY, SpecialistsEducation::class, 'profile_id'],
 			'rating' => [self::HAS_ONE, 'site\frontend\modules\som\modules\qa\models\QaRating', 'user_id',
 				'on'        => 'rating.category_id = :category_id',
 				'params'    => [':category_id' => QaCategory::PEDIATRICIAN_ID]

@@ -226,7 +226,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
                 'attributes' => ['text', 'title'],
                 'options' => [
                     // 'AutoFormat.Linkify'    => true, @todo Sergey Gubarev: User warning: Cannot enable Linkify injector because a is not allowed
-                    'HTML.AllowedElements'  => ['h2', 'h3', 'h4', 'p', 'strike', 'b', 'em', 'i', 'img', 'br']
+                    'HTML.AllowedElements'  => ['h2', 'h3', 'h4', 'p', 'strike', 'b', 'em', 'i', 'img', 'br', 'strong', 'del']
                 ]
             ],
             'notificationContentBehavior' => [

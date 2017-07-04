@@ -56,6 +56,34 @@ class SpecialistsEducation extends \HActiveRecord implements \IHToJSON
             'university'    => [self::HAS_ONE, SpecialistsUniversities::class, ['id' => 'university_id']]
         ];
     }
+    
+    /**
+     * Года
+     *
+     * @return string Год окончания
+     */
+    public function getYears()
+    {
+        return $this->end_year;
+    }
+    
+    /**
+     * Место
+     *
+     * @return string В формате [университет, специализация]
+     */
+    public function getPlace() {
+        $output = [];
+        
+        if ($this->university)
+        {
+            $output[] = $this->university->name;
+        }
+        
+        $output[] = $this->specialization;
+        
+        return implode(', ', $output);
+    }
 
     /**
      * @return array

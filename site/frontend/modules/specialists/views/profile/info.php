@@ -24,9 +24,9 @@ $profile = $this->user->specialistProfile;
             <div class="user-settings_hold"><span class="heading-sm">Опыт работы</span></div>
             <?php $this->renderPartial('_infoTable', ['models' => $profile->career]); ?>
         <?php endif; ?>
-        <?php if ($profile->educationObject->models): ?>
+        <?php if ($profile->education): ?>
             <div class="user-settings_hold"><span class="heading-sm">Образование</span></div>
-            <?php $this->renderPartial('_infoTable', ['models' => $profile->educationObject->models]); ?>
+            <?php $this->renderPartial('_infoTable', ['models' => $profile->education]); ?>
         <?php endif; ?>
         <?php if ($profile->coursesObject->models): ?>
             <div class="user-settings_hold"><span class="heading-sm">Курсы повышения квалификации</span></div>

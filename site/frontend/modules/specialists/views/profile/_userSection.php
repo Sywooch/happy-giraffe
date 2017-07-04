@@ -65,8 +65,8 @@ if ($profile->category && \site\frontend\modules\specialists\models\SpecialistPr
                         'url' => ['/specialists/profile/info', 'userId' => $user->id],
                         'linkOptions' => ['class' => 'userSection_panel-a'],
                         'visible' => $profile->specialization ||
-                            $profile->careerObject->models ||
-                            $profile->educationObject->models ||
+                            $profile->career ||
+                            $profile->education ||
                             $profile->coursesObject->models,
                     ],
                 ],

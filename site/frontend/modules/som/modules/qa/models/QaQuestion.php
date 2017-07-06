@@ -230,8 +230,10 @@ class QaQuestion extends \CommonHActiveRecord implements \IHToJSON, ISubject
 
     public function unanswered()
     {
-        $this->getDbCriteria()->addCondition($this->tableAlias . '.answersCount = 0');
-
+        $criteria = new \CDbCriteria();
+        $criteria->join = "LEFT OUTER JOIN qa__answers a ON a.questionId = {$this->tableAlias}.id AND a.isRemoved = 0 AND a.isPublished = 1";
+        $criteria->addCondition('a.id IS NULL');
+        $this->getDbCriteria()->mergeWith($criteria);
         return $this;
     }
 

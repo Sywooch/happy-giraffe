@@ -35,10 +35,7 @@ $tmpl = [
 in_array($model->type, array_keys($tmpl));
 
 $urlAva = $data->user->avatarUrl?$data->user->avatarUrl:'/app/builds/static/img/assets/ava/ava-default.svg';
-$spec = false;
-if(!empty($data->user->specialistProfile)){
-    $spec = $data->user->specialistProfile->specialization;
-}
+$spec = $data->user->specialistProfile->getSpecsString();
 $idQuestion = preg_replace("/[^0-9]/", '', $model->entity->url);
 
 ?>
@@ -52,11 +49,11 @@ $idQuestion = preg_replace("/[^0-9]/", '', $model->entity->url);
     </div>
     <div class="notification-list-item-col">
         <div class="notification-list-item-text">
-            <span class="notification-list-item-text__blue"><?=$data->user->fullName?></span>
-            <?php if($spec) {?>
-            <span class="notification-list-item-text__red"><?=$spec?></span>
-            <?php } ?>
-            <span class="notification-list-item-text__black"><?=$tmpl[$model->type]['text']?></span>
+            <p class="notification-list-item-text__blue"><?=$data->user->fullName?></p>
+            <?php if($spec): ?>
+            <p class="notification-list-item-text__red"><?=$spec?></p>
+            <?php endif; ?>
+            <p class="notification-list-item-text__black"><?=$tmpl[$model->type]['text']?></p>
         </div>
         <div class="notification-list-item-own"><?=$data->shortTitle?></div>
         <div class="notification-list-item__time"><?=HHtml::timeTagByOptions($model->dtimeUpdate, ['class' => 'tx-date','id'=>$data->id])?></div>

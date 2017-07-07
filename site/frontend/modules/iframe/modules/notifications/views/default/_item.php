@@ -35,7 +35,6 @@ $tmpl = [
 in_array($model->type, array_keys($tmpl));
 
 $urlAva = $data->user->avatarUrl?$data->user->avatarUrl:'/app/builds/static/img/assets/ava/ava-default.svg';
-$spec = $data->user->specialistProfile->getSpecsString();
 $idQuestion = preg_replace("/[^0-9]/", '', $model->entity->url);
 
 ?>
@@ -50,8 +49,8 @@ $idQuestion = preg_replace("/[^0-9]/", '', $model->entity->url);
     <div class="notification-list-item-col">
         <div class="notification-list-item-text">
             <p class="notification-list-item-text__blue"><?=$data->user->fullName?></p>
-            <?php if($spec): ?>
-            <p class="notification-list-item-text__red"><?=$spec?></p>
+            <?php if ($data->user->specialistProfile): ?>
+            <p class="notification-list-item-text__red"><?=$data->user->specialistProfile->getSpecsString()?></p>
             <?php endif; ?>
             <p class="notification-list-item-text__black"><?=$tmpl[$model->type]['text']?></p>
         </div>

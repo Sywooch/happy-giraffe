@@ -661,6 +661,13 @@ return array(
                 'lite/css/dev/all.css'
             )
         ),
+        'lite_add_posts' => array(
+            'baseUrl' => '/',
+            'css' => array(
+                'app/builds/static/css/main.min.css',
+            ),
+            'depends' => array('lite_posts'),
+        ),
         'register_form' => [
             'baseUrl' => '/',
             'css' => [

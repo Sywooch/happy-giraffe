@@ -208,6 +208,7 @@ return array(
 
         // @todo Sergey Gubarev: только для теста comet
         // 'blogs/comet'         => 'posts/blogs/default/test',
+        'forums/add-form' => 'posts/forums/posts/NewAddForm',
 
         'blogs/add-form' => 'posts/blogs/posts/NewAddForm',
         'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',

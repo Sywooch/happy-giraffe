@@ -12,6 +12,10 @@ class PostsController extends \LiteController
      */
     public $litePackage = 'add_posts';
 
+    public $layout = '//layouts/lite/posts';
+
+    public $urlReferrer = '/som/qa/default/pediatrician';
+
     public $windowHeaderTitle = 'Добавить запись в блог';
 
     public function actionNewAddForm()
@@ -36,7 +40,7 @@ class PostsController extends \LiteController
             'privacy'  => (int) $model->privacy,
             'text'     => (string) $slaveModel->text,
         ];
-$this->layout = '//layouts/lite/posts';
+
         $this->render('newAddForm', compact('model', 'slaveModel', 'json'));
     }
 

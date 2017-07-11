@@ -42,7 +42,7 @@
 
                        if (is_null($redirectUrl))
                        {
-                           $redirectUrl = $this->createUrl('/som/qa/default/pediatrician');
+                           $redirectUrl = $this->createUrl($this->urlReferrer);
                        }
                     ?>
                     <a href="<?=$redirectUrl?>" type="button" class="header-question__close"></a>

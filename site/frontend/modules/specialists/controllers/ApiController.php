@@ -266,11 +266,17 @@ class ApiController extends \site\frontend\components\api\ApiController
      */
     public function actionSendUniversityEmail($name)
     {
-        $to         = 'info@happy-giraffe.ru';
-        $subject    = 'Не нашли Ваш ВУЗ?';
-        $message    = strip_tags($name);
-
-        $this->success = mail($to, $subject, $message);
+        $mail = new \PHPMailer();
+        
+        $mail->addAddress('info@happy-giraffe.ru', 'Happy Giraffe');
+        $mail->Subject  = 'Не нашли Ваш ВУЗ?';
+        $mail->Body     = strip_tags($name);
+        
+        if (! $this->success = $mail->send()) {
+            $this->data = [
+                'error' => 'Ошибка отправки письма, попробуйте позже.'
+            ];
+        }
     }
     
     public function actionValidate(array $data)

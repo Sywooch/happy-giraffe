@@ -1,6 +1,7 @@
 {
     "require": {
         "geoip2/geoip2": "~2.0",
-	"nesbot/carbon": "*"
+	"nesbot/carbon": "*",
+        "phpmailer/phpmailer": "^5.2"
     }
 }

@@ -208,9 +208,12 @@ return array(
 
         // @todo Sergey Gubarev: только для теста comet
         // 'blogs/comet'         => 'posts/blogs/default/test',
-        'forums/add-form' => 'posts/forums/posts/NewAddForm',
+        'forums/add-form' => 'posts/forums/posts/AddForm',
+        'forums/post<id:\d+>/edit-form' => 'posts/forums/posts/EditForm',
 
-        'blogs/add-form' => 'posts/blogs/posts/NewAddForm',
+        'blogs/add-form' => 'posts/blogs/posts/AddForm',
+        'blogs/post<id:\d+>/edit-form' => 'posts/blogs/posts/EditForm',
+
         'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',
         'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
         'blogs'              => 'posts/blogs/default/index',
@@ -362,7 +365,7 @@ return array(
 
         /* Временные страницы для редактирования */
         'post/add/type<type:[1235]>' => 'blog/tmp/index',
-        'post/edit/content<id:\d+>' => 'blog/tmp/index',
+        //'post/edit/content<id:\d+>' => 'blog/tmp/index',
         'blogs/edit/post' => 'blog/tmp/index',
         'community/edit/post' => 'blog/tmp/index',
         'post/edit/<_a:[a-zA-Z]+><id:[0-9]+>' => 'posts/form/<_a>',

@@ -16,11 +16,8 @@ $this->beginContent('//layouts/lite/community');
                     <?php if (Yii::app()->user->isGuest): ?>
                         <a class="btn green-btn btn-xl login-button" data-bind="follow: {}">Добавить тему</a>
                     <?php else: ?>
-                        <a class="btn green-btn btn-xl fancy-top is-need-loading" href="<?=$this->createUrl('/blog/default/form', [
-                            'type' => CommunityContent::TYPE_POST,
+                        <a class="btn green-btn btn-xl fancy-top is-need-loading" href="<?=$this->createUrl('/posts/forums/posts/AddForm', [
                             'club_id' => $this->club->id,
-                            'useAMD' => true,
-                            'short' => true,
                         ])?>">Добавить тему</a>
                     <?php endif; ?>
                 </div>

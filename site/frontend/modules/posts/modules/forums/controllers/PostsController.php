@@ -18,44 +18,30 @@ class PostsController extends \LiteController
 
     public $urlReferrer = '/posts/forums/default/index';
 
-    public $windowHeaderTitle = 'Добавить запись в форум';
+    public $windowHeaderTitle = '';
 
-    public function actionNewAddForm($id = null, $club_id = null)
+    public function actionEditForm($id = null)
     {
-        $type = 1;
-
+        $this->windowHeaderTitle = 'Редактировать тему на форуме';
+        $this->pageTitle = $this->windowHeaderTitle;
         $this->user = $this->loadUser(\Yii::app()->user->id);
-        if ($id === null) {
-                $model = new \CommunityContent('default_club');
-            $model->type_id = $type;
-            $slug = $model->type->slug;
-            $slaveModelName = 'Community' . ucfirst($slug);
-            $slaveModel = new $slaveModelName();
-        } else {
-                $model = \CommunityContent::model()->findByPk($id);
-            $slaveModel = $model->getContent();
+        $model = \CommunityContent::model()->findByPk($id);
+        if (empty($model)) {
+            throw new CHttpException(404);
         }
-
-        if (!$model->isNewRecord && !$model->canEdit())
+        $slaveModel = $model->getContent();
+        if ($model->isNewRecord && !$model->canEdit())
             \Yii::app()->end();
-
-        if ($club_id){
-            $rubricsList = array_map(function ($rubric) {
-                return array(
-                    'id' => $rubric->id,
-                    'title' => $rubric->title,
-                );
-            }, \CommunityClub::model()->findByPk($club_id)->communities);
-        }else{
-            $rubricsList = array_map(function ($rubric) {
-                return array(
-                    'id' => $rubric->id,
-                    'title' => $rubric->title,
-                );
-            }, $this->user->blog_rubrics);
-        }
+        $rubrics = $model->community->club->communities;
+        $rubricsList = array_map(function ($rubric) {
+            return array(
+                'id' => $rubric->id,
+                'title' => $rubric->title,
+            );
+        }, $rubrics);
 
         $json = array(
+            'isNew' => false,
             'title' => (string)$model->title,
             'privacy' => (int)$model->privacy,
             'text' => (string)$slaveModel->text,
@@ -63,8 +49,44 @@ class PostsController extends \LiteController
             'selectedRubric' => $id === null ? null : $model->rubric_id,
         );
 
+        $this->render('form', compact('model', 'slaveModel', 'json', 'club_id'));
+    }
 
-        $this->render('newAddForm', compact('model', 'slaveModel', 'json', 'club_id'));
+    public function actionAddForm($club_id = null)
+    {
+        $this->windowHeaderTitle = 'Создать тему на форуме';
+        $this->pageTitle = $this->windowHeaderTitle;
+        $type = 1;
+
+        $this->user = $this->loadUser(\Yii::app()->user->id);
+        
+        $model = new \CommunityContent('default_club');
+        $model->type_id = $type;
+        $slug = $model->type->slug;
+        $slaveModelName = 'Community' . ucfirst($slug);
+        $slaveModel = new $slaveModelName();
+        
+        if (!$model->isNewRecord && !$model->canEdit())
+            \Yii::app()->end();
+
+       $rubricsList = array_map(function ($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                );
+            }, \CommunityClub::model()->findByPk($club_id)->communities);
+
+        $json = array(
+            'isNew' => true,
+            'title' => (string)$model->title,
+            'privacy' => (int)$model->privacy,
+            'text' => (string)$slaveModel->text,
+            'rubricsList' => $rubricsList,
+            'selectedRubric' => null,
+        );
+
+
+        $this->render('form', compact('model', 'slaveModel', 'json', 'club_id'));
 
     }
 

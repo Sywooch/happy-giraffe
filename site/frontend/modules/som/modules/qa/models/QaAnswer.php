@@ -51,6 +51,16 @@ class QaAnswer extends \HActiveRecord implements \IHToJSON
     const PUBLISHED = 1;
 
     /**
+     * @var integer PUBLISHED Статус неопубликованного ответа
+     */
+    const NOT_PUBLISHED = 0;
+
+    /**
+     * @var integer REMOVED Статус удаленного ответа
+     */
+    const REMOVED = 1;
+
+    /**
      * @var integer NOT_REMOVED Статус неудаленного ответа
      * @author Sergey Gubarev
      */

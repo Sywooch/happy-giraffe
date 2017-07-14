@@ -89,20 +89,21 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
                         <div class="b-settings-blue_row clearfix">
                             <div class="float-r">
                                 <select name="<?=CHtml::activeName($model, 'forum_id')?>" id="<?=CHtml::activeId($model, 'forum_id')?>" data-bind="options: rubricsList,
-                value: selectedRubric,
-                optionsText: function(rubric) {
-                    return rubric.title;
-                },
-                optionsValue: function(rubric) {
-                    return rubric.id;
-                },
-                select2: {
-                    allowClear: true,
-                    minimumResultsForSearch: -1,
-                    dropdownAutoWidth: true,
-                    containerCssClass: 'select-wrapper',
-                    dropdownCssClass: 'select-dropdown'
-                }" data-placeholder="Выберите подфорум"></select>
+                                    value: selectedRubric,
+                                    optionsText: function(rubric) {
+                                        return rubric.title;
+                                    },
+                                    optionsValue: function(rubric) {
+                                        return rubric.id;
+                                    },
+                                    select2: {
+                                        allowClear: true,
+                                        minimumResultsForSearch: -1,
+                                        dropdownAutoWidth: true,
+                                        containerCssClass: '',
+                                        dropdownCssClass: 'select-dropdown'
+                                    }" data-placeholder="Выберите подфорум">
+                                </select>
                                 <?=$form->error($model, 'forum_id')?>
                             </div>
                         </div>
@@ -181,10 +182,10 @@ $cs = Yii::app()->clientScript;
 
 $wysiwyg_js = <<<JS
     $('.wysiwyg-redactor-v').redactorHG({
-        plugins: ['toolbarVerticalFixed'],
+        plugins: ['text','toolbarVerticalFixed'],
         minHeight: 410,
         autoresize: true,
-        buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile']
+        buttons: ['unorderedlist', 'orderedlist', 'link_add', 'image', 'video', 'smile']
     });
 JS;
 

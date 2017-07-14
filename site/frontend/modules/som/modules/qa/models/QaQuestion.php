@@ -47,7 +47,7 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property-read BaseAnswerManager $answerManager
  * @property-read \PurifiedBehavior $purified
  */
-class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
+class QaQuestion extends \CommonHActiveRecord implements \IHToJSON, ISubject
 {
 
     /**
@@ -90,14 +90,6 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     public function getSubjectId()
     {
         return $this->id;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function __get($name)
-    {
-        return parent::__get($name);
     }
 
     /**
@@ -408,6 +400,34 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
     }
 
     /**
+     * Проверка, является ли ветка ответов на вопрос закрытой
+     * @param  integer  $userId
+     * @return boolean
+     */
+    public function isAnswerBranchClose($userId)
+    {
+        if($this->author->deleted == 1 or $this->author->blocked == 1){
+            // Запрещаем вывод ветки вопросов-ответов если пользователь
+            // задавший вопрос удален
+            return true;
+        }
+        $n = 0;
+        $answerId = 0;
+        $isAnswerSpecialist = false;
+        foreach ($this->answers as $answer) {
+            if($userId == $answer->authorId){
+                $answerId = $answer->id;
+                ++$n;
+            }elseif($answerId === $answer->root_id){
+                ++$n;
+            }elseif($answer->authorIsSpecialist()){
+                $isAnswerSpecialist = true;
+            }
+        }
+        return ($n == 1 or $n >= 3 or ($n == 0 and $isAnswerSpecialist));
+    }
+
+    /**
      * @return boolean
      */
     public function checkAccessForSpecialist()
@@ -495,7 +515,7 @@ class QaQuestion extends \HActiveRecord implements \IHToJSON, ISubject
 
     public function toJSON()
     {
-        if (! is_null($this->attachedChild))
+        if (! is_null($this->attachedChild) and !is_null($this->attChild))
         {
             $fmember = $this->attChild;
 

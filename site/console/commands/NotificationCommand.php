@@ -41,9 +41,15 @@ class NotificationCommand extends CConsoleCommand
 
     public function actionSendNotifications()
     {
-        $models = QaAnswer::model()->findAll([
-            'condition' => 'isPublished = 0',
-        ]);
+        \Yii::app()->db->enableSlave = false;
+        \Yii::app()->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        
+        $models = QaAnswer::model()
+                    ->resetScope()
+                    ->findAll([
+                        'condition' => 'isPublished = ' . QaAnswer::NOT_PUBLISHED . ' AND isRemoved = ' . QaAnswer::NOT_REMOVED,
+                    ])
+                ;
 
         $cnt = 0;
 

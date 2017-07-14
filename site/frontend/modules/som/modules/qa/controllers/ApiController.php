@@ -165,7 +165,13 @@ class ApiController extends \site\frontend\components\api\ApiController
             $question->attachedChild = null;
         }
 
-        if (!is_null($childId))
+        if (
+            // Если создается вопрос по ребенку
+            (!is_null($childId) and is_null($id))
+            or
+            // Если редактируется вопрос, проверяется удален ли ребенок
+            (!is_null($childId) and !is_null($question->attChild) and !is_null($id))
+        )
         {
             $question->setScenario('attachedChild');
             $question->attachedChild = $childId;

@@ -41,11 +41,19 @@ class PostSettingsWidget extends \CWidget
         if ($this->tagName == 'article-settings') {
             $this->htmlOptions['params'] = \CJSON::encode(array(
                         'articleId' => (int) $this->model->originEntityId,
-                        'editUrl' => \Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->model->originEntityId)),
+                        'editUrl' => $this->createUrl(),
             ));
         } else {
             $this->htmlOptions['params'] = \CJSON::encode($this->manageInfo['params']);
         }
+    }
+
+    protected function createUrl()
+    {
+        if(!empty($this->model->forum)){
+            return \Yii::app()->createUrl('posts/forums/posts/EditForm', array('id' => $this->model->originEntityId));
+        }
+        return \Yii::app()->createUrl('posts/blogs/posts/EditForm', array('id' => $this->model->originEntityId));
     }
 
 }

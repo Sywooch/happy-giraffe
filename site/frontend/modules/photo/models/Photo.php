@@ -191,6 +191,10 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
      */
     public function getPreviewPhoto()
     {
+        if (!\Yii::app()->thumbs->getThumb($this, 'rowGrid')) {
+            return null;
+        }
+
         return \Yii::app()->thumbs->getThumb($this, 'rowGrid')->getUrl();
     }
 

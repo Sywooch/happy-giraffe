@@ -9,7 +9,7 @@ Yii::app()->ads->addVerificationTags();
 
 $cs = Yii::app()->clientScript;
 $cs
-    ->registerCssFile('/lite/css/min/homepage.css')
+    ->registerCssFile('/lite/css/dev/all.css')
     ->registerCssFile('http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin')
 ;
 
@@ -41,43 +41,13 @@ if ($openLogin == 'login') {
 <body class="body body__lite body__homepage <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>  ">
 <?php Yii::app()->ads->showCounters(); ?>
 <div class="layout-container <?= Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP ? 'homepage' : 'homepage-res' ?>">
+    <?php $this->renderPartial('//_alerts'); ?>
+    
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
             <!-- header-->
-            <header class="header header__homepage">
-                <div class="header_hold">
-                    <div class="clearfix">
-                        <div class="header-login"><a class="header-login_a login-button" data-bind="follow: {}">Вход</a><a class="header-login_a registration-button" data-bind="follow: {}">Регистрация</a></div>
-
-                    <?php if (Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP): ?>
-                        <?php if ($this->module === null || $this->module->id != 'search'): ?>
-                            <div class="sidebar-search clearfix sidebar-search__big">
-                                <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
-                                <!-- При начале ввода добавить класс .active на кнопку-->
-                                <!-- <button class="sidebar-search_btn"></button> -->
-                                <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
-                            </div>
-                        <?php endif; ?>
-                    <?php endif; ?>
-
-                    </div>
-
-                    <div class="header_row-home">
-                        <!-- logo-->
-                        <h1 class="logo logo__l"><span class="logo_i">Веселый жираф - сайт для всей семьи</span></h1>
-                        <!-- /logo-->
-                    </div>
-                    <?php if (Yii::app()->vm->getVersion() != VersionManager::VERSION_DESKTOP): ?>
-                        <?php if ($this->module === null || $this->module->id != 'search'): ?>
-                            <div class="sidebar-search clearfix sidebar-search__big">
-                                <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
-                                <!-- При начале ввода добавить класс .active на кнопку-->
-                                <!-- <button class="sidebar-search_btn"></button> -->
-                                <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
-                            </div>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                </div>
+            <header class="header header__redesign">
+                <?php $this->renderPartial('//_header'); ?>
             </header>
             <style>
                 body #ya-site-form0 .ya-site-suggest-list {
@@ -86,6 +56,42 @@ if ($openLogin == 'login') {
             </style>
             <!-- header-->
         </div>
+        <script>
+            /*меню юзера*/
+            $(function () {
+                /*меню юзера*/
+                var $window = $(window);
+                $window.resize(function resize(){
+                    if ($window.width() < 1025) {
+                        $('.js-ava__link').off('click');
+                        $('.js-ava__link,.js-overlay-user').on('click', function () {
+                            $('.user-widget-block,.js-overlay-user').toggleClass('user-widget-block_open');
+                            if ($('.header__menu').hasClass('header__menu_open')) {
+                                $('.header__menu, .js-overlay-menu').removeClass('header__menu_open');
+                            }
+                        });
+                    }else{
+                        $('.js-ava__link').off('click');
+                        $('.js-ava__link').on('click', function () {
+                            $('.user-widget-block').toggleClass('user-widget-block_open');
+                            if ($('.header__menu').hasClass('header__menu_open')) {
+                                $('.header__menu').removeClass('header__menu_open');
+                            }
+                        });
+                    }
+                }).trigger('resize');
+
+                /*Мобильное меню*/
+                $('.mobile-menu, .js-overlay-menu').on('click', function () {
+                    $('.header__menu, .js-overlay-menu').toggleClass('header__menu_open');
+                    if ($('.user-widget-block').hasClass('user-widget-block_open')) {
+                        $('.user-widget-block, .js-overlay-user').removeClass('user-widget-block_open');
+                    }
+                });
+            });
+        </script>
+        <div class="js-overlay-menu overlay-menu"></div>
+        <div class="js-overlay-user overlay-user"></div>
         <div class="layout-loose_hold clearfix">
             <div class="homepage-desc">
                 <div class="homepage-desc_hold">
@@ -133,5 +139,9 @@ if ($openLogin == 'login') {
         </div>
     </div>
 </div>
+<?php
+Yii::app()->clientScript->registerCssFile('/app/builds/static/css/separate-css-sample.css');
+Yii::app()->clientScript->registerCssFile('https://fonts.googleapis.com/icon?family=Material+Icons');
+?>
 </body>
 </html>

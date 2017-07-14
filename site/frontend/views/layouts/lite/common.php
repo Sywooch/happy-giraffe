@@ -72,24 +72,10 @@
     <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
 <?php endif ?>
 <div class="layout-container pediator">
-
-	<div id="js-alerts" class="alerts" data-bind="template: { name: 'alert', foreach: alertsList }"></div>
-
-    <script type="text/html" id="alert">
-	   <div class="alert alert-in" data-bind="css: 'alert-' + color">
-            <div class="position-rel">
-                <div class="alert__container">
-                    <div class="alert__ico" data-bind="css: 'alert__ico-' + color"></div>
-                    <div class="alert__text" data-bind="css: 'alert__text-' + color, text: message"></div>
-                </div>
-                <span class="alert__close" data-bind="click: $parent.closeAlert, css: 'alert__close-' + color"></span>
-            </div>
-        </div>
-    </script>
+    <?php $this->renderPartial('//_alerts'); ?>
 
     <div class="layout-loose layout-loose__white">
         <?= $content ?>
-        <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
     </div>
 </div>
 <div class="popup-container display-n">
@@ -133,5 +119,8 @@
 <!--AdFox END-->
 <?php $this->endWidget(); ?>
 <?php endif; ?>
-
+<?php
+Yii::app()->clientScript->registerCssFile('/app/builds/static/css/separate-css-sample.css');
+Yii::app()->clientScript->registerCssFile('https://fonts.googleapis.com/icon?family=Material+Icons');
+?>
 </body></html>

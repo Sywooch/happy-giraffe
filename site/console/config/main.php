@@ -114,11 +114,23 @@ return array(
         'fixRatingByHistory' => [
             'class' => 'site\frontend\modules\som\modules\qa\commands\FixRatingByHistoryCommand',
         ],
+        'geo2' => [
+            'class' => 'site\frontend\modules\geo2\commands\DefaultCommand',
+        ],
+        'geoVk' => [
+            'class' => 'site\frontend\modules\geo2\commands\VkCommand',
+        ],
+        'geoFias' => [
+            'class' => 'site\frontend\modules\geo2\commands\FiasCommand',
+        ],
         'convertAnswers' => [
             'class' => 'site\frontend\modules\som\modules\qa\commands\ConvertAnswersCommand',
         ],
         'mpQaEntitiesEdited' => [
             'class' => \site\frontend\modules\som\modules\qa\commands\MpQaEntitiesEditedCommand::class
+        ],
+        'authStatusFix' => [
+            'class' => \site\frontend\modules\api\modules\v2_1\commands\AuthStatusFix::class
         ],
     ),
     'import' => array(

@@ -1,6 +1,7 @@
 <?php
 
 namespace site\frontend\modules\signup\controllers;
+use site\frontend\modules\signup\components\IntroductionManager;
 use site\frontend\modules\signup\components\SafeUserIdentity;
 use site\frontend\modules\signup\components\UserIdentity;
 use site\frontend\modules\signup\models\CaptchaForm;
@@ -124,5 +125,15 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->data = array(
             'errors' => $form->getErrors(),
         );
+    }
+    
+    public function actionFinishRegistration()
+    {
+        if (\Yii::app()->user->isGuest) {
+            throw new \CHttpException(403);
+        }
+        
+        IntroductionManager::finish(\Yii::app()->user->model);
+        $this->success = true;
     }
 }

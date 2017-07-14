@@ -15,6 +15,7 @@ class User extends \User implements \IHToJSON
 
     const GENDER_FEMALE = 0;
     const GENDER_MALE = 1;
+    const GENDER_UNDEFINED = 2;
 
     public function rules()
     {
@@ -37,6 +38,7 @@ class User extends \User implements \IHToJSON
         return array(
             'id' => (int) $this->id,
             'firstName' => $this->first_name,
+            'middleName' => $this->middle_name,
             'lastName' => $this->last_name,
             'fullName' => $this->getFullName(),
             'birthday' => $this->birthday,
@@ -48,6 +50,7 @@ class User extends \User implements \IHToJSON
             'specInfo' => empty($this->specInfo) ? null : $this->specInfoObject,
             'avatarInfo' => \CJSON::decode($this->avatarInfo),
             'specialistInfo' => $this->specialistInfoObject->attributes,
+            'location' => $this->location,
         );
     }
 

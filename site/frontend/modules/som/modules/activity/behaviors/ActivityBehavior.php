@@ -22,17 +22,9 @@ abstract class ActivityBehavior extends \CActiveRecordBehavior
 
     public function afterSave($event)
     {
-        if ($this->isRemoved === $this->getIsRemoved()) {
-            // Ничего не изменилось
-            return;
-        }
-
-        if ($this->getIsRemoved() == 0) {
+        $this->delActivity();
+        if(!$this->getIsRemoved()){
             $this->addActivity();
-        }
-
-        if ($this->getIsRemoved() == 1) {
-            $this->delActivity();
         }
     }
 

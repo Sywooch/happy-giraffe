@@ -34,8 +34,10 @@ use site\frontend\modules\family\models\FamilyMember;
  * @property string $blog_description
  * @property int registration_source
  * @property int registration_finished
+ * @property int $is_in_chat
  *
  * The followings are the available model relations:
+ * @property \site\frontend\modules\geo2\models\UserLocation $location
  * @property BagOffer[] $bagOffers
  * @property BagOfferVote[] $bagOfferVotes
  * @property CommunityContent[] $clubCommunityContents
@@ -250,7 +252,7 @@ class User extends HActiveRecord
             array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 16, 'on' => 'signup, change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 16 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
-            array('gender', 'boolean'),
+            //array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
             array('birthday, baby_birthday', 'date', 'format' => 'yyyy-M-d', 'message' => 'Неправильная дата'),
@@ -389,6 +391,8 @@ class User extends HActiveRecord
             'spamStatus' => array(self::HAS_ONE, 'AntispamStatus', 'user_id'),
 
             'specialistProfile' => array(self::BELONGS_TO, 'site\frontend\modules\specialists\models\SpecialistProfile', 'id'),
+
+            '_location' => array(self::HAS_ONE, \site\frontend\modules\geo2\models\UserLocation::class, 'id'),
         );
     }
 
@@ -1686,5 +1690,17 @@ class User extends HActiveRecord
     public function getIsSpecialist()
     {
         return $this->specialistProfile !== null;
+    }
+    
+    public function getLocation()
+    {
+        $location = $this->getRelated('_location');
+        if (! $location) {
+            $location = new \site\frontend\modules\geo2\models\UserLocation();
+            $location->id = $this->id;
+            $location->save();
+            $location = $this->getRelated('_location', true);
+        }
+        return $location;
     }
 }

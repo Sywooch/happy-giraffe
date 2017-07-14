@@ -180,7 +180,7 @@ class Favourite extends HActiveRecord
         return parent::afterDelete();
     }
 
-    public function getRelatedModel()
+    public function getRelatedModel($condition = '', $params = array())
     {
         return CActiveRecord::model($this->model_name)->resetScope()->findByPk($this->model_id);
     }

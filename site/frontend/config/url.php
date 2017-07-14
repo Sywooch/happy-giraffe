@@ -19,7 +19,7 @@ return array(
         '<_v>/api/comments/<id:\d+>' => 'api/<_v>/api/comments',
         '<_v>/api/posts' => 'api/<_v>/api/posts',
         '<_v>/api/posts/<id:\d+>' => 'api/<_v>/api/posts',
-        '<_v>/api/posts/<action:(my)>' => 'api/<_v>/api/posts',
+        '<_v>/api/posts/<action:(my|forum)>' => 'api/<_v>/api/posts',
         //'<_v>/api/post-content' => 'api/<_v>api/postContent',
         //'<_v>/api/post-label' => 'api/<_v>/api/postLabel',
         //'<_v>/api/post-tag' => 'api/<_v>/api/postTag',
@@ -73,10 +73,28 @@ return array(
         '<_v>/api/clinics' => 'api/<_v>/api/clinics',
         '<_v>/api/specialists' => 'api/<_v>/api/specialists',
         '<_v>/api/specialists/<id:\d+>' => 'api/<_v>/api/specialists',
-        '<_v>/api/specialists/<action:(categories|experience|terms|check-terms|specialization|education|courses|career)>' => 'api/<_v>/api/specialists',
+        '<_v>/api/specialists/<action:(categories|experience|terms|check-terms|specialization|education|courses|career|statuses)>' => 'api/<_v>/api/specialists',
         '<_v>/api/specialists/specializations' => 'api/<_v>/api/specializations',
         '<_v>/api/specialists/register/social' => 'api/<_v>/api/specialists-register',
         '<_v>/api/geo/<action:(countries|cities)>' => 'api/<_v>/api/geo',
+        '<_v>/api/chats' => 'api/<_v>/api/chats',
+        '<_v>/api/chats/<action:(count)>' => 'api/<_v>/api/chats',
+        '<_v>/api/chats/<id:\d+>' => 'api/<_v>/api/chats',
+        '<_v>/api/paid-services' => 'api/<_v>/api/paid-services',
+        '<_v>/api/chat-messages' => 'api/<_v>/api/chat-messages',
+        '<_v>/api/chat-messages/<action:(page)>' => 'api/<_v>/api/chat-messages',
+        '<_v>/api/utils' => 'api/<_v>/api/utils',
+        '<_v>/api/utils/<action:(time)>' => 'api/<_v>/api/utils',
+        '<_v>/api/billing' => 'api/<_v>/api/billing',
+        '<_v>/api/doctor-search/<action:(start|stop|accept|decline|choose)>' => 'api/<_v>/api/doctor-search',
+        '<_v>/api/chat/comment' => 'api/<_v>/api/chat-comment',
+        '<_v>/api/chat/rating' => 'api/<_v>/api/chat-rating',
+        '<_v>/api/user/payments' => 'api/<_v>/api/user-payments',
+        '<_v>/api/user/balance' => 'api/<_v>/api/user-balance',
+        '<_v>/api/user/balance/records' => 'api/<_v>/api/balance-records',
+        '<_v>/api/user/balance/records/<action:(today)>' => 'api/<_v>/api/balance-records',
+        '<_v>/api/chat/statistic/<action:(conducted|skipped|failed|today)>' => 'api/<_v>/api/chat-statistic',
+        '<_v>/api/chat/statistic' => 'api/<_v>/api/chat-statistic',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 
@@ -190,8 +208,12 @@ return array(
 
         // @todo Sergey Gubarev: только для теста comet
         // 'blogs/comet'         => 'posts/blogs/default/test',
+        'forums/add-form' => 'posts/forums/posts/AddForm',
+        'forums/post<id:\d+>/edit-form' => 'posts/forums/posts/EditForm',
 
-        'blogs/add-form' => 'posts/blogs/default/AddForm',
+        'blogs/add-form' => 'posts/blogs/posts/AddForm',
+        'blogs/post<id:\d+>/edit-form' => 'posts/blogs/posts/EditForm',
+
         'blogs/ajax/<_a>'    => 'posts/blogs/ajax/<_a>',
         'blogs/<tab:[a-z]+>' => 'posts/blogs/default/index',
         'blogs'              => 'posts/blogs/default/index',
@@ -343,7 +365,7 @@ return array(
 
         /* Временные страницы для редактирования */
         'post/add/type<type:[1235]>' => 'blog/tmp/index',
-        'post/edit/content<id:\d+>' => 'blog/tmp/index',
+        //'post/edit/content<id:\d+>' => 'blog/tmp/index',
         'blogs/edit/post' => 'blog/tmp/index',
         'community/edit/post' => 'blog/tmp/index',
         'post/edit/<_a:[a-zA-Z]+><id:[0-9]+>' => 'posts/form/<_a>',

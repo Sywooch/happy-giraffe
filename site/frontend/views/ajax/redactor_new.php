@@ -7,7 +7,6 @@
 <div id="wysiwyg-related">
     <div id="redactor-popup_b-smile" class="display-n">
         <div class="redactor-popup redactor-popup_b-smile">
-            <div class="redactor-popup_tale"></div>
             <table class="redactor-popup_smiles">
                 <tbody>
                     <tr>
@@ -55,7 +54,6 @@
 
     <div id="redactor-popup_b-video" class="display-n">
         <div class="redactor-popup">
-            <div class="redactor-popup_tale"></div>
             <div class="redactor-popup_t">Загрузите видео</div>
             <!-- ko if: embed() === null -->
             <div class="redactor-popup_add-video" data-bind="css: { active : previewLoading() || previewError() }">
@@ -88,7 +86,6 @@
 
     <div id="redactor-popup_b-photo" class="display-n">
         <div class="redactor-popup">
-            <div class="redactor-popup_tale"></div>
             <div class="redactor-popup_t">Загрузите фото</div>
             <div class="redactor_popup_b-photo_content">
                 <form id="wysiwygImage2" method="POST" enctype="multipart/form-data">

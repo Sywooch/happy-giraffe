@@ -11,20 +11,23 @@ class PostsController extends \LiteController
 
     public $windowHeaderTitle = '';
 
-    public function actionEditForm($id = null)
+    public function actionEditForm($id)
     {
+        if( \Yii::app()->user->isGuest){
+            throw new \CHttpException(403);
+        }
          \Yii::app()->clientScript->useAMD = true;
         $this->windowHeaderTitle = 'Редактировать запись в блоге';
         $this->pageTitle = $this->windowHeaderTitle;
         if (empty($id)) {
-            throw new CHttpException(400);
+            throw new \CHttpException(400);
         }
         $model = \BlogContent::model()->findByPk($id);
         if (empty($model)) {
-            throw new CHttpException(404);
+            throw new \CHttpException(404);
         }
          if ($model->isNewRecord && !$model->canEdit()) {
-            throw new CHttpException(403);
+            throw new \CHttpException(403);
         }
 
         $slug = $model->type->slug;
@@ -50,6 +53,9 @@ class PostsController extends \LiteController
 
     public function actionAddForm()
     {
+        if( \Yii::app()->user->isGuest){
+            throw new \CHttpException(403);
+        }
         \Yii::app()->clientScript->useAMD = true;
         $this->windowHeaderTitle = 'Добавить запись в блог';
         $this->pageTitle = $this->windowHeaderTitle;
@@ -63,7 +69,7 @@ class PostsController extends \LiteController
 
         if (! $model->isNewRecord && ! $model->canEdit())
         {
-            \Yii::app()->end();
+            throw new \CHttpException(403);
         }
 
         $json = [

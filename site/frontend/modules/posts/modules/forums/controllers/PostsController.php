@@ -20,14 +20,17 @@ class PostsController extends \LiteController
 
     public $windowHeaderTitle = '';
 
-    public function actionEditForm($id = null)
+    public function actionEditForm($id)
     {
+        if( \Yii::app()->user->isGuest){
+            throw new \CHttpException(403);
+        }
         $this->windowHeaderTitle = 'Редактировать тему на форуме';
         $this->pageTitle = $this->windowHeaderTitle;
         $this->user = $this->loadUser(\Yii::app()->user->id);
         $model = \CommunityContent::model()->findByPk($id);
         if (empty($model)) {
-            throw new CHttpException(404);
+            throw new \CHttpException(404);
         }
         $slaveModel = $model->getContent();
         if ($model->isNewRecord && !$model->canEdit())
@@ -52,8 +55,11 @@ class PostsController extends \LiteController
         $this->render('form', compact('model', 'slaveModel', 'json', 'club_id'));
     }
 
-    public function actionAddForm($club_id = null)
+    public function actionAddForm($club_id)
     {
+        if( \Yii::app()->user->isGuest){
+            throw new \CHttpException(403);
+        }
         $this->windowHeaderTitle = 'Создать тему на форуме';
         $this->pageTitle = $this->windowHeaderTitle;
         $type = 1;
@@ -67,7 +73,7 @@ class PostsController extends \LiteController
         $slaveModel = new $slaveModelName();
         
         if (!$model->isNewRecord && !$model->canEdit())
-            \Yii::app()->end();
+            throw new \CHttpException(403);
 
        $rubricsList = array_map(function ($rubric) {
                 return array(

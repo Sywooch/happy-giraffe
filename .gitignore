@@ -80,3 +80,5 @@ Session.vim
 /site/test.php
 /site/yiic.php
 /site/frontend/test.html
+
+vendor/

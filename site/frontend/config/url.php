@@ -95,6 +95,7 @@ return array(
         '<_v>/api/user/balance/records/<action:(today)>' => 'api/<_v>/api/balance-records',
         '<_v>/api/chat/statistic/<action:(conducted|skipped|failed|today)>' => 'api/<_v>/api/chat-statistic',
         '<_v>/api/chat/statistic' => 'api/<_v>/api/chat-statistic',
+        '<_v>/api/atol-callback' => 'api/<_v>/api/atol-callback',
         /**-------------------------------------------------------------------------- API END ----------------------------------------------*/
 
 

@@ -3,6 +3,7 @@
 namespace site\frontend\modules\paid\models;
 
 /**
+ * @property int $id
  * @property int $user_id
  * @property int $service_id
  * @property int $paid_at
@@ -10,7 +11,7 @@ namespace site\frontend\modules\paid\models;
  * @property string $transaction_id
  *
  * @property \User $user
- * @property \PaidService $service
+ * @property  \site\frontend\modules\paid\models\PaidService $service
  */
 class UserPayment extends \HActiveRecord
 {
@@ -56,8 +57,8 @@ class UserPayment extends \HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return [
-            'user' => [self::HAS_ONE, 'User', 'user_id'],
-            'service' => [self::HAS_ONE, 'PaidService', 'service_id'],
+            'user' => [self::BELONGS_TO, 'User', 'user_id'],
+            'service' => [self::BELONGS_TO, get_class(PaidService::model()), 'service_id'],
         ];
     }
 
@@ -77,6 +78,7 @@ class UserPayment extends \HActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'user_id' => 'User Id',
             'service_id' => 'Service Id',
             'paid_at' => 'Paid At Time',

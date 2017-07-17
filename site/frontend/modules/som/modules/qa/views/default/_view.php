@@ -196,7 +196,7 @@ $this->pageTitle = 'Мой педиатр - ' . $question->title;
                                 <div class="redactor-post-toolbar"></div>
                             </div>
                             <div class="b-redactor-footer__item">
-                                <button type="button" class="btn btn--blue btn--sm" data-bind="css: {'disabled': isSubmitDisabled()},click: addAnswerToQuestion">Ответить</button>
+                                <button type="button" class="btn btn--blue btn--sm" data-bind="css: {'disabled': isSubmitDisabled()},click: addAnswerToQuestion,disable: isSubmitDisabled()">Ответить</button>
                             </div>
                         </div>
                         <!-- /ko -->

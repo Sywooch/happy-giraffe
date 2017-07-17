@@ -398,7 +398,7 @@ return array(
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',
             ),
-            'depends' => array('jquery', 'jquery.ui.widget'),
+            'depends' => array('jquery', 'jquery.ui.widget', 'jcrop'),
         ),
         'ko_menu' => array(
             'baseUrl' => '/',
@@ -658,7 +658,8 @@ return array(
         'lite_pediatrician' => array(
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/dev/all.css'
+                'lite/css/dev/all.css',
+                'app/builds/static/css/main.min.css'
             )
         ),
         'register_form' => [

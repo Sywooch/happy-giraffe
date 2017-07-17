@@ -19,13 +19,13 @@ class User extends \User implements \IHToJSON
 
     public function rules()
     {
-        return array(
+        return array_merge(parent::rules(), array(
             array('specInfo', 'filter', 'filter' => array($this->specInfoObject, 'serialize')),
             array('specialistInfo', 'filter', 'filter' => array($this->specialistInfoObject, 'serialize')),
             array('first_name, last_name', 'length', 'max' => 50),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
-            array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE)),
-        );
+            array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE))
+        ));
     }
 
     public static function model($className = __CLASS__)
@@ -37,6 +37,7 @@ class User extends \User implements \IHToJSON
     {
         return array(
             'id' => (int) $this->id,
+            'email' => $this->email,
             'firstName' => $this->first_name,
             'middleName' => $this->middle_name,
             'lastName' => $this->last_name,
@@ -54,6 +55,7 @@ class User extends \User implements \IHToJSON
         );
     }
 
+    // @todo Sergey Gubarev: Неиспользуемый функционал?!
     public function getSpecInfoObject()
     {
         if (! isset($this->_specInfo))

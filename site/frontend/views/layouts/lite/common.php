@@ -120,7 +120,12 @@
 <?php $this->endWidget(); ?>
 <?php endif; ?>
 <?php
-Yii::app()->clientScript->registerCssFile('/app/builds/static/css/separate-css-sample.css');
+
+// TODO: Временное решение скрыть данный css с педиатра для врачей
+if ($this->getModule()->getId() != 'specialists/pediatrician')
+    Yii::app()->clientScript->registerCssFile('/app/builds/static/css/separate-css-sample.css');
+
 Yii::app()->clientScript->registerCssFile('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 ?>
 </body></html>

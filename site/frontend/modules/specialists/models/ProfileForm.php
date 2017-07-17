@@ -14,6 +14,11 @@ use site\frontend\modules\users\models\User;
  */
 class ProfileForm extends \CFormModel implements \IHToJSON
 {
+    /**
+     * @var string MAX_GREETING_LENGTH Макс. длина приветствия врача
+     */
+    const MAX_GREETING_LENGTH = 200;
+
     public $profileId;
 
     public $gender;
@@ -24,6 +29,7 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     public $category;
     public $placeOfWork;
     public $text;
+    public $greeting;
 
     public $specializations;
 
@@ -43,15 +49,19 @@ class ProfileForm extends \CFormModel implements \IHToJSON
                 return strip_tags($text, '<p>');
             }],
 
+            ['greeting', 'filter', 'filter' => function($text) {
+                return strip_tags($text);
+            }],
+            ['greeting', 'length', 'max' => self::MAX_GREETING_LENGTH],
+
             ['firstName, lastName, middleName, gender', 'required'],
             ['firstName, lastName, middleName', 'length', 'max' => 50],
             ['category', 'in', 'range' => array_keys(SpecialistProfile::getCategoriesList())],
             ['experience', 'in', 'range' => array_keys(SpecialistProfile::getExperienceList())],
             ['gender', 'in', 'range' => [User::GENDER_MALE, User::GENDER_FEMALE]],
 
-            ['career', 'validateRelatedModels'],
-            ['education', 'validateRelatedModels'],
-            ['courses', 'validateRelatedModels'],
+            // ['education', 'validateRelatedModels'],
+            ['courses', 'validateRelatedModels']
         ];
     }
 
@@ -86,7 +96,6 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     public function initialize($profileId)
     {
         $this->profileId = $profileId;
-
         $this->gender = $this->user->gender;
         $this->firstName = $this->user->first_name;
         $this->middleName = $this->user->middle_name;
@@ -95,11 +104,10 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->category = $this->profile->category;
         $this->placeOfWork = $this->profile->placeOfWork;
         $this->text = $this->profile->specialization;
-
+        $this->greeting = $this->profile->greeting;
         $this->specializations = $this->getSpecializations();
-
-        $this->career = $this->profile->careerObject->models;
-        $this->education = $this->profile->educationObject->models;
+    
+        // $this->education = $this->profile->educationObject->models;
         $this->courses = $this->profile->coursesObject->models;
     }
 
@@ -113,11 +121,9 @@ class ProfileForm extends \CFormModel implements \IHToJSON
         $this->profile->category = $this->category;
         $this->profile->placeOfWork = $this->placeOfWork;
         $this->profile->specialization = $this->text;
-
-        $this->profile->careerObject->models = $this->career;
-        $this->profile->educationObject->models = $this->education;
+        $this->profile->greeting = $this->greeting;
         $this->profile->coursesObject->models = $this->courses;
-
+        
         return $this->user->save() && $this->profile->save() && SpecialistsManager::assignSpecializations($this->specializations, $this->profileId, true);
     }
 
@@ -125,7 +131,8 @@ class ProfileForm extends \CFormModel implements \IHToJSON
     {
         return [
             'profileId' => $this->profileId,
-
+            'email' => $this->user->email,
+            'avatarUrl' => $this->user->getAvatarUrl(),
             'gender' => $this->gender,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
@@ -134,17 +141,19 @@ class ProfileForm extends \CFormModel implements \IHToJSON
             'placeOfWork' => $this->placeOfWork,
             'category' => $this->category,
             'text' => $this->text,
-
-            'career' => $this->career,
-            'education' => $this->education,
+            'career' => $this->profile->career,
+            'education' => $this->profile->education,
             'courses' => $this->courses,
-
             'specializationsList' => $this->getSpecializationsList(),
             'specializations' => $this->specializations,
             'specString' => $this->profile->getSpecsString(),
 
+            'greeting' => $this->profile->greeting,
+
             'categoriesList' => SpecialistProfile::getCategoriesList(),
             'experienceList' => SpecialistProfile::getExperienceList(),
+
+            'geo' => $this->getUser()->location->toJSON()
         ];
     }
 

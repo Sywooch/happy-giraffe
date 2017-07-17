@@ -2,6 +2,7 @@
     "require": {
         "geoip2/geoip2": "~2.0",
 	    "nesbot/carbon": "*",
-        "rmccue/requests": ">=1.0"
+        "rmccue/requests": ">=1.0",
+        "phpmailer/phpmailer": "^5.2"
     }
 }

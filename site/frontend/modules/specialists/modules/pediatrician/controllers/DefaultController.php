@@ -23,6 +23,11 @@ class DefaultController extends \LiteController
     public $litePackage = 'pediatrician';
 
     /**
+     * @var array
+     */
+    private $_newLayoutActions = ['profile', 'settings'];
+
+    /**
      * {@inheritDoc}
      * @see LiteController::filters()
      */
@@ -52,6 +57,26 @@ class DefaultController extends \LiteController
                 'users' => ['*']
             ]
         ];
+    }
+
+    /**
+     * @param \CAction $action
+     * @return bool
+     */
+    protected function beforeAction($action)
+    {
+        if (in_array($action->id, $this->_newLayoutActions))
+        {
+            $this->layout = 'new_main';
+        }
+
+        if ($action->id == 'settings')
+        {
+            $this->layout = '//layouts/new/popup_page';
+            $this->litePackage = 'new_pediatrician';
+        }
+
+        return parent::beforeAction($action);
     }
 
     /**
@@ -160,7 +185,15 @@ class DefaultController extends \LiteController
     {
         $form = new ProfileForm();
         $form->initialize(\Yii::app()->user->id);
-        $this->render('profile', compact('form'));
+        $this->render('new_profile', compact('form'));
+    }
+
+    /**
+     * Страница персональных настроек врача
+     */
+    public function actionSettings()
+    {
+        $this->render('settings');
     }
 
     public function actionStats()

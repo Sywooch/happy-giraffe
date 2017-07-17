@@ -100,6 +100,7 @@ class RegisterForm extends \CFormModel
         }
         $this->createAvatar();
         $this->createSocialService();
+
         return true;
     }
 
